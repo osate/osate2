@@ -1,17 +1,12 @@
 package org.osate.aadl2.errormodel.faulttree.generation;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
@@ -79,15 +74,7 @@ public class CreateFTAModel {
 				: (faultTreeType.equals(FaultTreeType.FAULT_TRACE) ? "_trace"
 						: (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS) ? "_parts" : "_tree")));
 		ftamodel.setName(rootname);
-		saveFaultTree(ftamodel);
 		return ftamodel;
-	}
-
-	public static URI saveFaultTree(FaultTree ftamodel) {
-		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimSegments(1)
-				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName() + ".faulttree");
-		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
-		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
 	}
 
 }

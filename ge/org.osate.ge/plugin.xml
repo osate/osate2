@@ -196,6 +196,10 @@
             id="org.osate.ge.selectAllConnections"
             name="Select All Connections">
       </command>
+      <command
+            id="org.osate.ge.copyDiagramElements"
+            name="Copy Diagram Elements">
+      </command>
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
@@ -460,6 +464,10 @@
           class="org.osate.ge.internal.ui.handlers.SelectAllConnectionsHandler"
           commandId="org.osate.ge.selectAllConnections">
     </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.CopyDiagramElementsHandler"
+          commandId="org.osate.ge.copyDiagramElements">
+    </handler>
  </extension>
        
    <extension
@@ -480,6 +488,7 @@
          </visibleWhen>
          </command>
 		</menuContribution>
+		
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=osate_begin">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
@@ -970,6 +979,18 @@
           visible="true">
     </separator>
     <command
+          commandId="org.eclipse.ui.edit.copy"
+          style="push">
+    </command>    
+    <command
+          commandId="org.osate.ge.copyDiagramElements"
+          style="push">
+    </command>
+    <command
+          commandId="org.eclipse.ui.edit.paste"
+          style="push">
+    </command>
+    <command
           commandId="org.osate.ge.delete"
           style="push">
     </command>
@@ -1148,6 +1169,15 @@
        </visibleWhen>
     </menu>
  </menuContribution>
+ 		<menuContribution allPopups="false" locationURI="menu:edit?after=copy">
+			<command commandId="org.osate.ge.copyDiagramElements" style="push">
+				<visibleWhen checkEnabled="false">
+               		<reference
+                     	definitionId="org.osate.ge.expressions.editorIsActive">
+               	</reference>
+         		</visibleWhen>
+			</command>
+		</menuContribution>		
    </extension>
 	   
    <extension point="org.eclipse.graphiti.ui.diagramTypes">      
