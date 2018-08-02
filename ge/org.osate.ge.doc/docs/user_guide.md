@@ -145,6 +145,18 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the model element to which the property value applies is hidden.
 - An AADL property reference value for which the referenced model element is hidden.
 
+
+### Copying and Pasting
+Portions of a diagram can by copied and pasted using the menu items described in @tbl:copy_and_paste_menu_items.
+
+|Menu Item                | Description                              |
+|------------------|------------------------------------------|
+| *Copy*                  | Copies the selected diagram elements along with the associated model elements. |
+| *Copy Diagram Elements* | Copies the diagram elements without copying the associated model elements. Pasting will create a diagram element for each copied diagram element for which the selected diagram element has a matching child model element. Useful for copying diagram element layout to another diagram.|
+| *Paste*                 | Pastes the previously copied content into the selected diagram element. |
+ 
+Table: Copy and Paste Menu Items {#tbl:copy_and_paste_menu_items}
+
 ### Inherited Elements
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.
 
