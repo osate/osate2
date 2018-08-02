@@ -4,7 +4,7 @@ public interface ClipboardService {
 	interface Clipboard {
 		Object getContents();
 
-		void setContents(final Object value);
+		void setContents(Object value);
 	}
 
 	/**
