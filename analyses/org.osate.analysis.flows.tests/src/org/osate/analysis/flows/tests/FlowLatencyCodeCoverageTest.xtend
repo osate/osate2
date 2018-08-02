@@ -50,7 +50,9 @@ class FlowLatencyCodeCoverageTest {
 			"component_instance_as_segment",
 			"connect_to_subcomponent",
 			"categories",
+			"categories2",
 			"dispatch",
+			"dispatch2",
 			"immediate",
 			"partition1",
 			"partition2",
@@ -76,7 +78,8 @@ class FlowLatencyCodeCoverageTest {
 			"required_vb1",
 			"required_vb2",
 			"transmission_time1",
-			"transmission_time2"
+			"transmission_time2",
+			"no_prior_contributor"
 		]
 		val resourceSet = resourceSetHelper.resourceSet
 		pkgNames.forEach[pkgName |
