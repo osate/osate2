@@ -42,7 +42,7 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlNameUtil;
-import org.osate.ge.internal.util.DiagamElementUtil;
+import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.internal.util.RenameUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -89,7 +89,7 @@ public class PasteAction extends ActionStackAction {
 		// Perform modification
 		final DiagramElement dstDiagramElement = getDestinationDiagramElement();
 		final EObject dstBo = getDestinationBusinessObject(dstDiagramElement);
-		final AgeDiagram diagram = DiagamElementUtil.getDiagram(dstDiagramElement);
+		final AgeDiagram diagram = DiagramElementUtil.getDiagram(dstDiagramElement);
 		final List<DiagramElement> newDiagramElements = new ArrayList<>();
 		diagram.modify("Paste", m -> {
 			// The modifier will do the actual copying to the diagram elements. It will also copy the business objects
