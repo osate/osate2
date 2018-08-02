@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -62,6 +64,8 @@ import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
+
+import com.google.common.collect.ImmutableSet;
 
 public class DefaultDiagramService implements DiagramService {
 	private static final QualifiedName LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP = new QualifiedName("org.osate.ge",
@@ -500,29 +504,33 @@ public class DefaultDiagramService implements DiagramService {
 						final IFile diagramFile = (IFile) key;
 
 						// Handle closed diagrams
-						final ResourceSet rs = new ResourceSetImpl();
-						final URI diagramUri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(),
-								true);
-						final Resource diagramResource = rs.createResource(diagramUri);
-						try {
-							diagramResource.load(Collections.emptyMap());
-							if (diagramResource.getContents().size() == 1
-									&& diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
-								updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap,
-										diagramResource, null);
-							}
-						} catch (IOException e) {
-							// Ignore. Continue with next file
-						} finally {
-							// Save and unload the resource if it was loaded
-							if (diagramResource.isLoaded()) {
-								try {
-									diagramResource.save(Collections.emptyMap());
-								} catch (final IOException e) {
-									// Ignore. Print stack trace so it will show in the console during development.
-									e.printStackTrace();
+						// Don't attempt to edit read only files.
+						if (!diagramFile.isReadOnly()) {
+
+							final ResourceSet rs = new ResourceSetImpl();
+							final URI diagramUri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(),
+									true);
+							final Resource diagramResource = rs.createResource(diagramUri);
+							try {
+								diagramResource.load(Collections.emptyMap());
+								if (diagramResource.getContents().size() == 1
+										&& diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
+									updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap,
+											diagramResource, null);
 								}
-								diagramResource.unload();
+							} catch (IOException e) {
+								// Ignore. Continue with next file
+							} finally {
+								// Save and unload the resource if it was loaded
+								if (diagramResource.isLoaded()) {
+									try {
+										diagramResource.save(Collections.emptyMap());
+									} catch (final IOException e) {
+										// Ignore. Print stack trace so it will show in the console during development.
+										e.printStackTrace();
+									}
+									diagramResource.unload();
+								}
 							}
 						}
 					} else {
@@ -530,6 +538,36 @@ public class DefaultDiagramService implements DiagramService {
 					}
 				}
 			});
+		}
+
+		@Override
+		public ImmutableSet<IFile> getRelatedDiagramFiles() {
+			final ImmutableSet.Builder<IFile> diagramFileSetsBuilder = ImmutableSet.builder();
+			Display.getDefault().syncExec(() -> {
+				for (final Entry<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesEntry : sourceToCanonicalReferenceToReferencesMap
+						.entrySet()) {
+					final Object key = sourceToCanonicalReferenceToReferencesEntry.getKey();
+					if (key instanceof AgeDiagramEditor) {
+						final AgeDiagramEditor editor = (AgeDiagramEditor) key;
+						final IDiagramEditorInput input = editor.getDiagramEditorInput();
+						if(input != null) {
+							final IResource diagramResource = ResourcesPlugin.getWorkspace().getRoot()
+									.getFile(new Path(input.getUri().toPlatformString(true)));
+							if (diagramResource instanceof IFile) {
+								diagramFileSetsBuilder.add((IFile) diagramResource);
+							}
+						}
+
+					} else if (key instanceof IFile) {
+						final IFile diagramFile = (IFile) key;
+						diagramFileSetsBuilder.add(diagramFile);
+					} else {
+						throw new RuntimeException("Unexpected key: " + key);
+					}
+				}
+			});
+
+			return diagramFileSetsBuilder.build();
 		}
 
 		private void updateReferences(final UpdatedReferenceValueProvider newBoReferences,
