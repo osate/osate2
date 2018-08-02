@@ -25,6 +25,7 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.query.Queryable;
@@ -41,9 +42,11 @@ public class FlowContributionItem extends ComboContributionItem {
 	public final static String highlightFlow = "org.osate.ge.properties.HighlightFlow";
 	private static final String emptySelectionTxt = "<Flows>";
 	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
-	private static final StandaloneQuery flowContainerQuery = StandaloneQuery.create((rootQuery) -> rootQuery
-			.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
-					|| fa.getBusinessObject() instanceof Subcomponent));
+	private static final StandaloneQuery flowContainerQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.descendants()
+					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
+							|| fa.getBusinessObject() instanceof Subcomponent
+							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor = null;
 
 	public FlowContributionItem(final String id) {
@@ -137,16 +140,16 @@ public class FlowContributionItem extends ComboContributionItem {
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream()
-					.flatMap(flowContainerQueryable -> AadlClassifierUtil
-							.getComponentImplementation(flowContainerQueryable)
-							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
-							.orElse(Stream.empty()))
-					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
-					.forEachOrdered(highlightableFlowElement -> {
-						highlightableFlowElements.put(
-								getName(highlightableFlowElement.highlightableFlowElement),
-								highlightableFlowElement);
-					});
+							.flatMap(flowContainerQueryable -> AadlClassifierUtil
+									.getComponentImplementation(flowContainerQueryable)
+									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+									.orElse(Stream.empty()))
+							.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
+							.forEachOrdered(highlightableFlowElement -> {
+								highlightableFlowElements.put(
+										getName(highlightableFlowElement.highlightableFlowElement),
+										highlightableFlowElement);
+							});
 
 					// Determine which value should be selected
 					final Optional<Entry<String, HighlightableFlowInfo>> tmpSelectedValue = highlightableFlowElements

@@ -30,6 +30,8 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
@@ -39,12 +41,16 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
 public class InstanceReferenceBuilder {
+	// TODO ryan
 	final static String ID = "org.osate.ge.diagrams.instance";
 	final static String SYSTEM_INSTANCE_KEY = "system_instance";
 	final static String COMPONENT_INSTANCE_KEY = "component_instance";
 	final static String FEATURE_INSTANCE_KEY = "feature_instance";
 	final static String CONNECTION_REFERENCE_KEY = "connection_reference";
 	final static String FLOW_SPECIFICATION_INSTANCE_KEY = "flow_specification_instance";
+	final static String MODE_INSTANCE_KEY = "mode_instance";
+	final static String MODE_TRANSITION_INSTANCE_KEY = "mode_transition_instance";
+	final static String End_TO_END_FLOW_INSTANCE_KEY = "end_to_end_flow_instance";
 
 	@BuildRelativeReference
 	public String[] getRelativeReference(final SystemInstanceLoadingService systemInstanceLoader, final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -65,6 +71,10 @@ public class InstanceReferenceBuilder {
 				return new String[] {ID,CONNECTION_REFERENCE_KEY, buildConnectionReferenceId((ConnectionReference)bo)};
 			} else if (bo instanceof FlowSpecificationInstance) {
 				return new String[] { ID, FLOW_SPECIFICATION_INSTANCE_KEY, io.getFullName() };
+			} else if (bo instanceof ModeInstance) {
+				return new String[] { ID, MODE_INSTANCE_KEY, io.getFullName() };
+			} else if (bo instanceof ModeTransitionInstance) {
+				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, io.getName() };
 			}
 		}
 

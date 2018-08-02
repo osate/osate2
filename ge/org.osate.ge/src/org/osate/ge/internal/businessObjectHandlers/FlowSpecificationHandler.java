@@ -58,9 +58,11 @@ class FlowSpecificationHandler {
 	protected static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create()
 			.sourceTerminator(ArrowBuilder.create().small().build())
 			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
+
 	protected static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create()
 			.sourceTerminator(ArrowBuilder.create().small().reverse().build())
 			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
+
 	protected static final Graphic graphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 

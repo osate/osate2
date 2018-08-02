@@ -41,15 +41,19 @@ import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
+// TODO ryan
 public class InstanceReferenceResolver {
 	private final ProjectProvider projectProvider;
 	private final SystemInstanceLoadingService systemInstanceLoader;
@@ -124,6 +128,18 @@ public class InstanceReferenceResolver {
 			for(final FlowSpecificationInstance fsi : systemInstance.getFlowSpecifications()) {
 				idToElementMap.put(fsi.getInstanceObjectPath().toLowerCase(), fsi);
 			}
+
+			for (final ModeInstance mi : systemInstance.getModeInstances()) {
+				idToElementMap.put(mi.getInstanceObjectPath().toLowerCase(), mi);
+			}
+
+			for (final ModeTransitionInstance mti : systemInstance.getModeTransitionInstances()) {
+				idToElementMap.put(mti.getInstanceObjectPath().toLowerCase(), mti);
+			}
+
+			for (final EndToEndFlowInstance etei : systemInstance.getEndToEndFlows()) {
+				idToElementMap.put(etei.getInstanceObjectPath().toLowerCase(), etei);
+			}
 		}
 
 		private void addFeatureInstance(final FeatureInstance fi) {
@@ -178,7 +194,10 @@ public class InstanceReferenceResolver {
 				if (type.equals(InstanceReferenceBuilder.COMPONENT_INSTANCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.FEATURE_INSTANCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.CONNECTION_REFERENCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)) {
+						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.MODE_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.End_TO_END_FLOW_INSTANCE_KEY)) {
 					return siInfo.getInstanceObject(refSegs[3]);
 				}
 			}

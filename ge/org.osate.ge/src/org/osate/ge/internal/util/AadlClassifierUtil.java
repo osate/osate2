@@ -9,6 +9,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.internal.query.Queryable;
 
 public class AadlClassifierUtil {
@@ -26,6 +27,9 @@ public class AadlClassifierUtil {
 		} else if (bo instanceof Subcomponent) {
 			final Classifier scClassifier = ((Subcomponent) bo).getAllClassifier();
 			ci = scClassifier instanceof ComponentImplementation ? (ComponentImplementation) scClassifier : null;
+		} else if (bo instanceof ComponentInstance) {
+			final Classifier classifier = ((ComponentInstance) bo).getComponentClassifier();
+			ci = classifier instanceof ComponentImplementation ? (ComponentImplementation) classifier : null;
 		} else {
 			ci = null;
 		}

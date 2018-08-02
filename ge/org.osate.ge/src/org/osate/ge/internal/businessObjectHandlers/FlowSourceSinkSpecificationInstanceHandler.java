@@ -16,12 +16,9 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.graphics.internal.FlowIndicatorBuilder;
-import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -98,14 +95,6 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 			return null;
 		}
 	}
-
-	// TODO dup code
-	private static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create()
-			.sourceTerminator(ArrowBuilder.create().small().build())
-			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
-	private static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create()
-			.sourceTerminator(ArrowBuilder.create().small().reverse().build())
-			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
