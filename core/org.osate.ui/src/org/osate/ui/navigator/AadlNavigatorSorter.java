@@ -2,15 +2,21 @@ package org.osate.ui.navigator;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.viewers.ContentViewer;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.jface.viewers.DecoratingStyledCellLabelProvider;
+import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-public class AadlNavigatorSorter extends ViewerSorter {
+public class AadlNavigatorSorter extends ViewerComparator {
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		if (e1 instanceof VirtualPluginResources) {
@@ -40,6 +46,43 @@ public class AadlNavigatorSorter extends ViewerSorter {
 			return ne1Offset - ne2Offset;
 		}
 
-		return super.compare(viewer, e1, e2);
+		int result = super.compare(viewer, e1, e2);
+		System.out.println(getLabel(viewer, e1) + " " + getLabel(viewer, e2) + " " + result);
+		return result;
+	}
+
+	private String getLabel(Viewer viewer, Object e1) {
+		String name1;
+		if (viewer == null || !(viewer instanceof ContentViewer)) {
+			name1 = e1.toString();
+		} else {
+			IBaseLabelProvider prov = ((ContentViewer) viewer).getLabelProvider();
+			if (prov instanceof ILabelProvider) {
+				ILabelProvider lprov = (ILabelProvider) prov;
+				if (lprov instanceof DecoratingStyledCellLabelProvider) {
+					System.out.print("***");
+					DecoratingStyledCellLabelProvider dprov = (DecoratingStyledCellLabelProvider) lprov;
+					IStyledLabelProvider sprov = dprov.getStyledStringProvider();
+					name1 = sprov.getStyledText(e1).getString();
+				} else if (lprov instanceof DecoratingLabelProvider) {
+					// Bug 364735: use the real label provider to avoid unstable
+					// sort behavior if the decoration is running while sorting.
+					// decorations are usually visual aids to the user and
+					// shouldn't be used in ordering.
+					System.out.print(" * ");
+					DecoratingLabelProvider dprov = (DecoratingLabelProvider) lprov;
+					lprov = dprov.getLabelProvider();
+				} else {
+					System.out.print("   ");
+				}
+				name1 = lprov.getText(e1);
+			} else {
+				name1 = e1.toString();
+			}
+		}
+		if (name1 == null) {
+			name1 = "";//$NON-NLS-1$
+		}
+		return name1;
 	}
 }

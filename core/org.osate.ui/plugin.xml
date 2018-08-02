@@ -139,8 +139,14 @@
 		<viewerContentBinding 
             viewerId="org.osate.ui.navigator.AadlNavigator">
 			<includes>
+    <contentExtension
+          pattern="org.eclipse.ui.navigator.resources.workingSets">
+    </contentExtension>
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
+    <contentExtension
+          pattern="org.osate.ui.navigator.contributedAadl">
+    </contentExtension>
 				<contentExtension pattern="org.osate.ui.navigator.content"/>
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
 			</includes>
@@ -177,8 +183,6 @@
          		<instanceof value= "org.osate.aadl2.NamedElement" />
          	</or>
          </possibleChildren>
-		  <enablement>
-		  </enablement>
 		  
         <commonSorter
               class="org.osate.ui.navigator.AadlNavigatorSorter"
@@ -225,6 +229,23 @@
                </adapt>
             </enablement>
          </commonWizard>
+      </navigatorContent>
+      <navigatorContent
+            contentProvider="org.osate.ui.navigator.AadlContributionContentProvider"
+            id="org.osate.ui.navigator.contributedAadl"
+            labelProvider="org.osate.ui.navigator.AadlContributionLabelProvider"
+            name="Contributed AADL Packages and Property Sets"
+            priority="normal">
+         <triggerPoints>
+            <instanceof
+                  value="org.eclipse.core.resources.IWorkspaceRoot">
+            </instanceof>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof
+                  value="org.eclipse.core.resources.IWorkspaceRoot">
+            </instanceof>
+         </possibleChildren>
       </navigatorContent>
    </extension>
    
