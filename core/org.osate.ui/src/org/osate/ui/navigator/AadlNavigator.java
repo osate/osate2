@@ -125,13 +125,10 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 				lastDecorator = mod;
 			}
 
-			ctrl.getDisplay().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					if (!ctrl.isDisposed()) {
-						OsateResourceUtil.setResourceSet(null);
-						getCommonViewer().refresh();
-					}
+			ctrl.getDisplay().asyncExec(() -> {
+				if (!ctrl.isDisposed()) {
+					OsateResourceUtil.setResourceSet(null);
+					getCommonViewer().refresh();
 				}
 			});
 		}
