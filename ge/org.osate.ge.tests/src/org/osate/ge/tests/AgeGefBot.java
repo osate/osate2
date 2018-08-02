@@ -33,6 +33,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
@@ -376,21 +377,21 @@ public class AgeGefBot {
 		bot.waitUntil(org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses(shell));
 	}
 
-	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point p,
+	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point creationCoor,
 			final String... editPartPath) {
 		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
-		createToolItem(editor, toolItem, p, parent);
+		createToolItem(editor, toolItem, creationCoor, parent);
 	}
 
-	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point p,
+	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point creationCoor,
 			final SWTBotGefEditPart parent) {
 		editor.setFocus();
 		mouseSelectElement(editor, parent);
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
 		// Scrollbar selections: Point(Vertical, Horizontal)
-		final java.awt.Point scrollbarValues = getScrollBarValues(editor, p);
-		editor.click(rect.x + p.x - scrollbarValues.x, rect.y + p.y - scrollbarValues.y);
+		final java.awt.Point scrollbarValues = showScrollPosition(editor, creationCoor);
+		editor.click(rect.x + creationCoor.x - scrollbarValues.x, rect.y + creationCoor.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
 
@@ -400,34 +401,41 @@ public class AgeGefBot {
 	 * @param creationCoor new element location
 	 * @return current vertical and horizontal scroll bar values
 	 */
-	private java.awt.Point getScrollBarValues(final SWTBotGefEditor editor, final Point creationCoor) {
+	private java.awt.Point showScrollPosition(final SWTBotGefEditor editor, final Point creationCoor) {
 		final java.awt.Point scrollbarValues = new java.awt.Point();
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
 		display.syncExec(() -> {
 			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+			final ScrollBar horizontalScrollBar = canvas.getHorizontalBar();
+			if (horizontalScrollBar.getVisible()) {
+				clickScrollBar(display, canvas, horizontalScrollBar, creationCoor.x);
+			}
 
-			canvas.getHorizontalBar().setSelection(creationCoor.x);
-			canvas.getVerticalBar().setSelection(creationCoor.y);
+			final ScrollBar verticalScrollBar = canvas.getVerticalBar();
+			if (verticalScrollBar.getVisible()) {
+				clickScrollBar(display, canvas, verticalScrollBar, creationCoor.y);
+			}
 
-			final org.eclipse.swt.graphics.Rectangle horizontalBar = canvas.getHorizontalBar().getThumbBounds();
-			final org.eclipse.swt.graphics.Rectangle verticalBar = canvas.getVerticalBar().getThumbBounds();
-
-			Point point = display.map(canvas, null, horizontalBar.x,
-					horizontalBar.y);
-
-			// Click scroll bars for refresh of viewport
-			bot.setAutoDelay(700);
-			bot.mouseLeftClick(point.x, point.y);
-
-			point = display.map(canvas, null, verticalBar.x, verticalBar.y);
-			bot.mouseLeftClick(point.x, point.y);
-
-			scrollbarValues.x = canvas.getHorizontalBar().getSelection();
-			scrollbarValues.y = canvas.getVerticalBar().getSelection();
+			scrollbarValues.x = horizontalScrollBar.getSelection();
+			scrollbarValues.y = verticalScrollBar.getSelection();
 		});
 
 		return scrollbarValues;
+	}
+
+	private void clickScrollBar(final Display display, final FigureCanvas canvas, final ScrollBar scrollBar,
+			final int axisValue) {
+		// Set new scrollbar value
+		scrollBar.setSelection(axisValue);
+
+		// Get scrollbar screen position
+		final org.eclipse.swt.graphics.Rectangle scrollBarBounds = scrollBar.getThumbBounds();
+		final Point scrollBarPosition = display.map(canvas, null, scrollBarBounds.x, scrollBarBounds.y);
+
+		// Click scroll bar for refresh of viewport
+		bot.setAutoDelay(700);
+		bot.mouseLeftClick(scrollBarPosition.x, scrollBarPosition.y);
 	}
 
 	public void createToolItemAndRename(final AgeSWTBotGefEditor editor, final Class<?> clazz, final Point p,
