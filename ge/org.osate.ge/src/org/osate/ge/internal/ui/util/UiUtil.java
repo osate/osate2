@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.util;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -133,5 +134,14 @@ public class UiUtil {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * Sets the ID used to reference the widgets during unit tests.
+	 * @param w
+	 * @param id
+	 */
+	public static void setTestingId(final Widget w, final String id) {
+		w.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, id);
 	}
 }

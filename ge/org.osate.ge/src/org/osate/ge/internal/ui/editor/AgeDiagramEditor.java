@@ -40,9 +40,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
+
+import com.google.common.collect.ImmutableList;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -88,6 +91,15 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 
 	public void forceDiagramUpdateOnNextModelChange() {
 		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
+	}
+
+	/**
+	 * Selects the diagram elements after the next refresh.
+	 * @param diagramElements
+	 */
+	public void selectDiagramElements(final DiagramElement[] diagramElements) {
+		((AgeDiagramBehavior) getDiagramBehavior())
+		.setDiagramElementsForSelection(ImmutableList.copyOf(diagramElements));
 	}
 
 	@Override

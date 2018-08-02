@@ -22,6 +22,11 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	}
 
 	@Override
+	protected void buildActions() {
+		super.buildActions();
+	}
+
+	@Override
 	public void dispose() {
 		selectedModeItem.setActiveEditor(null);
 		selectedFlowItem.setActiveEditor(null);
