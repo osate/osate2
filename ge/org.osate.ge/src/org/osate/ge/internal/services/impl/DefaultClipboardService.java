@@ -36,7 +36,7 @@ public class DefaultClipboardService implements ClipboardService {
 		}
 
 		@Override
-		public void setContents(Object value) {
+		public void setContents(final Object value) {
 			this.contents = value;
 		}
 	}
