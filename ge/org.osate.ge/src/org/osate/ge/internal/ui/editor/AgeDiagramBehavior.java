@@ -113,11 +113,16 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
+import org.osate.ge.internal.ui.editor.actions.CopyAction;
+import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
 
 @SuppressWarnings("restriction")
 public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {
@@ -137,6 +142,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private boolean diagramContextIsValid = true;
 	private int cleanDiagramChangeNumber = -1; // The diagram change number of the "clean" diagram.
 	private ActionExecutor actionExecutor;
+	private ImmutableList<DiagramElement> diagramElementsToSelect; // A list of diagram elements that will be selected during the next refresh
 	private PaintListener paintListener = e -> {
 		if(updateWhenVisible) {
 			updateDiagram(true);
@@ -237,8 +243,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void initActionRegistry(final ZoomManager zoomManager) {
 		super.initActionRegistry(zoomManager);
 
-		registerAction(new UndoAction(getParentPart()));
-		registerAction(new RedoAction(getParentPart()));
+		final IWorkbenchPart parentPart = getParentPart();
+		if (!(parentPart instanceof AgeDiagramEditor)) {
+			throw new RuntimeException("parent part must be an AgeDiagramEditor");
+		}
+
+		final AgeDiagramEditor editor = (AgeDiagramEditor) parentPart;
+		registerAction(new CopyAction(editor));
+		registerAction(new PasteAction(editor));
+		registerAction(new UndoAction(editor));
+		registerAction(new RedoAction(editor));
 
 		// Disable Graphiti's default delete action.
 		final IDiagramContainerUI diagramContainer = getDiagramContainer();
@@ -283,45 +297,48 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					if(hoverElement != null) {
 						if(hoverElement != tooltipElement || exceedsCursorMoveThreshold(e.x, e.y)) {
 							disposeCurrentToolTip();
-							tooltipElement = hoverElement;
 
-							// Create new tooltip shell
-							final Display display = Display.getCurrent();
-							tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
-							tooltipShell.setVisible(false);
-							tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-							tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
+							if (hoverElement.getBusinessObject() != null) {
+								tooltipElement = hoverElement;
 
-							// Configure layout
-							final RowLayout rowLayout = new RowLayout();
-							rowLayout.fill = true;
-							rowLayout.wrap = false;
-							rowLayout.pack = true;
-							rowLayout.type = SWT.VERTICAL;
-							rowLayout.spacing = 0;
-							tooltipShell.setLayout(rowLayout);
+								// Create new tooltip shell
+								final Display display = Display.getCurrent();
+								tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
+								tooltipShell.setVisible(false);
+								tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+								tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
 
-							// Call tooltip contributors
-							final IEclipseContext context = extService.createChildContext();
-							try {
-								context.set(Composite.class, tooltipShell);
-								context.set(Names.BUSINESS_OBJECT, tooltipElement.getBusinessObject());
-								context.set(Names.BUSINESS_OBJECT_CONTEXT, tooltipElement);
-								for (final Object tooltipContributor : extService.getTooltipContributors()) {
-									ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
+								// Configure layout
+								final RowLayout rowLayout = new RowLayout();
+								rowLayout.fill = true;
+								rowLayout.wrap = false;
+								rowLayout.pack = true;
+								rowLayout.type = SWT.VERTICAL;
+								rowLayout.spacing = 0;
+								tooltipShell.setLayout(rowLayout);
+
+								// Call tooltip contributors
+								final IEclipseContext context = extService.createChildContext();
+								try {
+									context.set(Composite.class, tooltipShell);
+									context.set(Names.BUSINESS_OBJECT, tooltipElement.getBusinessObject());
+									context.set(Names.BUSINESS_OBJECT_CONTEXT, tooltipElement);
+									for (final Object tooltipContributor : extService.getTooltipContributors()) {
+										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
+									}
+								} finally {
+									context.dispose();
 								}
-							} finally {
-								context.dispose();
-							}
 
-							// Show tooltip shell if something was contributed
-							if (tooltipShell.getChildren().length > 0) {
-								final Point point = display.getCursorLocation();
-								tooltipShell.setLocation(point.x, point.y+20);
-								tooltipCursorX = e.x;
-								tooltipCursorY = e.y;
-								tooltipShell.pack(true);
-								tooltipShell.setVisible(true);
+								// Show tooltip shell if something was contributed
+								if (tooltipShell.getChildren().length > 0) {
+									final Point point = display.getCursorLocation();
+									tooltipShell.setLocation(point.x, point.y+20);
+									tooltipCursorX = e.x;
+									tooltipCursorY = e.y;
+									tooltipShell.pack(true);
+									tooltipShell.setVisible(true);
+								}
 							}
 						}
 					}
@@ -670,8 +687,26 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}
 
 				super.refresh();
+
+				selectBufferedDiagramElements();
 			}
 		};
+	}
+
+	private void selectBufferedDiagramElements() {
+		if (diagramElementsToSelect != null) {
+			// Get pictogram elements for the specified diagram elements
+			final GraphitiAgeDiagram graphitiDiagram = getGraphitiAgeDiagram();
+			final PictogramElement[] pes = diagramElementsToSelect.stream().map(graphitiDiagram::getPictogramElement)
+					.filter(Predicates.notNull()).toArray(s -> new PictogramElement[s]);
+
+			selectPictogramElements(pes);
+			setDiagramElementsForSelection(null);
+		}
+	}
+
+	public void setDiagramElementsForSelection(final ImmutableList<DiagramElement> value) {
+		this.diagramElementsToSelect = value;
 	}
 
 	@Override

@@ -314,7 +314,7 @@ class AadlPropertyView extends ViewPart {
 				    val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
 				    
 				    // first go up to propertyset / property name 
-					// see https://github.com/osate/osate2-core/issues/605)
+					// see https://github.com/osate/osate2/issues/605)
 				    var current = element
 				    var parent = contentProvider.getParent(element)
 				    while (contentProvider.getParent(parent) instanceof TreeEntry) {
