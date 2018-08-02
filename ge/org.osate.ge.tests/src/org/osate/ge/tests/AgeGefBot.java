@@ -390,7 +390,7 @@ public class AgeGefBot {
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
 		// Scrollbar selections: Point(Vertical, Horizontal)
-		final java.awt.Point scrollbarValues = showScrollPosition(editor, creationCoor);
+		final java.awt.Point scrollbarValues = scrollToPosition(editor, creationCoor);
 		editor.click(rect.x + creationCoor.x - scrollbarValues.x, rect.y + creationCoor.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
@@ -401,7 +401,7 @@ public class AgeGefBot {
 	 * @param creationCoor new element location
 	 * @return current vertical and horizontal scroll bar values
 	 */
-	private java.awt.Point showScrollPosition(final SWTBotGefEditor editor, final Point creationCoor) {
+	private java.awt.Point scrollToPosition(final SWTBotGefEditor editor, final Point creationCoor) {
 		final java.awt.Point scrollbarValues = new java.awt.Point();
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
