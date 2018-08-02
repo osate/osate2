@@ -40,6 +40,8 @@ import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
+import com.google.common.base.Objects;
+
 public class SetExtendedClassifierPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
@@ -103,16 +105,23 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 							if (classifierToExtend != null) {
 								AadlImportsUtil.ensurePackageIsImportedForClassifier(classifierToModify, classifierToExtend);
 
-								// Extend the classifier
-								if (classifierToModify instanceof ComponentType) {
-									((ComponentType) classifierToModify).createOwnedExtension()
-									.setExtended((ComponentType) classifierToExtend);
-								} else if (classifierToModify instanceof ComponentImplementation) {
-									((ComponentImplementation) classifierToModify).createOwnedExtension()
-									.setExtended((ComponentImplementation) classifierToExtend);
-								} else if (classifierToModify instanceof FeatureGroupType) {
-									((FeatureGroupType) classifierToModify).createOwnedExtension()
-									.setExtended((FeatureGroupType) classifierToExtend);
+								// Don't create an extension if the classifier hasn't changed. Creating identical extensions
+								// can cause xtext validation errors regardless of whether the old extension is removed first.
+								if (classifierToModify.getExtended() == null
+										|| !Objects.equal(classifierToModify.getExtended().getQualifiedName(),
+												classifierToExtend.getQualifiedName())) {
+
+									// Extend the classifier
+									if (classifierToModify instanceof ComponentType) {
+										((ComponentType) classifierToModify).createOwnedExtension()
+										.setExtended((ComponentType) classifierToExtend);
+									} else if (classifierToModify instanceof ComponentImplementation) {
+										((ComponentImplementation) classifierToModify).createOwnedExtension()
+										.setExtended((ComponentImplementation) classifierToExtend);
+									} else if (classifierToModify instanceof FeatureGroupType) {
+										((FeatureGroupType) classifierToModify).createOwnedExtension()
+										.setExtended((FeatureGroupType) classifierToExtend);
+									}
 								}
 							} else {
 								// Extend the classifier
