@@ -42,7 +42,6 @@ package org.osate.analysis.architecture;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -50,6 +49,13 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
+import org.osate.result.RealValue;
+import org.osate.result.Result;
+import org.osate.result.ResultFactory;
+import org.osate.result.util.ResultUtil;
 import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -57,11 +63,8 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * @author phf
  */
 public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
-	private AbstractAaxlHandler handler;
-
 	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlHandler handler) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		this.handler = handler;
 	}
 
 	@Override
@@ -87,22 +90,90 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		return price;
 	}
 
-	public final double getWeight(ComponentInstance ci) {
-		return calcWeight(ci, true, "");
+	/**
+	 * Performs the weight analysis on a {@code ComponentInstance}.
+	 * <p>
+	 * The calculated weight and any issues encountered are returned in the {@code AnalysisResult}. The following
+	 * describes how the returned {@code AnalysisResult} is filled.
+	 * <p>
+	 * {@link AnalysisResult}:
+	 * <ul>
+	 *   <li>{@link AnalysisResult#getAnalysis()}: Set to the value {@code "Weight totals"}.
+	 *   <li>{@link AnalysisResult#getSourceReference()}: Set to the {@link ComponentInstance} passed to this method.
+	 *   <li>{@link AnalysisResult#getResults()}: One {@code Result} is created for the {@code ComponentInstance ci}.
+	 * </ul>
+	 * {@link Result}:
+	 * <ul>
+	 *   <li>{@link Result#getSourceReference()}: Set to the {@code ComponentInstance} for this {@code Result}.
+	 *   <li>{@link Result#getValues()}: Four {@code RealValue} are created.
+	 *   <ul>
+	 *     <li>Index {@code 0} is a {@code RealValue} for the calculated weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The calculated weight of the component.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 1} is a {@code RealValue} for the gross weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::GrossWeight} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 2} is a {@code RealValue} for the net weight.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::NetWeight} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *     <li>Index {@code 3} is a {@code RealValue} for the weight limit.
+	 *     <ul>
+	 *       <li>{@link RealValue#getValue()}: The value of the component's {@code SEI::WeightLimit} property.
+	 *       <li>{@link RealValue#getUnit()}: Weight units are in {@code kg}.
+	 *     </ul>
+	 *   </ul>
+	 *   <li>{@link Result#getDiagnostics()}: Zero or more {@code Diagnostic}s are created. Each one is a single issue
+	 *       discovered by the analysis to be reported to the user.
+	 *   <ul>
+	 *     <li>{@link Diagnostic#getType()}: {@link DiagnosticType#ERROR}, {@link DiagnosticType#WARNING}, or
+	 *         {@link DiagnosticType#INFO}.
+	 *     <li>{@link Diagnostic#getSourceReference()}: The location of the issue. Either the {@code ComponentInstance}
+	 *         of the {@code Result} or one of the component's {@link ConnectionInstance}s.
+	 *     <li>{@link Diagnostic#getMessage()}: The text of the issue.
+	 *   </ul>
+	 *   <li>{@link Result#getSubResults()}: Zero or more {@code Result}s are created: one for each subcomponent.
+	 * </ul>
+	 * 
+	 * @param ci The component to run the weight analysis on.
+	 * @return An {@code AnalysisResult} containing the weight of the component and all subcomponents as well as any
+	 *         issues encountered during the analysis.
+	 */
+	public static AnalysisResult invoke(ComponentInstance ci) {
+		AnalysisResult result = ResultUtil.createAnalysisResult("Weight totals", ci);
+		result.getResults().add(calcWeight(ci, true));
+		return result;
 	}
 
-	private double calcWeight(ComponentInstance ci, boolean needWeight, String indent) {
+	/**
+	 * @deprecated Use {@link #invoke(ComponentInstance)} instead.
+	 */
+	@Deprecated
+	public final double getWeight(ComponentInstance ci) {
+		return ResultUtil.getReal(calcWeight(ci, true), 0);
+	}
 
-		double net = GetProperties.getNetWeight(ci, 0.0);
+	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
+		Result result = ResultFactory.eINSTANCE.createResult();
+		result.setSourceReference(ci);
+
+		final double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
-		double gross = GetProperties.getGrossWeight(ci, 0.0);
+		final double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
 			ComponentCategory subcat = subi.getCategory();
 			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS)
 					|| subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
-				double subweight = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)), indent + " ");
+				Result subresult = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)));
+				result.getSubResults().add(subresult);
+				double subweight = ResultUtil.getReal(subresult, 0);
 				weight += subweight;
 				sublimit += GetProperties.getWeightLimit(subi, 0.0);
 			}
@@ -122,7 +193,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 					String ResultMsg = String.format(
 							connectionInstance.getName() + ": Weight of access connection is %.3f kg",
 							netconn > 0 ? netconn : grossconn);
-					reportinfo(connectionInstance, ResultMsg);
+					result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, connectionInstance));
 				}
 				sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
 			}
@@ -139,54 +210,60 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		if (gross > 0.0) {
 			if (weight > gross) {
 				// problem
-				reportwarning(ci,
-						String.format("[G] Sum of weights (%.3f kg) exceeds gross weight of %.3f kg", weight, gross));
+				result.getDiagnostics().add(ResultUtil.createWarning(
+						String.format("[G] Sum of weights (%.3f kg) exceeds gross weight of %.3f kg", weight, gross),
+						ci));
 				// Set gross weight
 			} else if (weight > 0 && weight < gross) {
 				// problem
-				reportwarning(ci,
-						String.format(
+				result.getDiagnostics()
+						.add(ResultUtil.createWarning(String.format(
 								"[G] Sum of weights (%.3f kg) less than gross weight of %.3f kg (using gross weight)",
-								weight, gross));
+								weight, gross), ci));
 				weight = gross;
 			}
 			if (weight == 0.0) {
 				weight = gross;
 			}
 		}
-		double limit = GetProperties.getWeightLimit(ci, 0.0);
+		final double limit = GetProperties.getWeightLimit(ci, 0.0);
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem
 				String ResultMsg = String.format("[A] Sum of weights (%.3f kg) exceeds weight limit of %.3f kg", weight,
 						limit);
-				reporterror(ci, ResultMsg);
+				result.getDiagnostics().add(ResultUtil.createError(ResultMsg, ci));
 			} else {
 				if (sublimit > limit) {
 					// problem
-					reportwarning(ci,
-							String.format(
+					result.getDiagnostics()
+							.add(ResultUtil.createWarning(String.format(
 									"[L] Sum of subcomponent weight limits (%.3f kg) exceeds weight limit of %.3f kg",
-									sublimit, limit));
+									sublimit, limit), ci));
 				}
 				if (weight < limit) {
 					String ResultMsg = String.format(
 							"[A] Sum of weights (%.3f kg) is below weight limit of %.3f kg (%.1f %% Weight slack)",
 							weight, limit, (limit - weight) / limit * 100);
-					reportinfo(ci, ResultMsg);
+					result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, ci));
 				}
 			}
 		} else {
 			if (weight > 0.0) {
 				String ResultMsg = String.format("[L] Sum of weights / gross weight is %.3f kg (no limit specified)",
 						weight);
-				reportinfo(ci, ResultMsg);
+				result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, ci));
 			} else if (needWeight) {
 				String ResultMsg = "[L] No net weight plus subcomponent weight or no gross weight";
-				reportwarning(ci, ResultMsg);
+				result.getDiagnostics().add(ResultUtil.createWarning(ResultMsg, ci));
 			}
 		}
-		return weight;
+
+		ResultUtil.addRealValue(result, weight, "kg");
+		ResultUtil.addRealValue(result, gross, "kg");
+		ResultUtil.addRealValue(result, net, "kg");
+		ResultUtil.addRealValue(result, limit, "kg");
+		return result;
 	}
 
 	public String getPrintName(ComponentInstance ci) {
@@ -202,17 +279,4 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		}
 		return res;
 	}
-
-	private void reportwarning(final NamedElement obj, final String msg) {
-		handler.warning(obj, msg);
-	}
-
-	private void reporterror(final NamedElement obj, final String msg) {
-		handler.error(obj, msg);
-	}
-
-	private void reportinfo(final NamedElement obj, final String msg) {
-		handler.info(obj, msg);
-	}
-
 }
