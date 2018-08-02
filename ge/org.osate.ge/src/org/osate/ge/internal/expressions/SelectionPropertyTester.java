@@ -9,7 +9,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
-import org.osate.ge.internal.util.DiagamElementUtil;
+import org.osate.ge.internal.util.DiagramElementUtil;
 
 /**
  * Property testers for use with objects implementing ISelection
@@ -20,7 +20,7 @@ public class SelectionPropertyTester extends PropertyTester {
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
 		final ISelection selection = (ISelection) receiver;
 		if (property.equals("allAreDiagramElementsWithSameParent")) {
-			return DiagamElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection));
+			return DiagramElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection));
 		} else if (property.equals("singleNamedElementInComponentImplementation")) { // Returns false if there is more than one element or if the element is not
 			// a descendant of a component implementation or if the diagram element's BO is not a named element.
 			final List<DiagramElement> diagramElements = SelectionUtil.getSelectedDiagramElements(selection);
