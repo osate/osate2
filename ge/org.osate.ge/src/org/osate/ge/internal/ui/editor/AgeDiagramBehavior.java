@@ -971,15 +971,19 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					if (diagramFile.isReadOnly()) {
 						final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { diagramFile },
 								getParentPart().getSite().getShell());
-						if (status.matches(IStatus.CANCEL)) {
-							return Collections.emptySet();
-						} else if (!status.isOK()) {
-							StatusManager.getManager().handle(status, StatusManager.SHOW);
-							return Collections.emptySet();
-						} else if (diagramFile.isReadOnly()) {
-							StatusManager.getManager().handle(
-									new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Diagram is read-only"),
-									StatusManager.SHOW);
+
+						if (status.matches(IStatus.CANCEL) || !status.isOK() || diagramFile.isReadOnly()) {
+							Display.getDefault().syncExec(() -> monitor.setCanceled(true));
+
+							// Display error message in a subset of cases
+							if (!status.isOK()) {
+								StatusManager.getManager().handle(status, StatusManager.SHOW);
+							} else if (diagramFile.isReadOnly()) {
+								StatusManager.getManager().handle(
+										new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Diagram is read-only"),
+										StatusManager.SHOW);
+							}
+
 							return Collections.emptySet();
 						}
 					}
