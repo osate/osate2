@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.OptionalInt;
 import java.util.stream.Stream;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
@@ -58,7 +59,7 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof IWorkspaceRoot) {
+		if (element instanceof IProject) {
 			Object[] result = { VirtualPluginResources.INSTANCE };
 			return result;
 		} else if (element instanceof VirtualPluginResources) {

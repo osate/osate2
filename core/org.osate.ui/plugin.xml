@@ -161,13 +161,14 @@
 
 	<extension
          point="org.eclipse.ui.navigator.navigatorContent">
-      <navigatorContent 
-            id="org.osate.ui.navigator.content" 
-            name="AADL Navigator Content"
-            contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
-            labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider" 
+      <navigatorContent
             activeByDefault="true"
-            priority="normal" >
+            appearsBefore="org.osate.ui.navigator.contributedAadl"
+            contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
+            id="org.osate.ui.navigator.content"
+            labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider"
+            name="AADL Navigator Content"
+            priority="normal">
         <triggerPoints>
             <and>
                <instanceof value="org.eclipse.core.resources.IResource"/>
@@ -231,21 +232,20 @@
          </commonWizard>
       </navigatorContent>
       <navigatorContent
+            activeByDefault="true"
             contentProvider="org.osate.ui.navigator.AadlContributionContentProvider"
             id="org.osate.ui.navigator.contributedAadl"
             labelProvider="org.osate.ui.navigator.AadlContributionLabelProvider"
             name="Contributed AADL Packages and Property Sets"
             priority="normal">
-         <triggerPoints>
+         <enablement>
             <instanceof
-                  value="org.eclipse.core.resources.IWorkspaceRoot">
+                  value="org.eclipse.core.resources.IProject">
             </instanceof>
-         </triggerPoints>
-         <possibleChildren>
-            <instanceof
-                  value="org.eclipse.core.resources.IWorkspaceRoot">
-            </instanceof>
-         </possibleChildren>
+         </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlContributionSorter">
+         </commonSorter>
       </navigatorContent>
    </extension>
    
