@@ -44,15 +44,10 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclared
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	@Inject
-	var static IEClassGlobalScopeProvider globalScope;
+	var IEClassGlobalScopeProvider globalScope;
 
-	 new(){
-		val injector = IResourceServiceProvider.Registry.INSTANCE
-				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector);
-		globalScope = injector.getInstance(IEClassGlobalScopeProvider);
-	}
 
-	def protected static scopeFor(Iterable<? extends EObject> elements) {
+	def scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE,
 			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
@@ -68,7 +63,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
-	def private static getUnitLiterals(EObject context) {
+	def private getUnitLiterals(EObject context) {
 
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
