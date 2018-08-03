@@ -1,7 +1,6 @@
 package org.osate.ui.navigator;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.action.Action;
@@ -16,20 +15,22 @@ import com.google.inject.Injector;
 
 public class AadlNavigatorActionProvider extends CommonActionProvider {
 	private final IURIEditorOpener editorOpener;
-	
+
 	public AadlNavigatorActionProvider() {
 		Injector injector = Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 		editorOpener = injector.getInstance(IURIEditorOpener.class);
 	}
-	
+
 	@Override
 	public void fillActionBars(IActionBars actionBars) {
 		super.fillActionBars(actionBars);
 		actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, new Action() {
 			@Override
 			public void run() {
-				List<Object> selectedElements = Arrays.asList(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
-				Stream<ContributedAadlStorage> files = selectedElements.stream().filter(file -> file instanceof ContributedAadlStorage).map(file -> (ContributedAadlStorage)file);
+				Object[] selectedElements = getActionSite().getStructuredViewer().getStructuredSelection().toArray();
+				Stream<ContributedAadlStorage> files = Arrays.stream(selectedElements)
+						.filter(file -> file instanceof ContributedAadlStorage)
+						.map(file -> (ContributedAadlStorage) file);
 				files.forEach(file -> editorOpener.open(file.getUri(), true));
 			}
 		});
