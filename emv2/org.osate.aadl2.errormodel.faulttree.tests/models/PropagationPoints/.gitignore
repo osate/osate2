@@ -1,0 +1,4 @@
+/instances/
+*.aird
+/.aadlsettings
+/.aadlbin-gen/

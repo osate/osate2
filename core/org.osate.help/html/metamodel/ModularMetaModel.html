@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Modular Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.1 Modular Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="DeclarativeAADLModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="HierarchyofAbstractandConcreteClasses.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic9"></a>
+          <span class=outlineNumberFirst>4.1 </span><span class=topicLineFirst>Modular Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL is a sizable language. Representation of the 
+AADL meta model as a single unit would 
+make it difficult to understand and maintain.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The AADL is extensible in that annex-specific sublanguages 
+can be introduced. The modular meta 
+model approach allows meta models for such sublanguages to be defined separately in Ecore and 
+added to the core AADL meta model.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The meta model for the core AADL is divided into six 
+meta model packages: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Core</i>: defines the concepts of component type, implementation, and subcomponent 
+as 
+abstractions, as well as packages and modes.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Component</i>: defines the concrete classes for the different categories of 
+components, including 
+the constraints on their subcomponents.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Feature</i>: defines the features of component types.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Connection</i>: defines the connections between component features.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Flow</i>: defines flow related elements of the AADL.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  font-style= italic;  "><font 
+face="Helvetica"><span><i>Property</i>: defines the elements for associating property values and for 
+introducing new property 
+types and properties via property sets.</span></font><span></span></li>
+</ul>
+<div align="left"><font face="Helvetica"><span>Classes in one package of the meta model can be referenced 
+by other meta model packages. This 
+is done by preceding the Class name with the package name &#150; separated by a double colon (&#147;::&#148;). 
+Multiple graphical diagram views have been defined for some of the meta model packages in order 
+to keep them readable.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The meta model for an initial AADL instance representation 
+has been defined as a separate meta 
+model package.&#160; Its details are discussed in section Annex C.5.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

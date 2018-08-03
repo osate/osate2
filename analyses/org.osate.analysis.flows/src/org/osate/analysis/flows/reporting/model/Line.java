@@ -3,8 +3,8 @@ package org.osate.analysis.flows.reporting.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.result.Issue;
-import org.osate.result.IssueType;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 
 public class Line {
 	private List<ReportedCell> content;
@@ -28,24 +28,24 @@ public class Line {
 	}
 
 	public void addError(String s) {
-		this.content.add(new ReportedCell(IssueType.ERROR, s));
+		this.content.add(new ReportedCell(DiagnosticType.ERROR, s));
 	}
 
 	public void addSuccess(String s) {
-		this.content.add(new ReportedCell(IssueType.SUCCESS, s));
+		this.content.add(new ReportedCell(DiagnosticType.SUCCESS, s));
 	}
 
 	public void addHeaderContent(String s) {
-		this.content.add(new ReportedCell(IssueType.NONE, s));
+		this.content.add(new ReportedCell(DiagnosticType.NONE, s));
 	}
 
 	public void addCell(ReportedCell cell) {
 		this.content.add(cell);
 	}
 
-	public void addCells(List<Issue> cells) {
-		for (Issue resultIssue : cells) {
-			this.content.add(new ReportedCell(resultIssue.getIssueType(), resultIssue.getMessage()));
+	public void addCells(List<Diagnostic> cells) {
+		for (Diagnostic resultIssue : cells) {
+			this.content.add(new ReportedCell(resultIssue.getType(), resultIssue.getMessage()));
 		}
 	}
 

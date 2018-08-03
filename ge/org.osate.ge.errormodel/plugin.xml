@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.osate.ge.businessObjectHandlers">
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeLibraryHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeExtensionHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateMachineHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelLibraryHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelSubclauseHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorEventHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorTransitionHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.osate.ge.categories">
+      <category
+            id="org.osate.ge.errormodel.categories.emv"
+            name="Error Model"
+            order="200">
+      </category>
+   </extension>
+   <extension
+         point="org.osate.ge.references">
+      <referenceBuilder
+            class="org.osate.ge.errormodel.ErrorModelReferenceHandler">
+      </referenceBuilder>
+      <referenceResolver
+            class="org.osate.ge.errormodel.ErrorModelReferenceHandler">
+      </referenceResolver>
+   </extension>
+   <extension
+         point="org.osate.ge.businessObjectProviders">
+      <provider
+            class="org.osate.ge.errormodel.ErrorModelBusinessObjectProvider">
+      </provider>
+   </extension>
+  
+</plugin>

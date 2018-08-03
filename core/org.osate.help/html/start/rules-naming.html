@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h1>Style guide</h1>
+<p>
+The following rules are recommended when using AADL for modeling a system. These are more modeling
+guidelines and are not mandatory. However, they are recommended in case you want
+to use a consistency naming rules and also want to share your models with other AADL users
+that might be used to them.
+</p>
+
+<table style="border: 1px solid black;">
+<tr>
+<td><strong>AADL entity</strong></td><td><strong>Rules</strong></td><td><strong>Examples</strong></td>
+</tr>
+<tr>
+<td>All</td>
+<td>
+	<ul>
+		<li>Separate words with specific case. For example, do not write <em>Foo_Bar</em> but <em>FooBar</em></li>
+		<li>Try to provide hints about the functional operation of the entity</li>
+	</ul>
+</td>
+<td><pre>process pr_receive_http_request</pre></td>
+</tr>
+
+<tr>
+<td>Files</td>
+<td>
+	<ul>
+		<li>Name of the contained AADL public package with the :: being replace by -</li>
+		
+	</ul>
+</td>
+<td>Example: <em>package foo::bar</em> is stored as <em>foo-bar.aadl</em></td>
+</tr>
+
+<tr>
+<td>Component type</td>
+<td>
+	<ul>
+		<li>Start with the kind of components</li>
+		<li>Provide a hint about the function/operation</li>
+	</ul>
+</td>
+<td><pre>process pr_receive_http_request</pre></td>
+</tr>
+
+<tr>
+<td>Connections</td>
+<td>
+	<ul>
+		<li><pre>conn_[COMPONENT_SOURCE]_[COMPONENT_DESTINATION]</pre></li>
+		<li>If you have several connections between two components, 
+		try to dissociate it with a suffix related to the context such as:
+		 <pre>conn_[COMPONENT_SOURCE]_[COMPONENT_DESTINATION]_to_sensor</pre></li>
+	</ul>
+</td>
+<td><pre>conn_source_dst : port source.dout -> dest.din</pre></td>
+</tr>
+
+<tr>
+<td>Indentation</td>
+<td>Blocks should be indenteded in a consistent manner, using either spaces or tab</td>
+<td>
+<pre>
+process myprocess
+features
+   f1 : in event port;
+   f2 : out event port;
+properties
+   Property_Name => Property_Value;
+end myprocess;
+</pre>
+</td>
+</tr>
+<tr>
+<td>Features</td>
+<td>
+<ul>
+<li>Prefix by the direction</li>
+<li>Try to provide information related to the context</li>
+</ul>
+</td><td>
+<pre>
+process chronometer
+features
+   in_minute_elapsed : in event port; 
+end chronometer;
+</pre>
+</td>
+</tr>
+<!-- <tr><td></td><td></td><td></td></tr> -->
+</table>
+</body>
+</html>

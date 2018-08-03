@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Security and Safety Level Checking</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AnalysisofDeclarativeAADLModelsandAADLIn.html">9. Analysis of Declarative AADL Models and AADL Instance Models</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   9.3 Security and Safety Level Checking
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ArchitectureAnalyses.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="FlowLatencyAnalysis.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic68"></a>
+          <span class=outlineNumberFirst>9.3 </span><span class=topicLineFirst>Security and Safety Level Checking</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic69"></a>
+          <span class=outlineNumber>9.3.1 </span><span class=topicLine>Check Security Levels</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This analysis checks whether the security level of a component with an outgoing connection 
+does not exceed the security level of the component this connection leads to. This analysis can 
+be performed on declarative AADL models and on AADL instance models.  The analysis is 
+invoked on a declarative model or on an instance model using “Analyses &gt; Security &gt; Check 
+Security Levels” or the </span></font><span><img src="NotesImages/Topic69NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> button.  When invoked on an AADL specification, all declarative 
+model files in the workspace are analyzed.  When invoked on a component implementation, all 
+component declarations that are part of its system hierarchy are analyzed.  When invoked on 
+an instance model, only the instance model is checked.  This analyses is more complete when 
+analyzing system instances; <i>when analyzing declarative models it does not understand 
+modes</i>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The security level is specified on components, i.e., on component type, component 
+implementation, or subcomponent declarations. The check can be invoked on an AADL XML 
+file, or on any of the AADL model objects in the AADL Object Editor. The analysis plug-in 
+performs this check for all connections if either or both ports have a value for this property. The 
+analysis plug-in expects the property </span></font><font face="Courier New" color="#010101"><span>SEI::SecurityLevel</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, an aadlinteger-valued property 
+to be defined in the SEI</span></font><font face="Courier New" color="#010101"><span> </span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">property set, i.e.,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>Property set SEI is</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  SecurityLevel:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>    aadlinteger applies to (system, process, thread group, thread);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>End SEI;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For declarative AADL models this analysis performs two functions.  First, it ensures that a 
+component has a security level that is the maximum of the security levels of its subcomponents. 
+Second, it checks all connections to determine whether the source component of a connection 
+declaration has a security level that is the same or lower than that of the destination component. 
+ If a component does not have a </span></font><font face="Courier New" color="#010101"><span>SecurityLevel</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property declared its value is assumed to be 
+zero, i.e., the lowest security level.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The first check is performed for every component implementation that is part of the system 
+hierarchy of the root component implementation.  If the component implementation does not 
+have this property, but at least one of its subcomponents does, then the property value will be 
+set to the maximum value for the component implementation.  If the enclosing component 
+implementation already has a </span></font><font face="Courier New" color="#010101"><span>SecurityLevel</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> value and it is less than the maximum of the 
+subcomponent security levels, its value will be updated to the maximum.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The analysis propagates the security level value up the system hierarchy in one of two ways.  If 
+the analysis is invoked on an Aadl model instance (either the corresponding aaxl resource or 
+any model object of the model instance), then the component hierarchy of the system instance 
+is traversed in postfix order (bottom up) to evaluate each component implementation that is a 
+classifier for the subcomponent that is represented by a component instance object in the 
+instance model.  If the analysis is invoked on an AadlSpec (either the corresponding aaxl 
+resource or any model object of an AadlSpec), then the analysis works bottom up through the 
+component classifier library.  This means it starts with component implementations with out 
+subcomponents, and then recursively processes component implementations, whose 
+subcomponents have the already processed component implementations as classifiers. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The second check is performed after the security level values have been propagated up the 
+system hierarchy.  This check compares the security levels of the source and destination 
+components in connection declarations.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For instance models the analysis examines each semantic connection for ports and compares 
+the security level of the source and destination. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic70"></a>
+          <span class=outlineNumber>9.3.2 </span><span class=topicLine>Check Safety Levels</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This analysis checks whether the safety criticality level of a component with an outgoing 
+connection is higher or equal to the safety criticality level of the component at the destination 
+end of the connection. The idea is that a component with lower safety criticality should not 
+drive the operation of a component with a higher safety criticality.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The analysis is invoked on a declarative model or on an instance model using “Analyses &gt; 
+Security &gt; Check Safety Levels” or the </span></font><span><img src="NotesImages/Topic70NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> button.  When invoked on an AADL specification, 
+all declarative model files in the workspace are analyzed.  When invoked on a component 
+implementation, all component declarations that are part of its system hierarchy are analyzed. 
+When invoked on an instance model, only the instance model is checked.  This analyses is 
+more complete when analyzing system instances; <i>when analyzing declarative models it does 
+not understand modes</i>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The safety criticality level is specified on components, i.e., on component type, component 
+implementation, or subcomponent declarations using the property 
+</span></font><font face="Courier New" color="#010101"><span>SEI::SafetyCriticality</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, an aadlinteger valued property defined in the SEI</span></font><font face="Courier New" color="#010101"><span> </span></font><font face="Times New Roman" color="#010101" size="3"><span 
+style="font-size:12pt">property set, 
+i.e.,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>Property set SEI is</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  SafetyCriticality:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>    aadlinteger applies to (system, process, thread group, thread);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>End SEI;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For declarative AADL models this analysis checks all connections to determine whether the 
+source component of a connection declaration has a safety criticality level that is the same or 
+higher than that of the destination component.  If a component does not have a 
+</span></font><font face="Courier New" color="#010101"><span>SafetyCriticality</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property declared its value is assumed to be zero, i.e., the lowest safety 
+level.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For instance models the analysis examines each semantic connection for ports and compares 
+the security level of the source and destination. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

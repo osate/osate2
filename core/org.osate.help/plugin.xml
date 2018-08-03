@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+    <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="aadlhelp.xml"
+            primary="true">
+      </toc>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="usermanualcontents.xml">
+      </toc>
+      <toc
+            file="refcontents.xml">
+      </toc>
+      <toc
+            file="metamodelcontents.xml">
+      </toc>
+      <toc
+            file="plugindevcontents.xml">
+      </toc>
+      <toc
+            file="javadoccontents.xml">
+      </toc>
+   </extension>
+
+</plugin>

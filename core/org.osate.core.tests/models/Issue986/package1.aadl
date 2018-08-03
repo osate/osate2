@@ -1,0 +1,28 @@
+package package1
+public
+	bus B1
+	end B1;
+	
+	bus implementation B1.i
+	end B1.i;
+	
+	bus B2
+	end B2;
+	
+	system S
+	end S;
+
+	system implementation S.i
+	prototypes
+		X1: bus; -- no classifier at all when unbound
+		X2: bus B1; -- B1 when unbound
+		X3: bus B1.i; -- B1.i when unbound
+		X4: bus B2; -- B2 when unbound
+	subcomponents
+		b: bus; 
+		b1: bus X1; -- Used to crash on this case
+		b2: bus X2; 
+		b3: bus X3;
+		b4: bus X4; 
+	end S.i;
+end package1;

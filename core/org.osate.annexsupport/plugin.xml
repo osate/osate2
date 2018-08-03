@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension-point id="parser" name="Annex Parser" schema="schema/annexparser.exsd"/>
+   <extension-point id="unparser" name="Annex Unparser" schema="schema/annexunparser.exsd"/>
+   <extension-point id="resolver" name="Annex Resolver" schema="schema/annexresolver.exsd"/>
+   <extension-point id="linkingservice" name="Annex Linking Service" schema="schema/annexlinkingservice.exsd"/>
+   <extension-point id="textpositionresolver" name="Text Position Resolver" schema="schema/annextextpositionresolver.exsd"/>
+   <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
+   <extension-point id="highlighter" name="Annex Highlighter" schema="schema/annexhighlighter.exsd"/>
+   <extension-point id="contentassist" name="Content Assist" schema="schema/contentassist.exsd"/>
+     <extension point="org.osate.annexsupport.parser">
+      <parser
+            annexName="*"
+            class="org.osate.annexsupport.DefaultAnnexParser"
+            id="org.osate.annexsupport.DefaultAnnexParser"
+			name="Built-in default annex parser"/>
+   </extension>
+   <extension point="org.osate.annexsupport.unparser">
+      <unparser
+            annexName="*"
+            class="org.osate.annexsupport.DefaultAnnexUnparser"
+            id="org.osate.annexsupport.DefaultAnnexUnparser"
+			name="Built-in default annex unparser"/>
+   </extension>
+</plugin>

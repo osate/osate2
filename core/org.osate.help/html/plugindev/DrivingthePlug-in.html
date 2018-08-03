@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Driving the Plug-in</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.3 Driving the Plug-in
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="GatheringModelStatistics.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="CreatinganIconforthePlug-in.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic15"></a>
+          <span class=outlineNumberFirst>3.3 </span><span class=topicLineFirst>Driving the Plug-in</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+use our model statistics collection class we need to do several things: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Make the models statistics
+functionality available as an Eclipse action. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Perform the model traversal. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Record/report the results. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+make an Eclipse action we need to create a new class and to extend the </span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file.
+The model traversal will be invoked and the model results reported from a method in the new
+action class. Of particular importance is reporting the results of the analysis performed by the
+plug-in. We have several options for making the results available: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Associate the results persistently
+with the model by using Eclipse markers. Markers are
+kept with the resource (file) and are shown by Eclipse in the  Problem view. Clicking
+on a marker in this view causes the appropriate model object to be highlighted in an
+editor. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Store the result persistently
+as an AADL property in the model itself. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Record the results temporarily
+with the model through an adapter.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Store the results in a
+resource, i.e., file, in the Eclipse project workspace. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Display the results in
+a dialog box. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+this example we will illustrate the first and last options. Section 7 discusses these methods
+in
+more detail. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic16"></a>
+          <span class=outlineNumber>3.3.1 </span><span class=topicLine>Eclipse Actions</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+must implement an Eclipse action to make our model statistics functionality available to the
+user. We do this in two parts:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Implementing the Eclipse
+interface <b>IWorkbenchWindowActionDelegate</b>. This class
+will execute our model statistics code.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Describing our action in
+the plug-in&#146;s </span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+interface <b>IWorkbenchWindowActionDelegate</b> declares methods that allow Eclipse to
+manage the lifecycle of the action. In particular, the method <b>run(IAction)</b> is invoked to
+actually
+execute the action. OSATE provides an abstract class <b>AaxlReadOnlyAction</b>, in package
+<b>edu.cmu.sei.osate.ui.actions</b>, that provides default implementations for all the action
+methods. The <b>run</b> implementation performs various sanity checks on the currently selected
+object and ensures that the necessary Eclipse resources are initialized before delegating to the
+abstract method <b>doAaxlAction(AObject)</b>, which is passed the selected model object. The
+intent is that to implement an action, the programmer needs only to extend
+<b>AaxlReadOnlyAction</b> and override the <b>doAaxlAction</b> method.</span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt"> See the Javadoc for more
+information.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Class <b>AaxlReadOnlyAction</b>
+gets its name from the fact that any changes made to any models
+as a side effect of the action will not be saved. This allows actions to make temporary changes
+to the model to facilitate analyses. OSATE also provides the abstract class
+<b>AaxlModifyAction</b> that is the same as <b>AaxlReadOnlyAction</b> except that it saves any models
+modified by the action. Actions implemented as subclasses of either of these classes are
+triggered by first selecting a </span></font><font face="Courier New" color="#010101"><span>.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file in the resource navigator
+or an AADL model element in
+an editor window, and then by executing the action by clicking on its icon in an Eclipse toolbar
+or by selecting the action&#146;s menu item. When an </span></font><font face="Courier New" color="#010101"><span>.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file is selected, <b>doAaxlAction</b>
+is
+passed the root element of the model contained in the file.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic17"></a>
+          <span class=outlineNumber>3.3.2 </span><span class=topicLine>The Action Code</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+define the <b>DoModelStatistics</b> class as a subclass of <b>AaxlReadOnlyAction</b> because it
+does not modify the model. Our action is applicable to all AADL model objects. If it is
+invoked on a declarative model object then the statistics of all the declarative model objects in
+the Eclipse workspace are computed. That is, all the declarative specifications, packages, and
+property sets in all the open projects will be analyzed. If the action is invoked on an instance
+model object then the statistics of the containing system instance only will be computed.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+first thing the action does is get the root object of the model containing the object <b>obj</b>
+passed to the action using the method <b>AObject.getAObjectRoot()</b>. This method returns an
+<b>AadlSpec</b>, <b>SystemInstance</b>, <b>AadlPackage</b>, or <b>PropertySet</b> object depending on
+whether
+the object is contained in an AADL specification, a system instance model, an AADL package
+definition, or an AADL property set definition, respectively. Our action attaches markers to
+this object.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+action next tries to get the <b>SystemInstance</b>, if any, that contains <b>obj</b> using
+<b>AObject.getSystemInstance()</b>. When <b>obj</b> comes from an instance model this is the same
+object as the model&#146;s root object. When <b>obj</b> comes from a declarative model, package
+declaration, or property set declaration this method returns <b>null</b>. Our use of this method
+is
+redundant: we could have performed a type test using <b>instanceof</b> on the object referenced by
+<b>root</b>. We include it here, however, for pedagogical purposes.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+action then creates a new <b>ModelStatistics</b> object. If the <b>si</b> is non-null we have
+a system
+instance so we compute the statistics of the instance model. Otherwise, we use the method
+<b>processPreOrderAllDeclarativeModels()</b> to analyze all the AADL specifications, property
+set declarations, and package declarations in the workspace. The <b>ModelStatistics</b> object
+now contains the counts of the various elements in the model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+mentioned above, we report the results using both Eclipse markers and a dialog box. To
+create a marker we simply invoke <b>reportInfo(AObject, String)</b>. This creates an  informative
+marker attached to the given model element with the given message. In this case we attach the
+results to the root model element. We create one marker for each category of model statistics.
+We can also create  warning and  error markers using the methods <b>reportWarning</b>
+and
+<b>reportError</b>. Creating and managing markers is further described in Section 8  Persistent
+Markers with AADL Models. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+we report the results in a dialog box. We use the Eclipse convenience method
+<b>openInformation(Shell, String, String)</b> in class <b>org.eclipse.jface.dialogs.MessageDialog</b>
+to create and display the modal dialog box. The first parameter is the shell to use as the parent
+of the dialog box; we get this using the method <b>AaxlReadOnlyAction.getShell()</b>. The
+second parameter is the title of the dialog box. The final parameter is the message to display.
+In our case, the message is our accumulated list of model statistics results, so we use
+<b>msg.toString()</b> to convert the string buffer into a string. In general, you are free to
+use SWT
+to build any kind of window or dialog box you would like to display the results. A description
+of how to do so is beyond the scope of this document. The <b>MessageDialog</b> class provides
+many additional convenience methods, e.g., <b>openError</b>, that are suitable for reporting various
+kinds of analysis results.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>package edu.cmu.sei.osate.statistics;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import org.eclipse.jface.dialogs.MessageDialog;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.core.AObject;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.instance.SystemInstance;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.osate.ui.actions.AaxlReadOnlyAction;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public class DoModelStatistics extends
+AaxlReadOnlyAction {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public void doAaxlAction(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // Get the root
+object of the model</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final AObject root
+= obj.getAObjectRoot();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // Get the system
+instance (if any)</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final SystemInstance
+si = obj.getSystemInstance();</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> /* Create a new
+model statistics analysis object. Run it over the</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> * instance
+model if it exists. Otherwise, run it over all the </b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> * declarative
+models in the workspace.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> */</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final ModelStatistics
+stats = new ModelStatistics();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (si != null)
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> stats.processPreOrderAll(si);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> stats.processPreOrderAllDeclarativeModels();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> /* Accumulate
+the results in a StringBuffer, but also report them</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> * using
+info markers attached to the root model object.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> */</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final StringBuffer
+msg = new StringBuffer();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (si != null)
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final
+String appStats = stats.getApplicationResult();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final
+String epStats = stats.getExecutionPlatformResult();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(root,
+appStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(root,
+epStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> msg.append(appStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> msg.append(epStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final
+String modelStats = stats.getModelResult();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final
+String flowStats = stats.getFlowResult();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(root,
+modelStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(root,
+flowStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> msg.append(modelStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> msg.append(flowStats);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // Also report the
+results using a message dialog</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> MessageDialog.openInformation(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+getShell(), &quot;Model Statistics&quot;, msg.toString());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

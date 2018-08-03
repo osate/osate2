@@ -1,0 +1,115 @@
+property set SEI is
+  -- property to support security level analysis
+  SecurityLevel: inherit aadlinteger  applies to (thread, thread group, process, system, virtual processor);
+  SafetyCriticality  : aadlinteger applies to (thread, thread group, process, system, virtual processor);
+  
+  -- property to support analysis of missrate propagation along flows
+  StreamMissRate: aadlreal  applies to (port);
+  
+  -- property to support weight analysis 
+  NetWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
+  GrossWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
+  WeightLimit: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
+  WeightUnits: type units (kg);
+
+  -- properties used in architecturee consistency checker that ensures
+  -- delta based information is communicated with guaranteed delivery
+
+  -- state data representation
+  StateRepresentation: SEI::StateRepresentationType applies to (data, port);
+  
+  -- State Representation types 
+  StateRepresentationType: type enumeration (State, StateDelta);
+  
+  -- types of protocol characteristics
+  ProtocolQoSType : type enumeration (GuaranteedDelivery, SecureDelivery, OrderedDelivery);
+  
+  -- Protocol characteristics
+  -- for connections it represent the desired QoS characteristics
+  ProtocolQoS: list of SEI::ProtocolQoSType applies to (system, bus, connection);
+
+  -- manual priority assignment for threeads
+--  Priority: aadlinteger  applies to (thread); now provided in the core standard
+
+
+  -- properties to support specification of partitions and latency analysis
+  -- The partition execution rate, specified through Partition_Latency, 
+  -- contributes to flow latency on cross-partition communication
+  Partition_Latency: Time applies to (system, process, virtual processor);
+  Is_Partition: aadlboolean  applies to (system, process, virtual processor);
+  
+  -- properties to support adjustment of execution time according to processor speed
+  -- time to execute one processor cycle
+  -- Used to convert execution time into processor cycles
+--   cycle_time: Time applies to (processor); Removed.
+-- XXX: MIPSCapacity provides speed in terms of instructions. 
+-- methods getInstructionExecutionTimeinUS(processor instance) [1/MIPSCapacity] and
+-- getInstructionExecutionTimeinSec(processor instance) [1/(MIPSCapacity*1e6)] provide the equivalent of cycle time
+-- people need distinction between instruction execution time and cycle time we can reintroduce the cycleperinstruction property
+
+  InstructionsPerDispatch: range of aadlreal  units SEI::InstructionVolumeUnits applies to (thread);
+  InstructionVolumeUnits: type units (IPD, KIPD => IPD * 1000,MIPD => KIPD * 1000);
+
+  -- The next set of properties are used in the resource budgeting plug-in
+  
+  -- number of instructions that can be executed on a processor (KIPS, MIPS, GIPS)
+  MIPSCapacity: aadlreal units SEI::Processor_Speed_Units applies to (processor, system);
+  -- number of instructions allocatetd to an application component as budget
+  -- devices may have need for execution of instructions to handle their drivers
+  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device, virtual processor);
+  -- RAM capacity of a platform component
+  RAMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  -- RAM budget of an application component.  Devices may have RAM need
+  RAMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- ROM capacity (a ROM memory component is recognized by the name of the component classifier including "ROM" in its name
+  ROMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  -- ROM budget by an application component
+  ROMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- capacity of a power source
+  PowerCapacity: aadlreal  units SEI::Power_Units applies to (bus, system, device, abstract);
+  -- power draw (demand) of a component
+  PowerBudget: aadlreal  units SEI::Power_Units applies to ( feature);
+  -- power supply by a component
+  PowerSupply: aadlreal  units SEI::Power_Units applies to ( feature);
+  -- capacity of a bus component for transfer of data
+  BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, system);
+  -- demand for data transfer by a connection
+  BandWidthBudget: aadlreal  units Data_Rate_Units applies to (connection, virtual bus);
+  -- actual RAM requirement by application component
+  -- This number may be supplied from a compiler when compiling the source
+  -- This number is related to the Source_Code_Size and Source_Data_Size properties
+  -- Those properties do not distinguish between RAM and ROM
+  RAMActual: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- actual ROM requirement by application component
+  ROMActual: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
+  -- Speed in terms of instructions executed per second
+  Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
+  -- Power units
+  Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
+  -- Data rate units : amount of data per second
+-- now defined in core  Data_Rate_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+  
+  -- Data_Rate in the SAVI context. From the original POC demo
+   Data_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
+   Message_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
+  
+  --  The next properties are used for the Value-Driven Incremental Development plug-in
+  nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 
+  vdid_inspect : aadlboolean applies to (system, process, abstract, thread, subprogram);
+  
+  Broadcast_Protocol : aadlboolean applies to (bus, virtual bus, system);
+  
+  Platform : aadlstring applies to (processor, virtual processor);
+
+  Price : aadlreal applies to (all);
+
+  Reference_Kind_Type      : type enumeration (any,exist,component,connection,behavior,unknown);
+  Model_Source_Type        : type enumeration (simulink,scade,geometry_stp,sysml);
+  
+  Model_Reference : type record (
+	Model_Type : SEI::Model_Source_Type;
+	Kind       : SEI::Reference_Kind_Type;
+	Filename   : aadlstring;
+	Artifact   : aadlstring;);
+  Model_References : list of SEI::Model_Reference applies to (all);
+end SEI;

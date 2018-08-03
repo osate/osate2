@@ -1,0 +1,29 @@
+package pkg1
+public
+	with EMV2;
+	
+	abstract a1
+		features
+			fg1: out feature group;
+			f1: out feature;
+		annex EMV2 {**
+			use types pkg1;
+			
+			error propagations
+				fg1: out propagation {type1};
+				f1: out propagation {type1};
+			end propagations;
+			
+			properties
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to fg1.type1;
+				EMV2::Hazards => ([CrossReference => "N/A";]) applies to f1.type1;
+		**};
+	end a1;
+	
+	annex EMV2 {**
+		error types
+			type1: type;
+			type2: type;
+		end types;
+	**};
+end pkg1;

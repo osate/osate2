@@ -1,0 +1,37 @@
+package FeatureGroupTest
+public
+
+	feature group ParentGroup
+	features
+		NestedOutputGroup: feature group OutputGroup;
+	end ParentGroup;
+
+	feature group OutputGroup
+	features
+		Out1: out data port;
+	end OutputGroup;
+
+	system Sys1
+	features
+		PG: feature group ParentGroup;
+	end Sys1;
+
+	system Sys2
+	features
+		PG: feature group inverse of ParentGroup;
+		OutputGroup: in feature group inverse of OutputGroup;
+	end Sys2;
+
+	system Main
+	end Main;
+
+	system implementation Main.impl
+	subcomponents
+		Sys1: system Sys1;
+		Sys2: system Sys2;
+	connections
+		C1: feature group Sys1.PG.NestedOutputGroup -> Sys2.PG.NestedOutputGroup; -- good
+		C2: feature group Sys1.PG.NestedOutputGroup -> Sys2.OutputGroup; -- bad
+	end Main.impl;
+
+end FeatureGroupTest;

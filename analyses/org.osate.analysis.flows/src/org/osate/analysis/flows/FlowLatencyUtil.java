@@ -3,21 +3,36 @@ package org.osate.analysis.flows;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
+import org.osate.analysis.flows.model.LatencyReport;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
+import org.osate.result.AnalysisResult;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -230,25 +245,14 @@ public class FlowLatencyUtil {
 
 
 	/**
-	 * find virtual processor with a period or ARINC653 partition (bound to processor with ARINC653 major frame)
+	 * Return first virtual processor. Usually processes are only assigned to one VP.
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition
 	 */
 	public static ComponentInstance getPartition(ComponentInstance componentInstance) {
 		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
 		for (ComponentInstance vproc : vprocessors) {
-			Collection<ComponentInstance> procs = InstanceModelUtil.getBoundPhysicalProcessors(vproc);
-			for (ComponentInstance proc : procs) {
-				if (GetProperties.hasAssignedPropertyValue(proc, "ARINC653::Module_Major_Frame")) {
-					return vproc;
-				}
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "Period")) {
-				return vproc;
-			}
-			if (GetProperties.hasAssignedPropertyValue(vproc, "ARINC653::Module_Major_Frame")) {
-				return vproc;
-			}
+			return vproc;
 		}
 		return null;
 	}
@@ -328,12 +332,12 @@ public class FlowLatencyUtil {
 	 * return the offset of the partition start time relative to the major frame
 	 * utilizes the window schedule of the module for the partition
 	 * @param partition This can be a virtual processor representing a partition or a component instance tagged with SEI properties
-	 * @return offset or -1 if no schedule, no virtual processor as ARINC653 partition, or no processor.
+	 * @return offset, no virtual processor as ARINC653 partition, or no processor.
 	 */
 	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		double res = 0.0;
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return -1;
+			return res;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
@@ -342,7 +346,19 @@ public class FlowLatencyUtil {
 
 			res = res + window.getTime();
 		}
-		return 0;
+		return 0.0;
+	}
+
+	public static boolean isInSchedule(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+		if (schedule == null) {
+			return true;
+		}
+		for (ARINC653ScheduleWindow window : schedule) {
+			if (window.getPartition() == partition) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -355,18 +371,15 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-			double wcet = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(partition);
-			if (wcet > 0) {
-				return wcet;
-			}
-			return -1;
+			double wcet = GetProperties.getExecutionTimeInMS(partition);
+			return wcet;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
 			if (window.getPartition() == partition) {
 				return window.getTime();
 			}
 		}
-		return -1;
+		return 0;
 	}
 
 	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
@@ -463,5 +476,114 @@ public class FlowLatencyUtil {
 		}
 		return res;
 	}
+
+	public static void saveAnalysisResult(AnalysisResult results, String postfix) {
+		EObject root = results.getSourceReference();
+		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
+		String rootname = rootURI.lastSegment();
+		URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment("latency")
+				.appendSegment(rootname + "__latency_" + postfix + ".result");
+		AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
+		OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+
+	}
+
+	public static String getParametersAsLabels(LatencyReport latrep) {
+		return getSynchronousSystemLabel(latrep) + "-" + getMajorFrameDelayLabel(latrep) + "-"
+				+ getWorstCaseDeadlineLabel(latrep) + "-" + getBestcaseEmptyQueueLabel(latrep);
+	}
+
+	public static String getSynchronousSystemLabel(LatencyReport latrep) {
+		return latrep.isSynchronousSystem() ? "SS" : "AS";
+	}
+
+	public static String getMajorFrameDelayLabel(LatencyReport latrep) {
+		return latrep.isMajorFrameDelay() ? "MF" : "PE";
+	}
+
+	public static String getWorstCaseDeadlineLabel(LatencyReport latrep) {
+		return latrep.isWorstCaseDeadline() ? "DL" : "ET";
+	}
+
+	public static String getBestcaseEmptyQueueLabel(LatencyReport latrep) {
+		return latrep.isBestcaseEmptyQueue() ? "EQ" : "FQ";
+	}
+
+
+	public static String getSynchronousSystemDescription(String label) {
+		return label.contentEquals("SS") ? "synchronous system" : "asynchronous system";
+	}
+
+	public static String getMajorFrameDelayDescription(String label) {
+		return label.contentEquals("MF") ? "major partition frame" : "partition end";
+	}
+
+	public static String getWorstCaseDeadlineDescription(String label) {
+		return label.contentEquals("DL") ? "worst case as deadline" : "worst case as max compute execution time";
+	}
+
+	public static String getBestcaseEmptyQueueDescription(String label) {
+		return label.contentEquals("EQ") ? "best case as empty queue"
+				: "best case as full queue min compute execution time";
+	}
+
+
+	public static String getParametersAsDescriptions(String paramLabels) {
+		return getSynchronousSystemDescription(paramLabels.substring(0, 1)) + "/"
+				+ getMajorFrameDelayDescription(paramLabels.substring(3, 4)) + "/"
+				+ getWorstCaseDeadlineDescription(paramLabels.substring(6, 7)) + "/"
+				+ getBestcaseEmptyQueueDescription(paramLabels.substring(9, 10));
+	}
+
+	public static String getContributorType(EObject relatedElement) {
+		if (relatedElement instanceof ComponentInstance) {
+			ComponentInstance relatedComponentInstance = (ComponentInstance) relatedElement;
+			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+				return "protocol";
+			}
+			if (relatedComponentInstance.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
+				return "partition";
+			}
+			return relatedComponentInstance.getCategory().getName();
+		}
+		if (relatedElement instanceof VirtualBus) {
+			return "protocol";
+		}
+		if (relatedElement instanceof ComponentClassifier) {
+			ComponentType relatedComponentType = (ComponentType) relatedElement;
+			return relatedComponentType.getCategory().getName();
+		}
+		if (relatedElement instanceof ConnectionInstance) {
+			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.DELAYED) {
+				return "delayed connection";
+			}
+			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.IMMEDIATE) {
+				return "immediate connection";
+			}
+			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.SAMPLED) {
+				return "connection";
+			}
+			return "connection";
+		}
+		return "component";
+	}
+
+	public static String getFullComponentContributorName(EObject relatedElement) {
+		if (relatedElement instanceof ConnectionInstance) {
+			return ((ConnectionInstance) relatedElement).getName();
+		} else if (relatedElement instanceof InstanceObject) {
+			return ((InstanceObject) relatedElement).getComponentInstancePath();
+		}
+		return "";
+	}
+
+	public static void saveAsSpreadSheets(LatencyReport latreport) {
+		Report report = latreport.export();
+		CsvExport csvExport = new CsvExport(report);
+		csvExport.save();
+		ExcelExport excelExport = new ExcelExport(report);
+		excelExport.save();
+	}
+
 
 }

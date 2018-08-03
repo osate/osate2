@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Category-Specific Containment and Ordering</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.6 Category-Specific Containment and Ordering
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ComponentExtensionandRefinement.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="Features.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic14"></a>
+          <span class=outlineNumberFirst>4.6 </span><span class=topicLineFirst>Category-Specific Containment and Ordering</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>AADL specifications, as well as public and private package 
+sections, contain category-specific 
+component classifiers (see Figure 17). The component category specific <i>Features</i> subclasses 
+contain <i>Feature</i> subclasses representing data, event, and event data ports, port groups, 
+parameters, data access, and bus access features (see Figure 21).&#160; The <i>Connections</i> class 
+contains Connection subclasses that are specific to feature subclasses (see Figure 23).&#160; The 
+<i>FlowSpecs</i> class contains <i>FlowSpec</i> subclasses that reflect flow sources, flow sinks, and 
+flow 
+paths (see Figure 26).&#160; Similarly, the <i>FlowSequence</i> class contains subclasses for flow source, 
+sink, and path implementations, and for end-to-end flows.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>These containments are represented by containment associations 
+to the specific subclasses with 
+the association name reflecting the subclass name.&#160; This results in XML element tags that 
+correspond to the subclass name.&#160; These associations are specializations of a containment 
+association defined between the container, e.g., the <i>AadlSpec</i> class, and the abstract super class 
+of the contained classes, e.g., the <i>Classifier</i> class in Figure 32.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>By default the contained objects are stored in an XML 
+document grouped by their specialized 
+containment associations.&#160; This does not maintain the declaration order found in a textual AADL 
+model.&#160; An Ecore FeatureMap concept has been used to specify a desired containment ordering 
+across all contained elements of specialized containment associations independent of their 
+subclass.&#160;&#160; The result is an XML document with XML elements stored in the declaration order 
+across the specializations and use of the XML element tags of the concrete subclasses.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

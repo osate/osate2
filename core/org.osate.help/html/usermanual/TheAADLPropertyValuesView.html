@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The “AADL Property Values” View</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLObjectEditor.html">7. The AADL Object Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.7 The “AADL Property Values” View
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="GeneratingTextualAADL.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheAADLGraphicalEditor.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic51"></a>
+          <span class=outlineNumberFirst>7.7 </span><span class=topicLineFirst>The “AADL Property Values” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The “AADL Property Values” view both displays the property associations that apply to the 
+currently selected AADL model object, and allows the property associations to be modified. 
+Generally, the view displays the property associations that apply to the selected model object. 
+The view features a context menu that can be used to create new associations or edit existing 
+ones.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic52"></a>
+          <span class=outlineNumber>7.7.1 </span><span class=topicLine>Viewing Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The view displays all property associations for the currently selected model object organized by 
+property set.  The list is pre-filtered to only show those properties that apply to select object, 
+e.g., if the selected object is a system implementation, properties that apply only to connections 
+are not shown.  Additionally, by default those properties that are undefined for the current 
+object are hidden; they can be displayed by toggling the “Show undefined properties” button 
+(</span></font><span><img src="NotesImages/Topic52NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) on the view’s toolbar.   </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic52NotesImage3.jpg" align="bottom" width="340" height="437" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 24: Examining the property associations for the system implementation &quot;S.I2&quot;.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Figure 24 shows the contents of the “AADL Property Values” view when the system 
+implementation “S.I2” is selected.  Property sets, marked with a </span></font><span><img src="NotesImages/Topic52NotesImage5.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, are the root node of the 
+display.  Properties are the children of property sets, and are marked with either a </span></font><span><img src="NotesImages/Topic52NotesImage6.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> or a </span></font><span><img src="NotesImages/Topic52NotesImage7.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> 
+to indicate that the value is a list or a scalar, respectively.  Property associations whose value 
+have an additional level in the tree: the values are listed marked by a </span></font><span><img src="NotesImages/Topic52NotesImage8.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and the modes in which 
+they apply; see the values for </span></font><font face="Courier New" color="#010101"><span>FunnyModes_PS::p</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> in Figure 24.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Hovering the mouse pointer over a property association in the view reveals a tool tip that 
+describes where the property association is defined:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">“Property exists locally.”  The property association is declared in the currently selected 
+object.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">“Property taking default value.”  The value declared as the property’s default value is 
+being used because there are no explicit property associations for the property that 
+apply to the selected model object.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">“Inherits from <i>name</i> in <i>file</i>.”  The property association is declared in the named object 
+in the given model file.  In this case, the context menu on the property association 
+contains the command “Open Super Implementation” that causes the editor to (1) open 
+the file, (2) select the named object, and (3) select the declaring property association in 
+the “AADL Property Values” 
+value.</span></font><span><img src="NotesImages/Topic52NotesImage12.jpg" align="bottom" width="568" height="125" border="0" alt="graphic" /></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic53"></a>
+          <span class=outlineNumber>7.7.2 </span><span class=topicLine>Adding a New Property Association</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To add a new property association for the currently selected model object, click on the “New 
+Property Association” button (</span></font><span><img src="NotesImages/Topic53NotesImage2.gif" align="bottom" width="15" height="15" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) on the view’s toolbar.  This brings up a dialog box, shown in 
+Figure 25, that lets you configure the new property association.  The dialog box allows you to 
+create a new property association graphically.  All the functionality of a textual declaration of a 
+property association is present in this dialog.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic53NotesImage3.jpg" align="bottom" width="484" height="309" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 25: The &quot;New Property Association&quot; dialog box.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The dialog provides a list of property definitions that are applicable to the selected AADL 
+Object.  The definitions are organized in a tree by property set.  Each definition displays its 
+property type as its tool tip.  If the chosen definition is a list type, you have the option to assign 
+(=&gt;) or append (+=&gt;).  The </span></font><font face="Courier New" color="#010101"><span>access</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> attribute of the new property association is automatically 
+set based on the selected AADL Object.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The existence and nature of the modes list in the dialog box is dependant on the selected 
+AADL Object.  The list is displayed only if the object contains modes</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If the selected object is part of a declarative model, the listed modes are the modes 
+declared in that object and in its ancestors, if the object is a component implementation.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If the selected object is part of an instance model, the list modes are the system 
+operation modes of the instance model.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The property value is entered in the “Value in AADL syntax” field.  The value must be correct 
+textual aadl.  When you click “OK,” your selections are checked and you will be notified if 
+there are any errors in the provided value.  The new property association is created only if the 
+selections are correct and the provided value is syntactically correct.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For example, if you wanted to create a new property association equivalent to</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#010101"><span>Examples::string_prop =&gt; &quot;Test String Value&quot; in modes (S123, S134);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">you would want to set up the dialog like this:</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic53NotesImage8.jpg" align="bottom" width="484" height="309" border="0" alt="graphic" /></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">You can also create a new property association by selected “New Property Association” in the 
+view’s context menu.  Different fields might be pre-selected depending on what is selected in 
+the view.  If a property set is selected, then in the dialog the property set is expanded and 
+selected.  If an undefined property for a specific mode is selected, then the definition and mode 
+are pre-selected.  If any other type of property is selected in the view, then the definition of that 
+property is pre-selected.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic54"></a>
+          <span class=outlineNumber>7.7.3 </span><span class=topicLine>Modifying Existing Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Existing property associations can be modified or overridden using options in the context menu. 
+ An existing “locally declared” property association can be modified by using the “Modify 
+Property Association” command in the context menu.  The “New Property Association” dialog 
+box is opened with all the options pre-selected based on the existing property association. You 
+can make any changes you want and click OK to modify the association.  As with creating a 
+new association, if there are any errors with your new selections or values, the modification will 
+not proceed.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Similarly, when the property is currently receiving the default value, the context menu contains a 
+“Set Value” command that opens the </span></font><font color="#010101" size="3"><span style="font-size:12pt"><b><i>“</i></b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">New Property Association” dialog box with as many 
+fields pre-selected as possible.  This command creates a new local property association for the 
+selected property.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When the property value is being inherited from a property association in another model object, 
+the command “Override Inherited Property” appears in the context menu instead.  Again, the 
+“New Property Association” dialog box opens and its values are pre-set based on the property 
+association that provides the value.  Successful execution of this command creates a new local 
+property association in the current model object.  If you want to modify the original property 
+association, first use “Open Super Implementation” and then invoke “Modify Property 
+Association.”</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic55"></a>
+          <span class=outlineNumber></span><span class=topicLine>Modifying Modal Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The “AADL Property Values” view displays property associations by individual mode even 
+though a particular property association may apply for several modes.  This means that when a 
+modal property value (that is, one marked with a </span></font><span><img src="NotesImages/Topic55NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) is selected for modification, the 
+modification can affect the values of the property in other modes.  In particular, when a modal 
+value is modified, the “Modes” segment of the “New Property Association” dialog box pre- 
+selects those modes that are named in the “in modes” clause of the property association being 
+modified.  Thus changes to the property value will affect the value for all selected modes. 
+Furthermore, altering the set of selected modes changes the modes in the “in modes” clause of 
+the property association.  If this set of modes overlaps with modes named in other local 
+property associations for the same property, the modes are removed from the <i>other</i> property 
+associations.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic56"></a>
+          <span class=outlineNumber>7.7.4 </span><span class=topicLine>Removing Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When the property association is local, the context menu contains the command “Delete 
+Property Association.”  As expected, this command removes the property association from the 
+model object.  Because a property association with an “in modes” clause can name more than 
+mode, applying this command to a modal property association can have unexpected result: the 
+command removes the entire property association that provides the value, and thus also 
+removes the property association for <i>all</i> the modes named in that property association’s “in 
+mode” clause.  If you just want to delete the association for the single mode, use the “Remove 
+Mode from Property Association” command in the context menu.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To quickly remove all property definitions for all modes of a property value, use the “Remove 
+all Property Associations” command that is available when the property name itself is the target 
+of the context menu.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

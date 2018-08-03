@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.flows.preferences.Values;
+import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.result.Result;
+import org.osate.result.AnalysisResult;
 import org.osate.result.util.ResultUtil;
 
 /**
@@ -16,14 +15,16 @@ import org.osate.result.util.ResultUtil;
  * produced by the latency analysis. It contains several
  * LatencyReportEntry, each one representing
  * an end to end flow latency.
- *
- * @author julien
- *
  */
 public class LatencyReport {
 	private List<LatencyReportEntry> entries;
 	private String name;
 	private SystemInstance relatedInstance;
+
+	private boolean synchronousSystem = false; // AS default
+	private boolean majorFrameDelay = true; // MF default
+	private boolean worstCaseDeadline = true; // DL default
+	private boolean bestCaseEmptyQueue = true; // EQ default
 
 	public LatencyReport(SystemInstance si) {
 		this.relatedInstance = si;
@@ -51,40 +52,59 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
-	public String getPreferencesSuffix() {
-		return Values.getSynchronousSystemLabel() + "-" + Values.getMajorFrameDelayLabel() + "-"
-				+ Values.getWorstCaseDeadlineLabel() + "-" + Values.getBestcaseEmptyQueueLabel();
+	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		this.synchronousSystem = !asynchronousSystem; // note switch from async to sync
+		this.majorFrameDelay = majorFrameDelay;
+		this.worstCaseDeadline = worstCaseDeadline;
+		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
 	}
 
-	public String getPreferencesDescription() {
-		return "with preference settings: " + Values.getSynchronousSystemDescription() + "/"
-				+ Values.getMajorFrameDelayDescription() + "/" + Values.getWorstCaseDeadlineDescription() + "/"
-				+ Values.getBestcaseEmptyQueueDescription();
+	public boolean isSynchronousSystem() {
+		return this.synchronousSystem;
 	}
 
-	public Report export(AnalysisErrorReporterManager errMgr) {
+	public boolean isMajorFrameDelay() {
+		return this.majorFrameDelay;
+	}
+
+	public boolean isWorstCaseDeadline() {
+		return this.worstCaseDeadline;
+	}
+
+	public boolean isBestcaseEmptyQueue() {
+		return this.bestCaseEmptyQueue;
+	}
+
+	public String getParametersAsDescriptions() {
+		return "with preference settings: "
+				+ FlowLatencyUtil.getParametersAsDescriptions(FlowLatencyUtil.getParametersAsLabels(this));
+	}
+
+	public AnalysisResult genResult() {
+
+		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
+				this.relatedInstance);
+		latencyReports.setAnalysis("Latency analysis");
+		latencyReports.setInfo(FlowLatencyUtil.getParametersAsLabels(this));
+		latencyReports.setSourceReference(getRootinstance());
+		for (LatencyReportEntry re : entries) {
+			latencyReports.getResults().add(re.genResult());
+		}
+		return latencyReports;
+	}
+
+	public Report export() {
 		Report genericReport;
 
-		genericReport = new Report(this.relatedInstance, "latency", "latency_" + getPreferencesSuffix(),
-				ReportType.TABLE);
-		genericReport.setTextContent("Latency analysis " + getPreferencesDescription());
+		genericReport = new Report(this.relatedInstance, "latency",
+				"latency_" + FlowLatencyUtil.getParametersAsLabels(this), ReportType.TABLE);
+		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());
-			re.generateMarkers(errMgr);
 		}
 
 		return genericReport;
 	}
 
-	public Result genResult() {
-
-		Result latencyReports = ResultUtil.createResult(this.name,
-				this.relatedInstance);
-		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setSource(getPreferencesDescription());
-		for (LatencyReportEntry re : entries) {
-			latencyReports.getSubResults().add(re.genResult());
-		}
-		return latencyReports;
-	}
 }

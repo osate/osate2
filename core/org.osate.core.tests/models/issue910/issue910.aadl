@@ -1,0 +1,12 @@
+package Issue910
+public
+	subprogram sp
+		features
+			e1: in event port;
+			e2: out event port;
+			e3: in out event port;
+			ed1: in event data port;
+			ed2: out event data port;
+			ed3: in out event data port;
+	end sp;
+end Issue910;

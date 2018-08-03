@@ -1,0 +1,83 @@
+package BadAccessConnections
+public
+	system Sys1
+	features
+		B1: provides bus access;
+		D1: provides data access;
+		S1: provides subprogram access;
+		SG1: provides subprogram group access;
+		VB1: provides virtual bus access;	
+	end Sys1;
+
+	system implementation Sys1.impl
+	subcomponents	
+		Bus1: bus;
+		Bus2: bus;
+		
+		Data1: data;
+		Data2: data;
+		
+		Sub1: subprogram;
+		Sub2: subprogram;
+		
+		SubG1: subprogram group;
+		SubG2: subprogram group;
+		
+		VBus1: virtual bus;
+		VBus2: virtual bus;
+		
+		SubSystem: system Sys2.impl;
+
+	connections
+		-- internal connections: bus subcomponent to bus subcomponent
+		-- These should be bad, although there is no explicit rule in AS5506B that states this
+		bad1: bus access Bus1 -> Bus2;
+		bad2: data access Data1 -> Data2;
+		bad3: subprogram access Sub1 -> Sub2;
+		bad4: subprogram group access SubG1 -> SubG2;
+		bad5: virtual bus access VBus1 -> VBus2;
+				
+		-- inward connections: bus to requires features
+		r1: bus access Bus2 -> SubSystem.B1;
+		r2: data access Data2 -> SubSystem.D1;
+		r3: subprogram access Sub2 -> SubSystem.S1;
+		r4: subprogram group access SubG2 -> SubSystem.SG1;
+		r5: virtual bus access VBus2 -> SubSystem.VB1;
+		
+		-- external connections: bus to provides features
+		p1: bus access Bus1 -> B1;
+		p2: data access Data1 -> D1;
+		p3: subprogram access Sub1 -> S1;
+		p4: subprogram group access SubG1 -> SG1;
+		p5: virtual bus access VBus1 -> VB1;
+	end Sys1.impl;
+
+	system Sys2
+	features
+		B1: requires bus access;
+		D1: requires data access;
+		S1: requires subprogram access;
+		SG1: requires subprogram group access;
+		VB1: requires virtual bus access;	
+	end Sys2;
+	
+	system implementation Sys2.impl
+	end Sys2.impl;
+	
+	system Sys3
+	end Sys3;
+	
+	system implementation Sys3.impl
+	subcomponents
+		s1: system Sys1.impl;
+		s2: system Sys2.impl;
+		
+	connections
+		-- Connect provides to requires features
+		pToR1: bus access s1.B1 -> s2.B1;
+		pToR2: data access s1.D1 -> s2.D1;
+		pToR3: subprogram access s1.S1 -> s2.S1;
+		pToR4: subprogram group access s1.SG1 -> s2.SG1;
+		pToR5: virtual bus access s1.VB1 -> s2.VB1;
+	end Sys3.impl;
+end BadAccessConnections;
