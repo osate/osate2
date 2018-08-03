@@ -1,5 +1,7 @@
 package org.osate.ge.tests;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -31,6 +33,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
@@ -40,7 +43,10 @@ import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefConnectionEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
@@ -59,18 +65,24 @@ import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.impl.AbstractTypeImpl;
 import org.osate.aadl2.impl.NamedElementImpl;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
+import org.osate.ge.internal.ui.dialogs.CreateDiagramComposite;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class AgeGefBot {
 	public static class AgeSWTBotGefEditor extends SWTBotGefEditor {
+		private final AgeGefBot ageBot;
 		private final Set<SWTBotGefConnectionEditPart> connectionEditParts = new HashSet<>();
 
-		public AgeSWTBotGefEditor(final IEditorReference reference, final SWTWorkbenchBot bot)
+		public AgeSWTBotGefEditor(final IEditorReference reference, final AgeGefBot ageBot,
+				final SWTWorkbenchBot bot)
 				throws WidgetNotFoundException {
 			super(reference, bot);
+			this.ageBot = Objects.requireNonNull(ageBot, "ageBot must not be null");
 		}
 
 		// Find all connections of editor
@@ -123,12 +135,75 @@ public class AgeGefBot {
 				}
 			}
 		};
+
+		// Sets focus to the current editor and searches for a specified diagram element.
+		public AgeDiagramElementBot element(final String... editPartPath) {
+			setFocus();
+			final SWTBotGefEditPart swtBotGefEditPart = ageBot.findEditPart(this, editPartPath);
+			return new AgeDiagramElementBot(this, swtBotGefEditPart);
+		}
+
+		private AgeGefBot getAgeBot() {
+			return ageBot;
+		}
+	}
+
+	public static class AgeDiagramElementBot {
+		private final AgeSWTBotGefEditor editorBot;
+		private final SWTBotGefEditPart gefEditPartBot;
+
+		private AgeDiagramElementBot(final AgeSWTBotGefEditor editorBot, final SWTBotGefEditPart gefEditPartBot) {
+			this.editorBot = Objects.requireNonNull(editorBot, "editorBot must not be null");
+			this.gefEditPartBot = Objects.requireNonNull(gefEditPartBot, "gefEditPartBot must not be null");
+		}
+
+		public void select() {
+			editorBot.click(gefEditPartBot);
+			editorBot.select(gefEditPartBot);
+		}
+
+		public void createChild(final String paletteEntryName, final String name, final Point position) {
+			select();
+			editorBot.getAgeBot().createToolItemAndRename(editorBot, paletteEntryName, position, name, gefEditPartBot);
+		}
+
+		public void resize(final int width, final int height) {
+			select();
+			gefEditPartBot.resize(PositionConstants.SOUTH_WEST, width, height);
+		}
+
+		public DiagramElement getDiagramElement() {
+			final DiagramElement de = UIThreadRunnable.syncExec((Result<DiagramElement>) () -> {
+				final PictogramElement pe = (PictogramElement)gefEditPartBot.part().getModel();
+				final AgeDiagramEditor editor = (AgeDiagramEditor)editorBot.getReference().getEditor(true);
+				return editor.getGraphitiAgeDiagram().getDiagramElement(pe);
+			});
+
+			assertNotNull("Unable to retrieve diagram element", de);
+			return de;
+		}
+
+		public AgeSWTBotGefEditor openNewDiagram(final String name, final String diagramTypeLabel) {
+			select();
+			editorBot.clickContextMenu("New Diagram...");
+
+			final SWTBot createDiagramBot = editorBot.bot().shell("Create Diagram").activate().bot();
+
+			createDiagramBot.textWithId(CreateDiagramComposite.WIDGET_ID_NAME).setText(name);
+			createDiagramBot.comboBoxWithId(CreateDiagramComposite.WIDGET_ID_TYPE).setSelection(diagramTypeLabel);
+
+			createDiagramBot.button("OK").click();
+
+			return editorBot.getAgeBot().getEditor(name);
+		}
 	}
 
 	private static class AgeSWTGefBot extends SWTGefBot {
+		private final AgeGefBot ageBot;
 		private final Robot robot;
 
-		public AgeSWTGefBot() {
+		public AgeSWTGefBot(final AgeGefBot ageBot) {
+			this.ageBot = Objects.requireNonNull(ageBot, "ageBot must not be null");
 			robot = Objects.requireNonNull(getRobot(), "Robot cannot be null.");
 			robot.setAutoDelay(700);
 		}
@@ -144,7 +219,7 @@ public class AgeGefBot {
 
 		@Override
 		protected SWTBotGefEditor createEditor(final IEditorReference reference, final SWTWorkbenchBot bot) {
-			return new AgeSWTBotGefEditor(reference, bot);
+			return new AgeSWTBotGefEditor(reference, ageBot, bot);
 		}
 
 		@Override
@@ -183,14 +258,14 @@ public class AgeGefBot {
 		}
 	}
 
-	private final AgeSWTGefBot bot = new AgeSWTGefBot();
+	private final AgeSWTGefBot bot = new AgeSWTGefBot(this);
 	// Context menu options
 	final public static String associatedDiagram = "Associated Diagram";
 	final public static String allFilters = "All Filters";
 
-	public void createNewProjectAndPackage(final String projectName, final String packageName) {
-		SWTBotPreferences.TIMEOUT = 15000;
-		closeWelcomePage();
+	public void createNewProject(final String projectName) {
+		ensureReadyToTest();
+
 		// Create project
 		bot.menu("Other...", true).click();
 		bot.tree().getTreeItem("AADL").expand().getNode("AADL Project").click();
@@ -202,15 +277,24 @@ public class AgeGefBot {
 			// Open AADL Perspective Dialog
 			bot.button("Open Perspective").click();
 		}
+	}
 
-		// Create AADL Package
-		createAADLPackage(projectName, packageName);
+	// Creates and new project and package. Closes the diagram and opens the text editor.
+	public void createNewProjectAndPackage(final String projectName, final String packageName) {
+		ensureReadyToTest();
+		createNewProject(projectName);
 
-		// Close editor for open test
-		bot.gefEditor(packageName + ".aadl_diagram").close();
+		// Create AADL Package and close the diagram
+		createAADLPackage(projectName, packageName).close();
 
 		bot.tree().expandNode(new String[] { projectName }).getNode(packageName + ".aadl").click();
 		bot.tree().contextMenu("Open").click();
+	}
+
+	// Closes the welcome page if it is open and configures SWTBot
+	private void ensureReadyToTest() {
+		SWTBotPreferences.TIMEOUT = 5000;
+		closeWelcomePage();
 	}
 
 	// Close welcome page if necessary
@@ -222,12 +306,14 @@ public class AgeGefBot {
 		}
 	}
 
-	public void createAADLPackage(final String projectName, final String packageName) {
+	// Create a new package and diagram and opens the graphical editor.
+	public AgeSWTBotGefEditor createAADLPackage(final String projectName, final String packageName) {
 		bot.tree().select(projectName).contextMenu("AADL Package").click();
 		bot.text().setText(packageName);
 		clickRadio("Diagram Editor");
 		clickButton("Finish");
 		clickButton("OK");
+		return bot.gefEditor(packageName + ".aadl_diagram");
 	}
 
 	public void clickButton(final String text) {
@@ -243,7 +329,7 @@ public class AgeGefBot {
 	}
 
 	// Create an implementation when a type already exists
-	public void createImplementation(final SWTBotGefEditor editor, final String toolType, final String typeName,
+	public void createImplementation(final AgeSWTBotGefEditor editor, final String toolType, final String typeName,
 			final String elementName, final Point point, final String... parentName) {
 		editor.setFocus();
 		createToolItem(editor, toolType, point, parentName);
@@ -270,6 +356,10 @@ public class AgeGefBot {
 		bot.waitUntil(Conditions.shellCloses(shell));
 	}
 
+	public void openDiagram(final String projectName, final String fileName) {
+		openDiagram(new String[] { projectName }, fileName);
+	}
+
 	public void openDiagram(final String[] nodePath, final String fileName) {
 		bot.tree().expandNode(nodePath).getNode(fileName + ".aadl").click();
 		bot.tree().contextMenu("Open Diagram").click();
@@ -287,15 +377,20 @@ public class AgeGefBot {
 		bot.waitUntil(org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses(shell));
 	}
 
-	public void createToolItem(final SWTBotGefEditor editor, final String toolItem, final Point creationCoor,
+	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point creationCoor,
 			final String... editPartPath) {
 		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
+		createToolItem(editor, toolItem, creationCoor, parent);
+	}
+
+	public void createToolItem(final AgeSWTBotGefEditor editor, final String toolItem, final Point creationCoor,
+			final SWTBotGefEditPart parent) {
 		editor.setFocus();
 		mouseSelectElement(editor, parent);
 		editor.activateTool(toolItem);
 		final Rectangle rect = ((GraphitiShapeEditPart) parent.part()).getFigure().getBounds();
 		// Scrollbar selections: Point(Vertical, Horizontal)
-		final java.awt.Point scrollbarValues = getScrollBarValues(editor, creationCoor);
+		final java.awt.Point scrollbarValues = scrollToPosition(editor, creationCoor);
 		editor.click(rect.x + creationCoor.x - scrollbarValues.x, rect.y + creationCoor.y - scrollbarValues.y);
 		editor.activateDefaultTool();
 	}
@@ -306,52 +401,73 @@ public class AgeGefBot {
 	 * @param creationCoor new element location
 	 * @return current vertical and horizontal scroll bar values
 	 */
-	private java.awt.Point getScrollBarValues(final SWTBotGefEditor editor, final Point creationCoor) {
+	private java.awt.Point scrollToPosition(final SWTBotGefEditor editor, final Point creationCoor) {
 		final java.awt.Point scrollbarValues = new java.awt.Point();
 		editor.setFocus();
 		final Display display = editor.getWidget().getDisplay();
 		display.syncExec(() -> {
 			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+			final ScrollBar horizontalScrollBar = canvas.getHorizontalBar();
+			if (horizontalScrollBar.getVisible()) {
+				clickScrollBar(display, canvas, horizontalScrollBar, creationCoor.x);
+			}
 
-			canvas.getHorizontalBar().setSelection(creationCoor.x);
-			canvas.getVerticalBar().setSelection(creationCoor.y);
+			final ScrollBar verticalScrollBar = canvas.getVerticalBar();
+			if (verticalScrollBar.getVisible()) {
+				clickScrollBar(display, canvas, verticalScrollBar, creationCoor.y);
+			}
 
-			final org.eclipse.swt.graphics.Rectangle horizontalBar = canvas.getHorizontalBar().getThumbBounds();
-			final org.eclipse.swt.graphics.Rectangle verticalBar = canvas.getVerticalBar().getThumbBounds();
-
-			Point point = display.map(canvas, null, horizontalBar.x,
-					horizontalBar.y);
-
-			// Click scroll bars for refresh of viewport
-			bot.setAutoDelay(700);
-			bot.mouseLeftClick(point.x, point.y);
-
-			point = display.map(canvas, null, verticalBar.x, verticalBar.y);
-			bot.mouseLeftClick(point.x, point.y);
-
-			scrollbarValues.x = canvas.getHorizontalBar().getSelection();
-			scrollbarValues.y = canvas.getVerticalBar().getSelection();
+			scrollbarValues.x = horizontalScrollBar.getSelection();
+			scrollbarValues.y = verticalScrollBar.getSelection();
 		});
 
 		return scrollbarValues;
 	}
 
+	private void clickScrollBar(final Display display, final FigureCanvas canvas, final ScrollBar scrollBar,
+			final int axisValue) {
+		// Set new scrollbar value
+		scrollBar.setSelection(axisValue);
+
+		// Get scrollbar screen position
+		final org.eclipse.swt.graphics.Rectangle scrollBarBounds = scrollBar.getThumbBounds();
+		final Point scrollBarPosition = display.map(canvas, null, scrollBarBounds.x, scrollBarBounds.y);
+
+		// Click scroll bar for refresh of viewport
+		bot.setAutoDelay(700);
+		bot.mouseLeftClick(scrollBarPosition.x, scrollBarPosition.y);
+	}
+
 	public void createToolItemAndRename(final AgeSWTBotGefEditor editor, final Class<?> clazz, final Point p,
 			final String newName, final String... editPathPath) {
+		createToolItemAndRename(editor, ToolTypes.getToolItem(clazz), p, newName, editPathPath);
+	}
+
+	public void createToolItemAndRename(final AgeSWTBotGefEditor editor, String paletteEntryName, final Point p,
+			final String newName, final String... editElementPath) {
 		final SWTBotGefEditPart editPart = editor
-				.editParts(new FindEditPart(getAgeFeatureProvider(editor), editPathPath)).get(0);
+				.editParts(new FindEditPart(getAgeFeatureProvider(editor), editElementPath)).get(0);
+		createToolItemAndRename(editor, paletteEntryName, p, newName, editPart);
+	}
+
+	public void createToolItemAndRename(final AgeSWTBotGefEditor editor, String paletteEntryName, final Point p,
+			final String newName, SWTBotGefEditPart editPart) {
 		editor.select(editPart);
 		editor.click(editPart);
-		createToolItem(editor, ToolTypes.getToolItem(clazz), p, editPathPath);
-		final SWTBotGefEditPart newEditPart = getNewElement(editor, clazz);
+		createToolItem(editor, paletteEntryName, p, editPart);
+		final SWTBotGefEditPart newEditPart = getNewElement(editor, paletteEntryName);
 
 		renameElement(editor, newEditPart, newName);
 	}
 
 	// Find new element
 	public SWTBotGefEditPart getNewElement(final AgeSWTBotGefEditor editor, final Class<?> clazz) {
+		return getNewElement(editor, clazz.getName());
+	}
+
+	public SWTBotGefEditPart getNewElement(final AgeSWTBotGefEditor editor, final String description) {
 		final NewElementCondition newElementCondition = new NewElementCondition(editor, new NewElementMatcher(editor),
-				clazz);
+				description);
 		waitUntil(newElementCondition, 5000);
 		return newElementCondition.getNewElementEditPart();
 	}
@@ -365,21 +481,21 @@ public class AgeGefBot {
 	}
 
 	private class NewElementCondition extends DefaultCondition {
-		private final Class<?> clazz;
+		private final String description;
 		private final AgeSWTBotGefEditor editor;
 		private final Matcher<EditPart> editPartMatcher;
 		private List<SWTBotGefEditPart> editParts;
 
 		private NewElementCondition(final AgeSWTBotGefEditor editor, final Matcher<EditPart> matcher,
-				final Class<?> clazz) {
+				final String description) {
 			this.editor = editor;
 			this.editPartMatcher = matcher;
-			this.clazz = clazz;
+			this.description = description;
 		}
 
 		@Override
 		public String getFailureMessage() {
-			return clazz + " was not created.";
+			return description + " was not created.";
 		};
 
 		@Override
@@ -674,7 +790,7 @@ public class AgeGefBot {
 				final GraphitiShapeEditPart gsep = (GraphitiShapeEditPart) item;
 					final Object element = ageFeatureProvider
 						.getBusinessObjectForPictogramElement(gsep.getPictogramElement());
-					if (element instanceof NamedElementImpl) {
+				if (element instanceof NamedElement) {
 						final NamedElementImpl namedElement = (NamedElementImpl) element;
 						return editPartName.contains(namedElement.getName());
 					}
@@ -685,7 +801,7 @@ public class AgeGefBot {
 						final GraphitiConnectionEditPart gcep = (GraphitiConnectionEditPart) ob;
 						final Object element = ageFeatureProvider
 								.getBusinessObjectForPictogramElement(gcep.getPictogramElement());
-						if (element instanceof NamedElementImpl) {
+						if (element instanceof NamedElement) {
 							final NamedElementImpl namedElement = (NamedElementImpl) element;
 							return editPartName.contains(namedElement.getName());
 						}
@@ -697,7 +813,7 @@ public class AgeGefBot {
 						final GraphitiConnectionEditPart gcep = (GraphitiConnectionEditPart) ob;
 						final Object element = ageFeatureProvider
 								.getBusinessObjectForPictogramElement(gcep.getPictogramElement());
-						if (element instanceof NamedElementImpl) {
+						if (element instanceof NamedElement) {
 							final NamedElementImpl namedElement = (NamedElementImpl) element;
 							return editPartName.contains(namedElement.getName());
 						}
@@ -726,12 +842,8 @@ public class AgeGefBot {
 		}, 10000);
 	}
 
-	public void resizeEditPart(final SWTBotGefEditor editor, final Point newSize, final String... editPartPath) {
-		editor.setFocus();
-		final SWTBotGefEditPart swtBotGefEditPart = findEditPart(editor, editPartPath);
-		editor.click(swtBotGefEditPart);
-		editor.select(swtBotGefEditPart);
-		swtBotGefEditPart.resize(PositionConstants.SOUTH_WEST, newSize.x, newSize.y);
+	public void resizeEditPart(final AgeSWTBotGefEditor editor, final Point newSize, final String... editPartPath) {
+		editor.element(editPartPath).resize(newSize.x, newSize.y);
 	}
 
 	public SWTBotGefEditPart getEditPart(final SWTBotGefEditor editor, final String elementName) {
@@ -937,7 +1049,7 @@ public class AgeGefBot {
 				"impl", new Point(100, 200), packageName);
 	}
 
-	public void createTypeAndImplementation(final SWTBotGefEditor editor, final Point point, final String implName,
+	public void createTypeAndImplementation(final AgeSWTBotGefEditor editor, final Point point, final String implName,
 			final String typeName, final String impl, final String packageName) {
 		createToolItem(editor, impl, point, packageName);
 		waitUntilShellIsActive("Create Component Implementation");

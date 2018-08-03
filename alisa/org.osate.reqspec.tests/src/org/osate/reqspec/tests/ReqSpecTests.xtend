@@ -17,71 +17,49 @@
 package org.osate.reqspec.tests
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.reqspec.ReqSpecInjectorProvider
 import org.osate.reqspec.reqSpec.ReqSpec
+import org.osate.reqspec.reqSpec.ReqValDeclaration
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.testsupport.TestHelper
+
+import static org.junit.Assert.*
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.reqspec.util.ReqSpecUtilExtension
+import org.osate.alisa.common.common.ValDeclaration
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(ReqSpecInjectorProvider))
-class ReqSpecTests {
+@InjectWith(typeof(ReqSpecAadl2InjectorProvider))
+class ReqSpecTests extends XtextTest {
 	
-	@Inject extension ParseHelper<ReqSpec>
+	@Inject
+	TestHelper<ReqSpec> reqspecTestHelper
+	
 	@Inject extension ValidationTestHelper
+
+	val projectprefix = "org.osate.reqspec.tests/models/"
+
 	
 	@Test
 	// we need to remove the AADL reference here because AADL does not test headlessly
-	def void testCorrectParsing() {
-		'''
-			stakeholder goals SCSgoals for "some ref" [
-				goal g1 : "Safety" [
-					description "The system shall be safe."
-					rationale "This is a control system, whose failure affects lives. "
-				]
-			]
-		'''.parse.assertNoErrors
+	def void testUnitResolution() {
+		val issues = reqspecTestHelper.testFile(projectprefix+"CSUnitTest.reqspec", projectprefix+"sei.org", projectprefix+"ControlSystem.aadl")
+		issues.resource.assertNoErrors
+		val rs = issues.resource.contents.get(0) as ReqSpec
+			assertEquals(rs.parts.size, 1)
+			assertTrue(rs.parts.size > 0)
+			val srs = rs.parts.get(0) as SystemRequirementSet 
+			assertEquals(srs.name, "csunittest")
+			val req = srs.requirements.get(0) as Requirement 
+			assertEquals(req.name,"R1")
+			assertTrue(req.constants.size > 0)
+			val vd = req.constants.get(0) as ReqValDeclaration
+			assertEquals(vd.name,"MaximumWeight")
 	}
-	
-	@Test
-  	def void testParsing() {
-	      //goals
-	      val model = '''
-	          stakeholder goals SCSgoals for "some ref" 
-	          [
-		          goal g1 : "Safety" 
-		          [
-			          description "The system shall be safe."
-			          rationale "This is a control system, whose failure affects lives. "
-			          stakeholder sei.phf sei.dpg
-		          ]
-	          ]
-	      '''.parse
-      }
-      
-      @Test
-      def void testDupeGoals() {
-      		val model = '''
-      		stakeholder goals braking_goals 
-			[
-				goal reliability_1 : "The braking system should work without issue"
-				[
-					description "We should be able to power the bulb"
-					rationale "Braking is critical"
-				]
-				
-				goal reliability_1 : "The braking system should work without issue"
-				[
-					description "We should be able to power the bulb"
-					rationale "Braking is critical"
-				]
-			]'''.parse
-			//must generate an error
-			Assert::fail("Duplicate identifiers")
-			// TODO: insert validation code here to handle gracefully.
-      }
 }
