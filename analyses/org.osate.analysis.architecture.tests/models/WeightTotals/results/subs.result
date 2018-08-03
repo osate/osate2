@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Weight totals">
+  <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#/"/>
+  <results>
+    <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#/"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </diagnostics>
+      <subResults>
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2/@componentInstance.0"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+          <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2/@componentInstance.0"/>
+        </diagnostics>
+        <subResults>
+          <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2/@componentInstance.0/@componentInstance.0"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+            <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2/@componentInstance.0/@componentInstance.0"/>
+          </diagnostics>
+        </subResults>
+      </subResults>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      </diagnostics>
+      <subResults>
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <values xsi:type="result:RealValue" unit="kg"/>
+        <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+          <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
+        </diagnostics>
+        <subResults>
+          <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0/@componentInstance.0"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <values xsi:type="result:RealValue" unit="kg"/>
+          <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+            <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0/@componentInstance.0"/>
+          </diagnostics>
+        </subResults>
+      </subResults>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      </diagnostics>
+    </subResults>
+  </results>
+</result:AnalysisResult>
