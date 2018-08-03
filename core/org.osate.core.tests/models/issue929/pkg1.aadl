@@ -1,0 +1,44 @@
+package pkg1
+public
+	thread t1
+		features
+			p1: in data port;
+			p2: out data port;
+		flows
+			f1: flow path p1 -> p2;
+			f2: flow path p1 -> p2;
+			f3: flow path p1 -> p2;
+	end t1;
+	
+	thread implementation t1.impl
+		subcomponents
+			sub1: subprogram subp1;
+			sub2: subprogram subp1;
+		calls
+			sequence1: {
+				call1: subprogram sub1;
+				call2: subprogram sub2;
+				call3: subprogram subp1;
+			};
+		connections
+			conn1: parameter p1 -> call1.p3;
+			conn2: parameter call1.p4 -> p2;
+			conn3: parameter call2.p4 -> p2;
+			conn4: parameter call3.p4 -> p2;
+		flows
+			--Pass
+			f1: flow path p1 -> conn1 -> sub1.f2 -> conn2 -> p2;
+			--Fail
+			f2: flow path p1 -> conn1 -> sub1.f2 -> conn3 -> p2;
+			--Fail
+			f3: flow path p1 -> conn1 -> sub1.f2 -> conn4 -> p2;
+	end t1.impl;
+	
+	subprogram subp1
+		features
+			p3: in parameter;
+			p4: out parameter;
+		flows
+			f2: flow path p3 -> p4;
+	end subp1;
+end pkg1;

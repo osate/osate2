@@ -1,0 +1,602 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Advanced Property Associations</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.7 Advanced Property Associations
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ManipulatingPropertyValues.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="OSATEPropertiesAPI.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic87"></a>
+          <span class=outlineNumberFirst>5.7 </span><span class=topicLineFirst>Advanced Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Here
+we revisit the AADL specification and describe the advanced features of property
+associations and how they affect property values. These features motivate the more
+complicated aspects of the OSATE property value API discussed next.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic88"></a>
+          <span class=outlineNumber>5.7.1 </span><span class=topicLine>Modal Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+property may be associated with a particular value for a subset of a component&#146;s modes.
+This is specified by adding an  </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>in modes</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> clause to the property association. An  </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>in modes</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+clause names one or more modes of the surrounding component implementation declaration for
+which the property association applies. A properties clause or a subcomponent properties
+clause may have more than one property association for a particular property if the property
+associations have non-intersecting lists of modes. When a property has both a modal and a
+non-modal property association, the non-modal association is considered to apply for those
+modes not explicitly named in a modal association.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+value associated with a property for a component may be affected by the modes of
+components other than the component it is associated with. Consider the following AADL
+specification, for example:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Inner.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> modes </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> InnerMode1: initial
+mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> InnerMode2: mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PS::x =&gt; 1 in modes
+(InnerMode1);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PS::x =&gt; 2 in modes
+(InnerMode2);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Inner.Impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Outer.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> sub: system Inner.Impl
+{</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PS::y =&gt;
+3 in modes (OuterMode1);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PS::y =&gt;
+4 in modes (OuterMode2); };</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> modes</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> OuterMode1: initial
+mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> OuterMode2: mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Outer.Impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system Main.Impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> sub: system S.I;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> ...</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> modes:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> M1: initial mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> M2: mode;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> properties</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PS::z =&gt; 5 applies
+to sub.a.b.c.d in modes (M1);</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Main.Impl;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+component implementation </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Inner.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, the value associated
+with property </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::x</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> depends
+on the mode of the component itself. But the property value associated with </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::y</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of
+subcomponent </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Outer.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> depends on the mode of
+the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Outer.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> component
+implementation. When </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Main.Impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> is instantiated, the contained property association in
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Main.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> makes the value of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::z</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of a component instance
+five levels down the containment
+hierarchy depend on the mode of the root system component.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic89"></a>
+          <span class=outlineNumber>5.7.2 </span><span class=topicLine>Nonexistent Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The value associated with a property may also depend on the modes of the resulting
+system
+because subcomponents can be declared to exist in certain modes only. If a component does
+not exist in a particular mode, then it does not make sense to look up the values associated
+with properties for that component. The value, in such cases, is said to be nonexistent.
+The
+modes in which a component exists can interact with the modes of its property associations,
+as shown in the following example:</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>system
+implementation ModalSubcomponents.Impl</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+subcomponents</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+sub1: system S1.Impl {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::x =&gt; 0;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+} in modes (M1, M2);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+sub2: system S2.Impl {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::x =&gt; 1 in modes (M1);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+} in modes (M1, M3);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+sub3: system S3.Impl {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::x =&gt; 2 in modes (M2);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::x =&gt; 3 in modes (M3);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+} in modes (M2, M3);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+modes </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+M1: initial mode;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+M2: mode;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+M3: mode;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>end
+ModalSubcomponents.Impl;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Here, property </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::x</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> of subcomponent </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>sub1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> effectively has a modal property association
+because </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> only exists in modes </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. In particular,
+for </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, the value of </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::x</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is
+nonexistent in mode </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Similarly, the
+property value of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::x</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> is nonexistent for
+subcomponent </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> in mode </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and for subcomponent </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> in mode </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The following
+table summarizes the value associated with property </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::x</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for the three subcomponents
+across the modes of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>ModalSubcomponents.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">:</span></font><span></span></div>
+<center>
+<table border="1" width="481" align="center" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="10%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Mode</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Subcomponent sub1</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Subcomponent sub2</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Subcomponent sub3</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="center" valign="middle" width="10%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>M1</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>0</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>1</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Nonexistent</span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="center" valign="middle" width="10%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>M2</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>0</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Nonexistent</span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>2</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="center" valign="middle" width="10%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>M3</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Nonexistent</span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Not Present</span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="30%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Times New Roman" color="#0000ff" size="3"><span
+    style="font-size:12pt"><b>3</b></span></font><span></span></div>
+    </td></tr>
+</table>
+</center>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic90"></a>
+          <span class=outlineNumber>5.7.3 </span><span class=topicLine>Modes and Property References</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The value associated with a property may also depend on the modes of the system
+because
+the value references the values of other properties that are modal. This is shown in the
+following example:</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>property
+set PS is</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+bool1: aadlboolean =&gt; true applies to (system);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+bool2: aadlboolean =&gt; false applies to (system);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+bool3: aadlboolean applies to (system);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>end
+PS;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><br/>
+</div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>system
+Example</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+properties</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::bool3 =&gt; value(PS::bool1) and value(PS::bool2);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>end
+Example;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><br/>
+</div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>system
+implementation Example.Impl</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+modes </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+M1: initial mode;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+M2: mode;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+properties</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::bool1 =&gt; false in modes (M1);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>
+PS::bool2 =&gt; true in modes (M2);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier" color="#0000ff"><span>end
+Example.Impl;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">For system type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Example</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, the value associated with property </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::bool3</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> is </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>false</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">: this value is
+the result of evaluating the property expression  </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>value(PS::bool1) and value(PS::bool2)</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.
+To evaluate the expression, the values associated with </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::bool1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::bool2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Example</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> are used: </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>true</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>false</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, respectively. The
+property association is not modal, and
+in fact cannot be because modes do not apply to component types.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The system implementation </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Example.Impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> associates new values with properties </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>PS::bool1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::bool2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, but only in modes </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, respectively. The
+value associated with
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::bool3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> for </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Example.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> thus depends on the mode
+of the component because it
+depends on the values of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::bool1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>PS::bool2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">:</span></font><span></span></div>
+<center>
+<table border="1" width="286" align="center" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="18%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Arial Narrow" color="#010101" size="3"><span style="font-size:12pt"><b>Mode</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PS::bool1</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PS::bool2</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PS::bool3</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="center" valign="top" width="18%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M1</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>false</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>false</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>false</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="center" valign="top" width="18%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M2</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>true</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>true</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="27%" style="border: solid 0.50pt;">
+    <div align="center" style="margin-left=1mm; margin-right=0mm; text-indent=0mm" class="lastTableNotesDiv"><font
+    face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>true</b></span></font><span></span></div>
+    </td></tr>
+</table>
+</center>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

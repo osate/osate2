@@ -1,0 +1,40 @@
+package pkg1
+public
+  abstract a1
+  end a1;
+
+  abstract implementation a1.i
+    subcomponents
+      sub1: abstract a3;
+      sub2: abstract a2.i;
+      sub3: abstract a3;
+    connections
+      conn1: feature sub1.af3 -> sub2.af1;
+      conn2: feature sub2.af2 -> sub3.af3;
+    flows
+      etef1: end to end flow sub1 -> conn1 -> sub2.fpath1 -> conn2 -> sub3;
+  end a1.i;
+
+  abstract a2
+    features
+      af1: feature;
+      af2: feature;
+    flows
+      fpath1: flow path af1 -> af2;
+  end a2;
+
+  abstract implementation a2.i
+    subcomponents
+      sub4: abstract a3;
+    connections
+      conn3: feature af1 -> sub4.af3;
+      conn4: feature sub4.af3 -> af2;
+  	flows
+      fpath1: flow path af1 -> af2;
+  end a2.i;
+
+  abstract a3
+    features
+      af3: feature;
+  end a3;
+end pkg1;

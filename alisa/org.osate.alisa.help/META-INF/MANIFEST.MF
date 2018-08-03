@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.osate.alisa.help
+Bundle-SymbolicName: org.osate.alisa.help;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: SEI
+Require-Bundle: org.eclipse.help

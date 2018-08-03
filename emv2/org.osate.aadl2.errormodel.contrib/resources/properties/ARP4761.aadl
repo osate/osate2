@@ -1,0 +1,53 @@
+property set ARP4761 is 
+with EMV2;
+-- Severity labels: Can be used with EMV2::Hazards and Severity
+Catastrophic   : constant EMV2::SeverityRange => 1;
+Hazardous      : constant EMV2::SeverityRange => 2; -- backward compatibility
+SevereMajor    : constant EMV2::SeverityRange => 2;
+Major          : constant EMV2::SeverityRange => 3;
+Minor          : constant EMV2::SeverityRange => 4;
+NoEffect       : constant EMV2::SeverityRange => 5;
+
+-- Likelihood labels: Can be used with EMV2::Hazards and Likelihood
+Frequent            : constant EMV2::LikelihoodLabels => A;
+Probable            : constant EMV2::LikelihoodLabels => B;
+Remote              : constant EMV2::LikelihoodLabels => C;
+ExtremelyRemote     : constant EMV2::LikelihoodLabels => D;
+ExtremelyImprobable : constant EMV2::LikelihoodLabels => E;
+
+
+SeverityClassification: type enumeration (Catastrophic, Hazardous, SevereMajor, Major, Minor, NoEffect);
+
+ProbabilityLabels: type enumeration (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable);
+
+
+Hazards: list of record
+  (
+   CrossReference : aadlstring;   -- cross reference to an external document 
+   HazardTitle : aadlstring;      -- short descriptive phrase for hazard
+   Description : aadlstring;      -- description of the hazard (same as hazardtitle)
+   Failure : aadlstring;          -- system deviation resulting in failure effect
+   FailureEffect : aadlstring;    -- description of the effect of a failure (mode)
+   Phases : list of aadlstring;   -- operational phases in which the hazard is relevant
+   Environment : aadlstring;      -- description of operational environment
+   Mishap : aadlstring;           -- description of event (series) resulting in 
+                                  -- unintentional death, etc.(MILSTD882)
+   Risk : aadlstring;             -- description of risk. Risk is characterized by 
+                                  -- severity, likelihood, and occurrence probability
+   FailureCondition : aadlstring; -- description of event (series) resulting in 
+                                  -- unintentional death, etc.(ARP4761)
+   FailureConditionClassification: ARP4761::SeverityClassification; -- actual risk as severity
+   QualitativeProbability: ARP4761::ProbabilityLabels;       -- actual risk as probability
+   QuantitativeProbability: EMV2::ProbabilityRange;          -- probability of a hazard   
+   QualitativeProbabilityObjective: ARP4761::ProbabilityLabels; -- acceptable risk as prob 
+   QuantitativeProbabilityObjective: EMV2::ProbabilityRange; -- prob objective for hazard   
+   DevelopmentAssuranceLevel : EMV2::DALLabels; -- level of rigor in development 
+                                                -- assurance (ARP4761)
+   VerificationMethod : aadlstring; -- verification method to address the hazard
+   SafetyReport : aadlstring;       -- analysis/assessment of hazard
+   Comment : aadlstring;            -- additional information about the hazard
+   )
+     applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event, {emv2}**error flow);
+
+end ARP4761;

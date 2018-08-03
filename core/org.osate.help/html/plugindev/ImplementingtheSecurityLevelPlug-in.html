@@ -1,0 +1,742 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Implementing the Security Level Plug-in</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.4 Implementing the Security Level Plug-in
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AADLPropertiesintheMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GettingSimplePropertyValues.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic75"></a>
+          <span class=outlineNumberFirst>5.4 </span><span class=topicLineFirst>Implementing the Security Level Plug-in</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Here
+we complete the description of the security level plug-in and use it to introduce the
+following OSATE API capabilities, which are more fully described in subsequent sections:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">How to look up a property
+value.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">How to manipulate a number
+value.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">How create a new number
+value.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">How to set a property value.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+security level analysis runs in two passes: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The first pass checks both
+that subcomponents are contained in more secure
+components and infers missing security levels.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The second pass checks
+that connections flow from lower level to higher level
+components.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+need two passes because we cannot check connections until we are sure that all
+components have a security level associated with them. We must, therefore, visit all the
+components first to make sure that any inferred property values have  bubbled all the way
+up
+the component containment hierarchy. We implement each pass as a separate subclass of
+<b>AadlProcessingSwitch</b>. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic76"></a>
+          <span class=outlineNumber>5.4.1 </span><span class=topicLine>Getting the Property Declaration and Driving the Analysis</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The <b>CheckSecurity</b> class, our Eclipse action class for driving the analysis,
+is shown below.
+The class demonstrates how to initialize static references to property definitions once at the
+beginning of an analysis. This avoids having to find the property definition every time it is
+needed, which in this case would be every time a component is visited by the analysis. Class
+<b>AaxlReadOnlyAction</b> (superclass of <b>AaxlModifyAction</b>, which our action extends)
+declares the method <b>initPropertyReferences()</b>. This method is called before
+<b>doAaxlAction</b> is called. The default implementation does nothing; actions that use properties,
+however, should override this method to initialize references to any property definitions, types,
+and constants used by the analysis. The recommended pattern is for references to these
+elements to be <b>public</b> <b>static volatile</b> fields of the action class. That way they
+can be easily
+referenced from instances of the model traversal classes and other helper classes.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Property definitions, types, and constants are looked up using the methods
+<b>AaxlReadOnlyAction.lookupPropertyDefinition</b>,
+<b>AaxlReadOnlyAction.lookupPropertyType</b>, and
+<b>AaxlReadOnlyAction.lookupPropertyConstant</b> which are summarized in the table below.
+If the definition is not found, these methods return <b>null</b> and also update an internal list of
+unfound definitions. The methods <b>lookupOptionalPropertyDefinition</b>,
+<b>lookupOptionalPropertyType</b>, and <b>lookupOptionalPropertyConstant</b> return the
+definition, or <b>null</b> if not found, but do not update the list of unfound definitions. It
+is assumed
+the plug-in is written to function correctly when an optional definition is absent. After
+<b>initPropertyReferences</b> returns, if any of the items are not found, then instead of calling
+<b>doAaxlAction</b>, a dialog box is presented to the user listing those elements that were not
+found; see Figure 27 for an example. These methods are implemented using calls to the
+property lookup methods in <b>OsateResourceManager</b> that are described in Section 5.8.2
+ Getting PropertyDefinition Objects.</span></font><span></span></div>
+<table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Operation</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Method</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up a predeclared property, i.e.,
+    one declared in </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Aadl_Properties</b></span></font><font
+    face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> or
+    </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Aadl_Project</b></span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyDefinition
+    lookupPropertyDefinition(<br/>
+    String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up a property in the named
+    property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyDefinition
+    lookupPropertyDefinition(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Lookup
+    an optional property in the
+    named property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyDefinition
+    lookupOptionalPropertyDefinition(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Look up a predeclared property type</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyType
+    lookupPropertyType(<br/>
+    String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up a property type in the named
+    property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyType
+    lookupPropertyType(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up an optional property type in
+    the named property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyType
+    lookupOptionalPropertyType(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up a predeclared property
+    constant</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyConstant
+    lookupPropertyConstant(<br/>
+    String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up a property constant in the
+    named property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyConstant
+    lookupPropertyConstant(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="top" width="44%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Look
+    up an optional property constant
+    in the named property set</span></font><span></span></div>
+    </td>
+    <td valign="top" width="56%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>PropertyConstant
+    lookupOptionalPropertyConstant(<br/>
+    String propertySet, String name)</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="center" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><br/>
+</div>
+<div align="center" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><img src="NotesImages/Topic76NotesImage5.jpg" align="bottom" width="441" height="146" border="0" alt="graphic" /></div>
+<div align="center" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Arial Narrow" color="#010101"><span>Figure
+27: Example error dialog reporting that property set elements needed by a plug-in could not be found.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">If your plug-in has other preconditions that it checks before performing its
+analysis, and you
+want to report all the errors together, the default error reporting can be suppressed by
+overriding the method <b>suppressErrorMessages()</b> so that it returns <b>true</b>. In this case,
+<b>doAaxlAction</b> will always be called, and it is your responsibility to check whether there were
+any errors in <b>initPropertyReferences</b> and to react appropriately. You can check for errors
+using the method <b>hasPropertyLookupErrors()</b>. You can get a list of the property set
+elements that were not found by calling <b>getPropertyLookupErrors()</b>, which returns a <b>List</b>
+of <b>Strings</b> identifying those elements that were not found. The strings are of the form
+<b>&quot;property definition propertySet::name&quot;</b>,<b> &quot;property type propertySet::name&quot;</b>,
+and
+<b>&quot;property constant propertySet::name&quot;</b> as appropriate. </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Our security level analysis is implemented as an <b>AaxlModifyAction</b>, because
+it may modify
+the model by inserting inferred property values. It uses the default error handling mechanism
+because it has no other preconditions to check. The action uses two different model traversal
+classes, one for each pass described above. For the first pass, analysis invokes the
+<b>processBottomUpComponentImpl</b> method, which visits the components in an order that
+insures that a component is visited before any of the components that reference it are. For the
+second pass, a normal pre-order traversal is sufficient.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>public
+class CheckSecurity extends AaxlModifyAction {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+private static final String SECURITYLEVEL = &quot;SecurityLevel&quot;;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+private static final String SEI_PACKAGE = &quot;SEI&quot;;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><br/>
+</div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+public static volatile PropertyDefinition securityLevel = null;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+protected void initPropertyReferences() {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+// Initialize our one property reference</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+securityLevel =</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+lookupPropertyDefinition(SEI_PACKAGE, SECURITYLEVEL);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+public void doAaxlAction(AObject obj) {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+if (obj == null) return;</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+final AObject as = obj.getAObjectRoot();</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+/* Ensure that enclosing component security level encompasses</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+* contained security levels.</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+*/</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+if (as instanceof AadlSpec) {</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+final ComponentSecuritySwitch componentSecuritySwitch =</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+new ComponentSecuritySwitch(getMarkerReporter());</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+// Walk up the component implementation reference hierarchy</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+componentSecuritySwitch.processBottomUpComponentImpl(</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+(AadlSpec) as);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+// Check security along connections</b></span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+final ConnectionSecuritySwitch connectionSecuritySwitch =</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+new ConnectionSecuritySwitch(getMarkerReporter());</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+connectionSecuritySwitch.processPreOrderAll(as);</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic77"></a>
+          <span class=outlineNumber>5.4.2 </span><span class=topicLine>Class ComponentSecuritySwitch</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Checking
+the security levels of the declarative components is a straightforward task: get the
+security level of the component and compare it against the security levels of its subcomponents.
+Because we are also interested in being able to correct the security level of the components,
+we actually first find the maximum security level of the subcomponents, and then compare that
+value against the component&#146;s value. If the component&#146;s value is non-existent or less
+than the
+maximum subcomponent value, then we upgrade the component&#146;s </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>SecurityLevel</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property
+association.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+get the property values we use the method
+<b>PropertyHolder.getSimplePropertyValue(PropertyDefinition)</b>, which is a convenience
+method for getting a property value that is not expected to be modal and is not list-valued. The
+method returns a <b>PropertyValue</b> object, or <b>null</b> if the property value is undefined, is
+a list, or
+depends on modes. We reference the property declaration of the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>SecurityLevel</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property
+using the previously initialized static reference <b>CheckSecurity.securityLevel</b>. Once we
+have
+the property value, we check that it is an <b>IntegerValue</b>, which also checks that the value is
+non-<b>null</b>, and get the value as a <b>long</b> by casting the object back to an <b>IntegerValue</b>
+and
+invoking <b>getValue()</b>. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When
+the security level of the component must be set, either because no value was found or
+because the value is not high enough, we create a new <b>IntegerValue</b> object, set its value, and
+then set the property value. We always create a new <b>PropertyValue</b> object rather than
+modifying the object obtained from looking up the property value, because we do not know
+from where in the model&#151;if at all&#151;the property value object comes, and modifying it directly
+may have unintended consequences; see Section 5.5  Getting Simple Property Values for
+more information. We set the value of the <b>IntegerValue</b> object using the method
+<b>setNewValue(long)</b>, which makes sure the value&#146;s numeric and string representations are
+consistent; see Section 5.6.6  Setting Number Values. Finally, we associate the new
+value
+with the property for the component using
+<b>PropertyHolder.setPropertyValue(PropertyDefinition, PropertyValue)</b>. This method is
+one of several property setting methods described in more detail in Section 5.8.5.1  Setting
+Property Associations.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public class ComponentSecuritySwitch
+extends AadlProcessingSwitch {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public ComponentSecuritySwitch(MarkerReporter
+er) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> setReporter(er);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected final void initSwitches()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> componentSwitch
+= new ComponentSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseComponentImpl(ComponentImpl ci) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Get my security level, if declared</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final PropertyValue cipv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+ci.getSimplePropertyValue(CheckSecurity.securityLevel);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+long cilv = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (cipv instanceof IntegerValue) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+cilv = ((IntegerValue) cipv).getValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Get the max security level of my subcomponents</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+long maxslv = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final EList subs = ci.getXAllSubcomponent();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+for (Iterator it = subs.iterator(); it.hasNext();) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final Subcomponent sub = (Subcomponent) it.next();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final ComponentImpl sci = sub.getComponentImpl();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (sci != null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PropertyValue scipv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+sci.getSimplePropertyValue(CheckSecurity.securityLevel);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (scipv instanceof IntegerValue) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+long slv = ((IntegerValue) scipv).getValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Update max subcomponent security level</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (slv &gt; maxslv) maxslv = slv;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (maxslv &gt; cilv) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+/* Subcomponents have higher security level than me.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+* Update my declared security level.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (cipv != null) { // My declared level is wrong</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportWarning(ci,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Security level updated from &quot; + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+cilv + &quot; to the maximum of the subcomponent values: &quot; + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+maxslv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+} else { // Didn't have a declared level</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportWarning(ci,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Security level set to the maximum of the &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;subcomponent values: &quot; + maxslv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Create new property value: An Integer value</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final IntegerValue newpv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PropertyFactory.eINSTANCE.createIntegerValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Set to max security level</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+newpv.setNewValue(maxslv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Set the property association</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+ci.setPropertyValue(CheckSecurity.securityLevel, newpv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic78"></a>
+          <span class=outlineNumber>5.4.3 </span><span class=topicLine>Class ConnectionSecuritySwitch</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+check a connection we need the security levels of the connections end points. These are
+retrieved from the source and destination context components of the connections. The
+methods <b>Connection.getAllSrcContextComponent()</b> and
+<b>Connection.getAllDestContextComponent()</b> get the <b>Subcomponent</b> or <b>ComponentImpl</b>
+that is the source or destination of the connection. It is not sufficient to use the
+<b>Connection.getXAllSrc()</b> and <b>Connection.getXAllDest()</b> methods, because when the
+connection is made through a port group, the latter pair of methods return the port group
+features that participate in the connection, whereas the former pair of methods search beyond
+the port group to find the component that contains the port group.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Once
+we have the end points of the connection, we get the property value associated with
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>SecurityLevel</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> as described above, and
+compare the level of the source component against
+the level of the destination component.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public class ConnectionSecuritySwitch
+extends AadlProcessingSwitch {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public ConnectionSecuritySwitch(MarkerReporter
+er) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> setReporter(er);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected final void initSwitches()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> connectionSwitch
+= new ConnectionSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseConnection(final Connection conn) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Ignore access connections</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (conn instanceof DataAccessConnection</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+|| conn instanceof BusAccessConnection) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Get the connection contexts</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final PropertyHolder scxt = conn.getAllSrcContextComponent();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final PropertyHolder dcxt = conn.getAllDstContextComponent();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (scxt == null || dcxt == null) return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Get the security levels of the end points</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final PropertyValue spv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+scxt.getSimplePropertyValue(CheckSecurity.securityLevel);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+final PropertyValue dpv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+dcxt.getSimplePropertyValue(CheckSecurity.securityLevel);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+long slv = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (spv instanceof IntegerValue) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+slv = ((IntegerValue) spv).getValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+long dlv = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (dpv instanceof IntegerValue) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+dlv = ((IntegerValue) dpv).getValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Error if source level is higher than the dest level</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (slv &gt; dlv) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportError(conn,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Security level violation: Source has level &quot; + slv +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot; and destination has level &quot; + dlv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

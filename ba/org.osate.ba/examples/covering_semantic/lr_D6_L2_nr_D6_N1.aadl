@@ -1,0 +1,122 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex legality rule D.6.(L2) and naming rule D.6.(N1) tests.
+
+package exemple_lr_D6_L2_nr_D6_N1
+public
+   with Base_Types ;
+
+thread th
+ features
+   inportA : in event data port Base_Types::Integer ;
+   outportB : out event data port Base_Types::Integer ;
+   outportC : out data port Base_Types::Integer ;
+   inportD : in event data port Base_Types::Integer ;
+end th;
+
+
+thread implementation th.good
+
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s1 -[]-> s2 ;
+ s1 -[]-> s2 {a := 1};
+ s1 -[]-> s2 {{a := 1}};
+ s1 -[]-> s2 { for (i : Base_Types::Integer in 0 .. 9) { a:= i }} ;
+
+ s1 -[]-> s2 { for (i : Base_Types::Integer in 0 .. 9)
+               {
+                 for (j : Base_Types::Integer in 0 .. 9) {a:= i + j} ;
+                 a := i 
+               }
+             } ;
+             
+ s1 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1 
+                      }
+                      elsif (true) { a:= 1 }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { a := i + j } until (true) 
+                        }
+                      }
+                      end if
+                   }
+                }
+             } ;
+**};
+
+end th.good;
+
+thread implementation th.error 
+annex behavior_specification {**
+variables
+ a : Base_Types::Integer ;
+
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+    
+    -- Error : i is not a valid target in assignment action
+    
+transitions
+ s1 -[]-> s2 {
+                while(true)
+                {
+                   for (i : Base_Types::Integer in 0 .. 9)
+                   {
+                      if (true)
+                      {
+                         a := 1 
+                      }
+                      elsif (true) { a:= 1 }
+                      else
+                      {
+                        for (j : Base_Types::Integer in 0 .. 9)
+                        {
+                           do { i := a + j } until (true) 
+                        }
+                      }
+                      end if
+                   }
+                }
+             } ;
+**};
+end th.error;
+
+end exemple_lr_D6_L2_nr_D6_N1 ;

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Getting started: instantiate a model</h2>
+<p>
+Once you have written your AADL model, you may want to instantitate it in order
+to analyze your system or just check model correctness. The instance model
+represents the architecture from its root component. The root component
+is a <strong>system</strong> component, the top-most component in the
+hierarchy. It contains all system sub-components.
+</p>
+<p>
+To create the system instance, you need to select the system component
+being the root component of the instance model and create the system instance.
+To do so, select the text declaration of your system, open
+the contextual menu (right click) and select the menu item
+ <em>Instantiate system</em> as shown in the following picture.
+ </p>
+
+<img src="newproject7.png"/>
+
+<p>
+Then, a new directory named <em>instances</em> is created
+in your project. It contains all instance models. If you open
+it, a new file having the <strong>.aaxl</strong> is created, representing
+the instance model, as shown in the following picture.
+</p>
+
+<img src="newproject8.png"/>
+
+<p>
+You now have a complete instantiated system ! You may want to analyze your
+system using <a href="../plugins/index.html">OSATE plug-ins</a>, use
+third-party tools or try other tools listed on the 
+<a href="https://wiki.sei.cmu.edu/aadl/" target="blank">AADL wiki</a>.
+</body>
+</html>

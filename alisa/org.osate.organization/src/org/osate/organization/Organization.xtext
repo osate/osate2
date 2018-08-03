@@ -1,0 +1,26 @@
+grammar org.osate.organization.Organization with org.eclipse.xtext.common.Terminals
+
+generate organization "http://www.osate.org/organization/Organization"
+
+
+Organization:
+	'organization' name = ID
+	stakeholder += Stakeholder+
+;
+
+/*
+ * Stakeholder
+ */
+Stakeholder:
+	'stakeholder' name=ID
+	'['( ( 'full' 'name' fullname=STRING)?
+		&('title'  title=STRING )?
+	&('description'  description=STRING )?
+	&('role'  role=STRING )?
+	&('email'  email=STRING)?
+	&('phone'  phone=STRING)?)
+	&('supervisor'  supervisor=[Stakeholder|QID])?
+	']' 
+;
+
+QID : ID ('.' ID)?;

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Creating and Working with AADL Instance Models</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLObjectEditor.html">7. The AADL Object Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.5 Creating and Working with AADL Instance Models
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ViewingtheSystemInstanceHierarchyintheDe.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GeneratingTextualAADL.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic49"></a>
+          <span class=outlineNumberFirst>7.5 </span><span class=topicLineFirst>Creating and Working with AADL Instance Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An AADL instance model represents a system instance as described in the AADL standard 
+document. An AADL instance model can be generated from a declarative AADL model by 
+specifying a system implementation as the root of the system instance. This is done by (1) 
+selecting a system implementation in the AADL Object Editor and (2) invoking the “Instantiate 
+system” (</span></font><span><img src="NotesImages/Topic49NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) command in the toolbar or invoking the “OSATE &gt; Instantiate system” command 
+as shown in Figure 22.  This results in an AADL instance model XML file being created.  The 
+file name of this file will consist of the name of the original file, the name of the root system type, 
+and “Instance” separated by “_”.  In the case shown in Figure 22, the instance model will be 
+stored in the file “Avionics_System_Flight_System_impl_Instance.aaxl.”</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic49NotesImage3.jpg" align="bottom" width="424" height="381" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 22: Creating an AADL instance model.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL instance model consists of a hierarchy of component instance objects that represent 
+the system hierarchy and saves this instance model as a separate XML file.  The instance 
+objects refer to the appropriate model objects in the declarative model they are derived from. 
+This instance model includes the component instances, feature instances, mode and mode 
+transition instances, semantic connections in form of port connection instances, access 
+connection instances, mode transition connection instances, as well as flow specification and 
+end-to-end flow instances, and locally cached property values for all properties retrieved from 
+the corresponding object model of the AADL specification.  Finally, for modal system 
+instances all possible System Operation Modes, i.e., possible mode combinations of modal 
+components, are generated and included in the AADL instance model.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic49NotesImage5.jpg" align="bottom" width="576" height="327" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 23: Viewing an instance model and the values of its property associations in the &quot;AADL Property 
+Values&quot; view.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The instance model can be opened and examined with the Aadl Object Model Editor.  In 
+Figure 23, the editor is open on the previously created instance model, and the subcomponent 
+instances, end-to-end flow instance, and port connection instance are visible.  The AADL 
+property associations for the end-to-end flow—the currently selected object—are visible in the 
+“AADL Property Values” view in the bottom right of Figure 23.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

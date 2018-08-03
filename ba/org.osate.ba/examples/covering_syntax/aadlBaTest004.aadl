@@ -1,0 +1,58 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior state checker.
+-- Use to test behavior state checking.
+      
+package BehaviorStateTest
+public
+
+thread myThread 
+
+annex behavior_specification {**
+
+--  *** STATES ***
+
+states
+ 
+ uniqueState : initial complete final state ;
+ a, b, c : state ;
+
+-- *** TRANSITIONS ***
+
+ transitions
+
+ t4 : a -[]-> b ;
+ t2 [2] : a -[]-> b ;
+ t1 [3] : a -[]-> a ;
+ t3 [1] : a -[]-> c ;
+ t6 [4] : a -[otherwise]-> c ;
+ t7 [4] : a -[otherwise]-> c ; -- Should raise a warning.
+ t8 [4] : a -[otherwise]-> c ; -- Should raise a warning.
+ t5 : a -[]-> c ;
+
+ b -[]-> c ;
+ b,c -[otherwise]-> c ;
+ 
+ c -[otherwise]-> c ; -- Should raise a warning.
+ 
+**};  
+end myThread ;
+
+end BehaviorStateTest;

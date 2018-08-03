@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Automatic Build with the AADL Builder</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="UseoftheAADLToolEnvironment(OSATE).html">4. Use of the AADL Tool Environment (OSATE)</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.6 Automatic Build with the AADL Builder
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="PredeclaredAADLProperties.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ImportingAADLModelsintoOSATE.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic31"></a>
+          <span class=outlineNumberFirst>4.6 </span><span class=topicLineFirst>Automatic Build with the AADL Builder</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE has an AADL builder that maintains consistency between AADL text files and AADL 
+XML files, and propagates any changes to an AADL package or property set that affects other 
+AADL text files and AADL XML files in the workspace.  This builder is implemented through 
+the Eclipse builder API.  The AADL builder is activated through the AADL Perspective. When 
+the AADL builder is activated the project icon has a decorator in the form of the letter “A”. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic31NotesImage2.jpg" align="bottom" width="356" height="218" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 12: The build-related commands in the Eclipse/OSATE “Project” menu.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Eclipse’s automatic build functionality can be enabled and disabled by selecting the “Build 
+Automatically” command in the “Project” menu; see Figure 12.  When the automatic build is 
+enabled, which is the standard mode of operation in Eclipse, the workspace is rebuilt whenever 
+a file in the workspace is changed.  The builder then regenerates all derived files that are 
+potentially affected by the change, i.e., it regenerates “.aaxl” files from “.aadl” files (but, as 
+described below, it can also update files in the other direction).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The “Project &gt; Clean…” command results in a complete rebuild of the workspace or project 
+as specified in a subsequent dialog window. The clean command causes all derived files to be 
+regenerated and any derived files for which the source does not exist to be deleted.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If automatic build is not enabled (no check mark next to the menu command), then changes to 
+the files are tracked by Eclipse but the builder is not automatically invoked.  In that case the 
+“Build All” and “Build Project” commands are enabled in the context menu and can be invoked 
+to process all changes that occurred to the workspace or selected project, respectively, since 
+the last invocation of a build.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL builder considers a file that has been changed in an editor as the original file when it 
+is saved from within that editor.  If the AADL text file has been edited and saved, it is the 
+original file.  If the AADL XML file as been edited (by the AADL Object editor or by the 
+Graphical Editor) it is considered to be the original file.  If the AADL text is the original file, 
+then the AADL XML file is regenerated from the modified AADL text file.  If the AADL XML 
+file is the original file, then the AADL text file is regenerated from the modified AADL XML file.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL instance model files are always considered derived from AADL XML files.  This means 
+they are regenerated anytime the AADL XML files they are derived from have been updated 
+due to edits or regeneration. Currently analysis plug-ins invoked on instance models or 
+declarative models are not tracked, thus, not automatically applied to the regenerated XML 
+files.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If an AADL file that contains an AADL specification has been modified, then only that file is 
+processed by the builder, since other AADL files cannot refer to items in this file.  This is due to 
+the fact that the declared component classifiers are part of the anonymous namespace of an 
+AADL specification, and that AADL packages and property sets not stored in individually in 
+separate files are not treated as residing in the global namespace.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If an AADL package or property set in the global namespace is modified, then all AADL files 
+in the workspace can potentially be affected and all are rebuilt.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+org.osate.ge
+org.osate.ge.di
+org.osate.ge.graphics
+org.osate.ge.query
+org.osate.ge.services

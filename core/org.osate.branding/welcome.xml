@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<welcomePage 
+	title="Open Source AADL Tool Environment (OSATE)">
+<intro>This page will guide you to the use of OSATE.
+To get started, read the sections below and click on the related links. </intro>
+<item><b>Learn more </b>
+To learn about the OSATE capabilities you can browse the <topic id="/org.osate.branding.help/aadlhelp.xml">OSATE User Manual</topic>
+To learn more about the Eclipse platform capabilities you can browse the <topic id="/org.eclipse.platform.doc.user/toc.xml">Workbench User Guide</topic>. 
+</item>
+</welcomePage>
