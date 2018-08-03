@@ -1,23 +1,26 @@
 package org.osate.analysis.architecture.tests
 
-import org.eclipse.core.runtime.NullProgressMonitor
+import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.architecture.handlers.DoPropertyTotals
+import org.osate.analysis.architecture.PropertyTotals
 import org.osate.testsupport.Aadl2UiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
-class WeightTotalsTest extends OsateTest {
+class WeightTotalsTest {
 	val static DIR_NAME = "org.osate.analysis.architecture.tests/models/WeightTotals/"
+	
+	@Inject
+	TestHelper<AadlPackage> testHelper
 	
 	@Test
 	def void testWeightTotals() {
@@ -29,20 +32,18 @@ class WeightTotalsTest extends OsateTest {
 			"weight_exceed_limit",
 			"sublimit_exceed_limit",
 			"weight_equals_limit"
-		].map[it + ".aadl"]
-		createFiles(fileNames.map[it -> readFile(DIR_NAME + it)])
-		suppressSerialization
-		fileNames.forEach[fileName | testFile(fileName).resource.contents.head as AadlPackage => [
-			fileName.subSequence(0, fileName.lastIndexOf(".")).assertEquals(name)
-			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
-				"s1.i1".assertEquals(name)
-				buildInstanceModelFile => [
-					"s1_i1_Instance".assertEquals(name)
-					val analysis = new DoPropertyTotals
-					analysis.setErrManager
-					analysis.doAaxlAction(new NullProgressMonitor, it)
+		]
+		fileNames.forEach[fileName |
+			testHelper.parseFile(DIR_NAME + fileName + ".aadl") => [
+				fileName.assertEquals(name)
+				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+					"s1.i1".assertEquals(name)
+					instantiate => [
+						"s1_i1_Instance".assertEquals(name)
+						PropertyTotals.invoke(it)
+					]
 				]
 			]
-		]]
+		]
 	}
 }
