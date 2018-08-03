@@ -22,13 +22,17 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * Composite for prompting the user for a name and type for a diagram. Results in a filename and diagrma type.
+ * Composite for prompting the user for a name and type for a diagram. Results in a filename and diagram type.
  */
 public class CreateDiagramComposite<DiagramType> extends Composite {
+	public static final String WIDGET_ID_NAME = "org.osate.ge.createDiagram.name";
+	public static final String WIDGET_ID_TYPE = "org.osate.ge.createDiagram.type";
+
 	public static interface Model<DiagramType> {
 		ImmutableCollection<DiagramType> getDiagramTypes();
 
@@ -81,6 +85,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		nameLabel.setText("Name");
 
 		nameField = new Text(this, SWT.SINGLE | SWT.BORDER);
+		UiUtil.setTestingId(nameField, WIDGET_ID_NAME);
 		nameField.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
 		nameField.addModifyListener(e -> {
 			if (CreateDiagramComposite.this.model != null) {
@@ -112,6 +117,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		typeLabel.setText("Type:");
 
 		typeField = new ComboViewer(this);
+		UiUtil.setTestingId(typeField.getCombo(), WIDGET_ID_TYPE);
 		typeField.getCombo().setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
 		typeField.setComparator(new ViewerComparator());
 		typeField.setContentProvider(new ArrayContentProvider());
