@@ -171,7 +171,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			componentInstance = (ComponentInstance) flowElementInstance;
 		}
 
-		FeatureInstance fi = FlowLatencyUtil.getIncomingFeatureInstance(etef, flowElementInstance);
+		FeatureInstance incomingConnectionFI = FlowLatencyUtil.getIncomingConnectionFeatureInstance(etef,
+				flowElementInstance);
 
 		/**
 		 * Get all the relevant properties.
@@ -186,107 +187,85 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0 && fi != null && fi.getCategory() == FeatureCategory.DATA_PORT
+		if (period > 0
 				&& ((InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
 						: true)) {
-			// period is set, and if thread, abstract, or device needs to be dispatched as periodic
-			// We sample only data ports. Event and event data ports have queuing latency
-			LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(componentInstance,
-					report.isMajorFrameDelay());
-			samplingLatencyContributor.setSamplingPeriod(period);
-			if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-					&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
-				samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
-			}
-			if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
-				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
-				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
-			} else if (FlowLatencyUtil.isPreviousConnectionImmediate(etef, flowElementInstance)) {
-				// we include this contributor so we can check for consistency for LAST_IMMEDIATE, i.e.,
-				// the cumulative does not exceed the deadline of the last.
-				if (!FlowLatencyUtil.isNextConnectionImmediate(etef, flowElementInstance)) {
-					checkLastImmediate = true;
+			// we have a periodic component that samples
+			if (incomingConnectionFI != null) {
+				// it is not the first component in the ETEF. We need to add sampling latency
+				if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
+						|| incomingConnectionFI.getCategory() == FeatureCategory.ABSTRACT_FEATURE) {
+					// sampling incoming data
+					// period is set, and if thread, abstract, or device needs to be dispatched as periodic
+					// We sample only data ports. Event and event data ports have queuing latency
+					LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
+							componentInstance, report.isMajorFrameDelay());
+					samplingLatencyContributor.setSamplingPeriod(period);
+					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
+							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
+						samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
+					}
+					if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
+						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.DELAYED);
+						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.DELAYED);
+					} else if (FlowLatencyUtil.isPreviousConnectionImmediate(etef, flowElementInstance)) {
+						// we include this contributor so we can check for consistency for LAST_IMMEDIATE, i.e.,
+						// the cumulative does not exceed the deadline of the last.
+						if (!FlowLatencyUtil.isNextConnectionImmediate(etef, flowElementInstance)) {
+							checkLastImmediate = true;
+						}
+					} else {
+						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
+						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
+						samplingLatencyContributor.setSamplingPeriod(period);
+					}
+					entry.addContributor(samplingLatencyContributor);
+				} else {
+					// queuing latency handled later
+					// do nothing here
 				}
 			} else {
-				if (entry.getContributors().isEmpty()) {
-					// first component. no incoming connection to handle partition latency
-					samplingLatencyContributor.reportInfo("Initial " + period + "ms sampling latency not added");
-					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
-					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_SAMPLED);
-					// insert first partition sampling before task sampling. FOr other partitions it is inserted by connection processing
-					ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
-					if (firstPartition != null) {
-						double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
-						List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
-						double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-						LatencyContributorComponent partitionLatencyContributor = new LatencyContributorComponent(
-								firstPartition, report.isMajorFrameDelay());
-						if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
-							partitionLatencyContributor
-									.reportWarning("Partition not found in ARINC653 schedule of processor "
-											+ FlowLatencyUtil.getModule(firstPartition).getName());
-						}
-						if (partitionDuration > 0) {
-							if (partitionLatency == 0) {
-								partitionLatencyContributor.setSamplingPeriod(partitionDuration);
-								partitionLatencyContributor
-										.reportInfo("No partition period/rate. Using partition duration");
-							} else {
-								partitionLatencyContributor.setSamplingPeriod(partitionLatency);
-							}
-							double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
-							partitionLatencyContributor.setPartitionOffset(frameOffset);
-							partitionLatencyContributor.setPartitionDuration(partitionDuration);
-							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-							entry.addContributor(partitionLatencyContributor);
-						} else {
-							if (partitionLatency == 0) {
-								partitionLatencyContributor.reportInfo("No partition period/rate. Using zero");
-							}
-							partitionLatencyContributor.setSamplingPeriod(partitionLatency);
-							partitionLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-							partitionLatencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-							entry.addContributor(partitionLatencyContributor);
-						}
-					}
-				} else {
-					samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
-					samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-					samplingLatencyContributor.setSamplingPeriod(period);
-				}
+				// The periodic component is the first component in the ETEF
+				// record fact that first element is periodic so we can process synchronous behavior correctly
+				LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
+						componentInstance, report.isMajorFrameDelay());
+				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
+				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
+				entry.addContributor(samplingLatencyContributor);
 			}
-			entry.addContributor(samplingLatencyContributor);
-		} else if (entry.getContributors().isEmpty()) {
-			// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
-			ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
-			if (firstPartition != null) {
-				double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
-				List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
-				double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
-				LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
-						report.isMajorFrameDelay());
-				if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
-					platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
-							+ FlowLatencyUtil.getModule(firstPartition).getName());
-				}
-				if (partitionDuration > 0) {
-					platencyContributor.setSamplingPeriod(partitionLatency);
-					double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
-					platencyContributor.setPartitionOffset(frameOffset);
-					platencyContributor.setPartitionDuration(partitionDuration);
-					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
-					entry.addContributor(platencyContributor);
-				} else {
-					platencyContributor.setSamplingPeriod(partitionLatency);
-					platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-					platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
-					entry.addContributor(platencyContributor);
+		} else {
+			// the component is not executing periodically
+			if (entry.getContributors().isEmpty()) {
+				// insert first partition sampling for the aperiodic case. For other partitions it is inserted by connection processing
+				ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
+				if (firstPartition != null) {
+					double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
+					List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
+					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
+					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
+							report.isMajorFrameDelay());
+					if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
+						platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
+								+ FlowLatencyUtil.getModule(firstPartition).getName());
+					}
+					if (partitionDuration > 0) {
+						platencyContributor.setSamplingPeriod(partitionLatency);
+						double frameOffset = FlowLatencyUtil.getPartitionFrameOffset(firstPartition, schedule);
+						platencyContributor.setPartitionOffset(frameOffset);
+						platencyContributor.setPartitionDuration(partitionDuration);
+						platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+						platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_SCHEDULE);
+						entry.addContributor(platencyContributor);
+					} else {
+						platencyContributor.setSamplingPeriod(partitionLatency);
+						platencyContributor.setWorstCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						platencyContributor.setBestCaseMethod(LatencyContributorMethod.PARTITION_FRAME);
+						entry.addContributor(platencyContributor);
+					}
 				}
 			}
 		}
@@ -350,13 +329,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// deal with queuing latency
 		// take into account queuing delay
-		if (fi != null) {
+		if (incomingConnectionFI != null) {
 			double qs = 0;
 			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance,
 					report.isMajorFrameDelay());
-			if (GetProperties.hasAssignedPropertyValue(fi, CommunicationProperties.QUEUE_SIZE)) {
-				qs = GetProperties.getQueueSize(fi);
-			} else if (fi.getCategory() == FeatureCategory.DATA_PORT
+			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
+				qs = GetProperties.getQueueSize(incomingConnectionFI);
+			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
 					&& (InstanceModelUtil.isSporadicComponent(componentInstance)
 							|| InstanceModelUtil.isTimedComponent(componentInstance)
 							|| InstanceModelUtil.isAperiodicComponent(componentInstance))) {
