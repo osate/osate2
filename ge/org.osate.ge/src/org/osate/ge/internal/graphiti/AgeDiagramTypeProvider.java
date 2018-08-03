@@ -49,6 +49,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final AgeGraphicsAlgorithmRendererFactory graphicsAlgorithmRendererFactory = new AgeGraphicsAlgorithmRendererFactory();
 	private ProjectReferenceServiceProxy projectReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
+	private boolean disposed = false;
 
 	public AgeDiagramTypeProvider() {
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -101,6 +102,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 			context.dispose();
 		}
 
+		disposed = true;
+
 		super.dispose();
 	}
 
@@ -125,7 +128,14 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
 	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
 		if (toolBehaviorProviders == null) {
-			toolBehaviorProviders = new IToolBehaviorProvider[] { ContextInjectionFactory.make(AgeToolBehaviorProvider.class, context) };
+			// Don't initialize tool behavior providers if the diagram type provider has already been disposed. Create
+			// and empty array because this method must not return null
+			if (disposed) {
+				toolBehaviorProviders = new IToolBehaviorProvider[0];
+			} else {
+				toolBehaviorProviders = new IToolBehaviorProvider[] {
+						ContextInjectionFactory.make(AgeToolBehaviorProvider.class, context) };
+			}
 		}
 		return toolBehaviorProviders;
 	}

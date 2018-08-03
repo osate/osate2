@@ -1,0 +1,36 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+
+stakeholder goals CSgoals : "SCS stakeholder goals" for system [
+	description "This document contains the stakeholder requirements for the Simple Control System (SCS).
+The SCS provides control for a simple device (SD). 
+The SCS system consists for software, hardware, and physical components."
+	goal g1 : "Feedback Control" [
+		description "The simple controller (SC) shall provide stable feedback control of the SD."
+		rationale "The SD is a safety critical device that cannot tolerate erratic behavior."
+		stakeholder sei.phf
+	]
+	goal g2 : "Digital Feedback Control" [
+		description "The SCS system shall control the SCS device with a digital controller"
+		stakeholder sei.phf
+	]
+	goal g3 : "electrical power" [
+		description "The simple control system shall be supplied with 15V electrical power."
+		stakeholder sei.phf
+	]
+	goal ng1 : "Safety" [
+		description "The system shall be safe "
+		rationale "This is a control system, whose failure affects lives. "
+		stakeholder sei.phf sei.dpg
+	]
+		goal ng1_1: "Physical damage"[
+			refines ng1
+			description "The controller shall not cause the simple device to damage objects in its operational environment"
+			stakeholder sei.phf
+		]
+	goal ng2 : "Maximum weight" [
+		description "The system shall stay within a specified weight limit."
+		stakeholder sei.phf
+		rationale "The system is part of an aircraft."
+	]
+]
