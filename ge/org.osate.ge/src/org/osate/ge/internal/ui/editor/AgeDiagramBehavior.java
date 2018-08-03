@@ -83,6 +83,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.internal.EditorSite;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -962,6 +963,29 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getInput().getUri().toPlatformString(true)));
 					if(!(resource instanceof IFile)) {
 						throw new RuntimeException("Unable to retrieve file for resource.");
+					}
+
+					final IFile diagramFile = (IFile) resource;
+
+					// Handle the diagram being read-only
+					if (diagramFile.isReadOnly()) {
+						final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { diagramFile },
+								getParentPart().getSite().getShell());
+
+						if (status.matches(IStatus.CANCEL) || !status.isOK() || diagramFile.isReadOnly()) {
+							Display.getDefault().syncExec(() -> monitor.setCanceled(true));
+
+							// Display error message in a subset of cases
+							if (!status.isOK()) {
+								StatusManager.getManager().handle(status, StatusManager.SHOW);
+							} else if (diagramFile.isReadOnly()) {
+								StatusManager.getManager().handle(
+										new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Diagram is read-only"),
+										StatusManager.SHOW);
+							}
+
+							return Collections.emptySet();
+						}
 					}
 
 					// Save the file
