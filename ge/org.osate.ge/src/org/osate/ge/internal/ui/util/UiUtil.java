@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.util;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -18,7 +19,7 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
-import org.osate.ge.internal.util.DiagamElementUtil;
+import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.internal.util.StringUtil;
 
 public class UiUtil {
@@ -56,8 +57,8 @@ public class UiUtil {
 			return null;
 		}
 
-		final AgeDiagram firstDiagram = DiagamElementUtil.getDiagram(elements.get(0));
-		if (!elements.stream().allMatch(e -> DiagamElementUtil.getDiagram(e) == firstDiagram)) {
+		final AgeDiagram firstDiagram = DiagramElementUtil.getDiagram(elements.get(0));
+		if (!elements.stream().allMatch(e -> DiagramElementUtil.getDiagram(e) == firstDiagram)) {
 			return null;
 		}
 
@@ -133,5 +134,14 @@ public class UiUtil {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * Sets the ID used to reference the widgets during unit tests.
+	 * @param w
+	 * @param id
+	 */
+	public static void setTestingId(final Widget w, final String id) {
+		w.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, id);
 	}
 }

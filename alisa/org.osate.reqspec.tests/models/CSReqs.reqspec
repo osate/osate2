@@ -1,0 +1,11 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+system requirements dcsreqs for ControlSystem::DCS [
+	requirement R1 : "DCS weight limit" [
+		val MaximumWeight = 0.6 kg
+		category Quality.Mass
+		compute  actualweight : real units SEI::WeightUnits 
+		description this " shall be within weight of " MaximumWeight 
+		value predicate actualweight <= MaximumWeight
+	]
+]

@@ -19,6 +19,8 @@ import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
+import com.google.common.collect.ImmutableSet;
+
 /**
  * Service for finding, opening, and creating diagrams. Registered as an Eclipse service.
  *
@@ -98,6 +100,8 @@ public interface DiagramService {
 
 	interface ReferenceCollection {
 		void update(UpdatedReferenceValueProvider newReferenceValues);
+
+		ImmutableSet<IFile> getRelatedDiagramFiles();
 	}
 
 	// Used to provide new reference values when updating a reference collection
