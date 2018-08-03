@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +69,7 @@ public class DemoSystemTest {
 				ToolTypes.getToolItem(SystemImplementation.class), sw);
 
 		bot.createAADLPackage(projectName, demo_system);
-		final SWTBotGefEditor demoTestEditor = bot.getEditor(demo_system);
+		final AgeSWTBotGefEditor demoTestEditor = bot.getEditor(demo_system);
 		bot.resizeEditPart(demoTestEditor, new Point(600, 600), demo_system);
 		bot.createTypeAndImplementation(demoTestEditor, new Point(50, 50), implName, demo_system,
 				ToolTypes.getToolItem(SystemImplementation.class), demo_system);
