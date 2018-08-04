@@ -147,7 +147,9 @@
     <contentExtension
           pattern="org.osate.ui.navigator.contributedAadl">
     </contentExtension>
-				<contentExtension pattern="org.osate.ui.navigator.content"/>
+    <contentExtension
+          pattern="org.osate.ui.navigator.aadlFileContent">
+    </contentExtension>
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
 			</includes>
 		</viewerContentBinding>
@@ -163,12 +165,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            appearsBefore="org.osate.ui.navigator.contributedAadl"
             contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
             id="org.osate.ui.navigator.content"
             labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider"
-            name="AADL Navigator Content"
-            priority="normal">
+            name="AADL Navigator Content">
         <triggerPoints>
             <and>
                <instanceof value="org.eclipse.core.resources.IResource"/>
@@ -245,6 +245,32 @@
          <commonSorter
                class="org.osate.ui.navigator.AadlContributionSorter">
          </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ui.navigator.AadlElementContentProvider"
+            id="org.osate.ui.navigator.aadlFileContent"
+            labelProvider="org.osate.ui.navigator.AadlElementLabelProvider"
+            name="Expanded Content of AADL Files">
+         <enablement>
+            <and>
+               <instanceof
+                     value="org.eclipse.core.resources.IFile">
+               </instanceof>
+               <and>
+                  <or>
+                     <test
+                           property="org.eclipse.core.resources.extension"
+                           value="aadl">
+                     </test>
+                     <test
+                           property="org.eclipse.core.resources.contentTypeId"
+                           value="org.osate.core.instanceModelFile">
+                     </test>
+                  </or>
+               </and>
+            </and>
+          </enablement>
       </navigatorContent>
    </extension>
    
@@ -1010,5 +1036,15 @@
             properties="superType"
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
        </propertyTester>
+    </extension>
+    <extension
+          point="org.eclipse.core.runtime.adapters">
+       <factory
+             adaptableType="org.osate.aadl2.Element"
+             class="org.osate.ui.ElementIWorkbenchAdapterAdapterFacory">
+          <adapter 
+                type="org.eclipse.ui.model.IWorkbenchAdapter">
+          </adapter>
+       </factory>
     </extension>
 </plugin>
