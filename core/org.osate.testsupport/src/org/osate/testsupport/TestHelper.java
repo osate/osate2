@@ -103,9 +103,9 @@ public class TestHelper<T extends EObject> {
 	public T parseFile(String filePath, String... referencedPaths) {
 		ResourceSet rs = rsHelper.getResourceSet();
 		for (String name : referencedPaths) {
-			loadFileAsResource(name, rs);
+			loadFile(name, rs);
 		}
-		Resource res = loadFileAsResource(filePath, rs);
+		Resource res = loadFile(filePath, rs);
 		if (res != null) {
 			@SuppressWarnings("unchecked")
 			final T root = (T) (res.getContents().isEmpty() ? null : res.getContents().get(0));
@@ -121,7 +121,7 @@ public class TestHelper<T extends EObject> {
 	 * @param rs ResourceSet
 	 * @return
 	 */
-	public Resource loadFileAsResource(String filePath, ResourceSet rs) {
+	public Resource loadFile(String filePath, ResourceSet rs) {
 		try {
 			// This way of constructing the URL works in JUnit plug-in and standalone tests
 			URL url = new URL("file:" + System.getProperty("user.dir") + "/../" + filePath);

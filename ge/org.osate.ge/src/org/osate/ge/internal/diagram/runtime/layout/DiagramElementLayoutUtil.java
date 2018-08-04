@@ -721,7 +721,7 @@ public class DiagramElementLayoutUtil {
 		return new Point(p1.x + d * ux, p1.y + d * uy);
 	}
 
-	private static Point getAbsolutePosition(final DiagramNode dn) {
+	public static Point getAbsolutePosition(final DiagramNode dn) {
 		int x = 0;
 		int y = 0;
 		for (DiagramNode tmp = dn; tmp instanceof DiagramElement; tmp = tmp.getParent()) {
