@@ -127,11 +127,11 @@
       		id="aadl.view_category"
       		name="%aadl_view_category.label"/>
       <view
-      		id="org.osate.ui.navigator.AadlNavigator"
-      		name="AADL Navigator"
-      		icon="icons/aadlNav.gif"
-      		category="aadl.view_category"
-      		class="org.osate.ui.navigator.AadlNavigator"/>
+            category="aadl.view_category"
+            class="org.eclipse.ui.navigator.resources.ProjectExplorer"
+            icon="icons/aadlNav.gif"
+            id="org.osate.ui.navigator.AadlNavigator"
+            name="AADL Navigator"/>
    </extension>
    
 	<extension
