@@ -40,7 +40,6 @@ import java.util.OptionalInt;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -51,7 +50,13 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof IWorkspaceRoot || element instanceof VirtualPluginResources) {
+		if (element instanceof IProject) {
+			IProject project = (IProject) element;
+			if (project.isAccessible()) {
+				return true;
+			}
+		}
+		if (element instanceof VirtualPluginResources) {
 			return true;
 		}
 		return super.hasChildren(element);
