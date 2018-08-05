@@ -8,7 +8,9 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.result.RealValue
@@ -18,24 +20,25 @@ import org.osate.testsupport.TestHelper
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.NamedElement
+
+import static extension org.osate.xtext.aadl2.properties.util.InstanceModelUtil.*
+import org.osate.result.StringValue
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
-class VirtualProcessorLatencyTest extends XtextTest {
+class PartitionDurationTest extends XtextTest {
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
 	val projectprefix = "org.osate.analysis.flows.tests/models/"
 
-	val vplatencyText = "partition2.aadl"
+	val queuingText = "partition_duration.aadl"
 	
 	@Test
-	def void VPLatencyContribution() {
+	def void PartitionDurationTest() {
 
-		val pkg = testHelper.parseFile(projectprefix+vplatencyText)
+		val pkg = testHelper.parseFile(projectprefix+queuingText)
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('', cls.exists[name == 's1.i1'])
 
@@ -49,27 +52,20 @@ class VirtualProcessorLatencyTest extends XtextTest {
 		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val latencyresult = checker.invoke(instance, som, true, true, true, true)
 		val resab = latencyresult.results.get(0)
-		assertTrue((resab.values.get(1) as RealValue).value == (1.0))
-		assertTrue((resab.values.get(2) as RealValue).value == (1.0))
-		assertTrue((resab.values.get(3) as RealValue).value == (0.0))
-		assertTrue((resab.values.get(4) as RealValue).value == (0.0))
-		assertTrue((resab.values.get(5) as RealValue).value == (0.0))
-		assertTrue((resab.values.get(6) as RealValue).value == (0.0))
-		resab.subResults.size.assertEquals(7)
-		resab.diagnostics.size.assertEquals(1)
-		val subpart1 = resab.subResults.get(2).sourceReference as NamedElement
+		assertTrue((resab.values.get(1) as RealValue).value == (2.0))
+		assertTrue((resab.values.get(2) as RealValue).value == (7.0))
+		assertTrue((resab.values.get(3) as RealValue).value == (2.0))
+		assertTrue((resab.values.get(4) as RealValue).value == (4.0))
+		assertTrue((resab.values.get(5) as RealValue).value == (2.0))
+		assertTrue((resab.values.get(6) as RealValue).value == (6.0))
+		resab.subResults.size.assertEquals(4)
+		resab.diagnostics.size.assertEquals(3)
+		val subres = resab.subResults.get(2)
+		val subpart1 = subres.sourceReference as NamedElement
 		assertTrue(subpart1 instanceof ComponentInstance)
-		assertEquals(subpart1.name,"sub5")
-		assertTrue((subpart1 as ComponentInstance).ownedPropertyAssociations.size == 1)
-		val pas1 = (subpart1 as ComponentInstance).ownedPropertyAssociations
-		assertTrue('', ! pas1.exists[pa|pa.property.name == 'Period'])
-
-		val subpart2 = resab.subResults.get(5).sourceReference as NamedElement
-		assertTrue(subpart2 instanceof ComponentInstance)
-		assertEquals(subpart2.name,"sub3")
-		assertTrue((subpart2 as ComponentInstance).ownedPropertyAssociations.size > 1)
-		val pas2 = (subpart2 as ComponentInstance).ownedPropertyAssociations
-		assertTrue('', pas2.exists[pa|pa.property.name == 'Period'])
+		assertEquals(subpart1.name,"sub3")
+		assertTrue(subpart1.isVirtualProcessor)
+		assertEquals((subres.values.get(4) as StringValue).value, "partition offset")
 	}
 
 }
