@@ -1037,14 +1037,4 @@
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
        </propertyTester>
     </extension>
-    <extension
-          point="org.eclipse.core.runtime.adapters">
-       <factory
-             adaptableType="org.osate.aadl2.Element"
-             class="org.osate.ui.ElementIWorkbenchAdapterAdapterFacory">
-          <adapter 
-                type="org.eclipse.ui.model.IWorkbenchAdapter">
-          </adapter>
-       </factory>
-    </extension>
 </plugin>
