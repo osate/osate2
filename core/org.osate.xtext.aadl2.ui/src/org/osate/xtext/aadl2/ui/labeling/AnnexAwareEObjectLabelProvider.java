@@ -9,7 +9,6 @@ package org.osate.xtext.aadl2.ui.labeling;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -28,22 +27,6 @@ public class AnnexAwareEObjectLabelProvider extends AnnexAwareDeclarativeLablePr
 	@Inject
 	public AnnexAwareEObjectLabelProvider(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
-	}
-
-	@Override
-	protected Object doGetText(Object element) {
-		Object text = super.doGetText(element);
-		if (text != null) {
-			return text;
-		}
-		if (element instanceof EObject) {
-			EObject eObject = (EObject) element;
-			EStructuralFeature labelFeature = getLabelFeature(eObject.eClass());
-			if (labelFeature != null) {
-				return eObject.eGet(labelFeature);
-			}
-		}
-		return null;
 	}
 
 	protected EStructuralFeature getLabelFeature(EClass eClass) {
