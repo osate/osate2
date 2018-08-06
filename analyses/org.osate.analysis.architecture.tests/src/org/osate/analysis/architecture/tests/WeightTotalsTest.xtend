@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.analysis.architecture.PropertyTotals
-import org.osate.testsupport.Aadl2UiInjectorProvider
+import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.ResultHelper
 import org.osate.testsupport.TestHelper
 
@@ -17,7 +17,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.instantia
 import static extension org.osate.testsupport.ResultHelper.assertAnalysisResult
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2UiInjectorProvider)
+@InjectWith(Aadl2InjectorProvider)
 class WeightTotalsTest {
 	val static DIR_NAME = "org.osate.analysis.architecture.tests/models/WeightTotals/"
 	

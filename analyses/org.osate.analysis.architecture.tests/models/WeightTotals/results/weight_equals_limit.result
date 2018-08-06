@@ -3,12 +3,9 @@
   <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_equals_limit_s1_i1_Instance.aaxl2#/"/>
   <results>
     <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_equals_limit_s1_i1_Instance.aaxl2#/"/>
+    <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
+    <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
-    <values xsi:type="result:RealValue" unit="kg"/>
-    <values xsi:type="result:RealValue" unit="kg"/>
-    <values xsi:type="result:RealValue" unit="kg"/>
-    <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
-      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_equals_limit_s1_i1_Instance.aaxl2#/"/>
-    </diagnostics>
+    <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
   </results>
 </result:AnalysisResult>
