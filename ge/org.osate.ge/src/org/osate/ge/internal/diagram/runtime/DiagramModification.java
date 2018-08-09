@@ -45,7 +45,18 @@ public interface DiagramModification {
 	void setCompleteness(final DiagramElement e, final Completeness value);
 	void setName(final DiagramElement e, final String value);
 	void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value);
-	void setPosition(final DiagramElement e, final Point value);
+
+	default void setPosition(final DiagramElement e, final Point value) {
+		setPosition(e, value, true);
+	}
+
+	/**
+	 *
+	 * @param e
+	 * @param value
+	 * @param updateDockArea whether the dock area should be updated based on the set position.
+	 */
+	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea);
 	void setSize(final DiagramElement e, final Dimension value);
 	void setDockArea(final DiagramElement e, final DockArea value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);

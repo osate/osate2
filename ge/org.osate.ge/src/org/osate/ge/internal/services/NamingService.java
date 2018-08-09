@@ -19,14 +19,14 @@ public interface NamingService {
 	 * @return an identifier that is unique in the specified namespace
 	 */
 	String buildUniqueIdentifier(Namespace namespace, String baseIdentifier);
-	
+
 	/**
 	 * Determines whether a specified string is a valid AADL identifier
 	 * @param value
 	 * @return
 	 */
 	boolean isValidIdentifier(String value);
-	
+
 	/**
 	 * Returns whether an element with a specified name exists
 	 * @param namespace
@@ -34,7 +34,7 @@ public interface NamingService {
 	 * @return
 	 */
 	boolean isNameInUse(Namespace namespace, String name);
-	
+
 	/**
 	 * Helper function for checking if a name is valid for a specified named element. Essentially a generic implementation of checkValueValid.
 	 * @param ne
