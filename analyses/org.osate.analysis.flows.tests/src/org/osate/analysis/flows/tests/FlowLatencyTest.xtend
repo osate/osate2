@@ -27,7 +27,7 @@ class FlowLatencyTest extends XtextTest {
 	TestHelper<AadlPackage> testHelper
 	
 
-	val projectprefix = "org.osate.analysis.flows.tests/models/"
+	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
 	val pullprotocolsText = "PullProtocol.aadl"
 	

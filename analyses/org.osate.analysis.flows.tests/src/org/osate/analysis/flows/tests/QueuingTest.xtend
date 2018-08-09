@@ -29,7 +29,7 @@ class QueuingTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	val projectprefix = "org.osate.analysis.flows.tests/models/"
+	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
 	val queuingText = "queuing.aadl"
 	

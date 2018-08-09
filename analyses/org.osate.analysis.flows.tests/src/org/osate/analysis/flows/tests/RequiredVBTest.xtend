@@ -14,15 +14,13 @@ import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.result.RealValue
+import org.osate.result.StringValue
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-
-import static extension org.osate.xtext.aadl2.properties.util.InstanceModelUtil.*
-import org.osate.result.StringValue
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
@@ -31,7 +29,7 @@ class RequiredVBTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	val projectprefix = "org.osate.analysis.flows.tests/models/"
+	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
 	val queuingText = "required_vb.aadl"
 	
