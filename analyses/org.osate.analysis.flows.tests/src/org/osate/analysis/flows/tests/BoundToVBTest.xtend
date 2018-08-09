@@ -30,7 +30,7 @@ class BoundToVBTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	val projectprefix = "org.osate.analysis.flows.tests/models/"
+	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
 	val queuingText = "bound_to_vb.aadl"
 	

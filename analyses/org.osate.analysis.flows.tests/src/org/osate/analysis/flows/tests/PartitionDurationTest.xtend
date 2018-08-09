@@ -31,7 +31,7 @@ class PartitionDurationTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 
-	val projectprefix = "org.osate.analysis.flows.tests/models/"
+	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
 	val queuingText = "partition_duration.aadl"
 	
