@@ -58,7 +58,7 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class FTAHandler extends AbstractHandler {
@@ -92,7 +92,7 @@ public final class FTAHandler extends AbstractHandler {
 		stateNames = new ArrayList<String>();
 		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(target.getSystemInstance(), false);
 		for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-			EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
+			EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
 					EMV2Util.getUseTypes(outprop));
 			for (TypeToken tt : result) {
 				EList<PropagationGraphPath> paths = Util.getAllReversePropagationPaths(currentPropagationGraph, target,
@@ -114,7 +114,7 @@ public final class FTAHandler extends AbstractHandler {
 			if (ebs.getTypeSet() == null) {
 				stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
 			} else {
-				EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
+				EList<TypeToken> result = EMV2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
 						EMV2Util.getUseTypes(ebs));
 				for (TypeToken tt : result) {
 					String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
