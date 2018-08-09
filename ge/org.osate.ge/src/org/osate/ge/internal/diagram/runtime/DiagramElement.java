@@ -41,7 +41,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	private DockArea dockArea; // Optional
 
 	// Connection Specific
-	private List<Point> bendpoints; // Optional. Diagram coordinate system. A null value indicates that the bendpoints have not been configured.
+	private ImmutableList<Point> bendpoints; // Optional. Diagram coordinate system. A null value indicates that the bendpoints have not been configured.
 	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label. Relative to the midpoint of the connection.
 
 	/**
@@ -56,10 +56,48 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 			final Object bo,
 			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference) {
-		this.container = Objects.requireNonNull(container, "container must not be null");
+		this.container = container;
 		this.bo = bo;
 		this.boHandler = boHandler;
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
+	}
+
+	/**
+	 * Copies an element and children without copying the ID or business objects of the elements.
+	 * Those fields are set to null.
+	 * Expected to be used as part of the copy and paste process.
+	 * Because elements and children will not have IDs, each element should be added to diagram separately after copying so
+	 * that IDs are assigned.
+	 * Because the business object is null, it is expected that the diagram update process will be executed after such
+	 * objects are added to the diagram. This will ensure that the business object is set appropriately.
+	 * References to business objects are copied, but not the objects themselves.
+	 * @param newContainer
+	 * @param relativeReference
+	 * @return
+	 */
+	public DiagramElement cloneWithoutIdsAndBusinessObjects(final DiagramNode newContainer,
+			final RelativeBusinessObjectReference relativeReference) {
+		final DiagramElement newElement = new DiagramElement(newContainer, null, boHandler, relativeReference);
+
+		newElement.manual = manual;
+		newElement.contentFilters = contentFilters;
+		newElement.completeness = completeness;
+		newElement.name = name;
+		newElement.graphicalConfig = graphicalConfig;
+		newElement.style = style;
+		newElement.position = position;
+		newElement.size = size;
+		newElement.dockArea = dockArea;
+		newElement.bendpoints = bendpoints;
+		newElement.connectionPrimaryLabelPosition = connectionPrimaryLabelPosition;
+
+		// Copy children
+		for (final DiagramElement child : children) {
+			final DiagramElement copyOfChild = child.cloneWithoutIdsAndBusinessObjects(newElement, child.boRelReference);
+			newElement.getModifiableDiagramElements().add(copyOfChild);
+		}
+
+		return newElement;
 	}
 
 	@Override

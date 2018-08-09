@@ -3,6 +3,7 @@ package org.osate.annexsupport;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -22,7 +23,8 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
 
-	private static Map<EObject, IParseResult> parseResults = new WeakHashMap<EObject, IParseResult>();
+	private static Map<EObject, IParseResult> parseResults = Collections
+			.synchronizedMap(new WeakHashMap<EObject, IParseResult>());
 
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
