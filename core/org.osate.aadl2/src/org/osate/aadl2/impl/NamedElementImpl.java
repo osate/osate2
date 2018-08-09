@@ -512,7 +512,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 
 	/*
 	 * TODO-lw: check if fromInstanceSlaveCall is still needed and if it's correctly implemented
-	 * See https://github.com/osate/osate2-core/issues/875
+	 * See https://github.com/osate/osate2/issues/875
 	 */
 	@Override
 	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall)

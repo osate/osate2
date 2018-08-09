@@ -86,17 +86,17 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
 			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-			boolean synchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
-					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_YES);
+			boolean asynchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
+					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
 			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
 					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
 			boolean worstCaseDeadline = store.getString(Constants.WORST_CASE_DEADLINE)
 					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 			boolean bestCaseEmptyQueue = store.getString(Constants.BESTCASE_EMPTY_QUEUE)
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
-			
+
 			latreport = new LatencyReport((SystemInstance) object);
-			latreport.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
+			latreport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 			return true;
 		}
