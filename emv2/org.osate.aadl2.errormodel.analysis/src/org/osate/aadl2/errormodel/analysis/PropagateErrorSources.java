@@ -79,7 +79,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
@@ -191,7 +191,7 @@ public class PropagateErrorSources {
 		}
 		if (eop.getName().equalsIgnoreCase(event.getName())) {
 			// match the event
-			if (eventtype != null && constraint != null && !EM2TypeSetUtil.contains(constraint, eventtype)) {
+			if (eventtype != null && constraint != null && !EMV2TypeSetUtil.contains(constraint, eventtype)) {
 				return;
 			}
 			ErrorBehaviorState targetstate = trans.getTarget();
@@ -201,7 +201,7 @@ public class PropagateErrorSources {
 			}
 			// we have the state and possibly a type
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci)) {
-				if (EM2TypeSetUtil.isNoError(opc.getTypeToken()) || opc.getCondition() != null) {
+				if (EMV2TypeSetUtil.isNoError(opc.getTypeToken()) || opc.getCondition() != null) {
 					continue;
 				}
 				if (opc.isAllStates() || (opc.getState() != null
@@ -209,7 +209,7 @@ public class PropagateErrorSources {
 					// either typeless state or type is contained in opc type constraint on state
 					TypeSet statetypeconstraint = opc.getTypeTokenConstraint();
 					if (statetypeconstraint == null || statetype == null
-							|| EM2TypeSetUtil.contains(statetypeconstraint, statetype)) {
+							|| EMV2TypeSetUtil.contains(statetypeconstraint, statetype)) {
 						ErrorTypes outtype = opc.getTypeToken();
 						if (outtype == null) {
 							outtype = statetype;
@@ -225,7 +225,7 @@ public class PropagateErrorSources {
 										handledPropagations.put(ep, EMV2Util.getPrintName(eventtype));
 									}
 								} else {
-									EList<TypeToken> result = EM2TypeSetUtil
+									EList<TypeToken> result = EMV2TypeSetUtil
 											.generateAllLeafTypeTokens((TypeSet) outtype, EMV2Util.getUseTypes(opc));
 									for (TypeToken tt : result) {
 										traceErrorPaths(ci, ep, tt, 2, componentText + ", " + "error event "
@@ -243,7 +243,7 @@ public class PropagateErrorSources {
 									handledPropagations.put(ep, EMV2Util.getPrintName(eventtype));
 								}
 							} else {
-								EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) outtype,
+								EList<TypeToken> result = EMV2TypeSetUtil.generateAllLeafTypeTokens((TypeSet) outtype,
 										EMV2Util.getUseTypes(opc));
 								for (TypeToken tt : result) {
 									traceErrorPaths(ci, ep, tt, 2, componentText + ", " + "error event "
@@ -298,7 +298,7 @@ public class PropagateErrorSources {
 					}
 				}
 			} else {
-				EList<TypeToken> tokens = EM2TypeSetUtil.generateAllLeafTypeTokens(((ErrorEvent) event).getTypeSet(),
+				EList<TypeToken> tokens = EMV2TypeSetUtil.generateAllLeafTypeTokens(((ErrorEvent) event).getTypeSet(),
 						EMV2Util.getUseTypes(event));
 				for (TypeToken typeToken : tokens) {
 					for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci)) {
@@ -637,7 +637,7 @@ public class PropagateErrorSources {
 				TypeToken resulttt = tt;
 				TypeToken xformedtt = tt;
 				if (typeEquivalence != null) {
-					mappedtt = EM2TypeSetUtil.mapTypeToken(tt, typeEquivalence);
+					mappedtt = EMV2TypeSetUtil.mapTypeToken(tt, typeEquivalence);
 					if (mappedtt != null) {
 						resulttt = mappedtt;
 					}
@@ -648,9 +648,9 @@ public class PropagateErrorSources {
 					TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
 					// TODO find contributor type token by looking for the state/out prop type.
 					if (tts != null) {
-						xformedtt = EM2TypeSetUtil.mapTypeToken(tt, null, tts);
+						xformedtt = EMV2TypeSetUtil.mapTypeToken(tt, null, tts);
 						if (xformedtt == null && mappedtt != null) {
-							xformedtt = EM2TypeSetUtil.mapTypeToken(mappedtt, null, tts);
+							xformedtt = EMV2TypeSetUtil.mapTypeToken(mappedtt, null, tts);
 						}
 						if (xformedtt != null) {
 							resulttt = xformedtt;
@@ -669,9 +669,9 @@ public class PropagateErrorSources {
 					TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
 					// TODO find source type token by looking for the state/out prop type.
 					if (tts != null) {
-						xformedtt = EM2TypeSetUtil.mapTypeToken(null, tt, tts);
+						xformedtt = EMV2TypeSetUtil.mapTypeToken(null, tt, tts);
 						if (xformedtt == null && mappedtt != null) {
-							xformedtt = EM2TypeSetUtil.mapTypeToken(null, mappedtt, tts);
+							xformedtt = EMV2TypeSetUtil.mapTypeToken(null, mappedtt, tts);
 						}
 						if (xformedtt != null) {
 							resulttt = xformedtt;
@@ -686,11 +686,11 @@ public class PropagateErrorSources {
 					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
 					TypeSet dstTS = destEP.getTypeSet();
 					TypeToken targettt = null;
-					if (tt != null && EM2TypeSetUtil.contains(dstTS, tt)) {
+					if (tt != null && EMV2TypeSetUtil.contains(dstTS, tt)) {
 						targettt = tt;
-					} else if (mappedtt != null && EM2TypeSetUtil.contains(dstTS, mappedtt)) {
+					} else if (mappedtt != null && EMV2TypeSetUtil.contains(dstTS, mappedtt)) {
 						targettt = mappedtt;
-					} else if (xformedtt != null && EM2TypeSetUtil.contains(dstTS, xformedtt)) {
+					} else if (xformedtt != null && EMV2TypeSetUtil.contains(dstTS, xformedtt)) {
 						targettt = xformedtt;
 					}
 					if (targettt == null) {
@@ -755,12 +755,12 @@ public class PropagateErrorSources {
 				 * it as an error sink but as an error path and continue
 				 * to trace the flow using this additional error propagation.
 				 */
-				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)) {
+				if (EMV2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)) {
 					String maskText = ", " + generateFailureModeText(ci, ep, tt) + " [Masked],";
 					reportEntry(entryText + maskText, depth);
 					handled = true;
 				} else {
-					Collection<TypeToken> intersection = EM2TypeSetUtil
+					Collection<TypeToken> intersection = EMV2TypeSetUtil
 							.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
 					for (TypeToken typeToken : intersection) {
 						String maskText = ", " + generateFailureModeText(ci, ep, typeToken) + " [Masked],";
@@ -771,8 +771,8 @@ public class PropagateErrorSources {
 			} else if (ef instanceof ErrorPath) { // error path
 				Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll((ErrorPath) ef);
 				ErrorPropagation inep = ((ErrorPath) ef).getIncoming();
-				if (ef.getTypeTokenConstraint() != null ? EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)
-						: (inep != null ? EM2TypeSetUtil.contains(inep.getTypeSet(), tt)
+				if (ef.getTypeTokenConstraint() != null ? EMV2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)
+						: (inep != null ? EMV2TypeSetUtil.contains(inep.getTypeSet(), tt)
 								: ((ErrorPath) ef).isAllIncoming())) {
 					TypeToken newtt = EMV2Util.mapToken(tt, ef);
 					for (ErrorPropagation outp : eplist) {
@@ -789,7 +789,7 @@ public class PropagateErrorSources {
 						ts = inep.getTypeSet();
 					}
 					if (ts != null) {
-						intersection = EM2TypeSetUtil.getConstrainedTypeTokens(ts, tt);
+						intersection = EMV2TypeSetUtil.getConstrainedTypeTokens(ts, tt);
 					}
 					for (TypeToken typeToken : intersection) {
 						TypeToken newtt = EMV2Util.mapToken(typeToken, ef);
@@ -815,12 +815,12 @@ public class PropagateErrorSources {
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
 							if (outp != null) {
 								TypeToken newtt = EMV2Util.mapToken(tt, flowSpecificationInstance);
-								if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)) {
+								if (EMV2TypeSetUtil.contains(outp.getTypeSet(), newtt)) {
 									traceErrorPaths(ci, outp, newtt, depth + 1,
 											entryText + ", " + generateFailureModeText(ci, ep, tt) + " [FlowPath]");
 									handled = true;
 								} else {
-									Collection<TypeToken> intersection = EM2TypeSetUtil
+									Collection<TypeToken> intersection = EMV2TypeSetUtil
 											.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 									for (TypeToken typeToken : intersection) {
 										traceErrorPaths(ci, outp, typeToken, depth + 1, entryText + ", "
@@ -884,12 +884,12 @@ public class PropagateErrorSources {
 				ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
 				if (outp != null) {
 					TypeToken newtt = EMV2Util.mapToken(tt, null);
-					if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)) {
+					if (EMV2TypeSetUtil.contains(outp.getTypeSet(), newtt)) {
 						traceErrorPaths(ci, outp, newtt, depth + 1,
 								entryText + "," + generateFailureModeText(ci, ep, tt) + " [All Out Props]");
 						handled = true;
 					} else {
-						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(),
+						Collection<TypeToken> intersection = EMV2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(),
 								newtt);
 						if (intersection.isEmpty()) {
 							String errorText = ",\"" + generateFailureModeText(ci, outp, newtt)

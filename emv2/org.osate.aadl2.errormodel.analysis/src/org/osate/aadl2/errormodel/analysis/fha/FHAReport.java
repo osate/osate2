@@ -71,8 +71,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -279,7 +279,7 @@ public final class FHAReport {
 						for (EMV2Path ep : epathlist) {
 							ErrorTypes et = EMV2Util.getErrorType(ep);
 							ErrorTypes targettype = ts;
-							if (et != null && EM2TypeSetUtil.contains(ts, et)) {
+							if (et != null && EMV2TypeSetUtil.contains(ts, et)) {
 								targettype = et;
 							}
 							List<EMV2PropertyAssociation> Sevs = EMV2Properties.getSeverityProperty(ci, target, et);
