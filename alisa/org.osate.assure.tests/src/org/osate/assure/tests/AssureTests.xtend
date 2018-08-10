@@ -23,6 +23,7 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.testsupport.TestHelper
 import org.osate.testsupport.TestResourceSetHelper
 
@@ -32,7 +33,7 @@ import static extension org.junit.Assert.assertEquals
 @InjectWith(FullAlisaInjectorProvider)  
 class AssureTests extends XtextTest {
 	@Inject
-	TestHelper<AadlPackage> aadl2TestHelper
+	TestHelper<AssuranceCase> alisaTestHelper
 
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
 	val propertiesprefix = projectprefix+"Properties/"
@@ -42,14 +43,22 @@ class AssureTests extends XtextTest {
 
 	@Test
 	def void aadltest() {
-		val pkg = aadl2TestHelper.parseFile(aadlprefix+"SimpleControlSystem.aadl"
-//			,propertiesprefix+"ACVIP.aadl", 
-//			propertiesprefix+"Physical.aadl",aadlprefix+"PhysicalResources.aadl",aadlprefix+"DataDictionary.aadl",
-//			aadlprefix+"Platform.aadl",aadlprefix+"Software.aadl", aadlprefix+"DigitalControlSystem.aadl"
+		val pkg = alisaTestHelper.parseFile(alisaprefix+"SCSVerification.alisa"
+			,aadlprefix+"SimpleControlSystem.aadl"
+			,propertiesprefix+"ACVIP.aadl", propertiesprefix+"Physical.aadl",
+			aadlprefix+"PhysicalResources.aadl",aadlprefix+"DataDictionary.aadl",
+			aadlprefix+"Platform.aadl",aadlprefix+"Software.aadl", aadlprefix+"DigitalControlSystem.aadl"
 			,alisaprefix+"sei.org" ,alisaprefix+"authors.constants" 
-//			,alisaprefix+"Resolute.methodregistry"
-//			,alisaprefix+"globalReq.reqspec" ,alisaprefix+"GlobalVPlan.verify" ,alisaprefix+"Peter.reqspec"
-//			, resoluteprefix+"BasicResolute.aadl"
+			,alisaprefix+"Resolute.methodregistry"
+			,alisaprefix+"mymethods.methodregistry"
+			,alisaprefix+"DCS.reqspec",alisaprefix+"dcsvplan.verify"
+			,alisaprefix+"DualSCS.reqspec",alisaprefix+"dualscsvplan.verify"
+			,alisaprefix+"globalReq.reqspec" ,alisaprefix+"GlobalVPlan.verify" 
+			,alisaprefix+"Peter.reqspec" ,alisaprefix+"PeterPlan.verify" 
+			,alisaprefix+"SCS.reqspec" ,alisaprefix+"scsvplan.verify" 
+			,alisaprefix+"SCSImplementationReqs.reqspec" ,alisaprefix+"scsimplvplan.verify" 
+			,alisaprefix+"SCSgoals2.goals"  
+			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
 		)
 		pkg => [
 			"SimpleControlSystem".assertEquals(name)	
