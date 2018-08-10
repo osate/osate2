@@ -150,87 +150,25 @@
     <contentExtension
           pattern="org.osate.ui.navigator.aadlFileContent">
     </contentExtension>
+    <contentExtension
+          pattern="org.osate.ui.navigator.menuActions">
+    </contentExtension>
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding
         	viewerId="org.osate.ui.navigator.AadlNavigator">
      		<includes>
-     			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />	
+     			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
+        <actionExtension
+              pattern="org.osate.ui.navigator.*">
+        </actionExtension>
      		</includes>
 	  </viewerActionBinding>
    </extension>
 
 	<extension
          point="org.eclipse.ui.navigator.navigatorContent">
-      <navigatorContent
-            activeByDefault="true"
-            contentProvider="org.osate.ui.navigator.AadlNavigatorContentProvider"
-            id="org.osate.ui.navigator.content"
-            labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider"
-            name="AADL Navigator Content">
-        <triggerPoints>
-            <and>
-               <instanceof value="org.eclipse.core.resources.IResource"/>
-               <test
-                     forcePluginActivation="true"
-                     property="org.eclipse.core.resources.extension"
-                     value="properties"/>
-            </and>
-         </triggerPoints>
-         <possibleChildren>
-         	<or>
-         		<instanceof value= "org.osate.aadl2.instance.InstanceObject" />
-         		<instanceof value= "org.osate.aadl2.NamedElement" />
-         	</or>
-         </possibleChildren>
-		  
-        <commonSorter
-              class="org.osate.ui.navigator.AadlNavigatorSorter"
-              id="org.osate.ui.navigator.sorter">
-           <parentExpression>
-               <or>
-                 <instanceof
-                       value="org.eclipse.core.resources.IResource">
-                 </instanceof>
-                 <instanceof value="org.osate.aadl2.instance.InstanceObject" />
-                 <instanceof value="org.osate.aadl2.NamedElement" />
-                 <instanceof
-                       value="org.osate.ui.navigator.VirtualPluginResources">
-                 </instanceof>
-                </or>
-           </parentExpression>
-        </commonSorter>
-        <actionProvider
-              class="org.osate.ui.navigator.AadlNavigatorActionProvider">
-           <enablement>
-              <instanceof
-                    value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
-              </instanceof>
-           </enablement>
-        </actionProvider>
-        <actionProvider
-              class="org.osate.ui.navigator.NewAadlProjectActionProvider">
-        </actionProvider>
-         <commonWizard
-               type="new"
-               wizardId="org.osate.ui.NewAadlPackageWizard">
-            <enablement>
-               <adapt
-                     type="org.eclipse.core.resources.IResource">
-               </adapt>
-            </enablement>
-         </commonWizard>
-         <commonWizard
-               type="new"
-               wizardId="org.osate.ui.NewPropertySetWizard">
-            <enablement>
-               <adapt
-                     type="org.eclipse.core.resources.IResource">
-               </adapt>
-            </enablement>
-         </commonWizard>
-      </navigatorContent>
       <navigatorContent
             activeByDefault="true"
             contentProvider="org.osate.ui.navigator.AadlContributionContentProvider"
@@ -272,6 +210,48 @@
             </and>
           </enablement>
       </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            id="org.osate.ui.navigator.menuActions"
+            name="AADL Navigator Menu Actions"
+            sortOnly="true">
+         <enablement>
+            <instanceof
+                  value="java.lang.Object">
+            </instanceof>
+         </enablement>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.NewPropertySetWizard">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+         <commonWizard
+               type="new"
+               wizardId="org.osate.ui.NewAadlPackageWizard">
+            <enablement>
+               <adapt
+                     type="org.eclipse.core.resources.IResource">
+               </adapt>
+            </enablement>
+         </commonWizard>
+         <actionProvider
+               class="org.osate.ui.navigator.NewAadlProjectActionProvider"
+               id="org.osate.ui.navigator.newAadlProject">
+         </actionProvider>
+      </navigatorContent>
+      <actionProvider
+            class="org.osate.ui.navigator.AadlNavigatorActionProvider"
+            id="org.osate.ui.navigator.openContributed">
+         <enablement>
+            <instanceof
+                  value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+            </instanceof>
+         </enablement>
+      </actionProvider>
    </extension>
    
    <extension 
