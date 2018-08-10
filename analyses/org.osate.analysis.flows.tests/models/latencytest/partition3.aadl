@@ -1,0 +1,32 @@
+package partition3
+public
+
+  system s1
+  end s1;
+
+  system implementation s1.i1
+    subcomponents
+      sub0: abstract a1;
+      sub1: abstract a1;
+      sub2: abstract a1;
+      sub3: virtual processor {Period => 1 ms;};
+      sub4: processor;
+      sub5: virtual processor;
+    connections
+      conn0: feature sub0.f1 -> sub1.f1;
+      conn1: feature sub1.f1 -> sub2.f1;
+    flows
+      etef1: end to end flow sub0 -> conn0 -> sub1 -> conn1 -> sub2;
+    properties
+      Actual_Processor_Binding => (reference (sub3)) applies to sub0;
+      Actual_Processor_Binding => (reference (sub3)) applies to sub2;
+      Actual_Processor_Binding => (reference (sub4)) applies to sub3;
+      Actual_Processor_Binding => (reference (sub5)) applies to sub1;
+      Actual_Processor_Binding => (reference (sub4)) applies to sub5;
+  end s1.i1;
+
+  abstract a1
+    features
+      f1: feature;
+  end a1;
+end partition3;
