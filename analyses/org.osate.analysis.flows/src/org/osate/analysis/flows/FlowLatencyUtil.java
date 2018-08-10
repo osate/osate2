@@ -62,7 +62,7 @@ public class FlowLatencyUtil {
 		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
 	}
 
-	public static FeatureInstance getIncomingFeatureInstance(final EndToEndFlowInstance etef,
+	public static FeatureInstance getIncomingConnectionFeatureInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
 		if ((previousElement != null)) {
