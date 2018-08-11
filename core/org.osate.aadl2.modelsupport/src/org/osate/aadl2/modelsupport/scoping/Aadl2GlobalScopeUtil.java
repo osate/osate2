@@ -1,5 +1,8 @@
 package org.osate.aadl2.modelsupport.scoping;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -67,6 +70,50 @@ public class Aadl2GlobalScopeUtil {
 			result = o.eIsProxy() ? null : (T) o;
 		}
 		return result;
+	}
+
+	/**
+	 * Find all AADL elements by EClass in the global scope.
+	 *
+	 * @since 2.3.5
+	 *
+	 * @param context The starting point for the global scope.
+	 * @param eClass The meta class of the element to find.
+	 * @return The collection of EObjects that match the class.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends EObject> Collection<T> getAll(EObject context, EClass eClass) {
+		IScope scope = globalScope.getScope(context.eResource(), eClass);
+		Iterable<IEObjectDescription> descs = scope.getAllElements();
+		BasicEList<T> eobjs = new BasicEList<T>();
+		for (IEObjectDescription desc : descs) {
+			T result = null;
+			if (desc != null) {
+				EObject o = desc.getEObjectOrProxy();
+				if (o.eIsProxy()) {
+					o = EcoreUtil.resolve(o, context);
+				}
+				result = o.eIsProxy() ? null : (T) o;
+			}
+			if (result != null) {
+				eobjs.add(result);
+			}
+		}
+		return eobjs;
+	}
+
+	/**
+	 * Find all AADL element EObjectDescriptions by EClass in the global scope.
+	 *
+	 * @since 2.3.5
+	 *
+	 * @param context The starting point for the global scope.
+	 * @param eClass The meta class of the element to find.
+	 * @return The EObjectDescriptions that match the class.
+	 */
+	public static Iterable<IEObjectDescription> getAllEObjectDescriptions(EObject context, EClass eClass) {
+		IScope scope = globalScope.getScope(context.eResource(), eClass);
+		return scope.getAllElements();
 	}
 
 }
