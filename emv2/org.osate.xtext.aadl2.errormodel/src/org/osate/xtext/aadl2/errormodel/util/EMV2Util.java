@@ -2067,6 +2067,24 @@ public class EMV2Util {
 		return "";
 	}
 
+	public static String getDirectionName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getDirectionName(ep);
+		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getPrintName(ts);
+		}
+		if (el instanceof NamedElement) {
+			NamedElement ne = (NamedElement) el;
+			if (ne.getName() != null) {
+				return ne.getName();
+			}
+		}
+		return "";
+	}
+
 	public static String getName(EObject el) {
 		if (el instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) el;
@@ -2092,6 +2110,10 @@ public class EMV2Util {
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
 		return getPropagationName(ep);
+	}
+
+	public static String getDirectionName(ErrorPropagation ep) {
+		return ep.getDirection().getLiteral() + "-" + getPropagationName(ep);
 	}
 
 	public static String getPrintNameWithoutType(EMV2Path ep) {
