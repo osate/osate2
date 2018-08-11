@@ -16,31 +16,26 @@
 
 package org.osate.alisa.common.scoping
 
-import com.google.inject.Inject
-import com.google.inject.Injector
-import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.resource.IResourceServiceProvider
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
-import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider
-import org.eclipse.xtext.scoping.impl.SimpleScope
+import java.util.ArrayList
+import java.util.Collection
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EClass
 import org.osate.aadl2.Aadl2Package
-import java.util.Collection
 import org.osate.aadl2.UnitLiteral
-import java.util.ArrayList
-import org.eclipse.xtext.resource.IEObjectDescription
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.UnitsType
-import org.eclipse.xtext.resource.EObjectDescription
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
-import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
