@@ -1,0 +1,13 @@
+package weight_equals_limit
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		properties
+			SEI::GrossWeight => 1.0 kg;
+			SEI::WeightLimit => 1.0 kg;
+	end s1.i1;
+end weight_equals_limit;
