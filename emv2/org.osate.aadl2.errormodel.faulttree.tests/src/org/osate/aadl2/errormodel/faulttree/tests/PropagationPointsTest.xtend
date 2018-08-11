@@ -81,7 +81,7 @@ class PropagationPointsTest extends OsateTest {
 	 */
 	@Test
 	def void propagationpointsfaulttree() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ft = CreateFTAModel.createFaultTree(instance, start)
 		assertEquals(ft.events.size, 6)
 		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
@@ -92,7 +92,7 @@ class PropagationPointsTest extends OsateTest {
 
 	@Test
 	def void propagationpointsfaulttrace() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ftrace = CreateFTAModel.createFaultTrace(instance, start)
 		assertEquals(ftrace.events.size, 15)
 	}
@@ -123,7 +123,7 @@ class PropagationPointsTest extends OsateTest {
 
 	@Test
 	def void propagationpointscutsetsoutprop() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val cutsets = CreateFTAModel.createMinimalCutSet(instance, start)
 		assertEquals(cutsets.events.size, 8)
 		// three cutsets
@@ -138,7 +138,7 @@ class PropagationPointsTest extends OsateTest {
 
 	@Test
 	def void propagationpointfeaturefaulttree() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ft = CreateFTAModel.createFaultTree(instance2, start)
 		assertEquals(ft.events.size, 6)
 		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
@@ -149,14 +149,14 @@ class PropagationPointsTest extends OsateTest {
 
 	@Test
 	def void propagationpointfeaturefaulttrace() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ftrace = CreateFTAModel.createFaultTrace(instance2, start)
 		assertEquals(ftrace.events.size, 15)
 	}
 
 	@Test
 	def void propagationpointfeaturecutsets() {
-		val start = "outgoing propagation on out-observation{ServiceOmission}"
+		val start = "outgoing propagation on observation{ServiceOmission}"
 		val cutsets = CreateFTAModel.createMinimalCutSet(instance2, start)
 		assertEquals(cutsets.events.size, 8)
 		// three cutsets

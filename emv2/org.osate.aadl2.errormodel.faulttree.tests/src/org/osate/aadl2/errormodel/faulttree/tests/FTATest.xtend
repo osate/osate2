@@ -382,7 +382,7 @@ class FTATest extends OsateTest {
 
 	@Test
 	def void redundant23Test() {
-		val start = "outgoing propagation on out-externaleffect{serviceomission}"
+		val start = "outgoing propagation on externaleffect{serviceomission}"
 		val ft = CreateFTAModel.createFaultTree(instanceredundant23, start)
 		assertEquals(ft.events.size, 14)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
@@ -408,7 +408,7 @@ class FTATest extends OsateTest {
 	
 	@Test
 	def void redundant2VoterFaultTreeTest(){
-		val start = "outgoing propagation on out-valueout{ItemOmission}"
+		val start = "outgoing propagation on valueout{ItemOmission}"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
@@ -419,15 +419,15 @@ class FTATest extends OsateTest {
 		val subsube1 = sube1.subEvents.head
 		val subsube2 = sube1.subEvents.get(1)
 		assertTrue(subsube1.relatedEMV2Object instanceof ErrorPropagation)
-		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "in-valuein1")
+		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "valuein1")
 		assertEquals((subsube1.relatedErrorType as NamedElement).name, "OutOfRange")
 		assertTrue(subsube2.relatedEMV2Object instanceof ErrorPropagation)
-		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "in-valuein2")
+		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "valuein2")
 		assertEquals((subsube2.relatedErrorType as NamedElement).name, "OutOfRange")
 	}
 	@Test
 	def void redundant2VoterFaultTreeInconsistentValueTest(){
-		val start = "outgoing propagation on out-valueout{InconsistentValue}"
+		val start = "outgoing propagation on valueout{InconsistentValue}"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -608,7 +608,7 @@ class FTATest extends OsateTest {
 	
 		@Test
 	def void filteredFlowTest() {
-		val start = "outgoing propagation on out-outport{NoValue}"
+		val start = "outgoing propagation on outport{NoValue}"
 		val ft = CreateFTAModel.createFaultTrace(instanceFilteredFlow, start)
 		assertEquals(ft.events.size, 9)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -623,19 +623,19 @@ class FTATest extends OsateTest {
 	
 		@Test
 	def void allFlowFaultTreeTest() {
-		val start = "outgoing propagation on out-outport{NoValue}"
+		val start = "outgoing propagation on outport{NoValue}"
 		val ft = CreateFTAModel.createFaultTree(instanceAllFlows, start)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertTrue(sube1.type == EventType.EXTERNAL)
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorPropagation)
-		assertEquals(EMV2Util.getPrintName(sube1.relatedEMV2Object as NamedElement), "in-inport")
+		assertEquals(EMV2Util.getPrintName(sube1.relatedEMV2Object as NamedElement), "inport")
 	}
 	
 		@Test
 	def void allFlowFaultTraceTest() {
-		val start = "outgoing propagation on out-outport{NoValue}"
+		val start = "outgoing propagation on outport{NoValue}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
 		assertEquals(ft.events.size, 15)
 		assertEquals(ft.root.subEvents.size, 1)
