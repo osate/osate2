@@ -40,11 +40,9 @@ import org.osate.aadl2.UnitsType
 import org.eclipse.xtext.resource.EObjectDescription
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
-
-	@Inject
-	var IEClassGlobalScopeProvider globalScope;
 
 
 	def scopeFor(Iterable<? extends EObject> elements) {
@@ -68,8 +66,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
 		val Collection<UnitLiteral> result = new ArrayList<UnitLiteral>()
-		val scope = globalScope.getScope(context.eResource(), UNITS_TYPE)
-		for (IEObjectDescription desc : scope.allElements) {
+		for (IEObjectDescription desc : Aadl2GlobalScopeUtil.getAllEObjectDescriptions(context,UNITS_TYPE)) {
 			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
 			unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
 		}
