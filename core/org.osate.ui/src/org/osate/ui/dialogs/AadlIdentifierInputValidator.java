@@ -9,6 +9,10 @@ import java.util.Set;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.osate.aadl2.NamedElement;
 
+/**
+ * @deprecated this class will be removed in 2.3.6
+ */
+@Deprecated
 public class AadlIdentifierInputValidator implements IInputValidator {
 	private static final char UNDERSCORE = '_';
 
