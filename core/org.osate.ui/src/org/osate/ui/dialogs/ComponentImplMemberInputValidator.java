@@ -5,6 +5,10 @@ import java.util.Set;
 
 import org.osate.aadl2.ComponentImplementation;
 
+/**
+ * @deprecated this class will be removed in 2.3.6
+ */
+@Deprecated
 public class ComponentImplMemberInputValidator extends AadlIdentifierInputValidator {
 	private final ComponentImplementation compImpl;
 
