@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -84,7 +85,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class EMV2Util {
 
@@ -183,10 +183,11 @@ public class EMV2Util {
 			return cl;
 		}
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
-		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2")) {
+		if (emsc == null || !emsc.getName().equalsIgnoreCase("EMV2")) {
+			// we are not inside an EMV2 subclause
 			return null;
 		}
-		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
+		return Aadl2GlobalScopeUtil.get(emsc,
 				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
 
@@ -196,7 +197,7 @@ public class EMV2Util {
 	 * @return ErrorModelSubclause
 	 */
 	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
-		return (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(cl,
+		return Aadl2GlobalScopeUtil.get(cl,
 				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), cl.getQualifiedName());
 	}
 
@@ -2066,6 +2067,24 @@ public class EMV2Util {
 		return "";
 	}
 
+	public static String getDirectionName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getDirectionName(ep);
+		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getPrintName(ts);
+		}
+		if (el instanceof NamedElement) {
+			NamedElement ne = (NamedElement) el;
+			if (ne.getName() != null) {
+				return ne.getName();
+			}
+		}
+		return "";
+	}
+
 	public static String getName(EObject el) {
 		if (el instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) el;
@@ -2091,6 +2110,10 @@ public class EMV2Util {
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
 		return getPropagationName(ep);
+	}
+
+	public static String getDirectionName(ErrorPropagation ep) {
+		return ep.getDirection().getLiteral() + "-" + getPropagationName(ep);
 	}
 
 	public static String getPrintNameWithoutType(EMV2Path ep) {
