@@ -91,12 +91,21 @@ import org.osate.ge.internal.services.ActionExecutor;
 public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	public final static String incompleteIndicator = "*";
+	private final static int defaultWrappingLabelWidth = 100;
+
+	// Additional padding to wrapping labels.
+	// This is because we don't want the wrapping label to extend all the way to the right edge of the note shape.
+	// Will need to be adjusted if/when additional business object handlers use wrapping labels.
+	// This value is based on the padding added by the ELK layout process. Ideally, this value should be provided
+	// to ELK via the LayoutInfoProvider.
+	private final static int wrappingLabelPadding = 10;
 	private LocalResourceManager localResourceManager = new LocalResourceManager(AgeDiagramTypeProvider.getResources());
 
 	private final UpdaterListener updateListener;
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
 	private final ColoringProvider coloringProvider;
+	private final LabelHelper labelHelper = new LabelHelper();
 	private final Map<PictogramElement, DiagramNode> pictogramElementToDiagramNodeMap = new HashMap<>();
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
@@ -454,14 +463,20 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			// Create Labels
 			if (primaryLabelStr != null) {
 				final Shape labelShape;
-				labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
-						ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize);
+				if (de.getGraphicalConfiguration().primaryLabelIsMultiline) {
+					labelShape = labelHelper.createWrappingLabelShape(graphitiDiagram, (ContainerShape) pe,
+							ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize,
+							de.hasSize() ? (int) de.getWidth() : defaultWrappingLabelWidth, wrappingLabelPadding);
+				} else {
+					labelShape = labelHelper.createLabelShape(graphitiDiagram, (ContainerShape) pe,
+							ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize);
+				}
 				labelShape.setActive(false);
 			}
 
 			final String annotation = de.getGraphicalConfiguration().annotation;
 			if (annotation != null) {
-				final Shape annotationShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape) pe,
+				final Shape annotationShape = labelHelper.createLabelShape(graphitiDiagram, (ContainerShape) pe,
 						ShapeNames.annotationShapeName, annotation, fontSize);
 				annotationShape.setActive(false);
 			}

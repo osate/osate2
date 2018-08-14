@@ -1,0 +1,161 @@
+/*******************************************************************************
+ * Copyright (C) 2015 University of Alabama in Huntsville (UAH)
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+package org.osate.ge.internal.graphiti.diagram;
+
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.xtext.util.Strings;
+
+public class LabelHelper {
+	private final Map<Integer, Font> sizeToWrappingFontMap = new HashMap<>();
+	private final FontRenderContext fontRenderContext = new FontRenderContext(new AffineTransform(), true, false);
+
+	public Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName,
+			final String labelValue, final double fontSize) {
+		return createLabelShape(diagram, container, shapeName, labelValue, true, fontSize);
+	}
+
+	private static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName,
+			final String labelValue, final boolean includeBackground, final double fontSize) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		final Shape labelShape = peCreateService.createShape(container, true);
+		PropertyUtil.setName(labelShape, shapeName);
+		PropertyUtil.setIsManuallyPositioned(labelShape, true);
+		PropertyUtil.setIsTransient(labelShape, true);
+
+		final GraphicsAlgorithm labelBackground;
+		final AbstractText labelText;
+		if(includeBackground) {
+			labelBackground = createTextBackground(diagram, labelShape);
+			labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue, fontSize);
+		} else {
+			labelBackground = null;
+			labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize);
+		}
+
+		final IGaService gaService = Graphiti.getGaService();
+		if(labelBackground != null) {
+			gaService.setSize(labelBackground, labelText.getWidth(), labelText.getHeight());
+		}
+
+		return labelShape;
+	}
+
+	/**
+	 * Creates a shape and graphical algorithm for wrapping labels. Wrapping labels are multiline labels.
+	 */
+	public Shape createWrappingLabelShape(final Diagram diagram, final ContainerShape container,
+			final String shapeName, final String labelValue, final double fontSize,
+			final int width, final int padding) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		final Shape labelShape = peCreateService.createShape(container, true);
+		PropertyUtil.setName(labelShape, shapeName);
+		PropertyUtil.setIsManuallyPositioned(labelShape, true);
+		PropertyUtil.setIsTransient(labelShape, true);
+
+		createWrappingLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize, width, padding);
+		return labelShape;
+	}
+
+	private static GraphicsAlgorithm createTextBackground(final Diagram diagram, final GraphicsAlgorithmContainer container) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm background = gaService.createPlainRectangle(container);
+		background.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		background.setLineVisible(false);
+		background.setFilled(true);
+		background.setTransparency(0.2);
+		PropertyUtil.setIsStylingContainer(background, true);
+		PropertyUtil.setIsStylingChild(background, true);
+
+		return background;
+	}
+
+	private static AbstractText createLabelGraphicsAlgorithm(final Diagram diagram,
+			final GraphicsAlgorithmContainer container, final String labelTxt, final double fontSize) {
+		final IGaService gaService = Graphiti.getGaService();
+		final AbstractText text = gaService.createPlainText(container, labelTxt);
+		TextUtil.setStyleAndSize(diagram, text, fontSize);
+		PropertyUtil.setIsStylingChild(text, true);
+
+		return text;
+	}
+
+	private AbstractText createWrappingLabelGraphicsAlgorithm(final Diagram diagram,
+			final GraphicsAlgorithmContainer container, String labelTxt, final double fontSize,
+			final int width, final int padding) {
+		final IGaService gaService = Graphiti.getGaService();
+		final AbstractText text = gaService.createPlainMultiText(container, labelTxt);
+		TextUtil.setStyle(diagram, text, fontSize);
+		PropertyUtil.setIsStylingChild(text, true);
+
+		// Override styling fields specific to wrapping labels
+		text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+		text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
+
+		setWrappingLabelSize(text, labelTxt, fontSize, width, padding);
+
+		return text;
+	}
+
+	private Font getWrappingFont(final double fontSize) {
+		// Get the font to use for determining the size of wrapping test.
+		// AWT uses a DPI of 72. Scale based on a DPI of 96.0.
+		final int fontSizeInPoints = (int) Math.ceil(fontSize * 96.0 / 72.0);
+		return sizeToWrappingFontMap.computeIfAbsent(fontSizeInPoints, s -> new Font("Arial", Font.BOLD, s));
+	}
+
+	private void setWrappingLabelSize(final AbstractText text, String labelTxt, final double fontSize,
+			final int width, final int padding) {
+		final int textWidth = Math.max(width - padding, 1);
+		text.setWidth(textWidth);
+
+		// Use a smaller width as the wrapping with to handle error in determining how many lines will actually be rendered.
+		final int wrapWidth = Math.max(textWidth - 10, 1);
+
+		// Don't allow empty labels
+		if (Strings.isEmpty(labelTxt)) {
+			labelTxt = "  ";
+		}
+
+		// Determine height
+		final Font font = getWrappingFont(fontSize);
+		final AttributedString attributedText = new AttributedString(labelTxt);
+		attributedText.addAttribute(TextAttribute.FONT, font);
+
+		final AttributedCharacterIterator textIt = attributedText.getIterator();
+		final LineBreakMeasurer measurer = new LineBreakMeasurer(textIt, fontRenderContext);
+
+		double totalHeight = 0;
+		while (measurer.getPosition() < textIt.getEndIndex()) {
+			final TextLayout layout = measurer.nextLayout(wrapWidth);
+			totalHeight += Math.ceil(layout.getAscent()) + Math.ceil(layout.getDescent())
+			+ Math.ceil(layout.getLeading()) + 1;
+		}
+		text.setHeight((int) Math.ceil(totalHeight));
+	}
+}

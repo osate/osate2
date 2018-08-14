@@ -8,9 +8,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
@@ -20,6 +17,7 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 import com.google.common.collect.ImmutableList;
 
@@ -68,11 +66,10 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	 * @return
 	 */
 	private static ActionExecutor getActionExecutor() {
-		final IEditorPart editor = getActiveEditor();
+		final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 		ActionExecutor executor = null;
-		if (editor instanceof AgeDiagramEditor) {
-			final AgeDiagramEditor ageEditor = (AgeDiagramEditor) editor;
-			executor = ageEditor.getActionExecutor();
+		if (editor != null) {
+			executor = editor.getActionExecutor();
 		}
 
 		if (executor == null) {
@@ -81,16 +78,5 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 		}
 
 		return executor;
-	}
-
-	private static IEditorPart getActiveEditor() {
-		final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (activeWindow != null) {
-			final IWorkbenchPage activePage = activeWindow.getActivePage();
-			if (activePage != null) {
-				return activePage.getActiveEditor();
-			}
-		}
-		return null;
 	}
 }

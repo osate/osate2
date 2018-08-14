@@ -29,9 +29,11 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.ClipboardService;
@@ -87,23 +89,22 @@ public class PasteAction extends ActionStackAction {
 		final AgeDiagramEditor editor = (AgeDiagramEditor) getWorkbenchPart();
 
 		// Perform modification
-		final DiagramElement dstDiagramElement = getDestinationDiagramElement();
-		final EObject dstBo = getDestinationBusinessObject(dstDiagramElement);
-		final AgeDiagram diagram = DiagramElementUtil.getDiagram(dstDiagramElement);
+		final DiagramNode dstDiagramNode = getDestinationDiagramNode();
+		final EObject dstBo = getDestinationEObject(dstDiagramNode);
+		final AgeDiagram diagram = DiagramElementUtil.getDiagram(dstDiagramNode);
 		final List<DiagramElement> newDiagramElements = new ArrayList<>();
 		diagram.modify("Paste", m -> {
 			// The modifier will do the actual copying to the diagram elements. It will also copy the business objects
 			// if the copied element includes the business object.
 			final SimpleModifier<EObject> modifier = dstBoToModify -> {
-				newDiagramElements
-				.addAll(copyClipboardContents(dstBoToModify, dstDiagramElement, m, refBuilder, projectProvider, extService,
-						namingService));
+				newDiagramElements.addAll(copyClipboardContents(dstBoToModify, dstDiagramNode, m, refBuilder,
+						projectProvider, extService, namingService));
 			};
 
-			// If business objects have been copied, then modify the AADL model. Otherwise, just modify the diagram.
-			final boolean anyHaveBo = getCopiedDiagramElements().stream()
-					.anyMatch(de -> de.getCopiedBusinessObject() != null);
-			if (anyHaveBo) {
+			// If any non-embedded business objects have been copied, then modify the AADL model. Otherwise, just modify the diagram.
+			final boolean anyHaveNonEmbeddedBo = getCopiedDiagramElements().stream()
+					.anyMatch(de -> de.getCopiedBusinessObject() instanceof EObject);
+			if (anyHaveNonEmbeddedBo) {
 				aadlModificationService.modify(dstBo, modifier);
 			} else {
 				modifier.modify(null);
@@ -125,16 +126,15 @@ public class PasteAction extends ActionStackAction {
 	 * @return the diagram elements which were created. Does not include children of created diagram elements.
 	 */
 	private Collection<DiagramElement> copyClipboardContents(final EObject dstBoToModify,
-			final DiagramElement dstDiagramElement,
-			final DiagramModification m,
-			final ReferenceBuilderService refBuilder, final ProjectProvider projectProvider,
-			final ExtensionService extService, final NamingService namingService) {
+			final DiagramNode dstDiagramNode, final DiagramModification m, final ReferenceBuilderService refBuilder,
+			final ProjectProvider projectProvider, final ExtensionService extService,
+			final NamingService namingService) {
 		// Determine the minimum coordinates from the elements whose positions will be copied
 		// The minimum coordinates is null if none of the copied diagram elements have an absolute position. This is reasonable because the minimum coordinates
 		// are only needed if a copied diagram element has an absolute position.
-		final Point minCoordinates = getCopiedDiagramElements().stream()
-				.map(CopiedDiagramElement::getAbsolutePosition).filter(Predicates.notNull())
-				.reduce((a, b) -> new Point(Math.min(a.x, b.x), Math.min(a.y, b.y))).orElse(null);
+		final Point minCoordinates = getCopiedDiagramElements().stream().map(CopiedDiagramElement::getAbsolutePosition)
+				.filter(Predicates.notNull()).reduce((a, b) -> new Point(Math.min(a.x, b.x), Math.min(a.y, b.y)))
+				.orElse(null);
 
 		// This list will contain the diagram elements that are created by the copying process. Does not contain their children.
 		final List<DiagramElement> newDiagramElements = new ArrayList<>();
@@ -143,32 +143,43 @@ public class PasteAction extends ActionStackAction {
 		for (final CopiedDiagramElement copiedDiagramElement : getCopiedDiagramElements()) {
 			final DiagramElement newDiagramElement;
 			if (copiedDiagramElement.getCopiedBusinessObject() == null) {
-				newDiagramElement = copiedDiagramElement.getDiagramElement().cloneWithoutIdsAndBusinessObjects(dstDiagramElement,
-						copiedDiagramElement.getDiagramElement().getRelativeReference());
+				newDiagramElement = CopyAndPasteUtil.copyDiagramElement(copiedDiagramElement.getDiagramElement(),
+						dstDiagramNode, copiedDiagramElement.getDiagramElement().getRelativeReference(), refBuilder);
 			} else {
-				// Get the list that to which the copied object will be added
-				final EStructuralFeature compatibleFeature = getCompatibleStructuralFeature(
-						copiedDiagramElement.getContainingFeature(), dstBoToModify.eClass());
-				final Object containingFeatureValue = dstBoToModify.eGet(compatibleFeature);
-				if (!(containingFeatureValue instanceof Collection)) {
-					throw new RuntimeException("Unexpected case. Value of containing feature was not a collection");
+				final Object boFromCopiedDiagramElement = copiedDiagramElement.getCopiedBusinessObject();
+
+				final RelativeBusinessObjectReference newRelativeRef;
+				if (boFromCopiedDiagramElement instanceof EmbeddedBusinessObject) {
+					// The relative reference will be assigned when copying the diagram element.
+					newRelativeRef = null;
+				} else if (boFromCopiedDiagramElement instanceof EObject) {
+					// Get the list that to which the copied object will be added
+					final EStructuralFeature compatibleFeature = getCompatibleStructuralFeature(
+							copiedDiagramElement.getContainingFeature(), dstBoToModify.eClass());
+					final Object containingFeatureValue = dstBoToModify.eGet(compatibleFeature);
+					if (!(containingFeatureValue instanceof Collection)) {
+						throw new RuntimeException("Unexpected case. Value of containing feature was not a collection");
+					}
+					@SuppressWarnings("unchecked")
+					final Collection<EObject> containingFeatureValueCollection = (Collection<EObject>) containingFeatureValue;
+
+					final EObject copiedEObject = EcoreUtil.copy((EObject) boFromCopiedDiagramElement);
+					containingFeatureValueCollection.add(copiedEObject);
+
+					ensureBusinessObjectHasUniqueName(copiedEObject,
+							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
+							copiedDiagramElement.getDiagramElement().getName(), projectProvider.getProject(),
+							namingService, extService);
+
+					ensurePackagesAreImported(copiedEObject);
+
+					newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
+				} else {
+					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
-				@SuppressWarnings("unchecked")
-				final Collection<EObject> containingFeatureValueCollection = (Collection<EObject>) containingFeatureValue;
 
-				// Copy the object and add it to the collection
-				final EObject copiedEObject = EcoreUtil.copy(copiedDiagramElement.getCopiedBusinessObject());
-				containingFeatureValueCollection.add(copiedEObject);
-
-				ensureBusinessObjectHasUniqueName(copiedEObject, copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
-						copiedDiagramElement.getDiagramElement().getName(), projectProvider.getProject(), namingService, extService);
-
-				ensurePackagesAreImported(copiedEObject);
-
-				final RelativeBusinessObjectReference newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
-
-				newDiagramElement = copiedDiagramElement.getDiagramElement().cloneWithoutIdsAndBusinessObjects(dstDiagramElement,
-						newRelativeRef);
+				newDiagramElement = CopyAndPasteUtil.copyDiagramElement(copiedDiagramElement.getDiagramElement(),
+						dstDiagramNode, newRelativeRef, refBuilder);
 			}
 
 			// Set the position of the new diagram element. They are positioned relative to each other at a fixed offset within the new parent.
@@ -178,21 +189,23 @@ public class PasteAction extends ActionStackAction {
 			m.setPosition(newDiagramElement, newPosition);
 
 			// Set the new element as manual to true if and only if it is required to ensure the element appears
-			final boolean manual = !dstDiagramElement.getContentFilters().stream()
-					.anyMatch(cf -> cf.test(copiedDiagramElement.getOriginalBo()));
-			m.setManual(newDiagramElement, manual);
+			final boolean manual = dstDiagramNode instanceof DiagramElement
+					? !((DiagramElement) dstDiagramNode).getContentFilters().stream()
+							.anyMatch(cf -> cf.test(copiedDiagramElement.getOriginalBo()))
+							: true;
+							m.setManual(newDiagramElement, manual);
 
-			// Remove existing element
-			final DiagramElement existingDiagramElement = dstDiagramElement
-					.getByRelativeReference(newDiagramElement.getRelativeReference());
-			if (existingDiagramElement != null) {
-				m.removeElement(existingDiagramElement);
-			}
+							// Remove existing element
+							final DiagramElement existingDiagramElement = dstDiagramNode
+									.getByRelativeReference(newDiagramElement.getRelativeReference());
+							if (existingDiagramElement != null) {
+								m.removeElement(existingDiagramElement);
+							}
 
-			// This is needed to ensure objects are assigned IDs
-			addElements(newDiagramElement, m);
+							// Add the new diagram element to the diagram.
+							m.addElement(newDiagramElement);
 
-			newDiagramElements.add(newDiagramElement);
+							newDiagramElements.add(newDiagramElement);
 		}
 
 		return newDiagramElements;
@@ -209,9 +222,7 @@ public class PasteAction extends ActionStackAction {
 	 * @param extService
 	 */
 	private static void ensureBusinessObjectHasUniqueName(final EObject bo, final Object boHandler,
-			final String diagramElementName,
-			final IProject project,
-			final NamingService namingService,
+			final String diagramElementName, final IProject project, final NamingService namingService,
 			final ExtensionService extService) {
 		if (supportsRenaming(bo, boHandler) && RenameUtil.hasValidateNameMethod(boHandler)) {
 			// Determine the current name of the business object.
@@ -271,9 +282,7 @@ public class PasteAction extends ActionStackAction {
 
 			int count = 1;
 			while (true) {
-				final String result = RenameUtil.checkNewNameValidity(bo,
-						boHandler, newName, project,
-						extService);
+				final String result = RenameUtil.checkNewNameValidity(bo, boHandler, newName, project, extService);
 
 				if (result == null) {
 					break;
@@ -350,19 +359,6 @@ public class PasteAction extends ActionStackAction {
 		}
 	}
 
-	/**
-	 * Adds the element and children diagram. Needed to ensure connect the copied diagram element to the new parent and
-	 * to assign id's to all the diagram elements.
-	 * @param element
-	 * @param mod
-	 */
-	private static final void addElements(final DiagramElement element, final DiagramModification mod) {
-		mod.addElement(element);
-		for(final DiagramElement child : element.getDiagramElements()) {
-			addElements(child, mod);
-		}
-	}
-
 	@Override
 	protected boolean calculateEnabled() {
 		// Return value if this is called before constructor is finished
@@ -370,28 +366,54 @@ public class PasteAction extends ActionStackAction {
 			return false;
 		}
 
-		return getDestinationBusinessObject(getDestinationDiagramElement()) != null;
+		final DiagramNode dstDiagramNode = getDestinationDiagramNode();
+		if (dstDiagramNode == null) {
+			return false;
+		}
 
+		final Collection<CopiedDiagramElement> copiedDiagramElements = getCopiedDiagramElements();
+		if (copiedDiagramElements.isEmpty()) {
+			return false;
+		}
+
+		final boolean anyNonEmbeddedBoCopied = copiedDiagramElements.stream()
+				.anyMatch(de -> de.getCopiedBusinessObject() instanceof EObject);
+
+		// Don't allow pasting inside an embedded business object.
+		// Such objects are not supported because layout issues have been observed.
+		return !(getBusinessObject(dstDiagramNode) instanceof EmbeddedBusinessObject)
+				&& (!anyNonEmbeddedBoCopied || getDestinationEObject(dstDiagramNode) != null);
 	}
 
 	/**
-	 * Returns the diagram element inside which contents will be pasted.
-	 * @return the diagram element to use as a parent or null if there is not exactly one diagram element selected.
+	 * Returns the diagram node inside which contents will be pasted.
+	 * @return the diagram node to use as a parent or null if there is not exactly one diagram node selected.
 	 */
-	private DiagramElement getDestinationDiagramElement() {
-		// Only allow pasting if a single diagram element is selected.
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() != 1) {
+	private DiagramNode getDestinationDiagramNode() {
+		// Only allow pasting if a single diagram node is selected.
+		final List<DiagramNode> selectedDiagramNodes = AgeHandlerUtil.getSelectedDiagramNodes();
+		if (selectedDiagramNodes.size() != 1) {
 			return null;
 		}
 
-		return selectedDiagramElements.get(0);
+		return selectedDiagramNodes.get(0);
 	}
 
-	private EObject getDestinationBusinessObject(final DiagramElement dstDiagramElement) {
-		if (dstDiagramElement == null) {
+	private static Object getBusinessObject(final DiagramNode dstDiagramNode) {
+		if (!(dstDiagramNode instanceof DiagramElement)) {
 			return null;
 		}
+
+		final DiagramElement dstDiagramElement = (DiagramElement) dstDiagramNode;
+		return dstDiagramElement.getBusinessObject();
+	}
+
+	private EObject getDestinationEObject(final DiagramNode dstDiagramNode) {
+		if (!(dstDiagramNode instanceof DiagramElement)) {
+			return null;
+		}
+
+		final DiagramElement dstDiagramElement = (DiagramElement) dstDiagramNode;
 
 		if (!(dstDiagramElement.getBusinessObject() instanceof EObject)) {
 			return null;
@@ -408,8 +430,8 @@ public class PasteAction extends ActionStackAction {
 		while (dstBo != null) {
 			// Check if all copied business objects may be copied to the potential destination business object
 			final EClass dstBoEClass = dstBo.eClass();
-			final boolean allElementsAreCompatible = copiedDiagramElements.stream()
-					.allMatch(copiedDiagramElement -> copiedDiagramElement.getCopiedBusinessObject() == null
+			final boolean allElementsAreCompatible = copiedDiagramElements.stream().allMatch(
+					copiedDiagramElement -> !(copiedDiagramElement.getCopiedBusinessObject() instanceof EObject)
 					|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
 							dstBoEClass) != null);
 
@@ -448,7 +470,6 @@ public class PasteAction extends ActionStackAction {
 
 	private static EStructuralFeature getCompatibleStructuralFeature(final EStructuralFeature searchFeature,
 			final EClass eClass) {
-
 		if (!(searchFeature.getEType() instanceof EClass)) {
 			return null;
 		}

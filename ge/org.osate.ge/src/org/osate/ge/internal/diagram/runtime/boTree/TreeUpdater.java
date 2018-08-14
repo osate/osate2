@@ -10,5 +10,5 @@ public interface TreeUpdater {
 	 * @param tree
 	 * @return
 	 */
-	BusinessObjectNode expandTree(final DiagramConfiguration configuration, BusinessObjectNode tree, long nextNodeId);
+	BusinessObjectNode expandTree(final DiagramConfiguration configuration, BusinessObjectNode tree);
 }

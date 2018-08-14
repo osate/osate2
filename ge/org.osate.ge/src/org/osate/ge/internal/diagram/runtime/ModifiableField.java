@@ -1,7 +1,6 @@
 package org.osate.ge.internal.diagram.runtime;
 
 public enum ModifiableField {
-	ID,
 	MANUAL,
 	CONTENT_FILTERS,
 	COMPLETENESS,
