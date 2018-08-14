@@ -217,6 +217,7 @@ public interface NamedElement extends Element {
 	 * based on modes.
 	 *
 	 * @param property The property whose value is to be retieved.
+	 * @param all Get all property associations.
 	 * @return The property value. This will never be <code>null</code>.
 	 * @throws IllegalStateException Thrown if the lookup encounters a cycle of
 	 *             property reference dependencies.
@@ -229,8 +230,13 @@ public interface NamedElement extends Element {
 	 *             .
 	 * @throws IllegalArgumentException Thrown if property is <code>null</code>.
 	 */
-	PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
+	PropertyAcc getPropertyValue(Property property, boolean all) throws IllegalStateException, InvalidModelException,
 			PropertyDoesNotApplyToHolderException, IllegalArgumentException;
+
+	default PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
+			PropertyDoesNotApplyToHolderException, IllegalArgumentException {
+		return getPropertyValue(property, false);
+	};
 
 	/**
 	 * Query whether this object accepts values for the given property. That is,
@@ -274,12 +280,19 @@ public interface NamedElement extends Element {
 	 *            flag does not affect lookup for feature declarations because
 	 *            in that case the inherit flag defers to the component type or
 	 *            feature group type.
+	 * @param all Accumulate all property associations for the property. Useful
+	 *            for validation.
 	 * @throws InvalidModelException Thrown if the property value cannot be
 	 *             retrieved because the model is incomplete or otherwise
 	 *             invalid.
 	 */
-	void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
+	void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall, boolean all)
 			throws InvalidModelException;
+
+	default void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
+		getPropertyValueInternal(property, pas, fromInstanceSlaveCall, false);
+	}
 
 	/**
 	 * Set property association for given property definition with specified
