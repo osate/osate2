@@ -28,9 +28,9 @@ The SCS system consists for software, hardware, and physical components."
 			description "The controller shall not cause the simple device to damage objects in its operational environment"
 			stakeholder sei.phf
 		]
-	goal ng2 : "Maximum weight" [
-		description "The system shall stay within a specified weight limit."
-		stakeholder sei.phf
-		rationale "The system is part of an aircraft."
-	]
+//	goal ng2 : "Maximum weight" [
+//		description "The system shall stay within a specified weight limit."
+//		stakeholder sei.phf
+//		rationale "The system is part of an aircraft."
+//	]
 ]
