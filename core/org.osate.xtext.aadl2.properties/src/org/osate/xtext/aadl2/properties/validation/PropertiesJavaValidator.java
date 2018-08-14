@@ -108,6 +108,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
@@ -193,8 +194,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	// checking methods
 	public void checkPropertyAssociationAppliesToArrayIndex(PropertyAssociation propertyAssociation) {
 		List<ContainedNamedElement> appliesTos = propertyAssociation.getAppliesTos();
-		if (null == appliesTos || appliesTos.isEmpty())
+		if (null == appliesTos || appliesTos.isEmpty()) {
 			return;
+		}
 		for (ContainedNamedElement appliesTo : appliesTos) {
 			List<ContainmentPathElement> cpes = appliesTo.getContainmentPathElements();
 			for (ContainmentPathElement cpe : cpes) {
@@ -512,17 +514,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 
 		for (ModalPropertyValue mpv1 : modalPropertyValues) {
-			if (null == mpv1)
+			if (null == mpv1) {
 				continue;
+			}
 			List<Mode> inModes1 = mpv1.getInModes();
 			for (ModalPropertyValue mpv2 : modalPropertyValues) {
-				if (null == mpv2)
+				if (null == mpv2) {
 					continue;
+				}
 				List<Mode> inModes2 = mpv2.getInModes();
 				if (mpv1 != mpv2) {
 					for (Mode inMode1 : inModes1) {
-						if (null == inMode1)
+						if (null == inMode1) {
 							continue;
+						}
 						for (Mode inMode2 : inModes2) {
 							if (inMode1.equals(inMode2)) {
 								error(mpv2, "Assignment to duplicate modes");
@@ -639,6 +644,27 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 						SOURCE_STACK_SIZE_DEPRECATED);
 			} else if ("Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Data_Volume is deprecated. Please use Data_Rate.", pa, null, DATA_VOLUME_DEPRECATED);
+			}
+		}
+		checkConstantProperty(pa);
+	}
+
+	protected void checkConstantProperty(PropertyAssociation assoc) {
+		Property prop = assoc.getProperty();
+		Element elem = assoc.getOwner();
+		if (elem instanceof NamedElement) {
+			NamedElement owner = (NamedElement) elem;
+			PropertyAcc acc = ((NamedElement) elem).getPropertyValue(prop, true);
+			List<PropertyAssociation> pas = acc.getAssociations();
+			if (pas.size() > 1) {
+				Iterator<PropertyAssociation> iter = pas.listIterator(1);
+				while (iter.hasNext()) {
+					PropertyAssociation pa = iter.next();
+					if (pa.isConstant()) {
+						error(assoc, "Property association overrides constant property value from "
+								+ pa.getContainingClassifier().getQualifiedName());
+					}
+				}
 			}
 		}
 	}
@@ -774,7 +800,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * 
+	 *
 	 * @param pt:
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
@@ -786,7 +812,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * 
+	 *
 	 * @param pt:
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
