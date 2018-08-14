@@ -305,7 +305,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	@Override
 	public void getPropertyValueInternal(final Property property, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		/*
 		 * First see if the property is defined locally in the instance. Such
 		 * local property associations arise from component property
@@ -314,7 +314,9 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		 * lookups.
 		 */
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		/*
@@ -333,7 +335,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		if (property.isInherit()) {
 			final NamedElement ph = (NamedElement) eContainer();
 			if (ph != null) {
-				ph.getPropertyValueInternal(property, pas, false);
+				ph.getPropertyValueInternal(property, pas, false, all);
 			}
 		}
 	}
@@ -431,59 +433,52 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	@Override
 	public Iterable<ConnectionInstance> allEnclosingConnectionInstances() {
 		final InstanceObject target = this;
-		return new Iterable<ConnectionInstance>() {
+		return () -> new Iterator<ConnectionInstance>() {
+			ConnectionInstance next;
+			ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
+					: target.getContainingComponentInstance();
+			Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
 
-			@Override
-			public Iterator<ConnectionInstance> iterator() {
-				return new Iterator<ConnectionInstance>() {
-					ConnectionInstance next;
-					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
-							: target.getContainingComponentInstance();
-					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
-
-					private boolean advance() {
-						next = null;
+			private boolean advance() {
+				next = null;
+				if (iter.hasNext()) {
+					next = iter.next();
+					return true;
+				}
+				while (head != null) {
+					head = head.getContainingComponentInstance();
+					if (head == null) {
+						return false;
+					} else {
+						iter = head.getConnectionInstances().iterator();
 						if (iter.hasNext()) {
 							next = iter.next();
 							return true;
 						}
-						while (head != null) {
-							head = head.getContainingComponentInstance();
-							if (head == null) {
-								return false;
-							} else {
-								iter = head.getConnectionInstances().iterator();
-								if (iter.hasNext()) {
-									next = iter.next();
-									return true;
-								}
-							}
-						}
-						return false;
 					}
-
-					@Override
-					public boolean hasNext() {
-						return next != null || advance();
-					}
-
-					@Override
-					public ConnectionInstance next() {
-						if (next == null && !advance()) {
-							throw new NoSuchElementException();
-						}
-						ConnectionInstance result = next;
-						next = null;
-						return result;
-					}
-
-					@Override
-					public void remove() {
-						throw new UnsupportedOperationException();
-					}
-				};
+				}
+				return false;
 			}
 
+			@Override
+			public boolean hasNext() {
+				return next != null || advance();
+			}
+
+			@Override
+			public ConnectionInstance next() {
+				if (next == null && !advance()) {
+					throw new NoSuchElementException();
+				}
+				ConnectionInstance result = next;
+				next = null;
+				return result;
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
 		};
 	}
 
