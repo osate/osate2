@@ -3,10 +3,6 @@
 	<name>SimpleControlSystem</name>
 	<comment></comment>
 	<projects>
-		<project>Alisa-Consistency</project>
-		<project>AlisaPredefined</project>
-		<project>CyberPhysical</project>
-		<project>JUnitTest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

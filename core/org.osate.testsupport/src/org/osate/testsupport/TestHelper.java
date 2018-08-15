@@ -68,7 +68,7 @@ public class TestHelper<T extends EObject> {
 		return testResource(o.eResource());
 	}
 
-	protected FluentIssueCollection testResource(Resource r) throws OperationCanceledError {
+	public FluentIssueCollection testResource(Resource r) throws OperationCanceledError {
 		IResourceServiceProvider provider = serviceProviderRegistry.getResourceServiceProvider(r.getURI());
 		List<Issue> issueList = provider.getResourceValidator().validate(r, CheckMode.ALL, null);
 		return new FluentIssueCollection(r, issueList, new ArrayList<String>());
