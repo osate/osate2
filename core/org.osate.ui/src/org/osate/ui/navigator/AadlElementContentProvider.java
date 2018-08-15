@@ -21,6 +21,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ui.UiUtil;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlElementContentProvider extends AdapterFactoryContentProvider
 		implements IResourceChangeListener, IResourceDeltaVisitor {
@@ -45,6 +46,9 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 			String path = ((IFile) parentElement).getFullPath().toString();
 			URI uri = URI.createPlatformResourceURI(path, true);
 			parentElement = resourceSet.getResource(uri, true);
+		} else if (parentElement instanceof ContributedAadlStorage) {
+			URI uri = ((ContributedAadlStorage) parentElement).getUri();
+			parentElement = resourceSet.getResource(uri, true);
 		} else if (!shouldExpand(parentElement)) {
 			return NO_CHILDREN;
 		}
@@ -54,7 +58,7 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof IFile) {
+		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
 			return null;
 		}
 		return super.getParent(element);
@@ -62,7 +66,7 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof IFile) {
+		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
 			return true;
 		} else if (!shouldExpand(element)) {
 			return false;
