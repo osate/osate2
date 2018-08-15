@@ -90,7 +90,7 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 			IResourceDelta delta = event.getDelta();
 			delta.accept(this);
 		} catch (CoreException e) {
-			// FIXME: ignored
+			// ignore
 		}
 		Display.getDefault().asyncExec(() -> {
 			TreeViewer tv = (TreeViewer) viewer;
@@ -112,7 +112,7 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 				res.unload();
 				res.load(resourceSet.getLoadOptions());
 			} catch (Exception e) {
-				// FIXME: ignored
+				// ignore
 			}
 			return false;
 		}
