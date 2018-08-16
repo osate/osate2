@@ -17,18 +17,16 @@
 package org.osate.verify.util
 
 import com.google.inject.ImplementedBy
-import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
+import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.reqspec.reqSpec.RequirementSet
-import org.osate.verify.verify.VerificationMethod
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -51,22 +49,16 @@ interface IVerifyGlobalReferenceFinder {
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
-	@Inject
-	var ICommonGlobalReferenceFinder refFinder
-		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
-			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirementSet; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
+			return	Aadl2GlobalScopeUtil.getAll(context, VerifyPackage.Literals.VERIFICATION_PLAN).filter[svp|val reqs = svp.requirementSet; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
 	}
 
 		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context){
-			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirementSet === reqs]
+			 Aadl2GlobalScopeUtil.getAll(context, VerifyPackage.Literals.VERIFICATION_PLAN).filter[vp|vp.requirementSet === reqs]
 		}
 
 		override Iterable<VerificationMethod> getVerificationMethod(String methodName, EObject context){
-			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_METHOD, "verify").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationMethod].filter[vm|methodName.equalsIgnoreCase(vm.name)]
+			 Aadl2GlobalScopeUtil.getAll(context, VerifyPackage.Literals.VERIFICATION_PLAN).filter[vm|methodName.equalsIgnoreCase(vm.name)]
 		}
 
 }
