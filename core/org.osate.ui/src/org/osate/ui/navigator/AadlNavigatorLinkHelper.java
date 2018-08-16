@@ -26,6 +26,7 @@ import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
@@ -54,58 +55,36 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 	}
 
 	@Override
-	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
-		if (aSelection == null || aSelection.isEmpty()) {
+	public void activateEditor(IWorkbenchPage page, IStructuredSelection structuredSelection) {
+		if (structuredSelection == null || structuredSelection.isEmpty()) {
 			return;
 		}
-		if (aSelection.getFirstElement() instanceof ContributedAadlStorage) {
-			ContributedAadlStorage storage = (ContributedAadlStorage)aSelection.getFirstElement();
-			IEditorPart editor = aPage.findEditor(new ContributedAadlEditorInput(storage));
+		Object selected = structuredSelection.getFirstElement();
+		if (selected instanceof ContributedAadlStorage) {
+			ContributedAadlStorage storage = (ContributedAadlStorage) selected;
+			IEditorPart editor = page.findEditor(new ContributedAadlEditorInput(storage));
 			if (editor != null) {
-				aPage.bringToTop(editor);
+				page.bringToTop(editor);
 			}
-		} else if (aSelection.getFirstElement() instanceof IFile) {
-			IEditorInput fileInput = new FileEditorInput((IFile) aSelection.getFirstElement());
-			IEditorPart editor = null;
-			if ((editor = aPage.findEditor(fileInput)) != null) {
-				aPage.bringToTop(editor);
+		} else if (selected instanceof IFile) {
+			IEditorInput fileInput = new FileEditorInput((IFile) selected);
+			IEditorPart editor = page.findEditor(fileInput);
+			if (editor != null) {
+				page.bringToTop(editor);
 			}
-		} else if (aSelection.getFirstElement() instanceof Classifier) {
-			Classifier classifier = (Classifier) aSelection.getFirstElement();
-			int start = findOffsetForClassifierName(classifier);
-			int length = classifier.getName().length();
+		} else if (shouldLink(selected)) {
+			NamedElement ne = (NamedElement) selected;
+			int start = findOffset(ne);
+			int length = ne.getName().length();
 			TextSelection selection = new TextSelection(start, length);
-			IFile file = (IFile) OsateResourceUtil.convertToIResource(classifier.eResource());
-			setSelection(aPage, file, selection);
-		} else if (aSelection.getFirstElement() instanceof Property) {
-			Property property = (Property) aSelection.getFirstElement();
-			int start = findOffsetForPropertyName(property);
-			int length = property.getName().length();
-			TextSelection selection = new TextSelection(start, length);
-			IFile file = (IFile) OsateResourceUtil.convertToIResource(property.eResource());
-			setSelection(aPage, file, selection);
-		} else if (aSelection.getFirstElement() instanceof PropertyConstant) {
-			PropertyConstant propertyConstant = (PropertyConstant) aSelection.getFirstElement();
-			int start = findOffsetForPropertyConstantName(propertyConstant);
-			int length = propertyConstant.getName().length();
-			TextSelection selection = new TextSelection(start, length);
-			IFile file = (IFile) OsateResourceUtil.convertToIResource(propertyConstant.eResource());
-			setSelection(aPage, file, selection);
-		} else if (aSelection.getFirstElement() instanceof PropertyType) {
-			PropertyType propertyType = (PropertyType) aSelection.getFirstElement();
-			int start = findOffsetForPropertyTypeName(propertyType);
-			int length = propertyType.getName().length();
-			TextSelection selection = new TextSelection(start, length);
-			IFile file = (IFile) OsateResourceUtil.convertToIResource(propertyType.eResource());
-			setSelection(aPage, file, selection);
-//		} else if (aSelection.getFirstElement() instanceof InstanceObject) {
-//			InstanceObject instanceObject = (InstanceObject) aSelection.getFirstElement();
-//			int start = findOffsetForPropertyTypeName(propertyType);
-//			int length = propertyType.getName().length();
-//			TextSelection selection = new TextSelection(start, length);
-//			IFile file = (IFile) OsateResourceUtil.convertToIResource(propertyType.eResource());
-//			setSelection(aPage, file, selection);
+			IFile file = (IFile) OsateResourceUtil.convertToIResource(ne.eResource());
+			setSelection(page, file, selection);
 		}
+	}
+
+	protected boolean shouldLink(Object o) {
+		return o instanceof Classifier || o instanceof Property || o instanceof PropertyConstant
+				|| o instanceof PropertyType;
 	}
 
 	private void setSelection(IWorkbenchPage page, IFile file, TextSelection textSelection) {
@@ -118,8 +97,7 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 		}
 	}
 
-	private int findOffsetForClassifierName(Classifier classifier) {
-		// component implementation name consists of 3 nodes: <typename> '.' <implname>
+	private int findOffset(NamedElement classifier) {
 		int retval = -1;
 		String name = "";
 		int offset = -1;
@@ -136,43 +114,8 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			if (name.equalsIgnoreCase(classifier.getName())) {
 				return offset;
 			}
+			// component implementation name consists of 3 nodes: <typename> '.' <implname>
 			name += ".";
-		}
-		return retval;
-	}
-
-	private int findOffsetForPropertyName(Property property) {
-		int retval = -1;
-		ICompositeNode cNode = NodeModelUtils.getNode(property);
-		List<LeafNode> nodes = resolveCompositeNodeToList(cNode);
-		for (LeafNode leafNode : nodes) {
-			if (leafNode.getText().toLowerCase().equalsIgnoreCase(property.getName())) {
-				return leafNode.getOffset();
-			}
-		}
-		return retval;
-	}
-
-	private int findOffsetForPropertyConstantName(PropertyConstant property) {
-		int retval = -1;
-		ICompositeNode cNode = NodeModelUtils.getNode(property);
-		List<LeafNode> nodes = resolveCompositeNodeToList(cNode);
-		for (LeafNode leafNode : nodes) {
-			if (leafNode.getText().toLowerCase().equalsIgnoreCase(property.getName())) {
-				return leafNode.getOffset();
-			}
-		}
-		return retval;
-	}
-
-	private int findOffsetForPropertyTypeName(PropertyType property) {
-		int retval = -1;
-		ICompositeNode cNode = NodeModelUtils.getNode(property);
-		List<LeafNode> nodes = resolveCompositeNodeToList(cNode);
-		for (LeafNode leafNode : nodes) {
-			if (leafNode.getText().toLowerCase().equalsIgnoreCase(property.getName())) {
-				return leafNode.getOffset();
-			}
 		}
 		return retval;
 	}
