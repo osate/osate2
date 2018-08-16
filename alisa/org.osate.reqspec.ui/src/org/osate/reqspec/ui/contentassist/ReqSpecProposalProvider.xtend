@@ -39,12 +39,13 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
-	@Inject var ICommonGlobalReferenceFinder commonRefFinder
+//	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	override void completeStakeholderGoals_Target(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
@@ -88,10 +89,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 
 		val targetComponentClassifier = (model.eContainer as SystemRequirementSet).target
-		val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirementSet
-		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+		val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = Aadl2GlobalScopeUtil.getAll(model, ReqSpecPackage.eINSTANCE.systemRequirementSet).filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 
 		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
