@@ -19,7 +19,6 @@
  */
 package org.osate.reqspec.ui.contentassist
 
-import com.google.inject.Inject
 import java.util.ArrayList
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
@@ -31,7 +30,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
@@ -39,7 +38,6 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 
 import static org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
