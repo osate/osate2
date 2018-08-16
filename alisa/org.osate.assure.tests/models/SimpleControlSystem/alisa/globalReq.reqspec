@@ -5,7 +5,7 @@ global requirements globalReq
 [
 	requirement connected : "All features of a component are connected"[
 		description "All features of a component are connected."
-		when alisa_consistency.ModelConditions.isLeafComponent()
+//		when alisa_consistency.ModelConditions.isLeafComponent()
 		category Kind.Consistency
 		development stakeholder sei.phf
 	]
