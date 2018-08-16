@@ -24,13 +24,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import com.google.inject.Inject
+import org.osate.testsupport.TestHelper
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(ErrorModelUiInjectorProvider))
-class FTATest extends OsateTest {
-	override getProjectName() {
-		"FTATests"
-	}
+@InjectWith(ErrorModelInjectorProvider)
+class FTATest  {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
 
 	static boolean once = true
 
@@ -56,23 +59,6 @@ class FTATest extends OsateTest {
 	val static stateFailStop = "state FailStop"
 	val static stateOp = "state Operational"
 
-	@Before
-	override setUp() {
-	}
-
-	@After
-	override cleanUp() {
-	}
-
-	@Before
-	/**
-	 * All tests use the same model
-	 */
-	def void initWorkspace() {
-		if (once) {
-			once = false
-			createProject(projectName)
-			setResourceRoot("platform:/resource/" + projectName)
 			val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
 			val fta1File = "fta1Test.aadl"
 			val fta2File = "fta2Test.aadl"
@@ -92,6 +78,11 @@ class FTATest extends OsateTest {
 			val allflowsFile = "AllFlows.aadl"
 			val optimizeFile = "OptimizeTree.aadl"
 			val transitionbranchFile = "branchtransitions.aadl"
+
+	@Before
+	def void initWorkspace() {
+		if (once) {
+			once = false
 			
 			createFiles(
 				fta1File -> readFile(modelroot + fta1File),
@@ -166,7 +157,8 @@ class FTATest extends OsateTest {
 	 */
 	@Test
 	def void fta1Test1() {
-
+		testHelper.parseFile(modelroot + fta1File)
+		val instance1 = instanceGenerator(fta1File, "main.i")
 		val ft = CreateFTAModel.createFaultTree(instance1, stateFail)
 		assertEquals(ft.events.size, 3)
 		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
