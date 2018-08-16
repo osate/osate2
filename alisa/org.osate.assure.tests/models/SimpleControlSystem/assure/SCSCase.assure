@@ -1,0 +1,407 @@
+case SCSCase [
+	successcount 16 failcount 6 errorcount 15 thenskipcount 1 validfailcount 2
+	model SCSCase.SCSPlan for SimpleControlSystem::SCS.tier1 [
+		successcount 16 failcount 6 errorcount 15 thenskipcount 1 validfailcount 2
+		claim scsvplan # R1 [
+			successcount 2 failcount 4 validfailcount 2
+			verification scsvplan # R1 # actualsystemweight [
+				executionstate completed resultstate success successcount 1 time 2812
+			]
+			verification scsvplan # R1 # MaxWeight [
+				executionstate completed resultstate fail
+				issues [
+					fail
+							"Failure: SCS_tier1_Instance : SimpleControlSystem::SCS.tier1All weight sum 1.2000000000000002 kg over budget 1.2 kg"
+							source
+							"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.6/@body/@expr/@expr/@right"
+				] failcount 2 validfailcount 1 time 516
+				message "sum of all subcomponent weights 1.2000000000000002 kg within budget 1.2 kg" validation
+						Resolute.verifyAllWeights [
+					executionstate completed resultstate fail
+					issues [
+						fail "Failure: Percentage of subcomponents with weight 75%" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.13/@body/@expr/@expr/@right"
+					] failcount 1
+					message "Weight Budget Coverage"
+				]
+			]
+			verification scsvplan # R1 # SCSReq1act [
+				executionstate completed resultstate fail
+				issues [
+					fail "assured sum of subcomponent budgets within budget" source
+							"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.AssureSubcomponentTotals"
+							[
+						fail "Ass1: All subcomponents have gross weight" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1VA1SubcomponentsHaveWeight"
+								[
+							fail "Failure:       Percentage of subcomponents with weight 75 percent" source
+									"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.7/@body/@expr/@expr/@right"
+						]
+						success "VA1: sum of direct subcomponent weights 0.7 kg within budget 1.2 kg" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1VA1VerifySubcomponentTotals"
+					]
+					fail "sum of all subcomponent weights 1.2000000000000002 kg within budget 1.2 kg" source
+							"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.AssureRecursivetotals"
+							[
+						fail
+								"Failure: SCS_tier1_Instance : SimpleControlSystem::SCS.tier1All weight sum 1.2000000000000002 kg over budget 1.2 kg"
+								source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.6/@body/@expr/@expr/@right"
+					]
+				] failcount 2 validfailcount 1 time 359
+				message "R1: SCS shall be no heavier than 1.2 kg" validation Resolute.verifySCSReq1 [
+					executionstate completed resultstate fail
+					issues [
+						fail "Failure: Percentage of subcomponents with weight 75%" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.13/@body/@expr/@expr/@right"
+					] failcount 1
+					message "Weight Budget Coverage"
+				]
+			]
+			predicate scsvplan # R1 [
+				executionstate completed resultstate success successcount 1
+			]
+		]
+		claim scsvplan # R3 [
+			errorcount 3
+			for power verification scsvplan # R3 # hasvoltage [
+				executionstate completed resultstate error
+				issues [
+					error "No such method: alisa_consistency.ModelVerifications.hasVoltage"
+				] errorcount 1 time 156
+			]
+			verification scsvplan # R3 # consistentvoltage [
+				executionstate completed resultstate error
+				issues [
+					error "No such method: alisa_consistency.ModelVerifications.getVoltage"
+				] errorcount 1 time 125
+			]
+			verification scsvplan # R3 # matchvoltage [
+				executionstate completed resultstate error
+				issues [
+					error "No such method: alisa_consistency.ModelVerifications.getVoltage"
+				] errorcount 1 time 125
+			]
+		]
+		claim scsimplvplan # R2_Lat [
+			successcount 1 failcount 1 thenskipcount 1
+			for sensortoactuatorresponse then verification scsimplvplan # R2_Lat # timing [
+				executionstate completed resultstate success successcount 1 time 1153
+			]
+			do verification scsimplvplan # R2_Lat # responsetime [
+				executionstate completed resultstate fail
+				issues [
+					warning
+							"Minimum specified flow latency total 6.00ms less than expected minimum end to end latency 12.0ms (better response time)"
+							source
+							"platform:/resource/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2#//@endToEndFlow.0"
+					warning
+							"Minimum actual latency total 6.00ms less than expected minimum end to end latency 12.0ms (faster actual minimum response time)"
+							source
+							"platform:/resource/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2#//@endToEndFlow.0"
+					fail "Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 18.0ms" source
+							"platform:/resource/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2#//@endToEndFlow.0"
+					warning "Jitter of actual latency total 6.00..30.0ms exceeds expected end to end latency jitter 12.0..18.0ms"
+							source
+							"platform:/resource/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2#//@endToEndFlow.0"
+				] failcount 1 time 1250
+			]
+			[
+				thenfailed successcount 1 failcount 1 thenskipcount 1
+			]
+		]
+		claim scsimplvplan # DCS_R1 [
+			for dcs
+		]
+		claim scsimplvplan # Sensor1_R1 [
+			for sensor1
+		]
+		claim scsimplvplan # Sensor2_R1 [
+			for sensor2
+		]
+		claim scsimplvplan # Actuator_R1 [
+			for actuator
+		]
+		claim globalVPlan # connected [
+			successcount 1 errorcount 1
+			verification globalVPlan # connected # checkAllConnected [
+				executionstate completed resultstate success successcount 1 time 110
+				message "Component SCS_tier1_Instance : SimpleControlSystem::SCS.tier1 has all features connected"
+			]
+			verification globalVPlan # connected # checkJAllConnected [
+				executionstate completed resultstate error
+				issues [
+					error "No such method: alisa_consistency.ModelVerifications.isConnected"
+				] errorcount 1 time 62
+			]
+		]
+		subsystem sensor1 [
+			successcount 1 errorcount 1
+			claim globalVPlan # connected [
+				successcount 1 errorcount 1
+				verification globalVPlan # connected # checkAllConnected [
+					executionstate completed resultstate success
+					issues [
+						success "Feature sensor1.canbusaccess is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature sensor1.power is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature sensor1.sensorSignal is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+					] successcount 1 time 78
+					message "Component sensor1 : DigitalControlSystem::sensor has all features connected"
+				]
+				verification globalVPlan # connected # checkJAllConnected [
+					executionstate completed resultstate error
+					issues [
+						error "No such method: alisa_consistency.ModelVerifications.isConnected"
+					] errorcount 1 time 79
+				]
+			]
+		]
+		subsystem sensor2 [
+			successcount 1 errorcount 1
+			claim globalVPlan # connected [
+				successcount 1 errorcount 1
+				verification globalVPlan # connected # checkAllConnected [
+					executionstate completed resultstate success
+					issues [
+						success "Feature sensor2.canbusaccess is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature sensor2.power is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature sensor2.sensorSignal is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+					] successcount 1 time 140
+					message "Component sensor2 : DigitalControlSystem::sensor has all features connected"
+				]
+				verification globalVPlan # connected # checkJAllConnected [
+					executionstate completed resultstate error
+					issues [
+						error "No such method: alisa_consistency.ModelVerifications.isConnected"
+					] errorcount 1 time 78
+				]
+			]
+		]
+		subsystem actuator [
+			successcount 1 errorcount 1
+			claim globalVPlan # connected [
+				successcount 1 errorcount 1
+				verification globalVPlan # connected # checkAllConnected [
+					executionstate completed resultstate success
+					issues [
+						success "Feature actuator.actuatorCmd is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature actuator.canbusaccess is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+						success "Feature actuator.power is connected" source
+								"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+					] successcount 1 time 94
+					message "Component actuator : DigitalControlSystem::actuator has all features connected"
+				]
+				verification globalVPlan # connected # checkJAllConnected [
+					executionstate completed resultstate error
+					issues [
+						error "No such method: alisa_consistency.ModelVerifications.isConnected"
+					] errorcount 1 time 125
+				]
+			]
+		]
+		subsystem dcs [
+			successcount 9 failcount 1 errorcount 8
+			claim dcsvplan # R1 [
+				successcount 1 failcount 1
+				verification dcsvplan # R1 # va2 [
+					executionstate completed resultstate success
+					issues [
+						warning "[G] Sum of weights (1.000 kg) exceeds gross weight of 0.500 kg"
+						success "[L] Sum of weights / gross weight is 1.000 kg (no limit specified)"
+					] successcount 1 time 281
+				]
+				verification dcsvplan # R1 # va3 [
+					executionstate completed resultstate fail
+					issues [
+						fail "assured sum of subcomponent budgets within budget" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.AssureSubcomponentTotals"
+								[
+							fail "Ass1: All subcomponents have gross weight" source
+									"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1VA1SubcomponentsHaveWeight"
+									[
+								fail "Failure:       Percentage of subcomponents with weight 50 percent" source
+										"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.7/@body/@expr/@expr/@right"
+							]
+							fail "VA1: sum of direct subcomponent weights 1.0 kg within budget 0.6 kg" source
+									"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1VA1VerifySubcomponentTotals"
+									[
+								fail "Failure: dcs : DigitalControlSystem::DCS.singletier1weight sum 1.0 kg over budget 0.6 kg" source
+										"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.4/@body/@expr/@expr/@right"
+							]
+						]
+						fail "sum of all subcomponent weights 1.0 kg within budget 0.6 kg" source
+								"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#BudgetResolute.BudgetResolute_public.Resolute.Resolute.AssureRecursivetotals"
+								[
+							fail "Failure: dcs : DigitalControlSystem::DCS.singletier1All weight sum 1.0 kg over budget 0.6 kg" source
+									"platform:/resource/SimpleControlSystem/resolute/BudgetResolute.aadl#/0/@ownedPublicSection/@ownedAnnexLibrary.0/@parsedAnnexLibrary/@definitions.6/@body/@expr/@expr/@right"
+						]
+					] failcount 1 time 172
+					message "R1: DCS shall be no heavier than 0.6 kg"
+				]
+			]
+			claim globalVPlan # connected [
+				successcount 1 errorcount 1
+				verification globalVPlan # connected # checkAllConnected [
+					executionstate completed resultstate success successcount 1 time 141
+					message "Component dcs : DigitalControlSystem::DCS.singletier1 has all features connected"
+				]
+				verification globalVPlan # connected # checkJAllConnected [
+					executionstate completed resultstate error
+					issues [
+						error "No such method: alisa_consistency.ModelVerifications.isConnected"
+					] errorcount 1 time 94
+				]
+			]
+			subsystem app [
+				successcount 3 errorcount 3
+				claim globalVPlan # connected [
+					successcount 1 errorcount 1
+					verification globalVPlan # connected # checkAllConnected [
+						executionstate completed resultstate success successcount 1 time 93
+						message "Component app : Software::DCA.tier1 has all features connected"
+					]
+					verification globalVPlan # connected # checkJAllConnected [
+						executionstate completed resultstate error
+						issues [
+							error "No such method: alisa_consistency.ModelVerifications.isConnected"
+						] errorcount 1 time 63
+					]
+				]
+				subsystem iop [
+					successcount 1 errorcount 1
+					claim globalVPlan # connected [
+						successcount 1 errorcount 1
+						verification globalVPlan # connected # checkAllConnected [
+							executionstate completed resultstate success
+							issues [
+								success "Feature dcs.app.iop.actuatorout is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+								success "Feature dcs.app.iop.controlin is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+								success "Feature dcs.app.iop.senseout is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+								success "Feature dcs.app.iop.sensorin is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+							] successcount 1 time 94
+							message "Component iop : Software::IOP has all features connected"
+						]
+						verification globalVPlan # connected # checkJAllConnected [
+							executionstate completed resultstate error
+							issues [
+								error "No such method: alisa_consistency.ModelVerifications.isConnected"
+							] errorcount 1 time 62
+						]
+					]
+				]
+				subsystem app [
+					successcount 1 errorcount 1
+					claim globalVPlan # connected [
+						successcount 1 errorcount 1
+						verification globalVPlan # connected # checkAllConnected [
+							executionstate completed resultstate success
+							issues [
+								success "Feature dcs.app.app.controlout is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+								success "Feature dcs.app.app.samplingin is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+							] successcount 1 time 141
+							message "Component app : Software::APP has all features connected"
+						]
+						verification globalVPlan # connected # checkJAllConnected [
+							executionstate completed resultstate error
+							issues [
+								error "No such method: alisa_consistency.ModelVerifications.isConnected"
+							] errorcount 1 time 78
+						]
+					]
+				]
+			]
+			subsystem hw [
+				successcount 4 errorcount 4
+				claim globalVPlan # connected [
+					successcount 1 errorcount 1
+					verification globalVPlan # connected # checkAllConnected [
+						executionstate completed resultstate success successcount 1 time 78
+						message "Component hw : Platform::platform.single has all features connected"
+					]
+					verification globalVPlan # connected # checkJAllConnected [
+						executionstate completed resultstate error
+						issues [
+							error "No such method: alisa_consistency.ModelVerifications.isConnected"
+						] errorcount 1 time 78
+					]
+				]
+				subsystem canbus [
+					successcount 1 errorcount 1
+					claim globalVPlan # connected [
+						successcount 1 errorcount 1
+						verification globalVPlan # connected # checkAllConnected [
+							executionstate completed resultstate success
+							issues [
+								success "Feature dcs.hw.canbus.power is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+							] successcount 1 time 94
+							message "Component canbus : Platform::CANbus has all features connected"
+						]
+						verification globalVPlan # connected # checkJAllConnected [
+							executionstate completed resultstate error
+							issues [
+								error "No such method: alisa_consistency.ModelVerifications.isConnected"
+							] errorcount 1 time 94
+						]
+					]
+				]
+				subsystem M [
+					successcount 1 errorcount 1
+					claim globalVPlan # connected [
+						successcount 1 errorcount 1
+						verification globalVPlan # connected # checkAllConnected [
+							executionstate completed resultstate success
+							issues [
+								success "Feature dcs.hw.M.power is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+							] successcount 1 time 78
+							message "Component M : Platform::main_memory has all features connected"
+						]
+						verification globalVPlan # connected # checkJAllConnected [
+							executionstate completed resultstate error
+							issues [
+								error "No such method: alisa_consistency.ModelVerifications.isConnected"
+							] errorcount 1 time 62
+						]
+					]
+				]
+				subsystem pc1 [
+					successcount 1 errorcount 1
+					claim globalVPlan # connected [
+						successcount 1 errorcount 1
+						verification globalVPlan # connected # checkAllConnected [
+							executionstate completed resultstate success
+							issues [
+								success "Feature dcs.hw.pc1.canbusaccess is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+								success "Feature dcs.hw.pc1.power is connected" source
+										"platform:/resource/SimpleControlSystem/resolute/BasicResolute.aadl#BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected"
+							] successcount 1 time 78
+							message "Component pc1 : Platform::powerpc has all features connected"
+						]
+						verification globalVPlan # connected # checkJAllConnected [
+							executionstate completed resultstate error
+							issues [
+								error "No such method: alisa_consistency.ModelVerifications.isConnected"
+							] errorcount 1
+						]
+					]
+				]
+			]
+		]
+	]
+]
