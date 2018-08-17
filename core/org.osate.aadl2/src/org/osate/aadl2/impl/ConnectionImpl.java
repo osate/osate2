@@ -823,12 +823,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 
 	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
 
 		// First look in the container's contained property associations
 		if (!fromInstanceSlaveCall && pas.addLocalContained(this, partOf)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		/*
@@ -837,7 +839,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		 * the steps more explicit.)
 		 */
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// Next find the value by walking up the connection's refinement
@@ -845,10 +849,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		Connection refined = getRefined();
 		while (refined != null) {
 			if (!fromInstanceSlaveCall && pas.addLocalContained(refined, refined.getContainingClassifier())) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			if (pas.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
@@ -858,7 +866,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		 * component implementation.
 		 */
 		if (!fromInstanceSlaveCall && pn.isInherit()) {
-			partOf.getPropertyValueInternal(pn, pas, fromInstanceSlaveCall);
+			partOf.getPropertyValueInternal(pn, pas, fromInstanceSlaveCall, all);
 		}
 	}
 
