@@ -1,0 +1,12 @@
+package issue935
+public
+	system S
+		properties
+			Memory_Size => constant 5 MByte;
+	end S;
+
+	system implementation S.i
+		properties
+			Memory_Size => 10 Mbyte;
+	end S.i;
+end issue935;
