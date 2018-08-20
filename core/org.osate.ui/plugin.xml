@@ -214,6 +214,9 @@
                </instanceof>
             </or>
           </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlElementSorter">
+         </commonSorter>
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
