@@ -604,11 +604,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			// OsateDebug.osateDebug("compDecls" + compDecl);
 
 			if (compDecl instanceof Subcomponent) {
-				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl);
+				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl, false);
 			} else if (compDecl instanceof FeatureGroup) {
-				((FeatureGroupImpl) compDecl).getPropertyValue(this, pas, cl);
+				((FeatureGroupImpl) compDecl).getPropertyValue(this, pas, cl, false);
 			} else if (compDecl instanceof Feature) {
-				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl);
+				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl, false);
 			} else if (compDecl instanceof PortConnection) {
 				((PortConnectionImpl) compDecl).getPropertyValue(this, pas);
 			} else {
