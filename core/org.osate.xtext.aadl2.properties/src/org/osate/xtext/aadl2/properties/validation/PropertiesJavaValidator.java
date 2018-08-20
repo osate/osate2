@@ -108,6 +108,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
@@ -644,6 +645,27 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 						SOURCE_STACK_SIZE_DEPRECATED);
 			} else if ("Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Data_Volume is deprecated. Please use Data_Rate.", pa, null, DATA_VOLUME_DEPRECATED);
+			}
+		}
+		checkConstantProperty(pa);
+	}
+
+	protected void checkConstantProperty(PropertyAssociation assoc) {
+		Property prop = assoc.getProperty();
+		Element elem = assoc.getOwner();
+		if (elem instanceof NamedElement) {
+			NamedElement owner = (NamedElement) elem;
+			PropertyAcc acc = ((NamedElement) elem).getPropertyValue(prop, true);
+			List<PropertyAssociation> pas = acc.getAssociations();
+			if (pas.size() > 1) {
+				Iterator<PropertyAssociation> iter = pas.listIterator(1);
+				while (iter.hasNext()) {
+					PropertyAssociation pa = iter.next();
+					if (pa.isConstant()) {
+						error(assoc, "Property association overrides constant property value from "
+								+ pa.getContainingClassifier().getQualifiedName());
+					}
+				}
 			}
 		}
 	}

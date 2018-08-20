@@ -940,14 +940,16 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 
 	@Override
 	public final void getPropertyValueInternal(final Property property, final PropertyAcc paa,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		/*
 		 * First see if the property is defined in component's properties
 		 * subclause (could merge this with the loop below, but I want to make
 		 * the steps more explicit.)
 		 */
 		if (paa.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// Next walk the component type hierarchy
@@ -955,7 +957,9 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		ComponentType currentType = getExtended();
 		while (currentType != this && currentType != null) {
 			if (paa.addLocal(currentType)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			currentType = currentType.getExtended();
 		}
