@@ -609,7 +609,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
-			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), modalPropertyValue.getOwnedValue(),
+					pdef.getQualifiedName());
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
@@ -882,7 +883,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		} else if (pv instanceof ClassifierValue) {
 			if (!(pt instanceof ClassifierType)) {
-				error(pv, prefix + "Assigning incorrect Classifier value" + msg);
+				error(holder, prefix + "Assigning incorrect Classifier value" + msg);
 				return;
 			}
 			ClassifierValue cv = (ClassifierValue) pv;
@@ -899,7 +900,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			error(holder, prefix + "Assigning classifier value with incorrect Classifier" + msg);
 		} else if (pv instanceof RecordValue) {
 			if (!(pt instanceof RecordType)) {
-				error(pv, prefix + "Assinging Record value" + msg);
+				error(holder, prefix + "Assigning Record value" + msg);
 			} else {
 				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
 			}
@@ -963,11 +964,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			boolean doQuickFix = false;
 			EObject container = nv;
 			while (null != container) {
-				container = container.eContainer();
-				if (null != container && container.equals(holder)) {
+				if (container.equals(holder)) {
 					doQuickFix = true;
 					break;
 				}
+				container = container.eContainer();
 			}
 
 			if (doQuickFix) {
@@ -980,7 +981,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
 					i++;
 				}
-				error("Number value is missing a unit", nv, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
+				error("Number value is missing a unit", holder, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 
 			} else {
 				error(holder, "Number value is missing a unit");
