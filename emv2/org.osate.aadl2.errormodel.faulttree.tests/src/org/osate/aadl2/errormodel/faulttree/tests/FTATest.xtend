@@ -100,7 +100,7 @@ class FTATest  {
 				modelroot + errorlibFile,
 				modelroot + FTerrorlibFile
 			)
-		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
+			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
 			instance3 = instanceGenerator(modelroot + fta3File, "main.i")
 			instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
@@ -132,7 +132,7 @@ class FTATest  {
 		assertTrue('', cls.exists[name == rootclassifier])
 		// instantiate
 		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
-		return InstantiateModel::buildInstanceModelFile(sysImpl)
+		return InstantiateModel::instantiate(sysImpl)
 	}
 
 	/**
@@ -182,7 +182,6 @@ class FTATest  {
 
 	@Test
 	def void fta3Test() {
-		val instance3 = instanceGenerator(modelroot + fta3File, "main.i")
 		val ft = CreateFTAModel.createFaultTree(instance3, stateFail)
 		assertEquals(ft.events.size, 9)
 		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
