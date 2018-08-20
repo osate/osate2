@@ -782,24 +782,32 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 
 	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 
 		if (!fromInstanceSlaveCall && paa.addLocalContained(this, owner)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 		if (paa.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// values from refined flow specifications
 		FlowSpecification refined = getRefined();
 		while (refined != null) {
 			if (!fromInstanceSlaveCall && paa.addLocalContained(refined, refined.getContainingClassifier())) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			if (paa.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
@@ -809,7 +817,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 		// TYPE, not an implementation.
 		if (!fromInstanceSlaveCall && prop.isInherit()) {
 			if (owner != null) {
-				owner.getPropertyValueInternal(prop, paa, fromInstanceSlaveCall);
+				owner.getPropertyValueInternal(prop, paa, fromInstanceSlaveCall, all);
 			} else {
 				throw new InvalidModelException(this, "Flow specification is not part of a component");
 			}

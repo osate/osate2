@@ -1,0 +1,54 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package ControlSystem
+public
+	with SEI;
+
+	device sensor
+		features
+			power: in feature;
+			canbusaccess: requires bus access;
+			sensorSignal: out data port;
+		properties
+			SEI::GrossWeight => 0.1kg;
+	end sensor;
+
+	device actuator
+		features
+			power: in feature;
+			canbusaccess: requires bus access;
+			actuatorCmd: in data port;
+		properties
+			SEI::GrossWeight => 0.3kg;
+	end actuator;
+
+	device controller
+		features
+			power: in feature;
+			canbusaccess: requires bus access;
+			sensorSignal: in data port;
+			actuatorCmd: out data port;
+		properties
+			SEI::GrossWeight => 0.3kg;
+	end controller;
+
+	system DCS
+		features
+			power: in feature;
+			canbusaccess: provides bus access;
+			sensor1in: in data port;
+			sensor2In: in data port;
+			actuatorOut: out data port;
+		properties
+			SEI::Grossweight => 0.5kg;
+	end DCS;
+
+	system implementation DCS.impl
+		subcomponents
+			sense: device sensor;
+			control: device controller;
+			act: device actuator;
+	end DCS.impl;
+
+
+end ControlSystem;

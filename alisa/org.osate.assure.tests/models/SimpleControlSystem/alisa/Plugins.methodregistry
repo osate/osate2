@@ -1,0 +1,88 @@
+verification methods Plugins [
+	method MaxFlowLatencyAnalysis: "Verify maximum end to end flow latency" [
+		 category Quality.Latency
+		description "Analysis of end-to-end flows reporting on maximum latency. 
+For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
+		
+		plugin FlowLatencyAnalysis
+	]
+	method MinFlowLatencyAnalysis: "Verify minimum end to end flow latency" [
+		 category Quality.Latency
+		description "Analysis of end-to-end s reporting on minimum latency. 
+For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
+		plugin FlowLatencyAnalysis
+	]
+	method FlowLatencyJitterAnalysis: "Verify end to end flow latency jitter" [
+		 category Quality.Latency
+		description "Analysis of end-to-end flows reporting on latency jitter. 
+For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
+		plugin FlowLatencyAnalysis
+	]
+	method FlowLatencyAnalysis: "Verify all flow latencies in system instance" [
+		 category Quality.Latency
+		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
+For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
+		plugin FlowLatencyAnalysis
+	]
+	method FlowLatencyAnalysisParameterized(isSynchronousSystem: boolean, isMajorFrameDelay: boolean, isWorstCaseDeadline: boolean, isBestCaseEmptyQueue: boolean): "Verify all flow latencies in system instance" [
+		 category Quality.Latency
+		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
+For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
+		plugin FlowLatencyAnalysis
+	]
+	method ElectricalPower: "Analyze electrical power across the system" [
+		 category Quality.ElectricalPower
+		plugin PowerAnalysis
+		description "Analyze Electrical power demands against supply and capacity. This method is performed on the whole system."
+	]
+	method ConnectionBindingConsistency: "Check port connections are supported by Hardware" [
+		 
+		plugin ConnectionBindingConsistency
+		description "Check that for all bound connections a physical plugin exists."
+	]
+	method A429Mapping: "Analyze A429 Data Mapping" [
+		 
+		plugin A429Consistency
+		description "Check consistency of mapping port data into an A429 protocol."
+	]
+	method PortDataConsistency: "Check Port Data Types, Value Ranges and Units" [
+		 
+		plugin PortDataConsistency
+		description "A functional integration consistency check to ensure that the port data on two ends of a connection are consistent with respect to user type, base type, range of values, measurement units."
+	]
+	method MassAnalysis: "Analyze the Mass (weight) of the System" [
+		plugin MassAnalysis
+		category Quality.Mass
+		description "Perform full weight (mass) analysis. This includes net/gross weight consistency, weight budget (limit) analysis, and comparison of weight actuals (net/gross) against budget (limit)."
+	]
+	method NetworkUtilizationAnalysis: "Analyze bandwidth demands of connections against network capacities " [
+		plugin NetworkBandwidthAnalysis
+		category Quality.NetworkUtilization
+		description "Perform bandwidth budget analysis for connections when tasks are bound to processors and memory. Connection binding may be derived from thread bindings. Bandwidth budgets may be derived from port data size and output rates."
+	]
+	method BoundResourceAnalysis: "Analyze CPU cycle and memory budgets against bound resource capacities " [
+		plugin BoundResourceAnalysis
+		category Quality.CPUUtilization Quality.MemoryUtilization
+		description "Perform resource budget analysis for software bound to processors and memory. MIPS, RAM and ROM budgets and budgets against capacities of bound resources. Budgets may be derived from periods/execution times, and data sizes."
+	]
+	method ResourceAnalysis: "Analyze CPU MIPS and memory budgets across system against total resource capacities." [
+		plugin ResourceBudgets
+		category Quality.CPUUtilization Quality.MemoryUtilization
+		description "Perform resource budget analysis for all software against processor and memory capacity totals. MIPS, RAM and ROM budgets and budgets against capacities of resources. Budgets may be derived from periods/execution times, and data sizes."
+	]
+	method ResourceAllocationScheduling: "Allocate threads to processors and assure schedulability." [
+		plugin BinPack
+		category Quality.Timing
+		description "Bind all threads to processors while maintaining schedulability and meeting binding constraints. This analysis uses a BinPacking technique by Dio DeNiz."
+	]
+	method CheckSecurityLevels: "Check security levels for information flow across port connections." [
+		plugin CheckSecurity
+		category Quality.Security
+		description "Check that for all port connections information flows only from lower to higher or between same levels according to SecurityLevel property."
+	]
+	method CheckSafetyLevels: "Check safety levels for information flow across port connections." [
+		plugin CheckSafety
+		category Quality.Safety
+		description "Check that for all port connections information flows only from lower to higher or between same levels according to SafetyLevel property."
+	]
+]

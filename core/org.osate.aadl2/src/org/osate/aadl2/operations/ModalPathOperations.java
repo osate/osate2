@@ -35,7 +35,9 @@
 package org.osate.aadl2.operations;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
@@ -75,7 +77,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 */
 	public static EList<Mode> getInModes(ModalPath modalPath) {
 		// DONE: implement this method
-		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
+		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, (InternalEObject) modalPath,
+				Aadl2Package.MODAL_PATH__IN_MODE);
 		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
 			if (mf instanceof Mode) {
 				inModes.add((Mode) mf);
@@ -91,7 +94,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 */
 	public static EList<ModeTransition> getInModeTransitions(ModalPath modalPath) {
 		// DONE: implement this method
-		EList<ModeTransition> inModeTransitions = new BasicInternalEList<ModeTransition>(ModeTransition.class);
+		EList<ModeTransition> inModeTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class,
+				(InternalEObject) modalPath, Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
 		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
 			if (mf instanceof ModeTransition) {
 				inModeTransitions.add((ModeTransition) mf);
