@@ -401,7 +401,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	public PropertyExpression getNonModalPropertyValue(final Property property)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException {
-		PropertyAssociation pa = getPropertyValue(property).first();
+		PropertyAssociation pa = getPropertyValue(property, false).first();
 
 		if (pa == null) {
 			if (property.getDefaultValue() == null) {
@@ -464,7 +464,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * 				  reference dependencies.
 	 */
 	@Override
-	public PropertyAcc getPropertyValue(final Property property) throws IllegalStateException, InvalidModelException,
+	public PropertyAcc getPropertyValue(final Property property, final boolean all)
+			throws IllegalStateException, InvalidModelException,
 			PropertyDoesNotApplyToHolderException, IllegalArgumentException {
 		// Error if the property is not acceptable
 		if (property == null) {
@@ -483,7 +484,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		try {
 			stack.addFirst(property);
 			PropertyAcc pas = new PropertyAcc(property);
-			getPropertyValueInternal(property, pas, false);
+			getPropertyValueInternal(property, pas, false, all);
 			return pas;
 		} finally {
 			stack.removeFirst();
@@ -515,11 +516,14 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * See https://github.com/osate/osate2/issues/875
 	 */
 	@Override
-	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
+			final boolean all)
 			throws InvalidModelException {
 		if (!fromInstanceSlaveCall && getContainingClassifier() != null
 				&& pas.addLocalContained(this, getContainingClassifier())) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 		pas.addLocal(this);
 	}
