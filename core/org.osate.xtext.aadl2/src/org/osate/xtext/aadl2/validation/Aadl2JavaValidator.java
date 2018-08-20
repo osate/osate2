@@ -6492,7 +6492,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * this, but can't do it if the type is given by reference, and it
 		 * cannot check that a int or real is within range.
 		 */
-		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc, pc.getQualifiedName());
+		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
+				pc.getQualifiedName());
 	}
 
 	//
