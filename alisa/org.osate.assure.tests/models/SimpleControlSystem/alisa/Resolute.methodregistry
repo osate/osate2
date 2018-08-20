@@ -1,0 +1,68 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+verification methods Resolute [
+
+	method hasWeightBudgets : "Determine weight budget coverage" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SubcomponentWeightBudgetCoverage
+	]
+
+// return values other than boolean on compute functions not supported yet
+//	method getWeightBudget () returns (wei : real units SEI::WeightUnits in kg): "Get weight budget" [
+//		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.WeightBudget 
+//	]
+ 
+ 	method verifySCSReq1 (max: real ): "Verify SCS weight is within specified maximum (Req1)" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1 
+		description "SCS has a requirement not to exceed a specified weight of 'max' kg. This is verified by summing gross weights of direct subcomponents and by adding up gross weights all parts."
+	validation validateWeightBudgetCoveragePercent()
+   ]
+	
+	method verifyDCSReq1 (max: real ): "Verify DCS weight is within specified maximum (Req1)" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.DCSReq1 
+	]
+		
+	method verifySubcomponentWeights ( max: real ) : "Verify direct subcomponent gross weights do not exceed maximum of 1.2kg" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSVerifySubcomponentTotals
+	]
+		
+	method verifyAllWeights ( max: real ) : "Verify sum of all component weights do not exceed maximum" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.AssureRecursivetotals 
+	validation validateWeightBudgetCoveragePercent()
+	]
+		
+	method validateSubcomponentsHaveWeight : "Check that direct subcomponents have gross weight" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SCSReq1VA1SubcomponentsHaveWeight
+	]
+		
+	method validateAllSubcomponentsHaveWeight : "Check that all subcomponents have gross weight" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.AllComponentsHaveGrossWeight
+	]
+		
+	method validateAllThreadsHavePeriod : "Check that all threads have a period" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.AllThreadsHavePeriod
+	]
+	
+	method validateWeightBudgetCoveragePercent [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SubcomponentsHaveWeightBudgetCoverage
+	]
+
+	method checkAuthor (author:string)boolean: "Check author" [
+		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.checkAuthor
+	]
+	
+	method allConnected : "Component is connected" [
+		description "Check that component is connected if it is a leaf in the instance model"
+		resolute BasicResolute.BasicResolute_public.Resolute.Resolute.isConnectedClaim
+	]
+	
+	method isFeatureConnected (feature): "Feature is connected" [
+		description "Check that feature is connected"
+		resolute BasicResolute.BasicResolute_public.Resolute.Resolute.isFeatureConnected
+	]
+	
+	method isComponentConnected : "Component is connected" [
+		description "Check that component is connected CF"
+		resolute BasicResolute.BasicResolute_public.Resolute.Resolute.isConnected
+	]
+
+]

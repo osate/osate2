@@ -1,0 +1,18 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+
+global requirements globalReq
+[
+	requirement connected : "All features of a component are connected"[
+		description "All features of a component are connected."
+//		when alisa_consistency.ModelConditions.isLeafComponent()
+		category Kind.Consistency
+		development stakeholder sei.phf
+	]
+	
+	requirement Allconnected : "All features of all components are connected"[
+		description "All features of leaf components are connected."
+		category Kind.Consistency
+		development stakeholder sei.phf
+	]
+]

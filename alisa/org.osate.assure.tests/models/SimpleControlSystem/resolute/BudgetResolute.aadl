@@ -1,0 +1,126 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package BudgetResolute
+public 
+	with ACVIP;
+annex Resolute {**
+		
+		checkAuthor(c: component, author: string) <= ** "check author" **
+		let me :string  = property(c,ACVIP::Author,"noone");
+		me = author orelse fail **"      Author is not " author**
+	
+	-- requirement expressed in terms of the Maximum weight constant
+
+	DCSReq1(me : component, max :real) <=
+	**  "R1: DCS shall be no heavier than " max%kg  **
+	 AssureSubcomponentTotals(me, max) 
+	 and AssureRecursivetotals(me, max) 
+
+	-- requirement with the maximum passed into the claim function as parameter
+	-- the prove statement will refer to the constant Maximumweight
+	SCSReq1(self : component, max :real) <=
+	**  "R1: SCS shall be no heavier than " max%kg **
+--	analysis("executeJava","hi",self)
+	 AssureSubcomponentTotals(self, max) and AssureRecursivetotals(self, max) 
+	
+	-- verification action for requirement 1
+	-- VA1 does it by assuring thet the direct subcomponent budget totals do not exceed the limit
+
+	AssureSubcomponentTotals(self : component, max :real) <=
+	** "assured sum of subcomponent budgets within budget" **
+	-- we only evaluate the weight total if subcomponents have weight budget
+	SCSReq1VA1SubcomponentsHaveWeight(self) and SCSReq1VA1VerifySubcomponentTotals(self, max)  
+
+	
+	SCSReq1VA1VerifySubcomponentTotals(self : component, max :real) <=
+	** "VA1: sum of direct subcomponent weights " actuals%kg " within budget "  max%kg **
+	let actuals : real = AddSubcomponentWeightBudgets(self); 
+	(actuals <= max) orelse fail ** self "weight sum " actuals%kg " over budget " max%kg **
+	
+	SCSVerifySubcomponentTotals(self : component, max :real) <=
+	** "VA1: sum of direct subcomponent weights " actuals%kg " within budget "  max%kg **
+	let actuals : real = AddSubcomponentWeightBudgets(self); 
+	(actuals <= max) orelse fail ** self "weight sum " actuals%kg " over budget " max%kg **
+	
+	-- this verification action recursively adds all budgets
+	AssureRecursivetotals(self : component, max :real) <=
+	** "sum of all subcomponent weights " actuals%kg " within budget " max%kg **
+	let actuals : real = AddAllBudgets(self) ;
+	(actuals <= max) orelse fail ** self "All weight sum " actuals%kg " over budget " max%kg **  
+	
+	SCSReq1VA1SubcomponentsHaveWeight(self : component) <=
+	** "Ass1: All subcomponents have gross weight" **
+	let ratio : int = SubcomponentWeightBudgetCoveragePercent(self);
+ 	(forall (sub: subcomponents(self)). has_property(sub,SEI::GrossWeight)) 
+   	orelse fail ** "      Percentage of subcomponents with weight " ratio " percent" **
+	
+ 	
+	SubcomponentWeightBudgetCoverage(self : component) <=
+	** "All subcomponents have gross weight" **
+	let ratio : int = SubcomponentWeightBudgetCoveragePercent(self);
+ 	ratio = 100  
+   	orelse fail ** ratio "% of subcomponents have weight" **
+       	
+	-- computational function to calculate total of weight budget from subcomponents
+	AddSubcomponentWeightBudgets(self: component) : real = 
+		sum([WeightBudget(t) for (t: subcomponents(self))])
+
+	-- recursively total of weight budgets of all components
+	AddAllBudgets(self : component) : real = 
+	let subs :{component} = subcomponents(self);
+	let totals: real = sum([AddAllBudgets(t) for (t: subs)]) + NetWeight(self);
+	if (length(subs) = 0 or totals = 0.0) then
+		WeightBudget(self)
+	else
+		totals
+
+-- retrieves weight budget or 0.0 if no budget was assigned
+WeightBudget(self:component): real =
+ if (has_property(self,SEI::GrossWeight)) then property(self,SEI::GrossWeight,0.0 kg)
+ else property(self,SEI::NetWeight,0.0 kg)
+ 
+-- retrieves netweight or 0.0 if no netweight was assigned
+NetWeight(self:component): real =
+ property(self,SEI::NetWeight,0.0 kg)
+
+-- assure all direct subcomponents have a weight budget
+SubcomponentsHaveWeightBudgetCoverage(self:component)<=
+** "Weight Budget Coverage" **
+	let ratio : int = SubcomponentWeightBudgetCoveragePercent(self);
+ (forall (sub: subcomponents(self)). has_property(sub,SEI::GrossWeight))
+   orelse fail ** "Percentage of subcomponents with weight " ratio "%" **
+
+-- assure all direct subcomponents have a weight budget
+SubcomponentsHaveWeightBudget(self:component): bool =
+    forall (sub: subcomponents(self)). has_property(sub,SEI::GrossWeight) 
+
+-- calcuate the ratio of components with budget vs. all subcomponents
+SubcomponentWeightBudgetCoveragePercent(self:component): int = let subs: {component} = subcomponents(self); 
+ sum([ 100 for (sub : subs) | has_property(sub,SEI::GrossWeight)])/ (length(subs))
+ 
+ 
+ AllComponentsHaveGrossWeight(self : component) <= ** "Component " self " shall have a weight budget" ** 
+ 	HasWeightBudget(self) and forall (c: subcomponents(self)). AllComponentsHaveGrossWeight(c) 
+		
+ 
+ HasWeightBudget(t : component) : bool =  
+ (has_property(t,SEI::GrossWeight) or has_property(t,SEI::NetWeight)) orelse fail ** t " has no weight" ** 
+ 
+ AllThreadsHavePeriod(self : component) <= ** "All threads have a period" ** 
+ forall (t: thread). HasPeriod(t)
+ 
+ HasPeriod(t : thread) <= ** "Thread " t " has a period" ** 
+ has_property(t,Timing_Properties::Period)
+
+print(element: aadl)<= 
+** element **
+true
+
+printValue(value :  real)<= 
+** value **
+true
+	
+**};
+
+
+end BudgetResolute ;
