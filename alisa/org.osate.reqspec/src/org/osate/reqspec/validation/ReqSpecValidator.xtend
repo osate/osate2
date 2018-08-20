@@ -141,7 +141,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		val fealist = new BasicEList<NamedElement>
 		cl.getAllFeatures.forEach[e|if(!sysreqs.requirements.exists[r|r.targetElement == e]) fealist += e]
 		if (!fealist.empty) {
-			val fls = sysreqs.requirements.map[name].reduce[p1, p2|p1 + ' ' + p2]
+			val fls = fealist.map[name].reduce[p1, p2|p1 + ' ' + p2]
 			warning('Features without requirement: ' + fls, ReqSpecPackage.Literals.REQUIREMENT_SET__REQUIREMENTS,
 				FEATURES_WITHOUT_REQUIREMENT)
 		}
