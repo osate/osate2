@@ -5,7 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -23,6 +27,7 @@ import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -70,8 +75,16 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			}
 		} else if (shouldLink(selected)) {
 			NamedElement ne = (NamedElement) selected;
-			ContributedAadlStorage storage = new ContributedAadlStorage(ne.eResource().getURI());
-			IEditorPart editor = page.findEditor(new ContributedAadlEditorInput(storage));
+			URI uri = ne.eResource().getURI();
+			IEditorPart editor = null;
+			if (uri.isPlatformResource()) {
+				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+				IFile file = root.getFile(new Path(null, uri.toPlatformString(true)));
+				editor = page.findEditor(new FileEditorInput(file));
+			} else if (uri.isPlatformPlugin()) {
+				ContributedAadlStorage storage = new ContributedAadlStorage(uri);
+				editor = page.findEditor(new ContributedAadlEditorInput(storage));
+			}
 			if (editor != null) {
 				int start = findOffset(ne);
 				int length = ne.getName().length();
@@ -83,8 +96,8 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 	}
 
 	protected boolean shouldLink(Object o) {
-		return o instanceof Classifier || o instanceof Property || o instanceof PropertyConstant
-				|| o instanceof PropertyType;
+		return o instanceof AadlPackage || o instanceof Classifier || o instanceof Property
+				|| o instanceof PropertyConstant || o instanceof PropertyType;
 	}
 
 	private int findOffset(NamedElement classifier) {
