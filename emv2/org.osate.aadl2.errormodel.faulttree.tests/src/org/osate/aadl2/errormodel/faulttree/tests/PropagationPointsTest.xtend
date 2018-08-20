@@ -57,7 +57,7 @@ class PropagationPointsTest  {
 		assertTrue('', cls.exists[name == rootclassifier])
 		// instantiate
 		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
-		return InstantiateModel::buildInstanceModelFile(sysImpl)
+		return InstantiateModel::instantiate(sysImpl)
 	}
 
 
