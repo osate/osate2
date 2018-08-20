@@ -2028,11 +2028,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	@Override
-	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
+			final boolean all)
 			throws InvalidModelException {
 		// this implementation's properties subclause
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// extended implementations
@@ -2040,14 +2043,16 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		ComponentImplementation currentImpl = getExtended();
 		while (currentImpl != null && currentImpl != this) {
 			if (pas.addLocal(currentImpl)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			currentImpl = currentImpl.getExtended();
 		}
 
 		// the type
 		if (getType() != null) {
-			getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall);
+			getType().getPropertyValueInternal(property, pas, fromInstanceSlaveCall, all);
 		} else {
 			// XXX we have an unresolved implementation or alias throw new InvalidModelException(this,
 			// "Component implementation is missing its component type reference.");
