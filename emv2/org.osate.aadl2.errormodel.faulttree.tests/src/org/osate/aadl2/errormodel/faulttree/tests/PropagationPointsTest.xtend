@@ -1,41 +1,34 @@
 package org.osate.aadl2.errormodel.faulttree.tests
 
+import com.google.inject.Inject
+import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.TestHelper
 
 import static org.junit.Assert.*
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class PropagationPointsTest extends OsateTest {
-	override getProjectName() {
-		"PropagationPointsTest"
-	}
+@InjectWith(ErrorModelInjectorProvider)
+class PropagationPointsTest  {
 
-	static boolean once = true
+	@Inject
+	TestHelper<AadlPackage> testHelper
 
 	var static SystemInstance instance
 	var static SystemInstance instance2
-
-	@Before
-	override setUp() {
-	}
-
-	@After
-	override cleanUp() {
-	}
+	var primaryroot = null
 
 	@Before
 	/**
@@ -46,34 +39,27 @@ class PropagationPointsTest extends OsateTest {
 		val aadlFile2 = "propagationpointfeaturetest.aadl"
 		val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/PropagationPoints/"
 
-		if (once) {
-			once = false
-			createProject(projectName)
-			setResourceRoot("platform:/resource/" + projectName)
-			createFiles(aadlFile -> readFile(modelroot + aadlFile),aadlFile2 -> readFile(modelroot + aadlFile2))
-			suppressSerialization
-			val result = testFile(aadlFile /*, referencedFile1, referencedFile2, etc. */ )
-			// get the correct package
-			val pkg = result.resource.contents.head as AadlPackage
-			val cls = pkg.ownedPublicSection.ownedClassifiers
-			assertTrue('', cls.exists[name == 'main.commonsource'])
+		primaryroot = testHelper.parseFile(modelroot + aadlFile,modelroot + aadlFile2)
 
-			// instantiate
-			val sysImpl = cls.findFirst[name == 'main.commonsource'] as SystemImplementation
-
-			instance = InstantiateModel::buildInstanceModelFile(sysImpl)
-			val result2 = testFile(aadlFile2 /*, referencedFile1, referencedFile2, etc. */ )
-			// get the correct package
-			val pkg2 = result2.resource.contents.head as AadlPackage
-			val cls2 = pkg2.ownedPublicSection.ownedClassifiers
-			assertTrue('', cls2.exists[name == 'main.commonsource'])
-
-			// instantiate
-			val sysImpl2 = cls2.findFirst[name == 'main.commonsource'] as SystemImplementation
-
-			instance2 = InstantiateModel::buildInstanceModelFile(sysImpl2)
-		}
+			instance = instanceGenerator(modelroot + aadlFile,'main.commonsource')
+			instance2 = instanceGenerator(modelroot + aadlFile2,'main.commonsource')
 	}
+
+
+	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
+		val ac = primaryroot as AadlPackage
+		val rs = ac.eResource.resourceSet
+		val targetsrc = rs.getResource(URI.createURI(filename), true)
+
+		// get the correct package
+		val pkg = targetsrc.contents.head as AadlPackage
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		assertTrue('', cls.exists[name == rootclassifier])
+		// instantiate
+		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
+		return InstantiateModel::buildInstanceModelFile(sysImpl)
+	}
+
 
 	/**
 	 * example with 2 sensors, compute, and one actuator.
