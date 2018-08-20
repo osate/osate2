@@ -157,6 +157,23 @@ class FTATest  {
 	 */
 	@Test
 	def void fta1Test1() {
+//	def void SEIOrgtest() {
+//		val ac = primaryroot as AssuranceCase
+//		val rs = ac.eResource.resourceSet
+//		val scssrc = rs.getResource(URI.createURI(alisaprefix+"sei.org"), true)
+//		val org = scssrc.contents.get(0) as Organization
+//		org => [
+//			"sei".assertEquals(name)
+//			assertTrue(stakeholder.size > 1)	
+//			stakeholder.get(0) as Stakeholder => [
+//				"phf".assertEquals(name)
+//			]
+//			stakeholder.get(1) as Stakeholder => [
+//				"dpg".assertEquals(name)
+//			]
+//		]
+//		assertNoIssues(org)	
+//	}
 		testHelper.parseFile(modelroot + fta1File)
 		val instance1 = instanceGenerator(fta1File, "main.i")
 		val ft = CreateFTAModel.createFaultTree(instance1, stateFail)
