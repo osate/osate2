@@ -12,8 +12,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.navigator.ILinkHelper;
 import org.eclipse.ui.part.FileEditorInput;
@@ -30,7 +28,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
@@ -60,41 +57,34 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			return;
 		}
 		Object selected = structuredSelection.getFirstElement();
-		if (selected instanceof ContributedAadlStorage) {
+		if (selected instanceof IFile) {
+			IEditorPart editor = page.findEditor(new FileEditorInput((IFile) selected));
+			if (editor != null) {
+				page.bringToTop(editor);
+			}
+		} else if (selected instanceof ContributedAadlStorage) {
 			ContributedAadlStorage storage = (ContributedAadlStorage) selected;
 			IEditorPart editor = page.findEditor(new ContributedAadlEditorInput(storage));
 			if (editor != null) {
 				page.bringToTop(editor);
 			}
-		} else if (selected instanceof IFile) {
-			IEditorInput fileInput = new FileEditorInput((IFile) selected);
-			IEditorPart editor = page.findEditor(fileInput);
-			if (editor != null) {
-				page.bringToTop(editor);
-			}
 		} else if (shouldLink(selected)) {
 			NamedElement ne = (NamedElement) selected;
-			int start = findOffset(ne);
-			int length = ne.getName().length();
-			TextSelection selection = new TextSelection(start, length);
-			IFile file = (IFile) OsateResourceUtil.convertToIResource(ne.eResource());
-			setSelection(page, file, selection);
+			ContributedAadlStorage storage = new ContributedAadlStorage(ne.eResource().getURI());
+			IEditorPart editor = page.findEditor(new ContributedAadlEditorInput(storage));
+			if (editor != null) {
+				int start = findOffset(ne);
+				int length = ne.getName().length();
+				TextSelection selection = new TextSelection(start, length);
+				page.bringToTop(editor);
+				editor.getEditorSite().getSelectionProvider().setSelection(selection);
+			}
 		}
 	}
 
 	protected boolean shouldLink(Object o) {
 		return o instanceof Classifier || o instanceof Property || o instanceof PropertyConstant
 				|| o instanceof PropertyType;
-	}
-
-	private void setSelection(IWorkbenchPage page, IFile file, TextSelection textSelection) {
-		IEditorPart editor;
-		try {
-			editor = IDE.openEditor(page, file, false);
-			editor.getEditorSite().getSelectionProvider().setSelection(textSelection);
-		} catch (PartInitException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private int findOffset(NamedElement classifier) {
