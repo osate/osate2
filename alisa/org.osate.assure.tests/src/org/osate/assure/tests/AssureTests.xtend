@@ -295,8 +295,8 @@ class AssureTests extends XtextTest {
 			"Alisa_Consistency".assertEquals(name)	
 			8.assertEquals(methods.size)
 			]	
-		assertNoErrors(reg)	
-//		assertNoIssues(reg)	
+//		assertNoErrors(reg)	
+		assertNoIssues(reg)	
 	}
 
 //			,alisaprefix+"DCS.reqspec",alisaprefix+"dcsvplan.verify"

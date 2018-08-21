@@ -58,6 +58,8 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.common.common.TargetType
+import org.eclipse.emf.common.util.EList
+import org.osate.verify.verify.FormalParameter
 
 /**
  * Custom validation rules. 
@@ -92,17 +94,29 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
 	@Check
-	def checkMethodPath(JavaMethod method) {
-		val result = VerificationMethodDispatchers.eInstance.getJavaMethod(method)
-		if (result === null) {
-			warning("Could not find method: " + method.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
+	def checkMethodPath(JavaMethod javaMethod) {
+		val i = javaMethod.methodPath.lastIndexOf('.')
+		if (i == -1) {
+			return null
+		}
+		var result = false
+		val EList<FormalParameter> formalparameters = (javaMethod.eContainer as VerificationMethod).formals
+		val newClasses = newArrayList()
+		newClasses.add(VerificationMethodDispatchers.eInstance.forTargetType((javaMethod.eContainer as VerificationMethod)))
+		for (par : formalparameters) {
+			val cl = VerificationMethodDispatchers.eInstance.getJavaClass(par, javaMethod);
+			newClasses.add(cl);
+		}
+		result = ExecuteJavaUtil.eInstance.getJavaMethod(javaMethod.methodPath,newClasses) !== null
+		if (!result ) {
+			warning("Could not find method: " + javaMethod.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
 		}
 	}
 
 	@Check
 	def checkClassPath(JUnit4Method method) {
-		val result = ExecuteJavaUtil.eInstance.findClass(method.classPath)
+		val result = ExecuteJavaUtil.eInstance.getJavaClass(method.classPath)
 		if (result === null) {
 			warning("Could not find JUnit4 test class: " + method.classPath,
 				VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH, INCORRECT_CLASS_PATH)

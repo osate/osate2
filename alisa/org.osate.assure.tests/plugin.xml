@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.osate.alisa.common.javaextensionpoint">
+      <method
+            class="alisa_consistency.ModelConditions">
+      </method>
+      <method
+            class="alisa_consistency.ModelVerifications">
+      </method>
+   </extension>
+
+</plugin>

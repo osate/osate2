@@ -487,7 +487,7 @@ class AssureProcessor implements IAssureProcessor {
 				// verificationResult.eResource.save(null)
 				}
 				JUnit4Method: {
-					val test = ExecuteJavaUtil.eInstance.findClass(methodtype.classPath);
+					val test = ExecuteJavaUtil.eInstance.getJavaClass(methodtype.classPath);
 					val junit = new JUnitCore();
 					val result = junit.run(test);
 					if (result.failureCount == 0) {
