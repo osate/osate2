@@ -3,14 +3,14 @@ package org.osate.ui.navigator;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-public class AadlNavigatorSorter extends ViewerSorter {
+public class AadlNavigatorSorter extends ViewerComparator {
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		if (e1 instanceof VirtualPluginResources) {
@@ -42,4 +42,5 @@ public class AadlNavigatorSorter extends ViewerSorter {
 
 		return super.compare(viewer, e1, e2);
 	}
+
 }
