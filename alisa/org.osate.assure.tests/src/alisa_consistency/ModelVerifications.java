@@ -8,6 +8,7 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.alisa.common.util.JavaExtensionPoint;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
@@ -15,7 +16,7 @@ import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-public class ModelVerifications {
+public class ModelVerifications extends JavaExtensionPoint {
 
 	public static boolean isLeafComponent(ComponentInstance ci) {
 		return ci.getComponentInstances().isEmpty();
@@ -37,7 +38,7 @@ public class ModelVerifications {
 	/**
 	 * Recursively consistency check that all leaf components have all features
 	 * connected. Get report back on details of which ones do not.
-	 */ 
+	 */
 //	public static AnalysisResult allComponentFeaturesConnected(ComponentInstance ci) {
 //		AnalysisResult res = ResultFactory.eINSTANCE.createResult();
 //=======
@@ -123,5 +124,6 @@ public class ModelVerifications {
 		UnitLiteral volts = GetProperties.findUnitLiteral(voltage, "V");
 		return PropertyUtils.getScaledNumberValue(fi, voltage, volts, 0.0);
 	}
+
 
 }
