@@ -1,0 +1,27 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+ 
+system requirements DualSCSreqs for SimpleControlSystem::SCSDualPower [
+	requirement SR1: "dual power operation" [
+		description this " shall operate with two external power supplies"
+		rationale "One power supply acts as backup to the other power supply."
+		category Kind.Constraint
+		see goal SCSgoals.ng1
+	]
+	requirement SR1_1: "Two power inlets" [
+		refines SR1
+		description this " shall provide two power inlets"
+		rationale "One power supply acts as backup to the other power supply."
+		category Kind.Constraint
+	]
+	requirement SR1_2: "Same voltage" [
+		refines SR1
+		description "Both inlets shall operate with the same voltage"
+		category Kind.Constraint
+	]
+	requirement SR1_3: "Same wattage" [
+		refines SR1
+		description "Both inlets shall operate with the same wattage"
+		category Kind.Constraint
+	]
+]

@@ -1,0 +1,53 @@
+package CombinedETEF
+public
+	system SubsystemA
+		features
+			a_in: in feature;
+			a_out: out feature;
+		flows
+			a_flow: flow path a_in -> a_out {Latency => 10ms .. 10ms;};
+	end SubsystemA;
+
+	system SubsystemB
+		features
+			b_in: in feature;
+			b_out: out feature;
+		flows
+			b_flow: flow path b_in -> b_out {Latency => 10ms .. 10ms;};
+	end SubsystemB;
+
+	system SubsystemC
+		features
+			c_in: in feature;
+			c_out: out feature;
+		flows
+			c_flow: flow path c_in -> c_out {Latency => 10ms .. 10ms;};
+	end SubsystemC;
+
+	system SubsystemD
+		features
+			d_in: in feature;
+			d_out: out feature;
+		flows
+			d_flow: flow path d_in -> d_out {Latency => 10ms .. 10ms;};
+	end SubsystemD;
+
+	system Test
+	end Test;
+
+	system implementation Test.Impl
+		subcomponents
+			a: system SubsystemA;
+			b: system SubsystemB;
+			c: system SubsystemC;
+			d: system SubsystemD;
+		connections
+			a_to_b: feature a.a_out -> b.b_in;
+			b_to_c: feature b.b_out -> c.c_in;
+			c_to_d: feature c.c_out -> d.d_in;
+		flows
+			a_b: end to end flow a.a_flow -> a_to_b -> b.b_flow;
+			c_d: end to end flow c.c_flow -> c_to_d -> d.d_flow;
+			total: end to end flow a_b -> b_to_c -> c_d {Latency => 20ms .. 30ms;};
+	end Test.Impl;
+end CombinedETEF;

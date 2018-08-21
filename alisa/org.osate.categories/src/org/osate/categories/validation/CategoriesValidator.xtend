@@ -19,17 +19,11 @@
  */
 package org.osate.categories.validation
 
-import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
-import org.eclipse.xtext.validation.ValidationMessageAcceptor
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.categories.categories.Categories
 import org.osate.categories.categories.CategoriesDefinitions
-import org.osate.categories.categories.Category
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -43,21 +37,6 @@ class CategoriesValidator extends AbstractCategoriesValidator {
   	public static val FILTER_FILE_EXT = "filter"
 	public static val DUPLICATE_CATEGORY = 'org.osate.categories.validation.duplicate.category'
 
-	@Inject
-	var ICommonGlobalReferenceFinder refFinder
-
-	@Check(CheckType.FAST)
-	def void checkDuplicateCategoryNames(Category category){
-		val categories = category.eContainer as Categories
-		
-		val dupes = refFinder.getDuplicates(category)
-		if (dupes.size > 0) {
-			val node = NodeModelUtils.getNode(category);
-			warning("Duplicate " + categories.name + " name '" + category.name + "'",  
-				category, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, DUPLICATE_CATEGORY, 
-				categories.name, "" + node.offset, "" + node.length)
-		}
-	}
 	
 	@Check (CheckType.FAST)
 	def void checkFileTypeContents(CategoriesDefinitions categoriesDefinitions) {
