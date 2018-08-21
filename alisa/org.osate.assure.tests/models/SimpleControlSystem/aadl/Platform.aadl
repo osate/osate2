@@ -1,0 +1,66 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package Platform
+public
+	with SEI;
+	with PhysicalResources;
+renames PhysicalResources::all;
+	
+		-- computer hardware platform
+	processor powerpc
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+			canbusaccess: requires bus access CANbus;
+		properties
+			SEI::PowerBudget => 0.8 w applies to power;
+			SEI::MIPSCapacity => 1.2 mips;
+			SEI::Grossweight => 0.7 kg;
+	end powerpc;
+
+	bus CANbus
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+		properties
+			SEI::PowerBudget => 0.8 w applies to power;
+			SEI::Grossweight => 0.2 kg;
+	end CANbus;
+
+	memory main_memory
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+		properties
+			SEI::PowerBudget => 0.8 w applies to power;
+			SEI::Grossweight => 0.1 kg;
+	end main_memory;
+	
+		system platform
+		features
+			canbusaccess: provides bus access CANbus;
+			power: in feature PhysicalResources::ElectricalPower;
+		properties
+			SEI::PowerBudget => 0.8 w applies to power;
+			SEI::MIPSCapacity => 2.4 mips;
+			SEI::Grossweight => 1.0 kg;
+	end platform;
+
+	system implementation platform.single
+		subcomponents
+			pc1: processor powerpc;
+			M: memory main_memory;
+			canbus: bus CANbus;
+		connections
+			ExtCanbusaccess: bus access canbus -> canbusaccess;
+			CantoPC1: bus access canbus -> pc1.canbusaccess;
+			PCPower: feature power -> pc1.power;
+			BusPower: feature power -> canbus.power;
+			MemoryPower: feature power -> M.power;
+	end platform.single;
+
+	system implementation platform.dual extends platform.single
+		subcomponents
+			pc2: processor powerpc;
+		connections
+			CantoPC2: bus access canbus -> pc1.canbusaccess;
+	end platform.dual;
+	
+end Platform;

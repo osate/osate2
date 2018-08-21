@@ -72,7 +72,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
@@ -192,7 +192,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 			ErrorPropagation srccontain, ErrorPropagation dstprop, ErrorPropagation dstcontain) {
 
 		if (srcprop != null && dstprop != null) {
-			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+			if (!EMV2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 				error(connectionInstance,
 						"C1: Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
 						+ EMV2Util.getPrintName(srcprop.getTypeSet())
@@ -201,7 +201,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 			}
 		}
 		if (srccontain != null && dstcontain != null) {
-			if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(), dstcontain.getTypeSet())) {
+			if (!EMV2TypeSetUtil.contains(srccontain.getTypeSet(), dstcontain.getTypeSet())) {
 				error(connectionInstance,
 						"C1: Outgoing containment  " + EMV2Util.getPrintName(srcprop)
 						+ EMV2Util.getPrintName(srcprop.getTypeSet())
@@ -225,7 +225,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null) {
-			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+			if (!EMV2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
 						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
 						+ EMV2Util.getPrintName(srcprop.getTypeSet())
@@ -262,10 +262,10 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 						ErrorSink es = (ErrorSink) ef;
 						if (es.getIncoming() == ep) {
 
-							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+							for (TypeToken tt : EMV2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
 									EMV2Util.getUseTypes(ep))) {
 
-								if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
+								if (!EMV2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 									error(componentInstance,
 											"Incoming propagation " + EMV2Util.getPrintName(ep) + " does not declare "
 													+ tt.getType().get(0).getName() + " as error source");
@@ -290,10 +290,10 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 				for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier())) {
 					if (EMV2Util.isSame(es.getSourceModelElement(), ep)) {
 
-						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+						for (TypeToken tt : EMV2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
 								EMV2Util.getUseTypes(ep))) {
 
-							if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
+							if (!EMV2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
 								error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
 								+ " does not declare " + tt.getType().get(0).getName() + " as error source");
 
@@ -317,7 +317,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 
 //					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
-					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
+					EList<TypeToken> dstTokens = EMV2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
 							EMV2Util.getUseTypes(ep));
 //
 //					for (TypeToken tt1 : srcTokens)
@@ -330,7 +330,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 //
 //					}
 					for (TypeToken tt1 : dstTokens) {
-						if (!EM2TypeSetUtil.contains(ep.getTypeSet(), tt1)) {
+						if (!EMV2TypeSetUtil.contains(ep.getTypeSet(), tt1)) {
 							error(componentInstance,
 									"Type " + EMV2Util.getPrintName(tt1) + " is not propagated by the error source "
 											+ EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet())
@@ -505,7 +505,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 			if (EMV2Util.hasErrorPropagations(componentInstance)) {
 				for (ErrorPropagation ep : EMV2Util
 						.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier())) {
-					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+					EList<TypeToken> epTokens = EMV2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
 							EMV2Util.getUseTypes(ep));
 
 					for (TypeToken tt : epTokens) {
@@ -515,7 +515,7 @@ public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 								.getAllOutgoingPropagationConditions(componentInstance)) {
 							if (opc.getOutgoing() == ep) {
 
-								if (EM2TypeSetUtil.contains(opc.getTypeToken(), tt)) {
+								if (EMV2TypeSetUtil.contains(opc.getTypeToken(), tt)) {
 									// OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
 
 									found = true;

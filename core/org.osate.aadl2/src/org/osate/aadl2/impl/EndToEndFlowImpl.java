@@ -502,7 +502,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
 		if (partOf == null) {
 			throw new InvalidModelException(this, "End to End Flow is not part of a component");
@@ -510,12 +510,16 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 
 		// First check the container's contained property associations
 		if (!fromInstanceSlaveCall && pas.addLocalContained(this, partOf)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// Next check the flow sequence's properties subclause
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// Next find the value by walking up the connection's refinement
@@ -523,10 +527,14 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 		EndToEndFlow refined = getRefined();
 		while (refined != null) {
 			if (!fromInstanceSlaveCall && pas.addLocalContained(refined, refined.getContainingClassifier())) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			if (pas.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
@@ -536,7 +544,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 		 * component implementation.
 		 */
 		if (!fromInstanceSlaveCall && pn.isInherit()) {
-			partOf.getPropertyValueInternal(pn, pas, fromInstanceSlaveCall);
+			partOf.getPropertyValueInternal(pn, pas, fromInstanceSlaveCall, all);
 		}
 	}
 

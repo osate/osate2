@@ -1,7 +1,7 @@
 // Copyright 2016 Carnegie Mellon University. See Notice.txt
 // Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 
-stakeholder goals CSgoals : "SCS stakeholder goals" for system [
+stakeholder goals SCSgoals : "SCS stakeholder goals" for system [
 	description "This document contains the stakeholder requirements for the Simple Control System (SCS).
 The SCS provides control for a simple device (SD). 
 The SCS system consists for software, hardware, and physical components."
