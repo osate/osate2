@@ -120,7 +120,9 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof EObject) {
+			return ((EObject) element).eContainer();
+		}
 		return null;
 	}
 
