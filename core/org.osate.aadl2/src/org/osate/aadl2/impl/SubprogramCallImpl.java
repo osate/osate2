@@ -288,29 +288,33 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 */
 	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		// local contained value
 		if (!fromInstanceSlaveCall && pas.addLocalContained(this, owner)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// get local value
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// get values from called subprogram
 		if (getCalledSubprogram() instanceof Classifier) {
-			((Classifier) getCalledSubprogram()).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			((Classifier) getCalledSubprogram()).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		} else if (getCalledSubprogram() instanceof Feature) {
-			((Feature) getCalledSubprogram()).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			((Feature) getCalledSubprogram()).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 
 		// get values from container
 		if (!fromInstanceSlaveCall && prop.isInherit()) {
-			owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 	}
 

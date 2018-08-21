@@ -44,7 +44,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
@@ -85,7 +85,7 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null) {
-			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+			if (!EMV2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
 				error(path.getConnection() != null ? path.getConnection() : path.getPathSrc().getComponentInstance(),
 						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
 						+ EMV2Util.getPrintName(srcprop.getTypeSet())

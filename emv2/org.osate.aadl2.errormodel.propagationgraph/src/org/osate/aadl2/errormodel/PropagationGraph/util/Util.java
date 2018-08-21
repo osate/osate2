@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.IfCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -588,7 +588,7 @@ public class Util {
 			PropagationPathEnd target = propagationPath.getPathDst();
 			if (target.getComponentInstance() == ci && target.getErrorPropagation() == targetEP) {
 				ErrorPropagation srcep = propagationPath.getPathSrc().getErrorPropagation();
-				if (srcep != null && EM2TypeSetUtil.contains(srcep.getTypeSet(), type)) {
+				if (srcep != null && EMV2TypeSetUtil.contains(srcep.getTypeSet(), type)) {
 					result.add(propagationPath);
 				}
 			}
