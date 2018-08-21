@@ -1,0 +1,64 @@
+package queuing
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: abstract a3;
+			sub4: abstract a2 {
+				Dispatch_Protocol => Sporadic;
+				Period => 10 ms;
+			};
+			sub5: abstract a2 {
+				Dispatch_Protocol => Periodic;
+				Period => 10 ms;
+			};
+			sub6: abstract a4 {
+				Dispatch_Protocol => Aperiodic;
+			};
+		connections
+			conn1: feature sub1.f1 -> sub2.f2;
+			conn2: feature sub1.f1 -> sub3.f3;
+			conn3: feature sub1.f1 -> sub4.f2;
+			conn4: feature sub1.f1 -> sub5.f2;
+			conn5: feature sub1.f1 -> sub6.f4;
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1 {Latency => 2 ms .. 6 ms;};
+			etef2: end to end flow sub1.fsource1 -> conn2 -> sub3.fsink2 {Latency => 2 ms .. 4 ms;};
+			etef3: end to end flow sub1.fsource1 -> conn3 -> sub4.fsink1 {Latency => 2 ms .. 14 ms;};
+			etef4: end to end flow sub1.fsource1 -> conn4 -> sub5.fsink1 {Latency => 2 ms .. 14 ms;};
+			etef5: end to end flow sub1.fsource1 -> conn5 -> sub6.fsink2 {Latency => 2 ms .. 6 ms;};
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	abstract a2
+		features
+			f2: in event port {Queue_Size => 1;};
+		flows
+			fsink1: flow sink f2 {Latency => 1 ms .. 2 ms;};
+	end a2;
+	
+	abstract a3
+		features
+			f3: in event port {Queue_Size => 0;};
+		flows
+			fsink2: flow sink f3 {Latency => 1 ms .. 2 ms;};
+	end a3;
+
+	-- expect data port to be treated as port with queue size 1 for non-sampling threads
+	abstract a4
+		features
+			f4: in data port;
+		flows
+			fsink2: flow sink f4 {Latency => 1 ms .. 2 ms;};
+	end a4;
+end queuing;

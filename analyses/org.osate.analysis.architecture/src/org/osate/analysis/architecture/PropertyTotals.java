@@ -47,7 +47,6 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -264,19 +263,5 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		ResultUtil.addRealValue(result, net, "kg");
 		ResultUtil.addRealValue(result, limit, "kg");
 		return result;
-	}
-
-	public String getPrintName(ComponentInstance ci) {
-		String res = null;
-		if (ci instanceof SystemInstance) {
-			res = ci.getComponentClassifier().getName();
-		} else {
-			if (ci.getComponentClassifier() != null) {
-				res = ci.getName() + ": " + ci.getComponentClassifier().getName();
-			} else {
-				res = ci.getName();
-			}
-		}
-		return res;
 	}
 }
