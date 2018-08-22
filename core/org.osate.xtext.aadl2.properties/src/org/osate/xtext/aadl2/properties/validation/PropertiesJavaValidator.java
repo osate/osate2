@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
@@ -651,20 +652,42 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	protected void checkConstantProperty(PropertyAssociation assoc) {
+		EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
+
+		if (appliesTos == null || appliesTos.isEmpty()) {
+			checkOverridingConstant((NamedElement) assoc.getOwner(), assoc);
+		} else {
+			for (ContainedNamedElement cne : assoc.getAppliesTos()) {
+				if (cne.getContainmentPathElements().size() == 1) {
+					ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
+					checkOverridingConstant(cpe.getNamedElement(), assoc);
+				}
+			}
+		}
+	}
+
+	protected void checkOverridingConstant(NamedElement holder, PropertyAssociation assoc) {
+		boolean isContained = !assoc.getAppliesTos().isEmpty();
 		Property prop = assoc.getProperty();
-		Element elem = assoc.getOwner();
-		if (elem instanceof NamedElement) {
-			NamedElement owner = (NamedElement) elem;
-			PropertyAcc acc = ((NamedElement) elem).getPropertyValue(prop, true);
-			List<PropertyAssociation> pas = acc.getAssociations();
-			if (pas.size() > 1) {
-				Iterator<PropertyAssociation> iter = pas.listIterator(1);
-				while (iter.hasNext()) {
-					PropertyAssociation pa = iter.next();
-					if (pa.isConstant()) {
-						error(assoc, "Property association overrides constant property value from "
-								+ pa.getContainingClassifier().getQualifiedName());
-					}
+		PropertyAcc acc = holder.getPropertyValue(prop, true);
+		List<PropertyAssociation> pas = acc.getAssociations();
+
+		if (pas.size() > 1) {
+			// when checking a local pa that is overwritten by a local contained pa we need
+			// to skip the first 2 list elements otherwise just the first element, which
+			// is the currently checked pa
+			ListIterator<PropertyAssociation> iter = pas.listIterator(1);
+			if (iter.hasNext()) {
+				PropertyAssociation pa = iter.next();
+				if (pa != assoc) {
+					iter.previous();
+				}
+			}
+			while (iter.hasNext()) {
+				PropertyAssociation pa = iter.next();
+				if (pa.isConstant()) {
+					error(assoc, "Property association overrides constant property value from "
+							+ pa.getContainingClassifier().getQualifiedName());
 				}
 			}
 		}

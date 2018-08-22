@@ -159,27 +159,9 @@
 
 		<topic href="html/std/section-23-1.html" label="Appendix G - Profiles and Extensions" />
 	</topic>
-
-
-
-
-	<topic label="OSATE Plug-in Development" href="html/plugindev/index.html">
-		<link toc="plugindevcontents.xml" />
-	</topic>
-	<topic label="JavaDoc of OSATE" href="api/index.html">
-		<link toc="javadoccontents.xml" />
-	</topic>
 	<topic href="html/faq.html" label="Frequently Asked Questions">
 	</topic>
 	<topic href="html/about.html" label="Copyright, links &amp; contact">
-	</topic>
-	<topic href="html/emv2/index.html" label="Error-Model Annex v2">
-		<topic href="html/emv2/imv.html" label="Error Support within IMV" />
-		<topic href="html/emv2/fha.html" label="Fault and Hazard Analysis" />
-		<topic href="html/emv2/unhandled-faults.html" label="Unhandled Faults" />
-		<topic href="html/emv2/consistency.html" label="Consistency Checks" />
-		<topic href="html/emv2/fault-impact.html" label="Fault Impact" />
-		<topic href="html/emv2/rbd.html" label="Reliability Block Diagram" />
 	</topic>
 	<topic href="html/feedback.html" label="Feedback and Bug Report">
 	</topic>
