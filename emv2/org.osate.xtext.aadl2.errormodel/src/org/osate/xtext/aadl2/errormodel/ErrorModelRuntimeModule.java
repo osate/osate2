@@ -25,13 +25,13 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
+import org.osate.aadl2.modelsupport.scoping.EClassGlobalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameConverter;
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
 import org.osate.xtext.aadl2.errormodel.valueconversion.ErrorModelValueConverter;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
-import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -74,13 +74,13 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 		binder.bind(IScopeProvider.class).annotatedWith(Names.named(AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(ErrorModelImportedNamespaceAwareLocalScopeProvider.class);
 	}
-	
+
 	public Class<? extends TextRegionAccessBuilder> bindTextRegionAccessBuilder() {
 		return Aadl2TextRegionAccessBuilder.class;
 	}
-	
+
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return Aadl2GlobalScopeProvider.class;
+		return EClassGlobalScopeProvider.class;
 	}
 }
