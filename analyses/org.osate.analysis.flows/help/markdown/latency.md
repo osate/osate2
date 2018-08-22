@@ -130,8 +130,6 @@ Each contributor entry has a number of columns:
     - **sampling**: Latency contribution due to a component sampling periodically. 
       Uses period property values. This value may differ in synchronous and 
       asynchronous system settings.
-    - **first sampling**: Latency contribution. Uses period property values. Not 
-      sensitive to a/synchronous system. 
     - **delayed sampling**: Latency contribution due to delayed 
       connection. Uses period property values.
     - **sampling protocol/bus** latency contribution due to periodic bus protocol. 
@@ -366,6 +364,8 @@ period property values with threads and devices.
   periodically. In the synchronous case the sending and receiving periodic task 
   are dispatched by the same clock, thus, the sampling delay may be less than a 
   full period (see discussion below).  
+  
+> The first end to end flow element may be a periodic component. In this case, no sampling latency is added. However, succeeding periodic sampling components may be aligned in the synchronous use scenario. 
 
 ### Processing Times as Latency Contributors
 

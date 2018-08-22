@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
@@ -108,6 +109,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
@@ -193,8 +195,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	// checking methods
 	public void checkPropertyAssociationAppliesToArrayIndex(PropertyAssociation propertyAssociation) {
 		List<ContainedNamedElement> appliesTos = propertyAssociation.getAppliesTos();
-		if (null == appliesTos || appliesTos.isEmpty())
+		if (null == appliesTos || appliesTos.isEmpty()) {
 			return;
+		}
 		for (ContainedNamedElement appliesTo : appliesTos) {
 			List<ContainmentPathElement> cpes = appliesTo.getContainmentPathElements();
 			for (ContainmentPathElement cpe : cpes) {
@@ -512,17 +515,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 
 		for (ModalPropertyValue mpv1 : modalPropertyValues) {
-			if (null == mpv1)
+			if (null == mpv1) {
 				continue;
+			}
 			List<Mode> inModes1 = mpv1.getInModes();
 			for (ModalPropertyValue mpv2 : modalPropertyValues) {
-				if (null == mpv2)
+				if (null == mpv2) {
 					continue;
+				}
 				List<Mode> inModes2 = mpv2.getInModes();
 				if (mpv1 != mpv2) {
 					for (Mode inMode1 : inModes1) {
-						if (null == inMode1)
+						if (null == inMode1) {
 							continue;
+						}
 						for (Mode inMode2 : inModes2) {
 							if (inMode1.equals(inMode2)) {
 								error(mpv2, "Assignment to duplicate modes");
@@ -604,7 +610,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
-			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), modalPropertyValue.getOwnedValue(),
+					pdef.getQualifiedName());
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
@@ -639,6 +646,49 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 						SOURCE_STACK_SIZE_DEPRECATED);
 			} else if ("Data_Volume".equalsIgnoreCase(pa.getProperty().getName())) {
 				warning("Data_Volume is deprecated. Please use Data_Rate.", pa, null, DATA_VOLUME_DEPRECATED);
+			}
+		}
+		checkConstantProperty(pa);
+	}
+
+	protected void checkConstantProperty(PropertyAssociation assoc) {
+		EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
+
+		if (appliesTos == null || appliesTos.isEmpty()) {
+			checkOverridingConstant((NamedElement) assoc.getOwner(), assoc);
+		} else {
+			for (ContainedNamedElement cne : assoc.getAppliesTos()) {
+				if (cne.getContainmentPathElements().size() == 1) {
+					ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
+					checkOverridingConstant(cpe.getNamedElement(), assoc);
+				}
+			}
+		}
+	}
+
+	protected void checkOverridingConstant(NamedElement holder, PropertyAssociation assoc) {
+		boolean isContained = !assoc.getAppliesTos().isEmpty();
+		Property prop = assoc.getProperty();
+		PropertyAcc acc = holder.getPropertyValue(prop, true);
+		List<PropertyAssociation> pas = acc.getAssociations();
+
+		if (pas.size() > 1) {
+			// when checking a local pa that is overwritten by a local contained pa we need
+			// to skip the first 2 list elements otherwise just the first element, which
+			// is the currently checked pa
+			ListIterator<PropertyAssociation> iter = pas.listIterator(1);
+			if (iter.hasNext()) {
+				PropertyAssociation pa = iter.next();
+				if (pa != assoc) {
+					iter.previous();
+				}
+			}
+			while (iter.hasNext()) {
+				PropertyAssociation pa = iter.next();
+				if (pa.isConstant()) {
+					error(assoc, "Property association overrides constant property value from "
+							+ pa.getContainingClassifier().getQualifiedName());
+				}
 			}
 		}
 	}
@@ -774,7 +824,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * 
+	 *
 	 * @param pt:
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
@@ -786,7 +836,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	/**
 	 * checks and report mismatch in type of value and type
-	 * 
+	 *
 	 * @param pt:
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
@@ -856,7 +906,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		} else if (pv instanceof ClassifierValue) {
 			if (!(pt instanceof ClassifierType)) {
-				error(pv, prefix + "Assigning incorrect Classifier value" + msg);
+				error(holder, prefix + "Assigning incorrect Classifier value" + msg);
 				return;
 			}
 			ClassifierValue cv = (ClassifierValue) pv;
@@ -873,7 +923,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			error(holder, prefix + "Assigning classifier value with incorrect Classifier" + msg);
 		} else if (pv instanceof RecordValue) {
 			if (!(pt instanceof RecordType)) {
-				error(pv, prefix + "Assinging Record value" + msg);
+				error(holder, prefix + "Assigning Record value" + msg);
 			} else {
 				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
 			}
@@ -937,11 +987,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			boolean doQuickFix = false;
 			EObject container = nv;
 			while (null != container) {
-				container = container.eContainer();
-				if (null != container && container.equals(holder)) {
+				if (container.equals(holder)) {
 					doQuickFix = true;
 					break;
 				}
+				container = container.eContainer();
 			}
 
 			if (doQuickFix) {
@@ -954,7 +1004,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
 					i++;
 				}
-				error("Number value is missing a unit", nv, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
+				error("Number value is missing a unit", holder, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 
 			} else {
 				error(holder, "Number value is missing a unit");

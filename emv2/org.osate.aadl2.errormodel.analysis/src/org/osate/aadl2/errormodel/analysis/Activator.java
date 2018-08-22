@@ -1,6 +1,7 @@
 package org.osate.aadl2.errormodel.analysis;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
@@ -65,4 +66,13 @@ public class Activator extends AbstractUIPlugin {
 		return HazardFormat.valueOf(store.getString(HAZARD_FORMAT_PREF));
 	}
 
+	public void addPropertyChangeListener(final IPropertyChangeListener pcl) {
+		final IPreferenceStore store = getPreferenceStore();
+		store.addPropertyChangeListener(pcl);
+	}
+
+	public void removePropertyChangeListener(final IPropertyChangeListener pcl) {
+		final IPreferenceStore store = getPreferenceStore();
+		store.removePropertyChangeListener(pcl);
+	}
 }
