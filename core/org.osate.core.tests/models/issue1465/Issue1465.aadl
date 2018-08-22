@@ -1,0 +1,11 @@
+package Issue1465
+public
+	with SEI;
+
+	memory main_memory
+		features
+			power: in feature {SEI::PowerBudget => constant 0.1w;};
+		properties
+			SEI::PowerBudget => 0.8w applies to power;
+	end main_memory;
+end Issue1465;
