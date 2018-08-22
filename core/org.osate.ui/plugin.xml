@@ -191,24 +191,32 @@
             labelProvider="org.osate.ui.navigator.AadlElementLabelProvider"
             name="Expanded Content of AADL Files">
          <enablement>
-            <and>
-               <instanceof
-                     value="org.eclipse.core.resources.IFile">
-               </instanceof>
+            <or>
                <and>
-                  <or>
-                     <test
-                           property="org.eclipse.core.resources.extension"
-                           value="aadl">
-                     </test>
-                     <test
-                           property="org.eclipse.core.resources.contentTypeId"
-                           value="org.osate.core.instanceModelFile">
-                     </test>
-                  </or>
+                  <instanceof
+                        value="org.eclipse.core.resources.IFile">
+                  </instanceof>
+                  <and>
+                     <or>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="aadl">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.contentTypeId"
+                              value="org.osate.core.instanceModelFile">
+                        </test>
+                     </or>
+                  </and>
                </and>
-            </and>
+               <instanceof
+                     value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+               </instanceof>
+            </or>
           </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlElementSorter">
+         </commonSorter>
       </navigatorContent>
       <navigatorContent
             activeByDefault="true"
