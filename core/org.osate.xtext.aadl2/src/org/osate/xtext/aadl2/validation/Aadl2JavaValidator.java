@@ -80,6 +80,7 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
+import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
@@ -88,7 +89,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
-import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider;
 
 import com.google.inject.Inject;
 
@@ -6492,7 +6492,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * this, but can't do it if the type is given by reference, and it
 		 * cannot check that a int or real is within range.
 		 */
-		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc, pc.getQualifiedName());
+		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
+				pc.getQualifiedName());
 	}
 
 	//
@@ -7406,40 +7407,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Inject
-	private Aadl2GlobalScopeProvider scopeProvider;
+	private IEClassGlobalScopeProvider scopeProvider;
 
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
-
-	/**
-	 * check whether there are duplicate names
-	 * @deprecated Will be removed in 2.3.5
-	 */
-	@Deprecated
-	public String hasDuplicatesAadlPackage(AadlPackage context) {
-		// project dependency based global scope
-		List<IEObjectDescription> findings = scopeProvider.getDuplicates(context);
-		if (!findings.isEmpty()) {
-			return getNames(findings);
-		}
-		return null;
-	}
-
-	/**
-	 * check whether there are duplicate names
-	 *
-	 * @deprecated Will be removed in 2.3.5
-	 */
-	@Deprecated
-	public void checkForDuplicatesPropertySet(PropertySet propSet) {
-		// project dependency based global scope
-		if (!propSet.getName().equals("AADL_Project")) {
-			List<IEObjectDescription> findings = scopeProvider.getDuplicates(propSet);
-			if (!findings.isEmpty()) {
-				error(propSet, "Property set " + propSet.getName() + " has duplicates " + findings);
-			}
-		}
-	}
 
 	/**
 	 * check whether there are duplicate names
@@ -7463,22 +7434,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					.collect(Collectors.joining(", ")));
 			error(message.toString(), Aadl2Package.eINSTANCE.getNamedElement_Name());
 		}
-	}
-
-	/**
-	 * @deprecated Will be removed in 2.3.5
-	 */
-	@Deprecated
-	protected String getNames(List<IEObjectDescription> findings) {
-		String res = "";
-		boolean doComma = false;
-		for (IEObjectDescription ieObjectDescription : findings) {
-			URI uri = ieObjectDescription.getEObjectURI().trimFragment();
-			String pack = uri.path().replaceFirst("/resource/", "");
-			res = res + (doComma ? ", " : "") + pack;
-			doComma = true;
-		}
-		return res;
 	}
 
 	public EList<Classifier> getSelfPlusAncestors(Classifier cl) {

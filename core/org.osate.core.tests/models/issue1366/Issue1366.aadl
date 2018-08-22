@@ -1,0 +1,11 @@
+package Issue1366
+public
+  with ps1;
+  
+  abstract a
+    properties
+      ps1::def1 => ps1::const1;
+      ps1::def2 => ps1::const2;
+      ps1::def3 => ps1::const3;
+  end a;
+end Issue1366;

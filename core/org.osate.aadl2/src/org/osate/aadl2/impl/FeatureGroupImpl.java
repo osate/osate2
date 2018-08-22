@@ -394,13 +394,13 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 
 	@Override
 	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		// values from feature group type
 		FeatureGroupType fgt = getFeatureGroupType();
 		// TODO: Check if the property applies to the feature group type? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (fgt != null) {
-			fgt.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			fgt.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 	}
 
@@ -410,9 +410,9 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		// TODO: Check if the property applies to the feature group type? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (fgt != null) {
-			fgt.getPropertyValueInternal(prop, pas, true);
+			fgt.getPropertyValueInternal(prop, pas, true, false);
 		} else if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true);
+			cl.getPropertyValueInternal(prop, pas, true, false);
 		}
 	}
 

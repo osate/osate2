@@ -54,10 +54,10 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof IFile) {
-			return null;
+		if (element instanceof EObject) {
+			return ((EObject) element).eContainer();
 		}
-		return super.getParent(element);
+		return null;
 	}
 
 	@Override

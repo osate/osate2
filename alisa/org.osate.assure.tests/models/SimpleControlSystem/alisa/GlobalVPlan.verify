@@ -1,0 +1,13 @@
+verification plan globalVPlan for globalReq
+[
+	
+claim connected [
+	activities
+	checkAllConnected: Resolute.allConnected()
+	checkJAllConnected: Alisa_Consistency.ComponentConnected()
+	]
+claim Allconnected [
+		activities
+		checkAllComponentsConnected: Alisa_Consistency.AllComponentsConnected()
+	]
+]
