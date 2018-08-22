@@ -17,22 +17,18 @@
 package org.osate.alisa.common.util
 
 import it.xsemantics.runtime.RuleEnvironment
-import java.lang.reflect.InvocationTargetException
-import java.net.URL
-import java.net.URLClassLoader
+import java.util.Collection
 import java.util.HashMap
 import java.util.List
-import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.internal.xtend.expression.ast.NullLiteral
-import org.eclipse.jdt.core.IClasspathEntry
-import org.eclipse.jdt.core.JavaCore
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
+import org.osate.aadl2.Connection
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
 import org.osate.aadl2.FlowSpecification
@@ -49,8 +45,6 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.typing.CommonInterpreter
-import org.osate.aadl2.Connection
-import java.util.Collection
 
 class CommonUtilExtension {
 
@@ -202,59 +196,4 @@ class CommonUtilExtension {
 	}
 
 	public static val eInstance = new CommonUtilExtension
-
-	// Method returns null if Java class was found.
-	// Otherwise it returns an error message
-	def String methodExists(String javaMethod) {
-		val i = javaMethod.lastIndexOf('.')
-		if (i == -1) {
-			throw new IllegalArgumentException("Java method '" + javaMethod + "' is missing Class")
-		}
-		val className = javaMethod.substring(0, i)
-		val methodName = javaMethod.substring(i + 1)
-		try {
-			val workspaceRoot = ResourcesPlugin.workspace.root
-			val model = JavaCore.create(workspaceRoot)
-
-			val projects = model.javaProjects.filter[findType(className) !== null].toSet
-			if (projects.isEmpty) {
-				throw new IllegalArgumentException('No such method: ' + javaMethod)
-			} else if (projects.size > 1) {
-				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
-			}
-			var changed = true
-			while (changed) {
-				val referenced = projects.map [ p |
-					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
-					val paths = cpes.map[it.path]
-					paths.map[model.getJavaProject(it.toString)]
-				].flatten
-				changed = projects += referenced
-			}
-			val urls = projects.map [ p |
-				val file = workspaceRoot.getFile(p.outputLocation)
-				new URL(file.locationURI + "/")
-			]
-
-			val parent = class.classLoader
-			val loader = new URLClassLoader(urls, parent);
-			val clazz = Class.forName(className, true, loader);
-			val newClasses = newArrayList()
-			newClasses.add(NamedElement)
-
-			var method = clazz.getMethod(methodName, newClasses)
-			if (method === null) {
-				val altClasses = newArrayList()
-				altClasses.add(InstanceObject)
-				method = clazz.getMethod(methodName, newClasses)
-			}
-		} catch (Exception e) {
-			if (e instanceof InvocationTargetException) {
-				return e.targetException.toString
-			}
-			return e.toString
-		}
-		return null
-	}
-
 }

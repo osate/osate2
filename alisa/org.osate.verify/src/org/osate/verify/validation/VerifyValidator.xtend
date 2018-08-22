@@ -38,7 +38,7 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder

@@ -8,7 +8,7 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.alisa.common.util.JavaExtensionPoint;
+import org.osate.pluginsupport.JavaExtensionPoint;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;

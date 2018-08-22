@@ -31,7 +31,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.assure.assure.AssuranceCaseResult

@@ -2,7 +2,6 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-   <extension-point id="javaextensionpoint" name="Evaluate Java Extensionpoint Method" schema="schema/javaextensionpoint.exsd"/>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
@@ -11,7 +10,4 @@
        genModel = "model/generated/Common.genmodel" /> 
 	
   </extension>
-
-
-
 </plugin>
