@@ -3,7 +3,7 @@
 <schema targetNamespace="org.osate.alisa.common" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.osate.alisa.common" id="method" name="Evaluate Java Extensionpoint Method"/>
+         <meta.schema plugin="org.osate.pluginsupport" id="method" name="Evaluate Java Extensionpoint Method"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -55,7 +55,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.osate.alisa.common.util.JavaExtensionPoint:"/>
+                  <meta.attribute kind="java" basedOn="org.osate.pluginsupport.JavaExtensionPoint:"/>
                </appInfo>
             </annotation>
          </attribute>

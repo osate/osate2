@@ -13,7 +13,7 @@
  * DM-0003520
  */
 
-package org.osate.alisa.common.util;
+package org.osate.pluginsupport;
 
 public abstract class JavaExtensionPoint {
 }
