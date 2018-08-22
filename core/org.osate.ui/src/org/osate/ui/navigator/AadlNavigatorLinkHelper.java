@@ -55,8 +55,9 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 
 	@Override
 	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
-		if (aSelection == null || aSelection.isEmpty())
+		if (aSelection == null || aSelection.isEmpty()) {
 			return;
+		}
 		if (aSelection.getFirstElement() instanceof ContributedAadlStorage) {
 			ContributedAadlStorage storage = (ContributedAadlStorage)aSelection.getFirstElement();
 			IEditorPart editor = aPage.findEditor(new ContributedAadlEditorInput(storage));
@@ -66,8 +67,9 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 		} else if (aSelection.getFirstElement() instanceof IFile) {
 			IEditorInput fileInput = new FileEditorInput((IFile) aSelection.getFirstElement());
 			IEditorPart editor = null;
-			if ((editor = aPage.findEditor(fileInput)) != null)
+			if ((editor = aPage.findEditor(fileInput)) != null) {
 				aPage.bringToTop(editor);
+			}
 		} else if (aSelection.getFirstElement() instanceof Classifier) {
 			Classifier classifier = (Classifier) aSelection.getFirstElement();
 			int start = findOffsetForClassifierName(classifier);
@@ -117,16 +119,24 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 	}
 
 	private int findOffsetForClassifierName(Classifier classifier) {
+		// component implementation name consists of 3 nodes: <typename> '.' <implname>
 		int retval = -1;
+		String name = "";
+		int offset = -1;
 		ICompositeNode cNode = NodeModelUtils.getNode(classifier);
 		List<LeafNode> nodes = resolveCompositeNodeToList(cNode);
 		for (LeafNode leafNode : nodes) {
 			if (leafNode.getGrammarElement() instanceof Keyword) {
 				continue;
 			}
-			if (leafNode.getText().toLowerCase().equalsIgnoreCase(classifier.getName())) {
-				return leafNode.getOffset();
+			name += leafNode.getText();
+			if (offset == -1) {
+				offset = leafNode.getOffset();
 			}
+			if (name.equalsIgnoreCase(classifier.getName())) {
+				return offset;
+			}
+			name += ".";
 		}
 		return retval;
 	}
