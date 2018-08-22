@@ -34,59 +34,43 @@
 package org.osate.ui.navigator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.stream.Stream;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
-
-	private static final Object[] NO_CHILDREN = new Object[0];
-	private static final Object AADL_EXT = "aadl";
-	private static final Object AAXL2_EXT = "aaxl2";
+public class AadlContributionContentProvider extends WorkbenchContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof IWorkspaceRoot || element instanceof VirtualPluginResources
-				|| element instanceof ContributedDirectory || element instanceof AadlPackage) {
-			return true;
-		} else if (element instanceof IFile) {
-			IFile modelFile = (IFile) element;
-			if (AADL_EXT.equals(modelFile.getFileExtension()) || AAXL2_EXT.equals(modelFile.getFileExtension())) {
+		if (element instanceof IProject) {
+			IProject project = (IProject) element;
+			if (project.isAccessible()) {
 				return true;
 			}
+		}
+		if (element instanceof VirtualPluginResources) {
+			return true;
 		}
 		return super.hasChildren(element);
 	}
 
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof IWorkspaceRoot) {
-			List<Object> result = new ArrayList<>(Arrays.asList(super.getChildren(element)));
-			result.add(VirtualPluginResources.INSTANCE);
-			return result.toArray();
+		if (element instanceof IProject) {
+			IProject project = (IProject) element;
+			if (project.isAccessible()) {
+				Object[] result = { VirtualPluginResources.INSTANCE };
+				return result;
+			}
+			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
 			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
@@ -121,68 +105,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 					return new ContributedDirectory(newPath);
 				}
 			}).distinct().toArray();
-		} else if (element instanceof IFile) {
-			IFile modelFile = (IFile) element;
-			if (AADL_EXT.equals(modelFile.getFileExtension())) {
-				EList<EObject> contents = OsateResourceUtil.getResource(modelFile).getContents();
-				if (null != contents && !contents.isEmpty()) {
-					EObject root = contents.get(0);
-					if (root instanceof AadlPackage) {
-						return new AadlPackage[] { (AadlPackage) root };
-					} else if (root instanceof PropertySet) {
-						return new PropertySet[] { (PropertySet) root };
-					}
-				}
-			} else if (AAXL2_EXT.equals(modelFile.getFileExtension())) {
-				EList<EObject> contents = OsateResourceUtil.getResource(modelFile).getContents();
-				if (null != contents && !contents.isEmpty()) {
-					EObject root = contents.get(0);
-					if (root instanceof InstanceObject) {
-						return new InstanceObject[] { (InstanceObject) root };
-					}
-				}
-			}
-		} else if (element instanceof AadlPackage) {
-			AadlPackage aadlPackage = (AadlPackage) element;
-			List<PackageSection> packageSections = new ArrayList<PackageSection>();
-			PackageSection publicPackageSection = aadlPackage.getOwnedPublicSection();
-			if (null != publicPackageSection) {
-				packageSections.add(publicPackageSection);
-			}
-			PackageSection privatePackageSection = aadlPackage.getOwnedPrivateSection();
-			if (null != privatePackageSection) {
-				packageSections.add(privatePackageSection);
-			}
-			return packageSections.toArray();
-		} else if (element instanceof PackageSection) {
-			PackageSection pkg = (PackageSection) element;
-			if (null != pkg) {
-				return pkg.getOwnedClassifiers().toArray();
-			}
-		} else if (element instanceof PropertySet) {
-			List<Property> properties = ((PropertySet) element).getOwnedProperties();
-			List<PropertyType> propertyTypes = ((PropertySet) element).getOwnedPropertyTypes();
-			List<PropertyConstant> propertyConstants = ((PropertySet) element).getOwnedPropertyConstants();
-			List<Object> propertiesConstantsTypes = new ArrayList<Object>();
-			propertiesConstantsTypes.addAll(properties);
-			propertiesConstantsTypes.addAll(propertyConstants);
-			propertiesConstantsTypes.addAll(propertyTypes);
-			return propertiesConstantsTypes.toArray();
-		} else if (element instanceof ConnectionInstance) {
-			return NO_CHILDREN;
-		} else if (element instanceof InstanceObject) {
-			List<EObject> instances = ((InstanceObject) element).eContents();
-			List<EObject> finalInstances = new ArrayList<EObject>();
-			for (EObject eObject : instances) {
-				if (!(eObject instanceof PropertyAssociation)) {
-					finalInstances.add(eObject);
-				}
-			}
-			return finalInstances.toArray();
-		} else if (element instanceof Classifier) {
-			return NO_CHILDREN;
 		}
-
 		return super.getChildren(element);
 	}
 
