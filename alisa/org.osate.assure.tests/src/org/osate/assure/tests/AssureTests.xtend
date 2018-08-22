@@ -684,9 +684,7 @@ class AssureTests extends XtextTest {
 					22.assertEquals(definitions.size)
 			]
 		]	
-		// Resolute does not resolve 'kg'
-		// TODO uncomment once Resolute has been updated with the fix I provided not to use EMFIndexRetrieval
-//		assertNoIssues(pkg)	
+		assertNoIssues(pkg)	
 	}
 
 
