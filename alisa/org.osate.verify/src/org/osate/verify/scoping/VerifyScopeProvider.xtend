@@ -19,13 +19,8 @@
  */
 package org.osate.verify.scoping
 
-import com.google.inject.Inject
-import com.rockwellcollins.atc.resolute.resolute.ClaimBody
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
@@ -33,14 +28,11 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.verify.verify.Claim
-import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
-import org.eclipse.xtext.resource.EObjectDescription
 
 /**
  * This class contains custom scoping description.
@@ -50,8 +42,6 @@ import org.eclipse.xtext.resource.EObjectDescription
  * 
  */
 class VerifyScopeProvider extends CommonScopeProvider {
-
-	@Inject ICommonGlobalReferenceFinder refFinder
 
 	def scope_ValDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)

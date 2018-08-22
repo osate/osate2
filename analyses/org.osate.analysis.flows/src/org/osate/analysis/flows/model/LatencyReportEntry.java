@@ -205,10 +205,9 @@ public class LatencyReportEntry {
 				}
 			}
 
-			if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.FIRST_SAMPLED)) {
+			if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.FIRST_PERIODIC)) {
 				// skip the first sampled if it is the first element in the contributor list
-				// and remember initial sample
-				// TODO: if we sample external events by sensor this might have to be added as sampling latency
+				// and remember initial periodic
 				lastSampled = lc;
 			} else if (lc.getLatencyContributorMethod(doMaximum).equals(LatencyContributorMethod.SAMPLED)) {
 				// lets deal with the sampling case
@@ -573,7 +572,9 @@ public class LatencyReportEntry {
 		result.getDiagnostics().addAll(issues);
 
 		for (LatencyContributor latencyContributor : contributors) {
-			result.getSubResults().add(latencyContributor.genResult());
+			if (latencyContributor.getBestcaseLatencyContributorMethod() != LatencyContributorMethod.FIRST_PERIODIC) {
+				result.getSubResults().add(latencyContributor.genResult());
+			}
 		}
 
 		return result;

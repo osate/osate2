@@ -1,0 +1,11 @@
+property set PS1 is
+  with Issue1366;
+  
+  type1: type record (f1: aadlboolean;);
+  const1: constant ps1::type1 => [f1 => true;];
+  const2: constant classifier => classifier(Issue1366::a);
+  const3: constant Time => 1;
+  def1: list of ps1::type1 applies to (all);
+  def2: ps1::type1 applies to (all);
+  def3: Time applies to (all);
+end PS1;

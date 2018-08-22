@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -58,10 +59,10 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
-			return null;
+		if (element instanceof EObject) {
+			return ((EObject) element).eContainer();
 		}
-		return super.getParent(element);
+		return null;
 	}
 
 	@Override

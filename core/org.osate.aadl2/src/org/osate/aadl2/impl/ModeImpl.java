@@ -229,7 +229,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	// Cannot make this final because I need to override in SystemOperationMode
 	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();
 		final boolean inType = (owner instanceof ComponentType);
 
@@ -237,13 +237,17 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		if (!inType && !fromInstanceSlaveCall) {
 			// owner could be null if we are looking up a property on a SystemOperationMode, which does not have a containing classifier.
 			if (owner != null && pas.addLocalContained(this, owner)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 		}
 
 		// local value
 		if (pas.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// value from container
@@ -251,7 +255,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 		// not an implementation
 		if ((inType || !inType && !fromInstanceSlaveCall) && prop.isInherit()) {
 			if (owner != null) {
-				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 			} else {
 				throw new InvalidModelException(this, "Mode is not contained in a component type or implementation");
 			}

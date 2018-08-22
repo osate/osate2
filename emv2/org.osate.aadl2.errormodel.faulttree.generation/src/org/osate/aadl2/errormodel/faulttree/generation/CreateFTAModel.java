@@ -11,7 +11,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class CreateFTAModel {
@@ -53,7 +53,7 @@ public class CreateFTAModel {
 		if (startingPoint.startsWith(prefixOutgoingPropagation)) {
 			String toProcess = startingPoint.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
-				EList<TypeToken> result = EM2TypeSetUtil.flattenTypesetElements(opc.getTypeSet(),
+				EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(opc.getTypeSet(),
 						EMV2Util.getUseTypes(opc));
 				for (TypeToken tt : result) {
 					String longName = EMV2Util.getPrintName(opc) + EMV2Util.getPrintName(tt);
