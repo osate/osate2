@@ -41,7 +41,7 @@ import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult

@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.osate.alisa.common.javaextensionpoint">
+         point="org.osate.pluginsupport.javaextensionpoint">
       <method
             class="alisa_consistency.ModelConditions">
       </method>

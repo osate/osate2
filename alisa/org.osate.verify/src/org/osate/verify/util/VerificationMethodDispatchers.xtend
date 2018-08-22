@@ -38,7 +38,6 @@ import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.aadl2.instance.ModeInstance
-import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
@@ -47,6 +46,7 @@ import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 import org.osate.alisa.common.common.TargetType
+import org.osate.pluginsupport.ExecuteJavaUtil
 
 class VerificationMethodDispatchers {
 

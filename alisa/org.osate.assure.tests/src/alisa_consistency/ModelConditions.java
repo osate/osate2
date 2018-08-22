@@ -3,7 +3,7 @@ package alisa_consistency;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.alisa.common.util.JavaExtensionPoint;
+import org.osate.pluginsupport.JavaExtensionPoint;
 
 public class ModelConditions extends JavaExtensionPoint {
 
