@@ -1,0 +1,39 @@
+package bound_to_vb
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: virtual bus {
+				Period => 10 ms;
+				Latency => 1 ms .. 2 ms;
+			};
+			sub4: virtual bus {
+				Latency => 1 ms .. 2 ms;
+			};
+		connections
+			conn1: feature sub1.f1 -> sub2.f2{Latency => 1 ms .. 2 ms;};
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1 {Latency => 3 ms .. 16 ms;};
+		properties
+			Actual_Connection_Binding => (reference (sub3)) applies to conn1;
+			Actual_Connection_Binding => (reference (sub4)) applies to sub3;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	abstract a2
+		features
+			f2: feature;
+		flows
+			fsink1: flow sink f2 {Latency => 1 ms .. 2 ms;};
+	end a2;
+end bound_to_vb;

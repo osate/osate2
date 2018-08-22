@@ -68,7 +68,7 @@ public class PropertyAcc {
 	 * Accumulate the associations for the given property as found
 	 * in the immediate properties attribute of the given property holder.
 	 *
-	 * @param ph
+	 * @param holder
 	 *            The property holder whose properties attribute is of interest
 	 * @return If we're done.
 	 */

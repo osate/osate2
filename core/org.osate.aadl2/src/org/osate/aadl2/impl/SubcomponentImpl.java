@@ -889,7 +889,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// TODO-lw: Why don't we return immediately if a pa was found?
 	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		// local contained value
@@ -913,12 +913,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		// get values from classifier
 		final ComponentClassifier cc = getClassifier();
 		if (cc != null) {
-			cc.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			cc.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 
 		// get values from container
 		if (!fromInstanceSlaveCall && prop.isInherit()) {
-			owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 	}
 
@@ -942,7 +942,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		return null;
 	}
 
-	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl, final boolean all) {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		if (pas.addLocalContained(this, owner)) {
@@ -965,11 +965,11 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 
 		// get values from classifier
 		if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true);
+			cl.getPropertyValueInternal(prop, pas, true, all);
 		} else {
 			final ComponentClassifier cc = getClassifier();
 			if (cc != null) {
-				cc.getPropertyValueInternal(prop, pas, true);
+				cc.getPropertyValueInternal(prop, pas, true, all);
 			}
 		}
 	}

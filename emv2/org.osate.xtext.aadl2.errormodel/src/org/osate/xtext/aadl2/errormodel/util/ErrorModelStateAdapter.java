@@ -61,7 +61,7 @@ public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelSta
 
 	public boolean visited(TypeToken tt) {
 		for (TypeToken tok : visited) {
-			if (EM2TypeSetUtil.contains(tok, tt)) {
+			if (EMV2TypeSetUtil.contains(tok, tt)) {
 				return true;
 			}
 		}

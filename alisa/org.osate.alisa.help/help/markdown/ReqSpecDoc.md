@@ -39,13 +39,10 @@ system of interest in its operational environment and – as appropriate –
 elements of the system architecture. This process has been introduced in
 \[Feiler 2015\].
 
-Second, it supports the migration of existing
-stakeholder and system requirements documents into a set of *ReqSpec* 
-files that become annotations to an AADL model of a system.
-For that purpose we have built a tool to import existing requirements
-documents via the Object Management Group (OMG) Requirements Interchange
-Format (*ReqIF*) as well
-as export ReqSpec based modifications.
+Second, it supports the mapping of existing
+stakeholder and system requirements documents into a set of *ReqDoc* 
+files that mirror the document structure organizing requirement specifications in sections. Users can then develop an AADL model of an architecture that is implicit in the requirement text and associate the requirement specificaitons with the appropriate AADL model elements.
+
 
 ## Concepts of the ReqSpec Notation
 

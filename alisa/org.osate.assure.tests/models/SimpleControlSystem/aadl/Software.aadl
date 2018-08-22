@@ -1,0 +1,140 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package Software
+public
+	with DataDictionary;
+	renames DataDictionary::all;
+	with SEI;
+	
+		-- Threads for the first process
+	thread sensor_sense_thread
+		features
+			signalout: out data port SensorData;
+			signalin: in data port SensorData;
+		properties
+			Stack_Size => 10 Kbyte;
+			Period => 20 ms;
+			Compute_Execution_Time => 10 ms .. 12 ms;
+	end sensor_sense_thread;
+
+	thread actuator_output_thread
+		features
+			controlin: in data port actuatecmd;
+			actuate: out data port actuatecmd;
+		properties
+			Stack_Size => 10 Kbyte;
+			Period => 20 ms;
+			Compute_Execution_Time => 8 ms .. 10 ms;
+	end actuator_output_thread;
+
+	--  Threads for the second process
+	thread filterApp
+		features
+			sensorraw: in data port SensorData;
+			sensorfiltered: out data port SensorData;
+		properties
+			Stack_Size => 25 Kbyte;
+			Data_size => 250 KByte; -- for logging
+			Period => 20 ms;
+			Compute_Execution_Time => 5 ms .. 7 ms;
+	end filterApp;
+
+	thread controlApp
+		features
+			sensorfiltered: in data port SensorData;
+			actuate: out data port actuatecmd;
+		properties
+			Stack_Size => 25 Kbyte;
+			Data_size => 50 KByte; -- for control state
+			Period => 20 ms;
+			--   Compute_Execution_Time => 2 ms .. 6 ms; intentionally left out
+
+	end controlApp;
+
+	-- Now, declare process that model partition address space
+	process IOP
+		features
+			sensorin: in data port SensorData;
+			senseout: out data port SensorData;
+			controlin: in data port actuatecmd;
+			actuatorout: out data port actuatecmd;
+		flows
+			senseflow: flow path sensorin -> senseout;
+			controlflow: flow path controlin -> actuatorout;
+		properties
+			SEI::MIPSBudget => 0.8 mips;
+	end IOP;
+
+	process implementation IOP.impl
+		subcomponents
+			sense: thread sensor_sense_thread;
+			actuate: thread actuator_output_thread;
+		connections
+			incomingactuate: port controlin -> actuate.controlin;
+			outgoingactuate: port actuate.actuate -> actuatorout;
+			incomingsense: port sensorin -> sense.signalin;
+			outgoingsense: port sense.signalout -> senseout;
+		flows
+			senseflow: flow path sensorin -> incomingsense -> sense -> outgoingsense -> senseout;
+			controlflow: flow path controlin -> incomingactuate -> actuate -> outgoingactuate -> actuatorout;
+	end IOP.impl;
+
+	process APP
+		features
+			samplingin: in data port SensorData;
+			controlout: out data port actuatecmd;
+		flows
+			processingflow: flow path samplingin -> controlout;
+		properties
+			SEI::MIPSBudget => 0.7 mips;
+	end APP;
+
+	process implementation APP.impl
+		subcomponents
+			filter: thread filterApp;
+			control: thread controlApp;
+		connections
+			filtertocontrol: port filter.sensorfiltered -> control.sensorfiltered;
+			outgoingCmd: port control.actuate -> controlout;
+			incomingSignal: port samplingin -> filter.sensorraw;
+		flows
+			processingflow: flow path samplingin -> incomingSignal -> filter -> filtertocontrol -> control -> outgoingCmd ->
+							controlout;
+	end APP.impl;
+
+	system DCA
+		features
+			sensor1in: in data port SensorData;
+			sensor2In: in data port SensorData;
+			actuatorOut: out data port actuatecmd;
+		flows
+			s1toa: flow path sensor1in -> actuatorOut;
+			s2toa: flow path sensor2In -> actuatorOut;
+		properties
+			SEI::MIPSBudget => 2.0 mips;
+	end DCA;
+
+	system implementation DCA.tier1
+		subcomponents
+			iop: process IOP;
+			app: process APP;
+		connections
+			sampledData: port iop.senseout -> app.samplingin;
+			controlData: port app.controlout -> iop.controlin;
+			actuatorcmdxfer: port iop.actuatorout -> actuatorOut;
+			signal1xfer: port sensor1in -> iop.sensorin;
+			signal2xfer: port sensor2In -> iop.sensorin;
+		flows
+			s1toa: flow path sensor1in -> signal1xfer -> iop.senseflow -> sampledData -> app.processingflow -> controlData ->
+							iop.controlflow -> actuatorcmdxfer -> actuatorOut;
+			s2toa: flow path sensor2In -> signal2xfer -> iop.senseflow -> sampledData -> app.processingflow -> controlData ->
+							iop.controlflow -> actuatorcmdxfer -> actuatorOut;
+	end DCA.tier1;
+
+	system implementation DCA.tier2 extends DCA.tier1
+		subcomponents
+			iop: refined to process IOP.impl;
+			app: refined to process APP.impl;
+	end DCA.tier2;
+	
+end Software;
