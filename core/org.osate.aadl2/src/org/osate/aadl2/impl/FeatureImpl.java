@@ -512,7 +512,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		Classifier owner = getContainingClassifier();
 
-		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {
+		if (pas.addLocalContained(this, owner) && !all || pas.addLocal(this)) {
 			if (!all) {
 				return;
 			}
@@ -564,15 +564,19 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		Classifier owner = getContainingClassifier();
 
 		// local contained value
-		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {
-			return;
+		if (pas.addLocalContained(this, owner) && !all || pas.addLocal(this)) {
+			if (!all) {
+				return;
+			}
 		}
 
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
 			if (pas.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
