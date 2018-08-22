@@ -738,20 +738,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return invoke(root, som, true, true, true, true);
 	}
 
-	/**
-	 * @deprecated Use {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
-	 * 		instead. Will be removed in 2.3.5.
-	 */
-	@Deprecated
-	public AnalysisResult invokeAndGetResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		return invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
-	}
-
 	public Result invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline,
-				bestCaseEmptyQueue);
+		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		Result results = null;
 		SystemInstance root = etef.getSystemInstance();
 		root.setCurrentSystemOperationMode(som);
@@ -761,16 +750,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 		root.clearCurrentSystemOperationMode();
 		return results;
-	}
-
-	/**
-	 * @deprecated Use {@link #invoke(EndToEndFlowInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
-	 * 		instead. Will be removed in 2.3.5.
-	 */
-	@Deprecated
-	public Result invokeAndGetResult(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		return invoke(etef, som, synchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
