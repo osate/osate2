@@ -23,6 +23,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
@@ -36,13 +37,16 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
+import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.alisa.common.util.ExecuteJavaUtil
 import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
@@ -56,7 +60,10 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
+import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
+import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
 import org.osate.result.Diagnostic
 import org.osate.result.DiagnosticType
@@ -65,7 +72,6 @@ import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.StringValue
-import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
@@ -79,20 +85,13 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.aadl2.instance.SystemInstance
-import org.osate.result.AnalysisResult
-import org.osate.reqspec.reqSpec.ValuePredicate
-import org.osate.aadl2.UnitLiteral
-import org.eclipse.xtext.resource.IEObjectDescription
-import org.osate.aadl2.UnitsType
-import org.osate.aadl2.Aadl2Package
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
+	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor, boolean save);
 
 	def void setProgressUpdater((URI)=>void progressUpdater)
 
@@ -110,7 +109,7 @@ class AssureProcessor implements IAssureProcessor {
 	var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
 		URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
 
-	var IProgressMonitor progressmonitor
+	var IProgressMonitor progressmonitor = new NullProgressMonitor
 
 	@Accessors(PUBLIC_SETTER)
 	(URI)=>void progressUpdater
@@ -124,6 +123,8 @@ class AssureProcessor implements IAssureProcessor {
 	var long start = 0
 
 	var CategoryFilter filter;
+	var boolean save = true
+	
 	var private static boolean RESOLUTE_INSTALLED;
 	var private static boolean AGREE_INSTALLED;
 
@@ -146,7 +147,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
-		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
+		progressmonitor.subTask(vaResult.target.name) 
 		start = System.currentTimeMillis();
 	}
 
@@ -154,24 +155,28 @@ class AssureProcessor implements IAssureProcessor {
 		progressmonitor.worked(1)
 		val stop = System.currentTimeMillis();
 		vaResult.metrics.executionTime = (stop - start)
-
-//		val instanceroot = vaResult.assuranceCaseInstanceModel
-//		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
 	}
 
-	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
+	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor, boolean save) {
 		progressmonitor = monitor
 		this.filter = filter;
+		this.save = save;
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
 		try {
 			progressmonitor.beginTask(assureResult.name, count)
 			assureResult.process
 		} finally {
-			// assureResult.eResource.save(null)
+			saveAssureResult(assureResult)
 			progressmonitor.done
 		}
 
 		updateRequirementsCoverage();
+	}
+	
+	def void saveAssureResult(AssureResult assureResult){
+		if (save && assureResult.eResource !== null){
+			assureResult.eResource.save(null)
+		}
 	}
 
 	def dispatch void process(AssuranceCaseResult caseResult) {
@@ -275,15 +280,19 @@ class AssureProcessor implements IAssureProcessor {
 
 		var method = verificationResult.method;
 		// the next outer assurance case object that refers to a system implementation. 
-		var instanceroot = verificationResult.assuranceCaseInstanceModel
+		var instanceroot = verificationResult.getAssuranceCaseInstanceModel(save)
 		if (instanceroot === null) {
 			setToError(verificationResult, "Could not find instance model", null)
+ 			saveAssureResult(verificationResult)
+			updateProgress(verificationResult)
 			return
 		}
 		var ComponentInstance targetComponent = instanceroot
 		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingSubsystemResult)
 		if (targetComponent === null) {
 			setToError(verificationResult, "Unresolved target system for claim", null)
+ 			saveAssureResult(verificationResult)
+			updateProgress(verificationResult)
 			return
 		}
 		// target element is the element referred to by the requirement. This may be empty
@@ -293,6 +302,8 @@ class AssureProcessor implements IAssureProcessor {
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
+ 			saveAssureResult(verificationResult)
+			updateProgress(verificationResult)
 			return
 		}
 
@@ -312,6 +323,8 @@ class AssureProcessor implements IAssureProcessor {
 		if (parameters.size < method.formals.size) {
 			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
 				null)
+ 			saveAssureResult(verificationResult)
+			updateProgress(verificationResult)
 			return
 		}
 		val nbParams = method.formals.size
@@ -335,6 +348,8 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult,
 						"Referenced formal parameter " + p.name + " of method " + method.name +
 							" does not have an actual value", null)
+ 					saveAssureResult(verificationResult)
+					updateProgress(verificationResult)
 					return
 				}
 			} else if (p instanceof PropertyExpression) {
@@ -344,6 +359,8 @@ class AssureProcessor implements IAssureProcessor {
 				setToError(verificationResult,
 					"Actual parameter for " + formalParam.name + " of method " + method.name +
 						" does not have an actual value", null)
+ 				saveAssureResult(verificationResult)
+				updateProgress(verificationResult)
 				return
 			}
 
@@ -353,6 +370,8 @@ class AssureProcessor implements IAssureProcessor {
 				setToError(verificationResult,
 					"Could not evaluate expression for " + formalParam.name + " of method " + method.name + ": " +
 						result.ruleFailedException, null)
+ 				saveAssureResult(verificationResult)
+				updateProgress(verificationResult)
 				return
 			}
 			var actual = result.value
@@ -376,8 +395,6 @@ class AssureProcessor implements IAssureProcessor {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					executeJavaMethod(verificationResult, method, targetComponent, targetElement, parameterObjects)
-					verificationResult.eResource.save(null)
-					updateProgress(verificationResult)
 				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
@@ -453,15 +470,11 @@ class AssureProcessor implements IAssureProcessor {
 						setToError(verificationResult,
 							"Analysis return type is not a string, Result, or AnalysisResult", targetComponent);
 					}
-					verificationResult.eResource.save(null)
-					updateProgress(verificationResult)
 				}
 				ResoluteMethod: {
 					if (RESOLUTE_INSTALLED) {
 						executeResoluteFunction(verificationResult, methodtype, instanceroot, targetComponent,
 							targetElement, parameterObjects)
-						verificationResult.eResource.save(null)
-						updateProgress(verificationResult)
 					} else {
 						setToError(verificationResult, "Resolute not installed")
 					}
@@ -482,9 +495,6 @@ class AssureProcessor implements IAssureProcessor {
 					} else {
 						setToError(verificationResult, "Agree not installed")
 					}
-
-				// Should not save here because it is job based
-				// verificationResult.eResource.save(null)
 				}
 				JUnit4Method: {
 					val test = ExecuteJavaUtil.eInstance.findClass(methodtype.classPath);
@@ -497,27 +507,19 @@ class AssureProcessor implements IAssureProcessor {
 						result.doJUnitResults(proveri)
 						setToFail(verificationResult, proveri.diagnostics)
 					}
-					verificationResult.eResource.save(null)
 				}
 				ManualMethod: {
-
-					verificationResult.eResource.save(null)
-					updateProgress(verificationResult)
 				}
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
-			verificationResult.eResource.save(null)
-			updateProgress(verificationResult)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
-			// e.printStackTrace;
-			verificationResult.eResource.save(null)
-			updateProgress(verificationResult)
 		}
-// verificationResult.eResource.save(null)
+ 		saveAssureResult(verificationResult)
+		updateProgress(verificationResult)
 	}
 
 	def updateRequirementsCoverage() {
@@ -610,18 +612,12 @@ class AssureProcessor implements IAssureProcessor {
 					setToFail(vResult)
 				}
 			}
-			vResult.eResource.save(null)
-			updateProgress(vResult)
 		} catch (AssertionError e) {
 			setToFail(vResult, e);
-			vResult.eResource.save(null)
-			updateProgress(vResult)
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
 			setToError(vResult, e);
-			vResult.eResource.save(null)
-			updateProgress(vResult)
 		}
 	}
 
@@ -737,12 +733,7 @@ class AssureProcessor implements IAssureProcessor {
 
 		def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
 			if (verificationResult instanceof VerificationActivityResult) {
-				val success = checkProperties(target, verificationResult)
-				if (!success) {
-					verificationResult.eResource.save(null)
-					updateProgress(verificationResult)
-				}
-				return success
+				return checkProperties(target, verificationResult)
 			}
 			true
 		}
