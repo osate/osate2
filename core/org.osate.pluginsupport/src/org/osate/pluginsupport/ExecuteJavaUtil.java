@@ -135,7 +135,7 @@ public class ExecuteJavaUtil {
 	private Class<?> getJavaClassFromProjects(String className) throws Exception {
 		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		final IJavaModel model = JavaCore.create(workspaceRoot);
-
+		// filter condition: findType(className) !== null]
 		final Function1<IJavaProject, Boolean> filterProjects = (IJavaProject it) -> {
 			try {
 				IType _findType = it.findType(className);
@@ -144,6 +144,7 @@ public class ExecuteJavaUtil {
 				throw Exceptions.sneakyThrow(_e);
 			}
 		};
+		// projects = model.javaProjects.filter[findType(className) !== null].toSet
 		@SuppressWarnings("unchecked")
 		final Set<IJavaProject> projects = IterableExtensions
 				.<IJavaProject> toSet(IterableExtensions.<IJavaProject> filter(
@@ -157,29 +158,41 @@ public class ExecuteJavaUtil {
 		while (changed) {
 			final Function1<IJavaProject, Iterable<IJavaProject>> collectReferencedProjects = (IJavaProject p) -> {
 				try {
+					// filter condition: [entryKind == IClasspathEntry.CPE_PROJECT]
 					final Function1<IClasspathEntry, Boolean> filterCPE = (IClasspathEntry it) -> {
 						return Boolean.valueOf((it.getEntryKind() == IClasspathEntry.CPE_PROJECT));
 					};
+					// cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
 					@SuppressWarnings("unchecked")
 					final Iterable<IClasspathEntry> cpes = IterableExtensions.<IClasspathEntry> filter(
 							((Iterable<IClasspathEntry>) Conversions.doWrapArray(p.getResolvedClasspath(true))),
 							filterCPE);
+					// map[it.path]
 					final Function1<IClasspathEntry, IPath> MapCPEToPath = (IClasspathEntry it) -> {
 						return it.getPath();
 					};
+					// paths = cpes.map[it.path]
 					final Iterable<IPath> paths = IterableExtensions.<IClasspathEntry, IPath> map(cpes, MapCPEToPath);
-					final Function1<IPath, IJavaProject> MapToJavaProjrct = (IPath it) -> {
+					final Function1<IPath, IJavaProject> MapToJavaProject = (IPath it) -> {
 						return model.getJavaProject(it.toString());
 					};
-					return IterableExtensions.<IPath, IJavaProject> map(paths, MapToJavaProjrct);
+					// paths.map[model.getJavaProject(it.toString)]
+					return IterableExtensions.<IPath, IJavaProject> map(paths, MapToJavaProject);
 				} catch (Throwable _e) {
 					throw Exceptions.sneakyThrow(_e);
 				}
 			};
+			// val referenced = projects.map [ p |
+			// val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
+			// val paths = cpes.map[it.path]
+			// paths.map[model.getJavaProject(it.toString)]
+			// ].flatten
+			// changed = projects += referenced
 			final Iterable<IJavaProject> referenced = Iterables.<IJavaProject> concat(
 					IterableExtensions.<IJavaProject, Iterable<IJavaProject>> map(projects, collectReferencedProjects));
 			changed = Iterables.<IJavaProject> addAll(projects, referenced);
 		}
+		// map [ p | val file = workspaceRoot.getFile(p.outputLocation); new URL(file.locationURI + "/")]
 		final Function1<IJavaProject, URL> mapProjectToURL = (IJavaProject p) -> {
 			try {
 				URL url = null;
@@ -194,6 +207,7 @@ public class ExecuteJavaUtil {
 				throw Exceptions.sneakyThrow(_e);
 			}
 		};
+		// urls = projects.map [ p | val file = workspaceRoot.getFile(p.outputLocation); new URL(file.locationURI + "/")]
 		final Iterable<URL> urls = IterableExtensions.<IJavaProject, URL> map(projects, mapProjectToURL);
 
 		final ClassLoader parent = this.getClass().getClassLoader();
