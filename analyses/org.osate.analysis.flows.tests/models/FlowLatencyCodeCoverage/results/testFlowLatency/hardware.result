@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="ASCII"?>
 <result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
-  <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#/"/>
+  <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#/"/>
   <results>
-    <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="14.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics type="ERROR" message="Maximum actual latency total 14.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 2.00..14.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -26,7 +29,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -35,7 +38,22 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <diagnostics type="INFO" message="Assume Periodic dispatch because period is set">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Best case 0 ms worst case 10.0ms (period) sampling delay">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -45,22 +63,25 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="12.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    <diagnostics type="ERROR" message="Maximum actual latency total 12.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 2.00..12.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -69,7 +90,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -78,7 +99,28 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="8.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <diagnostics type="INFO" message="Assume Periodic dispatch because period is set">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Min: Best case: 0 ms sampling delay">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Synchronous communication on same platform">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Max: Worst case: Round up sampling delay to period 10.0ms">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -88,22 +130,25 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="14.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    <diagnostics type="ERROR" message="Maximum actual latency total 14.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 2.00..14.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -112,7 +157,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -121,7 +166,22 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <diagnostics type="INFO" message="Assume Periodic dispatch because period is set">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Best case 0 ms worst case 10.0ms (period) sampling delay">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -131,22 +191,25 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
+    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="12.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
+    <diagnostics type="ERROR" message="Maximum actual latency total 12.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 2.00..12.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.3"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -155,7 +218,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.3"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.3"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -164,7 +227,28 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="8.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <diagnostics type="INFO" message="Assume Periodic dispatch because period is set">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Min: Best case: 0 ms sampling delay">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Synchronous communication on same platform">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Max: Worst case: Round up sampling delay to period 10.0ms">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -174,22 +258,25 @@
     </subResults>
   </results>
   <results>
-    <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
+    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
-    <values xsi:type="result:RealValue" value="4.0"/>
+    <values xsi:type="result:RealValue" value="14.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <diagnostics type="SUCCESS" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 4.00ms is less or equal to expected maximum end to end latency 4.00ms">
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
+    <diagnostics type="ERROR" message="Maximum actual latency total 14.0ms exceeds expected maximum end to end latency 4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
+    </diagnostics>
+    <diagnostics type="WARNING" message="Jitter of actual latency total 2.00..14.0ms exceeds expected end to end latency jitter 2.00..4.00ms">
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@endToEndFlow.4"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -198,7 +285,7 @@
       <values xsi:type="result:StringValue" value="specified"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.4"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@connectionInstance.4"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
@@ -207,7 +294,22 @@
       <values xsi:type="result:StringValue" value="no latency"/>
     </subResults>
     <subResults>
-      <sourceReference href="instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <diagnostics type="INFO" message="Assume Periodic dispatch because period is set">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      </diagnostics>
+      <diagnostics type="INFO" message="Best case 0 ms worst case 10.0ms (period) sampling delay">
+        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
+      </diagnostics>
+    </subResults>
+    <subResults>
+      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/hardware_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>

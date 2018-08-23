@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="ASCII"?>
 <result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
-  <sourceReference href="instances/empty_s1_i1_Instance.aaxl2#/"/>
+  <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/empty_s1_i1_Instance.aaxl2#/"/>
 </result:AnalysisResult>

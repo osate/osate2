@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -26,7 +25,6 @@ import org.osate.result.StringValue
 import org.osate.result.Value
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
-import org.osate.testsupport.TestResourceSetHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
@@ -38,10 +36,6 @@ class FlowLatencyCodeCoverageTest {
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
-	@Inject
-	TestResourceSetHelper resourceSetHelper
-	@Inject
-	ParseHelper<AadlPackage> parseHelper
 	
 	@Test
 	def void testFlowLatency() {
@@ -78,18 +72,15 @@ class FlowLatencyCodeCoverageTest {
 			"required_vb1",
 			"required_vb2",
 			"transmission_time1",
-			"transmission_time2",
-			"no_prior_contributor"
+			"transmission_time2"
 		]
-		val resourceSet = resourceSetHelper.resourceSet
 		pkgNames.forEach[pkgName |
-			val fileName = pkgName + ".aadl"
-			parseHelper.parse(testHelper.readFile(DIR_NAME + fileName), URI.createURI(fileName), resourceSet) => [
+			testHelper.parseFile(DIR_NAME + pkgName + ".aadl") => [
 				pkgName.assertEquals(name)
 				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 					instantiate => [
 						"s1_i1_Instance".assertEquals(name)
-						val expected = loadResult(resourceSet, '''testFlowLatency/«pkgName».result''')
+						val expected = loadResult(eResource.resourceSet, '''testFlowLatency/«pkgName».result''')
 						
 						val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 						val actual = analysis.invoke(it, it.systemOperationModes.head)
@@ -104,15 +95,13 @@ class FlowLatencyCodeCoverageTest {
 	@Test
 	def void testWithLatencyReport() {
 		val emptyPkgName = "empty"
-		val emptyFileName = emptyPkgName + ".aadl"
-		val resourceSet = resourceSetHelper.resourceSet
-		parseHelper.parse(testHelper.readFile(DIR_NAME + emptyFileName), URI.createURI(emptyFileName), resourceSet) => [
+		testHelper.parseFile(DIR_NAME + emptyPkgName + ".aadl") => [
 			emptyPkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val expected = loadResult(resourceSet, '''testWithLatencyReport/«emptyPkgName».result''')
+					val expected = loadResult(eResource.resourceSet, '''testWithLatencyReport/«emptyPkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it, new LatencyReport(it))
 					val actual = analysis.invoke(it, it.systemOperationModes.head)
@@ -126,15 +115,13 @@ class FlowLatencyCodeCoverageTest {
 	@Test
 	def void testWorstCaseExecutionTime() {
 		val executionTimePkgName = "execution_time"
-		val executionTimeFileName = executionTimePkgName + ".aadl"
-		val resourceSet = resourceSetHelper.resourceSet
-		parseHelper.parse(testHelper.readFile(DIR_NAME + executionTimeFileName), URI.createURI(executionTimeFileName), resourceSet) => [
+		testHelper.parseFile(DIR_NAME + executionTimePkgName + ".aadl") => [
 			executionTimePkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val expected = loadResult(resourceSet, '''testWorstCaseExecutionTime/«executionTimePkgName».result''')
+					val expected = loadResult(eResource.resourceSet, '''testWorstCaseExecutionTime/«executionTimePkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
@@ -148,15 +135,13 @@ class FlowLatencyCodeCoverageTest {
 	@Test
 	def void testBestCaseFullQueue() {
 		val queuingPkgName = "queuing"
-		val queuingFileName = queuingPkgName + ".aadl"
-		val resourceSet = resourceSetHelper.resourceSet
-		parseHelper.parse(testHelper.readFile(DIR_NAME + queuingFileName), URI.createURI(queuingFileName), resourceSet) => [
+		testHelper.parseFile(DIR_NAME + queuingPkgName + ".aadl") => [
 			queuingPkgName.assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val expected = loadResult(resourceSet, '''testBestCaseFullQueue/«queuingPkgName».result''')
+					val expected = loadResult(eResource.resourceSet, '''testBestCaseFullQueue/«queuingPkgName».result''')
 					
 					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
