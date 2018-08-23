@@ -50,8 +50,9 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
  * and ensures that the public methods are called in the correct order.
  *
  * @author jseibel
- *
+ * @deprecated Will be removed in 2.3.6.
  */
+@Deprecated
 public abstract class AbstractAnalysis implements IAnalysis {
 	private enum State {
 		CREATED, PARAMETER_SET, CONFIGURATOR_KEYS_AND_VALUES_SET, READY_TO_RUN, NOT_READY_TO_RUN, ALREADY_RAN
