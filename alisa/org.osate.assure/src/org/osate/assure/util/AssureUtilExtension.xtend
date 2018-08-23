@@ -69,7 +69,7 @@ import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.Result
@@ -188,10 +188,10 @@ class AssureUtilExtension {
 		req?.targetElement //?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
-	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
+	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject, boolean save) {
 		val rac = assureObject.modelResult?.target
 		if(rac === null) return null
-		rac.instanceModel
+		rac.getInstanceModel(save)
 	}
 
 	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si, SubsystemResult ac) {
@@ -1330,19 +1330,16 @@ class AssureUtilExtension {
 		instanceModelRecord.clear
 	}
 
-	def static SystemInstance getInstanceModel(ComponentImplementation cimpl) {
+	def static SystemInstance getInstanceModel(ComponentImplementation cimpl, boolean save) {
 		if(Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si === null) {
-
-
-			// ------------Tried Method1
-			si = cimpl.buildInstanceModelFile
+			si = cimpl.instantiate
+			if (save && si.eResource !== null){
+				si.eResource.save(null)
+			}
 			setInstanceModel(cimpl, si)
 		}
-
-		si = instanceModelRecord.get(cimpl.name) as SystemInstance
-
 		return si
 	}
 
