@@ -8,7 +8,6 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.pluginsupport.JavaExtensionPoint;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
@@ -16,7 +15,7 @@ import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-public class ModelVerifications extends JavaExtensionPoint {
+public class ModelVerifications {
 
 	public static boolean isLeafComponent(ComponentInstance ci) {
 		return ci.getComponentInstances().isEmpty();

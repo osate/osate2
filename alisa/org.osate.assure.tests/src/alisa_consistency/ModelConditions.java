@@ -3,9 +3,8 @@ package alisa_consistency;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.pluginsupport.JavaExtensionPoint;
 
-public class ModelConditions extends JavaExtensionPoint {
+public class ModelConditions {
 
 	public static boolean isLeafComponent(EObject ne){
 		if (ne instanceof ComponentImplementation){

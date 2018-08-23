@@ -3,12 +3,12 @@
 <plugin>
    <extension
          point="org.osate.pluginsupport.javaextensionpoint">
-      <method
-            class="alisa_consistency.ModelConditions">
-      </method>
-      <method
-            class="alisa_consistency.ModelVerifications">
-      </method>
+      <class
+            path="alisa_consistency.ModelConditions">
+      </class>
+      <class
+            path="alisa_consistency.ModelVerifications">
+      </class>
    </extension>
 
 </plugin>
