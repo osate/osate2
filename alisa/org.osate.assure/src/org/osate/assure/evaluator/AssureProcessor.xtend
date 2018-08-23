@@ -742,6 +742,10 @@ class AssureProcessor implements IAssureProcessor {
 			InstanceObject target, List<PropertyExpression> parameters) {
 			val methodtype = method.methodKind as JavaMethod
 			val returned = VerificationMethodDispatchers.eInstance.invokeJavaMethod(methodtype, target, parameters)
+			processExecutionResult(verificationResult, method, target, returned)
+		}
+		
+		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method, InstanceObject target, Object returned){
 			if (returned !== null) {
 				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 					if (returned != true) {
@@ -769,25 +773,45 @@ class AssureProcessor implements IAssureProcessor {
 					}
 					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
-						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
-						val formalIter = method.results.iterator
-						val vals = returned.values
-						if (computeIter.size == vals.size) {
-							vals.forEach [ data |
-								val computeRef = computeIter.next
-								val formalReturn = formalIter.next
-								val tunit = formalReturn.unit
-								computes.put(computeRef.compute.name, toLiteral(verificationResult, data, tunit))
-							]
-							if (verificationResult.success) {
-								evaluatePredicate(verificationResult)
-							}
-						} else {
-							setToError(verificationResult, 'Fewer values returned than expected as compute variables')
-						}
+						evaluateComputePredicate(verificationResult, method, returned)
 					}
+				} else if (returned instanceof AnalysisResult) {
+						var foundResult = false
+						for (Result r : returned.results) {
+							// we may encounter more than one Result
+							// TODO address this when we are able to use Result objects in Assure.
+							if (r.sourceReference === target) {
+								foundResult = true
+								val issues = r.diagnostics
+								if (hasErrors(r) || hasFailures(r)) {
+									// the analysis as a whole is in Error
+									// or the specific result that matches the target Failed
+									setToFail(verificationResult)
+								} else {
+									setToSuccess(verificationResult)
+								}
+								for (issue : issues) {
+									val c = EcoreUtil.copy(issue)
+									if (c.type === DiagnosticType.ERROR) {
+										// analysis reports failure as error
+										c.type = DiagnosticType.FAILURE
+									}
+									verificationResult.issues.add(c)
+								}
+							}
+							if (verificationResult instanceof VerificationActivityResult) {
+								evaluateComputePredicate(verificationResult, method, r)
+							}
+						}
+						if (! foundResult) {
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult,
+								"No Result found for requirement verification target " + target.name, target)
+						}
 				} else if (method.results.size == 1) {
-					// set compute variable value
+					// set compute variable value from the returned value
 					if (verificationResult instanceof VerificationActivityResult) {
 						val computevars = verificationResult.targetReference.verificationActivity.computes
 						if (computevars.size == 1) {
@@ -806,6 +830,26 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
 						target);
 				}
+			}
+			
+		}
+		
+		def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method, Result returned){
+			val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+			val formalIter = method.results.iterator
+			val vals = returned.values
+			if (computeIter.size == vals.size) {
+				vals.forEach [ data |
+					val computeRef = computeIter.next
+					val formalReturn = formalIter.next
+					val tunit = formalReturn.unit
+					computes.put(computeRef.compute.name, toLiteral(verificationResult, data, tunit))
+				]
+				if (verificationResult.success) {
+					evaluatePredicate(verificationResult)
+				}
+			} else {
+				setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 			}
 		}
 
