@@ -70,11 +70,11 @@ public class PropagationGraphBackwardTraversal {
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
+			if (!EMV2TypeSetUtil.isNoError(opc.getTypeToken())) {
 				// TODO deal with map result a type set
 				ErrorTypes condTargetType = mapTargetType(opc.getTypeToken(), type);
 				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
-						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
+						&& EMV2TypeSetUtil.contains(type, opc.getTypeToken())) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
 					if (res != null) {
 						subResults.add(res);
@@ -109,7 +109,7 @@ public class PropagationGraphBackwardTraversal {
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(), type);
+				boolean typeContained = EMV2TypeSetUtil.contains(ep.getTargetToken(), type);
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
 					// TODO check on map
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
@@ -122,7 +122,7 @@ public class PropagationGraphBackwardTraversal {
 				ErrorSource errorSource = (ErrorSource) ef;
 
 				if (EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
-					if (EM2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
+					if (EMV2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 						EObject newEvent = processErrorSource(component, errorSource, ef.getTypeTokenConstraint());
 						if (newEvent != null) {
 							subResults.add(newEvent);
@@ -153,7 +153,7 @@ public class PropagationGraphBackwardTraversal {
 		if (original == null) {
 			return constraint;
 		}
-		return EM2TypeSetUtil.contains(constraint, original) ? original : constraint;
+		return EMV2TypeSetUtil.contains(constraint, original) ? original : constraint;
 	}
 
 	private ErrorTypes matchTargetType(ErrorTypes constraint, ErrorTypes original) {
@@ -163,7 +163,7 @@ public class PropagationGraphBackwardTraversal {
 		if (original == null) {
 			return constraint;
 		}
-		return EM2TypeSetUtil.contains(constraint, original) ? original : null;
+		return EMV2TypeSetUtil.contains(constraint, original) ? original : null;
 	}
 
 	/**
@@ -422,7 +422,7 @@ public class PropagationGraphBackwardTraversal {
 			}
 
 			if (conditionElement.getConstraint() != null) {
-				if (EM2TypeSetUtil.isNoError(conditionElement.getConstraint())) {
+				if (EMV2TypeSetUtil.isNoError(conditionElement.getConstraint())) {
 					// this is a recovery transition since an incoming propagation constraint is NoError
 					return null;
 				}
@@ -448,7 +448,7 @@ public class PropagationGraphBackwardTraversal {
 				 */
 				if (errorModelElement instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					if (EM2TypeSetUtil.isNoError(referencedErrorType)) {
+					if (EMV2TypeSetUtil.isNoError(referencedErrorType)) {
 						// this is a recovery transition since an incoming propagation became error free
 						return null;
 					}
@@ -497,7 +497,7 @@ public class PropagationGraphBackwardTraversal {
 			if (ppr.getConnectionInstance() != null) {
 				ErrorSource ces = EMV2Util
 						.findConnectionErrorSourceForConnection(ppr.getConnectionInstance());
-				if (ces != null && EM2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
+				if (ces != null && EMV2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
 					EObject result = processConnectionErrorSource(
 							InstanceUtil.findConnectionContext(ppr.getConnectionInstance(),
 									(Connection) ces.getSourceModelElement()),

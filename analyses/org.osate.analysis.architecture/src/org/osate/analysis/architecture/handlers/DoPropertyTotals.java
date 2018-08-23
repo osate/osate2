@@ -46,6 +46,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.architecture.PropertyTotals;
+import org.osate.result.Result;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
 public final class DoPropertyTotals extends AaxlReadOnlyHandlerAsJob {
@@ -92,22 +93,31 @@ public final class DoPropertyTotals extends AaxlReadOnlyHandlerAsJob {
 		// Get the system instance (if any)
 		SystemInstance si = ((ComponentInstance) obj).getSystemInstance();
 
-		/*
-		 * Create a new model statistics analysis object and run it over
-		 * the declarative model. If an instance model exists, run it over
-		 * that too.
-		 */
-		PropertyTotals stats = new PropertyTotals(monitor, this);
-		stats.getWeight(si);
-		monitor.done();
+		PropertyTotals.invoke(si).getResults().forEach(result -> generateMarkers(result));
 
-		/*
-		 * Accumulate the results in a StringBuffer, but also report them
-		 * using info markers attached to the root model object.
-		 */
+		monitor.done();
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
+	}
+
+	private void generateMarkers(Result result) {
+		result.getSubResults().forEach(subResult -> generateMarkers(subResult));
+		result.getDiagnostics().forEach(issue -> {
+			switch (issue.getType()) {
+			case ERROR:
+				error((Element) issue.getSourceReference(), issue.getMessage());
+				break;
+			case INFO:
+				info((Element) issue.getSourceReference(), issue.getMessage());
+				break;
+			case WARNING:
+				warning((Element) issue.getSourceReference(), issue.getMessage());
+				break;
+			default:
+				// Do nothing.
+			}
+		});
 	}
 }

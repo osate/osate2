@@ -16,6 +16,7 @@ Require-Bundle: com.google.guava,
  org.osate.analysis.architecture,
  org.osate.ui,
  org.eclipse.xtext.testing;bundle-version="2.12.0",
- org.osate.testsupport;bundle-version="1.0.0"
+ org.osate.testsupport;bundle-version="1.0.0",
+ org.osate.results
 Automatic-Module-Name: org.osate.analysis.architecture.tests
 
