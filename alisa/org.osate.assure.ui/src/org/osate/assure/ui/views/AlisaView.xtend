@@ -658,7 +658,7 @@ class AlisaView extends ViewPart {
 				VerifyUtilExtension.clearAllHasRunRecords
 				AssureUtilExtension.clearAllInstanceModels
 				try {
-					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
+					assureProcessor.processCase(assuranceCaseResult, filter, monitor,true)
 					Status.OK_STATUS
 				} catch (NoSuchMethodException e) {
 					Status.CANCEL_STATUS
