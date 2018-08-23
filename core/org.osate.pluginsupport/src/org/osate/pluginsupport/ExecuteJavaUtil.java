@@ -48,8 +48,8 @@ public class ExecuteJavaUtil {
 	private void evaluate(IExtensionRegistry registry) {
 		try {
 			for (IConfigurationElement e : registry.getConfigurationElementsFor(EXTENTION_ID)) {
-				String name = e.getAttribute("class");
-				Object o = e.createExecutableExtension("class");
+				String name = e.getAttribute("path");
+				Object o = e.createExecutableExtension("path");
 				analysisMap.put(name, o);
 			}
 		} catch (CoreException e) {

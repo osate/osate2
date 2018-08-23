@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="method" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="class" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,13 +47,12 @@
       </complexType>
    </element>
 
-   <element name="method">
+   <element name="class">
       <complexType>
-         <attribute name="class" type="string" use="required">
+         <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
-                  
-               </documentation>
+                </documentation>
                <appInfo>
                 </appInfo>
             </annotation>
