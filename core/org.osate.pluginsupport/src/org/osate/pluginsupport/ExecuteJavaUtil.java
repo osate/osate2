@@ -124,21 +124,26 @@ public class ExecuteJavaUtil {
 			init(extensionRegistry);
 		}
 		Object obj = analysisMap.get(className);
-		if (obj != null){
+		if (obj != null) {
 			return obj.getClass();
 		}
 
-		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-        final IJavaModel model = JavaCore.create(workspaceRoot);
+		return getJavaClassFromProjects(className);
+	}
 
-        final Function1<IJavaProject, Boolean> filterProjects = (IJavaProject it) -> {
-        	try {
-        		IType _findType = it.findType(className);
-        		return Boolean.valueOf((_findType != null));
-        	} catch (Throwable _e) {
-        		throw Exceptions.sneakyThrow(_e);
-        	}
-        };
+	// get Java Class from from searching projects in workspace
+	private Class<?> getJavaClassFromProjects(String className) throws Exception {
+		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		final IJavaModel model = JavaCore.create(workspaceRoot);
+
+		final Function1<IJavaProject, Boolean> filterProjects = (IJavaProject it) -> {
+			try {
+				IType _findType = it.findType(className);
+				return Boolean.valueOf((_findType != null));
+			} catch (Throwable _e) {
+				throw Exceptions.sneakyThrow(_e);
+			}
+		};
 		@SuppressWarnings("unchecked")
 		final Set<IJavaProject> projects = IterableExtensions
 				.<IJavaProject> toSet(IterableExtensions.<IJavaProject> filter(
@@ -175,24 +180,24 @@ public class ExecuteJavaUtil {
 					IterableExtensions.<IJavaProject, Iterable<IJavaProject>> map(projects, collectReferencedProjects));
 			changed = Iterables.<IJavaProject> addAll(projects, referenced);
 		}
-	    final Function1<IJavaProject, URL> mapProjectToURL = (IJavaProject p) -> {
-	      try {
-	        URL url = null;
-	        {
-	          final IFile file = workspaceRoot.getFile(p.getOutputLocation());
-	          URI _locationURI = file.getLocationURI();
-	          String _plus = (_locationURI + "/");
-	          url = new URL(_plus);
-	        }
-	        return url;
-	      } catch (Throwable _e) {
-	        throw Exceptions.sneakyThrow(_e);
-	      }
-	    };
-	    final Iterable<URL> urls = IterableExtensions.<IJavaProject, URL>map(projects, mapProjectToURL);
+		final Function1<IJavaProject, URL> mapProjectToURL = (IJavaProject p) -> {
+			try {
+				URL url = null;
+				{
+					final IFile file = workspaceRoot.getFile(p.getOutputLocation());
+					URI _locationURI = file.getLocationURI();
+					String _plus = (_locationURI + "/");
+					url = new URL(_plus);
+				}
+				return url;
+			} catch (Throwable _e) {
+				throw Exceptions.sneakyThrow(_e);
+			}
+		};
+		final Iterable<URL> urls = IterableExtensions.<IJavaProject, URL> map(projects, mapProjectToURL);
 
 		final ClassLoader parent = this.getClass().getClassLoader();
-		final URLClassLoader loader = new URLClassLoader(((URL[])Conversions.unwrapArray(urls, URL.class)), parent);
+		final URLClassLoader loader = new URLClassLoader(((URL[]) Conversions.unwrapArray(urls, URL.class)), parent);
 		Class<?> clazz = Class.forName(className, true, loader);
 		return clazz;
 	}
