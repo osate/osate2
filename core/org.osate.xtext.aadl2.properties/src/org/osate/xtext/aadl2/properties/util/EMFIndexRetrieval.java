@@ -26,6 +26,7 @@ import com.google.inject.Inject;
 /**
  * @deprecated Use {@link org.eclipse.xtext.scoping.IScopeProvider IScopeProvider} or
  * {@link org.eclipse.xtext.scoping.IGlobalScopeProvider IGlobalScopeProvider} instead.
+ * Will be removed in 2.3.6.
  */
 @Deprecated
 public class EMFIndexRetrieval {
@@ -44,9 +45,9 @@ public class EMFIndexRetrieval {
 			System.out.println("EDesc: " + eod.getQualifiedName());
 		}
 	}
-	
+
 	/**
-	* get all packages in workspace by looking them up in EMF index 
+	* get all packages in workspace by looking them up in EMF index
 	* @param res resource
 	* @return list of AADL packages in IEObjectDescription format
 	*/
@@ -62,7 +63,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all packages in workspace by looking them up in EMF index 
+	* get all packages in workspace by looking them up in EMF index
 	* @param res resource
 	* @return list of AADL packages in IEObjectDescription format
 	*/
@@ -71,7 +72,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get package in workspace by looking it up in EMF index 
+	* get package in workspace by looking it up in EMF index
 	* @param pname String package name
 	* @param resoruceSet the resource in which the models are expected
 	* @return AADL package
@@ -93,7 +94,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get package in workspace by looking it up in EMF index 
+	* get package in workspace by looking it up in EMF index
 	* @param pname String package name
 	* @return AADL package
 	*/
@@ -102,7 +103,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get package in workspace by looking it up in EMF index 
+	* get package in workspace by looking it up in EMF index
 	* @param pname String package name
 	* @return AADL package
 	*/
@@ -121,9 +122,9 @@ public class EMFIndexRetrieval {
 		}
 		return null;
 	}
-	
+
 	/**
-	* get all property sets in workspace by looking them up in EMF index 
+	* get all property sets in workspace by looking them up in EMF index
 	* @param res resource
 	* @return list of property sets in IEObjectDescription format
 	*/
@@ -139,7 +140,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all property sets in workspace by looking them up in EMF index 
+	* get all property sets in workspace by looking them up in EMF index
 	* @param res resource
 	* @return list of property sets in IEObjectDescription format
 	*/
@@ -149,7 +150,7 @@ public class EMFIndexRetrieval {
 
 	/**
 	* get PropertySet in workspace by looking it up in EMF index
-	* @param context EObject to retrieve the ResoruceSet for the EMF Index 
+	* @param context EObject to retrieve the ResoruceSet for the EMF Index
 	* @param pname String PropertySet name
 	* @return PropertySet or null
 	*/
@@ -171,7 +172,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get PropertySet in workspace by looking it up in EMF index 
+	* get PropertySet in workspace by looking it up in EMF index
 	* @param pname String PropertySet name
 	* @return PropertySet or null
 	*/
@@ -192,7 +193,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Definition by looking it up in EMF index 
+	* get the Property Definition by looking it up in EMF index
 	* @param context an object in the same resource set
 	* @param pdname String name of property Definition (predeclared properties do not have to be qualified)
 	* @return Property or null
@@ -202,7 +203,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Definition by looking it up in EMF index 
+	* get the Property Definition by looking it up in EMF index
 	* @param pdname String name of property Definition (predeclared properties do not have to be qualified)
 	* @return Property or null
 	*/
@@ -235,7 +236,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Type by looking it up in EMF index 
+	* get the Property Type by looking it up in EMF index
 	* @param context an object in the same resoruce set
 	* @param ptname String name of property type (predeclared properties do not have to be qualified)
 	* @return Property or null
@@ -245,7 +246,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Type by looking it up in EMF index 
+	* get the Property Type by looking it up in EMF index
 	* @param ptname String name of property type (predeclared properties do not have to be qualified)
 	* @return Property or null
 	*/
@@ -279,7 +280,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Constant by looking it up in EMF index 
+	* get the Property Constant by looking it up in EMF index
 	* @param context an object in the same resource set
 	* @param pcname String name of property Constant (predeclared properties do not have to be qualified)
 	* @return Property or null
@@ -289,7 +290,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get the Property Constant by looking it up in EMF index 
+	* get the Property Constant by looking it up in EMF index
 	* @param pcname String name of property Constant (predeclared properties do not have to be qualified)
 	* @return Property or null
 	*/
@@ -323,7 +324,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all packages and property sets in workspace by looking them up in EMF index 
+	* get all packages and property sets in workspace by looking them up in EMF index
 	* @param res resource
 	* @return list of AADL packages and property sets in IEObjectDescription format
 	*/
@@ -339,10 +340,10 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all classifiers in all packages by looking them up in EMF index 
+	* get all classifiers in all packages by looking them up in EMF index
 	* @param res resource
 	* @return list of classifiers in IEObjectDescription format
-	* 
+	*
 	* @deprecated use {@link #getAllClassifiersInWorkspace(EObject)} instead.
 	*/
 	@Deprecated
@@ -358,7 +359,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all classifiers in all packages by looking them up in EMF index 
+	* get all classifiers in all packages by looking them up in EMF index
 	* @param res resource
 	* @return list of classifiers in IEObjectDescription format
 	*/
@@ -374,7 +375,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all EObjects in by looking them up in EMF index 
+	* get all EObjects in by looking them up in EMF index
 	* @param context EObject in the same resourceset as the EObjects we are looking for
 	* @param eObjectType EClass of desired EObjects
 	* @return list of EObjects in IEObjectDescription format
@@ -386,7 +387,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	* get all EObjects in by looking them up in EMF index 
+	* get all EObjects in by looking them up in EMF index
 	* @param context EObject in the same resourceset as the EObjects we are looking for
 	* @param eObjectType EClass of desired EObjects
 	* @return list of EObjects in IEObjectDescription format
@@ -440,10 +441,10 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	 * get the Classifier by looking it up in EMF index 
+	 * get the Classifier by looking it up in EMF index
 	 * @param cname String name of classifier, which must be qualified with a package name
 	 * @return Classifier or null
-	 * 
+	 *
 	 * @deprecated use {@link #getClassifierInWorkspace(ResourceSet, String)} instead
 	 */
 	@Deprecated
@@ -452,7 +453,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	 * get the Classifier by looking it up in EMF index 
+	 * get the Classifier by looking it up in EMF index
 	 * @param context an object in the same resource set
 	 * @param cname String name of classifier, which must be qualified with a package name
 	 * @return Classifier or null
@@ -462,7 +463,7 @@ public class EMFIndexRetrieval {
 	}
 
 	/**
-	 * get the Property Definition by looking it up in EMF index 
+	 * get the Property Definition by looking it up in EMF index
 	 * @param pdname String name of property Definition (predeclared properties do not have to be qualified)
 	 * @return Property or null
 	 */

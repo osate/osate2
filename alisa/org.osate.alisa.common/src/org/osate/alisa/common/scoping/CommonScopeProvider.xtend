@@ -33,17 +33,14 @@ import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
-import com.google.inject.Inject
-import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
-	@Inject
-	static IEClassGlobalScopeProvider globalScope;
 
-	def protected static scopeFor(Iterable<? extends EObject> elements) {
+	def scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE,
 			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
@@ -59,13 +56,12 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
-	def private static getUnitLiterals(EObject context) {
+	def private getUnitLiterals(EObject context) {
 
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
 		val Collection<UnitLiteral> result = new ArrayList<UnitLiteral>()
-		val scope = globalScope.getScope(context.eResource(), UNITS_TYPE)
-		for (IEObjectDescription desc : scope.allElements) {
+		for (IEObjectDescription desc : Aadl2GlobalScopeUtil.getAllEObjectDescriptions(context,UNITS_TYPE)) {
 			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
 			unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
 		}

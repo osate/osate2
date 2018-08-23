@@ -509,33 +509,39 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 
 	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		Classifier owner = getContainingClassifier();
 
-		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {
-			return;
+		if (pas.addLocalContained(this, owner) && !all || pas.addLocal(this)) {
+			if (!all) {
+				return;
+			}
 		}
 
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
 			if (pas.addLocalContained(refined, refined.getContainingClassifier())) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			if (pas.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
 
-		getPropertyValueInternalHelper(prop, pas, fromInstanceSlaveCall);
+		getPropertyValueInternalHelper(prop, pas, fromInstanceSlaveCall, all);
 
 		// values from container
 		// Ignore fromInstanceSlaveCall because the classifier is a component or
 		// feature group TYPE, not an implementation.
 		if (prop.isInherit()) {
 			if (owner != null) {
-				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+				owner.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 			} else {
 				throw new InvalidModelException(this, "Feature is not contained in a component type");
 			}
@@ -544,57 +550,61 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		// values from classifier
 		Classifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (c != null) {
-			c.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			c.getPropertyValueInternal(prop, pas, fromInstanceSlaveCall, all);
 		}
 	}
 
-	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl, final boolean all) {
 		Classifier owner = getContainingClassifier();
 
 		// local contained value
-		if (pas.addLocalContained(this, owner) || pas.addLocal(this)) {
-			return;
+		if (pas.addLocalContained(this, owner) && !all || pas.addLocal(this)) {
+			if (!all) {
+				return;
+			}
 		}
 
 		// values from refined features
 		Feature refined = getRefined();
 		while (refined != null) {
 			if (pas.addLocal(refined)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			refined = refined.getRefined();
 		}
 
-		getPropertyValueHelper(prop, pas, cl);
+		getPropertyValueHelper(prop, pas, cl, all);
 
 		// values from container
 		// Ignore fromInstanceSlaveCall because the classifier is a component or
 		// feature group TYPE, not an implementation.
 		if (prop.isInherit()) {
 			if (owner != null) {
-				owner.getPropertyValueInternal(prop, pas, true);
+				owner.getPropertyValueInternal(prop, pas, true, all);
 			} else {
 				throw new InvalidModelException(this, "Feature is not contained in a component type");
 			}
 		}
 	}
 
-	public void getPropertyValueHelper(final Property prop, final PropertyAcc pas, Classifier cl)
+	public void getPropertyValueHelper(final Property prop, final PropertyAcc pas, Classifier cl, final boolean all)
 			throws InvalidModelException {
 		// values from classifier
 		Classifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (c != null) {
-			c.getPropertyValueInternal(prop, pas, true);
+			c.getPropertyValueInternal(prop, pas, true, all);
 		} else if (cl != null) {
-			cl.getPropertyValueInternal(prop, pas, true);
+			cl.getPropertyValueInternal(prop, pas, true, all);
 		}
 	}
 

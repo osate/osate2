@@ -1279,21 +1279,25 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc paa,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		/*
 		 * First see if the property is defined in feature group's properties
 		 * subclause (could merge this with the loop below, but I want to make
 		 * the steps more explicit.)
 		 */
 		if (paa.addLocal(this)) {
-			return;
+			if (!all) {
+				return;
+			}
 		}
 
 		// Next walk the component type hierarchy
 		FeatureGroupType currentType = getExtended();
 		while (currentType != null) {
 			if (paa.addLocal(currentType)) {
-				return;
+				if (!all) {
+					return;
+				}
 			}
 			currentType = currentType.getExtended();
 		}
