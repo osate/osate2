@@ -55,8 +55,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.osate.pluginsupport.JavaExtensionPoint:"/>
-               </appInfo>
+                </appInfo>
             </annotation>
          </attribute>
       </complexType>
