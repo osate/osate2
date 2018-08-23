@@ -38,10 +38,10 @@ public class ExecuteJavaUtil {
 	public static ExecuteJavaUtil eInstance = new ExecuteJavaUtil();
 
 	final private static String EXTENTION_ID = "org.osate.pluginsupport.javaextensionpoint";
-	private static Map<String, JavaExtensionPoint> analysisMap;
+	private static Map<String, Object> analysisMap;
 
 	public void init(IExtensionRegistry registry) {
-		analysisMap = new HashMap<String, JavaExtensionPoint>();
+		analysisMap = new HashMap<String, Object>();
 		evaluate(registry);
 	}
 
@@ -50,8 +50,7 @@ public class ExecuteJavaUtil {
 			for (IConfigurationElement e : registry.getConfigurationElementsFor(EXTENTION_ID)) {
 				String name = e.getAttribute("class");
 				Object o = e.createExecutableExtension("class");
-				JavaExtensionPoint analysis = (JavaExtensionPoint) o;
-				analysisMap.put(name, analysis);
+				analysisMap.put(name, o);
 			}
 		} catch (CoreException e) {
 			throw new IllegalStateException(e);
