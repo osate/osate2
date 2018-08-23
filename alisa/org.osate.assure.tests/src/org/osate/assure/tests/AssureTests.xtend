@@ -56,6 +56,8 @@ import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.assure.generator.IAssureConstructor
 
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.evaluator.AssureProcessor
+import org.eclipse.core.runtime.NullProgressMonitor
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)  
@@ -716,6 +718,9 @@ class AssureTests extends XtextTest {
 		assuranceCaseResult.recomputeAllCounts(null)
 		val counts = assuranceCaseResult.metrics
 		37.assertEquals(counts.tbdCount)
+		val ap = new AssureProcessor
+		ap.processCase(assuranceCaseResult,null, new NullProgressMonitor(),false)
+		0.assertEquals(counts.tbdCount)
 	}
 	
 }
