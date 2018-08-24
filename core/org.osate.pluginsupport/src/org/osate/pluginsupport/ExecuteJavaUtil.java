@@ -37,7 +37,7 @@ public class ExecuteJavaUtil {
 
 	public static ExecuteJavaUtil eInstance = new ExecuteJavaUtil();
 
-	final private static String EXTENTION_ID = "org.osate.pluginsupport.javaextensionpoint";
+	final private static String EXTENTION_ID = "org.osate.pluginsupport.registeredjavaclasses";
 	private static Map<String, Object> analysisMap;
 
 	public void init(IExtensionRegistry registry) {
