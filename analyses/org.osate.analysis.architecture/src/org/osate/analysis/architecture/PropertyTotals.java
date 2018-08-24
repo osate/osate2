@@ -40,6 +40,7 @@
 package org.osate.analysis.architecture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -64,6 +65,10 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlHandler handler) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
+	}
+
+	public PropertyTotals() {
+		super(new NullProgressMonitor(), PROCESS_PRE_ORDER_ALL);
 	}
 
 	@Override
@@ -138,7 +143,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	 *   </ul>
 	 *   <li>{@link Result#getSubResults()}: Zero or more {@code Result}s are created: one for each subcomponent.
 	 * </ul>
-	 * 
+	 *
 	 * @param ci The component to run the weight analysis on.
 	 * @return An {@code AnalysisResult} containing the weight of the component and all subcomponents as well as any
 	 *         issues encountered during the analysis.
