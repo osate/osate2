@@ -1,33 +1,28 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.osate.alisa.common" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.osate.pluginsupport" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.osate.pluginsupport" id="method" name="Evaluate Java Extensionpoint Method"/>
+         <meta.schema plugin="org.osate.pluginsupport" id="registeredjavaclasses" name="Register Java Class"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         Make Java class available externally for method invocation
       </documentation>
    </annotation>
 
    <element name="extension">
-      <annotation>
-         <appInfo>
-            <meta.element />
-         </appInfo>
-      </annotation>
-      <complexType>
+       <complexType>
          <sequence>
             <element ref="class" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The Java class to be exposed
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="id" type="string">
+          <attribute name="id" type="string">
             <annotation>
                <documentation>
                   
@@ -39,9 +34,6 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
-                  <meta.attribute translatable="true"/>
-               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -52,6 +44,7 @@
          <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
+               Java class qualified by package name
                 </documentation>
                <appInfo>
                 </appInfo>
