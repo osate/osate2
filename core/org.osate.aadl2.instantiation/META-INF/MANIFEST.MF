@@ -7,8 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.osate.aadl2.instantiation.InstancePlugin
 Bundle-Vendor: CMU-SEI
 Export-Package: org.osate.aadl2.instantiation
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.edit,
  org.osate.workspace,
