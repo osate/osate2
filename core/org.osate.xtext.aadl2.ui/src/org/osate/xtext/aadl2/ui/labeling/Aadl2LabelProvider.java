@@ -49,7 +49,6 @@ import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DataAccess;
@@ -74,7 +73,6 @@ import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.PrivatePackageSection;
@@ -110,9 +108,7 @@ import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.SystemInstance;
 
 import com.google.inject.Inject;
 

@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -84,7 +85,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class EMV2Util {
 
@@ -183,10 +183,11 @@ public class EMV2Util {
 			return cl;
 		}
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(emv2Element);
-		if (emsc == null || emsc.getName().equalsIgnoreCase("EMV2")) {
+		if (emsc == null || !emsc.getName().equalsIgnoreCase("EMV2")) {
+			// we are not inside an EMV2 subclause
 			return null;
 		}
-		return (ComponentClassifier) EMFIndexRetrieval.getEObjectOfType(emsc,
+		return Aadl2GlobalScopeUtil.get(emsc,
 				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
 
@@ -196,7 +197,7 @@ public class EMV2Util {
 	 * @return ErrorModelSubclause
 	 */
 	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
-		return (ErrorModelSubclause) EMFIndexRetrieval.getEObjectOfType(cl,
+		return Aadl2GlobalScopeUtil.get(cl,
 				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), cl.getQualifiedName());
 	}
 
@@ -742,15 +743,15 @@ public class EMV2Util {
 				ErrorPath ep = (ErrorPath) ef;
 				if ((!ep.isAllIncoming() && EMV2Util.isSame(flowSource, ep.getIncoming()))
 						&& (!ep.isAllOutgoing() && EMV2Util.isSame(flowTarget, ep.getOutgoing()))) {
-					if (EM2TypeSetUtil.contains(ep.getTypeTokenConstraint(), sourceType)
-							&& EM2TypeSetUtil.contains(ep.getTargetToken(), targetType)) {
+					if (EMV2TypeSetUtil.contains(ep.getTypeTokenConstraint(), sourceType)
+							&& EMV2TypeSetUtil.contains(ep.getTargetToken(), targetType)) {
 						result.add(ep);
 					}
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource es = (ErrorSource) ef;
 				if (!es.isAll() && EMV2Util.isSame(flowTarget, es.getSourceModelElement())
-						&& EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), targetType)) {
+						&& EMV2TypeSetUtil.contains(es.getTypeTokenConstraint(), targetType)) {
 					result.add(es);
 				}
 			}
@@ -761,8 +762,8 @@ public class EMV2Util {
 	public static boolean areEquivalent(ErrorPropagation ep1, ErrorPropagation ep2) {
 		String path1 = getPath(ep1.getFeatureorPPRef());
 		String path2 = getPath(ep2.getFeatureorPPRef());
-		return path1.equalsIgnoreCase(path2) && EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
-				&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet());
+		return path1.equalsIgnoreCase(path2) && EMV2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
+				&& EMV2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet());
 	}
 
 	/**
@@ -1207,7 +1208,7 @@ public class EMV2Util {
 		for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
 			if (outgoingPropagationCondition.isAllPropagations()
 					|| EMV2Util.isSame(outgoingPropagationCondition.getOutgoing(), ep)) {
-				if (EM2TypeSetUtil.contains(outgoingPropagationCondition.getTypeToken(), type)) {
+				if (EMV2TypeSetUtil.contains(outgoingPropagationCondition.getTypeToken(), type)) {
 					return outgoingPropagationCondition;
 				}
 			}
@@ -2066,6 +2067,24 @@ public class EMV2Util {
 		return "";
 	}
 
+	public static String getDirectionName(Element el) {
+		if (el instanceof ErrorPropagation) {
+			ErrorPropagation ep = (ErrorPropagation) el;
+			return getDirectionName(ep);
+		}
+		if (el instanceof TypeSet) {
+			TypeSet ts = (TypeSet) el;
+			return getPrintName(ts);
+		}
+		if (el instanceof NamedElement) {
+			NamedElement ne = (NamedElement) el;
+			if (ne.getName() != null) {
+				return ne.getName();
+			}
+		}
+		return "";
+	}
+
 	public static String getName(EObject el) {
 		if (el instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) el;
@@ -2091,6 +2110,10 @@ public class EMV2Util {
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
 		return getPropagationName(ep);
+	}
+
+	public static String getDirectionName(ErrorPropagation ep) {
+		return ep.getDirection().getLiteral() + "-" + getPropagationName(ep);
 	}
 
 	public static String getPrintNameWithoutType(EMV2Path ep) {
@@ -2570,7 +2593,7 @@ public class EMV2Util {
 				ConnectionReference connref = Aadl2InstanceUtil.getTopConnectionReference((ConnectionInstance) path);
 				ComponentInstance parentci = connref.getContext();
 				TypeTransformationSet tts = getAllTypeTransformationSet(parentci);
-				result = EM2TypeSetUtil.mapTypeToken(sourceToken, tts);
+				result = EMV2TypeSetUtil.mapTypeToken(sourceToken, tts);
 			}
 		} else if (path instanceof ErrorPath) {
 			ErrorPath epath = (ErrorPath) path;
@@ -2580,7 +2603,7 @@ public class EMV2Util {
 				// map token via tms
 				TypeMappingSet tms = getUseMappings(epath);
 				if (tms != null) {
-					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
+					result = EMV2TypeSetUtil.mapTypeToken(sourceToken, tms);
 				}
 			} else {
 				result = ttup.getTypeTokens().get(0);

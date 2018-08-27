@@ -35,6 +35,10 @@ package org.osate.analysis.resource.management.handlers;
 
 import org.osate.ui.actions.AbstractAnalysis;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class BinpackAnalysis extends AbstractAnalysis {
 
 	protected boolean runImpl() {

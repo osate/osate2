@@ -66,7 +66,11 @@ import com.google.inject.Injector;
  * @version $Id: OsateResourceManager.java,v 1.17 2009-07-09 19:23:11 jseibel
  *          Exp $
  */
-public class OsateResourceUtil {
+public final class OsateResourceUtil {
+	// private constructor to prevent instantiation
+	private OsateResourceUtil() {
+		super();
+	}
 
 	private static boolean DEBUG = true;
 	public static boolean USES_GUI = true;
@@ -212,7 +216,7 @@ public class OsateResourceUtil {
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		if (resourceURI.isPlatform()) {
 			// FIXME JD
-			// Fixes bug 162, see https://github.com/osate/osate2-core/issues/162
+			// Fixes bug 162, see https://github.com/osate/osate2/issues/162
 			return myWorkspaceRoot.getFile(new Path(null, resourceURI.toPlatformString(true)));
 		} else if (resourceURI.isFile()) {
 			try {

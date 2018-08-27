@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Weight totals">
+  <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#/"/>
+  <results>
+    <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#/"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" unit="kg"/>
+    <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
+    <diagnostics type="WARNING" message="[L] Sum of subcomponent weight limits (2.000 kg) exceeds weight limit of 1.000 kg">
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
+    <diagnostics type="INFO" message="[A] Sum of weights (0.000 kg) is below weight limit of 1.000 kg (100.0 % Weight slack)">
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#/"/>
+    </diagnostics>
+    <subResults>
+      <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" unit="kg"/>
+      <values xsi:type="result:RealValue" value="2.0" unit="kg"/>
+      <diagnostics type="INFO" message="[A] Sum of weights (0.000 kg) is below weight limit of 2.000 kg (100.0 % Weight slack)">
+        <sourceReference href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/sublimit_exceed_limit_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
+      </diagnostics>
+    </subResults>
+  </results>
+</result:AnalysisResult>

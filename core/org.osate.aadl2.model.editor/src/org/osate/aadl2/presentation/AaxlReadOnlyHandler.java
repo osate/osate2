@@ -59,7 +59,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
@@ -67,12 +67,15 @@ import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.OsateCorePlugin;
-import org.osate.ui.navigator.AadlNavigator;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
  * Handler running as transaction
  */
+/**
+ * @deprecated This class is no longer used on OSATE. It will be removed in version 2.3.6.
+ */
+@Deprecated
 public abstract class AaxlReadOnlyHandler extends AbstractHandler {
 	private static final String DEFAULT_NAME = "Analysis";
 
@@ -84,10 +87,10 @@ public abstract class AaxlReadOnlyHandler extends AbstractHandler {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		IWorkbenchPage page = win.getActivePage();
-		IWorkbenchPart part = page.getActivePart();
+		IWorkbenchPartReference part = page.getActivePartReference();
 		final ISelection selection;
 		IEditorPart activeEditor = page.getActiveEditor();
-		if (part instanceof AadlNavigator) {
+		if (part.getId().equals("org.osate.ui.navigator.AadlNavigator")) {
 			selection = page.getSelection();
 			if (selection instanceof TreeSelection) {
 				for (Iterator iterator = ((TreeSelection) selection).iterator(); iterator.hasNext();) {

@@ -3,11 +3,15 @@
  */
 package org.osate.xtext.aadl2.formatting2;
 
+import com.google.inject.ConfigurationException
 import com.google.inject.Inject
+import com.google.inject.Injector
+import com.google.inject.ProvisionException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend2.lib.StringConcatenation
 import org.eclipse.xtext.Grammar
+import org.eclipse.xtext.IGrammarAccess
 import org.eclipse.xtext.formatting2.FormatterRequest
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.eclipse.xtext.formatting2.IFormatter2
@@ -18,6 +22,7 @@ import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder
 import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.IResourceFactory
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.resource.XtextResource
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -166,7 +171,6 @@ import org.osate.annexsupport.AnnexParseUtil
 import org.osate.annexsupport.AnnexParser
 import org.osate.annexsupport.AnnexParserRegistry
 import org.osate.annexsupport.AnnexRegistry
-import org.osate.core.OsateCorePlugin
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
@@ -2215,38 +2219,61 @@ class Aadl2Formatter extends PropertiesFormatter {
 	 *        parameter is the AnnexParser retrieved from the AnnexRegistry and the second parameter is the
 	 *        trimmed annex text.
 	 */
-	def private void formatAnnexText(String annexName, ISemanticRegion sourceTextRegion, int indentationLevel,
-		IFormattableDocument document, (AnnexParser, String)=>NamedElement parseAnnexObject
+	def private void formatAnnexText(
+		String annexName,
+		ISemanticRegion sourceTextRegion,
+		int indentationLevel,
+		IFormattableDocument document,
+		(AnnexParser, String)=>NamedElement parseAnnexObject
 	) {
 		if (annexName !== null && sourceTextRegion !== null) {
-			//Parse the annex text.
-			val annexRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID) as AnnexParserRegistry
-			val annexParser = annexRegistry.getAnnexParser(annexName)
-			val trimmedText = sourceTextRegion.text.substring(3, sourceTextRegion.length - 3)
-			val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
-			val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
-			if (annexParseResult !== null) {
-				//Get the injector for the annex.
-				val grammarName = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar).name
-				val annexInjector = OsateCorePlugin.^default.getInjector(grammarName)
-				if (annexInjector !== null) {
-					//Create resource and populate it with the library or subclause and the parse result.
-					val resourceFactory = annexInjector.getInstance(IResourceFactory)
-					val annexExtension = annexInjector.getInstance(FileExtensionProvider).primaryFileExtension
-					val fakeURI = URI.createURI("__synthetic." + annexExtension)
-					val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
-					fakeResource.contents += annexObject
-					fakeResource.parseResult = annexParseResult
-					
-					//Setup the formatting request.
-					val request = annexInjector.getInstance(FormatterRequest)
-					val accessBuilder = annexInjector.getProvider(TextRegionAccessBuilder).get
-					request.textRegionAccess = accessBuilder.forNodeModel(fakeResource).create
-					
-					//Format the annex text.
-					val replacements = annexInjector.getInstance(IFormatter2).format(request)
+			try {
+				unsafeFormatAnnexText(annexName, sourceTextRegion, indentationLevel, document, parseAnnexObject)
+			} catch (ConfigurationException e) {
+				// ignore
+			} catch (ProvisionException e) {
+				// ignore
+			}
+		}
+	}
+	
+	def private void unsafeFormatAnnexText(
+		String annexName,
+		ISemanticRegion sourceTextRegion,
+		int indentationLevel,
+		IFormattableDocument document,
+		(AnnexParser, String)=>NamedElement parseAnnexObject
+	) {
+		// Parse the annex text.
+		val annexRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID) as AnnexParserRegistry
+		val annexParser = annexRegistry.getAnnexParser(annexName)
+		val trimmedText = sourceTextRegion.text.substring(3, sourceTextRegion.length - 3)
+		val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
+		val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
+		if (annexParseResult !== null) {
+			// Get the injector for the annex.
+			val grammar = annexParseResult.rootNode.grammarElement.getContainerOfType(Grammar)
+			val annexInjector = getInjector(grammar)
+			if (annexInjector !== null) {
+				// Create resource and populate it with the library or subclause and the parse result.
+				val resourceFactory = annexInjector.getInstance(IResourceFactory)
+				val annexExtension = annexInjector.getInstance(FileExtensionProvider).primaryFileExtension
+				val fakeURI = URI.createURI("__synthetic." + annexExtension)
+				val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
+				fakeResource.contents += annexObject
+				fakeResource.parseResult = annexParseResult
+
+				// Setup the formatting request.
+				val request = annexInjector.getInstance(FormatterRequest)
+				val accessBuilder = annexInjector.getProvider(TextRegionAccessBuilder).get
+				request.textRegionAccess = accessBuilder.forNodeModel(fakeResource).create
+
+				// Format the annex text.
+				val annexFormatter = annexInjector.getInstance(IFormatter2);
+				if (annexFormatter !== null) {
+					val replacements = annexFormatter.format(request)
 					val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
-					
+
 					/*
 					 * Insert the formatted text into the core document
 					 * See https://www.eclipse.org/forums/index.php/t/1093069/
@@ -2254,24 +2281,38 @@ class Aadl2Formatter extends PropertiesFormatter {
 					document.addReplacer(new AbstractTextReplacer(document, sourceTextRegion) {
 						override createReplacements(ITextReplacerContext context) {
 							val annexIndentation = context.getIndentationString(indentationLevel + 1)
-							
+
 							val indented = new StringConcatenation
 							indented.append(formatted, annexIndentation)
-							
+
 							val newText = '''
-								{**
-								«annexIndentation»«indented»
-								«context.getIndentationString(indentationLevel)»**}'''
-							
+							{**
+							«annexIndentation»«indented»
+							«context.getIndentationString(indentationLevel)»**}'''
+
 							if (newText != sourceTextRegion.text) {
 								context.addReplacement(region.replaceWith(newText))
 							}
-							
+
 							context
 						}
 					})
 				}
 			}
 		}
+
+	}
+
+	private def getInjector(Grammar grammar) {
+		val reg = IResourceServiceProvider.Registry.INSTANCE
+		val e2f = reg.extensionToFactoryMap
+		for (String ext : e2f.keySet) {
+			val rsp = reg.getResourceServiceProvider(URI.createFileURI("dummy." + ext))
+			val ga = rsp.get(IGrammarAccess)
+			if (ga !== null && ga.grammar == grammar) {
+				return rsp.get(Injector)
+			}
+		}
+		return null
 	}
 }

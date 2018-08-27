@@ -39,6 +39,7 @@ import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#isSharedEvent <em>Shared Event</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getScale <em>Scale</em>}</li>
  * </ul>
  *
  * @generated
@@ -265,6 +266,26 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	protected boolean sharedEvent = SHARED_EVENT_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getScale() <em>Scale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getScale()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double SCALE_EDEFAULT = 1.0;
+
+	/**
+	 * The cached value of the '{@link #getScale() <em>Scale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getScale()
+	 * @generated
+	 * @ordered
+	 */
+	protected double scale = SCALE_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -302,9 +323,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__NAME, oldName, name));
-		}
 	}
 
 	/**
@@ -326,9 +346,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__MESSAGE, oldMessage, message));
-		}
 	}
 
 	/**
@@ -363,9 +382,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setK(int newK) {
 		int oldK = k;
 		k = newK;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__K, oldK, k));
-		}
 	}
 
 	/**
@@ -387,9 +405,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setAssignedProbability(double newAssignedProbability) {
 		double oldAssignedProbability = assignedProbability;
 		assignedProbability = newAssignedProbability;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__ASSIGNED_PROBABILITY, oldAssignedProbability, assignedProbability));
-		}
 	}
 
 	/**
@@ -425,9 +442,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setComputedProbability(double newComputedProbability) {
 		double oldComputedProbability = computedProbability;
 		computedProbability = newComputedProbability;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__COMPUTED_PROBABILITY, oldComputedProbability, computedProbability));
-		}
 	}
 
 	/**
@@ -441,9 +457,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedInstanceObject = (InternalEObject)relatedInstanceObject;
 			relatedInstanceObject = eResolveProxy(oldRelatedInstanceObject);
 			if (relatedInstanceObject != oldRelatedInstanceObject) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
-				}
 			}
 		}
 		return relatedInstanceObject;
@@ -467,9 +482,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedInstanceObject(EObject newRelatedInstanceObject) {
 		EObject oldRelatedInstanceObject = relatedInstanceObject;
 		relatedInstanceObject = newRelatedInstanceObject;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
-		}
 	}
 
 	/**
@@ -491,9 +505,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setReferenceCount(int newReferenceCount) {
 		int oldReferenceCount = referenceCount;
 		referenceCount = newReferenceCount;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__REFERENCE_COUNT, oldReferenceCount, referenceCount));
-		}
 	}
 
 	/**
@@ -515,9 +528,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setType(EventType newType) {
 		EventType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__TYPE, oldType, type));
-		}
 	}
 
 	/**
@@ -539,9 +551,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setSubEventLogic(LogicOperation newSubEventLogic) {
 		LogicOperation oldSubEventLogic = subEventLogic;
 		subEventLogic = newSubEventLogic == null ? SUB_EVENT_LOGIC_EDEFAULT : newSubEventLogic;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SUB_EVENT_LOGIC, oldSubEventLogic, subEventLogic));
-		}
 	}
 
 	/**
@@ -555,9 +566,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedEMV2Object = (InternalEObject)relatedEMV2Object;
 			relatedEMV2Object = eResolveProxy(oldRelatedEMV2Object);
 			if (relatedEMV2Object != oldRelatedEMV2Object) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
-				}
 			}
 		}
 		return relatedEMV2Object;
@@ -581,9 +591,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedEMV2Object(EObject newRelatedEMV2Object) {
 		EObject oldRelatedEMV2Object = relatedEMV2Object;
 		relatedEMV2Object = newRelatedEMV2Object;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
-		}
 	}
 
 	/**
@@ -605,9 +614,29 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setSharedEvent(boolean newSharedEvent) {
 		boolean oldSharedEvent = sharedEvent;
 		sharedEvent = newSharedEvent;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SHARED_EVENT, oldSharedEvent, sharedEvent));
-		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getScale() {
+		return scale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setScale(double newScale) {
+		double oldScale = scale;
+		scale = newScale;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SCALE, oldScale, scale));
 	}
 
 	/**
@@ -621,9 +650,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedErrorType = (InternalEObject)relatedErrorType;
 			relatedErrorType = eResolveProxy(oldRelatedErrorType);
 			if (relatedErrorType != oldRelatedErrorType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
-				}
 			}
 		}
 		return relatedErrorType;
@@ -647,9 +675,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedErrorType(EObject newRelatedErrorType) {
 		EObject oldRelatedErrorType = relatedErrorType;
 		relatedErrorType = newRelatedErrorType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
-		}
 	}
 
 	/**
@@ -660,41 +687,37 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case FaultTreePackage.EVENT__NAME:
-			return getName();
-		case FaultTreePackage.EVENT__MESSAGE:
-			return getMessage();
-		case FaultTreePackage.EVENT__SUB_EVENTS:
-			return getSubEvents();
-		case FaultTreePackage.EVENT__K:
-			return getK();
-		case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-			return getAssignedProbability();
-		case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-			return getComputedProbability();
-		case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-			if (resolve) {
-				return getRelatedInstanceObject();
-			}
-			return basicGetRelatedInstanceObject();
-		case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
-			if (resolve) {
-				return getRelatedErrorType();
-			}
-			return basicGetRelatedErrorType();
-		case FaultTreePackage.EVENT__REFERENCE_COUNT:
-			return getReferenceCount();
-		case FaultTreePackage.EVENT__TYPE:
-			return getType();
-		case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			return getSubEventLogic();
-		case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-			if (resolve) {
-				return getRelatedEMV2Object();
-			}
-			return basicGetRelatedEMV2Object();
-		case FaultTreePackage.EVENT__SHARED_EVENT:
-			return isSharedEvent();
+			case FaultTreePackage.EVENT__NAME:
+				return getName();
+			case FaultTreePackage.EVENT__MESSAGE:
+				return getMessage();
+			case FaultTreePackage.EVENT__SUB_EVENTS:
+				return getSubEvents();
+			case FaultTreePackage.EVENT__K:
+				return getK();
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				return getAssignedProbability();
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				return getComputedProbability();
+			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
+				if (resolve) return getRelatedInstanceObject();
+				return basicGetRelatedInstanceObject();
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				if (resolve) return getRelatedErrorType();
+				return basicGetRelatedErrorType();
+			case FaultTreePackage.EVENT__REFERENCE_COUNT:
+				return getReferenceCount();
+			case FaultTreePackage.EVENT__TYPE:
+				return getType();
+			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+				return getSubEventLogic();
+			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
+				if (resolve) return getRelatedEMV2Object();
+				return basicGetRelatedEMV2Object();
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				return isSharedEvent();
+			case FaultTreePackage.EVENT__SCALE:
+				return getScale();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -708,46 +731,49 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case FaultTreePackage.EVENT__NAME:
-			setName((String)newValue);
-			return;
-		case FaultTreePackage.EVENT__MESSAGE:
-			setMessage((String)newValue);
-			return;
-		case FaultTreePackage.EVENT__SUB_EVENTS:
-			getSubEvents().clear();
-			getSubEvents().addAll((Collection<? extends Event>)newValue);
-			return;
-		case FaultTreePackage.EVENT__K:
-			setK((Integer)newValue);
-			return;
-		case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-			setAssignedProbability((Double)newValue);
-			return;
-		case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-			setComputedProbability((Double)newValue);
-			return;
-		case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-			setRelatedInstanceObject((EObject)newValue);
-			return;
-		case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
-			setRelatedErrorType((EObject)newValue);
-			return;
-		case FaultTreePackage.EVENT__REFERENCE_COUNT:
-			setReferenceCount((Integer)newValue);
-			return;
-		case FaultTreePackage.EVENT__TYPE:
-			setType((EventType)newValue);
-			return;
-		case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			setSubEventLogic((LogicOperation)newValue);
-			return;
-		case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-			setRelatedEMV2Object((EObject)newValue);
-			return;
-		case FaultTreePackage.EVENT__SHARED_EVENT:
-			setSharedEvent((Boolean)newValue);
-			return;
+			case FaultTreePackage.EVENT__NAME:
+				setName((String)newValue);
+				return;
+			case FaultTreePackage.EVENT__MESSAGE:
+				setMessage((String)newValue);
+				return;
+			case FaultTreePackage.EVENT__SUB_EVENTS:
+				getSubEvents().clear();
+				getSubEvents().addAll((Collection<? extends Event>)newValue);
+				return;
+			case FaultTreePackage.EVENT__K:
+				setK((Integer)newValue);
+				return;
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				setAssignedProbability((Double)newValue);
+				return;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				setComputedProbability((Double)newValue);
+				return;
+			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
+				setRelatedInstanceObject((EObject)newValue);
+				return;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				setRelatedErrorType((EObject)newValue);
+				return;
+			case FaultTreePackage.EVENT__REFERENCE_COUNT:
+				setReferenceCount((Integer)newValue);
+				return;
+			case FaultTreePackage.EVENT__TYPE:
+				setType((EventType)newValue);
+				return;
+			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+				setSubEventLogic((LogicOperation)newValue);
+				return;
+			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
+				setRelatedEMV2Object((EObject)newValue);
+				return;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				setSharedEvent((Boolean)newValue);
+				return;
+			case FaultTreePackage.EVENT__SCALE:
+				setScale((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -760,45 +786,48 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case FaultTreePackage.EVENT__NAME:
-			setName(NAME_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__MESSAGE:
-			setMessage(MESSAGE_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__SUB_EVENTS:
-			getSubEvents().clear();
-			return;
-		case FaultTreePackage.EVENT__K:
-			setK(K_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-			setAssignedProbability(ASSIGNED_PROBABILITY_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-			setComputedProbability(COMPUTED_PROBABILITY_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-			setRelatedInstanceObject((EObject)null);
-			return;
-		case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
-			setRelatedErrorType((EObject)null);
-			return;
-		case FaultTreePackage.EVENT__REFERENCE_COUNT:
-			setReferenceCount(REFERENCE_COUNT_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__TYPE:
-			setType(TYPE_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			setSubEventLogic(SUB_EVENT_LOGIC_EDEFAULT);
-			return;
-		case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-			setRelatedEMV2Object((EObject)null);
-			return;
-		case FaultTreePackage.EVENT__SHARED_EVENT:
-			setSharedEvent(SHARED_EVENT_EDEFAULT);
-			return;
+			case FaultTreePackage.EVENT__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__MESSAGE:
+				setMessage(MESSAGE_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__SUB_EVENTS:
+				getSubEvents().clear();
+				return;
+			case FaultTreePackage.EVENT__K:
+				setK(K_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				setAssignedProbability(ASSIGNED_PROBABILITY_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				setComputedProbability(COMPUTED_PROBABILITY_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
+				setRelatedInstanceObject((EObject)null);
+				return;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				setRelatedErrorType((EObject)null);
+				return;
+			case FaultTreePackage.EVENT__REFERENCE_COUNT:
+				setReferenceCount(REFERENCE_COUNT_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+				setSubEventLogic(SUB_EVENT_LOGIC_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
+				setRelatedEMV2Object((EObject)null);
+				return;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				setSharedEvent(SHARED_EVENT_EDEFAULT);
+				return;
+			case FaultTreePackage.EVENT__SCALE:
+				setScale(SCALE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -811,32 +840,34 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case FaultTreePackage.EVENT__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-		case FaultTreePackage.EVENT__MESSAGE:
-			return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-		case FaultTreePackage.EVENT__SUB_EVENTS:
-			return subEvents != null && !subEvents.isEmpty();
-		case FaultTreePackage.EVENT__K:
-			return k != K_EDEFAULT;
-		case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-			return assignedProbability != ASSIGNED_PROBABILITY_EDEFAULT;
-		case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-			return computedProbability != COMPUTED_PROBABILITY_EDEFAULT;
-		case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-			return relatedInstanceObject != null;
-		case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
-			return relatedErrorType != null;
-		case FaultTreePackage.EVENT__REFERENCE_COUNT:
-			return referenceCount != REFERENCE_COUNT_EDEFAULT;
-		case FaultTreePackage.EVENT__TYPE:
-			return type != TYPE_EDEFAULT;
-		case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			return subEventLogic != SUB_EVENT_LOGIC_EDEFAULT;
-		case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-			return relatedEMV2Object != null;
-		case FaultTreePackage.EVENT__SHARED_EVENT:
-			return sharedEvent != SHARED_EVENT_EDEFAULT;
+			case FaultTreePackage.EVENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case FaultTreePackage.EVENT__MESSAGE:
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
+			case FaultTreePackage.EVENT__SUB_EVENTS:
+				return subEvents != null && !subEvents.isEmpty();
+			case FaultTreePackage.EVENT__K:
+				return k != K_EDEFAULT;
+			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
+				return assignedProbability != ASSIGNED_PROBABILITY_EDEFAULT;
+			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
+				return computedProbability != COMPUTED_PROBABILITY_EDEFAULT;
+			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
+				return relatedInstanceObject != null;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				return relatedErrorType != null;
+			case FaultTreePackage.EVENT__REFERENCE_COUNT:
+				return referenceCount != REFERENCE_COUNT_EDEFAULT;
+			case FaultTreePackage.EVENT__TYPE:
+				return type != TYPE_EDEFAULT;
+			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+				return subEventLogic != SUB_EVENT_LOGIC_EDEFAULT;
+			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
+				return relatedEMV2Object != null;
+			case FaultTreePackage.EVENT__SHARED_EVENT:
+				return sharedEvent != SHARED_EVENT_EDEFAULT;
+			case FaultTreePackage.EVENT__SCALE:
+				return scale != SCALE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -849,8 +880,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-		case FaultTreePackage.EVENT___GET_PROBABILITY:
-			return getProbability();
+			case FaultTreePackage.EVENT___GET_PROBABILITY:
+				return getProbability();
 		}
 		return super.eInvoke(operationID, arguments);
 	}
@@ -862,9 +893,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
@@ -885,6 +914,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		result.append(subEventLogic);
 		result.append(", sharedEvent: ");
 		result.append(sharedEvent);
+		result.append(", scale: ");
+		result.append(scale);
 		result.append(')');
 		return result.toString();
 	}
