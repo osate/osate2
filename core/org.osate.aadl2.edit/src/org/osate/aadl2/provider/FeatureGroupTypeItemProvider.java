@@ -173,11 +173,11 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 	 * This returns FeatureGroupType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroup"));
 	}
 
 	/**

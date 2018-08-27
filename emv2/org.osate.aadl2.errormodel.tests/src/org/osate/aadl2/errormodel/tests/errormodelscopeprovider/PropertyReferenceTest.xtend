@@ -1,6 +1,10 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
+import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -9,28 +13,35 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
-import org.osate.testsupport.OsateTest
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.AssertHelper
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
-@InjectWith(ErrorModelUiInjectorProvider)
-class PropertyReferenceTest extends OsateTest {
+@InjectWith(ErrorModelInjectorProvider)
+class PropertyReferenceTest extends XtextTest {
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	extension AssertHelper assertHelper = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.emv2")).get(AssertHelper)
+
 	//Tests BranchValue's symbolicLabel reference
 	@Test
 	def void testBranchValue() {
-		val ps1FileName = "ps1.aadl"
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(ps1FileName -> '''
+		val ps1 = '''
 			property set ps1 is
 				def1: aadlreal applies to (all);
 			end ps1;
-		''', lib1FileName -> '''
+		'''
+		val lib1 = '''
 			package lib1
 			public
 				annex EMV2 {**
@@ -45,7 +56,8 @@ class PropertyReferenceTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause1 = '''
 			package subclause1
 			public
 				with ps1;
@@ -66,9 +78,7 @@ class PropertyReferenceTest extends OsateTest {
 				**};
 				end a;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
-		
+		'''
 		val expectedScope = #["Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline",
 			"Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
 			"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol",
@@ -190,7 +200,7 @@ class PropertyReferenceTest extends OsateTest {
 			, "Reference_Time","Timing_Properties::Reference_Time"
 		]
 		
-		val lib1TestResult = testFile(lib1FileName)
+		val lib1TestResult = issues = testHelper.testString(lib1, ps1)
 		val lib1IssueCollection = new FluentIssueCollection(lib1TestResult.resource, newArrayList, newArrayList)
 		lib1TestResult.resource.contents.head as AadlPackage => [
 			"lib1".assertEquals(name)
@@ -204,9 +214,10 @@ class PropertyReferenceTest extends OsateTest {
 				]
 			]
 		]
-		assertConstraints(lib1IssueCollection.sizeIs(lib1IssueCollection.issues.size))
+		lib1IssueCollection.sizeIs(lib1TestResult.issues.size)
+		assertConstraints(lib1IssueCollection)
 		
-		val subclause1TestResult = testFile(subclause1FileName)
+		val subclause1TestResult = issues = testHelper.testString(subclause1, lib1, ps1)
 		val subclause1IssueCollection = new FluentIssueCollection(subclause1TestResult.resource, newArrayList, newArrayList)
 		subclause1TestResult.resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
@@ -220,20 +231,19 @@ class PropertyReferenceTest extends OsateTest {
 				]
 			]
 		]
-		assertConstraints(subclause1IssueCollection.sizeIs(subclause1IssueCollection.issues.size))
+		subclause1IssueCollection.sizeIs(subclause1TestResult.issues.size)
+		assertConstraints(subclause1IssueCollection)
 	}
 	
 	//Tests EMV2PropertyAssociation's property reference
 	@Test
 	def void testEMV2PropertyAssociation() {
-		val ps1FileName = "ps1.aadl"
-		val lib1FileName = "lib1.aadl"
-		val subclause1FileName = "subclause1.aadl"
-		createFiles(ps1FileName -> '''
+		val ps1 =  '''
 			property set ps1 is
 				def1: aadlreal applies to (all);
 			end ps1;
-		''', lib1FileName -> '''
+		'''
+		val lib1 = '''
 			package lib1
 			public
 				with ps1;
@@ -253,7 +263,8 @@ class PropertyReferenceTest extends OsateTest {
 					end behavior;
 				**};
 			end lib1;
-		''', subclause1FileName -> '''
+		'''
+		val subclause1 = '''
 			package subclause1
 			public
 				with ps1;
@@ -270,8 +281,7 @@ class PropertyReferenceTest extends OsateTest {
 				**};
 				end a;
 			end subclause1;
-		''')
-		ignoreSerializationDifferences
+		'''
 		val expectedScope = #["Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline",
 			"Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
 			"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol",
@@ -392,7 +402,7 @@ class PropertyReferenceTest extends OsateTest {
 			"Timing_Properties::Startup_Execution_Time", "Timing_Properties::Thread_Swap_Execution_Time"
 			, "Reference_Time","Timing_Properties::Reference_Time"
 		]
-		testFile(lib1FileName).resource.contents.head as AadlPackage => [
+		testHelper.testString(lib1, ps1).resource.contents.head as AadlPackage => [
 			"lib1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				properties.head => [
@@ -410,7 +420,7 @@ class PropertyReferenceTest extends OsateTest {
 				]
 			]
 		]
-		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
+		testHelper.testString(subclause1, lib1, ps1).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [

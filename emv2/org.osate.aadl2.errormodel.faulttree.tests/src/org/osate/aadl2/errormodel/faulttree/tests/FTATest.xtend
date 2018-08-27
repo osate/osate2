@@ -1,8 +1,9 @@
 package org.osate.aadl2.errormodel.faulttree.tests
 
+import com.google.inject.Inject
+import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,27 +14,27 @@ import org.osate.aadl2.errormodel.FaultTree.EventType
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel
-import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.testsupport.OsateTest
+import org.osate.testsupport.TestHelper
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util
-import org.osate.aadl2.instance.ConnectionInstance
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(ErrorModelUiInjectorProvider))
-class FTATest extends OsateTest {
-	override getProjectName() {
-		"FTATests"
-	}
+@InjectWith(ErrorModelInjectorProvider)
+class FTATest  {
 
-	static boolean once = true
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	var primaryroot = null
 
 	var static SystemInstance instance1
 	var static SystemInstance instance2
@@ -51,28 +52,12 @@ class FTATest extends OsateTest {
 	var static SystemInstance instanceFilteredFlow
 	var static SystemInstance instanceAllFlows
 	var static SystemInstance instanceOptimize
+	var static SystemInstance instanceTransitionBranch
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
 	val static stateOp = "state Operational"
 
-	@Before
-	override setUp() {
-	}
-
-	@After
-	override cleanUp() {
-	}
-
-	@Before
-	/**
-	 * All tests use the same model
-	 */
-	def void initWorkspace() {
-		if (once) {
-			once = false
-			createProject(projectName)
-			setResourceRoot("platform:/resource/" + projectName)
 			val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
 			val fta1File = "fta1Test.aadl"
 			val fta2File = "fta2Test.aadl"
@@ -91,69 +76,63 @@ class FTATest extends OsateTest {
 			val filteredflowsFile = "FilteredFlows.aadl"
 			val allflowsFile = "AllFlows.aadl"
 			val optimizeFile = "OptimizeTree.aadl"
-			
-			createFiles(
-				fta1File -> readFile(modelroot + fta1File),
-				fta2File -> readFile(modelroot + fta2File),
-				fta3File -> readFile(modelroot + fta3File),
-				common1File -> readFile(modelroot + common1File),
-				common2File -> readFile(modelroot + common2File),
-				common3File -> readFile(modelroot + common3File),
-				nestedcompositeFile -> readFile(modelroot + nestedcompositeFile),
-				redundantFile -> readFile(modelroot + redundantFile),
-				redundant2File -> readFile(modelroot + redundant2File),
-				voterFile -> readFile(modelroot + voterFile),
-				dualfgsFile -> readFile(modelroot + dualfgsFile),
-				filteredflowsFile -> readFile(modelroot + filteredflowsFile),
-				allflowsFile -> readFile(modelroot + allflowsFile),
-				optimizeFile -> readFile(modelroot + optimizeFile),
-				fgselibFile -> readFile(modelroot + fgselibFile),
-				errorlibFile -> readFile(modelroot + errorlibFile),
-				FTerrorlibFile -> readFile(modelroot + FTerrorlibFile)
+			val transitionbranchFile = "branchtransitions.aadl"
+
+	@Before
+	def void initWorkspace() {
+			primaryroot = testHelper.parseFile(
+				modelroot + fta1File,
+				modelroot + fta2File,
+				modelroot + fta3File,
+				modelroot + common1File,
+				modelroot + common2File,
+				modelroot + common3File,
+				modelroot + nestedcompositeFile,
+				modelroot + redundantFile,
+				modelroot + redundant2File,
+				modelroot + voterFile,
+				modelroot + dualfgsFile,
+				modelroot + filteredflowsFile,
+				modelroot + allflowsFile,
+				modelroot + optimizeFile,
+				modelroot + transitionbranchFile,
+				modelroot + fgselibFile,
+				modelroot + errorlibFile,
+				modelroot + FTerrorlibFile
 			)
-			suppressSerialization
-			instance1 = instanceGenerator(fta1File, "main.i")
-			instance2 = instanceGenerator(fta2File, "main.i")
-			instance3 = instanceGenerator(fta3File, "main.i")
-			instancecommon1 = instanceGenerator(common1File, "main.commonsource")
-			instancecommon2 = instanceGenerator(common2File, "main.commonevents")
-			instancecommon3 = instanceGenerator(common3File, "main.commoneventssingleport")
-			instancecomposite = instanceGenerator(nestedcompositeFile, "main.nestedstate")
-			instanceredundant = instanceGenerator(redundantFile, "main.compositestate")
+			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
+			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
+			instance3 = instanceGenerator(modelroot + fta3File, "main.i")
+			instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
+			instancecommon2 = instanceGenerator(modelroot + common2File, "main.commonevents")
+			instancecommon3 = instanceGenerator(modelroot + common3File, "main.commoneventssingleport")
+			instancecomposite = instanceGenerator(modelroot + nestedcompositeFile, "main.nestedstate")
+			instanceredundant = instanceGenerator(modelroot + redundantFile, "main.compositestate")
 
-			val result = testFile(redundant2File)
-			val pkg = result.resource.contents.head as AadlPackage
-			instanceredundant21 = instanceGenerator(pkg, "main2.connection")
-			instanceredundant22 = instanceGenerator(pkg, "main2.compositesametype")
-			instanceredundant23 = instanceGenerator(pkg, "main2.transition")
+			instanceredundant21 = instanceGenerator(modelroot + redundant2File, "main2.connection")
+			instanceredundant22 = instanceGenerator(modelroot + redundant2File, "main2.compositesametype")
+			instanceredundant23 = instanceGenerator(modelroot + redundant2File, "main2.transition")
 			
-			instancevoter = instanceGenerator(voterFile, "voter.i")
-			instanceDualFGS = instanceGenerator(dualfgsFile, "FGS.impl")
-			instanceFilteredFlow = instanceGenerator(filteredflowsFile, "FGS.impl")
-			instanceAllFlows = instanceGenerator(allflowsFile, "FGS.impl")
-			instanceOptimize = instanceGenerator(optimizeFile, "Top.impl")
-		}
-	}
-
-	def SystemInstance instanceGenerator(AadlPackage pkg, String rootclassifier) {
-		val cls = pkg.ownedPublicSection.ownedClassifiers
-		assertTrue('', cls.exists[name == rootclassifier])
-		// instantiate
-		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
-		return InstantiateModel::buildInstanceModelFile(sysImpl)
+			instancevoter = instanceGenerator(modelroot + voterFile, "voter.i")
+			instanceDualFGS = instanceGenerator(modelroot + dualfgsFile, "FGS.impl")
+			instanceFilteredFlow = instanceGenerator(modelroot + filteredflowsFile, "FGS.impl")
+			instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
+			instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
+			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
-		val result = testFile(filename)
+		val ac = primaryroot as AadlPackage
+		val rs = ac.eResource.resourceSet
+		val targetsrc = rs.getResource(URI.createURI(filename), true)
 
 		// get the correct package
-		val pkg = result.resource.contents.head as AadlPackage
+		val pkg = targetsrc.contents.head as AadlPackage
 		val cls = pkg.ownedPublicSection.ownedClassifiers
 		assertTrue('', cls.exists[name == rootclassifier])
-
 		// instantiate
 		val sysImpl = cls.findFirst[name == rootclassifier] as ComponentImplementation
-		return InstantiateModel::buildInstanceModelFile(sysImpl)
+		return InstantiateModel::instantiate(sysImpl)
 	}
 
 	/**
@@ -163,7 +142,6 @@ class FTATest extends OsateTest {
 	 */
 	@Test
 	def void fta1Test1() {
-
 		val ft = CreateFTAModel.createFaultTree(instance1, stateFail)
 		assertEquals(ft.events.size, 3)
 		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
@@ -796,6 +774,29 @@ class FTATest extends OsateTest {
 		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
+	}
+
+		@Test
+	def void allTransitionBranchFaultTreeTest() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createFaultTree(instanceTransitionBranch, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
+		assertEquals(sube1.scale, 0.6, 0.001)
+	}
+		@Test
+	def void allTransitionBranchCutSetTest() {
+	val stateFailStop = "state FailStop"
+		val ft = CreateFTAModel.createMinimalCutSet(instanceTransitionBranch, stateFailStop)
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(0)
+		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
+		assertEquals(sube1.scale, 0.6, 0.001)
 	}
 	
 }
