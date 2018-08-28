@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.IClasspathEntry
 import org.eclipse.jdt.core.JavaCore
 import org.osate.aadl2.NamedElement
 import java.lang.reflect.Method
+import java.util.Collection
 
 class ExecuteJavaUtil {
 	// generic reflective invocation of Java methods.
@@ -29,7 +30,7 @@ class ExecuteJavaUtil {
 	}
 
 		// invoke method in workspace project
-	def Object invokeJavaMethod(String javaMethod, ArrayList<Class<?>> paramClasses,ArrayList<Object> paramActuals ) {
+	def Object invokeJavaMethod(String javaMethod, Collection<Class<?>> paramClasses,Collection<Object> paramActuals ) {
 		val i = javaMethod.lastIndexOf('.')
 		if (i == -1)
 			return null;
@@ -77,7 +78,7 @@ class ExecuteJavaUtil {
 	}
 	
 	// returns the Java method or null. 	
-	def Method getJavaMethod(String javaMethod, ArrayList<Class<?>> paramClasses) {
+	def Method getJavaMethod(String javaMethod, Collection<Class<?>> paramClasses) {
 		val i = javaMethod.lastIndexOf('.')
 		if (i == -1) {
 			return null
