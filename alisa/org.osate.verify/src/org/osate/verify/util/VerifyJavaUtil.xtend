@@ -61,7 +61,7 @@ class VerifyJavaUtil {
 		/*
 		 * return Java class for target type
 		 */
-		static def Class<?> classForTargetType(VerificationMethod vm) {
+		private static def Class<?> classForTargetType(VerificationMethod vm) {
 			switch (vm.targetType) {
 				case TargetType.FEATURE:
 					typeof(FeatureInstance)
@@ -86,7 +86,7 @@ class VerifyJavaUtil {
 			}
 		}
 
-		static def Class<?> classForParameter(FormalParameter fp, JavaMethod vm) {
+		private static def Class<?> classForParameter(FormalParameter fp, JavaMethod vm) {
 			val jparameters = vm.params
 			for (jp : jparameters) {
 				if (fp.name.equalsIgnoreCase(jp.name)) {
@@ -99,7 +99,7 @@ class VerifyJavaUtil {
 		/**
 		 * return Java Class for PropertyType
 		 */
-		static def Class<?> forName(PropertyType type) throws ClassNotFoundException {
+		private static def Class<?> forName(PropertyType type) throws ClassNotFoundException {
 			switch (type) {
 				AadlString: return typeof(String)
 				AadlReal: return typeof(RealLiteral)
@@ -111,7 +111,7 @@ class VerifyJavaUtil {
 		/**
 		 * return Java Class for class specified by name in JavaParameter
 		 */
-		static def Class<?> forName(String name) throws ClassNotFoundException {
+		private static def Class<?> forName(String name) throws ClassNotFoundException {
 			switch (name) {
 				case void.name:
 					return typeof(void)
@@ -157,7 +157,7 @@ class VerifyJavaUtil {
 		/*
 		 * convert actual to Java object if JavaParameter is specified 
 		 */
-		static def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm) {
+		private static def Object toJavaActual(FormalParameter formal, PropertyExpression actual, JavaMethod vm) {
 			val jparameters = vm.params
 			for (jp : jparameters) {
 				if (formal.name.equalsIgnoreCase(jp.name)) {
@@ -170,7 +170,7 @@ class VerifyJavaUtil {
 		/*
 		 * Convert AADL Property representation of string, boolean, integer, real to Java objects
 		 */
-		static def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
+		private static def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
 			var Object result = actual
 			switch (actual) {
 				RealLiteral:
