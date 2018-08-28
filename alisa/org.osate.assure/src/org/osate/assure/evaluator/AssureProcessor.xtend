@@ -88,10 +88,30 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.emf.common.util.EList
+import java.lang.reflect.Method
+import org.osate.alisa.common.common.TargetType
+import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.instance.ModeInstance
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.instance.InstancePackage
+import org.osate.verify.verify.JavaParameter
+import org.osate.aadl2.StringLiteral
+import java.util.Collection
+import org.osate.verify.util.VerifyJavaUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor, boolean save);
+	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor,
+		boolean save);
 
 	def void setProgressUpdater((URI)=>void progressUpdater)
 
@@ -124,7 +144,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	var CategoryFilter filter;
 	var boolean save = true
-	
+
 	var private static boolean RESOLUTE_INSTALLED;
 	var private static boolean AGREE_INSTALLED;
 
@@ -147,7 +167,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
-		progressmonitor.subTask(vaResult.target.name) 
+		progressmonitor.subTask(vaResult.target.name)
 		start = System.currentTimeMillis();
 	}
 
@@ -157,7 +177,8 @@ class AssureProcessor implements IAssureProcessor {
 		vaResult.metrics.executionTime = (stop - start)
 	}
 
-	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor, boolean save) {
+	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor,
+		boolean save) {
 		progressmonitor = monitor
 		this.filter = filter;
 		this.save = save;
@@ -172,9 +193,9 @@ class AssureProcessor implements IAssureProcessor {
 
 		updateRequirementsCoverage();
 	}
-	
-	def void saveAssureResult(AssureResult assureResult){
-		if (save && assureResult.eResource !== null){
+
+	def void saveAssureResult(AssureResult assureResult) {
+		if (save && assureResult.eResource !== null) {
 			assureResult.eResource.save(null)
 		}
 	}
@@ -283,7 +304,7 @@ class AssureProcessor implements IAssureProcessor {
 		var instanceroot = verificationResult.getAssuranceCaseInstanceModel(save)
 		if (instanceroot === null) {
 			setToError(verificationResult, "Could not find instance model", null)
- 			saveAssureResult(verificationResult)
+			saveAssureResult(verificationResult)
 			updateProgress(verificationResult)
 			return
 		}
@@ -291,7 +312,7 @@ class AssureProcessor implements IAssureProcessor {
 		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingSubsystemResult)
 		if (targetComponent === null) {
 			setToError(verificationResult, "Unresolved target system for claim", null)
- 			saveAssureResult(verificationResult)
+			saveAssureResult(verificationResult)
 			updateProgress(verificationResult)
 			return
 		}
@@ -302,7 +323,7 @@ class AssureProcessor implements IAssureProcessor {
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
- 			saveAssureResult(verificationResult)
+			saveAssureResult(verificationResult)
 			updateProgress(verificationResult)
 			return
 		}
@@ -323,7 +344,7 @@ class AssureProcessor implements IAssureProcessor {
 		if (parameters.size < method.formals.size) {
 			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
 				null)
- 			saveAssureResult(verificationResult)
+			saveAssureResult(verificationResult)
 			updateProgress(verificationResult)
 			return
 		}
@@ -348,7 +369,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult,
 						"Referenced formal parameter " + p.name + " of method " + method.name +
 							" does not have an actual value", null)
- 					saveAssureResult(verificationResult)
+					saveAssureResult(verificationResult)
 					updateProgress(verificationResult)
 					return
 				}
@@ -359,7 +380,7 @@ class AssureProcessor implements IAssureProcessor {
 				setToError(verificationResult,
 					"Actual parameter for " + formalParam.name + " of method " + method.name +
 						" does not have an actual value", null)
- 				saveAssureResult(verificationResult)
+				saveAssureResult(verificationResult)
 				updateProgress(verificationResult)
 				return
 			}
@@ -370,7 +391,7 @@ class AssureProcessor implements IAssureProcessor {
 				setToError(verificationResult,
 					"Could not evaluate expression for " + formalParam.name + " of method " + method.name + ": " +
 						result.ruleFailedException, null)
- 				saveAssureResult(verificationResult)
+				saveAssureResult(verificationResult)
 				updateProgress(verificationResult)
 				return
 			}
@@ -392,10 +413,6 @@ class AssureProcessor implements IAssureProcessor {
 		try {
 			val methodtype = method.methodKind
 			switch (methodtype) {
-				JavaMethod: {
-					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					executeJavaMethod(verificationResult, method, targetComponent, targetElement, parameterObjects)
-				}
 				PluginMethod: {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
@@ -471,14 +488,6 @@ class AssureProcessor implements IAssureProcessor {
 							"Analysis return type is not a string, Result, or AnalysisResult", targetComponent);
 					}
 				}
-				ResoluteMethod: {
-					if (RESOLUTE_INSTALLED) {
-						executeResoluteFunction(verificationResult, methodtype, instanceroot, targetComponent,
-							targetElement, parameterObjects)
-					} else {
-						setToError(verificationResult, "Resolute not installed")
-					}
-				}
 				AgreeMethod: {
 					if (AGREE_INSTALLED) {
 //					AssureUtilExtension.initializeResoluteContext(instanceroot);
@@ -510,6 +519,11 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				ManualMethod: {
 				}
+				default: {
+					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
+					executeVerificationMethod(verificationResult, method, targetComponent, targetElement, parameterObjects)
+				}
+				
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
@@ -518,7 +532,7 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (Throwable e) {
 			setToError(verificationResult, e);
 		}
- 		saveAssureResult(verificationResult)
+		saveAssureResult(verificationResult)
 		updateProgress(verificationResult)
 	}
 
@@ -629,46 +643,17 @@ class AssureProcessor implements IAssureProcessor {
 		return tmp.message
 	}
 
-	def void executeJavaMethod(VerificationResult verificationResult, VerificationMethod method,
-		ComponentInstance targetComponent, NamedElement targetElement, List<PropertyExpression> parameters) {
-		val InstanceObject target = if (targetElement !== null) {
-				if (targetElement.eIsProxy) {
-					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-					return
-				}
-				targetComponent.findElementInstance(targetElement)
-			} else {
-				targetComponent
-			}
 
-		if (target instanceof ConnectionInstance) {
-			val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
-			for (conni : conns) {
-				if (checkPropertyValues(verificationResult, conni)) {
-					executeJavaMethodOnce(verificationResult, method, conni, parameters)
-				}
-			}
-			// fix verification activity result state
-			if (verificationResult.issues.hasErrors) {
-				setToError(verificationResult)
-			} else if (verificationResult.issues.hasFailures) {
-				setToFail(verificationResult)
-			}
-		} else if (target !== null) {
-			if (!checkPropertyValues(verificationResult, target)) {
-				return
-			}
-			executeJavaMethodOnce(verificationResult, method, target, parameters)
-		} else {
-			setToError(verificationResult, "Could not find target element instance " + targetElement.name,
-				targetComponent)
-		}
-	}
-
-	def void executeResoluteFunction(VerificationResult verificationResult, ResoluteMethod resmethod,
-		SystemInstance root, ComponentInstance targetComponent, NamedElement targetElement,
-		List<PropertyExpression> parameters) {
-			val fundef = resmethod.methodReference
+		// ----------------------------
+		// Execution of Verification methods
+		// ----------------------------
+		/*
+		 * lookup targetElement and handle connection instances
+		 * check on properties
+		 * Then call on ExecuteMethodOnce, which handles Java and Resolute
+		 */
+		def void executeVerificationMethod(VerificationResult verificationResult, VerificationMethod method,
+			ComponentInstance targetComponent, NamedElement targetElement, List<PropertyExpression> parameters) {
 			val InstanceObject target = if (targetElement !== null) {
 					if (targetElement.eIsProxy) {
 						setToError(verificationResult, "Unresolved target element for claim", targetComponent)
@@ -683,21 +668,7 @@ class AssureProcessor implements IAssureProcessor {
 				val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
 				for (conni : conns) {
 					if (checkPropertyValues(verificationResult, conni)) {
-						val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root,
-							targetComponent, conni, parameters)
-						if (!d.issues.empty) {
-							verificationResult.issues += d.issues
-						}
-						if (d.message !== null) {
-							verificationResult.message = d.message
-						}
-						if (d.type == DiagnosticType.SUCCESS) {
-							setToSuccess(verificationResult)
-						} else if (d.type == DiagnosticType.FAILURE) {
-							setToFail(verificationResult)
-						} else if (d.type == DiagnosticType.ERROR) {
-							setToError(verificationResult)
-						}
+						verificationResult.executeMethodOnce( method, targetComponent,conni, parameters)
 					}
 				}
 				// fix verification activity result state
@@ -707,23 +678,8 @@ class AssureProcessor implements IAssureProcessor {
 					setToFail(verificationResult)
 				}
 			} else if (target !== null) {
-				if (!checkPropertyValues(verificationResult, target)) {
-					return
-				}
-				val d = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, root, targetComponent, target,
-					parameters)
-				if (!d.issues.empty) {
-					verificationResult.issues += d.issues
-				}
-				if (d.message !== null) {
-					verificationResult.message = d.message
-				}
-				if (d.type == DiagnosticType.SUCCESS) {
-					setToSuccess(verificationResult)
-				} else if (d.type == DiagnosticType.FAILURE) {
-					setToFail(verificationResult)
-				} else if (d.type == DiagnosticType.ERROR) {
-					setToError(verificationResult)
+				if (checkPropertyValues(verificationResult, target)) {
+					verificationResult.executeMethodOnce( method, targetComponent,target, parameters)
 				}
 			} else {
 				setToError(verificationResult, "Could not find target element instance " + targetElement.name,
@@ -731,21 +687,40 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-		def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
-			if (verificationResult instanceof VerificationActivityResult) {
-				return checkProperties(target, verificationResult)
+		def void executeMethodOnce(VerificationResult verificationResult, VerificationMethod method, ComponentInstance targetComponent,
+			InstanceObject target, List<PropertyExpression> parameters) {
+			val methodtype = method.methodKind
+			switch (methodtype){
+				JavaMethod: {
+					executeJavaMethodOnce(verificationResult,method, target, parameters);
+				}
+				ResoluteMethod: {
+					if (RESOLUTE_INSTALLED) {
+						val fundef = methodtype.methodReference
+						ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef,  targetComponent, target,
+						parameters)
+					} else {
+						setToError(verificationResult, "Resolute not installed")
+					}
+				}
 			}
-			true
 		}
 
 		def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 			InstanceObject target, List<PropertyExpression> parameters) {
 			val methodtype = method.methodKind as JavaMethod
-			val returned = VerificationMethodDispatchers.eInstance.invokeJavaMethod(methodtype, target, parameters)
+			val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
+			val objects = VerifyJavaUtil.getActualJavaObjects(methodtype,target,parameters)
+			val returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
 			processExecutionResult(verificationResult, method, target, returned)
 		}
-		
-		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method, InstanceObject target, Object returned){
+
+		/*
+		 * process execution results
+		 * We interpret boolean, Diagnostic, Result, AnalysisResult. We also interpret any returned object other than the previous as compute variable 
+		 */
+		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method,
+			InstanceObject target, Object returned) {
 			if (returned !== null) {
 				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 					if (returned != true) {
@@ -776,40 +751,40 @@ class AssureProcessor implements IAssureProcessor {
 						evaluateComputePredicate(verificationResult, method, returned)
 					}
 				} else if (returned instanceof AnalysisResult) {
-						var foundResult = false
-						for (Result r : returned.results) {
-							// we may encounter more than one Result
-							// TODO address this when we are able to use Result objects in Assure.
-							if (r.sourceReference === target) {
-								foundResult = true
-								val issues = r.diagnostics
-								if (hasErrors(r) || hasFailures(r)) {
-									// the analysis as a whole is in Error
-									// or the specific result that matches the target Failed
-									setToFail(verificationResult)
-								} else {
-									setToSuccess(verificationResult)
-								}
-								for (issue : issues) {
-									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR) {
-										// analysis reports failure as error
-										c.type = DiagnosticType.FAILURE
-									}
-									verificationResult.issues.add(c)
-								}
+					var foundResult = false
+					for (Result r : returned.results) {
+						// we may encounter more than one Result
+						// TODO address this when we are able to use Result objects in Assure.
+						if (r.sourceReference === target) {
+							foundResult = true
+							val issues = r.diagnostics
+							if (hasErrors(r) || hasFailures(r)) {
+								// the analysis as a whole is in Error
+								// or the specific result that matches the target Failed
+								setToFail(verificationResult)
+							} else {
+								setToSuccess(verificationResult)
 							}
-							if (verificationResult instanceof VerificationActivityResult) {
-								evaluateComputePredicate(verificationResult, method, r)
+							for (issue : issues) {
+								val c = EcoreUtil.copy(issue)
+								if (c.type === DiagnosticType.ERROR) {
+									// analysis reports failure as error
+									c.type = DiagnosticType.FAILURE
+								}
+								verificationResult.issues.add(c)
 							}
 						}
-						if (! foundResult) {
-							// requirement target does not match Result source reference
-							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
-							// does not include a 'for' <target model element>
-							setToError(verificationResult,
-								"No Result found for requirement verification target " + target.name, target)
+						if (verificationResult instanceof VerificationActivityResult) {
+							evaluateComputePredicate(verificationResult, method, r)
 						}
+					}
+					if (! foundResult) {
+						// requirement target does not match Result source reference
+						// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+						// does not include a 'for' <target model element>
+						setToError(verificationResult,
+							"No Result found for requirement verification target " + target.name, target)
+					}
 				} else if (method.results.size == 1) {
 					// set compute variable value from the returned value
 					if (verificationResult instanceof VerificationActivityResult) {
@@ -831,10 +806,14 @@ class AssureProcessor implements IAssureProcessor {
 						target);
 				}
 			}
-			
+
 		}
-		
-		def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method, Result returned){
+
+		/*
+		 * evaluate value predicate with compute variable results bound
+		 */
+		def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
+			Result returned) {
 			val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
 			val formalIter = method.results.iterator
 			val vals = returned.values
@@ -853,69 +832,76 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		}
 
-		def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
-			val method = vaResult.method
-			val properties = method.properties
-			val exps = vaResult.target.propertyValues
+		/*
+		 * check property values in method specification
+		 */
+		def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
+			if (verificationResult instanceof VerificationActivityResult) {
+				val method = verificationResult.method
+				val properties = method.properties
+				val exps = verificationResult.target.propertyValues
 
-			val propIter = properties.iterator
-			val expIter = exps.iterator
-			var success = true;
+				val propIter = properties.iterator
+				val expIter = exps.iterator
+				var success = true;
 
-			while (propIter.hasNext && expIter.hasNext) {
-				val property = propIter.next
-				val exp = expIter.next
+				while (propIter.hasNext && expIter.hasNext) {
+					val property = propIter.next
+					val exp = expIter.next
 
-				try {
-					val expResult = interpreter.interpretExpression(env, exp)
-					if (expResult.failed) {
-						setToError(vaResult, "Could not evaluate expression for " + property.name + ": " +
-							expResult.ruleFailedException, null)
-						success = false
-					} else {
-						var PropertyValue modelPropValue = null
-						val propertyIsSet = try {
-								val modelExp = io.getSimplePropertyValue(property)
-								modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
-								true
-							} catch (PropertyNotPresentException e) {
-								false
-							}
-						val value = expResult.value
-						if (propertyIsSet) {
-							if (value instanceof NumberValue) {
-								val unit = value.unit
-								val reqValue = value.getScaledValue(unit)
-								val modelValue = PropertyUtils.getScaledNumberValue(io, property, unit)
+					try {
+						val expResult = interpreter.interpretExpression(env, exp)
+						if (expResult.failed) {
+							setToError(verificationResult, "Could not evaluate expression for " + property.name + ": " +
+								expResult.ruleFailedException, null)
+							success = false
+						} else {
+							var PropertyValue modelPropValue = null
+							val propertyIsSet = try {
+									val modelExp = target.getSimplePropertyValue(property)
+									modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
+									true
+								} catch (PropertyNotPresentException e) {
+									false
+								}
+							val value = expResult.value
+							if (propertyIsSet) {
+								if (value instanceof NumberValue) {
+									val unit = value.unit
+									val reqValue = value.getScaledValue(unit)
+									val modelValue = PropertyUtils.getScaledNumberValue(target, property, unit)
 
-								if (reqValue != modelValue) {
-									vaResult.addFailIssue(io,
-										"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
-											unit.name + ") does not match required value (" + reqValue + unit.name +
-											")")
-											vaResult.setToFail
-										}
-									} else {
-										if (value != modelPropValue) {
-											vaResult.addFailIssue(io,
-												"Property " + property.getQualifiedName() + ": Value in model (" +
-													modelPropValue + ") does not match required value (" + value + ")")
-											vaResult.setToFail
-										}
+									if (reqValue != modelValue) {
+										verificationResult.addFailIssue(target,
+											"Property " + property.getQualifiedName() + ": Value in model (" +
+												modelValue + unit.name + ") does not match required value (" +
+												reqValue + unit.name + ")")
+										verificationResult.setToFail
 									}
 								} else {
-									// set property
-									val pa = io.createOwnedPropertyAssociation
-									pa.property = property
-									val mpv = pa.createOwnedValue
-									mpv.setOwnedValue(EcoreUtil.copy(value))
+									if (value != modelPropValue) {
+										verificationResult.addFailIssue(target,
+											"Property " + property.getQualifiedName() + ": Value in model (" +
+												modelPropValue + ") does not match required value (" + value + ")")
+										verificationResult.setToFail
+									}
 								}
+							} else {
+								// set property
+								val pa = target.createOwnedPropertyAssociation
+								pa.property = property
+								val mpv = pa.createOwnedValue
+								mpv.setOwnedValue(EcoreUtil.copy(value))
 							}
-						} catch (Exception e) {
-							vaResult.setToError("Could not process property " + property.name)
 						}
+					} catch (Exception e) {
+						verificationResult.setToError("Could not process property " + property.name)
 					}
-					success
 				}
+				return success
+			} else {
+				return true
 			}
-			
+		}
+	}
+	

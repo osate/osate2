@@ -114,11 +114,11 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Diagnostic executeResoluteFunctionOnce(EObject fundef, final SystemInstance instanceroot,
+	public Diagnostic executeResoluteFunctionOnce(EObject fundef,
 			final ComponentInstance targetComponent, final InstanceObject targetElement,
 			List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = (FunctionDefinition) fundef;
-		initializeResoluteContext(instanceroot);
+		initializeResoluteContext(targetComponent.getSystemInstance());
 		EvaluationContext context = new EvaluationContext(targetComponent, sets, featToConnsMap);
 		// check for claim function
 		FnCallExpr fcncall = createWrapperFunctionCall(fd, targetComponent, targetElement, parameterObjects);

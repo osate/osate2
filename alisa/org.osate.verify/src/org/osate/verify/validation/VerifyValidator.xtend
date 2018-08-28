@@ -58,6 +58,7 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.common.common.TargetType
+import org.osate.verify.util.VerifyJavaUtil
 
 /**
  * Custom validation rules. 
@@ -93,7 +94,8 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
-		val result = VerificationMethodDispatchers.eInstance.getJavaMethod(method)
+		val params = VerifyJavaUtil.getParameterClasses(method)
+		val result = ExecuteJavaUtil.eInstance.getJavaMethod(method.methodPath, params)
 		if (result === null) {
 			warning("Could not find method: " + method.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
