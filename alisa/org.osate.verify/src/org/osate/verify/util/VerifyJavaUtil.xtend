@@ -28,6 +28,12 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.verify.verify.JavaParameter
 import org.osate.aadl2.StringLiteral
+import org.osate.alisa.common.common.ModelRef
+import org.eclipse.emf.ecore.EObject
+import org.osate.alisa.common.common.TypeRef
+import org.osate.alisa.common.common.PropertyRef
+import org.osate.aadl2.UnitLiteral
+import org.osate.aadl2.NumberType
 
 class VerifyJavaUtil {
 
@@ -87,25 +93,56 @@ class VerifyJavaUtil {
 		}
 
 		private static def Class<?> classForParameter(FormalParameter fp, JavaMethod vm) {
+			// TODO deprecated we do not need to java parameter specification
 			val jparameters = vm.params
 			for (jp : jparameters) {
 				if (fp.name.equalsIgnoreCase(jp.name)) {
 					return forName(jp.parameterType)
 				}
 			}
-			forName(fp.type)
-		}
-
-		/**
-		 * return Java Class for PropertyType
-		 */
-		private static def Class<?> forName(PropertyType type) throws ClassNotFoundException {
+			val type = fp.type
 			switch (type) {
 				AadlString: return typeof(String)
-				AadlReal: return typeof(RealLiteral)
-				AadlInteger: return typeof(IntegerLiteral)
-				AadlBoolean: return typeof(BooleanLiteral)
+				NumberType: { 
+					classForNumberType(type,fp.unit)
+					}
+				AadlBoolean: return typeof(Boolean)
+				ModelRef: return typeof(EObject)
+				TypeRef: {
+					val pt = type.ref
+					if (pt instanceof NumberType){
+						return classForNumberType(pt,fp.unit)
+					}
+					return pt.class
+				}
+				PropertyRef: {
+					val pt = type.ref.propertyType
+					if (pt instanceof NumberType){
+						return classForNumberType(pt,fp.unit)
+					}
+					return pt.class
+				}
 			}
+		}
+		
+		private static def Class<?> classForNumberType(PropertyType type, UnitLiteral inUnit){
+						switch (type) {
+				AadlReal: { 
+					if (inUnit === null){
+						return typeof(RealLiteral)
+					} else {
+						return typeof(double)
+					}
+				}
+				AadlInteger: {
+					if (inUnit === null){
+						return typeof(IntegerLiteral)
+					} else {
+						return typeof(long)
+					}
+				}
+			}
+			
 		}
 
 		/**
