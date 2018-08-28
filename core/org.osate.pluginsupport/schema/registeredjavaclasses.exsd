@@ -41,62 +41,10 @@
 
    <element name="class">
       <complexType>
-          <sequence>
-            <element ref="method" minOccurs="0" maxOccurs="unbounded"/>
-         </sequence>
          <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
                Java class qualified by package name
-                </documentation>
-               <appInfo>
-                </appInfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="method">
-      <complexType>
-           <sequence>
-            <element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
-         </sequence>
-         <attribute name="name" type="string" use="required">
-            <annotation>
-               <documentation>
-               method name within class
-                </documentation>
-               <appInfo>
-                </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="returns" type="string" use="required">
-            <annotation>
-               <documentation>
-               type of return value
-                </documentation>
-               <appInfo>
-                </appInfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="parameter">
-      <complexType>
-         <attribute name="type" type="string" use="required">
-            <annotation>
-               <documentation>
-               parameter type
-                </documentation>
-               <appInfo>
-                </appInfo>
-            </annotation>
-         </attribute>
-          <attribute name="name" type="string" >
-            <annotation>
-               <documentation>
-               parameter name
                 </documentation>
                <appInfo>
                 </appInfo>

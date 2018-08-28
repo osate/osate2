@@ -5,45 +5,9 @@
          point="org.osate.pluginsupport.registeredjavaclasses">
       <class
             path="alisa_consistency.ModelConditions">
-            <method name="isLeafComponent" returns="boolean">
-             	<parameter type="EObject"/>
-             </method>
       </class>
       <class
             path="alisa_consistency.ModelVerifications">
-             <method name="isLeafComponent" returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="isConnected"  returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="isConnected"  returns="boolean">
-             	<parameter type="FeatureInstance"/>
-             </method>
-             <method name="allComponentFeaturesConnected"  returns="Result">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="twoPowerInlets"  returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="hasVoltage" returns="boolean">
-             	<parameter type="FeatureInstance"/>
-            	<parameter type="double" name="v"/>
-             </method>
-             <method name="hasWattageBudget"  returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             	<parameter type="String"/>
-            	<parameter type="double" name="w"/>
-             </method>
-             <method name="sameVoltage"  returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="samePowerBudget"  returns="boolean">
-             	<parameter type="ComponentInstance"/>
-             </method>
-             <method name="getVoltage"  returns="double" >
-             	<parameter type="FeatureInstance" name="v"/>
-             </method>
        </class>
    </extension>
 

@@ -396,9 +396,6 @@
          point="org.osate.pluginsupport.registeredjavaclasses">
       <class
             path="org.osate.analysis.architecture.PropertyTotals">
-              <method name="invoke"  returns="AnalysisResult">
-             	<parameter type="ComponentInstance"/>
-             </method>
       </class>
    </extension>
    
