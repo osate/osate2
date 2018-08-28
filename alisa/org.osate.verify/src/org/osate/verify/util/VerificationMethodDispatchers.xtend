@@ -16,37 +16,13 @@
 
 package org.osate.verify.util
 
-import java.lang.reflect.Method
-import java.util.ArrayList
 import java.util.List
-import org.eclipse.emf.common.util.EList
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlString
 import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.PropertyExpression
-import org.osate.aadl2.PropertyType
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.StringLiteral
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.aadl2.instance.EndToEndFlowInstance
-import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.instance.InstancePackage
-import org.osate.aadl2.instance.ModeInstance
-import org.osate.alisa.common.util.ExecuteJavaUtil
-import org.osate.verify.verify.FormalParameter
-import org.osate.verify.verify.JavaMethod
-import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.PluginMethod
-import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
-import org.osate.alisa.common.common.TargetType
 
 class VerificationMethodDispatchers {
 
