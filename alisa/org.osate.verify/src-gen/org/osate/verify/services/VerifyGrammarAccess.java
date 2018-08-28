@@ -1306,11 +1306,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cResultsAssignment_2_4_2_1_1 = (Assignment)cGroup_2_4_2_1.eContents().get(1);
 		private final RuleCall cResultsFormalParameterParserRuleCall_2_4_2_1_1_0 = (RuleCall)cResultsAssignment_2_4_2_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_4_3 = (Keyword)cGroup_2_4.eContents().get(3);
-		private final Alternatives cAlternatives_2_5 = (Alternatives)cGroup_2.eContents().get(5);
-		private final Assignment cIsPredicateAssignment_2_5_0 = (Assignment)cAlternatives_2_5.eContents().get(0);
-		private final Keyword cIsPredicateBooleanKeyword_2_5_0_0 = (Keyword)cIsPredicateAssignment_2_5_0.eContents().get(0);
-		private final Assignment cIsResultReportAssignment_2_5_1 = (Assignment)cAlternatives_2_5.eContents().get(1);
-		private final Keyword cIsResultReportReportKeyword_2_5_1_0 = (Keyword)cIsResultReportAssignment_2_5_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -1344,21 +1339,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 		//	targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
 		//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//	')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
-		//	isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//	| componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
-		//	precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
-		//	category+=[categories::Category|QualifiedName]+)?) ']';
+		//	')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')?)? (':' title=STRING)? ('for'
+		//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+))? '['
+		//	(methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
+		//	validation=VerificationValidation? & ('category' category+=[categories::Category|QualifiedName]+)?) ']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 		//targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
 		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
-		//isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
-		//componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
-		//precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
-		//category+=[categories::Category|QualifiedName]+)?) ']'
+		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')?)? (':' title=STRING)? ('for'
+		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+))? '['
+		//(methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
+		//validation=VerificationValidation? & ('category' category+=[categories::Category|QualifiedName]+)?) ']'
 		public Group getGroup() { return cGroup; }
 
 		//'method'
@@ -1373,8 +1366,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
 		//formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
 		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
-		//isResultReport?='report')?)?
+		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//'('
@@ -1516,21 +1508,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//')'
 		public Keyword getRightParenthesisKeyword_2_4_3() { return cRightParenthesisKeyword_2_4_3; }
-
-		//(isPredicate?='boolean' | isResultReport?='report')?
-		public Alternatives getAlternatives_2_5() { return cAlternatives_2_5; }
-
-		//isPredicate?='boolean'
-		public Assignment getIsPredicateAssignment_2_5_0() { return cIsPredicateAssignment_2_5_0; }
-
-		//'boolean'
-		public Keyword getIsPredicateBooleanKeyword_2_5_0_0() { return cIsPredicateBooleanKeyword_2_5_0_0; }
-
-		//isResultReport?='report'
-		public Assignment getIsResultReportAssignment_2_5_1() { return cIsResultReportAssignment_2_5_1; }
-
-		//'report'
-		public Keyword getIsResultReportReportKeyword_2_5_1_0() { return cIsResultReportReportKeyword_2_5_1_0; }
 
 		//(':' title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -2178,11 +2155,10 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 	//	targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
 	//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-	//	')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
-	//	isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference]
-	//	| componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
-	//	precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
-	//	category+=[categories::Category|QualifiedName]+)?) ']';
+	//	')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')?)? (':' title=STRING)? ('for'
+	//	(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+))? '['
+	//	(methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
+	//	validation=VerificationValidation? & ('category' category+=[categories::Category|QualifiedName]+)?) ']';
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;
 	}

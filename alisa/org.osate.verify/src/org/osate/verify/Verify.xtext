@@ -143,7 +143,6 @@ VerificationMethod:
 			(results+=FormalParameter (',' results+=FormalParameter)*)? 
 			')'
 		)?
-		(isPredicate?='boolean'|isResultReport?='report')?
 	)? 
 	(':' title=STRING)?
 	( 'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+ ))?
