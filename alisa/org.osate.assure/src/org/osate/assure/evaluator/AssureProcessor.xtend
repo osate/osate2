@@ -722,7 +722,7 @@ class AssureProcessor implements IAssureProcessor {
 		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method,
 			InstanceObject target, Object returned) {
 			if (returned !== null) {
-				if (returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
+				if (returned instanceof Boolean && method.results.empty) {
 					if (returned != true) {
 						setToFail(verificationResult);
 					} else {
@@ -802,7 +802,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 					setToSuccess(verificationResult)
 				} else {
-					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
+					setToError(verificationResult, "Expected more than one result value as AnalysisResult or Result",
 						target);
 				}
 			}

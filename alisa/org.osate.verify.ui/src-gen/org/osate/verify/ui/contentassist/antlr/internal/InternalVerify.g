@@ -2262,28 +2262,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationMethod__Alternatives_2_5
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getVerificationMethodAccess().getIsPredicateAssignment_2_5_0()); }
-(rule__VerificationMethod__IsPredicateAssignment_2_5_0)
-{ after(grammarAccess.getVerificationMethodAccess().getIsPredicateAssignment_2_5_0()); }
-)
-
-    |(
-{ before(grammarAccess.getVerificationMethodAccess().getIsResultReportAssignment_2_5_1()); }
-(rule__VerificationMethod__IsResultReportAssignment_2_5_1)
-{ after(grammarAccess.getVerificationMethodAccess().getIsResultReportAssignment_2_5_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__VerificationMethod__Alternatives_4_1
     @init {
 		int stackSize = keepStackSize();
@@ -8397,7 +8375,6 @@ rule__VerificationMethod__Group_2__4
     }
 :
 	rule__VerificationMethod__Group_2__4__Impl
-	rule__VerificationMethod__Group_2__5
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -8418,36 +8395,6 @@ rule__VerificationMethod__Group_2__4__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-rule__VerificationMethod__Group_2__5
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__VerificationMethod__Group_2__5__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__VerificationMethod__Group_2__5__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getVerificationMethodAccess().getAlternatives_2_5()); }
-(rule__VerificationMethod__Alternatives_2_5)?
-{ after(grammarAccess.getVerificationMethodAccess().getAlternatives_2_5()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
 
 
 
@@ -16926,52 +16873,6 @@ rule__VerificationMethod__ResultsAssignment_2_4_2_1_1
 (
 { before(grammarAccess.getVerificationMethodAccess().getResultsFormalParameterParserRuleCall_2_4_2_1_1_0()); }
 	ruleFormalParameter{ after(grammarAccess.getVerificationMethodAccess().getResultsFormalParameterParserRuleCall_2_4_2_1_1_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__VerificationMethod__IsPredicateAssignment_2_5_0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getVerificationMethodAccess().getIsPredicateBooleanKeyword_2_5_0_0()); }
-(
-{ before(grammarAccess.getVerificationMethodAccess().getIsPredicateBooleanKeyword_2_5_0_0()); }
-
-	'boolean' 
-
-{ after(grammarAccess.getVerificationMethodAccess().getIsPredicateBooleanKeyword_2_5_0_0()); }
-)
-
-{ after(grammarAccess.getVerificationMethodAccess().getIsPredicateBooleanKeyword_2_5_0_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__VerificationMethod__IsResultReportAssignment_2_5_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getVerificationMethodAccess().getIsResultReportReportKeyword_2_5_1_0()); }
-(
-{ before(grammarAccess.getVerificationMethodAccess().getIsResultReportReportKeyword_2_5_1_0()); }
-
-	'report' 
-
-{ after(grammarAccess.getVerificationMethodAccess().getIsResultReportReportKeyword_2_5_1_0()); }
-)
-
-{ after(grammarAccess.getVerificationMethodAccess().getIsResultReportReportKeyword_2_5_1_0()); }
 )
 
 ;

@@ -55,7 +55,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCompositeEvidenceExprAccess().getAlternatives(), "rule__CompositeEvidenceExpr__Alternatives");
 					put(grammarAccess.getFormalParameterAccess().getAlternatives_2(), "rule__FormalParameter__Alternatives_2");
 					put(grammarAccess.getVerificationMethodAccess().getAlternatives_2_1(), "rule__VerificationMethod__Alternatives_2_1");
-					put(grammarAccess.getVerificationMethodAccess().getAlternatives_2_5(), "rule__VerificationMethod__Alternatives_2_5");
 					put(grammarAccess.getVerificationMethodAccess().getAlternatives_4_1(), "rule__VerificationMethod__Alternatives_4_1");
 					put(grammarAccess.getMethodKindAccess().getAlternatives(), "rule__MethodKind__Alternatives");
 					put(grammarAccess.getAgreeMethodAccess().getAlternatives_1(), "rule__AgreeMethod__Alternatives_1");
@@ -308,8 +307,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodAccess().getPropertiesAssignment_2_3_2_1_1(), "rule__VerificationMethod__PropertiesAssignment_2_3_2_1_1");
 					put(grammarAccess.getVerificationMethodAccess().getResultsAssignment_2_4_2_0(), "rule__VerificationMethod__ResultsAssignment_2_4_2_0");
 					put(grammarAccess.getVerificationMethodAccess().getResultsAssignment_2_4_2_1_1(), "rule__VerificationMethod__ResultsAssignment_2_4_2_1_1");
-					put(grammarAccess.getVerificationMethodAccess().getIsPredicateAssignment_2_5_0(), "rule__VerificationMethod__IsPredicateAssignment_2_5_0");
-					put(grammarAccess.getVerificationMethodAccess().getIsResultReportAssignment_2_5_1(), "rule__VerificationMethod__IsResultReportAssignment_2_5_1");
 					put(grammarAccess.getVerificationMethodAccess().getTitleAssignment_3_1(), "rule__VerificationMethod__TitleAssignment_3_1");
 					put(grammarAccess.getVerificationMethodAccess().getTargetAssignment_4_1_0(), "rule__VerificationMethod__TargetAssignment_4_1_0");
 					put(grammarAccess.getVerificationMethodAccess().getComponentCategoryAssignment_4_1_1(), "rule__VerificationMethod__ComponentCategoryAssignment_4_1_1");
