@@ -38,7 +38,7 @@ import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
@@ -104,7 +104,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkClassPath(JUnit4Method method) {
-		val result = ExecuteJavaUtil.eInstance.findClass(method.classPath)
+		val result = ExecuteJavaUtil.eInstance.getJavaClass(method.classPath)
 		if (result === null) {
 			warning("Could not find JUnit4 test class: " + method.classPath,
 				VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH, INCORRECT_CLASS_PATH)

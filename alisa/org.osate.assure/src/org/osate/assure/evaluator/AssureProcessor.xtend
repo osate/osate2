@@ -44,7 +44,7 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -506,7 +506,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				JUnit4Method: {
-					val test = ExecuteJavaUtil.eInstance.findClass(methodtype.classPath);
+					val test = ExecuteJavaUtil.eInstance.getJavaClass(methodtype.classPath);
 					val junit = new JUnitCore();
 					val result = junit.run(test);
 					if (result.failureCount == 0) {

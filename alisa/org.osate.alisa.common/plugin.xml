@@ -10,7 +10,4 @@
        genModel = "model/generated/Common.genmodel" /> 
 	
   </extension>
-
-
-
 </plugin>
