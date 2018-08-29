@@ -40,6 +40,10 @@ import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.analysis.scheduling.inversion.PriorityInversion;
 import org.osate.ui.actions.AbstractAnalysis;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class CheckPriorityInversionAnalysis extends AbstractAnalysis {
 
 	protected boolean runImpl() {
