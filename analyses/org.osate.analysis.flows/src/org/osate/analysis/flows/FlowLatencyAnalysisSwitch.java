@@ -567,6 +567,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
 				subContributor.reportInfo("Using specified bus latency");
 			} else {
+				//XXX: [Code Coverage] Only executable if maxBusTransferTime or maxBusLatency is negative.
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
 
@@ -578,6 +579,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.setMinimum(minBusLatency);
 				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
 			} else {
+				//XXX: [Code Coverage] Only executable if minBusTransferTime or minBusLatency is negative.
 				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
 			latencyContributor.addSubContributor(subContributor);

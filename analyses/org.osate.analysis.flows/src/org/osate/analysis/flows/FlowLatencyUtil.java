@@ -79,6 +79,7 @@ public class FlowLatencyUtil {
 	public static boolean isPreviousConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		//XXX: [Code Coverage] Only called if there is a previous connection.
 		if ((previousElement != null)) {
 			return (getConnectionType(previousElement) == ConnectionType.IMMEDIATE);
 		}
@@ -99,6 +100,7 @@ public class FlowLatencyUtil {
 	public static boolean isPreviousConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
+		//XXX: [Code Coverage] Only called if there is a previous connection.
 		if ((nextElement != null)) {
 			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
 		}
@@ -347,10 +349,7 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		double res = 0.0;
-		/*
-		 * XXX: [Code Coverage] schedule is never empty. Could be empty after fixing
-		 * https://github.com/osate/osate2-core/issues/1127
-		 */
+		//XXX: [Code Coverage] schedule is never null.
 		if ((schedule == null) || (schedule.size() == 0)) {
 			return res;
 		}
@@ -361,10 +360,7 @@ public class FlowLatencyUtil {
 
 			res = res + window.getTime();
 		}
-		/*
-		 * XXX: [Code Coverage] partition is always in schedule. Could be covered after fixing
-		 * https://github.com/osate/osate2-core/issues/1127
-		 */
+		//XXX: [Code Coverage] partition is always in schedule.
 		return 0.0;
 	}
 

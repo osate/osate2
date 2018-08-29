@@ -61,7 +61,11 @@ class FlowLatencyCodeCoverageTest {
 			"required_vb1",
 			"required_vb2",
 			"transmission_time1",
-			"transmission_time2"
+			"transmission_time2",
+			"not_in_schedule",
+			"no_parition_latency",
+			"negative_time",
+			"other_parition_in_schedule"
 		]
 		pkgNames.forEach[pkgName |
 			testHelper.parseFile(DIR_NAME + pkgName + ".aadl") => [
@@ -69,11 +73,12 @@ class FlowLatencyCodeCoverageTest {
 				publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 					instantiate => [
 						"s1_i1_Instance".assertEquals(name)
-						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
-						val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
 						
 						val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
 						val actual = analysis.invoke(it, it.systemOperationModes.head)
+						
+						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
+						val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
 						
 						expected.assertAnalysisResult(actual)
 					]
