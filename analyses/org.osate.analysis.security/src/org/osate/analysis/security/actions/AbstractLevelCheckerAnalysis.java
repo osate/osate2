@@ -43,6 +43,10 @@ import org.osate.analysis.security.LevelComparator;
 import org.osate.ui.actions.AbstractAnalysis;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis {
 	protected static final LevelComparator sourceMustBeGreater = new LevelComparator() {
 		public boolean compareLevels(final long src, final long dest) {

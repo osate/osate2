@@ -36,6 +36,10 @@ package org.osate.analysis.security.actions;
 import org.osate.analysis.security.LevelComparator;
 import org.osate.contribution.sei.names.SEI;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class CheckSecurityAnalysis extends AbstractLevelCheckerAnalysis {
 	protected String getLevelPropertyPropertySet() {
 		return SEI._NAME;

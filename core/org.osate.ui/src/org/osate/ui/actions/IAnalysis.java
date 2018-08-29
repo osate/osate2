@@ -52,8 +52,9 @@ import org.eclipse.emf.common.util.URI;
  * Instead, a new <code>IAnalysis</code> object should be created.
  *
  * @author jseibel
- *
+ * @deprecated Will be removed in 2.3.6.
  */
+@Deprecated
 public interface IAnalysis {
 	/**
 	 * Depending on the analysis, the parameter is the model,
