@@ -74,6 +74,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.Result
 import org.osate.result.util.ResultUtil
+import org.osate.reqspec.reqSpec.Requirement
 
 class AssureUtilExtension {
 
@@ -163,7 +164,7 @@ class AssureUtilExtension {
 		return getReferencedClaim(qc.requirement, qc.verificationPlan.claim)
 	}
 
-	def static getTarget(ClaimResult cr) {
+	def static Requirement getTarget(ClaimResult cr) {
 		var qualreqref = cr.targetReference.requirement
 		while (qualreqref.sub !== null)
 			qualreqref = qualreqref.sub

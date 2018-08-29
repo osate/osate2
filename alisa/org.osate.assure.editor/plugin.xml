@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ 
+ NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
+ MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
+ WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
+ BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
+ EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
+ UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
+ PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ 
+ Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ 
+ See COPYRIGHT file for full details.
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated Assure -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.osate.assure.assure.presentation.AssureModelWizardID"
+            name="%_UI_AssureModelWizard_label"
+            class="org.osate.assure.assure.presentation.AssureModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/AssureModelFile.gif">
+         <description>%_UI_AssureModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated Assure -->
+      <editor
+            id="org.osate.assure.assure.presentation.AssureEditorID"
+            name="%_UI_AssureEditor_label"
+            icon="icons/full/obj16/AssureModelFile.gif"
+            extensions="xassure"
+            class="org.osate.assure.assure.presentation.AssureEditor"
+            contributorClass="org.osate.assure.assure.presentation.AssureActionBarContributor">
+      </editor>
+   </extension>
+</plugin>
