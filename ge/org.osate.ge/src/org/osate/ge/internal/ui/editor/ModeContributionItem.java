@@ -8,9 +8,11 @@
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.jface.viewers.ComboViewer;
@@ -20,8 +22,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.ui.util.UiUtil;
@@ -36,7 +41,8 @@ public class ModeContributionItem extends ComboContributionItem {
 	private static final String selectedModePropertyKey = "org.osate.ge.ui.editor.selectedMode";
 	private static final StandaloneQuery modeContainerQuery = StandaloneQuery.create((rootQuery) -> rootQuery
 			.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
-					|| fa.getBusinessObject() instanceof Subcomponent));
+					|| fa.getBusinessObject() instanceof Subcomponent
+					|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor;
 
 	public ModeContributionItem(final String id) {
@@ -152,12 +158,21 @@ public class ModeContributionItem extends ComboContributionItem {
 	 * @return
 	 */
 	private static Stream<ModeFeatureReference> getModeFeatureReferences(final DiagramNode modeContainer) {
+		if (modeContainer.getBusinessObject() instanceof ComponentInstance) {
+			return AadlClassifierUtil.getComponentInstance(modeContainer)
+					.filter(ci -> ci.getComponentClassifier() instanceof ComponentImplementation
+							&& (!ci.getModeInstances().isEmpty() || !ci.getModeTransitionInstances().isEmpty()))
+					.map(ci -> Stream.concat(ci.getModeInstances().stream(), ci.getModeTransitionInstances().stream()))
+					.orElse(Stream.empty()).map(ob -> {
+						return createInModeFeatureReference(modeContainer, ob);
+					});
+		}
+
 		return AadlClassifierUtil.getComponentImplementation(modeContainer)
 				.filter(ci -> !ci.getAllModes().isEmpty() || !ci.getAllModeTransitions().isEmpty()).map(ci -> {
 					return Stream.concat(ci.getAllModes().stream(), ci.getAllModeTransitions().stream());
 				}).orElse(Stream.empty()).map(ob -> {
-					final NamedElement ne = ob;
-					return createInModeFeatureReference(modeContainer, ne);
+					return createInModeFeatureReference(modeContainer, ob);
 				});
 	}
 
@@ -171,14 +186,31 @@ public class ModeContributionItem extends ComboContributionItem {
 			final Subcomponent subcomponent = (Subcomponent) modeContainerParent.getBusinessObject();
 			// Filter ModeBindings that have a null derived mode
 			return subcomponent.getOwnedModeBindings().stream().filter(mb -> mb.getDerivedMode() != null)
-					.map(mb -> createInModeFeatureReference(modeContainerParent, mb.getDerivedMode()));
+					.map(mb -> {
+						return createInModeFeatureReference(modeContainerParent, mb.getDerivedMode());
+					});
+		} else if (modeContainerParent.getBusinessObject() instanceof ComponentInstance) {
+			final ComponentInstance ci = (ComponentInstance) modeContainerParent.getBusinessObject();
+			if (ci.getSubcomponent() != null) {
+				final Subcomponent subcomponent = ci.getSubcomponent();
+				final List<Mode> derivedModes = subcomponent.getOwnedModeBindings().stream()
+						.filter(mb -> mb.getDerivedMode() != null).map(mb -> mb.getDerivedMode())
+						.collect(Collectors.toList());
+				return ci.getModeInstances().stream().filter(mi -> derivedModes.contains(mi.getMode()))
+						.map(mi -> {
+							return createInModeFeatureReference(modeContainerParent, mi);
+						});
+			}
 		}
 		return Stream.empty();
 	}
 
 	private static ModeFeatureReference createInModeFeatureReference(final DiagramNode parent,
 			final NamedElement namedElement) {
-		final String modeFeatureName = UiUtil.getPathLabel(parent) + "::" + namedElement.getName();
+		final String modeFeatureName = UiUtil.getPathLabel(parent) + "::"
+				+ (namedElement instanceof ModeTransitionInstance
+						? ((ModeTransitionInstance) namedElement).getName()
+								: namedElement.getName());
 		return AadlModalElementUtil.createModeFeatureReference(modeFeatureName, namedElement, parent);
 	}
 

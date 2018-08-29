@@ -54,6 +54,6 @@ public class ModeTransitionInstanceHandler {
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransitionInstance mti) {
-		return mti.getName() == null ? "" : mti.getModeTransition().getName();
+		return mti.getName() == null ? "" : mti.getName();
 	}
 }

@@ -32,9 +32,11 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
@@ -73,8 +75,8 @@ public class AadlBusinessObjectProvider {
 	@Activate
 	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final ExtensionRegistryService extRegistryService, final ReferenceService refService) {
-
 		final Object bo = boc.getBusinessObject();
+		// TODO make sure that added instanceof blocks are needed
 		// An IProject is specified as the business object for contextless diagrams.
 		if (bo instanceof IProject) { // Special handling for project
 			final IProject project = (IProject) bo;
@@ -113,13 +115,14 @@ public class AadlBusinessObjectProvider {
 			return getChildren((SubprogramCall)bo);
 		} else if(bo instanceof SubprogramCallSequence) {
 			return getChildren((SubprogramCallSequence)bo);
-		} else if(bo instanceof ModeTransition) {
+		} else if (bo instanceof ModeTransition) {
 			final ModeTransition mt = ((ModeTransition) bo);
 			final String modeTransitionTriggersDesc = mt.getOwnedTriggers().stream().map(mtt -> mttHandler.getName(mtt))
 					.collect(Collectors.joining(","));
+
 			return Stream.concat(mt.getOwnedTriggers().stream(),
 					Stream.of(new Tag(Tag.KEY_MODE_TRANSITION_TRIGGERS, modeTransitionTriggersDesc)));
-		} else if(bo instanceof ComponentInstance) {
+		} else if (bo instanceof ComponentInstance) {
 			return getChildren((ComponentInstance)bo);
 		} else if(bo instanceof FeatureInstance) {
 			return ((FeatureInstance)bo).getFeatureInstances().stream();
@@ -127,6 +130,7 @@ public class AadlBusinessObjectProvider {
 			if(!((Connection) bo).isAllBidirectional()) {
 				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
 			}
+			// TODO connection instance is not passed in here i dont think
 		} else if(bo instanceof ConnectionInstance) {
 			if(!((ConnectionInstance) bo).isBidirectional()) {
 				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
@@ -135,6 +139,7 @@ public class AadlBusinessObjectProvider {
 
 		return null;
 	}
+
 
 	/**
 	 * Returns null if no packages are found. This is needed so that it can be determined if the project needs to be rebuilt.
@@ -403,21 +408,32 @@ public class AadlBusinessObjectProvider {
 	}
 
 	// Instance Model
-	private static Stream<?> getChildren(ComponentInstance ci) {
-		Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
+	private static Stream<?> getChildren(final ComponentInstance ci) {
+		final Stream.Builder<Object> processorAndInternalFeatureStreamBuilder = Stream.builder();
+		if (ci.getComponentClassifier() instanceof ComponentImplementation) {
+			final ComponentImplementation compImpl = (ComponentImplementation) ci.getComponentClassifier();
+			for (final InternalFeature internalFeature : compImpl.getAllInternalFeatures()) {
+				processorAndInternalFeatureStreamBuilder.add(internalFeature);
+			}
+
+			for (final ProcessorFeature processorFeature : compImpl.getAllProcessorFeatures()) {
+				processorAndInternalFeatureStreamBuilder.add(processorFeature);
+			}
+		}
+
+		final Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
 		for(final ConnectionInstance connectionInstance : ci.getConnectionInstances()) {
 			for(final ConnectionReference cr : connectionInstance.getConnectionReferences()) {
 				connectionReferenceStreamBuilder.add(cr);
 			}
 		}
 
-		// TODO ryan
-		return Stream.concat(
+		return Stream.concat(Stream.concat(
 				Stream.concat(Stream.concat(ci.getModeInstances().stream(), ci.getModeTransitionInstances().stream()),
-				Stream.concat(ci.getFlowSpecifications().stream(),
-						Stream.concat(Stream.concat(ci.getComponentInstances().stream(),
-								ci.getFeatureInstances().stream()),
+						Stream.concat(ci.getFlowSpecifications().stream(),
+								Stream.concat(Stream.concat(ci.getComponentInstances().stream(),
+										ci.getFeatureInstances().stream()),
 										connectionReferenceStreamBuilder.build()))),
-				ci.getEndToEndFlows().stream());
+				ci.getEndToEndFlows().stream()), processorAndInternalFeatureStreamBuilder.build());
 	}
 }

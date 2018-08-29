@@ -27,6 +27,7 @@ import javax.inject.Named;
 import org.eclipse.core.runtime.IPath;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -50,7 +51,7 @@ public class InstanceReferenceBuilder {
 	final static String FLOW_SPECIFICATION_INSTANCE_KEY = "flow_specification_instance";
 	final static String MODE_INSTANCE_KEY = "mode_instance";
 	final static String MODE_TRANSITION_INSTANCE_KEY = "mode_transition_instance";
-	final static String End_TO_END_FLOW_INSTANCE_KEY = "end_to_end_flow_instance";
+	final static String END_TO_END_FLOW_INSTANCE_KEY = "end_to_end_flow_instance";
 
 	@BuildRelativeReference
 	public String[] getRelativeReference(final SystemInstanceLoadingService systemInstanceLoader, final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -61,6 +62,7 @@ public class InstanceReferenceBuilder {
 			if(systemInstanceKey == null) {
 				return null;
 			}
+
 			if(bo instanceof SystemInstance) {
 				return new String[] {ID, SYSTEM_INSTANCE_KEY, systemInstanceKey};
 			} else if(bo instanceof ComponentInstance) {
@@ -74,7 +76,9 @@ public class InstanceReferenceBuilder {
 			} else if (bo instanceof ModeInstance) {
 				return new String[] { ID, MODE_INSTANCE_KEY, io.getFullName() };
 			} else if (bo instanceof ModeTransitionInstance) {
-				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, io.getName() };
+				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, io.getFullName() };
+			} else if (bo instanceof EndToEndFlowInstance) {
+				return new String[] { ID, END_TO_END_FLOW_INSTANCE_KEY, io.getFullName() };
 			}
 		}
 
@@ -100,6 +104,15 @@ public class InstanceReferenceBuilder {
 				return new String[] {ID,CONNECTION_REFERENCE_KEY, systemInstanceKey, buildConnectionReferenceId((ConnectionReference)bo)};
 			} else if (bo instanceof FlowSpecificationInstance) {
 				return new String[] { ID, FLOW_SPECIFICATION_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
+			} else if (bo instanceof ModeInstance) {
+				return new String[] { ID, MODE_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
+			} else if (bo instanceof ModeTransitionInstance) {
+				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
+			} else if (bo instanceof EndToEndFlowInstance) {
+				return new String[] { ID, END_TO_END_FLOW_INSTANCE_KEY, systemInstanceKey,
 						io.getInstanceObjectPath().toLowerCase() };
 			}
 		}

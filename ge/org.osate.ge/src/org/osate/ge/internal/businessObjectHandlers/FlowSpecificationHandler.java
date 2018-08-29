@@ -223,7 +223,7 @@ class FlowSpecificationHandler {
 		return path.toArray();
 	}
 
-	private final static FeatureInstance getContext(final ComponentInstance ci, final Feature feature) {
+	protected final static FeatureInstance getContext(final ComponentInstance ci, final Feature feature) {
 		return ci.findFeatureInstance(feature);
 	}
 }

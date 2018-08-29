@@ -197,7 +197,7 @@ public class InstanceReferenceResolver {
 						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.MODE_INSTANCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.End_TO_END_FLOW_INSTANCE_KEY)) {
+						|| type.equals(InstanceReferenceBuilder.END_TO_END_FLOW_INSTANCE_KEY)) {
 					return siInfo.getInstanceObject(refSegs[3]);
 				}
 			}

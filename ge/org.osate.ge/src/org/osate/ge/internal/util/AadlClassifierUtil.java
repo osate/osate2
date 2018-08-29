@@ -13,6 +13,25 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.internal.query.Queryable;
 
 public class AadlClassifierUtil {
+	// TODO move to a difference util? maybe AadlInstanceUtil?
+	public static Optional<ComponentInstance> getComponentInstance(final Object bo) {
+		final ComponentInstance ci;
+		if (bo instanceof Queryable) {
+			return getComponentInstance(((Queryable) bo).getBusinessObject());
+		} else if (bo instanceof ComponentInstance) {
+			// If component instance is a subcomponent, it must extend a component implementation
+			ci = (((ComponentInstance) bo).getSubcomponent() == null
+					|| (((ComponentInstance) bo).getSubcomponent() != null && (((ComponentInstance) bo)
+							.getSubcomponent().getAllClassifier() instanceof ComponentImplementation)))
+					? (ComponentInstance) bo
+							: null;
+		} else {
+			ci = null;
+		}
+
+		return Optional.ofNullable(ci);
+	}
+
 	/**
 	 * Returns a component implementation for a specified business object. Only component implementations and subcomponents are supported.
 	 * @param bo
@@ -20,6 +39,7 @@ public class AadlClassifierUtil {
 	 */
 	public static Optional<ComponentImplementation> getComponentImplementation(final Object bo) {
 		final ComponentImplementation ci;
+
 		if (bo instanceof Queryable) {
 			return getComponentImplementation(((Queryable) bo).getBusinessObject());
 		} else if (bo instanceof ComponentImplementation) {
@@ -27,9 +47,6 @@ public class AadlClassifierUtil {
 		} else if (bo instanceof Subcomponent) {
 			final Classifier scClassifier = ((Subcomponent) bo).getAllClassifier();
 			ci = scClassifier instanceof ComponentImplementation ? (ComponentImplementation) scClassifier : null;
-		} else if (bo instanceof ComponentInstance) {
-			final Classifier classifier = ((ComponentInstance) bo).getComponentClassifier();
-			ci = classifier instanceof ComponentImplementation ? (ComponentImplementation) classifier : null;
 		} else {
 			ci = null;
 		}

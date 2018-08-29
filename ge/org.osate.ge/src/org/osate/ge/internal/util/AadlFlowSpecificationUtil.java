@@ -1,16 +1,22 @@
 package org.osate.ge.internal.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.ge.internal.query.Queryable;
 
 /**
@@ -35,8 +41,7 @@ public class AadlFlowSpecificationUtil {
 
 	public static Queryable findQueryable(final FlowSegmentReference flowElementRef) {
 		return flowElementRef.container.getChildren().stream()
-				.filter(child -> flowElementRef.flowSegmentElement == child.getBusinessObject()).findAny()
-				.orElse(null);
+				.filter(child -> flowElementRef.flowSegmentElement == child.getBusinessObject()).findAny().orElse(null);
 	}
 
 	/**
@@ -55,28 +60,55 @@ public class AadlFlowSpecificationUtil {
 							.map(flowSegment -> createFlowSegmentReference(flowSegment, flowElementRef.container)))
 					.orElse(Stream.empty());
 		} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlow) {
-			if (flowElementRef.container.getBusinessObject() instanceof ComponentInstance) {
-				final ComponentInstance ci = (ComponentInstance) flowElementRef.container.getBusinessObject();
-				System.err.println(flowElementRef.flowSegmentElement + " flowSegmentele");
-				System.err
-				.println(ci.getEndToEndFlows().stream()
-						.filter(ete -> ete.getEndToEndFlow() == flowElementRef.flowSegmentElement)
-						.collect(Collectors.toList()).size() + " SIZE");
-
-				System.err.println(ci.getEndToEndFlows().stream()
-						.filter(ete -> ete.getEndToEndFlow() == flowElementRef.flowSegmentElement).flatMap(ete -> ete.getEndToEndFlow().getAllFlowSegments().stream()).collect(Collectors.toList()) + " SIZE@");
-
-
-				ci.getEndToEndFlows().stream().filter(ete -> ete.getEndToEndFlow() == flowElementRef.flowSegmentElement)
-				.flatMap(ete -> ete.getEndToEndFlow().getAllFlowSegments().stream())
-				.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment, flowElementRef.container));
-			}
-
 			return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
 					.map(ci -> ci.getAllEndToEndFlows().stream().filter(ete -> ete == flowElementRef.flowSegmentElement)
 							.flatMap(ete -> ete.getAllFlowSegments().stream())
 							.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
 									flowElementRef.container)))
+					.orElse(Stream.empty());
+		} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlowInstance) {
+			return AadlClassifierUtil.getComponentInstance(flowElementRef.container.getBusinessObject())
+					.map(ci -> ci.getEndToEndFlows().stream().filter(ete -> ete == flowElementRef.flowSegmentElement)
+							.flatMap(ete -> {
+								return ete.getFlowElements().stream()
+										.map(fei -> {
+											final List<Connection> referencedConnections = new ArrayList<>();
+											ete.getEndToEndFlow().getAllFlowSegments().forEach(flowSeg -> {
+												if (flowSeg.getFlowElement() instanceof Connection) {
+													referencedConnections.add((Connection) flowSeg.getFlowElement());
+												}
+											});
+
+											if (fei instanceof ConnectionInstance) {
+												final ConnectionInstance conInst = (ConnectionInstance) fei;
+												for (final ConnectionReference cr : conInst.getConnectionReferences()) {
+													Object src = cr.getSource();
+													Object dst = cr.getDestination();
+
+													if (cr.getSource() instanceof FeatureInstance) {
+														src = ((FeatureInstance) cr.getSource()).getFeature();
+													}
+
+													if (cr.getDestination() instanceof FeatureInstance) {
+														dst = ((FeatureInstance) cr.getDestination()).getFeature();
+													}
+
+													for (final Connection con : referencedConnections) {
+														if (con.getSource().getConnectionEnd() == src
+																&& con.getDestination().getConnectionEnd() == dst) {
+															return createFlowSegmentReference(cr,
+																	flowElementRef.container);
+														}
+													}
+
+												}
+
+												return createFlowSegmentReference(fei, flowElementRef.container);
+											}
+
+											return createFlowSegmentReference(fei, flowElementRef.container);
+										});
+							}))
 					.orElse(Stream.empty());
 		} else {
 			return Stream.empty();
@@ -92,45 +124,30 @@ public class AadlFlowSpecificationUtil {
 			} else {
 				return container.getChildren().stream()
 						.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
-						.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable)).orElse(null);
+						.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
+						.orElse(null);
 			}
 		} else if (bo instanceof EndToEndFlowSegment) {
-			System.err.println(bo + " BOAA");
-
 			final EndToEndFlowSegment flowSegment = (EndToEndFlowSegment) bo;
 			final FlowElement flowElement = (FlowElement) flowSegment.getFlowElement();
 			if (flowSegment.getContext() == null) {
-				System.err.println("BBB");
 				return createFlowSegmentReference(flowElement, container);
 			} else {
-				System.err.println("CCCC");
-				// System.err.println(container.getBusinessObject() + " container");
-
-				if (container.getBusinessObject() instanceof ComponentInstance) {
-					container.getChildren().stream().filter(child -> {
-						// System.err.println(child.getBusinessObject() + " child");
-						// System.err.println(flowSegment.getContext() + " getContext");
-						return child.getBusinessObject() == flowSegment.getContext();
-					}).collect(Collectors.toList());
-
-					container.getChildren().stream()
-					.filter(child -> child.getBusinessObject() instanceof ComponentInstance)
-					.map(child -> (ComponentInstance) child.getBusinessObject()).filter(ci -> {
-						System.err.println(ci.getSubcomponent() + " subcom");
-						System.err.println(flowSegment.getContext() + " getContext");
-						return ci.getClassifier() == flowSegment.getContext();
-					}).collect(Collectors.toList());
-
-					return container.getChildren().stream()
-							.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
-							.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
-							.orElse(null);
-				} else {
-
-					return container.getChildren().stream()
-							.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
-							.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable)).orElse(null);
-				}
+				return container.getChildren().stream()
+						.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
+						.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
+						.orElse(null);
+			}
+		} else if (bo instanceof FlowElementInstance) {
+			if (bo instanceof EndToEndFlowInstance) {
+				return new FlowSegmentReference((NamedElement) bo, container);
+			} else {
+				final FlowElementInstance fei = (FlowElementInstance) bo;
+				return container.getChildren().stream().filter(child -> {
+					return child.getBusinessObject() == fei.getComponentInstance();
+				}).findAny().map(contextQueryable -> {
+					return new FlowSegmentReference(fei, contextQueryable);
+				}).orElse(null);
 			}
 		} else if (bo instanceof NamedElement) {
 			return new FlowSegmentReference((NamedElement) bo, container);

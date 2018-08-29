@@ -1,8 +1,15 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
 import javax.inject.Named;
 
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
@@ -22,25 +29,38 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getDestination())))
+							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())))
 					.first());
 
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getDestination())),
+							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())),
 					1).first());
 
 	private static final StandaloneQuery dstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getSource())))
+							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())))
 					.first());
 	private static final StandaloneQuery partialDstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getSource())),
+							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())),
 					1).first());
+
+	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi,
+			final FlowEnd flowEnd,
+			final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance) {
+		final List<Object> path = new ArrayList<>(2);
+		if (flowEnd != null && flowEnd.getContext() instanceof Feature) {
+			path.add(getContext(fsi.getComponentInstance(), (Feature) flowEnd.getContext()));
+		}
+
+		path.add(addFeatureInstance.apply(fsi));
+
+		return path.toArray();
+	}
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
@@ -53,6 +73,7 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
+
 		boolean partial = false;
 
 		if (src == null) {

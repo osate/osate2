@@ -1,9 +1,12 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import javax.inject.Named;
 
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
@@ -52,6 +55,25 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 		}
 
 		return getBusinessObjectsPathToFlowEnd(fsi, flowEnd, addFeatureInstance);
+	}
+
+	// TODO revist original had flowEnd.getContext instanceof Feature??
+	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi,
+			final FlowEnd flowEnd,
+			final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance) {
+//		if (flowEnd == null || flowEnd.getFeature() == null) {
+//			return null;
+//		}
+
+		final List<Object> path = new ArrayList<>(2);
+		// For feature groups
+		if (flowEnd != null && flowEnd.getContext() instanceof Feature) {
+			path.add(getContext(fsi.getComponentInstance(), (Feature) flowEnd.getContext()));
+		}
+
+		path.add(addFeatureInstance.apply(fsi));
+
+		return path.toArray();
 	}
 
 	@IsApplicable

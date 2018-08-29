@@ -136,20 +136,33 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getAgeDiagram();
 			if (diagram != null) {
+				// TODO is there a way to tell if diagram is componentinstance?
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
 				if (queryService != null) {
+					queryService.getResults(flowContainerQuery, diagram).stream()
+					.flatMap(flowContainerQueryable -> AadlClassifierUtil
+							.getComponentInstance(flowContainerQueryable)
+							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							.orElse(Stream.empty()))
+					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
+					.forEachOrdered(highlightableFlowElement -> {
+						highlightableFlowElements.put(
+								getName(highlightableFlowElement.highlightableFlowElement),
+								highlightableFlowElement);
+					});
+
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream()
-							.flatMap(flowContainerQueryable -> AadlClassifierUtil
-									.getComponentImplementation(flowContainerQueryable)
-									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
-									.orElse(Stream.empty()))
-							.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
-							.forEachOrdered(highlightableFlowElement -> {
-								highlightableFlowElements.put(
-										getName(highlightableFlowElement.highlightableFlowElement),
-										highlightableFlowElement);
-							});
+					.flatMap(flowContainerQueryable -> AadlClassifierUtil
+							.getComponentImplementation(flowContainerQueryable)
+							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							.orElse(Stream.empty()))
+					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
+					.forEachOrdered(highlightableFlowElement -> {
+						highlightableFlowElements.put(
+								getName(highlightableFlowElement.highlightableFlowElement),
+								highlightableFlowElement);
+					});
 
 					// Determine which value should be selected
 					final Optional<Entry<String, HighlightableFlowInfo>> tmpSelectedValue = highlightableFlowElements
@@ -165,6 +178,15 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
+	}
+
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
+			final ComponentInstance ci) {
+		return ci.getEndToEndFlows().stream()
+				.filter(f -> f != null).distinct()
+				.map(flow -> {
+					return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
+				});
 	}
 
 	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
