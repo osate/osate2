@@ -1,0 +1,36 @@
+package not_in_schedule
+public
+	with ARINC653;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			src: abstract a1;
+			dst: abstract a2;
+			srcPartition: virtual processor {Execution_Time => 10 ms;};
+			srcModule: processor {ARINC653::Module_Schedule => ([Periodic_Processing_Start => true;]);};
+		connections
+			conn: feature src.srcFeature -> dst.dstFeature;
+		flows
+			etef1: end to end flow src.srcFlow -> conn -> dst.dstFlow {Latency => 5 ms .. 6 ms;};
+		properties
+			Actual_Processor_Binding => (reference (srcPartition)) applies to src;
+			Actual_Processor_Binding => (reference (srcModule)) applies to srcPartition;
+	end s1.i1;
+	
+	abstract a1
+		features
+			srcFeature: out feature;
+		flows
+			srcFlow: flow source srcFeature {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	abstract a2
+		features
+			dstFeature: in feature;
+		flows
+			dstFlow: flow sink dstFeature {Latency => 3 ms .. 4 ms;};
+	end a2;
+end not_in_schedule;

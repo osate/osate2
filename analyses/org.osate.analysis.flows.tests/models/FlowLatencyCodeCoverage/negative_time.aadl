@@ -1,0 +1,32 @@
+package negative_time
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			src: abstract srcComponent;
+			dst: abstract dstComponent;
+			b: bus {Transmission_Time => [Fixed => -20 ms .. -10 ms;];};
+		connections
+			conn: feature src.srcFeature -> dst.dstFeature;
+		flows
+			etef: end to end flow src.srcFlow -> conn -> dst.dstFlow {Latency => 5 ms .. 6 ms;};
+		properties
+			Actual_Connection_Binding => (reference (b)) applies to conn;
+	end s1.i1;
+	
+	abstract srcComponent
+		features
+			srcFeature: out feature;
+		flows
+			srcFlow: flow source srcFeature {Latency => 1 ms .. 2 ms;};
+	end srcComponent;
+	
+	abstract dstComponent
+		features
+			dstFeature: in feature;
+		flows
+			dstFlow: flow sink dstFeature {Latency => 3 ms .. 4 ms;};
+	end dstComponent;
+end negative_time;
