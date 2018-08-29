@@ -37,6 +37,10 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
 import org.osate.ui.actions.AbstractAnalysis;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class DoPowerAutoAnalysis extends AbstractAnalysis {
 
 	protected boolean runImpl() {

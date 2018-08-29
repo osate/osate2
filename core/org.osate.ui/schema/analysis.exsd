@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.osate.ui">
+<!-- This entire file will be removed in 2.3.6. -->
+<schema targetNamespace="org.osate.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.osate.ui" id="anlaysis" name="Analysis"/>
@@ -11,6 +12,14 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element deprecated="true" />
+         </appInfo>
+         <documentation>
+            Will be removed in 2.3.6.
+         </documentation>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="analysis" minOccurs="1" maxOccurs="unbounded"/>

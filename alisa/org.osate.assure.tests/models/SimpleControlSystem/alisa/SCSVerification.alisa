@@ -1,0 +1,14 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+assurance case SCSCase for SimpleControlSystem::SCS [  
+	assurance plan SCSPlan for SimpleControlSystem::SCS.tier1 [
+		description "my plan"
+		assure scsvplan scsimplvplan
+		assure subsystem dcs
+		assume subsystem sensor1 sensor2 actuator
+]
+
+	assurance task SCSWeight [
+		category Quality.Mass
+	]
+]

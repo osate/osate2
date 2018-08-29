@@ -19,7 +19,6 @@
  */
 package org.osate.reqspec.ui.contentassist
 
-import com.google.inject.Inject
 import java.util.ArrayList
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
@@ -31,7 +30,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
@@ -44,7 +43,7 @@ import static org.osate.alisa.common.util.CommonUtilExtension.*
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
-	@Inject var ICommonGlobalReferenceFinder commonRefFinder
+//	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	override void completeStakeholderGoals_Target(EObject model, Assignment assignment, ContentAssistContext context,
 		ICompletionProposalAcceptor acceptor) {
@@ -88,10 +87,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 
 		val targetComponentClassifier = (model.eContainer as SystemRequirementSet).target
-		val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.getEObjectDescriptions(
-			targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET, "reqspec").map [ eod |
-			EcoreUtil.resolve(eod.EObjectOrProxy, model) as SystemRequirementSet
-		].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+		val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = Aadl2GlobalScopeUtil.getAll(model, ReqSpecPackage.eINSTANCE.systemRequirementSet).filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 
 		val ArrayList<EObject> nameList = newArrayList();
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor, [
