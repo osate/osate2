@@ -1,0 +1,1543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>AADL Model Traversal Support</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingofAADLModels.html">4. Processing of AADL Models</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.3 AADL Model Traversal Support
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="NotesonAccessingModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AADLModelManipulationSupport.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic41"></a>
+          <span class=outlineNumberFirst>4.3 </span><span class=topicLineFirst>AADL Model Traversal Support</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE
+has a library of traversal methods that can be effective in processing both declarative
+AADL models and AADL instance models. Those methods traverse the containment hierarchy
+of both models with appropriate filters and invoke user-defined processing methods. The
+processing methods can perform analysis on the content of AADL models, record results of the
+analysis temporarily and persistently with the models, and generate textual as well as object
+representations that are derived from an AADL model. The next section discusses methods
+and approaches for modifying the AADL models themselves.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Traversal
+support is located the package <b>edu.cmu.sei.aadl.model.util</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic42"></a>
+          <span class=outlineNumber>4.3.1 </span><span class=topicLine>Basic Traversal Support for AADL Model Processing</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Basic
+traversal support is provided by the class <b>ForAllAObject</b> and its methods. This class
+has been designed to be tailorable for various processing needs and is used as the basis of two
+other traversal and processing classes discussed below.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+class has a set of traversal methods and three methods that determine the kind of
+processing performed on each of the visited model objects. The traversal methods are invoked
+in an instance of the <b>ForAllAObject</b> class with an AADL model object as parameter. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class also provides methods for registering a <b>MarkerReporter</b> and for reporting errors,
+warnings, and information as persistent AADL-specific Eclipse Markers with the AADL
+model. For details regarding the <b>MarkerReporter</b> and other techniques for recording and
+reporting results from processing an AADL model see Section 7  Managing the Results of an
+OSATE Plug-in.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+intent is that a new instance of the class, or more specifically, of a specific subclass, will be
+created for each traversal. That is, it is not generally intended that instances of the class
+be
+reused for multiple traversals.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic43"></a>
+          <span class=outlineNumber></span><span class=topicLine>Default Processing of Visited Model Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+traversal methods visit objects of AADL models and invoke the <b>process</b> method on each
+object with the object as parameter. The default implementation of this <b>process</b> method
+invokes the <b>suchThat</b> method, and if that method returns <b>true</b> invokes the <b>action</b>
+method. The
+default implementation of <b>suchThat</b> returns <b>true</b> and the default implementation of <b>action</b>
+adds
+the visited object to a result list that is then returned as result of the traversal method. In
+other
+words, the default implementation of these three processing methods together with any of the
+traversal methods returns the list of visited AADL model objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+example, the traversal method that visits all objects in the containment hierarchy of the
+AADL instance model in prefix order will return a list of all instance model objects in prefix
+order. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic44"></a>
+          <span class=outlineNumber></span><span class=topicLine>Filtered Processing of Visited Model Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Filtered
+processing of visited model objects is achieved by redefining the <b>suchThat</b> method to
+a condition that must be satisfied in order for the <b>action</b> method to be invoked on the visited
+object. This method can be redefined as part of declaring an instance of the <b>ForAllAObject</b>
+class. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ForAllAObject filteredProcessing =
+new ForAllAObject() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected boolean suchThat(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return obj instanceof
+ThreadType;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>};</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+filter defined in this example will cause a traversal method that visits all model objects to
+return a list of all <b>ThreadType</b> objects in the declarative AADL model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Filters
+can check for any condition of the model object. For example, a filter can check for </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">the direction of a port</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>--
+visit all ports with direction in</span></font><span></span></div>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>return
+(obj instanceof Port) &amp;&amp; <br/>
+ (((Port) obj).getDirection() == PortDirection.IN_LITERAL);</span></font><span></span></div>
+</blockquote>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">the name of a subcomponent</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>--
+visit all subcomponents with the name &quot;Peter&quot;</span></font><span></span></div>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>return
+(obj instanceof Subcomponent) &amp;&amp;<br/>
+ ((NamedElement) obj).getName().equals(&quot;Peter&quot;);</span></font><span></span></div>
+</blockquote>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">the value of a specific
+AADL property</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>--
+visit all thread instances with a period of 50 ms</span></font><span></span></div>
+</blockquote>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span>return
+(obj instanceof ComponentInstance) &amp;&amp;<br/>
+ ((ComponentInstance) obj).getCategory() ==<br/>
+ ComponentCategory.THREAD_LITERAL) &amp;&amp;<br/>
+ (TimingUtil.getPeriod(<br/>
+ (ComponentInstance) obj,<br/>
+ PredeclaredProperties.MILLISEC) == 50);</span></font><span></span></div>
+</blockquote>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+a number of common filtering conditions we have pre-defined specialized traversal
+methods (see Section 4.3.2  Traversal Methods below).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic45"></a>
+          <span class=outlineNumber></span><span class=topicLine>User-Defined Processing Action for AADL Model Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">User-defined
+processing of visited model objects&#151;filtered by the <b>suchThat</b> method&#151;is
+achieved by redefining the <b>action</b> method. This method can be redefined as part of declaring
+an instance of the <b>ForAllAObject</b> class. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ForAllAObject userProcessing = new
+ForAllAObject() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected void action(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (obj instanceof
+NamedElement) </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(((NamedElement)
+obj).getName());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>};</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+action defined in this example will cause a traversal method that visits all model objects to
+print out the name of any AADL model object that has a name.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">User-defined
+processing can be combined with a user-defined filter. The example above can
+be also specified as follows:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ForAllAObject userProcessing = new
+ForAllAObject() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected boolean suchThat(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return obj instanceof
+NamedElement;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected void action(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(((NamedElement)
+obj).getName());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>};</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Note
+that by redefining the <b>action</b> method we are replacing the collection of the visited objects
+in a result list by the specified action. If it is still desirable to return the visited objects in
+addition
+to taking the specified action a call to the <b>process</b> method of the super class, i.e.,
+<b>super.action(obj);</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic46"></a>
+          <span class=outlineNumber></span><span class=topicLine>Redefined Processing Method for AADL Model Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">User-defined
+processing of visited model objects is achieved by redefining the <b>process</b>
+method. This method can be redefined as part of declaring an instance of the <b>ForAllAObject</b>
+class. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ForAllAObject userProcessing = new
+ForAllAObject() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected void process(AObject
+obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (obj instanceof
+NamedElement) </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(((NamedElement)obj).getName());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>};</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+action defined in this example will achieve the same as the example in the previous section. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Redefinition
+of the <b>process</b> method is used by the <b>AadlProcessingSwitch</b> class to introduce a
+set of processing methods, one for each of the classes in the AADL meta model.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic47"></a>
+          <span class=outlineNumber></span><span class=topicLine>List-Based Processing Methods</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+default processing methods of the traversal methods return lists of AADL model objects as
+a Java collection, specifically, as <b>EList</b> objects. <b>EList</b> provides a <b>List</b>
+implementation with the
+additional capability of acting as notifiers (see </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">EMF book</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> for more detail).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+have provided two capabilities for processing of such lists of <b>AObject</b>s:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>QuickSort</b> for sorting <b>EList</b>s
+of <b>AObjects</b></span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processEList</b> for
+processing <b>ELists</b> of <b>AObjects</b> with the same tailorable filtering and
+action methods that are part of the traversal support.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic48"></a>
+          <span class=outlineNumber></span><span class=topicLine>QuickSort</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>QuickSort</b>
+is defined as a class with a <b>compare</b> method use to perform quick sorting of
+<b>EList</b>s. The default implementation of the <b>compare</b> method compares the string representation
+of two objects as made available by the <b>toString</b> method of the object&#146;s class.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+default <b>QuickSort</b> implementation can be tailored to use a user-defined sorting criterion by
+defining a subclass of <b>QuickSort</b> with a new <b>compare</b> method. This can be done through
+an
+explicit class declaration or implicitly as part of an instance declaration of <b>QuickSort</b>.
+An
+example of the latter approach is shown in the example below, which is used in the Priority
+Inversion plug-in.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+example defines the sort criterion to be based on the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Period</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property of component
+instances. In this particular case we assume that only lists of <b>AObject</b>s that are threads with
+a
+Period property are being sorted.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>QuickSort quick = new QuickSort() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected int compare(Object
+obj1, Object obj2) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double a = TimingUtil.getPeriodInUS((ComponentInstance)
+obj1);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double b = TimingUtil.getPeriodInUS((ComponentInstance)
+obj2);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (a &gt; b) return
+1;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (a == b) return
+0; </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return -1;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>};</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+list of <b>AObject</b>s is sorted by call to the <b>QuickSort</b> method on an instance of the <b>QuickSort</b>
+class.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>quick.quickSort(threadList);</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic49"></a>
+          <span class=outlineNumber></span><span class=topicLine>processEList</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An <b>EList</b>
+of <b>AObject</b>s, whether generated by the default implementation of a traversal method,
+sorted by <b>QuickSort</b>, or constructed programmatically by the plug-in, can be further
+processed by the <b>processEList</b> method. This method is defined as a method of the
+<b>ForAllAObject</b> class and applies the <b>process</b> method to each element in the list, in other
+words, the <b>suchThat</b> method is applied and if it returns <b>true</b> the <b>action</b> method
+is applied. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+do the traversal methods, this method returns a result list. The default implementation of
+<b>suchThat</b> and <b>action</b> this results in the return the original list. With a redefined <b>suchThat</b>
+method the returned list consists of those list elements that satisfy the <b>suchThat</b> condition. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Redefinition
+of the <b>action</b> method or the <b>process</b> method permit further tailoring of the
+<b>processEList</b> method. The effect of their redefinition has been discussed in the previous two
+sections.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic50"></a>
+          <span class=outlineNumber>4.3.2 </span><span class=topicLine>Traversal Methods</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+have defined traversal methods that work on both declarative AADL models and AADL
+instance models as well as traversal methods specifically tailored to processing declarative
+model and tailored to processing instance models. The traversal methods traverse the
+containment hierarchy of a declarative AADL model or of an AADL instance model. The
+content of a model object is determined by a call to the <b>getChildren</b> method. The default
+implementation of the <b>getChildren</b> method for <b>AObject</b> objects returns the results of
+<b>eContents()</b>, i.e., all contained objects. For <b>ComponentInstance</b> objects this method
+has
+been redefined to support mode-specific retrieval of content. For more on mode-specific
+AADL instance model processing see </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">Section  Instance Model Processing</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Traversal
+methods that operate on AADL instance models can visit all instance model objects
+or only those instance model objects that are part of a given system operation mode. They do
+so transparent to the <b>suchThat</b>, <b>action</b>, and <b>process</b> methods. This allows
+users to develop
+AADL model processing plug-ins such as a scheduling analyzer that can be applied to a whole
+system instance as well as to each system operation mode specific configuration of the system
+instance without changes. Methods for setting a specific system operation mode are described
+in </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">Section
+Modal System Instances</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic51"></a>
+          <span class=outlineNumber></span><span class=topicLine>Prefix and Postfix Order Traversal of Declarative and Instance Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+following methods can be applied to both declarative AADL models and AADL instance
+models. Furthermore, they can be applied to the root object of an AADL model or to any
+other object of the AADL model. In the latter case the appropriate subset of the model is
+traversed.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+traversal follows the containment hierarchy of the declarative or instance model. In case of
+the AADL instance model the containment hierarchy corresponds to the system hierarchy. In
+case of the declarative AADL model the containment hierarchy does not reflect the system
+hierarchy nor a declaration/use hierarchy. Instead it represents the abstract syntax structure
+of
+an AADL specification.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderAll(AObject
+start)</b>: Traverses the containment hierarchy starting
+with the model object <b>start</b> and does so in prefix order. This means that the first child
+of an object and its children are visited before the second child is visited. This traversal
+method allows information to be propagated down the model hierarchy.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderAll(AObject
+start)</b>: Traverse the containment hierarchy using the
+model object <b>start</b> as starting point and does so in postfix order. This means that the
+children of an object are visited before the object itself. The <b>start</b> object is visited last.
+This traversal method allows information to be propagated up the model hierarchy.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic52"></a>
+          <span class=outlineNumber></span><span class=topicLine>Declaration–Use Order Traversal in Declarative AADL Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+following traversal methods provide support for processing objects of the class
+<b>ComponentImpl</b>, i.e., for processing component implementation declarations in declarative
+AADL models. These methods operate on component implementations contained in the
+anonymous name space of an AADL specification, i.e., are contained directly in an <b>AadlSpec</b>
+object, and those that are contained in AADL packages, i.e., those contained in the public and
+private <b>AadlSection</b> objects of <b>AadlPackage</b> objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+purpose of two of these methods is to provide for processing of component
+implementation declarations according to a declaration/use ordering of component classifiers.
+This is the ordering relationship that a component implementation must be declared before it
+can be referenced in a subcomponent declaration.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processAllComponentImpl(AadlSpec
+as)</b>: Processes all component
+implementations in the order in which they have been declared in an AADL
+specification and AADL packages contained in the AADL specification. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processTopDownComponentImpl(AadlSpec
+as)</b>: Processes all component
+implementations in an AADL specification and AADL packages contained in the
+AADL specification in the definition&#150;use order. This means that component
+implementations are visited before component implementation whose subcomponents
+reference them in their classifiers. This traversal method permits propagation of
+information down the system hierarchy and do so in the context of the declarative
+AADL model. This method is used by the MetaH generator to produce textual MetaH
+where component implementations are declared before they are used.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processBottomUpComponentImpl(AadlSpec
+as)</b>: Processes all component
+implementations in an AADL specification and AADL packages contained in the
+AADL specification in the inverse definition&#150;use order. This means that component
+implementations are visited after component implementation whose subcomponents
+reference them in their classifiers. This traversal method permits propagation of
+information up the system hierarchy and do so in the context of the declarative AADL
+model.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic53"></a>
+          <span class=outlineNumber></span><span class=topicLine>Instance Model Traversal</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+following methods provide support for traversing the component instance part of an AADL
+instance model. In other words, the component instance hierarchy representing the system
+hierarchy is traversed without visiting the feature instances, connection instances, etc. The
+methods can be invoked on the root object of an AADL instance model, i.e., a
+<b>SystemInstance</b> object, or on any <b>ComponentInstance</b> object as the root of the traversal.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderComponentInstance(ComponentInstance
+start)</b>: Traverses the
+component instance hierarchy starting with the component instance object <b>start</b> and
+does so in prefix order. This means that the first child of an object and its children are
+visited before the second child is visited. This traversal method allows information to be
+propagated down the system instance hierarchy.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderComponentInstance(ComponentInstance
+start)</b>: Traverses the
+containment hierarchy using the model object <b>start</b> as starting point and does so in
+postfix order. This means that the children of an object are visited before the object
+itself. The <b>start</b> object is visited last. This traversal method allows information to be
+propagated up the model hierarchy.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+variant of these methods has been provided that limits the traversal to a certain category of
+component instances. These methods can be used to, for example, traverse all processor
+instances, and&#151;by using the default implementation of the <b>action</b> method&#151;to return the
+list of
+processor instances.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderComponentInstance(ComponentInstance
+start,
+ComponentCategory cat)</b>: Traverse the component instance hierarchy starting with
+the component instance object <b>start</b> and does so in prefix order. This means that the
+first child of an object and its children are visited before the second child is visited. This
+traversal method allows information to be propagated down the system instance
+hierarchy.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderComponentInstance(ComponentInstance
+start,
+ComponentCategory cat)</b>: Traverse the containment hierarchy using the model object
+<b>start</b> as starting point and does so in postfix order. This means that the children of an
+object are visited before the object itself. The <b>start</b> object is visited last. This traversal
+method allows information to be propagated up the model hierarchy.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic54"></a>
+          <span class=outlineNumber></span><span class=topicLine>Traversal and Multi-File Support</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE
+supports storage of models in multiple files. Each package and each property set can
+be stored in a separate XML document/EMF resource/file. We have extended some of the
+traversal methods to not only traverse all objects in a single XML document, but in all
+packages, property sets, and <b>AadlSpec</b> files in an Eclipse workspace.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderAll()</b>:
+Traverses the containment hierarchy over the whole OSATE
+workspace and does so in prefix order. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderAll()</b>:
+Traverses the containment hierarchy over the whole OSATE
+workspace and does so in postfix order. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processAllComponentImpl()</b>:
+Processes all component implementations in the
+OSATE workspace. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processTopDownComponentImpl()</b>:
+Processes all component implementations in the
+OSATE workspace in the definition&#150;use order. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processBottomUpComponentImpl()</b>:
+Processes all component implementations in
+the OSATE workspace in the inverse definition&#150;use order. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderAllDeclarativeModels()</b>:
+Traverses the component hierarchy of all
+declarative models in the OSATE workspace in prefix order.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderAllDeclarativeModels
+()</b>: Traverses the component instance
+hierarchy of all declarative models in the OSATE workspace in postfix order.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPreOrderAllComponentInstances()</b>:
+Traverses the component instance
+hierarchy of all instance models in the OSATE workspace in prefix order.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>processPostOrderAllComponentInstances()</b>:
+Traverses the component instance
+hierarchy of all instance models in the OSATE workspace in postfix order.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic55"></a>
+          <span class=outlineNumber>4.3.3 </span><span class=topicLine>An Example: Priority Inversion Checking</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+have included much of the implementation of a plug-in that checks for priority inversion of
+periodic threads assigned to the same processor, if they have manually assigned priorities.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+first method is applied to an AADL instance model by passing in a <b>SystemInstance</b>
+object as the root of the instance model. The method invokes the method
+<b>checkPriorityInversion</b> on every processor instance object. It does so by redefining the
+<b>process</b> method and by invoking the component instance traversal method for the component
+category of processor on the system instance as the root of the traversal.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+alternate implementation of this method</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public void checkSystemPriorityInversion(SystemInstance
+si) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> ForAllAObject mal
+= new ForAllAObject() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+void process(AObject obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> checkPriorityInversion((ComponentInstance)
+obj);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> mal.processPreOrderComponentInstance(si, </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+ComponentCategory.PROCESSOR_LITERAL);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+alternate implementation of this method uses the default implementation of <b>ForAllAObject</b>
+to generate the processor list and then iterates over it to perform the checking on each
+processor. It utilizes a predeclared instance of the default implementation of <b>ForAllAObject</b>.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public void checkSystemPriorityInversion(SystemInstance
+si) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> EList proclist = </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+ForAllAObject.INSTANCE.processPreOrderComponentInstance(<br/>
+ si, ComponentCategory.PROCESSOR_LITERAL);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> for (Iterator it
+= proclist.iterator(); it.hasNext();) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> checkPriorityInversion((ComponentInstance)
+it.next());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+second method generates a list of all threads that are bound to a specific processor, sorts
+the thread list with <b>QuickSort</b> according to their period (see Section 4.3.1.5.1  QuickSort
+above), and then checks the sorted list for increasing monotonicity of the priority across thread
+rate groups by calling on the method <b>checkIncreasingMonotonicity</b>. The <b>threadlist</b> is
+created by redefining <b>suchThat</b> to compare the value of the actual processor binding property
+of a thread to the current processor of the inversion analysis and invoking the component
+instance traversal for the category of thread.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>/**</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>* check for priority inversion of
+thread bound to the given processor</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>* @param curProcessor ComponentInstance
+of processor</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public void checkPriorityInversion(ComponentInstance
+curProcessor) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> SystemInstance root = curProcessor.getSystemInstance();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // final makes currentProcessor
+accessible to the refined suchThat</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final ComponentInstance currentProcessor
+= curProcessor;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> EList boundThreads = new ForAllAObject()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected boolean
+suchThat(AObject obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ComponentInstance
+boundProcessor = </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+TimingUtil.getActualProcessorBinding((ComponentInstance)obj);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return (boundProcessor
+== currentProcessor);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }.processPreOrderComponentInstance(<br/>
+ root, ComponentCategory.THREAD_LITERAL);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> /* We will sort the thread
+list by period and check to make sure<br/>
+ * the assigned priority is monotonically decreasing.<br/>
+ */</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> periodSort.quickSort(boundThreads);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> checkIncreasingMonotonicity(boundThreads);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic56"></a>
+          <span class=outlineNumber>4.3.4 </span><span class=topicLine>Meta-Model Class Based AADL Model Processing</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are situation where processing an AADL model requires different actions for different
+AADL model objects. For example, semantic checking is different for different model objects,
+and the textual AADL generator has produces different text for different objects of the
+declarative AADL model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+support of model object specific processing the Eclipse Modeling Framework (EMF)
+generates a meta model specific switches for each of the meta model packages. Each switch
+consists of a collection of  case methods, one for each class defined in the meta model
+package. We refer to these methods as  case methods because they are named
+<b>case</b><b><i>ClassName</i></b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+switch processing method invoked with an AADL model object identifies the appropriate
+ case method. The default implementation of each  case method has no action
+and returns
+the value <b>NOT_DONE</b> (<b>null</b>). Given this return value the switch processing method
+also
+invokes the  case method of each super class in turn until a  case method returns <b>DONE</b>
+(non-<b>null</b> value) or the  case method of the common super class has completed.
+This permits
+processing to be specified for each of the model object classes, while at the same time allows
+processing that is common to a number of classes to be specified once in a common super
+class.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class <b>AadlProcessingSwitch</b> utilizes these meta model package specific switches to
+provide meta model class based processing of AADL models. This class is defined as a
+subclass of the <b>ForAllAObject</b> class and as a result provides this meta model class specific
+processing in the context of the model traversal methods defined as part of <b>ForAllAObject</b>.
+This is accomplished by redefining the process method to invoke the appropriate switch
+processing method instead of creating a result list of visited objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+class and its methods have been used to implement much of the AADL front-end
+processor, including the name resolver, semantic checker, property value checker, and numeric
+resolver. It has also been used in the implementation of a number of OSATE plug-ins, such as
+the textual AADL generator, the MetaH generator, the flow latency analyzer, and the model
+statistics plug-in. In some cases the switch processing capability is used in conjunction with
+the
+traversal methods, while in other cases the switch processing capability is used without the
+traversal methods.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic57"></a>
+          <span class=outlineNumber></span><span class=topicLine>Traversal-Driven Switch Processing</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Traversal-driven
+switch processing involves two steps: </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The specification of meta
+model class specific processing actions by redefining the
+appropriate  case methods in the meta model package specific switches</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The selection of the appropriate
+traversal method to visit the correct set of model
+object for which the switch-based processing method will be automatically invoked.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+model statistics plug-in is a prime example for the use of traversal-driven switch processing
+since this plug-in intends to keep track of the number of occurrences of different AADL model
+objects. We will use code fragments from it as examples in this section.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic58"></a>
+          <span class=outlineNumber></span><span class=topicLine>Redefinition of Case Methods</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The  case methods are redefined by subclassing the class <b>AadlProcessingSwitch</b> and by
+introducing new  case method declarations as part of a meta model package specific switch
+instance declaration in the constructor method of the <b>AadlProcessingSwitch</b> subclass. In
+our
+example below we define the subclass <b>ModelStatistics</b> with two counter instance variables.
+The constructor calls the super class and then redefines the  case methods for two classes
+in
+the flow package of the AADL meta model. This is done as part of the instance declaration of
+the flow switch. Its assignment to <b>flowSwitch</b> registers the redefined switch with the
+<b>AadlProcessingSwitch</b> mechanism. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+first redefined  case method is that of the abstract class <b>FlowSpec</b> that is the super
+class
+of several concrete classes (<b>FlowPathSpec</b>, <b>FlowSourceSpec</b>, <b>FlowSinkSpec</b>&#151;see </span></font><font
+face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">the
+AADL meta model in Annex D</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">). The effect is that all flow specification declarations are counted
+in a single count. The return value <b>DONE</b> indicates that the  case method for its super
+class
+will not be called.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+second redefined  case method is that of the concrete class <b>EndToEndFlow</b>. This
+class
+represents end-to-end flow declarations in the declarative AADL model. In this case end-to-
+end flow declarations are counted by themselves. The return value <b>DONE</b> indicates that the
+ case method for its super class will not be called.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public class ModelStatistics extends
+AadlProcessingSwitch { </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int flowcount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int endtoendflowcount
+= 0; </span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public ModelStatistics() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> super(); <b>//
+required call to initialize the super class</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> flowSwitch = new
+FlowSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseFlowSpec(FlowSpec obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+flowcount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseEndToEndFlow(EndToEndFlow obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+endtoendflowcount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> <b>// other switch
+redefinitions</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } <b>// end constructor</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>} <b>// end class</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+textual AADL generator (called <b>Unparser</b> in the OSATE implementation) makes use of
+ case method processing of a class and its super class. For example, the  case
+method for an
+object of class <b>ThreadType</b> contributes the reserved word  thread and returns
+<b>NOT_DONE</b>, while the  case method of its super class <b>ComponentType</b> generates
+the rest
+of the AADL text, which is common to all component types. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Note,
+however, that the call to the super class  case method does not return to the subclass
+ case method. This means super class  case methods can only add to any processing
+performed by a  case method, i.e., processing of the two cannot be interleaved. The
+section
+Content-Driven Switch Processing shows how interleaved processing can be achieved.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic59"></a>
+          <span class=outlineNumber></span><span class=topicLine>Invocation of the Processing Switch</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+model statistics processing switch is called by a method that makes this capability available
+as a command action in the AADL Object Editor (see </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">AADL Object Editor Command Actions</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">).
+From the currently selected model object we retrieve the <b>AadlSpec</b> object via the
+<b>getAadlSpec</b> method. This method returns the <b>AadlSpec</b> object for both an object selected
+in
+the AADL instance model and an object selected in a declarative AADL model. Similarly, we
+retrieve the system instance by calling the <b>getSystemInstance</b> method. This method returns
+<b>null</b> if called on a declarative AADL model and the <b>SystemInstance</b> object if called on
+an
+AADL instance model. We then call the statistics processing switch through the traversal
+method <b>processPreOrderAll</b> on the <b>AadlSpec</b> object, and on the <b>SystemInstance</b> object
+if
+it is non-<b>null</b>.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>// obj is the currently selected
+object</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>AadlSpec as = obj.getAadlSpec();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>SystemInstance si = obj.getSystemInstance();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>ModelStatistics stats = new ModelStatistics();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>stats.processPreOrderAll(as);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>if (si != null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> stats.processPreOrderAll(si);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic60"></a>
+          <span class=outlineNumber></span><span class=topicLine>Content-Driven Switch Processing</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Traversal-driven
+switch processing with  case method invocation according to the meta model
+class hierarchy is not always appropriate. In this section we examine several situations where
+more control over the order in which processing is to be performed is required.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic61"></a>
+          <span class=outlineNumber></span><span class=topicLine>Controlling the Invocation of the Super Class Case Method</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are also situations where we need to perform processing based on a specific class as
+well as its super class and do so such that the processed information from the class and its
+super class are interleaved. This can be achieved in one of two ways:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">All processing is performed
+by the  case method of the model object class without
+utilizing the  case method of the super class. All relevant information about the model
+object is accessible to the processing action. This approach provides full control over
+what information is processed when, but may lead to unnecessary replication of
+common code in several  case methods. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The  case method
+of a class explicitly invokes the  case method of its super class.
+This provides control over when information in the super class is processed. However,
+it limits super class processing to a single set of actions. In other words, if different
+super class processing actions are desired by multiple calls to the super class from the
+same subclass a global processing mode variable may have to be used to achieve
+conditional processing in the super class  case method.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic62"></a>
+          <span class=outlineNumber></span><span class=topicLine>Controlling the Processing Order</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are situations where model object must be processed in an order different from the
+traversal order. A case in point is the MetaH generator, where we must generate the port data
+types as port type declarations, and then generate the component type and implementation
+declarations in declaration use order.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+can be achieved by not including certain model object classes in the set of model object
+visited by the traversal method and by invoking the switch processing method of those model
+objects explicitly in the  case method of a model object class. This is accomplished
+by a
+<b>process</b> method call on the <b>AadlProcessingSwitch</b> itself with the target model object as
+parameter. In the example below, we retrieve the list of features of a thread subcomponent.
+These are actually retrieved from the component type referenced by the subcomponent
+classifier according to the type inheritance of the AADL meta model by calling on the
+<b>getAllFeature</b> method. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>EList featurelist = threadsubcomp.getAllFeature();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>for (Iterator it = featurelist.iterator();it.hasNext();)
+{ </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> self.process((Feature) it.next());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+instance of the <b>AadlProcessingSwitch</b> or its subclass is accessible to the  case methods
+through the instance variable <b>self</b> in the switch instance, which is initialized by the
+<b>AadlProcessingSwitch</b> constructor&#151;the reason for the <b>super()</b> call in the <b>ModelStatistics</b>
+constructor in the previous section.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic63"></a>
+          <span class=outlineNumber></span><span class=topicLine>Processing of Referenced Model Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are situations where information must be processed from model objects that are
+referenced by a model object rather than being contained in a model object. For example, the
+textual AADL generator must add into the output of a subcomponent the name of the classifier
+object referenced by the subcomponent object. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are several options of accomplishing this:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The subcomponent  case
+method retrieves the name of the referenced classifier object
+and generates the appropriate output. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The subcomponent  case
+method calls the switch processing method on the
+referenced model object. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A <b>ContentProvider</b>
+adapter factory is used to determine the children of a model
+object to be used by the traversal methods. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+first option has been discussed in the first bullet of Section 4.3.4.2.1  Controlling the
+Invocation of the Super Class Case Method above. The second option has been discussed in
+Section 4.3.4.2.2  Controlling the Processing Order above.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+simple form of the third option has been used to accommodate processing of modal instance
+models by providing system operation mode specific traversal. This is achieved through a
+<b>ModalInstanceAdapter</b>. This adapter is utilized by the <b>getChildren</b> method for
+<b>ComponentInstance</b> objects to determine the mode-specific subset of the children. For
+details on mode-specific processing of AADL instance models the reader is referred to </span></font><font
+face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">Section
+ Instance Model Processing</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+more sophisticated form of the third option involves utilizing and redefining a set of content
+provider adapters and content provider adapter factories for the AADL meta model packages
+that has been generated by EMF for the AADL Object Editor. They can be found in the
+OSATE Eclipse project <b>edu.cmu.sei.aadl.model.edit</b> in the Java packages
+<b>edu.cmu.sei.aadl.model.</b><b><i>metamodelpackage</i></b><b>.provider</b>. The <b>CoreEditor</b>
+class in the Java
+package <b>edu.cmu.sei.aadl.model.core.presentation</b> uses and redefines these content
+provider adapter factories to an Instance content provider for declarative AADL models
+without generation of an AADL instance model by offering as content of a subcomponent the
+subcomponents of its classifier.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+summary, the third option localizes the definition of constitutes the children for the purpose of
+traversal to a collection of meta model class specific adapters. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ Copyright 2007 Carnegie Mellon University
+
+ $Id: plugin.xml,v 1.3 2009-04-06 17:15:15 jseibel Exp $
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+          class="org.osate.aadl2.Aadl2Package"
+          genModel="model/aadl2.genmodel"
+          uri="http://aadl.info/AADL/2.0"/> 
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.extension_parser">
+    <parser 
+       type="aaxl2" 
+       class="org.osate.aadl2.util.Aadl2ResourceFactoryImpl" />
+  </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            class="org.osate.aadl2.instance.InstancePackage"
+            genModel="model/instance.genmodel"
+            uri="http://aadl.info/AADL/2.0/instance"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            type="aail2"
+            class="org.osate.aadl2.instance.util.InstanceResourceFactoryImpl"/>
+   </extension>
+</plugin>

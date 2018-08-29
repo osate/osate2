@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Hierarchy of Abstract and Concrete Classes</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.2 Hierarchy of Abstract and Concrete Classes
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ModularMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ComponentTypes,Implementations,andSubcom.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic10"></a>
+          <span class=outlineNumberFirst>4.2 </span><span class=topicLineFirst>Hierarchy of Abstract and Concrete Classes</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL meta model is defined by a set of <i>abstract</i> 
+and <i>concrete</i> classes.&#160; Abstract classes 
+represent common characteristics for a set of subclasses.&#160; Concrete classes are instantiated as 
+objects in the AADL model. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 10 introduces the top-level set of abstract classes.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic10NotesImage3.jpg" align="bottom" width="428" height="370" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 10 Abstract Class Hierarchy</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>AObject </i>class is the root class of all objects 
+of an AADL model. This class introduces the 
+<i>comment </i>as a multi-valued string attribute to hold AADL comments that are included in an AADL 
+model.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>NamedElement </i>class represents AADL model objects 
+that are identified by name. It 
+introduces a <i>name </i>attribute as a string value. For some AADL model objects the name is required, 
+e.g., a component type, while for others the name is optional, e.g., a connection.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>PropertyHolder </i>class represents those AADL 
+model objects that can have AADL property 
+association declarations. Note that for specific property definitions the legal owners of a property 
+value for the defined property are specified by the property owner categories in the <b>applies to</b> 
+clause of the property definition.&#160;&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>ModeMember </i>class represents those AADL model 
+objects that are mode-specific.&#160; Mode- 
+specific AADL model objects are those whose declarations are allowed to have <b>in mode</b> 
+statements.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>Classifier</i> class is a subclass of PropertyHolder 
+and represents classifier declarations such as 
+component classifiers and port group types. Classifiers are PropertyHolders, but not 
+ModeMembers.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>ComponentClassifier </i>class is a subclass of 
+Classifier and represents component type, and 
+component implementation declarations.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>ComponentType </i>and <i>ComponentImpl </i>classes 
+are subclasses of ComponentClassifier and 
+represent component types and component implementations, respectively.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>PortGroupType </i>class is a subclass of Classifier 
+and represents port group types as definitions 
+of the structure of port groups.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic10NotesImage5.jpg" align="bottom" width="576" height="195" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 11 AObject Class and its Unnamed Subclasses </b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>All AADL model objects have <i>AObject</i> as their abstract 
+super class. This means that all AADL 
+model objects can contain comments as attribute values.&#160; Figure 11 shows those AADL object 
+model classes that are direct subclasses of <i>AObject</i>. These concrete subclasses are not 
+subclasses of <i>NamedElement</i>, i.e., they instantiate to AADL model objects that are unnamed.&#160; 
+The 
+concrete subclasses of the shown abstract classes, with the exception of <i>NamedElement</i>, also 
+instantiate to unnamed AADL model objects.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The classes ending named with a plural, such as FlowSpecs, 
+Properties, or Connections, 
+represent subclauses in a classifier.&#160; As explained previously, these are explicitly modeled to 
+allow 
+recording of optional subclauses and subclauses with no content, as specified by the reserved 
+word <b>none</b>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic10NotesImage6.jpg" align="bottom" width="580" height="140" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 12 NamedElement Class and its Subclasses</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 12 shows the direct subclasses of the <i>NamedElement</i> 
+class.&#160; They represent those AADL 
+object model classes that have a name.&#160; Concrete subclasses of abstract subclasses of 
+<i>NamedElement </i>are shown in subsequent figures.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic10NotesImage7.jpg" align="bottom" width="573" height="79" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 13 PropertyHolder Class and its Subclasses</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 13 shows those classes that can have properties 
+associated with them, i.e., are subclasses 
+of the <i>PropertyHolder</i> class. A property holder can contain zero or one Properties object that 
+itself 
+holds a collection of property associations. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic10NotesImage8.jpg" align="bottom" width="576" height="96" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 14 ModeMember Class and its Subclasses</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 14&#160; shows the abstract class <i>ModeMember</i>.&#160; 
+A ModeMember object can refer to multiple 
+Mode objects via <i>inModes</i> and a Mode object refers to all objects that are <i>members</i> of it.&#160; 
+The 
+<i>members</i> reference is transient, i.e., not stored persistently in XML.&#160; Any object of concrete 
+subclasses of this class can be declared to be a member of specific modes.&#160; The <i>ModeMember</i> 
+class is a subclass of <i>PropertyHolder</i>.&#160; <i>PropertyAssociation</i> and <i>CallSequence</i> 
+are concrete 
+classes, while <i>Connection</i>, <i>FlowSequence</i>, and <i>Subcomponent</i> are abstract classes.&#160; </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

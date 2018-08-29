@@ -1,0 +1,61 @@
+package codegen_demo::filtering
+public
+
+with codegen_demo::datatypes;
+with arinc653;
+
+process filtering
+features
+	altitude_in0 : in data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+	altitude_in1 : in data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+	altitude : out data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+end filtering;
+
+process implementation filtering.i
+subcomponents
+	thr : thread filtering_thr.i;
+connections
+	c0 : port altitude_in0 -> thr.altitude_in0;
+	c1 : port altitude_in1 -> thr.altitude_in1;
+	c2 : port thr.altitude -> altitude;
+end filtering.i;
+
+thread filtering_thr
+features
+	altitude_in0 : in data port codegen_demo::datatypes::altitude;
+	altitude_in1 : in data port codegen_demo::datatypes::altitude;
+	altitude : out data port codegen_demo::datatypes::altitude;
+end filtering_thr;
+
+thread implementation filtering_thr.i
+calls 
+   call1 : { pspg : subprogram filtering_spg;};
+connections
+	c0 : parameter altitude_in0 -> pspg.altitude_in0;
+	c1 : parameter altitude_in1 -> pspg.altitude_in1;
+	c2 : parameter pspg.altitude -> altitude;
+properties
+   Priority => 1;
+   dispatch_protocol => periodic;
+   period            => 1000ms; 
+   deadline          => 500ms;
+   compute_execution_time => 0ms .. 1ms;
+   Code_Size  => 4 Kbyte;
+   Stack_Size => 30 Kbyte;
+   Data_Size  => 4 Kbyte;	
+end filtering_thr.i;
+
+subprogram filtering_spg
+features
+	altitude_in0 : in parameter codegen_demo::datatypes::altitude;
+	altitude_in1 : in parameter codegen_demo::datatypes::altitude;
+	altitude : out parameter codegen_demo::datatypes::altitude;
+properties
+   source_name => "filtering_spg";
+   source_language => (C);
+   Source_Text => ("filtering.c");
+   Code_Size  => 2 Kbyte;
+   Data_Size  => 2 Kbyte;	
+end filtering_spg;
+
+end codegen_demo::filtering;

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_0" name="AADL2">
+    <ownedComment xmi:id="_0JFigB4cEd68T5xsdP2ekQ">
+      <body>The AADL2 model merges the contents of all packages from the model libraries AADLInfrastructure, AADLConstructs, AADLDetails, and AADLProperties. The result is a flat model containing all metaclasses directly without nested packages.</body>
+    </ownedComment>
+    <packageMerge xmi:id="_packageMerge.0">
+      <mergedPackage xmi:type="uml:Model" href="Core%20Language/AADLInfrastructure.uml#_0"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.1">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Arrays"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.2">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Components"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.3">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Connections"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.4">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Extensibility"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.5">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Features"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.6">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Flows"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.7">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Modes"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.8">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Packaging"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.9">
+      <mergedPackage href="Core%20Language/AADLConstructs.uml#Templates"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.10">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Calls"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.11">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Abstract"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.12">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Bus"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.13">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Data"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.14">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Device"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.15">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Memory"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.16">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Subprogram"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.17">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-SubprogramGroup"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.18">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-System"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.19">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Processor"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.20">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Process"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.21">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-Thread"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.22">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-ThreadGroup"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.23">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-VirtualBus"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.24">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Components-VirtualProcessor"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.25">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Connections"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.26">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#Features"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.27">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#NoneSupport"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.29">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#Associations"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.30">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#Constants"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.31">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#Definitions"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.32">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#Expressions"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.33">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#PropertySets"/>
+    </packageMerge>
+    <packageMerge xmi:id="_packageMerge.34">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#Types"/>
+    </packageMerge>
+    <packageMerge xmi:id="_Y5GYch-jEd6oIu99HumgeA">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#_JK-Ssh-jEd6oIu99HumgeA"/>
+    </packageMerge>
+    <packageMerge xmi:id="_EACmMLOSEeCzMYz5ww7glA">
+      <mergedPackage href="Property%20Language/AADLProperties.uml#_s2TqgLOREeCzMYz5ww7glA"/>
+    </packageMerge>
+    <packageMerge xmi:id="_1tD8gIOLEeOWItHzPgezWw">
+      <mergedPackage href="Core%20Language/AADLDetails.uml#_-k1pwINwEeOmPsvY4RoXnw"/>
+    </packageMerge>
+    <profileApplication xmi:id="_profileApplication.0">
+      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_profileApplication.1">
+      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <standard:Metamodel xmi:id="_znCkQE25Ed2wX9l8Zwaacg" base_Model="_0"/>
+</xmi:XMI>

@@ -1,0 +1,948 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>OSATE Properties API</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.8 OSATE Properties API
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AdvancedPropertyAssociations.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="WorkingwithFlows.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic91"></a>
+          <span class=outlineNumberFirst>5.8 </span><span class=topicLineFirst>OSATE Properties API</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+section describes the OSATE API for manipulating properties in AADL models. The
+methods for getting property declarations, looking up property values, and setting property
+values are described. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic92"></a>
+          <span class=outlineNumber>5.8.1 </span><span class=topicLine>Using Predeclared Properties</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class <b>PredeclaredPropertyNames</b> in package
+<b>edu.cmu.sei.aadl.model.property.predeclared</b> contains <b>static</b> references to names of the
+property definitions, types, and constants declared in the standard AADL property sets
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>AADL_Properties</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>AADL_Project</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. </span></font><font
+face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">[Doesn&#146;t currently contain
+all of them, only the ones
+we have needed. Should fix this.]</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> When looking up property names in the
+<b>initPropertyReferences()</b> method of your plug-in action, you should use these constants to
+get references to predeclared types, constants, and properties.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic93"></a>
+          <span class=outlineNumber>5.8.2 </span><span class=topicLine>Getting PropertyDefinition Objects</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+discussed in Section 5.3  AADL Properties in the Meta Model, AADL property name
+declarations are represented as <b>PropertyDefinition</b> objects, which are contained in
+<b>PropertySet</b> objects. Given a <b>PropertySet</b> object, a property definition can be looked
+up
+using the method <b>PropertySet.findPropertyDefinition(String name)</b>, which returns the
+<b>PropertyDeclaration</b> object if it exists, or <b>null</b> if it does not. Similarly, <b>PropertySet</b>
+also
+contains the methods <b>findPropertyType(String name)</b> and <b>findPropertyConstant(String
+name)</b>.</span></font><span></span></div>
+<div align="left"><font face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">Ref
+lookup methods that we already talked about. What to say about context parameter?</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">But
+how is a <b>PropertySet</b> object retrieved? The class <b>OsateResourceManager</b> in package
+<b>edu.cmu.sei.aadl.model.pluginsupport</b> manages the AADL models, packages, and property
+sets loaded into Eclipse. In effect, it is the root of the AADL name space. It contains
+the
+following static methods for looking up property-related model elements:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The method <b>OsateResourceManager.findPropertySet(String
+name)</b> looks for the
+property set with the given name and returns the appropriate <b>PropertySet</b> object if it is
+found. If no such property set is found, the method returns <b>null</b>.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The method <b>OsateResourceManager.getAllPropertySets()</b>
+returns a <b>Set</b> of
+<b>PropertySet</b> objects, one for each <b>PropertySet</b> in the workspace. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class also contains static convenience methods that combine <b>findPropertySet</b> with one of
+<b>PropertySet.findPropertyDeclaration</b>, <b>PropertySet.findPropertyType</b>, and
+<b>PropertySet.findPropertyConstant</b>. These methods return <b>null</b> if the property set is not
+found, of if the given element is not found within the property set. The methods are:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>OsateResourceManager.findPropertyConstant(String
+psName, String name)</b></span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>OsateResourceManager.findPropertyDefinition(String
+psName, String name)</b></span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>OsateResourceManager.findPropertyType(String
+psName, String name)</b></span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic94"></a>
+          <span class=outlineNumber>5.8.3 </span><span class=topicLine>Testing “Applies to”</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">It
+is sometimes interesting to know whether a particular property  applies to a given
+<b>PropertyHolder</b>. The method <b>PropertyHolder.acceptsProperty(PropertyDefinition pd)</b>
+returns <b>true</b> if the property can be applied to the given component, that is, if the component
+can hold property values associated with the given property.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic95"></a>
+          <span class=outlineNumber>5.8.4 </span><span class=topicLine>Getting Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Class <b>PropertyHolder</b>
+contains a small army of methods supporting the retrieval of property
+values. The AADL property lookup algorithm is embodied in the method
+<b>PropertyHolder.getPropertyValue(PropertyDefinition pd)</b> which returns the given
+component&#146;s property value for the given property. This method returns a
+<b>ModalPropertyValue</b> object which deals with the most general case where a value of a
+property association could depend on the modes of the components in the system. This class is
+described in Section 5.8.4.1  Modal Property Lookup.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+plug-in typically needs to get the values from specific properties, and thus the author of the
+plug-in knows ahead of time the property type of the property, whether the property&#146;s values
+should be lists, and whether the value should depend on the mode. Section 5.5  Getting
+Simple Property Values introduces the <b>PropertyHolder</b> convenience methods
+<b>getSimplePropertyValue</b> and <b>getSimplePropertyValueList</b>, as well as the methods of the
+<b>PropertyUtils</b> class. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+already stated in Section 5.3  AADL Properties in the Meta Model, in addition to
+searching for property associations based on the AADL specification&#146;s algorithm, the property
+lookup methods also interpret the append operator </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>+=&gt;</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, as well as evaluate property values
+that are references to other property values, references to property constants, and Boolean
+expressions. Specifically, a <b>PropertyReference</b> object will never be returned by
+<b>getSimplePropertyValue</b>, or be a member of the <b>List</b> returned by <b>getPropertyValueList</b>
+or obtained from a <b>ModalPropertyValue</b>. Similarly, the only <b>BooleanValue</b> objects
+that will
+be returned will be instances of <b>TRUE</b> and <b>FALSE</b>. Even more concretely, the property
+lookup methods will only return instances of <b>TRUE</b>, <b>FALSE</b>, <b>StringValue</b>, <b>IntegerValue</b>,
+<b>RealValue</b>, <b>IntegerRangeValue</b>, <b>RealRangeValue</b>, <b>EnumValue</b>, <b>ClassifierValue</b>,
+<b>ReferenceValue</b>, and <b>InstanceReferenceValue</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic96"></a>
+          <span class=outlineNumber></span><span class=topicLine>Modal Property Lookup</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">When traversing an instance model, the methods <b>getSimplePropertyValue</b>
+and
+<b>getPropertyValueList</b> are sensitive to the current system operation mode. When the
+current system operation mode is set, these methods may be safely used with properties
+whose value depends on the mode because the system operation mode provides the context
+for determining the correct property value. See </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">????</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.</span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">When the value associated with a property may depend on the mode, and you are
+not using
+system operation modes, you must use the <b>getPropertyValue</b> method. This method returns
+a <b>ModalPropertyValue</b> object, which abstracts the secondary process of dealing with the
+modes in which the property has different values. The interface <b>ModalPropertyValue</b>, and
+the other classes mentioned in this section, are in package
+<b>edu.cmu.sei.aadl.model.properties</b>. The interface has the following methods:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>boolean
+isModal()</b> indicates whether the value depends on modes.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>AadlPropertyValue
+getValue()</b> returns the property value when it is non-
+modal. The exception <b>ModeNotSpecifiedException</b> is thrown if <b>isModal</b> returns
+<b>true</b>. The interface <b>AadlPropertyValue</b> is discussed subsequently.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>Set
+getModeContexts()</b> returns a set of <b>ModeContext</b> objects. Each
+<b>ModeContext</b> object represents a component whose modes can affect the value of
+the property. The modes in scope in a particular <b>ModeContext</b> are returned by
+method <b>getModes()</b>.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>ModeContext[]
+getModeContextsAsArray()</b> is as above, but returns an
+array instead of a set.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>AadlPropertyValue
+getValue(Map modes)</b> gets the property value under
+the given mode bindings. The <b>Map</b> maps from <b>ModeContext</b> objects to <b>Mode</b>
+objects, indicating the particular mode that each <b>ModeContext</b> is in. The exception
+<b>ModeNotSpecifiedException</b> is thrown if a particular mode context requires a
+binding and is not provided in the map.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>Collection
+getAllModeBindings()</b> returns all the <b>Map</b>s that make sense
+to use with <b>getValue</b>.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>Collection
+getAllValues()</b> returns all the values this property could have as
+<b>ReflectiveAadlPropertyValue</b> objects.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">It is expected that most users will use the <b>getAllValues</b> method.
+When analyzing system
+instances that represent modal systems, it is best to use the system operation mode
+functionality, which removes the complexity of handling modes by allowing the use of the
+methods <b>getSimplePropertyValue</b> and <b>getPropertyValueList</b>.</span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">As described in Section 5.7.2  Nonexistent Property Values, the value
+associated with a
+property can not only be not present, but also nonexistent. Because <b>null</b> cannot be used
+to
+represent both cases, OSATE contains the interface <b>AadlPropertyValue</b>. This interface
+declares the following methods:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>boolean
+exists()</b> returns whether the value exists or not. If <b>exists()</b> returns
+<b>false</b>, then the rest of the methods are irrelevant.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>boolean
+isNotPresent()</b> returns whether the value is not present.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>boolean
+isList()</b> returns whether the value is a list or not. Returns <b>false</b> if
+<b>!exists() || isNotPresent()</b>.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>PropertyValue
+getScalarValue()</b> returns the value if <b>!isList()</b>. The
+method throws an <b>UnsupportedOperationException</b> if <b>isList()</b>.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Method <b>List
+getValue()</b> returns the value as a <b>List</b> of <b>PropertyValue</b> objects. If
+<b>!isList()</b>, then the list has a length of one, and the list contains the <b>PropertyValue</b>
+object returned by <b>getScalarValue()</b>. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The interface <b>ReflectiveAadlPropertyValue</b> extends <b>AadlPropertyValue</b>
+and adds the
+method <b>Map getModeBinding()</b>. This method returns the mode binding for which the
+value is associated with the property. The <b>Map</b> is in the same format as required by
+<b>ModalPropertyValue.getValue()</b>. </span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Finally, the interface <b>ModeContext</b> is used to abstract whether the modes
+relevant to a
+<b>ModalPropertyValue</b> come from a <b>ComponentImpl</b>, as they will if we are looking up
+properties on a component of a declarative model, or a <b>SystemInstance</b>, as they will if we
+are looking up properties on a component of an instance model. The difference is that in the
+first case we use <b>Mode</b> objects, and in the second case we need to use objects of type
+<b>SystemOperationMode</b> (which is a subclass of <b>Mode</b>). The <b>ModeContext</b> interface
+hides this problem from the plug-in writer. The interface declares two methods:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The method <b>String
+getName()</b> returns the name of the object providing the modes.
+This exists mainly to support the  AADL Properties view plug-in.</span></font><span></span></li>
+<li><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The method <b>List
+getModes()</b> returns a <b>List</b> of <b>Mode</b> objects provided by the
+context. </span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Most of the time you can avoid having to deal with <b>ModeContext</b> objects
+by simply using
+the <b>ModalPropertyValue.getAllValues()</b> method. But to better explain the relationship
+among <b>ModalPropertyValue</b>, <b>AadlPropertyValue</b>, and <b>ModeContext</b> objects we now
+present an example based on the specification of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>ModalSubcomponents.Impl</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> used in
+Nonexistent Property Values.</span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Suppose that <b>sub2</b> refers the <b>Subcomponent</b> object that models subcomponent </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>sub2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> of
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>ModalSubcomponents.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Let us consider the following
+code fragment:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> ModalPropertyValue mpv = sub2.getPropertyValue(&quot;PS&quot;,
+&quot;x&quot;);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> List contexts = mpv.getModeContexts();</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> ModeContext mc = (ModeContext) contexts.get(0);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> List modes = mc.getModes();</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> Map bindings = new HashMap();</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> for (Iterator i = modes.iterator(); i.hasNext();) {</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> Mode mode = (Mode) i.next();</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> bindings.put(mc, mode);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> AadlPropertyValue apv = mpv.getValue(bindings);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> System.out.println(&quot;In mode &quot;
++ mode.getName());</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> if (!apv.exists()) {</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> System.out.println(&quot;
+nonexistent&quot;);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> } else {</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> if (apv.isNotPresent()) System.out.println(&quot;
+not present&quot;);</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> else
+System.out.println(apv.getScalarValue().getValueAsString());</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> } </span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=-4mm; font-family= Courier New;  color= #010101;  "><font
+face="Courier New" color="#010101"><span> }</span></font><span></span></li>
+</ul>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">This code fragment is tightly coupled to knowledge that (1) the value does depend
+on the
+mode, and (2) there is exactly one mode context relevant to the property value. In general, it
+is hard to know this, and this is why <b>ModalPropertyValue</b> provides the methods
+<b>getAllModeBindings</b> and <b>getAllValues</b>. But this code fragment is useful because it
+explicates all the steps necessary to get the value of a modal property, even though in general
+most of these steps will be performed for you by <b>getAllValues</b>. Before examining the code,
+we provide an example output of the fragment:</span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>In
+mode M1</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+1</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>In
+mode M2</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+nonexistent</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>In
+mode M3</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Courier New" color="#010101"><span><b>
+not present</b></span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">This is only a sample of the output, because the exact order in which the results
+of looking up
+in modes </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M1</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>M2</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>M3</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> are printed depends on the order in which the modes are
+returned by <b>ModeContents.getModes</b>.</span></font><span></span></div>
+<div align="left" style="margin-left=3mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">While not exercised in this example, executing <b>mpv.isModal()</b> would return <b>true</b>.
+The
+<b>ModeContext</b> object referenced by <b>mc</b> represents the <b>ComponentImpl</b> object that models
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>ModalSubcomponents.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Invoking <b>getModes()</b>
+on that object returns a <b>List</b> containing
+three <b>Mode</b> objects, one each modeling the modes </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>M1</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M2</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>M3</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> declared in
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>ModalSubcomponents.Impl</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. To get the value for
+a particular mode, we must create a
+<b>Map</b> to use with <b>ModalPropertyValue.getValue</b>. We do this by iterating over the <b>Mode</b>
+objects, see line (6), and putting the specific mode binding into the <b>Map</b> referenced by
+<b>bindings</b> on line (8). Were there additional <b>ModeContext</b> objects whose modes influenced
+the value, we would have to make sure to bind them to a particular mode object in <b>bindings</b>
+as well. On line (9) we finally get the <b>AadlPropertyValue</b> that represents the value for
+the
+particular mode. Once we have an <b>AadlPropertyValue</b> object we can test whether the
+value exists, line (11), whether it is not present, line (14), and get the value, line (15). On
+line
+(15) we convert the property value to a <b>String</b> for output using the method
+<b>getValueAsString()</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic97"></a>
+          <span class=outlineNumber>5.8.5 </span><span class=topicLine>Modifying Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Through
+the <b>PropertyHolder</b> interface, OSATE also provides a family of methods for setting
+and clearing property associations. It is preferable to use these methods instead of directly
+manipulating the model because they make sure the resulting model is still legal AADL by, for
+example, removing pre-existing property associations for the same property, checking that the
+property applies to the component, and checking that the property value is of the appropriate
+type.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic98"></a>
+          <span class=outlineNumber></span><span class=topicLine>Setting Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">There are four different property setting methods positioned along two axes:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-1mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Whether the property value
+is a list or not.</span></font><span></span></li>
+<li style="margin-left=-1mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Whether the association
+is modal or not.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The property setting methods ensure that a property lookup rooted at the given
+component
+will obtain the specified value for the given property in the given modes. Whether this value
+affects the property value obtained from a descendent component depends on the property
+associations present in the component&#146;s descendents. Each method returns the
+<b>PropertyAssociation</b> object that is created.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The method <b>setPropertyValue(PropertyDefinition pd, PropertyValue value)</b>,
+which is
+used above in Section 5.4.2  Class ComponentSecuritySwitch, creates a new association for
+the given property with the given value. The property association applies to all modes, and
+any existing property associations for the given property are removed from the component.
+The method throws an <b>IllegalArgumentException</b> and leaves the component unchanged if
+the property does not apply to the given component or if the property value is inappropriate
+for the type of the property. When used with a list-valued property, this method associates
+the property with a list whose single value is the given value. </span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">To associate a general list of values with a list-valued property use the method
+<b>setPropertyValue(PropertyDefinition pd, List value)</b>, which creates a new association
+for the given property with the given list of <b>PropertyValues</b>. The property association
+applies to all modes, and any existing property associations for the given property are
+removed from the component. The method throws an <b>IllegalArgumentException</b> and
+leaves the component unchanged if the property does not apply to the given component, if the
+property is not list- valued, or if one of the <b>PropertyValue</b> objects in the list is inappropriate
+for the type of the property.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">To associate a value with a property in certain modes only, use the methods
+<b>setPropertyValue(PropertyDefinition pd, PropertyValue value, List modes)</b> and
+<b>setPropertyValue(PropertyDefinition pd, List value, List modes)</b>, where modes is a
+List of <b>Mode</b> objects. It only makes sense to invoke this method on instances of
+<b>ComponentImpl</b>, <b>Subcomponent</b>, and <b>InstanceObject</b>, although <i>this is not checked</i>.
+When invoked on a <b>ComponentImpl</b> the <b>Mode</b> objects are restricted to be from the set of
+modes returned by that component&#146;s <b>getAllModes</b> method. When invoked on a
+<b>Subcomponent</b>, the <b>Mode</b> objects are restricted to be from the set of modes returned by
+that subcomponent&#146;s containing component&#146;s <b>getAllModes</b> method. When invoked on
+an
+<b>InstanceObject</b>, the modes are restricted to be <b>SystemOperationMode</b> objects from the
+root <b>SystemInstance</b>. Currently, these restrictions are <i>unchecked</i>. In addition
+to creating a
+new property association, these methods may result in changes to the  inModes attribute of
+other property associations for the same property, to ensure that the property only has one
+association in the given component for the given set of modes. These methods throw an
+<b>IllegalArgumentException</b> under the same circumstances described above.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">These methods all return a <b>PropertyAssociation</b> whose  derived
+attribute is <b>false</b>. For list-
+valued properties, the  append attribute is always set to <b>false</b>. If desired,
+these attributes
+can be set to <b>true</b> by manipulating the returned <b>PropertyAssociation</b> object directly.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">A separate set of methods exists for creating contained property associations.
+These
+<b>setContainedPropertyValue</b> methods are like those described above except they have an
+additional <b>List</b> parameter that is a list of <b>PropertyHolder</b> objects. This list is
+used to initialize
+the  appliesTo attribute of the property association, and enumerates a path to a specific
+subcomponent or feature. It is checked that this list has at least one element, but <i>it is not
+checked</i> whether the path described in the list identifies an actual subcomponent or feature
+that makes sense in the given context.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The complete set of methods for setting property values is shown in the table
+below.</span></font><span></span></div>
+<table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="36%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Operation</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Method</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Set property for all modes</span></font><span></span></div>
+    </td>
+    <td valign="middle" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setPropertyValue(PropertyDefinition
+    pd, <br/>
+    PropertyValue value)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    list-valued property for all
+    modes</span></font><span></span></div>
+    </td>
+    <td valign="middle" width="64%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>setPropertyValue(PropertyDefinition pd, List value)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Set property for the given modes</span></font><span></span></div>
+    </td>
+    <td valign="middle" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setPropertyValue(PropertyDefinition
+    pd, <br/>
+    PropertyValue value, List modes)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    list-valued property for the
+    given modes</span></font><span></span></div>
+    </td>
+    <td valign="middle" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setPropertyValue(PropertyDefinition
+    pd, List value, <br/>
+    List modes)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    property for the contained
+    component for all modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setContainedPropertyValue(PropertyDefinition
+    pd,<br/>
+    List appliesTo, PropertyValue value)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    list-valued property for the
+    contained component for all
+    modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setContainedPropertyValue(PropertyDefinition
+    pd,<br/>
+    List appliesTo, List value)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    property for the contained
+    component for the given modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setContainedPropertyValue(PropertyDefinition
+    pd,<br/>
+    List appliesTo, PropertyValue value, List modes)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Set
+    list-valued property for the
+    contained component for the
+    given modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>setContainedPropertyValue(PropertyDefinition
+    pd,<br/>
+    List appliesTo, List value, List modes)</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic99"></a>
+          <span class=outlineNumber></span><span class=topicLine>Removing Property Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The <b>PropertyHolder</b> interface also contains a set of methods for removing
+property
+associations for a given property from the component. The method
+<b>removePropertyAssociations(PropertyDefinition pd)</b> removes all the property
+associations for the given property from the component. The method
+<b>removePropertyAssociations(PropertyDefinition pd, List modes)</b> removes all the
+property associations for the given property for the given modes from the component. The
+<b>List</b> of <b>Mode</b> objects has the same constraints as described for <b>setPropertyValue</b>.
+This
+method may remove <b>PropertyAssociation</b> objects from the model, but it may also modify
+the  inModes attribute of <b>PropertyAssociation</b> objects as well, in the case where the
+association&#146;s modes are not completely contained in the list of modes to removed.</span></font><span></span></div>
+<div align="left" style="margin-left=2mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">A parallel set of methods exists for removing contained property associations.
+The complete
+set of methods for removing property associations and contained property associations from a
+component is shown below.</span></font><span></span></div>
+<table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="36%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Operation</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Method</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Remove
+    all property
+    associations</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>removePropertyAssociations(PropertyDefinition
+    pd,<br/>
+    List appliesTo)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Remove
+    property associations
+    for the given modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>removePropertyAssociations(PropertyDefinition
+    pd,<br/>
+    List appliesTo, List modes)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Remove
+    all property
+    associations from the contained
+    component</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>removeContainedPropertyAssociations(<br/>
+    PropertyDefinition pd, List appliesTo)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="36%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Remove
+    property associations
+    for the given modes from the
+    contained component</span></font><span></span></div>
+    </td>
+    <td valign="top" width="64%" style="border: solid 0.50pt;">
+    <div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>removeContainedPropertyAssociations(<br/>
+    PropertyDefinition pd, List appliesTo, List modes)</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+         <extension
+               point="org.eclipse.ui.commands">
+            <command
+                  id="org.osate.aadl2.instance.ui.generateTextualInstance"
+                  name="Generate Textual Instance">
+            </command>
+         </extension>
+         <extension
+               point="org.eclipse.ui.menus">
+            <menuContribution
+                  locationURI="menu:org.osate.ui.osateMenu?after=generateTextual">
+               <command
+                     commandId="org.osate.aadl2.instance.ui.generateTextualInstance">
+               </command>
+            </menuContribution>
+         </extension>
+         <extension
+               point="org.eclipse.ui.handlers">
+            <handler
+                  class="org.osate.aadl2.instance.ui.GenerateTextualInstanceHandler"
+                  commandId="org.osate.aadl2.instance.ui.generateTextualInstance">
+               <enabledWhen>
+                  <reference
+                        definitionId="org.osate.core.isInstanceFileSelected">
+                  </reference>
+               </enabledWhen>
+            </handler>
+         </extension>
+
+</plugin>

@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Describing the Action in the plugin.xml File</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.5 Describing the Action in the plugin.xml File
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="CreatinganIconforthePlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ExecutingtheModelStatisticsPlug-in.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic19"></a>
+          <span class=outlineNumberFirst>3.5 </span><span class=topicLineFirst>Describing the Action in the plugin.xml File</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+we must describe our action in the plug-in&#146;s </span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file. Our action
+is to be
+runnable from both a toolbar button and a menu item. Actions are grouped into related sets of
+actions called  action sets. Thus before we describe our action, we must describe its
+action
+set. An action set is described using an </span></font><font face="Courier New" color="#010101"><span>actionSet</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> XML element within an </span></font><font
+face="Courier New" color="#010101"><span>extension</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> XML
+element (within the top-level </span></font><font face="Courier New" color="#010101"><span>plugin</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> XML element):</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;extension point=&quot;org.eclipse.ui.actionSets&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;actionSet</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+id=&quot;edu.cmu.sei.osate.statistics.actionSet&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+label=&quot;Statistics Action Set&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+visible=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/actionSet&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;/extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+action set is always declared as an Eclipse extension point of type
+ </span></font><font face="Courier New" color="#010101"><span>org.eclipse.ui.actionSets</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. The </span></font><font
+face="Courier New" color="#010101"><span>id</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, </span></font><font face="Courier New" color="#010101"><span>label</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">, and </span></font><font
+face="Courier New" color="#010101"><span>visible</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> attributes of the
+</span></font><font face="Courier New" color="#010101"><span>actionSet</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> element provide an internal name for the action set, provide a human-readable
+label for the action set, and indicate whether the contents of the action set are visible in the
+Eclipse user interface, respectively.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Because
+we would like a menu item for our action, we must also describe a menu in which the
+action will be located. We use a </span></font><font face="Courier New" color="#010101"><span>menu</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> element inside the </span></font><font
+face="Courier New" color="#010101"><span>actionSet</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;menu</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> id=&quot;analysisMenu&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> label=&quot;Analysis
+&amp;amp;Menu&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Once
+again, we give the element an internal id, as well as a human-readable label. This label is
+used in the menu bar. The character to use as the shortcut key is preceded by an ampersand
+character, denoted in XML as  </span></font><font face="Courier New" color="#010101"><span>&amp;amp;</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+can now describe the action using the </span></font><font face="Courier New" color="#010101"><span>action</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> element inside the </span></font><font
+face="Courier New" color="#010101"><span>actionSet</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;action</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> id=&quot;edu.cmu.sei.osate.statistics.DoModelStatistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> label=&quot;&amp;amp;Model
+statistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> class=&quot;edu.cmu.sei.osate.statistics.DoModelStatistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> icon=&quot;icons/stats.gif&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> disabledIcon=&quot;icons/noStats.gif&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> tooltip=&quot;Determine
+model statistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> enablesFor=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> toolbarPath=&quot;edu.cmu.sei.osate.statistics.actionSet&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> menubarPath=&quot;analysisMenu/statisticsGroup&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;/action&gt;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">An
+action also has an internal id and label. The label is used to label the action in the drop-
+down menu. Again, in the label an ampersand precedes the shortcut key. The </span></font><font
+face="Courier New" color="#010101"><span>class</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> attribute
+names the fully qualified Java class that implements the action. In this case, that class is
+<b>DoModelStatistics</b>. We can provide icons for the action: the </span></font><font face="Courier New" color="#010101"><span>icon</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font
+face="Courier New" color="#010101"><span>disabledIcon</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+attributes refer to the icons to use when the action is enabled and disabled, respectively. The
+path to the image file is relative to the root of the plug-in project. The </span></font><font
+face="Courier New" color="#010101"><span>tooltip</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> attribute
+provides a short description of the action be displayed when the mouse pointer hovers over the
+toolbar button or menu item.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Our
+action should be enabled only when exactly one item is selected in the workspace, thus we
+set attribute </span></font><font face="Courier New" color="#010101"><span>enablesFor=&quot;1&quot;</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+we locate the action within the user interface. The attribute </span></font><font face="Courier New" color="#010101"><span>toolbarPath</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> describes
+where in the toolbar the button for the action is located. Actions with the same path appear
+near each other in the toolbar. The attribute </span></font><font face="Courier New" color="#010101"><span>menubarPath</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> describes in which drop-down
+menu the action should appear using the id of the menu element. Again, actions with the same
+path appear near each other in the menu. Here we locate the action in the previously declared
+</span></font><font face="Courier New" color="#010101"><span>analysisMenu</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. For a more detailed explanation of toolbar and menu paths </span></font><font
+face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">see XXX</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+is enough to make our action implemented by <b>DoModelStatistics</b> accessible within the
+user interface. We can, however, further refine when the action is enabled by including within
+the </span></font><font face="Courier New" color="#010101"><span>action</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> element an </span></font><font face="Courier New" color="#010101"><span>enablement</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> element that provides
+a Boolean expression describing
+when the action should be enabled:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;enablement&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;or&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;and&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectClass name=&quot;org.eclipse.core.resources.IFile&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectState name=&quot;extension&quot; value=&quot;aaxl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/and&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;objectClass
+name=&quot;edu.cmu.sei.aadl.model.core.AObject&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;objectClass
+name= </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;org.eclipse.emf.edit.provider.IWrapperItemProvider&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/or&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;/enablement&gt;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+this case, our action will be enabled when any of the three conditions are true (due to the </span></font><font
+face="Courier New" color="#010101"><span>or</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+element):</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The selected item is an <b>IFile</b>
+and the filename&#146;s extension is  </span></font><font face="Courier New" color="#010101"><span>aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. This corresponds
+to selecting a </span></font><font face="Courier New" color="#010101"><span>.aaxl</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file in the resource navigator
+view.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The selected item is an
+EMF Ecore <b>AObject</b> from an AADL model.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The selected item is a
+wrapped EMF Ecore object. </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">[What exactly is this for?]</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">It
+is a good idea to include the enablement expression in your action description because it
+prevents the action from being enabled in situations where it obviously does not apply.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic20"></a>
+          <span class=outlineNumber>3.5.1 </span><span class=topicLine>The Complete plugin.xml File</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+complete </span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file for the model statistics
+plug-in should look something like the
+following:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;?eclipse version=&quot;3.0&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;plugin</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> id=&quot;edu.cmu.sei.osate.statistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> name=&quot;Statistics
+Plug-in&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> version=&quot;1.0.0&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> provider-name=&quot;&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> class=&quot;edu.cmu.sei.osate.statistics.StatisticsPlugin&quot;&gt;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;runtime&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;library
+name=&quot;statistics.jar&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;export name=&quot;*&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/library&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/runtime&gt;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;requires&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;import
+plugin=&quot;org.eclipse.ui&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;import
+plugin=&quot;org.eclipse.core.runtime&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;import
+plugin=&quot;edu.cmu.sei.aadl.model&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;import
+plugin=&quot;org.eclipse.emf.ecore&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/requires&gt;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;extension point=&quot;org.eclipse.ui.actionSets&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;actionSet</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+id=&quot;edu.cmu.sei.osate.statistics.actionSet&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+label=&quot;Statistics Action Set&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+visible=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;menu</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+id=&quot;analysisMenu&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+label=&quot;Analysis &amp;amp;Menu&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;action</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+id=&quot;edu.cmu.sei.osate.statistics.DoModelStatistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+label=&quot;&amp;amp;Model statistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+class=&quot;edu.cmu.sei.osate.statistics.DoModelStatistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+icon=&quot;icons/stats.gif&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+disabledIcon=&quot;icons/noStats.gif&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+tooltip=&quot;Determine model statistics&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+enablesFor=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+toolbarPath=&quot;edu.cmu.sei.osate.statistics.actionSet&quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+menubarPath=&quot;analysisMenu/statisticsGroup&quot;&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;enablement&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;or&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;and&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectClass</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+name=&quot;org.eclipse.core.resources.IFile&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectState name=&quot;extension&quot; value=&quot;aaxl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;/and&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectClass</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+name=&quot;edu.cmu.sei.aadl.model.core.AObject&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;objectClass</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+name=</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &quot;org.eclipse.emf.edit.provider.IWrapperItemProvider&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;/or&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;/enablement&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&lt;/action&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/actionSet&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &lt;/extension&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;/plugin&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

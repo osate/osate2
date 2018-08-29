@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Category-Specific Meta Model Classes</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.4 Category-Specific Meta Model Classes
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ComponentTypes,Implementations,andSubcom.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ComponentExtensionandRefinement.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic12"></a>
+          <span class=outlineNumberFirst>4.4 </span><span class=topicLineFirst>Category-Specific Meta Model Classes</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL meta model has a separate class for each category-specific 
+component type, 
+component implementation, and subcomponent.&#160; These are concrete classes that get instantiated 
+as objects of that class in the AADL object model.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>These category-specific classes are used to model the 
+fact that component implementations of a 
+specific category must be implementations of a component type of the same category.&#160; They are 
+used to model the fact that component types of a certain category can only contain certain 
+features.&#160; They are also used to model the fact that component implementations of a certain 
+category can only contain subcomponents of certain categories. The category-specific classes are 
+used&#160; to model whether a component may or may not contain connections or call sequences. They 
+may also be used to represent other restrictions expressed in the table of the Legality Rules 
+section of each component category in the Standard.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic12NotesImage2.jpg" align="bottom" width="569" height="269" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 17 Category-Specific Classes</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 17 partially shows the category-specific classes 
+and their subclass relationships in terms of 
+component classifier, component type, and component implementation.&#160; In addition the figure 
+shows that all category-specific classifiers, as well as port group types, can be declared in AADL 
+specifications.&#160; A similar containment relationship is defined for AADL public and private package 
+sections.&#160; The use of category-specific labels in the containment association results in XML 
+element tags that reflect the category, e.g., the XML element tag <i>&lt;systemType&gt;</i> in Figure 
+6.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic12NotesImage5.jpg" align="bottom" width="563" height="158" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 18 Category-specific Subcomponent Classes</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 18 partially shows the category-specific <i>Subcomponents</i> 
+and <i>Subcomponent</i> classes as 
+concrete subclasses.&#160; These classes are used to in Figure 19 to limit the categories of 
+subcomponents that can be contained in each component category.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic12NotesImage6.jpg" align="bottom" width="582" height="380" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 19 Component Category Specific Class Relationships</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 19 shows the containment and reference associations 
+for a subset of category-specific 
+classes.&#160; They are shown for the process and system categories.&#160; Both the <i>SystemImpl</i> 
+class and 
+<i>ProcessImpl</i> class has a <i>compType </i>reference association to its respective type class.&#160; 
+This 
+ensures that component implementations reference only component types of their own category. 
+Each of these <i>compType</i> reference associations specializes the <i>compType </i>reference association 
+of <i>ComponentImpl</i>. This means that the XML attribute name in both cases is <i>compType</i>, but 
+the 
+reference is restricted to the appropriate component type category.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 19 reflects the constraints on the categories 
+of subcomponents that are legal in a given 
+component category implementation.&#160; For example, the system implementation contains a 
+<i>SystemSubcomponents</i> class &#150; the representative of the subcomponents subclause.&#160; Similarly, 
+the <i>SystemSubcomponents</i> class has containment associations to those category-specific 
+Subcomponent classes that are legal for a system implementation.&#160; </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

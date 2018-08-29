@@ -1,0 +1,30 @@
+package codegen_demo::datatypes
+public
+
+with data_model;
+
+data real
+properties
+	Data_Size => 4 bytes;
+	data_model::data_representation => Float ;
+	Type_Source_Name => "double";
+end real;
+
+data int
+properties
+	Data_Size => 4 bytes;
+	data_model::data_representation => Float ;
+	Type_Source_Name => "int";
+end int;
+
+data bool
+properties
+	Data_Size => 1 bytes;
+	data_model::data_representation => Integer ;
+	Type_Source_Name => "unsigned char";
+end bool;
+
+data altitude extends int
+end altitude;
+
+end codegen_demo::datatypes;

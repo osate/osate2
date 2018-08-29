@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>OSATE plug-in: SEI validation plug-ins</title>
+</head>
+
+<body>
+<H2>OSATE plug-in: SEI validation plug-ins</H2>
+
+
+<h3>Introduction</h3>
+<p>
+The analysis plugins designed by the SEI are available in the <em>Analyses</em>, as
+shown in the picture below. These plugins mostly act on the instance model and thus
+you need to select the instance model and the root system instance when invoking these
+plugins.
+</p>
+
+<img src="analysis-menu.png"/>
+
+
+<p>
+Most of the plugins report errors and information as reports in a reports folder in your workspace as well as Eclipse Markers shown in the Eclipse <em>Problems</em>
+view. You can activate the <em>Problems</em> view by selecting
+the following menus: <em>Window</em>, <em>Show View</em> and then <em>Problems</em>, as
+shown in the following picture.
+</p>
+<img src="activate-problem-view.png"/>
+
+<p>
+Eclipse classifies Marker information into different categories: errors, warning and
+information. By default the Eclipse problem view only shows errors, so you may not see the results of an analysis if no errors are involved.
+</p>
+<p>
+You can change the default setting by following the instructions at
+<strong><a href="../start/eclipse-basics.html">Eclipse Basics</a></strong>.
+</p>
+
+
+<h3>ARINC429 Consistency Checking</h3>
+<p>
+One development scenario is that subcontractors develop their subsystems independently and each subcontractor documents how the data it communicates via an ARINC429 protocol is packaged into ARINC429 words. As a result there can be inconsistencies in terms of which package ID and which bit locations data is transferred in. It is then the responsibility of the integrator to detect any inconsistencies.
+</p>
+<p>
+We can support such consistency checking of ARINC429 protocol usage by making use of properties on ports or on features of port group types. The data communicated through ports are mapped into ARINC429 words using the following properties:
+</p>
+
+<ul>
+<li>ARINC429::WordID: This integer valued property records the unique ID of the ARINC429 word in which the data is to be transferred.
+</li>
+<li>
+ARINC429::firstbit: The location of the first bit within the ARINC429 word.
+</li>
+<li>
+ARINC429::numberbits: The number of bits making up the data element.
+</li>
+</ul>
+<p>
+The ARINC429 consistency checker is invoked on an instance model using the toolbar button or via the Analyses menu. It works with all port connection instances and compares the three ARINC429 property values, if both the source and destination ports have them. The checker also records all port connection instances and their ARINC429 properties in a CSV file for processing by MS Excel or other tools.
+</p>
+<p>
+Note that the numberbits property is redundant with the Source_Data_Size property. We chose to provide the numberbits property as separate property in order to support a development process where a team member, who is responsible for the mapping to the ARINC429 protocol, can work independently. We can extend the consistency checker to ensure that the numberbits property and the Source_Data_Size property have consistent values, or the Source_Data_Size property is used when the numberbits property value is not present.
+</p>
+
+<h3>Port Connection Consistency Checking</h3>
+<p>
+For every port connection instance the checker retrieves properties from the source port and the destination port and compares them. Port connection instances are always created between port instances of the lowest level component instances in the instance model. This means that for a model with processes or systems as the lowest components the connection instances start with and end with process or system ports. When the model is refined to the thread level the port connection instances are created between thread instance ports.
+</p>
+<p>
+When feature groups are defined and they contain ports, then the instance contains a separate port connection instance for each port.  In other words, the port connection checker validates the consistency for each port in the feature group.
+</p>
+<p>
+The following properties are currently compared:</p>
+
+<ul>
+<li>Source_Data_Size: this property indicates the size of the data communicated through the port.  The property may be associated 1) with the data type (data component classifier) referenced by the port, or 2) with the port itself.  The size is expected to be equal. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Input_Rate and Output_Rate: this property indicates the expected input/output rate. It is a record value specifying a Value_range of real values and a Rate_Unit (PerDispatch or PerSecond). The Rate_Unit is expected to be equal and the source value range is expected to be contained in the destination value range. This check is performed if the source port has an output rate and the destination port has an input rate specified.
+</li>
+<li>
+SEI::Data_Rate: real value representing the rate without unit (assumed to be transfers per second); must be same value. Note: this property is provided as an alternative to using Input_Rate and OutPut_Rate. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Data_Model::Base_Type: (reference to data classifier); must refer to same classifier. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<li>
+Data_Model::Measurement_Unit: (string); must be equal. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<p>
+These properties are associated with the ports, with data component types that are the port classifiers, or with the port features of feature group types.
+</p>
+<p>
+If a property value is missing for one or both ports no comparison is made and a message is reported.
+</p>
+<p>
+For all port connection instances the source and destination port property values are recorded in a CSV file for processing by MS Excel. The resulting file can be found in the reports folder.
+</p>
+
+<h3>Weight Analysis Plug-In</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="MassAnalysis.html">here.</a></strong>
+</p>
+
+<h3>Analyze Electrical Power Consumption</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="ElectricalPower.html">here.</a></strong>
+</p>
+
+<h3>MIPS, RAM, ROM, and Network Bandwidth Budget Analysis</h3>
+<p>
+The Budget Analysis sums up the budgets of components with resource demand and compares the total against the resource capacity - in case of bindings the budgets of those components bound to the resource. For details see <strong><a href="ResourceBudgets.html">here.</a></strong>
+</p>
+
+
+</body>
+</html>

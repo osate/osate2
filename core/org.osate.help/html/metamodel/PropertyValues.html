@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Property Values</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.14 Property Values
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="PropertyAssociations.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AADLPackages.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic22"></a>
+          <span class=outlineNumberFirst>4.14 </span><span class=topicLineFirst>Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The AADL supports a number of different property values 
+that correspond to the property type of the 
+property definition referenced by a property association.&#160; The property value is represented by 
+the 
+abstract <i>PropertyValue</i> class.&#160; Concrete subclasses represent values of specific types. The 
+value 
+types <i>StringValue</i>, <i>IntegerValue</i>, <i>RealValue</i>, <i>IntegerRangeValue</i>, <i>RealRangeValue</i>, <i>EnumValue</i>, 
+<i>ClassifierValue</i>, and <i>ReferenceValue</i> are shown in Figure 30.&#160; <i>BooleanValue</i> 
+and 
+<i>PropertyReference</i> are shown in Figure 31.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The common super class to <i>IntegerValue</i> and <i>RealValue</i> 
+called <i>NumberValue</i> has a reference 
+association called <i>unitLiteral</i> to a unit literal defined as part of an enumeration type.&#160; 
+An 
+<i>IntegerRangeValue</i> and <i>RealRangeValue</i> object contains a minimum value, a maximum value, 
+and 
+an optional delta value, represented by appropriate containment associations defined for a common 
+super class called <i>RangeValue</i>.&#160; These containment associations refer to a class called 
+<i>NumberOrPropertyReference</i>.&#160; This class is a super class of <i>NumberValue</i> and of 
+<i>PropertyReference</i> and represents the fact that the value can be expressed as an actual value, 
+or 
+as a reference to a property constant.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage3.jpg" align="bottom" width="307" height="798" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 30 Property Values</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span><i>NumberValue</i> objects have a <i>valueString</i> 
+attribute to represent the value as a string.&#160; This is done 
+to preserve the particular representation chosen in the textual AADL representation. For example, 
+the integer value 10,000 may also be represented as 10e5.&#160; In addition, the actual value, and in 
+the 
+case of integers the base, are also stored as <i>value</i> and <i>base</i> attributes.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Enumeration values are represented by objects that have 
+a reference association to an 
+enumeration literal.&#160; Classifier values are represented by the concrete <i>ClassifierValue</i> 
+class, which 
+records the classifier&#146;s component category in an attribute and an optional classifier reference 
+with 
+a reference association.&#160; Acceptable enumeration values for the <i>componentCategory</i> attribute 
+are 
+defined in Figure 33.&#160; The <i>ReferenceValue</i> class represents reference values to elements 
+in the 
+AADL model.&#160; Those references are recorded as a sequence of references to subcomponents 
+terminating in a subcomponent, connection, or server subprogram.&#160; The sequence is realized by a 
+multiplicity reference association and represents a path to the referenced element.&#160; The elements 
+that can be referenced, are represented by the abstract class <i>ReferenceElement</i>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic22NotesImage5.jpg" align="bottom" width="464" height="343" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 31 Boolean Property Expression</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The AADL supports Boolean expressions as Boolean values.&#160; 
+This is represented by the concrete 
+subclasses <i>TRUE</i>, <i>FALSE</i>, <i>BooleanOR</i>, <i>BooleanAND</i>, and <i>BooleanNOT</i>.&#160; 
+The three classes 
+representing the Boolean operators have containment associations pointing to the 
+<i>BooleanOrPropertyReference</i> class to reflect the fact that either Boolean values or references 
+to 
+other properties or property constants are permitted. The precedence order of the Boolean 
+operators, as defined in Section 10.4 (p.164 of AS5506), is reflected in the containment hierarchy 
+of the Boolean operator objects.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Property values can be expressed as references to a property 
+constant or another property using 
+the <b>value</b> construct.&#160; Such references are represented by the <i>PropertyReference</i> class.&#160; 
+In the 
+case of references to number property constants, the reference can include a sign, which is 
+recorded as a <i>sign</i> attribute.&#160; A null value indicates no sign, the strings &#147;+&#148; 
+and &#147;-&#147; represent the 
+plus or minus sign.&#160; A <i>PropertyReference</i> can refer to a <i>ReferencedProperty</i> class, 
+i.e., a 
+<i>PropertyDefinition</i> or a <i>PropertyConstant</i> class.&#160; Property constants and property 
+definitions, also 
+known as Property name declarations, are described in Annex C.4.16.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

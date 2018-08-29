@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Scope</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   1. Scope
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="index.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="MetaModelNotation.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic2"></a>
+          <span class=outlineNumberFirst>1. </span><span class=topicLineFirst>Scope</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>This annex defines the AADL meta model and XML-based 
+interchange formats for AADL models.&#160; 
+The AADL meta model defines the structure of AADL models, i.e., an object representation of 
+AADL specifications that corresponds to a semantically decorated abstract syntax tree.&#160; The 
+object representation of AADL models can be manipulated programmatically through an API.&#160; The 
+object representation of AADL models can also be persistently stored as XML documents in a 
+standard interchange format.&#160; This permits different tools that support the AADL XML schema [XML 
+2001] or XMI meta model specification [XMI 2003] to interoperate on AADL models.&#160; Both the XML 
+schema and the XMI meta model specification for the AADL are derived from the AADL meta 
+model, thus, the two representations are consistent with the meta model.</span></font><span></span></div>
+<div align="left">The three model representations and persistent XML formats of AADL models <font face="Helvetica"><span>defined 
+in this annex 
+are</span></font><span>:</span><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>A <i>declarative 
+AADL model</i>: AADL specifications in the form of component types, component 
+implementations, port group types, annex libraries, packages, and property sets.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>An <i>AADL 
+instance model</i>: A compact representation of a system instance whose root is a 
+system implementation in an AADL specification. This model contains AADL properties 
+required for further analysis and processing.&#160; Declarative information is accessible, if needed, 
+through cross-document references to the declarative model.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>A <i>graphical 
+layout model</i>: Layout information for the graphical display of AADL models.&#160; The 
+graphical layout representation is associated with AADL models in their declarative model and 
+instance model.</span></font><span></span></li>
+</ul>
+<div align="center"><img src="NotesImages/Topic2NotesImage3.jpg" align="bottom" width="418" height="279" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 1 AADL Models and Tools</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 1 shows the three model representations and their 
+roles with respect to the textual and 
+graphical AADL representation as well as to tools that process and analyze AADL models. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The declarative AADL model reflects AADL specifications 
+and supports translation to and from the 
+textual AADL representation.&#160; A parser translates AADL text into a declarative AADL model.&#160; 
+Name resolution, semantic checking and other static analysis can be performed on this in-core 
+object model of the declarative AADL model.&#160; The emphasis of the declarative model representation 
+is to maintain the declarative structure as defined in the standard.&#160; Derived information such 
+as 
+features inherited by subcomponents from their component type, subcomponents or connections 
+inherited by a component implementation from the component implementation it extends, or 
+property values of subcomponents inherited from property associations declared with the 
+referenced component type or implementation are not explicitly modeled, but are accessible via 
+methods that operate on the model.&#160; Results of such analysis can be recorded in the declarative 
+AADL model as property values. This makes analysis results available in a standard format for 
+other analysis and for generation tools as illustrated in Figure 1. An XML-to-Text converter can 
+reproduce textual AADL from the declarative AADL model.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The graphical AADL model is supported by graphical editing 
+tools operating on the declarative 
+AADL model and using the graphical layout model to maintain relevant layout information about the 
+AADL model.&#160; Graphical presentation of AADL instances is supported in a similar manner.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The AADL instance model reflects an instance of a system 
+as an instantiation of the application 
+system and the execution platform based on a system implementation as the root of the system 
+model. Connections between connections, represented in the declarative model as one or more 
+connection declarations, are resolved to semantic connections in the instance model.&#160; The 
+declarative AADL model contains information that is relevant to assure the semantic consistency of 
+AADL models.&#160; However, this information is often not needed for model analyses and runtime 
+system generation.&#160; Therefore, this information is not kept in the instance model, but accessible 
+through references from the AADL instance model objects to the model objects in the declarative 
+model they are derived from.&#160; The AADL instance model is used in the analyses of system 
+instances.&#160; In many cases these analyses require a system model in which application 
+components are bound to execution platform components.&#160; Such analysis tools may operate on an 
+memory-resident representation of the AADL instance model directly, or they may load an XML 
+document into memory as part of the analysis process. Alternatively, filters can convert the XML 
+representation into an analysis tool specific representation.&#160; Results from such analysis can be 
+recorded as properties in the AADL instance model and mapped back into the declarative AADL 
+model as necessary.</span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The three models of AADL specifications in this annex 
+are described by the AADL meta 
+model.&#160;This meta model is the basis of a standard persistent interchange format in XML as well 
+as 
+the basis of an in-core object model that results from loading an XML-based model into memory.&#160; 
+The persistent XML representation is specified by an XMI meta model of the AADL and by an XML 
+Schema.&#160; Both these specifications are directly derived from the AADL meta model.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>This annex provides a mapping from the AADL meta model 
+to XML documents as a persistent form 
+of AADL models. The annex documents the decisions that went into the definition of the AADL 
+meta model. And it provides a summary of the AADL meta model.&#160; The full AADL meta model and 
+XML/XMI representations are available in an Appendix.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

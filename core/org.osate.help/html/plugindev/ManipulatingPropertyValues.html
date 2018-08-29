@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Manipulating Property Values</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.6 Manipulating Property Values
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="GettingSimplePropertyValues.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AdvancedPropertyAssociations.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic80"></a>
+          <span class=outlineNumberFirst>5.6 </span><span class=topicLineFirst>Manipulating Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+section describes some specific issues in the use of <b>PropertyValue</b> objects, particularly in
+the use of <b>IntegerValue</b> and <b>RealValue</b> objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+attributes of <b>PropertyValue</b> objects can be changed using the attribute setter methods.
+Changing the values of the <b>PropertyValue</b> objects obtained from the property lookup
+methods, however, may not have the intended affects on the model. Because the property
+lookup methods handle searching the component hierarchies, interpreting references to
+property constants, interpreting references to other property values, and evaluating Boolean
+expressions, the <b>PropertyValue</b> objects obtained from the lookup may be located in surprising
+locations in the model, and it is possible they may be freshly created objects and not located in
+the model at all. To change the value of a property it is best to create a new <b>PropertyValue</b>
+object to use with <b>setPropertyValue</b>. For example, the following code segment increments
+an integer property value associated with a particular component:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final IntegerValue iv = (IntegerValue)
+ph.getPropertyValue(pd);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (iv != null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue iv2
+= PropertyFactory.eINSTANCE.createIntegerValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> iv2.setNewValue(iv.getValue()
++ 1);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> ph.setPropertyValue(pd, iv2);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">(We
+assume <b>pd</b> refers to a property definition of type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">.)</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic81"></a>
+          <span class=outlineNumber>5.6.1 </span><span class=topicLine>Copying PropertyValues</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Sometimes
+you want to copy a property value from one property association to another. You
+might be tempted to use the property value objects returned by a property lookup method and
+feed them back to <b>setPropertyValue</b>, as shown below:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // Anti-pattern for copying
+property values</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final List val = ph.getPropertyValueList(pd_propA);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // </b><b><i>Do not do this!</i></b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> ph.setPropertyValue(pd_propB,
+val);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>Do
+not do this</i>. This can have unexpected effects on the model because it can cause a
+<b>PropertyValue</b> object to have a new containing object the meta model, and thus destroy the
+original property association. Instead, you should create a copy of the property value objects
+and set the new the property value using the copies:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // Pattern for copying property
+values</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final List val = ph.getPropertyValueList(pd_propA);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // </b><b><i>Do this instead</i></b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final List valCopy = AadlUtil.copyList(val);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> ph.setPropertyValue(pd_propB,
+valCopy);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The <b>static</b>
+method <b>AadlUtil.copyList(List)</b> takes a <b>List</b> of <b>EObject</b> references and returns a
+new <b>List</b> object whose contents are copies of the objects in the original list, in the same order.
+Any references shared among the objects in the list are also shared among objects in the
+copied list. The copying is performed using the method <b>EcoreUtil.copy(EObject)</b>, which
+deep-copies an individual model object. These copying methods are useful for copying model
+structure generally, but we cover them here because we have found them most useful when
+manipulating property values.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Also, <b>IntegerValue</b>
+and <b>RealValue</b> (via the superclass <b>NumberValue</b>) contain the methods
+<b>cloneNumber()</b> and <b>cloneAndInvert()</b>. The first method returns a copy of the number.
+The
+second returns a copy that has the inverse value.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic82"></a>
+          <span class=outlineNumber>5.6.2 </span><span class=topicLine>Unparsing Property Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+get the string representation of a property value, use the method
+<b>PropertyValue.getValueAsString()</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic83"></a>
+          <span class=outlineNumber>5.6.3 </span><span class=topicLine>Using Range Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL specification allows the minimum, maximum, and delta components of the range to
+be specified using either literals or references to property constants. Thus, in the meta model,
+the  minimum,  maximum, and  delta attributes of <b>RangeValue</b>
+contain
+<b>NumberOrPropertyReference</b> objects. You can get the value of a
+<b>NumberOrPropertyReference</b> object using <b>getNumberValue()</b>. We have added three
+convenience methods to <b>RangeValue</b> to provide direct access to the numeric values of its
+attributes: <b>getMinimumValue()</b>, <b>getMaximumValue()</b>, and <b>getDeltaValue()</b>. All
+three
+methods return a <b>NumberValue</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic84"></a>
+          <span class=outlineNumber>5.6.4 </span><span class=topicLine>Getting Type Literals</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Given
+a <b>UnitsType</b> object, the member <b>UnitLiteral</b> objects can be retrieved by name using
+the method <b>UnitsType.findUnitLiteral(String unitName)</b>. If no literal with the given name
+exists the method returns <b>null</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Similarly,
+the method <b>EnumType.findEnumLiteral(String litName)</b> looks for the named
+enumeration literal in the given enumeration type, and returns <b>null</b> if the literal is not found.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic85"></a>
+          <span class=outlineNumber>5.6.5 </span><span class=topicLine>Scaling Number Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+described in Section 5.2.1  AADL Property Types, </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlreal</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> and </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>aadlinteger</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property
+types can specify that their values have units. In the meta model, this is captured by the
+ unitLiteral attribute of <b>NumberValue</b>. However, the  value attribute
+of <b>RealValue</b> and
+<b>IntegerValue</b> is maintained separately from  unitLiteral. It is thus the case
+that interpreting
+the actual value represented by a <b>RealValue</b> or <b>IntegerValue</b> involves checking the values
+of
+two attributes, as well as interpreting the value of the unit literal itself relative to the other unit
+literals in its <b>UnitType</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE
+shields the plug-in programmer from this tedious process via the methods
+<b>NumberValue.getScaledValue()</b> and <b>NumberValue.getScaledValue(UnitLiteral)</b>. Both
+methods return a <b>double</b> value: the first returns the value scaled relative to the base unit of
+the
+number&#146;s <b>UnitsType</b>; the second method returns the value scaled relative to the given
+<b>UnitLiteral</b>, which must be from the number&#146;s <b>UnitsType</b>. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+example, consider the <b>IntegerValue</b> representing the AADL property expression </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>30 foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+of type </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Example::Length</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Method <b>getScaledValue()</b>
+returns <b>360.0</b>, the value scaled to the
+base unit </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>inch</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">. Invoking the parameterized
+method with the <b>UnitLiteral</b> object representing
+the unit </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>yard</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> returns <b>10.0</b>.
+Thus, given a <b>PropertyHolder</b> object <b>ph</b> representing a
+component whose </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Example::Documentation_Thickness</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property has value </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>30 foot</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">,
+executing the following segment of code</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final UnitsType units =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> (UnitsType) OsateResourceManager.findPropertyType(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Example&quot;, &quot;English_Units&quot;); </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final IntegerValue iv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> (IntegerValue) ph.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Example&quot;, &quot;Documentation_Thickness&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;Scaled
+Value: &quot; + iv.getScaledValue());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;In
+Yards: &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> iv.getScaledValue(units.findUnitLiteral(&quot;yard&quot;)));</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">results
+in the following console output:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>Scaled Value: 360.0</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>In Yards: 10.0</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic86"></a>
+          <span class=outlineNumber>5.6.6 </span><span class=topicLine>Setting Number Values</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class <b>NumberValue</b> contains the attribute  valueString which shadows the value of the
+ value attribute of <b>RealValue</b> and <b>IntegerValue</b>. This attribute is maintained
+so that the
+number value can be unparsed to the same syntactic form from which it was parsed. This is
+important because AADL allows integer values to be denoted in bases other than ten, allows
+exponential notation for real values, and allows underscores to be inserted between numerals.
+These syntactic features are often important to the readability of specifications, and thus it is
+separately maintained in the  valueString attribute. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+a consequence, when the  value attribute of a <b>NumberValue</b> is changed, the  valueString
+attribute should also be. Because it is inconvenient, and error prone, to expect that
+<b>setValueString</b> be invoked every time <b>setValue</b> is invoked, <b>NumberValue</b> also features
+the
+method <b>setNewValue(Number)</b> which simultaneously updates both the  value and
+ valueString attributes. Class <b>RealValue</b> has the more specific method
+<b>setNewValue(double)</b>, and class <b>IntegerValue</b> has the more specific method
+<b>setNewValue(long)</b>. Because integer values may be denoted in bases other than ten,
+<b>IntegerValue</b> also has the method <b>setNewValue(long value, int base)</b>, which allows the
+base that the string representation should be in to be specified. If the base is not a value
+between two and sixteen inclusive, base ten is used.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+do not offer any methods for controlling how a real value is represented as a string; the
+<b>setValueString</b> method can be used in conjunction with the <b>java.text.DecimalFormat</b> class
+to exercise finer control over the unparsing of <b>RealValue</b> objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+unit literal for a number value, if one is desired, is set by the <b>setUnitLiteral</b> method.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+an example, executing the code segment</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final UnitsType units =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> (UnitsType) OsateResourceManager.findPropertyType(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;Example&quot;, &quot;English_Units&quot;); </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> final IntegerValue iv2 =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PropertyFactory.eINSTANCE.createIntegerValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> iv2.setNewValue(18L);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> iv2.setUnitLiteral(units.findUnitLiteral(&quot;inch&quot;));</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;New
+value: &quot; + iv2.getValueAsString());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;valueString:
+&quot; + iv2.getValueString());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;Scaled
+Value: &quot; + iv2.getScaledValue());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> System.out.println(&quot;In
+Feet: &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> iv2.getScaledValue(units.findUnitLiteral(&quot;foot&quot;)));</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">results
+in the following console output.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>New value: 18 inch</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>valueString: 18</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>Scaled Value: 18.0</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>In Feet: 1.5</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

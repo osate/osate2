@@ -1,0 +1,28 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+verification plan scsvplan for scsreqs 
+[
+	claim R1 [
+		activities
+			actualsystemweight : Plugins.MassAnalysis() 
+			   [ category Quality.Mass ]
+			MaxWeight : Resolute.verifyAllWeights(MaximumWeight in kg) [ category Quality.Mass ]
+			SCSReq1act : Resolute.verifySCSReq1(MaximumWeight in kg) [ category Quality.Mass ]
+	]
+
+// end to end flows only exist in requirements	
+//claim R2 [
+//		activities
+//			responsetime : Plugins.FlowLatencyAnalysis() 
+//			timing: Plugins.ResourceAllocationScheduling()
+//		assert timing then responsetime
+//
+//	]
+
+claim R3  [
+	activities
+		hasvoltage: Alisa_Consistency.ConsistentVoltage(volts)
+		consistentvoltage: actualvolt = Alisa_Consistency.GetVoltage()
+		matchvoltage: actualvolt = Alisa_Consistency.SetGetVoltage()property values (volts)
+	]
+] 

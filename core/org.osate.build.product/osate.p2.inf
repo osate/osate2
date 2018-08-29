@@ -1,0 +1,12 @@
+##
+# Remove unnecessary root files
+##
+instructions.configure=\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/launcher);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/launcher.exe);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/eclipsec.exe-*.p2bu);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/eclipsec.exe);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/Eclipse.app);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/readme);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/notice.html);\
+    org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/.eclipseproduct);

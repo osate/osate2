@@ -1,0 +1,14 @@
+package weight_exceed_limit
+public
+	with SEI;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: system {SEI::GrossWeight => 2.0 kg;};
+		properties
+			SEI::WeightLimit => 1.0 kg;
+	end s1.i1;
+end weight_exceed_limit;

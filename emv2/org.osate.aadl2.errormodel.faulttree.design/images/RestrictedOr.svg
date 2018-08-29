@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"
+ "http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
+
+<svg width="68" height="68">
+  <polygon fill="#ffcccc" points="0 58, 33 0, 67 58"/>
+  <polygon fill="#ffcccc" points="0 66, 5 58, 33 56"/>
+  <polygon fill="#ffcccc" points="66 66, 63 58, 34 56"/>
+
+  <path fill="#ffcccc" stroke="#646464" stroke-width="2" d="M66,66 C66,55 66,27 33,1"/>
+  <path fill="#ffcccc" stroke="#646464" stroke-width="2" d="M1,66 C1,55 1,27 33,1"/>
+  <path fill="none" stroke="#646464" stroke-width="2" d="M1,66 C27,55 40,55 66,66"/>
+<!--
+  <line x1="19" y1="35" x2="44" y2="18" stroke="#646464" stroke-width="2"/>
+  <line x1="19" y1="35" x2="44" y2="48" stroke="#646464" stroke-width="2"/>
+  <line x1="19" y1="39" x2="44" y2="52" stroke="#646464" stroke-width="2"/>
+-->
+</svg>
+

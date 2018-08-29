@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Graphical Meta Model Notation</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="MetaModelNotation.html">2. Meta Model Notation</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   2.1 The Graphical Meta Model Notation
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="MetaModelNotation.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="MappingtoXMLDocuments.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic4"></a>
+          <span class=outlineNumberFirst>2.1 </span><span class=topicLineFirst>The Graphical Meta Model Notation</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>A UML class diagram notation has been used to graphically 
+present the Ecore meta model of 
+AADL (see Figure 2).&#160; Classes are distinguished from other symbols by a little table-like icon 
+in the 
+upper left corner. A hierarchy of <i>abstract</i> and <i>concrete</i> classes is used to represent the 
+different 
+object classes of an AADL model.&#160; Concrete classes can be instantiated into AADL model objects. 
+&#160;Abstract classes represent characteristics that are common to a group of AADL model objects. 
+For example, the abstract class <i>NamedElement</i> represents AADL model objects that have a name. 
+&#160;A line with a hollow triangle denotes a sub class super class relationship and points to the super 
+class.&#160; Abstract classes are marked with the letter A in the upper left corner.&#160; </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic4NotesImage3.jpg" align="bottom" width="154" height="126" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 2 Meta Model Class Notation</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Classes in the meta model can also contain attributes, 
+i.e., typed name value pairs. The attribute 
+values can be of a number of predefined types or can be enumeration literals of user-defined 
+enumerations. Figure 2 shows a multi-valued comment attribute and a single-valued name attribute. </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Objects in an AADL model are related to each other through 
+two types of associations: a 
+<i>containment association</i>, and a <i>reference association</i>.&#160; A containment association 
+specifies that 
+one object is part of another object.&#160; The UML symbol for composition aggregation, i.e., a line 
+with 
+a diamond at the container end and an open arrowhead at the contained end, is used to represent 
+containment associations (see the<i> </i>containment of<i> ProcessSubcomponents </i>in<i> ProcessImpl</i> 
+in 
+Figure 3).&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>A reference association specifies that objects are accessible 
+from other objects.&#160; Reference 
+associations can be unidirectional, i.e., one object can access another object, or bi-directional, 
+i.e., either object can access the other object.&#160; Unidirectional reference associations are shown 
+as 
+a line with an arrowhead and a label at the destination, the UML symbol for unidirectional 
+associations (see the reference from <i>ProcessSubcomponent</i> to <i>ProcessClassifier</i> in Figure 
+3).&#160; Bi- 
+directional reference associations are shown as a line without an arrowhead and labels on both 
+ends, the UML symbol for bi-directional associations (see the reference between <i>ProcessType</i> and 
+<i>ProcessImpl</i> in Figure 3).&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>For bi-directional reference associations, the reference 
+to another object is kept consistent with the 
+reference in the opposite direction.&#160; If one of the labels of a bi-directional reference association 
+is 
+marked with a (T), then references in this direction are transient, i.e., not persistently stored in 
+XML.&#160; On loading an XML document, the reference marked as transient is re-established for the in- 
+core representation.&#160; </span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Both containment and reference associations can have 
+a multiplicity to specify the number of 
+association instances. Figure 3 shows a containment association between <i>ProcessImpl</i> and 
+<i>ProcessSubcomponents</i>.&#160; The association indicates that a process implementation can contain 
+zero or one process subcomponents subclause objects.&#160; Figure 3 also shows a unidirectional 
+reference association from a process subcomponent to a process classifier and indicates that the 
+classifier reference is optional, i.e., zero or one.&#160; For the bi-directional reference association 
+between process types and process implementations, the reference from the implementation to the 
+type is required to be one and is stored persistently, while the reference from the type to the 
+implementations is zero or more and is maintained only in-core. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic4NotesImage5.jpg" align="bottom" width="553" height="168" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 3 Containment and Reference Associations</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Reference associations between classes may be marked 
+with an S for <i>specialize</i> (see Figure 4) if 
+one or both are abstract classes.&#160; Subclasses of these abstract classes specify specializations 
+of 
+this reference that restrict the endpoints of the reference to the objects of the classes involved in 
+the specialized associations. For example, the reference association between <i>ProcessType</i> and 
+<i>ProcessImpl</i> in Figure 3 limits the reference to implementations and types of processes.&#160; </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic4NotesImage6.jpg" align="bottom" width="476" height="50" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 4 Relations with Specialization</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

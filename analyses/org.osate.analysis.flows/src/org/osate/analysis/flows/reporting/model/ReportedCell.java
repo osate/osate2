@@ -1,20 +1,20 @@
 package org.osate.analysis.flows.reporting.model;
 
-import org.osate.result.IssueType;
+import org.osate.result.DiagnosticType;
 
 public class ReportedCell {
 
 	private String msg;
-	private IssueType severity;
+	private DiagnosticType severity;
 
-	public ReportedCell(IssueType sev, String msg) {
+	public ReportedCell(DiagnosticType sev, String msg) {
 		this.msg = msg;
 		this.severity = sev;
 	}
 
 	public ReportedCell(String msg) {
 		this.msg = msg;
-		this.severity = IssueType.INFO;
+		this.severity = DiagnosticType.INFO;
 	}
 
 	public String getMessage() {
@@ -25,24 +25,24 @@ public class ReportedCell {
 		this.msg = msg;
 	}
 
-	public IssueType getSeverity() {
+	public DiagnosticType getSeverity() {
 		return this.severity;
 	}
 
 	public boolean isError() {
-		return this.severity.equals(IssueType.ERROR);
+		return this.severity.equals(DiagnosticType.ERROR);
 	}
 
 	public boolean isWarning() {
-		return this.severity.equals(IssueType.WARNING);
+		return this.severity.equals(DiagnosticType.WARNING);
 	}
 
 	public boolean isSuccess() {
-		return this.severity.equals(IssueType.SUCCESS);
+		return this.severity.equals(DiagnosticType.SUCCESS);
 	}
 
 	public boolean isInfo() {
-		return this.severity.equals(IssueType.INFO);
+		return this.severity.equals(DiagnosticType.INFO);
 	}
 
 }
