@@ -37,6 +37,10 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorReporter;
 import org.osate.ui.actions.AbstractAnalysis;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 	protected final StringBuffer reportMessage = new StringBuffer();
 

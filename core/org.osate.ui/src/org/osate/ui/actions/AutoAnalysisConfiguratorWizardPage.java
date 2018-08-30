@@ -35,6 +35,10 @@ package org.osate.ui.actions;
 
 import org.eclipse.jface.wizard.WizardPage;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public abstract class AutoAnalysisConfiguratorWizardPage extends WizardPage {
 	public AutoAnalysisConfiguratorWizardPage(String pageName) {
 		super(pageName);
