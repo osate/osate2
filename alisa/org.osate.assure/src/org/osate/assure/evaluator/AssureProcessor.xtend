@@ -740,13 +740,14 @@ class AssureProcessor implements IAssureProcessor {
 					}
 					verificationResult.issues.add(returned)
 				} else if (returned instanceof Result) {
-					val issues = returned.diagnostics
+//					val issues = returned.diagnostics
+//					verificationResult.issues.addAll(issues)
+					verificationResult.results += returned
 					if (hasErrors(returned) || hasFailures(returned)) {
 						setToFail(verificationResult)
 					} else {
 						setToSuccess(verificationResult)
 					}
-					verificationResult.issues.addAll(issues)
 					if (verificationResult instanceof VerificationActivityResult) {
 						evaluateComputePredicate(verificationResult, method, returned)
 					}
@@ -773,15 +774,17 @@ class AssureProcessor implements IAssureProcessor {
 								}
 								verificationResult.issues.add(c)
 							}
-						}
-						if (verificationResult instanceof VerificationActivityResult) {
-							evaluateComputePredicate(verificationResult, method, r)
+							if (verificationResult instanceof VerificationActivityResult) {
+								evaluateComputePredicate(verificationResult, method, r)
+							}
 						}
 					}
 					if (! foundResult) {
 						// requirement target does not match Result source reference
 						// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
 						// does not include a 'for' <target model element>
+						verificationResult.results.addAll(returned.results)
+						
 						setToError(verificationResult,
 							"No Result found for requirement verification target " + target.name, target)
 					}
