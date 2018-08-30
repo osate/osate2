@@ -284,6 +284,33 @@ may also specify component error behavior, in which case it is interpreted inste
 flows. Finally, users can declare composite error behavior, where an error behavior state of a 
 system is declared in terms of error behavior states of its subsystem. 
 
+### Assignment of Occurrence Probability 
+
+The occurrence probability is represented by the *EMV2::OccurrenceDistribution* property. It takes a record value with one field specifying the value and a optional second field specifying the distribution. 
+
+> Examples: 
+EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.85e-7 ;] applies to ErrorSrc.BadData ;
+EMV2::OccurrenceDistribution => [ ProbabilityValue => 1.85e-7 ; Distribution => Poisson;] applies to SErrorEvent;
+
+The property is specified in the *properties* section of the EMV2 annex subclause for the component classifier.
+The property can be associated with 
+
+- an *error source*. It is a leaf event in the fault tree if the user has not specified component error behavior with an outpropagation condition for the propagation identified in the error source.
+
+- an *outgoing error propagation*. 
+
+- an *incoming error propagation*. The in propagation of a top-level component or the incoming propagation of a binding point without a specified binding is a leaf event in the fault tree. In the first case it represents error propagated into the system from external sources. In the second case is represents a propagation from a platform to the application.
+
+- an *error event*. The error event is included as a leaf event in the fault tree if it triggers a transition to an error state that is reachable via an outpropagation condition declaration. 
+
+- an *error state*.
+
+If the error model element has an error type, you can specify a different occurence value for each of the error types by including the error type name as the last element of the *applies to* path (see *ErrorSrc.BadData* in the example above).
+
+When associated with the leaf event in the fault tree the specified value is used in the computation of the occurrence probability of the fault tree. 
+
+When associated with error model elements that are not translated into fault tree leaf events, they represent an expected occurrence probability value that the computed value should match. In the result presentation we show both the specified and the computed values. 
+
 ### Fault Tree Analysis Invocation 
 
 Fault tree analysis is invoked on an instance model through the main menu, context, menu, or tool 
@@ -364,6 +391,8 @@ KOf, KOrLess.
   **Or** of single elements.
 
 Eclipse Sirius is automatically invoked to visualize the fault trees in table or graphical view. 
+
+> Occurrence probabilities are shown in the graphical and table view with a single digit after the decimal point. In the actual fault tree representation the values are stored with greater precision.
 
 An example graphical view of a fault tree (shown below) illustrates the different event types. The 
 graphical view uses a compact presentation of events and gates by showing events as rectangles and 
