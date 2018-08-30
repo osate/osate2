@@ -78,6 +78,7 @@ import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.Result
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -121,7 +122,7 @@ class AlisaView extends ViewPart {
 		this.assureConstructor = assureConstructor
 		this.assureProcessor = assureProcessor
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
-		settingsFileName = pluginsDir.append("org.osate.assure.ui").append("alisa_view_settings.xml").toOSString
+		settingsFileName = pluginsDir.append("org.osate.alisa.workbench.ui").append("alisa_view_settings.xml").toOSString
 		dialogSettings = new DialogSettings("alisa_view_settings")
 		try {
 			dialogSettings.load(settingsFileName)
@@ -416,6 +417,8 @@ class AlisaView extends ViewPart {
 								"Validation " + eObject.name
 							PreconditionResult:
 								"Precondition " + eObject.name
+							Result:
+								"Result " + (eObject.sourceReference?.constructLabel ?: eObject.info)
 							Diagnostic:
 								eObject.type.getName.toLowerCase.toFirstUpper + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult:
@@ -590,13 +593,11 @@ class AlisaView extends ViewPart {
 					if (selectedAlisaObject instanceof AssuranceCase) {
 						val AssuranceCaseResultURI = assuranceCaseURI.trimFileExtension.trimSegments(assuranceCaseURI.segmentCount-2).
 						appendSegment("assure").appendSegment(selectedAlisaObject.name).appendFileExtension(ASSURE_EXTENSION)
-						resourceSetForUI.getEObject(AssuranceCaseResultURI, true) as AssuranceCaseResult
-//						val resultDescriptions = rds.getExportedObjectsByType(
-//							AssurePackage.Literals.ASSURANCE_CASE_RESULT)
-//						val results = resultDescriptions.map [
-//							resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
-//						]
-//						results.findFirst[ac|ac !== null && ac.name == selectedAlisaObject.name]
+						try {
+							resourceSetForUI.getEObject(AssuranceCaseResultURI, true) as AssuranceCaseResult
+						} catch (Exception e){
+							null
+						}
 					}
 				}
 
