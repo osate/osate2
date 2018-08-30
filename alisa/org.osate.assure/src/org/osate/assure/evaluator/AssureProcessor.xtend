@@ -695,17 +695,23 @@ class AssureProcessor implements IAssureProcessor {
 					executeJavaMethodOnce(verificationResult,method, target, parameters);
 				}
 				ResoluteMethod: {
-					if (RESOLUTE_INSTALLED) {
-						val fundef = methodtype.methodReference
-						ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef,  targetComponent, target,
-						parameters)
-					} else {
-						setToError(verificationResult, "Resolute not installed")
-					}
+					executeResoluteMethodOnce(verificationResult,method, targetComponent, target, parameters);
 				}
 			}
 		}
 
+		def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
+			ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
+			if (RESOLUTE_INSTALLED) {
+				val methodtype = method.methodKind as ResoluteMethod
+				val fundef = methodtype.methodReference
+				val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
+				parameters)
+				processExecutionResult(verificationResult, method, target, returned)
+			} else {
+				setToError(verificationResult, "Resolute not installed")
+			}
+		}
 		def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 			InstanceObject target, List<PropertyExpression> parameters) {
 			val methodtype = method.methodKind as JavaMethod
