@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,6 +34,7 @@ import org.osate.result.Diagnostic;
  *   <li>{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getAnalysisresultreference <em>Analysisresultreference</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getMessage <em>Message</em>}</li>
  * </ul>
  *
@@ -116,30 +118,46 @@ public interface VerificationResult extends AssureResult, VerificationExpr {
 	EList<Diagnostic> getIssues();
 
 	/**
-	 * Returns the value of the '<em><b>Results</b></em>' reference.
+	 * Returns the value of the '<em><b>Results</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.result.Result}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Results</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Results</em>' reference.
-	 * @see #setResults(AnalysisResult)
+	 * @return the value of the '<em>Results</em>' containment reference list.
 	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Results()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Result> getResults();
+
+	/**
+	 * Returns the value of the '<em><b>Analysisresultreference</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Analysisresultreference</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Analysisresultreference</em>' reference.
+	 * @see #setAnalysisresultreference(AnalysisResult)
+	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Analysisresultreference()
 	 * @model
 	 * @generated
 	 */
-	AnalysisResult getResults();
+	AnalysisResult getAnalysisresultreference();
 
 	/**
-	 * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}' reference.
+	 * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getAnalysisresultreference <em>Analysisresultreference</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Results</em>' reference.
-	 * @see #getResults()
+	 * @param value the new value of the '<em>Analysisresultreference</em>' reference.
+	 * @see #getAnalysisresultreference()
 	 * @generated
 	 */
-	void setResults(AnalysisResult value);
+	void setAnalysisresultreference(AnalysisResult value);
 
 	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.
