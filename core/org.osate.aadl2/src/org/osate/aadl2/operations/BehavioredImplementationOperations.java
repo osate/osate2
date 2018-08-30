@@ -80,11 +80,6 @@ public class BehavioredImplementationOperations extends ComponentImplementationO
 		EList<SubprogramCall> allCalls = new NonNotifyingEObjectEList<SubprogramCall>(SubprogramCall.class,
 				(InternalEObject) behavioredImplementation, Aadl2Package.BEHAVIORED_IMPLEMENTATION__SUBPROGRAM_CALL) {
 			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected boolean isNotificationRequired() {
-				return false;
-			}
 		};
 
 		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences()) {
