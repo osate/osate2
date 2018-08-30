@@ -351,7 +351,7 @@ public class AgeGraphitiGraphicsUtil {
 		final org.eclipse.graphiti.mm.algorithms.Polygon outlinePolygon = gaService.createPlainPolygon(containerGa,
 				new int[] { 0, height, 0, depth, horizontalOffset, 0, width, 0, width, height - depth,
 						width - horizontalOffset, height });
-
+		PropertyUtil.setIsStylingContainer(outlinePolygon, true);
 		PropertyUtil.setIsStylingChild(outlinePolygon, true);
 		outlinePolygon.setLineWidth(lineWidth);
 		outlinePolygon.setLineStyle(lineStyle);
@@ -363,12 +363,14 @@ public class AgeGraphitiGraphicsUtil {
 		GraphicsAlgorithm ga;
 		ga = gaService.createPlainPolyline(outlinePolygon,
 				new int[] { 0, depth, width - horizontalOffset, depth, width, 0 });
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(lineWidth);
 		ga.setLineStyle(lineStyle);
 		ga.setForeground(black);
 
 		ga = gaService.createPlainPolyline(outlinePolygon,
 				new int[] { width - horizontalOffset - 1, depth - 2, width - horizontalOffset - 1, height });
+		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineWidth(lineWidth);
 		ga.setLineStyle(lineStyle);
 		ga.setForeground(black);
@@ -389,6 +391,7 @@ public class AgeGraphitiGraphicsUtil {
 		final int ellipseHeight = 20;
 		final double halfEllipseHeight = ellipseHeight / 2.0;
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
+		PropertyUtil.setIsStylingContainer(ga, true);
 		PropertyUtil.setIsStylingChild(ga, true);
 		ga.setLineVisible(false);
 		ga.setBackground(white);
@@ -396,6 +399,7 @@ public class AgeGraphitiGraphicsUtil {
 
 		// Top ellipse
 		final GraphicsAlgorithm topEllipse = gaService.createPlainEllipse(ga);
+		PropertyUtil.setIsStylingChild(topEllipse, true);
 		gaService.setLocationAndSize(topEllipse, 0, 0, width, ellipseHeight);
 		topEllipse.setForeground(black);
 		topEllipse.setLineWidth(lineWidth);
@@ -430,6 +434,7 @@ public class AgeGraphitiGraphicsUtil {
 		points[j++] = ellipseHeight / 2;
 
 		final org.eclipse.graphiti.mm.algorithms.Polyline linesGa = gaService.createPlainPolyline(ga, points);
+		PropertyUtil.setIsStylingChild(linesGa, true);
 		gaService.setLocationAndSize(linesGa, 0, 0, width, height);
 		linesGa.setLineWidth(lineWidth);
 		linesGa.setForeground(black);
