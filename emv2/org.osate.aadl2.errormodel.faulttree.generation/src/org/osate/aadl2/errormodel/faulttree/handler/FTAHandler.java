@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -197,7 +198,8 @@ public final class FTAHandler extends AbstractHandler {
 					return (InstanceObject) obj;
 				}
 				if (obj instanceof IFile) {
-					Resource res = OsateResourceUtil.getResource((IResource) obj);
+					ResourceSet rset = OsateResourceUtil.createXtextResourceSet();
+					Resource res = OsateResourceUtil.getResource((IResource) obj, rset);
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty()) {
 						return (InstanceObject) rl.get(0);
