@@ -19,6 +19,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
@@ -114,7 +115,7 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Diagnostic executeResoluteFunctionOnce(EObject fundef,
+	public EObject executeResoluteFunctionOnce(EObject fundef,
 			final ComponentInstance targetComponent, final InstanceObject targetElement,
 			List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = (FunctionDefinition) fundef;
@@ -221,29 +222,35 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private Diagnostic doResoluteResults(ResoluteResult resRes) {
-		Diagnostic ri = null;
+	private Result doResoluteResults(ResoluteResult resRes) {
 		if (resRes instanceof ClaimResult) {
+			Diagnostic ri = null;
 			ClaimResult rr = (ClaimResult) resRes;
+			Result res = ResultUtil.createResult(rr.getText(), rr.getLocation());
 			if (rr.isValid()) {
 				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
 			} else {
 				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
 			}
+			res.getDiagnostics().add(ri);
 			Object[] subrrs = resoluteContent.getChildren(rr);
 			for (Object subrr : subrrs) {
 				ClaimResult subclaim = (ClaimResult) subrr;
-				// in the future we may need to create an intermediary Result object
-				ri.getIssues().add(doResoluteResults(subclaim));
+				res.getSubResults().add(doResoluteResults(subclaim));
 			}
+			return res;
 		} else if (resRes instanceof ResoluteResult) {
+			Result res = ResultUtil.createResult("XXX", null);
+			Diagnostic ri = null;
 			if (resRes.isValid()) {
 				ri = ResultUtil.createSuccess("XXX", null);
 			} else {
 				ri = ResultUtil.createFailure("XXX", null);
 			}
+			res.getDiagnostics().add(ri);
+			return res;
 		}
-		return ri;
+		return null;
 	}
 
 }
