@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.Result#getValues <em>Values</em>}</li>
  *   <li>{@link org.osate.result.Result#getDiagnostics <em>Diagnostics</em>}</li>
  *   <li>{@link org.osate.result.Result#getSubResults <em>Sub Results</em>}</li>
+ *   <li>{@link org.osate.result.Result#getStatus <em>Status</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getResult()
@@ -125,5 +126,35 @@ public interface Result extends EObject {
 	 * @generated
 	 */
 	EList<Result> getSubResults();
+
+	/**
+	 * Returns the value of the '<em><b>Status</b></em>' attribute.
+	 * The default value is <code>"NONE"</code>.
+	 * The literals are from the enumeration {@link org.osate.result.DiagnosticType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Status</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Status</em>' attribute.
+	 * @see org.osate.result.DiagnosticType
+	 * @see #setStatus(DiagnosticType)
+	 * @see org.osate.result.ResultPackage#getResult_Status()
+	 * @model default="NONE"
+	 * @generated
+	 */
+	DiagnosticType getStatus();
+
+	/**
+	 * Sets the value of the '{@link org.osate.result.Result#getStatus <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Status</em>' attribute.
+	 * @see org.osate.result.DiagnosticType
+	 * @see #getStatus()
+	 * @generated
+	 */
+	void setStatus(DiagnosticType value);
 
 } // Result

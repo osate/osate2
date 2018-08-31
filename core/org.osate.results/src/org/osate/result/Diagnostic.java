@@ -2,7 +2,6 @@
  */
 package org.osate.result;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getSource <em>Source</em>}</li>
  * </ul>
  *
@@ -134,25 +132,6 @@ public interface Diagnostic extends EObject {
 	 * @generated
 	 */
 	void setExceptionType(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.result.Diagnostic}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * @deprecated
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Issues</em>' containment reference list.
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Issues()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Diagnostic> getIssues();
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' attribute.
