@@ -93,7 +93,6 @@ class VerifyJavaUtil {
 		}
 
 		private static def Class<?> classForParameter(FormalParameter fp, JavaMethod vm) {
-			// TODO deprecated we do not need to java parameter specification
 			val jparameters = vm.params
 			for (jp : jparameters) {
 				if (fp.name.equalsIgnoreCase(jp.name)) {
@@ -201,11 +200,31 @@ class VerifyJavaUtil {
 					return convertToJavaObject(jp, actual)
 				}
 			}
-			actual
+			return convertActualToJavaObject(formal, actual)
+		}
+		/*
+		 * Convert AADL Property representation of string, boolean, integer, real to Java objects
+		 */
+		private static def Object convertActualToJavaObject(FormalParameter formal,PropertyExpression actual) {
+			var Object result = actual
+			switch (actual) {
+				RealLiteral:
+					if(formal.unit !== null) result = actual.value
+				IntegerLiteral: {
+					if (formal.unit !== null) {
+						result = actual.value
+					}
+				}
+				StringLiteral:
+					result = actual.value
+				BooleanLiteral:
+					result = actual.isValue
+			}
+			return result
 		}
 
 		/*
-		 * Convert AADL Property representation of string, boolean, integer, real to Java objects
+		 * Convert AADL Property representation of string, boolean, integer, real to Java objects accordin gto JavaParameter specification
 		 */
 		private static def Object convertToJavaObject(JavaParameter formalParam, PropertyExpression actual) {
 			var Object result = actual
@@ -227,6 +246,7 @@ class VerifyJavaUtil {
 			}
 			return result
 		}
+
 
 
 }
