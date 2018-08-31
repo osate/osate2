@@ -186,13 +186,22 @@ public interface ResultPackage extends EPackage {
 	int RESULT__SUB_RESULTS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Status</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESULT__STATUS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Result</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESULT_FEATURE_COUNT = 5;
+	int RESULT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Result</em>' class.
@@ -250,22 +259,13 @@ public interface ResultPackage extends EPackage {
 	int DIAGNOSTIC__EXCEPTION_TYPE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIAGNOSTIC__ISSUES = 4;
-
-	/**
 	 * The feature id for the '<em><b>Source</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGNOSTIC__SOURCE = 5;
+	int DIAGNOSTIC__SOURCE = 4;
 
 	/**
 	 * The number of structural features of the '<em>Diagnostic</em>' class.
@@ -274,7 +274,7 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGNOSTIC_FEATURE_COUNT = 6;
+	int DIAGNOSTIC_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Diagnostic</em>' class.
@@ -480,6 +480,43 @@ public interface ResultPackage extends EPackage {
 	int BOOLEAN_VALUE_OPERATION_COUNT = VALUE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.result.impl.EObjectValueImpl <em>EObject Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.result.impl.EObjectValueImpl
+	 * @see org.osate.result.impl.ResultPackageImpl#getEObjectValue()
+	 * @generated
+	 */
+	int EOBJECT_VALUE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_VALUE__VALUE = VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>EObject Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>EObject Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EOBJECT_VALUE_OPERATION_COUNT = VALUE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -487,7 +524,7 @@ public interface ResultPackage extends EPackage {
 	 * @see org.osate.result.impl.ResultPackageImpl#getDiagnosticType()
 	 * @generated
 	 */
-	int DIAGNOSTIC_TYPE = 8;
+	int DIAGNOSTIC_TYPE = 9;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.result.AnalysisResult <em>Analysis Result</em>}'.
@@ -620,6 +657,17 @@ public interface ResultPackage extends EPackage {
 	EReference getResult_SubResults();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.result.Result#getStatus <em>Status</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Status</em>'.
+	 * @see org.osate.result.Result#getStatus()
+	 * @see #getResult()
+	 * @generated
+	 */
+	EAttribute getResult_Status();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.result.Diagnostic <em>Diagnostic</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -672,17 +720,6 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDiagnostic_ExceptionType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.result.Diagnostic#getIssues <em>Issues</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Issues</em>'.
-	 * @see org.osate.result.Diagnostic#getIssues()
-	 * @see #getDiagnostic()
-	 * @generated
-	 */
-	EReference getDiagnostic_Issues();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.result.Diagnostic#getSource <em>Source</em>}'.
@@ -810,6 +847,27 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBooleanValue_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.result.EObjectValue <em>EObject Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>EObject Value</em>'.
+	 * @see org.osate.result.EObjectValue
+	 * @generated
+	 */
+	EClass getEObjectValue();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.result.EObjectValue#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see org.osate.result.EObjectValue#getValue()
+	 * @see #getEObjectValue()
+	 * @generated
+	 */
+	EReference getEObjectValue_Value();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}'.
@@ -945,6 +1003,14 @@ public interface ResultPackage extends EPackage {
 		EReference RESULT__SUB_RESULTS = eINSTANCE.getResult_SubResults();
 
 		/**
+		 * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESULT__STATUS = eINSTANCE.getResult_Status();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.DiagnosticImpl <em>Diagnostic</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -985,14 +1051,6 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DIAGNOSTIC__EXCEPTION_TYPE = eINSTANCE.getDiagnostic_ExceptionType();
-
-		/**
-		 * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DIAGNOSTIC__ISSUES = eINSTANCE.getDiagnostic_Issues();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
@@ -1099,6 +1157,24 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BOOLEAN_VALUE__VALUE = eINSTANCE.getBooleanValue_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.result.impl.EObjectValueImpl <em>EObject Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.result.impl.EObjectValueImpl
+		 * @see org.osate.result.impl.ResultPackageImpl#getEObjectValue()
+		 * @generated
+		 */
+		EClass EOBJECT_VALUE = eINSTANCE.getEObjectValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EOBJECT_VALUE__VALUE = eINSTANCE.getEObjectValue_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}' enum.
