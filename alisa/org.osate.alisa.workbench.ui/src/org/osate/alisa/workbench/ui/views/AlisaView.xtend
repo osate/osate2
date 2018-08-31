@@ -79,6 +79,9 @@ import org.osate.verify.util.VerifyUtilExtension
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.result.Result
+import java.util.Collections
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -375,11 +378,11 @@ class AlisaView extends ViewPart {
 				}
 
 				override getParent(Object element) {
-					resourceSetForUI.getEObject(element as URI, true).eContainer?.URI ?: treeViewer.input
+					resourceSetForUI.getEObject(element as URI, true)?.eContainer?.URI ?: treeViewer.input
 				}
 
 				override hasChildren(Object element) {
-					!resourceSetForUI.getEObject(element as URI, true).eContents.empty
+					!(resourceSetForUI.getEObject(element as URI, true)?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
 				}
 
 				override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
