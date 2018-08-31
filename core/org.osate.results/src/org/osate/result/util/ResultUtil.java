@@ -8,6 +8,7 @@ import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
+import org.osate.result.EObjectValue;
 import org.osate.result.IntegerValue;
 import org.osate.result.RealValue;
 import org.osate.result.Result;
@@ -101,6 +102,12 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
+	public static void addEObjectValue(Result contributor, EObject value) {
+		EObjectValue res = ResultFactory.eINSTANCE.createEObjectValue();
+		res.setValue(value);
+		contributor.getValues().add(res);
+	}
+
 	// get values from the Result object
 
 	public static String getString(Result result, int idx) {
@@ -147,6 +154,17 @@ public class ResultUtil {
 		return 0;
 	}
 
+	public static EObject getEObject(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof EObjectValue) {
+				return ((EObjectValue) val).getValue();
+			}
+		}
+		return null;
+	}
+
 	public static Value getValue(Result result, int idx) {
 		EList<Value> vals = result.getValues();
 		if (idx < vals.size()) {
@@ -161,6 +179,9 @@ public class ResultUtil {
 	 * @return
 	 */
 	public static boolean hasFailures(Result res) {
+		if (res.getStatus() == DiagnosticType.FAILURE) {
+			return true;
+		}
 		if (hasFailures(res.getDiagnostics())) {
 			return true;
 		}
@@ -184,12 +205,6 @@ public class ResultUtil {
 	public static boolean hasFailures(Diagnostic res) {
 		if (res.getType() == DiagnosticType.FAILURE) {
 			return true;
-		}
-		// this code supports nested Diagnostic objects
-		for (Diagnostic r : res.getIssues()) {
-			if (hasFailures(r)) {
-				return true;
-			}
 		}
 		return false;
 	}
@@ -216,15 +231,13 @@ public class ResultUtil {
 		if (res.getType() == DiagnosticType.ERROR) {
 			return true;
 		}
-		for (Diagnostic r : res.getIssues()) {
-			if (hasFailures(r)) {
-				return true;
-			}
-		}
 		return false;
 	}
 
 	public static boolean hasErrors(Result res) {
+		if (res.getStatus() == DiagnosticType.ERROR) {
+			return true;
+		}
 		if (hasErrors(res.getDiagnostics())) {
 			return true;
 		}

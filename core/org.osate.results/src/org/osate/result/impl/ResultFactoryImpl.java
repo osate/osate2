@@ -64,6 +64,7 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 			case ResultPackage.REAL_VALUE: return createRealValue();
 			case ResultPackage.STRING_VALUE: return createStringValue();
 			case ResultPackage.BOOLEAN_VALUE: return createBooleanValue();
+			case ResultPackage.EOBJECT_VALUE: return createEObjectValue();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -167,6 +168,16 @@ public class ResultFactoryImpl extends EFactoryImpl implements ResultFactory {
 	public BooleanValue createBooleanValue() {
 		BooleanValueImpl booleanValue = new BooleanValueImpl();
 		return booleanValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EObjectValue createEObjectValue() {
+		EObjectValueImpl eObjectValue = new EObjectValueImpl();
+		return eObjectValue;
 	}
 
 	/**
