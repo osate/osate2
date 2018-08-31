@@ -30,7 +30,6 @@ import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult;
 import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue;
 import com.rockwellcollins.atc.resolute.analysis.values.ResoluteValue;
-import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
 import com.rockwellcollins.atc.resolute.resolute.BoolExpr;
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
@@ -191,8 +190,6 @@ public class ExecuteResoluteUtil {
 		}
 	}
 
-	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
-
 	private Diagnostic doResoluteResults(ResoluteResult resRes) {
 		Diagnostic ri = null;
 		if (resRes instanceof ClaimResult) {
@@ -201,12 +198,6 @@ public class ExecuteResoluteUtil {
 				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
 			} else {
 				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
-			}
-			Object[] subrrs = resoluteContent.getChildren(rr);
-			for (Object subrr : subrrs) {
-				ClaimResult subclaim = (ClaimResult) subrr;
-				// in the future we may need to create an intermediary Result object
-				ri.getIssues().add(doResoluteResults(subclaim));
 			}
 		}
 		return ri;

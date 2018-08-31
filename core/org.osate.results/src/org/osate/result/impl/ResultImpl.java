@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.result.Result;
 import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.result.ResultPackage;
 import org.osate.result.Value;
 
@@ -37,6 +38,7 @@ import org.osate.result.Value;
  *   <li>{@link org.osate.result.impl.ResultImpl#getValues <em>Values</em>}</li>
  *   <li>{@link org.osate.result.impl.ResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
  *   <li>{@link org.osate.result.impl.ResultImpl#getSubResults <em>Sub Results</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getStatus <em>Status</em>}</li>
  * </ul>
  *
  * @generated
@@ -101,6 +103,26 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * @ordered
 	 */
 	protected EList<Result> subResults;
+
+	/**
+	 * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final DiagnosticType STATUS_EDEFAULT = DiagnosticType.NONE;
+
+	/**
+	 * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus()
+	 * @generated
+	 * @ordered
+	 */
+	protected DiagnosticType status = STATUS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,6 +243,27 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DiagnosticType getStatus() {
+		return status;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatus(DiagnosticType newStatus) {
+		DiagnosticType oldStatus = status;
+		status = newStatus == null ? STATUS_EDEFAULT : newStatus;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__STATUS, oldStatus, status));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -253,6 +296,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 				return getDiagnostics();
 			case ResultPackage.RESULT__SUB_RESULTS:
 				return getSubResults();
+			case ResultPackage.RESULT__STATUS:
+				return getStatus();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,6 +329,9 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 				getSubResults().clear();
 				getSubResults().addAll((Collection<? extends Result>)newValue);
 				return;
+			case ResultPackage.RESULT__STATUS:
+				setStatus((DiagnosticType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -311,6 +359,9 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			case ResultPackage.RESULT__SUB_RESULTS:
 				getSubResults().clear();
 				return;
+			case ResultPackage.RESULT__STATUS:
+				setStatus(STATUS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -333,6 +384,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 				return diagnostics != null && !diagnostics.isEmpty();
 			case ResultPackage.RESULT__SUB_RESULTS:
 				return subResults != null && !subResults.isEmpty();
+			case ResultPackage.RESULT__STATUS:
+				return status != STATUS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -349,6 +402,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (info: ");
 		result.append(info);
+		result.append(", status: ");
+		result.append(status);
 		result.append(')');
 		return result.toString();
 	}
