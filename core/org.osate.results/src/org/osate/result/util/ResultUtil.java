@@ -50,10 +50,35 @@ public class ResultUtil {
 		return issue;
 	}
 
-	public static Result createResult(String name, EObject target) {
+	public static Result createErrorResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.ERROR);
+	}
+
+	public static Result createWarningResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.WARNING);
+	}
+
+	public static Result createInfoResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.INFO);
+	}
+
+	public static Result createSuccessResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.SUCCESS);
+	}
+
+	public static Result createFailureResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.FAILURE);
+	}
+
+	public static Result createResult(String msg, EObject target) {
+		return createResult(msg, target, DiagnosticType.NONE);
+	}
+
+	public static Result createResult(String msg, EObject target, DiagnosticType type) {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(target);
-		result.setInfo(name);
+		result.setMessage(msg);
+		result.setType(type);
 		return result;
 	}
 
@@ -179,7 +204,7 @@ public class ResultUtil {
 	 * @return
 	 */
 	public static boolean hasFailures(Result res) {
-		if (res.getStatus() == DiagnosticType.FAILURE) {
+		if (res.getType() == DiagnosticType.FAILURE) {
 			return true;
 		}
 		if (hasFailures(res.getDiagnostics())) {
@@ -209,7 +234,7 @@ public class ResultUtil {
 		return false;
 	}
 
-	public static boolean hasFailures(Collection<Diagnostic> res) {
+	public static boolean hasFailures(Collection<? extends Diagnostic> res) {
 		for (Diagnostic r : res) {
 			if (hasFailures(r)) {
 				return true;
@@ -218,7 +243,7 @@ public class ResultUtil {
 		return false;
 	}
 
-	public static boolean hasErrors(Collection<Diagnostic> res) {
+	public static boolean hasErrors(Collection<? extends Diagnostic> res) {
 		for (Diagnostic r : res) {
 			if (hasErrors(r)) {
 				return true;
@@ -226,6 +251,7 @@ public class ResultUtil {
 		}
 		return false;
 	}
+
 
 	public static boolean hasErrors(Diagnostic res) {
 		if (res.getType() == DiagnosticType.ERROR) {
@@ -235,7 +261,7 @@ public class ResultUtil {
 	}
 
 	public static boolean hasErrors(Result res) {
-		if (res.getStatus() == DiagnosticType.ERROR) {
+		if (res.getType() == DiagnosticType.ERROR) {
 			return true;
 		}
 		if (hasErrors(res.getDiagnostics())) {

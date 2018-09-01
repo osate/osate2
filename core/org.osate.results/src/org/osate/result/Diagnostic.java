@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.Diagnostic#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getSource <em>Source</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getDiagnostic()
@@ -106,57 +104,5 @@ public interface Diagnostic extends EObject {
 	 * @generated
 	 */
 	void setSourceReference(EObject value);
-
-	/**
-	 * Returns the value of the '<em><b>Exception Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Exception Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Exception Type</em>' attribute.
-	 * @see #setExceptionType(String)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_ExceptionType()
-	 * @model
-	 * @generated
-	 */
-	String getExceptionType();
-
-	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getExceptionType <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Exception Type</em>' attribute.
-	 * @see #getExceptionType()
-	 * @generated
-	 */
-	void setExceptionType(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Source</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' attribute.
-	 * @see #setSource(String)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Source()
-	 * @model
-	 * @generated
-	 */
-	String getSource();
-
-	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getSource <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' attribute.
-	 * @see #getSource()
-	 * @generated
-	 */
-	void setSource(String value);
 
 } // Diagnostic

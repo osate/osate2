@@ -24,8 +24,6 @@ import org.osate.result.ResultPackage;
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getSource <em>Source</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,46 +78,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * @ordered
 	 */
 	protected EObject sourceReference;
-
-	/**
-	 * The default value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExceptionType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EXCEPTION_TYPE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExceptionType()
-	 * @generated
-	 * @ordered
-	 */
-	protected String exceptionType = EXCEPTION_TYPE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String SOURCE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected String source = SOURCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -225,48 +183,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getExceptionType() {
-		return exceptionType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExceptionType(String newExceptionType) {
-		String oldExceptionType = exceptionType;
-		exceptionType = newExceptionType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE, oldExceptionType, exceptionType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSource(String newSource) {
-		String oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__SOURCE, oldSource, source));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -277,10 +193,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
 				if (resolve) return getSourceReference();
 				return basicGetSourceReference();
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				return getExceptionType();
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				return getSource();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -303,12 +215,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
 				setSourceReference((EObject)newValue);
 				return;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				setExceptionType((String)newValue);
-				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				setSource((String)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -330,12 +236,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
 				setSourceReference((EObject)null);
 				return;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				setExceptionType(EXCEPTION_TYPE_EDEFAULT);
-				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				setSource(SOURCE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -354,10 +254,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
 				return sourceReference != null;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				return EXCEPTION_TYPE_EDEFAULT == null ? exceptionType != null : !EXCEPTION_TYPE_EDEFAULT.equals(exceptionType);
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -376,10 +272,6 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 		result.append(type);
 		result.append(", message: ");
 		result.append(message);
-		result.append(", exceptionType: ");
-		result.append(exceptionType);
-		result.append(", source: ");
-		result.append(source);
 		result.append(')');
 		return result.toString();
 	}
