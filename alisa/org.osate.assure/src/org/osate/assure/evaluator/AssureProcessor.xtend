@@ -41,10 +41,8 @@ import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
-import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -62,6 +60,7 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
@@ -73,6 +72,7 @@ import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.StringValue
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JUnit4Method
@@ -88,25 +88,6 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.eclipse.emf.common.util.EList
-import java.lang.reflect.Method
-import org.osate.alisa.common.common.TargetType
-import org.osate.aadl2.instance.FeatureInstance
-import org.osate.aadl2.instance.EndToEndFlowInstance
-import org.osate.aadl2.instance.ModeInstance
-import org.osate.aadl2.PropertyType
-import org.osate.aadl2.AadlString
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.instance.InstancePackage
-import org.osate.verify.verify.JavaParameter
-import org.osate.aadl2.StringLiteral
-import java.util.Collection
-import org.osate.verify.util.VerifyJavaUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -734,6 +715,16 @@ class AssureProcessor implements IAssureProcessor {
 					} else {
 						setToSuccess(verificationResult)
 					}
+				} else if (returned instanceof Result) {
+					verificationResult.results += returned
+					if (hasErrors(returned) || hasFailures(returned)) {
+						setToFail(verificationResult)
+					} else {
+						setToSuccess(verificationResult)
+					}
+					if (verificationResult instanceof VerificationActivityResult) {
+						evaluateComputePredicate(verificationResult, method, returned)
+					}
 				} else if (returned instanceof Diagnostic) {
 					if (returned.type == DiagnosticType.SUCCESS) {
 						setToSuccess(verificationResult)
@@ -745,27 +736,13 @@ class AssureProcessor implements IAssureProcessor {
 						setToSuccess(verificationResult)
 					}
 					verificationResult.issues.add(returned)
-				} else if (returned instanceof Result) {
-//					val issues = returned.diagnostics
-//					verificationResult.issues.addAll(issues)
-					verificationResult.results += returned
-					if (hasErrors(returned) || hasFailures(returned)) {
-						setToFail(verificationResult)
-					} else {
-						setToSuccess(verificationResult)
-					}
-					if (verificationResult instanceof VerificationActivityResult) {
-						evaluateComputePredicate(verificationResult, method, returned)
-					}
 				} else if (returned instanceof AnalysisResult) {
 					var foundResult = false
 					for (Result r : returned.results) {
-						// we may encounter more than one Result
-						// TODO address this when we are able to use Result objects in Assure.
 						if (r.sourceReference === target) {
 							foundResult = true
 							val issues = r.diagnostics
-							if (hasErrors(r) || hasFailures(r)) {
+							if (hasErrors(returned) || hasFailures(r)) {
 								// the analysis as a whole is in Error
 								// or the specific result that matches the target Failed
 								setToFail(verificationResult)

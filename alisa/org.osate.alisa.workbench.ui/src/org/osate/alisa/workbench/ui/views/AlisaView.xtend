@@ -1,9 +1,8 @@
 package org.osate.alisa.workbench.ui.views
 
 import com.google.inject.Inject
-import java.awt.Toolkit
-import java.awt.datatransfer.StringSelection
 import java.io.IOException
+import java.util.Collections
 import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
@@ -18,10 +17,10 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
-//import org.eclipse.emf.transaction.RecordingCommand
-//import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.dialogs.DialogSettings
@@ -74,14 +73,11 @@ import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
 import org.osate.result.Diagnostic
+import org.osate.result.Result
 import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.result.Result
-import java.util.Collections
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -421,9 +417,9 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result:
-								"Result " + (eObject.sourceReference?.constructLabel ?: eObject.info)
+								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.message)
 							Diagnostic:
-								eObject.type.getName.toLowerCase.toFirstUpper + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
+								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult:
 								"else"
 							ThenResult:

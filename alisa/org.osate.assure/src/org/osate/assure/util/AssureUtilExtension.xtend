@@ -1147,7 +1147,7 @@ class AssureUtilExtension {
 		if (va === null) return ""
 		if(va.title !== null) return va.title
 		val vm = va.method
-		if (vm == null) return ""
+		if (vm === null) return ""
 		if(vm.description !== null) return vm.description.toText(null) // va.target)
 		if(vm.title !== null) return vm.title
 		return ""
@@ -1268,8 +1268,12 @@ class AssureUtilExtension {
 
 	def static String constructMessage(Diagnostic ri) {
 		if (ri.message !== null)
-			return ri.message + if(ri.exceptionType !== null) ( " [" + ri.exceptionType + "]" ) else ""
-		if(ri.exceptionType !== null) return ri.exceptionType
+			return ri.message 
+		""
+	}
+	def static String constructMessage(Result ri) {
+		if (ri.message !== null)
+			return ri.message 
 		""
 	}
 
