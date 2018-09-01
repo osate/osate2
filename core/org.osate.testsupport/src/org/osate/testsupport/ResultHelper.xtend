@@ -35,7 +35,7 @@ class ResultHelper {
 	}
 	
 	def static void assertResult(Result expected, Result actual) {
-		expected.info.assertEquals(actual.info)
+		expected.message.assertEquals(actual.message)
 		expected.sourceReference.assertEObject(actual.sourceReference)
 		expected.values.size.assertEquals(actual.values.size)
 		(0 ..< expected.values.size).forEach[expected.values.get(it).assertValue(actual.values.get(it))]
@@ -63,8 +63,7 @@ class ResultHelper {
 	
 	def static void assertDiagnostic(Diagnostic expected, Diagnostic actual) {
 		expected.type.assertEquals(actual.type)
-		expected.exceptionType.assertEquals(actual.exceptionType)
-		expected.source.assertEquals(actual.source)
+		expected.message.assertEquals(actual.message)
 	}
 	
 	def static void assertEObject(EObject expected, EObject actual) {
