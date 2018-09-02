@@ -417,7 +417,7 @@ class AssureProcessor implements IAssureProcessor {
 					} else if (res instanceof AnalysisResult) {
 						var foundResult = false
 						for (Result r : res.results) {
-							if (r.sourceReference === target) {
+							if (r.sourceReference === target || matchEnclosingComponentInstance(r, target)) {
 								foundResult = true
 								val issues = r.diagnostics
 								if (hasErrors(res) || hasFailures(r)) {
@@ -514,6 +514,13 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		saveAssureResult(verificationResult)
 		updateProgress(verificationResult)
+	}
+	
+	def boolean matchEnclosingComponentInstance(Result r, EObject target){
+		if (r.sourceReference instanceof InstanceObject){
+			return (r.sourceReference as InstanceObject).componentInstance === target
+		}
+		return false
 	}
 
 	def updateRequirementsCoverage() {
