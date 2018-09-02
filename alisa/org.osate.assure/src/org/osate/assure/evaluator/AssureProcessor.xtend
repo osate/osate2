@@ -88,6 +88,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.result.util.ResultUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -416,8 +417,6 @@ class AssureProcessor implements IAssureProcessor {
 					} else if (res instanceof AnalysisResult) {
 						var foundResult = false
 						for (Result r : res.results) {
-							// we may encounter more than one Result
-							// TODO address this when we are able to use Result objects in Assure.
 							if (r.sourceReference === target) {
 								foundResult = true
 								val issues = r.diagnostics
@@ -706,8 +705,7 @@ class AssureProcessor implements IAssureProcessor {
 		 * process execution results
 		 * We interpret boolean, Diagnostic, Result, AnalysisResult. We also interpret any returned object other than the previous as compute variable 
 		 */
-		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method,
-			InstanceObject target, Object returned) {
+		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method, InstanceObject target, Object returned){
 			if (returned !== null) {
 				if (returned instanceof Boolean && method.results.empty) {
 					if (returned != true) {
@@ -716,11 +714,26 @@ class AssureProcessor implements IAssureProcessor {
 						setToSuccess(verificationResult)
 					}
 				} else if (returned instanceof Result) {
-					verificationResult.results += returned
 					if (hasErrors(returned) || hasFailures(returned)) {
 						setToFail(verificationResult)
 					} else {
 						setToSuccess(verificationResult)
+					}
+					val issues = returned.subResults
+					for (issue : issues) {
+						val c = EcoreUtil.copy(issue)
+						if (c.type === DiagnosticType.ERROR) {
+							c.type = DiagnosticType.FAILURE
+						}
+						verificationResult.issues.add(c)
+					}
+					val diags = returned.diagnostics
+					for (diag : diags) {
+						val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
+						if (rcopy.type === DiagnosticType.ERROR) {
+							rcopy.type = DiagnosticType.FAILURE
+						}
+						verificationResult.issues.add(rcopy)
 					}
 					if (verificationResult instanceof VerificationActivityResult) {
 						evaluateComputePredicate(verificationResult, method, returned)
@@ -735,42 +748,48 @@ class AssureProcessor implements IAssureProcessor {
 					} else {
 						setToSuccess(verificationResult)
 					}
-					verificationResult.issues.add(returned)
+					val diagres = ResultUtil.createResult(returned.message, returned.sourceReference, returned.type)
+					verificationResult.issues.add(diagres)
 				} else if (returned instanceof AnalysisResult) {
-					var foundResult = false
-					for (Result r : returned.results) {
-						if (r.sourceReference === target) {
-							foundResult = true
-							val issues = r.diagnostics
-							if (hasErrors(returned) || hasFailures(r)) {
-								// the analysis as a whole is in Error
-								// or the specific result that matches the target Failed
-								setToFail(verificationResult)
-							} else {
-								setToSuccess(verificationResult)
-							}
-							for (issue : issues) {
-								val c = EcoreUtil.copy(issue)
-								if (c.type === DiagnosticType.ERROR) {
-									// analysis reports failure as error
-									c.type = DiagnosticType.FAILURE
+						var foundResult = false
+						for (Result r : returned.results) {
+							// we may encounter more than one Result
+							// TODO address this when we are able to use Result objects in Assure.
+							if (r.sourceReference === target) {
+								foundResult = true
+								if (hasErrors(returned) || hasFailures(r)) {
+									setToFail(verificationResult)
+								} else {
+									setToSuccess(verificationResult)
 								}
-								verificationResult.issues.add(c)
+								val issues = r.subResults
+								for (issue : issues) {
+									val c = EcoreUtil.copy(issue)
+									if (c.type === DiagnosticType.ERROR) {
+										c.type = DiagnosticType.FAILURE
+									}
+									verificationResult.issues.add(c)
+								}
+								val diags = r.diagnostics
+								for (diag : diags){
+									val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
+									if (rcopy.type === DiagnosticType.ERROR) {
+										rcopy.type = DiagnosticType.FAILURE
+									}
+									verificationResult.issues.add(rcopy)
+								}
 							}
 							if (verificationResult instanceof VerificationActivityResult) {
 								evaluateComputePredicate(verificationResult, method, r)
 							}
 						}
-					}
-					if (! foundResult) {
-						// requirement target does not match Result source reference
-						// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
-						// does not include a 'for' <target model element>
-						verificationResult.results.addAll(returned.results)
-						
-						setToError(verificationResult,
-							"No Result found for requirement verification target " + target.name, target)
-					}
+						if (! foundResult) {
+							// requirement target does not match Result source reference
+							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+							// does not include a 'for' <target model element>
+							setToError(verificationResult,
+								"No Result found for requirement verification target " + target.name, target)
+						}
 				} else if (method.results.size == 1) {
 					// set compute variable value from the returned value
 					if (verificationResult instanceof VerificationActivityResult) {
@@ -788,11 +807,11 @@ class AssureProcessor implements IAssureProcessor {
 					}
 					setToSuccess(verificationResult)
 				} else {
-					setToError(verificationResult, "Expected more than one result value as AnalysisResult or Result",
+					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
 						target);
 				}
 			}
-
+			
 		}
 
 		/*
