@@ -18,7 +18,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 
@@ -224,31 +223,27 @@ public class ExecuteResoluteUtil {
 
 	private Result doResoluteResults(ResoluteResult resRes) {
 		if (resRes instanceof ClaimResult) {
-			Diagnostic ri = null;
+			Result ri = null;
 			ClaimResult rr = (ClaimResult) resRes;
-			Result res = ResultUtil.createResult(rr.getText(), rr.getLocation());
 			if (rr.isValid()) {
-				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createSuccessResult(rr.getText(), rr.getLocation());
 			} else {
-				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createFailureResult(rr.getText(), rr.getLocation());
 			}
-			res.getDiagnostics().add(ri);
 			Object[] subrrs = resoluteContent.getChildren(rr);
 			for (Object subrr : subrrs) {
 				ClaimResult subclaim = (ClaimResult) subrr;
-				res.getSubResults().add(doResoluteResults(subclaim));
+				ri.getSubResults().add(doResoluteResults(subclaim));
 			}
-			return res;
+			return ri;
 		} else if (resRes instanceof ResoluteResult) {
-			Result res = ResultUtil.createResult("XXX", null);
-			Diagnostic ri = null;
+			Result ri = null;
 			if (resRes.isValid()) {
-				ri = ResultUtil.createSuccess("XXX", null);
+				ri = ResultUtil.createSuccessResult("XXX", null);
 			} else {
-				ri = ResultUtil.createFailure("XXX", null);
+				ri = ResultUtil.createFailureResult("XXX", null);
 			}
-			res.getDiagnostics().add(ri);
-			return res;
+			return ri;
 		}
 		return null;
 	}
