@@ -417,7 +417,7 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result:
-								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.message)
+								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							Diagnostic:
 								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
 							ElseResult:
