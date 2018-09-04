@@ -783,8 +783,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				// we need to run it for every SOM
 				EList<Result> results = new BasicEList<Result>();
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-					root.setCurrentSystemOperationMode(som);
-					if (etef.isActive(som)) {
+					root.setCurrentSystemOperationMode(eachsom);
+					if (etef.isActive(eachsom)) {
 						LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
 						results.add(latres.genResult());
 					}
