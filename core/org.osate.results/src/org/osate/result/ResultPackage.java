@@ -113,22 +113,13 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__RESULTS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Diagnostics</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANALYSIS_RESULT__DIAGNOSTICS = 5;
-
-	/**
 	 * The number of structural features of the '<em>Analysis Result</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT_FEATURE_COUNT = 6;
+	int ANALYSIS_RESULT_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Analysis Result</em>' class.
@@ -620,17 +611,6 @@ public interface ResultPackage extends EPackage {
 	EReference getAnalysisResult_Results();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Diagnostics</em>'.
-	 * @see org.osate.result.AnalysisResult#getDiagnostics()
-	 * @see #getAnalysisResult()
-	 * @generated
-	 */
-	EReference getAnalysisResult_Diagnostics();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.result.Result <em>Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -956,14 +936,6 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ANALYSIS_RESULT__RESULTS = eINSTANCE.getAnalysisResult_Results();
-
-		/**
-		 * The meta object literal for the '<em><b>Diagnostics</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANALYSIS_RESULT__DIAGNOSTICS = eINSTANCE.getAnalysisResult_Diagnostics();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.ResultImpl <em>Result</em>}' class.

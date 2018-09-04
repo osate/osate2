@@ -17,9 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.result.Diagnostic;
 import org.osate.result.ObjectValue;
 import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
@@ -38,7 +36,6 @@ import org.osate.result.ResultPackage;
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSourceReference <em>Source Reference</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getResults <em>Results</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
  * </ul>
  *
  * @generated
@@ -113,16 +110,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected EList<Result> results;
-
-	/**
-	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagnostics()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Diagnostic> diagnostics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -252,18 +239,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Diagnostic> getDiagnostics() {
-		if (diagnostics == null) {
-			diagnostics = new EObjectResolvingEList<Diagnostic>(Diagnostic.class, this, ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS);
-		}
-		return diagnostics;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -294,8 +269,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return getParameters();
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				return getResults();
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				return getDiagnostics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -326,10 +299,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				getResults().clear();
 				getResults().addAll((Collection<? extends Result>)newValue);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				getDiagnostics().clear();
-				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -357,9 +326,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				getResults().clear();
 				return;
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				getDiagnostics().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -382,8 +348,6 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return parameters != null && !parameters.isEmpty();
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				return results != null && !results.isEmpty();
-			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
-				return diagnostics != null && !diagnostics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
