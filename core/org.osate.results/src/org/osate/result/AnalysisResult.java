@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.AnalysisResult#getSourceReference <em>Source Reference</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getResults <em>Results</em>}</li>
- *   <li>{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getAnalysisResult()
@@ -136,20 +135,5 @@ public interface AnalysisResult extends EObject {
 	 * @generated
 	 */
 	EList<Result> getResults();
-
-	/**
-	 * Returns the value of the '<em><b>Diagnostics</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.result.Diagnostic}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * @deprecated
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Diagnostics</em>' reference list.
-	 * @see org.osate.result.ResultPackage#getAnalysisResult_Diagnostics()
-	 * @model
-	 * @generated
-	 */
-	EList<Diagnostic> getDiagnostics();
 
 } // AnalysisResult
