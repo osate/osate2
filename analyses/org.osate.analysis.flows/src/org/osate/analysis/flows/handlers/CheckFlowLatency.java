@@ -96,7 +96,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			boolean bestCaseEmptyQueue = store.getString(Constants.BESTCASE_EMPTY_QUEUE)
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
 
-			latreport = new LatencyReport((SystemInstance) object);
+			latreport = new LatencyReport();
+			latreport.setRootinstance((SystemInstance) object);
 			latreport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 			return true;
