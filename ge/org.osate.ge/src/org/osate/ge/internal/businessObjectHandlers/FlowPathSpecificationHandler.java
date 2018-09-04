@@ -26,6 +26,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.EditingUtil;
@@ -48,7 +49,9 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 
 	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
+	public GraphicalConfiguration getGraphicalConfiguration(
+			final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final QueryService queryService) {
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
@@ -74,8 +77,8 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		}
 
 		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				style(sb.build()).
+				graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
+				.style(sb.build()).
 				source(src).
 				destination(dst).
 				build();

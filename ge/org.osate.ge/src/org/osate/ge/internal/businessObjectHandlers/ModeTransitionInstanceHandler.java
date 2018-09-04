@@ -13,11 +13,12 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ModeTransitionInstanceHandler extends ModeTransitionHandler {
+public class ModeTransitionInstanceHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
 			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
@@ -36,11 +37,11 @@ public class ModeTransitionInstanceHandler extends ModeTransitionHandler {
 		return true;
 	}
 
-	@Override
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().graphic(graphic).source(getSource(boc, queryService))
+		return GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getModeTransitionGraphic())
+				.source(getSource(boc, queryService))
 				.destination(getDestination(boc, queryService))
 				.style(StyleBuilder
 						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)

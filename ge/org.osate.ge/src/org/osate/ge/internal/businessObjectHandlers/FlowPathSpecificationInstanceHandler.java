@@ -1,51 +1,48 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-
 import javax.inject.Named;
 
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandler {
+public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
+					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
+							fsi,
 							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())))
 					.first());
 
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
+					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
+							fsi,
 							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())),
 					1).first());
 
 	private static final StandaloneQuery dstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
+					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
+							fsi,
 							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())))
 					.first());
 	private static final StandaloneQuery partialDstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi,
+					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
+							fsi,
 							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())),
 					1).first());
 
@@ -81,12 +78,10 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 			sb.dotted();
 		}
 
-		return GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).source(src).destination(dst)
+		return GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification()))
+				.style(sb.build())
+				.source(src).destination(dst)
 				.build();
-	}
-
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
-		return fsi.getFullName();
 	}
 }

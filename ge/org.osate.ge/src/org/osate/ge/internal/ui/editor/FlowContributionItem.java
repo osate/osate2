@@ -33,6 +33,7 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -136,28 +137,21 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getAgeDiagram();
 			if (diagram != null) {
-				// TODO is there a way to tell if diagram is componentinstance?
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
 				if (queryService != null) {
-					queryService.getResults(flowContainerQuery, diagram).stream()
-					.flatMap(flowContainerQueryable -> AadlClassifierUtil
-							.getComponentInstance(flowContainerQueryable)
-							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
-							.orElse(Stream.empty()))
-					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
-					.forEachOrdered(highlightableFlowElement -> {
-						highlightableFlowElements.put(
-								getName(highlightableFlowElement.highlightableFlowElement),
-								highlightableFlowElement);
-					});
-
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream()
-					.flatMap(flowContainerQueryable -> AadlClassifierUtil
-							.getComponentImplementation(flowContainerQueryable)
-							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
-							.orElse(Stream.empty()))
-					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
+					.flatMap(flowContainerQueryable -> {
+						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
+									return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
+									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+									.orElse(Stream.empty());
+						} else {
+							return AadlClassifierUtil.getComponentImplementation(flowContainerQueryable)
+									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+									.orElse(Stream.empty());
+						}
+					}).map(HighlightableFlowInfo::create).filter(Predicates.notNull())
 					.forEachOrdered(highlightableFlowElement -> {
 						highlightableFlowElements.put(
 								getName(highlightableFlowElement.highlightableFlowElement),

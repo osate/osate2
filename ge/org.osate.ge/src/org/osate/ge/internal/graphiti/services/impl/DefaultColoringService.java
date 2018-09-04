@@ -43,6 +43,7 @@ import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil;
 
 import com.google.common.base.Predicates;
@@ -133,7 +134,7 @@ public class DefaultColoringService implements ColoringService {
 			if (modeFeatureContainer != null) {
 				if (highlightInModeName != null) {
 					if (modeFeatureContainer.getBusinessObject() instanceof ComponentInstance) {
-						AadlClassifierUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
+						AadlInstanceObjectUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
 							ci.getModeInstances().stream().filter(mi -> mi.getName().equalsIgnoreCase(highlightInModeName))
 							.findAny().ifPresent(selectedModeInstance -> inModeHighlightableElements
 									.addAll(getInModeElements(selectedModeInstance, modeFeatureContainer)
@@ -151,40 +152,38 @@ public class DefaultColoringService implements ColoringService {
 						});
 					}
 				} else if (highlightInModeTransitionName != null) {
-					AadlClassifierUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
-						ci.getModeTransitionInstances().stream()
-						.filter(mi -> mi.getName().equalsIgnoreCase(highlightInModeTransitionName)).findAny()
-						.ifPresent(selectedModeInstance -> {
-							inModeHighlightableElements
-							.addAll(getInModeElements(selectedModeInstance, modeFeatureContainer)
-									.map(queryable -> (DiagramElement) queryable)
-									.collect(Collectors.toList()));
+					if (modeFeatureContainer.getBusinessObject() instanceof ComponentInstance) {
+						AadlInstanceObjectUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
+							ci.getModeTransitionInstances().stream()
+							.filter(mi -> mi.getName().equalsIgnoreCase(highlightInModeTransitionName)).findAny()
+							.ifPresent(selectedModeInstance -> {
+								inModeHighlightableElements
+								.addAll(getInModeElements(selectedModeInstance, modeFeatureContainer)
+										.map(queryable -> (DiagramElement) queryable)
+										.collect(Collectors.toList()));
+							});
 						});
-					});
-
-					AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
-						ci.getAllModeTransitions().stream()
-						.filter(modeTransition -> modeTransition.getName().equalsIgnoreCase(highlightInModeTransitionName))
-						.findAny().ifPresent(modeTransition -> {
-							inModeHighlightableElements
-							.addAll(getInModeElements(modeTransition, modeFeatureContainer)
-									.map(queryable -> (DiagramElement) queryable)
-									.collect(Collectors.toList()));
+					} else {
+						AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
+							ci.getAllModeTransitions().stream()
+							.filter(modeTransition -> modeTransition.getName().equalsIgnoreCase(highlightInModeTransitionName))
+							.findAny().ifPresent(modeTransition -> {
+								inModeHighlightableElements
+								.addAll(getInModeElements(modeTransition, modeFeatureContainer)
+										.map(queryable -> (DiagramElement) queryable)
+										.collect(Collectors.toList()));
+							});
 						});
-					});
+					}
 				}
 			}
 
 			// Highlighting FlowImplemenations and EndToEndFlows
 			if (flowsContainerBoc != null) {
-				Object container = null;
-				if (flowsContainerBoc.getBusinessObject() instanceof ComponentImplementation) {
-					container = (ComponentImplementation) flowsContainerBoc.getBusinessObject();
-				} else if (flowsContainerBoc.getBusinessObject() instanceof Subcomponent) {
+				Object container = flowsContainerBoc.getBusinessObject();
+				if (container instanceof Subcomponent) {
 					final Subcomponent sc = (Subcomponent) flowsContainerBoc.getBusinessObject();
 					container = sc.getComponentImplementation();
-				} else if (flowsContainerBoc.getBusinessObject() instanceof ComponentInstance) {
-					container = flowsContainerBoc.getBusinessObject();
 				}
 
 				if (container instanceof ComponentImplementation) {
@@ -211,8 +210,8 @@ public class DefaultColoringService implements ColoringService {
 						});
 					}
 				} else if (container instanceof ComponentInstance) {
-					final ComponentInstance ci = (ComponentInstance) flowsContainerBoc
-							.getBusinessObject();
+					// ComponentInstances only support EndToEndFlows
+					final ComponentInstance ci = (ComponentInstance) container;
 					if (highlightEndToEndFlowName != null) {
 						final Optional<EndToEndFlowInstance> highlightEndToEndInstance = ci.getEndToEndFlows().stream()
 								.filter(etef -> highlightEndToEndFlowName.equalsIgnoreCase(etef.getName())).findFirst();
@@ -254,7 +253,7 @@ public class DefaultColoringService implements ColoringService {
 
 		/**
 		 * Returns a stream of queryables that can be highlighted
-		 * @param selectedModeFeature
+		 * @param selectedMode
 		 * @param modeFeatureContainer
 		 * @return
 		 */
@@ -415,6 +414,13 @@ public class DefaultColoringService implements ColoringService {
 			return Stream.empty();
 		}
 
+		/**
+		 * Returns a stream of elements that are in the selected mode.
+		 * @param mode
+		 * @param ci
+		 * @param container
+		 * @return
+		 */
 		private Stream<Queryable> getInModeElements(final ModeFeature mode, final ComponentInstance ci,
 				final Queryable container) {
 			final List<ModeInstance> allModes = ci.getInModes();
@@ -458,7 +464,6 @@ public class DefaultColoringService implements ColoringService {
 		 */
 		private Stream<FlowSegmentReference> getAllChildren(
 				final Stream<FlowSegmentReference> highlightableFlowElements) {
-			// TODO RYAN fsr is null
 			return highlightableFlowElements.flatMap(fsr -> {
 				return Stream.concat(Stream.of(fsr),
 						getAllChildren(AadlFlowSpecificationUtil.findChildren(fsr).filter(Predicates.notNull())));

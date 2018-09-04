@@ -9,29 +9,9 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.internal.query.Queryable;
 
 public class AadlClassifierUtil {
-	// TODO move to a difference util? maybe AadlInstanceUtil?
-	public static Optional<ComponentInstance> getComponentInstance(final Object bo) {
-		final ComponentInstance ci;
-		if (bo instanceof Queryable) {
-			return getComponentInstance(((Queryable) bo).getBusinessObject());
-		} else if (bo instanceof ComponentInstance) {
-			// If component instance is a subcomponent, it must extend a component implementation
-			ci = (((ComponentInstance) bo).getSubcomponent() == null
-					|| (((ComponentInstance) bo).getSubcomponent() != null && (((ComponentInstance) bo)
-							.getSubcomponent().getAllClassifier() instanceof ComponentImplementation)))
-					? (ComponentInstance) bo
-							: null;
-		} else {
-			ci = null;
-		}
-
-		return Optional.ofNullable(ci);
-	}
-
 	/**
 	 * Returns a component implementation for a specified business object. Only component implementations and subcomponents are supported.
 	 * @param bo

@@ -13,17 +13,16 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationHandler {
+public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
@@ -51,7 +50,7 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 			addFeatureInstance = (fsInstance) -> (fsInstance.getSource());
 		}
 
-		return getBusinessObjectsPathToFlowEnd(fsi, flowEnd, addFeatureInstance);
+		return FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(fsi, flowEnd, addFeatureInstance);
 	}
 
 	@IsApplicable
@@ -78,26 +77,9 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 			sb.dotted();
 		}
 
-		return GraphicalConfigurationBuilder.create().graphic(getGraphicalRepresentation(fsi.getFlowSpecification()))
+		return GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification()))
 				.style(sb.build())
 				.source(src).build();
-	}
-
-	private Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
-		switch (fs.getKind()) {
-		case SOURCE:
-			return flowSourceGraphic;
-
-		case SINK:
-			return flowSinkGraphic;
-
-		default:
-			return null;
-		}
-	}
-
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
-		return fsi.getFullName();
 	}
 }

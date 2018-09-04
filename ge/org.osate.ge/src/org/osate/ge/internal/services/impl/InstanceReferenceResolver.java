@@ -53,7 +53,6 @@ import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
-// TODO ryan
 public class InstanceReferenceResolver {
 	private final ProjectProvider projectProvider;
 	private final SystemInstanceLoadingService systemInstanceLoader;

@@ -3,7 +3,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.inject.Named;
@@ -34,20 +33,12 @@ import org.osate.aadl2.SystemType;
 import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.ConnectionBuilder;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.internal.FlowIndicatorBuilder;
-import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.EditingUtil;
@@ -55,17 +46,6 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 class FlowSpecificationHandler {
-	protected static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create()
-			.sourceTerminator(ArrowBuilder.create().small().build())
-			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
-
-	protected static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create()
-			.sourceTerminator(ArrowBuilder.create().small().reverse().build())
-			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
-
-	protected static final Graphic graphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().small().build()).build();
-
 	private static final StandaloneQuery componentClassifierOrSubcomponentQuery = StandaloneQuery.create(
 			(root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
@@ -196,28 +176,5 @@ class FlowSpecificationHandler {
 		path.add(flowEnd.getFeature());
 
 		return path.toArray();
-	}
-
-	/**
-	 * Gets an array of business objects which describes the logical diagram element path to the flow end.
-	 * @param ctx
-	 * @param flowEnd
-	 * @return
-	 */
-	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi,
-			final FlowEnd flowEnd, final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance) {
-		final List<Object> path = new ArrayList<>(2);
-		// For feature groups
-		if (flowEnd != null && flowEnd.getContext() instanceof Feature) {
-			path.add(getContext(fsi.getComponentInstance(), (Feature) flowEnd.getContext()));
-		}
-
-		path.add(addFeatureInstance.apply(fsi));
-
-		return path.toArray();
-	}
-
-	private static FeatureInstance getContext(final ComponentInstance ci, final Feature feature) {
-		return ci.findFeatureInstance(feature);
 	}
 }

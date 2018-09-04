@@ -10,8 +10,12 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.PortCategory;
+import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -23,7 +27,10 @@ import org.osate.ge.graphics.internal.FeatureGraphic;
 import org.osate.ge.graphics.internal.FeatureGraphicBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphicType;
 import org.osate.ge.graphics.internal.FeatureGroupTypeGraphicBuilder;
+import org.osate.ge.graphics.internal.FlowIndicatorBuilder;
 import org.osate.ge.graphics.internal.MemoryGraphicBuilder;
+import org.osate.ge.graphics.internal.ModeGraphicBuilder;
+import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.graphics.internal.ParallelogramBuilder;
 import org.osate.ge.graphics.internal.ProcessorGraphicBuilder;
 
@@ -54,6 +61,18 @@ public class AadlGraphics {
 	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0)
 			.build();
 	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
+	private static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create()
+			.sourceTerminator(ArrowBuilder.create().small().build())
+			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
+	private static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create()
+			.sourceTerminator(ArrowBuilder.create().small().reverse().build())
+			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
+	private static final Graphic flowPathGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().build()).build();
+	private static final Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
+	private static final Graphic modeGraphic = ModeGraphicBuilder.create().build();
+	private static final Graphic modeTransitionGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 
 	public static Graphic getGraphic(final Classifier classifier) {
 		if(classifier instanceof ComponentClassifier) {
@@ -270,6 +289,30 @@ public class AadlGraphics {
 
 		default:
 			return defaultGraphic;
+		}
+	}
+
+	public static Graphic getModeGraphic(final Mode mode) {
+		return mode.isInitial() ? initialModeGraphic : modeGraphic;
+	}
+
+	public static Graphic getModeTransitionGraphic() {
+		return modeTransitionGraphic;
+	}
+
+	public static Graphic getFlowSpecificationGraphic(final FlowSpecification fs) {
+		switch (fs.getKind()) {
+		case PATH:
+			return flowPathGraphic;
+
+		case SOURCE:
+			return flowSourceGraphic;
+
+		case SINK:
+			return flowSinkGraphic;
+
+		default:
+			return null;
 		}
 	}
 

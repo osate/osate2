@@ -31,10 +31,9 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.graphics.internal.ModeGraphicBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.EditingUtil;
@@ -45,9 +44,6 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
 public class ModeHandler {
-	protected Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
-	protected Graphic modeGraphic = ModeGraphicBuilder.create().build();
-
 	@IsApplicable
 	@CanRename
 	@CanDelete
@@ -71,15 +67,11 @@ public class ModeHandler {
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Mode mode,
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
-		return GraphicalConfigurationBuilder.create().graphic(getGraphicalRepresentation(mode))
+		return GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getModeGraphic(mode))
 				.style(StyleBuilder
 						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 						.labelsCenter().build())
 				.build();
-	}
-
-	protected Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
-		return mode.isInitial() ? initialModeGraphic : modeGraphic;
 	}
 
 	@GetName

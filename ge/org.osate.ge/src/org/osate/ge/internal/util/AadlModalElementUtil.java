@@ -11,8 +11,6 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.AnnexInstance;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -52,29 +50,16 @@ public class AadlModalElementUtil {
 	 * @return
 	 */
 	public static Queryable getModalElement(final Queryable container) {
-		return container.getChildren().stream().filter((child) -> {
-			return isModalElementWithContainer(child.getBusinessObject());
-		}).findAny().orElse(null);
+		return container.getChildren().stream().filter(child -> isModalElementWithContainer(child.getBusinessObject()))
+				.findAny().orElse(null);
 	}
 
-	public static boolean isModalElementWithContainer(final Object element) {
+	public static boolean isModalElementWithContainer(Object element) {
 		if (element instanceof InstanceObject) {
-			if (element instanceof FlowSpecificationInstance) {
-				return hasContainer(((FlowSpecificationInstance) element).getFlowSpecification());
-			} else if (element instanceof AnnexInstance) {
-				return hasContainer(((AnnexInstance) element).getAnnexSubclause());
-			} else if (element instanceof ConnectionReference) {
-				return hasContainer(((ConnectionReference) element).getConnection());
-			} else if (element instanceof EndToEndFlowInstance) {
-				return hasContainer(((EndToEndFlowInstance) element).getEndToEndFlow());
-			} else if (element instanceof ComponentInstance) {
-				return hasContainer(((ComponentInstance) element).getSubcomponent());
-			}
-
-			return false;
+			element = AadlInstanceObjectUtil.getModalElement((InstanceObject) element);
 		}
 
-		return (element instanceof ModalElement && hasContainer((ModalElement) element));
+		return element instanceof ModalElement && hasContainer((ModalElement) element);
 	}
 
 	public static boolean hasContainer(final ModalElement element) {

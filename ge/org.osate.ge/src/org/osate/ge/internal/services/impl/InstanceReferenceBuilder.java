@@ -42,7 +42,6 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
 public class InstanceReferenceBuilder {
-	// TODO ryan
 	final static String ID = "org.osate.ge.diagrams.instance";
 	final static String SYSTEM_INSTANCE_KEY = "system_instance";
 	final static String COMPONENT_INSTANCE_KEY = "component_instance";
