@@ -44,6 +44,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -712,7 +714,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * Invoke the analysis but return the report object rather than writing it to disk.
 	 *
 	 * @param root The root system instance
-	 * @param som The mode to run the analysis in
+	 * @param som The mode to run the analysis in. If null then run all SOMs
 	 * @param asynchronousSystem Whether the system is treated as synchronous by default
 	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
@@ -722,42 +724,89 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
-		root.setCurrentSystemOperationMode(som);
-		this.processPreOrderAll(root);
-		Collection<Result> results = report.genResult();
-		root.clearCurrentSystemOperationMode();
-		AnalysisResult latencyResults = FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem,
-				majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
-		return latencyResults;
+		if (som == null) {
+			if (root.getSystemOperationModes().isEmpty()
+					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
+				// no SOM
+				this.processPreOrderAll(root);
+				Collection<Result> results = report.genResult();
+				return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue);
+			} else {
+				// we need to run it for every SOM
+				EList<Result> results = new BasicEList<Result>();
+				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
+					root.setCurrentSystemOperationMode(eachsom);
+					this.processPreOrderAll(root);
+					Collection<Result> somresults = report.genResult();
+					root.clearCurrentSystemOperationMode();
+					results.addAll(somresults);
+				}
+				return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue);
+			}
+		} else {
+			root.setCurrentSystemOperationMode(som);
+			this.processPreOrderAll(root);
+			Collection<Result> results = report.genResult();
+			root.clearCurrentSystemOperationMode();
+			AnalysisResult latencyResults = FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem,
+					majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			return latencyResults;
+		}
 	}
 
 	/**
-	 * Wraps {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
-	 * Use defaults, see {@link org.osate.analysis.flows.preferences.Initializer#Initializer()}}
+	 * Invoke the analysis but return the report object rather than writing it to disk.
+	 *
+	 * @param etef The end to end flow instance
+	 * @param som The mode to run the analysis in. If null then run all SOMs
+	 * @param asynchronousSystem Whether the system is treated as synchronous by default
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
+	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som) {
-		return invoke(root, som, true, true, true, true);
-	}
-
-	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som) {
-		return invoke(etef, som, true, true, true, true);
-	}
-
 	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
-		Result results = null;
 		SystemInstance root = etef.getSystemInstance();
+		if (som == null) {
+			if (root.getSystemOperationModes().isEmpty()
+					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
+				// no SOM
+				LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
+				Result result = latres.genResult();
+				return FlowLatencyUtil.recordAsAnalysisResult(result, root, asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue);
+			} else {
+				// we need to run it for every SOM
+				EList<Result> results = new BasicEList<Result>();
+				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
+					root.setCurrentSystemOperationMode(som);
+					if (etef.isActive(som)) {
+						LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
+						results.add(latres.genResult());
+					}
+					root.clearCurrentSystemOperationMode();
+				}
+				return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue);
+			}
+		}
 		root.setCurrentSystemOperationMode(som);
 		if (etef.isActive(som)) {
 			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
-			results = latres.genResult();
+			Result result = latres.genResult();
+			root.clearCurrentSystemOperationMode();
+			return FlowLatencyUtil.recordAsAnalysisResult(result, root, asynchronousSystem, majorFrameDelay,
+					worstCaseDeadline, bestCaseEmptyQueue);
+		} else {
+			Result result = null;
+			root.clearCurrentSystemOperationMode();
+			return FlowLatencyUtil.recordAsAnalysisResult(result, root, asynchronousSystem, majorFrameDelay,
+					worstCaseDeadline, bestCaseEmptyQueue);
 		}
-		root.clearCurrentSystemOperationMode();
-		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline,
-				bestCaseEmptyQueue);
 	}
 
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
