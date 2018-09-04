@@ -487,16 +487,8 @@ public class FlowLatencyUtil {
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		AnalysisResult latencyResults = createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
-		latencyResults.getResults().addAll(results);
-		return latencyResults;
-	}
-
-	public static AnalysisResult recordAsAnalysisResult(Result result, EObject root, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		AnalysisResult latencyResults = createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
-		if (result != null) {
-			latencyResults.getResults().add(result);
+		if (!results.isEmpty()) {
+			latencyResults.getResults().addAll(results);
 		} else {
 			Result err = ResultUtil.createErrorResult("No latency analysis result", root);
 			latencyResults.getResults().add(err);

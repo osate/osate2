@@ -27,8 +27,7 @@ public class LatencyReport {
 	private boolean worstCaseDeadline = true; // DL default
 	private boolean bestCaseEmptyQueue = true; // EQ default
 
-	public LatencyReport(SystemInstance si) {
-		this.relatedInstance = si;
+	public LatencyReport() {
 		this.entries = new ArrayList<LatencyReportEntry>();
 		this.name = "latencyreport";
 	}
@@ -43,6 +42,10 @@ public class LatencyReport {
 
 	public SystemInstance getRootinstance() {
 		return this.relatedInstance;
+	}
+
+	public void setRootinstance(SystemInstance si) {
+		this.relatedInstance = si;
 	}
 
 	public List<LatencyReportEntry> getEntries() {
