@@ -49,19 +49,6 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationHandl
 							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())),
 					1).first());
 
-	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi,
-			final FlowEnd flowEnd,
-			final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance) {
-		final List<Object> path = new ArrayList<>(2);
-		if (flowEnd != null && flowEnd.getContext() instanceof Feature) {
-			path.add(getContext(fsi.getComponentInstance(), (Feature) flowEnd.getContext()));
-		}
-
-		path.add(addFeatureInstance.apply(fsi));
-
-		return path.toArray();
-	}
-
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
 		return fsi.getFlowSpecification().getKind() == FlowKind.PATH;

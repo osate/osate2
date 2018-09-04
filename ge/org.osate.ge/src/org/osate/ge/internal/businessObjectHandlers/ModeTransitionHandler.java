@@ -54,7 +54,7 @@ public class ModeTransitionHandler {
 	private static final StandaloneQuery containerQuery = StandaloneQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
-	private static final Graphic graphic = ConnectionBuilder.create()
+	protected static final Graphic graphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));

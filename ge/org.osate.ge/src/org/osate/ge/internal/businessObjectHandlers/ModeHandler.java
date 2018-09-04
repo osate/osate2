@@ -45,8 +45,8 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
 public class ModeHandler {
-	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
-	private Graphic modeGraphic = ModeGraphicBuilder.create().build();
+	protected Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().build();
+	protected Graphic modeGraphic = ModeGraphicBuilder.create().build();
 
 	@IsApplicable
 	@CanRename
@@ -78,7 +78,7 @@ public class ModeHandler {
 				.build();
 	}
 
-	private Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+	protected Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
 		return mode.isInitial() ? initialModeGraphic : modeGraphic;
 	}
 

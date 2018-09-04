@@ -66,10 +66,9 @@ class FlowSpecificationHandler {
 	protected static final Graphic graphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 
-	private static final StandaloneQuery componentClassifierOrSubcomponentQuery = StandaloneQuery.create((root) -> root
-			.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
-					|| fa.getBusinessObject() instanceof Subcomponent)
-			.first());
+	private static final StandaloneQuery componentClassifierOrSubcomponentQuery = StandaloneQuery.create(
+			(root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
+					|| fa.getBusinessObject() instanceof Subcomponent).first());
 	private static final StandaloneQuery contextQuery = StandaloneQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup).first());
 
@@ -86,23 +85,17 @@ class FlowSpecificationHandler {
 	}
 
 	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.NAME) String value, final NamingService namingService) {
+	public String validateName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
+			final @Named(Names.NAME) String value, final NamingService namingService) {
 		return namingService.checkNameValidity(fs, value);
 	}
 
 	// Helper functions
 	protected static boolean canOwnFlowSpecification(final Object bo) {
-		return bo instanceof ThreadGroupType ||
-				bo instanceof ThreadType ||
-				bo instanceof VirtualProcessorType ||
-				bo instanceof ProcessType ||
-				bo instanceof DeviceType ||
-				bo instanceof AbstractType ||
-				bo instanceof ProcessorType ||
-				bo instanceof DataType ||
-				bo instanceof SystemType ||
-				bo instanceof SubprogramType ||
-				bo instanceof SubprogramGroupType;
+		return bo instanceof ThreadGroupType || bo instanceof ThreadType || bo instanceof VirtualProcessorType
+				|| bo instanceof ProcessType || bo instanceof DeviceType || bo instanceof AbstractType
+				|| bo instanceof ProcessorType || bo instanceof DataType || bo instanceof SystemType
+				|| bo instanceof SubprogramType || bo instanceof SubprogramGroupType;
 	}
 
 	protected static String getNewFlowSpecificationName(final ComponentType ct, final NamingService namingService) {
@@ -110,7 +103,7 @@ class FlowSpecificationHandler {
 	}
 
 	protected static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
-		return (Context)queryService.getFirstBusinessObject(contextQuery, featureBoc);
+		return (Context) queryService.getFirstBusinessObject(contextQuery, featureBoc);
 	}
 
 	protected static List<ComponentType> getPotentialOwnersByFeature(BusinessObjectContext featureBoc,
@@ -130,8 +123,7 @@ class FlowSpecificationHandler {
 
 		return EditingUtil.getPotentialClassifierTypesForEditing(bo).stream()
 				.filter(tmpBo -> canOwnFlowSpecification(tmpBo)).map(ComponentType.class::cast)
-				.filter(ct -> hasFeatureWithName(ct, childName))
-				.collect(Collectors.toList());
+				.filter(ct -> hasFeatureWithName(ct, childName)).collect(Collectors.toList());
 	}
 
 	private static boolean hasFeatureWithName(final ComponentType ct, final String nameToCheck) {
@@ -153,32 +145,31 @@ class FlowSpecificationHandler {
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
 	 * feature, its direction must be IN OUT or match the specified direction
 	 */
-	protected static boolean isValidFlowEnd(final Feature feature,
-			final BusinessObjectContext featureBoc,
-			final DirectionType requiredDirection,
-			final QueryService queryService) {
+	protected static boolean isValidFlowEnd(final Feature feature, final BusinessObjectContext featureBoc,
+			final DirectionType requiredDirection, final QueryService queryService) {
 		// Ensure that the feature is contained in a component type
 		if (getPotentialOwnersByFeature(featureBoc, queryService).size() == 0) {
 			return false;
 		}
 
 		// Check that the feature is of the appropriate type
-		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+		if (!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess
+				|| feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
 			return false;
 		}
 
 		// If it is a direct feature, it must have the specified direction or be an in out feature. Take into account feature group, inverse, etc..
-		if(feature instanceof DirectedFeature) {
+		if (feature instanceof DirectedFeature) {
 			// Determine the actual direction of the feature. Since it could effected by things like inverse feature groups, etc
-			final DirectedFeature df = (DirectedFeature)feature;
+			final DirectedFeature df = (DirectedFeature) feature;
 			DirectionType direction = df.getDirection();
-			if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-				if(AadlFeatureUtil.isFeatureInverted(featureBoc)) {
+			if (direction == DirectionType.IN || direction == DirectionType.OUT) {
+				if (AadlFeatureUtil.isFeatureInverted(featureBoc)) {
 					direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
 				}
 			}
 
-			if(direction != requiredDirection && direction != DirectionType.IN_OUT) {
+			if (direction != requiredDirection && direction != DirectionType.IN_OUT) {
 				return false;
 			}
 		}
@@ -193,12 +184,12 @@ class FlowSpecificationHandler {
 	 * @return
 	 */
 	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowEnd flowEnd) {
-		if(flowEnd == null || flowEnd.getFeature() == null) {
+		if (flowEnd == null || flowEnd.getFeature() == null) {
 			return null;
 		}
 
 		final List<Object> path = new ArrayList<>(2);
-		if(flowEnd.getContext() != null) {
+		if (flowEnd.getContext() != null) {
 			path.add(flowEnd.getContext());
 		}
 
@@ -207,14 +198,17 @@ class FlowSpecificationHandler {
 		return path.toArray();
 	}
 
+	/**
+	 * Gets an array of business objects which describes the logical diagram element path to the flow end.
+	 * @param ctx
+	 * @param flowEnd
+	 * @return
+	 */
 	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi,
 			final FlowEnd flowEnd, final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance) {
-		if (flowEnd == null || flowEnd.getFeature() == null) {
-			return null;
-		}
-
 		final List<Object> path = new ArrayList<>(2);
-		if (flowEnd.getContext() instanceof Feature) {
+		// For feature groups
+		if (flowEnd != null && flowEnd.getContext() instanceof Feature) {
 			path.add(getContext(fsi.getComponentInstance(), (Feature) flowEnd.getContext()));
 		}
 
@@ -223,7 +217,7 @@ class FlowSpecificationHandler {
 		return path.toArray();
 	}
 
-	protected final static FeatureInstance getContext(final ComponentInstance ci, final Feature feature) {
+	private static FeatureInstance getContext(final ComponentInstance ci, final Feature feature) {
 		return ci.findFeatureInstance(feature);
 	}
 }
