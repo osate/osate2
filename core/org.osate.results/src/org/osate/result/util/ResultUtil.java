@@ -10,6 +10,7 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.EObjectValue;
 import org.osate.result.IntegerValue;
+import org.osate.result.ObjectValue;
 import org.osate.result.RealValue;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
@@ -133,6 +134,12 @@ public class ResultUtil {
 		contributor.getValues().add(res);
 	}
 
+	public static void addObjectValue(Result contributor, Object value) {
+		ObjectValue res = ResultFactory.eINSTANCE.createObjectValue();
+		res.setValue(value);
+		contributor.getValues().add(res);
+	}
+
 	// get values from the Result object
 
 	public static String getString(Result result, int idx) {
@@ -190,10 +197,42 @@ public class ResultUtil {
 		return null;
 	}
 
+	public static Object getObject(Result result, int idx) {
+		EList<Value> vals = result.getValues();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof ObjectValue) {
+				return ((ObjectValue) val).getValue();
+			}
+		}
+		return null;
+	}
+
 	public static Value getValue(Result result, int idx) {
 		EList<Value> vals = result.getValues();
 		if (idx < vals.size()) {
 			return vals.get(idx);
+		}
+		return null;
+	}
+
+	// -------------------
+	// analysis parameters
+	// -------------------
+
+	public static void addParameter(AnalysisResult ar, Object value) {
+		ObjectValue res = ResultFactory.eINSTANCE.createObjectValue();
+		res.setValue(value);
+		ar.getParameters().add(res);
+	}
+
+	public static Object getParameter(AnalysisResult ar, int idx) {
+		EList<ObjectValue> vals = ar.getParameters();
+		if (idx < vals.size()) {
+			Value val = vals.get(idx);
+			if (val instanceof ObjectValue) {
+				return ((ObjectValue) val).getValue();
+			}
 		}
 		return null;
 	}

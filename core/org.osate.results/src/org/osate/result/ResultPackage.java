@@ -95,13 +95,22 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__SOURCE_REFERENCE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANALYSIS_RESULT__PARAMETERS = 3;
+
+	/**
 	 * The feature id for the '<em><b>Results</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT__RESULTS = 3;
+	int ANALYSIS_RESULT__RESULTS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Diagnostics</b></em>' reference list.
@@ -110,7 +119,7 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT__DIAGNOSTICS = 4;
+	int ANALYSIS_RESULT__DIAGNOSTICS = 5;
 
 	/**
 	 * The number of structural features of the '<em>Analysis Result</em>' class.
@@ -119,7 +128,7 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT_FEATURE_COUNT = 5;
+	int ANALYSIS_RESULT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Analysis Result</em>' class.
@@ -499,6 +508,43 @@ public interface ResultPackage extends EPackage {
 	int EOBJECT_VALUE_OPERATION_COUNT = VALUE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.result.impl.ObjectValueImpl <em>Object Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.result.impl.ObjectValueImpl
+	 * @see org.osate.result.impl.ResultPackageImpl#getObjectValue()
+	 * @generated
+	 */
+	int OBJECT_VALUE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_VALUE__VALUE = VALUE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Object Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_VALUE_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Object Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT_VALUE_OPERATION_COUNT = VALUE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -506,7 +552,7 @@ public interface ResultPackage extends EPackage {
 	 * @see org.osate.result.impl.ResultPackageImpl#getDiagnosticType()
 	 * @generated
 	 */
-	int DIAGNOSTIC_TYPE = 9;
+	int DIAGNOSTIC_TYPE = 10;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.result.AnalysisResult <em>Analysis Result</em>}'.
@@ -550,6 +596,17 @@ public interface ResultPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAnalysisResult_SourceReference();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see org.osate.result.AnalysisResult#getParameters()
+	 * @see #getAnalysisResult()
+	 * @generated
+	 */
+	EReference getAnalysisResult_Parameters();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.result.AnalysisResult#getResults <em>Results</em>}'.
@@ -797,6 +854,27 @@ public interface ResultPackage extends EPackage {
 	EReference getEObjectValue_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.result.ObjectValue <em>Object Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Object Value</em>'.
+	 * @see org.osate.result.ObjectValue
+	 * @generated
+	 */
+	EClass getObjectValue();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.result.ObjectValue#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.osate.result.ObjectValue#getValue()
+	 * @see #getObjectValue()
+	 * @generated
+	 */
+	EAttribute getObjectValue_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -862,6 +940,14 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ANALYSIS_RESULT__SOURCE_REFERENCE = eINSTANCE.getAnalysisResult_SourceReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANALYSIS_RESULT__PARAMETERS = eINSTANCE.getAnalysisResult_Parameters();
 
 		/**
 		 * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
@@ -1062,6 +1148,24 @@ public interface ResultPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EOBJECT_VALUE__VALUE = eINSTANCE.getEObjectValue_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.result.impl.ObjectValueImpl <em>Object Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.result.impl.ObjectValueImpl
+		 * @see org.osate.result.impl.ResultPackageImpl#getObjectValue()
+		 * @generated
+		 */
+		EClass OBJECT_VALUE = eINSTANCE.getObjectValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OBJECT_VALUE__VALUE = eINSTANCE.getObjectValue_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.DiagnosticType <em>Diagnostic Type</em>}' enum.
