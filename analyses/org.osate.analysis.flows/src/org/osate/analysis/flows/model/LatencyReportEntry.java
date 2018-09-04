@@ -38,7 +38,7 @@ public class LatencyReportEntry {
 	// lastSampled may be a task, partition if no tasks inside the partition, sampling bus, or a sampling device/system
 	LatencyContributor lastSampled = null;
 	SystemOperationMode som = null;
-	boolean synchronousSystem = false;
+	boolean asynchronousSystem = true;
 	private final boolean majorFrameDelay;
 	double expectedMaxLatency = 0;
 	double expectedMinLatency = 0;
@@ -47,12 +47,12 @@ public class LatencyReportEntry {
 	double minSpecifiedValue = 0;
 	double maxSpecifiedValue = 0;
 
-	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
+	public LatencyReportEntry(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay) {
 		this.contributors = new ArrayList<LatencyContributor>();
 		this.relatedEndToEndFlow = etef;
 		this.som = som;
-		this.synchronousSystem = synchronousSystem;
+		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 
 		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
@@ -70,7 +70,7 @@ public class LatencyReportEntry {
 	}
 
 	public boolean doSynchronous() {
-		return synchronousSystem;
+		return !asynchronousSystem;
 	}
 
 	public SystemOperationMode getSOM() {

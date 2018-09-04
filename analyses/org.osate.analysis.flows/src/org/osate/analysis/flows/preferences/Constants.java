@@ -10,11 +10,6 @@ public class Constants {
 		PARTITIONEND, MAJORFRAMEDELAYED
 	};
 
-//	public static String REPORT_SUBTOTALS = "org.osate.analysis.flows.report_subtotals";
-//
-//	public static String REPORT_SUBTOTALS_YES = "yes";
-//	public static String REPORT_SUBTOTALS_NO = "no";
-
 	public static String WORST_CASE_DEADLINE = "org.osate.analysis.flows.report_worstcasedeadline";
 
 	public static String WORST_CASE_DEADLINE_YES = "worst case as deadline";
@@ -26,9 +21,9 @@ public class Constants {
 	public static String BESTCASE_EMPTY_QUEUE_YES = "best case as empty queue";
 	public static String BESTCASE_EMPTY_QUEUE_NO = "best case as full queue min compute execution time";
 
-	public static String SYNCHRONOUS_SYSTEM = "org.osate.analysis.flows.synchronous_system";
+	public static String ASYNCHRONOUS_SYSTEM = "org.osate.analysis.flows.asynchronous_system";
 
-	public static String SYNCHRONOUS_SYSTEM_YES = "synchronous system";
-	public static String SYNCHRONOUS_SYSTEM_NO = "asynchronous system";
+	public static String ASYNCHRONOUS_SYSTEM_YES = "asynchronous system";
+	public static String ASYNCHRONOUS_SYSTEM_NO = "synchronous system";
 
 }
