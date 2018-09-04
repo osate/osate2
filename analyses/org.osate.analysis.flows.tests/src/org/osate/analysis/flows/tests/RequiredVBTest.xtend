@@ -21,6 +21,7 @@ import org.osate.testsupport.TestHelper
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
+import org.osate.analysis.flows.LatencyAnalysisService
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
@@ -47,8 +48,8 @@ class RequiredVBTest extends XtextTest {
 
 		// check flow latency
 		val som = instance.systemOperationModes.head
-		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
-		val latencyresult = checker.invoke(instance, som, true, true, true, true)
+		val checker = new LatencyAnalysisService()
+		val latencyresult = checker.invoke(instance, som)
 		val resab = latencyresult.results.get(1)
 		val target = resab.sourceReference as NamedElement
 		assertEquals(target.name,"etef2")

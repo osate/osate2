@@ -21,6 +21,7 @@ import static extension org.junit.Assert.assertEquals
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.instance.FeatureInstance
+import org.osate.analysis.flows.LatencyAnalysisService
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
@@ -47,8 +48,8 @@ class QueuingTest extends XtextTest {
 
 		// check flow latency
 		val som = instance.systemOperationModes.head
-		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
-		val latencyresult = checker.invoke(instance, som, true, true, true, true)
+		val checker = new LatencyAnalysisService()
+		val latencyresult = checker.invoke(instance, som)
 		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (2.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (6.0))
