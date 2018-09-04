@@ -39,6 +39,7 @@
  */
 package org.osate.analysis.flows;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -86,6 +87,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public FlowLatencyAnalysisSwitch(SystemInstance si) {
 		this(new NullProgressMonitor(), si, null);
 	}
+
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
 		this(monitor, si, null);
 	}
@@ -98,7 +100,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			report = latreport;
 		}
 	}
-
 
 	@Override
 	protected final void initSwitches() {
@@ -121,7 +122,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					return DONE;
 				}
 				entry = analyzeLatency(etef, etef.getSystemInstance().getCurrentSystemOperationMode(),
-						report.isSynchronousSystem());
+						report.isAsynchronousSystem());
 				report.addEntry(entry);
 				return DONE;
 			}
@@ -129,8 +130,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	public LatencyReportEntry analyzeLatency(EndToEndFlowInstance etef, SystemOperationMode som,
-			boolean synchronousSystem) {
-		LatencyReportEntry entry = new LatencyReportEntry(etef, som, synchronousSystem, report.isMajorFrameDelay());
+			boolean asynchronousSystem) {
+		LatencyReportEntry entry = new LatencyReportEntry(etef, som, asynchronousSystem, report.isMajorFrameDelay());
 		for (FlowElementInstance fei : etef.getFlowElements()) {
 			mapFlowElementInstance(etef, fei, entry);
 		}
@@ -187,8 +188,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0
-				&& ((InstanceModelUtil.isThread(componentInstance)
+		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
@@ -721,42 +721,50 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-				bestCaseEmptyQueue);
+		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		root.setCurrentSystemOperationMode(som);
 		this.processPreOrderAll(root);
-		AnalysisResult results = report.genResult();
+		Collection<Result> results = report.genResult();
 		root.clearCurrentSystemOperationMode();
-		return results;
+		AnalysisResult latencyResults = FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem,
+				majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
+		return latencyResults;
 	}
 
 	/**
-	 * Wraps {@link #invoke(EndToEndFlowInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
+	 * Wraps {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean)}
 	 * Use defaults, see {@link org.osate.analysis.flows.preferences.Initializer#Initializer()}}
 	 */
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som) {
 		return invoke(root, som, true, true, true, true);
 	}
 
-	public Result invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean synchronousSystem,
+	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som) {
+		return invoke(etef, som, true, true, true, true);
+	}
+
+	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		report.setLatencyAnalysisParameters(synchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		Result results = null;
 		SystemInstance root = etef.getSystemInstance();
 		root.setCurrentSystemOperationMode(som);
 		if (etef.isActive(som)) {
-			LatencyReportEntry latres = analyzeLatency(etef, som, synchronousSystem);
+			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
 			results = latres.genResult();
 		}
 		root.clearCurrentSystemOperationMode();
-		return results;
+		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline,
+				bestCaseEmptyQueue);
 	}
 
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		AnalysisResult results = invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 				bestCaseEmptyQueue);
-		FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(report));
+		FlowLatencyUtil.saveAnalysisResult(results);
 		LatencyCSVReport.generateCSVReport(results);
 		return results;
 	}

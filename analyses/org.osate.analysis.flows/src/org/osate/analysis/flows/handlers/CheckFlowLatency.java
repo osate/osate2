@@ -39,6 +39,7 @@
  */
 package org.osate.analysis.flows.handlers;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -86,8 +87,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
 			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-			boolean asynchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
-					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
+			boolean asynchronousSystem = store.getString(Constants.ASYNCHRONOUS_SYSTEM)
+					.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
 			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
 					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
 			boolean worstCaseDeadline = store.getString(Constants.WORST_CASE_DEADLINE)
@@ -108,10 +109,13 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		if (latreport != null && !latreport.getEntries().isEmpty()) {
 			// do cvs and xsl reports
 			FlowLatencyUtil.saveAsSpreadSheets(latreport);
-			AnalysisResult results = latreport.genResult();
-			FlowLatencyUtil.saveAnalysisResult(results, FlowLatencyUtil.getParametersAsLabels(latreport));
+			Collection<Result> results = latreport.genResult();
+			AnalysisResult ar = FlowLatencyUtil.recordAsAnalysisResult(results, latreport.getRootinstance(),
+					latreport.isAsynchronousSystem(), latreport.isMajorFrameDelay(), latreport.isWorstCaseDeadline(),
+					latreport.isBestcaseEmptyQueue());
+			FlowLatencyUtil.saveAnalysisResult(ar);
 //			LatencyCSVReport.generateCSVReport(results); Generate CSV file from AnalysisResult
-			generateMarkers(results, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
+			generateMarkers(ar, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		}
 		return true;
 	};

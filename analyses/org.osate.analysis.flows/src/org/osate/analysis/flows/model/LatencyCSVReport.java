@@ -24,7 +24,7 @@ public class LatencyCSVReport {
 		StringBuffer report = new StringBuffer();
 
 		String reportheader = "Latency analysis with preference settings: "
-				+ FlowLatencyUtil.getParametersAsDescriptions(ar.getInfo());
+				+ FlowLatencyUtil.getParametersAsDescriptions(ar);
 
 		report.append(reportheader + System.lineSeparator() + System.lineSeparator());
 		for (Result result : ar.getResults()) {
