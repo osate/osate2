@@ -410,11 +410,10 @@ public class AadlBusinessObjectProvider {
 				connectionReferenceStreamBuilder.add(cr);
 			}
 		}
-		
+
 		return Stream.of(ci.getModeInstances().stream(),
 				ci.getModeTransitionInstances().stream(),
 				ci.getFlowSpecifications().stream(), ci.getComponentInstances().stream(),
-				ci.getFeatureInstances().stream(), connectionReferenceStreamBuilder.build(),
-				ci.getEndToEndFlows().stream()).flatMap(o -> o);
+				ci.getFeatureInstances().stream(), connectionReferenceStreamBuilder.build()).flatMap(o -> o);
 	}
 }

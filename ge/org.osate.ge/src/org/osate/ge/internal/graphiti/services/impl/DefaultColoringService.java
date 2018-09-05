@@ -307,7 +307,7 @@ public class DefaultColoringService implements ColoringService {
 						return getInModeElements(selectedModeFeature, me, child);
 					} else if (childBo instanceof EndToEndFlowInstance
 							|| childBo instanceof FlowSpecificationInstance || childBo instanceof ConnectionReference) {
-						final ModalPath modalPath = AadlModalElementUtil.getModalPath(childBo);
+						final ModalPath modalPath = AadlInstanceObjectUtil.getModalPath(childBo);
 						final List<ModeFeature> inModeOrTransitions = AadlModalElementUtil
 								.getAllInModesOrTransitions(modalPath);
 						if (inModeOrTransitions.isEmpty() || inModeOrTransitions.stream()

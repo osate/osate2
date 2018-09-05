@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -49,4 +50,20 @@ public class AadlInstanceObjectUtil {
 		return null;
 	}
 
+	/**
+	 * Get the modal path that is represented by an instance object
+	 * @param childBo
+	 * @return
+	 */
+	public static ModalPath getModalPath(final Object childBo) {
+		if (childBo instanceof FlowSpecificationInstance) {
+			return ((FlowSpecificationInstance) childBo).getFlowSpecification();
+		} else if (childBo instanceof ConnectionReference) {
+			return ((ConnectionReference) childBo).getConnection();
+		} else if (childBo instanceof EndToEndFlowInstance) {
+			return ((EndToEndFlowInstance) childBo).getEndToEndFlow();
+		} else {
+			throw new RuntimeException(childBo + "unsupported instance object");
+		}
+	}
 }

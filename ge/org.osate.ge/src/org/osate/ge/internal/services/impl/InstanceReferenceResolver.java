@@ -41,7 +41,6 @@ import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -135,10 +134,6 @@ public class InstanceReferenceResolver {
 			for (final ModeTransitionInstance mti : systemInstance.getModeTransitionInstances()) {
 				idToElementMap.put(mti.getInstanceObjectPath().toLowerCase(), mti);
 			}
-
-			for (final EndToEndFlowInstance etei : systemInstance.getEndToEndFlows()) {
-				idToElementMap.put(etei.getInstanceObjectPath().toLowerCase(), etei);
-			}
 		}
 
 		private void addFeatureInstance(final FeatureInstance fi) {
@@ -195,8 +190,7 @@ public class InstanceReferenceResolver {
 						|| type.equals(InstanceReferenceBuilder.CONNECTION_REFERENCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)
 						|| type.equals(InstanceReferenceBuilder.MODE_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.END_TO_END_FLOW_INSTANCE_KEY)) {
+						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)) {
 					return siInfo.getInstanceObject(refSegs[3]);
 				}
 			}

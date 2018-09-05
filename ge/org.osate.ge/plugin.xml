@@ -1470,6 +1470,14 @@
        		priority="1">
        </tooltipContributor>
        <tooltipContributor
+       		class="org.osate.ge.internal.tooltips.ModeTransitionInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.internal.tooltips.ConnectionReferenceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
              class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
              priority="1">
        </tooltipContributor>

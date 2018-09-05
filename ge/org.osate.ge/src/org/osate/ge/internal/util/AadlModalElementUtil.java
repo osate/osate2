@@ -11,9 +11,6 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.Queryable;
@@ -59,11 +56,8 @@ public class AadlModalElementUtil {
 			element = AadlInstanceObjectUtil.getModalElement((InstanceObject) element);
 		}
 
-		return element instanceof ModalElement && hasContainer((ModalElement) element);
-	}
-
-	public static boolean hasContainer(final ModalElement element) {
-		return element.getContainingClassifier() instanceof ComponentClassifier;
+		return element instanceof ModalElement
+				&& ((ModalElement) element).getContainingClassifier() instanceof ComponentClassifier;
 	}
 
 	public static ModeFeatureReference createModeFeatureReference(final String name, final NamedElement ne,
@@ -83,19 +77,6 @@ public class AadlModalElementUtil {
 		results.addAll(inModes);
 		results.addAll(inTransitions);
 		return results;
-	}
-
-	public static ModalPath getModalPath(final Object childBo) {
-		if (childBo instanceof FlowSpecificationInstance) {
-			return ((FlowSpecificationInstance) childBo).getFlowSpecification();
-		} else if (childBo instanceof ConnectionReference) {
-			return ((ConnectionReference) childBo).getConnection();
-		} else if (childBo instanceof EndToEndFlowInstance) {
-			return ((EndToEndFlowInstance) childBo).getEndToEndFlow();
-		} else {
-			// TODO fix msg
-			throw new RuntimeException(childBo + "unsupported instance object");
-		}
 	}
 
 	public static List<ModeBinding> getAllModeBindings(Subcomponent sc) {
