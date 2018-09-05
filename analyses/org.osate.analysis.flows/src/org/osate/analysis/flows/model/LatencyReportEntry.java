@@ -572,9 +572,7 @@ public class LatencyReportEntry {
 		result.getDiagnostics().addAll(issues);
 
 		for (LatencyContributor latencyContributor : contributors) {
-			if (latencyContributor.getBestcaseLatencyContributorMethod() != LatencyContributorMethod.FIRST_PERIODIC) {
-				result.getSubResults().add(latencyContributor.genResult());
-			}
+			result.getSubResults().add(latencyContributor.genResult());
 		}
 
 		return result;
