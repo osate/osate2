@@ -62,6 +62,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -841,10 +842,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		SystemInstance root = etef.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
 		if (som == null) {
+			SystemOperationMode som0 = root.getSystemOperationModes().get(0);
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				return invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				return invokeOnSOM(etef, som0, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
@@ -882,8 +884,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		SystemInstance root = etef.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
-		root.setCurrentSystemOperationMode(som);
-		if (etef.isActive(som)) {
+		if (!Aadl2Util.isNoModes(som)) {
+			root.setCurrentSystemOperationMode(som);
+		}
+		if (Aadl2Util.isNoModes(som) || etef.isActive(som)) {
 			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
 			results.add(latres.genResult());
 			root.clearCurrentSystemOperationMode();
