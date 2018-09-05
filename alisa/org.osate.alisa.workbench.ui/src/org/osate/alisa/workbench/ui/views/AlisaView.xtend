@@ -86,6 +86,9 @@ import org.osate.result.StringValue
 import org.osate.result.BooleanValue
 import org.osate.result.EObjectValue
 import org.osate.result.ObjectValue
+import org.osate.assure.assure.VerificationResult
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.result.AnalysisResult
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -374,7 +377,12 @@ class AlisaView extends ViewPart {
 				}
 
 				override getChildren(Object parentElement) {
-					resourceSetForUI.getEObject(parentElement as URI, true).eContents.map[URI]
+					val eo = resourceSetForUI.getEObject(parentElement as URI, true)
+					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresultreference !== null){
+						(eo as VerificationResult).analysisresultreference.results.map[URI] //+ eo.eContents.map[URI]
+					} else {
+						eo.eContents.map[URI]
+					}
 				}
 
 				override getElements(Object inputElement) {
@@ -386,7 +394,11 @@ class AlisaView extends ViewPart {
 				}
 
 				override hasChildren(Object element) {
-					!(resourceSetForUI.getEObject(element as URI, true)?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
+					val eo = resourceSetForUI.getEObject(element as URI, true)
+					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresultreference !== null){
+						!((eo as VerificationResult).analysisresultreference.eContents ).empty
+					}
+					!(eo?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
 				}
 
 				override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
@@ -428,7 +440,12 @@ class AlisaView extends ViewPart {
 								if (eObject.type == DiagnosticType.NONE){
 									"Result: "+ (eObject.sourceReference?.constructLabel ?: "" ) 
 								} else {
-									eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+									if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult && eObject.type == DiagnosticType.ERROR){
+										// map error into failure
+										"Fail: "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+									} else {
+										eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+									}
 								}
 							}
 								
@@ -469,7 +486,12 @@ class AlisaView extends ViewPart {
 							Value: "info.png"
 							Result:
 								switch eObject.type {
-									case ERROR: "error.png"
+									case ERROR:  if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult) {
+										// map error into fail for assure
+										"invalid.png"
+									} else {
+										"error.png"
+									}
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"

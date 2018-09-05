@@ -89,6 +89,10 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.util.ResultUtil
+import org.osate.assure.assure.VerificationResultState
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -770,25 +774,25 @@ class AssureProcessor implements IAssureProcessor {
 						} else {
 							setToSuccess(verificationResult)
 						}
-						val results = r.subResults
-						for (result : results) {
-							val c = EcoreUtil.copy(result)
-							if (c.type === DiagnosticType.ERROR) {
-								c.type = DiagnosticType.FAILURE
-							}
-							verificationResult.results.add(c)
+//						val results = r.subResults
+//						for (result : results) {
+//							val c = EcoreUtil.copy(result)
+//							if (c.type === DiagnosticType.ERROR) {
+//								c.type = DiagnosticType.FAILURE
+//							}
+//							verificationResult.results.add(c)
+//						}
+//						val diags = r.diagnostics
+//						for (diag : diags) {
+//							val rcopy = EcoreUtil.copy(diag)
+//							if (rcopy.type === DiagnosticType.ERROR) {
+//								rcopy.type = DiagnosticType.FAILURE
+//							}
+//							verificationResult.issues.add(rcopy)
+//						}
+						if (verificationResult instanceof VerificationActivityResult) {
+							evaluateComputePredicate(verificationResult, method, r)
 						}
-						val diags = r.diagnostics
-						for (diag : diags) {
-							val rcopy = EcoreUtil.copy(diag)
-							if (rcopy.type === DiagnosticType.ERROR) {
-								rcopy.type = DiagnosticType.FAILURE
-							}
-							verificationResult.issues.add(rcopy)
-						}
-					}
-					if (verificationResult instanceof VerificationActivityResult) {
-						evaluateComputePredicate(verificationResult, method, r)
 					}
 				}
 				if (! foundResult) {
@@ -798,6 +802,16 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult,
 						"No Result found for requirement verification target " + target.name, target)
 				}
+				
+				val aruri = ResultUtil.getAnalysisResultURI(returned);
+				val rset = verificationResult.eResource().getResourceSet();
+				val res = OsateResourceUtil.getResource(aruri, rset);
+				res.getContents().clear();
+				res.getContents().add(returned);
+				if (save){
+					res.save(null);
+				}
+				verificationResult.analysisresultreference = returned
 			} else if (method.results.size == 1) {
 				// set compute variable value from the returned value
 				if (verificationResult instanceof VerificationActivityResult) {
