@@ -76,6 +76,8 @@ import org.osate.result.Result
 import org.osate.result.util.ResultUtil
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
 
 class AssureUtilExtension {
 
@@ -1382,5 +1384,17 @@ class AssureUtilExtension {
 			IntegerLiteral: numberValue.getValue()
 		}
 	}
+	
+	
+	def static boolean containsComputeVariables(ValuePredicate predicate) {
+		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
+		for (varref : varrefs) {
+			if (varref.variable instanceof ComputeDeclaration) {
+				return true
+			}
+		}
+		false
+	}
+	
 
 }

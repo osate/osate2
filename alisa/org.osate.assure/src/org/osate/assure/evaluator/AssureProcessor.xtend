@@ -501,9 +501,9 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				default: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					executeVerificationMethod(verificationResult, method, targetComponent, targetElement, parameterObjects)
+					executeVerificationMethod(verificationResult, method, targetComponent, targetElement,
+						parameterObjects)
 				}
-				
 			} // end switch on method
 		} catch (AssertionError e) {
 			setToFail(verificationResult, e);
@@ -515,9 +515,9 @@ class AssureProcessor implements IAssureProcessor {
 		saveAssureResult(verificationResult)
 		updateProgress(verificationResult)
 	}
-	
-	def boolean matchEnclosingComponentInstance(Result r, EObject target){
-		if (r.sourceReference instanceof InstanceObject){
+
+	def boolean matchEnclosingComponentInstance(Result r, EObject target) {
+		if (r.sourceReference instanceof InstanceObject) {
 			return (r.sourceReference as InstanceObject).componentInstance === target
 		}
 		return false
@@ -630,290 +630,296 @@ class AssureProcessor implements IAssureProcessor {
 		return tmp.message
 	}
 
-
-		// ----------------------------
-		// Execution of Verification methods
-		// ----------------------------
-		/*
-		 * lookup targetElement and handle connection instances
-		 * check on properties
-		 * Then call on ExecuteMethodOnce, which handles Java and Resolute
-		 */
-		def void executeVerificationMethod(VerificationResult verificationResult, VerificationMethod method,
-			ComponentInstance targetComponent, NamedElement targetElement, List<PropertyExpression> parameters) {
-			val InstanceObject target = if (targetElement !== null) {
-					if (targetElement.eIsProxy) {
-						setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-						return
-					}
-					targetComponent.findElementInstance(targetElement)
-				} else {
-					targetComponent
+	// ----------------------------
+	// Execution of Verification methods
+	// ----------------------------
+	/*
+	 * lookup targetElement and handle connection instances
+	 * check on properties
+	 * Then call on ExecuteMethodOnce, which handles Java and Resolute
+	 */
+	def void executeVerificationMethod(VerificationResult verificationResult, VerificationMethod method,
+		ComponentInstance targetComponent, NamedElement targetElement, List<PropertyExpression> parameters) {
+		val InstanceObject target = if (targetElement !== null) {
+				if (targetElement.eIsProxy) {
+					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+					return
 				}
-
-			if (target instanceof ConnectionInstance) {
-				val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
-				for (conni : conns) {
-					if (checkPropertyValues(verificationResult, conni)) {
-						verificationResult.executeMethodOnce( method, targetComponent,conni, parameters)
-					}
-				}
-				// fix verification activity result state
-				if (verificationResult.issues.hasErrors) {
-					setToError(verificationResult)
-				} else if (verificationResult.issues.hasFailures) {
-					setToFail(verificationResult)
-				}
-			} else if (target !== null) {
-				if (checkPropertyValues(verificationResult, target)) {
-					verificationResult.executeMethodOnce( method, targetComponent,target, parameters)
-				}
+				targetComponent.findElementInstance(targetElement)
 			} else {
-				setToError(verificationResult, "Could not find target element instance " + targetElement.name,
-					targetComponent)
+				targetComponent
 			}
-		}
 
-		def void executeMethodOnce(VerificationResult verificationResult, VerificationMethod method, ComponentInstance targetComponent,
-			InstanceObject target, List<PropertyExpression> parameters) {
-			val methodtype = method.methodKind
-			switch (methodtype){
-				JavaMethod: {
-					executeJavaMethodOnce(verificationResult,method, target, parameters);
-				}
-				ResoluteMethod: {
-					executeResoluteMethodOnce(verificationResult,method, targetComponent, target, parameters);
+		if (target instanceof ConnectionInstance) {
+			val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
+			for (conni : conns) {
+				if (checkPropertyValues(verificationResult, conni)) {
+					verificationResult.executeMethodOnce(method, targetComponent, conni, parameters)
 				}
 			}
-		}
-
-		def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
-			ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
-			if (RESOLUTE_INSTALLED) {
-				val methodtype = method.methodKind as ResoluteMethod
-				val fundef = methodtype.methodReference
-				val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
-				parameters)
-				processExecutionResult(verificationResult, method, target, returned)
-			} else {
-				setToError(verificationResult, "Resolute not installed")
+			// fix verification activity result state
+			if (verificationResult.issues.hasErrors) {
+				setToError(verificationResult)
+			} else if (verificationResult.issues.hasFailures) {
+				setToFail(verificationResult)
 			}
-		}
-		def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
-			InstanceObject target, List<PropertyExpression> parameters) {
-			val methodtype = method.methodKind as JavaMethod
-			val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
-			val objects = VerifyJavaUtil.getActualJavaObjects(methodtype,target,parameters)
-			val returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
-			processExecutionResult(verificationResult, method, target, returned)
-		}
-
-		/*
-		 * process execution results
-		 * We interpret boolean, Diagnostic, Result, AnalysisResult. We also interpret any returned object other than the previous as compute variable 
-		 */
-		def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method, InstanceObject target, Object returned){
-			if (returned !== null) {
-				if (returned instanceof Boolean && method.results.empty) {
-					if (returned != true) {
-						setToFail(verificationResult);
-					} else {
-						setToSuccess(verificationResult)
-					}
-				} else if (returned instanceof Result) {
-					if (hasErrors(returned) || hasFailures(returned)) {
-						setToFail(verificationResult)
-					} else {
-						setToSuccess(verificationResult)
-					}
-					val results = returned.subResults
-					for (result : results) {
-						val c = EcoreUtil.copy(result)
-						if (c.type === DiagnosticType.ERROR) {
-							c.type = DiagnosticType.FAILURE
-						}
-						verificationResult.issues.add(c)
-					}
-					val diags = returned.diagnostics
-					for (diag : diags) {
-						val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
-						if (rcopy.type === DiagnosticType.ERROR) {
-							rcopy.type = DiagnosticType.FAILURE
-						}
-						verificationResult.issues.add(rcopy)
-					}
-					if (verificationResult instanceof VerificationActivityResult) {
-						evaluateComputePredicate(verificationResult, method, returned)
-					}
-				} else if (returned instanceof Diagnostic) {
-					if (returned.type == DiagnosticType.SUCCESS) {
-						setToSuccess(verificationResult)
-					} else if (returned.type == DiagnosticType.FAILURE) {
-						setToFail(verificationResult)
-					} else if (returned.type == DiagnosticType.ERROR) {
-						setToError(verificationResult)
-					} else {
-						setToSuccess(verificationResult)
-					}
-					val diagres = ResultUtil.createResult(returned.message, returned.sourceReference, returned.type)
-					verificationResult.issues.add(diagres)
-				} else if (returned instanceof AnalysisResult) {
-						var foundResult = false
-						for (Result r : returned.results) {
-							// we may encounter more than one Result
-							// TODO address this when we are able to use Result objects in Assure.
-							if (r.sourceReference === target) {
-								foundResult = true
-								if (hasErrors(returned) || hasFailures(r)) {
-									setToFail(verificationResult)
-								} else {
-									setToSuccess(verificationResult)
-								}
-								val results = r.subResults
-								for (result : results) {
-									val c = EcoreUtil.copy(result)
-									if (c.type === DiagnosticType.ERROR) {
-										c.type = DiagnosticType.FAILURE
-									}
-									verificationResult.results.add(c)
-								}
-								val diags = r.diagnostics
-								for (diag : diags){
-									val rcopy = EcoreUtil.copy(diag)
-									if (rcopy.type === DiagnosticType.ERROR) {
-										rcopy.type = DiagnosticType.FAILURE
-									}
-									verificationResult.issues.add(rcopy)
-								}
-							}
-							if (verificationResult instanceof VerificationActivityResult) {
-								evaluateComputePredicate(verificationResult, method, r)
-							}
-						}
-						if (! foundResult) {
-							// requirement target does not match Result source reference
-							// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
-							// does not include a 'for' <target model element>
-							setToError(verificationResult,
-								"No Result found for requirement verification target " + target.name, target)
-						}
-				} else if (method.results.size == 1) {
-					// set compute variable value from the returned value
-					if (verificationResult instanceof VerificationActivityResult) {
-						val computevars = verificationResult.targetReference.verificationActivity.computes
-						if (computevars.size == 1) {
-							val computeRef = computevars.head
-							val tunit = method.results.head?.unit
-							val rval = toLiteral(verificationResult, returned, tunit)
-							computes.put(computeRef.compute.name, rval)
-							evaluatePredicate(verificationResult)
-						} else {
-							setToError(verificationResult,
-								"One value returned but " + computevars.size + " compute variable assignments")
-						}
-					}
-					setToSuccess(verificationResult)
-				} else {
-					setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
-						target);
-				}
+		} else if (target !== null) {
+			if (checkPropertyValues(verificationResult, target)) {
+				verificationResult.executeMethodOnce(method, targetComponent, target, parameters)
 			}
-			
+		} else {
+			setToError(verificationResult, "Could not find target element instance " + targetElement.name,
+				targetComponent)
 		}
+	}
 
-		/*
-		 * evaluate value predicate with compute variable results bound
-		 */
-		def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
-			Result returned) {
-			val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
-			val formalIter = method.results.iterator
-			val vals = returned.values
-			if (computeIter.size == vals.size) {
-				vals.forEach [ data |
-					val computeRef = computeIter.next
-					val formalReturn = formalIter.next
-					val tunit = formalReturn.unit
-					computes.put(computeRef.compute.name, toLiteral(verificationResult, data, tunit))
-				]
-				if (verificationResult.success) {
-					evaluatePredicate(verificationResult)
-				}
-			} else {
-				setToError(verificationResult, 'Fewer values returned than expected as compute variables')
+	def void executeMethodOnce(VerificationResult verificationResult, VerificationMethod method,
+		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
+		val methodtype = method.methodKind
+		switch (methodtype) {
+			JavaMethod: {
+				executeJavaMethodOnce(verificationResult, method, target, parameters);
 			}
-		}
-
-		/*
-		 * check property values in method specification
-		 */
-		def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
-			if (verificationResult instanceof VerificationActivityResult) {
-				val method = verificationResult.method
-				val properties = method.properties
-				val exps = verificationResult.target.propertyValues
-
-				val propIter = properties.iterator
-				val expIter = exps.iterator
-				var success = true;
-
-				while (propIter.hasNext && expIter.hasNext) {
-					val property = propIter.next
-					val exp = expIter.next
-
-					try {
-						val expResult = interpreter.interpretExpression(env, exp)
-						if (expResult.failed) {
-							setToError(verificationResult, "Could not evaluate expression for " + property.name + ": " +
-								expResult.ruleFailedException, null)
-							success = false
-						} else {
-							var PropertyValue modelPropValue = null
-							val propertyIsSet = try {
-									val modelExp = target.getSimplePropertyValue(property)
-									modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
-									true
-								} catch (PropertyNotPresentException e) {
-									false
-								}
-							val value = expResult.value
-							if (propertyIsSet) {
-								if (value instanceof NumberValue) {
-									val unit = value.unit
-									val reqValue = value.getScaledValue(unit)
-									val modelValue = PropertyUtils.getScaledNumberValue(target, property, unit)
-
-									if (reqValue != modelValue) {
-										verificationResult.addFailIssue(target,
-											"Property " + property.getQualifiedName() + ": Value in model (" +
-												modelValue + unit.name + ") does not match required value (" +
-												reqValue + unit.name + ")")
-										verificationResult.setToFail
-									}
-								} else {
-									if (value != modelPropValue) {
-										verificationResult.addFailIssue(target,
-											"Property " + property.getQualifiedName() + ": Value in model (" +
-												modelPropValue + ") does not match required value (" + value + ")")
-										verificationResult.setToFail
-									}
-								}
-							} else {
-								// set property
-								val pa = target.createOwnedPropertyAssociation
-								pa.property = property
-								val mpv = pa.createOwnedValue
-								mpv.setOwnedValue(EcoreUtil.copy(value))
-							}
-						}
-					} catch (Exception e) {
-						verificationResult.setToError("Could not process property " + property.name)
-					}
-				}
-				return success
-			} else {
-				return true
+			ResoluteMethod: {
+				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
 		}
 	}
-	
+
+	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
+		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
+		if (RESOLUTE_INSTALLED) {
+			val methodtype = method.methodKind as ResoluteMethod
+			val fundef = methodtype.methodReference
+			val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
+				parameters)
+			processExecutionResult(verificationResult, method, target, returned)
+		} else {
+			setToError(verificationResult, "Resolute not installed")
+		}
+	}
+
+	def void executeJavaMethodOnce(VerificationResult verificationResult, VerificationMethod method,
+		InstanceObject target, List<PropertyExpression> parameters) {
+		val methodtype = method.methodKind as JavaMethod
+		val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
+		val objects = VerifyJavaUtil.getActualJavaObjects(methodtype, target, parameters)
+		val returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		processExecutionResult(verificationResult, method, target, returned)
+	}
+
+	/*
+	 * process execution results
+	 * We interpret boolean, Diagnostic, Result, AnalysisResult. We also interpret any returned object other than the previous as compute variable 
+	 */
+	def void processExecutionResult(VerificationResult verificationResult, VerificationMethod method,
+		InstanceObject target, Object returned) {
+		if (returned !== null) {
+			if (returned instanceof Boolean && method.results.empty) {
+				if (returned != true) {
+					setToFail(verificationResult);
+				} else {
+					setToSuccess(verificationResult)
+				}
+			} else if (returned instanceof Result) {
+				if (hasErrors(returned) || hasFailures(returned)) {
+					setToFail(verificationResult)
+				} else {
+					setToSuccess(verificationResult)
+				}
+				val results = returned.subResults
+				for (result : results) {
+					val c = EcoreUtil.copy(result)
+					if (c.type === DiagnosticType.ERROR) {
+						c.type = DiagnosticType.FAILURE
+					}
+					verificationResult.issues.add(c)
+				}
+				val diags = returned.diagnostics
+				for (diag : diags) {
+					val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
+					if (rcopy.type === DiagnosticType.ERROR) {
+						rcopy.type = DiagnosticType.FAILURE
+					}
+					verificationResult.issues.add(rcopy)
+				}
+				if (verificationResult instanceof VerificationActivityResult) {
+					evaluateComputePredicate(verificationResult, method, returned)
+				}
+			} else if (returned instanceof Diagnostic) {
+				if (returned.type == DiagnosticType.SUCCESS) {
+					setToSuccess(verificationResult)
+				} else if (returned.type == DiagnosticType.FAILURE) {
+					setToFail(verificationResult)
+				} else if (returned.type == DiagnosticType.ERROR) {
+					setToError(verificationResult)
+				} else {
+					setToSuccess(verificationResult)
+				}
+				val diagres = ResultUtil.createResult(returned.message, returned.sourceReference, returned.type)
+				verificationResult.issues.add(diagres)
+			} else if (returned instanceof AnalysisResult) {
+				var foundResult = false
+				for (Result r : returned.results) {
+					// we may encounter more than one Result
+					// TODO address this when we are able to use Result objects in Assure.
+					if (r.sourceReference === target) {
+						foundResult = true
+						if (hasErrors(returned) || hasFailures(r)) {
+							setToFail(verificationResult)
+						} else {
+							setToSuccess(verificationResult)
+						}
+						val results = r.subResults
+						for (result : results) {
+							val c = EcoreUtil.copy(result)
+							if (c.type === DiagnosticType.ERROR) {
+								c.type = DiagnosticType.FAILURE
+							}
+							verificationResult.results.add(c)
+						}
+						val diags = r.diagnostics
+						for (diag : diags) {
+							val rcopy = EcoreUtil.copy(diag)
+							if (rcopy.type === DiagnosticType.ERROR) {
+								rcopy.type = DiagnosticType.FAILURE
+							}
+							verificationResult.issues.add(rcopy)
+						}
+					}
+					if (verificationResult instanceof VerificationActivityResult) {
+						evaluateComputePredicate(verificationResult, method, r)
+					}
+				}
+				if (! foundResult) {
+					// requirement target does not match Result source reference
+					// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
+					// does not include a 'for' <target model element>
+					setToError(verificationResult,
+						"No Result found for requirement verification target " + target.name, target)
+				}
+			} else if (method.results.size == 1) {
+				// set compute variable value from the returned value
+				if (verificationResult instanceof VerificationActivityResult) {
+					val computevars = verificationResult.targetReference.verificationActivity.computes
+					if (computevars.size == 1) {
+						val computeRef = computevars.head
+						val tunit = method.results.head?.unit
+						val rval = toLiteral(verificationResult, returned, tunit)
+						computes.put(computeRef.compute.name, rval)
+						evaluatePredicate(verificationResult)
+					} else {
+						setToError(verificationResult,
+							"One value returned but " + computevars.size + " compute variable assignments")
+					}
+				}
+				setToSuccess(verificationResult)
+			} else {
+				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
+					target);
+			}
+		}
+
+	}
+
+	/*
+	 * evaluate value predicate with compute variable results bound
+	 */
+	def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
+		Result returned) {
+		val predicate = verificationResult.containingClaim?.requirement?.predicate
+		if (predicate instanceof ValuePredicate) {
+			if (!containsComputeVariables(predicate)) {
+				return
+			}
+		}
+		val computevars = verificationResult.targetReference.verificationActivity.computes
+		val formalIter = method.results.iterator
+		val valsIter = returned.values.iterator
+		if (computevars.size <= valsIter.size) {
+			computevars.forEach [ computeRef |
+				val value = valsIter.next
+				val formalReturn = formalIter.next
+				val tunit = formalReturn.unit
+				computes.put(computeRef.compute.name, toLiteral(verificationResult, value, tunit))
+			]
+			if (verificationResult.success) {
+				evaluatePredicate(verificationResult)
+			}
+		} else {
+			setToError(verificationResult, 'Fewer values returned than expected as compute variables')
+		}
+	}
+
+	/*
+	 * check property values in method specification
+	 */
+	def boolean checkPropertyValues(VerificationResult verificationResult, InstanceObject target) {
+		if (verificationResult instanceof VerificationActivityResult) {
+			val method = verificationResult.method
+			val properties = method.properties
+			val exps = verificationResult.target.propertyValues
+
+			val propIter = properties.iterator
+			val expIter = exps.iterator
+			var success = true;
+
+			while (propIter.hasNext && expIter.hasNext) {
+				val property = propIter.next
+				val exp = expIter.next
+
+				try {
+					val expResult = interpreter.interpretExpression(env, exp)
+					if (expResult.failed) {
+						setToError(verificationResult, "Could not evaluate expression for " + property.name + ": " +
+							expResult.ruleFailedException, null)
+						success = false
+					} else {
+						var PropertyValue modelPropValue = null
+						val propertyIsSet = try {
+								val modelExp = target.getSimplePropertyValue(property)
+								modelPropValue = if(modelExp instanceof PropertyValue) modelExp else null
+								true
+							} catch (PropertyNotPresentException e) {
+								false
+							}
+						val value = expResult.value
+						if (propertyIsSet) {
+							if (value instanceof NumberValue) {
+								val unit = value.unit
+								val reqValue = value.getScaledValue(unit)
+								val modelValue = PropertyUtils.getScaledNumberValue(target, property, unit)
+
+								if (reqValue != modelValue) {
+									verificationResult.addFailIssue(target,
+										"Property " + property.getQualifiedName() + ": Value in model (" +
+											modelValue + unit.name + ") does not match required value (" +
+											reqValue + unit.name + ")")
+									verificationResult.setToFail
+								}
+							} else {
+								if (value != modelPropValue) {
+									verificationResult.addFailIssue(target,
+										"Property " + property.getQualifiedName() + ": Value in model (" +
+											modelPropValue + ") does not match required value (" + value + ")")
+									verificationResult.setToFail
+								}
+							}
+						} else {
+							// set property
+							val pa = target.createOwnedPropertyAssociation
+							pa.property = property
+							val mpv = pa.createOwnedValue
+							mpv.setOwnedValue(EcoreUtil.copy(value))
+						}
+					}
+				} catch (Exception e) {
+					verificationResult.setToError("Could not process property " + property.name)
+				}
+			}
+			return success
+		} else {
+			return true
+		}
+	}
+}
