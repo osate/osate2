@@ -31,9 +31,10 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.pluginsupport.ExecuteJavaUtil
+import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
@@ -49,10 +50,12 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -65,17 +68,11 @@ import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
-import org.osate.alisa.common.common.TargetType
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
-import org.eclipse.xtext.EcoreUtil2
-import org.osate.alisa.common.common.CommonPackage
-import org.osate.alisa.common.common.AVariableReference
-import org.osate.alisa.common.common.ComputeDeclaration
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -337,17 +334,6 @@ class AssureConstructor implements IAssureConstructor {
 		}
 
 		claimResultlist.add(claimResult)
-	}
-
-	def boolean containsComputeVariables(ValuePredicate predicate) {
-		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
-		for (varref : varrefs) {
-			val vname = varref.variable?.name
-			if (varref.variable instanceof ComputeDeclaration) {
-				return true
-			}
-		}
-		false
 	}
 
 	def generatePredicateResult(Claim claim) {
