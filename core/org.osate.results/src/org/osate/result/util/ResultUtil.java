@@ -3,7 +3,9 @@ package org.osate.result.util;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
 import org.osate.result.Diagnostic;
@@ -321,6 +323,15 @@ public class ResultUtil {
 			}
 		}
 		return false;
+	}
+
+	public static URI getAnalysisResultURI(AnalysisResult results) {
+		EObject root = results.getSourceReference();
+		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
+		String rootname = rootURI.lastSegment();
+		String postfix = results.getInfo().replaceAll(" ", "");
+		return rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment(results.getAnalysis())
+				.appendSegment(rootname + "__" + results.getAnalysis() + "_" + postfix + ".result");
 	}
 
 }
