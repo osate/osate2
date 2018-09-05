@@ -726,9 +726,9 @@ class AssureProcessor implements IAssureProcessor {
 					} else {
 						setToSuccess(verificationResult)
 					}
-					val issues = returned.subResults
-					for (issue : issues) {
-						val c = EcoreUtil.copy(issue)
+					val results = returned.subResults
+					for (result : results) {
+						val c = EcoreUtil.copy(result)
 						if (c.type === DiagnosticType.ERROR) {
 							c.type = DiagnosticType.FAILURE
 						}
@@ -769,17 +769,17 @@ class AssureProcessor implements IAssureProcessor {
 								} else {
 									setToSuccess(verificationResult)
 								}
-								val issues = r.subResults
-								for (issue : issues) {
-									val c = EcoreUtil.copy(issue)
+								val results = r.subResults
+								for (result : results) {
+									val c = EcoreUtil.copy(result)
 									if (c.type === DiagnosticType.ERROR) {
 										c.type = DiagnosticType.FAILURE
 									}
-									verificationResult.issues.add(c)
+									verificationResult.results.add(c)
 								}
 								val diags = r.diagnostics
 								for (diag : diags){
-									val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
+									val rcopy = EcoreUtil.copy(diag)
 									if (rcopy.type === DiagnosticType.ERROR) {
 										rcopy.type = DiagnosticType.FAILURE
 									}

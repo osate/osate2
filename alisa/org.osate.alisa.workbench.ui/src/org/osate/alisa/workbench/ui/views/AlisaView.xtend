@@ -78,6 +78,14 @@ import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.DiagnosticType
+import org.osate.result.Value
+import org.osate.result.RealValue
+import org.osate.result.IntegerValue
+import org.osate.result.StringValue
+import org.osate.result.BooleanValue
+import org.osate.result.EObjectValue
+import org.osate.result.ObjectValue
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -416,16 +424,34 @@ class AlisaView extends ViewPart {
 								"Validation " + eObject.name
 							PreconditionResult:
 								"Precondition " + eObject.name
-							Result:
-								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
+							Result: {
+								if (eObject.type == DiagnosticType.NONE){
+									"Result: "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+								} else {
+									eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+								}
+							}
+								
 							Diagnostic:
-								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
+								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: "" ) 
 							ElseResult:
 								"else"
 							ThenResult:
 								"then"
 							PredicateResult:
 								"Predicate"
+							RealValue:
+								"Value: "+eObject.value
+							IntegerValue:
+								"Value: "+eObject.value
+							StringValue:
+								"Value: "+eObject.value
+							BooleanValue:
+								"Value: "+eObject.value
+							EObjectValue:
+								"Value: "+eObject.value
+							ObjectValue:
+								"Value: "+eObject.value
 							default:
 								"?"
 						}
@@ -440,6 +466,16 @@ class AlisaView extends ViewPart {
 
 					override getImage(Object element) {
 						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							Value: "info.png"
+							Result:
+								switch eObject.type {
+									case ERROR: "error.png"
+									case SUCCESS: "valid.png"
+									case WARNING: "warning.png"
+									case INFO: "info.png"
+									case FAILURE: "invalid.png"
+									case NONE: "info.png"
+								}
 							Diagnostic:
 								switch eObject.type {
 									case ERROR: "error.png"
