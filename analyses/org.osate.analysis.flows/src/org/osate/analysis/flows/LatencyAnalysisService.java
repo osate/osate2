@@ -30,13 +30,13 @@ public class LatencyAnalysisService {
 
 	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som) {
 		FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
-		EList<Result> results = fla.invoke(ci, null, true, true, true, true);
+		EList<Result> results = fla.invoke(ci, som, true, true, true, true);
 		return FlowLatencyUtil.recordAsAnalysisResult(results, ci, true, true, true, true);
 	}
 
 	public AnalysisResult invoke(SystemInstance si, SystemOperationMode som) {
 		FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
-		EList<Result> results = fla.invoke(si, null, true, true, true, true);
+		EList<Result> results = fla.invoke(si, som, true, true, true, true);
 		return FlowLatencyUtil.recordAsAnalysisResult(results, si, true, true, true, true);
 	}
 
