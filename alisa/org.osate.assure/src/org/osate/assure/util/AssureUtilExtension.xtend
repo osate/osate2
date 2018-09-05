@@ -543,58 +543,7 @@ class AssureUtilExtension {
 	 * update the counts to reflect existing own status
 	 * Used by complete process and set result
 	 */
-	private def static addOwnResultStateToCount(VerificationActivityResult ar) {
-		val counts = ar.metrics
-		switch (ar.resultState) {
-			case VerificationResultState.SUCCESS:
-				counts.successCount = counts.successCount + 1
-			case VerificationResultState.FAIL:
-				counts.failCount = counts.failCount + 1
-			case VerificationResultState.ERROR:
-				counts.errorCount = counts.errorCount + 1
-			case VerificationResultState.TIMEOUT:
-				counts.timeoutCount = counts.timeoutCount + 1
-			case VerificationResultState.TBD:
-				counts.tbdCount = counts.tbdCount + 1
-		}
-		ar
-	}
-
-	private def static addOwnResultStateToCount(PreconditionResult ar) {
-		val counts = ar.metrics
-		switch (ar.resultState) {
-			case VerificationResultState.SUCCESS:
-				counts.successCount = counts.successCount + 1
-			case VerificationResultState.FAIL:
-				counts.failCount = counts.failCount + 1
-			case VerificationResultState.ERROR:
-				counts.errorCount = counts.errorCount + 1
-			case VerificationResultState.TIMEOUT:
-				counts.timeoutCount = counts.timeoutCount + 1
-			case VerificationResultState.TBD:
-				counts.tbdCount = counts.tbdCount + 1
-		}
-		ar
-	}
-
-	private def static addOwnResultStateToCount(ValidationResult ar) {
-		val counts = ar.metrics
-		switch (ar.resultState) {
-			case VerificationResultState.SUCCESS:
-				counts.successCount = counts.successCount + 1
-			case VerificationResultState.FAIL:
-				counts.failCount = counts.failCount + 1
-			case VerificationResultState.ERROR:
-				counts.errorCount = counts.errorCount + 1
-			case VerificationResultState.TIMEOUT:
-				counts.timeoutCount = counts.timeoutCount + 1
-			case VerificationResultState.TBD:
-				counts.tbdCount = counts.tbdCount + 1
-		}
-		ar
-	}
-
-	private def static addOwnResultStateToCount(PredicateResult ar) {
+	private def static addOwnResultStateToCount(VerificationResult ar) {
 		val counts = ar.metrics
 		switch (ar.resultState) {
 			case VerificationResultState.SUCCESS:
@@ -1292,16 +1241,6 @@ class AssureUtilExtension {
 			return pred.description
 		}
 		return ""
-	}
-
-	def static String assureResultCounts(AssureResult ele) {
-		val elec = ele.metrics
-//		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer === null) {
-//			ele.resetCounts
-//			ele.recomputeAllCounts(null)
-//		}
-		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " E" + elec.errorCount + " tbd" +
-			elec.tbdCount + " EL" + elec.didelseCount + " TS" + elec.thenskipCount + ")"
 	}
 
 	def static String assureExecutionTime(AssureResult ele) {
