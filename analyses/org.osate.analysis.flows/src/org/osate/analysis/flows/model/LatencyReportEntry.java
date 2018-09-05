@@ -497,6 +497,7 @@ public class LatencyReportEntry {
 
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setSourceReference(relatedEndToEndFlow);
+		result.setMessage("Latency results for " + relatedEndToEndFlow.getName());
 
 		addStringValue(result, inMode);
 
