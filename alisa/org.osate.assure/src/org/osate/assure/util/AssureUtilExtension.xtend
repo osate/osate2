@@ -75,6 +75,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.Result
 import org.osate.result.util.ResultUtil
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.aadl2.instance.ConnectionInstance
 
 class AssureUtilExtension {
 
@@ -436,9 +437,10 @@ class AssureUtilExtension {
 
 	def static String constructLabel(EObject obj) {
 		switch (obj) {
-			SystemInstance: return "top " + obj.componentImplementation.name + ": "
-			ComponentInstance: return obj.category.getName + " " + obj.name + ": "
-			NamedElement: obj.name + ": "
+			SystemInstance: return "top " + obj.componentImplementation.name
+			ComponentInstance: return obj.category.getName + " " + obj.name 
+			ConnectionInstance: return obj.name 
+			NamedElement: obj.name 
 		}
 		""
 	}
