@@ -517,8 +517,9 @@ public class FlowLatencyUtil {
 		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 		String rootname = rootURI.lastSegment();
 		String postfix = getParametersAsLabels(results);
-		return rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment(LatencyAnalysisName)
-				.appendSegment(rootname + "__latency_" + postfix + ".result");
+		return rootURI.trimFragment().trimFileExtension().trimSegments(1).appendSegment("reports")
+				.appendSegment(LatencyAnalysisName).appendSegment(rootname + "__latency_" + postfix)
+				.appendFileExtension("result");
 	}
 
 	public static void saveAnalysisResult(AnalysisResult results) {
