@@ -21,15 +21,10 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osate.aadl2.Aadl2Package;
-
 import org.osate.alisa.common.common.CommonPackage;
-
 import org.osate.alisa.workbench.alisa.AlisaPackage;
-
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssurePackage;
@@ -49,19 +44,13 @@ import org.osate.assure.assure.SubsystemResult;
 import org.osate.assure.assure.ThenResult;
 import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
-import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
-
 import org.osate.categories.categories.CategoriesPackage;
-
 import org.osate.organization.organization.OrganizationPackage;
-
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-
 import org.osate.result.ResultPackage;
-
 import org.osate.verify.verify.VerifyPackage;
 
 /**
@@ -212,13 +201,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	private EEnum verificationResultStateEEnum = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum verificationExecutionStateEEnum = null;
-
-	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -257,7 +239,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public static AssurePackage init() {
-		if (isInited) return (AssurePackage)EPackage.Registry.INSTANCE.getEPackage(AssurePackage.eNS_URI);
+		if (isInited) {
+			return (AssurePackage)EPackage.Registry.INSTANCE.getEPackage(AssurePackage.eNS_URI);
+		}
 
 		// Obtain or create and register package
 		AssurePackageImpl theAssurePackage = (AssurePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AssurePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AssurePackageImpl());
@@ -295,6 +279,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssuranceCaseResult() {
 		return assuranceCaseResultEClass;
 	}
@@ -304,6 +289,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssuranceCaseResult_Name() {
 		return (EAttribute)assuranceCaseResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -313,6 +299,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssuranceCaseResult_Message() {
 		return (EAttribute)assuranceCaseResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -322,6 +309,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssuranceCaseResult_ModelResult() {
 		return (EReference)assuranceCaseResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -331,6 +319,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelResult() {
 		return modelResultEClass;
 	}
@@ -340,6 +329,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelResult_Plan() {
 		return (EReference)modelResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -349,6 +339,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelResult_Target() {
 		return (EReference)modelResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -358,6 +349,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModelResult_Message() {
 		return (EAttribute)modelResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -367,6 +359,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelResult_ClaimResult() {
 		return (EReference)modelResultEClass.getEStructuralFeatures().get(3);
 	}
@@ -376,6 +369,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelResult_SubsystemResult() {
 		return (EReference)modelResultEClass.getEStructuralFeatures().get(4);
 	}
@@ -385,6 +379,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelResult_SubAssuranceCase() {
 		return (EReference)modelResultEClass.getEStructuralFeatures().get(5);
 	}
@@ -394,6 +389,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSubsystemResult() {
 		return subsystemResultEClass;
 	}
@@ -403,6 +399,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSubsystemResult_TargetSystem() {
 		return (EReference)subsystemResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -412,6 +409,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSubsystemResult_Message() {
 		return (EAttribute)subsystemResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -421,6 +419,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSubsystemResult_ClaimResult() {
 		return (EReference)subsystemResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -430,6 +429,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSubsystemResult_SubsystemResult() {
 		return (EReference)subsystemResultEClass.getEStructuralFeatures().get(3);
 	}
@@ -439,6 +439,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getClaimResult() {
 		return claimResultEClass;
 	}
@@ -448,6 +449,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getClaimResult_TargetReference() {
 		return (EReference)claimResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -457,6 +459,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getClaimResult_ModelElement() {
 		return (EReference)claimResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -466,6 +469,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getClaimResult_Message() {
 		return (EAttribute)claimResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -475,6 +479,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getClaimResult_SubClaimResult() {
 		return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
 	}
@@ -484,6 +489,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getClaimResult_VerificationActivityResult() {
 		return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
 	}
@@ -493,6 +499,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getClaimResult_PredicateResult() {
 		return (EReference)claimResultEClass.getEStructuralFeatures().get(5);
 	}
@@ -502,6 +509,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVerificationResult() {
 		return verificationResultEClass;
 	}
@@ -511,7 +519,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVerificationResult_ExecutionState() {
+	@Override
+	public EAttribute getVerificationResult_ResultState() {
 		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -520,8 +529,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVerificationResult_ResultState() {
-		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(1);
+	@Override
+	public EReference getVerificationResult_Issues() {
+		return (EReference)verificationResultEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -529,7 +539,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVerificationResult_Issues() {
+	@Override
+	public EReference getVerificationResult_Results() {
 		return (EReference)verificationResultEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -538,7 +549,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVerificationResult_Results() {
+	@Override
+	public EReference getVerificationResult_Analysisresultreference() {
 		return (EReference)verificationResultEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -547,17 +559,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVerificationResult_Analysisresultreference() {
-		return (EReference)verificationResultEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EAttribute getVerificationResult_Message() {
-		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -565,6 +569,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssureResult() {
 		return assureResultEClass;
 	}
@@ -574,6 +579,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssureResult_Metrics() {
 		return (EReference)assureResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -583,6 +589,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVerificationExpr() {
 		return verificationExprEClass;
 	}
@@ -592,6 +599,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getElseResult() {
 		return elseResultEClass;
 	}
@@ -601,6 +609,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getElseResult_First() {
 		return (EReference)elseResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -610,6 +619,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getElseResult_Error() {
 		return (EReference)elseResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -619,6 +629,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getElseResult_Fail() {
 		return (EReference)elseResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -628,6 +639,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getElseResult_Timeout() {
 		return (EReference)elseResultEClass.getEStructuralFeatures().get(3);
 	}
@@ -637,6 +649,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getElseResult_DidFail() {
 		return (EAttribute)elseResultEClass.getEStructuralFeatures().get(4);
 	}
@@ -646,6 +659,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getThenResult() {
 		return thenResultEClass;
 	}
@@ -655,6 +669,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getThenResult_First() {
 		return (EReference)thenResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -664,6 +679,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getThenResult_Second() {
 		return (EReference)thenResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -673,6 +689,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getThenResult_DidThenFail() {
 		return (EAttribute)thenResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -682,6 +699,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMetrics() {
 		return metricsEClass;
 	}
@@ -691,6 +709,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_TbdCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(0);
 	}
@@ -700,6 +719,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_SuccessCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(1);
 	}
@@ -709,6 +729,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_FailCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(2);
 	}
@@ -718,6 +739,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_TimeoutCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(3);
 	}
@@ -727,6 +749,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ErrorCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(4);
 	}
@@ -736,6 +759,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_DidelseCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(5);
 	}
@@ -745,6 +769,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ThenskipCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(6);
 	}
@@ -754,6 +779,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_PreconditionfailCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(7);
 	}
@@ -763,6 +789,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ValidationfailCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(8);
 	}
@@ -772,6 +799,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_FeaturesCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(9);
 	}
@@ -781,6 +809,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_FeaturesRequirementsCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(10);
 	}
@@ -790,6 +819,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_QualityCategoryRequirementsCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(11);
 	}
@@ -799,6 +829,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_TotalQualityCategoryCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(12);
 	}
@@ -808,6 +839,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_RequirementsWithoutPlanClaimCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(13);
 	}
@@ -817,6 +849,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_NoVerificationPlansCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(14);
 	}
@@ -826,6 +859,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_RequirementsCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(15);
 	}
@@ -835,6 +869,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ExceptionsCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(16);
 	}
@@ -844,6 +879,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ReqTargetHasEMV2SubclauseCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(17);
 	}
@@ -853,6 +889,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_FeaturesRequiringClassifierCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(18);
 	}
@@ -862,6 +899,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_FeaturesWithRequiredClassifierCount() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(19);
 	}
@@ -871,6 +909,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_Weight() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(20);
 	}
@@ -880,6 +919,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMetrics_ExecutionTime() {
 		return (EAttribute)metricsEClass.getEStructuralFeatures().get(21);
 	}
@@ -889,6 +929,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQualifiedVerificationPlanElementReference() {
 		return qualifiedVerificationPlanElementReferenceEClass;
 	}
@@ -898,6 +939,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQualifiedVerificationPlanElementReference_VerificationPlan() {
 		return (EReference)qualifiedVerificationPlanElementReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -907,6 +949,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQualifiedVerificationPlanElementReference_Requirement() {
 		return (EReference)qualifiedVerificationPlanElementReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -916,6 +959,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQualifiedClaimReference() {
 		return qualifiedClaimReferenceEClass;
 	}
@@ -925,6 +969,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQualifiedVAReference() {
 		return qualifiedVAReferenceEClass;
 	}
@@ -934,6 +979,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQualifiedVAReference_VerificationActivity() {
 		return (EReference)qualifiedVAReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -943,6 +989,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNestedClaimReference() {
 		return nestedClaimReferenceEClass;
 	}
@@ -952,6 +999,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNestedClaimReference_Requirement() {
 		return (EReference)nestedClaimReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -961,6 +1009,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNestedClaimReference_Sub() {
 		return (EReference)nestedClaimReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -970,6 +1019,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPreconditionResult() {
 		return preconditionResultEClass;
 	}
@@ -979,6 +1029,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPreconditionResult_Target() {
 		return (EReference)preconditionResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -988,6 +1039,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getValidationResult() {
 		return validationResultEClass;
 	}
@@ -997,6 +1049,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValidationResult_Target() {
 		return (EReference)validationResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -1006,6 +1059,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVerificationActivityResult() {
 		return verificationActivityResultEClass;
 	}
@@ -1015,6 +1069,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVerificationActivityResult_TargetReference() {
 		return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -1024,6 +1079,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVerificationActivityResult_PreconditionResult() {
 		return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(1);
 	}
@@ -1033,6 +1089,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVerificationActivityResult_ValidationResult() {
 		return (EReference)verificationActivityResultEClass.getEStructuralFeatures().get(2);
 	}
@@ -1042,6 +1099,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPredicateResult() {
 		return predicateResultEClass;
 	}
@@ -1051,6 +1109,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPredicateResult_TargetReference() {
 		return (EReference)predicateResultEClass.getEStructuralFeatures().get(0);
 	}
@@ -1060,6 +1119,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getElseType() {
 		return elseTypeEEnum;
 	}
@@ -1069,6 +1129,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getVerificationResultState() {
 		return verificationResultStateEEnum;
 	}
@@ -1078,15 +1139,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getVerificationExecutionState() {
-		return verificationExecutionStateEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public AssureFactory getAssureFactory() {
 		return (AssureFactory)getEFactoryInstance();
 	}
@@ -1106,7 +1159,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated) return;
+		if (isCreated) {
+			return;
+		}
 		isCreated = true;
 
 		// Create classes and their features
@@ -1138,7 +1193,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		createEReference(claimResultEClass, CLAIM_RESULT__PREDICATE_RESULT);
 
 		verificationResultEClass = createEClass(VERIFICATION_RESULT);
-		createEAttribute(verificationResultEClass, VERIFICATION_RESULT__EXECUTION_STATE);
 		createEAttribute(verificationResultEClass, VERIFICATION_RESULT__RESULT_STATE);
 		createEReference(verificationResultEClass, VERIFICATION_RESULT__ISSUES);
 		createEReference(verificationResultEClass, VERIFICATION_RESULT__RESULTS);
@@ -1216,7 +1270,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		// Create enums
 		elseTypeEEnum = createEEnum(ELSE_TYPE);
 		verificationResultStateEEnum = createEEnum(VERIFICATION_RESULT_STATE);
-		verificationExecutionStateEEnum = createEEnum(VERIFICATION_EXECUTION_STATE);
 	}
 
 	/**
@@ -1234,7 +1287,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized) return;
+		if (isInitialized) {
+			return;
+		}
 		isInitialized = true;
 
 		// Initialize package
@@ -1300,7 +1355,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		initEReference(getClaimResult_PredicateResult(), this.getVerificationResult(), null, "predicateResult", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(verificationResultEClass, VerificationResult.class, "VerificationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVerificationResult_ExecutionState(), this.getVerificationExecutionState(), "executionState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVerificationResult_ResultState(), this.getVerificationResultState(), "resultState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVerificationResult_Issues(), theResultPackage.getDiagnostic(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVerificationResult_Results(), theResultPackage.getResult(), null, "results", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1388,12 +1442,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.FAIL);
 		addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.ERROR);
 		addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.TIMEOUT);
-
-		initEEnum(verificationExecutionStateEEnum, VerificationExecutionState.class, "VerificationExecutionState");
-		addEEnumLiteral(verificationExecutionStateEEnum, VerificationExecutionState.TODO);
-		addEEnumLiteral(verificationExecutionStateEEnum, VerificationExecutionState.RUNNING);
-		addEEnumLiteral(verificationExecutionStateEEnum, VerificationExecutionState.REDO);
-		addEEnumLiteral(verificationExecutionStateEEnum, VerificationExecutionState.COMPLETED);
 
 		// Create resource
 		createResource(eNS_URI);

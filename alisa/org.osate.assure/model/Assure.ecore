@@ -39,7 +39,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssureResult #//VerificationExpr">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionState" eType="#//VerificationExecutionState"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultState" eType="#//VerificationResultState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
         eType="ecore:EClass ../../org.osate.results/model/Result.ecore#//Diagnostic"
@@ -118,12 +117,6 @@
     <eLiterals name="FAIL" value="2" literal="fail"/>
     <eLiterals name="ERROR" value="3" literal="error"/>
     <eLiterals name="TIMEOUT" value="4" literal="timeout"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="VerificationExecutionState">
-    <eLiterals name="TODO" literal="todo"/>
-    <eLiterals name="RUNNING" value="1" literal="running"/>
-    <eLiterals name="REDO" value="2" literal="redo"/>
-    <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedVerificationPlanElementReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass ../../org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>

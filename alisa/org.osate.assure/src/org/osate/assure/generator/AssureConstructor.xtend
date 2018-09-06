@@ -46,7 +46,6 @@ import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
@@ -461,7 +460,6 @@ class AssureConstructor implements IAssureConstructor {
 		qvr.verificationActivity = va
 		vaResult.targetReference = qvr
 		// -----------QualifiedVAReference END
-		vaResult.executionState = VerificationExecutionState.TODO
 		vaResult.resultState = VerificationResultState.TBD
 		vaResult.metrics = factory.createMetrics
 		vaResult.metrics.tbdCount = 0
@@ -546,7 +544,6 @@ class AssureConstructor implements IAssureConstructor {
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
 		vr.resultState = VerificationResultState.TBD
-		vr.executionState = VerificationExecutionState.TODO
 
 		// vr.target = expr.verification
 		// QualifiedVAReference
@@ -590,7 +587,6 @@ class AssureConstructor implements IAssureConstructor {
 			}
 		}
 		vcr.resultState = VerificationResultState.TBD
-		vcr.executionState = VerificationExecutionState.TODO
 		vcr.metrics = factory.createMetrics
 		vcr.metrics.tbdCount = 0
 		return vcr
