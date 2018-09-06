@@ -41,6 +41,7 @@ import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
@@ -71,6 +72,7 @@ import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.StringValue
+import org.osate.result.util.ResultUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
@@ -88,11 +90,6 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.util.ResultUtil
-import org.osate.assure.assure.VerificationResultState
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.emf.ecore.resource.ResourceSet
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -533,7 +530,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(EObject context, Object data, UnitLiteral unit) {
+	def PropertyExpression toLiteral(Object data, UnitLiteral unit) {
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -592,15 +589,8 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void evaluatePredicate(PredicateResult predicateResult) {
 		val predicate = predicateResult.predicate
+		computes.clear
 		evaluatePredicate(predicateResult, predicate)
-	}
-
-	def void evaluatePredicate(VerificationActivityResult vaResult) {
-		val claim = vaResult.claimResult
-		val predicate = claim.target.predicate
-		if (predicate instanceof ValuePredicate) {
-			evaluatePredicate(vaResult, predicate)
-		}
 	}
 
 	def void evaluatePredicate(VerificationResult vResult, ValuePredicate predicate) {
@@ -799,37 +789,52 @@ class AssureProcessor implements IAssureProcessor {
 					// requirement target does not match Result source reference
 					// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
 					// does not include a 'for' <target model element>
-					setToError(verificationResult,
-						"No Result found for requirement verification target " + target.name, target)
+					setToError(verificationResult, "No Result found for requirement verification target " + target.name,
+						target)
 				}
-				
+
 				val aruri = ResultUtil.getAnalysisResultURI(returned);
 				val rset = verificationResult.eResource().getResourceSet();
 				val res = OsateResourceUtil.getResource(aruri, rset);
 				res.getContents().clear();
 				res.getContents().add(returned);
-				if (save){
+				if (save) {
 					res.save(null);
 				}
 				verificationResult.analysisresultreference = returned
 			} else if (method.results.size == 1) {
 				// set compute variable value from the returned value
 				if (verificationResult instanceof VerificationActivityResult) {
-					val computevars = verificationResult.targetReference.verificationActivity.computes
-					if (computevars.size == 1) {
-						val computeRef = computevars.head
-						val tunit = method.results.head?.unit
-						val rval = toLiteral(verificationResult, returned, tunit)
-						computes.put(computeRef.compute.name, rval)
-						evaluatePredicate(verificationResult)
-					} else {
-						setToError(verificationResult,
-							"One value returned but " + computevars.size + " compute variable assignments")
+					val predicate = verificationResult.claimResult.target.predicate
+					if (predicate instanceof ValuePredicate) {
+						if (containsComputeVariables(predicate)) {
+							val computevars = verificationResult.targetReference.verificationActivity.computes
+							if (computevars.size == 1) {
+								val computeRef = computevars.head
+								val tunit = method.results.head?.unit
+								val rval = toLiteral(returned, tunit)
+								// reset computes variables for interpreter
+								computes.clear
+								computes.put(computeRef.compute.name, rval)
+								evaluatePredicate(verificationResult, predicate)
+							} else {
+								setToError(verificationResult,
+									"One value returned but " + computevars.size + " compute variable assignments")
+							}
+							return
+						} else {
+							setToError(verificationResult, "Non-boolean single return value and predicate without compute variable",
+							target);
+						}
 					}
+					setToError(verificationResult, "Single return value expected to be boolean value",
+					target);
+				} else {
+					setToError(verificationResult, "Precondition or Validation expect boolean as single return value",
+					target);
 				}
-				setToSuccess(verificationResult)
 			} else {
-				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap",
+				setToError(verificationResult, "Single return value but no expected compute variable for predicate",
 					target);
 			}
 		}
@@ -841,25 +846,29 @@ class AssureProcessor implements IAssureProcessor {
 	 */
 	def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
 		Result returned) {
-		val predicate = verificationResult.containingClaim?.requirement?.predicate
-		if (predicate instanceof ValuePredicate) {
-			if (!containsComputeVariables(predicate)) {
-				return
-			}
+		val predicate = verificationResult.claimResult.target.predicate
+		if(!verificationResult.success || predicate === null || !(predicate instanceof ValuePredicate)) return;
+		val valuePredicate = predicate as ValuePredicate
+		if (!containsComputeVariables(valuePredicate)) {
+			return
 		}
 		val computevars = verificationResult.targetReference.verificationActivity.computes
+		if (computevars.isEmpty) {
+			setToError(verificationResult, 'No return values assigned to compute variables')
+			return
+		}
+		// reset computes for each predicate evaluation
+		computes.clear
 		val formalIter = method.results.iterator
 		val valsIter = returned.values.iterator
-		if (computevars.size <= valsIter.size) {
+		if (computevars.size <= returned.values.size && computevars.size <= method.results.size) {
 			computevars.forEach [ computeRef |
 				val value = valsIter.next
 				val formalReturn = formalIter.next
-				val tunit = formalReturn.unit
-				computes.put(computeRef.compute.name, toLiteral(verificationResult, value, tunit))
+				val tunit = formalReturn?.unit
+				computes.put(computeRef.compute.name, toLiteral(value, tunit))
 			]
-			if (verificationResult.success) {
-				evaluatePredicate(verificationResult)
-			}
+			evaluatePredicate(verificationResult, valuePredicate)
 		} else {
 			setToError(verificationResult, 'Fewer values returned than expected as compute variables')
 		}
