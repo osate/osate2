@@ -59,6 +59,10 @@ import org.osate.verify.verify.VerifyPackage
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.common.common.TargetType
 import org.osate.verify.util.VerifyJavaUtil
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.AVariableReference
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.reqspec.reqSpec.ValuePredicate
 
 /**
  * Custom validation rules. 
@@ -175,10 +179,39 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 				val actualParameters = va.actuals
 				val method = va.method
 				val expectedParms = method.formals
-				if ((expectedParms?.size != actualParameters?.size)) {
+				if ((expectedParms.size != actualParameters.size)) {
 					warning(
 						"The number of actual parameters differs from the number of formal parameters for verification activity",
 						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
+				}
+			}
+
+			@Check(CheckType.NORMAL)
+			def checkVerificationActivityReturnCompute(VerificationActivity va) {
+				val computeParameters = va.computes
+				if (computeParameters.isEmpty){
+					return;
+				}
+				val method = va.method
+				val resultParms = method.results
+				if ((computeParameters.size > resultParms.size)) {
+					error(
+						"The number of actual return parameters is less than the number of compute variable assignments",
+						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__COMPUTES)
+				}
+				val predicate = va.containingClaim?.requirement?.predicate
+				if (predicate instanceof ValuePredicate) {
+					val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
+					for (varref : varrefs) {
+						val variable = varref.variable
+						if (variable instanceof ComputeDeclaration) {
+							if (!computeParameters.exists[cp| cp.compute == variable]){
+								error(
+									"Compute variable '"+variable.name+"' used in value predicate but not assigned in method call",
+									va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__COMPUTES)
+							}
+						}
+					}
 				}
 			}
 
