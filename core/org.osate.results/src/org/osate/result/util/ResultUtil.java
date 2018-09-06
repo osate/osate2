@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.result.AnalysisResult;
 import org.osate.result.BooleanValue;
 import org.osate.result.Diagnostic;
@@ -326,18 +328,24 @@ public class ResultUtil {
 	}
 
 	public static URI getAnalysisResultURI(AnalysisResult results) {
-		EObject root = results.getSourceReference();
-		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
-		String rootname = rootURI.lastSegment();
+		EObject target = results.getSourceReference();
+		URI rootURI = EcoreUtil.getURI(target).trimFragment().trimFileExtension();
+		String targetname = rootURI.lastSegment();
+		if (target instanceof InstanceObject) {
+			targetname = ((InstanceObject) target).getInstanceObjectPath().replaceAll("\\.", "_");
+		} else if (target instanceof NamedElement) {
+			targetname = ((NamedElement) target).getQualifiedName().replaceAll("\\.", "_");
+		}
+		String analysisName = results.getAnalysis().replaceAll(" ", "");
 		String postfix = "";
 		if (results.getInfo() != null) {
 			String res = results.getInfo().replaceAll(" ", "");
 			if (!res.isEmpty()) {
-				postfix = "_" + results.getInfo().replaceAll(" ", "");
+				postfix = "_" + res;
 			}
 		}
-		return rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment(results.getAnalysis())
-				.appendSegment(rootname + "__" + results.getAnalysis() + postfix + ".result");
+		return rootURI.trimSegments(1).appendSegment("reports").appendSegment(analysisName)
+				.appendSegment(targetname + "__" + analysisName + postfix).appendFileExtension("result");
 	}
 
 }
