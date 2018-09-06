@@ -209,8 +209,9 @@ public final class FTAHandler extends AbstractHandler {
 	}
 
 	public URI saveFaultTree(FaultTree ftamodel) {
-		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimSegments(1)
-				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName() + ".faulttree");
+		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimFileExtension().trimSegments(1)
+				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName())
+				.appendFileExtension("faulttree");
 		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
 		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
 	}

@@ -72,8 +72,8 @@ public class Util {
 	public static void savePropagationGraph(PropagationGraph pg) {
 		ComponentInstance root = pg.getRoot();
 		String pgname = root.getName();
-		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimSegments(1).appendSegment("reports")
-				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
+		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension().trimSegments(1).appendSegment("reports")
+				.appendSegment("propagationgraph").appendSegment(pgname).appendFileExtension("propagationgraph");
 		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
 		OsateResourceUtil.saveEMFModel(pg, pgURI, root);
 	}
