@@ -33,11 +33,14 @@ import org.osate.aadl2.NumberValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.modelsupport.AadlConstants
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
@@ -54,16 +57,18 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
 import org.osate.categories.categories.CategoryFilter
 import org.osate.reqspec.reqSpec.InformalPredicate
+import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.Diagnostic
 import org.osate.result.DiagnosticType
+import org.osate.result.Result
 import org.osate.result.ResultFactory
+import org.osate.result.util.ResultUtil
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
@@ -72,12 +77,6 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.Result
-import org.osate.result.util.ResultUtil
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.aadl2.instance.ConnectionInstance
-import org.osate.alisa.common.common.AVariableReference
-import org.osate.alisa.common.common.ComputeDeclaration
 
 class AssureUtilExtension {
 
@@ -496,7 +495,6 @@ class AssureUtilExtension {
 			// If there is no filter reset all.
 			if (filter === null) {
 				vr.resultState = VerificationResultState.TBD
-				vr.executionState = VerificationExecutionState.TODO
 				vr.issues.clear
 
 			// reset only the ones that we will be redoing
@@ -507,7 +505,6 @@ class AssureUtilExtension {
 						if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
 							verificationActivity.evaluateVerificationActivityFilter(filter)) {
 							vr.resultState = VerificationResultState.TBD
-							vr.executionState = VerificationExecutionState.TODO
 							vr.issues.clear
 						}
 					}
@@ -871,23 +868,18 @@ class AssureUtilExtension {
 		switch (newState) {
 			case VerificationResultState.SUCCESS: {
 				counts.successCount = counts.successCount + 1
-				ar.executionState = VerificationExecutionState.COMPLETED
 			}
 			case VerificationResultState.FAIL: {
 				counts.failCount = counts.failCount + 1
-				ar.executionState = VerificationExecutionState.COMPLETED
 			}
 			case VerificationResultState.ERROR: {
 				counts.errorCount = counts.errorCount + 1
-				ar.executionState = VerificationExecutionState.COMPLETED
 			}
 			case VerificationResultState.TIMEOUT: {
 				counts.timeoutCount = counts.timeoutCount + 1
-				ar.executionState = VerificationExecutionState.COMPLETED
 			}
 			case VerificationResultState.TBD: {
 				counts.tbdCount = counts.tbdCount + 1
-				ar.executionState = VerificationExecutionState.TODO
 			}
 		}
 

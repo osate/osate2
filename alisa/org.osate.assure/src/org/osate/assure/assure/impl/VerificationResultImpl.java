@@ -19,22 +19,15 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
-
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
@@ -47,7 +40,6 @@ import org.osate.result.Result;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultState <em>Result State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResults <em>Results</em>}</li>
@@ -58,26 +50,6 @@ import org.osate.result.Result;
  * @generated
  */
 public class VerificationResultImpl extends AssureResultImpl implements VerificationResult {
-	/**
-	 * The default value of the '{@link #getExecutionState() <em>Execution State</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExecutionState()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final VerificationExecutionState EXECUTION_STATE_EDEFAULT = VerificationExecutionState.TODO;
-
-	/**
-	 * The cached value of the '{@link #getExecutionState() <em>Execution State</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExecutionState()
-	 * @generated
-	 * @ordered
-	 */
-	protected VerificationExecutionState executionState = EXECUTION_STATE_EDEFAULT;
-
 	/**
 	 * The default value of the '{@link #getResultState() <em>Result State</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -172,27 +144,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VerificationExecutionState getExecutionState() {
-		return executionState;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExecutionState(VerificationExecutionState newExecutionState) {
-		VerificationExecutionState oldExecutionState = executionState;
-		executionState = newExecutionState == null ? EXECUTION_STATE_EDEFAULT : newExecutionState;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE, oldExecutionState, executionState));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public VerificationResultState getResultState() {
 		return resultState;
 	}
@@ -202,11 +154,13 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResultState(VerificationResultState newResultState) {
 		VerificationResultState oldResultState = resultState;
 		resultState = newResultState == null ? RESULT_STATE_EDEFAULT : newResultState;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULT_STATE, oldResultState, resultState));
+		}
 	}
 
 	/**
@@ -214,6 +168,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Diagnostic> getIssues() {
 		if (issues == null) {
 			issues = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, AssurePackage.VERIFICATION_RESULT__ISSUES);
@@ -226,6 +181,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Result> getResults() {
 		if (results == null) {
 			results = new EObjectContainmentEList<Result>(Result.class, this, AssurePackage.VERIFICATION_RESULT__RESULTS);
@@ -238,13 +194,15 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AnalysisResult getAnalysisresultreference() {
 		if (analysisresultreference != null && analysisresultreference.eIsProxy()) {
 			InternalEObject oldAnalysisresultreference = (InternalEObject)analysisresultreference;
 			analysisresultreference = (AnalysisResult)eResolveProxy(oldAnalysisresultreference);
 			if (analysisresultreference != oldAnalysisresultreference) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE, oldAnalysisresultreference, analysisresultreference));
+				}
 			}
 		}
 		return analysisresultreference;
@@ -264,11 +222,13 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAnalysisresultreference(AnalysisResult newAnalysisresultreference) {
 		AnalysisResult oldAnalysisresultreference = analysisresultreference;
 		analysisresultreference = newAnalysisresultreference;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE, oldAnalysisresultreference, analysisresultreference));
+		}
 	}
 
 	/**
@@ -276,6 +236,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -285,11 +246,13 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__MESSAGE, oldMessage, message));
+		}
 	}
 
 	/**
@@ -316,8 +279,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
-				return getExecutionState();
 			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
 				return getResultState();
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
@@ -325,7 +286,9 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 			case AssurePackage.VERIFICATION_RESULT__RESULTS:
 				return getResults();
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE:
-				if (resolve) return getAnalysisresultreference();
+				if (resolve) {
+					return getAnalysisresultreference();
+				}
 				return basicGetAnalysisresultreference();
 			case AssurePackage.VERIFICATION_RESULT__MESSAGE:
 				return getMessage();
@@ -342,9 +305,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
-				setExecutionState((VerificationExecutionState)newValue);
-				return;
 			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
 				setResultState((VerificationResultState)newValue);
 				return;
@@ -374,9 +334,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
-				setExecutionState(EXECUTION_STATE_EDEFAULT);
-				return;
 			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
 				setResultState(RESULT_STATE_EDEFAULT);
 				return;
@@ -404,8 +361,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
-				return executionState != EXECUTION_STATE_EDEFAULT;
 			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
 				return resultState != RESULT_STATE_EDEFAULT;
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
@@ -427,12 +382,12 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy()) {
+			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (executionState: ");
-		result.append(executionState);
-		result.append(", resultState: ");
+		result.append(" (resultState: ");
 		result.append(resultState);
 		result.append(", message: ");
 		result.append(message);

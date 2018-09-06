@@ -56,7 +56,6 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.assure.util.ExecuteResoluteUtil
@@ -213,10 +212,6 @@ class AssureProcessor implements IAssureProcessor {
 		if (vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
 			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
 			startSubTask(vaResult)
-			if (vaResult.executionState != VerificationExecutionState.TODO) {
-				doneSubTask(vaResult)
-				return;
-			}
 			if (vaResult.preconditionResult !== null) {
 				vaResult.preconditionResult.process
 				if (!vaResult.preconditionResult.isSuccess) {
