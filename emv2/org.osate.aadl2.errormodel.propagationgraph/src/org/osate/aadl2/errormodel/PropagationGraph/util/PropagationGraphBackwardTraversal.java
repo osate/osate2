@@ -43,8 +43,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.common.collect.HashMultimap;
@@ -70,13 +70,13 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	public EObject traverseOutgoingErrorPropagation(final ComponentInstance component,
-			final ErrorPropagation errorPropagation, ErrorTypes type) {
+			final ErrorPropagation errorPropagation, ErrorTypes type, double scale) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = matchTargetType(errorPropagation.getTypeSet(), type);
 		if (type == null) {
 			return null;
 		}
-		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type);
+		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		if (found != null) {
 			// used to return cached object
 			return found;
@@ -90,7 +90,7 @@ public class PropagationGraphBackwardTraversal {
 				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), errorPropagation))
 						&& EMV2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledFlows,
-							errorFlows);
+							errorFlows, scale);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -106,7 +106,7 @@ public class PropagationGraphBackwardTraversal {
 			if (propagationSource.getDirection() == DirectionType.OUT) {
 				Set<ErrorFlow> flows = handledFlows.keySet();
 				if (!containsFlow(flows, propagationSource, type)) {
-					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -148,7 +148,7 @@ public class PropagationGraphBackwardTraversal {
 												.getAllIncomingErrorPropagations(component);
 										for (ErrorPropagation eprop : inprops) {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
-													newtype);
+													newtype, scale);
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -156,7 +156,7 @@ public class PropagationGraphBackwardTraversal {
 
 									} else {
 										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-												newtype);
+												newtype, scale);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
@@ -173,7 +173,8 @@ public class PropagationGraphBackwardTraversal {
 									if (matchtype == null) {
 										matchtype = eprop.getTypeSet();
 										if (EMV2TypeSetUtil.contains(matchtype, type)) {
-											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type);
+											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
+													scale);
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -187,7 +188,8 @@ public class PropagationGraphBackwardTraversal {
 								if (matchtype == null) {
 									matchtype = inep.getTypeSet();
 									if (EMV2TypeSetUtil.contains(matchtype, type)) {
-										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type);
+										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
+												scale);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
@@ -202,7 +204,7 @@ public class PropagationGraphBackwardTraversal {
 				if (Util.conditionHolds(ef, component)) {
 					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 						if (EMV2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
-							EObject newEvent = processErrorSource(component, errorSource, type);
+							EObject newEvent = processErrorSource(component, errorSource, type, scale);
 							if (newEvent != null) {
 								subResults.add(newEvent);
 							}
@@ -212,9 +214,9 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		if (!subResults.isEmpty()) {
-			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults);
+			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return processOutgoingErrorPropagation(component, errorPropagation, type);
+		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
 	private boolean containsFlow(Collection<ErrorFlow> flows, ErrorPropagation eprop, ErrorTypes type) {
@@ -271,7 +273,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	private EObject handleOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, HashMultimap<ErrorFlow, String> handledFlows,
-			Collection<ErrorFlow> errorFlows) {
+			Collection<ErrorFlow> errorFlows, double scale) {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
@@ -286,7 +288,7 @@ public class PropagationGraphBackwardTraversal {
 				newtype = mapTargetType(state.getTypeSet(), type);
 			}
 			if (newtype instanceof ErrorType || newtype == null) {
-				stateResult = traverseErrorBehaviorState(component, state, newtype);
+				stateResult = traverseErrorBehaviorState(component, state, newtype, scale);
 			} else {
 				// multiple types to trace back
 				EList<TypeToken> types = EMV2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
@@ -295,13 +297,13 @@ public class PropagationGraphBackwardTraversal {
 				for (TypeToken typeToken : types) {
 					EList<ErrorTypes> tl = typeToken.getType();
 					// TODO deal with type product
-					EObject res = traverseErrorBehaviorState(component, opc.getState(), tl.get(0));
+					EObject res = traverseErrorBehaviorState(component, opc.getState(), tl.get(0), scale);
 					if (res != null) {
 						subResults.add(res);
 					}
 				}
 				if (subResults.isEmpty()) {
-					stateResult = processErrorBehaviorState(component, state, type);
+					stateResult = processErrorBehaviorState(component, state, type, scale);
 				} else if (subResults.size() == 1) {
 					stateResult = subResults.get(0);
 				} else {
@@ -346,7 +348,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		return processOutgoingErrorPropagationCondition(component, opc, type, conditionResult, stateResult);
+		return processOutgoingErrorPropagationCondition(component, opc, type, conditionResult, stateResult, scale);
 	}
 
 	/**
@@ -357,16 +359,18 @@ public class PropagationGraphBackwardTraversal {
 	 * @param type ErrorTypes
 	 * @return EObject (can be null)
 	 */
-	public EObject traverseErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type) {
+	public EObject traverseErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
+			double inscale) {
 		if (state == null) {
 			return null;
 		}
 		List<EObject> subResults = new LinkedList<EObject>();
-		preProcessErrorBehaviorState(component, state, type);
+		preProcessErrorBehaviorState(component, state, type, inscale);
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
+		double combinedscale = inscale;
 		for (ErrorBehaviorTransition ebt : transitions) {
 			ConditionExpression conditionExpression = null;
-			double scale = 1;
+			double branchscale = 1;
 			boolean sameState = false;
 			ErrorTypes newtype = type;
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())
@@ -404,26 +408,27 @@ public class PropagationGraphBackwardTraversal {
 					if (conditionExpression != null) {
 						BranchValue val = transitionBranch.getValue();
 						if (val.getRealvalue() != null) {
-							scale = Double.valueOf(val.getRealvalue());
+							branchscale = Double.valueOf(val.getRealvalue());
 						} else if (val.getSymboliclabel() != null) {
 							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-								scale = EMV2Properties.getRealValue(emv2PropertyAssociation);
+								branchscale = EMV2Properties.getRealValue(emv2PropertyAssociation);
 							}
 						} else if (val.isOthers()) {
-							scale = 1.0;
+							branchscale = 1.0;
 							for (TransitionBranch tb : tbs) {
 								BranchValue valcount = tb.getValue();
 								if (valcount.getRealvalue() != null) {
-									scale = scale - Double.valueOf(valcount.getRealvalue());
+									branchscale = branchscale - Double.valueOf(valcount.getRealvalue());
 								} else if (valcount.getSymboliclabel() != null) {
 									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
 											.getProperty(valcount.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 									for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-										scale = scale - EMV2Properties.getRealValue(emv2PropertyAssociation);
+										branchscale = branchscale
+												- EMV2Properties.getRealValue(emv2PropertyAssociation);
 									}
 								}
 							}
@@ -440,9 +445,10 @@ public class PropagationGraphBackwardTraversal {
 					newtype = mapTargetType(ebt.getTypeTokenConstraint(), type);
 				}
 			}
+			combinedscale = inscale * branchscale;
 			if (!sameState && conditionExpression != null) {
 				// don't include transition staying in same state
-				EObject conditionResult = processCondition(component, conditionExpression, type, scale, false);
+				EObject conditionResult = processCondition(component, conditionExpression, type, combinedscale, false);
 				// XXX this is the recursive call
 				// do not traverse back in same state
 				// we also do not traverse back if left is allstates.
@@ -450,7 +456,8 @@ public class PropagationGraphBackwardTraversal {
 					EObject stateResult = null;
 					if (!(sameState || ebt.isAllStates())) {
 						if (newtype instanceof ErrorType || newtype == null) {
-							stateResult = traverseErrorBehaviorState(component, ebt.getSource(), newtype);
+							stateResult = traverseErrorBehaviorState(component, ebt.getSource(), newtype,
+									combinedscale);
 						} else if (newtype instanceof TypeSet) {
 							EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
 									EMV2Util.getUseTypes(ebt));
@@ -459,23 +466,24 @@ public class PropagationGraphBackwardTraversal {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
 								ErrorTypes ntype = tl.get(0);
-								EObject newEvent = traverseErrorBehaviorState(component, state, ntype);
+								EObject newEvent = traverseErrorBehaviorState(component, state, ntype, combinedscale);
 								if (newEvent != null) {
 									subsubResults.add(newEvent);
 								}
 							}
 							if (subsubResults.isEmpty()) {
-								stateResult = processErrorBehaviorState(component, state, type);
+								stateResult = processErrorBehaviorState(component, state, type, inscale);
 							} else if (subsubResults.size() == 1) {
 								stateResult = subsubResults.get(0);
 							} else {
-								stateResult = processTypesetElements(component, state, newtype, subsubResults);
+								stateResult = processTypesetElements(component, state, newtype, subsubResults,
+										combinedscale);
 							}
 						}
 					}
 					if (stateResult != null) {
 						EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type,
-								conditionResult, stateResult);
+								conditionResult, stateResult, combinedscale);
 						if (tmpresult != null) {
 							subResults.add(tmpresult);
 						}
@@ -486,14 +494,14 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		if (!subResults.isEmpty()) {
-			return postProcessErrorBehaviorState(component, state, type, subResults);
+			return postProcessErrorBehaviorState(component, state, type, subResults, combinedscale);
 		}
 		// subResults is empty if state without incoming transition triggered by error events or incoming propagations
 		// or if no transitions specified for state machine
 		if (transitions.isEmpty()) {
 			// we cannot trace back to an error event triggering a transition
 			// give the opportunity to present the error state as Event
-			return traverseCompositeErrorStateOnly(component, state, type);// processErrorBehaviorState(component, state, type);
+			return traverseCompositeErrorStateOnly(component, state, type, inscale);// processErrorBehaviorState(component, state, type);
 		} else {
 			// we have found an operational error state (no incoming transitions with error events)
 			// Do not include
@@ -523,13 +531,13 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, 1.0, stateOnly);
+				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
 			}
 
-			return postProcessAnd(component, condition, type, scale, subResults);
+			return postProcessAnd(component, condition, type, subResults, scale);
 		}
 		if (condition instanceof AllExpression) {
 			List<EObject> subResults = new LinkedList<EObject>();
@@ -538,13 +546,13 @@ public class PropagationGraphBackwardTraversal {
 			if (allCondition.getCount() == 0) {
 				preProcessAnd(component, condition, type, scale);
 				for (ConditionExpression ce : allCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, 1.0, stateOnly);
+					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
 				}
 			}
-			return postProcessAnd(component, condition, type, scale, subResults);
+			return postProcessAnd(component, condition, type, subResults, scale);
 		}
 
 		if (condition instanceof OrExpression) {
@@ -553,7 +561,7 @@ public class PropagationGraphBackwardTraversal {
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			for (ConditionExpression ce : expression.getOperands()) {
-				EObject res = processCondition(component, ce, type, 1.0, stateOnly);
+				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -568,13 +576,13 @@ public class PropagationGraphBackwardTraversal {
 			if (omCondition.getCount() == 1) {
 				preProcessOr(component, condition, type, scale);
 				for (ConditionExpression ce : omCondition.getOperands()) {
-					EObject res = processCondition(component, ce, type, 1.0, stateOnly);
+					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
 				}
 			}
-			return postProcessOr(component, condition, type, scale, subResults);
+			return postProcessOr(component, condition, type, subResults, scale);
 		}
 
 		/**
@@ -606,7 +614,7 @@ public class PropagationGraphBackwardTraversal {
 					if (referencedInstance != null) {
 						if (referencedErrorType == null || referencedErrorType instanceof ErrorType) {
 							result = traverseCompositeErrorState(referencedInstance, state, referencedErrorType,
-									stateOnly);
+									stateOnly, scale);
 						} else {
 							// handle type set on states
 							// get incoming type from propagation
@@ -617,14 +625,15 @@ public class PropagationGraphBackwardTraversal {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
 								ErrorTypes newtype = tl.get(0);
-								EObject newEvent = traverseCompositeErrorState(component, state, newtype, stateOnly);
+								EObject newEvent = traverseCompositeErrorState(component, state, newtype, stateOnly,
+										scale);
 								if (newEvent != null) {
 									subResults.add(newEvent);
 								}
 							}
 							if (subResults.isEmpty()) {
 								return processErrorBehaviorState(referencedInstance,
-										EMV2Util.getState(sconditionElement), referencedErrorType);
+										EMV2Util.getState(sconditionElement), referencedErrorType, scale);
 							} else if (subResults.size() == 1) {
 								return subResults.get(0);
 							} else {
@@ -636,7 +645,7 @@ public class PropagationGraphBackwardTraversal {
 							return result;
 						}
 						return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
-								referencedErrorType);
+								referencedErrorType, scale);
 					}
 				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
 					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
@@ -649,7 +658,8 @@ public class PropagationGraphBackwardTraversal {
 							: ep.getTypeSet();
 					if (referencedInstance != null) {
 						if (referencedErrorType == null || referencedErrorType instanceof ErrorType) {
-							result = traverseIncomingErrorPropagation(referencedInstance, ep, referencedErrorType);
+							result = traverseIncomingErrorPropagation(referencedInstance, ep, referencedErrorType,
+									scale);
 						} else {
 							// handle type set on states
 							// get incoming type from propagation
@@ -660,13 +670,14 @@ public class PropagationGraphBackwardTraversal {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
 								ErrorTypes newtype = tl.get(0);
-								EObject newEvent = traverseIncomingErrorPropagation(component, ep, newtype);
+								EObject newEvent = traverseIncomingErrorPropagation(component, ep, newtype, scale);
 								if (newEvent != null) {
 									subResults.add(newEvent);
 								}
 							}
 							if (subResults.isEmpty()) {
-								return processIncomingErrorPropagation(referencedInstance, ep, referencedErrorType);
+								return processIncomingErrorPropagation(referencedInstance, ep, referencedErrorType,
+										scale);
 							} else if (subResults.size() == 1) {
 								return subResults.get(0);
 							} else {
@@ -678,11 +689,11 @@ public class PropagationGraphBackwardTraversal {
 							return result;
 						}
 						return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
-								referencedErrorType);
+								referencedErrorType, scale);
 					}
 				}
 				// should not reach this
-				return processErrorBehaviorState(component, EMV2Util.getState(sconditionElement), null);
+				return processErrorBehaviorState(component, EMV2Util.getState(sconditionElement), null, scale);
 			}
 
 			if (conditionElement.getConstraint() != null) {
@@ -726,28 +737,28 @@ public class PropagationGraphBackwardTraversal {
 					if (errorPropagation.getDirection() == DirectionType.IN) {
 						if (referencedErrorType instanceof ErrorType) {
 							return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
-									referencedErrorType);
+									referencedErrorType, scale);
 						} else {
 							// type set need to treat each element separately and put them in an OR
 							EList<TypeToken> tselements = EMV2TypeSetUtil.flattenTypesetElements(
 									(TypeSet) referencedErrorType, EMV2Util.getUseTypes(errorPropagation));
 							if (tselements.size() == 1) {
 								return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
-										tselements.get(0).getType().get(0));
+										tselements.get(0).getType().get(0), scale);
 							} else {
 								List<EObject> subResults = new LinkedList<EObject>();
 								for (TypeToken tt : tselements) {
 									EObject res = traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
-											tt.getType().get(0));
+											tt.getType().get(0), scale);
 									subResults.add(res);
 								}
-								return postProcessOr(relatedComponent, conditionElement, referencedErrorType, scale,
-										subResults);
+								return postProcessOr(relatedComponent, conditionElement, referencedErrorType,
+										subResults, scale);
 							}
 						}
 					} else {
 						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
-								referencedErrorType);
+								referencedErrorType, scale);
 					}
 				}
 
@@ -770,13 +781,13 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	private EObject traverseIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = matchTargetType(errorPropagation.getTypeSet(), type);
 		if (type == null) {
 			return null;
 		}
-		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type);
+		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 		if (preResult != null) {
 			return preResult;
 		}
@@ -788,7 +799,7 @@ public class PropagationGraphBackwardTraversal {
 				ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
 				// the type constraint has to come from the error source as the connection does not have one
 				if (ces != null && EMV2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
-					EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type);
+					EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type, scale);
 					if (result != null) {
 						subResults.add(result);
 					}
@@ -802,7 +813,8 @@ public class PropagationGraphBackwardTraversal {
 					ErrorPropagation propagationSource = ppe.getErrorPropagation();
 					ErrorTypes newtype = EMV2TypeSetUtil.reverseMapTypeTokenToContributor(type, tts);
 					if (newtype instanceof ErrorType) {
-						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype);
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype,
+								scale);
 						if (result != null) {
 							subResults.add(result);
 						}
@@ -814,7 +826,7 @@ public class PropagationGraphBackwardTraversal {
 							// TODO deal with type product
 							ErrorTypes ntype = tl.get(0);
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
-									ntype);
+									ntype, scale);
 							if (result != null) {
 								subResults.add(result);
 							}
@@ -829,12 +841,14 @@ public class PropagationGraphBackwardTraversal {
 			if (srctype instanceof ErrorType) {
 				if (propagationSource.getDirection() == DirectionType.IN) {
 					// we have an external incoming propagation
-					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, srctype);
+					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, srctype,
+							scale);
 					if (result != null) {
 						subResults.add(result);
 					}
 				} else {
-					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype);
+					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
+							scale);
 					if (result != null) {
 						subResults.add(result);
 					}
@@ -848,12 +862,14 @@ public class PropagationGraphBackwardTraversal {
 					ErrorTypes ntype = tl.get(0);
 					if (propagationSource.getDirection() == DirectionType.IN) {
 						// we have an external incoming propagation
-						EObject result = processIncomingErrorPropagation(componentSource, propagationSource, ntype);
+						EObject result = processIncomingErrorPropagation(componentSource, propagationSource, ntype,
+								scale);
 						if (result != null) {
 							subResults.add(result);
 						}
 					} else {
-						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype);
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
+								scale);
 						if (result != null) {
 							subResults.add(result);
 						}
@@ -862,9 +878,9 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		if (!subResults.isEmpty()) {
-			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults);
+			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return processIncomingErrorPropagation(component, errorPropagation, type);
+		return processIncomingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
 	/**
@@ -878,13 +894,14 @@ public class PropagationGraphBackwardTraversal {
 	 * @param type Error Type
 	 * @return - EObject (non-null)
 	 */
-	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type) {
-		return traverseCompositeErrorState(component, state, type, false);
+	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
+			double scale) {
+		return traverseCompositeErrorState(component, state, type, false, scale);
 	}
 
 	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			boolean stateOnly) {
-		preProcessCompositeErrorStates(component, state, type);
+			boolean stateOnly, double scale) {
+		preProcessCompositeErrorStates(component, state, type, scale);
 		List<EObject> subResults = new LinkedList<EObject>();
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
@@ -896,18 +913,18 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		if (!subResults.isEmpty()) {
-			return postProcessCompositeErrorStates(component, state, type, subResults);
+			return postProcessCompositeErrorStates(component, state, type, subResults, scale);
 		}
 		if (stateOnly) {
-			return processErrorBehaviorState(component, state, type);
+			return processErrorBehaviorState(component, state, type, scale);
 		} else {
-			return traverseErrorBehaviorState(component, state, type);
+			return traverseErrorBehaviorState(component, state, type, scale);
 		}
 	}
 
 	public EObject traverseCompositeErrorStateOnly(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type) {
-		return traverseCompositeErrorState(component, state, type, true);
+			ErrorTypes type, double scale) {
+		return traverseCompositeErrorState(component, state, type, true, scale);
 	}
 
 
@@ -923,7 +940,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -937,7 +954,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes targetType) {
+			ErrorTypes targetType, double scale) {
 		return null;
 	}
 
@@ -948,7 +965,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param typeTokenConstraint
 	 * @return EObject (can be null)
 	 */
-	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type) {
+	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type,
+			double scale) {
 		return null;
 	}
 
@@ -960,7 +978,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject processConnectionErrorSource(ConnectionInstance component, ErrorSource errorSource,
-			ErrorTypes typeTokenConstraint) {
+			ErrorTypes typeTokenConstraint, double scale) {
 		return null;
 	}
 
@@ -974,7 +992,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		return null;
 	}
 
@@ -986,7 +1004,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		return null;
 	}
 
@@ -1000,7 +1018,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1012,7 +1030,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation ep,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		return null;
 	}
 
@@ -1026,7 +1044,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
-			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult) {
+			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult,
+			double scale) {
 		return null;
 	}
 
@@ -1040,7 +1059,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes targetType) {
+			ErrorTypes targetType, double scale) {
 		return null;
 	}
 
@@ -1054,7 +1073,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes targetType, List<EObject> subResults) {
+			ErrorTypes targetType, List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1068,7 +1087,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		return null;
 	}
 
@@ -1082,7 +1101,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, List<EObject> subResults) {
+			ErrorTypes type, List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1094,7 +1113,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type) {
+			ErrorTypes type, double scale) {
 		return null;
 	}
 
@@ -1108,7 +1127,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (non-null)
 	 */
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
-			ErrorTypes type, EObject conditionResult, EObject stateResult) {
+			ErrorTypes type, EObject conditionResult, EObject stateResult, double scale) {
 		return null;
 	}
 
@@ -1148,8 +1167,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type, double scale,
-			List<EObject> subResults) {
+	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
+			List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1194,7 +1213,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
-			double scale, List<EObject> subResults) {
+			List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1222,8 +1241,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type, double scale,
-			List<EObject> subResults) {
+	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
+			List<EObject> subResults, double scale) {
 		return null;
 	}
 
@@ -1251,7 +1270,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject processTypesetElements(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults) {
+			List<EObject> subResults, double scale) {
 		return null;
 	}
 
