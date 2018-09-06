@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-		OpenElementPackageDiagramTest.class, CreateFlowImplTest.class, InstantiateAndOpenImplTest.class,
+		OpenElementPackageDiagramTest.class, InModesTest.class, CreateFlowImplTest.class,
+		InstantiateAndOpenImplTest.class,
 		CreateNewAADLPackageTest.class, OpenExistingAADLModelTest.class, RenameClassifierTest.class,
 		OpenAssociatedDiagramTest.class, GoToTypeDiagramTest.class, DeletingClassifierTest.class,
 		SelectingDiagramElementContainerTest.class, PerformDiagramLayoutTest.class, CreateConnectionTest.class,
