@@ -53,6 +53,7 @@ class FTATest  {
 	var static SystemInstance instanceAllFlows
 	var static SystemInstance instanceOptimize
 	var static SystemInstance instanceTransitionBranch
+	var static SystemInstance instanceOR1OFProbability
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -77,6 +78,8 @@ class FTATest  {
 			val allflowsFile = "AllFlows.aadl"
 			val optimizeFile = "OptimizeTree.aadl"
 			val transitionbranchFile = "branchtransitions.aadl"
+			val SysErrorLibFile = "Sys_Error_Lib.aadl"
+			val OR1OFProbabilityfile = "OR1OFProbability.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -98,7 +101,9 @@ class FTATest  {
 				modelroot + transitionbranchFile,
 				modelroot + fgselibFile,
 				modelroot + errorlibFile,
-				modelroot + FTerrorlibFile
+				modelroot + FTerrorlibFile,
+				modelroot + SysErrorLibFile,
+				modelroot + OR1OFProbabilityfile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -119,6 +124,7 @@ class FTATest  {
 			instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
 			instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
 			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
+			instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -797,6 +803,18 @@ class FTATest  {
 		assertEquals(ft.root.computedProbability, 5.0e-8, 1.0e-12)
 		assertEquals(sube1.computedProbability, 2.5e-15, 1.0e-17)
 		assertEquals(sube1.scale, 0.6, 0.001)
+	}
+
+
+		@Test
+	def void OR1OFProbabilityFaultTreeTest() {
+	val outProp = "outgoing propagation on o{BadData}"
+		val ft = CreateFTAModel.createFaultTree(instanceOR1OFProbability, outProp)
+		assertEquals(ft.events.size, 9)
+		assertEquals(ft.root.subEvents.size, 2)
+		val sube1 = ft.root.subEvents.get(1)
+		assertEquals(ft.root.computedProbability, 1.30285e-1, 1.0e-5)
+		assertEquals(sube1.computedProbability, 1.215e-1, 1.0e-5)
 	}
 	
 }
