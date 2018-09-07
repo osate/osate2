@@ -126,9 +126,10 @@ public class PropagationGraphBackwardTraversal {
 					 * This is a fix for the JMR/SAVI WBS model.
 					 */
 					if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
+						double newscale = scale;
 						double pathprobability = EMV2Properties.getProbability(component, ep, type);
 						if (pathprobability > 0) {
-							scale = scale * pathprobability;
+							newscale = scale * pathprobability;
 						}
 						if (ep.getTargetToken() != null) {
 							if (EMV2TypeSetUtil.contains(ep.getTargetToken(), type)) {
@@ -152,7 +153,7 @@ public class PropagationGraphBackwardTraversal {
 												.getAllIncomingErrorPropagations(component);
 										for (ErrorPropagation eprop : inprops) {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
-													newtype, scale);
+													newtype, newscale);
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -160,7 +161,7 @@ public class PropagationGraphBackwardTraversal {
 
 									} else {
 										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-												newtype, scale);
+												newtype, newscale);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
@@ -178,7 +179,7 @@ public class PropagationGraphBackwardTraversal {
 										matchtype = eprop.getTypeSet();
 										if (EMV2TypeSetUtil.contains(matchtype, type)) {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
-													scale);
+													newscale);
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -193,7 +194,7 @@ public class PropagationGraphBackwardTraversal {
 									matchtype = inep.getTypeSet();
 									if (EMV2TypeSetUtil.contains(matchtype, type)) {
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
-												scale);
+												newscale);
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
