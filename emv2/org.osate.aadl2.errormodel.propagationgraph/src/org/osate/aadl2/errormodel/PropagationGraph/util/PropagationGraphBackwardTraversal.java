@@ -126,6 +126,10 @@ public class PropagationGraphBackwardTraversal {
 					 * This is a fix for the JMR/SAVI WBS model.
 					 */
 					if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
+						double pathprobability = EMV2Properties.getProbability(component, ep, type);
+						if (pathprobability > 0) {
+							scale = scale * pathprobability;
+						}
 						if (ep.getTargetToken() != null) {
 							if (EMV2TypeSetUtil.contains(ep.getTargetToken(), type)) {
 								// we have a type mapping
