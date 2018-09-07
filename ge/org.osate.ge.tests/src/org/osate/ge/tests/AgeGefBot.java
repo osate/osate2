@@ -320,6 +320,10 @@ public class AgeGefBot {
 		bot.button(text).click();
 	}
 
+	public void clickCheckBox(final String text) {
+		bot.checkBox(text).click();
+	}
+
 	public void clickRadio(final String text) {
 		bot.radio(text).click();
 	}
@@ -327,6 +331,7 @@ public class AgeGefBot {
 	public void clickTableOption(final String text) {
 		bot.table().getTableItem(text).click();
 	}
+
 
 	// Create an implementation when a type already exists
 	public void createImplementation(final AgeSWTBotGefEditor editor, final String toolType, final String typeName,
@@ -539,10 +544,11 @@ public class AgeGefBot {
 	}
 
 	public List<SWTBotGefConnectionEditPart> getNewConnectionEditPart(final AgeSWTBotGefEditor editor,
-			final Class<?> clazz) {
+			final Class<?> clazz, final String... editPartPath) {
 		editor.setFocus();
 		final AgeFeatureProvider ageFeatureProvider = getAgeFeatureProvider(editor);
-		return editor.allConnections().stream().filter(editPart -> {
+		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
+		return editor.childConnections(parent).stream().filter(editPart -> {
 			final GraphitiConnectionEditPart gcep = (GraphitiConnectionEditPart) editPart.part();
 			final Object bo = ageFeatureProvider.getBusinessObjectForPictogramElement(gcep.getPictogramElement());
 			if (bo.getClass() == clazz) {
@@ -567,6 +573,22 @@ public class AgeGefBot {
 
 			return false;
 		}).collect(Collectors.toList());
+	}
+
+	public SWTBotGefConnectionEditPart getNewConnectionEditPart(final AgeSWTBotGefEditor editor,
+			final String... editPartPath) {
+		final AgeFeatureProvider ageFeatureProvider = getAgeFeatureProvider(editor);
+		final SWTBotGefEditPart parent = findEditPart(editor, editPartPath);
+
+		return editor.childConnections(parent).stream().filter(editPart -> {
+			final GraphitiConnectionEditPart gcep = (GraphitiConnectionEditPart) editPart.part();
+			final Object bo = ageFeatureProvider.getBusinessObjectForPictogramElement(gcep.getPictogramElement());
+			if (bo instanceof NamedElement) {
+				return ((NamedElement) bo).getName().contains("new_");
+			}
+
+			return false;
+		}).collect(Collectors.toList()).get(0);
 	}
 
 	public void waitUntilElementExists(final SWTBotGefEditor editor, final String elementName) {
