@@ -996,7 +996,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			List<EObject> subResults, double scale) {
 		Event ftaEvent = finalizeAsAndEvents(component, condition, type, subResults);
-//		ftaEvent.setScale(scale);
 		return ftaEvent;
 	}
 
@@ -1004,7 +1003,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		Event ftaEvent = finalizeAsXOrEvents(component, condition, type, subResults);
-//		ftaEvent.setScale(scale);
 		return ftaEvent;
 	}
 
@@ -1012,7 +1010,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
 			List<EObject> subResults, double scale) {
 		Event ftaEvent = finalizeAsOrEvents(component, condition, type, subResults);
-//		ftaEvent.setScale(scale);
 		return ftaEvent;
 	}
 
