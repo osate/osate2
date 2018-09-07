@@ -54,6 +54,7 @@ class FTATest  {
 	var static SystemInstance instanceOptimize
 	var static SystemInstance instanceTransitionBranch
 	var static SystemInstance instanceOR1OFProbability
+	var static SystemInstance instancePathProbability
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -80,6 +81,7 @@ class FTATest  {
 			val transitionbranchFile = "branchtransitions.aadl"
 			val SysErrorLibFile = "Sys_Error_Lib.aadl"
 			val OR1OFProbabilityfile = "OR1OFProbability.aadl"
+			val PathProbabilityfile = "PathProbability.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -103,7 +105,8 @@ class FTATest  {
 				modelroot + errorlibFile,
 				modelroot + FTerrorlibFile,
 				modelroot + SysErrorLibFile,
-				modelroot + OR1OFProbabilityfile
+				modelroot + OR1OFProbabilityfile,
+				modelroot + PathProbabilityfile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -125,6 +128,7 @@ class FTATest  {
 			instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
 			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
 			instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
+			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -821,6 +825,19 @@ class FTATest  {
 		val sube1 = ft.root.subEvents.get(1)
 		assertEquals(ft.root.computedProbability, 1.30285e-1, 1.0e-5)
 		assertEquals(sube1.computedProbability, 1.215e-1, 1.0e-5)
+	}
+
+		@Test
+	def void PathProbabilityFaultTreeTest() {
+	val outProp = "state FaultyState"
+		val ft = CreateFTAModel.createFaultTree(instancePathProbability, outProp)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 4)
+		val sube3 = ft.root.subEvents.get(2)
+		val sube4 = ft.root.subEvents.get(3)
+		assertEquals(ft.root.computedProbability, 9.79e-7, 1.0e-10)
+		assertEquals(sube3.scale, 0.7, 0.001)
+		assertEquals(sube4.scale, 0.6, 0.001)
 	}
 	
 }
