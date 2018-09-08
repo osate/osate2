@@ -223,8 +223,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} 'claim' requirement=[ReqSpec::Requirement|QualifiedName]? (':' title=STRING)? '[' (('activities'
-		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)?
-		//& subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
+		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)? &
+		//subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -1368,8 +1368,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 		//targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
 		//componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
 		//precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
@@ -1387,8 +1387,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
 		//formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)?
 		public Group getGroup_2() { return cGroup_2; }
 
@@ -1642,12 +1642,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPluginMethodParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cAgreeMethodParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cJUnit4MethodParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cPythonMethodParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//MethodKind:
-		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method;
+		//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method | PythonMethod;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method
+		//ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method | PythonMethod
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ResoluteMethod
@@ -1667,6 +1668,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//JUnit4Method
 		public RuleCall getJUnit4MethodParserRuleCall_5() { return cJUnit4MethodParserRuleCall_5; }
+
+		//PythonMethod
+		public RuleCall getPythonMethodParserRuleCall_6() { return cPythonMethodParserRuleCall_6; }
 	}
 
 	public class ResoluteMethodElements extends AbstractParserRuleElementFinder {
@@ -1759,6 +1763,30 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//')'
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+	}
+
+	public class PythonMethodElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.verify.Verify.PythonMethod");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cPythonKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cMethodPathAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cMethodPathQualifiedNameParserRuleCall_1_0 = (RuleCall)cMethodPathAssignment_1.eContents().get(0);
+		
+		//PythonMethod:
+		//	'python' methodPath=QualifiedName;
+		@Override public ParserRule getRule() { return rule; }
+
+		//'python' methodPath=QualifiedName
+		public Group getGroup() { return cGroup; }
+
+		//'python'
+		public Keyword getPythonKeyword_0() { return cPythonKeyword_0; }
+
+		//methodPath=QualifiedName
+		public Assignment getMethodPathAssignment_1() { return cMethodPathAssignment_1; }
+
+		//QualifiedName
+		public RuleCall getMethodPathQualifiedNameParserRuleCall_1_0() { return cMethodPathQualifiedNameParserRuleCall_1_0; }
 	}
 
 	public class ManualMethodElements extends AbstractParserRuleElementFinder {
@@ -1923,6 +1951,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final MethodKindElements pMethodKind;
 	private final ResoluteMethodElements pResoluteMethod;
 	private final JavaMethodElements pJavaMethod;
+	private final PythonMethodElements pPythonMethod;
 	private final ManualMethodElements pManualMethod;
 	private final PluginMethodElements pPluginMethod;
 	private final AgreeMethodElements pAgreeMethod;
@@ -1963,6 +1992,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMethodKind = new MethodKindElements();
 		this.pResoluteMethod = new ResoluteMethodElements();
 		this.pJavaMethod = new JavaMethodElements();
+		this.pPythonMethod = new PythonMethodElements();
 		this.pManualMethod = new ManualMethodElements();
 		this.pPluginMethod = new PluginMethodElements();
 		this.pAgreeMethod = new AgreeMethodElements();
@@ -2226,7 +2256,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//MethodKind:
-	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method;
+	//	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod | JUnit4Method | PythonMethod;
 	public MethodKindElements getMethodKindAccess() {
 		return pMethodKind;
 	}
@@ -2253,6 +2283,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getJavaMethodRule() {
 		return getJavaMethodAccess().getRule();
+	}
+
+	//PythonMethod:
+	//	'python' methodPath=QualifiedName;
+	public PythonMethodElements getPythonMethodAccess() {
+		return pPythonMethod;
+	}
+	
+	public ParserRule getPythonMethodRule() {
+		return getPythonMethodAccess().getRule();
 	}
 
 	//ManualMethod:
@@ -2924,7 +2964,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

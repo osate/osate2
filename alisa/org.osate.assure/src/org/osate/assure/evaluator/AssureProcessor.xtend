@@ -41,8 +41,9 @@ import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.aadl2.properties.PropertyNotPresentException
+import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
@@ -60,6 +61,7 @@ import org.osate.assure.util.AssureUtilExtension
 import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecutePythonUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
@@ -69,8 +71,8 @@ import org.osate.result.IntegerValue
 import org.osate.result.RealValue
 import org.osate.result.Result
 import org.osate.result.ResultFactory
+import org.osate.result.ResultType
 import org.osate.result.StringValue
-import org.osate.result.util.ResultUtil
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
@@ -79,6 +81,7 @@ import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
+import org.osate.verify.verify.PythonMethod
 import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationMethod
 import org.osate.xtext.aadl2.properties.util.PropertyUtils
@@ -88,9 +91,6 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.result.ResultType
-import org.osate.alisa.common.common.CommonFactory
-import org.osate.aadl2.instance.InstanceReferenceValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -660,7 +660,6 @@ class AssureProcessor implements IAssureProcessor {
 			} else {
 				targetComponent
 			}
-
 		if (target instanceof ConnectionInstance) {
 			val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
 			for (conni : conns) {
@@ -694,8 +693,22 @@ class AssureProcessor implements IAssureProcessor {
 			ResoluteMethod: {
 				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
+			PythonMethod: {
+				executePythonOnce(verificationResult, method, target, parameters);
+			}
 		}
 	}
+	
+	def void executePythonOnce(VerificationResult verificationResult, VerificationMethod method,
+	InstanceObject target, List<PropertyExpression> parameters) {
+		val engine = new ExecutePythonUtil
+		val methodtype = method.methodKind as PythonMethod
+		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
+		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
+		val returned = engine.runPythonScript(scriptURL,objects);
+		processExecutionResult(verificationResult, method, target, returned)
+	}
+	
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
@@ -818,7 +831,7 @@ class AssureProcessor implements IAssureProcessor {
 					target);
 				}
 			} else {
-				setToError(verificationResult, "Single return value but no expected compute variable for predicate",
+				setToError(verificationResult, "Single non-boolean return value but no expected compute variable for predicate",
 					target);
 			}
 		} else {
