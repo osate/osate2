@@ -664,6 +664,34 @@ finally {
 
 
 
+// Entry rule entryRulePythonMethod
+entryRulePythonMethod 
+:
+{ before(grammarAccess.getPythonMethodRule()); }
+	 rulePythonMethod
+{ after(grammarAccess.getPythonMethodRule()); } 
+	 EOF 
+;
+
+// Rule PythonMethod
+rulePythonMethod
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getPythonMethodAccess().getGroup()); }
+(rule__PythonMethod__Group__0)
+{ after(grammarAccess.getPythonMethodAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleManualMethod
 entryRuleManualMethod 
 :
@@ -2330,6 +2358,12 @@ rule__MethodKind__Alternatives
 { before(grammarAccess.getMethodKindAccess().getJUnit4MethodParserRuleCall_5()); }
 	ruleJUnit4Method
 { after(grammarAccess.getMethodKindAccess().getJUnit4MethodParserRuleCall_5()); }
+)
+
+    |(
+{ before(grammarAccess.getMethodKindAccess().getPythonMethodParserRuleCall_6()); }
+	rulePythonMethod
+{ after(grammarAccess.getMethodKindAccess().getPythonMethodParserRuleCall_6()); }
 )
 
 ;
@@ -9798,6 +9832,69 @@ finally {
 
 
 
+rule__PythonMethod__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PythonMethod__Group__0__Impl
+	rule__PythonMethod__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PythonMethod__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPythonMethodAccess().getPythonKeyword_0()); }
+
+	'python' 
+
+{ after(grammarAccess.getPythonMethodAccess().getPythonKeyword_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__PythonMethod__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PythonMethod__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PythonMethod__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPythonMethodAccess().getMethodPathAssignment_1()); }
+(rule__PythonMethod__MethodPathAssignment_1)
+{ after(grammarAccess.getPythonMethodAccess().getMethodPathAssignment_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
 rule__ManualMethod__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -17065,6 +17162,21 @@ rule__JavaMethod__ParamsAssignment_2_1_1_1
 (
 { before(grammarAccess.getJavaMethodAccess().getParamsJavaParameterParserRuleCall_2_1_1_1_0()); }
 	ruleJavaParameter{ after(grammarAccess.getJavaMethodAccess().getParamsJavaParameterParserRuleCall_2_1_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PythonMethod__MethodPathAssignment_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPythonMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); }
+	ruleQualifiedName{ after(grammarAccess.getPythonMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); }
 )
 
 ;

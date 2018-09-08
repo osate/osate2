@@ -67,6 +67,7 @@ import org.osate.verify.verify.JavaMethod;
 import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.PluginMethod;
+import org.osate.verify.verify.PythonMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
 import org.osate.verify.verify.ThenExpr;
@@ -275,6 +276,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.PLUGIN_METHOD:
 				sequence_PluginMethod(context, (PluginMethod) semanticObject); 
+				return; 
+			case VerifyPackage.PYTHON_METHOD:
+				sequence_PythonMethod(context, (PythonMethod) semanticObject); 
 				return; 
 			case VerifyPackage.REF_EXPR:
 				sequence_VAReference(context, (RefExpr) semanticObject); 
@@ -488,6 +492,25 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getPluginMethodAccess().getMethodIDIDTerminalRuleCall_1_0(), semanticObject.getMethodID());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     MethodKind returns PythonMethod
+	 *     PythonMethod returns PythonMethod
+	 *
+	 * Constraint:
+	 *     methodPath=QualifiedName
+	 */
+	protected void sequence_PythonMethod(ISerializationContext context, PythonMethod semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.PYTHON_METHOD__METHOD_PATH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.PYTHON_METHOD__METHOD_PATH));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPythonMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0(), semanticObject.getMethodPath());
 		feeder.finish();
 	}
 	

@@ -83,6 +83,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//JavaMethod/methodPath"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//JavaMethod/params"/>
     </genClasses>
+    <genClasses ecoreClass="Verify.ecore#//PythonMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//PythonMethod/methodPath"/>
+    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ManualMethod">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//ManualMethod/dialogID"/>
     </genClasses>

@@ -32,7 +32,8 @@ Require-Bundle: org.osate.assure,
  org.osate.results;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.verify;bundle-version="1.0.0",
- org.osate.pluginsupport
+ org.osate.pluginsupport,
+ org.osate.aadl2.instantiation;bundle-version="1.0.0"
 Import-Package: org.apache.log4j,
  org.hamcrest.core,
  org.junit;version="4.5.0",

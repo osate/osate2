@@ -46,6 +46,7 @@ import org.osate.verify.verify.JavaParameter;
 import org.osate.verify.verify.ManualMethod;
 import org.osate.verify.verify.MethodKind;
 import org.osate.verify.verify.PluginMethod;
+import org.osate.verify.verify.PythonMethod;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.ResoluteMethod;
 import org.osate.verify.verify.ThenExpr;
@@ -158,6 +159,13 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass javaMethodEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pythonMethodEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -952,6 +960,26 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPythonMethod()
+  {
+    return pythonMethodEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPythonMethod_MethodPath()
+  {
+    return (EAttribute)pythonMethodEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getManualMethod()
   {
     return manualMethodEClass;
@@ -1314,6 +1342,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEAttribute(javaMethodEClass, JAVA_METHOD__METHOD_PATH);
     createEReference(javaMethodEClass, JAVA_METHOD__PARAMS);
 
+    pythonMethodEClass = createEClass(PYTHON_METHOD);
+    createEAttribute(pythonMethodEClass, PYTHON_METHOD__METHOD_PATH);
+
     manualMethodEClass = createEClass(MANUAL_METHOD);
     createEAttribute(manualMethodEClass, MANUAL_METHOD__DIALOG_ID);
 
@@ -1390,6 +1421,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Add supertypes to classes
     resoluteMethodEClass.getESuperTypes().add(this.getMethodKind());
     javaMethodEClass.getESuperTypes().add(this.getMethodKind());
+    pythonMethodEClass.getESuperTypes().add(this.getMethodKind());
     manualMethodEClass.getESuperTypes().add(this.getMethodKind());
     pluginMethodEClass.getESuperTypes().add(this.getMethodKind());
     agreeMethodEClass.getESuperTypes().add(this.getMethodKind());
@@ -1478,6 +1510,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(javaMethodEClass, JavaMethod.class, "JavaMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getJavaMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getJavaMethod_Params(), this.getJavaParameter(), null, "params", null, 0, -1, JavaMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pythonMethodEClass, PythonMethod.class, "PythonMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPythonMethod_MethodPath(), theEcorePackage.getEString(), "methodPath", null, 0, 1, PythonMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(manualMethodEClass, ManualMethod.class, "ManualMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getManualMethod_DialogID(), theEcorePackage.getEString(), "dialogID", null, 0, 1, ManualMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

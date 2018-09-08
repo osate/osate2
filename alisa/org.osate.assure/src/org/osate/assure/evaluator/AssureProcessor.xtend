@@ -89,6 +89,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.pluginsupport.ExecutePythonUtil
+import org.osate.verify.verify.PythonMethod
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -638,7 +640,6 @@ class AssureProcessor implements IAssureProcessor {
 			} else {
 				targetComponent
 			}
-
 		if (target instanceof ConnectionInstance) {
 			val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
 			for (conni : conns) {
@@ -672,8 +673,22 @@ class AssureProcessor implements IAssureProcessor {
 			ResoluteMethod: {
 				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
+			PythonMethod: {
+				executePythonOnce(verificationResult, method, target, parameters);
+			}
 		}
 	}
+	
+	def void executePythonOnce(VerificationResult verificationResult, VerificationMethod method,
+	InstanceObject target, List<PropertyExpression> parameters) {
+		val engine = new ExecutePythonUtil
+		val methodtype = method.methodKind as PythonMethod
+		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
+		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
+		val returned = engine.runPythonScript(scriptURL,objects);
+		processExecutionResult(verificationResult, method, target, returned)
+	}
+	
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
@@ -829,7 +844,7 @@ class AssureProcessor implements IAssureProcessor {
 					target);
 				}
 			} else {
-				setToError(verificationResult, "Single return value but no expected compute variable for predicate",
+				setToError(verificationResult, "Single non-boolean return value but no expected compute variable for predicate",
 					target);
 			}
 		}
