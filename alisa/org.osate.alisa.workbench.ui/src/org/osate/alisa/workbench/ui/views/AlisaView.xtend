@@ -21,6 +21,8 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.transaction.RecordingCommand
+import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.dialogs.DialogSettings
@@ -737,9 +739,9 @@ class AlisaView extends ViewPart {
 		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».xassure''',
 			false)
 		val assuranceCaseResultHolder = new AtomicReference
-//		val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-//		domain.commandStack.execute(new RecordingCommand(domain) {
-//			override protected doExecute() {
+		val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
+		domain.commandStack.execute(new RecordingCommand(domain) {
+			override protected doExecute() {
 				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
 				didGenerateAssure = true
 				assuranceCaseResult.resetToTBD(null)
@@ -754,8 +756,8 @@ class AlisaView extends ViewPart {
 					// Do nothing.
 				}
 				assuranceCaseResultHolder.set(assuranceCaseResult)
-//			}
-//		})
+			}
+		})
 		assureProject -> assuranceCaseResultHolder.get
 	}
 
