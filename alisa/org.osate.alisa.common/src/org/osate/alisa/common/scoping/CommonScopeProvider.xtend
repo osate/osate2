@@ -36,6 +36,18 @@ import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.Feature
+import org.osate.aadl2.Subcomponent
+import org.osate.alisa.common.common.AModelReference
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider.allMembers
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
@@ -114,4 +126,52 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		val newName = QualifiedName.create(description.name.skipLast(1).toString("::") + "::" + implName.get(0), implName.get(1))
 		EObjectDescription.create(newName, description.EObjectOrProxy)
 	}
+	
+		
+	def IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
+//		val contractualElement = context.getContainerOfType(ContractualElement)
+//		val target = contractualElement?.targetElement ?:
+//				contractualElement?.target ?:
+//				context.getContainerOfType(StakeholderGoals)?.target ?:
+//				context.getContainerOfType(SystemRequirementSet).target
+		new SimpleScope(#[EObjectDescription.create("this", context)])
+	}
+	
+	def EObject getAModelReferenceContext(AModelReference amr){
+		var context = amr.eContainer
+		while (context instanceof AModelReference){
+			context = context.eContainer
+		}
+		return context
+	}
+	
+	def IScope scope_AModelReference_modelElement(AModelReference context, EReference reference) {
+		if (context.prev === null) {
+			scope_AModelReference_modelElement(context.AModelReferenceContext, reference)
+		} else {
+			val prev = context.prev
+			val prevElement = prev.modelElement
+			switch prevElement {
+				Classifier: prevElement
+				AbstractFeature: switch featureClassifier : prevElement.abstractFeatureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
+					default: prevElement.featurePrototype.constrainingClassifier
+				}
+				FeatureGroup: switch featureType : prevElement.featureType {
+					FeatureGroupType: featureType
+					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+				}
+				Feature: switch featureClassifier : prevElement.featureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
+				}
+				Subcomponent: switch subcomponentType : prevElement.subcomponentType {
+					ComponentClassifier: subcomponentType
+					ComponentPrototype: subcomponentType.constrainingClassifier
+				}
+			}?.allMembers?.scopeFor
+		}
+	}
+	
 }
