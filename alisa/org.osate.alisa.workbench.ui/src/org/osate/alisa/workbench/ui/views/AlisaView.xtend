@@ -111,6 +111,8 @@ class AlisaView extends ViewPart {
 	val selectedFilters = <URI, URI>newHashMap
 	Pair<URI, URI> displayedCaseAndFilter = null -> null
 
+	val CategoryFilter selectedFilter = null
+
 	TreeViewer alisaViewer
 	TreeViewer assureViewer
 
@@ -661,6 +663,12 @@ class AlisaView extends ViewPart {
 				}
 
 			val expandedElements = assureViewer.expandedElements
+			val resourceSetForProcessing = resourceSetProvider.get(null)
+			val filterURI = selectedFilters.get(assuranceCaseURI)
+			val filter = if (filterURI !== null) {
+				resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
+			}
+			result.recomputeAllCounts(filter)
 			if (updateAssuranceView || didGenerateAssure) {
 				assureViewer.input = if (result !== null) {
 					didGenerateAssure = false
@@ -680,29 +688,14 @@ class AlisaView extends ViewPart {
 	}
 
 	def private verifyAll(AssuranceCase assuranceCase, URI assuranceCaseURI) {
-		verifyCommon(assuranceCase, assuranceCaseURI, [ resourceSetForProcessing |
-			createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
-		])
+		verifyCommon(assuranceCase, assuranceCaseURI, true)
 	}
 
 	def private verifyTBD(AssuranceCase assuranceCase, URI assuranceCaseURI) {
-		verifyCommon(assuranceCase, assuranceCaseURI, [ resourceSetForProcessing |
-			val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
-			val results = resultDescriptions.map [
-				resourceSetForProcessing.getEObject(EObjectURI, true) as AssuranceCaseResult
-			]
-			val findResult = results.findFirst[name == assuranceCase.name]
-			if (findResult === null) {
-				createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
-			} else {
-				ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).project ->
-					findResult
-			}
-		])
+		verifyCommon(assuranceCase, assuranceCaseURI, false)
 	}
 
-	def private verifyCommon(AssuranceCase assuranceCase, URI assuranceCaseURI,
-		(ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult) {
+	def private verifyCommon(AssuranceCase assuranceCase, URI assuranceCaseURI, boolean doAll) {
 		val dirtyEditors = viewSite.page.dirtyEditors
 		if (!dirtyEditors.empty &&
 			MessageDialog.openConfirm(viewSite.shell, "Save editors", "Save editors and continue?")) {
@@ -710,12 +703,19 @@ class AlisaView extends ViewPart {
 			dirtyEditors.forEach[doSave(monitor)]
 		}
 		val resourceSetForProcessing = resourceSetProvider.get(null)
-		val assureProjectAndResult = getProjectAndResult.apply(resourceSetForProcessing)
-		val assuranceCaseResult = assureProjectAndResult.value
 		val filterURI = selectedFilters.get(assuranceCaseURI)
 		val filter = if (filterURI !== null) {
 				resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
-			}
+		}
+		val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
+		val results = resultDescriptions.map [
+			resourceSetForProcessing.getEObject(EObjectURI, true) as AssuranceCaseResult
+		]
+		var findResult = results.findFirst[name == assuranceCase.name]
+		if (findResult === null) {
+			findResult = createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing, filter)
+		}
+		val assuranceCaseResult = findResult
 		val job = new WorkspaceJob("ASSURE verification") {
 			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				VerifyUtilExtension.clearAllHasRunRecords
@@ -733,7 +733,7 @@ class AlisaView extends ViewPart {
 	}
 
 	def private createCaseResult(AssuranceCase assuranceCase, URI assuranceCaseURI,
-		ResourceSet resourceSetForProcessing) {
+		ResourceSet resourceSetForProcessing, CategoryFilter filter) {
 		val assureProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).
 			project
 		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».xassure''',
@@ -744,8 +744,8 @@ class AlisaView extends ViewPart {
 			override protected doExecute() {
 				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
 				didGenerateAssure = true
-				assuranceCaseResult.resetToTBD(null)
-				assuranceCaseResult.recomputeAllCounts(null)
+				assuranceCaseResult.resetToTBD(filter)
+				assuranceCaseResult.recomputeAllCounts(filter)
 				val resource = resourceSetForProcessing.getResource(assureURI, false) ?:
 					resourceSetForProcessing.createResource(assureURI)
 				resource.contents.clear
@@ -758,11 +758,11 @@ class AlisaView extends ViewPart {
 				assuranceCaseResultHolder.set(assuranceCaseResult)
 			}
 		})
-		assureProject -> assuranceCaseResultHolder.get
+		assuranceCaseResultHolder.get
 	}
 
 	def package void update(URI verificationResultURI) {
-		assureViewer.update(verificationResultURI, null)
+		assureViewer.refresh(verificationResultURI, true)
 	}
 
 }
