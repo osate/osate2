@@ -60,7 +60,6 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
@@ -77,9 +76,13 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
-		Dialog.showError("Flow Latency Error", "Please select an instance model");
 	}
 
 	@Override
