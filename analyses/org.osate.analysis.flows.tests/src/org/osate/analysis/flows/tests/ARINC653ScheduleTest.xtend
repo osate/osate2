@@ -2,15 +2,16 @@ package org.osate.analysis.flows.tests
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
+import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.result.RealValue
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
@@ -18,9 +19,6 @@ import org.osate.testsupport.TestHelper
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.NamedElement
-import org.osate.analysis.flows.LatencyAnalysisService
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
@@ -59,7 +57,7 @@ class ARINC653ScheduleTest extends XtextTest {
 		resab.subResults.size.assertEquals(5)
 		resab.diagnostics.size.assertEquals(1)
 		val subres = resab.subResults.get(3)
-		val partnoschedule = subres.sourceReference as NamedElement
+		val partnoschedule = subres.modelElement as NamedElement
 		assertTrue(partnoschedule instanceof ComponentInstance)
 		assertEquals(partnoschedule.name,"sub3")
 		assertEquals(subres.diagnostics.size, 4)

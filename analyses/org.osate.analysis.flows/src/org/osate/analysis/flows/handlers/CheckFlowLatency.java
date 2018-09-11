@@ -124,7 +124,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	private void generateMarkers(AnalysisResult results, AnalysisErrorReporterManager errMgr) {
 		for (Result res : results.getResults()) {
 			generateMarkers(errMgr, res.getDiagnostics(), ResultUtil.getString(res, 0),
-					(EndToEndFlowInstance) res.getSourceReference());
+					(EndToEndFlowInstance) res.getModelElement());
 		}
 	}
 
@@ -134,8 +134,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		for (Diagnostic issue : issues) {
 			if (issue.getType() == DiagnosticType.INFO) {
 				errManager.info(target, issue.getMessage() + inMode);
-			} else if (issue.getType() == DiagnosticType.SUCCESS) {
-				errManager.info(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
 			} else if (issue.getType() == DiagnosticType.WARNING) {
 				errManager.warning(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
 			} else if (issue.getType() == DiagnosticType.ERROR) {

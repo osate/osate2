@@ -27,12 +27,16 @@ public class Line {
 		this.content.add(new ReportedCell(s));
 	}
 
-	public void addError(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.ERROR, s));
+	public void addInfo(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.INFO, s));
 	}
 
-	public void addSuccess(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.SUCCESS, s));
+	public void addWarning(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.WARNING, s));
+	}
+
+	public void addError(String s) {
+		this.content.add(new ReportedCell(DiagnosticType.ERROR, s));
 	}
 
 	public void addHeaderContent(String s) {
