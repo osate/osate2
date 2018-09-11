@@ -18,6 +18,7 @@ import org.osate.result.ObjectValue;
 import org.osate.result.RealValue;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
+import org.osate.result.ResultType;
 import org.osate.result.StringValue;
 import org.osate.result.Value;
 
@@ -35,53 +36,37 @@ public class ResultUtil {
 		return createDiagnostic(msg, target, DiagnosticType.INFO);
 	}
 
-	public static Diagnostic createSuccess(String msg, EObject target) {
-		return createDiagnostic(msg, target, DiagnosticType.SUCCESS);
-	}
-
-	public static Diagnostic createFailure(String msg, EObject target) {
-		return createDiagnostic(msg, target, DiagnosticType.FAILURE);
-	}
-
 	public static Diagnostic createNone(String msg, EObject target) {
 		return createDiagnostic(msg, target, DiagnosticType.NONE);
 	}
 
 	public static Diagnostic createDiagnostic(String msg, EObject target, DiagnosticType rit) {
 		Diagnostic issue = ResultFactory.eINSTANCE.createDiagnostic();
-		issue.setSourceReference(target);
+		issue.setModelElement(target);
 		issue.setMessage(msg);
 		issue.setType(rit);
 		return issue;
 	}
 
-	public static Result createErrorResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.ERROR);
-	}
-
-	public static Result createWarningResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.WARNING);
-	}
-
-	public static Result createInfoResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.INFO);
-	}
-
 	public static Result createSuccessResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.SUCCESS);
+		return createResult(msg, target, ResultType.SUCCESS);
 	}
 
 	public static Result createFailureResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.FAILURE);
+		return createResult(msg, target, ResultType.FAILURE);
+	}
+
+	public static Result createErrorResult(String msg, EObject target) {
+		return createResult(msg, target, ResultType.ERROR);
 	}
 
 	public static Result createResult(String msg, EObject target) {
-		return createResult(msg, target, DiagnosticType.NONE);
+		return createResult(msg, target, ResultType.NONE);
 	}
 
-	public static Result createResult(String msg, EObject target, DiagnosticType type) {
+	public static Result createResult(String msg, EObject target, ResultType type) {
 		Result result = ResultFactory.eINSTANCE.createResult();
-		result.setSourceReference(target);
+		result.setModelElement(target);
 		result.setMessage(msg);
 		result.setType(type);
 		return result;
@@ -89,7 +74,7 @@ public class ResultUtil {
 
 	public static AnalysisResult createAnalysisResult(String name, EObject target) {
 		AnalysisResult result = ResultFactory.eINSTANCE.createAnalysisResult();
-		result.setSourceReference(target);
+		result.setModelElement(target);
 		result.setAnalysis(name);
 		return result;
 	}
@@ -242,15 +227,12 @@ public class ResultUtil {
 	}
 
 	/**
-	 * true if there are any diagnostics with FAILURE type or with ERROR type
+	 * true if there are Result objects with FAILURE type
 	 * @param res
 	 * @return
 	 */
 	public static boolean hasFailures(Result res) {
-		if (res.getType() == DiagnosticType.FAILURE) {
-			return true;
-		}
-		if (hasFailures(res.getDiagnostics())) {
+		if (res.getType() == ResultType.FAILURE) {
 			return true;
 		}
 		for (Result subres : res.getSubResults()) {
@@ -261,6 +243,20 @@ public class ResultUtil {
 		return false;
 	}
 
+	/**
+	 * true if there  Result object has FAILURE type
+	 * @param res
+	 * @return
+	 */
+	public static boolean isFailure(Result res) {
+		return (res.getType() == ResultType.FAILURE);
+	}
+
+	/**
+	 * true if there are Result objects with FAILURE type
+	 * @param res
+	 * @return
+	 */
 	public static boolean hasFailures(AnalysisResult res) {
 		for (Result r : res.getResults()) {
 			if (hasFailures(r)) {
@@ -270,25 +266,15 @@ public class ResultUtil {
 		return false;
 	}
 
-	public static boolean hasFailures(Diagnostic res) {
-		if (res.getType() == DiagnosticType.FAILURE) {
-			return true;
-		}
-		return false;
-	}
 
-	public static boolean hasFailures(Collection<? extends Diagnostic> res) {
-		for (Diagnostic r : res) {
-			if (hasFailures(r)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean hasErrors(Collection<? extends Diagnostic> res) {
-		for (Diagnostic r : res) {
-			if (hasErrors(r)) {
+	/**
+	 * true if there are Diagnostic objects with ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasErrors(Collection<? extends Diagnostic> diags) {
+		for (Diagnostic d : diags) {
+			if (isError(d)) {
 				return true;
 			}
 		}
@@ -296,31 +282,62 @@ public class ResultUtil {
 	}
 
 
-	public static boolean hasErrors(Diagnostic res) {
-		if (res.getType() == DiagnosticType.ERROR) {
-			return true;
-		}
-		return false;
+	/**
+	 * true if Diagnostic objects has ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean isError(Diagnostic res) {
+		return (res.getType() == DiagnosticType.ERROR);
 	}
 
-	public static boolean hasErrors(Result res) {
-		if (res.getType() == DiagnosticType.ERROR) {
-			return true;
-		}
+	/**
+	 * true if Result object or any sub Result object has Diagnostics with ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasDiagnosticErrors(Result res) {
 		if (hasErrors(res.getDiagnostics())) {
 			return true;
 		}
+		return false;
+	}
+
+	public static boolean hasResultErrors(Result res) {
 		for (Result subres : res.getSubResults()) {
-			if (hasErrors(subres)) {
+			if (isResultError(subres)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static boolean hasErrors(AnalysisResult res) {
+	public static boolean isResultError(Result res) {
+		return res.getType() == ResultType.ERROR;
+	}
+
+	/**
+	 * true if Result object or any sub Result object has ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultErrors(AnalysisResult res) {
 		for (Result r : res.getResults()) {
-			if (hasErrors(r)) {
+			if (hasResultErrors(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * true if Result object or any sub Result object has Diagnostics with ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasDiagnosticErrors(AnalysisResult res) {
+		for (Result r : res.getResults()) {
+			if (hasDiagnosticErrors(r)) {
 				return true;
 			}
 		}
@@ -328,7 +345,7 @@ public class ResultUtil {
 	}
 
 	public static URI getAnalysisResultURI(AnalysisResult results) {
-		EObject target = results.getSourceReference();
+		EObject target = results.getModelElement();
 		URI rootURI = EcoreUtil.getURI(target).trimFragment().trimFileExtension();
 		String targetname = rootURI.lastSegment();
 		if (target instanceof InstanceObject) {
@@ -338,8 +355,8 @@ public class ResultUtil {
 		}
 		String analysisName = results.getAnalysis().replaceAll(" ", "");
 		String postfix = "";
-		if (results.getInfo() != null) {
-			String res = results.getInfo().replaceAll(" ", "");
+		if (results.getMessage() != null) {
+			String res = results.getMessage().replaceAll(" ", "");
 			if (!res.isEmpty()) {
 				postfix = "_" + res;
 			}
