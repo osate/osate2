@@ -704,7 +704,7 @@ public class Util {
 				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(
 						ifCondition.getResoluteFunction(),
 						target.getSystemInstance(), targetComponent, targetElement, null);
-				return res != null && res.getType() == DiagnosticType.SUCCESS;
+				return res != null && res.getType() != DiagnosticType.ERROR;
 			} else {
 			return true;
 			}

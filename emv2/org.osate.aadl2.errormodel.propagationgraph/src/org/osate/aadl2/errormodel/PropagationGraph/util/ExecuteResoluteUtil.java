@@ -195,9 +195,9 @@ public class ExecuteResoluteUtil {
 		if (resRes instanceof ClaimResult) {
 			ClaimResult rr = (ClaimResult) resRes;
 			if (rr.isValid()) {
-				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createInfo(rr.getText(), rr.getLocation());
 			} else {
-				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createError(rr.getText(), rr.getLocation());
 			}
 		}
 		return ri;
