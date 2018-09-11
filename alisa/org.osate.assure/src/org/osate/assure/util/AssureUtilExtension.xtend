@@ -77,6 +77,7 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.result.ResultType
 
 class AssureUtilExtension {
 
@@ -241,9 +242,9 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em)]
-		if (verificationActivityResult.issues.exists[ri|ri.type == DiagnosticType.FAILURE]) {
+		if (verificationActivityResult.results.exists[ri|ri.type == ResultType.FAILURE]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.issues.exists[ri|ri.type == DiagnosticType.ERROR]) {
+		} else if (verificationActivityResult.results.exists[ri|ri.type == ResultType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -266,9 +267,9 @@ class AssureUtilExtension {
 	def static Diagnostic addMarkerIssue(VerificationResult vr, EObject target, IMarker marker) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
-			case IMarker.SEVERITY_ERROR: addFailIssue(vr, target, msg)
+			case IMarker.SEVERITY_ERROR: addErrorIssue(vr, target, msg)
 			case IMarker.SEVERITY_WARNING: addWarningIssue(vr, target, msg)
-			case IMarker.SEVERITY_INFO: addSuccessIssue(vr, target, msg)
+			case IMarker.SEVERITY_INFO: addInfoIssue(vr, target, msg)
 		}
 	}
 
@@ -280,21 +281,13 @@ class AssureUtilExtension {
 		val issue = ResultFactory.eINSTANCE.createDiagnostic
 		issue.message = message ?: "no message"
 		issue.type = type;
-		issue.sourceReference = target
+		issue.modelElement = target
 		vr.issues.add(issue)
 		issue
 	}
 
-	def static Diagnostic addFailIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, DiagnosticType.FAILURE,target, message)
-	}
-
 	def static Diagnostic addInfoIssue(VerificationResult vr, EObject target, String message) {
 		addIssue(vr, DiagnosticType.INFO,target, message)
-	}
-
-	def static Diagnostic addSuccessIssue(VerificationResult vr, EObject target, String message) {
-		addIssue(vr, DiagnosticType.SUCCESS,target, message)
 	}
 
 	def static Diagnostic addWarningIssue(VerificationResult vr, EObject target, String message) {
@@ -304,8 +297,8 @@ class AssureUtilExtension {
 
 	def static void doJUnitResults(org.junit.runner.Result rr, Result ri) {
 		val failist = rr.failures
-		failist.forEach [ failed | val issue = ResultUtil.createFailure(failed.message, null);
-			ri.diagnostics.add(issue)
+		failist.forEach [ failed | val issue = ResultUtil.createFailureResult(failed.message, null);
+			ri.subResults.add(issue)
 		]
 	}
 
@@ -721,13 +714,6 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
-	def static void setToSuccess(VerificationResult verificationActivityResult, String message, EObject target) {
-		if (message !== null && !message.isEmpty)
-			verificationActivityResult.addSuccessIssue(target, message);
-		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
-			verificationActivityResult.propagateCountChangeUp
-	}
-
 	def static void setToSuccess(VerificationResult verificationActivityResult, List<Diagnostic> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
@@ -759,18 +745,13 @@ class AssureUtilExtension {
 			verificationActivityResult.propagateCountChangeUp
 	}
 
-	def static void setToFail(VerificationResult verificationActivityResult, String message, EObject target) {
-		verificationActivityResult.addFailIssue(target, message);
-		verificationActivityResult.setToFail
-	}
-
 	def static void setToFail(VerificationResult verificationActivityResult, List<Diagnostic> rl) {
 		verificationActivityResult.issues.addAll(rl);
 		verificationActivityResult.setToFail
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addFailIssue(null, e.message ?: e.toString); 
+		verificationActivityResult.addErrorIssue(null, e.message ?: e.toString); 
 		verificationActivityResult.setToFail
 	}
 

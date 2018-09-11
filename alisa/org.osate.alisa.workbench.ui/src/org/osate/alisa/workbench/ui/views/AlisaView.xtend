@@ -440,19 +440,19 @@ class AlisaView extends ViewPart {
 								"Precondition " + eObject.name
 							Result: {
 								if (eObject.type == DiagnosticType.NONE){
-									"Result: "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
 									if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult && eObject.type == DiagnosticType.ERROR){
 										// map error into failure
-										"Fail: "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+										"Fail: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 									} else {
-										eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+										eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
 									}
 								}
 							}
 								
 							Diagnostic:
-								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.sourceReference?.constructLabel ?: "" ) 
+								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.modelElement?.constructLabel ?: "" ) 
 							ElseResult:
 								"else"
 							ThenResult:
@@ -488,25 +488,16 @@ class AlisaView extends ViewPart {
 							Value: "info.png"
 							Result:
 								switch eObject.type {
-									case ERROR:  if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult) {
-										// map error into fail for assure
-										"invalid.png"
-									} else {
-										"error.png"
-									}
+									case ERROR:  "error.png"
 									case SUCCESS: "valid.png"
-									case WARNING: "warning.png"
-									case INFO: "info.png"
 									case FAILURE: "invalid.png"
 									case NONE: "info.png"
 								}
 							Diagnostic:
 								switch eObject.type {
-									case ERROR: "error.png"
-									case SUCCESS: "valid.png"
+									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case FAILURE: "invalid.png"
 									case NONE: "questionmark.png"
 								}
 							AssureResult case eObject.successful:

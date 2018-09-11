@@ -8,7 +8,6 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
@@ -62,12 +61,12 @@ public class ModelVerifications {
 			if (isLeafComponent(subi)) {
 				for (FeatureInstance fi : subi.getAllFeatureInstances()) {
 					if (!isConnected(fi)) {
-						Diagnostic issue = ResultUtil.createFailure(
+						Result issue = ResultUtil.createFailureResult(
 							"Feature " + fi.getName() + " of component "
 							+ fi.getContainingComponentInstance().getName()
 							+ " not connected",
 								fi);
-						res.getDiagnostics().add(issue);
+						res.getSubResults().add(issue);
 					}
 				}
 			}

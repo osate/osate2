@@ -24,20 +24,16 @@ import org.osate.result.Value;
 
 public class ResultUtil {
 
-	public static Diagnostic createError(String msg, EObject target) {
+	public static Diagnostic createErrorDiagnostic(String msg, EObject target) {
 		return createDiagnostic(msg, target, DiagnosticType.ERROR);
 	}
 
-	public static Diagnostic createWarning(String msg, EObject target) {
+	public static Diagnostic createWarningDiagnostic(String msg, EObject target) {
 		return createDiagnostic(msg, target, DiagnosticType.WARNING);
 	}
 
-	public static Diagnostic createInfo(String msg, EObject target) {
+	public static Diagnostic createInfoDiagnostic(String msg, EObject target) {
 		return createDiagnostic(msg, target, DiagnosticType.INFO);
-	}
-
-	public static Diagnostic createNone(String msg, EObject target) {
-		return createDiagnostic(msg, target, DiagnosticType.NONE);
 	}
 
 	public static Diagnostic createDiagnostic(String msg, EObject target, DiagnosticType rit) {
@@ -231,12 +227,12 @@ public class ResultUtil {
 	 * @param res
 	 * @return
 	 */
-	public static boolean hasFailures(Result res) {
+	public static boolean hasResultFailures(Result res) {
 		if (res.getType() == ResultType.FAILURE) {
 			return true;
 		}
 		for (Result subres : res.getSubResults()) {
-			if (hasFailures(subres)) {
+			if (hasResultFailures(subres)) {
 				return true;
 			}
 		}
@@ -248,7 +244,7 @@ public class ResultUtil {
 	 * @param res
 	 * @return
 	 */
-	public static boolean isFailure(Result res) {
+	public static boolean isResultFailure(Result res) {
 		return (res.getType() == ResultType.FAILURE);
 	}
 
@@ -257,9 +253,9 @@ public class ResultUtil {
 	 * @param res
 	 * @return
 	 */
-	public static boolean hasFailures(AnalysisResult res) {
+	public static boolean hasResultFailures(AnalysisResult res) {
 		for (Result r : res.getResults()) {
-			if (hasFailures(r)) {
+			if (hasResultFailures(r)) {
 				return true;
 			}
 		}
@@ -272,22 +268,49 @@ public class ResultUtil {
 	 * @param res
 	 * @return
 	 */
-	public static boolean hasErrors(Collection<? extends Diagnostic> diags) {
+	public static boolean hasDiagnosticErrors(Collection<? extends Diagnostic> diags) {
 		for (Diagnostic d : diags) {
-			if (isError(d)) {
+			if (isDiagnosticError(d)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	/**
+	 * true if there are Result objects with ERROR type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultErrors(Collection<? extends Result> results) {
+		for (Result d : results) {
+			if (isResultError(d)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * true if there are Result objects with FAILURE type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultFailures(Collection<? extends Result> results) {
+		for (Result d : results) {
+			if (isResultFailure(d)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * true if Diagnostic objects has ERROR type
 	 * @param res
 	 * @return
 	 */
-	public static boolean isError(Diagnostic res) {
+	public static boolean isDiagnosticError(Diagnostic res) {
 		return (res.getType() == DiagnosticType.ERROR);
 	}
 
@@ -297,7 +320,7 @@ public class ResultUtil {
 	 * @return
 	 */
 	public static boolean hasDiagnosticErrors(Result res) {
-		if (hasErrors(res.getDiagnostics())) {
+		if (hasDiagnosticErrors(res.getDiagnostics())) {
 			return true;
 		}
 		return false;
