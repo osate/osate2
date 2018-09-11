@@ -42,6 +42,8 @@ import org.osate.categories.categories.Category;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getFormals <em>Formals</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getResults <em>Results</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getComponentCategory <em>Component Category</em>}</li>
@@ -160,6 +162,58 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   EList<FormalParameter> getResults();
+
+  /**
+   * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Is Predicate</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Is Predicate</em>' attribute.
+   * @see #setIsPredicate(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_IsPredicate()
+   * @model
+   * @generated
+   */
+  boolean isIsPredicate();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Is Predicate</em>' attribute.
+   * @see #isIsPredicate()
+   * @generated
+   */
+  void setIsPredicate(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Is Result Report</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Is Result Report</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Is Result Report</em>' attribute.
+   * @see #setIsResultReport(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_IsResultReport()
+   * @model
+   * @generated
+   */
+  boolean isIsResultReport();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Is Result Report</em>' attribute.
+   * @see #isIsResultReport()
+   * @generated
+   */
+  void setIsResultReport(boolean value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
