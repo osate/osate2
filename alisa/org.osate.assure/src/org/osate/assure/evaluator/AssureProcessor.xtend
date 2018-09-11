@@ -413,19 +413,16 @@ class AssureProcessor implements IAssureProcessor {
 					} else if (res instanceof AnalysisResult) {
 						var foundResult = false
 						for (Result r : res.results) {
-							if (r.sourceReference === target || matchEnclosingComponentInstance(r, target)) {
+							if (r.modelElement === target || matchEnclosingComponentInstance(r, target)) {
 								foundResult = true
 								val issues = r.diagnostics
-								if (hasErrors(res) || hasFailures(r)) {
+								if (hasResultErrors(res) || hasResultFailures(r)) {
 									setToFail(verificationResult)
 								} else {
 									setToSuccess(verificationResult)
 								}
 								for (issue : issues) {
 									val c = EcoreUtil.copy(issue)
-									if (c.type === DiagnosticType.ERROR) {
-										c.type = DiagnosticType.FAILURE
-									}
 									verificationResult.issues.add(c)
 								}
 							}
@@ -438,18 +435,15 @@ class AssureProcessor implements IAssureProcessor {
 								"No Result found for requirement verification target " + target.name, target)
 						}
 					} else if (res instanceof Result) {
-						if (res.sourceReference === target) {
+						if (res.modelElement === target) {
 							val issues = res.diagnostics
-							if (hasErrors(res) || hasFailures(res)) {
+							if (hasResultErrors(res) || hasResultFailures(res)) {
 								setToFail(verificationResult)
 							} else {
 								setToSuccess(verificationResult)
 							}
 							for (issue : issues) {
 								val c = EcoreUtil.copy(issue)
-								if (c.type === DiagnosticType.ERROR) {
-									c.type = DiagnosticType.FAILURE
-								}
 								verificationResult.issues.add(c)
 							}
 						} else {
@@ -513,8 +507,8 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def boolean matchEnclosingComponentInstance(Result r, EObject target) {
-		if (r.sourceReference instanceof InstanceObject) {
-			return (r.sourceReference as InstanceObject).componentInstance === target
+		if (r.modelElement instanceof InstanceObject) {
+			return (r.modelElement as InstanceObject).componentInstance === target
 		}
 		return false
 	}
@@ -647,9 +641,9 @@ class AssureProcessor implements IAssureProcessor {
 				}
 			}
 			// fix verification activity result state
-			if (verificationResult.issues.hasErrors) {
+			if (verificationResult.results.hasResultErrors) {
 				setToError(verificationResult)
-			} else if (verificationResult.issues.hasFailures) {
+			} else if (verificationResult.results.hasResultFailures) {
 				setToFail(verificationResult)
 			}
 		} else if (target !== null) {
@@ -711,7 +705,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult)
 				}
 			} else if (returned instanceof Result) {
-				if (hasErrors(returned) || hasFailures(returned)) {
+				if (isResultError(returned) || isResultFailure(returned)) {
 					setToFail(verificationResult)
 				} else {
 					setToSuccess(verificationResult)
@@ -719,42 +713,32 @@ class AssureProcessor implements IAssureProcessor {
 				val results = returned.subResults
 				for (result : results) {
 					val c = EcoreUtil.copy(result)
-					if (c.type === DiagnosticType.ERROR) {
-						c.type = DiagnosticType.FAILURE
-					}
-					verificationResult.issues.add(c)
+					verificationResult.results.add(c)
 				}
 				val diags = returned.diagnostics
 				for (diag : diags) {
-					val rcopy = ResultUtil.createResult(diag.message, diag.sourceReference, diag.type)
-					if (rcopy.type === DiagnosticType.ERROR) {
-						rcopy.type = DiagnosticType.FAILURE
-					}
+					val rcopy = ResultUtil.createDiagnostic(diag.message, diag.modelElement, diag.type)
 					verificationResult.issues.add(rcopy)
 				}
 				if (verificationResult instanceof VerificationActivityResult) {
 					evaluateComputePredicate(verificationResult, method, returned)
 				}
 			} else if (returned instanceof Diagnostic) {
-				if (returned.type == DiagnosticType.SUCCESS) {
-					setToSuccess(verificationResult)
-				} else if (returned.type == DiagnosticType.FAILURE) {
+				if (returned.type == DiagnosticType.ERROR) {
 					setToFail(verificationResult)
-				} else if (returned.type == DiagnosticType.ERROR) {
-					setToError(verificationResult)
 				} else {
 					setToSuccess(verificationResult)
 				}
-				val diagres = ResultUtil.createResult(returned.message, returned.sourceReference, returned.type)
+				val diagres = ResultUtil.createDiagnostic(returned.message, returned.modelElement, returned.type)
 				verificationResult.issues.add(diagres)
 			} else if (returned instanceof AnalysisResult) {
 				var foundResult = false
 				for (Result r : returned.results) {
 					// we may encounter more than one Result
 					// TODO address this when we are able to use Result objects in Assure.
-					if (r.sourceReference === target) {
+					if (r.modelElement === target) {
 						foundResult = true
-						if (hasErrors(returned) || hasFailures(r)) {
+						if (hasResultErrors(returned) || hasResultFailures(r)) {
 							setToFail(verificationResult)
 						} else {
 							setToSuccess(verificationResult)
@@ -909,7 +893,7 @@ class AssureProcessor implements IAssureProcessor {
 								val modelValue = PropertyUtils.getScaledNumberValue(target, property, unit)
 
 								if (reqValue != modelValue) {
-									verificationResult.addFailIssue(target,
+									verificationResult.addErrorIssue(target,
 										"Property " + property.getQualifiedName() + ": Value in model (" +
 											modelValue + unit.name + ") does not match required value (" +
 											reqValue + unit.name + ")")
@@ -917,7 +901,7 @@ class AssureProcessor implements IAssureProcessor {
 								}
 							} else {
 								if (value != modelPropValue) {
-									verificationResult.addFailIssue(target,
+									verificationResult.addErrorIssue(target,
 										"Property " + property.getQualifiedName() + ": Value in model (" +
 											modelPropValue + ") does not match required value (" + value + ")")
 									verificationResult.setToFail

@@ -197,7 +197,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 					String ResultMsg = String.format(
 							connectionInstance.getName() + ": Weight of access connection is %.3f kg",
 							netconn > 0 ? netconn : grossconn);
-					result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, connectionInstance));
+					result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, connectionInstance));
 				}
 				sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
 			}
@@ -214,14 +214,14 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		if (gross > 0.0) {
 			if (weight > gross) {
 				// problem
-				result.getDiagnostics().add(ResultUtil.createWarning(
+				result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(
 						String.format("[G] Sum of weights (%.3f kg) exceeds gross weight of %.3f kg", weight, gross),
 						ci));
 				// Set gross weight
 			} else if (weight > 0 && weight < gross) {
 				// problem
 				result.getDiagnostics()
-						.add(ResultUtil.createWarning(String.format(
+						.add(ResultUtil.createWarningDiagnostic(String.format(
 								"[G] Sum of weights (%.3f kg) less than gross weight of %.3f kg (using gross weight)",
 								weight, gross), ci));
 				weight = gross;
@@ -236,12 +236,12 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				// problem
 				String ResultMsg = String.format("[A] Sum of weights (%.3f kg) exceeds weight limit of %.3f kg", weight,
 						limit);
-				result.getDiagnostics().add(ResultUtil.createError(ResultMsg, ci));
+				result.getDiagnostics().add(ResultUtil.createErrorDiagnostic(ResultMsg, ci));
 			} else {
 				if (sublimit > limit) {
 					// problem
 					result.getDiagnostics()
-							.add(ResultUtil.createWarning(String.format(
+							.add(ResultUtil.createWarningDiagnostic(String.format(
 									"[L] Sum of subcomponent weight limits (%.3f kg) exceeds weight limit of %.3f kg",
 									sublimit, limit), ci));
 				}
@@ -249,17 +249,17 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 					String ResultMsg = String.format(
 							"[A] Sum of weights (%.3f kg) is below weight limit of %.3f kg (%.1f %% Weight slack)",
 							weight, limit, (limit - weight) / limit * 100);
-					result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, ci));
+					result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, ci));
 				}
 			}
 		} else {
 			if (weight > 0.0) {
 				String ResultMsg = String.format("[L] Sum of weights / gross weight is %.3f kg (no limit specified)",
 						weight);
-				result.getDiagnostics().add(ResultUtil.createInfo(ResultMsg, ci));
+				result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, ci));
 			} else if (needWeight) {
 				String ResultMsg = "[L] No net weight plus subcomponent weight or no gross weight";
-				result.getDiagnostics().add(ResultUtil.createWarning(ResultMsg, ci));
+				result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(ResultMsg, ci));
 			}
 		}
 

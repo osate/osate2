@@ -148,7 +148,7 @@ public class ExecuteResoluteUtil {
 				ResoluteResult res = prover.doSwitch(fcncall);
 				return doResoluteResults(res);
 			} catch (ResoluteFailException e) {
-				return ResultUtil.createFailure(e.getMessage(), targetElement);
+				return ResultUtil.createFailureResult(e.getMessage(), targetElement);
 			}
 //			} else {
 //				// computational function
@@ -168,7 +168,7 @@ public class ExecuteResoluteUtil {
 //				return null;
 //			}
 		} else {
-			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), fd);
+			return ResultUtil.createErrorDiagnostic("Could not find Resolute Function " + fd.getName(), fd);
 		}
 	}
 

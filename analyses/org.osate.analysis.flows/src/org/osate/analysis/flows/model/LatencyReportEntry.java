@@ -471,15 +471,15 @@ public class LatencyReportEntry {
 	}
 
 	private void reportSummaryError(String str) {
-		issues.add(ResultUtil.createError(str, relatedEndToEndFlow));
+		issues.add(ResultUtil.createErrorDiagnostic(str, relatedEndToEndFlow));
 	}
 
 	private void reportSummaryInfo(String str) {
-		issues.add(ResultUtil.createInfo(str, relatedEndToEndFlow));
+		issues.add(ResultUtil.createInfoDiagnostic(str, relatedEndToEndFlow));
 	}
 
 	private void reportSummaryWarning(String str) {
-		issues.add(ResultUtil.createWarning(str, relatedEndToEndFlow));
+		issues.add(ResultUtil.createWarningDiagnostic(str, relatedEndToEndFlow));
 	}
 
 	/**
@@ -572,7 +572,7 @@ public class LatencyReportEntry {
 			reportSummaryWarning("Expected end to end latency is not specified");
 		}
 		result.getDiagnostics().addAll(issues);
-		if (ResultUtil.hasErrors(result.getDiagnostics())) {
+		if (ResultUtil.hasDiagnosticErrors(result.getDiagnostics())) {
 			result.setType(ResultType.FAILURE);
 		} else {
 			result.setType(ResultType.SUCCESS);
