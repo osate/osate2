@@ -62,6 +62,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getFormals <em>Formals</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getProperties <em>Properties</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getResults <em>Results</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsPredicate <em>Is Predicate</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#isIsResultReport <em>Is Result Report</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getComponentCategory <em>Component Category</em>}</li>
@@ -145,6 +147,46 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EList<FormalParameter> results;
+
+  /**
+   * The default value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsPredicate()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean IS_PREDICATE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isIsPredicate() <em>Is Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsPredicate()
+   * @generated
+   * @ordered
+   */
+  protected boolean isPredicate = IS_PREDICATE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isIsResultReport() <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsResultReport()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean IS_RESULT_REPORT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isIsResultReport() <em>Is Result Report</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isIsResultReport()
+   * @generated
+   * @ordered
+   */
+  protected boolean isResultReport = IS_RESULT_REPORT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -343,6 +385,52 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       results = new EObjectContainmentEList<FormalParameter>(FormalParameter.class, this, VerifyPackage.VERIFICATION_METHOD__RESULTS);
     }
     return results;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isIsPredicate()
+  {
+    return isPredicate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIsPredicate(boolean newIsPredicate)
+  {
+    boolean oldIsPredicate = isPredicate;
+    isPredicate = newIsPredicate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE, oldIsPredicate, isPredicate));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isIsResultReport()
+  {
+    return isResultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIsResultReport(boolean newIsResultReport)
+  {
+    boolean oldIsResultReport = isResultReport;
+    isResultReport = newIsResultReport;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT, oldIsResultReport, isResultReport));
   }
 
   /**
@@ -677,6 +765,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return getProperties();
       case VerifyPackage.VERIFICATION_METHOD__RESULTS:
         return getResults();
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        return isIsPredicate();
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        return isIsResultReport();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
       case VerifyPackage.VERIFICATION_METHOD__TARGET:
@@ -726,6 +818,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__RESULTS:
         getResults().clear();
         getResults().addAll((Collection<? extends FormalParameter>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        setIsPredicate((Boolean)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        setIsResultReport((Boolean)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
@@ -782,6 +880,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__RESULTS:
         getResults().clear();
         return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        setIsPredicate(IS_PREDICATE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        setIsResultReport(IS_RESULT_REPORT_EDEFAULT);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
@@ -830,6 +934,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         return properties != null && !properties.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__RESULTS:
         return results != null && !results.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__IS_PREDICATE:
+        return isPredicate != IS_PREDICATE_EDEFAULT;
+      case VerifyPackage.VERIFICATION_METHOD__IS_RESULT_REPORT:
+        return isResultReport != IS_RESULT_REPORT_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_METHOD__TARGET:
@@ -865,6 +973,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     result.append(name);
     result.append(", targetType: ");
     result.append(targetType);
+    result.append(", isPredicate: ");
+    result.append(isPredicate);
+    result.append(", isResultReport: ");
+    result.append(isResultReport);
     result.append(", title: ");
     result.append(title);
     result.append(", componentCategory: ");
