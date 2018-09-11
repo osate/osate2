@@ -10,14 +10,14 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Diagnostic Type</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.result.ResultPackage#getDiagnosticType()
+ * @see org.osate.result.ResultPackage#getResultType()
  * @model
  * @generated
  */
-public enum DiagnosticType implements Enumerator {
+public enum ResultType implements Enumerator {
 	/**
 	 * The '<em><b>NONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -39,24 +39,24 @@ public enum DiagnosticType implements Enumerator {
 	ERROR(1, "ERROR", "ERROR"),
 
 	/**
-	 * The '<em><b>WARNING</b></em>' literal object.
+	 * The '<em><b>SUCCESS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #WARNING_VALUE
+	 * @see #SUCCESS_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	WARNING(2, "WARNING", "WARNING"),
+	SUCCESS(4, "SUCCESS", "SUCCESS"),
 
 	/**
-	 * The '<em><b>INFO</b></em>' literal object.
+	 * The '<em><b>FAILURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #INFO_VALUE
+	 * @see #FAILURE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	INFO(3, "INFO", "INFO");
+	FAILURE(5, "FAILURE", "FAIL");
 
 	/**
 	 * The '<em><b>NONE</b></em>' literal value.
@@ -89,68 +89,68 @@ public enum DiagnosticType implements Enumerator {
 	public static final int ERROR_VALUE = 1;
 
 	/**
-	 * The '<em><b>WARNING</b></em>' literal value.
+	 * The '<em><b>SUCCESS</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>WARNING</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #WARNING
+	 * @see #SUCCESS
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int WARNING_VALUE = 2;
+	public static final int SUCCESS_VALUE = 4;
 
 	/**
-	 * The '<em><b>INFO</b></em>' literal value.
+	 * The '<em><b>FAILURE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>INFO</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>FAILURE</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #INFO
-	 * @model
+	 * @see #FAILURE
+	 * @model literal="FAIL"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INFO_VALUE = 3;
+	public static final int FAILURE_VALUE = 5;
 
 	/**
-	 * An array of all the '<em><b>Diagnostic Type</b></em>' enumerators.
+	 * An array of all the '<em><b>Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final DiagnosticType[] VALUES_ARRAY =
-		new DiagnosticType[] {
+	private static final ResultType[] VALUES_ARRAY =
+		new ResultType[] {
 			NONE,
 			ERROR,
-			WARNING,
-			INFO,
+			SUCCESS,
+			FAILURE,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Diagnostic Type</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<DiagnosticType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ResultType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Diagnostic Type</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static DiagnosticType get(String literal) {
+	public static ResultType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			DiagnosticType result = VALUES_ARRAY[i];
+			ResultType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -159,16 +159,16 @@ public enum DiagnosticType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Diagnostic Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static DiagnosticType getByName(String name) {
+	public static ResultType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			DiagnosticType result = VALUES_ARRAY[i];
+			ResultType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -177,19 +177,19 @@ public enum DiagnosticType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Diagnostic Type</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static DiagnosticType get(int value) {
+	public static ResultType get(int value) {
 		switch (value) {
 			case NONE_VALUE: return NONE;
 			case ERROR_VALUE: return ERROR;
-			case WARNING_VALUE: return WARNING;
-			case INFO_VALUE: return INFO;
+			case SUCCESS_VALUE: return SUCCESS;
+			case FAILURE_VALUE: return FAILURE;
 		}
 		return null;
 	}
@@ -221,7 +221,7 @@ public enum DiagnosticType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private DiagnosticType(int value, String name, String literal) {
+	private ResultType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -265,4 +265,4 @@ public enum DiagnosticType implements Enumerator {
 		return literal;
 	}
 	
-} //DiagnosticType
+} //ResultType
