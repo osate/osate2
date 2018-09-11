@@ -164,7 +164,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 
 	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
 		Result result = ResultFactory.eINSTANCE.createResult();
-		result.setSourceReference(ci);
+		result.setModelElement(ci);
 
 		final double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
