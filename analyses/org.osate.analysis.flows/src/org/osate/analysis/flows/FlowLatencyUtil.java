@@ -38,8 +38,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
-
-
+	//XXX: [Code Coverage] Dead code.
 	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
 		StringBuffer ret;
 		boolean firstPassed = false;
@@ -58,6 +57,7 @@ public class FlowLatencyUtil {
 		return ret.toString();
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean hasPreviousConnection(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
@@ -79,6 +79,7 @@ public class FlowLatencyUtil {
 	public static boolean isPreviousConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		//XXX: [Code Coverage] Only called if there is a previous connection.
 		if ((previousElement != null)) {
 			return (getConnectionType(previousElement) == ConnectionType.IMMEDIATE);
 		}
@@ -99,6 +100,7 @@ public class FlowLatencyUtil {
 	public static boolean isPreviousConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
+		//XXX: [Code Coverage] Only called if there is a previous connection.
 		if ((nextElement != null)) {
 			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
 		}
@@ -106,6 +108,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isNextConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
@@ -116,6 +119,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isPreviousConnectionSampled(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
@@ -126,6 +130,7 @@ public class FlowLatencyUtil {
 		return false;
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static boolean isNextConnectionSampled(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
@@ -139,9 +144,11 @@ public class FlowLatencyUtil {
 	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
 		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
 
+		//XXX: [Code Coverage] el cannot be null.
 		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
 			return ConnectionType.IMMEDIATE;
 		}
+		//XXX: [Code Coverage] el cannot be null.
 		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
 			return ConnectionType.DELAYED;
 		}
@@ -188,6 +195,7 @@ public class FlowLatencyUtil {
 	 * @param flowElementInstance - the element to search from
 	 * @return - the flow element period that is a thread and is after flowElementInstance
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getNextThreadOrDevicePeriod(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
@@ -205,6 +213,7 @@ public class FlowLatencyUtil {
 	 * @param flowElementInstance - the element to search from
 	 * @return - the flow element that is a task and is after flowElementInstance
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getNextSamplingComponentPeriod(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
@@ -282,6 +291,7 @@ public class FlowLatencyUtil {
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition period supported by processor
 	 */
+	//XXX: [Code Coverage] Dead code.
 	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
 		double res = 0.0;
 		List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(processorInstance);
@@ -313,6 +323,7 @@ public class FlowLatencyUtil {
 		/**
 		 * The partition must be a virtual processor component.
 		 */
+		//XXX: [Code Coverage] partition is always a virtual processor.
 		if (partition.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR) {
 			return null;
 		}
@@ -323,6 +334,7 @@ public class FlowLatencyUtil {
 		if (module == null) {
 			module = partition.getContainingComponentInstance();
 		}
+		//XXX: [Code Coverage] module cannot be null.
 		if ((module != null) && (module.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)) {
 			return module;
 		}
@@ -337,6 +349,7 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		double res = 0.0;
+		//XXX: [Code Coverage] schedule is never null.
 		if ((schedule == null) || (schedule.size() == 0)) {
 			return res;
 		}
@@ -347,6 +360,7 @@ public class FlowLatencyUtil {
 
 			res = res + window.getTime();
 		}
+		//XXX: [Code Coverage] partition is always in schedule.
 		return 0.0;
 	}
 
@@ -368,7 +382,7 @@ public class FlowLatencyUtil {
 	 * If no schedule: interpret WC execution time on partition as duration
 	 * @param partition This is a virtual processor representing a partition
 	 * @param schedule ARINC653 schedule
-	 * @return window size (duration),  or -1 if no schedule.
+	 * @return window size (duration),  or 0 if no schedule.
 	 */
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
@@ -386,6 +400,7 @@ public class FlowLatencyUtil {
 	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
 		ComponentInstance module;
 		List<ARINC653ScheduleWindow> schedule = null;
+		//XXX: [Code Coverage] partition cannot be null.
 		if (partition == null) {
 			return schedule;
 		}
@@ -463,6 +478,7 @@ public class FlowLatencyUtil {
 		}
 	}
 
+	//XXX: [Code Coverage] Dead code.
 	public static double getDimension(final NamedElement ne) {
 		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
 		List<? extends PropertyExpression> propertyValues;

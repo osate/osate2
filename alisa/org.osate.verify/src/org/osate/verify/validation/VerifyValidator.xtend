@@ -27,8 +27,10 @@ import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
@@ -36,13 +38,22 @@ import org.osate.aadl2.AadlString
 import org.osate.aadl2.Connection
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
+import org.osate.aadl2.MetaclassReference
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.ReferenceType
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
+import org.osate.alisa.common.common.TargetType
+import org.osate.alisa.common.common.TypeRef
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.util.VerifyJavaUtil
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
@@ -57,12 +68,6 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.alisa.common.common.TargetType
-import org.osate.verify.util.VerifyJavaUtil
-import org.osate.alisa.common.common.ComputeDeclaration
-import org.osate.alisa.common.common.AVariableReference
-import org.eclipse.xtext.EcoreUtil2
-import org.osate.reqspec.reqSpec.ValuePredicate
 
 /**
  * Custom validation rules. 
@@ -189,7 +194,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 				val actualParameters = va.actuals
 				val method = va.method
 				val expectedParms = method.formals
-				if ((expectedParms.size != actualParameters.size)) {
+				if ((expectedParms?.size != actualParameters?.size)) {
 					warning(
 						"The number of actual parameters differs from the number of formal parameters for verification activity",
 						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
@@ -381,9 +386,43 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 											AadlReal: return resoluteType.type.equalsIgnoreCase("real")
 											AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
 											AadlString: return resoluteType.type.equalsIgnoreCase("string")
-											PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+											PropertyRef: {
+												val prop = formalType.ref
+												val propType = prop?.referencedPropertyType?: prop.ownedPropertyType
+												switch (propType){
+													ReferenceType: {
+														return	matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
+											ModelRef: return resoluteType.type.equalsIgnoreCase("aadl")
+											TypeRef: {
+												val propType = formalType.ref
+												switch (propType){
+													ReferenceType: {
+														return matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
 										}
 										false
+									}
+									
+									def boolean matchReferenceType(ReferenceType propType, BaseType resoluteType){
+										if (resoluteType.type.equalsIgnoreCase("aadl")){
+											return true
+										} 
+										val metaclassreference = Aadl2Factory.eINSTANCE.createMetaclassReference
+										metaclassreference.metaclassNames.add(resoluteType.type)
+										val refEclass = metaclassreference.metaclass
+										for (MetaclassReference mcri : propType.getNamedElementReferences()) {
+											if (refEclass.isSuperTypeOf(mcri.getMetaclass())) {
+												return true;
+											}
+										}
+										return false
 									}
 
 									@Check(CheckType.FAST)

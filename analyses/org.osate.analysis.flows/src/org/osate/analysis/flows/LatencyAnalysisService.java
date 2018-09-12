@@ -46,4 +46,31 @@ public class LatencyAnalysisService {
 		return FlowLatencyUtil.recordAsAnalysisResult(results, etef, true, true, true, true);
 	}
 
+	public AnalysisResult invoke(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
+		EList<Result> results = fla.invoke(si, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, si, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
+	}
+
+	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
+		EList<Result> results = fla.invoke(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, ci, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
+	}
+
+	public AnalysisResult invoke(EndToEndFlowInstance etei, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
+		EList<Result> results = fla.invoke(etei, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, etei, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
+	}
+
 }
