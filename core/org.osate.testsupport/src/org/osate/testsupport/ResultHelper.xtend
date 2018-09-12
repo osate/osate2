@@ -28,15 +28,15 @@ class ResultHelper {
 	
 	def static assertAnalysisResult(AnalysisResult expected, AnalysisResult actual) {
 		expected.analysis.assertEquals(actual.analysis)
-		expected.info.assertEquals(actual.info)
-		expected.sourceReference.assertEObject(actual.sourceReference)
+		expected.message.assertEquals(actual.message)
+		expected.modelElement.assertEObject(actual.modelElement)
 		expected.results.size.assertEquals(actual.results.size)
 		(0 ..< expected.results.size).forEach[expected.results.get(it).assertResult(actual.results.get(it))]
 	}
 	
 	def static void assertResult(Result expected, Result actual) {
 		expected.message.assertEquals(actual.message)
-		expected.sourceReference.assertEObject(actual.sourceReference)
+		expected.modelElement.assertEObject(actual.modelElement)
 		expected.values.size.assertEquals(actual.values.size)
 		(0 ..< expected.values.size).forEach[expected.values.get(it).assertValue(actual.values.get(it))]
 		expected.diagnostics.size.assertEquals(actual.diagnostics.size)

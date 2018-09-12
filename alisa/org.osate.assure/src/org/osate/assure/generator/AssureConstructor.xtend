@@ -48,7 +48,6 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
-import org.osate.assure.assure.VerificationResultState
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
@@ -72,6 +71,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.ResultType
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -460,7 +460,7 @@ class AssureConstructor implements IAssureConstructor {
 		qvr.verificationActivity = va
 		vaResult.targetReference = qvr
 		// -----------QualifiedVAReference END
-		vaResult.resultState = VerificationResultState.TBD
+		vaResult.type = ResultType.NONE
 		vaResult.metrics = factory.createMetrics
 		vaResult.metrics.tbdCount = 0
 
@@ -543,7 +543,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
-		vr.resultState = VerificationResultState.TBD
+		vr.type = ResultType.NONE
 
 		// vr.target = expr.verification
 		// QualifiedVAReference
@@ -586,7 +586,7 @@ class AssureConstructor implements IAssureConstructor {
 				(vcr as PreconditionResult).target = va.method
 			}
 		}
-		vcr.resultState = VerificationResultState.TBD
+		vcr.type = ResultType.NONE
 		vcr.metrics = factory.createMetrics
 		vcr.metrics.tbdCount = 0
 		return vcr

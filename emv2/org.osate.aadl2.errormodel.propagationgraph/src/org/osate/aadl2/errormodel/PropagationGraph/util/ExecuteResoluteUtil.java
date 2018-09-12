@@ -140,7 +140,7 @@ public class ExecuteResoluteUtil {
 			ResoluteResult res = prover.doSwitch(fcncall);
 			return doResoluteResults(res);
 		} else {
-			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), fd);
+			return ResultUtil.createErrorDiagnostic("Could not find Resolute Function " + fd.getName(), fd);
 		}
 	}
 
@@ -195,9 +195,9 @@ public class ExecuteResoluteUtil {
 		if (resRes instanceof ClaimResult) {
 			ClaimResult rr = (ClaimResult) resRes;
 			if (rr.isValid()) {
-				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createInfoDiagnostic(rr.getText(), rr.getLocation());
 			} else {
-				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createErrorDiagnostic(rr.getText(), rr.getLocation());
 			}
 		}
 		return ri;

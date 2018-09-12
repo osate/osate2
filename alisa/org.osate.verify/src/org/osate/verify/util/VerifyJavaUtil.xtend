@@ -1,44 +1,43 @@
 package org.osate.verify.util
 
-import java.util.Collection
-import org.osate.verify.verify.JavaMethod
-import org.osate.aadl2.instance.InstanceObject
-import java.util.List
-import org.osate.aadl2.PropertyExpression
-import org.eclipse.emf.common.util.EList
-import org.osate.verify.verify.FormalParameter
-import org.osate.verify.verify.VerificationMethod
 import java.util.ArrayList
-import org.osate.alisa.common.common.TargetType
-import org.osate.aadl2.instance.FeatureInstance
+import java.util.List
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NumberType
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.StringLiteral
+import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.InstancePackage
 import org.osate.aadl2.instance.ModeInstance
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.aadl2.PropertyType
-import org.osate.aadl2.AadlString
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.Aadl2Package
-import org.osate.aadl2.instance.InstancePackage
-import org.osate.verify.verify.JavaParameter
-import org.osate.aadl2.StringLiteral
 import org.osate.alisa.common.common.ModelRef
-import org.eclipse.emf.ecore.EObject
-import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.PropertyRef
-import org.osate.aadl2.UnitLiteral
-import org.osate.aadl2.NumberType
+import org.osate.alisa.common.common.TargetType
+import org.osate.alisa.common.common.TypeRef
+import org.osate.verify.verify.FormalParameter
+import org.osate.verify.verify.JavaMethod
+import org.osate.verify.verify.JavaParameter
+import org.osate.verify.verify.VerificationMethod
 
 class VerifyJavaUtil {
 
 		// invoke Java method by first converting the actual parameters of a verification activity to a basic Java format for reflective call
-		static def Collection<Object> getActualJavaObjects(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
+		static def List<Object> getActualJavaObjects(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {
 			val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).formals
 			val objects = new ArrayList()
 			objects.add(target)

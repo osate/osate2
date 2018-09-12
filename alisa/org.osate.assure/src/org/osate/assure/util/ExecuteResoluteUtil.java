@@ -148,7 +148,7 @@ public class ExecuteResoluteUtil {
 				ResoluteResult res = prover.doSwitch(fcncall);
 				return doResoluteResults(res);
 			} catch (ResoluteFailException e) {
-				return ResultUtil.createFailure(e.getMessage(), targetElement);
+				return ResultUtil.createFailureResult(e.getMessage(), targetElement);
 			}
 //			} else {
 //				// computational function
@@ -168,7 +168,7 @@ public class ExecuteResoluteUtil {
 //				return null;
 //			}
 		} else {
-			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), fd);
+			return ResultUtil.createErrorDiagnostic("Could not find Resolute Function " + fd.getName(), fd);
 		}
 	}
 
@@ -178,7 +178,14 @@ public class ExecuteResoluteUtil {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
 		call.setFn(fd);
-		call.getArgs().add(createInstanceObjectReference(evalContext, io));
+		int fdparams = fd.getArgs().size();
+		int aparams = 0;
+		if (params != null) {
+			aparams = params.size();
+		}
+		if (fdparams == aparams + 1) {
+			call.getArgs().add(createInstanceObjectReference(evalContext, io));
+		}
 		if (params != null) {
 			addParams(call, params);
 		}

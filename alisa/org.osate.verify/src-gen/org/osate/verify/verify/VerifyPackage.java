@@ -611,13 +611,31 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__RESULTS = 4;
 
   /**
+   * The feature id for the '<em><b>Is Predicate</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__IS_PREDICATE = 5;
+
+  /**
+   * The feature id for the '<em><b>Is Result Report</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__IS_RESULT_REPORT = 6;
+
+  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 5;
+  int VERIFICATION_METHOD__TITLE = 7;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -626,7 +644,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TARGET = 6;
+  int VERIFICATION_METHOD__TARGET = 8;
 
   /**
    * The feature id for the '<em><b>Component Category</b></em>' attribute list.
@@ -635,7 +653,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__COMPONENT_CATEGORY = 7;
+  int VERIFICATION_METHOD__COMPONENT_CATEGORY = 9;
 
   /**
    * The feature id for the '<em><b>Method Kind</b></em>' containment reference.
@@ -644,7 +662,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_KIND = 8;
+  int VERIFICATION_METHOD__METHOD_KIND = 10;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -653,7 +671,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 9;
+  int VERIFICATION_METHOD__DESCRIPTION = 11;
 
   /**
    * The feature id for the '<em><b>Precondition</b></em>' containment reference.
@@ -662,7 +680,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__PRECONDITION = 10;
+  int VERIFICATION_METHOD__PRECONDITION = 12;
 
   /**
    * The feature id for the '<em><b>Validation</b></em>' containment reference.
@@ -671,7 +689,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__VALIDATION = 11;
+  int VERIFICATION_METHOD__VALIDATION = 13;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -680,7 +698,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 12;
+  int VERIFICATION_METHOD__CATEGORY = 14;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -689,7 +707,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 13;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 15;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.MethodKindImpl <em>Method Kind</em>}' class.
@@ -1725,6 +1743,28 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Results();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsPredicate <em>Is Predicate</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Is Predicate</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#isIsPredicate()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_IsPredicate();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#isIsResultReport <em>Is Result Report</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Is Result Report</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#isIsResultReport()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_IsResultReport();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2613,6 +2653,22 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_METHOD__RESULTS = eINSTANCE.getVerificationMethod_Results();
+
+    /**
+     * The meta object literal for the '<em><b>Is Predicate</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__IS_PREDICATE = eINSTANCE.getVerificationMethod_IsPredicate();
+
+    /**
+     * The meta object literal for the '<em><b>Is Result Report</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__IS_RESULT_REPORT = eINSTANCE.getVerificationMethod_IsResultReport();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.

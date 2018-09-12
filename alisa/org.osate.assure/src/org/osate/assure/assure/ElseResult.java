@@ -16,6 +16,7 @@
 package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.result.ResultType;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,7 +105,7 @@ public interface ElseResult extends VerificationExpr {
 
 	/**
 	 * Returns the value of the '<em><b>Did Fail</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.osate.assure.assure.ElseType}.
+	 * The literals are from the enumeration {@link org.osate.result.ResultType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Did Fail</em>' attribute isn't clear,
@@ -112,23 +113,23 @@ public interface ElseResult extends VerificationExpr {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Did Fail</em>' attribute.
-	 * @see org.osate.assure.assure.ElseType
-	 * @see #setDidFail(ElseType)
+	 * @see org.osate.result.ResultType
+	 * @see #setDidFail(ResultType)
 	 * @see org.osate.assure.assure.AssurePackage#getElseResult_DidFail()
 	 * @model
 	 * @generated
 	 */
-	ElseType getDidFail();
+	ResultType getDidFail();
 
 	/**
 	 * Sets the value of the '{@link org.osate.assure.assure.ElseResult#getDidFail <em>Did Fail</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Did Fail</em>' attribute.
-	 * @see org.osate.assure.assure.ElseType
+	 * @see org.osate.result.ResultType
 	 * @see #getDidFail()
 	 * @generated
 	 */
-	void setDidFail(ElseType value);
+	void setDidFail(ResultType value);
 
 } // ElseResult

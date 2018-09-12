@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.VerificationResult;
-import org.osate.assure.assure.VerificationResultState;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
+import org.osate.result.ResultType;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +40,7 @@ import org.osate.result.Result;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultState <em>Result State</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getAnalysisresultreference <em>Analysisresultreference</em>}</li>
@@ -51,24 +51,24 @@ import org.osate.result.Result;
  */
 public class VerificationResultImpl extends AssureResultImpl implements VerificationResult {
 	/**
-	 * The default value of the '{@link #getResultState() <em>Result State</em>}' attribute.
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResultState()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final VerificationResultState RESULT_STATE_EDEFAULT = VerificationResultState.TBD;
+	protected static final ResultType TYPE_EDEFAULT = ResultType.NONE;
 
 	/**
-	 * The cached value of the '{@link #getResultState() <em>Result State</em>}' attribute.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResultState()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected VerificationResultState resultState = RESULT_STATE_EDEFAULT;
+	protected ResultType type = TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
@@ -145,8 +145,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * @generated
 	 */
 	@Override
-	public VerificationResultState getResultState() {
-		return resultState;
+	public ResultType getType() {
+		return type;
 	}
 
 	/**
@@ -155,12 +155,11 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * @generated
 	 */
 	@Override
-	public void setResultState(VerificationResultState newResultState) {
-		VerificationResultState oldResultState = resultState;
-		resultState = newResultState == null ? RESULT_STATE_EDEFAULT : newResultState;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULT_STATE, oldResultState, resultState));
-		}
+	public void setType(ResultType newType) {
+		ResultType oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__TYPE, oldType, type));
 	}
 
 	/**
@@ -200,9 +199,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 			InternalEObject oldAnalysisresultreference = (InternalEObject)analysisresultreference;
 			analysisresultreference = (AnalysisResult)eResolveProxy(oldAnalysisresultreference);
 			if (analysisresultreference != oldAnalysisresultreference) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE, oldAnalysisresultreference, analysisresultreference));
-				}
 			}
 		}
 		return analysisresultreference;
@@ -226,9 +224,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	public void setAnalysisresultreference(AnalysisResult newAnalysisresultreference) {
 		AnalysisResult oldAnalysisresultreference = analysisresultreference;
 		analysisresultreference = newAnalysisresultreference;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE, oldAnalysisresultreference, analysisresultreference));
-		}
 	}
 
 	/**
@@ -250,9 +247,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__MESSAGE, oldMessage, message));
-		}
 	}
 
 	/**
@@ -279,16 +275,14 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
-				return getResultState();
+			case AssurePackage.VERIFICATION_RESULT__TYPE:
+				return getType();
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
 				return getIssues();
 			case AssurePackage.VERIFICATION_RESULT__RESULTS:
 				return getResults();
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULTREFERENCE:
-				if (resolve) {
-					return getAnalysisresultreference();
-				}
+				if (resolve) return getAnalysisresultreference();
 				return basicGetAnalysisresultreference();
 			case AssurePackage.VERIFICATION_RESULT__MESSAGE:
 				return getMessage();
@@ -305,8 +299,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
-				setResultState((VerificationResultState)newValue);
+			case AssurePackage.VERIFICATION_RESULT__TYPE:
+				setType((ResultType)newValue);
 				return;
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
 				getIssues().clear();
@@ -334,8 +328,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
-				setResultState(RESULT_STATE_EDEFAULT);
+			case AssurePackage.VERIFICATION_RESULT__TYPE:
+				setType(TYPE_EDEFAULT);
 				return;
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
 				getIssues().clear();
@@ -361,8 +355,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
-				return resultState != RESULT_STATE_EDEFAULT;
+			case AssurePackage.VERIFICATION_RESULT__TYPE:
+				return type != TYPE_EDEFAULT;
 			case AssurePackage.VERIFICATION_RESULT__ISSUES:
 				return issues != null && !issues.isEmpty();
 			case AssurePackage.VERIFICATION_RESULT__RESULTS:
@@ -382,13 +376,11 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (resultState: ");
-		result.append(resultState);
+		result.append(" (type: ");
+		result.append(type);
 		result.append(", message: ");
 		result.append(message);
 		result.append(')');

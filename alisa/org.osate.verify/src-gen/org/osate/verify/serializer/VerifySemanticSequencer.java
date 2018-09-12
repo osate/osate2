@@ -669,14 +669,13 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         )? 
 	 *         (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
 	 *         (results+=FormalParameter results+=FormalParameter*)? 
+	 *         (isPredicate?='boolean' | isResultReport?='report')? 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)? 
+	 *         methodKind=MethodKind? 
 	 *         (
-	 *             methodKind=MethodKind | 
-	 *             description=Description | 
-	 *             precondition=VerificationPrecondition | 
-	 *             validation=VerificationValidation | 
-	 *             category+=[Category|QualifiedName]
+	 *             (description=Description | precondition=VerificationPrecondition | validation=VerificationValidation | category+=[Category|QualifiedName])? 
+	 *             methodKind=MethodKind?
 	 *         )*
 	 *     )
 	 */
