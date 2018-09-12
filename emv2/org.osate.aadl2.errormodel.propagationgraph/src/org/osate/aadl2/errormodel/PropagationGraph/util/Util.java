@@ -697,7 +697,7 @@ public class Util {
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {
-			return true;
+				return true;
 			}
 		} else if (!Aadl2Util.isNull(ifCondition.getResoluteFunction())) {
 			if (RESOLUTE_INSTALLED) {

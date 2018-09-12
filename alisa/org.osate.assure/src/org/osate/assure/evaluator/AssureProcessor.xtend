@@ -696,7 +696,12 @@ class AssureProcessor implements IAssureProcessor {
 		val methodtype = method.methodKind as JavaMethod
 		val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
 		val objects = VerifyJavaUtil.getActualJavaObjects(methodtype, target, parameters)
-		val returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		var returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		if (returned === null){
+			newClasses.remove(0);
+			objects.remove(0);
+			returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		}
 		processExecutionResult(verificationResult, method, target, returned)
 	}
 
@@ -821,10 +826,18 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Precondition or Validation expect boolean as single return value",
 					target);
 				}
+			} else if (returned instanceof Exception){
+				setToError(verificationResult, "Java method execution exception: "+returned.message,
+					target);
+				
 			} else {
 				setToError(verificationResult, "Single return value but no expected compute variable for predicate",
 					target);
 			}
+		} else {
+			// 
+			setToError(verificationResult, "Java method does not include class",
+					target);
 		}
 
 	}
