@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
-<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
-  <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#/"/>
-  <results>
-    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ">
+  <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <results message="Latency results for etef1" type="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="3.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
@@ -11,25 +14,24 @@
     <values xsi:type="result:RealValue" value="3.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
     <diagnostics type="WARNING" message="Minimum specified flow latency total 2.00ms less than expected minimum end to end latency 3.00ms (better response time)">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Minimum actual latency total 3.00ms is greater or equal to expected minimum end to end latency 3.00ms">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics type="INFO" message="Minimum actual latency total 3.00ms is greater or equal to expected minimum end to end latency 3.00ms">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics type="INFO" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
     </subResults>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
@@ -37,20 +39,22 @@
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <diagnostics type="INFO" message="Using specified min protocol latency subtotal 0.0 although specified connection latency 1.0 is greater">
-        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       </diagnostics>
       <diagnostics type="INFO" message="Using max specified protocol latency subtotal 0.0 although specified connection latency 2.0 is greater">
-        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       </diagnostics>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
     </subResults>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
     </subResults>
+    <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/latency_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
   </results>
 </result:AnalysisResult>
