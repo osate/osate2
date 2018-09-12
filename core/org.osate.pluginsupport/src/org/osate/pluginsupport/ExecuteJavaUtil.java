@@ -84,18 +84,7 @@ public class ExecuteJavaUtil {
 					((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
 			return method.invoke(instance, paramActuals.toArray());
 		} catch (Exception e) {
-			// try without the target parameter
-			try {
-				paramClasses.remove(0);
-				paramActuals.remove(0);
-				Class<?> clazz = getJavaClass(className);
-				Object instance = clazz.newInstance();
-				final Method method = clazz.getMethod(methodName,
-						((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
-				return method.invoke(instance, paramActuals.toArray());
-			} catch (Exception ee) {
-				return null;
-			}
+			return e;
 		}
 	}
 
