@@ -33,16 +33,19 @@
  */
 package org.osate.ui.navigator;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.navigator.IDescriptionProvider;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-public class AadlContributionLabelProvider extends LabelProvider {
+public class AadlContributionLabelProvider extends LabelProvider implements IDescriptionProvider {
 
 	@Override
 	public String getText(Object element) {
@@ -69,6 +72,27 @@ public class AadlContributionLabelProvider extends LabelProvider {
 			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
 		}
 		return image;
+	}
+
+	@Override
+	public String getDescription(Object element) {
+		String description = null;
+		if (element instanceof VirtualPluginResources) {
+			description = "Plug-in Contributions";
+		} else if (element instanceof ContributedDirectory) {
+			List<String> directoryPath = ((ContributedDirectory) element).getPath();
+			description = "Plug-in Contributions/" + String.join("/", directoryPath);
+		} else if (element instanceof ContributedAadlStorage) {
+			String[] segments = ((ContributedAadlStorage) element).getUri().segments();
+			int i = 2;
+			while (segments[i].startsWith("resource") || segments[i].startsWith("package")
+					|| segments[i].startsWith("propert")) {
+				i++;
+			}
+			description = "Plug-in Contributions/"
+					+ Arrays.asList(segments).stream().skip(i).collect(Collectors.joining("/"));
+		}
+		return description;
 	}
 
 }
