@@ -48,7 +48,6 @@ import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.ElseResult
-import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.PredicateResult
@@ -89,6 +88,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.result.ResultType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -230,14 +230,11 @@ class AssureProcessor implements IAssureProcessor {
 	def dispatch void process(ElseResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
 		if (vaResult.first.hasError) {
-			vaResult.recordElse(ElseType.ERROR)
+			vaResult.recordElse(ResultType.ERROR)
 			vaResult.error.forEach[expr|expr.process]
 		} else if (vaResult.first.isFailed) {
-			vaResult.recordElse(ElseType.FAIL)
+			vaResult.recordElse(ResultType.FAILURE)
 			vaResult.fail.forEach[expr|expr.process]
-		} else if (vaResult.first.isTimeout) {
-			vaResult.recordElse(ElseType.TIMEOUT)
-			vaResult.timeout.forEach[expr|expr.process]
 		} else {
 			vaResult.recordNoElse
 		}

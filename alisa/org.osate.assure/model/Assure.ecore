@@ -39,7 +39,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssureResult #//VerificationExpr">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultState" eType="#//VerificationResultState"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EEnum ../../org.osate.results/model/Result.ecore#//ResultType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
         eType="ecore:EClass ../../org.osate.results/model/Result.ecore#//Diagnostic"
         containment="true"/>
@@ -53,12 +53,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//Metrics"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ElseType">
-    <eLiterals name="OK" literal="ok"/>
-    <eLiterals name="FAIL" value="1" literal="fail"/>
-    <eLiterals name="TIMEOUT" value="2" literal="timeout"/>
-    <eLiterals name="ERROR" value="3" literal="error"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationExpr" eSuperTypes="#//AssureResult"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElseResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
@@ -69,7 +63,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="timeout" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="#//ElseType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="ecore:EEnum ../../org.osate.results/model/Result.ecore#//ResultType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThenResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
@@ -82,7 +76,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tbdCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeoutCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="didelseCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="thenskipCount" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
@@ -110,13 +103,6 @@
         eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTime" eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//Integer"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="VerificationResultState">
-    <eLiterals name="TBD" literal="tbd"/>
-    <eLiterals name="SUCCESS" value="1" literal="success"/>
-    <eLiterals name="FAIL" value="2" literal="fail"/>
-    <eLiterals name="ERROR" value="3" literal="error"/>
-    <eLiterals name="TIMEOUT" value="4" literal="timeout"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QualifiedVerificationPlanElementReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationPlan" eType="ecore:EClass ../../org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>

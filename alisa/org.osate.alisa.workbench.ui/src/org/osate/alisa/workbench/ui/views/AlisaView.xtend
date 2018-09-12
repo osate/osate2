@@ -504,7 +504,7 @@ class AlisaView extends ViewPart {
 								"valid.png"
 							AssureResult case eObject.fail:
 								"invalid.png"
-							AssureResult case eObject.errorTimeOut:
+							AssureResult case eObject.error:
 								"error.png"
 							AssureResult case eObject.zeroCount:
 								"info.png"
@@ -590,7 +590,7 @@ class AlisaView extends ViewPart {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							ClaimResult: eObject.constructMessage
-							VerificationActivityResult: eObject.constructMessage + eObject.resultState.toTextLabel
+							VerificationActivityResult: eObject.constructMessage
 							AssuranceCaseResult: eObject.constructMessage
 							ModelResult: eObject.constructMessage
 							SubsystemResult: eObject.constructMessage
