@@ -51,6 +51,7 @@ import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.aadl2.Connection
 import java.util.Collection
+import org.osate.alisa.common.common.AModelReference
 
 class CommonUtilExtension {
 
@@ -84,11 +85,14 @@ class CommonUtilExtension {
 					ComputeDeclaration:
 						variable.name
 					ValDeclaration: {
+						val expr = variable.value
+						if (expr instanceof AModelReference){
+							return toText(expr)
+						}
 						val RuleEnvironment env = new RuleEnvironment
 						env.add('vals', new HashMap<String, PropertyExpression>)
 						env.add('computes', new HashMap<String, Object>)
 						val result = interpreter.interpretExpression(env, decl)
-
 						if (result.failed) {
 							return "Could not evaluate expression for " + variable.name + ": " +
 								result.ruleFailedException
@@ -103,6 +107,14 @@ class CommonUtilExtension {
 			}
 		} else {
 			""
+		}
+	}
+	
+	def static String toText(AModelReference aref){
+		if (aref.prev === null){
+			return "this"
+		} else {
+			return toText(aref.prev)+"."+aref.modelElement?.name
 		}
 	}
 
