@@ -697,10 +697,13 @@ class AssureProcessor implements IAssureProcessor {
 		val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
 		val objects = VerifyJavaUtil.getActualJavaObjects(methodtype, target, parameters)
 		var returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
-		if (returned === null){
-			newClasses.remove(0);
-			objects.remove(0);
-			returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		if (returned === null || returned instanceof Exception){
+			// try without first parameter if targetType not specified
+			if (method.targetType === null){
+				newClasses.remove(0);
+				objects.remove(0);
+				returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+			}
 		}
 		processExecutionResult(verificationResult, method, target, returned)
 	}
@@ -757,22 +760,6 @@ class AssureProcessor implements IAssureProcessor {
 						} else {
 							setToSuccess(verificationResult)
 						}
-//						val results = r.subResults
-//						for (result : results) {
-//							val c = EcoreUtil.copy(result)
-//							if (c.type === DiagnosticType.ERROR) {
-//								c.type = DiagnosticType.FAILURE
-//							}
-//							verificationResult.results.add(c)
-//						}
-//						val diags = r.diagnostics
-//						for (diag : diags) {
-//							val rcopy = EcoreUtil.copy(diag)
-//							if (rcopy.type === DiagnosticType.ERROR) {
-//								rcopy.type = DiagnosticType.FAILURE
-//							}
-//							verificationResult.issues.add(rcopy)
-//						}
 						if (verificationResult instanceof VerificationActivityResult) {
 							evaluateComputePredicate(verificationResult, method, r)
 						}
