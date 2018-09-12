@@ -41,8 +41,10 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.osate.core.AadlNature;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
@@ -52,11 +54,14 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 	public boolean hasChildren(Object element) {
 		if (element instanceof IProject) {
 			IProject project = (IProject) element;
-			if (project.isAccessible()) {
-				return true;
+			try {
+				if (project.getNature(AadlNature.ID) != null) {
+					return true;
+				}
+			} catch (CoreException e) {
+				// couldn't retrieve AADL nature from project
 			}
-		}
-		if (element instanceof VirtualPluginResources) {
+		} else if (element instanceof VirtualPluginResources) {
 			return true;
 		}
 		return super.hasChildren(element);
@@ -66,9 +71,13 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 	public Object[] getChildren(Object element) {
 		if (element instanceof IProject) {
 			IProject project = (IProject) element;
-			if (project.isAccessible()) {
-				Object[] result = { VirtualPluginResources.INSTANCE };
-				return result;
+			try {
+				if (project.getNature(AadlNature.ID) != null) {
+					Object[] result = { VirtualPluginResources.INSTANCE };
+					return result;
+				}
+			} catch (CoreException e) {
+				// couldn't retrieve AADL nature from project
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
