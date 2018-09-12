@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.Metrics#getTbdCount <em>Tbd Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.Metrics#getTimeoutCount <em>Timeout Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getDidelseCount <em>Didelse Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.Metrics#getThenskipCount <em>Thenskip Count</em>}</li>
@@ -132,32 +131,6 @@ public interface Metrics extends EObject {
 	 * @generated
 	 */
 	void setFailCount(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Timeout Count</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Timeout Count</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Timeout Count</em>' attribute.
-	 * @see #setTimeoutCount(int)
-	 * @see org.osate.assure.assure.AssurePackage#getMetrics_TimeoutCount()
-	 * @model
-	 * @generated
-	 */
-	int getTimeoutCount();
-
-	/**
-	 * Sets the value of the '{@link org.osate.assure.assure.Metrics#getTimeoutCount <em>Timeout Count</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Timeout Count</em>' attribute.
-	 * @see #getTimeoutCount()
-	 * @generated
-	 */
-	void setTimeoutCount(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Error Count</b></em>' attribute.

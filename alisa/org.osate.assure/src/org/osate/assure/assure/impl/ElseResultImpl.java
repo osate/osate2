@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- * 
+ *
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- * 
+ *
  * See COPYRIGHT file for full details.
  */
 package org.osate.assure.assure.impl;
@@ -19,21 +19,16 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ElseResult;
-import org.osate.assure.assure.ElseType;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.result.ResultType;
 
 /**
  * <!-- begin-user-doc -->
@@ -98,10 +93,10 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDidFail()
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final ElseType DID_FAIL_EDEFAULT = ElseType.OK;
+	protected static final ResultType DID_FAIL_EDEFAULT = ResultType.SUCCESS;
 
 	/**
 	 * The cached value of the '{@link #getDidFail() <em>Did Fail</em>}' attribute.
@@ -111,7 +106,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * @generated
 	 * @ordered
 	 */
-	protected ElseType didFail = DID_FAIL_EDEFAULT;
+	protected ResultType didFail = DID_FAIL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,6 +132,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getFirst() {
 		if (first == null) {
 			first = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__FIRST);
@@ -149,6 +145,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getError() {
 		if (error == null) {
 			error = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__ERROR);
@@ -161,6 +158,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getFail() {
 		if (fail == null) {
 			fail = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__FAIL);
@@ -173,6 +171,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getTimeout() {
 		if (timeout == null) {
 			timeout = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.ELSE_RESULT__TIMEOUT);
@@ -185,7 +184,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ElseType getDidFail() {
+	@Override
+	public ResultType getDidFail() {
 		return didFail;
 	}
 
@@ -194,11 +194,13 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDidFail(ElseType newDidFail) {
-		ElseType oldDidFail = didFail;
+	@Override
+	public void setDidFail(ResultType newDidFail) {
+		ResultType oldDidFail = didFail;
 		didFail = newDidFail == null ? DID_FAIL_EDEFAULT : newDidFail;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ELSE_RESULT__DID_FAIL, oldDidFail, didFail));
+		}
 	}
 
 	/**
@@ -269,7 +271,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 				getTimeout().addAll((Collection<? extends VerificationExpr>)newValue);
 				return;
 			case AssurePackage.ELSE_RESULT__DID_FAIL:
-				setDidFail((ElseType)newValue);
+				setDidFail((ResultType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -331,7 +333,9 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy()) {
+			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (didFail: ");
