@@ -88,6 +88,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.alisa.common.common.CommonFactory
+import org.osate.aadl2.instance.InstanceReferenceValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -573,6 +575,16 @@ class AssureProcessor implements IAssureProcessor {
 				val str = Aadl2Factory.eINSTANCE.createStringLiteral
 				str.value = data.value
 				str
+			}
+			InstanceObject: {
+				val objref = CommonFactory.eINSTANCE.createAModelReference
+				objref.modelElement = data
+				objref
+			}
+			InstanceReferenceValue: {
+				val objref = CommonFactory.eINSTANCE.createAModelReference
+				objref.modelElement = data.referencedInstanceObject
+				objref
 			}
 			default:
 				data as PropertyExpression
