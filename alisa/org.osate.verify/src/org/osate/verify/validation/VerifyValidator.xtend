@@ -58,6 +58,12 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.common.common.TargetType
+import org.osate.alisa.common.common.ModelRef
+import org.osate.alisa.common.common.TypeRef
+import org.osate.aadl2.ReferenceType
+import org.osate.aadl2.MetaclassReference
+import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.NamedElement
 
 /**
  * Custom validation rules. 
@@ -336,9 +342,43 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 											AadlReal: return resoluteType.type.equalsIgnoreCase("real")
 											AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
 											AadlString: return resoluteType.type.equalsIgnoreCase("string")
-											PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+											PropertyRef: {
+												val prop = formalType.ref
+												val propType = prop?.referencedPropertyType?: prop.ownedPropertyType
+												switch (propType){
+													ReferenceType: {
+														return	matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
+											ModelRef: return resoluteType.type.equalsIgnoreCase("aadl")
+											TypeRef: {
+												val propType = formalType.ref
+												switch (propType){
+													ReferenceType: {
+														return matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
 										}
 										false
+									}
+									
+									def boolean matchReferenceType(ReferenceType propType, BaseType resoluteType){
+										if (resoluteType.type.equalsIgnoreCase("aadl")){
+											return true
+										} 
+										val metaclassreference = Aadl2Factory.eINSTANCE.createMetaclassReference
+										metaclassreference.metaclassNames.add(resoluteType.type)
+										val refEclass = metaclassreference.metaclass
+										for (MetaclassReference mcri : propType.getNamedElementReferences()) {
+											if (refEclass.isSuperTypeOf(mcri.getMetaclass())) {
+												return true;
+											}
+										}
+										return false
 									}
 
 									@Check(CheckType.FAST)
