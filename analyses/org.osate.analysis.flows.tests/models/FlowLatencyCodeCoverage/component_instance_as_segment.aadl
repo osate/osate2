@@ -1,0 +1,39 @@
+package component_instance_as_segment
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: abstract a3;
+		connections
+			conn1: feature sub1.f1 -> sub2.f2;
+			conn2: feature sub2.f3 -> sub3.f4;
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2 -> conn2 -> sub3.fsink1 {Latency => 3 ms .. 6 ms;};
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: out feature;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	abstract a2
+		features
+			f2: in feature;
+			f3: out feature;
+		properties
+			Latency => 1 ms .. 2 ms;
+	end a2;
+	
+	abstract a3
+		features
+			f4: in feature;
+		flows
+			fsink1: flow sink f4 {Latency => 1 ms .. 2 ms;};
+	end a3;
+end component_instance_as_segment;

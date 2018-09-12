@@ -1,0 +1,36 @@
+package partition11
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: system s2;
+			sub3: virtual processor {Period => 1 ms;};
+			sub18: abstract a1;
+			sub19: virtual processor;
+		connections
+			conn11: feature sub1.f1 -> sub18.f2;
+		flows
+			etef11: end to end flow sub1.fsource1 -> conn11 -> sub18.fsink1 {Latency => 5 ms .. 6 ms;};
+		properties
+			Actual_Processor_Binding => (reference (sub3)) applies to sub1;
+			Actual_Processor_Binding => (reference (sub19)) applies to sub18;
+	end s1.i1;
+	
+	system s2
+		features
+			f1: feature;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+		properties
+			Period => 1 ms;
+	end s2;
+	
+	abstract a1
+		features
+			f2: feature;
+		flows
+			fsink1: flow sink f2 {Latency => 3 ms .. 4 ms;};
+	end a1;
+end partition11;
