@@ -178,7 +178,14 @@ public class ExecuteResoluteUtil {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
 		call.setFn(fd);
-		call.getArgs().add(createInstanceObjectReference(evalContext, io));
+		int fdparams = fd.getArgs().size();
+		int aparams = 0;
+		if (params != null) {
+			aparams = params.size();
+		}
+		if (fdparams == aparams + 1) {
+			call.getArgs().add(createInstanceObjectReference(evalContext, io));
+		}
 		if (params != null) {
 			addParams(call, params);
 		}
