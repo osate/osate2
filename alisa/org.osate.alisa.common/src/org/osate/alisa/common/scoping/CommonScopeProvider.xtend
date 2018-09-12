@@ -129,11 +129,6 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 		
 	def IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
-//		val contractualElement = context.getContainerOfType(ContractualElement)
-//		val target = contractualElement?.targetElement ?:
-//				contractualElement?.target ?:
-//				context.getContainerOfType(StakeholderGoals)?.target ?:
-//				context.getContainerOfType(SystemRequirementSet).target
 		new SimpleScope(#[EObjectDescription.create("this", context)])
 	}
 	
