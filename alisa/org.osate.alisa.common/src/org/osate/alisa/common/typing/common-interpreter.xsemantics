@@ -89,23 +89,10 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
 	val component = env(G, 'component', InstanceObject)
 	val element = env(G, 'element', NamedElement)
-	
-	switch (obj.eClass.name) {
-		case 'SystemRequirementSet': component
-		case 'Requirement': 
-			if (element instanceof InstanceObject)
-				element
-			else if (component !== null)
-				component
-			else
-				component.eContents.findFirst[
-					if (it instanceof InstanceObject) it.name.equalsIgnoreCase(element.name) else false
-				] as InstanceObject
-		default: {
-			val parent = obj.eContainer()
-			if (parent === null) null else chooseRoot(parent, G)
-		}
-	}
+	if (element instanceof InstanceObject)
+		element
+	else 
+		component
 }
 
 

@@ -33,6 +33,12 @@ import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.xtext.resource.EObjectDescription
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.ContractualElement
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 /**
  * This class contains custom scoping description.
@@ -89,4 +95,15 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(formalparams,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
+	
+		
+	override IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
+		val claim = context.eContainer as Claim
+		val contractualElement = claim.requirement
+		val target = contractualElement?.targetElement ?:
+				contractualElement?.target ?:
+				contractualElement.getContainerOfType(SystemRequirementSet).target
+		new SimpleScope(#[EObjectDescription.create("this", target)])
+	}
+	
 }
