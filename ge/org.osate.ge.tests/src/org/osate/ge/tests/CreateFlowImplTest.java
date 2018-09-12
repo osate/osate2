@@ -53,7 +53,7 @@ public class CreateFlowImplTest {
 		bot.createToolItem(editor, flowSinkToolItem, new Point(5, 5), "sys", "dp_in");
 
 		final SWTBotGefConnectionEditPart flowSink = bot.getNewConnectionEditPart(editor,
-				FlowSpecificationImpl.class).get(0);
+				FlowSpecificationImpl.class, "sys").get(0);
 		editor.select(flowSink);
 		final Connection flowSinkCon = ((GraphitiConnectionEditPart) flowSink.part()).getConnectionFigure();
 		bot.clickConnection(editor, flowSinkCon);
@@ -66,7 +66,7 @@ public class CreateFlowImplTest {
 		bot.createToolItem(editor, flowSourceToolItem, new Point(5, 5), "sys", "dp_out");
 
 		final SWTBotGefConnectionEditPart flowSrc = bot.getNewConnectionEditPart(editor,
-				FlowSpecificationImpl.class).get(0);
+				FlowSpecificationImpl.class, "sys").get(0);
 		editor.select(flowSrc);
 		final Connection gcepSrcCon = ((GraphitiConnectionEditPart) flowSrc.part()).getConnectionFigure();
 		bot.clickConnection(editor, gcepSrcCon);
@@ -101,11 +101,11 @@ public class CreateFlowImplTest {
 		bot.clickElement(implEditor, "ss1", "dp_in");
 		implEditor.activateDefaultTool();
 
-		bot.selectWidget("Appearance");
 		final SWTBotGefConnectionEditPart connectionEditPart = bot.getNewConnectionEditPart(implEditor,
-				FeatureConnectionImpl.class).get(0);
-
+				FeatureConnectionImpl.class, "sys.impl2").get(0);
 		implEditor.select(connectionEditPart);
+		bot.selectWidget("Appearance");
+
 		final Connection featureCon = ((GraphitiConnectionEditPart) connectionEditPart.part()).getConnectionFigure();
 		bot.clickConnection(implEditor, featureCon);
 		bot.clickCombo(AppearancePropertySection.primaryLabelVisibilityCombo, "Show");
@@ -121,7 +121,7 @@ public class CreateFlowImplTest {
 		implEditor.activateDefaultTool();
 
 		final SWTBotGefConnectionEditPart connectionEditPart2 = bot.getNewConnectionEditPart(implEditor,
-				FeatureConnectionImpl.class).get(0);
+				FeatureConnectionImpl.class, "sys.impl2").get(0);
 		implEditor.select(connectionEditPart2);
 		final Connection featureCon2 = ((GraphitiConnectionEditPart) connectionEditPart2.part()).getConnectionFigure();
 		bot.clickConnection(implEditor, featureCon2);
@@ -138,7 +138,7 @@ public class CreateFlowImplTest {
 		implEditor.activateDefaultTool();
 
 		final SWTBotGefConnectionEditPart connectionEditPart3 = bot.getNewConnectionEditPart(implEditor,
-				FeatureConnectionImpl.class).get(0);
+				FeatureConnectionImpl.class, "sys.impl2").get(0);
 		implEditor.select(connectionEditPart3);
 		final Connection featureCon3 = ((GraphitiConnectionEditPart) connectionEditPart3.part()).getConnectionFigure();
 		bot.clickConnection(implEditor, featureCon3);
