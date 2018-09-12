@@ -28,8 +28,8 @@ public class LatencyCSVReport {
 
 		report.append(reportheader + System.lineSeparator() + System.lineSeparator());
 		for (Result result : ar.getResults()) {
-			String flowname = ((InstanceObject) result.getSourceReference()).getComponentInstancePath();
-			SystemInstance si = ((InstanceObject) result.getSourceReference()).getSystemInstance();
+			String flowname = ((InstanceObject) result.getModelElement()).getComponentInstancePath();
+			SystemInstance si = ((InstanceObject) result.getModelElement()).getSystemInstance();
 			String systemName = si.getComponentClassifier().getName();
 			String inMode = ResultUtil.getString(result, 0);
 			String analysisheader = "Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
@@ -59,8 +59,8 @@ public class LatencyCSVReport {
 	}
 
 	private static void addContributor(StringBuffer report, Result contributor, boolean subcontributor) {
-		String comp = FlowLatencyUtil.getContributorType(contributor.getSourceReference()) + " "
-				+ FlowLatencyUtil.getFullComponentContributorName((contributor.getSourceReference()));
+		String comp = FlowLatencyUtil.getContributorType(contributor.getModelElement()) + " "
+				+ FlowLatencyUtil.getFullComponentContributorName((contributor.getModelElement()));
 		if (subcontributor) {
 			comp = "(" + comp + ")";
 		}

@@ -1,6 +1,6 @@
 '!='=23
 '#'=100
-'%'=111
+'%'=112
 '&&'=21
 '('=72
 ')'=73
@@ -74,10 +74,11 @@
 'property'=75
 'rationale'=93
 'real'=97
+'report'=110
 'resolute'=86
 'returns'=85
 'root'=53
-'single'=110
+'single'=111
 'string'=98
 'subprogram'=44
 'system'=45
@@ -85,7 +86,7 @@
 'this'=17
 'thread'=46
 'timeout'=68
-'true'=112
+'true'=113
 'typeof'=81
 'units'=96
 'validation'=78
@@ -120,6 +121,7 @@ T__109=109
 T__110=110
 T__111=111
 T__112=112
+T__113=113
 T__17=17
 T__18=18
 T__19=19

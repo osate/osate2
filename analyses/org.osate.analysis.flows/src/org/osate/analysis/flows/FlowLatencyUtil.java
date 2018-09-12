@@ -504,16 +504,16 @@ public class FlowLatencyUtil {
 		ResultUtil.addParameter(latencyResults, majorFrameDelay);
 		ResultUtil.addParameter(latencyResults, worstCaseDeadline);
 		ResultUtil.addParameter(latencyResults, bestCaseEmptyQueue);
-		latencyResults.setInfo(FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
+		latencyResults.setMessage(FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue));
-		latencyResults.setSourceReference(root);
+		latencyResults.setModelElement(root);
 		return latencyResults;
 	}
 
 	public static String LatencyAnalysisName = "latency";
 
 	public static URI getLantencyAnalysisResultURI(AnalysisResult results) {
-		EObject root = results.getSourceReference();
+		EObject root = results.getModelElement();
 		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 		String rootname = rootURI.lastSegment();
 		String postfix = getParametersAsLabels(results);
@@ -524,12 +524,12 @@ public class FlowLatencyUtil {
 
 	public static void saveAnalysisResult(AnalysisResult results) {
 		URI latencyURI = getLantencyAnalysisResultURI(results);
-		OsateResourceUtil.saveEMFModel(results, latencyURI, results.getSourceReference());
+		OsateResourceUtil.saveEMFModel(results, latencyURI, results.getModelElement());
 
 	}
 
 	public static String getParametersAsLabels(AnalysisResult results) {
-		String labels = results.getInfo();
+		String labels = results.getMessage();
 		if (results.getParameters().size() == 4) {
 			labels = FlowLatencyUtil.getParametersAsLabels((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),
@@ -581,7 +581,7 @@ public class FlowLatencyUtil {
 
 
 	public static String getParametersAsDescriptions(AnalysisResult results) {
-		String labels = results.getInfo();
+		String labels = results.getMessage();
 		if (results.getParameters().size() == 4) {
 			labels = FlowLatencyUtil.getParametersAsDescriptions((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),

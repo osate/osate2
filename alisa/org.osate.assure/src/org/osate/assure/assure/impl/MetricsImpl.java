@@ -36,7 +36,6 @@ import org.osate.assure.assure.Metrics;
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getTbdCount <em>Tbd Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getTimeoutCount <em>Timeout Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getDidelseCount <em>Didelse Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.MetricsImpl#getThenskipCount <em>Thenskip Count</em>}</li>
@@ -119,26 +118,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 	 * @ordered
 	 */
 	protected int failCount = FAIL_COUNT_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getTimeoutCount() <em>Timeout Count</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeoutCount()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int TIMEOUT_COUNT_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getTimeoutCount() <em>Timeout Count</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTimeoutCount()
-	 * @generated
-	 * @ordered
-	 */
-	protected int timeoutCount = TIMEOUT_COUNT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getErrorCount() <em>Error Count</em>}' attribute.
@@ -587,27 +566,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getTimeoutCount() {
-		return timeoutCount;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTimeoutCount(int newTimeoutCount) {
-		int oldTimeoutCount = timeoutCount;
-		timeoutCount = newTimeoutCount;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.METRICS__TIMEOUT_COUNT, oldTimeoutCount, timeoutCount));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public int getErrorCount() {
 		return errorCount;
 	}
@@ -995,8 +953,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 				return getSuccessCount();
 			case AssurePackage.METRICS__FAIL_COUNT:
 				return getFailCount();
-			case AssurePackage.METRICS__TIMEOUT_COUNT:
-				return getTimeoutCount();
 			case AssurePackage.METRICS__ERROR_COUNT:
 				return getErrorCount();
 			case AssurePackage.METRICS__DIDELSE_COUNT:
@@ -1053,9 +1009,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 				return;
 			case AssurePackage.METRICS__FAIL_COUNT:
 				setFailCount((Integer)newValue);
-				return;
-			case AssurePackage.METRICS__TIMEOUT_COUNT:
-				setTimeoutCount((Integer)newValue);
 				return;
 			case AssurePackage.METRICS__ERROR_COUNT:
 				setErrorCount((Integer)newValue);
@@ -1132,9 +1085,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 			case AssurePackage.METRICS__FAIL_COUNT:
 				setFailCount(FAIL_COUNT_EDEFAULT);
 				return;
-			case AssurePackage.METRICS__TIMEOUT_COUNT:
-				setTimeoutCount(TIMEOUT_COUNT_EDEFAULT);
-				return;
 			case AssurePackage.METRICS__ERROR_COUNT:
 				setErrorCount(ERROR_COUNT_EDEFAULT);
 				return;
@@ -1207,8 +1157,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 				return successCount != SUCCESS_COUNT_EDEFAULT;
 			case AssurePackage.METRICS__FAIL_COUNT:
 				return failCount != FAIL_COUNT_EDEFAULT;
-			case AssurePackage.METRICS__TIMEOUT_COUNT:
-				return timeoutCount != TIMEOUT_COUNT_EDEFAULT;
 			case AssurePackage.METRICS__ERROR_COUNT:
 				return errorCount != ERROR_COUNT_EDEFAULT;
 			case AssurePackage.METRICS__DIDELSE_COUNT:
@@ -1265,8 +1213,6 @@ public class MetricsImpl extends MinimalEObjectImpl.Container implements Metrics
 		result.append(successCount);
 		result.append(", failCount: ");
 		result.append(failCount);
-		result.append(", timeoutCount: ");
-		result.append(timeoutCount);
 		result.append(", errorCount: ");
 		result.append(errorCount);
 		result.append(", didelseCount: ");

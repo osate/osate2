@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.result.ObjectValue;
 import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
 import org.osate.result.ResultPackage;
 
 /**
@@ -32,10 +33,11 @@ import org.osate.result.ResultPackage;
  * </p>
  * <ul>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getAnalysis <em>Analysis</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getInfo <em>Info</em>}</li>
- *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getSourceReference <em>Source Reference</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getModelElement <em>Model Element</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getResults <em>Results</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,34 +64,34 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	protected String analysis = ANALYSIS_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getInfo() <em>Info</em>}' attribute.
+	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInfo()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String INFO_EDEFAULT = null;
+	protected static final String MESSAGE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getInfo() <em>Info</em>}' attribute.
+	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInfo()
+	 * @see #getMessage()
 	 * @generated
 	 * @ordered
 	 */
-	protected String info = INFO_EDEFAULT;
+	protected String message = MESSAGE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSourceReference() <em>Source Reference</em>}' reference.
+	 * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourceReference()
+	 * @see #getModelElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected EObject sourceReference;
+	protected EObject modelElement;
 
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -110,6 +112,16 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected EList<Result> results;
+
+	/**
+	 * The cached value of the '{@link #getDiagnostics() <em>Diagnostics</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagnostics()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Diagnostic> diagnostics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,8 +168,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getInfo() {
-		return info;
+	public String getMessage() {
+		return message;
 	}
 
 	/**
@@ -165,11 +177,11 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInfo(String newInfo) {
-		String oldInfo = info;
-		info = newInfo;
+	public void setMessage(String newMessage) {
+		String oldMessage = message;
+		message = newMessage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__INFO, oldInfo, info));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__MESSAGE, oldMessage, message));
 	}
 
 	/**
@@ -177,16 +189,16 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getSourceReference() {
-		if (sourceReference != null && sourceReference.eIsProxy()) {
-			InternalEObject oldSourceReference = (InternalEObject)sourceReference;
-			sourceReference = eResolveProxy(oldSourceReference);
-			if (sourceReference != oldSourceReference) {
+	public EObject getModelElement() {
+		if (modelElement != null && modelElement.eIsProxy()) {
+			InternalEObject oldModelElement = (InternalEObject)modelElement;
+			modelElement = eResolveProxy(oldModelElement);
+			if (modelElement != oldModelElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT, oldModelElement, modelElement));
 			}
 		}
-		return sourceReference;
+		return modelElement;
 	}
 
 	/**
@@ -194,8 +206,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetSourceReference() {
-		return sourceReference;
+	public EObject basicGetModelElement() {
+		return modelElement;
 	}
 
 	/**
@@ -203,11 +215,11 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSourceReference(EObject newSourceReference) {
-		EObject oldSourceReference = sourceReference;
-		sourceReference = newSourceReference;
+	public void setModelElement(EObject newModelElement) {
+		EObject oldModelElement = modelElement;
+		modelElement = newModelElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT, oldModelElement, modelElement));
 	}
 
 	/**
@@ -239,6 +251,18 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Diagnostic> getDiagnostics() {
+		if (diagnostics == null) {
+			diagnostics = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS);
+		}
+		return diagnostics;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -246,6 +270,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				return ((InternalEList<?>)getDiagnostics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -260,15 +286,17 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 		switch (featureID) {
 			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				return getAnalysis();
-			case ResultPackage.ANALYSIS_RESULT__INFO:
-				return getInfo();
-			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
-				if (resolve) return getSourceReference();
-				return basicGetSourceReference();
+			case ResultPackage.ANALYSIS_RESULT__MESSAGE:
+				return getMessage();
+			case ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT:
+				if (resolve) return getModelElement();
+				return basicGetModelElement();
 			case ResultPackage.ANALYSIS_RESULT__PARAMETERS:
 				return getParameters();
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				return getResults();
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				return getDiagnostics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -285,11 +313,11 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				setAnalysis((String)newValue);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__INFO:
-				setInfo((String)newValue);
+			case ResultPackage.ANALYSIS_RESULT__MESSAGE:
+				setMessage((String)newValue);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
-				setSourceReference((EObject)newValue);
+			case ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT:
+				setModelElement((EObject)newValue);
 				return;
 			case ResultPackage.ANALYSIS_RESULT__PARAMETERS:
 				getParameters().clear();
@@ -298,6 +326,10 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				getResults().clear();
 				getResults().addAll((Collection<? extends Result>)newValue);
+				return;
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				getDiagnostics().clear();
+				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -314,17 +346,20 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				setAnalysis(ANALYSIS_EDEFAULT);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__INFO:
-				setInfo(INFO_EDEFAULT);
+			case ResultPackage.ANALYSIS_RESULT__MESSAGE:
+				setMessage(MESSAGE_EDEFAULT);
 				return;
-			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
-				setSourceReference((EObject)null);
+			case ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT:
+				setModelElement((EObject)null);
 				return;
 			case ResultPackage.ANALYSIS_RESULT__PARAMETERS:
 				getParameters().clear();
 				return;
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				getResults().clear();
+				return;
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				getDiagnostics().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -340,14 +375,16 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 		switch (featureID) {
 			case ResultPackage.ANALYSIS_RESULT__ANALYSIS:
 				return ANALYSIS_EDEFAULT == null ? analysis != null : !ANALYSIS_EDEFAULT.equals(analysis);
-			case ResultPackage.ANALYSIS_RESULT__INFO:
-				return INFO_EDEFAULT == null ? info != null : !INFO_EDEFAULT.equals(info);
-			case ResultPackage.ANALYSIS_RESULT__SOURCE_REFERENCE:
-				return sourceReference != null;
+			case ResultPackage.ANALYSIS_RESULT__MESSAGE:
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
+			case ResultPackage.ANALYSIS_RESULT__MODEL_ELEMENT:
+				return modelElement != null;
 			case ResultPackage.ANALYSIS_RESULT__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
 			case ResultPackage.ANALYSIS_RESULT__RESULTS:
 				return results != null && !results.isEmpty();
+			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
+				return diagnostics != null && !diagnostics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -364,8 +401,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (analysis: ");
 		result.append(analysis);
-		result.append(", info: ");
-		result.append(info);
+		result.append(", message: ");
+		result.append(message);
 		result.append(')');
 		return result.toString();
 	}

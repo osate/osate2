@@ -75,7 +75,6 @@ public class ResultSwitch<T> extends Switch<T> {
 			case ResultPackage.RESULT: {
 				Result result = (Result)theEObject;
 				T theResult = caseResult(result);
-				if (theResult == null) theResult = caseDiagnostic(result);
 				if (theResult == null) theResult = defaultCase(theEObject);
 				return theResult;
 			}

@@ -56,27 +56,7 @@ public enum DiagnosticType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INFO(3, "INFO", "INFO"),
-
-	/**
-	 * The '<em><b>SUCCESS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SUCCESS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	SUCCESS(4, "SUCCESS", "SUCCESS"),
-
-	/**
-	 * The '<em><b>FAILURE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FAILURE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	FAILURE(5, "FAILURE", "FAIL");
+	INFO(3, "INFO", "INFO");
 
 	/**
 	 * The '<em><b>NONE</b></em>' literal value.
@@ -139,36 +119,6 @@ public enum DiagnosticType implements Enumerator {
 	public static final int INFO_VALUE = 3;
 
 	/**
-	 * The '<em><b>SUCCESS</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #SUCCESS
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SUCCESS_VALUE = 4;
-
-	/**
-	 * The '<em><b>FAILURE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>FAILURE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #FAILURE
-	 * @model literal="FAIL"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int FAILURE_VALUE = 5;
-
-	/**
 	 * An array of all the '<em><b>Diagnostic Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,8 +130,6 @@ public enum DiagnosticType implements Enumerator {
 			ERROR,
 			WARNING,
 			INFO,
-			SUCCESS,
-			FAILURE,
 		};
 
 	/**
@@ -242,8 +190,6 @@ public enum DiagnosticType implements Enumerator {
 			case ERROR_VALUE: return ERROR;
 			case WARNING_VALUE: return WARNING;
 			case INFO_VALUE: return INFO;
-			case SUCCESS_VALUE: return SUCCESS;
-			case FAILURE_VALUE: return FAILURE;
 		}
 		return null;
 	}

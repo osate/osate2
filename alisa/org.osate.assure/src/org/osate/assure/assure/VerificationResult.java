@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
+import org.osate.result.ResultType;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +31,7 @@ import org.osate.result.Result;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getAnalysisresultreference <em>Analysisresultreference</em>}</li>
@@ -43,33 +44,33 @@ import org.osate.result.Result;
  */
 public interface VerificationResult extends AssureResult, VerificationExpr {
 	/**
-	 * Returns the value of the '<em><b>Result State</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultState}.
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.result.ResultType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Result State</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Result State</em>' attribute.
-	 * @see org.osate.assure.assure.VerificationResultState
-	 * @see #setResultState(VerificationResultState)
-	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_ResultState()
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see org.osate.result.ResultType
+	 * @see #setType(ResultType)
+	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Type()
 	 * @model
 	 * @generated
 	 */
-	VerificationResultState getResultState();
+	ResultType getType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Result State</em>' attribute.
-	 * @see org.osate.assure.assure.VerificationResultState
-	 * @see #getResultState()
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see org.osate.result.ResultType
+	 * @see #getType()
 	 * @generated
 	 */
-	void setResultState(VerificationResultState value);
+	void setType(ResultType value);
 
 	/**
 	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.

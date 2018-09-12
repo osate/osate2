@@ -95,6 +95,16 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	}
 
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
+	
+	@Check(CheckType.FAST)
+	def void deprecateVerificationMethodBoolReport(VerificationMethod vm) {
+		if (vm.isIsPredicate ){
+			warning("Keyword 'boolean' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_PREDICATE)
+		}
+		if (vm.isIsPredicate || vm.isIsResultReport){
+			warning("Keyword 'report' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_RESULT_REPORT)
+		}
+	}
 
 	@Check
 	def checkMethodPath(JavaMethod method) {

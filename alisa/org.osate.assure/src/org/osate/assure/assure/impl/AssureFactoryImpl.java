@@ -98,40 +98,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			case AssurePackage.ELSE_TYPE:
-				return createElseTypeFromString(eDataType, initialValue);
-			case AssurePackage.VERIFICATION_RESULT_STATE:
-				return createVerificationResultStateFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			case AssurePackage.ELSE_TYPE:
-				return convertElseTypeToString(eDataType, instanceValue);
-			case AssurePackage.VERIFICATION_RESULT_STATE:
-				return convertVerificationResultStateToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public AssuranceCaseResult createAssuranceCaseResult() {
 		AssuranceCaseResultImpl assuranceCaseResult = new AssuranceCaseResultImpl();
 		return assuranceCaseResult;
@@ -305,46 +271,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	public PredicateResult createPredicateResult() {
 		PredicateResultImpl predicateResult = new PredicateResultImpl();
 		return predicateResult;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ElseType createElseTypeFromString(EDataType eDataType, String initialValue) {
-		ElseType result = ElseType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertElseTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public VerificationResultState createVerificationResultStateFromString(EDataType eDataType, String initialValue) {
-		VerificationResultState result = VerificationResultState.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertVerificationResultStateToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
