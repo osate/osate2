@@ -400,13 +400,13 @@ public interface AssurePackage extends EPackage {
 	int VERIFICATION_RESULT__METRICS = ASSURE_RESULT__METRICS;
 
 	/**
-	 * The feature id for the '<em><b>Result State</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERIFICATION_RESULT__RESULT_STATE = ASSURE_RESULT_FEATURE_COUNT + 0;
+	int VERIFICATION_RESULT__TYPE = ASSURE_RESULT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -647,22 +647,13 @@ public interface AssurePackage extends EPackage {
 	int METRICS__FAIL_COUNT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Timeout Count</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METRICS__TIMEOUT_COUNT = 3;
-
-	/**
 	 * The feature id for the '<em><b>Error Count</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__ERROR_COUNT = 4;
+	int METRICS__ERROR_COUNT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Didelse Count</b></em>' attribute.
@@ -671,7 +662,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__DIDELSE_COUNT = 5;
+	int METRICS__DIDELSE_COUNT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Thenskip Count</b></em>' attribute.
@@ -680,7 +671,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__THENSKIP_COUNT = 6;
+	int METRICS__THENSKIP_COUNT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Preconditionfail Count</b></em>' attribute.
@@ -689,7 +680,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__PRECONDITIONFAIL_COUNT = 7;
+	int METRICS__PRECONDITIONFAIL_COUNT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Validationfail Count</b></em>' attribute.
@@ -698,7 +689,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__VALIDATIONFAIL_COUNT = 8;
+	int METRICS__VALIDATIONFAIL_COUNT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Features Count</b></em>' attribute.
@@ -707,7 +698,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__FEATURES_COUNT = 9;
+	int METRICS__FEATURES_COUNT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Features Requirements Count</b></em>' attribute.
@@ -716,7 +707,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__FEATURES_REQUIREMENTS_COUNT = 10;
+	int METRICS__FEATURES_REQUIREMENTS_COUNT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Quality Category Requirements Count</b></em>' attribute.
@@ -725,7 +716,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT = 11;
+	int METRICS__QUALITY_CATEGORY_REQUIREMENTS_COUNT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Total Quality Category Count</b></em>' attribute.
@@ -734,7 +725,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__TOTAL_QUALITY_CATEGORY_COUNT = 12;
+	int METRICS__TOTAL_QUALITY_CATEGORY_COUNT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Requirements Without Plan Claim Count</b></em>' attribute.
@@ -743,7 +734,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT = 13;
+	int METRICS__REQUIREMENTS_WITHOUT_PLAN_CLAIM_COUNT = 12;
 
 	/**
 	 * The feature id for the '<em><b>No Verification Plans Count</b></em>' attribute.
@@ -752,7 +743,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__NO_VERIFICATION_PLANS_COUNT = 14;
+	int METRICS__NO_VERIFICATION_PLANS_COUNT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Requirements Count</b></em>' attribute.
@@ -761,7 +752,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__REQUIREMENTS_COUNT = 15;
+	int METRICS__REQUIREMENTS_COUNT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Exceptions Count</b></em>' attribute.
@@ -770,7 +761,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__EXCEPTIONS_COUNT = 16;
+	int METRICS__EXCEPTIONS_COUNT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Req Target Has EMV2 Subclause Count</b></em>' attribute.
@@ -779,7 +770,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = 17;
+	int METRICS__REQ_TARGET_HAS_EMV2_SUBCLAUSE_COUNT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Features Requiring Classifier Count</b></em>' attribute.
@@ -788,7 +779,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT = 18;
+	int METRICS__FEATURES_REQUIRING_CLASSIFIER_COUNT = 17;
 
 	/**
 	 * The feature id for the '<em><b>Features With Required Classifier Count</b></em>' attribute.
@@ -797,7 +788,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT = 19;
+	int METRICS__FEATURES_WITH_REQUIRED_CLASSIFIER_COUNT = 18;
 
 	/**
 	 * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -806,7 +797,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__WEIGHT = 20;
+	int METRICS__WEIGHT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Execution Time</b></em>' attribute.
@@ -815,7 +806,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS__EXECUTION_TIME = 21;
+	int METRICS__EXECUTION_TIME = 20;
 
 	/**
 	 * The number of structural features of the '<em>Metrics</em>' class.
@@ -824,7 +815,7 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METRICS_FEATURE_COUNT = 22;
+	int METRICS_FEATURE_COUNT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.osate.assure.assure.impl.QualifiedVerificationPlanElementReferenceImpl <em>Qualified Verification Plan Element Reference</em>}' class.
@@ -1003,13 +994,13 @@ public interface AssurePackage extends EPackage {
 	int PRECONDITION_RESULT__METRICS = VERIFICATION_RESULT__METRICS;
 
 	/**
-	 * The feature id for the '<em><b>Result State</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRECONDITION_RESULT__RESULT_STATE = VERIFICATION_RESULT__RESULT_STATE;
+	int PRECONDITION_RESULT__TYPE = VERIFICATION_RESULT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -1085,13 +1076,13 @@ public interface AssurePackage extends EPackage {
 	int VALIDATION_RESULT__METRICS = VERIFICATION_RESULT__METRICS;
 
 	/**
-	 * The feature id for the '<em><b>Result State</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALIDATION_RESULT__RESULT_STATE = VERIFICATION_RESULT__RESULT_STATE;
+	int VALIDATION_RESULT__TYPE = VERIFICATION_RESULT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -1167,13 +1158,13 @@ public interface AssurePackage extends EPackage {
 	int VERIFICATION_ACTIVITY_RESULT__METRICS = VERIFICATION_RESULT__METRICS;
 
 	/**
-	 * The feature id for the '<em><b>Result State</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERIFICATION_ACTIVITY_RESULT__RESULT_STATE = VERIFICATION_RESULT__RESULT_STATE;
+	int VERIFICATION_ACTIVITY_RESULT__TYPE = VERIFICATION_RESULT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -1267,13 +1258,13 @@ public interface AssurePackage extends EPackage {
 	int PREDICATE_RESULT__METRICS = VERIFICATION_RESULT__METRICS;
 
 	/**
-	 * The feature id for the '<em><b>Result State</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDICATE_RESULT__RESULT_STATE = VERIFICATION_RESULT__RESULT_STATE;
+	int PREDICATE_RESULT__TYPE = VERIFICATION_RESULT__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -1328,26 +1319,6 @@ public interface AssurePackage extends EPackage {
 	 * @ordered
 	 */
 	int PREDICATE_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.assure.assure.ElseType
-	 * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
-	 * @generated
-	 */
-	int ELSE_TYPE = 18;
-
-	/**
-	 * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.assure.assure.VerificationResultState
-	 * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
-	 * @generated
-	 */
-	int VERIFICATION_RESULT_STATE = 19;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.assure.assure.AssuranceCaseResult <em>Assurance Case Result</em>}'.
@@ -1609,15 +1580,15 @@ public interface AssurePackage extends EPackage {
 	EClass getVerificationResult();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Result State</em>'.
-	 * @see org.osate.assure.assure.VerificationResult#getResultState()
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.osate.assure.assure.VerificationResult#getType()
 	 * @see #getVerificationResult()
 	 * @generated
 	 */
-	EAttribute getVerificationResult_ResultState();
+	EAttribute getVerificationResult_Type();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.VerificationResult#getIssues <em>Issues</em>}'.
@@ -1844,17 +1815,6 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMetrics_FailCount();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getTimeoutCount <em>Timeout Count</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Timeout Count</em>'.
-	 * @see org.osate.assure.assure.Metrics#getTimeoutCount()
-	 * @see #getMetrics()
-	 * @generated
-	 */
-	EAttribute getMetrics_TimeoutCount();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.assure.assure.Metrics#getErrorCount <em>Error Count</em>}'.
@@ -2256,26 +2216,6 @@ public interface AssurePackage extends EPackage {
 	EReference getPredicateResult_TargetReference();
 
 	/**
-	 * Returns the meta object for enum '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Else Type</em>'.
-	 * @see org.osate.assure.assure.ElseType
-	 * @generated
-	 */
-	EEnum getElseType();
-
-	/**
-	 * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Verification Result State</em>'.
-	 * @see org.osate.assure.assure.VerificationResultState
-	 * @generated
-	 */
-	EEnum getVerificationResultState();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2500,12 +2440,12 @@ public interface AssurePackage extends EPackage {
 		EClass VERIFICATION_RESULT = eINSTANCE.getVerificationResult();
 
 		/**
-		 * The meta object literal for the '<em><b>Result State</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VERIFICATION_RESULT__RESULT_STATE = eINSTANCE.getVerificationResult_ResultState();
+		EAttribute VERIFICATION_RESULT__TYPE = eINSTANCE.getVerificationResult_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
@@ -2684,14 +2624,6 @@ public interface AssurePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute METRICS__FAIL_COUNT = eINSTANCE.getMetrics_FailCount();
-
-		/**
-		 * The meta object literal for the '<em><b>Timeout Count</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute METRICS__TIMEOUT_COUNT = eINSTANCE.getMetrics_TimeoutCount();
 
 		/**
 		 * The meta object literal for the '<em><b>Error Count</b></em>' attribute feature.
@@ -3004,26 +2936,6 @@ public interface AssurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference PREDICATE_RESULT__TARGET_REFERENCE = eINSTANCE.getPredicateResult_TargetReference();
-
-		/**
-		 * The meta object literal for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.assure.assure.ElseType
-		 * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
-		 * @generated
-		 */
-		EEnum ELSE_TYPE = eINSTANCE.getElseType();
-
-		/**
-		 * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.assure.assure.VerificationResultState
-		 * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
-		 * @generated
-		 */
-		EEnum VERIFICATION_RESULT_STATE = eINSTANCE.getVerificationResultState();
 
 	}
 

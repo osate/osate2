@@ -67,6 +67,7 @@ import org.osate.result.Diagnostic
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.Result
 
 class AssureRequirementsCoverageView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -352,7 +353,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 							VerificationActivityResult: "Evidence " + eObject.name
 							ValidationResult: "Validation " + eObject.name
 							PreconditionResult: "Precondition " + eObject.name
-							Diagnostic: "Issue " + (eObject.sourceReference?.constructLabel ?: eObject.constructMessage)
+							Diagnostic: "Issue " + (eObject.modelElement?.constructLabel ?: eObject.constructMessage)
 							ElseResult: "else"
 							ThenResult: "then"
 							default: "?"
@@ -361,13 +362,18 @@ class AssureRequirementsCoverageView extends ViewPart {
 
 					override getImage(Object element) {
 						val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							Result:
+								switch eObject.type {
+									case ERROR:  "error.png"
+									case SUCCESS: "valid.png"
+									case FAILURE: "invalid.png"
+									case NONE: "info.png"
+								}
 							Diagnostic:
 								switch eObject.type {
-									case ERROR: "error.png"
-									case SUCCESS: "valid.png"
+									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case FAILURE: "invalid.png"
 									case NONE: "questionmark.png"
 								}
 							AssuranceCaseResult:
@@ -411,7 +417,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 								'''«noPlan» of «reqs» | Cume: «cumulativeNoPlan» of «eObject.cumulativeRequirementsCount»'''
 							}
 							Diagnostic:
-								eObject.sourceReference?.constructLabel ?: eObject.constructMessage
+								eObject.modelElement?.constructLabel ?: eObject.constructMessage
 							ElseResult:
 								"else"
 							ThenResult:
@@ -466,7 +472,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 										'''«qualityReqs» of «totalQuality» | Cume: «percent»'''
 									}
 									Diagnostic:
-										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
+										eObject.modelElement?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
 									ThenResult:
@@ -518,7 +524,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 										'''«featuresReqs» for «features» | Cume: «cumulativeFeaturesReqs» for «cumulativeFeatures»'''
 									}
 									Diagnostic:
-										eObject.sourceReference?.constructLabel ?: eObject.constructMessage
+										eObject.modelElement?.constructLabel ?: eObject.constructMessage
 									ElseResult:
 										"else"
 									ThenResult:
@@ -561,7 +567,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 									ModelResult,
 									SubsystemResult: eObject.metrics.noVerificationPlansCount + " | Cume: " +
 										eObject.cumulativeNoVerificationPlansCount
-									Diagnostic: eObject.sourceReference?.constructLabel ?: eObject.constructMessage
+									Diagnostic: eObject.modelElement?.constructLabel ?: eObject.constructMessage
 									ElseResult: "else"
 									ThenResult: "then"
 									default: "?"

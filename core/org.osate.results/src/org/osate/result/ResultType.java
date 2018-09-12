@@ -1,19 +1,6 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- * 
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- * 
- * See COPYRIGHT file for full details.
  */
-package org.osate.assure.assure;
+package org.osate.result;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,43 +10,23 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Else Type</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.assure.assure.AssurePackage#getElseType()
+ * @see org.osate.result.ResultPackage#getResultType()
  * @model
  * @generated
  */
-public enum ElseType implements Enumerator {
+public enum ResultType implements Enumerator {
 	/**
-	 * The '<em><b>OK</b></em>' literal object.
+	 * The '<em><b>NONE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OK_VALUE
+	 * @see #NONE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OK(0, "OK", "ok"),
-
-	/**
-	 * The '<em><b>FAIL</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FAIL_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	FAIL(1, "FAIL", "fail"),
-
-	/**
-	 * The '<em><b>TIMEOUT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TIMEOUT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	TIMEOUT(2, "TIMEOUT", "timeout"),
+	NONE(0, "NONE", "NONE"),
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal object.
@@ -69,52 +36,42 @@ public enum ElseType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ERROR(3, "ERROR", "error");
+	ERROR(1, "ERROR", "ERROR"),
 
 	/**
-	 * The '<em><b>OK</b></em>' literal value.
+	 * The '<em><b>SUCCESS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OK</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OK
-	 * @model literal="ok"
+	 * @see #SUCCESS_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OK_VALUE = 0;
+	SUCCESS(4, "SUCCESS", "SUCCESS"),
 
 	/**
-	 * The '<em><b>FAIL</b></em>' literal value.
+	 * The '<em><b>FAILURE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #FAIL
-	 * @model literal="fail"
+	 * @see #FAILURE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FAIL_VALUE = 1;
+	FAILURE(5, "FAILURE", "FAIL");
 
 	/**
-	 * The '<em><b>TIMEOUT</b></em>' literal value.
+	 * The '<em><b>NONE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>TIMEOUT</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>NONE</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #TIMEOUT
-	 * @model literal="timeout"
+	 * @see #NONE
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TIMEOUT_VALUE = 2;
+	public static final int NONE_VALUE = 0;
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal value.
@@ -125,45 +82,75 @@ public enum ElseType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ERROR
-	 * @model literal="error"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ERROR_VALUE = 3;
+	public static final int ERROR_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Else Type</b></em>' enumerators.
+	 * The '<em><b>SUCCESS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #SUCCESS
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SUCCESS_VALUE = 4;
+
+	/**
+	 * The '<em><b>FAILURE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>FAILURE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FAILURE
+	 * @model literal="FAIL"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FAILURE_VALUE = 5;
+
+	/**
+	 * An array of all the '<em><b>Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ElseType[] VALUES_ARRAY =
-		new ElseType[] {
-			OK,
-			FAIL,
-			TIMEOUT,
+	private static final ResultType[] VALUES_ARRAY =
+		new ResultType[] {
+			NONE,
 			ERROR,
+			SUCCESS,
+			FAILURE,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Else Type</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ElseType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ResultType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Else Type</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static ElseType get(String literal) {
+	public static ResultType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ElseType result = VALUES_ARRAY[i];
+			ResultType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -172,16 +159,16 @@ public enum ElseType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Else Type</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static ElseType getByName(String name) {
+	public static ResultType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ElseType result = VALUES_ARRAY[i];
+			ResultType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -190,19 +177,19 @@ public enum ElseType implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Else Type</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static ElseType get(int value) {
+	public static ResultType get(int value) {
 		switch (value) {
-			case OK_VALUE: return OK;
-			case FAIL_VALUE: return FAIL;
-			case TIMEOUT_VALUE: return TIMEOUT;
+			case NONE_VALUE: return NONE;
 			case ERROR_VALUE: return ERROR;
+			case SUCCESS_VALUE: return SUCCESS;
+			case FAILURE_VALUE: return FAILURE;
 		}
 		return null;
 	}
@@ -234,7 +221,7 @@ public enum ElseType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private ElseType(int value, String name, String literal) {
+	private ResultType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -278,4 +265,4 @@ public enum ElseType implements Enumerator {
 		return literal;
 	}
 	
-} //ElseType
+} //ResultType

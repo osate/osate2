@@ -52,7 +52,7 @@ class FlowLatencyTest extends XtextTest {
 		assertTrue((res.values.get(4) as RealValue).value == (4.0))
 		assertTrue((res.values.get(5) as RealValue).value == (300.0))
 		assertTrue((res.values.get(6) as RealValue).value == (300.0))
-		assertTrue(latencyresult.info == "AS-MF-DL-EQ")
+		assertTrue(latencyresult.message == "AS-MF-DL-EQ")
 		17.assertEquals(res.subResults.size)
 	}
 

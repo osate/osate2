@@ -366,7 +366,6 @@ method methodname
       FormalParameter ( , FormalParameter )* ) 
     ( properties ( Property ( , Property )* ) )?
     ( returns ( FormalParameter ( , FormalParameter )* ) )?
-    ( boolean | report )?
   )?
   ( : "descriptive title" )? 
   ( for &lt;ComponentClassifier&gt;  | ComponentCategory* )? 
@@ -424,11 +423,6 @@ The verification method declaration consists of:
 * *Result list*: optional comma separated list of formal parameter specifications to indicate result values. The Result object values will be assigned in order to Computed Variables specified as part of the method call in a verification activity. If the method returns a single value it is assigned to the compute variable. If the returned numeric value has no unit and **in** &lt;unitliteral&gt; is specified the unit literal is attached to the numeric value.
 
 
-* *boolean*: indication that the method returns a boolean value to indicate success or failure. The indicator is not required to be set. When the method returns a boolean and it is not assigned to a compute variable it is interpreted as success/failure. 
-
-* *report*: indication that the method returns a result report in an ALISA specified format. This report can contain a collection of result indicators and result data (see [Analysis Result](AnalysisResultFormat.html)). The indicator is not required to be set. When the method returns a Diagnostic, or Result its content is assigned to compute variables and the diagnostics are interpreted to determine success (no failures or errors), or failure/error. 
-
-
 * *Title*: a short descriptor of the verification method registry. This optional element may be used as more descriptive label than the name.
 
 
@@ -458,9 +452,9 @@ The following method types are supported:
  Java methods can report violation of assertions (predicates) by throwing AssertionException. They are mapped into Fail results. This is how JUnit and Java8 support assertions (see below for registering Junit4 test classes). 
  Uncaught runtime exceptions within a Java method are also caught by the Assure execution harness and mapped into Error results. 
  Java methods can return a Boolean result, which gets mapped into Success and Fail if specified to do so by the boolean keyword. 
- Java methods can return result reports in an ALISA defined format (see [Analysis Result](AnalysisResultFormat.html)) if the method is registered accordingly (report).
+ Java methods can return AnalysisResult or Result in an ALISA defined format (see [Analysis Result](AnalysisResultFormat.html)).
  Java methods can return a single value as object or a hasmap of multiple values. These values will be assigned to the specified computed variables.
- The actual Java method may expect Java types that are not part of the ALISA Types. For example, the Java method may expect a long numeric. An optional parameter list allows users to specify the expected Java type followed by the name of the formal parameter. Currently we map Stringliteral -> String, BooleanLiteral -> Boolean, RealLiteral -> double or real, IntegerLiteral -> long or int.
+ The actual Java method may expect Java types that are not part of the ALISA Types. For example, the Java method may expect a long numeric. We automatically map Stringliteral -> String, BooleanLiteral -> Boolean, RealLiteral -> double, IntegerLiteral -> long.
 
 
 * *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry]([VerifyDoc.html#predefined-method-registry])). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)) for inclusion in the assurance case result instance.
@@ -514,3 +508,35 @@ allows you to easily get access to OSATE plugins.
 
 Third, users can write JUnit tests and register test classes. Those
 tests can operate on an AADL model or they may execute source code.
+
+## Interpretation of Return Values
+
+ALISA accepts verification methods that return an AnalysisResult object, a Result object, a Diagnostic object, a boolean, or any other Java object.
+
+The return values are handled as follows:
+
+* *AnalysisResult*: The top-level Result objects whose *SourceReference* matches the target instance model element of the verification activity determine the *VerificationResultState* of the *VerificationResult* object is determined from the values of the Result objects. An AnalysisResult object may contain multiple top-level Result objects, which represent analysis results for the same target with different parameters or under different modes, or they may represent analysis results for different targets. If the Result objects are for different targets, e.g., multiple end to end flows within a component instance, then a specific end to end flow is included if identified as the target of the verification activity. The Result object is also included if the target does not match any Result SourceReference, e.g., end to end flow, and the target is the containing component instance of the Result *SourceReference*, i.e., the component instance containing the analyzed end to end flows.
+
+* *Result*: The Result object *Type* determines the *VerificationResultState* of the VerificationResult object, i.e., if the Result or any nested Result objects have *Failure* or *Error* then the VerificationResult is *Fail*, otherwise it is *Success*. In addition, all sub Result object and Diagnostic objects are copied into the *VerificationResult* object with *Error* mapped into *Failure*.
+
+* *Diagnostic*: The Diagnostic object *Type* determines the *VerificationResultState* of the VerificationResult object, i.e., *Failure* becomes *Fail*, *Error* becomes *Error*, otherwise it is *Success*. In addition, all sub Result object and Diagnostic objects are copied into the VerificationResult object with *Error* mapped into *Failure*. In addition is Diagnostic object is recorded in *VerificationResult* as a Result object.
+
+* *Boolean*: The boolean value *true* maps into *Success* of the VerificationResult object and the value *false* maps into *Fail*. This is only done if the return value is not assigned to a compute variable.
+
+* Values assigned to compute variables: A single return value or the Value obejcts of the top-level Result object may be assigned to compute variables. If a *value predicate* with references to the assigned compute variables exists, then the predicate is evaluated to determine *Success* or *Fail* of the VerificationResult object.
+
+* *AssertionException*: If an analysis throws an AssertionException that is not caught by the verification method itself, the Assure engine catches it and interprets it as *Fail* in the VerificationResult object.
+
+* *Any other Exception*: If an analysis throws any other Exception not caught by a verification method itself, the Assure engine catches it and interprets it as *Error* in the VerificationResult object.
+
+Issues reported by verification methods such as OSATE analysis plug-in via Eclipse Markers, Resolute
+result issues, as well as
+JUnit results are converted into Result and Diagnostic objects. 
+For example, Resolute claim functions
+that has been registered as verification method. The claim functions
+themselves call other claim functions and computational functions.
+Recursively executed claim functions create a result report structure in
+Resolute format. Our interface with Resolute translates that information
+into a nested set of Result objects for inclusion in the assurance
+case result instance. This allows for a uniform representation of analysis results.
+

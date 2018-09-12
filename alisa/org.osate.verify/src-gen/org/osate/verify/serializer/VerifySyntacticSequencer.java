@@ -389,7 +389,11 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' validation=VerificationValidation
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' componentCategory+=ComponentCategory
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
 	 *     name=ID '(' ')' (ambiguity) 'returns' '(' results+=FormalParameter
+	 *     name=ID '(' ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
+	 *     name=ID '(' ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
 	 *     targetType=TargetType ')' (ambiguity) 'returns' '(' results+=FormalParameter
 	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
 	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
@@ -400,6 +404,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? '[' validation=VerificationValidation
 	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? 'for' componentCategory+=ComponentCategory
 	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
+	 *     targetType=TargetType ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
 	 */
 	protected void emit_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -419,6 +425,10 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' validation=VerificationValidation
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' componentCategory+=ComponentCategory
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
+	 *     name=ID '(' ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
+	 *     name=ID '(' ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) ':' title=STRING
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' ']' (rule end)
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
@@ -428,6 +438,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' validation=VerificationValidation
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) 'for' componentCategory+=ComponentCategory
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) isPredicate?='boolean'
+	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) isResultReport?='report'
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|QualifiedName]
@@ -437,6 +449,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) '[' validation=VerificationValidation
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) 'for' componentCategory+=ComponentCategory
 	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
+	 *     targetType=TargetType ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
 	 */
 	protected void emit_VerificationMethod___ReturnsKeyword_2_4_0_LeftParenthesisKeyword_2_4_1_RightParenthesisKeyword_2_4_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

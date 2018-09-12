@@ -23,7 +23,7 @@ import org.osate.result.ResultPackage;
  * <ul>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getSourceReference <em>Source Reference</em>}</li>
+ *   <li>{@link org.osate.result.impl.DiagnosticImpl#getModelElement <em>Model Element</em>}</li>
  * </ul>
  *
  * @generated
@@ -70,14 +70,14 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	protected String message = MESSAGE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSourceReference() <em>Source Reference</em>}' reference.
+	 * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourceReference()
+	 * @see #getModelElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected EObject sourceReference;
+	protected EObject modelElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,16 +145,16 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getSourceReference() {
-		if (sourceReference != null && sourceReference.eIsProxy()) {
-			InternalEObject oldSourceReference = (InternalEObject)sourceReference;
-			sourceReference = eResolveProxy(oldSourceReference);
-			if (sourceReference != oldSourceReference) {
+	public EObject getModelElement() {
+		if (modelElement != null && modelElement.eIsProxy()) {
+			InternalEObject oldModelElement = (InternalEObject)modelElement;
+			modelElement = eResolveProxy(oldModelElement);
+			if (modelElement != oldModelElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
 			}
 		}
-		return sourceReference;
+		return modelElement;
 	}
 
 	/**
@@ -162,8 +162,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetSourceReference() {
-		return sourceReference;
+	public EObject basicGetModelElement() {
+		return modelElement;
 	}
 
 	/**
@@ -171,11 +171,11 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSourceReference(EObject newSourceReference) {
-		EObject oldSourceReference = sourceReference;
-		sourceReference = newSourceReference;
+	public void setModelElement(EObject newModelElement) {
+		EObject oldModelElement = modelElement;
+		modelElement = newModelElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
 	}
 
 	/**
@@ -190,9 +190,9 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 				return getType();
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return getMessage();
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				if (resolve) return getSourceReference();
-				return basicGetSourceReference();
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				if (resolve) return getModelElement();
+				return basicGetModelElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -212,8 +212,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage((String)newValue);
 				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				setSourceReference((EObject)newValue);
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				setModelElement((EObject)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -233,8 +233,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage(MESSAGE_EDEFAULT);
 				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				setSourceReference((EObject)null);
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				setModelElement((EObject)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -252,8 +252,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 				return type != TYPE_EDEFAULT;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				return sourceReference != null;
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				return modelElement != null;
 		}
 		return super.eIsSet(featureID);
 	}

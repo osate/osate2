@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.result.Diagnostic#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}</li>
+ *   <li>{@link org.osate.result.Diagnostic#getModelElement <em>Model Element</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getDiagnostic()
@@ -80,29 +80,29 @@ public interface Diagnostic extends EObject {
 	void setMessage(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Reference</b></em>' reference.
+	 * Returns the value of the '<em><b>Model Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Source Reference</em>' reference isn't clear,
+	 * If the meaning of the '<em>Model Element</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Reference</em>' reference.
-	 * @see #setSourceReference(EObject)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_SourceReference()
+	 * @return the value of the '<em>Model Element</em>' reference.
+	 * @see #setModelElement(EObject)
+	 * @see org.osate.result.ResultPackage#getDiagnostic_ModelElement()
 	 * @model
 	 * @generated
 	 */
-	EObject getSourceReference();
+	EObject getModelElement();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}' reference.
+	 * Sets the value of the '{@link org.osate.result.Diagnostic#getModelElement <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Reference</em>' reference.
-	 * @see #getSourceReference()
+	 * @param value the new value of the '<em>Model Element</em>' reference.
+	 * @see #getModelElement()
 	 * @generated
 	 */
-	void setSourceReference(EObject value);
+	void setModelElement(EObject value);
 
 } // Diagnostic

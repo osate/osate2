@@ -3,34 +3,32 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="result" nsURI="http://www.osate.org/result/Result" nsPrefix="result">
   <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="analysis" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="info" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceReference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ObjectValue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
         eType="#//Result" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
+        eType="#//Diagnostic" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Result" eSuperTypes="#//Diagnostic">
+  <eClassifiers xsi:type="ecore:EClass" name="Result">
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//Value" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
         eType="#//Diagnostic" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subResults" upperBound="-1"
         eType="#//Result" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ResultType"
+        defaultValueLiteral="NONE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Diagnostic">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//DiagnosticType"
         defaultValueLiteral="NONE"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceReference" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="DiagnosticType">
-    <eLiterals name="NONE" literal="NONE"/>
-    <eLiterals name="ERROR" value="1" literal="ERROR"/>
-    <eLiterals name="WARNING" value="2" literal="WARNING"/>
-    <eLiterals name="INFO" value="3" literal="INFO"/>
-    <eLiterals name="SUCCESS" value="4" literal="SUCCESS"/>
-    <eLiterals name="FAILURE" value="5" literal="FAIL"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//Value">
@@ -57,5 +55,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectValue" eSuperTypes="#//Value">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DiagnosticType">
+    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="ERROR" value="1" literal="ERROR"/>
+    <eLiterals name="WARNING" value="2" literal="WARNING"/>
+    <eLiterals name="INFO" value="3" literal="INFO"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ResultType">
+    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="ERROR" value="1" literal="ERROR"/>
+    <eLiterals name="SUCCESS" value="4" literal="SUCCESS"/>
+    <eLiterals name="FAILURE" value="5" literal="FAIL"/>
   </eClassifiers>
 </ecore:EPackage>
