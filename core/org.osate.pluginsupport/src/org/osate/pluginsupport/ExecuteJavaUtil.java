@@ -7,6 +7,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,8 +70,7 @@ public class ExecuteJavaUtil {
 	}
 
 	// invoke method in workspace project
-	public Object invokeJavaMethod(String javaMethod, Collection<Class<?>> paramClasses,
-			Collection<Object> paramActuals) {
+	public Object invokeJavaMethod(String javaMethod, List<Class<?>> paramClasses, List<Object> paramActuals) {
 		int i = javaMethod.lastIndexOf('.');
 		if (i == -1) {
 			return null;
@@ -84,7 +84,18 @@ public class ExecuteJavaUtil {
 					((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
 			return method.invoke(instance, paramActuals.toArray());
 		} catch (Exception e) {
-			return null;
+			// try without the target parameter
+			try {
+				paramClasses.remove(0);
+				paramActuals.remove(0);
+				Class<?> clazz = getJavaClass(className);
+				Object instance = clazz.newInstance();
+				final Method method = clazz.getMethod(methodName,
+						((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
+				return method.invoke(instance, paramActuals.toArray());
+			} catch (Exception ee) {
+				return null;
+			}
 		}
 	}
 
