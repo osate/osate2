@@ -39,6 +39,7 @@ import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
@@ -78,6 +79,10 @@ class CommonUtilExtension {
 					ComputeDeclaration:
 						variable.name
 					ValDeclaration: {
+						val expr = variable.value
+						if (expr instanceof AModelReference){
+							return toText(expr)
+						}
 						val RuleEnvironment env = new RuleEnvironment
 						env.add('vals', new HashMap<String, PropertyExpression>)
 						env.add('computes', new HashMap<String, Object>)
@@ -97,6 +102,14 @@ class CommonUtilExtension {
 			}
 		} else {
 			""
+		}
+	}
+	
+	def static String toText(AModelReference aref){
+		if (aref.prev === null){
+			return "this"
+		} else {
+			return toText(aref.prev)+"."+aref.modelElement?.name
 		}
 	}
 
@@ -196,4 +209,6 @@ class CommonUtilExtension {
 	}
 
 	public static val eInstance = new CommonUtilExtension
+
+
 }
