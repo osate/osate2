@@ -93,23 +93,6 @@ auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
 		element
 	else 
 		component
-	
-//	switch (obj.eClass.name) {
-//		case 'SystemRequirementSet': component
-//		case 'Requirement': 
-//			if (element instanceof InstanceObject)
-//				element
-//			else if (component !== null)
-//				component
-//			else
-//				component.eContents.findFirst[
-//					if (it instanceof InstanceObject) it.name.equalsIgnoreCase(element.name) else false
-//				] as InstanceObject
-//		default: {
-//			val parent = obj.eContainer()
-//			if (parent === null) null else chooseRoot(parent, G)
-//		}
-//	}
 }
 
 
