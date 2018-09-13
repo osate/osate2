@@ -385,7 +385,8 @@ TargetType ::=
 </pre>
 <pre>
 MethodKind ::=
-  java MethodPath ( (  JavaParameter ( ,  JavaParameter )* ) )? |
+  java MethodPath  |
+  python ScriptPath |
   plugin MethodID |
   resolute QualifiedMethodName |
   agree ( single | all ) |
@@ -432,7 +433,7 @@ The verification method declaration consists of:
 
 
 * *MethodKind*: identification of the method implementation and implementation specific reference to the method. The following method kinds are supported*: OSATE analysis plug-ins, Resolute, Junit4, Java, Agree, Manual. See 
-[Verification Method Kinds](VerifyDoc.html#kinds-of-verification-methods) for details.
+[Verification Method Kinds](VerifyDoc.html#supported-verification-method-kinds) for details.
 
 
 * *Description*: a description of the verification method.
@@ -458,6 +459,9 @@ The following method types are supported:
  Java methods can return AnalysisResult or Result in an ALISA defined format (see [Analysis Result](AnalysisResultFormat.html)).
  Java methods can return a single value as object. These values will be assigned to the specified computed variables.
  The actual Java method may expect Java types that are not part of the ALISA Types. For example, the Java method may expect a long numeric. We automatically map StringLiteral -> String, BooleanLiteral -> Boolean, RealLiteral -> double, IntegerLiteral -> long. For model element references we map InstanceReferenceValue into an InstanceObject reference.
+
+* *Python*: a Python script identified by a <dot> separated path to a Python script. The path includes the project name in the workspace, any folders, and the file name of the Python script without the *py* extension. 
+The actual parameters are passed to Python in the same Java format as described for the Java method. The Python script can return the same objects as resutrn values as described for Java.
 
 
 * *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry](VerifyDoc.html#predefined-method-registry)). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)) for inclusion in the assurance case result instance.
