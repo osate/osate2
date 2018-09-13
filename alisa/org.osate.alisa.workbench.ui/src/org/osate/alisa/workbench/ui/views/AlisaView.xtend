@@ -444,12 +444,7 @@ class AlisaView extends ViewPart {
 								if (eObject.resultType == DiagnosticType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
-									if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult && eObject.resultType == ResultType.ERROR){
-										// map error into failure
-										"Fail: "+ (eObject.modelElement?.constructLabel ?: "" ) 
-									} else {
-										eObject.resultType.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
-									}
+									eObject.resultType.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								}
 							}
 								
@@ -600,6 +595,7 @@ class AlisaView extends ViewPart {
 							ElseResult: "else"
 							ThenResult: "then"
 							PredicateResult: eObject.constructMessage
+							Result: eObject.constructMessage
 						}
 					}
 				}
