@@ -397,6 +397,18 @@
     <requirement
         name="org.eclipse.ease.lang.jvm.feature.feature.group"/>
     <requirement
+        name="org.eclipse.ease.lang.python.py4j.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.ease.lang.scriptarchive.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.ease.lang.unittest.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
+    <requirement
+        name="org.eclipse.ease.modules.feature.feature.group"/>
+    <requirement
+        name="org.py4j.feature.feature.group"/>
+    <requirement
         name="org.eclipse.gendoc.feature.feature.group"/>
     <repository
         url="http://download.eclipse.org/releases/oxygen"/>
@@ -404,6 +416,8 @@
         url="http://download.eclipse.org/ease/update/release"/>
     <repository
         url="http://download.eclipse.org/gendoc/updates/releases/0.6.0"/>
+    <repository
+        url="https://eclipse.py4j.org"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -780,6 +794,26 @@
       <requirement
           name="it.xsemantics.sdk.feature.group"/>
       <requirement
+          name="org.eclipse.ease.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.ui.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.javascript.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.jvm.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.python.py4j.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.scriptarchive.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.unittest.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.modules.feature.feature.group"/>
+      <requirement
+          name="org.py4j.feature.feature.group"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}"/>
@@ -818,6 +852,10 @@
             url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
         <repository
             url="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.12"/>
+        <repository
+            url="http://download.eclipse.org/ease/update/release"/>
+        <repository
+            url="https://eclipse.py4j.org"/>
       </repositoryList>
     </targlet>
     <description></description>
