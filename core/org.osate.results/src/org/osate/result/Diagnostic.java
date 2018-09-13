@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Diagnostic extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Diagnostic Type</b></em>' attribute.
-	 * The default value is <code>"NONE"</code>.
+	 * The default value is <code>"TBD"</code>.
 	 * The literals are from the enumeration {@link org.osate.result.DiagnosticType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -37,7 +37,7 @@ public interface Diagnostic extends EObject {
 	 * @see org.osate.result.DiagnosticType
 	 * @see #setDiagnosticType(DiagnosticType)
 	 * @see org.osate.result.ResultPackage#getDiagnostic_DiagnosticType()
-	 * @model default="NONE"
+	 * @model default="TBD"
 	 * @generated
 	 */
 	DiagnosticType getDiagnosticType();

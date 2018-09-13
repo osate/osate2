@@ -19,16 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum DiagnosticType implements Enumerator {
 	/**
-	 * The '<em><b>NONE</b></em>' literal object.
+	 * The '<em><b>TBD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #NONE_VALUE
+	 * @see #TBD_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	NONE(0, "NONE", "NONE"),
-
-	/**
+	TBD(0, "TBD", "TBD"), /**
 	 * The '<em><b>ERROR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -59,19 +57,19 @@ public enum DiagnosticType implements Enumerator {
 	INFO(3, "INFO", "INFO");
 
 	/**
-	 * The '<em><b>NONE</b></em>' literal value.
+	 * The '<em><b>TBD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>NONE</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #NONE
+	 * @see #TBD
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NONE_VALUE = 0;
+	public static final int TBD_VALUE = 0;
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal value.
@@ -126,7 +124,7 @@ public enum DiagnosticType implements Enumerator {
 	 */
 	private static final DiagnosticType[] VALUES_ARRAY =
 		new DiagnosticType[] {
-			NONE,
+			TBD,
 			ERROR,
 			WARNING,
 			INFO,
@@ -186,7 +184,7 @@ public enum DiagnosticType implements Enumerator {
 	 */
 	public static DiagnosticType get(int value) {
 		switch (value) {
-			case NONE_VALUE: return NONE;
+			case TBD_VALUE: return TBD;
 			case ERROR_VALUE: return ERROR;
 			case WARNING_VALUE: return WARNING;
 			case INFO_VALUE: return INFO;

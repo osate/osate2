@@ -40,7 +40,7 @@ public class Line {
 	}
 
 	public void addHeaderContent(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.NONE, s));
+		this.content.add(new ReportedCell(DiagnosticType.TBD, s));
 	}
 
 	public void addCell(ReportedCell cell) {

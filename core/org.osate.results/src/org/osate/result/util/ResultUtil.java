@@ -57,7 +57,7 @@ public class ResultUtil {
 	}
 
 	public static Result createResult(String msg, EObject target) {
-		return createResult(msg, target, ResultType.NONE);
+		return createResult(msg, target, ResultType.TBD);
 	}
 
 	public static Result createResult(String msg, EObject target, ResultType type) {
@@ -361,7 +361,7 @@ public class ResultUtil {
 	 * @return
 	 */
 	public static boolean isResultTBD(Result res) {
-		return res.getResultType() == ResultType.NONE;
+		return res.getResultType() == ResultType.TBD;
 	}
 
 	/**
@@ -407,6 +407,26 @@ public class ResultUtil {
 	 */
 	public static boolean hasDiagnosticErrors(AnalysisResult res) {
 		return hasDiagnosticErrors(res.getDiagnostics());
+	}
+
+	/**
+	 * true if AnalysisResult is of type ERROR
+	 * @param res
+	 * @return
+	 */
+	public static boolean isAnalysisResultError(AnalysisResult res) {
+		return res.getResultType() == ResultType.ERROR;
+	}
+
+	/**
+	 * set Result type to ERROR and add Daignsotic with specified message and target object
+	 * @param result
+	 * @param message
+	 * @param target
+	 */
+	public static void setToError(Result result, String message) {
+		result.getDiagnostics().add(createErrorDiagnostic(message, result.getModelElement()));
+		result.setResultType(ResultType.ERROR);
 	}
 
 	/**

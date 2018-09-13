@@ -627,9 +627,7 @@ class AssureProcessor implements IAssureProcessor {
 		try {
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
-				pResult.diagnostics.add(createErrorDiagnostic(
-					"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null))
-				pResult.resultType = ResultType.ERROR
+				setToError(pResult,"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException))
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
@@ -649,13 +647,7 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
-			pResult.resultType = ResultType.ERROR
-			if (pResult.message === null){
-				pResult.message = e.message
-			} else {
-				pResult.diagnostics.add(createErrorDiagnostic(
-					e.message, null))
-			}
+			setToError(pResult,e.message)
 		}
 	}
 
@@ -788,21 +780,23 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				verificationResult.issues.add(returned)
 			} else if (returned instanceof AnalysisResult) {
-				if (verificationResult instanceof VerificationActivityResult) {
-					for (Result r : returned.results) {
-						if (!verificationResult.isError) {
-							evaluateComputePredicate(verificationResult, method, r)
-						}
-					}
-				}
-				if (verificationResult.isError){
-					// no need to do anything 
-				} else if (hasResultErrors(returned) ) {
+				if (returned.isAnalysisResultError){
 					setToError(verificationResult)
-				} else if ( hasResultFailures(returned)) {
-					setToFail(verificationResult)
 				} else {
-					setToSuccess(verificationResult)
+					if (verificationResult instanceof VerificationActivityResult) {
+						for (Result r : returned.results) {
+							evaluateComputePredicate(verificationResult, method, r)
+						}	
+					}
+					if (verificationResult.isError){
+						// no need to do anything 
+					} else if (hasResultErrors(returned) ) {
+						setToError(verificationResult)
+					} else if ( hasResultFailures(returned)) {
+						setToFail(verificationResult)
+					} else {
+						setToSuccess(verificationResult)
+					}
 				}
 				// We need to create a resource in order to store the reference to the AnalysisResult object
 				val aruri = ResultUtil.getAnalysisResultURI(returned);
@@ -875,7 +869,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		val computevars = verificationResult.targetReference.verificationActivity.computes
 		if (computevars.isEmpty) {
-			setToError(verificationResult, 'No return values assigned to compute variables')
+			setToError(returned, 'No return values assigned to compute variables')
 			return
 		}
 		// reset computes for each predicate evaluation
@@ -891,7 +885,7 @@ class AssureProcessor implements IAssureProcessor {
 			]
 			evaluateComputePredicate(returned, valuePredicate)
 		} else {
-			setToError(verificationResult, 'Fewer values returned than expected as compute variables')
+			setToError(returned, 'Fewer values returned than expected as compute variables')
 		}
 	}
 
