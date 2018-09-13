@@ -111,8 +111,6 @@ public class ExcelExport extends GenericExport {
 			return error;
 		case WARNING:
 			return warningBold;
-		case SUCCESS:
-			return successBold;
 		case INFO:
 			return normal;
 		default:

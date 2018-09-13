@@ -29,10 +29,10 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 */
 	@Override
 	public void createFieldEditors() {
-		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
+		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.ASYNCHRONOUS_SYSTEM,
 				"System type", 1,
-				new String[][] { { "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
-			{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } },
+				new String[][] { { "Asynchronous system (AS)", Constants.ASYNCHRONOUS_SYSTEM_YES },
+						{ "Synchronous system (SS)", Constants.ASYNCHRONOUS_SYSTEM_NO } },
 				getFieldEditorParent(), true);
 		addField(synchronousSystem);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,

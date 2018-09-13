@@ -28,6 +28,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.pluginsupport.ExecuteJavaUtil;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -71,8 +72,8 @@ public class Util {
 	public static void savePropagationGraph(PropagationGraph pg) {
 		ComponentInstance root = pg.getRoot();
 		String pgname = root.getName();
-		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimSegments(1).appendSegment("reports")
-				.appendSegment("propagationgraph").appendSegment(pgname + ".propagationgraph");
+		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension().trimSegments(1).appendSegment("reports")
+				.appendSegment("propagationgraph").appendSegment(pgname).appendFileExtension("propagationgraph");
 		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
 		OsateResourceUtil.saveEMFModel(pg, pgURI, root);
 	}
@@ -696,14 +697,14 @@ public class Util {
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {
-			return true;
+				return true;
 			}
 		} else if (!Aadl2Util.isNull(ifCondition.getResoluteFunction())) {
 			if (RESOLUTE_INSTALLED) {
 				Diagnostic res = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(
 						ifCondition.getResoluteFunction(),
 						target.getSystemInstance(), targetComponent, targetElement, null);
-				return res != null && res.getType() == DiagnosticType.SUCCESS;
+				return res != null && res.getDiagnosticType() != DiagnosticType.ERROR;
 			} else {
 			return true;
 			}

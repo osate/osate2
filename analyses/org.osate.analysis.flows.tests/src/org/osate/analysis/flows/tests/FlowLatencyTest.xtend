@@ -2,7 +2,6 @@ package org.osate.analysis.flows.tests
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -10,7 +9,7 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
+import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.result.RealValue
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
@@ -43,9 +42,9 @@ class FlowLatencyTest extends XtextTest {
 		assertEquals("stub_i_Instance", instance.name)
 
 		// check flow latency
-		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
 		val som = instance.systemOperationModes.head
-		val latencyresult = checker.invoke(instance, som, true, true, true, true)
+		val checker = new LatencyAnalysisService()
+		val latencyresult = checker.invoke(instance, som)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
@@ -53,8 +52,8 @@ class FlowLatencyTest extends XtextTest {
 		assertTrue((res.values.get(4) as RealValue).value == (4.0))
 		assertTrue((res.values.get(5) as RealValue).value == (300.0))
 		assertTrue((res.values.get(6) as RealValue).value == (300.0))
-		assertTrue(latencyresult.info == "AS-MF-DL-EQ")
-		res.subResults.size.assertEquals(16)
+		assertTrue(latencyresult.message == "AS-MF-DL-EQ")
+		17.assertEquals(res.subResults.size)
 	}
 
 

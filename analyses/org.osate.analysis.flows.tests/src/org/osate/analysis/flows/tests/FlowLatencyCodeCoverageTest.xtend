@@ -1,27 +1,27 @@
 package org.osate.analysis.flows.tests
 
 import com.google.inject.Inject
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.analysis.flows.model.LatencyReport
+import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.ResultHelper
 import org.osate.testsupport.TestHelper
+
+import static org.osate.testsupport.ResultHelper.*
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
-import static extension org.osate.testsupport.ResultHelper.assertAnalysisResult
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
 class FlowLatencyCodeCoverageTest {
 	val static DIR_NAME = "org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/"
+	
+	val static boolean generateResults = false
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -74,13 +74,10 @@ class FlowLatencyCodeCoverageTest {
 					instantiate => [
 						"s1_i1_Instance".assertEquals(name)
 						
-						val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
+						val analysis = new LatencyAnalysisService()
 						val actual = analysis.invoke(it, it.systemOperationModes.head)
-						
 						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
-						val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
-						
-						expected.assertAnalysisResult(actual)
+						generateOrAssert(generateResults, resultPath,actual)
 					]
 				]
 			]
@@ -96,13 +93,12 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''«DIR_NAME»results/testWithLatencyReport/«emptyPkgName».result'''
-					val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
 					
-					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it, new LatencyReport(it))
+					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head)
-					
-					expected.assertAnalysisResult(actual)
+
+					val resultPath = '''«DIR_NAME»results/testWithLatencyReport/«emptyPkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]
@@ -117,13 +113,12 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''«DIR_NAME»results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
-					val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
 					
-					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
+					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
-					
-					expected.assertAnalysisResult(actual)
+
+					val resultPath = '''«DIR_NAME»results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]
@@ -138,13 +133,11 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''«DIR_NAME»results/testBestCaseFullQueue/«queuingPkgName».result'''
-					val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
 					
-					val analysis = new FlowLatencyAnalysisSwitch(new NullProgressMonitor, it)
+					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
-					
-					expected.assertAnalysisResult(actual)
+					val resultPath = '''«DIR_NAME»results/testBestCaseFullQueue/«queuingPkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]

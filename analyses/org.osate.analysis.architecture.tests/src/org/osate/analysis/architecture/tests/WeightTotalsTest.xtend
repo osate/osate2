@@ -9,17 +9,19 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.analysis.architecture.PropertyTotals
 import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.ResultHelper
 import org.osate.testsupport.TestHelper
+
+import static org.osate.testsupport.ResultHelper.*
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
-import static extension org.osate.testsupport.ResultHelper.assertAnalysisResult
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
 class WeightTotalsTest {
 	val static DIR_NAME = "org.osate.analysis.architecture.tests/models/WeightTotals/"
+	
+	val static generate = false
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -43,12 +45,10 @@ class WeightTotalsTest {
 					instantiate => [
 						"s1_i1_Instance".assertEquals(name)
 						
-						val resultPath = '''«DIR_NAME»results/«fileName».result'''
-						val expected = ResultHelper.loadResult(eResource.resourceSet, resultPath)
-						
 						val actual = PropertyTotals.invoke(it)
 						
-						expected.assertAnalysisResult(actual)
+						val resultPath = '''«DIR_NAME»results/«fileName».result'''
+						generateOrAssert(generate, resultPath,actual)
 					]
 				]
 			]

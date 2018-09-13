@@ -19,7 +19,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
@@ -116,11 +116,11 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public Diagnostic executeResoluteFunctionOnce(EObject fundef, final SystemInstance instanceroot,
+	public EObject executeResoluteFunctionOnce(EObject fundef,
 			final ComponentInstance targetComponent, final InstanceObject targetElement,
 			List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = (FunctionDefinition) fundef;
-		initializeResoluteContext(instanceroot);
+		initializeResoluteContext(targetComponent.getSystemInstance());
 		EvaluationContext context = new EvaluationContext(targetComponent, sets, featToConnsMap);
 		// check for claim function
 		FnCallExpr fcncall = createWrapperFunctionCall(fd, targetElement, parameterObjects);
@@ -150,7 +150,7 @@ public class ExecuteResoluteUtil {
 				ResoluteResult res = prover.doSwitch(fcncall);
 				return doResoluteResults(res);
 			} catch (ResoluteFailException e) {
-				return ResultUtil.createFailure(e.getMessage(), targetElement);
+				return ResultUtil.createFailureResult(e.getMessage(), targetElement);
 			}
 //			} else {
 //				// computational function
@@ -170,7 +170,7 @@ public class ExecuteResoluteUtil {
 //				return null;
 //			}
 		} else {
-			return ResultUtil.createError("Could not find Resolute Function " + fd.getName(), fd);
+			return ResultUtil.createErrorDiagnostic("Could not find Resolute Function " + fd.getName(), fd);
 		}
 	}
 
@@ -179,7 +179,14 @@ public class ExecuteResoluteUtil {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
 		call.setFn(fd);
-		call.getArgs().add(createInstanceObjectReference(io));
+		int fdparams = fd.getArgs().size();
+		int aparams = 0;
+		if (params != null) {
+			aparams = params.size();
+		}
+		if (fdparams == aparams + 1) {
+			call.getArgs().add(createInstanceObjectReference(io));
+		}
 		if (params != null) {
 			addParams(call, params);
 		}
@@ -225,29 +232,31 @@ public class ExecuteResoluteUtil {
 
 	static private ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
 
-	private Diagnostic doResoluteResults(ResoluteResult resRes) {
-		Diagnostic ri = null;
+	private Result doResoluteResults(ResoluteResult resRes) {
 		if (resRes instanceof ClaimResult) {
+			Result ri = null;
 			ClaimResult rr = (ClaimResult) resRes;
 			if (rr.isValid()) {
-				ri = ResultUtil.createSuccess(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createSuccessResult(rr.getText(), rr.getLocation());
 			} else {
-				ri = ResultUtil.createFailure(rr.getText(), rr.getLocation());
+				ri = ResultUtil.createFailureResult(rr.getText(), rr.getLocation());
 			}
 			Object[] subrrs = resoluteContent.getChildren(rr);
 			for (Object subrr : subrrs) {
 				ClaimResult subclaim = (ClaimResult) subrr;
-				// in the future we may need to create an intermediary Result object
-				ri.getIssues().add(doResoluteResults(subclaim));
+				ri.getSubResults().add(doResoluteResults(subclaim));
 			}
+			return ri;
 		} else if (resRes instanceof ResoluteResult) {
+			Result ri = null;
 			if (resRes.isValid()) {
-				ri = ResultUtil.createSuccess("XXX", null);
+				ri = ResultUtil.createSuccessResult("XXX", null);
 			} else {
-				ri = ResultUtil.createFailure("XXX", null);
+				ri = ResultUtil.createFailureResult("XXX", null);
 			}
+			return ri;
 		}
-		return ri;
+		return null;
 	}
 
 }

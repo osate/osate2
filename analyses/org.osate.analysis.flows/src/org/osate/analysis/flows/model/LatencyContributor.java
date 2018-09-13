@@ -119,7 +119,7 @@ public abstract class LatencyContributor {
 	 * some latency).
 	 */
 	private List<LatencyContributor> subContributors;
-	
+
 	private final boolean majorFrameDelay;
 
 	public LatencyContributor(boolean majorFrameDelay) {
@@ -147,10 +147,6 @@ public abstract class LatencyContributor {
 		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.ERROR));
 	}
 
-	public void reportSuccess(String str) {
-		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.SUCCESS));
-	}
-
 	public void reportInfo(String str) {
 		issues.add(createDiagnostic(str, this.relatedElement, DiagnosticType.INFO));
 	}
@@ -162,11 +158,6 @@ public abstract class LatencyContributor {
 	public void reportError(boolean doMaximum, String str) {
 		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
 				this.relatedElement, DiagnosticType.ERROR));
-	}
-
-	public void reportSuccess(boolean doMaximum, String str) {
-		issues.add(createDiagnostic(FlowLatencyUtil.getMinMaxLabel(doMaximum) + str,
-				this.relatedElement, DiagnosticType.SUCCESS));
 	}
 
 	public void reportInfo(boolean doMaximum, String str) {
@@ -184,13 +175,6 @@ public abstract class LatencyContributor {
 			return;
 		}
 		reportError(str);
-	}
-
-	public void reportSuccessOnce(boolean doMaximum, String str) {
-		if (doMaximum) {
-			return;
-		}
-		reportSuccess(str);
 	}
 
 	public void reportInfoOnce(boolean doMaximum, String str) {
@@ -497,7 +481,7 @@ public abstract class LatencyContributor {
 
 	public Result genResult() {
 		Result result = ResultFactory.eINSTANCE.createResult();
-		result.setSourceReference(relatedElement);
+		result.setModelElement(relatedElement);
 		result.getDiagnostics().addAll(issues);
 		addRealValue(result, minValue);
 		addRealValue(result, maxValue);

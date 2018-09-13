@@ -2,18 +2,13 @@
  */
 package org.osate.result.impl;
 
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.ResultPackage;
@@ -26,36 +21,33 @@ import org.osate.result.ResultPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.impl.DiagnosticImpl#getDiagnosticType <em>Diagnostic Type</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getIssues <em>Issues</em>}</li>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.result.impl.DiagnosticImpl#getModelElement <em>Model Element</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diagnostic {
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The default value of the '{@link #getDiagnosticType() <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DiagnosticType TYPE_EDEFAULT = DiagnosticType.NONE;
+	protected static final DiagnosticType DIAGNOSTIC_TYPE_EDEFAULT = DiagnosticType.TBD;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The cached value of the '{@link #getDiagnosticType() <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 * @ordered
 	 */
-	protected DiagnosticType type = TYPE_EDEFAULT;
+	protected DiagnosticType diagnosticType = DIAGNOSTIC_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -78,64 +70,14 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	protected String message = MESSAGE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSourceReference() <em>Source Reference</em>}' reference.
+	 * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSourceReference()
+	 * @see #getModelElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected EObject sourceReference;
-
-	/**
-	 * The default value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExceptionType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EXCEPTION_TYPE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getExceptionType() <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExceptionType()
-	 * @generated
-	 * @ordered
-	 */
-	protected String exceptionType = EXCEPTION_TYPE_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIssues()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Diagnostic> issues;
-
-	/**
-	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String SOURCE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected String source = SOURCE_EDEFAULT;
+	protected EObject modelElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -161,8 +103,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DiagnosticType getType() {
-		return type;
+	public DiagnosticType getDiagnosticType() {
+		return diagnosticType;
 	}
 
 	/**
@@ -170,11 +112,11 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(DiagnosticType newType) {
-		DiagnosticType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
+	public void setDiagnosticType(DiagnosticType newDiagnosticType) {
+		DiagnosticType oldDiagnosticType = diagnosticType;
+		diagnosticType = newDiagnosticType == null ? DIAGNOSTIC_TYPE_EDEFAULT : newDiagnosticType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE, oldDiagnosticType, diagnosticType));
 	}
 
 	/**
@@ -203,16 +145,16 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject getSourceReference() {
-		if (sourceReference != null && sourceReference.eIsProxy()) {
-			InternalEObject oldSourceReference = (InternalEObject)sourceReference;
-			sourceReference = eResolveProxy(oldSourceReference);
-			if (sourceReference != oldSourceReference) {
+	public EObject getModelElement() {
+		if (modelElement != null && modelElement.eIsProxy()) {
+			InternalEObject oldModelElement = (InternalEObject)modelElement;
+			modelElement = eResolveProxy(oldModelElement);
+			if (modelElement != oldModelElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE, oldSourceReference, sourceReference));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
 			}
 		}
-		return sourceReference;
+		return modelElement;
 	}
 
 	/**
@@ -220,8 +162,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EObject basicGetSourceReference() {
-		return sourceReference;
+	public EObject basicGetModelElement() {
+		return modelElement;
 	}
 
 	/**
@@ -229,79 +171,11 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSourceReference(EObject newSourceReference) {
-		EObject oldSourceReference = sourceReference;
-		sourceReference = newSourceReference;
+	public void setModelElement(EObject newModelElement) {
+		EObject oldModelElement = modelElement;
+		modelElement = newModelElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE, oldSourceReference, sourceReference));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getExceptionType() {
-		return exceptionType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExceptionType(String newExceptionType) {
-		String oldExceptionType = exceptionType;
-		exceptionType = newExceptionType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE, oldExceptionType, exceptionType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Diagnostic> getIssues() {
-		if (issues == null) {
-			issues = new EObjectContainmentEList<Diagnostic>(Diagnostic.class, this, ResultPackage.DIAGNOSTIC__ISSUES);
-		}
-		return issues;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSource(String newSource) {
-		String oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__SOURCE, oldSource, source));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__ISSUES:
-				return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__MODEL_ELEMENT, oldModelElement, modelElement));
 	}
 
 	/**
@@ -312,19 +186,13 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				return getType();
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				return getDiagnosticType();
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return getMessage();
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				if (resolve) return getSourceReference();
-				return basicGetSourceReference();
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				return getExceptionType();
-			case ResultPackage.DIAGNOSTIC__ISSUES:
-				return getIssues();
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				return getSource();
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				if (resolve) return getModelElement();
+				return basicGetModelElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -338,24 +206,14 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				setType((DiagnosticType)newValue);
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				setDiagnosticType((DiagnosticType)newValue);
 				return;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage((String)newValue);
 				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				setSourceReference((EObject)newValue);
-				return;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				setExceptionType((String)newValue);
-				return;
-			case ResultPackage.DIAGNOSTIC__ISSUES:
-				getIssues().clear();
-				getIssues().addAll((Collection<? extends Diagnostic>)newValue);
-				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				setSource((String)newValue);
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				setModelElement((EObject)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -369,23 +227,14 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				setType(TYPE_EDEFAULT);
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				setDiagnosticType(DIAGNOSTIC_TYPE_EDEFAULT);
 				return;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage(MESSAGE_EDEFAULT);
 				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				setSourceReference((EObject)null);
-				return;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				setExceptionType(EXCEPTION_TYPE_EDEFAULT);
-				return;
-			case ResultPackage.DIAGNOSTIC__ISSUES:
-				getIssues().clear();
-				return;
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				setSource(SOURCE_EDEFAULT);
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				setModelElement((EObject)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -399,18 +248,12 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				return type != TYPE_EDEFAULT;
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				return diagnosticType != DIAGNOSTIC_TYPE_EDEFAULT;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-			case ResultPackage.DIAGNOSTIC__SOURCE_REFERENCE:
-				return sourceReference != null;
-			case ResultPackage.DIAGNOSTIC__EXCEPTION_TYPE:
-				return EXCEPTION_TYPE_EDEFAULT == null ? exceptionType != null : !EXCEPTION_TYPE_EDEFAULT.equals(exceptionType);
-			case ResultPackage.DIAGNOSTIC__ISSUES:
-				return issues != null && !issues.isEmpty();
-			case ResultPackage.DIAGNOSTIC__SOURCE:
-				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
+				return modelElement != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -425,14 +268,10 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		result.append(type);
+		result.append(" (diagnosticType: ");
+		result.append(diagnosticType);
 		result.append(", message: ");
 		result.append(message);
-		result.append(", exceptionType: ");
-		result.append(exceptionType);
-		result.append(", source: ");
-		result.append(source);
 		result.append(')');
 		return result.toString();
 	}

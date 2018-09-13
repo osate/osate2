@@ -3,7 +3,6 @@ package org.osate.analysis.flows;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -25,7 +24,6 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
@@ -33,6 +31,8 @@ import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Result;
+import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -494,62 +494,125 @@ public class FlowLatencyUtil {
 		return res;
 	}
 
-	public static void saveAnalysisResult(AnalysisResult results, String postfix) {
-		EObject root = results.getSourceReference();
+	// -------------
+	// Results
+	// -------------
+
+	public static AnalysisResult recordAsAnalysisResult(Collection<Result> results, EObject root,
+			boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		AnalysisResult latencyResults = createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
+		if (!results.isEmpty()) {
+			latencyResults.getResults().addAll(results);
+		} else {
+			Result err = ResultUtil.createErrorResult("No latency analysis result", root);
+			latencyResults.getResults().add(err);
+		}
+		return latencyResults;
+	}
+
+	public static AnalysisResult createLatencyAnalysisResult(EObject root, boolean asynchronousSystem,
+			boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		AnalysisResult latencyResults = ResultUtil.createAnalysisResult(FlowLatencyUtil.LatencyAnalysisName, root);
+		ResultUtil.addParameter(latencyResults, asynchronousSystem);
+		ResultUtil.addParameter(latencyResults, majorFrameDelay);
+		ResultUtil.addParameter(latencyResults, worstCaseDeadline);
+		ResultUtil.addParameter(latencyResults, bestCaseEmptyQueue);
+		latencyResults.setMessage(FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue));
+		latencyResults.setModelElement(root);
+		return latencyResults;
+	}
+
+	public static String LatencyAnalysisName = "latency";
+
+	public static URI getLantencyAnalysisResultURI(AnalysisResult results) {
+		EObject root = results.getModelElement();
 		URI rootURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension();
 		String rootname = rootURI.lastSegment();
-		URI latencyURI = rootURI.trimFragment().trimSegments(1).appendSegment("reports").appendSegment("latency")
-				.appendSegment(rootname + "__latency_" + postfix + ".result");
-		AadlUtil.makeSureFoldersExist(new Path(latencyURI.toPlatformString(true)));
-		OsateResourceUtil.saveEMFModel(results, latencyURI, root);
+		String postfix = getParametersAsLabels(results);
+		return rootURI.trimFragment().trimFileExtension().trimSegments(1).appendSegment("reports")
+				.appendSegment(LatencyAnalysisName).appendSegment(rootname + "__latency_" + postfix)
+				.appendFileExtension("result");
+	}
+
+	public static void saveAnalysisResult(AnalysisResult results) {
+		URI latencyURI = getLantencyAnalysisResultURI(results);
+		OsateResourceUtil.saveEMFModel(results, latencyURI, results.getModelElement());
 
 	}
 
-	public static String getParametersAsLabels(LatencyReport latrep) {
-		return getSynchronousSystemLabel(latrep) + "-" + getMajorFrameDelayLabel(latrep) + "-"
-				+ getWorstCaseDeadlineLabel(latrep) + "-" + getBestcaseEmptyQueueLabel(latrep);
+	public static String getParametersAsLabels(AnalysisResult results) {
+		String labels = results.getMessage();
+		if (results.getParameters().size() == 4) {
+			labels = FlowLatencyUtil.getParametersAsLabels((boolean) results.getParameters().get(0).getValue(),
+					(boolean) results.getParameters().get(1).getValue(),
+					(boolean) results.getParameters().get(2).getValue(),
+					(boolean) results.getParameters().get(3).getValue());
+		}
+		return labels;
 	}
 
-	public static String getSynchronousSystemLabel(LatencyReport latrep) {
-		return latrep.isSynchronousSystem() ? "SS" : "AS";
+	public static String getParametersAsLabels(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return getAsynchronousSystemLabel(asynchronousSystem) + "-" + getMajorFrameDelayLabel(majorFrameDelay) + "-"
+				+ getWorstCaseDeadlineLabel(worstCaseDeadline) + "-" + getBestcaseEmptyQueueLabel(bestCaseEmptyQueue);
 	}
 
-	public static String getMajorFrameDelayLabel(LatencyReport latrep) {
-		return latrep.isMajorFrameDelay() ? "MF" : "PE";
+	public static String getAsynchronousSystemLabel(boolean isAsynchronous) {
+		return isAsynchronous ? "AS" : "SS";
 	}
 
-	public static String getWorstCaseDeadlineLabel(LatencyReport latrep) {
-		return latrep.isWorstCaseDeadline() ? "DL" : "ET";
+	public static String getMajorFrameDelayLabel(boolean isMajorFrameDelay) {
+		return isMajorFrameDelay ? "MF" : "PE";
 	}
 
-	public static String getBestcaseEmptyQueueLabel(LatencyReport latrep) {
-		return latrep.isBestcaseEmptyQueue() ? "EQ" : "FQ";
+	public static String getWorstCaseDeadlineLabel(boolean isWorstCaseDeadline) {
+		return isWorstCaseDeadline ? "DL" : "ET";
+	}
+
+	public static String getBestcaseEmptyQueueLabel(boolean isBestcaseEmptyQueue) {
+		return isBestcaseEmptyQueue ? "EQ" : "FQ";
 	}
 
 
-	public static String getSynchronousSystemDescription(String label) {
-		return label.contentEquals("SS") ? "synchronous system" : "asynchronous system";
+	public static String getAsynchronousSystemDescription(boolean isAsynchronous) {
+		return isAsynchronous ? "asynchronous system" : "synchronous system";
 	}
 
-	public static String getMajorFrameDelayDescription(String label) {
-		return label.contentEquals("MF") ? "major partition frame" : "partition end";
+	public static String getMajorFrameDelayDescription(boolean isMajorFrameDelay) {
+		return isMajorFrameDelay ? "major partition frame" : "partition end";
 	}
 
-	public static String getWorstCaseDeadlineDescription(String label) {
-		return label.contentEquals("DL") ? "worst case as deadline" : "worst case as max compute execution time";
+	public static String getWorstCaseDeadlineDescription(boolean worstCaseDeadline) {
+		return worstCaseDeadline ? "worst case as deadline" : "worst case as max compute execution time";
 	}
 
-	public static String getBestcaseEmptyQueueDescription(String label) {
-		return label.contentEquals("EQ") ? "best case as empty queue"
+	public static String getBestcaseEmptyQueueDescription(boolean bestCaseEmptyQueue) {
+		return bestCaseEmptyQueue ? "best case as empty queue"
 				: "best case as full queue min compute execution time";
 	}
 
 
-	public static String getParametersAsDescriptions(String paramLabels) {
-		return getSynchronousSystemDescription(paramLabels.substring(0, 1)) + "/"
-				+ getMajorFrameDelayDescription(paramLabels.substring(3, 4)) + "/"
-				+ getWorstCaseDeadlineDescription(paramLabels.substring(6, 7)) + "/"
-				+ getBestcaseEmptyQueueDescription(paramLabels.substring(9, 10));
+	public static String getParametersAsDescriptions(AnalysisResult results) {
+		String labels = results.getMessage();
+		if (results.getParameters().size() == 4) {
+			labels = FlowLatencyUtil.getParametersAsDescriptions((boolean) results.getParameters().get(0).getValue(),
+					(boolean) results.getParameters().get(1).getValue(),
+					(boolean) results.getParameters().get(2).getValue(),
+					(boolean) results.getParameters().get(3).getValue());
+		}
+		return labels;
+	}
+
+	public static String getParametersAsDescriptions(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return getAsynchronousSystemDescription(asynchronousSystem) + "/"
+				+ getMajorFrameDelayDescription(majorFrameDelay)
+				+ "/" + getWorstCaseDeadlineDescription(worstCaseDeadline) + "/"
+				+ getBestcaseEmptyQueueDescription(bestCaseEmptyQueue);
 	}
 
 	public static String getContributorType(EObject relatedElement) {
