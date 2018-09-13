@@ -47,6 +47,7 @@ import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 import org.osate.alisa.common.common.TargetType
+import org.osate.aadl2.instance.InstanceReferenceValue
 
 class VerificationMethodDispatchers {
 
@@ -241,6 +242,8 @@ class VerificationMethodDispatchers {
 				if(formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
 			BooleanLiteral:
 				if(formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
+			InstanceReferenceValue:
+				result = actual.referencedInstanceObject
 		}
 		return result
 	}
