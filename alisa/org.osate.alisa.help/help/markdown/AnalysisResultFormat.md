@@ -7,7 +7,7 @@ OSATE provides a common analysis result format through the plug-in
 *org.osate.results*. An analysis result consists of 
 * an *AnalysisResult* object to record the type of analysis, parameters, and instance model target,
 * *Result* objects to record analysis data and diagnostic messages for a specific instance model element as well as contributors to the result through nested result objects
-* *Diagnostic* objects associated with each Result object identifying the target model element for the issue, providing a message and an indicator (*info*, *success*, *failure*, *error*, *warning*, *none*).
+* *Diagnostic* objects associated with each Result object identifying the target model element for the issue, providing a message and an indicator (*info*, *success*, *failure*, *error*, *warning*, *TBD*).
 
 Verification, precondition, validation activity result objects keep
 a record of any issues, i.e., error, warning, or info messages that may be reported by an analysis.  
@@ -27,6 +27,8 @@ The **AnalysisResult** object keeps a record of the type of analysis being invok
 
 * *ModelElement*: reference to the instance model target on which the analysis is to be performed, typically the instance model root
 
+* *ResultType*: The ResultType of the analysis invocation, i.e., *error* if the execution failed to complete, or *TBD*.  
+
 * *Results*: a collection of Result object one for each analysis instance being run, e.g., one Result object for each mode that the analysis is run.
 
 * *Diagnostics*: a collection of Diagnostic objects providing messages regarding the analysis.
@@ -38,7 +40,7 @@ The **Result** object provides a record of the result of an analysis execution. 
 
 * *ModelElement*: reference to the instance model element with which the result is associated. This may be the original the instance model root, or any element within the instance model.
 
-* *Type*: The ResultType of the result, i.e., *success*, *failure*, *error*, or *none*.  
+* *ResultType*: The ResultType of the result, i.e., *success*, *failure*, *error*, or *TBD*.  An analysis decides whether a *failure* in subresults should result in a *failure* in the enclosing Result object. An analysis also decides whether *error* or *warning* diagnostics should be reflected in the ResultType.  
 
 * *Message*: A String message associated with the Result, i.e., the execution of an analysis or analysis step on a target. 
 
@@ -58,7 +60,7 @@ It has the following fields:
 
 * *ModelElement*: reference to the instance model element with which the result is associated. This may be the original the instance model root, or any element within the instance model.
 
-* *Type*: The DiagnosticType of the result, i.e., *info*, *warning*, *error*, or *none*.  
+* *Type*: The DiagnosticType of the result, i.e., *info*, *warning*, *error*, or *TBD*.  
 
 * *Message*: A String message associated with the Result, i.e., the execution of an analysis or analysis step on a target. 
 
