@@ -315,7 +315,7 @@ public class ResultUtil {
 	}
 
 	/**
-	 * true if Result object or any sub Result object has Diagnostics with ERROR type
+	 * true if Result object has Diagnostics with ERROR type
 	 * @param res
 	 * @return
 	 */
@@ -335,18 +335,22 @@ public class ResultUtil {
 		return false;
 	}
 
+	public static boolean isResultSuccess(Result res) {
+		return res.getType() == ResultType.SUCCESS;
+	}
+
 	public static boolean isResultError(Result res) {
 		return res.getType() == ResultType.ERROR;
 	}
 
 	/**
-	 * true if Result object or any sub Result object has ERROR type
+	 * true if any Result object has ERROR type
 	 * @param res
 	 * @return
 	 */
 	public static boolean hasResultErrors(AnalysisResult res) {
 		for (Result r : res.getResults()) {
-			if (hasResultErrors(r)) {
+			if (isResultError(r)) {
 				return true;
 			}
 		}
