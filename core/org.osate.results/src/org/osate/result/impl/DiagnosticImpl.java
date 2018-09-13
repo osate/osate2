@@ -37,7 +37,7 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DiagnosticType DIAGNOSTIC_TYPE_EDEFAULT = DiagnosticType.NONE;
+	protected static final DiagnosticType DIAGNOSTIC_TYPE_EDEFAULT = DiagnosticType.TBD;
 
 	/**
 	 * The cached value of the '{@link #getDiagnosticType() <em>Diagnostic Type</em>}' attribute.

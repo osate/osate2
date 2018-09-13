@@ -19,16 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum ResultType implements Enumerator {
 	/**
-	 * The '<em><b>NONE</b></em>' literal object.
+	 * The '<em><b>TBD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #NONE_VALUE
+	 * @see #TBD_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	NONE(0, "NONE", "NONE"),
-
-	/**
+	TBD(0, "TBD", "TBD"), /**
 	 * The '<em><b>ERROR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,22 +54,22 @@ public enum ResultType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FAILURE(5, "FAILURE", "FAIL");
+	FAILURE(5, "FAILURE", "FAILURE");
 
 	/**
-	 * The '<em><b>NONE</b></em>' literal value.
+	 * The '<em><b>TBD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>NONE</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #NONE
+	 * @see #TBD
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NONE_VALUE = 0;
+	public static final int TBD_VALUE = 0;
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal value.
@@ -112,7 +110,7 @@ public enum ResultType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FAILURE
-	 * @model literal="FAIL"
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
@@ -126,7 +124,7 @@ public enum ResultType implements Enumerator {
 	 */
 	private static final ResultType[] VALUES_ARRAY =
 		new ResultType[] {
-			NONE,
+			TBD,
 			ERROR,
 			SUCCESS,
 			FAILURE,
@@ -186,7 +184,7 @@ public enum ResultType implements Enumerator {
 	 */
 	public static ResultType get(int value) {
 		switch (value) {
-			case NONE_VALUE: return NONE;
+			case TBD_VALUE: return TBD;
 			case ERROR_VALUE: return ERROR;
 			case SUCCESS_VALUE: return SUCCESS;
 			case FAILURE_VALUE: return FAILURE;

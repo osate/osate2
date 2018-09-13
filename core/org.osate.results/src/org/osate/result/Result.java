@@ -129,7 +129,7 @@ public interface Result extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Result Type</b></em>' attribute.
-	 * The default value is <code>"NONE"</code>.
+	 * The default value is <code>"TBD"</code>.
 	 * The literals are from the enumeration {@link org.osate.result.ResultType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -141,7 +141,7 @@ public interface Result extends EObject {
 	 * @see org.osate.result.ResultType
 	 * @see #setResultType(ResultType)
 	 * @see org.osate.result.ResultPackage#getResult_ResultType()
-	 * @model default="NONE"
+	 * @model default="TBD"
 	 * @generated
 	 */
 	ResultType getResultType();

@@ -367,14 +367,14 @@ class AssureRequirementsCoverageView extends ViewPart {
 									case ERROR:  "error.png"
 									case SUCCESS: "valid.png"
 									case FAILURE: "invalid.png"
-									case NONE: "info.png"
+									case TBD: "info.png"
 								}
 							Diagnostic:
 								switch eObject.diagnosticType {
 									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case NONE: "questionmark.png"
+									case TBD: "questionmark.png"
 								}
 							AssuranceCaseResult:
 								"assure.png"

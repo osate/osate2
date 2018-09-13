@@ -441,7 +441,7 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result: {
-								if (eObject.resultType == DiagnosticType.NONE){
+								if (eObject.resultType == DiagnosticType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
 									if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult && eObject.resultType == ResultType.ERROR){
@@ -493,14 +493,14 @@ class AlisaView extends ViewPart {
 									case ERROR:  "error.png"
 									case SUCCESS: "valid.png"
 									case FAILURE: "invalid.png"
-									case NONE: "info.png"
+									case TBD: "info.png"
 								}
 							Diagnostic:
 								switch eObject.diagnosticType {
 									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case NONE: "questionmark.png"
+									case TBD: "questionmark.png"
 								}
 							AssureResult case eObject.successful:
 								"valid.png"

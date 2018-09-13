@@ -460,7 +460,7 @@ class AssureConstructor implements IAssureConstructor {
 		qvr.verificationActivity = va
 		vaResult.targetReference = qvr
 		// -----------QualifiedVAReference END
-		vaResult.type = ResultType.NONE
+		vaResult.type = ResultType.TBD
 		vaResult.metrics = factory.createMetrics
 		vaResult.metrics.tbdCount = 0
 
@@ -543,7 +543,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
-		vr.type = ResultType.NONE
+		vr.type = ResultType.TBD
 
 		// vr.target = expr.verification
 		// QualifiedVAReference
@@ -586,7 +586,7 @@ class AssureConstructor implements IAssureConstructor {
 				(vcr as PreconditionResult).target = va.method
 			}
 		}
-		vcr.type = ResultType.NONE
+		vcr.type = ResultType.TBD
 		vcr.metrics = factory.createMetrics
 		vcr.metrics.tbdCount = 0
 		return vcr

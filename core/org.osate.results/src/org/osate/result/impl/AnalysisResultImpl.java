@@ -133,7 +133,7 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ResultType RESULT_TYPE_EDEFAULT = ResultType.NONE;
+	protected static final ResultType RESULT_TYPE_EDEFAULT = ResultType.TBD;
 
 	/**
 	 * The cached value of the '{@link #getResultType() <em>Result Type</em>}' attribute.
