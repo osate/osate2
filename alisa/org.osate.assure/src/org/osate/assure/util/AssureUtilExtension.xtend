@@ -420,7 +420,7 @@ class AssureUtilExtension {
 			SystemInstance: return "top " + obj.componentImplementation.name
 			ComponentInstance: return obj.category.getName + " " + obj.name 
 			ConnectionInstance: return obj.name 
-			NamedElement: obj.name 
+			NamedElement: return obj.name 
 		}
 		""
 	}
