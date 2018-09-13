@@ -122,13 +122,22 @@ public interface ResultPackage extends EPackage {
 	int ANALYSIS_RESULT__DIAGNOSTICS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Result Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANALYSIS_RESULT__RESULT_TYPE = 6;
+
+	/**
 	 * The number of structural features of the '<em>Analysis Result</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_RESULT_FEATURE_COUNT = 6;
+	int ANALYSIS_RESULT_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Analysis Result</em>' class.
@@ -205,13 +214,13 @@ public interface ResultPackage extends EPackage {
 	int RESULT__MODEL_ELEMENT = 4;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Result Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESULT__TYPE = 5;
+	int RESULT__RESULT_TYPE = 5;
 
 	/**
 	 * The number of structural features of the '<em>Result</em>' class.
@@ -232,13 +241,13 @@ public interface ResultPackage extends EPackage {
 	int RESULT_OPERATION_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Diagnostic Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGNOSTIC__TYPE = 0;
+	int DIAGNOSTIC__DIAGNOSTIC_TYPE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -641,6 +650,17 @@ public interface ResultPackage extends EPackage {
 	EReference getAnalysisResult_Diagnostics();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.result.AnalysisResult#getResultType <em>Result Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Result Type</em>'.
+	 * @see org.osate.result.AnalysisResult#getResultType()
+	 * @see #getAnalysisResult()
+	 * @generated
+	 */
+	EAttribute getAnalysisResult_ResultType();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.result.Result <em>Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -706,15 +726,15 @@ public interface ResultPackage extends EPackage {
 	EReference getResult_ModelElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.result.Result#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.result.Result#getResultType <em>Result Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.osate.result.Result#getType()
+	 * @return the meta object for the attribute '<em>Result Type</em>'.
+	 * @see org.osate.result.Result#getResultType()
 	 * @see #getResult()
 	 * @generated
 	 */
-	EAttribute getResult_Type();
+	EAttribute getResult_ResultType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.result.Diagnostic <em>Diagnostic</em>}'.
@@ -727,15 +747,15 @@ public interface ResultPackage extends EPackage {
 	EClass getDiagnostic();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.result.Diagnostic#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.result.Diagnostic#getDiagnosticType <em>Diagnostic Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.osate.result.Diagnostic#getType()
+	 * @return the meta object for the attribute '<em>Diagnostic Type</em>'.
+	 * @see org.osate.result.Diagnostic#getDiagnosticType()
 	 * @see #getDiagnostic()
 	 * @generated
 	 */
-	EAttribute getDiagnostic_Type();
+	EAttribute getDiagnostic_DiagnosticType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}'.
@@ -1019,6 +1039,14 @@ public interface ResultPackage extends EPackage {
 		EReference ANALYSIS_RESULT__DIAGNOSTICS = eINSTANCE.getAnalysisResult_Diagnostics();
 
 		/**
+		 * The meta object literal for the '<em><b>Result Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANALYSIS_RESULT__RESULT_TYPE = eINSTANCE.getAnalysisResult_ResultType();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.ResultImpl <em>Result</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1069,12 +1097,12 @@ public interface ResultPackage extends EPackage {
 		EReference RESULT__MODEL_ELEMENT = eINSTANCE.getResult_ModelElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Result Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RESULT__TYPE = eINSTANCE.getResult_Type();
+		EAttribute RESULT__RESULT_TYPE = eINSTANCE.getResult_ResultType();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.result.impl.DiagnosticImpl <em>Diagnostic</em>}' class.
@@ -1087,12 +1115,12 @@ public interface ResultPackage extends EPackage {
 		EClass DIAGNOSTIC = eINSTANCE.getDiagnostic();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Diagnostic Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DIAGNOSTIC__TYPE = eINSTANCE.getDiagnostic_Type();
+		EAttribute DIAGNOSTIC__DIAGNOSTIC_TYPE = eINSTANCE.getDiagnostic_DiagnosticType();
 
 		/**
 		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.

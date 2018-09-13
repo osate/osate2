@@ -629,17 +629,17 @@ class AssureProcessor implements IAssureProcessor {
 			if (result.failed) {
 				pResult.diagnostics.add(createErrorDiagnostic(
 					"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null))
-				pResult.type = ResultType.ERROR
+				pResult.resultType = ResultType.ERROR
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
-					pResult.type = ResultType.SUCCESS
+					pResult.resultType = ResultType.SUCCESS
 				} else {
-					pResult.type = ResultType.FAILURE
+					pResult.resultType = ResultType.FAILURE
 				}
 			}
 		} catch (AssertionError e) {
-			pResult.type = ResultType.FAILURE
+			pResult.resultType = ResultType.FAILURE
 			if (pResult.message === null){
 				pResult.message = e.message
 			} else {
@@ -649,7 +649,7 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 			throw e;
 		} catch (Throwable e) {
-			pResult.type = ResultType.ERROR
+			pResult.resultType = ResultType.ERROR
 			if (pResult.message === null){
 				pResult.message = e.message
 			} else {
@@ -781,7 +781,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult)
 				}
 			} else if (returned instanceof Diagnostic) {
-				if (returned.type == DiagnosticType.ERROR) {
+				if (returned.diagnosticType == DiagnosticType.ERROR) {
 					setToFail(verificationResult)
 				} else {
 					setToSuccess(verificationResult)

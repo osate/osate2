@@ -132,11 +132,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			String som, EndToEndFlowInstance target) {
 		String inMode = som.isEmpty() ? "" : " in mode " + som;
 		for (Diagnostic issue : issues) {
-			if (issue.getType() == DiagnosticType.INFO) {
+			if (issue.getDiagnosticType() == DiagnosticType.INFO) {
 				errManager.info(target, issue.getMessage() + inMode);
-			} else if (issue.getType() == DiagnosticType.WARNING) {
+			} else if (issue.getDiagnosticType() == DiagnosticType.WARNING) {
 				errManager.warning(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
-			} else if (issue.getType() == DiagnosticType.ERROR) {
+			} else if (issue.getDiagnosticType() == DiagnosticType.ERROR) {
 				errManager.error(target, getRelatedObjectLabel(target) + issue.getMessage() + inMode);
 			}
 		}

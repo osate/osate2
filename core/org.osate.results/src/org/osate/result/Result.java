@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.Result#getSubResults <em>Sub Results</em>}</li>
  *   <li>{@link org.osate.result.Result#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.Result#getModelElement <em>Model Element</em>}</li>
- *   <li>{@link org.osate.result.Result#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.Result#getResultType <em>Result Type</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getResult()
@@ -128,33 +128,33 @@ public interface Result extends EObject {
 	void setModelElement(EObject value);
 
 	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * Returns the value of the '<em><b>Result Type</b></em>' attribute.
 	 * The default value is <code>"NONE"</code>.
 	 * The literals are from the enumeration {@link org.osate.result.ResultType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Result Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
+	 * @return the value of the '<em>Result Type</em>' attribute.
 	 * @see org.osate.result.ResultType
-	 * @see #setType(ResultType)
-	 * @see org.osate.result.ResultPackage#getResult_Type()
+	 * @see #setResultType(ResultType)
+	 * @see org.osate.result.ResultPackage#getResult_ResultType()
 	 * @model default="NONE"
 	 * @generated
 	 */
-	ResultType getType();
+	ResultType getResultType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Result#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.result.Result#getResultType <em>Result Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @param value the new value of the '<em>Result Type</em>' attribute.
 	 * @see org.osate.result.ResultType
-	 * @see #getType()
+	 * @see #getResultType()
 	 * @generated
 	 */
-	void setType(ResultType value);
+	void setResultType(ResultType value);
 
 } // Result

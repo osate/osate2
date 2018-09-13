@@ -240,9 +240,9 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em)]
-		if (verificationActivityResult.results.exists[ri|ri.type == ResultType.FAILURE]) {
+		if (verificationActivityResult.results.exists[ri|ri.resultType == ResultType.FAILURE]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.results.exists[ri|ri.type == ResultType.ERROR]) {
+		} else if (verificationActivityResult.results.exists[ri|ri.resultType == ResultType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -278,7 +278,7 @@ class AssureUtilExtension {
 	def static Diagnostic addIssue(VerificationResult vr, DiagnosticType type, EObject target, String message) {
 		val issue = ResultFactory.eINSTANCE.createDiagnostic
 		issue.message = message ?: "no message"
-		issue.type = type;
+		issue.diagnosticType = type;
 		issue.modelElement = target
 		vr.issues.add(issue)
 		issue

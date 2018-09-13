@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.result.AnalysisResult#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.result.AnalysisResult#getDiagnostics <em>Diagnostics</em>}</li>
+ *   <li>{@link org.osate.result.AnalysisResult#getResultType <em>Result Type</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getAnalysisResult()
@@ -152,5 +153,35 @@ public interface AnalysisResult extends EObject {
 	 * @generated
 	 */
 	EList<Diagnostic> getDiagnostics();
+
+	/**
+	 * Returns the value of the '<em><b>Result Type</b></em>' attribute.
+	 * The default value is <code>"NONE"</code>.
+	 * The literals are from the enumeration {@link org.osate.result.ResultType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Result Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Result Type</em>' attribute.
+	 * @see org.osate.result.ResultType
+	 * @see #setResultType(ResultType)
+	 * @see org.osate.result.ResultPackage#getAnalysisResult_ResultType()
+	 * @model default="NONE"
+	 * @generated
+	 */
+	ResultType getResultType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.result.AnalysisResult#getResultType <em>Result Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Result Type</em>' attribute.
+	 * @see org.osate.result.ResultType
+	 * @see #getResultType()
+	 * @generated
+	 */
+	void setResultType(ResultType value);
 
 } // AnalysisResult

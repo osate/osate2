@@ -49,7 +49,7 @@ public class Line {
 
 	public void addCells(List<Diagnostic> cells) {
 		for (Diagnostic resultIssue : cells) {
-			this.content.add(new ReportedCell(resultIssue.getType(), resultIssue.getMessage()));
+			this.content.add(new ReportedCell(resultIssue.getDiagnosticType(), resultIssue.getMessage()));
 		}
 	}
 

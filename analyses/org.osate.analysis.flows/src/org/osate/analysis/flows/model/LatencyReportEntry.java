@@ -573,9 +573,9 @@ public class LatencyReportEntry {
 		}
 		result.getDiagnostics().addAll(issues);
 		if (ResultUtil.hasDiagnosticErrors(result.getDiagnostics())) {
-			result.setType(ResultType.FAILURE);
+			result.setResultType(ResultType.FAILURE);
 		} else {
-			result.setType(ResultType.SUCCESS);
+			result.setResultType(ResultType.SUCCESS);
 		}
 
 		for (LatencyContributor latencyContributor : contributors) {
@@ -721,7 +721,8 @@ public class LatencyReportEntry {
 			for (Diagnostic issue : issues) {
 				line = new Line();
 				String msg = issue.getMessage();
-				ReportedCell issueLabel = new ReportedCell(issue.getType(), issue.getType().toString());
+				ReportedCell issueLabel = new ReportedCell(issue.getDiagnosticType(),
+						issue.getDiagnosticType().toString());
 				line.addCell(issueLabel);
 				line.addContent(msg);
 				section.addLine(line);
