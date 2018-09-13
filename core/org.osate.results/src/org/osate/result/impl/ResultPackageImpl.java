@@ -245,6 +245,15 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAnalysisResult_ResultType() {
+		return (EAttribute)analysisResultEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getResult() {
 		return resultEClass;
 	}
@@ -299,7 +308,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getResult_Type() {
+	public EAttribute getResult_ResultType() {
 		return (EAttribute)resultEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -317,7 +326,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDiagnostic_Type() {
+	public EAttribute getDiagnostic_DiagnosticType() {
 		return (EAttribute)diagnosticEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -527,6 +536,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__PARAMETERS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__RESULTS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
+		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__RESULT_TYPE);
 
 		resultEClass = createEClass(RESULT);
 		createEReference(resultEClass, RESULT__VALUES);
@@ -534,10 +544,10 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		createEReference(resultEClass, RESULT__SUB_RESULTS);
 		createEAttribute(resultEClass, RESULT__MESSAGE);
 		createEReference(resultEClass, RESULT__MODEL_ELEMENT);
-		createEAttribute(resultEClass, RESULT__TYPE);
+		createEAttribute(resultEClass, RESULT__RESULT_TYPE);
 
 		diagnosticEClass = createEClass(DIAGNOSTIC);
-		createEAttribute(diagnosticEClass, DIAGNOSTIC__TYPE);
+		createEAttribute(diagnosticEClass, DIAGNOSTIC__DIAGNOSTIC_TYPE);
 		createEAttribute(diagnosticEClass, DIAGNOSTIC__MESSAGE);
 		createEReference(diagnosticEClass, DIAGNOSTIC__MODEL_ELEMENT);
 
@@ -611,6 +621,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEReference(getAnalysisResult_Parameters(), this.getObjectValue(), null, "parameters", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Results(), this.getResult(), null, "results", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAnalysisResult_ResultType(), this.getResultType(), "resultType", "TBD", 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getResult_Values(), this.getValue(), null, "values", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -618,10 +629,10 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEReference(getResult_SubResults(), this.getResult(), null, "subResults", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResult_Message(), ecorePackage.getEString(), "message", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResult_ModelElement(), ecorePackage.getEObject(), null, "modelElement", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResult_Type(), this.getResultType(), "type", "NONE", 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResult_ResultType(), this.getResultType(), "resultType", "TBD", 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagnosticEClass, Diagnostic.class, "Diagnostic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDiagnostic_Type(), this.getDiagnosticType(), "type", "NONE", 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagnostic_DiagnosticType(), this.getDiagnosticType(), "diagnosticType", "TBD", 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagnostic_Message(), ecorePackage.getEString(), "message", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagnostic_ModelElement(), ecorePackage.getEObject(), null, "modelElement", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -649,13 +660,13 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 
 		// Initialize enums and add enum literals
 		initEEnum(diagnosticTypeEEnum, DiagnosticType.class, "DiagnosticType");
-		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.NONE);
+		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.TBD);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.ERROR);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.WARNING);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.INFO);
 
 		initEEnum(resultTypeEEnum, ResultType.class, "ResultType");
-		addEEnumLiteral(resultTypeEEnum, ResultType.NONE);
+		addEEnumLiteral(resultTypeEEnum, ResultType.TBD);
 		addEEnumLiteral(resultTypeEEnum, ResultType.ERROR);
 		addEEnumLiteral(resultTypeEEnum, ResultType.SUCCESS);
 		addEEnumLiteral(resultTypeEEnum, ResultType.FAILURE);

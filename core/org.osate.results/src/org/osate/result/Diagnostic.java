@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.Diagnostic#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.Diagnostic#getDiagnosticType <em>Diagnostic Type</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getModelElement <em>Model Element</em>}</li>
  * </ul>
@@ -24,34 +24,34 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Diagnostic extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The default value is <code>"NONE"</code>.
+	 * Returns the value of the '<em><b>Diagnostic Type</b></em>' attribute.
+	 * The default value is <code>"TBD"</code>.
 	 * The literals are from the enumeration {@link org.osate.result.DiagnosticType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Diagnostic Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
+	 * @return the value of the '<em>Diagnostic Type</em>' attribute.
 	 * @see org.osate.result.DiagnosticType
-	 * @see #setType(DiagnosticType)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Type()
-	 * @model default="NONE"
+	 * @see #setDiagnosticType(DiagnosticType)
+	 * @see org.osate.result.ResultPackage#getDiagnostic_DiagnosticType()
+	 * @model default="TBD"
 	 * @generated
 	 */
-	DiagnosticType getType();
+	DiagnosticType getDiagnosticType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.result.Diagnostic#getDiagnosticType <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @param value the new value of the '<em>Diagnostic Type</em>' attribute.
 	 * @see org.osate.result.DiagnosticType
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 */
-	void setType(DiagnosticType value);
+	void setDiagnosticType(DiagnosticType value);
 
 	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.

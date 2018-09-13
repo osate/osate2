@@ -23,6 +23,7 @@ import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.ResultPackage;
+import org.osate.result.ResultType;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +39,7 @@ import org.osate.result.ResultPackage;
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getDiagnostics <em>Diagnostics</em>}</li>
+ *   <li>{@link org.osate.result.impl.AnalysisResultImpl#getResultType <em>Result Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -122,6 +124,26 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected EList<Diagnostic> diagnostics;
+
+	/**
+	 * The default value of the '{@link #getResultType() <em>Result Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResultType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ResultType RESULT_TYPE_EDEFAULT = ResultType.TBD;
+
+	/**
+	 * The cached value of the '{@link #getResultType() <em>Result Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResultType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResultType resultType = RESULT_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +285,27 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ResultType getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResultType(ResultType newResultType) {
+		ResultType oldResultType = resultType;
+		resultType = newResultType == null ? RESULT_TYPE_EDEFAULT : newResultType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.ANALYSIS_RESULT__RESULT_TYPE, oldResultType, resultType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -297,6 +340,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return getResults();
 			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				return getDiagnostics();
+			case ResultPackage.ANALYSIS_RESULT__RESULT_TYPE:
+				return getResultType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -331,6 +376,9 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				getDiagnostics().clear();
 				getDiagnostics().addAll((Collection<? extends Diagnostic>)newValue);
 				return;
+			case ResultPackage.ANALYSIS_RESULT__RESULT_TYPE:
+				setResultType((ResultType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -361,6 +409,9 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				getDiagnostics().clear();
 				return;
+			case ResultPackage.ANALYSIS_RESULT__RESULT_TYPE:
+				setResultType(RESULT_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -385,6 +436,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 				return results != null && !results.isEmpty();
 			case ResultPackage.ANALYSIS_RESULT__DIAGNOSTICS:
 				return diagnostics != null && !diagnostics.isEmpty();
+			case ResultPackage.ANALYSIS_RESULT__RESULT_TYPE:
+				return resultType != RESULT_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -403,6 +456,8 @@ public class AnalysisResultImpl extends MinimalEObjectImpl.Container implements 
 		result.append(analysis);
 		result.append(", message: ");
 		result.append(message);
+		result.append(", resultType: ");
+		result.append(resultType);
 		result.append(')');
 		return result.toString();
 	}

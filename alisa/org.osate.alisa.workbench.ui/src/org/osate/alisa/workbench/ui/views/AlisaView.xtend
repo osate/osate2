@@ -7,7 +7,6 @@ import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
-import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
@@ -21,6 +20,7 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
@@ -69,28 +69,28 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.VerificationResult
 import org.osate.assure.evaluator.IAssureProcessor
 import org.osate.assure.generator.IAssureConstructor
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
+import org.osate.result.AnalysisResult
+import org.osate.result.BooleanValue
 import org.osate.result.Diagnostic
+import org.osate.result.DiagnosticType
+import org.osate.result.EObjectValue
+import org.osate.result.IntegerValue
+import org.osate.result.ObjectValue
+import org.osate.result.RealValue
 import org.osate.result.Result
+import org.osate.result.ResultType
+import org.osate.result.StringValue
+import org.osate.result.Value
 import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.result.DiagnosticType
-import org.osate.result.Value
-import org.osate.result.RealValue
-import org.osate.result.IntegerValue
-import org.osate.result.StringValue
-import org.osate.result.BooleanValue
-import org.osate.result.EObjectValue
-import org.osate.result.ObjectValue
-import org.osate.assure.assure.VerificationResult
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.result.AnalysisResult
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -441,20 +441,15 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result: {
-								if (eObject.type == DiagnosticType.NONE){
+								if (eObject.resultType == DiagnosticType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
-									if (EcoreUtil.getRootContainer(eObject) instanceof AnalysisResult && eObject.type == DiagnosticType.ERROR){
-										// map error into failure
-										"Fail: "+ (eObject.modelElement?.constructLabel ?: "" ) 
-									} else {
-										eObject.type.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
-									}
+									eObject.resultType.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								}
 							}
 								
 							Diagnostic:
-								eObject.type.getName.toLowerCase.toFirstUpper +" "+ (eObject.modelElement?.constructLabel ?: "" ) 
+								eObject.diagnosticType.getName.toLowerCase.toFirstUpper +" "+ (eObject.modelElement?.constructLabel ?: "" ) 
 							ElseResult:
 								"else"
 							ThenResult:
@@ -489,18 +484,18 @@ class AlisaView extends ViewPart {
 						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							Value: "info.png"
 							Result:
-								switch eObject.type {
+								switch eObject.resultType {
 									case ERROR:  "error.png"
 									case SUCCESS: "valid.png"
 									case FAILURE: "invalid.png"
-									case NONE: "info.png"
+									case TBD: "info.png"
 								}
 							Diagnostic:
-								switch eObject.type {
+								switch eObject.diagnosticType {
 									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case NONE: "questionmark.png"
+									case TBD: "questionmark.png"
 								}
 							AssureResult case eObject.successful:
 								"valid.png"
@@ -600,6 +595,7 @@ class AlisaView extends ViewPart {
 							ElseResult: "else"
 							ThenResult: "then"
 							PredicateResult: eObject.constructMessage
+							Result: eObject.constructMessage
 						}
 					}
 				}
@@ -608,7 +604,7 @@ class AlisaView extends ViewPart {
 			val manager = new MenuManager
 			manager.removeAllWhenShown = true
 			manager.addMenuListener [
-				val uri = treeViewer.structuredSelection.firstElement as URI
+//				val uri = treeViewer.structuredSelection.firstElement as URI
 //				if (uri !== null) {
 //					val eObject = resourceSetForUI.getEObject(uri, true)
 //					if (eObject instanceof ClaimResult) {

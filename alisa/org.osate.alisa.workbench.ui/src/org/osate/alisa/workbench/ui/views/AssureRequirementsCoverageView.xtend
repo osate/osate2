@@ -363,18 +363,18 @@ class AssureRequirementsCoverageView extends ViewPart {
 					override getImage(Object element) {
 						val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							Result:
-								switch eObject.type {
+								switch eObject.resultType {
 									case ERROR:  "error.png"
 									case SUCCESS: "valid.png"
 									case FAILURE: "invalid.png"
-									case NONE: "info.png"
+									case TBD: "info.png"
 								}
 							Diagnostic:
-								switch eObject.type {
+								switch eObject.diagnosticType {
 									case ERROR: "invalid.png"
 									case WARNING: "warning.png"
 									case INFO: "info.png"
-									case NONE: "questionmark.png"
+									case TBD: "questionmark.png"
 								}
 							AssuranceCaseResult:
 								"assure.png"

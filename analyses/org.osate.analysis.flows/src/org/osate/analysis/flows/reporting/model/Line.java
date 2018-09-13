@@ -40,7 +40,7 @@ public class Line {
 	}
 
 	public void addHeaderContent(String s) {
-		this.content.add(new ReportedCell(DiagnosticType.NONE, s));
+		this.content.add(new ReportedCell(DiagnosticType.TBD, s));
 	}
 
 	public void addCell(ReportedCell cell) {
@@ -49,7 +49,7 @@ public class Line {
 
 	public void addCells(List<Diagnostic> cells) {
 		for (Diagnostic resultIssue : cells) {
-			this.content.add(new ReportedCell(resultIssue.getType(), resultIssue.getMessage()));
+			this.content.add(new ReportedCell(resultIssue.getDiagnosticType(), resultIssue.getMessage()));
 		}
 	}
 

@@ -6,13 +6,13 @@
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
-    <diagnostics type="INFO" message="sub2.ba1 -> sub1: Weight of access connection is 1.000 kg">
+    <diagnostics diagnosticType="INFO" message="sub2.ba1 -> sub1: Weight of access connection is 1.000 kg">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@connectionInstance.3"/>
     </diagnostics>
-    <diagnostics type="INFO" message="sub3.ba1 -> sub1: Weight of access connection is 1.000 kg">
+    <diagnostics diagnosticType="INFO" message="sub3.ba1 -> sub1: Weight of access connection is 1.000 kg">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@connectionInstance.4"/>
     </diagnostics>
-    <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
+    <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#/"/>
     </diagnostics>
     <subResults>
@@ -20,7 +20,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
@@ -30,7 +30,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
@@ -40,7 +40,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
@@ -50,7 +50,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
@@ -60,7 +60,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.6"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.6"/>
@@ -70,7 +70,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.7"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/conns_s1_i1_Instance.aaxl2#//@componentInstance.7"/>

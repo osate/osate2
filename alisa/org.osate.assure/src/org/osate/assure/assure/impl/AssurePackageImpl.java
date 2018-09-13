@@ -222,9 +222,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public static AssurePackage init() {
-		if (isInited) {
-			return (AssurePackage)EPackage.Registry.INSTANCE.getEPackage(AssurePackage.eNS_URI);
-		}
+		if (isInited) return (AssurePackage)EPackage.Registry.INSTANCE.getEPackage(AssurePackage.eNS_URI);
 
 		// Obtain or create and register package
 		AssurePackageImpl theAssurePackage = (AssurePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AssurePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AssurePackageImpl());
@@ -1112,9 +1110,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated) {
-			return;
-		}
+		if (isCreated) return;
 		isCreated = true;
 
 		// Create classes and their features
@@ -1235,9 +1231,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized) {
-			return;
-		}
+		if (isInitialized) return;
 		isInitialized = true;
 
 		// Initialize package

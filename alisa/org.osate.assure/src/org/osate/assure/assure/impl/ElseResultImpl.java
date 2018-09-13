@@ -198,9 +198,8 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	public void setDidFail(ResultType newDidFail) {
 		ResultType oldDidFail = didFail;
 		didFail = newDidFail == null ? DID_FAIL_EDEFAULT : newDidFail;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ELSE_RESULT__DID_FAIL, oldDidFail, didFail));
-		}
 	}
 
 	/**
@@ -333,9 +332,7 @@ public class ElseResultImpl extends VerificationExprImpl implements ElseResult {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (didFail: ");

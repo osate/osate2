@@ -11,6 +11,8 @@
         eType="#//Result" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
         eType="#//Diagnostic" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultType" eType="#//ResultType"
+        defaultValueLiteral="TBD"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Result">
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
@@ -21,12 +23,12 @@
         eType="#//Result" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ResultType"
-        defaultValueLiteral="NONE"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultType" eType="#//ResultType"
+        defaultValueLiteral="TBD"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Diagnostic">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//DiagnosticType"
-        defaultValueLiteral="NONE"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagnosticType" eType="#//DiagnosticType"
+        defaultValueLiteral="TBD"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
@@ -57,15 +59,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DiagnosticType">
-    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="TBD" literal="TBD"/>
     <eLiterals name="ERROR" value="1" literal="ERROR"/>
     <eLiterals name="WARNING" value="2" literal="WARNING"/>
     <eLiterals name="INFO" value="3" literal="INFO"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ResultType">
-    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="TBD" literal="TBD"/>
     <eLiterals name="ERROR" value="1" literal="ERROR"/>
     <eLiterals name="SUCCESS" value="4" literal="SUCCESS"/>
-    <eLiterals name="FAILURE" value="5" literal="FAIL"/>
+    <eLiterals name="FAILURE" value="5" literal="FAILURE"/>
   </eClassifiers>
 </ecore:EPackage>

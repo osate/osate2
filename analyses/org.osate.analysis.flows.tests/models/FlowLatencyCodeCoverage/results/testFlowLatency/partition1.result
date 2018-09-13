@@ -5,7 +5,7 @@
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
-  <results message="Latency results for etef1" type="SUCCESS">
+  <results message="Latency results for etef1" resultType="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
@@ -13,19 +13,19 @@
     <values xsi:type="result:RealValue" value="6.0"/>
     <values xsi:type="result:RealValue" value="5.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
-    <diagnostics type="WARNING" message="Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 5.00ms (better response time)">
+    <diagnostics diagnosticType="WARNING" message="Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 5.00ms (better response time)">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition1_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Minimum actual latency total 4.00ms less than expected minimum end to end latency 5.00ms (faster actual minimum response time)">
+    <diagnostics diagnosticType="WARNING" message="Minimum actual latency total 4.00ms less than expected minimum end to end latency 5.00ms (faster actual minimum response time)">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition1_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="INFO" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
+    <diagnostics diagnosticType="INFO" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition1_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Jitter of specified latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
+    <diagnostics diagnosticType="WARNING" message="Jitter of specified latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition1_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Jitter of actual latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition1_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>

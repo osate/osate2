@@ -51,7 +51,7 @@ public class LatencyCSVReport {
 					+ ResultUtil.getReal(result, 6) + "ms" + System.lineSeparator());
 			report.append("End to end Latency Summary" + System.lineSeparator());
 			for (Diagnostic dia : result.getDiagnostics()) {
-				report.append(dia.getType() + "," + dia.getMessage() + System.lineSeparator());
+				report.append(dia.getDiagnosticType() + "," + dia.getMessage() + System.lineSeparator());
 			}
 			report.append(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
 		}

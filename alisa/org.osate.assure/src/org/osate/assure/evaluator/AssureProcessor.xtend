@@ -417,7 +417,10 @@ class AssureProcessor implements IAssureProcessor {
 							if (r.modelElement === target || matchEnclosingComponentInstance(r, target)) {
 								foundResult = true
 								val issues = r.diagnostics
-								if (hasResultErrors(res) || hasResultFailures(r)) {
+								if (verificationResult.isError){
+								} else if (isResultError(r) ) {
+									setToError(verificationResult)
+								} else if ( isResultFailure(r)) {
 									setToFail(verificationResult)
 								} else {
 									setToSuccess(verificationResult)
@@ -427,6 +430,10 @@ class AssureProcessor implements IAssureProcessor {
 									verificationResult.issues.add(c)
 								}
 							}
+						}
+						for (issue : res.diagnostics) {
+							val c = EcoreUtil.copy(issue)
+							verificationResult.issues.add(c)
 						}
 						if (! foundResult) {
 							// requirement target does not match Result source reference
@@ -438,7 +445,9 @@ class AssureProcessor implements IAssureProcessor {
 					} else if (res instanceof Result) {
 						if (res.modelElement === target) {
 							val issues = res.diagnostics
-							if (hasResultErrors(res) || hasResultFailures(res)) {
+							if (isResultError(res) ) {
+								setToError(verificationResult)
+							} else if (isResultFailure(res)) {
 								setToFail(verificationResult)
 							} else {
 								setToSuccess(verificationResult)
@@ -616,6 +625,34 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
+	def void evaluateComputePredicate(Result pResult, ValuePredicate predicate) {
+		try {
+			val result = interpreter.interpretExpression(env, predicate.xpression)
+			if (result.failed) {
+				setToError(pResult,"Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException))
+			} else {
+				val success = (result.value as BooleanLiteral).getValue
+				if (success) {
+					pResult.resultType = ResultType.SUCCESS
+				} else {
+					pResult.resultType = ResultType.FAILURE
+				}
+			}
+		} catch (AssertionError e) {
+			pResult.resultType = ResultType.FAILURE
+			if (pResult.message === null){
+				pResult.message = e.message
+			} else {
+				pResult.diagnostics.add(createErrorDiagnostic(
+					e.message, null))
+			}
+		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+			throw e;
+		} catch (Throwable e) {
+			setToError(pResult,e.message)
+		}
+	}
+
 	def String getFailedMsg(RuleFailedException e) {
 		var tmp = e;
 		while (tmp.cause !== null) {
@@ -737,57 +774,46 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult)
 				}
 			} else if (returned instanceof Result) {
-				if (isResultError(returned) || isResultFailure(returned)) {
-					setToFail(verificationResult)
-				} else {
-					setToSuccess(verificationResult)
-				}
-				val results = returned.subResults
-				for (result : results) {
-					val c = EcoreUtil.copy(result)
-					verificationResult.results.add(c)
-				}
-				val diags = returned.diagnostics
-				for (diag : diags) {
-					val rcopy = ResultUtil.createDiagnostic(diag.message, diag.modelElement, diag.type)
-					verificationResult.issues.add(rcopy)
-				}
+				verificationResult.results.add(returned)
 				if (verificationResult instanceof VerificationActivityResult) {
 					evaluateComputePredicate(verificationResult, method, returned)
 				}
-			} else if (returned instanceof Diagnostic) {
-				if (returned.type == DiagnosticType.ERROR) {
+				if (verificationResult.isError){
+					// no need to do anything 
+				} else if (isResultError(returned) ) {
+					setToError(verificationResult)
+				} else if (isResultFailure(returned)) {
 					setToFail(verificationResult)
 				} else {
 					setToSuccess(verificationResult)
 				}
-				val diagres = ResultUtil.createDiagnostic(returned.message, returned.modelElement, returned.type)
-				verificationResult.issues.add(diagres)
+			} else if (returned instanceof Diagnostic) {
+				if (returned.diagnosticType == DiagnosticType.ERROR) {
+					setToFail(verificationResult)
+				} else {
+					setToSuccess(verificationResult)
+				}
+				verificationResult.issues.add(returned)
 			} else if (returned instanceof AnalysisResult) {
-				var foundResult = false
-				for (Result r : returned.results) {
-					// we may encounter more than one Result
-					// TODO address this when we are able to use Result objects in Assure.
-					if (r.modelElement === target) {
-						foundResult = true
-						if (hasResultErrors(returned) || hasResultFailures(r)) {
-							setToFail(verificationResult)
-						} else {
-							setToSuccess(verificationResult)
-						}
-						if (verificationResult instanceof VerificationActivityResult) {
+				if (returned.isAnalysisResultError){
+					setToError(verificationResult)
+				} else {
+					if (verificationResult instanceof VerificationActivityResult) {
+						for (Result r : returned.results) {
 							evaluateComputePredicate(verificationResult, method, r)
-						}
+						}	
+					}
+					if (verificationResult.isError){
+						// no need to do anything 
+					} else if (hasResultErrors(returned) ) {
+						setToError(verificationResult)
+					} else if ( hasResultFailures(returned)) {
+						setToFail(verificationResult)
+					} else {
+						setToSuccess(verificationResult)
 					}
 				}
-				if (! foundResult) {
-					// requirement target does not match Result source reference
-					// Typically occurs when the analysis is performed on an element, e.g., ETEF, while the requirement 
-					// does not include a 'for' <target model element>
-					setToError(verificationResult, "No Result found for requirement verification target " + target.name,
-						target)
-				}
-
+				// We need to create a resource in order to store the reference to the AnalysisResult object
 				val aruri = ResultUtil.getAnalysisResultURI(returned);
 				val rset = verificationResult.eResource().getResourceSet();
 				val res = OsateResourceUtil.getResource(aruri, rset);
@@ -796,6 +822,7 @@ class AssureProcessor implements IAssureProcessor {
 				if (save) {
 					res.save(null);
 				}
+				// record a reference to the AnalysisResult
 				verificationResult.analysisresultreference = returned
 			} else if (method.results.size == 1) {
 				// set compute variable value from the returned value
@@ -845,19 +872,19 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	/*
-	 * evaluate value predicate with compute variable results bound
+	 * evaluate value predicate with compute variable results bound. Result is recorded in returned
 	 */
 	def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
 		Result returned) {
 		val predicate = verificationResult.claimResult.target.predicate
-		if(!verificationResult.success || predicate === null || !(predicate instanceof ValuePredicate)) return;
+		if(!returned.resultSuccess || verificationResult.isError || predicate === null || !(predicate instanceof ValuePredicate)) return;
 		val valuePredicate = predicate as ValuePredicate
 		if (!containsComputeVariables(valuePredicate)) {
 			return
 		}
 		val computevars = verificationResult.targetReference.verificationActivity.computes
 		if (computevars.isEmpty) {
-			setToError(verificationResult, 'No return values assigned to compute variables')
+			setToError(returned, 'No return values assigned to compute variables')
 			return
 		}
 		// reset computes for each predicate evaluation
@@ -871,9 +898,9 @@ class AssureProcessor implements IAssureProcessor {
 				val tunit = formalReturn?.unit
 				computes.put(computeRef.compute.name, toLiteral(value, tunit))
 			]
-			evaluatePredicate(verificationResult, valuePredicate)
+			evaluateComputePredicate(returned, valuePredicate)
 		} else {
-			setToError(verificationResult, 'Fewer values returned than expected as compute variables')
+			setToError(returned, 'Fewer values returned than expected as compute variables')
 		}
 	}
 

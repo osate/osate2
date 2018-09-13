@@ -41,6 +41,7 @@ class ResultHelper {
 	}
 	
 	def static assertAnalysisResult(AnalysisResult expected, AnalysisResult actual) {
+		expected.resultType.assertEquals(actual.resultType)
 		expected.analysis.assertEquals(actual.analysis)
 		expected.message.assertEquals(actual.message)
 		expected.modelElement.assertEObject(actual.modelElement)
@@ -49,6 +50,7 @@ class ResultHelper {
 	}
 	
 	def static void assertResult(Result expected, Result actual) {
+		expected.resultType.assertEquals(actual.resultType)
 		expected.message.assertEquals(actual.message)
 		expected.modelElement.assertEObject(actual.modelElement)
 		expected.values.size.assertEquals(actual.values.size)
@@ -76,7 +78,7 @@ class ResultHelper {
 	}
 	
 	def static void assertDiagnostic(Diagnostic expected, Diagnostic actual) {
-		expected.type.assertEquals(actual.type)
+		expected.diagnosticType.assertEquals(actual.diagnosticType)
 		expected.message.assertEquals(actual.message)
 	}
 	

@@ -58,7 +58,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ResultType TYPE_EDEFAULT = ResultType.NONE;
+	protected static final ResultType TYPE_EDEFAULT = ResultType.TBD;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.

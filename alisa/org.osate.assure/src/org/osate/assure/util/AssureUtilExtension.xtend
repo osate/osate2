@@ -240,9 +240,9 @@ class AssureUtilExtension {
 			]
 		}
 		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em)]
-		if (verificationActivityResult.results.exists[ri|ri.type == ResultType.FAILURE]) {
+		if (verificationActivityResult.results.exists[ri|ri.resultType == ResultType.FAILURE]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.results.exists[ri|ri.type == ResultType.ERROR]) {
+		} else if (verificationActivityResult.results.exists[ri|ri.resultType == ResultType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -278,7 +278,7 @@ class AssureUtilExtension {
 	def static Diagnostic addIssue(VerificationResult vr, DiagnosticType type, EObject target, String message) {
 		val issue = ResultFactory.eINSTANCE.createDiagnostic
 		issue.message = message ?: "no message"
-		issue.type = type;
+		issue.diagnosticType = type;
 		issue.modelElement = target
 		vr.issues.add(issue)
 		issue
@@ -420,7 +420,7 @@ class AssureUtilExtension {
 			SystemInstance: return "top " + obj.componentImplementation.name
 			ComponentInstance: return obj.category.getName + " " + obj.name 
 			ConnectionInstance: return obj.name 
-			NamedElement: obj.name 
+			NamedElement: return obj.name 
 		}
 		""
 	}
@@ -473,7 +473,7 @@ class AssureUtilExtension {
 		vrlist.forEach [ vr |
 			// If there is no filter reset all.
 			if (filter === null) {
-				vr.type = ResultType.NONE
+				vr.type = ResultType.TBD
 				vr.issues.clear
 
 			// reset only the ones that we will be redoing
@@ -483,7 +483,7 @@ class AssureUtilExtension {
 						val verificationActivity = vr.targetReference.verificationActivity
 						if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
 							verificationActivity.evaluateVerificationActivityFilter(filter)) {
-							vr.type = ResultType.NONE
+							vr.type = ResultType.TBD
 							vr.issues.clear
 						}
 					}
@@ -527,7 +527,7 @@ class AssureUtilExtension {
 				counts.failCount = counts.failCount + 1
 			case ResultType.ERROR:
 				counts.errorCount = counts.errorCount + 1
-			case ResultType.NONE:
+			case ResultType.TBD:
 				counts.tbdCount = counts.tbdCount + 1
 		}
 		ar
@@ -701,7 +701,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToTBD(VerificationResult verificationActivityResult) {
-		if (verificationActivityResult.updateOwnResultState(ResultType.NONE))
+		if (verificationActivityResult.updateOwnResultState(ResultType.TBD))
 			verificationActivityResult.propagateCountChangeUp
 	}
 
@@ -803,7 +803,7 @@ class AssureUtilExtension {
 
 		if(ar.type == newState) return false
 
-		if(ar.type == ResultType.FAILURE && newState != ResultType.NONE) return true
+		if(ar.type == ResultType.FAILURE && newState != ResultType.TBD) return true
 		if(ar.type == ResultType.ERROR &&
 			newState == ResultType.SUCCESS ) return true
 		switch (ar.type) {
@@ -813,7 +813,7 @@ class AssureUtilExtension {
 				counts.failCount = counts.failCount - 1
 			case ResultType.ERROR:
 				counts.errorCount = counts.errorCount - 1
-			case ResultType.NONE:
+			case ResultType.TBD:
 				counts.tbdCount = counts.tbdCount - 1
 		}
 		// do new state count
@@ -827,7 +827,7 @@ class AssureUtilExtension {
 			case ResultType.ERROR: {
 				counts.errorCount = counts.errorCount + 1
 			}
-			case ResultType.NONE: {
+			case ResultType.TBD: {
 				counts.tbdCount = counts.tbdCount + 1
 			}
 		}
