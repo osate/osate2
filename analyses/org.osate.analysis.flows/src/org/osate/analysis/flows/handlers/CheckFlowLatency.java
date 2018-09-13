@@ -42,7 +42,10 @@ package org.osate.analysis.flows.handlers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -53,6 +56,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
+import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
@@ -87,7 +91,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
-		if (object instanceof SystemInstance) {
+
+		final Dialog d = new FlowLatencyDialog(getShell());
+		Display.getDefault().syncExec(() -> d.open());
+
+		if (d.getReturnCode() == Window.OK) {
 			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 			boolean asynchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
 					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
@@ -102,8 +110,9 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			latreport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	};
 
 	@Override
