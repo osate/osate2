@@ -7,16 +7,15 @@ import org.eclipse.ease.ScriptResult;
 import org.eclipse.ease.service.EngineDescription;
 import org.eclipse.ease.service.IScriptService;
 import org.eclipse.ease.tools.ResourceTools;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.PlatformUI;
 import org.osate.result.util.ResultUtil;
 
 public class ExecutePythonUtil {
 
-	public Object runPythonScript(String scriptURL, Object[] argv) {
+	public Object runPythonScript(String scriptPath, Object[] argv) {
 		try {
-			scriptURL = scriptURL.replaceAll("\\.", "/") + ".py";
-			final URL url = new URL(scriptURL);
+			scriptPath = scriptPath.replaceAll("\\.", "/") + ".py";
+			final URL scriptUrl = new URL(scriptPath);
 			// find script engine
 			EngineDescription engineDescription = null;
 
@@ -31,11 +30,11 @@ public class ExecutePythonUtil {
 				engine.setVariable("argv", argv);
 
 				// url can have many forms, e.g. remote, workspace, project, file, plugin, string
-				Object scriptObject = ResourceTools.resolve(url);
+				Object scriptObject = ResourceTools.resolve(scriptUrl);
 				if (scriptObject == null) {
 					// not sure what exactly this would do
 					// no file available, try to include to resolve URIs
-					scriptObject = "include(\"" + url + "\")";
+					scriptObject = "include(\"" + scriptUrl + "\")";
 				}
 
 				// we want to get a result back so it must be sync (internally async and waits until done)
@@ -44,8 +43,8 @@ public class ExecutePythonUtil {
 				if (scriptResult.hasException()) {
 					Throwable e = scriptResult.getException();
 					return ResultUtil.createErrorResult(
-							"Python script '" + scriptURL + "' result exception: " + e.getMessage(),
-							(EObject) argv[0]);
+							"Python script '" + scriptPath + "' result exception: " + e.getMessage(),
+							null);
 				}
 
 				final Object result = scriptResult.getResult();
@@ -53,8 +52,8 @@ public class ExecutePythonUtil {
 			}
 		} catch (Exception e) {
 			return ResultUtil.createErrorResult(
-					"Python script '" + scriptURL + "' execution exception: " + e.getMessage(),
-					(EObject) argv[0]);
+					"Python script '" + scriptPath + "' execution exception: " + e.getMessage(),
+					null);
 		}
 		return null;
 	}
