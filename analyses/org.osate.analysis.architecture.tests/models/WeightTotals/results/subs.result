@@ -6,7 +6,7 @@
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
-    <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 4.000 kg (no limit specified)">
+    <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 4.000 kg (no limit specified)">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#/"/>
     </diagnostics>
     <subResults>
@@ -14,7 +14,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+      <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
@@ -24,7 +24,7 @@
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
+      <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       </diagnostics>
       <subResults>
@@ -48,7 +48,7 @@
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
+      <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       </diagnostics>
       <subResults>
@@ -56,7 +56,7 @@
         <values xsi:type="result:RealValue" unit="kg"/>
         <values xsi:type="result:RealValue" unit="kg"/>
         <values xsi:type="result:RealValue" unit="kg"/>
-        <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+        <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
           <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
         </diagnostics>
         <subResults>
@@ -64,7 +64,7 @@
           <values xsi:type="result:RealValue" unit="kg"/>
           <values xsi:type="result:RealValue" unit="kg"/>
           <values xsi:type="result:RealValue" unit="kg"/>
-          <diagnostics type="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
+          <diagnostics diagnosticType="WARNING" message="[L] No net weight plus subcomponent weight or no gross weight">
             <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0/@componentInstance.0"/>
           </diagnostics>
           <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0/@componentInstance.0"/>
@@ -78,7 +78,7 @@
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
+      <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.4"/>
@@ -88,7 +88,7 @@
       <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
+      <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 1.000 kg (no limit specified)">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.5"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/subs_s1_i1_Instance.aaxl2#//@componentInstance.5"/>

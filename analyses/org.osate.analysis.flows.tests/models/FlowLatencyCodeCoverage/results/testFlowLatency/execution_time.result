@@ -5,7 +5,7 @@
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
-  <results message="Latency results for etef1" type="SUCCESS">
+  <results message="Latency results for etef1" resultType="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
@@ -13,10 +13,10 @@
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
-    <diagnostics type="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
+    <diagnostics diagnosticType="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
+    <diagnostics diagnosticType="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
@@ -44,14 +44,14 @@
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:StringValue" value="processing time"/>
       <values xsi:type="result:StringValue" value="processing time"/>
-      <diagnostics type="INFO" message="Using execution time as deadline was not set">
+      <diagnostics diagnosticType="INFO" message="Using execution time as deadline was not set">
         <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
     </subResults>
     <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
   </results>
-  <results message="Latency results for etef2" type="SUCCESS">
+  <results message="Latency results for etef2" resultType="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
@@ -59,10 +59,10 @@
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
-    <diagnostics type="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
+    <diagnostics diagnosticType="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
-    <diagnostics type="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
+    <diagnostics diagnosticType="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
     </diagnostics>
     <subResults>
@@ -94,7 +94,7 @@
     </subResults>
     <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.1"/>
   </results>
-  <results message="Latency results for etef3" type="SUCCESS">
+  <results message="Latency results for etef3" resultType="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="3.0"/>
@@ -102,10 +102,10 @@
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="2.0"/>
     <values xsi:type="result:RealValue" value="4.0"/>
-    <diagnostics type="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
+    <diagnostics diagnosticType="INFO" message="Minimum actual latency total 2.00ms is greater or equal to expected minimum end to end latency 2.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
-    <diagnostics type="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
+    <diagnostics diagnosticType="INFO" message="Maximum actual latency total 3.00ms is less or equal to expected maximum end to end latency 4.00ms">
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/execution_time_s1_i1_Instance.aaxl2#//@endToEndFlow.2"/>
     </diagnostics>
     <subResults>
