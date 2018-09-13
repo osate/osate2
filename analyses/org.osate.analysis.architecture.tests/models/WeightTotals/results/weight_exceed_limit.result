@@ -6,7 +6,7 @@
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" unit="kg"/>
     <values xsi:type="result:RealValue" value="1.0" unit="kg"/>
-    <diagnostics type="ERROR" message="[A] Sum of weights (2.000 kg) exceeds weight limit of 1.000 kg">
+    <diagnostics diagnosticType="ERROR" message="[A] Sum of weights (2.000 kg) exceeds weight limit of 1.000 kg">
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_exceed_limit_s1_i1_Instance.aaxl2#/"/>
     </diagnostics>
     <subResults>
@@ -14,7 +14,7 @@
       <values xsi:type="result:RealValue" value="2.0" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
       <values xsi:type="result:RealValue" unit="kg"/>
-      <diagnostics type="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
+      <diagnostics diagnosticType="INFO" message="[L] Sum of weights / gross weight is 2.000 kg (no limit specified)">
         <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_exceed_limit_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       </diagnostics>
       <modelElement href="org.osate.analysis.architecture.tests/models/WeightTotals/instances/weight_exceed_limit_s1_i1_Instance.aaxl2#//@componentInstance.0"/>

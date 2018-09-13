@@ -72,7 +72,7 @@ The **Result Type** is used to record the type of result.
 
 * *Error*: The result represents a the fact that the execution of an analysis (step) did not complete. 
 
-* *None*: The result type has not been categorized.
+* *TBD*: The result type has not been categorized.
 
 ## Diagnostic Type
 
@@ -84,7 +84,7 @@ The **Diagnostic Type** is used to record the type of diagnostic issue.
 
 * *Info*: The diagnostic represents an informational message. This is not considered to be a failure or error of the enclosing Result object.
 
-* *None*: The diagnostic or result type has not been categorized.
+* *TBD*: The diagnostic or result type has not been categorized.
 
 
 ## Use in ALISA
