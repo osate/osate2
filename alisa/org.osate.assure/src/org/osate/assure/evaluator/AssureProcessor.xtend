@@ -704,11 +704,11 @@ class AssureProcessor implements IAssureProcessor {
 		val engine = new ExecutePythonUtil
 		val methodtype = method.methodKind as PythonMethod
 		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
-		var objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
+		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
 		var returned = engine.runPythonScript(scriptURL,objects);
 		if (returned instanceof Result){
 			if (returned.isResultError){
-				objects== VerifyJavaUtil.getActualJavaObjects(method.formals, null, parameters)
+				objects.remove(0)
 				returned = engine.runPythonScript(scriptURL,objects);
 			}
 		}
