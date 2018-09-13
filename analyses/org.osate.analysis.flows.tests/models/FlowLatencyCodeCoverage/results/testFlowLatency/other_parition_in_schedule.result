@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
-<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="Latency analysis" info="AS-MF-DL-EQ">
-  <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#/"/>
-  <results>
-    <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ">
+  <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <results message="Latency results for etef" resultType="SUCCESS">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="4.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
@@ -10,62 +13,63 @@
     <values xsi:type="result:RealValue" value="6.0"/>
     <values xsi:type="result:RealValue" value="5.0"/>
     <values xsi:type="result:RealValue" value="6.0"/>
-    <diagnostics type="WARNING" message="Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 5.00ms (better response time)">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics diagnosticType="WARNING" message="Minimum specified flow latency total 4.00ms less than expected minimum end to end latency 5.00ms (better response time)">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Minimum actual latency total 4.00ms less than expected minimum end to end latency 5.00ms (faster actual minimum response time)">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics diagnosticType="WARNING" message="Minimum actual latency total 4.00ms less than expected minimum end to end latency 5.00ms (faster actual minimum response time)">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="SUCCESS" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics diagnosticType="INFO" message="Maximum actual latency total 6.00ms is less or equal to expected maximum end to end latency 6.00ms">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Jitter of specified latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics diagnosticType="WARNING" message="Jitter of specified latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
-    <diagnostics type="WARNING" message="Jitter of actual latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 4.00..6.00ms exceeds expected end to end latency jitter 5.00..6.00ms">
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
     </diagnostics>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:StringValue" value="partition major frame"/>
       <values xsi:type="result:StringValue" value="partition major frame"/>
-      <diagnostics type="WARNING" message="Partition not found in ARINC653 schedule of processor srcModule">
-        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <diagnostics diagnosticType="WARNING" message="Partition not found in ARINC653 schedule of processor srcModule">
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       </diagnostics>
-      <diagnostics type="INFO" message="Initial 0.0ms partition latency not added">
-        <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      <diagnostics diagnosticType="INFO" message="Initial 0.0ms partition latency not added">
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       </diagnostics>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
     </subResults>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:RealValue" value="1.0"/>
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
     </subResults>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:StringValue" value="no latency"/>
       <values xsi:type="result:StringValue" value="no latency"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
     </subResults>
     <subResults>
-      <sourceReference href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
       <values xsi:type="result:RealValue" value="3.0"/>
       <values xsi:type="result:RealValue" value="4.0"/>
       <values xsi:type="result:RealValue" value="3.0"/>
       <values xsi:type="result:RealValue" value="4.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
     </subResults>
+    <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/other_parition_in_schedule_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
   </results>
 </result:AnalysisResult>

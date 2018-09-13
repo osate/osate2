@@ -3,12 +3,13 @@ package org.osate.analysis.flows.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.result.AnalysisResult;
-import org.osate.result.util.ResultUtil;
+import org.osate.result.Result;
 
 /**
  * The LatencyReport class represents the generic class
@@ -21,13 +22,12 @@ public class LatencyReport {
 	private String name;
 	private SystemInstance relatedInstance;
 
-	private boolean synchronousSystem = false; // AS default
+	private boolean asynchronousSystem = true; // AS default
 	private boolean majorFrameDelay = true; // MF default
 	private boolean worstCaseDeadline = true; // DL default
 	private boolean bestCaseEmptyQueue = true; // EQ default
 
-	public LatencyReport(SystemInstance si) {
-		this.relatedInstance = si;
+	public LatencyReport() {
 		this.entries = new ArrayList<LatencyReportEntry>();
 		this.name = "latencyreport";
 	}
@@ -44,6 +44,10 @@ public class LatencyReport {
 		return this.relatedInstance;
 	}
 
+	public void setRootinstance(SystemInstance si) {
+		this.relatedInstance = si;
+	}
+
 	public List<LatencyReportEntry> getEntries() {
 		return this.entries;
 	}
@@ -54,14 +58,14 @@ public class LatencyReport {
 
 	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		this.synchronousSystem = !asynchronousSystem; // note switch from async to sync
+		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 		this.worstCaseDeadline = worstCaseDeadline;
 		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
 	}
 
-	public boolean isSynchronousSystem() {
-		return this.synchronousSystem;
+	public boolean isAsynchronousSystem() {
+		return this.asynchronousSystem;
 	}
 
 	public boolean isMajorFrameDelay() {
@@ -78,27 +82,26 @@ public class LatencyReport {
 
 	public String getParametersAsDescriptions() {
 		return "with preference settings: "
-				+ FlowLatencyUtil.getParametersAsDescriptions(FlowLatencyUtil.getParametersAsLabels(this));
+				+ FlowLatencyUtil.getParametersAsDescriptions(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+						bestCaseEmptyQueue);
 	}
 
-	public AnalysisResult genResult() {
+	public EList<Result> genResult() {
 
-		AnalysisResult latencyReports = ResultUtil.createAnalysisResult(this.name,
-				this.relatedInstance);
-		latencyReports.setAnalysis("Latency analysis");
-		latencyReports.setInfo(FlowLatencyUtil.getParametersAsLabels(this));
-		latencyReports.setSourceReference(getRootinstance());
+		EList<Result> latencyResults = new BasicEList<Result>();
 		for (LatencyReportEntry re : entries) {
-			latencyReports.getResults().add(re.genResult());
+			latencyResults.add(re.genResult());
 		}
-		return latencyReports;
+		return latencyResults;
 	}
 
 	public Report export() {
 		Report genericReport;
 
 		genericReport = new Report(this.relatedInstance, "latency",
-				"latency_" + FlowLatencyUtil.getParametersAsLabels(this), ReportType.TABLE);
+				"latency_" + FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue),
+				ReportType.TABLE);
 		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
 		for (LatencyReportEntry re : entries) {
 			genericReport.addSection(re.export());
