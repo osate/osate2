@@ -40,7 +40,7 @@ public class ResultUtil {
 		Diagnostic issue = ResultFactory.eINSTANCE.createDiagnostic();
 		issue.setModelElement(target);
 		issue.setMessage(msg);
-		issue.setType(rit);
+		issue.setDiagnosticType(rit);
 		return issue;
 	}
 
@@ -64,7 +64,7 @@ public class ResultUtil {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(target);
 		result.setMessage(msg);
-		result.setType(type);
+		result.setResultType(type);
 		return result;
 	}
 
@@ -223,47 +223,6 @@ public class ResultUtil {
 	}
 
 	/**
-	 * true if there are Result objects with FAILURE type
-	 * @param res
-	 * @return
-	 */
-	public static boolean hasResultFailures(Result res) {
-		if (res.getType() == ResultType.FAILURE) {
-			return true;
-		}
-		for (Result subres : res.getSubResults()) {
-			if (hasResultFailures(subres)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * true if there  Result object has FAILURE type
-	 * @param res
-	 * @return
-	 */
-	public static boolean isResultFailure(Result res) {
-		return (res.getType() == ResultType.FAILURE);
-	}
-
-	/**
-	 * true if there are Result objects with FAILURE type
-	 * @param res
-	 * @return
-	 */
-	public static boolean hasResultFailures(AnalysisResult res) {
-		for (Result r : res.getResults()) {
-			if (hasResultFailures(r)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-
-	/**
 	 * true if there are Diagnostic objects with ERROR type
 	 * @param res
 	 * @return
@@ -306,12 +265,40 @@ public class ResultUtil {
 	}
 
 	/**
+	 * true if there are Result objects with SUCCESS type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultSuccesses(Collection<? extends Result> results) {
+		for (Result d : results) {
+			if (isResultSuccess(d)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * true if there are Result objects with NONE type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultTBDs(Collection<? extends Result> results) {
+		for (Result d : results) {
+			if (isResultTBD(d)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * true if Diagnostic objects has ERROR type
 	 * @param res
 	 * @return
 	 */
 	public static boolean isDiagnosticError(Diagnostic res) {
-		return (res.getType() == DiagnosticType.ERROR);
+		return (res.getDiagnosticType() == DiagnosticType.ERROR);
 	}
 
 	/**
@@ -320,57 +307,113 @@ public class ResultUtil {
 	 * @return
 	 */
 	public static boolean hasDiagnosticErrors(Result res) {
-		if (hasDiagnosticErrors(res.getDiagnostics())) {
-			return true;
-		}
-		return false;
-	}
-
-	public static boolean hasResultErrors(Result res) {
-		for (Result subres : res.getSubResults()) {
-			if (isResultError(subres)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean isResultSuccess(Result res) {
-		return res.getType() == ResultType.SUCCESS;
-	}
-
-	public static boolean isResultError(Result res) {
-		return res.getType() == ResultType.ERROR;
+		return hasDiagnosticErrors(res.getDiagnostics());
 	}
 
 	/**
-	 * true if any Result object has ERROR type
+	 * True if any of the sub results have the type ERROR
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultErrors(Result res) {
+		return hasResultErrors(res.getSubResults());
+	}
+
+	/**
+	 * True if any of the sub results have the type FAILURE
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultFailures(Result res) {
+		return hasResultFailures(res.getSubResults());
+	}
+
+	/**
+	 * true if Result is of type SUCCESS
+	 * @param res
+	 * @return
+	 */
+	public static boolean isResultSuccess(Result res) {
+		return res.getResultType() == ResultType.SUCCESS;
+	}
+
+	/**
+	 * true if Result is of type ERROR
+	 * @param res
+	 * @return
+	 */
+	public static boolean isResultError(Result res) {
+		return res.getResultType() == ResultType.ERROR;
+	}
+
+	/**
+	 * true if Result is of type FAILURE
+	 * @param res
+	 * @return
+	 */
+	public static boolean isResultFailure(Result res) {
+		return res.getResultType() == ResultType.FAILURE;
+	}
+
+	/**
+	 * true if Result is of type NONE, i.e., has not been set
+	 * @param res
+	 * @return
+	 */
+	public static boolean isResultTBD(Result res) {
+		return res.getResultType() == ResultType.NONE;
+	}
+
+	/**
+	 * true if any top-level Result object has ERROR type
 	 * @param res
 	 * @return
 	 */
 	public static boolean hasResultErrors(AnalysisResult res) {
-		for (Result r : res.getResults()) {
-			if (isResultError(r)) {
-				return true;
-			}
-		}
-		return false;
+		return hasResultErrors(res.getResults());
 	}
 
 	/**
-	 * true if Result object or any sub Result object has Diagnostics with ERROR type
+	 * true if there are top-level Result objects with FAILURE type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultFailures(AnalysisResult res) {
+		return hasResultFailures(res.getResults());
+	}
+
+	/**
+	 * true if there are top-level Result objects with SUCCESS type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultSuccesses(AnalysisResult res) {
+		return hasResultSuccesses(res.getResults());
+	}
+
+	/**
+	 * true if there are top-level Result objects with NONE type
+	 * @param res
+	 * @return
+	 */
+	public static boolean hasResultTBDs(AnalysisResult res) {
+		return hasResultTBDs(res.getResults());
+	}
+
+	/**
+	 * true if AnalysisResult has Diagnostics with ERROR type
 	 * @param res
 	 * @return
 	 */
 	public static boolean hasDiagnosticErrors(AnalysisResult res) {
-		for (Result r : res.getResults()) {
-			if (hasDiagnosticErrors(r)) {
-				return true;
-			}
-		}
-		return false;
+		return hasDiagnosticErrors(res.getDiagnostics());
 	}
 
+	/**
+	 * construct a URI for an AnalysisResult resource
+	 * @param results
+	 * @return
+	 */
 	public static URI getAnalysisResultURI(AnalysisResult results) {
 		EObject target = results.getModelElement();
 		URI rootURI = EcoreUtil.getURI(target).trimFragment().trimFileExtension();

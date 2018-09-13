@@ -21,7 +21,7 @@ import org.osate.result.ResultPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.impl.DiagnosticImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.impl.DiagnosticImpl#getDiagnosticType <em>Diagnostic Type</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.impl.DiagnosticImpl#getModelElement <em>Model Element</em>}</li>
  * </ul>
@@ -30,24 +30,24 @@ import org.osate.result.ResultPackage;
  */
 public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diagnostic {
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The default value of the '{@link #getDiagnosticType() <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DiagnosticType TYPE_EDEFAULT = DiagnosticType.NONE;
+	protected static final DiagnosticType DIAGNOSTIC_TYPE_EDEFAULT = DiagnosticType.NONE;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The cached value of the '{@link #getDiagnosticType() <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 * @ordered
 	 */
-	protected DiagnosticType type = TYPE_EDEFAULT;
+	protected DiagnosticType diagnosticType = DIAGNOSTIC_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -103,8 +103,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DiagnosticType getType() {
-		return type;
+	public DiagnosticType getDiagnosticType() {
+		return diagnosticType;
 	}
 
 	/**
@@ -112,11 +112,11 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(DiagnosticType newType) {
-		DiagnosticType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
+	public void setDiagnosticType(DiagnosticType newDiagnosticType) {
+		DiagnosticType oldDiagnosticType = diagnosticType;
+		diagnosticType = newDiagnosticType == null ? DIAGNOSTIC_TYPE_EDEFAULT : newDiagnosticType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE, oldDiagnosticType, diagnosticType));
 	}
 
 	/**
@@ -186,8 +186,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				return getType();
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				return getDiagnosticType();
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return getMessage();
 			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
@@ -206,8 +206,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				setType((DiagnosticType)newValue);
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				setDiagnosticType((DiagnosticType)newValue);
 				return;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage((String)newValue);
@@ -227,8 +227,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				setType(TYPE_EDEFAULT);
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				setDiagnosticType(DIAGNOSTIC_TYPE_EDEFAULT);
 				return;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				setMessage(MESSAGE_EDEFAULT);
@@ -248,8 +248,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ResultPackage.DIAGNOSTIC__TYPE:
-				return type != TYPE_EDEFAULT;
+			case ResultPackage.DIAGNOSTIC__DIAGNOSTIC_TYPE:
+				return diagnosticType != DIAGNOSTIC_TYPE_EDEFAULT;
 			case ResultPackage.DIAGNOSTIC__MESSAGE:
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case ResultPackage.DIAGNOSTIC__MODEL_ELEMENT:
@@ -268,8 +268,8 @@ public class DiagnosticImpl extends MinimalEObjectImpl.Container implements Diag
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (type: ");
-		result.append(type);
+		result.append(" (diagnosticType: ");
+		result.append(diagnosticType);
 		result.append(", message: ");
 		result.append(message);
 		result.append(')');

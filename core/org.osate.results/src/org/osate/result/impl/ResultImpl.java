@@ -35,7 +35,7 @@ import org.osate.result.Value;
  *   <li>{@link org.osate.result.impl.ResultImpl#getSubResults <em>Sub Results</em>}</li>
  *   <li>{@link org.osate.result.impl.ResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.result.impl.ResultImpl#getModelElement <em>Model Element</em>}</li>
- *   <li>{@link org.osate.result.impl.ResultImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.impl.ResultImpl#getResultType <em>Result Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -102,24 +102,24 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	protected EObject modelElement;
 
 	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The default value of the '{@link #getResultType() <em>Result Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getResultType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ResultType TYPE_EDEFAULT = ResultType.NONE;
+	protected static final ResultType RESULT_TYPE_EDEFAULT = ResultType.NONE;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * The cached value of the '{@link #getResultType() <em>Result Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getType()
+	 * @see #getResultType()
 	 * @generated
 	 * @ordered
 	 */
-	protected ResultType type = TYPE_EDEFAULT;
+	protected ResultType resultType = RESULT_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,8 +240,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ResultType getType() {
-		return type;
+	public ResultType getResultType() {
+		return resultType;
 	}
 
 	/**
@@ -249,11 +249,11 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(ResultType newType) {
-		ResultType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
+	public void setResultType(ResultType newResultType) {
+		ResultType oldResultType = resultType;
+		resultType = newResultType == null ? RESULT_TYPE_EDEFAULT : newResultType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ResultPackage.RESULT__RESULT_TYPE, oldResultType, resultType));
 	}
 
 	/**
@@ -293,8 +293,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			case ResultPackage.RESULT__MODEL_ELEMENT:
 				if (resolve) return getModelElement();
 				return basicGetModelElement();
-			case ResultPackage.RESULT__TYPE:
-				return getType();
+			case ResultPackage.RESULT__RESULT_TYPE:
+				return getResultType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -326,8 +326,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			case ResultPackage.RESULT__MODEL_ELEMENT:
 				setModelElement((EObject)newValue);
 				return;
-			case ResultPackage.RESULT__TYPE:
-				setType((ResultType)newValue);
+			case ResultPackage.RESULT__RESULT_TYPE:
+				setResultType((ResultType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -356,8 +356,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 			case ResultPackage.RESULT__MODEL_ELEMENT:
 				setModelElement((EObject)null);
 				return;
-			case ResultPackage.RESULT__TYPE:
-				setType(TYPE_EDEFAULT);
+			case ResultPackage.RESULT__RESULT_TYPE:
+				setResultType(RESULT_TYPE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -381,8 +381,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case ResultPackage.RESULT__MODEL_ELEMENT:
 				return modelElement != null;
-			case ResultPackage.RESULT__TYPE:
-				return type != TYPE_EDEFAULT;
+			case ResultPackage.RESULT__RESULT_TYPE:
+				return resultType != RESULT_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -399,8 +399,8 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (message: ");
 		result.append(message);
-		result.append(", type: ");
-		result.append(type);
+		result.append(", resultType: ");
+		result.append(resultType);
 		result.append(')');
 		return result.toString();
 	}
