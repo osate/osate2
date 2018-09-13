@@ -109,7 +109,7 @@ A Resolute claim function may call other Resolute claim functions. The results a
 
 Users can also write verification methods in Java. You do this by creating a Plugin project. In out example Alisa-Consistency is such a project. You define dependencies on plugins from OSATE in MANIFEST.INF to have access to utility methods for operating on AADL models.
 
-**Useful OSATE methods**
+####Useful OSATE support methods
  
 * The plugin *org.osate.aadl* gives you access to utility methods to access declarative AADL models and AADL instance models. The methods are associated with instance model classes and declarative model classes. You will mostly use methods dealing with instance model classes.
 
@@ -123,21 +123,23 @@ Users can also write verification methods in Java. You do this by creating a Plu
 
 Java methods can be written as static methods or non-static methods. 
 
-** Target Model Elements for Methods**
+####Target Model Elements for Methods
 
 Methods can be written for verifying component instances, or for instances of elements inside components, i.e., feature instances, flow spec or end to end flow instances, connection instances.  The expected instance model element is defined as first parameter with the appropriate Java class from the AADL instance Meta model, i.e., *FeatureInstance*, *FlowSpecificationInstance*, *EndToEndFlowInstance*, *ConnectionInstance*.
 
 > Note: Instance model elements other than component instance are useful for requirements that are specified for component elements via the **for** statement of the requirement.
 
-** Expected Return Values**
+####Expected Return Values
 
-Java verification methods are expected to return true if the requirement is met (*Pass*) and false if not (*Fail*). They may also throw an *AssertionError* exception to indicate an unsuccessful evaluation of a condition (*Fail*). Exceptions of any other kind are interpreted as the method failing to complete execution, i.e., an *Error*.
+Java verification methods are expected to return true if the requirement is met (Success*) and false if not (*Failure*). They may also throw an *AssertionError* exception to indicate an unsuccessful evaluation of a condition (*Failure*). Exceptions of any other kind are interpreted as the method failing to complete execution, i.e., an *Error*.
 
 Java verification methods can also return an AnalysisResult object, Result object, or Diagnostic object.
 
 Finally, Java verification methods can return any Java object - either as single value or as a collection of *Value* objects in *Result* objects. In a verification activity those can be assigned to compute variables and they will be evaluated by the *value predicate* specified in the requirement.
 
-**Example of a Verification Method acting as Predicate (Success/Fail)**
+####Example of a Verification Method acting as Predicate
+
+In this case the verification method will return a boolean value (true or false).
 
 The following example method operates on a Feature Instance, retrieves the property value for voltage and compares it against the value supplied as second parameter.
 
@@ -190,7 +192,7 @@ requirement R3 : "SCS inlet voltage" for power [
 ]
 </pre>
 
-**Example of a Verification Method returning a Compute Value**
+####Example of a Verification Method returning a Compute Value
 
 We can take advantage of the *value predicate* specified as part of requirement R3. We do so by registering getVoltage as a verification method that returns 
 The registry entry for the hasVoltage method takes on the following form
@@ -212,18 +214,20 @@ This method is then called in a verification activity as follows specifying the 
 consistentvoltage: actualvolt = Alisa_Consistency.GetVoltage() 
 </pre>
 
-**Example Method Returning AnalysisResult**
+####Example Method Returning AnalysisResult
 
-A number of OSATE analyses provide a Java based interface that returns an AnalysisResult object. See [Result Interpretation in ALISA](VerifyDoc.html#interpretation-of-return-values) for further details about usage of AnalysisResult.
+A number of OSATE analyses provide a Java based interface that returns an AnalysisResult object. See [Result Interpretation in ALISA](VerifyDoc.html#interpretation-of-return-values) for further details about usage of AnalysisResult in ALISA.
+
+
 Here we illustrate the example of a latency analysis.
 
 OSATE provides a service interface for latency analysis on ComponentInstance and on EndToEndFlowInstance objects.
 
 <pre>
-public AnalysisResult invoke(SystemInstance si) {
+public AnalysisResult invoke(ComponentInstance ci) {
 	FlowLatencyAnalysisSwitch fla = new FlowLatencyAnalysisSwitch();
-	EList<Result> results = fla.invoke(si, null, true, true, true, true);
-	return FlowLatencyUtil.recordAsAnalysisResult(results, si, true, true, true, true);
+	EList<Result> results = fla.invoke(ci, null, true, true, true, true);
+	return FlowLatencyUtil.recordAsAnalysisResult(results, ci, true, true, true, true);
 }
 
 public AnalysisResult invoke(EndToEndFlowInstance etef) {
@@ -235,15 +239,15 @@ public AnalysisResult invoke(EndToEndFlowInstance etef) {
 
 The appropriate method registration is as follows:
 <pre>
-method ComponentFlowLatencyAnalysis: "Verify all flow latencies in system instance" [
+method ComponentFlowLatencyAnalysis: "Verify all flow latencies directly specified in component instance" [
  category Quality.Latency
- description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow."
+ description "Analysis of all end-to-end flows in a component instance or for a specific end-to-end flow."
  java org.osate.analysis.flows.LatencyAnalysisService.invoke
 ]
 	
-method EndToEndFlowLatencyAnalysis (flow): "Verify all flow latencies in system instance" [
+method EndToEndFlowLatencyAnalysis (flow): "Verify specified flow latency" [
  category Quality.Latency
- description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow."
+ description "Analysis of a specific end-to-end flow."
  java org.osate.analysis.flows.LatencyAnalysisService.invoke
 ]
 </pre>
@@ -258,6 +262,27 @@ The requirement that the verification activity applies to identifies an end to e
 
 <pre>
 requirement R2_Lat : "SCS sensor to actuator response time limit" for sensortoactuatorresponse
+</pre>
+
+#### Recording of Multiple Results in AnalysisResult
+
+OSATE provides a common format for reporting analysis results. It provides the classes AnalysisResult, Result, and Diagnostic. See [Analysis Result](AnalysisResultFormat.html) and its [Usage in ALISA](VerifyDoc.html#interpretation-of-return-values) for details.  
+
+Here we elaborate an example where a Java verification method may evaluate conditions on multiple instance model elements. In this case we want to report back all model elements that do not meet the condition. In our example, we check that all leaf components have all their features connected and we want to report any unconnected feature.
+
+We first create a Result object, which reflects the overall result and collect any issues on specific features to be reported. We then traverse the instance model starting with the component instance to which the verification activity applies (the instance root). When we encounter a leaf component instance, i.e., one without sub component instances, we check that all its feature instances have incoming or outgoing connections. If we encounter one without connections we report this as an *Fail* issue.
+
+
+![Java Method With Result](images/JavaMethodWithResult.png "Java Method With Result")
+
+
+This Java method is registered as follows:
+
+<pre>
+method AllComponentsConnected(): "Check that all features of all leaf components are connected" for root [
+	java alisa_consistency.ModelVerifications.allComponentFeaturesConnected
+	description "Check that all features of all leaf components are connected."
+]
 </pre>
 
 ### JUnit Verification Methods
@@ -283,27 +308,6 @@ public void testingCrunchifyAddition() {
 
 > JUnit tests are currently called without parameters. In other words, the test method is not passed a component instance to be verified.
 
-
-## Use of Common Result Format in Java Methods
-
-OSATE provides a common format for reporting analysis results. It provides the classes AnalysisResult, Result, and Diagnostic. See [Analysis Result](AnalysisResultFormat.html) and its [Usage in ALISA](VerifyDoc.html#interpretation-of-return-values) for details.  
-
-Here we elaborate an example where a Java verification method may evaluate conditions on multiple instance model elements. In this case we want to report back all model elements that do not meet the condition. In our example, we check that all leaf components have all their features connected and we want to report any unconnected feature.
-
-We first create a Result object, which reflects the overall result and collect any issues on specific features to be reported. We then traverse the instance model starting with the component instance to which the verification activity applies (the instance root). When we encounter a leaf component instance, i.e., one without sub component instances, we check that all its feature instances have incoming or outgoing connections. If we encounter one without connections we report this as an *Fail* issue.
-
-
-![Java Method With Result](images/JavaMethodWithResult.png "Java Method With Result")
-
-
-This Java method is registered as follows:
-
-<pre>
-method AllComponentsConnected(): "Check that all features of all leaf components are connected" for root [
-	java alisa_consistency.ModelVerifications.allComponentFeaturesConnected
-	description "Check that all features of all leaf components are connected."
-]
-</pre>
 
 ## Value Predicates
 
