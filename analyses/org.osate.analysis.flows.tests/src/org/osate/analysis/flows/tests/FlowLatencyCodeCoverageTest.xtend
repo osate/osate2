@@ -9,21 +9,19 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.testsupport.Aadl2InjectorProvider
-import org.osate.testsupport.ResultHelper
 import org.osate.testsupport.TestHelper
+
+import static org.osate.testsupport.ResultHelper.*
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
-import static extension org.osate.testsupport.ResultHelper.assertAnalysisResult
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.eclipse.emf.common.util.URI
-import org.osate.analysis.flows.FlowLatencyUtil
-import org.eclipse.emf.ecore.util.EcoreUtil
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
 class FlowLatencyCodeCoverageTest {
 	val static DIR_NAME = "org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/"
+	
+	val static boolean generateResults = false
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -78,15 +76,8 @@ class FlowLatencyCodeCoverageTest {
 						
 						val analysis = new LatencyAnalysisService()
 						val actual = analysis.invoke(it, it.systemOperationModes.head)
-						val resultPath = '''results/testFlowLatency/«pkgName».result'''
-
-//						val uri = URI.createFileURI("c:\\Users\\phf\\testme\\"+resultPath)
-//						val resource = eResource.resourceSet.createResource(uri)
-//						resource.contents.add(actual)
-//						resource.save(null)
-						val expected = ResultHelper.loadResult(eResource.resourceSet, DIR_NAME+resultPath)
-						
-						expected.assertAnalysisResult(actual)
+						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
+						generateOrAssert(generateResults, resultPath,actual)
 					]
 				]
 			]
@@ -102,17 +93,12 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''results/testWithLatencyReport/«emptyPkgName».result'''
 					
 					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head)
-//						val uri = URI.createFileURI("c:\\Users\\phf\\testme\\"+resultPath)
-//						val resource = eResource.resourceSet.createResource(uri)
-//						resource.contents.add(actual)
-//						resource.save(null)
-					
-					val expected = ResultHelper.loadResult(eResource.resourceSet, DIR_NAME+resultPath)
-					expected.assertAnalysisResult(actual)
+
+					val resultPath = '''«DIR_NAME»results/testWithLatencyReport/«emptyPkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]
@@ -127,17 +113,12 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
 					
 					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
-//						val uri = URI.createFileURI("c:\\Users\\phf\\testme\\"+resultPath)
-//						val resource = eResource.resourceSet.createResource(uri)
-//						resource.contents.add(actual)
-//						resource.save(null)
-					
-					val expected = ResultHelper.loadResult(eResource.resourceSet, DIR_NAME+resultPath)
-					expected.assertAnalysisResult(actual)
+
+					val resultPath = '''«DIR_NAME»results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]
@@ -152,16 +133,11 @@ class FlowLatencyCodeCoverageTest {
 				"s1.i1".assertEquals(name)
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
-					val resultPath = '''results/testBestCaseFullQueue/«queuingPkgName».result'''
 					
 					val analysis = new LatencyAnalysisService()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
-//						val uri = URI.createFileURI("c:\\Users\\phf\\testme\\"+resultPath)
-//						val resource = eResource.resourceSet.createResource(uri)
-//						resource.contents.add(actual)
-//						resource.save(null)
-					val expected = ResultHelper.loadResult(eResource.resourceSet, DIR_NAME+resultPath)
-					expected.assertAnalysisResult(actual)
+					val resultPath = '''«DIR_NAME»results/testBestCaseFullQueue/«queuingPkgName».result'''
+					generateOrAssert(generateResults, resultPath,actual)
 				]
 			]
 		]
