@@ -1,0 +1,47 @@
+--See https://github.com/osate/osate2-core/issues/1144
+package transmission_time2
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a2;
+			sub3: bus {Transmission_Time => [Fixed => 1 ms .. 2 ms;];};
+			sub4: bus {
+				Transmission_Time => [
+					Fixed => 1 ms .. 2 ms;
+					PerByte => 5 ms .. 6 ms;
+				];
+				Data_Size => 1 Bytes;
+			};
+		connections
+			conn1: feature sub1.f1 -> sub2.f2 {Latency => 1 ms .. 2 ms;};
+			conn2: feature sub1.f1 -> sub2.f2 {Actual_Connection_Binding => (reference (sub3));};
+			conn3: feature sub1.f1 -> sub2.f2 {Actual_Connection_Binding => (reference (sub4));};
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1 {Latency => 3 ms .. 4 ms;};
+			etef2: end to end flow sub1.fsource1 -> conn2 -> sub2.fsink1 {Latency => 3 ms .. 4 ms;};
+			etef3: end to end flow sub1.fsource1 -> conn3 -> sub2.fsink1 {Latency => 3 ms .. 4 ms;};
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature D;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	abstract a2
+		features
+			f2: feature;
+		flows
+			fsink1: flow sink f2 {Latency => 1 ms .. 2 ms;};
+	end a2;
+	
+	data d
+		properties
+			Data_Size => 1 Bytes;
+	end d;
+end transmission_time2;

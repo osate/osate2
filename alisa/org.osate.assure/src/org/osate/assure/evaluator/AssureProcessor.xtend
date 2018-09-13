@@ -91,6 +91,8 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.pluginsupport.ExecutePythonUtil
 import org.osate.verify.verify.PythonMethod
 import org.osate.result.ResultType
+import org.osate.alisa.common.common.CommonFactory
+import org.osate.aadl2.instance.InstanceReferenceValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -564,6 +566,16 @@ class AssureProcessor implements IAssureProcessor {
 				str.value = data.value
 				str
 			}
+			InstanceObject: {
+				val objref = CommonFactory.eINSTANCE.createAModelReference
+				objref.modelElement = data
+				objref
+			}
+			InstanceReferenceValue: {
+				val objref = CommonFactory.eINSTANCE.createAModelReference
+				objref.modelElement = data.referencedInstanceObject
+				objref
+			}
 			default:
 				data as PropertyExpression
 		}
@@ -699,7 +711,15 @@ class AssureProcessor implements IAssureProcessor {
 		val methodtype = method.methodKind as JavaMethod
 		val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
 		val objects = VerifyJavaUtil.getActualJavaObjects(methodtype, target, parameters)
-		val returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		var returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		if (returned === null || returned instanceof Exception){
+			// try without first parameter if targetType not specified
+			if (method.targetType === null){
+				newClasses.remove(0);
+				objects.remove(0);
+				returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+			}
+		}
 		processExecutionResult(verificationResult, method, target, returned)
 	}
 
@@ -755,22 +775,6 @@ class AssureProcessor implements IAssureProcessor {
 						} else {
 							setToSuccess(verificationResult)
 						}
-//						val results = r.subResults
-//						for (result : results) {
-//							val c = EcoreUtil.copy(result)
-//							if (c.type === DiagnosticType.ERROR) {
-//								c.type = DiagnosticType.FAILURE
-//							}
-//							verificationResult.results.add(c)
-//						}
-//						val diags = r.diagnostics
-//						for (diag : diags) {
-//							val rcopy = EcoreUtil.copy(diag)
-//							if (rcopy.type === DiagnosticType.ERROR) {
-//								rcopy.type = DiagnosticType.FAILURE
-//							}
-//							verificationResult.issues.add(rcopy)
-//						}
 						if (verificationResult instanceof VerificationActivityResult) {
 							evaluateComputePredicate(verificationResult, method, r)
 						}
@@ -824,10 +828,18 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Precondition or Validation expect boolean as single return value",
 					target);
 				}
+			} else if (returned instanceof Exception){
+				setToError(verificationResult, "Java method execution exception: "+returned.message,
+					target);
+				
 			} else {
 				setToError(verificationResult, "Single non-boolean return value but no expected compute variable for predicate",
 					target);
 			}
+		} else {
+			// 
+			setToError(verificationResult, "Java method does not include class",
+					target);
 		}
 
 	}

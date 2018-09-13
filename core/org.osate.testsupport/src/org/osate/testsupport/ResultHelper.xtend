@@ -15,6 +15,7 @@ import org.osate.result.StringValue
 import org.osate.result.Value
 
 import static extension org.junit.Assert.assertEquals
+import org.eclipse.emf.ecore.resource.Resource
 
 class ResultHelper {
 	def static AnalysisResult loadResult(ResourceSet resourceSet, String path) {
@@ -24,6 +25,19 @@ class ResultHelper {
 		resource.load(inputStream, null)
 		inputStream.close
 		resource.contents.head as AnalysisResult
+	}
+	
+	def static void generateOrAssert(boolean generate, String resultPath, AnalysisResult actual) {
+		if (generate) {
+			val uri = URI.createFileURI('''«System.getProperty("user.dir")»/../«resultPath»''')
+			val resource = actual.modelElement.eResource.resourceSet.createResource(uri)
+			resource.contents.add(actual)
+			resource.save(null)
+		} else {
+			val expected = ResultHelper.loadResult(actual.modelElement.eResource.resourceSet, resultPath)
+			expected.assertAnalysisResult(actual)
+		}
+
 	}
 	
 	def static assertAnalysisResult(AnalysisResult expected, AnalysisResult actual) {

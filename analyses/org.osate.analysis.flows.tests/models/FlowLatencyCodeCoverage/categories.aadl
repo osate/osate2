@@ -1,0 +1,55 @@
+package categories
+public
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: device dev1;
+			sub3: abstract a2;
+			sub4: system s2;
+		connections
+			conn1: feature sub1.f1 -> sub2.f2;
+			conn2: feature sub1.f1 -> sub3.f3;
+			conn3: feature sub1.f1 -> sub4.f4;
+		flows
+			etef1: end to end flow sub1.fsource1 -> conn1 -> sub2.fsink1 {Latency => 2 ms .. 4 ms;};
+			etef2: end to end flow sub1.fsource1 -> conn2 -> sub3.fsink2 {Latency => 2 ms .. 4 ms;};
+			etef3: end to end flow sub1.fsource1 -> conn3 -> sub4.fsink3 {Latency => 2 ms .. 4 ms;};
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+		flows
+			fsource1: flow source f1 {Latency => 1 ms .. 2 ms;};
+	end a1;
+	
+	device dev1
+		features
+			f2: feature;
+		flows
+			fsink1: flow sink f2 {Latency => 1 ms .. 2 ms;};
+		properties
+			Period => 1 ms;
+	end dev1;
+	
+	abstract a2
+		features
+			f3: feature;
+		flows
+			fsink2: flow sink f3 {Latency => 1 ms .. 2 ms;};
+		properties
+			Period => 1 ms;
+	end a2;
+	
+	system s2
+		features
+			f4: feature;
+		flows
+			fsink3: flow sink f4 {Latency => 1 ms .. 2 ms;};
+		properties
+			Period => 1 ms;
+	end s2;
+end categories;

@@ -17,6 +17,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
@@ -33,6 +34,7 @@ import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue;
 import com.rockwellcollins.atc.resolute.analysis.values.ResoluteValue;
 import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
 import com.rockwellcollins.atc.resolute.resolute.BoolExpr;
+import com.rockwellcollins.atc.resolute.resolute.Expr;
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
 import com.rockwellcollins.atc.resolute.resolute.IntExpr;
@@ -121,7 +123,7 @@ public class ExecuteResoluteUtil {
 		initializeResoluteContext(targetComponent.getSystemInstance());
 		EvaluationContext context = new EvaluationContext(targetComponent, sets, featToConnsMap);
 		// check for claim function
-		FnCallExpr fcncall = createWrapperFunctionCall(fd, targetComponent, targetElement, parameterObjects);
+		FnCallExpr fcncall = createWrapperFunctionCall(fd, targetElement, parameterObjects);
 		if (fcncall != null) {
 //			if (fcncall.getFn().getBody() instanceof ClaimBody) {
 			// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
@@ -172,8 +174,7 @@ public class ExecuteResoluteUtil {
 		}
 	}
 
-	private FnCallExpr createWrapperFunctionCall(FunctionDefinition fd, ComponentInstance evalContext,
-			InstanceObject io,
+	private FnCallExpr createWrapperFunctionCall(FunctionDefinition fd, InstanceObject io,
 			List<PropertyExpression> params) {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		FnCallExpr call = factory.createFnCallExpr();
@@ -184,7 +185,7 @@ public class ExecuteResoluteUtil {
 			aparams = params.size();
 		}
 		if (fdparams == aparams + 1) {
-			call.getArgs().add(createInstanceObjectReference(evalContext, io));
+			call.getArgs().add(createInstanceObjectReference(io));
 		}
 		if (params != null) {
 			addParams(call, params);
@@ -192,7 +193,7 @@ public class ExecuteResoluteUtil {
 		return call;
 	}
 
-	private ThisExpr createInstanceObjectReference(ComponentInstance evalContext, InstanceObject io) {
+	private ThisExpr createInstanceObjectReference(InstanceObject io) {
 		ResoluteFactory factory = ResoluteFactory.eINSTANCE;
 		NestedDotID nid = null;
 		if (io != null) {
@@ -222,6 +223,9 @@ public class ExecuteResoluteUtil {
 				BoolExpr boolval = ResoluteFactory.eINSTANCE.createBoolExpr();
 				boolval.setVal((BooleanLiteral) p);
 				call.getArgs().add(boolval);
+			} else if (p instanceof InstanceReferenceValue) {
+				Expr ref = createInstanceObjectReference(((InstanceReferenceValue) p).getReferencedInstanceObject());
+				call.getArgs().add(ref);
 			}
 		}
 	}

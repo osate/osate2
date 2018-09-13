@@ -238,7 +238,7 @@ event probability is multiplied with the branch probability to go into the FailS
 ![GPS Transient](images/GPS-TransientSensor.png "GPS Transient")
 
 As a result of distinguishing between transient and persistent failures the occurrence probability 
-for GPS is reduced from 3.4e-4 to 1.9e-4, but still well above the desired value.
+for GPS is reduced due to the reduction in the sensor occurrence probability, but still well above the desired value.
 
 ![GPS Transient Tree](images/GPS-TransientSensor-Tree.png "GPS Transient Tree")
 

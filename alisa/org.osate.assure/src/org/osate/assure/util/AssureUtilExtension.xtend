@@ -1021,8 +1021,8 @@ class AssureUtilExtension {
 		if (va === null) return ""
 		if(va.title !== null) return va.title
 		val vm = va.method
-		if (vm === null) return ""
-		if(vm.description !== null) return vm.description.toText(null) // va.target)
+		if (vm == null) return ""
+		if(vm.description !== null) return vm.description.toText( vr.caseTargetModelElement)
 		if(vm.title !== null) return vm.title
 		return ""
 	}

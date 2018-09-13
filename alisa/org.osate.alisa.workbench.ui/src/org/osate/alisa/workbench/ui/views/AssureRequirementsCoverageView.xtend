@@ -104,7 +104,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 		this.editorOpener = editorOpener
 		this.assureConstructor = assureConstructor
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
-		settingsFileName = pluginsDir.append("org.osate.assure.ui").append("assure_view_settings.xml").toOSString
+		settingsFileName = pluginsDir.append("org.osate.assure").append("assure_view_settings.xml").toOSString
 		dialogSettings = new DialogSettings("assure_view_settings")
 		try {
 			dialogSettings.load(settingsFileName)
