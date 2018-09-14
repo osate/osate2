@@ -42,7 +42,6 @@ package org.osate.analysis.flows.handlers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -58,7 +57,6 @@ import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -92,23 +90,12 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
 		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-
-		final Dialog d = new FlowLatencyDialog(getShell(), store);
+		final FlowLatencyDialog d = new FlowLatencyDialog(getShell(), store);
 		Display.getDefault().syncExec(() -> d.open());
 
 		if (d.getReturnCode() == Window.OK) {
-			boolean asynchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
-					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
-			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
-					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
-			boolean worstCaseDeadline = store.getString(Constants.WORST_CASE_DEADLINE)
-					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
-			boolean bestCaseEmptyQueue = store.getString(Constants.BESTCASE_EMPTY_QUEUE)
-					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
-
 			latreport = new LatencyReport((SystemInstance) object);
-			latreport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-					bestCaseEmptyQueue);
+			d.setLatencyAnalysisParameters(latreport);
 			return true;
 		} else {
 			return false;

@@ -1,9 +1,12 @@
 package org.osate.analysis.flows.dialogs;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -14,11 +17,14 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.preferences.Constants;
+import org.osate.ui.dialogs.Dialog;
 
-public class FlowLatencyDialog extends TitleAreaDialog {
+public final class FlowLatencyDialog extends TitleAreaDialog {
 	private static final String[] PREF_IDS = { Constants.SYNCHRONOUS_SYSTEM, Constants.PARTITONING_POLICY,
 			Constants.WORST_CASE_DEADLINE, Constants.BESTCASE_EMPTY_QUEUE };
 
@@ -98,9 +104,36 @@ public class FlowLatencyDialog extends TitleAreaDialog {
 			}
 		});
 
-		final Button save = new Button(prefButtons, SWT.PUSH);
-		save.setText("Save to Preferences");
-		save.setToolTipText("Save the settings above to the OSATE preferences.");
+		/*
+		 * Don't bother having a "save preferences" button if the preferences aren't persistable
+		 */
+		if (latencyPrefs instanceof IPersistentPreferenceStore) {
+			final Button save = new Button(prefButtons, SWT.PUSH);
+			save.setText("Save to Preferences");
+			save.setToolTipText("Save the settings above to the OSATE preferences.");
+			save.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent event) {
+					for (final String prefId : PREF_IDS) {
+						latencyPrefs.setValue(prefId, localValues.get(prefId));
+					}
+
+					if (latencyPrefs.needsSaving()) {
+						final Job saveJob = Job.create("Save latency prefencees", monitor -> {
+							try {
+								((IPersistentPreferenceStore) latencyPrefs).save();
+							} catch (final IOException e) {
+								Display.getDefault().asyncExec(() -> {
+									Dialog.showError("Error",
+											"There was a problem saving the preferences: " + e.getMessage());
+								});
+							}
+						});
+						saveJob.schedule();
+					}
+				}
+			});
+		}
 
 		return root;
 	}
@@ -134,5 +167,24 @@ public class FlowLatencyDialog extends TitleAreaDialog {
 		}
 
 		return group;
+	}
+
+	public void setLatencyAnalysisParameters(final LatencyReport latencyReport) {
+		for (final String prefId : PREF_IDS) {
+			final String prefValue = localValues.get(prefId);
+			System.out.println(prefId + " => " + prefValue);
+		}
+
+		final boolean asynchronousSystem = localValues.get(Constants.SYNCHRONOUS_SYSTEM)
+				.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
+		final boolean majorFrameDelay = localValues.get(Constants.PARTITONING_POLICY)
+				.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
+		final boolean worstCaseDeadline = localValues.get(Constants.WORST_CASE_DEADLINE)
+				.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
+		final boolean bestCaseEmptyQueue = localValues.get(Constants.BESTCASE_EMPTY_QUEUE)
+				.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+
+		latencyReport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue);
 	}
 }
