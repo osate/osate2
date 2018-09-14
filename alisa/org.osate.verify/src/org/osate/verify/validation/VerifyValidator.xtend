@@ -106,7 +106,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		if (vm.isIsPredicate ){
 			warning("Keyword 'boolean' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_PREDICATE)
 		}
-		if (vm.isIsPredicate || vm.isIsResultReport){
+		if (vm.isIsResultReport){
 			warning("Keyword 'report' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_RESULT_REPORT)
 		}
 	}
