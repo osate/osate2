@@ -91,12 +91,12 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
+		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 
-		final Dialog d = new FlowLatencyDialog(getShell());
+		final Dialog d = new FlowLatencyDialog(getShell(), store);
 		Display.getDefault().syncExec(() -> d.open());
 
 		if (d.getReturnCode() == Window.OK) {
-			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 			boolean asynchronousSystem = store.getString(Constants.SYNCHRONOUS_SYSTEM)
 					.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
 			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
