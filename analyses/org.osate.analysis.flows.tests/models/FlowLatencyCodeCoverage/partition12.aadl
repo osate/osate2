@@ -1,0 +1,34 @@
+package partition12
+public
+	with ARINC653;
+	
+	system s1
+	end s1;
+	
+	system implementation s1.i1
+		subcomponents
+			sub1: abstract a1;
+			sub2: abstract a1;
+			sub3: virtual processor {Period => 1 ms;};
+			sub4: processor;
+			sub5: virtual processor;
+		connections
+			conn1: feature sub1.f1 -> sub2.f1;
+		flows
+			etef1: end to end flow sub1 -> conn1 -> sub2 {Latency => 2 ms .. 6 ms;};
+		properties
+			Actual_Processor_Binding => (reference (sub3)) applies to sub2;
+			Actual_Processor_Binding => (reference (sub4)) applies to sub3;
+			ARINC653::Module_Schedule => ([
+				Partition => reference (sub5);
+				Duration => 1 ms;
+			]) applies to sub4;
+	end s1.i1;
+	
+	abstract a1
+		features
+			f1: feature;
+		properties
+			Latency => 1 ms .. 2 ms;
+	end a1;
+end partition12;

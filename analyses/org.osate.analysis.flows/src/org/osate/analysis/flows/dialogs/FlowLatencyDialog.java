@@ -25,7 +25,7 @@ import org.osate.analysis.flows.preferences.Constants;
 import org.osate.ui.dialogs.Dialog;
 
 public final class FlowLatencyDialog extends TitleAreaDialog {
-	private static final String[] PREF_IDS = { Constants.SYNCHRONOUS_SYSTEM, Constants.PARTITONING_POLICY,
+	private static final String[] PREF_IDS = { Constants.ASYNCHRONOUS_SYSTEM, Constants.PARTITONING_POLICY,
 			Constants.WORST_CASE_DEADLINE, Constants.BESTCASE_EMPTY_QUEUE };
 
 	private final IPreferenceStore latencyPrefs;
@@ -57,9 +57,9 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		myWorkArea.setLayoutData(new GridData(GridData.FILL_BOTH));
 		myWorkArea.setLayout(new GridLayout(2, true));
 
-		createGroup(myWorkArea, "System type", Constants.SYNCHRONOUS_SYSTEM,
+		createGroup(myWorkArea, "System type", Constants.ASYNCHRONOUS_SYSTEM,
 				new String[] { "Asynchronous system (AS)", "Synchronous system (SS)" },
-				new String[] { Constants.SYNCHRONOUS_SYSTEM_NO, Constants.SYNCHRONOUS_SYSTEM_YES });
+				new String[] { Constants.ASYNCHRONOUS_SYSTEM_YES, Constants.ASYNCHRONOUS_SYSTEM_NO });
 		createGroup(myWorkArea, "Partition output policy", Constants.PARTITONING_POLICY,
 				new String[] { "Partition end (PE)", "Major frame delayed (MF)" },
 				new String[] { Constants.PARTITIONING_POLICY_PARTITION_END_STR,
@@ -175,8 +175,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 			System.out.println(prefId + " => " + prefValue);
 		}
 
-		final boolean asynchronousSystem = localValues.get(Constants.SYNCHRONOUS_SYSTEM)
-				.equalsIgnoreCase(Constants.SYNCHRONOUS_SYSTEM_NO);
+		final boolean asynchronousSystem = localValues.get(Constants.ASYNCHRONOUS_SYSTEM)
+				.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
 		final boolean majorFrameDelay = localValues.get(Constants.PARTITONING_POLICY)
 				.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
 		final boolean worstCaseDeadline = localValues.get(Constants.WORST_CASE_DEADLINE)

@@ -46,7 +46,7 @@ verification methods Resolute [
 		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.SubcomponentsHaveWeightBudgetCoverage
 	]
 
-	method checkAuthor (author:string)boolean: "Check author" [
+	method checkAuthor (author:string): "Check author" [
 		resolute BudgetResolute.BudgetResolute_public.Resolute.Resolute.checkAuthor
 	]
 	

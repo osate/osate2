@@ -2,7 +2,6 @@
  */
 package org.osate.result;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,12 +13,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.result.Diagnostic#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.result.Diagnostic#getDiagnosticType <em>Diagnostic Type</em>}</li>
  *   <li>{@link org.osate.result.Diagnostic#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getExceptionType <em>Exception Type</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getIssues <em>Issues</em>}</li>
- *   <li>{@link org.osate.result.Diagnostic#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.result.Diagnostic#getModelElement <em>Model Element</em>}</li>
  * </ul>
  *
  * @see org.osate.result.ResultPackage#getDiagnostic()
@@ -28,34 +24,34 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Diagnostic extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The default value is <code>"NONE"</code>.
+	 * Returns the value of the '<em><b>Diagnostic Type</b></em>' attribute.
+	 * The default value is <code>"TBD"</code>.
 	 * The literals are from the enumeration {@link org.osate.result.DiagnosticType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Diagnostic Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
+	 * @return the value of the '<em>Diagnostic Type</em>' attribute.
 	 * @see org.osate.result.DiagnosticType
-	 * @see #setType(DiagnosticType)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Type()
-	 * @model default="NONE"
+	 * @see #setDiagnosticType(DiagnosticType)
+	 * @see org.osate.result.ResultPackage#getDiagnostic_DiagnosticType()
+	 * @model default="TBD"
 	 * @generated
 	 */
-	DiagnosticType getType();
+	DiagnosticType getDiagnosticType();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.result.Diagnostic#getDiagnosticType <em>Diagnostic Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @param value the new value of the '<em>Diagnostic Type</em>' attribute.
 	 * @see org.osate.result.DiagnosticType
-	 * @see #getType()
+	 * @see #getDiagnosticType()
 	 * @generated
 	 */
-	void setType(DiagnosticType value);
+	void setDiagnosticType(DiagnosticType value);
 
 	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.
@@ -84,100 +80,29 @@ public interface Diagnostic extends EObject {
 	void setMessage(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Reference</b></em>' reference.
+	 * Returns the value of the '<em><b>Model Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Source Reference</em>' reference isn't clear,
+	 * If the meaning of the '<em>Model Element</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Reference</em>' reference.
-	 * @see #setSourceReference(EObject)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_SourceReference()
+	 * @return the value of the '<em>Model Element</em>' reference.
+	 * @see #setModelElement(EObject)
+	 * @see org.osate.result.ResultPackage#getDiagnostic_ModelElement()
 	 * @model
 	 * @generated
 	 */
-	EObject getSourceReference();
+	EObject getModelElement();
 
 	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getSourceReference <em>Source Reference</em>}' reference.
+	 * Sets the value of the '{@link org.osate.result.Diagnostic#getModelElement <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Reference</em>' reference.
-	 * @see #getSourceReference()
+	 * @param value the new value of the '<em>Model Element</em>' reference.
+	 * @see #getModelElement()
 	 * @generated
 	 */
-	void setSourceReference(EObject value);
-
-	/**
-	 * Returns the value of the '<em><b>Exception Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Exception Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Exception Type</em>' attribute.
-	 * @see #setExceptionType(String)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_ExceptionType()
-	 * @model
-	 * @generated
-	 */
-	String getExceptionType();
-
-	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getExceptionType <em>Exception Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Exception Type</em>' attribute.
-	 * @see #getExceptionType()
-	 * @generated
-	 */
-	void setExceptionType(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Issues</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.result.Diagnostic}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Issues</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * @deprecated
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Issues</em>' containment reference list.
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Issues()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Diagnostic> getIssues();
-
-	/**
-	 * Returns the value of the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Source</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' attribute.
-	 * @see #setSource(String)
-	 * @see org.osate.result.ResultPackage#getDiagnostic_Source()
-	 * @model
-	 * @generated
-	 */
-	String getSource();
-
-	/**
-	 * Sets the value of the '{@link org.osate.result.Diagnostic#getSource <em>Source</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' attribute.
-	 * @see #getSource()
-	 * @generated
-	 */
-	void setSource(String value);
+	void setModelElement(EObject value);
 
 } // Diagnostic

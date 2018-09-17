@@ -19,16 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum DiagnosticType implements Enumerator {
 	/**
-	 * The '<em><b>NONE</b></em>' literal object.
+	 * The '<em><b>TBD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #NONE_VALUE
+	 * @see #TBD_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	NONE(0, "NONE", "NONE"),
-
-	/**
+	TBD(0, "TBD", "TBD"), /**
 	 * The '<em><b>ERROR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,42 +54,22 @@ public enum DiagnosticType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INFO(3, "INFO", "INFO"),
+	INFO(3, "INFO", "INFO");
 
 	/**
-	 * The '<em><b>SUCCESS</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SUCCESS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	SUCCESS(4, "SUCCESS", "SUCCESS"),
-
-	/**
-	 * The '<em><b>FAILURE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FAILURE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	FAILURE(5, "FAILURE", "FAIL");
-
-	/**
-	 * The '<em><b>NONE</b></em>' literal value.
+	 * The '<em><b>TBD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>NONE</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #NONE
+	 * @see #TBD
 	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NONE_VALUE = 0;
+	public static final int TBD_VALUE = 0;
 
 	/**
 	 * The '<em><b>ERROR</b></em>' literal value.
@@ -139,36 +117,6 @@ public enum DiagnosticType implements Enumerator {
 	public static final int INFO_VALUE = 3;
 
 	/**
-	 * The '<em><b>SUCCESS</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #SUCCESS
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int SUCCESS_VALUE = 4;
-
-	/**
-	 * The '<em><b>FAILURE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>FAILURE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #FAILURE
-	 * @model literal="FAIL"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int FAILURE_VALUE = 5;
-
-	/**
 	 * An array of all the '<em><b>Diagnostic Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -176,12 +124,10 @@ public enum DiagnosticType implements Enumerator {
 	 */
 	private static final DiagnosticType[] VALUES_ARRAY =
 		new DiagnosticType[] {
-			NONE,
+			TBD,
 			ERROR,
 			WARNING,
 			INFO,
-			SUCCESS,
-			FAILURE,
 		};
 
 	/**
@@ -238,12 +184,10 @@ public enum DiagnosticType implements Enumerator {
 	 */
 	public static DiagnosticType get(int value) {
 		switch (value) {
-			case NONE_VALUE: return NONE;
+			case TBD_VALUE: return TBD;
 			case ERROR_VALUE: return ERROR;
 			case WARNING_VALUE: return WARNING;
 			case INFO_VALUE: return INFO;
-			case SUCCESS_VALUE: return SUCCESS;
-			case FAILURE_VALUE: return FAILURE;
 		}
 		return null;
 	}
