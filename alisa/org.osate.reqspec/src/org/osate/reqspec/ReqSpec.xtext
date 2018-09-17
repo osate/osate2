@@ -248,6 +248,7 @@ ExternalDocument :
 ;
 
 
+@Override 
 ValDeclaration returns common::ValDeclaration:
 	 {ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']') )? '=' value=AExpression
 	 ('as' property=PropertyRef)?  

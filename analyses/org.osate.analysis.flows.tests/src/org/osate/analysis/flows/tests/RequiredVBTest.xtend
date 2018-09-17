@@ -2,7 +2,6 @@ package org.osate.analysis.flows.tests
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest
-import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -12,7 +11,7 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
+import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.result.RealValue
 import org.osate.result.StringValue
 import org.osate.testsupport.Aadl2InjectorProvider
@@ -47,10 +46,10 @@ class RequiredVBTest extends XtextTest {
 
 		// check flow latency
 		val som = instance.systemOperationModes.head
-		val checker = new FlowLatencyAnalysisSwitch(new NullProgressMonitor,  instance)
-		val latencyresult = checker.invoke(instance, som, true, true, true, true)
+		val checker = new LatencyAnalysisService()
+		val latencyresult = checker.invoke(instance, som)
 		val resab = latencyresult.results.get(1)
-		val target = resab.sourceReference as NamedElement
+		val target = resab.modelElement as NamedElement
 		assertEquals(target.name,"etef2")
 		assertTrue((resab.values.get(1) as RealValue).value == (12.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (16.0))
@@ -61,7 +60,7 @@ class RequiredVBTest extends XtextTest {
 		resab.subResults.size.assertEquals(3)
 		resab.diagnostics.size.assertEquals(6)
 		val subres = resab.subResults.get(2)
-		val subpart1 = subres.sourceReference as NamedElement
+		val subpart1 = subres.modelElement as NamedElement
 		assertTrue(subpart1 instanceof ComponentInstance)
 		assertEquals(subpart1.name,"sub2")
 		assertEquals((subres.values.get(4) as StringValue).value, "specified")

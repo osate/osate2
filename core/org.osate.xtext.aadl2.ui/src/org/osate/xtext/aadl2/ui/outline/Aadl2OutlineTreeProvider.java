@@ -45,13 +45,10 @@ import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
-import org.eclipse.xtext.ui.label.StylerFactory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -75,7 +72,6 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.ConfigurationException;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
@@ -83,10 +79,6 @@ import com.google.inject.Injector;
  *
  */
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
-
-	@Inject
-	private StylerFactory stylerFactory;
-
 	protected void _createChildren(DocumentRootNode parentNode, ModelUnit aadlModel) {
 		if (aadlModel instanceof AadlPackage) {
 			for (Element element : aadlModel.getChildren()) {
@@ -102,9 +94,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 		if (annexRoot != null) {
 			// delegate to annex specific outline tree provider
-			EObject annexElement = (modelElement instanceof DefaultAnnexLibrary
-					|| modelElement instanceof DefaultAnnexSubclause) ? annexRoot : modelElement;
-			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexElement);
+			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexRoot);
 			if (annexParseResult != null) {
 				String grammarName = getGrammarName(annexParseResult.getRootNode());
 				Injector injector = OsateCorePlugin.getDefault().getInjector(grammarName);

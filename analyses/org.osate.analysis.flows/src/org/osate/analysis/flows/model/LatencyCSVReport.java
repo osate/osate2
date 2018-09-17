@@ -24,12 +24,12 @@ public class LatencyCSVReport {
 		StringBuffer report = new StringBuffer();
 
 		String reportheader = "Latency analysis with preference settings: "
-				+ FlowLatencyUtil.getParametersAsDescriptions(ar.getInfo());
+				+ FlowLatencyUtil.getParametersAsDescriptions(ar);
 
 		report.append(reportheader + System.lineSeparator() + System.lineSeparator());
 		for (Result result : ar.getResults()) {
-			String flowname = ((InstanceObject) result.getSourceReference()).getComponentInstancePath();
-			SystemInstance si = ((InstanceObject) result.getSourceReference()).getSystemInstance();
+			String flowname = ((InstanceObject) result.getModelElement()).getComponentInstancePath();
+			SystemInstance si = ((InstanceObject) result.getModelElement()).getSystemInstance();
 			String systemName = si.getComponentClassifier().getName();
 			String inMode = ResultUtil.getString(result, 0);
 			String analysisheader = "Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
@@ -51,7 +51,7 @@ public class LatencyCSVReport {
 					+ ResultUtil.getReal(result, 6) + "ms" + System.lineSeparator());
 			report.append("End to end Latency Summary" + System.lineSeparator());
 			for (Diagnostic dia : result.getDiagnostics()) {
-				report.append(dia.getType() + "," + dia.getMessage() + System.lineSeparator());
+				report.append(dia.getDiagnosticType() + "," + dia.getMessage() + System.lineSeparator());
 			}
 			report.append(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
 		}
@@ -59,8 +59,8 @@ public class LatencyCSVReport {
 	}
 
 	private static void addContributor(StringBuffer report, Result contributor, boolean subcontributor) {
-		String comp = FlowLatencyUtil.getContributorType(contributor.getSourceReference()) + " "
-				+ FlowLatencyUtil.getFullComponentContributorName((contributor.getSourceReference()));
+		String comp = FlowLatencyUtil.getContributorType(contributor.getModelElement()) + " "
+				+ FlowLatencyUtil.getFullComponentContributorName((contributor.getModelElement()));
 		if (subcontributor) {
 			comp = "(" + comp + ")";
 		}

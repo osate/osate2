@@ -27,8 +27,10 @@ import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
+import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
@@ -36,13 +38,22 @@ import org.osate.aadl2.AadlString
 import org.osate.aadl2.Connection
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
+import org.osate.aadl2.MetaclassReference
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.ReferenceType
+import org.osate.alisa.common.common.AVariableReference
+import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.alisa.common.common.TargetType
+import org.osate.alisa.common.common.TypeRef
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
+import org.osate.verify.util.VerifyJavaUtil
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
@@ -57,7 +68,6 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.alisa.common.common.TargetType
 
 /**
  * Custom validation rules. 
@@ -90,10 +100,21 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	}
 
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
+	
+	@Check(CheckType.FAST)
+	def void deprecateVerificationMethodBoolReport(VerificationMethod vm) {
+		if (vm.isIsPredicate ){
+			warning("Keyword 'boolean' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_PREDICATE)
+		}
+		if (vm.isIsPredicate || vm.isIsResultReport){
+			warning("Keyword 'report' is deprecated" , VerifyPackage.Literals.VERIFICATION_METHOD__IS_RESULT_REPORT)
+		}
+	}
 
 	@Check
 	def checkMethodPath(JavaMethod method) {
-		val result = VerificationMethodDispatchers.eInstance.getJavaMethod(method)
+		val params = VerifyJavaUtil.getParameterClasses(method)
+		val result = ExecuteJavaUtil.eInstance.getJavaMethod(method.methodPath, params)
 		if (result === null) {
 			warning("Could not find method: " + method.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
@@ -102,7 +123,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkClassPath(JUnit4Method method) {
-		val result = ExecuteJavaUtil.eInstance.findClass(method.classPath)
+		val result = ExecuteJavaUtil.eInstance.getJavaClass(method.classPath)
 		if (result === null) {
 			warning("Could not find JUnit4 test class: " + method.classPath,
 				VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH, INCORRECT_CLASS_PATH)
@@ -177,6 +198,35 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 					warning(
 						"The number of actual parameters differs from the number of formal parameters for verification activity",
 						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
+				}
+			}
+
+			@Check(CheckType.NORMAL)
+			def checkVerificationActivityReturnCompute(VerificationActivity va) {
+				val computeParameters = va.computes
+				if (computeParameters.isEmpty){
+					return;
+				}
+				val method = va.method
+				val resultParms = method.results
+				if ((computeParameters.size > resultParms.size)) {
+					error(
+						"The number of actual return parameters is less than the number of compute variable assignments",
+						va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__COMPUTES)
+				}
+				val predicate = va.containingClaim?.requirement?.predicate
+				if (predicate instanceof ValuePredicate) {
+					val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
+					for (varref : varrefs) {
+						val variable = varref.variable
+						if (variable instanceof ComputeDeclaration) {
+							if (!computeParameters.exists[cp| cp.compute == variable]){
+								error(
+									"Compute variable '"+variable.name+"' used in value predicate but not assigned in method call",
+									va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__COMPUTES)
+							}
+						}
+					}
 				}
 			}
 
@@ -336,9 +386,43 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 											AadlReal: return resoluteType.type.equalsIgnoreCase("real")
 											AadlInteger: return resoluteType.type.equalsIgnoreCase("int")
 											AadlString: return resoluteType.type.equalsIgnoreCase("string")
-											PropertyRef: return resoluteType.type.equalsIgnoreCase("property")
+											PropertyRef: {
+												val prop = formalType.ref
+												val propType = prop?.referencedPropertyType?: prop.ownedPropertyType
+												switch (propType){
+													ReferenceType: {
+														return	matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
+											ModelRef: return resoluteType.type.equalsIgnoreCase("aadl")
+											TypeRef: {
+												val propType = formalType.ref
+												switch (propType){
+													ReferenceType: {
+														return matchReferenceType(propType, resoluteType)
+													}
+													default: return matchResoluteType(propType, resoluteType)
+												}
+											}
 										}
 										false
+									}
+									
+									def boolean matchReferenceType(ReferenceType propType, BaseType resoluteType){
+										if (resoluteType.type.equalsIgnoreCase("aadl")){
+											return true
+										} 
+										val metaclassreference = Aadl2Factory.eINSTANCE.createMetaclassReference
+										metaclassreference.metaclassNames.add(resoluteType.type)
+										val refEclass = metaclassreference.metaclass
+										for (MetaclassReference mcri : propType.getNamedElementReferences()) {
+											if (refEclass.isSuperTypeOf(mcri.getMetaclass())) {
+												return true;
+											}
+										}
+										return false
 									}
 
 									@Check(CheckType.FAST)

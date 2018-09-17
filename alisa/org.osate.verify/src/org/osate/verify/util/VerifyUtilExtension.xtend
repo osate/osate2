@@ -17,17 +17,16 @@
 package org.osate.verify.util
 
 import com.google.common.collect.HashMultimap
+import java.util.HashMap
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.categories.categories.CategoryFilter
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.result.AnalysisResult
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.VerificationActivity
@@ -37,9 +36,6 @@ import org.osate.verify.verify.VerificationPlan
 import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.eclipse.emf.common.util.URI
-import org.osate.result.AnalysisResult
-import java.util.HashMap
 
 class VerifyUtilExtension {
 
@@ -92,7 +88,6 @@ class VerifyUtilExtension {
 	
 	def static getContainingClaim(EObject sh) {
 		sh.getContainerOfType(Claim)
-		
 	}
 	
 	def static getContainingVerificationMethod(EObject sh) {

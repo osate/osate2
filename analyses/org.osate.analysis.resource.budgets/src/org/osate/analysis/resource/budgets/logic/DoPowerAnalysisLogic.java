@@ -184,7 +184,7 @@ public class DoPowerAnalysisLogic {
 
 	private void powerComponentSuccess(Section s, String msg) {
 		Line line = new Line();
-		line.addSuccess(msg);
+		line.addInfo(msg);
 		s.addLine(line);
 	}
 
