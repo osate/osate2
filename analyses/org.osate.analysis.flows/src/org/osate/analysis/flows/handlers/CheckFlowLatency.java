@@ -92,16 +92,23 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean initializeAnalysis(NamedElement object) {
 		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		final FlowLatencyDialog d = new FlowLatencyDialog(getShell(), store);
-		Display.getDefault().syncExec(() -> d.open());
 
-		if (d.getReturnCode() == Window.OK) {
+		final boolean doIt;
+		if (d.dontShowDialog()) {
+			// Don't show the dialog, just run the analysis
+			doIt = true;
+		} else {
+			Display.getDefault().syncExec(() -> d.open());
+			doIt = d.getReturnCode() == Window.OK;
+		}
+
+		if (doIt) {
 			latreport = new LatencyReport();
 			latreport.setRootinstance((SystemInstance) object);
 			d.setLatencyAnalysisParameters(latreport);
-			return true;
-		} else {
-			return false;
 		}
+
+		return doIt;
 	};
 
 	@Override
