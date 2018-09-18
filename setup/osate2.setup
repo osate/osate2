@@ -536,6 +536,16 @@
         url="http://download.eclipse.org/egit/github/updates"/>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task"
+      label="Xtext Tools">
+    <requirement
+        name="de.libutzki.xtext.nodemodeloutline.feature.feature.group"/>
+    <requirement
+        name="de.libutzki.xtext.semanticmodeloutline.feature.feature.group"/>
+    <repository
+        url="http://xtexttools.libutzki.de/"/>
+  </setupTask>
+  <setupTask
       xsi:type="setup:CompoundTask"
       id="osate2"
       name="OSATE2">
@@ -779,6 +789,10 @@
           name="org.eclipse.swtbot.ide.feature.group"/>
       <requirement
           name="it.xsemantics.sdk.feature.group"/>
+      <requirement
+          name="de.libutzki.xtext.nodemodeloutline.feature.feature.group"/>
+      <requirement
+          name="de.libutzki.xtext.semanticmodeloutline.feature.feature.group"/>
       <requirement
           name="*"/>
       <sourceLocator
