@@ -27,14 +27,25 @@ import org.osate.ui.dialogs.Dialog;
 public final class FlowLatencyDialog extends TitleAreaDialog {
 	private static final String[] PREF_IDS = { Constants.ASYNCHRONOUS_SYSTEM, Constants.PARTITONING_POLICY,
 			Constants.WORST_CASE_DEADLINE, Constants.BESTCASE_EMPTY_QUEUE };
+	private static final String[] LAST_USED_PREF_IDS = { Constants.ASYNCHRONOUS_SYSTEM_LAST_USED,
+			Constants.PARTITONING_POLICY_LAST_USED, Constants.WORST_CASE_DEADLINE_LAST_USED,
+			Constants.BESTCASE_EMPTY_QUEUE_LAST_USED };
 
 	private final IPreferenceStore latencyPrefs;
-	private final Map<String, String> localValues = new HashMap<>();
-	private final Map<String, Button> valueToButton = new HashMap<>();
+	private boolean dontShowDialog = false;
+	private final Map<String, String> localValues = new HashMap<>(); // indexed by LAST_USED_PREF_IDS
+	private final Map<String, Button> valueToButton = new HashMap<>(); // index by the preference value strings
 
 	public FlowLatencyDialog(Shell parentShell, final IPreferenceStore prefs) {
 		super(parentShell);
 		latencyPrefs = prefs;
+		for (String prefId : LAST_USED_PREF_IDS) {
+			localValues.put(prefId, latencyPrefs.getString(prefId));
+		}
+	}
+
+	public boolean dontShowDialog() {
+		return latencyPrefs.getBoolean(Constants.DONT_SHOW_DIALOG);
 	}
 
 	@Override
@@ -47,7 +58,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		setTitle("Check Flow Latency");
-		setMessage("Configure the settings for the flow latency analysis.");
+		setMessage(
+				"Configure the settings for the flow latency analysis.  Clicking \"Ok\" runs the analysis and causes the settings to be used the next time the analysis is executed.  Clicking \"Cancel\" leaves the remembered settings as they were.");
 	}
 
 	@Override
@@ -57,25 +69,36 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		myWorkArea.setLayoutData(new GridData(GridData.FILL_BOTH));
 		myWorkArea.setLayout(new GridLayout(2, true));
 
-		createGroup(myWorkArea, "System type", Constants.ASYNCHRONOUS_SYSTEM,
+		createGroup(myWorkArea, "System type", Constants.ASYNCHRONOUS_SYSTEM_LAST_USED,
 				new String[] { "Asynchronous system (AS)", "Synchronous system (SS)" },
 				new String[] { Constants.ASYNCHRONOUS_SYSTEM_YES, Constants.ASYNCHRONOUS_SYSTEM_NO });
-		createGroup(myWorkArea, "Partition output policy", Constants.PARTITONING_POLICY,
+		createGroup(myWorkArea, "Partition output policy", Constants.PARTITONING_POLICY_LAST_USED,
 				new String[] { "Partition end (PE)", "Major frame delayed (MF)" },
 				new String[] { Constants.PARTITIONING_POLICY_PARTITION_END_STR,
 						Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR });
-		createGroup(myWorkArea, "For worst-case processing time use", Constants.WORST_CASE_DEADLINE,
+		createGroup(myWorkArea, "For worst-case processing time use", Constants.WORST_CASE_DEADLINE_LAST_USED,
 				new String[] { "Deadline (DL)", "Maximum compute execution time (ET)" },
 				new String[] { Constants.WORST_CASE_DEADLINE_YES, Constants.WORST_CASE_DEADLINE_NO });
-		createGroup(myWorkArea, "For best-case queuing latency on incoming ports", Constants.BESTCASE_EMPTY_QUEUE,
+		createGroup(myWorkArea, "For best-case queuing latency on incoming ports",
+				Constants.BESTCASE_EMPTY_QUEUE_LAST_USED,
 				new String[] { "Assume an empty queue (EQ)", "Assume a full queue (FQ)" },
 				new String[] { Constants.BESTCASE_EMPTY_QUEUE_YES, Constants.BESTCASE_EMPTY_QUEUE_NO });
 
+		/*
+		 * If we are showing the dialog, then the value of DONT_SHOW_DIALOG is false.
+		 */
+		dontShowDialog = false;
 		final Button hide = new Button(myWorkArea, SWT.CHECK);
 		hide.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 		hide.setText("Don't show this dialog again");
 		hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
 				+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
+		hide.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent event) {
+				dontShowDialog = hide.getSelection();
+			}
+		});
 
 		final Composite prefButtons = new Composite(myWorkArea, SWT.NONE);
 		prefButtons.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_END));
@@ -96,10 +119,10 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 					valueToButton.get(value).setSelection(false);
 				}
 
-				for (final String prefId : PREF_IDS) {
-					final String prefValue = latencyPrefs.getString(prefId);
+				for (int i = 0; i < PREF_IDS.length; i++) {
+					final String prefValue = latencyPrefs.getString(PREF_IDS[i]);
 					valueToButton.get(prefValue).setSelection(true);
-					localValues.put(prefId, prefValue);
+					localValues.put(LAST_USED_PREF_IDS[i], prefValue);
 				}
 			}
 		});
@@ -109,33 +132,49 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		 */
 		if (latencyPrefs instanceof IPersistentPreferenceStore) {
 			final Button save = new Button(prefButtons, SWT.PUSH);
-			save.setText("Save to Preferences");
-			save.setToolTipText("Save the settings above to the OSATE preferences.");
+			save.setText("Save as Defaults");
+			save.setToolTipText("Make the above settings the defaults as in the" + System.lineSeparator()
+					+ "OSATE > Analysis > Flow Latency preference pane.");
 			save.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent event) {
-					for (final String prefId : PREF_IDS) {
-						latencyPrefs.setValue(prefId, localValues.get(prefId));
+					for (int i = 0; i < PREF_IDS.length; i++) {
+						latencyPrefs.setValue(PREF_IDS[i], localValues.get(LAST_USED_PREF_IDS[i]));
 					}
-
-					if (latencyPrefs.needsSaving()) {
-						final Job saveJob = Job.create("Save latency prefencees", monitor -> {
-							try {
-								((IPersistentPreferenceStore) latencyPrefs).save();
-							} catch (final IOException e) {
-								Display.getDefault().asyncExec(() -> {
-									Dialog.showError("Error",
-											"There was a problem saving the preferences: " + e.getMessage());
-								});
-							}
-						});
-						saveJob.schedule();
-					}
+					savePreferences();
 				}
 			});
 		}
 
 		return root;
+	}
+
+	@Override
+	protected void okPressed() {
+		// Update the last used preferences
+		for (int i = 0; i < LAST_USED_PREF_IDS.length; i++) {
+			latencyPrefs.setValue(LAST_USED_PREF_IDS[i], localValues.get(LAST_USED_PREF_IDS[i]));
+		}
+		// Save the show dialog pref
+		latencyPrefs.setValue(Constants.DONT_SHOW_DIALOG, dontShowDialog);
+		savePreferences();
+
+		super.okPressed();
+	}
+
+	private void savePreferences() {
+		if (latencyPrefs.needsSaving()) {
+			final Job saveJob = Job.create("Save latency prefencees", monitor -> {
+				try {
+					((IPersistentPreferenceStore) latencyPrefs).save();
+				} catch (final IOException e) {
+					Display.getDefault().asyncExec(() -> {
+						Dialog.showError("Error", "There was a problem saving the preferences: " + e.getMessage());
+					});
+				}
+			});
+			saveJob.schedule();
+		}
 	}
 
 	private Group createGroup(final Composite parent, final String title, final String prefId,
@@ -148,7 +187,6 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		group.setText(title);
 
 		final String prefValue = latencyPrefs.getString(prefId);
-		localValues.put(prefId, prefValue);
 		for (int i = 0; i < labels.length; i++) {
 			final Button radio = new Button(group, SWT.RADIO);
 			radio.setText(labels[i]);
@@ -159,7 +197,6 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 				public void widgetSelected(final SelectionEvent event) {
 					if (radio.getSelection()) {
 						localValues.put(prefId, choiceValue);
-						System.out.println("Setting " + prefId + " to " + choiceValue);
 					}
 				}
 			});
@@ -170,18 +207,13 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 	}
 
 	public void setLatencyAnalysisParameters(final LatencyReport latencyReport) {
-		for (final String prefId : PREF_IDS) {
-			final String prefValue = localValues.get(prefId);
-			System.out.println(prefId + " => " + prefValue);
-		}
-
-		final boolean asynchronousSystem = localValues.get(Constants.ASYNCHRONOUS_SYSTEM)
+		final boolean asynchronousSystem = localValues.get(Constants.ASYNCHRONOUS_SYSTEM_LAST_USED)
 				.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
-		final boolean majorFrameDelay = localValues.get(Constants.PARTITONING_POLICY)
+		final boolean majorFrameDelay = localValues.get(Constants.PARTITONING_POLICY_LAST_USED)
 				.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
-		final boolean worstCaseDeadline = localValues.get(Constants.WORST_CASE_DEADLINE)
+		final boolean worstCaseDeadline = localValues.get(Constants.WORST_CASE_DEADLINE_LAST_USED)
 				.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
-		final boolean bestCaseEmptyQueue = localValues.get(Constants.BESTCASE_EMPTY_QUEUE)
+		final boolean bestCaseEmptyQueue = localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
 				.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
 
 		latencyReport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
