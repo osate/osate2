@@ -6,7 +6,7 @@ import java.util.Set;
 import org.osate.aadl2.ComponentType;
 
 /**
- * @deprecated this class will be removed in 2.3.6
+ * @deprecated this class will be removed in 2.4
  */
 @Deprecated
 public class ComponentTypeMemberInputValidator extends AadlIdentifierInputValidator {
