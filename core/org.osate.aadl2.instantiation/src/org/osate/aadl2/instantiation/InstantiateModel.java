@@ -245,11 +245,7 @@ public class InstantiateModel {
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(ci, aadlResource);
-		if (root == null) {
-			errorMessage = InstantiateModel.getErrorMessage();
-		}
-		return root;
+		return instantiateModel.createSystemInstance(ci, aadlResource);
 	}
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
@@ -264,11 +260,7 @@ public class InstantiateModel {
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, errorManager);
-		SystemInstance root = instantiateModel.createSystemInstanceInt(ci, aadlResource, false);
-		if (root == null) {
-			errorMessage = InstantiateModel.getErrorMessage();
-		}
-		return root;
+		return instantiateModel.createSystemInstanceInt(ci, aadlResource, false);
 	}
 
 	/**
