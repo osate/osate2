@@ -630,7 +630,7 @@ expressions that result in numeric values with an optional measurement
 unit, numeric value ranges, as well as Booleans, strings, references to
 model elements, and values of any user defined property type. Acceptable
 measurement units are any unit defined as Units literals in property
-sets of the AADL core language. See [Expression Notation](TypesExpressions.html#Expression%20Notation%7Coutline) for expression syntax details. The
+sets of the AADL core language. See [Expression Notation](TypesExpressions.html#expression-notation) for expression syntax details. The
 type is inferred from the value when not explicitly declared. 
 
 A predicate for a requirement typically compares an expected value

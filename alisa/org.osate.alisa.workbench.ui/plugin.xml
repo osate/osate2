@@ -430,4 +430,31 @@
          </enablement>
       </commonWizard>
    </extension>
+   
+   
+   <!-- phf: views -->
+   
+   
+     <extension point="org.eclipse.ui.views">
+      <category
+            id="org.osate.alisa.assure"
+            name="Alisa">
+      </category>
+       <view
+             category="org.osate.alisa.assure"
+             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.views.AlisaView"
+             icon="icons/alisahead.png"
+             id="org.osate.assure.views.alisaView"
+             name="Assurance View"
+             restorable="true">
+       </view>
+       <view
+             category="org.osate.alisa.assure"
+             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.views.AssureRequirementsCoverageView"
+             icon="icons/claims.png"
+             id="org.osate.assure.views.assure.requirements.coverage.view"
+             name="Requirements Coverage">
+       </view>
+   </extension>
+   
 </plugin>

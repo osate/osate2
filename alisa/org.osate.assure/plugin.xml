@@ -7,7 +7,7 @@
     <package 
        uri = "http://www.osate.org/assure/Assure" 
        class = "org.osate.assure.assure.AssurePackage"
-       genModel = "model/generated/Assure.genmodel" /> 
+       genModel = "model/Assure.genmodel" /> 
 	
   </extension>
 

@@ -25,7 +25,6 @@ import java.util.List
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Classifier
@@ -34,7 +33,7 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
@@ -49,12 +48,11 @@ import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.WhenCondition
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
+import org.osate.pluginsupport.ExecuteJavaUtil
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.reqSpec.WhenCondition
-import org.osate.alisa.common.util.ExecuteJavaUtil
-import org.osate.alisa.common.common.TargetType
 
 /**
  * Custom validation rules. 
@@ -142,7 +140,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		val fealist = new BasicEList<NamedElement>
 		cl.getAllFeatures.forEach[e|if(!sysreqs.requirements.exists[r|r.targetElement == e]) fealist += e]
 		if (!fealist.empty) {
-			val fls = sysreqs.requirements.map[name].reduce[p1, p2|p1 + ' ' + p2]
+			val fls = fealist.map[name].reduce[p1, p2|p1 + ' ' + p2]
 			warning('Features without requirement: ' + fls, ReqSpecPackage.Literals.REQUIREMENT_SET__REQUIREMENTS,
 				FEATURES_WITHOUT_REQUIREMENT)
 		}
@@ -160,38 +158,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 					EcoreUtil.getURI(stakeHolderGoals).toString()
 				)
 		]
-	}
-
-	@Inject ICommonGlobalReferenceFinder refFinder
-
-//	@Check(CheckType.FAST)
-//	def void checkDuplicateGlobalReq(GlobalRequirementSet globalReqs) {
-//		val dupes = refFinder.getDuplicates(globalReqs)
-//		if (dupes.size > 0) {
-//			val node = NodeModelUtils.getNode(globalReqs);
-//			error("Duplicate Global Requirements name '" + globalReqs.name + "'",  
-//				ReqSpecPackage.Literals.REQUIREMENTS__NAME, DUPLICATE_GLOBALREQUIREMENTS,
-//				"" + node.offset, "" + node.length)
-//		}
-//	}
-	@Check(CheckType.NORMAL)
-	def void checkDuplicateStakeholderGoals(StakeholderGoals shg) {
-		val dupes = refFinder.getDuplicates(shg)
-		if (dupes.size > 0) {
-			val node = NodeModelUtils.getNode(shg);
-			error("Duplicate StakeholderGoal name '" + shg.name + "'", shg, ReqSpecPackage.Literals.REQ_ROOT__NAME,
-				DUPLICATE_STAKEHOLDER_GOALS, "" + node.offset, "" + node.length)
-		}
-	}
-
-	@Check(CheckType.FAST)
-	def void checkDuplicateRequirements(RequirementSet sysReq) {
-		val dupes = refFinder.getDuplicates(sysReq)
-		if (dupes.size > 0) {
-			val node = NodeModelUtils.getNode(sysReq);
-			error("Duplicate Requirements name '" + sysReq.name + "'", sysReq, ReqSpecPackage.Literals.REQ_ROOT__NAME,
-				DUPLICATE_REQUIREMENTS, "" + node.offset, "" + node.length)
-		}
 	}
 
 	@Check(CheckType.NORMAL)

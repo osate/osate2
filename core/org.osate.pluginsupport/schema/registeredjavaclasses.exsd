@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.osate.pluginsupport" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.osate.pluginsupport" id="registeredjavaclasses" name="Register Java Class"/>
+      </appInfo>
+      <documentation>
+         Make Java class available externally for method invocation
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+       <complexType>
+         <sequence>
+            <element ref="class" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Java class to be exposed
+               </documentation>
+            </annotation>
+         </attribute>
+          <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="class">
+      <complexType>
+         <attribute name="path" type="string" use="required">
+            <annotation>
+               <documentation>
+               Java class qualified by package name
+                </documentation>
+               <appInfo>
+                </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright 2016 Carnegie Mellon University All Rights Reserved.
+
+THIS SOFTWARE IS PROVIDED &quot;AS IS,&quot; WITH NO WARRANTIES WHATSOEVER. CARNEGIE
+MELLON UNIVERSITY EXPRESSLY DISCLAIMS TO THE FULLEST EXTENT PERMITTEDBY LAW
+ALL EXPRESS, IMPLIED, AND STATUTORY WARRANTIES, INCLUDING, WITHOUT
+LIMITATION, THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, AND NON-INFRINGEMENT OF PROPRIETARY RIGHTS.
+
+This Program is distributed under a BSD license.  Please see LICENSE file
+or permission@sei.cmu.edu for more information.
+
+DM-0003520
+      </documentation>
+   </annotation>
+
+</schema>
