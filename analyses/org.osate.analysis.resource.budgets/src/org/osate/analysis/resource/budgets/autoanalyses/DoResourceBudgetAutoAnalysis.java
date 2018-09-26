@@ -38,6 +38,10 @@ import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorRepo
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
 import org.osate.ui.actions.AbstractAnalysis;
 
+/**
+ * @deprecated Will be removed in 2.3.6.
+ */
+@Deprecated
 public class DoResourceBudgetAutoAnalysis extends AbstractAnalysis {
 	private final StringBuffer reportMessage = new StringBuffer();
 

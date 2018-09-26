@@ -537,48 +537,65 @@ public class FaultTreeUtils {
 	 * @return double
 	 */
 	public static double getSubeventProbabilities(Event event) {
-		double result;
-
 		if (!event.getSubEvents().isEmpty()) {
 			switch (event.getSubEventLogic()) {
 			case AND: {
-				result = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result * getScaledProbability(subEvent);
-				}
-				break;
+				return pANDEvents(event);
 			}
 			case PRIORITY_AND: {
 				// TODO need to adjust for ordered events
-				result = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result * getScaledProbability(subEvent);
-				}
-				break;
+				return pANDEvents(event);
 			}
 			case XOR: {
-				double inverseProb = 1;
-				for (Event subEvent : event.getSubEvents()) {
-					inverseProb *= (1 - getScaledProbability(subEvent));
-				}
-				result = 1 - inverseProb;
-				break;
+				// P(1of(A,B,..) = SUM (PEi)*P(Ek k <>i k in 1..n)
+				return p1OFEvents(event);
 			}
 			case OR: {
-				result = 0;
-				for (Event subEvent : event.getSubEvents()) {
-					result = result + getScaledProbability(subEvent);
-				}
-				break;
+				// P(A or B) = P(A) + P(B) - P(A and B)
+				// calculated as 1 - P(!A and !B) = 1 - (1 - P(A))*(1-P(B))
+				return pOREvents(event);
 			}
 			default: {
 				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
-				result = 1;
-				break;
+				return 1.0;
 			}
 			}
 		} else {
-			result = getScaledProbability(event);
+			return getScaledProbability(event);
+		}
+	}
+
+	// P(A or B) = P(A) + P(B) - P(A and B)
+	// calculated as 1 - P(!A and !B) = 1 - (1 - P(A))*(1-P(B))
+	public static double pOREvents(Event event) {
+		double inverseProb = 1;
+		for (Event subEvent : event.getSubEvents()) {
+			inverseProb *= (1 - getScaledProbability(subEvent));
+		}
+		return 1 - inverseProb;
+	}
+
+	public static double pANDEvents(Event event) {
+		double result = 1;
+		for (Event subEvent : event.getSubEvents()) {
+			result = result * getScaledProbability(subEvent);
+		}
+		return result;
+	}
+
+	// Sum P(Xi)*P(!Xk) for k <> i k in 1..n
+	public static double p1OFEvents(Event event) {
+		double result = 0;
+		for (Event subEvent : event.getSubEvents()) {
+			double subresult = 1;
+			for (Event notEvent : event.getSubEvents()) {
+				if (subEvent == notEvent) {
+					subresult = subresult * getScaledProbability(subEvent);
+				} else {
+					subresult = subresult * (1 - getScaledProbability(subEvent));
+				}
+			}
+			result = result + subresult;
 		}
 		return result;
 	}

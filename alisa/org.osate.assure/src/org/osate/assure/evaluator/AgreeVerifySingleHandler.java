@@ -47,7 +47,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
@@ -309,8 +308,8 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 
 						switch (propertyResult.getStatus()) {
 						case VALID: {
-							Diagnostic issue = ResultUtil.createSuccess(propertyResult.getName(), target);
-							topResultIssue.getDiagnostics().add(issue);
+							Result issue = ResultUtil.createSuccessResult(propertyResult.getName(), target);
+							topResultIssue.getSubResults().add(issue);
 							break;
 						}
 
@@ -321,8 +320,8 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 						case ERROR:
 						case WAITING:
 							// case VALID_REFINED:
-							Diagnostic issue = ResultUtil.createFailure(propertyResult.getName(), target);
-							topResultIssue.getDiagnostics().add(issue);
+							Result issue = ResultUtil.createErrorResult(propertyResult.getName(), target);
+							topResultIssue.getSubResults().add(issue);
 							break;
 
 						default:

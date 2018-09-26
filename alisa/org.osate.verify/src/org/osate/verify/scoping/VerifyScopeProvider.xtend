@@ -19,13 +19,8 @@
  */
 package org.osate.verify.scoping
 
-import com.google.inject.Inject
-import com.rockwellcollins.atc.resolute.resolute.ClaimBody
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
@@ -33,14 +28,17 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.verify.verify.Claim
-import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.xtext.resource.EObjectDescription
+import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.ContractualElement
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 /**
  * This class contains custom scoping description.
@@ -50,8 +48,6 @@ import org.eclipse.xtext.resource.EObjectDescription
  * 
  */
 class VerifyScopeProvider extends CommonScopeProvider {
-
-	@Inject ICommonGlobalReferenceFinder refFinder
 
 	def scope_ValDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
@@ -99,4 +95,15 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(formalparams,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
+	
+		
+	override IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
+		val claim = context.eContainer as Claim
+		val contractualElement = claim.requirement
+		val target = contractualElement?.targetElement ?:
+				contractualElement?.target ?:
+				contractualElement.getContainerOfType(SystemRequirementSet).target
+		new SimpleScope(#[EObjectDescription.create("this", target)])
+	}
+	
 }

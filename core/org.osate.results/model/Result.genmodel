@@ -28,13 +28,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/values"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/diagnostics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/subResults"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/status"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Diagnostic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/message"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Diagnostic/sourceReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/exceptionType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Diagnostic/issues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/source"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Result.ecore#//Value"/>
@@ -51,6 +51,12 @@
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//BooleanValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//BooleanValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Result.ecore#//EObjectValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference Result.ecore#//EObjectValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Result.ecore#//JavaObjectValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//JavaObjectValue/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

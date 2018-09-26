@@ -1,0 +1,24 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package BasicResolute
+public 
+annex Resolute {**
+ 
+ allComponentsConnected(root : component)<= ** "All components have connections" **
+ forall(c: component). subcomponents(c) = {} => isConnectedLeafClaim(c)
+ 
+ isConnectedClaim(c: component) <= ** "Component " c " has all features connected" **
+ subcomponents(c) = {} => forall (f : features(c)). isFeatureConnected(f)
+ 
+ isConnectedLeafClaim(c: component) <= ** "Component " c " has all features connected" **
+ forall (f : features(c)). isFeatureConnected(f)
+ 
+ isConnected(c : component): bool =
+ forall (f : features(c)). connections(f) <> {}  
+  
+ isFeatureConnected(f : feature)<= ** "Feature " f " is connected" **
+    connections(f) <> {}
+ 	orelse fail ** "Feature " f " is not connected" **
+
+**};
+end BasicResolute ;

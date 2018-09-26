@@ -85,6 +85,24 @@ public interface ResultFactory extends EFactory {
 	BooleanValue createBooleanValue();
 
 	/**
+	 * Returns a new object of class '<em>EObject Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>EObject Value</em>'.
+	 * @generated
+	 */
+	EObjectValue createEObjectValue();
+
+	/**
+	 * Returns a new object of class '<em>Object Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Object Value</em>'.
+	 * @generated
+	 */
+	ObjectValue createObjectValue();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

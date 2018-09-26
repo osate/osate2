@@ -7,9 +7,18 @@ Bundle-ClassPath: .
 Bundle-Activator: org.osate.pluginsupport.PluginSupportPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.common
+ org.eclipse.emf.common,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.eclipse.jdt.core;bundle-version="3.13.102",
+ org.eclipse.core.resources;bundle-version="3.12.0",
+ org.osate.results;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.pluginsupport
 Bundle-Vendor: CMU-SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.pluginsupport
+

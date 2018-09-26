@@ -19,34 +19,23 @@
  */
 package org.osate.reqspec.scoping
 
-import com.google.inject.Inject
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.BasicInternalEList
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.aadl2.AbstractFeature
-import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.DirectionType
-import org.osate.aadl2.Feature
-import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupPrototype
-import org.osate.aadl2.FeatureGroupType
-import org.osate.aadl2.Subcomponent
-import org.osate.alisa.common.common.AModelReference
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.scoping.CommonScopeProvider
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpecPackage
@@ -61,7 +50,6 @@ import static org.osate.alisa.common.util.CommonUtilExtension.*
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider.allMembers
 
 /**
  * This class contains custom scoping description.
@@ -71,7 +59,6 @@ import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScope
  * 
  */
 class ReqSpecScopeProvider extends CommonScopeProvider {
-	@Inject var ICommonGlobalReferenceFinder commonRefFinder
 
 	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
@@ -148,11 +135,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		val reqs = containingRequirementSet(context)
 		if (reqs instanceof SystemRequirementSet) {
 			val targetComponentClassifier = reqs.target
-			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = commonRefFinder.
-				getEObjectDescriptions(targetComponentClassifier, ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET,
-					"reqspec").map [ eod |
-					EcoreUtil.resolve(eod.EObjectOrProxy, context) as SystemRequirementSet
-				].filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
+			val Iterable<SystemRequirementSet> listAccessibleSystemRequirements = Aadl2GlobalScopeUtil.getAll(context, ReqSpecPackage.eINSTANCE.systemRequirementSet).filter[sysreqs|isSameorExtends(targetComponentClassifier, sysreqs.target)]
 			// TODO sort in extends hierarchy order
 			for (sr : listAccessibleSystemRequirements) {
 				if (!sr.requirements.empty) {
@@ -192,40 +175,13 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		}
 	}
 	
-	def IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
+	override IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
 		val contractualElement = context.getContainerOfType(ContractualElement)
 		val target = contractualElement?.targetElement ?:
 				contractualElement?.target ?:
 				context.getContainerOfType(StakeholderGoals)?.target ?:
 				context.getContainerOfType(SystemRequirementSet).target
 		new SimpleScope(#[EObjectDescription.create("this", target)])
-	}
-	
-	def IScope scope_AModelReference_modelElement(AModelReference context, EReference reference) {
-		if (context.prev === null) {
-			scope_AModelReference_modelElement(context.eContainer, reference)
-		} else {
-			switch prevElement : context.prev.modelElement {
-				Classifier: prevElement
-				AbstractFeature: switch featureClassifier : prevElement.abstractFeatureClassifier {
-					ComponentClassifier: featureClassifier
-					ComponentPrototype: featureClassifier.constrainingClassifier
-					default: prevElement.featurePrototype.constrainingClassifier
-				}
-				FeatureGroup: switch featureType : prevElement.featureType {
-					FeatureGroupType: featureType
-					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
-				}
-				Feature: switch featureClassifier : prevElement.featureClassifier {
-					ComponentClassifier: featureClassifier
-					ComponentPrototype: featureClassifier.constrainingClassifier
-				}
-				Subcomponent: switch subcomponentType : prevElement.subcomponentType {
-					ComponentClassifier: subcomponentType
-					ComponentPrototype: subcomponentType.constrainingClassifier
-				}
-			}?.allMembers?.scopeFor
-		}
 	}
 	
 	// Brought from Aadl2JavaValidator

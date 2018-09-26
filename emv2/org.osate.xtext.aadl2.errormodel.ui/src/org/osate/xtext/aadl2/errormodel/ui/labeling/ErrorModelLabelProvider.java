@@ -19,24 +19,31 @@ package org.osate.xtext.aadl2.errormodel.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Inject;
@@ -47,88 +54,131 @@ import com.google.inject.Inject;
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#labelProvider
  */
 public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
-
 	@Inject
 	public ErrorModelLabelProvider(AdapterFactoryLabelProvider delegate) {
 		super(delegate);
 	}
 
-	// Labels and icons can be computed like this:
-
-	String text(AndExpression ele) {
-		return "and";
+	public String text(ErrorModelSubclause errorModelSubclause) {
+		return appendName("Error Model Subclause", errorModelSubclause);
 	}
 
-	String text(OrExpression ele) {
-		return "or";
+	public String text(ErrorModelLibrary errorModelLibrary) {
+		return appendName("Error Model Library", errorModelLibrary);
 	}
 
-	String text(OrmoreExpression ele) {
-		return "ormore " + ele.getCount();
+	public String text(ErrorType errorType) {
+		return appendName("Type", errorType);
 	}
 
-	String text(OrlessExpression ele) {
-		return "orless " + ele.getCount();
+	public String text(TypeSet typeSet) {
+		return appendName("Type Set", typeSet);
 	}
 
-	String text(OutgoingPropagationCondition ele) {
-		NamedElement res = ele.getOutgoing().getFeatureorPPRef().getFeatureorPP();
-		String fname;
-		if (res instanceof Feature) {
-			fname = ((Feature) res).getName();
-		} else {
-			fname = ((PropagationPoint) res).getName();
+	public String text(TypeTransformationSet typeTransformationSet) {
+		return appendName("Type Transformations", typeTransformationSet);
+	}
+
+	public String text(TypeTransformation typeTransformation) {
+		return "Transformation";
+	}
+
+	public String text(TypeMappingSet typeMappingSet) {
+		return appendName("Type Mappings", typeMappingSet);
+	}
+
+	public String text(TypeMapping typeMapping) {
+		return "Mapping";
+	}
+
+	public String text(ErrorPropagation errorPropagation) {
+		StringBuilder builder = new StringBuilder("Propagation");
+		String name = EMV2Util.getPrintName(errorPropagation);
+		if (name != null && !name.isEmpty()) {
+			builder.append(' ');
+			builder.append(name);
 		}
-		String s = ele.getName() == null ? fname : ele.getName();
-		return "out propagation " + s + " when";
+		return builder.toString();
 	}
 
-	String text(ErrorDetection ele) {
-		String s = ele.getDetectionReportingPort().getName();
-		return "event " + s + " when";
+	public String text(ErrorSource errorSource) {
+		return appendName("Error Source", errorSource);
 	}
 
-	String text(CompositeState ele) {
-		String s = ele.getState().getName();
-		return "state " + s + " when";
+	public String text(ErrorSink errorSink) {
+		return appendName("Error Sink", errorSink);
 	}
 
-	String text(ErrorBehaviorTransition ele) {
-		String s = ele.isSteadyState() ? "steady state" : (ele.getName() == null ? "<unnamed>" : ele.getName());
-		return "transition " + s + " when";
+	public String text(ErrorPath errorPath) {
+		return appendName("Error Path", errorPath);
 	}
 
-	String text(EMV2PropertyAssociation ele) {
-		String s = ele.getProperty().getName();
-		return "property " + s;
+	public String text(PropagationPoint propagationPoint) {
+		return appendName("Propagation Point", propagationPoint);
 	}
 
-	String text(ErrorModelLibrary ele) {
-		return "Error Model Library";
+	public String text(PropagationPath propagationPath) {
+		return appendName("Propagation Path", propagationPath);
 	}
 
-	String text(ErrorModelSubclause ele) {
-		return "Error Model Subclause";
+	public String text(ErrorBehaviorStateMachine errorBehaviorStateMachine) {
+		return appendName("Error Behavior", errorBehaviorStateMachine);
 	}
 
-	String text(TypeSet ele) {
-		return "Type Set " + (ele.getName() != null ? ele.getName() : "");
+	public String text(ErrorEvent errorEvent) {
+		return appendName("Error Event", errorEvent);
 	}
 
-	String text(ErrorType ele) {
-		return "Type " + (ele.getName() != null ? ele.getName() : "");
+	public String text(RepairEvent repairEvent) {
+		return appendName("Repair Event", repairEvent);
 	}
 
-	String text(TypeToken ele) {
-		return EMV2Util.getPrintName(ele);
+	public String text(RecoverEvent recoverEvent) {
+		return appendName("Recover Event", recoverEvent);
 	}
 
-	String text(ErrorPropagation ele) {
-		return (ele.isNot() ? "not " : "") + "propagation " + EMV2Util.getPrintName(ele);
+	public String text(ErrorBehaviorState errorBehaviorState) {
+		return appendName("State", errorBehaviorState);
 	}
-//
-//    String image(MyModel ele) {
-//      return "MyModel.gif";
-//    }
 
+	public String text(ErrorBehaviorTransition errorBehaviorTransition) {
+		return appendName("Transition", errorBehaviorTransition);
+	}
+
+	public String text(OutgoingPropagationCondition outgoingPropagationCondition) {
+		return appendName("Propagation Condition", outgoingPropagationCondition);
+	}
+
+	public String text(ErrorDetection errorDetection) {
+		return appendName("Detection", errorDetection);
+	}
+
+	public String text(ErrorStateToModeMapping errorStateToModeMapping) {
+		StringBuilder builder = new StringBuilder("Mode Mapping");
+		String name;
+		if (errorStateToModeMapping.getErrorState() != null) {
+			name = errorStateToModeMapping.getErrorState().getName();
+		} else {
+			name = null;
+		}
+		if (name != null && !name.isEmpty()) {
+			builder.append(' ');
+			builder.append(name);
+		}
+		return builder.toString();
+	}
+
+	public String text(CompositeState compositeState) {
+		return appendName("State", compositeState);
+	}
+
+	private static String appendName(String label, NamedElement namedElement) {
+		StringBuilder builder = new StringBuilder(label);
+		String name = namedElement.getName();
+		if (name != null && !name.isEmpty()) {
+			builder.append(' ');
+			builder.append(name);
+		}
+		return builder.toString();
+	}
 }
