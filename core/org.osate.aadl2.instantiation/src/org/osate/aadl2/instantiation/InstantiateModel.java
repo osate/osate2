@@ -57,7 +57,6 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -65,11 +64,9 @@ import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
-import org.eclipse.emf.transaction.TransactionalCommandStack;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayDimension;
@@ -228,8 +225,7 @@ public class InstantiateModel {
 	 * its root object The method makes sure that the system implementation is
 	 * in the OSATE resource set and will create the instance model there as
 	 * well. The Osate resource set is the shared resource set maintained by
-	 * OsateResourceUtil. THe operation is performed in a transactional editing
-	 * domain
+	 * OsateResourceUtil.
 	 *
 	 * @param si system implementation
 	 *
@@ -240,7 +236,14 @@ public class InstantiateModel {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
-		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
+		IFile file = OsateResourceUtil.getOsateIFile(instanceURI);
+		if (file != null && file.isAccessible()) {
+			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+		}
+		Resource aadlResource = OsateResourceUtil.getResource(instanceURI, OsateResourceUtil.getResourceSet());
+		aadlResource.getContents().clear();
+		aadlResource.save(null);
+		aadlResource.unload();
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
@@ -274,9 +277,7 @@ public class InstantiateModel {
 	 */
 	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager)
 			throws Exception {
-		return instantiate(ci,
-				errorManager != null ? errorManager
-						: AnalysisErrorReporterManager.NULL_ERROR_MANANGER,
+		return instantiate(ci, errorManager != null ? errorManager : AnalysisErrorReporterManager.NULL_ERROR_MANANGER,
 				new NullProgressMonitor());
 	}
 
@@ -296,8 +297,7 @@ public class InstantiateModel {
 	/*
 	 * This method will construct an instance model, save it on disk and return
 	 * its root object The method will make sure the declarative models are up
-	 * to date. The Osate resource set is the shared resource set maintained by
-	 * OsateResourceUtil
+	 * to date.
 	 *
 	 * @param si system implementation
 	 *
@@ -305,7 +305,7 @@ public class InstantiateModel {
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
+		ResourceSet rset = new ResourceSetImpl();
 		Resource res = OsateResourceUtil.getResource(ires, rset);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
@@ -329,7 +329,7 @@ public class InstantiateModel {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
-		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
+		ResourceSet rset = new ResourceSetImpl();
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
@@ -344,57 +344,28 @@ public class InstantiateModel {
 			res.unload();
 		}
 		for (int i = 0; i < instanceRoots.size(); i++) {
-			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet()
-					.getEObject(instanceRoots.get(i), true);
+			ComponentImplementation ci = (ComponentImplementation) rset.getEObject(instanceRoots.get(i), true);
 			monitor.subTask("Reinstantiating " + ci.getName());
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i));
+			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i), rset);
 			instantiateModel.createSystemInstance(ci, res);
 		}
 	}
 
 	/**
 	 * create a system instance into the provided (empty) resource and save it
-	 * This is performed as a transactional operation
 	 * @param ci
 	 * @param aadlResource
 	 * @return
 	 * @throws RollbackException
 	 * @throws InterruptedException
 	 */
-	@SuppressWarnings("unchecked")
 	public SystemInstance createSystemInstance(final ComponentImplementation ci, final Resource aadlResource)
 			throws Exception {
-		List<SystemInstance> resultList;
-		SystemInstance result;
+		SystemInstance result = createSystemInstanceInt(ci, aadlResource, true);
 
-		result = null;
-
-		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
-				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-		// We execute this command on the command stack because otherwise, we will not
-		// have write permissions on the editing domain.
-		Command cmd = new RecordingCommand(domain) {
-			public SystemInstance instance;
-
-			@Override
-			protected void doExecute() {
-				try {
-					instance = createSystemInstanceInt(ci, aadlResource, true);
-				} catch (InterruptedException e) {
-					// Do nothing. Will be thrown after execute.
-				}
-			}
-
-			@Override
-			public List<SystemInstance> getResult() {
-				return Collections.singletonList(instance);
-			}
-		};
-
-		((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -409,8 +380,6 @@ public class InstantiateModel {
 			setErrorMessage(e.getMessage());
 			return null;
 		}
-		resultList = (List<SystemInstance>) cmd.getResult();
-		result = resultList.get(0);
 
 		return result;
 	}
