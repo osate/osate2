@@ -256,9 +256,12 @@
             class="org.osate.ui.navigator.AadlNavigatorActionProvider"
             id="org.osate.ui.navigator.openContributed">
          <enablement>
-            <instanceof
-                  value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
-            </instanceof>
+         	<or>
+	            <instanceof
+	                  value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
+	            <instanceof
+	                  value="org.osate.aadl2.parsesupport.AObject"/>
+            </or>
          </enablement>
       </actionProvider>
    </extension>
