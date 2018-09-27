@@ -140,20 +140,20 @@
 		<viewerContentBinding 
             viewerId="org.osate.ui.navigator.AadlNavigator">
 			<includes>
-    <contentExtension
-          pattern="org.eclipse.ui.navigator.resources.workingSets">
-    </contentExtension>
+			    <contentExtension
+			          pattern="org.eclipse.ui.navigator.resources.workingSets">
+			    </contentExtension>
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
-    <contentExtension
-          pattern="org.osate.ui.navigator.contributedAadl">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.aadlFileContent">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.menuActions">
-    </contentExtension>
+			    <contentExtension
+			          pattern="org.osate.ui.navigator.contributedAadl">
+			    </contentExtension>
+			    <contentExtension
+			          pattern="org.osate.ui.navigator.aadlFileContent">
+			    </contentExtension>
+			    <contentExtension
+			          pattern="org.osate.ui.navigator.menuActions">
+			    </contentExtension>
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
 			</includes>
 		</viewerContentBinding>
@@ -161,9 +161,9 @@
         	viewerId="org.osate.ui.navigator.AadlNavigator">
      		<includes>
      			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
-        <actionExtension
-              pattern="org.osate.ui.navigator.*">
-        </actionExtension>
+		        <actionExtension
+		              pattern="org.osate.ui.navigator.*">
+		        </actionExtension>
      		</includes>
 	  </viewerActionBinding>
    </extension>
