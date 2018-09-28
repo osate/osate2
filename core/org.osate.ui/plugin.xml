@@ -149,6 +149,9 @@
 			          pattern="org.osate.ui.navigator.contributedAadl">
 			    </contentExtension>
 			    <contentExtension
+			          pattern="org.osate.ui.navigator.aadlProjectDependencies">
+			    </contentExtension>
+			    <contentExtension
 			          pattern="org.osate.ui.navigator.aadlFileContent">
 			    </contentExtension>
 			    <contentExtension
@@ -183,6 +186,21 @@
          </enablement>
          <commonSorter
                class="org.osate.ui.navigator.AadlContributionSorter">
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ui.navigator.AadlProjectDependenciesContentProvider"
+            id="org.osate.ui.navigator.aadlProjectDependencies"
+            labelProvider="org.osate.ui.navigator.AadlProjectDependenciesLabelProvider"
+            name="AADL Project Dependencies">
+         <enablement>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlProjectDependenciesSorter">
          </commonSorter>
       </navigatorContent>
       <navigatorContent
