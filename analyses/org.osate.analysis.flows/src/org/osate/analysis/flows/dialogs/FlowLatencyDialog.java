@@ -38,6 +38,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	public FlowLatencyDialog(Shell parentShell, final IPreferenceStore prefs) {
 		super(parentShell);
+		// FIXME: there should be help available, see https://github.com/osate/osate2/issues/1560
+		setHelpAvailable(false);
 		latencyPrefs = prefs;
 		for (String prefId : LAST_USED_PREF_IDS) {
 			localValues.put(prefId, latencyPrefs.getString(prefId));
@@ -59,7 +61,9 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		super.create();
 		setTitle("Check Flow Latency");
 		setMessage(
-				"Configure the settings for the flow latency analysis.  Clicking \"Ok\" runs the analysis and causes the settings to be used the next time the analysis is executed.  Clicking \"Cancel\" leaves the remembered settings as they were.");
+				"Configure the settings for the flow latency analysis.  Clicking \"Ok\" runs the analysis and causes "
+						+ "the settings to be used the next time the analysis is executed.  Clicking \"Cancel\" "
+						+ "leaves the remembered settings as they were.");
 	}
 
 	@Override
@@ -177,8 +181,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		}
 	}
 
-	private Group createGroup(final Composite parent, final String title, final String prefId,
-			final String[] labels, final String[] values) {
+	private Group createGroup(final Composite parent, final String title, final String prefId, final String[] labels,
+			final String[] values) {
 		final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setLayout(new RowLayout(SWT.VERTICAL));
 		final GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
