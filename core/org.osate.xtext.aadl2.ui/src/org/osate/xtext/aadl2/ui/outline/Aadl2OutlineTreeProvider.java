@@ -35,11 +35,8 @@
 package org.osate.xtext.aadl2.ui.outline;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
-import org.eclipse.xtext.Grammar;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
@@ -69,7 +66,6 @@ import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -96,8 +92,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 			// delegate to annex specific outline tree provider
 			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexRoot);
 			if (annexParseResult != null) {
-				String grammarName = getGrammarName(annexParseResult.getRootNode());
-				Injector injector = OsateCorePlugin.getDefault().getInjector(grammarName);
+				Injector injector = AnnexUtil.getInjector(annexParseResult);
 				if (injector != null) {
 					try {
 						injector.getInstance(IOutlineTreeStructureProvider.class).createChildren(parentNode,
@@ -118,13 +113,6 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 				createNode(parentNode, childElement);
 			}
 		}
-	}
-
-	private String getGrammarName(INode node) {
-		Resource grammarResource = node.getGrammarElement().eResource();
-		EObject grammar = grammarResource.getContents().get(0);
-
-		return (grammar instanceof Grammar) ? ((Grammar) grammar).getName() : null;
 	}
 
 	@Override
