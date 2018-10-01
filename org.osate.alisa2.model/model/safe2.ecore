@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="safe2" nsURI="http://www.example.org/safe2" nsPrefix="safe2">
+  <eClassifiers xsi:type="ecore:EClass" name="Fundamental" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Accident" eSuperTypes="#//Fundamental">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="accidentlevel" lowerBound="1"
+        eType="#//AccidentLevel" eOpposite="#//AccidentLevel/accident"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
+        upperBound="-1" eType="#//Hazard" eOpposite="#//Hazard/accident"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Hazard" eSuperTypes="#//Fundamental">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
+        eType="#//Accident" eOpposite="#//Accident/hazard"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" lowerBound="1"
+        upperBound="-1" eType="#//Constraint" eOpposite="#//Constraint/hazard"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccidentLevel" eSuperTypes="#//Fundamental">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
+        upperBound="-1" eType="#//Accident" eOpposite="#//Accident/accidentlevel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//Fundamental">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
+        eType="#//Hazard" eOpposite="#//Hazard/constraint"/>
+  </eClassifiers>
+</ecore:EPackage>
