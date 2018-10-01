@@ -114,7 +114,7 @@ import EAnalysis.BinPacking.SoftwareNode;
  * Handler performs a binpacking on all the threads in a given system.  Tries
  * to map them to the processors based on their allowed processor bindings
  * and not_collocated property values.
- * 
+ *
  * <p>This used to extend AaxlModifyAction, but (1) that class seems to be
  * broken right now, and (2) we don't want to automatically save the resource
  * because we are going to change it using an command via the core editor.
@@ -166,9 +166,13 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
-		org.osate.ui.dialogs.Dialog.showError("Binding Error", "Can only SW/HW bind (binpack) system instances");
 	}
 
 	protected void checkBuses(ComponentInstance obj) {
@@ -491,8 +495,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 				// Process NOT_COLLOCATED property.
 				RecordValue disjunctFrom = GetProperties.getNotCollocated(ci);
-				if (disjunctFrom == null)
+				if (disjunctFrom == null) {
 					return;
+				}
 				final Set<ComponentInstance> disjunctSet = new HashSet<>();
 				ListValue tvl = (ListValue) PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
 				for (PropertyExpression ref : tvl.getOwnedListElements()) {
@@ -515,7 +520,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 		/*
 		 * MIPS consistency rules:
-		 * 
+		 *
 		 * Either all threads have reference processor with mips and all processors have mips spec or
 		 * None of the threads and processors have any mips specification and we can use the default mips
 		 */
@@ -549,8 +554,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 			final ConnectionInstance connInst = i.next();
 			if (connInst.getKind() == ConnectionKind.PORT_CONNECTION) {
 				if (!(connInst.getSource() instanceof FeatureInstance
-						&& connInst.getDestination() instanceof FeatureInstance))
+						&& connInst.getDestination() instanceof FeatureInstance)) {
 					continue;
+				}
 				final FeatureInstance src = (FeatureInstance) connInst.getSource();
 				final FeatureInstance dst = (FeatureInstance) connInst.getDestination();
 
@@ -680,7 +686,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 			// XXX: Don't set properties in the declarative model any more?
 //				else if (button == PackingSuccessfulDialog.DECLARATIVE_ID) {
 //					setDeclarativeBindings(root, threadsToProc);
-//				} 
+//				}
 			else {
 				done = true;
 			}
@@ -785,7 +791,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 //			final ReferenceValue procRef = proc.getReferenceTo();
 //			final List threadPath = thread.getReferencePathTo();
 //			system.setContainedPropertyValue(
-//					Binpack.actualProcessorBinding, 
+//					Binpack.actualProcessorBinding,
 //					threadPath, procRef);
 //		}
 //	}
@@ -797,9 +803,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 //			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
 //			final ReferenceValue procRef = proc.getReferenceTo();
 //			final List threadPath = thread.getReferencePathTo();
-//			
+//
 //			// create the Property Association
-//			final PropertyAssociation pa = 
+//			final PropertyAssociation pa =
 //				PropertyFactory.eINSTANCE.createPropertyAssociation();
 //			properties.setActualProcessorBindingDefinitionToAssociation(pa);
 //			for (final Iterator i = threadPath.iterator(); i.hasNext(); ) {
@@ -940,7 +946,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 	/**
 	 * Test a component against a set of classifiers.
-	 * 
+	 *
 	 * @return Whether the component's classifier type is a descendent of any of
 	 *         the given component classifiers. <em>Returns <code>true</code>
 	 *         if the given set is empty!</em>
