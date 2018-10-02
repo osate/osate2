@@ -7,8 +7,6 @@
          <topic href="help/html/latency.html#latency-analysis-report-content" label="Latency Analysis Report Content"></topic>
          <topic href="help/html/latency.html#examples" label="Examples"></topic>
       </topic>
-      <topic href="help/html/latency.html#preference-settings-for-latency-analysis" label="Preference Settings for Latency Analysis">
-      </topic>
       <topic href="help/html/latency.html#latency-contributors-and-relevant-properties" label="Latency Contributors and Relevant Properties">
          <topic href="help/html/latency.html#latency-budgets-specified-via-latency-property" label="Latency Budgets Specified via Latency Property"></topic>
          <topic href="help/html/latency.html#queuing-delay-in-message-based-processing" label="Queuing Delay in Message-based Processing"></topic>
