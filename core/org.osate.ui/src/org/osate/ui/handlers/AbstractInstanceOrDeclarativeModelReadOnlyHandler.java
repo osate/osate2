@@ -125,8 +125,10 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 					finalizeAnalysis();
 				}
 			}
-		} else {
-			if (obj instanceof NamedElement && initializeAnalysis((NamedElement) obj)) {
+		} else if (obj instanceof NamedElement) {
+			if (canAnalyzeDeclarativeModels()) {
+				Dialog.showError("Error", "Please select an instance model");
+			} else if (initializeAnalysis((NamedElement) obj)) {
 				analyzeDeclarativeModel(monitor, getErrorManager(), obj);
 				finalizeAnalysis();
 			}
@@ -141,6 +143,12 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends 
 		si.clearCurrentSystemOperationMode();
 		errManager.removePrefix();
 	}
+
+	/**
+	 * Is analysis of declarative models supported?  If not, then an error dialog is opened when the analysis is
+	 * invoked on declarative models.
+	 */
+	protected abstract boolean canAnalyzeDeclarativeModels();
 
 	/**
 	 * Analyze the model starting from a declarative model element.
