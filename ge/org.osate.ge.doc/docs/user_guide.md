@@ -247,6 +247,15 @@ If a a model element is renamed from the AADL text editor without using the *Ren
 2. Update the desired model references in the *New Reference* column.
 3. Select OK. The diagram elements will be restored.
 
+## Annotations and Documentation
+The following sections describe the graphical editors support for annotations and AADL documentation.
+
+### Annotations
+Diagrams can be annotated using the tools available in the *Annotation* section of the palette. The *Note* option allows add text notes to the diagram. Notes are part of the diagram and are not part of the AADL model. The *Note Reference* option can be used to associate a note with another element in the diagram.
+
+### AADL Documentation
+AADL comments which begin with an extra hyphen are displayed by the diagram editor. They are displayed in the tooltips for the corresponding diagram element. Such comments are also displayed in the *Documentation* section of the *Properties* view. They cannot be modified using the graphical editor.
+
 ## Diagram Layout
 The following sections describe the diagram layout capabilities of the graphical editor.
 
