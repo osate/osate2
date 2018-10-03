@@ -68,8 +68,6 @@ import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
 import org.osgi.framework.BundleContext;
 
-import com.google.inject.Injector;
-
 /**
  * The main plugin class to be used in the desktop.
  */
