@@ -449,7 +449,7 @@ gate with two sub-events representing the redundant sensors.
 * The sixth column indicates whether the fault tree event is a dependent event, i.e., common 
 (shared) sub-event to multiple events. 
 
-> If the event represents a transition branch, then the computed or assigned probability is shown together with the branch probability, e.g., 2.3e-5 * 0.6.
+> If the event represents a transition branch, then the computed or assigned probability is shown together with the branch probability, e.g., 2.3e-5 * 0.6. Note that the branch probability is pushed to all of the leaf events representing the transition trigger. This is necessary as in the fault tree and cut set representations the transition trigger may not have an explicit fault tree event. Note also that transition branch probabilities are cumulative if more than one error state machine with transition branches is involved.
 
 ![GPS2SensorTable](images/fta-gps2sensorstatetable.png "GPS2SensorTable")
 

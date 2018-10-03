@@ -105,15 +105,15 @@ public final class DoPropertyTotals extends AaxlReadOnlyHandlerAsJob {
 	private void generateMarkers(Result result) {
 		result.getSubResults().forEach(subResult -> generateMarkers(subResult));
 		result.getDiagnostics().forEach(issue -> {
-			switch (issue.getType()) {
+			switch (issue.getDiagnosticType()) {
 			case ERROR:
-				error((Element) issue.getSourceReference(), issue.getMessage());
+				error((Element) issue.getModelElement(), issue.getMessage());
 				break;
 			case INFO:
-				info((Element) issue.getSourceReference(), issue.getMessage());
+				info((Element) issue.getModelElement(), issue.getMessage());
 				break;
 			case WARNING:
-				warning((Element) issue.getSourceReference(), issue.getMessage());
+				warning((Element) issue.getModelElement(), issue.getMessage());
 				break;
 			default:
 				// Do nothing.

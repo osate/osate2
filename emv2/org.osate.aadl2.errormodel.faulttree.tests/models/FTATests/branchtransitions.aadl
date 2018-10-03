@@ -41,7 +41,7 @@ public
 			end component;
 			
 			properties
-				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;				
+				emv2::occurrencedistribution => [ probabilityValue => 0.06e-6 ;] applies to Failure;				
 		**};
 	end IO;
 	

@@ -62,23 +62,13 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 * Connection level comparator for levels that must be greater on the
 	 * connection source.
 	 */
-	protected static final LevelComparator sourceMustBeGreater = new LevelComparator() {
-		@Override
-		public boolean compareLevels(final long src, final long dest) {
-			return src >= dest;
-		}
-	};
+	protected static final LevelComparator sourceMustBeGreater = (src, dest) -> src >= dest;
 
 	/**
 	 * Connection level comparator for levels that must be greater on the
 	 * connection destination.
 	 */
-	protected static final LevelComparator destMustBeGreater = new LevelComparator() {
-		@Override
-		public boolean compareLevels(final long src, final long dest) {
-			return dest >= src;
-		}
-	};
+	protected static final LevelComparator destMustBeGreater = (src, dest) -> dest >= src;
 
 	/**
 	 * The property we are checking.
@@ -130,6 +120,11 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 			initialized = true;
 			return true;
 		}
+	}
+
+	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return true;
 	}
 
 	@Override

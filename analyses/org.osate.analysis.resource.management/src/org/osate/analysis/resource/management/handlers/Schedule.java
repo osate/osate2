@@ -54,7 +54,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
 import org.osate.ui.UiUtil;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -77,9 +76,13 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager, final Element declarativeObject) {
-		Dialog.showError("Schedule Error", "Can only schedule system instances");
 	}
 
 	@Override
@@ -123,8 +126,9 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 	 * @param processor
 	 */
 	public boolean timingSchedulabilityAnalysis(final ComponentInstance processor) {
-		if (processor.getCategory() != ComponentCategory.PROCESSOR)
+		if (processor.getCategory() != ComponentCategory.PROCESSOR) {
 			return false;
+		}
 		RuntimeProcessWalker walker = new RuntimeProcessWalker(this);
 		walker.cleanProcessHolder();
 		walker.setCurrentProcessor(processor);
@@ -139,8 +143,9 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 		EList<Element> boundThreads = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance) obj))
+				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance) obj)) {
 					return false;
+				}
 				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, processor);
 			}
 		}.processPreOrderComponentInstance(processor.getSystemInstance(), ComponentCategory.THREAD);

@@ -1,5 +1,6 @@
 package org.osate.analysis.flows.preferences;
 
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.swt.SWT;
@@ -19,7 +20,7 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	public Page() {
 		super(GRID);
 		setPreferenceStore(FlowanalysisPlugin.getDefault().getPreferenceStore());
-		setDescription("Settings for the flow latency analysis");
+		setDescription("Choose the default settings for the flow latency analysis.");
 	}
 
 	/**
@@ -29,10 +30,10 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 	 */
 	@Override
 	public void createFieldEditors() {
-		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.SYNCHRONOUS_SYSTEM,
+		RadioGroupFieldEditor synchronousSystem = new RadioGroupFieldEditor(Constants.ASYNCHRONOUS_SYSTEM,
 				"System type", 1,
-				new String[][] { { "Asynchronous system (AS)", Constants.SYNCHRONOUS_SYSTEM_NO },
-			{ "Synchronous system (SS)", Constants.SYNCHRONOUS_SYSTEM_YES } },
+				new String[][] { { "Asynchronous system (AS)", Constants.ASYNCHRONOUS_SYSTEM_YES },
+						{ "Synchronous system (SS)", Constants.ASYNCHRONOUS_SYSTEM_NO } },
 				getFieldEditorParent(), true);
 		addField(synchronousSystem);
 		RadioGroupFieldEditor partitioningPolicy = new RadioGroupFieldEditor(Constants.PARTITONING_POLICY,
@@ -53,6 +54,10 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 						{ "Assume a full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
+		BooleanFieldEditor dontShow = new BooleanFieldEditor(Constants.DONT_SHOW_DIALOG,
+				"Don't show the settings dialog when analysis is executed", getFieldEditorParent());
+		addField(dontShow);
+
 //		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
 //				"Report Subtotals", 1,
 //				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },

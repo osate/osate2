@@ -21,3 +21,4 @@ Require-Bundle: org.osate.aadl2,
  org.osate.results;bundle-version="1.0.0"
 Eclipse-LazyStart: true
 Automatic-Module-Name: org.osate.analysis.flows
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

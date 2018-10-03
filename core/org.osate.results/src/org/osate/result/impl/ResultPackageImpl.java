@@ -13,12 +13,15 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.result.BooleanValue;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
+import org.osate.result.EObjectValue;
 import org.osate.result.IntegerValue;
+import org.osate.result.ObjectValue;
 import org.osate.result.RealValue;
 import org.osate.result.Result;
 import org.osate.result.AnalysisResult;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultPackage;
+import org.osate.result.ResultType;
 import org.osate.result.StringValue;
 import org.osate.result.Value;
 
@@ -90,7 +93,28 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass eObjectValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass objectValueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum diagnosticTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum resultTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -176,7 +200,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAnalysisResult_Info() {
+	public EAttribute getAnalysisResult_Message() {
 		return (EAttribute)analysisResultEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -185,7 +209,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAnalysisResult_SourceReference() {
+	public EReference getAnalysisResult_ModelElement() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -194,7 +218,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAnalysisResult_Results() {
+	public EReference getAnalysisResult_Parameters() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -203,8 +227,26 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAnalysisResult_Diagnostics() {
+	public EReference getAnalysisResult_Results() {
 		return (EReference)analysisResultEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnalysisResult_Diagnostics() {
+		return (EReference)analysisResultEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAnalysisResult_ResultType() {
+		return (EAttribute)analysisResultEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -221,26 +263,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getResult_Info() {
-		return (EAttribute)resultEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getResult_SourceReference() {
-		return (EReference)resultEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getResult_Values() {
-		return (EReference)resultEClass.getEStructuralFeatures().get(2);
+		return (EReference)resultEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -249,7 +273,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * @generated
 	 */
 	public EReference getResult_Diagnostics() {
-		return (EReference)resultEClass.getEStructuralFeatures().get(3);
+		return (EReference)resultEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -258,7 +282,34 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * @generated
 	 */
 	public EReference getResult_SubResults() {
+		return (EReference)resultEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getResult_Message() {
+		return (EAttribute)resultEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getResult_ModelElement() {
 		return (EReference)resultEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getResult_ResultType() {
+		return (EAttribute)resultEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -275,7 +326,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDiagnostic_Type() {
+	public EAttribute getDiagnostic_DiagnosticType() {
 		return (EAttribute)diagnosticEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -293,35 +344,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDiagnostic_SourceReference() {
+	public EReference getDiagnostic_ModelElement() {
 		return (EReference)diagnosticEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDiagnostic_ExceptionType() {
-		return (EAttribute)diagnosticEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDiagnostic_Issues() {
-		return (EReference)diagnosticEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDiagnostic_Source() {
-		return (EAttribute)diagnosticEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -428,8 +452,53 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEObjectValue() {
+		return eObjectValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEObjectValue_Value() {
+		return (EReference)eObjectValueEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getObjectValue() {
+		return objectValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getObjectValue_Value() {
+		return (EAttribute)objectValueEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getDiagnosticType() {
 		return diagnosticTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getResultType() {
+		return resultTypeEEnum;
 	}
 
 	/**
@@ -462,25 +531,25 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		// Create classes and their features
 		analysisResultEClass = createEClass(ANALYSIS_RESULT);
 		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__ANALYSIS);
-		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__INFO);
-		createEReference(analysisResultEClass, ANALYSIS_RESULT__SOURCE_REFERENCE);
+		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__MESSAGE);
+		createEReference(analysisResultEClass, ANALYSIS_RESULT__MODEL_ELEMENT);
+		createEReference(analysisResultEClass, ANALYSIS_RESULT__PARAMETERS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__RESULTS);
 		createEReference(analysisResultEClass, ANALYSIS_RESULT__DIAGNOSTICS);
+		createEAttribute(analysisResultEClass, ANALYSIS_RESULT__RESULT_TYPE);
 
 		resultEClass = createEClass(RESULT);
-		createEAttribute(resultEClass, RESULT__INFO);
-		createEReference(resultEClass, RESULT__SOURCE_REFERENCE);
 		createEReference(resultEClass, RESULT__VALUES);
 		createEReference(resultEClass, RESULT__DIAGNOSTICS);
 		createEReference(resultEClass, RESULT__SUB_RESULTS);
+		createEAttribute(resultEClass, RESULT__MESSAGE);
+		createEReference(resultEClass, RESULT__MODEL_ELEMENT);
+		createEAttribute(resultEClass, RESULT__RESULT_TYPE);
 
 		diagnosticEClass = createEClass(DIAGNOSTIC);
-		createEAttribute(diagnosticEClass, DIAGNOSTIC__TYPE);
+		createEAttribute(diagnosticEClass, DIAGNOSTIC__DIAGNOSTIC_TYPE);
 		createEAttribute(diagnosticEClass, DIAGNOSTIC__MESSAGE);
-		createEReference(diagnosticEClass, DIAGNOSTIC__SOURCE_REFERENCE);
-		createEAttribute(diagnosticEClass, DIAGNOSTIC__EXCEPTION_TYPE);
-		createEReference(diagnosticEClass, DIAGNOSTIC__ISSUES);
-		createEAttribute(diagnosticEClass, DIAGNOSTIC__SOURCE);
+		createEReference(diagnosticEClass, DIAGNOSTIC__MODEL_ELEMENT);
 
 		valueEClass = createEClass(VALUE);
 
@@ -498,8 +567,15 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		booleanValueEClass = createEClass(BOOLEAN_VALUE);
 		createEAttribute(booleanValueEClass, BOOLEAN_VALUE__VALUE);
 
+		eObjectValueEClass = createEClass(EOBJECT_VALUE);
+		createEReference(eObjectValueEClass, EOBJECT_VALUE__VALUE);
+
+		objectValueEClass = createEClass(OBJECT_VALUE);
+		createEAttribute(objectValueEClass, OBJECT_VALUE__VALUE);
+
 		// Create enums
 		diagnosticTypeEEnum = createEEnum(DIAGNOSTIC_TYPE);
+		resultTypeEEnum = createEEnum(RESULT_TYPE);
 	}
 
 	/**
@@ -534,29 +610,31 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		realValueEClass.getESuperTypes().add(this.getValue());
 		stringValueEClass.getESuperTypes().add(this.getValue());
 		booleanValueEClass.getESuperTypes().add(this.getValue());
+		eObjectValueEClass.getESuperTypes().add(this.getValue());
+		objectValueEClass.getESuperTypes().add(this.getValue());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(analysisResultEClass, AnalysisResult.class, "AnalysisResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAnalysisResult_Analysis(), ecorePackage.getEString(), "analysis", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAnalysisResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAnalysisResult_Message(), ecorePackage.getEString(), "message", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_ModelElement(), ecorePackage.getEObject(), null, "modelElement", null, 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_Parameters(), this.getObjectValue(), null, "parameters", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnalysisResult_Results(), this.getResult(), null, "results", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnalysisResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAnalysisResult_ResultType(), this.getResultType(), "resultType", "TBD", 0, 1, AnalysisResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(resultEClass, Result.class, "Result", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getResult_Info(), ecorePackage.getEString(), "info", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getResult_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResult_Values(), this.getValue(), null, "values", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResult_Diagnostics(), this.getDiagnostic(), null, "diagnostics", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getResult_SubResults(), this.getResult(), null, "subResults", null, 0, -1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResult_Message(), ecorePackage.getEString(), "message", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResult_ModelElement(), ecorePackage.getEObject(), null, "modelElement", null, 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResult_ResultType(), this.getResultType(), "resultType", "TBD", 0, 1, Result.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagnosticEClass, Diagnostic.class, "Diagnostic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDiagnostic_Type(), this.getDiagnosticType(), "type", "NONE", 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagnostic_DiagnosticType(), this.getDiagnosticType(), "diagnosticType", "TBD", 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagnostic_Message(), ecorePackage.getEString(), "message", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagnostic_SourceReference(), ecorePackage.getEObject(), null, "sourceReference", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDiagnostic_ExceptionType(), ecorePackage.getEString(), "exceptionType", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDiagnostic_Issues(), this.getDiagnostic(), null, "issues", null, 0, -1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDiagnostic_Source(), ecorePackage.getEString(), "source", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDiagnostic_ModelElement(), ecorePackage.getEObject(), null, "modelElement", null, 0, 1, Diagnostic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueEClass, Value.class, "Value", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -574,14 +652,24 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		initEClass(booleanValueEClass, BooleanValue.class, "BooleanValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanValue_Value(), ecorePackage.getEBoolean(), "value", "false", 1, 1, BooleanValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(eObjectValueEClass, EObjectValue.class, "EObjectValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEObjectValue_Value(), ecorePackage.getEObject(), null, "value", null, 0, 1, EObjectValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(objectValueEClass, ObjectValue.class, "ObjectValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getObjectValue_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, ObjectValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(diagnosticTypeEEnum, DiagnosticType.class, "DiagnosticType");
-		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.NONE);
+		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.TBD);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.ERROR);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.WARNING);
 		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.INFO);
-		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.SUCCESS);
-		addEEnumLiteral(diagnosticTypeEEnum, DiagnosticType.FAILURE);
+
+		initEEnum(resultTypeEEnum, ResultType.class, "ResultType");
+		addEEnumLiteral(resultTypeEEnum, ResultType.TBD);
+		addEEnumLiteral(resultTypeEEnum, ResultType.ERROR);
+		addEEnumLiteral(resultTypeEEnum, ResultType.SUCCESS);
+		addEEnumLiteral(resultTypeEEnum, ResultType.FAILURE);
 
 		// Create resource
 		createResource(eNS_URI);
