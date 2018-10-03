@@ -63,7 +63,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.xtext.parser.IParseResult;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
@@ -89,36 +88,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
-	@Deprecated
-	private Map<String, Injector> injectors = new HashMap<String, Injector>();
-
 	private IResourceChangeListener projectRenameHandler = null;
-
-	/**
-	 * @deprecated Use {@link org.osate.annexsupport.AnnexUtil#getInjector(IParseResult)} instead.
-	 */
-	@Deprecated
-	public Injector getInjector(String languageName) {
-		return injectors.get(languageName);
-	}
-
-	/**
-	 * @deprecated Don't register injectors anymore. Use
-	 * {@link org.osate.annexsupport.AnnexUtil#getInjector(IParseResult)} to retrieve a language's injector.
-	 */
-	@Deprecated
-	public void registerInjectorFor(String language, Injector inject) throws Exception {
-		injectors.put(language, inject);
-	}
-
-	/**
-	 * @deprecated Don't register injectors anymore. Use
-	 * {@link org.osate.annexsupport.AnnexUtil#getInjector(IParseResult)} to retrieve a language's injector.
-	 */
-	@Deprecated
-	public void registerResourceSetProvider(String language, Injector inject) throws Exception {
-		injectors.put(language, inject);
-	}
 
 	/**
 	 * The constructor.
@@ -152,7 +122,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectRenameHandler);
 			projectRenameHandler = null;
 		}
-		injectors.clear();
 		super.stop(context);
 	}
 
