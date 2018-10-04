@@ -546,6 +546,14 @@
         url="http://xtexttools.libutzki.de/"/>
   </setupTask>
   <setupTask
+      xsi:type="setup.p2:P2Task"
+      label="SpotBugs">
+    <requirement
+        name="com.github.spotbugs.plugin.eclipse.feature.group"/>
+    <repository
+        url="https://spotbugs.github.io/eclipse/"/>
+  </setupTask>
+  <setupTask
       xsi:type="setup:CompoundTask"
       id="osate2"
       name="OSATE2">
