@@ -40,14 +40,12 @@ import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.IPropertyService;
-import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 public class MyPropertiesActivator extends PropertiesActivator {
 	@Inject
@@ -57,8 +55,6 @@ public class MyPropertiesActivator extends PropertiesActivator {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
-			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
-
 			EMFIndexRetrieval.registerResourceProviders(rdp);
 
 			// DB bug #147 Added to provide property lookup service to meta-modem using GetProperties.
@@ -76,15 +72,4 @@ public class MyPropertiesActivator extends PropertiesActivator {
 			throw e;
 		}
 	}
-
-	@Override
-	public Injector getInjector(String languageName) {
-		return OsateCorePlugin.getDefault().getInjector(languageName);
-	}
-
-	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, createInjector(language));
-//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
-	}
-
 }
