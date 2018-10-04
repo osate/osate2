@@ -16,8 +16,8 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -66,7 +66,7 @@ public class NotePropertySection extends AbstractPropertySection {
 		// However, it is useful to have it so that the user can easily see the result of the change without without having to change property tabs/selection.
 		saveBtn = getWidgetFactory().createButton(composite, "Save", SWT.PUSH);
 
-		noteField.addFocusListener(new FocusListener() {
+		noteField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
 				final Note note = getNote();
@@ -77,10 +77,6 @@ public class NotePropertySection extends AbstractPropertySection {
 					editor.getActionExecutor().execute("Modify Note", ExecutionMode.NORMAL,
 							new SetNoteAction(selectedBoc, editor, noteField.getText(), false));
 				}
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
 			}
 		});
 	}
