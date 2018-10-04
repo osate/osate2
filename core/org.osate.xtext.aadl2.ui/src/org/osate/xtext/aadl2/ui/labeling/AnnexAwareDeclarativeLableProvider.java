@@ -36,17 +36,13 @@ package org.osate.xtext.aadl2.ui.labeling;
 import java.util.Collections;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.xtext.Grammar;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -104,8 +100,7 @@ public class AnnexAwareDeclarativeLableProvider extends DeclarativeLabelProvider
 				// delegate to annex specific outline tree provider
 				IParseResult annexParseResult = AnnexParseUtil.getParseResult(modelElement);
 				if (annexParseResult != null) {
-					String grammarName = getGrammarName(annexParseResult.getRootNode());
-					Injector injector = OsateCorePlugin.getDefault().getInjector(grammarName);
+					Injector injector = AnnexUtil.getInjector(annexParseResult);
 					if (injector != null) {
 						try {
 							return injector.getInstance(ILabelProvider.class);
@@ -118,12 +113,5 @@ public class AnnexAwareDeclarativeLableProvider extends DeclarativeLabelProvider
 			}
 		}
 		return this;
-	}
-
-	private String getGrammarName(INode node) {
-		Resource grammarResource = node.getGrammarElement().eResource();
-		EObject grammar = grammarResource.getContents().get(0);
-
-		return (grammar instanceof Grammar) ? ((Grammar) grammar).getName() : null;
 	}
 }

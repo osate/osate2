@@ -68,8 +68,6 @@ import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
 import org.osgi.framework.BundleContext;
 
-import com.google.inject.Injector;
-
 /**
  * The main plugin class to be used in the desktop.
  */
@@ -88,21 +86,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	// Resource bundle.
 	private ResourceBundle resourceBundle;
 
-	private Map<String, Injector> injectors = new HashMap<String, Injector>();
-
 	private IResourceChangeListener projectRenameHandler = null;
-
-	public Injector getInjector(String languageName) {
-		return injectors.get(languageName);
-	}
-
-	public void registerInjectorFor(String language, Injector inject) throws Exception {
-		injectors.put(language, inject);
-	}
-
-	public void registerResourceSetProvider(String language, Injector inject) throws Exception {
-		injectors.put(language, inject);
-	}
 
 	/**
 	 * The constructor.
@@ -136,7 +120,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(projectRenameHandler);
 			projectRenameHandler = null;
 		}
-		injectors.clear();
 		super.stop(context);
 	}
 
