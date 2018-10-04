@@ -93,12 +93,19 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final static String incompleteIndicator = "*";
 	private final static int defaultWrappingLabelWidth = 100;
 
-	// Additional padding to wrapping labels.
-	// This is because we don't want the wrapping label to extend all the way to the right edge of the note shape.
-	// Will need to be adjusted if/when additional business object handlers use wrapping labels.
+	// Padding to wrapping label shapes
 	// This value is based on the padding added by the ELK layout process. Ideally, this value should be provided
-	// to ELK via the LayoutInfoProvider.
+	// to ELK via the LayoutInfoProvider. If this value is misconfigured, repeated layouts will change the width of shapes
+	// which including wrapping labels
 	private final static int wrappingLabelPadding = 10;
+	private final static int wrappingLabelMinWidth = 50;
+
+	// This is additional padding to prevent wrapping label text from extending all the way to the right edge of the note shape.
+	// Will need to be adjusted if/when additional business object handlers use wrapping labels. Could be made part
+	// of the diagram configuration.
+	// If this value is larger than min width, it could result in negative widths. That must not be occur.
+	private final static int wrappingLabelInnerPaddingX = 22 - wrappingLabelPadding;
+
 	private LocalResourceManager localResourceManager = new LocalResourceManager(AgeDiagramTypeProvider.getResources());
 
 	private final UpdaterListener updateListener;
@@ -464,9 +471,12 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			if (primaryLabelStr != null) {
 				final Shape labelShape;
 				if (de.getGraphicalConfiguration().primaryLabelIsMultiline) {
-					labelShape = labelHelper.createWrappingLabelShape(graphitiDiagram, (ContainerShape) pe,
-							ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize,
-							de.hasSize() ? (int) de.getWidth() : defaultWrappingLabelWidth, wrappingLabelPadding);
+					final int labelWidth = de.hasSize()
+							? Math.max((int) de.getWidth() - wrappingLabelPadding, wrappingLabelMinWidth)
+									: defaultWrappingLabelWidth;
+							labelShape = labelHelper.createWrappingLabelShape(graphitiDiagram, (ContainerShape) pe,
+									ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize, labelWidth,
+									wrappingLabelInnerPaddingX);
 				} else {
 					labelShape = labelHelper.createLabelShape(graphitiDiagram, (ContainerShape) pe,
 							ShapeNames.primaryLabelShapeName, primaryLabelStr, fontSize);

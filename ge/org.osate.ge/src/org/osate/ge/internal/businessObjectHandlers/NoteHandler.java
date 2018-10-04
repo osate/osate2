@@ -22,6 +22,8 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.InternalGraphicalConfigurationBuilder;
 import org.osate.ge.graphics.internal.NoteGraphicBuilder;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
@@ -44,8 +46,9 @@ public class NoteHandler {
 	}
 
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc) {
-		return !(targetBoc.getBusinessObject() instanceof Note);
+	public boolean canCreate(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) DiagramNode targetNode) {
+		return !(targetNode.getBusinessObject() instanceof Note)
+				&& DiagramNodePredicates.isDiagramOrUndockedShape(targetNode);
 	}
 
 	@BuildCreateOperation

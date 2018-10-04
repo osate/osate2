@@ -71,14 +71,35 @@ public class LabelHelper {
 	 */
 	public Shape createWrappingLabelShape(final Diagram diagram, final ContainerShape container,
 			final String shapeName, final String labelValue, final double fontSize,
-			final int width, final int padding) {
+			final int width, final int innerPaddingX) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		final Shape labelShape = peCreateService.createShape(container, true);
 		PropertyUtil.setName(labelShape, shapeName);
 		PropertyUtil.setIsManuallyPositioned(labelShape, true);
 		PropertyUtil.setIsTransient(labelShape, true);
 
-		createWrappingLabelGraphicsAlgorithm(diagram, labelShape, labelValue, fontSize, width, padding);
+		// The "background" is a containing graphics algorithm with a width of the requested size. Having a separate
+		// graphics algorithm allows customizing the width of the text label without requiring adjustments to the size
+		// of the overall label shape. This allows the addition of padding to the label.
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm background = gaService.createPlainRectangle(labelShape);
+		background.setLineVisible(false);
+		background.setFilled(false);
+		PropertyUtil.setIsStylingContainer(background, true);
+
+		background.setWidth(width);
+
+		final int textWidth = width - innerPaddingX;
+		if (textWidth <= 0) {
+			throw new RuntimeException("Invalid text width. Width and/or inner padding X is invalid");
+		}
+
+		final AbstractText label = createWrappingLabelGraphicsAlgorithm(diagram, background, labelValue, fontSize,
+				textWidth);
+
+		// Update background height based on the label height
+		background.setHeight(label.getHeight());
+
 		return labelShape;
 	}
 
@@ -107,7 +128,7 @@ public class LabelHelper {
 
 	private AbstractText createWrappingLabelGraphicsAlgorithm(final Diagram diagram,
 			final GraphicsAlgorithmContainer container, String labelTxt, final double fontSize,
-			final int width, final int padding) {
+			final int width) {
 		final IGaService gaService = Graphiti.getGaService();
 		final AbstractText text = gaService.createPlainMultiText(container, labelTxt);
 		TextUtil.setStyle(diagram, text, fontSize);
@@ -117,7 +138,7 @@ public class LabelHelper {
 		text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_TOP);
 
-		setWrappingLabelSize(text, labelTxt, fontSize, width, padding);
+		setWrappingLabelSize(text, labelTxt, fontSize, width);
 
 		return text;
 	}
@@ -130,12 +151,11 @@ public class LabelHelper {
 	}
 
 	private void setWrappingLabelSize(final AbstractText text, String labelTxt, final double fontSize,
-			final int width, final int padding) {
-		final int textWidth = Math.max(width - padding, 1);
-		text.setWidth(textWidth);
+			final int width) {
+		text.setWidth(width);
 
 		// Use a smaller width as the wrapping with to handle error in determining how many lines will actually be rendered.
-		final int wrapWidth = Math.max(textWidth - 10, 1);
+		final int wrapWidth = Math.max(width - 10, 1);
 
 		// Don't allow empty labels
 		if (Strings.isEmpty(labelTxt)) {
@@ -152,9 +172,13 @@ public class LabelHelper {
 
 		double totalHeight = 0;
 		while (measurer.getPosition() < textIt.getEndIndex()) {
-			final TextLayout layout = measurer.nextLayout(wrapWidth);
+			// Determine the position of the next new line and use it as a limit because LineBreakMeasurer does not handle new lines
+			final int nextNewLine = labelTxt.indexOf('\n', measurer.getPosition() + 1);
+			final int limit = nextNewLine == -1 ? labelTxt.length() : nextNewLine;
+
+			final TextLayout layout = measurer.nextLayout(wrapWidth, limit, false);
 			totalHeight += Math.ceil(layout.getAscent()) + Math.ceil(layout.getDescent())
-			+ Math.ceil(layout.getLeading()) + 1;
+			+ Math.ceil(layout.getLeading());
 		}
 		text.setHeight((int) Math.ceil(totalHeight));
 	}

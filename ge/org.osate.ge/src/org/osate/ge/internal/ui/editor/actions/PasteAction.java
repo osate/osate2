@@ -30,6 +30,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
@@ -376,13 +377,16 @@ public class PasteAction extends ActionStackAction {
 			return false;
 		}
 
-		final boolean anyNonEmbeddedBoCopied = copiedDiagramElements.stream()
+		final boolean anyEmbeddedBoCopied = copiedDiagramElements.stream()
+				.anyMatch(de -> de.getCopiedBusinessObject() instanceof EmbeddedBusinessObject);
+		final boolean anyEObjectCopied = copiedDiagramElements.stream()
 				.anyMatch(de -> de.getCopiedBusinessObject() instanceof EObject);
 
 		// Don't allow pasting inside an embedded business object.
 		// Such objects are not supported because layout issues have been observed.
 		return !(getBusinessObject(dstDiagramNode) instanceof EmbeddedBusinessObject)
-				&& (!anyNonEmbeddedBoCopied || getDestinationEObject(dstDiagramNode) != null);
+				&& (!anyEmbeddedBoCopied || DiagramNodePredicates.isDiagramOrUndockedShape(dstDiagramNode))
+				&& (!anyEObjectCopied || getDestinationEObject(dstDiagramNode) != null);
 	}
 
 	/**
