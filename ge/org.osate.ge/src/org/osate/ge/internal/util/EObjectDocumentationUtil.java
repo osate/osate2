@@ -27,8 +27,7 @@ public class EObjectDocumentationUtil {
 		}
 
 		// Get the documentation provider
-		final IEObjectDocumentationProvider docProvider = resourceServiceProvider
+		return resourceServiceProvider
 				.get(IEObjectDocumentationProvider.class);
-		return docProvider;
 	}
 }

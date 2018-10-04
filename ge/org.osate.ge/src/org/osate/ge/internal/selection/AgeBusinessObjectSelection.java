@@ -62,7 +62,7 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	/**
-	 * Gets the action executor that should be used to modify the model. May return null;
+	 * Gets the action executor that should be used to modify the model.
 	 * @return
 	 */
 	private static ActionExecutor getActionExecutor() {

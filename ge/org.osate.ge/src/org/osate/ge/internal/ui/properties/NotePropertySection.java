@@ -103,7 +103,7 @@ public class NotePropertySection extends AbstractPropertySection {
 	}
 
 	private Note getNote() {
-		final Object bo = selectedBoc.getBusinessObject();
+		final Object bo = selectedBoc == null ? null : selectedBoc.getBusinessObject();
 		return bo instanceof Note ? (Note) bo : null;
 	}
 

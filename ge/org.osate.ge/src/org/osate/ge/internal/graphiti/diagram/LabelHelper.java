@@ -170,15 +170,14 @@ public class LabelHelper {
 		final AttributedCharacterIterator textIt = attributedText.getIterator();
 		final LineBreakMeasurer measurer = new LineBreakMeasurer(textIt, fontRenderContext);
 
-		double totalHeight = 0;
+		double totalHeight = 3; // Initialized to non-zero to handle padding introduced when rendering.
 		while (measurer.getPosition() < textIt.getEndIndex()) {
 			// Determine the position of the next new line and use it as a limit because LineBreakMeasurer does not handle new lines
 			final int nextNewLine = labelTxt.indexOf('\n', measurer.getPosition() + 1);
 			final int limit = nextNewLine == -1 ? labelTxt.length() : nextNewLine;
 
 			final TextLayout layout = measurer.nextLayout(wrapWidth, limit, false);
-			totalHeight += Math.ceil(layout.getAscent()) + Math.ceil(layout.getDescent())
-			+ Math.ceil(layout.getLeading());
+			totalHeight += Math.ceil(layout.getAscent() + layout.getDescent() + layout.getLeading());
 		}
 		text.setHeight((int) Math.ceil(totalHeight));
 	}
