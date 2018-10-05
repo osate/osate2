@@ -1,7 +1,7 @@
 package org.osate.ge.internal.graphiti.diagram;
 
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -118,7 +118,7 @@ class StyleUtil {
 		final boolean isStylingOutlineEnabled = PropertyUtil.isStylingOutlineEnabled(ga);
 
 		if (isStylingOutlineEnabled) {
-			if (ga.getForeground() != null && !(ga instanceof Text)) {
+			if (ga.getForeground() != null && !(ga instanceof AbstractText)) {
 				if (outline != null) {
 					ga.setForeground(outline);
 				}
@@ -127,7 +127,7 @@ class StyleUtil {
 
 		if (isStylingChild) {
 			if (ga.getForeground() != null) {
-				if (ga instanceof Text) {
+				if (ga instanceof AbstractText) {
 					ga.setForeground(fontColor);
 				}
 			}

@@ -44,6 +44,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -54,14 +56,13 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
+import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
 import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
@@ -78,31 +79,36 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
-		Dialog.showError("Flow Latency Error", "Please select an instance model");
 	}
 
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
-		if (object instanceof SystemInstance) {
-			IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
-			boolean asynchronousSystem = store.getString(Constants.ASYNCHRONOUS_SYSTEM)
-					.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
-			boolean majorFrameDelay = store.getString(Constants.PARTITONING_POLICY)
-					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
-			boolean worstCaseDeadline = store.getString(Constants.WORST_CASE_DEADLINE)
-					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
-			boolean bestCaseEmptyQueue = store.getString(Constants.BESTCASE_EMPTY_QUEUE)
-					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
+		final FlowLatencyDialog d = new FlowLatencyDialog(getShell(), store);
 
+		final boolean doIt;
+		if (d.dontShowDialog()) {
+			// Don't show the dialog, just run the analysis
+			doIt = true;
+		} else {
+			Display.getDefault().syncExec(() -> d.open());
+			doIt = d.getReturnCode() == Window.OK;
+		}
+
+		if (doIt) {
 			latreport = new LatencyReport();
 			latreport.setRootinstance((SystemInstance) object);
-			latreport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-					bestCaseEmptyQueue);
-			return true;
+			d.setLatencyAnalysisParameters(latreport);
 		}
-		return false;
+
+		return doIt;
 	};
 
 	@Override

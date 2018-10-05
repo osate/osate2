@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		SelectingDiagramElementContainerTest.class, PerformDiagramLayoutTest.class, CreateConnectionTest.class,
 		SetExtendedClassifierTest.class, FeatureGroupTest.class, ModesTransitionTest.class,
 		MoveShapeUsingKeysTest.class, ElementAppearanceTest.class, DiagramExporterTest.class, DirtyStateTest.class,
-		AlignElementsTest.class, CopyAndPasteTest.class
+		AlignElementsTest.class, CopyAndPasteTest.class, DemoSystemTest.class
 })
 public class AllTests {
 }

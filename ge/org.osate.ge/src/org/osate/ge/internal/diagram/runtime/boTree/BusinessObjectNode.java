@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
@@ -16,7 +17,7 @@ import com.google.common.collect.ImmutableSet;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
-	private final Long id;
+	private final UUID id;
 	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
 	private boolean manual = false; // Species whether the object was manually specified(true) or if it was created automatically based on the auto contents filter or other mechanism.
@@ -25,14 +26,14 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
 
 	public BusinessObjectNode(final BusinessObjectNode parent,
-			final Long id,
+			final UUID id,
 			final RelativeBusinessObjectReference relativeReference,
 			final Object bo,
 			final boolean manual,
 			final ImmutableSet<ContentFilter> contentFilters,
 			final Completeness completeness) {
 		this.parent = parent;
-		this.id = id;
+		this.id = Objects.requireNonNull(id, "id must not be null");
 		this.relativeReference = relativeReference;
 		this.bo = bo;
 		this.manual = manual;
@@ -62,7 +63,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.bo = value;
 	}
 
-	public final Long getId() {
+	public final UUID getId() {
 		return id;
 	}
 
@@ -138,7 +139,8 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 
 	/**
-	 * Copies the node. The new node will be a child of the specified parent.
+	 * Copies the node. The new node will be a child of the specified parent. The id of the node will be preserved.
+	 * Id's are intended to be globally unique.
 	 * @param newParent
 	 * @return
 	 */
@@ -173,27 +175,5 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 
 		return t;
-	}
-
-	private static long getMaxIdForChildren(final BusinessObjectNode n) {
-		long max = -1;
-
-		// Check children
-		for(final BusinessObjectNode child : n.getChildren()) {
-			max = Math.max(getMaxId(child), max);
-		}
-
-		return max;
-	}
-
-	public static long getMaxId(final BusinessObjectNode n) {
-		long max = -1;
-		if(n.getId() != null) {
-			max = Math.max(max, n.getId());
-		}
-
-		max = Math.max(max, getMaxIdForChildren(n));
-
-		return max;
 	}
 }

@@ -5,14 +5,20 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.Grammar;
+import org.eclipse.xtext.GrammarUtil;
+import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.IResourceServiceProvider.Registry;
 import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
@@ -24,6 +30,8 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
+
+import com.google.inject.Injector;
 
 public class AnnexUtil {
 
@@ -350,5 +358,22 @@ public class AnnexUtil {
 			}
 		}
 		return annexRoot;
+	}
+
+	/**
+	 * Retrieve an Annex's injector from its parse result.
+	 */
+	public static Injector getInjector(IParseResult annexParseResult) {
+		Grammar grammar = GrammarUtil.getGrammar(annexParseResult.getRootNode().getGrammarElement());
+		Registry registry = IResourceServiceProvider.Registry.INSTANCE;
+		for (String extension : registry.getExtensionToFactoryMap().keySet()) {
+			IResourceServiceProvider provider = registry
+					.getResourceServiceProvider(URI.createURI("dummy." + extension));
+			IGrammarAccess grammarAccess = provider.get(IGrammarAccess.class);
+			if (grammarAccess != null && grammarAccess.getGrammar() == grammar) {
+				return provider.get(Injector.class);
+			}
+		}
+		return null;
 	}
 }

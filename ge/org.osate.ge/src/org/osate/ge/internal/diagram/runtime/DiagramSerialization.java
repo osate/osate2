@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
@@ -16,6 +18,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
@@ -30,8 +33,10 @@ import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.PackageDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.StructureDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -40,7 +45,7 @@ import com.google.common.collect.ImmutableSet;
  *
  */
 public class DiagramSerialization {
-	public final static int FORMAT_VERSION = 5;
+	public final static int FORMAT_VERSION = 7;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
@@ -70,7 +75,7 @@ public class DiagramSerialization {
 		Objects.requireNonNull(extRegistry, "extRegistry is null");
 
 		// Set the id which should be used for new diagram elements.
-		final AgeDiagram ageDiagram = new AgeDiagram(getMaxIdForChildren(mmDiagram) + 1);
+		final AgeDiagram ageDiagram = new AgeDiagram();
 
 		// Read the diagram configuration
 
@@ -81,7 +86,7 @@ public class DiagramSerialization {
 			String autoAssignedDiagramTypeId = CustomDiagramType.ID;
 
 			// Set the diagram type based on the diagram's context
-			if(mmDiagram.getConfig() != null) {
+			if (mmDiagram.getConfig() != null) {
 				final CanonicalBusinessObjectReference contextRef = convert(mmDiagram.getConfig().getContext());
 				if (contextRef != null && contextRef.getSegments().size() > 1) {
 					if (DeclarativeReferenceType.PACKAGE.getId().equals(contextRef.getSegments().get(0))) {
@@ -99,8 +104,7 @@ public class DiagramSerialization {
 		final DiagramType diagramType = extRegistry.getDiagramTypeById(diagramTypeId)
 				.orElseGet(() -> new UnrecognizedDiagramType(diagramTypeId));
 
-		final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(diagramType,
-				false);
+		final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(diagramType, false);
 
 		if (mmDiagram.getConfig() != null) {
 			final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
@@ -117,15 +121,71 @@ public class DiagramSerialization {
 			configBuilder.connectionPrimaryLabelsVisible(mmDiagramConfig.getConnectionPrimaryLabelsVisible());
 		}
 
+		// Ensure UUIDs are valid and handle migration from legacy id's.
+		final Map<Long, UUID> legacyIdToUuidMap = new HashMap<>();
+		ensureIdsAreValid(mmDiagram, legacyIdToUuidMap);
+		updateReferencesToLegacyIds(mmDiagram, legacyIdToUuidMap);
+
 		ageDiagram.modify("Configure Diagram", m -> {
 			m.setDiagramConfiguration(configBuilder.build());
 		});
 
-		//  Read elements
-		ageDiagram.modify("Read from File", m -> readElements(project, m, extRegistry,
-				ageDiagram, mmDiagram, new HashSet<>(), false));
+		// Read elements
+		ageDiagram.modify("Read from File",
+				m -> {
+					readElements(project, m, extRegistry, ageDiagram, mmDiagram, legacyIdToUuidMap, false);
+				});
 
 		return ageDiagram;
+	}
+
+	/**
+	 * Ensures all elements have a UUID. Migrates legacy id's to UUIDs.
+	 * @param diagram
+	 * @param legacyIdToUuidMap map to populate with a mapping form legacy id's to the UUIDs. Needed to migrate referenecs.
+	 */
+	private static void ensureIdsAreValid(final org.osate.ge.diagram.Diagram diagram,
+			Map<Long, UUID> legacyIdToUuidMap) {
+		final Iterator<Object> it = EcoreUtil.getAllProperContents(diagram, true);
+		while (it.hasNext()) {
+			final Object o = it.next();
+			if (o instanceof org.osate.ge.diagram.DiagramElement) {
+				final org.osate.ge.diagram.DiagramElement e = (org.osate.ge.diagram.DiagramElement) o;
+				if (e.getUuid() == null) {
+					final UUID newUuid = UUID.randomUUID();
+					e.setUuid(newUuid.toString());
+
+					if (e.getId() != null) {
+						legacyIdToUuidMap.put(e.getId(), newUuid);
+					}
+				}
+			}
+		}
+	}
+
+	private static void updateReferencesToLegacyIds(final org.osate.ge.diagram.Diagram diagram,
+			Map<Long, UUID> legacyIdToUuidMap) {
+		if (legacyIdToUuidMap.size() == 0) {
+			return;
+		}
+
+		// Older versions of property vlaue groups use legacy ids.
+		final Iterator<Object> it = EcoreUtil.getAllProperContents(diagram, true);
+		while (it.hasNext()) {
+			final Object o = it.next();
+			if (o instanceof org.osate.ge.diagram.RelativeBusinessObjectReference) {
+				org.osate.ge.diagram.RelativeBusinessObjectReference ref = (org.osate.ge.diagram.RelativeBusinessObjectReference) o;
+				if (ref.getSeg().size() == 3 && Objects.equals(ref.getSeg().get(0),
+						GraphicalEditorModelReferenceBuilder.TYPE_PROPERTY_VALUE_GROUP)) {
+					final int idSegmentIndex = 2;
+					final UUID referencedUuid = legacyIdToUuidMap.get(Long.parseLong(ref.getSeg().get(idSegmentIndex)));
+
+					if (referencedUuid != null) {
+						ref.getSeg().set(idSegmentIndex, referencedUuid.toString());
+					}
+				}
+			}
+		}
 	}
 
 	public static RelativeBusinessObjectReference convert(
@@ -144,41 +204,19 @@ public class DiagramSerialization {
 		return ref == null || ref.getSeg().size() == 0 ? null : ref.getSeg().toArray(new String[ref.getSeg().size()]);
 	}
 
-	private static long getMaxIdForChildren(final org.osate.ge.diagram.DiagramNode dn) {
-		long max = -1;
-
-		// Check children
-		for (final org.osate.ge.diagram.DiagramElement child : dn.getElement()) {
-			max = Math.max(getMaxId(child), max);
-		}
-
-		return max;
-	}
-
-	private static long getMaxId(final org.osate.ge.diagram.DiagramElement de) {
-		long max = -1;
-		if (de.getId() != null) {
-			max = Math.max(max, de.getId());
-		}
-
-		max = Math.max(max, getMaxIdForChildren(de));
-
-		return max;
-	}
-
 	private static void readElements(final IProject project, final DiagramModification m,
-			final ContentFilterProvider contentFilterProvider,
-			final DiagramNode container, final org.osate.ge.diagram.DiagramNode mmContainer,
-			final Set<Long> usedIdSet, final boolean usingLegacyContentFilters) {
+			final ContentFilterProvider contentFilterProvider, final DiagramNode container,
+			final org.osate.ge.diagram.DiagramNode mmContainer, final Map<Long, UUID> legacyIdToUuidMap,
+			final boolean usingLegacyContentFilters) {
 		for (final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
-			createElement(project, m, contentFilterProvider, container, mmElement, usedIdSet,
+			createElement(project, m, contentFilterProvider, container, mmElement, legacyIdToUuidMap,
 					usingLegacyContentFilters);
 		}
 	}
 
 	private static void createElement(final IProject project, final DiagramModification m,
-			final ContentFilterProvider contentFilterProvider,
-			final DiagramNode container, final org.osate.ge.diagram.DiagramElement mmChild, final Set<Long> usedIdSet,
+			final ContentFilterProvider contentFilterProvider, final DiagramNode container,
+			final org.osate.ge.diagram.DiagramElement mmChild, final Map<Long, UUID> legacyIdToUuidMap,
 			boolean usingLegacyContentFilters) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if (refSegs == null) {
@@ -186,15 +224,12 @@ public class DiagramSerialization {
 		}
 
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final DiagramElement newElement = new DiagramElement(container, null, null, relReference);
+		final Object bo = GraphicalEditorModelReferenceBuilder.createEmbeddedObject(relReference,
+				mmChild.getBoData());
 
 		// Set the ID
-		if (mmChild.getId() != null) {
-			// OSATE 2.2.3 contained an issue that resulted in duplicate IDs. This checks for and removed duplicate ID's
-			if(!usedIdSet.contains(mmChild.getId())) {
-				newElement.setId((long) mmChild.getId().intValue());
-			}
-		}
+		final UUID uuid = UUID.fromString(mmChild.getUuid());
+		final DiagramElement newElement = new DiagramElement(container, bo, null, relReference, uuid);
 
 		ImmutableSet.Builder<ContentFilter> contentFilterSetBuilder = ImmutableSet.builder();
 		if (mmChild.getContentFilters() != null) {
@@ -222,9 +257,11 @@ public class DiagramSerialization {
 		newElement.setContentFilters(contentFilterSetBuilder.build());
 		newElement.setManual(mmChild.isManual());
 
-		// Need to set default mode transition trigger connections, default annex library, and default annex subclauses as manual if loading diagrams which use the legacy content filter.
-		// Current filters do not include those objects because of issues with layout(mode transition trigger connections) or questionable usefulness(annex elements)
-		if(usingLegacyContentFilters) {
+		// Need to set default mode transition trigger connections, default annex library, and default annex subclauses as manual if loading diagrams which use
+		// the legacy content filter.
+		// Current filters do not include those objects because of issues with layout(mode transition trigger connections) or questionable usefulness(annex
+		// elements)
+		if (usingLegacyContentFilters) {
 			final String firstSegment = newElement.getRelativeReference().getSegments().get(0);
 			if (DeclarativeReferenceType.ANNEX_LIBRARY.getId().equals(firstSegment)
 					|| DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId().equals(firstSegment)
@@ -263,8 +300,8 @@ public class DiagramSerialization {
 				final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
 
 				newElement.setStyle(StyleBuilder.create().backgroundColor(background).showAsImage(showAsImage).imagePath(image)
-						.fontColor(fontColor).outlineColor(outline)
-						.fontSize(fontSize).lineWidth(lineWidth).primaryLabelVisible(primaryLabelVisible).build());
+						.fontColor(fontColor).outlineColor(outline).fontSize(fontSize).lineWidth(lineWidth)
+						.primaryLabelVisible(primaryLabelVisible).build());
 
 				// Bendpoints
 				final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
@@ -281,12 +318,9 @@ public class DiagramSerialization {
 				// Add the element
 				m.addElement(newElement);
 
-				if(newElement.getId() != null) {
-					usedIdSet.add(newElement.getId());
-				}
-
 				// Create children
-				readElements(project, m, contentFilterProvider, newElement, mmChild, usedIdSet, usingLegacyContentFilters);
+				readElements(project, m, contentFilterProvider, newElement, mmChild, legacyIdToUuidMap,
+						usingLegacyContentFilters);
 	}
 
 	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
@@ -358,18 +392,19 @@ public class DiagramSerialization {
 	}
 
 	private static void convertElementToMetamodel(final IProject project,
-			final org.osate.ge.diagram.DiagramNode mmContainer,
-			final DiagramElement e) {
+			final org.osate.ge.diagram.DiagramNode mmContainer, final DiagramElement e) {
 		// Write BO Reference
 		final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 		mmContainer.getElement().add(newElement);
 
-		// Set ID
-		if (e.hasId()) {
-			newElement.setId(e.getId());
-		}
+		newElement.setUuid(e.getId().toString());
+		newElement.setBo(e.getRelativeReference().toMetamodel());
 
-		newElement.setBo(e.getRelativeReference() == null ? null : e.getRelativeReference().toMetamodel());
+		// Store embedded business object data.
+		if (e.getBusinessObject() instanceof EmbeddedBusinessObject) {
+			final EmbeddedBusinessObject bo = (EmbeddedBusinessObject) e.getBusinessObject();
+			newElement.setBoData(bo.getData());
+		}
 
 		final org.osate.ge.diagram.ContentFilters contentFilters = new org.osate.ge.diagram.ContentFilters();
 		newElement.setContentFilters(contentFilters);

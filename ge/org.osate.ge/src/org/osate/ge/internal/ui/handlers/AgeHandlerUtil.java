@@ -12,6 +12,7 @@ import org.eclipse.ui.ISources;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
@@ -22,6 +23,10 @@ public class AgeHandlerUtil {
 	public static List<DiagramElement> getSelectedDiagramElements() {
 		final ISelection selection = getCurrentSelection();
 		return SelectionUtil.getSelectedDiagramElements(selection);
+	}
+
+	public static List<DiagramNode> getSelectedDiagramNodes() {
+		return SelectionUtil.getSelectedDiagramNodes(getCurrentSelection());
 	}
 
 	public static DiagramElement getPrimaryDiagramElement(final List<DiagramElement> elements) {
