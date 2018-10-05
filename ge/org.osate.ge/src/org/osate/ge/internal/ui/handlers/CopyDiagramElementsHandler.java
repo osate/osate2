@@ -17,6 +17,7 @@ import org.osate.ge.internal.services.ClipboardService.Clipboard;
 import org.osate.ge.internal.ui.editor.actions.CopiedDiagramElement;
 import org.osate.ge.internal.ui.editor.actions.CopiedDiagramElements;
 import org.osate.ge.internal.ui.editor.actions.CopyAndPasteUtil;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -48,11 +49,14 @@ public class CopyDiagramElementsHandler extends AbstractHandler {
 		final Clipboard clipboard = Objects
 				.requireNonNull(context.get(ClipboardService.class), "Unable to get clipboard service")
 				.getClipboard();
+		final ReferenceBuilderService refBuilder = Objects
+				.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to get reference builder service");
 
 		final List<CopiedDiagramElement> copiedElements = new ArrayList<>();
 
 		for (final DiagramElement de : AgeHandlerUtil.getSelectedDiagramElements()) {
-			final DiagramElement copiedElement = de.cloneWithoutIdsAndBusinessObjects(null, de.getRelativeReference());
+			final DiagramElement copiedElement = CopyAndPasteUtil.copyDiagramElement(de, null,
+					de.getRelativeReference(), refBuilder);
 			final Point position = CopyAndPasteUtil.getPositionToCopy(de);
 			copiedElements.add(
 					new CopiedDiagramElement(copiedElement, de.getBusinessObject(), position));

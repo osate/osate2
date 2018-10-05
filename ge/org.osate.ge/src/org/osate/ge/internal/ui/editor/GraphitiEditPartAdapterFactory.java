@@ -13,6 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
@@ -64,6 +65,11 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 			return null;
 		}
 
+		final DiagramNode dn = graphitiAgeDiagram.getClosestDiagramNode(pe);
+		if (DiagramNode.class.equals(adapterType)) {
+			return adapterType.cast(dn);
+		}
+
 		final DiagramElement de = graphitiAgeDiagram.getClosestDiagramElement(pe);
 		if(de == null) {
 			return null;
@@ -101,6 +107,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 	@Override
 	public Class[] getAdapterList() {
 		return new Class[] { IAadlPropertySource.class, BusinessObjectContext.class,
-				DiagramElement.class };
+				DiagramElement.class, DiagramNode.class };
 	}
 }

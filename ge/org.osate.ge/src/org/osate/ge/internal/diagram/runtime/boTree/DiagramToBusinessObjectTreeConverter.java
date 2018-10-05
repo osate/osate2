@@ -4,12 +4,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -31,7 +33,8 @@ public class DiagramToBusinessObjectTreeConverter {
 	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
-		BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, null, false, ImmutableSet.of(),
+		BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null, false,
+				ImmutableSet.of(),
 				Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementInfoMap,
 				containerToRelativeReferenceToGhostMap);
@@ -57,9 +60,14 @@ public class DiagramToBusinessObjectTreeConverter {
 			final DiagramElement e,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
+		// For embedded business objects, store the object in the business object node.
+		// Typically, the business object node isn't stored in the business object node to prevent retaining references
+		// to old business objects.
+		final Object bo = e.getBusinessObject() instanceof EmbeddedBusinessObject ? e.getBusinessObject() : null;
+
 		// Don't keep the business object when building the business object tree. This will ensure that tree expander or other user of the tree updates
 		// the business object based on the model.
-		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getId(), e.getRelativeReference(), null,
+		final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getId(), e.getRelativeReference(), bo,
 				e.isManual(), e.getContentFilters(), Completeness.UNKNOWN);
 		createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementInfoMap,
 				containerToRelativeReferenceToGhostMap);
@@ -90,13 +98,15 @@ public class DiagramToBusinessObjectTreeConverter {
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap) {
 		final Map<RelativeBusinessObjectReference, FutureElementInfo> futureElements = futureElementInfoMap
 				.get(diagramNode);
+
 		if(futureElements != null) {
 			for (final Entry<RelativeBusinessObjectReference, FutureElementInfo> futureElementEntry : futureElements
 					.entrySet()) {
 				// An incomplete node is created. The tree expander will fill in missing fields.
 				final RelativeBusinessObjectReference ref = futureElementEntry.getKey();
 				if (parent.getChild(ref) == null) {
-					new BusinessObjectNode(parent, null, ref, null, futureElementEntry.getValue().manual, null,
+					new BusinessObjectNode(parent, UUID.randomUUID(), ref, futureElementEntry.getValue().embeddedBo,
+							futureElementEntry.getValue().manual, null,
 							Completeness.UNKNOWN);
 				}
 			}

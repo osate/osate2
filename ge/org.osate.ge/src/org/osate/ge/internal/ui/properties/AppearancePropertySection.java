@@ -54,11 +54,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -743,9 +739,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			chooseImgMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final IEditorPart editor = getActiveEditor();
-					if (editor instanceof AgeDiagramEditor) {
-						final ElementTreeSelectionDialog dialog = createSelectionDialog((AgeDiagramEditor) editor);
+					final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+					if (editor != null) {
+						final ElementTreeSelectionDialog dialog = createSelectionDialog(editor);
 						if (dialog.open() == Window.OK) {
 							final IFile iFile = (IFile) dialog.getResult()[0];
 							runStyleCommand(iFile.getFullPath(), imageStyleCommand);
@@ -811,17 +807,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			}
 
 			return dialog;
-		}
-
-		private IEditorPart getActiveEditor() {
-			final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			if (activeWindow != null) {
-				final IWorkbenchPage activePage = activeWindow.getActivePage();
-				if (activePage != null) {
-					return activePage.getActiveEditor();
-				}
-			}
-			return null;
 		}
 
 		// Set image and visibility

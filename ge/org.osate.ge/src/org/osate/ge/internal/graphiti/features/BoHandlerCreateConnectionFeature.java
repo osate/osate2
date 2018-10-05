@@ -24,9 +24,11 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.operations.DefaultOperationResultsProcessor;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.operations.Operation;
@@ -36,6 +38,7 @@ import org.osate.ge.services.ReferenceBuilderService;
 // ICreateConnectionFeature implementation that delegates behavior to a business object handler
 public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFeature implements Categorized {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
+	private final GraphitiService graphitiService;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final DiagramUpdater diagramUpdater;
@@ -44,6 +47,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 	private final Object handler;
 
 	public BoHandlerCreateConnectionFeature(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
+			final GraphitiService graphitiService,
 			final ExtensionService extService,
 			final AadlModificationService aadlModService,
 			final DiagramUpdater diagramUpdater,
@@ -53,6 +57,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			final Object boHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
+		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
@@ -122,53 +127,67 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			return null;
 		}
 
-		final IEclipseContext eclipseCtx = extService.createChildContext();
-		try {
-			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.SOURCE_BO, srcElement.getBusinessObject());
-			eclipseCtx.set(Names.SOURCE_BUSINESS_OBJECT_CONTEXT, srcElement);
-			eclipseCtx.set(Names.DESTINATION_BO, dstElement.getBusinessObject());
-			eclipseCtx.set(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT, dstElement);
+		class CreateAction implements AgeAction {
+			@Override
+			public AgeAction execute() {
+				final IEclipseContext eclipseCtx = extService.createChildContext();
+				try {
+					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
+					eclipseCtx.set(Names.SOURCE_BO, srcElement.getBusinessObject());
+					eclipseCtx.set(Names.SOURCE_BUSINESS_OBJECT_CONTEXT, srcElement);
+					eclipseCtx.set(Names.DESTINATION_BO, dstElement.getBusinessObject());
+					eclipseCtx.set(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT, dstElement);
 
-			final Operation operation;
+					final Operation operation;
 
-			// Check if the handler will modify the create operation directly
-			if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
-				operation = (Operation) ContextInjectionFactory.invoke(handler, BuildCreateOperation.class, eclipseCtx);
-			} else {
-				final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
-				if (!(ownerBoc instanceof DiagramNode)) {
-					throw new RuntimeException("Owner must be a diagram node");
+					// Check if the handler will modify the create operation directly
+					if (AnnotationUtil.hasMethodWithAnnotation(BuildCreateOperation.class, handler)) {
+						operation = (Operation) ContextInjectionFactory.invoke(handler, BuildCreateOperation.class,
+								eclipseCtx);
+					} else {
+						final BusinessObjectContext ownerBoc = (BusinessObjectContext) ContextInjectionFactory
+								.invoke(handler, GetCreateOwner.class, eclipseCtx);
+						if (!(ownerBoc instanceof DiagramNode)) {
+							throw new RuntimeException("Owner must be a diagram node");
+						}
+
+						final Object boToModify = ContextInjectionFactory.invoke(handler,
+								GetBusinessObjectToModify.class, eclipseCtx, ownerBoc.getBusinessObject());
+						if (!(boToModify instanceof EObject)) {
+							throw new RuntimeException("Business object being modified must be an EObject");
+						}
+
+						operation = Operation.create(opBuilder -> {
+							final DiagramNode ownerNode = (DiagramNode) ownerBoc;
+							opBuilder.modifyModel((EObject) boToModify, (tag, prevResult) -> tag,
+									(tag, ownerBo, prevResult) -> {
+										eclipseCtx.set(Names.MODIFY_BO, ownerBo);
+										final Object newBo = ContextInjectionFactory.invoke(handler, Create.class,
+												eclipseCtx, null);
+										return StepResultBuilder.create().showNewBusinessObject(ownerNode, newBo)
+												.build();
+									});
+						});
+					}
+
+					if (operation == null) {
+						return null;
+					}
+
+					// Perform modification
+					final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
+					opExecutor.execute(operation, new GraphitiOperationResultsProcessor(getDiagram(),
+							getFeatureProvider(), diagramUpdater, refBuilder));
+				} finally {
+					eclipseCtx.dispose();
 				}
 
-				final Object boToModify = ContextInjectionFactory.invoke(handler,
-						GetBusinessObjectToModify.class, eclipseCtx, ownerBoc.getBusinessObject());
-				if (!(boToModify instanceof EObject)) {
-					throw new RuntimeException("Business object being modified must be an EObject");
-				}
-
-				operation = Operation.create(opBuilder -> {
-					final DiagramNode ownerNode = (DiagramNode) ownerBoc;
-					opBuilder.modifyModel((EObject) boToModify, (tag, prevResult) -> tag,
-							(tag, ownerBo, prevResult) -> {
-								eclipseCtx.set(Names.MODIFY_BO, ownerBo);
-								final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx,
-										null);
-								return StepResultBuilder.create().showNewBusinessObject(ownerNode, newBo).build();
-							});
-				});
-			}
-
-			if (operation == null) {
 				return null;
 			}
-
-			// Perform modification
-			final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
-			opExecutor.execute(operation, new DefaultOperationResultsProcessor(diagramUpdater, refBuilder));
-		} finally {
-			eclipseCtx.dispose();
 		}
+
+		final CreateAction createAction = new CreateAction();
+		graphitiService.execute("Create " + paletteEntry.getLabel(), ExecutionMode.NORMAL, createAction);
 
 		return null;
 	}
