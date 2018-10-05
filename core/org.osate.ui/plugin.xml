@@ -327,13 +327,15 @@
           <selectionEnablement>
           <or>
              <instanceof value="org.eclipse.core.resources.IFile"/>
+             <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
+             <instanceof value="org.osate.aadl2.AadlPackage"/>
+             <instanceof value="org.osate.aadl2.AnnexLibrary"/>
              <instanceof value="org.osate.aadl2.Classifier"/>
+             <instanceof value="org.osate.aadl2.AnnexSubclause"/>
+             <instanceof value="org.osate.aadl2.PropertySet"/>
              <instanceof value="org.osate.aadl2.Property"/>
              <instanceof value="org.osate.aadl2.PropertyConstant"/>
              <instanceof value="org.osate.aadl2.PropertyType"/>
-             <instanceof
-                   value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
-             </instanceof>
            </or>
           </selectionEnablement>
           <editorInputEnablement>
