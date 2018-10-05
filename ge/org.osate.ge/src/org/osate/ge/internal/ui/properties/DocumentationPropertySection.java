@@ -15,7 +15,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.util.EObjectDocumentationUtil;
@@ -61,7 +60,6 @@ public class DocumentationPropertySection extends AbstractPropertySection {
 	public void refresh() {
 		final List<EObject> bos = selectedBos.boStream(EObject.class).collect(Collectors.toList());
 		final String doc = getDocumentation(bos);
-		documentationField.setEnabled(doc != null);
 		if (bos.size() > 1) {
 			documentationField.setText("<Multiple diagram elements are selected>");
 		} else {
@@ -72,10 +70,7 @@ public class DocumentationPropertySection extends AbstractPropertySection {
 	private static String getDocumentation(final List<EObject> selectedBos) {
 		if (selectedBos.size() == 1) {
 			final EObject bo = selectedBos.get(0);
-			final IEObjectDocumentationProvider docProvider = EObjectDocumentationUtil.getDocumentationProvider(bo);
-			if (docProvider != null) {
-				return docProvider.getDocumentation(bo);
-			}
+			return EObjectDocumentationUtil.getPlainTextDocumentation(bo);
 		}
 
 		return null;
