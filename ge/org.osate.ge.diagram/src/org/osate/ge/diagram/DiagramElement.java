@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getUuid <em>Uuid</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}</li>
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getImage <em>Image</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getShowAsImage <em>Show As Image</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getBoData <em>Bo Data</em>}</li>
  * </ul>
  *
  * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
@@ -44,6 +46,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class DiagramElement extends DiagramNode {
+	/**
+	 * The default value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUuid()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UUID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUuid()
+	 * @generated
+	 * @ordered
+	 */
+	protected String uuid = UUID_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -345,6 +367,26 @@ public class DiagramElement extends DiagramNode {
 	protected ContentFilters contentFilters;
 
 	/**
+	 * The default value of the '{@link #getBoData() <em>Bo Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBoData()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BO_DATA_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBoData() <em>Bo Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBoData()
+	 * @generated
+	 * @ordered
+	 */
+	protected String boData = BO_DATA_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -364,6 +406,42 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Uuid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Uuid</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A unique identifier for the diagram element. The UUID is unique within a diagram. Since diagram files may be copied, this UUID is not guaranteed to be universally unique. 
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Uuid</em>' attribute.
+	 * @see #setUuid(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Uuid()
+	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getUuid <em>Uuid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Uuid</em>' attribute.
+	 * @see #getUuid()
+	 * @generated
+	 */
+	public void setUuid(String newUuid) {
+		String oldUuid = uuid;
+		uuid = newUuid;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__UUID, oldUuid, uuid));
+	}
+
+	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -374,7 +452,7 @@ public class DiagramElement extends DiagramNode {
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(Long)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Id()
-	 * @model id="true" dataType="org.eclipse.emf.ecore.xml.type.LongObject"
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.LongObject"
 	 * @generated
 	 */
 	public Long getId() {
@@ -1089,6 +1167,38 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Bo Data</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Data which is associated with the element's business objects. Used for embedded business objects.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Bo Data</em>' attribute.
+	 * @see #setBoData(String)
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_BoData()
+	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+	 * @generated
+	 */
+	public String getBoData() {
+		return boData;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getBoData <em>Bo Data</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bo Data</em>' attribute.
+	 * @see #getBoData()
+	 * @generated
+	 */
+	public void setBoData(String newBoData) {
+		String oldBoData = boData;
+		boData = newBoData;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__BO_DATA, oldBoData, boData));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1120,6 +1230,8 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__UUID:
+				return getUuid();
 			case DiagramPackage.DIAGRAM_ELEMENT__ID:
 				return getId();
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
@@ -1156,6 +1268,8 @@ public class DiagramElement extends DiagramNode {
 				return getShowAsImage();
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				return getContentFilters();
+			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
+				return getBoData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1168,6 +1282,9 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__UUID:
+				setUuid((String)newValue);
+				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__ID:
 				setId((Long)newValue);
 				return;
@@ -1222,6 +1339,9 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				setContentFilters((ContentFilters)newValue);
 				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
+				setBoData((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1234,6 +1354,9 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__UUID:
+				setUuid(UUID_EDEFAULT);
+				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -1288,6 +1411,9 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				setContentFilters((ContentFilters)null);
 				return;
+			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
+				setBoData(BO_DATA_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1300,6 +1426,8 @@ public class DiagramElement extends DiagramNode {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DiagramPackage.DIAGRAM_ELEMENT__UUID:
+				return UUID_EDEFAULT == null ? uuid != null : !UUID_EDEFAULT.equals(uuid);
 			case DiagramPackage.DIAGRAM_ELEMENT__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case DiagramPackage.DIAGRAM_ELEMENT__BO:
@@ -1336,6 +1464,8 @@ public class DiagramElement extends DiagramNode {
 				return SHOW_AS_IMAGE_EDEFAULT == null ? showAsImage != null : !SHOW_AS_IMAGE_EDEFAULT.equals(showAsImage);
 			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
 				return contentFilters != null;
+			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
+				return BO_DATA_EDEFAULT == null ? boData != null : !BO_DATA_EDEFAULT.equals(boData);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1350,7 +1480,9 @@ public class DiagramElement extends DiagramNode {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (id: ");
+		result.append(" (uuid: ");
+		result.append(uuid);
+		result.append(", id: ");
 		result.append(id);
 		result.append(", manual: ");
 		result.append(manual);
@@ -1374,6 +1506,8 @@ public class DiagramElement extends DiagramNode {
 		result.append(image);
 		result.append(", showAsImage: ");
 		result.append(showAsImage);
+		result.append(", boData: ");
+		result.append(boData);
 		result.append(')');
 		return result.toString();
 	}

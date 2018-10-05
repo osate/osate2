@@ -55,7 +55,7 @@ end
 
 function get_topic_xml(headers, indention)
   result = ""
-  for i=1,table.getn(headers) do
+  for i=1, #headers do
   		header = headers[i]
   		result = result .. indention .. '<topic label="' .. header['label'] .. '" href="' .. HTML_FILEPATH .. '#' .. header.id .. '">\n'  		
   		result = result .. get_topic_xml(header.children, indention .. '\t')
@@ -82,7 +82,7 @@ function Header(lev, s, attr)
 	siblings = headers
 	
 	for i=1,lev-1 do
-		last_index = table.getn(siblings)
+		last_index = #siblings
   		siblings = siblings[last_index].children
   	end
   

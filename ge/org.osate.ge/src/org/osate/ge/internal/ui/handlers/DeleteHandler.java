@@ -35,12 +35,14 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.AnnotationUtil;
+import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 import com.google.common.base.Predicates;
@@ -184,19 +186,25 @@ public class DeleteHandler extends AbstractHandler {
 				// Handle annex specially because we need to modify the annex itself instead of the root of the model.
 				// Only a single annex element can be modified at a time because modifying annex elements as part of a
 				// group is not supported.
-				final BusinessObjectRemoval modInfo = createBusinessObjectRemoval(selectedDiagramElements.get(0),
+				final BusinessObjectRemoval modInfo = createBusinessObjectRemovalOrRemoveDiagramElement(
+						selectedDiagramElements.get(0),
 						extensionService);
-				aadlModificationService.modify(modInfo.staleBoToModify, (boToModify) -> {
-					modInfo.remover.accept(boToModify);
-				});
+				if (modInfo != null) {
+					aadlModificationService.modify(modInfo.staleBoToModify, (boToModify) -> {
+						modInfo.remover.accept(boToModify);
+					});
+				}
 
 			} else {
 				// Group elements to be removed by resource. All the elements will be removed as part of the same modification.
 				// This ensures that the appropriate element is retrieved regardless of the order in the model or the URI scheme.
 				final ListMultimap<Resource, BusinessObjectRemoval> removals = ArrayListMultimap.create();
 				for (final DiagramElement de : selectedDiagramElements) {
-					final BusinessObjectRemoval removal = createBusinessObjectRemoval(de, extensionService);
-					removals.put(removal.staleBoToModify.eResource(), removal);
+					final BusinessObjectRemoval removal = createBusinessObjectRemovalOrRemoveDiagramElement(de,
+							extensionService);
+					if (removal != null) {
+						removals.put(removal.staleBoToModify.eResource(), removal);
+					}
 				}
 
 				// Perform the modifications. One modification will be performed for each resource.
@@ -226,7 +234,9 @@ public class DeleteHandler extends AbstractHandler {
 					modifications.add(mod);
 				}
 
-				aadlModificationService.modify(modifications);
+				if (!modifications.isEmpty()) {
+					aadlModificationService.modify(modifications);
+				}
 			}
 
 			return null;
@@ -258,7 +268,14 @@ public class DeleteHandler extends AbstractHandler {
 		}
 	}
 
-	private static BusinessObjectRemoval createBusinessObjectRemoval(final DiagramElement de,
+	/**
+	 * Creates a BusinessObjectRemoval object which can be used to remove the business object for the diagram element.
+	 * If the diagram element's business object is an embedded business object, remove the element.
+	 * @param de
+	 * @param extService
+	 * @return
+	 */
+	private static BusinessObjectRemoval createBusinessObjectRemovalOrRemoveDiagramElement(final DiagramElement de,
 			final ExtensionService extService) {
 		// Remove the EObject from the model
 		final Object bo = de.getBusinessObject();
@@ -282,6 +299,12 @@ public class DeleteHandler extends AbstractHandler {
 					eclipseCtx.dispose();
 				}
 			});
+		} else if (bo instanceof EmbeddedBusinessObject) {
+			// For embedded business objects, there isn't a model from which to remove the business object.
+			// Instead, we remove the diagram element and return null.
+			final AgeDiagram diagram = DiagramElementUtil.getDiagram(de);
+			diagram.modify("Delete Element", m -> m.removeElement(de));
+			return null;
 		} else {
 			// canDelete() should have returned false in this case
 			throw new RuntimeException("Unhandled case: " + bo);

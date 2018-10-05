@@ -1218,6 +1218,9 @@
 		<factory adaptableType="org.eclipse.gef.EditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 		   <adapter
+		         type="org.osate.ge.internal.diagram.runtime.DiagramNode">
+		   </adapter>
+		   <adapter
 		         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
 		   </adapter>
      <adapter
@@ -1404,6 +1407,18 @@
             id="org.osate.ge.ui.properties.tabs.aadl"
             afterTab="org.osate.ge.ui.properties.tabs.appearance"
             label="AADL"/>
+            
+		<propertyTab
+            category="org.osate.ge"
+            id="org.osate.ge.ui.properties.tabs.documentation"
+            afterTab="org.osate.ge.ui.properties.tabs.aadl"
+            label="Documentation"/>
+            
+		<propertyTab
+            category="org.osate.ge"
+            id="org.osate.ge.ui.properties.tabs.note"
+            afterTab="org.osate.ge.ui.properties.tabs.aadl"
+            label="Note"/>
 	</propertyTabs>
 </extension>
 
@@ -1415,6 +1430,18 @@
 			id="org.osate.ge.appearance"
 			tab="org.osate.ge.ui.properties.tabs.appearance">
      </propertySection>
+	     <propertySection
+				class="org.osate.ge.internal.ui.properties.DocumentationPropertySection"
+				filter="org.osate.ge.internal.ui.properties.DocumentationPropertySection$Filter"
+				id="org.osate.ge.documentation"
+				tab="org.osate.ge.ui.properties.tabs.documentation">
+	     </propertySection>
+	     <propertySection
+				class="org.osate.ge.internal.ui.properties.NotePropertySection"
+				filter="org.osate.ge.internal.ui.properties.NotePropertySection$Filter"
+				id="org.osate.ge.note"
+				tab="org.osate.ge.ui.properties.tabs.note">
+	     </propertySection>
 	</propertySections>
 </extension>
        
@@ -1481,10 +1508,20 @@
        		 class="org.osate.ge.internal.tooltips.ImageErrorTooltipContributor"
        		 priority="1">
        </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.internal.tooltips.EObjectDocumentationTooltipContributor"
+             priority="2">
+       </tooltipContributor>
     </extension>
 
     <extension
           point="org.osate.ge.categories">
+       <category
+             id="org.osate.ge.categories.annotation"
+             name="Annotation"
+             order="1">
+       </category>
+       
        <category
              id="org.osate.ge.categories.classifiers"
              name="Classifiers"
@@ -1888,6 +1925,14 @@
              path="/icons/full/obj16/AadlPackage.gif"
              plugin="org.osate.aadl2.edit">
        </image>
+       <image
+             id="org.osate.ge.Note"
+             path="/icons/note.png">
+       </image>
+       <image
+             id="org.osate.ge.NoteReference"
+             path="/icons/note_reference.png">
+       </image>
     </extension>
     <extension
           point="org.osate.ge.references">
@@ -1974,6 +2019,14 @@
        </handler>
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"
+             priority="1">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.NoteHandler"
+             priority="1">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.NoteReferenceHandler"
              priority="1">
        </handler>
     </extension>
