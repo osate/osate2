@@ -60,6 +60,7 @@ public class DocumentationPropertySection extends AbstractPropertySection {
 	public void refresh() {
 		final List<EObject> bos = selectedBos.boStream(EObject.class).collect(Collectors.toList());
 		final String doc = getDocumentation(bos);
+		documentationField.setEnabled(doc != null);
 		if (bos.size() > 1) {
 			documentationField.setText("<Multiple diagram elements are selected>");
 		} else {
