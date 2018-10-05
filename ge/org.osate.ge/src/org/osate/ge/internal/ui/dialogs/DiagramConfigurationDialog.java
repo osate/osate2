@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -64,6 +65,7 @@ import com.google.common.collect.ImmutableSet;
 public class DiagramConfigurationDialog {
 	public interface Model {
 		boolean isProxy(Object bo);
+
 		Object resolve(Object bo);
 
 		Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc);
@@ -83,8 +85,6 @@ public class DiagramConfigurationDialog {
 		Object getBusinessObject(CanonicalBusinessObjectReference ref);
 
 		Image getImage(Object bo);
-
-		long getNewNodeId();
 
 		/**
 		 *
@@ -288,9 +288,8 @@ public class DiagramConfigurationDialog {
 				}
 
 				private boolean isFilterEnabled(final ContentFilter filter, final BusinessObjectNode boNode) {
-					return boNode.getContentFilters().contains(filter)
-							|| ContentFilterUtil.anyAncestorsEnabled(filter, boNode.getContentFilters(),
-									getCurrentApplicableContentFilters(boNode.getBusinessObject()));
+					return boNode.getContentFilters().contains(filter) || ContentFilterUtil.anyAncestorsEnabled(filter,
+							boNode.getContentFilters(), getCurrentApplicableContentFilters(boNode.getBusinessObject()));
 				}
 
 				@Override
@@ -316,8 +315,7 @@ public class DiagramConfigurationDialog {
 				for (final BusinessObjectNode boNode : selectedBoNodes) {
 					final ImmutableSet<ContentFilter> newContentFilters = ContentFilterUtil.updateContentFilterSet(
 							boNode.getContentFilters(), getCurrentApplicableContentFilters(boNode.getBusinessObject()),
-							updatedFilter,
-							event.getChecked());
+							updatedFilter, event.getChecked());
 					boNode.setContentFilters(newContentFilters);
 				}
 
@@ -381,7 +379,6 @@ public class DiagramConfigurationDialog {
 				selectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
 				deselectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
 			});
-
 
 			// AADL Properties Widgets
 			final Label aadlPropertiesLabel = new Label(container, SWT.NONE);
@@ -648,7 +645,7 @@ public class DiagramConfigurationDialog {
 					final RelativeBusinessObjectReference childRef = model.getRelativeBusinessObjectReference(childBo);
 					// Create a child node if it doesn't exist
 					if (node.getChild(childRef) == null) {
-						new BusinessObjectNode(node, model.getNewNodeId(), childRef, childBo, false,
+						new BusinessObjectNode(node, UUID.randomUUID(), childRef, childBo, false,
 								model.getDefaultContentFilters(childBo), Completeness.UNKNOWN);
 					}
 				}
@@ -892,11 +889,6 @@ public class DiagramConfigurationDialog {
 			}
 
 			@Override
-			public long getNewNodeId() {
-				return -1;
-			}
-
-			@Override
 			public Image getImage(final Object bo) {
 				return null;
 			}
@@ -917,16 +909,17 @@ public class DiagramConfigurationDialog {
 				.addAadlProperty("test_ps2::b").connectionPrimaryLabelsVisible(true).build();
 
 		// Create a test business object tree
-		final BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, null, false, ImmutableSet.of(),
+		final BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null, false,
+				ImmutableSet.of(),
 				Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, 0L, new RelativeBusinessObjectReference("A"), "A", false, ImmutableSet.of(),
-				Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, 1L, new RelativeBusinessObjectReference("B"), "B", true, ImmutableSet.of(),
-				Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, 2L, new RelativeBusinessObjectReference("C"), "C", true, ImmutableSet.of(),
-				Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, 3L, new RelativeBusinessObjectReference("D"), "D", true, ImmutableSet.of(),
-				Completeness.UNKNOWN);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("A"), "A", false,
+				ImmutableSet.of(), Completeness.UNKNOWN);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("B"), "B", true,
+				ImmutableSet.of(), Completeness.UNKNOWN);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("C"), "C", true,
+				ImmutableSet.of(), Completeness.UNKNOWN);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("D"), "D", true,
+				ImmutableSet.of(), Completeness.UNKNOWN);
 
 		// Show the dialog
 		final Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode,

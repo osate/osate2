@@ -2,6 +2,7 @@ package org.osate.ge.internal.model;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.osate.aadl2.Property;
 
@@ -14,11 +15,12 @@ import com.google.common.collect.ImmutableList;
  */
 public class PropertyValueGroup {
 	private final Property property;
-	private final Long referencedId; // Optional. The diagram element that is referenced by the property value group. Needed for property values which are represented as a connection.
+	private final UUID referencedId; // Optional. The diagram element that is referenced by the property value group. Needed for property values which are
+	// represented as a connection.
 	private final ImmutableList<AgePropertyValue> values;
 
 	public PropertyValueGroup(final Property property,
-			final Long referencedId,
+			final UUID referencedId,
 			final Collection<AgePropertyValue> values) {
 		this.property = Objects.requireNonNull(property, "property must not be null");
 		this.referencedId = referencedId;
@@ -29,7 +31,7 @@ public class PropertyValueGroup {
 		return property;
 	}
 
-	public final Long getReferenceId() {
+	public final UUID getReferenceId() {
 		return referencedId;
 	}
 

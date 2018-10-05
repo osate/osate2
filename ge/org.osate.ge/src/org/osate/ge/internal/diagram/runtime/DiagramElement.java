@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
@@ -23,7 +24,7 @@ public class DiagramElement
 implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext, RelativeReferenceProvider {
 	private final DiagramNode container;
 
-	private Long id;
+	private final UUID id; // Identifier for the diagram element. Unique within a diagram.
 	private Object bo;
 	private Object boHandler;
 	private RelativeBusinessObjectReference boRelReference;
@@ -55,49 +56,13 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	public DiagramElement(final DiagramNode container,
 			final Object bo,
 			final Object boHandler,
-			final RelativeBusinessObjectReference boRelReference) {
+			final RelativeBusinessObjectReference boRelReference,
+			final UUID id) {
 		this.container = container;
 		this.bo = bo;
 		this.boHandler = boHandler;
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
-	}
-
-	/**
-	 * Copies an element and children without copying the ID or business objects of the elements.
-	 * Those fields are set to null.
-	 * Expected to be used as part of the copy and paste process.
-	 * Because elements and children will not have IDs, each element should be added to diagram separately after copying so
-	 * that IDs are assigned.
-	 * Because the business object is null, it is expected that the diagram update process will be executed after such
-	 * objects are added to the diagram. This will ensure that the business object is set appropriately.
-	 * References to business objects are copied, but not the objects themselves.
-	 * @param newContainer
-	 * @param relativeReference
-	 * @return
-	 */
-	public DiagramElement cloneWithoutIdsAndBusinessObjects(final DiagramNode newContainer,
-			final RelativeBusinessObjectReference relativeReference) {
-		final DiagramElement newElement = new DiagramElement(newContainer, null, boHandler, relativeReference);
-
-		newElement.manual = manual;
-		newElement.contentFilters = contentFilters;
-		newElement.completeness = completeness;
-		newElement.name = name;
-		newElement.graphicalConfig = graphicalConfig;
-		newElement.style = style;
-		newElement.position = position;
-		newElement.size = size;
-		newElement.dockArea = dockArea;
-		newElement.bendpoints = bendpoints;
-		newElement.connectionPrimaryLabelPosition = connectionPrimaryLabelPosition;
-
-		// Copy children
-		for (final DiagramElement child : children) {
-			final DiagramElement copyOfChild = child.cloneWithoutIdsAndBusinessObjects(newElement, child.boRelReference);
-			newElement.getModifiableDiagramElements().add(copyOfChild);
-		}
-
-		return newElement;
+		this.id = Objects.requireNonNull(id, "id must not be null");
 	}
 
 	@Override
@@ -129,20 +94,8 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		return children.getByRelativeReference(ref);
 	}
 
-	public final boolean hasId() {
-		return id != null;
-	}
-
-	public final Long getId() {
+	public final UUID getId() {
 		return id;
-	}
-
-	/**
-	 * Intended for use by diagram class and during diagram deserialization.
-	 * @param value
-	 */
-	final void setId(final Long value) {
-		this.id = value;
 	}
 
 	@Override
@@ -364,6 +317,11 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		sb.append(innerIndention);
 		sb.append("relative reference: ");
 		sb.append(boRelReference);
+		sb.append(System.lineSeparator());
+
+		sb.append(innerIndention);
+		sb.append("id: ");
+		sb.append(id);
 		sb.append(System.lineSeparator());
 
 		sb.append(innerIndention);

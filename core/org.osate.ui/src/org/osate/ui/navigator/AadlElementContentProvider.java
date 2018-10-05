@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -50,6 +51,8 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 		} else if (parentElement instanceof ContributedAadlStorage) {
 			URI uri = ((ContributedAadlStorage) parentElement).getUri();
 			parentElement = resourceSet.getResource(uri, true);
+		} else if (parentElement instanceof ComponentImplementation) {
+			return ((ComponentImplementation) parentElement).getOwnedAnnexSubclauses().toArray();
 		} else if (!shouldExpand(parentElement)) {
 			return NO_CHILDREN;
 		}
@@ -69,6 +72,8 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 	public boolean hasChildren(Object element) {
 		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
 			return true;
+		} else if (element instanceof ComponentImplementation) {
+			return !((ComponentImplementation) element).getOwnedAnnexSubclauses().isEmpty();
 		} else if (!shouldExpand(element)) {
 			return false;
 		}
