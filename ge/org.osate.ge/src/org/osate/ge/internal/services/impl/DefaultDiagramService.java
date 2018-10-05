@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -285,7 +286,7 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public void createDiagram(final IFile diagramFile, final DiagramType diagramType, final Object contextBo) {
 		// Create an AgeDiagram object. This object doesn't have to be completely valid. It just needs to be able to be written.
-		final AgeDiagram diagram = new AgeDiagram(0);
+		final AgeDiagram diagram = new AgeDiagram();
 
 		// Build diagram configuration
 		final CanonicalBusinessObjectReference contextBoCanonicalRef = contextBo == null ? null
@@ -304,7 +305,8 @@ public class DefaultDiagramService implements DiagramService {
 					referenceService.getRelativeReference(contextBo),
 					"Unable to build relative reference for business object: " + contextBo);
 			diagram.modify("Set Context as Manual", m -> {
-				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef);
+				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef,
+						UUID.randomUUID());
 				m.setManual(contextElement, true);
 				m.addElement(contextElement);
 				m.setContentFilters(contextElement,

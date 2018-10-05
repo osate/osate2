@@ -339,7 +339,9 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, graphitiService,
+									extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry,
+									boHandler));
 						}
 					}
 				}

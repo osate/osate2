@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.EnumSet;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +15,12 @@ import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
@@ -92,7 +93,7 @@ public class AgeDiagramTest {
 
 	@Before
 	public void beforeTest() {
-		diagram = new AgeDiagram(0);
+		diagram = new AgeDiagram();
 		diagram.addModificationListener(ml);
 	}
 
@@ -114,7 +115,7 @@ public class AgeDiagramTest {
 	public void testElementAddedEvent() {
 		// Test an add event
 		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh,
-				new RelativeBusinessObjectReference("1"));
+				new RelativeBusinessObjectReference("1"), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 
 		assertThat(ml.elementAddedEventsReceived, is(equalTo(1)));
@@ -167,7 +168,8 @@ public class AgeDiagramTest {
 	}
 
 	private DiagramElement addRootElementAndResetCounter(final int id) {
-		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)));
+		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh,
+				new RelativeBusinessObjectReference(Integer.toString(id)), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 
 		ml.reset();

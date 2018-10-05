@@ -1,7 +1,7 @@
 package org.osate.ge.internal.graphiti.diagram;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
@@ -15,18 +15,12 @@ import org.osate.ge.graphics.Style;
 public class TextUtil {
 	// Default font size will be used if specified font size is null.
 	// The text's size will be updated based on its current value. For that reason, the value of the text must be set before calling this function.
-	public static void setStyleAndSize(final Diagram diagram, final Text text, final Double fontSize) {
-		final IGaService gaService = Graphiti.getGaService();
-		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-		text.setFilled(false);
-		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setFont(gaService.manageFont(diagram, "Arial",
-				getScaledFontPointSize(fontSize == null ? Style.DEFAULT.getFontSize() : fontSize), false, true));
+	public static void setStyleAndSize(final Diagram diagram, final AbstractText text, final Double fontSize) {
+		setStyle(diagram, text, fontSize);
 
 		// Get sizes of text graphics algorithms
 		final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(),
-				text.getFont());
+				text.getFont(), true);
 
 		// Add padding to the text size to account for rounding issues in GEF3/Graphiti
 		final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, text.getValue().length());
@@ -34,6 +28,16 @@ public class TextUtil {
 
 		text.setWidth(paddedLabelTextWidth);
 		text.setHeight(paddedLabelTextHeight);
+	}
+
+	public static void setStyle(final Diagram diagram, final AbstractText text, final Double fontSize) {
+		final IGaService gaService = Graphiti.getGaService();
+		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		text.setFilled(false);
+		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+		text.setFont(gaService.manageFont(diagram, "Arial",
+				getScaledFontPointSize(fontSize == null ? Style.DEFAULT.getFontSize() : fontSize), false, true));
 	}
 
 	private static int getScaledFontPointSize(final double unscaledFontSize) {
