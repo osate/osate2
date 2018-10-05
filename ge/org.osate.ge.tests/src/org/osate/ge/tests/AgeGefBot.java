@@ -770,6 +770,8 @@ public class AgeGefBot {
 		editor.setFocus();
 		editor.click(editPart);
 		editor.select(editPart);
+
+		bot.viewByTitle("Properties").setFocus();
 		clickCombo(comboId, selection);
 	}
 
@@ -925,7 +927,6 @@ public class AgeGefBot {
 
 	public void clickCombo(final String id, final String selection) {
 		bot.viewByTitle("Properties").setFocus();
-		// bot.viewByTitle("Properties").bot().comboBoxWithId(id).setSelection(selection);
 		bot.comboBoxWithId(id).setSelection(selection);
 	}
 
@@ -1181,6 +1182,7 @@ public class AgeGefBot {
 		editor.setFocus();
 		editor.select(connectionEditPart);
 
+		bot.viewByTitle("Properties").setFocus();
 		clickCombo(comboId, selection);
 	}
 

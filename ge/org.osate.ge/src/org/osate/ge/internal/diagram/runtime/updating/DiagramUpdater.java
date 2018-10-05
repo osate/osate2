@@ -26,6 +26,7 @@ import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
@@ -83,7 +84,7 @@ public class DiagramUpdater {
 	 */
 	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode inputTree) {
 		// Create a tree by updating the input tree.
-		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), inputTree, diagram.getMaxElementId()+1);
+		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), inputTree);
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 
 		diagram.modify("Update Diagram", m -> {
@@ -120,15 +121,12 @@ public class DiagramUpdater {
 						// Ignore the object
 						continue;
 					}
-					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference());
+
+					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(),
+							n.getId());
 				} else {
 					element = removedGhost;
 					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
-				}
-
-				// Update the element's ID
-				if(n.getId() != null) {
-					m.setId(element, n.getId());
 				}
 
 				m.addElement(element);
@@ -176,8 +174,10 @@ public class DiagramUpdater {
 	private void ghostAndRemove(final DiagramModification m, final DiagramElement e) {
 		addGhost(e);
 		m.removeElement(e);
-		// Ignore property result values when determining if an element completeness
-		if(e.getParent() instanceof DiagramElement && !(e.getBusinessObject() instanceof PropertyValueGroup)) {
+
+		// Ignore property result groups and embedded business objects when determining if an element completeness
+		if (e.getParent() instanceof DiagramElement && !(e.getBusinessObject() instanceof PropertyValueGroup)
+				&& (!(e.getBusinessObject() instanceof EmbeddedBusinessObject))) {
 			m.setCompleteness((DiagramElement)e.getParent(), Completeness.INCOMPLETE);
 		}
 	}
