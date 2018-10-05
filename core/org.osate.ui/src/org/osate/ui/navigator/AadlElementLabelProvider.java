@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.navigator.IDescriptionProvider;
@@ -45,22 +46,25 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 	public String getDescription(Object element) {
 		String description = null;
 		if (element instanceof EObject) {
-			URI uri = ((EObject) element).eResource().getURI();
-			if (uri.isPlatformPlugin()) {
-				// contributed
-				String[] segments = uri.segments();
-				int i = 2;
-				while (segments[i].startsWith("resource") || segments[i].startsWith("package")
-						|| segments[i].startsWith("propert")) {
-					i++;
+			final Resource eResource = ((EObject) element).eResource();
+			if (eResource != null) {
+				URI uri = eResource.getURI();
+				if (uri.isPlatformPlugin()) {
+					// contributed
+					String[] segments = uri.segments();
+					int i = 2;
+					while (segments[i].startsWith("resource") || segments[i].startsWith("package")
+							|| segments[i].startsWith("propert")) {
+						i++;
+					}
+					description = "Plug-in Contributions/"
+							+ Arrays.asList(segments).stream().skip(i).collect(Collectors.joining("/"));
+				} else {
+					String[] segments = uri.segments();
+					description = Arrays.asList(segments).stream().skip(1).collect(Collectors.joining("/"));
 				}
-				description = "Plug-in Contributions/"
-						+ Arrays.asList(segments).stream().skip(i).collect(Collectors.joining("/"));
-			} else {
-				String[] segments = uri.segments();
-				description = Arrays.asList(segments).stream().skip(1).collect(Collectors.joining("/"));
+				description = getText(element) + " - " + description;
 			}
-			description = getText(element) + " - " + description;
 		}
 		return description;
 	}
