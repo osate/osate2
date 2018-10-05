@@ -4,13 +4,11 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
@@ -27,7 +25,6 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -116,25 +113,24 @@ public class AnnexAwareCompletionProposalComputer extends CompletionProposalComp
 					} else if (semanticObject instanceof DefaultAnnexLibrary) {
 						annexObject = ((DefaultAnnexLibrary) semanticObject).getParsedAnnexLibrary();
 					}
-//					System.out.println("cursor offset = " + offset + "; node offset = " + node.getTotalOffset()
-//							+ "; object offset = " + NodeModelUtils.findActualNodeFor(semanticObject).getOffset());
 
 					if (annexObject != null && offset >= NodeModelUtils.findActualNodeFor(semanticObject).getOffset()) {
 						IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexObject);
 
 						if (annexParseResult != null) {
-							String grammarName = getGrammarName(annexParseResult.getRootNode());
-							Injector injector = OsateCorePlugin.getDefault().getInjector(grammarName);
-							MembersInjector<AnnexState> memInject = injector.getMembersInjector(AnnexState.class);
-
-							memInject.injectMembers(state);
-							resource.setParseResult(annexParseResult);
-
-							ISelection selection = viewer.getSelectionProvider().getSelection();
-							String content = AnnexParseUtil.genWhitespace(node.getTotalOffset())
-									+ AnnexUtil.getSourceText(annexObject).replaceFirst("\\{\\*\\*", "   ");
-							IDocument document = new DummyXtextDocument(content);
-							viewer = new DummyTextViewer(selection, document);
+							Injector injector = AnnexUtil.getInjector(annexParseResult);
+							if (injector != null) {
+								MembersInjector<AnnexState> memInject = injector.getMembersInjector(AnnexState.class);
+	
+								memInject.injectMembers(state);
+								resource.setParseResult(annexParseResult);
+	
+								ISelection selection = viewer.getSelectionProvider().getSelection();
+								String content = AnnexParseUtil.genWhitespace(node.getTotalOffset())
+										+ AnnexUtil.getSourceText(annexObject).replaceFirst("\\{\\*\\*", "   ");
+								IDocument document = new DummyXtextDocument(content);
+								viewer = new DummyTextViewer(selection, document);
+							}
 						}
 					}
 					execOriginal(resource);
@@ -144,13 +140,6 @@ public class AnnexAwareCompletionProposalComputer extends CompletionProposalComp
 			resource.setParseResult(originalResult);
 		}
 		return proposals.toArray(new ICompletionProposal[proposals.size()]);
-	}
-
-	private String getGrammarName(INode node) {
-		Resource grammarResource = node.getGrammarElement().eResource();
-		EObject grammar = grammarResource.getContents().get(0);
-
-		return (grammar instanceof Grammar) ? ((Grammar) grammar).getName() : null;
 	}
 
 	public void execOriginal(XtextResource resource) throws Exception {
