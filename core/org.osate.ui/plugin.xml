@@ -257,13 +257,6 @@
 			    </or>
          </enablement>
       </actionProvider>
-      <actionProvider
-            class="org.osate.ui.navigator.AadlNavigatorInstanceActionProvider"
-            id="org.osate.ui.navigator.openInstanceObject">
-         <enablement>
-         	<instanceof value="org.osate.aadl2.instance.InstanceObject" />
-         </enablement>
-      </actionProvider>
    </extension>
    
    <extension 
