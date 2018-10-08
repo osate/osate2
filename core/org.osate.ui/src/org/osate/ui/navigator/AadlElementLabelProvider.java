@@ -54,15 +54,17 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 			int severity = -1;
 			try {
 				final IResource iRsrc = OsateResourceUtil.convertToIResource(eRsrc);
-				final IMarker[] markers = iRsrc.findMarkers(null, true, IResource.DEPTH_INFINITE);
-				for (final IMarker marker : markers) {
-					final String markerURIString = getMarkerURIString(marker);
-					if (markerURIString != null) {
-						final EObject markedObject = resourceSet.getEObject(URI.createURI(markerURIString), false);
-						if (markedObject != null && EcoreUtil.isAncestor(eObject, markedObject)) {
-							final int markerSeverity = (Integer) marker.getAttribute(IMarker.SEVERITY);
-							if (markerSeverity > severity) {
-								severity = markerSeverity;
+				if (iRsrc.isAccessible()) {
+					final IMarker[] markers = iRsrc.findMarkers(null, true, IResource.DEPTH_INFINITE);
+					for (final IMarker marker : markers) {
+						final String markerURIString = getMarkerURIString(marker);
+						if (markerURIString != null) {
+							final EObject markedObject = resourceSet.getEObject(URI.createURI(markerURIString), false);
+							if (markedObject != null && EcoreUtil.isAncestor(eObject, markedObject)) {
+								final int markerSeverity = (Integer) marker.getAttribute(IMarker.SEVERITY);
+								if (markerSeverity > severity) {
+									severity = markerSeverity;
+								}
 							}
 						}
 					}
