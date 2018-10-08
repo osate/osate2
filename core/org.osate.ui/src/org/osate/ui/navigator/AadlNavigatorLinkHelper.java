@@ -28,6 +28,8 @@ import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -97,7 +99,8 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 
 	protected boolean shouldLink(Object o) {
 		return o instanceof AadlPackage || o instanceof Classifier || o instanceof Property
-				|| o instanceof PropertyConstant || o instanceof PropertyType;
+				|| o instanceof PropertyConstant || o instanceof PropertyType || o instanceof AnnexSubclause
+				|| o instanceof AnnexLibrary;
 	}
 
 	private int findOffset(NamedElement classifier) {

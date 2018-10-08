@@ -16,10 +16,11 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 	public final Style style;
 	public final boolean isDecoration;
 	public final String annotation;
+	public final boolean primaryLabelIsMultiline;
 
 	public AgeGraphicalConfiguration(final Graphic graphic, final DockingPosition defaultDockingPosition,
 			final DiagramElement connectionSource, final DiagramElement connectionDestination, final Style style,
-			final boolean isDecoration, final String annotation) {
+			final boolean isDecoration, final String annotation, final boolean primaryLabelIsMultiline) {
 		this.graphic = Objects.requireNonNull(graphic, "graphic must not be null");
 		this.defaultDockingPosition = defaultDockingPosition;
 		this.connectionSource = connectionSource;
@@ -27,6 +28,7 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 		this.style = Objects.requireNonNull(style, "style must not be null");
 		this.isDecoration = isDecoration;
 		this.annotation = annotation;
+		this.primaryLabelIsMultiline = primaryLabelIsMultiline;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
@@ -38,6 +39,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.AgePropertyValue;
 import org.osate.ge.internal.model.BusinessObjectProxy;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
@@ -60,18 +62,6 @@ import com.google.common.collect.Multimap;
  * may include any business objects which are returned by the business object providers when using the current IProject as the root business object context.
  */
 public class DefaultTreeUpdater implements TreeUpdater {
-	private class IdGenerator {
-		private long startId;
-
-		public IdGenerator(final long startId) {
-			this.startId = startId;
-		}
-
-		public long getNext() {
-			return startId++;
-		}
-	}
-
 	private final ProjectProvider projectProvider;
 	private final ExtensionService extService;
 	private final ProjectReferenceService refService;
@@ -95,14 +85,11 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	 * @return
 	 */
 	@Override
-	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree,
-			final long nextNodeId) {
-		final IdGenerator idGenerator = new IdGenerator(nextNodeId);
-
+	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
 		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			final BusinessObjectNode newRoot = nodeFactory.create(null, null, null, true, ImmutableSet.of(),
-					Completeness.UNKNOWN);
+			final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, true,
+					ImmutableSet.of(), Completeness.UNKNOWN);
 
 			final ManualBranchCache manualBranchCache = new ManualBranchCache();
 			final Map<RelativeBusinessObjectReference, Object> boMap;
@@ -166,14 +153,17 @@ public class DefaultTreeUpdater implements TreeUpdater {
 					throw new RuntimeException("Unable to build relative reference for context business object");
 				}
 
-				boMap = Collections.singletonMap(relativeReference, contextBo);
+				boMap = new HashMap<>();
+				boMap.put(relativeReference, contextBo);
 				newRoot.setCompleteness(Completeness.COMPLETE);
 			}
 
+			// Add embedded business objects to the child BO map
+			addEmbeddedBusinessObjectsToBoMap(tree.getChildrenMap().values(), boMap);
+
 			// Populate the new tree
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();
-			createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot, idGenerator,
-					manualBranchCache);
+			createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot, manualBranchCache);
 
 			// Build set of the names of all properties which are enabled
 			final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
@@ -184,7 +174,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 
 			// Process properties. This is done after everything else since properties may need to refer to other nodes.
 			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
-			processProperties(propertyResolver, newRoot, tree, enabledProperties, idGenerator);
+			processProperties(propertyResolver, newRoot, tree, enabledProperties);
 
 			return newRoot;
 		}
@@ -207,15 +197,15 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	}
 
 	public void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
-			final BusinessObjectNode oldNode, final Collection<Property> properties, final IdGenerator idGenerator) {
+			final BusinessObjectNode oldNode, final Collection<Property> properties) {
 		final Deque<Integer> indicesStack = new ArrayDeque<Integer>();
 		final Multimap<BusinessObjectNode, AgePropertyValue> dstToValues = HashMultimap.create();
-		processProperties(pr, node, oldNode, properties, idGenerator, indicesStack, dstToValues);
+		processProperties(pr, node, oldNode, properties, indicesStack, dstToValues);
 	}
 
 	public void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
-			final BusinessObjectNode oldNode, final Collection<Property> properties, final IdGenerator idGenerator,
-			final Deque<Integer> indicesStack, final Multimap<BusinessObjectNode, AgePropertyValue> dstToValues) {
+			final BusinessObjectNode oldNode, final Collection<Property> properties, final Deque<Integer> indicesStack,
+			final Multimap<BusinessObjectNode, AgePropertyValue> dstToValues) {
 		for (final Property property : properties) {
 			// Get values from processed property associations and create property value objects while grouping them by destination.
 			final PropertyResult result = PropertyResult.getProcessedPropertyValue(pr, queryService, node, property);
@@ -252,14 +242,14 @@ public class DefaultTreeUpdater implements TreeUpdater {
 				final Collection<AgePropertyValue> dstPropertyValues = dstToValues.get(dst);
 
 				// Create the Property Value Group business object
-				final Long dstId = dst == null ? null : dst.getId();
+				final UUID dstId = dst == null ? null : dst.getId();
 				final PropertyValueGroup pvg = new PropertyValueGroup(property, dstId, dstPropertyValues);
 
 				// Create the business object node for the property value group
 				final RelativeBusinessObjectReference propRelRef = Objects
 						.requireNonNull(refService.getRelativeReference(pvg), "unable to get relative reference");
 				final BusinessObjectNode oldPropNode = oldNode == null ? null : oldNode.getChild(propRelRef);
-				final long propNodeId = oldPropNode == null ? idGenerator.getNext() : oldPropNode.getId(); // Determine the ID for the node. Reuse if possible.
+				final UUID propNodeId = oldPropNode == null ? UUID.randomUUID() : oldPropNode.getId();
 				new BusinessObjectNode(node, propNodeId, propRelRef, pvg, false, ImmutableSet.of(),
 						Completeness.COMPLETE);
 			}
@@ -269,7 +259,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 
 		for (final BusinessObjectNode child : node.getChildren()) {
 			final BusinessObjectNode oldChild = oldNode == null ? null : oldNode.getChild(child.getRelativeReference());
-			processProperties(pr, child, oldChild, properties, idGenerator, indicesStack, dstToValues);
+			processProperties(pr, child, oldChild, properties, indicesStack, dstToValues);
 		}
 	}
 
@@ -322,21 +312,19 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	private void createNodes(final DiagramType diagramType, final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, Object> newBoMap,
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
-			final BusinessObjectNode parentNode, final IdGenerator idGenerator,
-			final ManualBranchCache manualBranchCache) {
+			final BusinessObjectNode parentNode, final ManualBranchCache manualBranchCache) {
 		for (final Entry<RelativeBusinessObjectReference, Object> childEntry : newBoMap.entrySet()) {
 			// Create node
 			final Object childBo = childEntry.getValue();
 			final RelativeBusinessObjectReference childRelReference = childEntry.getKey();
-			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference, idGenerator,
-					manualBranchCache);
+			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference, manualBranchCache);
 		}
 	}
 
 	private void createNode(final DiagramType diagramType, final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
 			final BusinessObjectNode parentNode, final Object bo, final RelativeBusinessObjectReference relReference,
-			final IdGenerator idGenerator, final ManualBranchCache manualBranchCache) {
+			final ManualBranchCache manualBranchCache) {
 		// Get the node which is in the input tree from the old node map
 		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 
@@ -344,7 +332,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 		final ImmutableSet<ContentFilter> contentFilters = oldNode == null || oldNode.getContentFilters() == null
 				? getDefaultContentFilters(diagramType, bo)
 						: oldNode.getContentFilters();
-				final long id = oldNode == null || oldNode.getId() == null ? idGenerator.getNext() : oldNode.getId();
+				final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
 				final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo,
 						oldNode == null ? false : oldNode.isManual(), contentFilters, Completeness.UNKNOWN);
 
@@ -353,13 +341,28 @@ public class DefaultTreeUpdater implements TreeUpdater {
 						? Collections.emptyMap()
 								: oldNode.getChildrenMap();
 						final Collection<Object> childBusinessObjectsFromProviders = bopHelper.getChildBusinessObjects(newNode);
+
 						final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(
 								childBusinessObjectsFromProviders, getRefsForManualBranches(childOldNodes, manualBranchCache),
 								contentFilters);
 
+						// Update the business objects before considering embedded business objects
 						newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE
 								: Completeness.INCOMPLETE);
-						createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode, idGenerator, manualBranchCache);
+
+						addEmbeddedBusinessObjectsToBoMap(childOldNodes.values(), childBoMap);
+
+						createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode, manualBranchCache);
+	}
+
+	private static void addEmbeddedBusinessObjectsToBoMap(final Collection<BusinessObjectNode> childOldNodes,
+			final Map<RelativeBusinessObjectReference, Object> boMap) {
+		// Add embedded business objects to the child BO map
+		for (final BusinessObjectNode childOldNode : childOldNodes) {
+			if (childOldNode.getBusinessObject() instanceof EmbeddedBusinessObject) {
+				boMap.put(childOldNode.getRelativeReference(), childOldNode.getBusinessObject());
+			}
+		}
 	}
 
 	private ImmutableSet<ContentFilter> getDefaultContentFilters(final DiagramType diagramType, final Object bo) {
@@ -399,8 +402,8 @@ public class DefaultTreeUpdater implements TreeUpdater {
 						|| passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
 					// Special handling of proxies. Only resolve them if they are needed
 					Object resolvedBo = potentialBusinessObject;
-					if(potentialBusinessObject instanceof BusinessObjectProxy) {
-						final BusinessObjectProxy proxy = (BusinessObjectProxy)potentialBusinessObject;
+					if (potentialBusinessObject instanceof BusinessObjectProxy) {
+						final BusinessObjectProxy proxy = (BusinessObjectProxy) potentialBusinessObject;
 						resolvedBo = proxy.resolve(refService);
 					}
 

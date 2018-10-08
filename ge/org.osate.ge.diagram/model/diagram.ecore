@@ -12,8 +12,13 @@
         eType="#//DiagramElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramElement" eSuperTypes="#//DiagramNode">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//LongObject"
-        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uuid" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"
+        iD="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A unique identifier for the diagram element. The UUID is unique within a diagram. Since diagram files may be copied, this UUID is not guaranteed to be universally unique. "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//LongObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bo" eType="#//RelativeBusinessObjectReference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="manual" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
@@ -46,6 +51,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showAsImage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentFilters" eType="#//ContentFilters"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="boData" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Data which is associated with the element's business objects. Used for embedded business objects."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Point">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>

@@ -63,6 +63,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -70,8 +72,9 @@ import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
@@ -310,13 +313,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 								tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
 
 								// Configure layout
-								final RowLayout rowLayout = new RowLayout();
-								rowLayout.fill = true;
-								rowLayout.wrap = false;
-								rowLayout.pack = true;
-								rowLayout.type = SWT.VERTICAL;
-								rowLayout.spacing = 0;
-								tooltipShell.setLayout(rowLayout);
+								final GridLayout tooltipLayout = GridLayoutFactory.fillDefaults().create();
+								tooltipLayout.marginLeft = 5;
+								tooltipLayout.marginRight = 5;
+								tooltipShell.setLayout(tooltipLayout);
 
 								// Call tooltip contributors
 								final IEclipseContext context = extService.createChildContext();
@@ -333,6 +333,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 								// Show tooltip shell if something was contributed
 								if (tooltipShell.getChildren().length > 0) {
+									// Attempt to restrict the width of widget which are wider than the preferred maximum.
+									for (final Control tooltipChild : tooltipShell.getChildren()) {
+										final int maxTooltipWidth = 600;
+										if (tooltipChild.computeSize(SWT.DEFAULT, SWT.DEFAULT).x > maxTooltipWidth) {
+											tooltipChild.setLayoutData(
+													GridDataFactory.fillDefaults().hint(maxTooltipWidth, SWT.DEFAULT)
+													.create());
+										}
+									}
+
 									final Point point = display.getCursorLocation();
 									tooltipShell.setLocation(point.x, point.y+20);
 									tooltipCursorX = e.x;

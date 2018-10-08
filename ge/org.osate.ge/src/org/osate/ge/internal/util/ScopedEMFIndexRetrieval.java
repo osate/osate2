@@ -21,6 +21,7 @@ import java.util.stream.StreamSupport;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -28,11 +29,11 @@ import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
-import org.osate.core.OsateCorePlugin;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -94,7 +95,8 @@ public class ScopedEMFIndexRetrieval {
 
 	public static Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
 		final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
-		final Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+		Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
 		final ResourceDescriptionsProvider resourceDescProvider = injector.getInstance(ResourceDescriptionsProvider.class);
 		final XtextResourceSet rs = new XtextResourceSet();
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)

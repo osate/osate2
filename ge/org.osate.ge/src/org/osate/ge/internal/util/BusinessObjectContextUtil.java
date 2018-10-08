@@ -26,4 +26,18 @@ public class BusinessObjectContextUtil {
 			}
 		};
 	}
+
+	/**
+	 * Returns whether potential ancestor is an ancestor of boc
+	 * @return
+	 */
+	public static boolean isAncestor(final BusinessObjectContext potentialAncestor, final BusinessObjectContext boc) {
+		for (BusinessObjectContext tmp = boc; tmp != null; tmp = tmp.getParent()) {
+			if (tmp == potentialAncestor) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

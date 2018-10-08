@@ -63,13 +63,10 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 
 
 		// Update the tree so that it's business objects are refreshed
-		boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree, diagram.getMaxElementId() + 1);
-
-		final long nextElementId = BusinessObjectNode.getMaxId(boTree) + 1;
+		boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree);
 
 		try (final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(
-				referenceService, extService, graphitiService, diagram.getConfiguration().getDiagramType(),
-				nextElementId)) {
+				referenceService, extService, graphitiService, diagram.getConfiguration().getDiagramType())) {
 			// Create a BO path for the initial selection. The initial selection will be the first diagram element which will be included in the BO tree.
 			Object[] initialSelectionBoPath = null;
 			for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
