@@ -8,7 +8,7 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
-import org.osate.aadl2.parsesupport.AObject;
+import org.osate.aadl2.Element;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
@@ -23,8 +23,8 @@ public class AadlNavigatorActionProvider extends CommonActionProvider {
 		editorOpener = injector.getInstance(IURIEditorOpener.class);
 		openFileAction = new Action() {
 			{
-				setText("&Open");
-				setToolTipText("Open the contributed library in an AADL editor");
+				setText("&Open D");
+				setToolTipText("Open in an AADL editor");
 			}
 
 			@Override
@@ -33,8 +33,8 @@ public class AadlNavigatorActionProvider extends CommonActionProvider {
 				for (Object selected : selectedElements) {
 					if (selected instanceof ContributedAadlStorage) {
 						editorOpener.open(((ContributedAadlStorage) selected).getUri(), true);
-					} else if (selected instanceof AObject) {
-						editorOpener.open(EcoreUtil.getURI((AObject) selected), true);
+					} else if (selected instanceof Element) {
+						editorOpener.open(EcoreUtil.getURI((Element) selected), true);
 					}
 				}
 			}

@@ -140,30 +140,20 @@
 		<viewerContentBinding 
             viewerId="org.osate.ui.navigator.AadlNavigator">
 			<includes>
-    <contentExtension
-          pattern="org.eclipse.ui.navigator.resources.workingSets">
-    </contentExtension>
+   				<contentExtension pattern="org.eclipse.ui.navigator.resources.workingSets" />
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
-    <contentExtension
-          pattern="org.osate.ui.navigator.contributedAadl">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.aadlFileContent">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.menuActions">
-    </contentExtension>
-				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+			    <contentExtension pattern="org.osate.ui.navigator.menuActions" />
+				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper" />
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding
         	viewerId="org.osate.ui.navigator.AadlNavigator">
      		<includes>
      			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
-        <actionExtension
-              pattern="org.osate.ui.navigator.*">
-        </actionExtension>
+     			<actionExtension pattern="org.osate.ui.navigator.*" />
      		</includes>
 	  </viewerActionBinding>
    </extension>
@@ -254,14 +244,24 @@
       </navigatorContent>
       <actionProvider
             class="org.osate.ui.navigator.AadlNavigatorActionProvider"
-            id="org.osate.ui.navigator.openContributed">
+            id="org.osate.ui.navigator.openContributedAndDeclarativeObject">
+			<enablement>
+			    <or>
+			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
+			        <and>
+						<instanceof value="org.osate.aadl2.Element" />
+			       		<not>
+			       			<instanceof value="org.osate.aadl2.instance.InstanceObject" />
+			      		</not>
+			        </and>
+			    </or>
+         </enablement>
+      </actionProvider>
+      <actionProvider
+            class="org.osate.ui.navigator.AadlNavigatorInstanceActionProvider"
+            id="org.osate.ui.navigator.openInstanceObject">
          <enablement>
-         	<or>
-	            <instanceof
-	                  value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
-	            <instanceof
-	                  value="org.osate.aadl2.Element"/>
-            </or>
+         	<instanceof value="org.osate.aadl2.instance.InstanceObject" />
          </enablement>
       </actionProvider>
    </extension>
