@@ -16,8 +16,10 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ClipboardService;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -25,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 
 public class CopyAction extends ActionStackAction {
 	private final ClipboardService.Clipboard clipboard;
+	private final ReferenceBuilderService referenceBuilder;
 
 	public CopyAction(final IWorkbenchPart part) {
 		super(part);
@@ -36,6 +39,8 @@ public class CopyAction extends ActionStackAction {
 		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		this.clipboard = Objects.requireNonNull(context.get(ClipboardService.class), "Unable to get clipboard service")
 				.getClipboard();
+		this.referenceBuilder = Objects.requireNonNull(context.get(ReferenceBuilderService.class),
+				"Unable to get reference builder");
 	}
 
 	@Override
@@ -43,12 +48,23 @@ public class CopyAction extends ActionStackAction {
 		final List<CopiedDiagramElement> copiedElements = new ArrayList<>();
 
 		for (final DiagramElement de : getElementsToCopy()) {
-			final DiagramElement copiedElement = de.cloneWithoutIdsAndBusinessObjects(null, de.getRelativeReference());
-			final EObject bo = (EObject) de.getBusinessObject();
+			final DiagramElement copiedElement = CopyAndPasteUtil.copyDiagramElement(de, null,
+					de.getRelativeReference(),
+					referenceBuilder);
+			final Object bo = de.getBusinessObject();
 			final Point position = CopyAndPasteUtil.getPositionToCopy(de);
-			copiedElements.add(
-					new CopiedDiagramElement(copiedElement, de.getBusinessObject(), EcoreUtil.copy(bo),
-							bo.eContainingFeature(), position));
+			if (bo instanceof EObject) {
+				final EObject boEObj = (EObject) de.getBusinessObject();
+				copiedElements.add(
+						new CopiedDiagramElement(copiedElement, de.getBusinessObject(), EcoreUtil.copy(boEObj),
+								boEObj.eContainingFeature(), position));
+			} else if (bo instanceof EmbeddedBusinessObject) {
+				// Don't need to copy object again because it was copied as part of copying the diagram element.
+				copiedElements.add(new CopiedDiagramElement(copiedElement, de.getBusinessObject(),
+						copiedElement.getBusinessObject(), null, position));
+			} else {
+				throw new RuntimeException("Unsupported case: " + bo);
+			}
 		}
 
 		clipboard.setContents(new CopiedDiagramElements(ImmutableList.copyOf(copiedElements)));
@@ -70,7 +86,7 @@ public class CopyAction extends ActionStackAction {
 
 	private static boolean isValid(final Collection<DiagramElement> diagramElements) {
 		// Verify that all objects are EMF objects which are owned by a containing feature which may contain many values.
-		if (!allBusinessObjectsAreEmfObjectsWithIsManyContainingFeature(diagramElements)) {
+		if (!allBusinessObjectsAreCopyable(diagramElements)) {
 			return false;
 		}
 
@@ -82,8 +98,18 @@ public class CopyAction extends ActionStackAction {
 		return true;
 	}
 
-	private static boolean allBusinessObjectsAreEmfObjectsWithIsManyContainingFeature(final Collection<DiagramElement> diagramElements) {
+	/**
+	 * Returns true if all business object are copyable. A business object is copyable if it is an embedded business object or
+	 * if it is an EObject contained in a many feature.
+	 * @param diagramElements
+	 * @return
+	 */
+	private static boolean allBusinessObjectsAreCopyable(final Collection<DiagramElement> diagramElements) {
 		return diagramElements.stream().map(DiagramElement::getBusinessObject).allMatch(bo -> {
+			if (bo instanceof EmbeddedBusinessObject) {
+				return true;
+			}
+
 			if (!(bo instanceof EObject)) {
 				return false;
 			}

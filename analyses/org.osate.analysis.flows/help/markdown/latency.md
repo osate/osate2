@@ -49,6 +49,72 @@ flows in the instance model. If the instance model has operational modes the
 analysis is performed for each mode. The latency analysis can be affected by 
 preference settings that allow users 
 
+#### Latency Analysis Preferences
+
+When invoked, the analysis presents a configuration dialog for choosing settings that affect how latency 
+is calculated. This allows users to perform studies along different dimensions without changing the model.
+
+![Configuration Dialog](images/FlowLatencyDialog.png "Flow Latency Configuration Dialog")
+
+The body of the dialog contains four sets of radio buttons that are described below.  Clicking on
+**OK** executes the analysis with the chosen settings.  The settings are remembered the next time the
+analysis is run.  Clicking on **Cancel** discards the settings and does not run the analysis.  If
+**Don't show this dialog again** is selected when **OK** is pressed, the dialog will not be shown 
+on subsequent invocations and the the chosen settings are used for future invocations.  To get the 
+dialog back, see below.
+
+The **Restore Defaults** button returns the settings to the values set in the OSATE preferences (see below).
+The **Save as Defaults** button makes the current settings the defaults values used the OSATE preferences.
+
+The flow latency analysis supports the following settings:
+
+- **System type**. Used to assess the sampling latency between periodic 
+  components that are not inherently synchronous (threads or partitions on the 
+  same processor) or explicitly specified as synchronous by referring to the same 
+  *Reference_Time* property value.  
+    - **Asynchronous system (AS)**: The components are not
+      time synchronized, i.e., dispatches may have time shift.
+    - **Synchronous system (SS)**: The components are time
+      synchronized, i.e., periodic dispatches are aligned
+      across systems.
+- **Partition output policy**. Used to reflect latency contribution by 
+  inter-partition communication due to different inter-communication policies 
+  in partitioned systems.
+    - **Partition end (PE)**: assume that inter-partitions connections
+      are available at the end of the partition whose task sends data.
+      If a task in partition A sends a data to a task in partition B,
+      the later will receive the data in the same major frame if
+      partition B is executed after partition A.
+    - **Major frame delayed (MF)**: assume that
+      inter-partitions connections are flushed/realized at the end of
+      the major frame. If a task in partition A sends a data to a task
+      in partition B, the fresh data will be available only after
+      completion of all remaining partitions, regardless the execution
+      order of partition A or partition B.
+- **For worst-case processing time use**: Users can choose between deadline
+  and worst-case compute execution time as worst case processing time. For best case 
+  we always use compute execution time.
+    - **Deadline (DL)**: Deadline represents the worst-case 
+      completion time assuming the tasks are schedulable.
+    - **Maximum compute execution time (ET)**: Maximum compute execution time 
+      is useful when processing time is considered without resource scheduling. 
+- **For best-case queuing latency on incoming ports**: Affects how the best 
+    case queuing delay is determined. For worst-case we always use full queue.
+    - **Assume empty queue (EQ)**: No delay as the queue
+      is assumed to be empty.
+    - **Assume full queue (FQ)**: Use minimum compute execution time
+      times the queue size to determine the best case queuing time.
+
+The OSATE preference settings controlling the default values for flow latency analysis
+are found in the **OSATE > Analysis > Flow Latency** preference pane.
+
+![preference settings](images/preferencesettings.png "preference settings")
+
+This pane is almost identical to the dialog displayed by the analysis.  Here the 
+setting **Don't show the settings dialog when analysis is executed** can be unchecked
+to return the analysis to showing the dialog every time it is run.
+ 
+
 ### Latency Analysis Result Reports
 
 Once the latency analysis is finished, a report is produced in a folder called 
@@ -204,54 +270,6 @@ on a variety of hardware configurations.
 The multi-tier aircraft example illustrates the evolution of an aircraft system 
 across multiple tiers. The latency analysis highlights how design decisions in 
 the evolving architecture affect end-to-end latency.
-
-## Preference Settings for Latency Analysis
-
-The latency analysis offers several preference settings that affect how latency 
-is calculated. This allows users to perform trade studies along certain 
-dimensions without changing the model. The preference settings can be found 
-under the menu **Window/Preferences** then **OSATE/Analysis/Flow Latency**. 
-
-![preference settings](images/preferencesettings.png "preference settings")
-
-The latency analysis supports the following settings:
-
-- **System type**. Used to assess the sampling latency between periodic 
-  components that are not inherently synchronous (threads or partitions on the 
-  same processor) or explicitly specified as synchronous by referring to the same 
-  *Reference_Time* property value.  
-    - **Asynchronous system (AS) \[default\]**: The components are not
-      time synchronized, i.e., dispatches may have time shift.
-    - **Synchronous system (SS)**: The components are time
-      synchronized, i.e., periodic dispatches are aligned
-      across systems.
-- **Partition output policy**. Used to reflect latency contribution by 
-  inter-partition communication due to different inter-communication policies 
-  in partitioned systems.
-    - **Partition end (PE)**: assume that inter-partitions connections
-      are available at the end of the partition whose task sends data.
-      If a task in partition A sends a data to a task in partition B,
-      the later will receive the data in the same major frame if
-      partition B is executed after partition A.
-    - **Major frame delayed (MF) \[default\]**: assume that
-      inter-partitions connections are flushed/realized at the end of
-      the major frame. If a task in partition A sends a data to a task
-      in partition B, the fresh data will be available only after
-      completion of all remaining partitions, regardless the execution
-      order of partition A or partition B.
-- **For worst-case processing time use**: Users can choose between deadline
-  and worst-case compute execution time as worst case processing time. For best case 
-  we always use compute execution time.
-    - **Deadline (DL) \[default\]**: Deadline represents the worst-case 
-      completion time assuming the tasks are schedulable.
-    - **Maximum compute execution time (ET)**: Maximum compute execution time 
-      is useful when processing time is considered without resource scheduling. 
-- **For best-case queuing latency on incoming ports**: Affects how the best 
-    case queuing delay is determined. For worst-case we always use full queue.
-    - **Assume empty queue (EQ) \[default\]**: No delay as the queue
-      is assumed to be empty.
-    - **Assume full queue (FQ)**: Use minimum compute execution time
-      times the queue size to determine the best case queuing time.
 
 ## Latency Contributors and Relevant Properties
 

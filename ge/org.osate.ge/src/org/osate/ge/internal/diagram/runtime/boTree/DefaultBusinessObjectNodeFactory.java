@@ -1,6 +1,7 @@
 package org.osate.ge.internal.diagram.runtime.boTree;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
@@ -16,7 +17,7 @@ public class DefaultBusinessObjectNodeFactory {
 	}
 
 	public BusinessObjectNode create(final BusinessObjectNode parent,
-			final Long id,
+			final UUID id,
 			final Object bo,
 			final boolean manual,
 			final ImmutableSet<ContentFilter> contentFilters,
@@ -33,10 +34,10 @@ public class DefaultBusinessObjectNodeFactory {
 				throw new RuntimeException("Root nodes must have a null business object");
 			}
 		} else {
-			Objects.requireNonNull(id, "id must not be null");
 			Objects.requireNonNull(bo, "bo must not be null");
 		}
 
-		return new BusinessObjectNode(parent, id, relativeReference, bo, manual, contentFilters, completeness);
+		return new BusinessObjectNode(parent, id, relativeReference, bo, manual, contentFilters,
+				completeness);
 	}
 }

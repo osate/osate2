@@ -1,5 +1,7 @@
 package org.osate.ge.tests;
 
+import java.util.UUID;
+
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -18,20 +20,18 @@ import com.google.common.collect.ImmutableSet;
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
 
-	long nextNodeId;
-
 	@Override
-	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree, long nextNodeId) {
-		final BusinessObjectNode newTree = new BusinessObjectNode(null, nextNodeId, null, null, false,
+	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
+		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null, false,
 				ImmutableSet.of(), Completeness.UNKNOWN);
-		this.nextNodeId = nextNodeId;
 		createNodes(newTree, model.children);
 		return newTree;
 	}
 
 	private void createNodes(final BusinessObjectNode parent, final TestBusinessObject[] bos) {
 		for(final TestBusinessObject bo : bos) {
-			final BusinessObjectNode newNode = new BusinessObjectNode(parent, ++nextNodeId, bo.getRelativeReference(),
+			final BusinessObjectNode newNode = new BusinessObjectNode(parent, UUID.randomUUID(),
+					bo.getRelativeReference(),
 					bo, true, ImmutableSet.of(), Completeness.UNKNOWN);
 			createNodes(newNode, bo.children);
 		}
