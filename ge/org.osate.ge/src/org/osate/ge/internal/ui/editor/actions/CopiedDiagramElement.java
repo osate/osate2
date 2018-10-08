@@ -14,7 +14,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 public class CopiedDiagramElement {
 	private final DiagramElement diagramElement; // A copy of a diagram element
 	private final Object originalBo; // The business object referenced by the original diagram element
-	private final EObject copiedBo;
+	private final Object copiedBo;
 	private final EStructuralFeature containingFeature;
 	private final Point absolutePosition;
 
@@ -26,20 +26,19 @@ public class CopiedDiagramElement {
 	 * @param containingFeature
 	 * @param position
 	 */
-	public CopiedDiagramElement(final DiagramElement diagramElement, final Object originalBo, final EObject copiedBo,
+	public CopiedDiagramElement(final DiagramElement diagramElement, final Object originalBo, final Object copiedBo,
 			final EStructuralFeature containingFeature,
 			final Point absolutePosition) {
 		this.diagramElement = Objects.requireNonNull(diagramElement, "diagramElement must not be null");
 		this.originalBo = Objects.requireNonNull(originalBo, "originalBo must nto be null");
 
-		if (copiedBo == null) {
-			this.copiedBo = null;
-			this.containingFeature = null;
-		} else {
-			this.copiedBo = copiedBo;
-			this.containingFeature = Objects.requireNonNull(containingFeature,
-					"containingFeature  must not be null");
+		this.copiedBo = copiedBo;
+		this.containingFeature = containingFeature;
+
+		if(copiedBo instanceof EObject) {
+			Objects.requireNonNull(containingFeature, "containingFeature  must not be null");
 		}
+
 		this.absolutePosition = absolutePosition;
 	}
 
@@ -61,7 +60,7 @@ public class CopiedDiagramElement {
 		return originalBo;
 	}
 
-	public EObject getCopiedBusinessObject() {
+	public Object getCopiedBusinessObject() {
 		return copiedBo;
 	}
 

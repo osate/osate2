@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
@@ -87,12 +88,12 @@ public final class OsateResourceUtil {
 		}
 
 		if (injector == null) {
-			injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+			injector = IResourceServiceProvider.Registry.INSTANCE
+					.getResourceServiceProvider(URI.createURI("dummy.aadl")).get(Injector.class);
 			if (injector == null) {
 				return null;
 			}
 		}
-//        PredeclaredProperties.initPluginContributedAadl();
 		if (USES_GUI) {
 			if (fResourceSetProvider == null) {
 				fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
@@ -137,7 +138,8 @@ public final class OsateResourceUtil {
 	 */
 	public static XtextResourceSet createXtextResourceSet() {
 		if (injector == null) {
-			injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+			injector = IResourceServiceProvider.Registry.INSTANCE
+					.getResourceServiceProvider(URI.createURI("dummy.aadl")).get(Injector.class);
 			if (injector == null) {
 				return null;
 			}

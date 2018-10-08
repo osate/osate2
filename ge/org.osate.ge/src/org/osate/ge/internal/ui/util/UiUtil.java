@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -18,6 +19,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.internal.util.StringUtil;
@@ -32,6 +34,20 @@ public class UiUtil {
 		}
 
 		return wb.getActiveWorkbenchWindow();
+	}
+
+	public static AgeDiagramEditor getActiveDiagramEditor() {
+		final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (activeWindow != null) {
+			final IWorkbenchPage activePage = activeWindow.getActivePage();
+			if (activePage != null) {
+				final IEditorPart editor = activePage.getActiveEditor();
+				if (editor instanceof AgeDiagramEditor) {
+					return (AgeDiagramEditor) editor;
+				}
+			}
+		}
+		return null;
 	}
 
 	public static void openPropertiesView() {

@@ -31,9 +31,10 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.util.ExecuteJavaUtil
+import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
@@ -45,14 +46,14 @@ import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
-import org.osate.assure.assure.VerificationResultState
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -65,17 +66,12 @@ import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationValidation
-import org.osate.alisa.common.common.TargetType
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
-import org.eclipse.xtext.EcoreUtil2
-import org.osate.alisa.common.common.CommonPackage
-import org.osate.alisa.common.common.AVariableReference
-import org.osate.alisa.common.common.ComputeDeclaration
+import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.result.ResultType
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -257,7 +253,7 @@ class AssureConstructor implements IAssureConstructor {
 				val ne = req.targetElement ?: cc
 				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(function, ne)
 				if (res instanceof Boolean) {
-					return true
+					return res;
 				}
 			}
 		}
@@ -337,17 +333,6 @@ class AssureConstructor implements IAssureConstructor {
 		}
 
 		claimResultlist.add(claimResult)
-	}
-
-	def boolean containsComputeVariables(ValuePredicate predicate) {
-		val varrefs = EcoreUtil2.getAllContentsOfType(predicate, AVariableReference)
-		for (varref : varrefs) {
-			val vname = varref.variable?.name
-			if (varref.variable instanceof ComputeDeclaration) {
-				return true
-			}
-		}
-		false
 	}
 
 	def generatePredicateResult(Claim claim) {
@@ -475,8 +460,7 @@ class AssureConstructor implements IAssureConstructor {
 		qvr.verificationActivity = va
 		vaResult.targetReference = qvr
 		// -----------QualifiedVAReference END
-		vaResult.executionState = VerificationExecutionState.TODO
-		vaResult.resultState = VerificationResultState.TBD
+		vaResult.type = ResultType.TBD
 		vaResult.metrics = factory.createMetrics
 		vaResult.metrics.tbdCount = 0
 
@@ -559,8 +543,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
-		vr.resultState = VerificationResultState.TBD
-		vr.executionState = VerificationExecutionState.TODO
+		vr.type = ResultType.TBD
 
 		// vr.target = expr.verification
 		// QualifiedVAReference
@@ -603,8 +586,7 @@ class AssureConstructor implements IAssureConstructor {
 				(vcr as PreconditionResult).target = va.method
 			}
 		}
-		vcr.resultState = VerificationResultState.TBD
-		vcr.executionState = VerificationExecutionState.TODO
+		vcr.type = ResultType.TBD
 		vcr.metrics = factory.createMetrics
 		vcr.metrics.tbdCount = 0
 		return vcr

@@ -2,13 +2,18 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Named;
 
+import org.eclipse.xtext.util.Strings;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.BusinessObjectProxy;
+import org.osate.ge.internal.model.Note;
+import org.osate.ge.internal.model.NoteReference;
 import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -20,6 +25,8 @@ import org.osate.ge.services.ReferenceBuilderService;
 public class GraphicalEditorModelReferenceBuilder {
 	public final static String TYPE_TAG = "tag";
 	public final static String TYPE_PROPERTY_VALUE_GROUP = "pvg";
+	public final static String TYPE_NOTE = "note";
+	public final static String TYPE_NOTE_REFERENCE = "note_reference";
 
 	@BuildRelativeReference
 	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -45,6 +52,12 @@ public class GraphicalEditorModelReferenceBuilder {
 			}
 
 			return segments.toArray(new String[segments.size()]);
+		} else if (bo instanceof Note) {
+			final Note note = (Note) bo;
+			return new String[] { TYPE_NOTE, note.getId().toString() };
+		} else if (bo instanceof NoteReference) {
+			final NoteReference noteReference = (NoteReference) bo;
+			return new String[] { TYPE_NOTE_REFERENCE, noteReference.getReferencedDiagramElementId().toString() };
 		} else {
 			return null;
 		}
@@ -56,6 +69,35 @@ public class GraphicalEditorModelReferenceBuilder {
 		if (bo instanceof BusinessObjectProxy) {
 			return ((BusinessObjectProxy) bo).getCanonicalReference().toSegmentArray();
 		}
+		return null;
+	}
+
+	/**
+	 * Creates an embedded object based on its reference and extra data.
+	 * @param ref
+	 * @param boData
+	 * @return
+	 */
+	public static Object createEmbeddedObject(final RelativeBusinessObjectReference ref, final String boData) {
+		final List<String> segs = ref.getSegments();
+		if (segs.get(0).equals(TYPE_NOTE)) {
+			if (segs.size() != 2) {
+				throw new RuntimeException("Invalid reference for note. Number of segments: " + segs.size());
+			}
+
+			final UUID id = UUID.fromString(segs.get(1));
+			final String text = Strings.emptyIfNull(boData);
+
+			return new Note(id, text);
+		} else if (segs.get(0).equals(TYPE_NOTE_REFERENCE)) {
+			if (segs.size() != 2) {
+				throw new RuntimeException("Invalid reference for note reference. Number of segments: " + segs.size());
+			}
+
+			final UUID referencedDiagramElementId = UUID.fromString(segs.get(1));
+			return new NoteReference(referencedDiagramElementId);
+		}
+
 		return null;
 	}
 }

@@ -20,6 +20,7 @@ import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.services.QueryService;
 
 public class PropertyValueGroupHandler {
@@ -52,7 +53,8 @@ public class PropertyValueGroupHandler {
 			// If the reference is from the child to an ancestor or from an ancestor to a child, show it as text if it is is based on a completely processed
 			// property association. Otherwise, don't show it at all.
 			final BusinessObjectContext parent = boc.getParent();
-			if (isAncestor(parent, referencedElement) || isAncestor(referencedElement, parent)) {
+			if (BusinessObjectContextUtil.isAncestor(parent, referencedElement)
+					|| BusinessObjectContextUtil.isAncestor(referencedElement, parent)) {
 				if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
 					return null;
 				} else {
@@ -67,20 +69,6 @@ public class PropertyValueGroupHandler {
 					destination(referencedElement).
 					build();
 		}
-	}
-
-	/**
-	 * Returns whether potential ancestor is an ancestor of boc
-	 * @return
-	 */
-	private static boolean isAncestor(final BusinessObjectContext potentialAncestor, final BusinessObjectContext boc) {
-		for (BusinessObjectContext tmp = boc; tmp != null; tmp = tmp.getParent()) {
-			if (tmp == potentialAncestor) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	private GraphicalConfiguration createTextGraphicalConfiguration() {

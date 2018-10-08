@@ -11,15 +11,16 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
  * @see GraphicalConfiguration
  */
 public class GraphicalConfigurationBuilder {
-	private Graphic graphic;
-	private Style style = Style.EMPTY;
-	private DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
-	private DiagramElement connectionSource;
-	private DiagramElement connectionDestination;
-	private boolean isDecoration = false;
-	private String annotation;
+	protected Graphic graphic;
+	protected Style style = Style.EMPTY;
+	protected DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	protected DiagramElement connectionSource;
+	protected DiagramElement connectionDestination;
+	protected boolean isDecoration = false;
+	protected String annotation;
+	protected boolean primaryLabelIsMultiline;
 
-	private GraphicalConfigurationBuilder() {
+	protected GraphicalConfigurationBuilder() {
 	}
 
 	public static GraphicalConfigurationBuilder create() {
@@ -68,6 +69,6 @@ public class GraphicalConfigurationBuilder {
 
 	public GraphicalConfiguration build() {
 		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, connectionSource, connectionDestination,
-				style, isDecoration, annotation);
+				style, isDecoration, annotation, primaryLabelIsMultiline);
 	}
 }

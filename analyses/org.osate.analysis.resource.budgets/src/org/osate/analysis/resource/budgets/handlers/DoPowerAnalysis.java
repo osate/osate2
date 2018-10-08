@@ -50,7 +50,6 @@ import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
 public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
@@ -67,9 +66,13 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
-		Dialog.showError("Power Analysis Error", "Please select an instance model");
 	}
 
 	@Override

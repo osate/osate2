@@ -19,6 +19,7 @@
 package org.osate.aadl2.errormodel.faulttree.handler;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -110,20 +111,15 @@ public final class FTAHandler extends AbstractHandler {
 				}
 			}
 		}
-
-		for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
-			if (ebs.getTypeSet() == null) {
-				stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
-			} else {
-				EList<TypeToken> result = EMV2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
-						EMV2Util.getUseTypes(ebs));
-				for (TypeToken tt : result) {
-					String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
-					if (!stateNames.contains(epName)) {
-						stateNames.add(epName);
-					}
+		Collection<ErrorBehaviorState> states = EMV2Util.getAllErrorBehaviorStates(target);
+		if (!states.isEmpty()) {
+			ErrorBehaviorState head = states.iterator().next();
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(target)) {
+				if (ebs != head) {
+					stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
 				}
 			}
+			stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(head));
 		}
 		if (stateNames.isEmpty()) {
 			Dialog.showInfo("Fault Tree Analysis", "Selected system must have error states or error propagations");
@@ -189,6 +185,22 @@ public final class FTAHandler extends AbstractHandler {
 		return IStatus.ERROR;
 	}
 
+	private void addState(ErrorBehaviorState ebs) {
+		if (ebs.getTypeSet() == null) {
+			stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
+		} else {
+			EList<TypeToken> result = EMV2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
+					EMV2Util.getUseTypes(ebs));
+			for (TypeToken tt : result) {
+				String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
+				if (!stateNames.contains(epName)) {
+					stateNames.add(epName);
+				}
+			}
+		}
+
+	}
+
 	private InstanceObject getTarget(ISelection currentSelection) {
 		if (currentSelection instanceof IStructuredSelection) {
 			IStructuredSelection iss = (IStructuredSelection) currentSelection;
@@ -211,8 +223,9 @@ public final class FTAHandler extends AbstractHandler {
 	}
 
 	public URI saveFaultTree(FaultTree ftamodel) {
-		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimSegments(1)
-				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName() + ".faulttree");
+		URI ftaURI = EcoreUtil.getURI(ftamodel.getInstanceRoot()).trimFragment().trimFileExtension().trimSegments(1)
+				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName())
+				.appendFileExtension("faulttree");
 		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
 		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
 	}

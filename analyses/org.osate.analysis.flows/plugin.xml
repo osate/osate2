@@ -119,4 +119,15 @@
             primary="true">
       </toc>
    </extension>
+   
+               <!--
+               Register analysis classes with methods to be called for analysis execution
+            -->
+    <extension
+         point="org.osate.pluginsupport.registeredjavaclasses">
+      <class
+            path="org.osate.analysis.flows.LatencyAnalysisService">
+      </class>
+   </extension>
+   
 </plugin>

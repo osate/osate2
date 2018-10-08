@@ -37,10 +37,6 @@ public class ReportedCell {
 		return this.severity.equals(DiagnosticType.WARNING);
 	}
 
-	public boolean isSuccess() {
-		return this.severity.equals(DiagnosticType.SUCCESS);
-	}
-
 	public boolean isInfo() {
 		return this.severity.equals(DiagnosticType.INFO);
 	}
