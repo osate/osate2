@@ -146,7 +146,7 @@ public abstract class WSPage extends WizardPage {
 		String errorMessage;
 		String text = getFileString();
 		if (text == null) {
-			errorMessage = "Please select file";
+			errorMessage = "Please select a file";
 		} else if (getSelectedWorkingSets().length == 0) {
 			errorMessage = "Please select at least one working set";
 		} else {

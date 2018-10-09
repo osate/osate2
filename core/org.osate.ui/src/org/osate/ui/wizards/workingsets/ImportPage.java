@@ -87,7 +87,7 @@ public class ImportPage extends WSPage {
 	private String readSets() {
 		String pathname = getFileString();
 		if (pathname == null) {
-			return "Please select file";
+			return "Please select a file";
 		}
 		File file = new File(pathname);
 		FileInputStream input = null;
@@ -265,7 +265,7 @@ public class ImportPage extends WSPage {
 		String errorMessage = null;
 		String text = getFileString();
 		if (text == null) {
-			errorMessage = "Please select file";
+			errorMessage = "Please select a file";
 		}
 
 		if (errorMessage != null) {

@@ -313,7 +313,7 @@
             id="org.osate.ui.workingSetExportWizard"
             name="Working Sets">
          <description>
-            Exports all working sets to the file.
+            Exports working sets.
          </description>
       </wizard>
    </extension>
@@ -326,7 +326,7 @@
             id="org.osate.ui.workingSetImportWizard"
             name="Working Sets">
          <description>
-            Imports all working sets from file.
+            Imports working sets.
          </description>
       </wizard>
    </extension>
