@@ -34,7 +34,6 @@
 package org.osate.ui.navigator;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.core.AadlNature;
@@ -67,7 +66,7 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 				if (project.getNature(AadlNature.ID) != null) {
 					final IProject[] refProjects = project.getReferencedProjects();
 					if (refProjects.length > 0) {
-						return new Object[] { new VirtualProjectDependencies(refProjects) };
+						return new Object[] { new VirtualProjectDependencies(project, refProjects) };
 					}
 				}
 			} catch (CoreException e) {
@@ -83,9 +82,8 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 	@Override
 	public Object getParent(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
-			return ResourcesPlugin.getWorkspace().getRoot();
-		} else {
-			return super.getParent(element);
+			return ((VirtualProjectDependencies) element).getProject();
 		}
+		return null;
 	}
 }
