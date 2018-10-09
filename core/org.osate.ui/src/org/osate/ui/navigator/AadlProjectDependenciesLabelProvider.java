@@ -45,7 +45,7 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 		if (element instanceof VirtualProjectDependencies) {
 			return "Depends On";
 		}
-		return super.getText(element);
+		return null;
 	}
 
 	@Override
@@ -53,15 +53,15 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 		if (element instanceof VirtualProjectDependencies) {
 			return OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
 		}
-		return super.getImage(element);
+		return null;
 	}
 
 	@Override
 	public String getDescription(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
-			return "Plug-in Contributions";
+			return "Projects depended on by this project";
 		}
-		return "qqq";
+		return null;
 	}
 
 }
