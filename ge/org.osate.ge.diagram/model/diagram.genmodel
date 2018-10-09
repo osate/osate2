@@ -37,6 +37,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/image"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/showAsImage"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/contentFilters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/extData"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Point">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/x"/>

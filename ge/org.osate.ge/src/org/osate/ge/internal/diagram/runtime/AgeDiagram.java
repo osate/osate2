@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
@@ -31,7 +33,6 @@ import com.google.common.collect.Lists;
  */
 public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContainer {
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
-	private long maxElementId; // Next automatically assigned element id
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	private ActionExecutor actionExecutor = new SimpleActionExecutor();
@@ -46,11 +47,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	 *
 	 * @param startingElementId is the id of the first diagram element which has an id automatically assigned to it.
 	 */
-	public AgeDiagram(final long startingElementId) {
+	public AgeDiagram() {
 		this.diagramConfiguration = new DiagramConfiguration(new CustomDiagramType(), null, Collections.emptySet(),
 				true);
-		this.maxElementId = startingElementId - 1; // The max element id is set to the specified value - 1 because the value is incremented before it is
-		// assigned as an id.
 	}
 
 	/**
@@ -79,10 +78,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	@Override
 	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return elements.getByRelativeReference(ref);
-	}
-
-	public long getMaxElementId() {
-		return maxElementId;
 	}
 
 	public void addModificationListener(final DiagramModificationListener listener) {
@@ -172,7 +167,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return null;
 	}
 
-	public DiagramElement findElementById(final long id) {
+	public DiagramElement findElementById(final UUID id) {
 		return findDescendantById(this, id);
 	}
 
@@ -180,9 +175,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return changeNumber;
 	}
 
-	private static DiagramElement findDescendantById(final DiagramNode container, final long id) {
+	private static DiagramElement findDescendantById(final DiagramNode container, final UUID id) {
 		for (final DiagramElement child : container.getDiagramElements()) {
-			if (child.hasId() && id == child.getId()) {
+			if (Objects.equals(id, child.getId())) {
 				return child;
 			}
 
@@ -260,19 +255,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
-		}
-
-		@Override
-		public void setId(final DiagramElement e, final Long value) {
-			if (value == null && !e.hasId()) {
-				return;
-			}
-
-			if (value == null || !value.equals(e.getId())) {
-				storeFieldChange(e, ModifiableField.ID, e.getId(), value);
-				e.setId(value);
-				afterUpdate(e, ModifiableField.ID);
-			}
 		}
 
 		@Override
@@ -465,14 +447,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				notifyListeners();
 			}
 
-			// Assign the id
-			if (e.hasId()) {
-				maxElementId = Math.max(e.getId(), maxElementId);
-			} else {
-				maxElementId++;
-				e.setId(maxElementId);
-			}
-
 			e.getModifiableContainer().getModifiableDiagramElements().add(e);
 			addedElement = e;
 			changes.add(new AddElementChange(e));
@@ -646,10 +620,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@SuppressWarnings("unchecked")
 		private void setValue(final DiagramModification m, final Object value) {
 			switch (field) {
-			case ID:
-				m.setId(element, (Long) value);
-				break;
-
 			case MANUAL:
 				m.setManual(element, (boolean) value);
 				break;
@@ -708,7 +678,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public boolean affectsChangeNumber() {
-			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.NAME
+			if (field == ModifiableField.COMPLETENESS
+					|| (field == ModifiableField.NAME
+					&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
 					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}

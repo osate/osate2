@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -112,11 +113,10 @@ public class SubcomponentHandler {
 		}
 
 		final List<PaletteEntry> paletteEntries = new ArrayList<>();
-		final ComponentImplementation ci = diagramBo instanceof ComponentImplementation ? (ComponentImplementation)diagramBo : null;
 
 		// Create palette entries for each subcomponent class which can be contained in the component implementation
 		for (final EClass subcomponentType : AadlSubcomponentUtil.getSubcomponentTypes()) {
-			if (ci == null || AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) {
+			if (diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof ComponentImplementation) {
 				paletteEntries.add(PaletteEntryBuilder.create().
 						label(StringUtil.camelCaseToUser(subcomponentType.getName())).
 						icon(ImageHelper.getImage(subcomponentType.getName())).

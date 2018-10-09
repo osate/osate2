@@ -46,7 +46,6 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.scheduling.inversion.PriorityInversion;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
 public final class CheckPriorityInversion extends AbstractInstanceOrDeclarativeModelModifyHandler {
@@ -61,9 +60,13 @@ public final class CheckPriorityInversion extends AbstractInstanceOrDeclarativeM
 	}
 
 	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
+
+	@Override
 	protected void analyzeDeclarativeModel(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager, final Element declarativeObject) {
-		Dialog.showError("Priority Inversion Error", "Can only check system instances");
 	}
 
 	@Override

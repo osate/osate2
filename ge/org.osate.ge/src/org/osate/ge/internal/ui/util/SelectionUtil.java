@@ -36,6 +36,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
 import org.osate.workspace.WorkspacePlugin;
@@ -45,22 +46,30 @@ public class SelectionUtil {
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
 	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection) {
+		return getAdaptedSelection(selection, DiagramElement.class);
+	}
+
+	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection) {
+		return getAdaptedSelection(selection, DiagramNode.class);
+	}
+
+	private static <T> List<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return Collections.emptyList();
 		}
 
 		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final List<DiagramElement> elements = new ArrayList<>(ss.size());
+		final List<T> results = new ArrayList<>(ss.size());
 		for (final Object sel : ss.toList()) {
-			final DiagramElement de = Adapters.adapt(sel, DiagramElement.class);
-			if (de == null) {
+			final T o = Adapters.adapt(sel, adapter);
+			if (o == null) {
 				return Collections.emptyList();
 			}
 
-			elements.add(de);
+			results.add(o);
 		}
 
-		return elements;
+		return results;
 	}
 
 	public static List<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {

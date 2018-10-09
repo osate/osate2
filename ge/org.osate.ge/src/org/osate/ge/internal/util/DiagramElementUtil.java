@@ -16,8 +16,8 @@ public class DiagramElementUtil {
 		return diagramElements.stream().allMatch(de -> de.getParent() == parent);
 	}
 
-	public static AgeDiagram getDiagram(final DiagramElement de) {
-		for (DiagramNode dn = de; dn != null; dn = dn.getParent()) {
+	public static AgeDiagram getDiagram(final DiagramNode initialDiagramNode) {
+		for (DiagramNode dn = initialDiagramNode; dn != null; dn = dn.getParent()) {
 			if (dn instanceof AgeDiagram) {
 				return (AgeDiagram) dn;
 			}

@@ -24,7 +24,6 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.operations.DefaultOperationResultsProcessor;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
@@ -81,14 +80,16 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		}
 
 		final Object targetBo = targetNode.getBusinessObject();
-		if(targetBo == null) {
-			return false;
-		}
-
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.TARGET_BO, targetBo);
+
+			// If the target BO is null then do not include it in the context. This allows create features to be used at the root level by using the BOC but
+			// preserves compatibility with BO handlers that assume the target BO is not null.
+			if (targetBo != null) {
+				eclipseCtx.set(Names.TARGET_BO, targetBo);
+			}
+
 			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
@@ -149,8 +150,10 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 
 					// Perform modification
 					final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
-					opExecutor.execute(operation, new DefaultOperationResultsProcessor(diagramUpdater, refBuilder,
-							targetNode, new Point(context.getX(), context.getY())));
+					opExecutor.execute(operation,
+							new GraphitiOperationResultsProcessor(getDiagram(), getFeatureProvider(), diagramUpdater,
+									refBuilder,
+									targetNode, new Point(context.getX(), context.getY())));
 					result = EMPTY;
 				} finally {
 					eclipseCtx.dispose();
