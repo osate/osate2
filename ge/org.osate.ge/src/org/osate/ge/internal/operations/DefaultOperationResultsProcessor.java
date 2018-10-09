@@ -13,6 +13,7 @@ import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -100,7 +101,13 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 					position = null;
 				}
 
-				diagramUpdater.addToNextUpdate(containerNode, newRef, new FutureElementInfo(manual, position));
+				// If the BO being added is an embedded business object, it must be provided to the diagram updater.
+				final EmbeddedBusinessObject embeddedBo = (newBo instanceof EmbeddedBusinessObject)
+						? (EmbeddedBusinessObject) newBo
+								: null;
+
+						diagramUpdater.addToNextUpdate(containerNode, newRef,
+								new FutureElementInfo(manual, position, embeddedBo));
 			}
 		}
 	}

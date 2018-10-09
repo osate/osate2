@@ -39,20 +39,17 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	private final DiagramType diagramType;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final BusinessObjectContextHelper bocHelper;
-	private long nextNodeId;
 
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
 			final ProjectProvider projectProvider,
-			final DiagramType diagramType,
-			final long nextNodeId) {
+			final DiagramType diagramType) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.diagramType = Objects.requireNonNull(diagramType, "diagramType must not be null");
 		this.bopHelper = new BusinessObjectProviderHelper(extService);
 		this.bocHelper = new BusinessObjectContextHelper(extService);
-		this.nextNodeId = nextNodeId;
 	}
 
 
@@ -163,10 +160,5 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	@Override
 	public Image getImage(final Object bo) {
 		return ImageUiHelper.getImage(bo);
-	}
-
-	@Override
-	public long getNewNodeId() {
-		return nextNodeId++;
 	}
 }

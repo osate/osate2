@@ -25,6 +25,7 @@ import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.LineStyle;
 import org.osate.ge.graphics.internal.MemoryGraphic;
 import org.osate.ge.graphics.internal.ModeGraphic;
+import org.osate.ge.graphics.internal.NoteGraphic;
 import org.osate.ge.graphics.internal.Parallelogram;
 import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.graphics.internal.ProcessorGraphic;
@@ -37,6 +38,7 @@ import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 public class AgeGraphitiGraphicsUtil {
 	private final static int folderTabHeight = 9;
 	private final static int folderMaxTabWidth = 100;
+	private final static int noteOffset = 20;
 	private final static double folderTabOffsetAngle = 30.0;
 	private final static double folderTopOfTabOffset = 0.3;
 	private final static int featureLineWidth = 2;
@@ -85,6 +87,7 @@ public class AgeGraphitiGraphicsUtil {
 		addGraphicsAlgorithmCreator(map, ModeGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForMode);
 		addGraphicsAlgorithmCreator(map, FeatureGraphic.class,
 				AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForFeature);
+		addGraphicsAlgorithmCreator(map, NoteGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForNote);
 		graphicToCreatorMap = Collections.unmodifiableMap(map);
 	}
 
@@ -535,6 +538,39 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setLineWidth(lineWidth);
 		ga.setFilled(fillBackground);
 		gaService.setSize(ga, width, height);
+
+		return ga;
+	}
+
+	private static GraphicsAlgorithm createGraphicsAlgorithmForNote(final Diagram diagram,
+			final GraphicsAlgorithmContainer containerGa, final NoteGraphic noteGraphic, final int width,
+			final int height, boolean fillBackground, final int lineWidth, final LineStyle lineStyle) {
+		final IGaService gaService = Graphiti.getGaService();
+
+		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerGa,
+				new int[] { 0, 0,
+						width - noteOffset, 0,
+						width, noteOffset,
+						width, height,
+						0, height });
+
+		final GraphicsAlgorithm ga2 = gaService.createPlainPolygon(ga,
+				new int[] { width - noteOffset, 0, width, noteOffset, width - noteOffset, noteOffset });
+
+		PropertyUtil.setIsStylingContainer(ga, true);
+		PropertyUtil.setIsStylingChild(ga, true);
+		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		ga.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		ga.setLineWidth(lineWidth);
+		ga.setFilled(fillBackground);
+		gaService.setSize(ga, width, height);
+
+		PropertyUtil.setIsStylingChild(ga2, true);
+		ga2.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		ga2.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+		ga2.setLineWidth(lineWidth);
+		ga2.setFilled(fillBackground);
+		gaService.setSize(ga2, noteOffset, noteOffset);
 
 		return ga;
 	}

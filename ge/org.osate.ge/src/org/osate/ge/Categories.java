@@ -14,6 +14,7 @@ package org.osate.ge;
  * @see PaletteEntryBuilder#category(String)
  */
 public interface Categories {
+	public static final String ANNOTATION = "org.osate.ge.categories.annotation";
 	public static final String CLASSIFIERS = "org.osate.ge.categories.classifiers";
 	public static final String CONNECTIONS = "org.osate.ge.categories.connections";
 	public static final String FEATURES = "org.osate.ge.categories.features";
