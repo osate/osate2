@@ -279,6 +279,28 @@
             </instanceof>
          </enablement>
       </actionProvider>
+      <actionProvider
+            class="org.osate.ui.navigator.AadlProjectDependenciesActionProvider"
+            id="org.osate.ui.navigator.editDependencies">
+         <enablement>
+        	 <or>
+		         <and>
+		            <instanceof
+		                  value="org.eclipse.core.resources.IProject">
+		            </instanceof>
+		            <test
+		                  property="org.eclipse.core.resources.open">
+		            </test>
+		            <test
+		                  property="org.eclipse.core.resources.projectNature"
+		                  value="org.osate.core.aadlnature">
+		            </test>
+		         </and>
+		         
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+		     </or>
+         </enablement>
+      </actionProvider>
    </extension>
    
    <extension 

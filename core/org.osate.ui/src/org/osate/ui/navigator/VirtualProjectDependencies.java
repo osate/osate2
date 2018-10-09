@@ -3,10 +3,16 @@ package org.osate.ui.navigator;
 import org.eclipse.core.resources.IProject;
 
 public final class VirtualProjectDependencies {
-	private IProject[] children;
+	private final IProject project;
+	private final IProject[] children;
 
-	public VirtualProjectDependencies(final IProject[] children) {
+	public VirtualProjectDependencies(final IProject project, final IProject[] children) {
+		this.project = project;
 		this.children = children;
+	}
+
+	public IProject getProject() {
+		return project;
 	}
 
 	public IProject[] getChildren() {
