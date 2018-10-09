@@ -250,9 +250,6 @@
 			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
 			        <and>
 						<instanceof value="org.osate.aadl2.Element" />
-			       		<not>
-			       			<instanceof value="org.osate.aadl2.instance.InstanceObject" />
-			      		</not>
 			        </and>
 			    </or>
          </enablement>
@@ -332,6 +329,9 @@
              <instanceof value="org.osate.aadl2.Property"/>
              <instanceof value="org.osate.aadl2.PropertyConstant"/>
              <instanceof value="org.osate.aadl2.PropertyType"/>
+             <instanceof
+                   value="org.osate.aadl2.instance.InstanceObject">
+             </instanceof>
            </or>
           </selectionEnablement>
           <editorInputEnablement>

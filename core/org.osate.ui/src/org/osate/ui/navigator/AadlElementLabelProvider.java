@@ -19,6 +19,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.IDescriptionProvider;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PublicPackageSection;
@@ -49,6 +51,11 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 		if (object instanceof Element) {
 			final EObject eObject = (EObject) object;
 			final Resource eRsrc = eObject.eResource();
+
+			if (eRsrc == null) {
+				return null;
+			}
+
 			final ResourceSet resourceSet = eRsrc.getResourceSet();
 
 			int severity = -1;
@@ -100,6 +107,12 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 		}
 		if (object instanceof PrivatePackageSection) {
 			return "private";
+		}
+		if (object instanceof DefaultAnnexLibrary) {
+			return ((DefaultAnnexLibrary) object).getName() + " Annex Library";
+		}
+		if (object instanceof DefaultAnnexSubclause) {
+			return ((DefaultAnnexSubclause) object).getName() + " Annex Subclause";
 		}
 		if (object instanceof Element) {
 			return super.getText(object);
