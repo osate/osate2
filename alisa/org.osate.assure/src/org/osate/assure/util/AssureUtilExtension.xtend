@@ -150,12 +150,15 @@ class AssureUtilExtension {
 	}
 
 	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims) {
+		val crefname = cref.requirement.name
 		for (cl : claims) {
-			if (cl.requirement.name.equalsIgnoreCase(cref.requirement.name)) {
-				if (cref.sub !== null && !cl.subclaim.empty) {
-					return getReferencedClaim(cref.sub, cl.subclaim)
+			if (cl.requirement !== null && cl.requirement.name !== null) {
+				if (cl.requirement.name.equalsIgnoreCase(crefname)) {
+					if (cref.sub !== null && !cl.subclaim.empty) {
+						return getReferencedClaim(cref.sub, cl.subclaim)
+					}
+					return cl
 				}
-				return cl
 			}
 		}
 		return null
