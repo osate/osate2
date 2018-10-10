@@ -130,7 +130,6 @@ class AssureProcessor implements IAssureProcessor {
 	var boolean save = true
 
 	var private static boolean RESOLUTE_INSTALLED;
-	var private static boolean AGREE_INSTALLED;
 
 	new() {
 		env.add('vals', vals)
@@ -141,13 +140,6 @@ class AssureProcessor implements IAssureProcessor {
 		} catch (NoClassDefFoundError e) {
 			RESOLUTE_INSTALLED = false;
 		}
-		try {
-			new AgreeVerifySingleHandler(null);
-			AGREE_INSTALLED = true;
-		} catch (NoClassDefFoundError e) {
-			AGREE_INSTALLED = false;
-		}
-
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -467,21 +459,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				AgreeMethod: {
-					if (AGREE_INSTALLED) {
-//					AssureUtilExtension.initializeResoluteContext(instanceroot);
-						val agreemethod = methodtype
-
-						if (agreemethod.isAll) { // is recursive
-							// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
-						} else if (agreemethod.singleLayer) {
-							val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler(verificationResult);
-							// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
-							// Currently Agree does not work on Flows or Connections so this is valid
-							verHandler.executeSystemInstance(targetComponent, null);
-						}
-					} else {
-						setToError(verificationResult, "Agree not installed")
-					}
+					setToError(verificationResult, "Execution of AGREE methods is not supported")
 				}
 				JUnit4Method: {
 					val test = ExecuteJavaUtil.eInstance.getJavaClass(methodtype.classPath);
