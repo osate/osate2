@@ -99,14 +99,15 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	
 
 	def ResoluteInstalled (){
-		if (!INSTALL_INITIALIZED){
-		try {
-			val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
-			fn.setName("dummy");
-			RESOLUTE_INSTALLED = true;
-		} catch (NoClassDefFoundError e) {
-			RESOLUTE_INSTALLED = false;
-		}
+		if (!INSTALL_INITIALIZED) {
+			try {
+				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+				fn.setName("dummy");
+				RESOLUTE_INSTALLED = true;
+			} catch (NoClassDefFoundError e) {
+				RESOLUTE_INSTALLED = false;
+			}
+			INSTALL_INITIALIZED = true
 		}
 		return RESOLUTE_INSTALLED
 	}
