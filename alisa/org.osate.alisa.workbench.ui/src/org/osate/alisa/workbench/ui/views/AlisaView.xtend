@@ -441,7 +441,7 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result: {
-								if (eObject.resultType == DiagnosticType.TBD){
+								if (eObject.resultType == ResultType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
 									eObject.resultType.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 
