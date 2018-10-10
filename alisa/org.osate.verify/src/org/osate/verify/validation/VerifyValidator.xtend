@@ -68,6 +68,7 @@ import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 
 /**
  * Custom validation rules. 
@@ -91,6 +92,24 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	public static val MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS = "org.osate.verify.multipleClaimsWithDuplicateRequirements"
 	public static val METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION = "org.osate.verify.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION"
 	public static val MISMATCHED_TARGET = "org.osate.verify.MISMATCHED_TARGET"
+	
+
+	var private static boolean RESOLUTE_INSTALLED = false;
+	var private static boolean INSTALL_INITIALIZED = false;
+	
+
+	def ResoluteInstalled (){
+		if (!INSTALL_INITIALIZED){
+		try {
+			val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+			fn.setName("dummy");
+			RESOLUTE_INSTALLED = true;
+		} catch (NoClassDefFoundError e) {
+			RESOLUTE_INSTALLED = false;
+		}
+		}
+		return RESOLUTE_INSTALLED
+	}
 
 	override protected List<EPackage> getEPackages() {
 		val List<EPackage> result = new ArrayList<EPackage>(super.getEPackages())
@@ -336,6 +355,9 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 						def void checkVerificationMethodSignature(VerificationMethod vm) {
 							switch methodKind : vm.methodKind {
 								ResoluteMethod: {
+									if (!ResoluteInstalled){
+										return
+									}
 									val fparams = vm.formals
 									val mreforproxy = methodKind.methodReference
 									if (mreforproxy === null || !(mreforproxy instanceof FunctionDefinition)) {
