@@ -1,5 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.function.Function;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.FlowKind;
@@ -14,37 +16,34 @@ import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.AadlGraphics;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
+	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceSource = (
+			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getSource());
 	private static final StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
-							fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())))
+			.create((rootQuery) -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource.apply(fsi))
 					.first());
-
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
-							fsi,
-							fsi.getFlowSpecification().getAllInEnd(), (fsInstance) -> (fsInstance.getSource())),
-					1).first());
-
-	private static final StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
-							fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())))
+			.create((rootQuery) -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource.apply(fsi), 1)
 					.first());
-	private static final StandaloneQuery partialDstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(
-							fsi,
-							fsi.getFlowSpecification().getAllOutEnd(), (fsInstance) -> (fsInstance.getDestination())),
-					1).first());
+	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceDestination = (
+			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getDestination());
+	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(
+					(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination.apply(fsi))
+			.first());
+	private static final StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(
+					(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination.apply(fsi), 1)
+			.first());
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
@@ -79,9 +78,7 @@ public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInsta
 		}
 
 		return GraphicalConfigurationBuilder.create()
-				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification()))
-				.style(sb.build())
-				.source(src).destination(dst)
-				.build();
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification())).style(sb.build())
+				.source(src).destination(dst).build();
 	}
 }

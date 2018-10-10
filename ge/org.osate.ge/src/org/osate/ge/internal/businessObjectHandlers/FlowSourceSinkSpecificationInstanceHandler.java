@@ -4,10 +4,7 @@ import java.util.function.Function;
 
 import javax.inject.Named;
 
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
@@ -18,40 +15,27 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.graphics.AadlGraphics;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
+	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstance = (fsi) -> AadlHelper.getPathToBusinessObject(
+			fsi.getComponentInstance(),
+			fsi.getFlowSpecification().getKind() == FlowKind.SOURCE ? fsi.getDestination() : fsi.getSource());
 	private static final StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(fsi))
+							(FlowSpecificationInstance fsi) ->
+							getPathToFlowSpecificationInstance.apply(fsi))
 					.first());
-
 	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) -> getBusinessObjectsPathToFlowEnd(
-									fsi),
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstance.apply(fsi),
 							1)
 					.first());
-
-	private static Object[] getBusinessObjectsPathToFlowEnd(final FlowSpecificationInstance fsi) {
-		final FlowSpecification fs = fsi.getFlowSpecification();
-		final FlowEnd flowEnd;
-		final Function<FlowSpecificationInstance, FeatureInstance> addFeatureInstance;
-
-		if (fs.getKind() == FlowKind.SOURCE) {
-			flowEnd = fs.getAllOutEnd();
-			addFeatureInstance = (fsInstance) -> (fsInstance.getDestination());
-		} else {
-			flowEnd = fs.getAllInEnd();
-			addFeatureInstance = (fsInstance) -> (fsInstance.getSource());
-		}
-
-		return FlowSpecificationInstanceHandler.getBusinessObjectsPathToFlowEnd(fsi, flowEnd, addFeatureInstance);
-	}
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
