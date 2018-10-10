@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SMACCM Stubs
+Bundle-SymbolicName: org.osate.smaccm.stubs
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CMU/SEI
+Automatic-Module-Name: org.osate.smaccm.stubs
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.rockwellcollins.atc.agree.agree,
+ com.rockwellcollins.atc.agree.analysis,
+ com.rockwellcollins.atc.agree.analysis.ast,
+ com.rockwellcollins.atc.agree.analysis.handlers,
+ com.rockwellcollins.atc.agree.analysis.preferences,
+ com.rockwellcollins.atc.agree.analysis.translation,
+ com.rockwellcollins.atc.resolute.analysis.execution,
+ com.rockwellcollins.atc.resolute.analysis.results,
+ com.rockwellcollins.atc.resolute.analysis.values,
+ com.rockwellcollins.atc.resolute.analysis.views,
+ com.rockwellcollins.atc.resolute.resolute,
+ com.rockwellcollins.atc.resolute.validation,
+ jkind,
+ jkind.api,
+ jkind.api.results,
+ jkind.lustre
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.13.0",
+ org.osate.aadl2
