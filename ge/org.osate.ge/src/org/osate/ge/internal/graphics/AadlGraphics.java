@@ -55,12 +55,6 @@ public class AadlGraphics {
 	private static final Graphic virtualBusGraphic = BusGraphicBuilder.create().build();
 	private static final Graphic virtualProcessorGraphic = ProcessorGraphicBuilder.create().build();
 	private static final Graphic featureGroupTypeGraphic = FeatureGroupTypeGraphicBuilder.create().build();
-	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
-			.build();
-	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
-	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0)
-			.build();
-	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
 	private static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create()
 			.sourceTerminator(ArrowBuilder.create().small().build())
 			.destinationTerminator(OrthogonalLineBuilder.create().build()).build();
@@ -73,6 +67,11 @@ public class AadlGraphics {
 	private static final Graphic modeGraphic = ModeGraphicBuilder.create().build();
 	private static final Graphic modeTransitionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
+	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
+			.build();
+	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
+	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0).build();
+	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
 
 	public static Graphic getGraphic(final Classifier classifier) {
 		if(classifier instanceof ComponentClassifier) {
