@@ -9,7 +9,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -54,15 +53,12 @@ public final class UiUtil {
 		}
 
 		final Result result = new Result();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					IDE.openEditor(page, input, activate);
-				} catch (PartInitException e) {
-					OsateUiPlugin.log(e);
-					result.value = false;
-				}
+		Display.getDefault().syncExec(() -> {
+			try {
+				IDE.openEditor(page, input, activate);
+			} catch (PartInitException e) {
+				OsateUiPlugin.log(e);
+				result.value = false;
 			}
 		});
 		return result.value;
@@ -74,15 +70,12 @@ public final class UiUtil {
 		}
 
 		final Result result = new Result();
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					IDE.openEditor(page, marker, activate);
-				} catch (PartInitException e) {
-					OsateUiPlugin.log(e);
-					result.value = false;
-				}
+		Display.getDefault().syncExec(() -> {
+			try {
+				IDE.openEditor(page, marker, activate);
+			} catch (PartInitException e) {
+				OsateUiPlugin.log(e);
+				result.value = false;
 			}
 		});
 		return result.value;
@@ -318,12 +311,7 @@ public final class UiUtil {
 			if (editingDomain != null) {
 				final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 				try {
-					workspace.run(new IWorkspaceRunnable() {
-						@Override
-						public void run(IProgressMonitor monitor) throws CoreException {
-							editingDomain.getCommandStack().execute(command);
-						}
-					}, file, IWorkspace.AVOID_UPDATE, null);
+					workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
 				} catch (final CoreException e) {
 					OsateUiPlugin.log(e);
 				}
@@ -357,12 +345,7 @@ public final class UiUtil {
 				if (editingDomain != null) {
 					final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 					try {
-						workspace.run(new IWorkspaceRunnable() {
-							@Override
-							public void run(IProgressMonitor monitor) throws CoreException {
-								editingDomain.getCommandStack().execute(command);
-							}
-						}, file, IWorkspace.AVOID_UPDATE, null);
+						workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
 					} catch (final CoreException e) {
 						OsateUiPlugin.log(e);
 					}

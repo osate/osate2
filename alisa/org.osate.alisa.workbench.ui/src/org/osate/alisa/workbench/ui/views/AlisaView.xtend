@@ -648,7 +648,7 @@ class AlisaView extends ViewPart {
 						}
 					}
 				}
-
+			if (result === null ) return
 			val expandedElements = assureViewer.expandedElements
 			val resourceSetForProcessing = resourceSetProvider.get(null)
 			val filterURI = selectedFilters.get(assuranceCaseURI)
@@ -662,9 +662,7 @@ class AlisaView extends ViewPart {
 					#[result.URI]
 				}
 			} else {
-				if (result !== null) {
-					updateAllAssureResult(result)
-				}
+				updateAllAssureResult(result)
 			}
 			assureViewer.expandedElements = expandedElements
 		}
