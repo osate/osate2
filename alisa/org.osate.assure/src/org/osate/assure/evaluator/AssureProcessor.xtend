@@ -798,17 +798,8 @@ class AssureProcessor implements IAssureProcessor {
 						setToSuccess(verificationResult)
 					}
 				}
-				// We need to create a resource in order to store the reference to the AnalysisResult object
-				val aruri = ResultUtil.getAnalysisResultURI(returned);
-				val rset = verificationResult.eResource().getResourceSet();
-				val res = OsateResourceUtil.getResource(aruri, rset);
-				res.getContents().clear();
-				res.getContents().add(returned);
-				if (save) {
-					res.save(null);
-				}
 				// record a reference to the AnalysisResult
-				verificationResult.analysisresultreference = returned
+				verificationResult.analysisresult = returned
 			} else if (method.results.size == 1) {
 				// set compute variable value from the returned value
 				if (verificationResult instanceof VerificationActivityResult) {

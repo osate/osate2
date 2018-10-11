@@ -427,22 +427,22 @@ public interface AssurePackage extends EPackage {
 	int VERIFICATION_RESULT__RESULTS = ASSURE_RESULT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Analysisresultreference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERIFICATION_RESULT__ANALYSISRESULTREFERENCE = ASSURE_RESULT_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERIFICATION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 4;
+	int VERIFICATION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VERIFICATION_RESULT__ANALYSISRESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Verification Result</em>' class.
@@ -1021,15 +1021,6 @@ public interface AssurePackage extends EPackage {
 	int PRECONDITION_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
 	/**
-	 * The feature id for the '<em><b>Analysisresultreference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRECONDITION_RESULT__ANALYSISRESULTREFERENCE = VERIFICATION_RESULT__ANALYSISRESULTREFERENCE;
-
-	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1037,6 +1028,15 @@ public interface AssurePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRECONDITION_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRECONDITION_RESULT__ANALYSISRESULT = VERIFICATION_RESULT__ANALYSISRESULT;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -1103,15 +1103,6 @@ public interface AssurePackage extends EPackage {
 	int VALIDATION_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
 	/**
-	 * The feature id for the '<em><b>Analysisresultreference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALIDATION_RESULT__ANALYSISRESULTREFERENCE = VERIFICATION_RESULT__ANALYSISRESULTREFERENCE;
-
-	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1119,6 +1110,15 @@ public interface AssurePackage extends EPackage {
 	 * @ordered
 	 */
 	int VALIDATION_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALIDATION_RESULT__ANALYSISRESULT = VERIFICATION_RESULT__ANALYSISRESULT;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -1185,15 +1185,6 @@ public interface AssurePackage extends EPackage {
 	int VERIFICATION_ACTIVITY_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
 	/**
-	 * The feature id for the '<em><b>Analysisresultreference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VERIFICATION_ACTIVITY_RESULT__ANALYSISRESULTREFERENCE = VERIFICATION_RESULT__ANALYSISRESULTREFERENCE;
-
-	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1201,6 +1192,15 @@ public interface AssurePackage extends EPackage {
 	 * @ordered
 	 */
 	int VERIFICATION_ACTIVITY_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VERIFICATION_ACTIVITY_RESULT__ANALYSISRESULT = VERIFICATION_RESULT__ANALYSISRESULT;
 
 	/**
 	 * The feature id for the '<em><b>Target Reference</b></em>' containment reference.
@@ -1285,15 +1285,6 @@ public interface AssurePackage extends EPackage {
 	int PREDICATE_RESULT__RESULTS = VERIFICATION_RESULT__RESULTS;
 
 	/**
-	 * The feature id for the '<em><b>Analysisresultreference</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDICATE_RESULT__ANALYSISRESULTREFERENCE = VERIFICATION_RESULT__ANALYSISRESULTREFERENCE;
-
-	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1301,6 +1292,15 @@ public interface AssurePackage extends EPackage {
 	 * @ordered
 	 */
 	int PREDICATE_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDICATE_RESULT__ANALYSISRESULT = VERIFICATION_RESULT__ANALYSISRESULT;
 
 	/**
 	 * The feature id for the '<em><b>Target Reference</b></em>' containment reference.
@@ -1613,17 +1613,6 @@ public interface AssurePackage extends EPackage {
 	EReference getVerificationResult_Results();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationResult#getAnalysisresultreference <em>Analysisresultreference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Analysisresultreference</em>'.
-	 * @see org.osate.assure.assure.VerificationResult#getAnalysisresultreference()
-	 * @see #getVerificationResult()
-	 * @generated
-	 */
-	EReference getVerificationResult_Analysisresultreference();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getMessage <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1633,6 +1622,17 @@ public interface AssurePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getVerificationResult_Message();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationResult#getAnalysisresult <em>Analysisresult</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Analysisresult</em>'.
+	 * @see org.osate.assure.assure.VerificationResult#getAnalysisresult()
+	 * @see #getVerificationResult()
+	 * @generated
+	 */
+	EReference getVerificationResult_Analysisresult();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.assure.assure.AssureResult <em>Result</em>}'.
@@ -2464,20 +2464,20 @@ public interface AssurePackage extends EPackage {
 		EReference VERIFICATION_RESULT__RESULTS = eINSTANCE.getVerificationResult_Results();
 
 		/**
-		 * The meta object literal for the '<em><b>Analysisresultreference</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference VERIFICATION_RESULT__ANALYSISRESULTREFERENCE = eINSTANCE.getVerificationResult_Analysisresultreference();
-
-		/**
 		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute VERIFICATION_RESULT__MESSAGE = eINSTANCE.getVerificationResult_Message();
+
+		/**
+		 * The meta object literal for the '<em><b>Analysisresult</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VERIFICATION_RESULT__ANALYSISRESULT = eINSTANCE.getVerificationResult_Analysisresult();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.assure.assure.impl.AssureResultImpl <em>Result</em>}' class.
