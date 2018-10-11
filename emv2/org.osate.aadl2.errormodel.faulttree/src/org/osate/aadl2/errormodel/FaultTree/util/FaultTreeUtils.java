@@ -118,11 +118,15 @@ public class FaultTreeUtils {
 
 	public static boolean hasSharedEvents(FaultTree ftaModel) {
 		for (Event ev : ftaModel.getEvents()) {
-			if (ev.getReferenceCount() > 1 || ev.isSharedEvent()) {
+			if (isASharedEvent(ev)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public static boolean isASharedEvent(Event event) {
+		return event.getReferenceCount() > 1 || event.isSharedEvent();
 	}
 
 	/**
@@ -468,7 +472,7 @@ public class FaultTreeUtils {
 						} else {
 							return fullText;
 						}
-					} else if (ev.isSharedEvent()) {
+			} else if (isASharedEvent(ev)) {
 						return "*" + fullText;
 					} else {
 						return fullText;
@@ -511,7 +515,7 @@ public class FaultTreeUtils {
 			}
 			String msg = ev.getMessage() != null ? "\nMessage: " + ev.getMessage() : "";
 			String problabel = "";
-			if (ev.isSharedEvent()) {
+			if (isASharedEvent(ev)) {
 				labeltext = "Dependent event: " + labeltext;
 			} else if (ev == ft.getRoot()) {
 				// mark probability with star if shared events are involved
