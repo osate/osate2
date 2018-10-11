@@ -382,8 +382,8 @@ class AlisaView extends ViewPart {
 
 				override getChildren(Object parentElement) {
 					val eo = resourceSetForUI.getEObject(parentElement as URI, true)
-					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresultreference !== null){
-						(eo as VerificationResult).analysisresultreference.results.map[URI] //+ eo.eContents.map[URI]
+					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresult !== null){
+						(eo as VerificationResult).analysisresult.results.map[URI] //+ eo.eContents.map[URI]
 					} else {
 						eo.eContents.map[URI]
 					}
@@ -399,8 +399,8 @@ class AlisaView extends ViewPart {
 
 				override hasChildren(Object element) {
 					val eo = resourceSetForUI.getEObject(element as URI, true)
-					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresultreference !== null){
-						!((eo as VerificationResult).analysisresultreference.eContents ).empty
+					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresult !== null){
+						!((eo as VerificationResult).analysisresult.eContents ).empty
 					}
 					!(eo?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
 				}
@@ -441,7 +441,7 @@ class AlisaView extends ViewPart {
 							PreconditionResult:
 								"Precondition " + eObject.name
 							Result: {
-								if (eObject.resultType == DiagnosticType.TBD){
+								if (eObject.resultType == ResultType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
 								} else {
 									eObject.resultType.getName.toLowerCase.toFirstUpper +": "+ (eObject.modelElement?.constructLabel ?: "" ) 

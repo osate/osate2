@@ -531,8 +531,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getVerificationResult_Analysisresultreference() {
-		return (EReference)verificationResultEClass.getEStructuralFeatures().get(3);
+	public EAttribute getVerificationResult_Message() {
+		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -540,9 +540,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public EAttribute getVerificationResult_Message() {
-		return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(4);
+	public EReference getVerificationResult_Analysisresult() {
+		return (EReference)verificationResultEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1145,8 +1144,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		createEAttribute(verificationResultEClass, VERIFICATION_RESULT__TYPE);
 		createEReference(verificationResultEClass, VERIFICATION_RESULT__ISSUES);
 		createEReference(verificationResultEClass, VERIFICATION_RESULT__RESULTS);
-		createEReference(verificationResultEClass, VERIFICATION_RESULT__ANALYSISRESULTREFERENCE);
 		createEAttribute(verificationResultEClass, VERIFICATION_RESULT__MESSAGE);
+		createEReference(verificationResultEClass, VERIFICATION_RESULT__ANALYSISRESULT);
 
 		assureResultEClass = createEClass(ASSURE_RESULT);
 		createEReference(assureResultEClass, ASSURE_RESULT__METRICS);
@@ -1300,8 +1299,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		initEAttribute(getVerificationResult_Type(), theResultPackage.getResultType(), "type", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVerificationResult_Issues(), theResultPackage.getDiagnostic(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVerificationResult_Results(), theResultPackage.getResult(), null, "results", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVerificationResult_Analysisresultreference(), theResultPackage.getAnalysisResult(), null, "analysisresultreference", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVerificationResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVerificationResult_Analysisresult(), theResultPackage.getAnalysisResult(), null, "analysisresult", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(assureResultEClass, AssureResult.class, "AssureResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAssureResult_Metrics(), this.getMetrics(), null, "metrics", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
