@@ -113,9 +113,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
-			// copy shared events so we display a tree
-			replicateSharedEvents(ftaRootEvent);
-			FaultTreeUtils.removeEventOrphans(ftaModel);
+//			// copy shared events so we display a tree
+//			replicateSharedEvents(ftaRootEvent);
+//			FaultTreeUtils.removeEventOrphans(ftaModel);
 			FaultTreeUtils.fillProbabilities(ftaModel);
 			FaultTreeUtils.computeProbabilities(ftaModel.getRoot());
 		}
