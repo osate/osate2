@@ -126,7 +126,7 @@ public class FaultTreeUtils {
 	}
 
 	public static boolean isASharedEvent(Event event) {
-		return event.getReferenceCount() > 1 || event.isSharedEvent();
+		return event.getReferenceCount() > 1;
 	}
 
 	/**
