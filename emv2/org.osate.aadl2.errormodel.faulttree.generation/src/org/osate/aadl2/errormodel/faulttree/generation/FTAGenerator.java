@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
@@ -113,9 +111,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			ftaRootEvent.setName(longName);
 			ftaModel.setRoot(ftaRootEvent);
 			FaultTreeUtils.removeEventOrphans(ftaModel);
-//			// copy shared events so we display a tree
-//			replicateSharedEvents(ftaRootEvent);
-//			FaultTreeUtils.removeEventOrphans(ftaModel);
 			FaultTreeUtils.fillProbabilities(ftaModel);
 			FaultTreeUtils.computeProbabilities(ftaModel.getRoot());
 		}
@@ -427,58 +422,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		existingAlternatives.add(altEvent);
 	}
 
-	/**
-	 * recursively flatten gates with same subgates
-	 * @param rootevent
-	 * @return Event original or new root event
-	 */
-	private void replicateSharedEvents(Event rootevent) {
-		UniqueEList<Event> found = new UniqueEList<Event>();
-		replicateSharedEvents(rootevent, found);
-		return;
-	}
-
-	private void replicateSharedEvents(Event rootevent, UniqueEList<Event> found) {
-		if (rootevent.getSubEvents().isEmpty()) {
-			return;
-		}
-		List<Event> subEvents = rootevent.getSubEvents();
-		List<Event> toAdd = new LinkedList<Event>();
-		List<Event> toRemove = new LinkedList<Event>();
-		for (Event event : subEvents) {
-			if (!event.getSubEvents().isEmpty()) {
-				replicateSharedEvents(event, found);
-			}
-			if (!found.add(event)) {
-				// make new event instance and link it in
-				Event newEvent = recursiveCopy(event);
-				toAdd.add(newEvent);
-				toRemove.add(event);
-			}
-		}
-		subEvents.removeAll(toRemove);
-		subEvents.addAll(toAdd);
-		return;
-	}
-
-	private Event recursiveCopy(Event event) {
-		Event newEvent = EcoreUtil.copy(event);
-		ftaModel.getEvents().add(newEvent);
-		tagAsSharedEvent(newEvent);
-		tagAsSharedEvent(event);
-		if (!event.getSubEvents().isEmpty()) {
-			newEvent.getSubEvents().clear();
-			for (Event subevent : event.getSubEvents()) {
-				Event copy = recursiveCopy(subevent);
-				newEvent.getSubEvents().add(copy);
-			}
-		}
-		return newEvent;
-	}
-
-	private void tagAsSharedEvent(Event ev) {
-		ev.setSharedEvent(true);
-	}
 
 	/**
 	 * recursively remove common events from subgates of XOR gates
