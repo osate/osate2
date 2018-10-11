@@ -5,17 +5,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.navigator.ILinkHelper;
 import org.eclipse.ui.part.FileEditorInput;
@@ -27,6 +31,7 @@ import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -35,6 +40,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
@@ -88,11 +95,25 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 				editor = page.findEditor(new ContributedAadlEditorInput(storage));
 			}
 			if (editor != null) {
-				int start = findOffset(ne);
-				int length = ne.getName().length();
-				TextSelection selection = new TextSelection(start, length);
 				page.bringToTop(editor);
-				editor.getEditorSite().getSelectionProvider().setSelection(selection);
+				if (editor instanceof XtextEditor) {
+					int start = findOffset(ne);
+					int length = ne.getName().length();
+					TextSelection selection = new TextSelection(start, length);
+					editor.getEditorSite().getSelectionProvider().setSelection(selection);
+				} else {
+					IGotoMarker gotoMarkerAdapter = Adapters.adapt(editor, IGotoMarker.class);
+					if (gotoMarkerAdapter != null) {
+						try {
+							IMarker marker = ResourcesPlugin.getWorkspace().getRoot().createMarker(IMarker.MARKER);
+							marker.setAttribute("uri", EcoreUtil.getURI(ne).toString());
+							gotoMarkerAdapter.gotoMarker(marker);
+							marker.delete();
+						} catch (CoreException e) {
+							OsateCorePlugin.log(e);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -100,7 +121,7 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 	protected boolean shouldLink(Object o) {
 		return o instanceof AadlPackage || o instanceof Classifier || o instanceof Property
 				|| o instanceof PropertyConstant || o instanceof PropertyType || o instanceof AnnexSubclause
-				|| o instanceof AnnexLibrary;
+				|| o instanceof AnnexLibrary || o instanceof InstanceObject;
 	}
 
 	private int findOffset(NamedElement classifier) {
