@@ -8,7 +8,7 @@ explorer = explorerView.bot().tree()
 
 // reload genmodel file
 print("Reload generator model");
-node = findTreeItem(explorer.getAllItems(), "osate2-core")
+node = findTreeItem(explorer.getAllItems(), "core")
 waitExpand(node);
 node = findTreeItem(node.getItems(), "org.osate.aadl2");
 waitExpand(node);
