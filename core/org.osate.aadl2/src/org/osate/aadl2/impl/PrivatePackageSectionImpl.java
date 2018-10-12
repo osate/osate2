@@ -86,7 +86,8 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	public PublicPackageSection getPublicSection() {
 		PublicPackageSection publicSection = basicGetPublicSection();
 		return publicSection != null && ((EObject) publicSection).eIsProxy()
-				? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection) : publicSection;
+				? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection)
+				: publicSection;
 	}
 
 	/**

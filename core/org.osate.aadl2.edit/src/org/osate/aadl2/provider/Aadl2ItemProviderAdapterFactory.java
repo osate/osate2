@@ -86,7 +86,7 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection<Object> supportedTypes = new ArrayList<Object>();
+	protected Collection<Object> supportedTypes = new ArrayList<>();
 
 	/**
 	 * This constructs an instance.

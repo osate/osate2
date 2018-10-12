@@ -190,7 +190,7 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 		updateChildren(notification);
 		super.notifyChanged(notification);
 	}
-	
+
 	/**
 	 * Manually added to show the flow elements in an EndToEndFlowInstance.
 	 */
@@ -201,44 +201,44 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 				.map(flowElement -> new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement))
 				.collect(Collectors.toList());
 	}
-	
+
 	public static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter
 			implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
 			IItemLabelProvider, IItemPropertySource {
 		private final FlowElementInstance flowElement;
-		
+
 		private EndToEndFlowInstanceFlowElementItemProvider(AdapterFactory adapterFactory, EndToEndFlowInstance etef,
 				FlowElementInstance flowElement) {
 			super(adapterFactory);
 			this.flowElement = flowElement;
 			etef.eAdapters().add(this);
 		}
-		
+
 		public FlowElementInstance getFlowElement() {
 			return flowElement;
 		}
-		
+
 		@Override
 		public Collection<?> getChildren(Object object) {
 			return Collections.emptyList();
 		}
-		
+
 		@Override
 		public Object getParent(Object object) {
 			return target;
 		}
-		
+
 		@Override
 		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
 			return Collections.emptyList();
 		}
-		
+
 		@Override
 		public String getText(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))
 					.getText(flowElement);
 		}
-		
+
 		@Override
 		public Object getImage(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))

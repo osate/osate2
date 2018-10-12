@@ -94,6 +94,8 @@
         lowerBound="1" eType="#//ModeInstance" resolveProxies="false" eOpposite="#//ModeInstance/dstModeTransition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modeTransition" ordered="false"
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//ModeTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" ordered="false"
+        upperBound="-1" eType="#//FeatureInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
         lowerBound="1" eType="#//ModeInstance" resolveProxies="false" eOpposite="#//ModeInstance/srcModeTransition"/>
   </eClassifiers>

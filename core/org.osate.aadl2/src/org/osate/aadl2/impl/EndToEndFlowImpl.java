@@ -169,7 +169,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -184,7 +184,8 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -262,7 +263,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	@Override
 	public EList<EndToEndFlowSegment> getOwnedEndToEndFlowSegments() {
 		if (ownedEndToEndFlowSegments == null) {
-			ownedEndToEndFlowSegments = new EObjectContainmentEList<EndToEndFlowSegment>(EndToEndFlowSegment.class,
+			ownedEndToEndFlowSegments = new EObjectContainmentEList<>(EndToEndFlowSegment.class,
 					this, Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT);
 		}
 		return ownedEndToEndFlowSegments;
