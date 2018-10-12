@@ -52,6 +52,18 @@
    </extension>
    
    <extension
+         point="org.eclipse.search.searchPages">
+      <page
+            class="org.osate.ui.search.AADLSearchPage"
+            id="org.osate.ui.search.AADLSearchPage"
+            showScopeSection="true"
+            label="AADL Search"
+            icon="icons/aadl.gif"> 
+      </page>
+   </extension>
+
+   
+   <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.osate.Wizard.category.ID"
