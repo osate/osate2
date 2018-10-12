@@ -152,7 +152,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	@Override
 	public EList<PropertyExpression> getOwnedPropertyExpressions() {
 		if (ownedPropertyExpressions == null) {
-			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
+			ownedPropertyExpressions = new EObjectContainmentEList<>(PropertyExpression.class, this,
 					Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION);
 		}
 		return ownedPropertyExpressions;

@@ -187,12 +187,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+						ownedFeatures = new DerivedUnionEObjectEList<>(Feature.class, this,
 								Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -222,12 +222,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
+						classifierFeatures = new DerivedUnionEObjectEList<>(ClassifierFeature.class,
 								this, Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -258,12 +258,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -295,12 +295,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					Aadl2Package.eINSTANCE.getClassifier_General());
 			if (generals == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+						generals = new DerivedUnionEObjectEList<>(Classifier.class, this,
 								Aadl2Package.COMPONENT_TYPE__GENERAL, GENERAL_ESUBSETS));
 			}
 			return generals;
 		}
-		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this, Aadl2Package.COMPONENT_TYPE__GENERAL,
+		return new DerivedUnionEObjectEList<>(Classifier.class, this, Aadl2Package.COMPONENT_TYPE__GENERAL,
 				GENERAL_ESUBSETS);
 	}
 
@@ -329,12 +329,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					Aadl2Package.eINSTANCE.getClassifier_Generalization());
 			if (generalizations == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+						generalizations = new DerivedUnionEObjectEList<>(Generalization.class, this,
 								Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS));
 			}
 			return generalizations;
 		}
-		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
+		return new DerivedUnionEObjectEList<>(Generalization.class, this,
 				Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS);
 	}
 
@@ -382,7 +382,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	public ComponentType getExtended() {
 		ComponentType extended = basicGetExtended();
 		return extended != null && ((EObject) extended).eIsProxy()
-				? (ComponentType) eResolveProxy((InternalEObject) extended) : extended;
+				? (ComponentType) eResolveProxy((InternalEObject) extended)
+				: extended;
 	}
 
 	/**
@@ -424,7 +425,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<FlowSpecification> getOwnedFlowSpecifications() {
 		if (ownedFlowSpecifications == null) {
-			ownedFlowSpecifications = new EObjectContainmentEList<FlowSpecification>(FlowSpecification.class, this,
+			ownedFlowSpecifications = new EObjectContainmentEList<>(FlowSpecification.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
 		}
 		return ownedFlowSpecifications;
@@ -520,7 +521,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<FeatureGroup> getOwnedFeatureGroups() {
 		if (ownedFeatureGroups == null) {
-			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(FeatureGroup.class, this,
+			ownedFeatureGroups = new EObjectContainmentEList<>(FeatureGroup.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP);
 		}
 		return ownedFeatureGroups;
@@ -546,7 +547,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<AbstractFeature> getOwnedAbstractFeatures() {
 		if (ownedAbstractFeatures == null) {
-			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(AbstractFeature.class, this,
+			ownedAbstractFeatures = new EObjectContainmentEList<>(AbstractFeature.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE);
 		}
 		return ownedAbstractFeatures;
@@ -791,7 +792,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<Feature> getAllFeatures() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		final BasicEList<Feature> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
@@ -821,7 +822,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<FlowSpecification> getAllFlowSpecifications() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<FlowSpecification> returnlist = new BasicEList<FlowSpecification>();
+		final BasicEList<FlowSpecification> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
@@ -860,7 +861,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	// }
 	public EList<Mode> getAllModes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
+		final BasicEList<Mode> returnlist = new BasicEList<>();
 		for (ListIterator<Classifier> it = ancestors.listIterator(ancestors.size()); it.hasPrevious();) {
 			final ComponentType current = (ComponentType) it.previous();
 			returnlist.addAll(current.getOwnedModes());
@@ -878,7 +879,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<ModeTransition> getAllModeTransitions() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
+		final BasicEList<ModeTransition> returnlist = new BasicEList<>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
@@ -897,7 +898,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	@Override
 	public EList<Prototype> getAllPrototypes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
+		final BasicEList<Prototype> returnlist = new BasicEList<>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();

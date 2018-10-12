@@ -164,7 +164,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// BasicEList<Classifier> list = new BasicEList<Classifier>();
-		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
+		final EList<Classifier> list = new NonNotifyingEObjectEList<>(Classifier.class, this,
 				Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER);
 		list.add(getContainingClassifier());
 		return list;
@@ -222,7 +222,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
-			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
+			ownedFlowSegments = new EObjectContainmentEList<>(FlowSegment.class, this,
 					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
 		return ownedFlowSegments;

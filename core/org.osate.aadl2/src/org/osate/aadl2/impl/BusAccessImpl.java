@@ -118,7 +118,8 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
-				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**

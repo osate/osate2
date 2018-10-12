@@ -183,21 +183,21 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	@Override
 	public String getText(Object object) {
 		FlowSpecificationInstance flowInstance = (FlowSpecificationInstance) object;
-		
+
 		StringBuilder result = new StringBuilder(getString("_UI_FlowSpecificationInstance_type"));
-		
+
 		FlowSpecification declarativeFlow = flowInstance.getFlowSpecification();
 		if (declarativeFlow != null && !declarativeFlow.eIsProxy()) {
 			result.append(' ');
 			result.append(StringExtensions.toFirstUpper(declarativeFlow.getKind().getName()));
 		}
-		
+
 		String flowName = flowInstance.getName();
 		if (flowName != null && !flowName.isEmpty()) {
 			result.append(' ');
 			result.append(flowName);
 		}
-		
+
 		return result.toString();
 	}
 
