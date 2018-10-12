@@ -298,6 +298,32 @@
        </wizard>
     </extension-->
    <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            category="org.eclipse.ui.Basic"
+            class="org.osate.ui.wizards.workingsets.WorkingSetExportWizard"
+            icon="icons/workingsets/workingSets2.gif"
+            id="org.osate.ui.workingSetExportWizard"
+            name="Working Sets">
+         <description>
+            Exports working sets.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            category="org.eclipse.ui.Basic"
+            class="org.osate.ui.wizards.workingsets.WorkingSetImportWizard"
+            icon="icons/workingsets/workingSets.gif"
+            id="org.osate.ui.workingSetImportWizard"
+            name="Working Sets">
+         <description>
+            Imports working sets.
+         </description>
+      </wizard>
+   </extension>
+   <extension
          id="org.osate.views"
          point="org.eclipse.ui.views">
       <category
