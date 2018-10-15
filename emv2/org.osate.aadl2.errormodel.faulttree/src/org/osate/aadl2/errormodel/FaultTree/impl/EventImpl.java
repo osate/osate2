@@ -38,7 +38,6 @@ import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#isSharedEvent <em>Shared Event</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getScale <em>Scale</em>}</li>
  * </ul>
  *
@@ -244,26 +243,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @ordered
 	 */
 	protected EObject relatedEMV2Object;
-
-	/**
-	 * The default value of the '{@link #isSharedEvent() <em>Shared Event</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSharedEvent()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean SHARED_EVENT_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isSharedEvent() <em>Shared Event</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSharedEvent()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean sharedEvent = SHARED_EVENT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getScale() <em>Scale</em>}' attribute.
@@ -600,29 +579,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public boolean isSharedEvent() {
-		return sharedEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setSharedEvent(boolean newSharedEvent) {
-		boolean oldSharedEvent = sharedEvent;
-		sharedEvent = newSharedEvent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SHARED_EVENT, oldSharedEvent, sharedEvent));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public double getScale() {
 		return scale;
 	}
@@ -714,8 +670,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				if (resolve) return getRelatedEMV2Object();
 				return basicGetRelatedEMV2Object();
-			case FaultTreePackage.EVENT__SHARED_EVENT:
-				return isSharedEvent();
 			case FaultTreePackage.EVENT__SCALE:
 				return getScale();
 		}
@@ -768,9 +722,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				setRelatedEMV2Object((EObject)newValue);
 				return;
-			case FaultTreePackage.EVENT__SHARED_EVENT:
-				setSharedEvent((Boolean)newValue);
-				return;
 			case FaultTreePackage.EVENT__SCALE:
 				setScale((Double)newValue);
 				return;
@@ -822,9 +773,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				setRelatedEMV2Object((EObject)null);
 				return;
-			case FaultTreePackage.EVENT__SHARED_EVENT:
-				setSharedEvent(SHARED_EVENT_EDEFAULT);
-				return;
 			case FaultTreePackage.EVENT__SCALE:
 				setScale(SCALE_EDEFAULT);
 				return;
@@ -864,8 +812,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return subEventLogic != SUB_EVENT_LOGIC_EDEFAULT;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				return relatedEMV2Object != null;
-			case FaultTreePackage.EVENT__SHARED_EVENT:
-				return sharedEvent != SHARED_EVENT_EDEFAULT;
 			case FaultTreePackage.EVENT__SCALE:
 				return scale != SCALE_EDEFAULT;
 		}
@@ -912,8 +858,6 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		result.append(type);
 		result.append(", subEventLogic: ");
 		result.append(subEventLogic);
-		result.append(", sharedEvent: ");
-		result.append(sharedEvent);
 		result.append(", scale: ");
 		result.append(scale);
 		result.append(')');

@@ -259,22 +259,13 @@ public interface FaultTreePackage extends EPackage {
 	int EVENT__RELATED_EMV2_OBJECT = 11;
 
 	/**
-	 * The feature id for the '<em><b>Shared Event</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVENT__SHARED_EVENT = 12;
-
-	/**
 	 * The feature id for the '<em><b>Scale</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__SCALE = 13;
+	int EVENT__SCALE = 12;
 
 	/**
 	 * The number of structural features of the '<em>Event</em>' class.
@@ -283,7 +274,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 14;
+	int EVENT_FEATURE_COUNT = 13;
 
 	/**
 	 * The operation id for the '<em>Get Probability</em>' operation.
@@ -543,17 +534,6 @@ public interface FaultTreePackage extends EPackage {
 	EReference getEvent_RelatedEMV2Object();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Shared Event</em>'.
-	 * @see org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent()
-	 * @see #getEvent()
-	 * @generated
-	 */
-	EAttribute getEvent_SharedEvent();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -793,14 +773,6 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EVENT__RELATED_EMV2_OBJECT = eINSTANCE.getEvent_RelatedEMV2Object();
-
-		/**
-		 * The meta object literal for the '<em><b>Shared Event</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EVENT__SHARED_EVENT = eINSTANCE.getEvent_SharedEvent();
 
 		/**
 		 * The meta object literal for the '<em><b>Scale</b></em>' attribute feature.
