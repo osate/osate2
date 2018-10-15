@@ -64,7 +64,6 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 			addTypePropertyDescriptor(object);
 			addSubEventLogicPropertyDescriptor(object);
 			addRelatedEMV2ObjectPropertyDescriptor(object);
-			addSharedEventPropertyDescriptor(object);
 			addScalePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -335,28 +334,6 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 	}
 
 	/**
-	 * This adds a property descriptor for the Shared Event feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSharedEventPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Event_sharedEvent_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Event_sharedEvent_feature", "_UI_Event_type"),
-				 FaultTreePackage.Literals.EVENT__SHARED_EVENT,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Scale feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -451,7 +428,6 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 			case FaultTreePackage.EVENT__TYPE:
 			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			case FaultTreePackage.EVENT__SHARED_EVENT:
 			case FaultTreePackage.EVENT__SCALE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
