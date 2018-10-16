@@ -23,12 +23,10 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
-import org.osate.ge.graphics.ConnectionBuilder;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.EditingUtil;
@@ -39,7 +37,6 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
@@ -52,7 +49,9 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 
 	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
+	public GraphicalConfiguration getGraphicalConfiguration(
+			final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final QueryService queryService) {
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
@@ -78,8 +77,8 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		}
 
 		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				style(sb.build()).
+				graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
+				.style(sb.build()).
 				source(src).
 				destination(dst).
 				build();

@@ -3,6 +3,8 @@ package org.osate.ge.internal.diagram.runtime.filtering;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.ge.ContentFilter;
 
 public class ModeFilter implements ContentFilter {
@@ -20,11 +22,11 @@ public class ModeFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return bo instanceof ComponentClassifier || bo instanceof Subcomponent;
+		return bo instanceof ComponentClassifier || bo instanceof Subcomponent || bo instanceof ComponentInstance;
 	}
 
 	@Override
 	public boolean test(Object bo) {
-		return bo instanceof Mode;
+		return bo instanceof Mode || bo instanceof ModeInstance;
 	}
 }
