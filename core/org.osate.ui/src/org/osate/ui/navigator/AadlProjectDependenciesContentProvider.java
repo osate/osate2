@@ -53,6 +53,8 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 			}
 		} else if (element instanceof VirtualProjectDependencies) {
 			return ((VirtualProjectDependencies) element).hasChildren();
+		} else if (element instanceof VirtualProjectNode) {
+			return false;
 		}
 		return super.hasChildren(element);
 	}
@@ -80,6 +82,8 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 	public Object getParent(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
 			return ((VirtualProjectDependencies) element).getProject();
+		} else if (element instanceof VirtualProjectNode) {
+			return ((VirtualProjectNode) element).getParent();
 		}
 		return null;
 	}
