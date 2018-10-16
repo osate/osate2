@@ -840,6 +840,8 @@
             url="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
         <repository
             url="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.12"/>
+        <repository
+            url="http://xtexttools.libutzki.de/"/>
       </repositoryList>
     </targlet>
     <description></description>
