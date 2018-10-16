@@ -46,14 +46,13 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 			final IProject project = (IProject) element;
 			try {
 				if (project.getNature(AadlNature.ID) != null) {
-					final IProject[] refProjects = project.getReferencedProjects();
-					return refProjects.length > 0;
+					return true;
 				}
 			} catch (CoreException e) {
 				// couldn't retrieve AADL nature from project
 			}
 		} else if (element instanceof VirtualProjectDependencies) {
-			return true;
+			return ((VirtualProjectDependencies) element).hasChildren();
 		}
 		return super.hasChildren(element);
 	}
@@ -65,9 +64,7 @@ public class AadlProjectDependenciesContentProvider extends WorkbenchContentProv
 			try {
 				if (project.getNature(AadlNature.ID) != null) {
 					final IProject[] refProjects = project.getReferencedProjects();
-					if (refProjects.length > 0) {
-						return new Object[] { new VirtualProjectDependencies(project, refProjects) };
-					}
+					return new Object[] { new VirtualProjectDependencies(project, refProjects) };
 				}
 			} catch (CoreException e) {
 				// couldn't retrieve AADL nature from project
