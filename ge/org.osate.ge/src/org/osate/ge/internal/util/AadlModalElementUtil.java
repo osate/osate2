@@ -11,6 +11,7 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.Queryable;
 
@@ -50,7 +51,11 @@ public class AadlModalElementUtil {
 				.findAny().orElse(null);
 	}
 
-	public static boolean isModalElementWithContainer(final Object element) {
+	public static boolean isModalElementWithContainer(Object element) {
+		if (element instanceof InstanceObject) {
+			element = AadlInstanceObjectUtil.getModalElement((InstanceObject) element);
+		}
+
 		return element instanceof ModalElement
 				&& ((ModalElement) element).getContainingClassifier() instanceof ComponentClassifier;
 	}
@@ -64,7 +69,7 @@ public class AadlModalElementUtil {
 		final List<? extends ModeFeature> inModes = mp.getAllInModes();
 		final List<? extends ModeFeature> inTransitions = mp.getAllInModeTransitions();
 		final int totalCount = inModes.size() + inTransitions.size();
-		if(totalCount == 0) {
+		if (totalCount == 0) {
 			return Collections.emptyList();
 		}
 

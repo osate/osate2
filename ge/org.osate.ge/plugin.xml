@@ -1497,6 +1497,14 @@
        		priority="1">
        </tooltipContributor>
        <tooltipContributor
+       		class="org.osate.ge.internal.tooltips.ModeTransitionInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.internal.tooltips.ConnectionReferenceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
              class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
              priority="1">
        </tooltipContributor>
@@ -1976,6 +1984,12 @@
              class="org.osate.ge.internal.businessObjectHandlers.ComponentInstanceHandler">
        </handler>
        <handler
+       		 class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationInstanceHandler">
+       </handler>
+       <handler
+       		 class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationInstanceHandler">
+       </handler>
+       <handler
              class="org.osate.ge.internal.businessObjectHandlers.FeatureInstanceHandler">
        </handler>
        <handler
@@ -1985,7 +1999,13 @@
              class="org.osate.ge.internal.businessObjectHandlers.ModeHandler">
        </handler>
        <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeInstanceHandler">
+       </handler>
+       <handler
              class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionHandler">
+       </handler>
+        <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionInstanceHandler">
        </handler>
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler">
