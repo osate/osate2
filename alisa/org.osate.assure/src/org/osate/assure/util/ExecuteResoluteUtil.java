@@ -48,11 +48,17 @@ import com.rockwellcollins.atc.resolute.validation.BaseType;
 public class ExecuteResoluteUtil {
 	public static ExecuteResoluteUtil eInstance = new ExecuteResoluteUtil();
 
-	public void tryLoad() throws NoClassDefFoundError {
+	public boolean tryLoad() throws NoClassDefFoundError {
 		// Nothing needed since static initialization of this class already
 		// tries to load Resolute
 		FunctionDefinition fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+		String name = fn.getName();
 		fn.setName("dummy");
+		if (name.startsWith("org.osate")) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**

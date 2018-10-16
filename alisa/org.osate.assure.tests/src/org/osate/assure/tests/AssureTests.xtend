@@ -79,8 +79,13 @@ class AssureTests extends XtextTest {
 		if (!INSTALL_INITIALIZED) {
 			try {
 				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+				val name = fn.getName();
 				fn.setName("dummy");
-				RESOLUTE_INSTALLED = true;
+				if (name.startsWith("org.osate")) {
+					RESOLUTE_INSTALLED = false;
+				} else {
+					RESOLUTE_INSTALLED = true;
+				}
 			} catch (NoClassDefFoundError e) {
 				RESOLUTE_INSTALLED = false;
 			}
@@ -752,16 +757,16 @@ class AssureTests extends XtextTest {
 		val counts = assuranceCaseResult.metrics
 		37.assertEquals(counts.tbdCount)
 		val ap = new AssureProcessor
-		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
+		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), true)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteInstalled){
 			13.assertEquals(counts.successCount)
 			20.assertEquals(counts.failCount)
 			3.assertEquals(counts.errorCount)
 		} else {
-			8.assertEquals(counts.successCount)
-			10.assertEquals(counts.failCount)
-			19.assertEquals(counts.errorCount)
+			9.assertEquals(counts.successCount)
+			11.assertEquals(counts.failCount)
+			17.assertEquals(counts.errorCount)
 		}
 	}
 

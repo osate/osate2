@@ -229,6 +229,7 @@ class AssureUtilExtension {
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
+		// XXX org.eclipse.core.internal.resources.ResourceException: Resource '/org.osate.assure.tests/models/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2' does not exist.
 		val markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
 		val targetURI = EcoreUtil.getURI(instance).toString()
 		var targetmarkers = markers.filter [ IMarker m |
