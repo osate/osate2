@@ -1,16 +1,17 @@
 package org.osate.xtext.aadl2.ui.util;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
-import org.eclipse.xtext.parser.IParser;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
-import org.osate.xtext.aadl2.ui.MyAadl2Activator;
-import org.eclipse.xtext.ParserRule
 import java.io.StringReader
+import org.eclipse.core.resources.IContainer
+import org.eclipse.core.runtime.Path
+import org.eclipse.xtext.ParserRule
+import org.eclipse.xtext.naming.IQualifiedNameConverter
+import org.eclipse.xtext.parser.IParser
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.eclipse.xtext.util.OnChangeEvictingCache
+import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
+import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 public final class Aadl2NameValidators {
 	private static val parser = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IParser)
@@ -58,8 +59,9 @@ public final class Aadl2NameValidators {
 		 */
 		val fakeFolder = parent.getFolder(Path.forPosix(".fake"));
 		val rsrc = OsateResourceUtil.getResource(fakeFolder);
-		val scope = globalScopeProvider.getScope(rsrc, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
-				null);
+		val scope = new OnChangeEvictingCache().execWithTemporaryCaching(rsrc, [resource |
+			globalScopeProvider.getScope(resource, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
+		])
 		val qualifiedName = qNameConverter.toQualifiedName(modelUnitName);
 		scope.getSingleElement(qualifiedName);
 	}

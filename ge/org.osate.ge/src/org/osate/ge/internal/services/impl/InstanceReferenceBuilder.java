@@ -28,7 +28,10 @@ import org.eclipse.core.runtime.IPath;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
@@ -43,9 +46,13 @@ public class InstanceReferenceBuilder {
 	final static String COMPONENT_INSTANCE_KEY = "component_instance";
 	final static String FEATURE_INSTANCE_KEY = "feature_instance";
 	final static String CONNECTION_REFERENCE_KEY = "connection_reference";
+	final static String FLOW_SPECIFICATION_INSTANCE_KEY = "flow_specification_instance";
+	final static String MODE_INSTANCE_KEY = "mode_instance";
+	final static String MODE_TRANSITION_INSTANCE_KEY = "mode_transition_instance";
 
 	@BuildRelativeReference
 	public String[] getRelativeReference(final SystemInstanceLoadingService systemInstanceLoader, final @Named(Names.BUSINESS_OBJECT) Object bo) {
+
 		if(bo instanceof InstanceObject) {
 			final InstanceObject io = (InstanceObject)bo;
 			final String systemInstanceKey = systemInstanceLoader.getKey(io.getSystemInstance());
@@ -61,6 +68,12 @@ public class InstanceReferenceBuilder {
 				return new String[] {ID,FEATURE_INSTANCE_KEY, io.getFullName()};
 			} else if(bo instanceof ConnectionReference) {
 				return new String[] {ID,CONNECTION_REFERENCE_KEY, buildConnectionReferenceId((ConnectionReference)bo)};
+			} else if (bo instanceof FlowSpecificationInstance) {
+				return new String[] { ID, FLOW_SPECIFICATION_INSTANCE_KEY, io.getFullName() };
+			} else if (bo instanceof ModeInstance) {
+				return new String[] { ID, MODE_INSTANCE_KEY, io.getFullName() };
+			} else if (bo instanceof ModeTransitionInstance) {
+				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, io.getFullName() };
 			}
 		}
 
@@ -84,6 +97,15 @@ public class InstanceReferenceBuilder {
 				return new String[] {ID,FEATURE_INSTANCE_KEY, systemInstanceKey, io.getInstanceObjectPath().toLowerCase()};
 			} else if(bo instanceof ConnectionReference) {
 				return new String[] {ID,CONNECTION_REFERENCE_KEY, systemInstanceKey, buildConnectionReferenceId((ConnectionReference)bo)};
+			} else if (bo instanceof FlowSpecificationInstance) {
+				return new String[] { ID, FLOW_SPECIFICATION_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
+			} else if (bo instanceof ModeInstance) {
+				return new String[] { ID, MODE_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
+			} else if (bo instanceof ModeTransitionInstance) {
+				return new String[] { ID, MODE_TRANSITION_INSTANCE_KEY, systemInstanceKey,
+						io.getInstanceObjectPath().toLowerCase() };
 			}
 		}
 

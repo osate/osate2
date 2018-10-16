@@ -25,6 +25,7 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.query.Queryable;
@@ -32,6 +33,7 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -41,9 +43,11 @@ public class FlowContributionItem extends ComboContributionItem {
 	public final static String highlightFlow = "org.osate.ge.properties.HighlightFlow";
 	private static final String emptySelectionTxt = "<Flows>";
 	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
-	private static final StandaloneQuery flowContainerQuery = StandaloneQuery.create((rootQuery) -> rootQuery
-			.descendants().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
-					|| fa.getBusinessObject() instanceof Subcomponent));
+	private static final StandaloneQuery flowContainerQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.descendants()
+					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
+							|| fa.getBusinessObject() instanceof Subcomponent
+							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor = null;
 
 	public FlowContributionItem(final String id) {
@@ -137,11 +141,17 @@ public class FlowContributionItem extends ComboContributionItem {
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream()
-					.flatMap(flowContainerQueryable -> AadlClassifierUtil
-							.getComponentImplementation(flowContainerQueryable)
-							.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
-							.orElse(Stream.empty()))
-					.map(HighlightableFlowInfo::create).filter(Predicates.notNull())
+					.flatMap(flowContainerQueryable -> {
+						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
+									return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
+									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+									.orElse(Stream.empty());
+						} else {
+							return AadlClassifierUtil.getComponentImplementation(flowContainerQueryable)
+									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+									.orElse(Stream.empty());
+						}
+					}).map(HighlightableFlowInfo::create).filter(Predicates.notNull())
 					.forEachOrdered(highlightableFlowElement -> {
 						highlightableFlowElements.put(
 								getName(highlightableFlowElement.highlightableFlowElement),
@@ -162,6 +172,15 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
+	}
+
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
+			final ComponentInstance ci) {
+		return ci.getEndToEndFlows().stream()
+				.filter(f -> f != null).distinct()
+				.map(flow -> {
+					return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
+				});
 	}
 
 	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
