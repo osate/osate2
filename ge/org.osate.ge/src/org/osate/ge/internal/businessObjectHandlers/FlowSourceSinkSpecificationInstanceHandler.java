@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.function.Function;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.FlowKind;
@@ -18,24 +16,17 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.Supplier;
 import org.osate.ge.services.QueryService;
 
 public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
-	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstance = (fsi) -> AadlHelper.getPathToBusinessObject(
-			fsi.getComponentInstance(),
-			fsi.getFlowSpecification().getKind() == FlowKind.SOURCE ? fsi.getDestination() : fsi.getSource());
-	private static final StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) ->
-							getPathToFlowSpecificationInstance.apply(fsi))
-					.first());
-	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstance.apply(fsi),
-							1)
-					.first());
+	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstance = (
+			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(),
+					fsi.getFlowSpecification().getKind() == FlowKind.SOURCE ? fsi.getDestination() : fsi.getSource());
+	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstance).first());
+	private static final StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstance, 1).first());
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
@@ -62,8 +53,7 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 		}
 
 		return GraphicalConfigurationBuilder.create()
-				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification()))
-				.style(sb.build())
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification())).style(sb.build())
 				.source(src).build();
 	}
 }

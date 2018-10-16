@@ -1,7 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.function.Function;
-
 import javax.inject.Named;
 
 import org.osate.aadl2.FlowKind;
@@ -19,31 +17,22 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.Supplier;
 import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
-	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceSource = (
+	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceSource = (
 			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getSource());
-	private static final StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource.apply(fsi))
-					.first());
-	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource.apply(fsi), 1)
-					.first());
-	private static final Function<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceDestination = (
+	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstanceSource).first());
+	private static final StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstanceSource, 1).first());
+	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceDestination = (
 			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getDestination());
 	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination.apply(fsi))
-			.first());
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstanceDestination).first());
 	private static final StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination.apply(fsi), 1)
-			.first());
+			.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstanceDestination, 1).first());
 
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
