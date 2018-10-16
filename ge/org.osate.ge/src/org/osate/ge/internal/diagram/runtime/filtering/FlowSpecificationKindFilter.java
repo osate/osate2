@@ -6,6 +6,8 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -44,12 +46,14 @@ public class FlowSpecificationKindFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return bo instanceof ComponentClassifier || bo instanceof Subcomponent;
+		return bo instanceof ComponentClassifier || bo instanceof Subcomponent || bo instanceof ComponentInstance;
 	}
 
 	@Override
 	public boolean test(Object bo) {
-		return bo instanceof FlowSpecification && ((FlowSpecification) bo).getKind() == kind;
+		return (bo instanceof FlowSpecification && ((FlowSpecification) bo).getKind() == kind)
+				|| (bo instanceof FlowSpecificationInstance
+						&& ((FlowSpecificationInstance) bo).getFlowSpecification().getKind() == kind);
 	}
 
 	public static String getId(final FlowKind kind) {

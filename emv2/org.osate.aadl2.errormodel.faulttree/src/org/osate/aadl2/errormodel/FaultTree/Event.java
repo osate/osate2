@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEventLogic <em>Sub Event Logic</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}</li>
  * </ul>
  *
@@ -330,33 +329,6 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setRelatedEMV2Object(EObject value);
-
-	/**
-	 * Returns the value of the '<em><b>Shared Event</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Shared Event</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Shared Event</em>' attribute.
-	 * @see #setSharedEvent(boolean)
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_SharedEvent()
-	 * @model default="false"
-	 * @generated
-	 */
-	boolean isSharedEvent();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#isSharedEvent <em>Shared Event</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Shared Event</em>' attribute.
-	 * @see #isSharedEvent()
-	 * @generated
-	 */
-	void setSharedEvent(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Scale</b></em>' attribute.

@@ -34,4 +34,11 @@
 		<topic href="html/safetyanalysisexample.html#initial-gps-system-architecture" label="Initial GPS System Architecture"/>
 		<topic href="html/safetyanalysisexample.html#functional-architecture-bound-to-physical-architecture" label="Functional Architecture Bound to Physical Architecture"/>
 	</topic>
+	<topic href="html/faulttreerepresentation.html#documentation-of-the-faulttree-representation" label="Documentation of the Ecore-based FaultTree Representation">
+		<topic href="html/faulttreerepresentation.html#introduction" label="Introduction"/>
+		<topic href="html/faulttreerepresentation.html#faulttree-object" label="The FaultTree Object"/>
+		<topic href="html/faulttreerepresentation.html#event-object" label="The Event Object"/>
+		<topic href="html/faulttreerepresentation.html#generation-of-faulttree-representations" label="Generation of FaultTree Representations"/>
+		<topic href="html/faulttreerepresentation.html#xmi-representationoffaultTree-files" label="XMI Representation of FaultTree files"/>
+	</topic>
 </toc>

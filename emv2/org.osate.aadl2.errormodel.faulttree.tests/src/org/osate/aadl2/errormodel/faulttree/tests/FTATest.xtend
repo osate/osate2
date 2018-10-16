@@ -543,7 +543,7 @@ class FTATest  {
 	def void DualFGSCutsetCriticalTest(){
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createMinimalCutSet(instanceDualFGS, start)
-		assertEquals(ft.events.size, 17)
+		assertEquals(13,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 6)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEvents.size, 2)
@@ -622,7 +622,7 @@ class FTATest  {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{NoValue}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		assertEquals(ft.events.size, 15)
+		assertEquals(10,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
@@ -740,7 +740,7 @@ class FTATest  {
 	def void allOptimizeFaultTraceTest6() {
 	val stateFailStop = "state Fail5"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
-		assertEquals(ft.events.size, 5)
+		assertEquals(4, ft.events.size)
 		assertEquals(ft.root.subEvents.size, 2)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.XOR)

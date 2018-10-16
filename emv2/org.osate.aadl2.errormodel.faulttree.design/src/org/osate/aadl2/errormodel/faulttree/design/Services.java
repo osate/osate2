@@ -72,7 +72,7 @@ public class Services {
 	}
 
 	public String getDependentEventLabel(EObject context) {
-		return ((Event) context).isSharedEvent() ? "yes" : "no";
+		return FaultTreeUtils.isASharedEvent((Event) context) ? "yes" : "no";
 	}
 
 	public String getHazardDescription(EObject context) {
