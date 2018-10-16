@@ -1,13 +1,13 @@
 /*
- *
+ * 
  * <copyright>
  * Copyright  2014 by Carnegie Mellon University, all rights reserved.
- *
+ * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
+ * 
  * NO WARRANTY
- *
+ * 
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
  * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
@@ -17,14 +17,14 @@
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
  * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
  * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
+ * 
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
  * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
+ * 
  * Carnegie Mellon Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
  * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
@@ -129,6 +129,9 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
+import org.eclipse.xtext.resource.SaveOptions
+import org.eclipse.emf.transaction.RecordingCommand
+import org.eclipse.ui.part.EditorPart
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -142,7 +145,7 @@ class AadlPropertyView extends ViewPart {
 	val static SHOW_ALL_AVAILABLE_PROPERTIES = "Show all available properties"
 	val static HIDE_DEFAULT_TOOL_TIP = "Hide default property values"
 	val static SHOW_DEFAULT_TOOL_TIP = "Show default property values"
-	
+
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single AADL element that can have properties."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
 
@@ -205,7 +208,7 @@ class AadlPropertyView extends ViewPart {
 
 	var package IXtextDocument xtextDocument = null
 
-	var ResourceSet resourceSetFromSelection = null
+	var package ResourceSet resourceSetFromSelection = null
 
 	/* Only show properties from this group (or all properties if empty) */
 	var ArrayList<FilterCriterion> currentPropertyGroup = new ArrayList<FilterCriterion>
@@ -221,15 +224,17 @@ class AadlPropertyView extends ViewPart {
 	var IURIEditorOpener editorOpener
 
 	var URI previousSelectionURI = null
+	
+	var IAadlPropertySource propertySource = null
 
 	var CachePropertyLookupJob cachePropertyLookupJob = null
 	val jobLock = new Object
 
-	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
+	// If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
 	val package Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
 
 	var ArrayList<FilterCriterion> importedPropertyGroups = new ArrayList<FilterCriterion>
-	
+
 	val ISelectionListener selectionListener = [ part, selection |
 		/*
 		 * Change the view when the selection changes.
@@ -251,6 +256,9 @@ class AadlPropertyView extends ViewPart {
 		}
 
 		override partClosed(IWorkbenchPart part) {
+			if (part instanceof XtextEditor) {
+				xtextDocument = null
+			}
 		}
 
 		override partBroughtToTop(IWorkbenchPart part) {
@@ -262,6 +270,8 @@ class AadlPropertyView extends ViewPart {
 				if (selectionProvider instanceof IPostSelectionProvider) {
 					selectionProvider.addPostSelectionChangedListener(selectionChangedListener)
 				}
+			} else if(part instanceof EditorPart) {
+				updateSelection(part.editorSite.selectionProvider.selection)
 			}
 		}
 	}
@@ -273,21 +283,14 @@ class AadlPropertyView extends ViewPart {
 		}
 	]
 
-	//This flag is necessary because calling IURIEditorOpener.open causes a model change event.  This event should be ignored when calling IURIEditorOpener.open
+	// This flag is necessary because calling IURIEditorOpener.open causes a model change event.  This event should be ignored when calling IURIEditorOpener.open
 	var modelListenerEnabled = true
 
 	val IXtextModelListener xtextModelListener = [
 		if (modelListenerEnabled) {
-			synchronized (jobLock) {
-				if (cachePropertyLookupJob !== null && cachePropertyLookupJob.state != Job.NONE) {
-					cachePropertyLookupJob.cancel
-				}
-				if (input !== null) {
-					cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-					cachePropertyLookupJob.schedule
-				}
-			}
-		}]
+			updateView(input, null)
+		}
+	]
 
 	override createPartControl(Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL)
@@ -311,20 +314,20 @@ class AadlPropertyView extends ViewPart {
 				override protected isLeafMatch(Viewer viewer, Object element) {
 					var thisTree = viewer as TreeViewer
 					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
-				    val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
-				    
-				    // first go up to propertyset / property name 
+					val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
+
+					// first go up to propertyset / property name 
 					// see https://github.com/osate/osate2/issues/605)
-				    var current = element
-				    var parent = contentProvider.getParent(element)
-				    while (contentProvider.getParent(parent) instanceof TreeEntry) {
-				    	current = parent
-				    	parent = contentProvider.getParent(parent)
-				    }
-				    
-				    val propertysetName = labelProvider.getText(parent)?:''
+					var current = element
+					var parent = contentProvider.getParent(element)
+					while (contentProvider.getParent(parent) instanceof TreeEntry) {
+						current = parent
+						parent = contentProvider.getParent(parent)
+					}
+
+					val propertysetName = labelProvider.getText(parent) ?: ''
 					var propertyName = labelProvider.getText(current)
-				    
+
 					return wordMatches(propertyName) &&
 						(currentPropertyGroup.size == 0 || isMatch(propertyName, propertysetName))
 				}
@@ -341,7 +344,6 @@ class AadlPropertyView extends ViewPart {
 					var match = false
 
 					if ((children !== null) && (children.length > 0)) {
-
 						for (var i = 0; i < children.length && !match; i++) {
 							match = anyChildrenMatch(thisTree, children.get(i))
 						}
@@ -351,9 +353,9 @@ class AadlPropertyView extends ViewPart {
 
 					return match
 				}
-				
+
 				def isMatch(String elementName, String parentName) {
-					for (e: currentPropertyGroup) {
+					for (e : currentPropertyGroup) {
 						if (e.parent === null && elementName == (e.element as String)) {
 							return true
 						}
@@ -361,9 +363,9 @@ class AadlPropertyView extends ViewPart {
 							return true
 						}
 					}
-					
+
 					return false
-				}	
+				}
 			}
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
@@ -396,7 +398,7 @@ class AadlPropertyView extends ViewPart {
 					column.text = "Status"
 					val gc = new GC(column.parent)
 					treeColumnLayout.setColumnData(column,
-						new ColumnPixelData(PropertyStatus.values.map[gc.stringExtent(toString).x].max + 5, true, true))
+							new ColumnPixelData(PropertyStatus.values.map[gc.stringExtent(toString).x].max + 5, true, true))
 					gc.dispose
 					labelProvider = new StatusColumnLabelProvider(this)
 				]
@@ -423,7 +425,6 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	override dispose() {
-
 		synchronized (jobLock) {
 			if (cachePropertyLookupJob !== null) {
 				cachePropertyLookupJob.cancel
@@ -448,44 +449,40 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def package boolean canEdit(Object element) {
-		if (xtextDocument === null) {
-			false
-		} else {
-			safeRead[ extension it |
-				switch treeElement : (element as TreeEntry).treeElement {
-					URI:
-						switch treeElementEObject : treeElement.getEObject(true) {
-							Property: {
-								val associationURI = cachedPropertyAssociations.get(
-									((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
-								getPropertyStatusNeverUndefined(associationURI).editable &&
-									!(associationURI.getEObject(true) as PropertyAssociation).modal
-							}
-							BasicPropertyAssociation: {
-								val containingAssociation = treeElementEObject.getContainerOfType(PropertyAssociation)
-								getPropertyStatusNeverUndefined(containingAssociation).editable &&
-									!containingAssociation.modal
-							}
-							default:
-								false
+		safeRead[ extension it |
+			switch treeElement : (element as TreeEntry).treeElement {
+				URI:
+					switch treeElementEObject : treeElement.getEObject(true) {
+						Property: {
+							val associationURI = cachedPropertyAssociations.get(
+								((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
+							getPropertyStatusNeverUndefined(associationURI).editable &&
+								!(associationURI.getEObject(true) as PropertyAssociation).modal
 						}
-					RangeElement: {
-						val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
-							getContainerOfType(PropertyAssociation)
-						getPropertyStatusNeverUndefined(containingAssociation).editable &&
-							!containingAssociation.modal
+						BasicPropertyAssociation: {
+							val containingAssociation = treeElementEObject.getContainerOfType(PropertyAssociation)
+							getPropertyStatusNeverUndefined(containingAssociation).editable &&
+								!containingAssociation.modal
+						}
+						default:
+							false
 					}
-					ListElement: {
-						val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
-							getContainerOfType(PropertyAssociation)
-						getPropertyStatusNeverUndefined(containingAssociation).editable &&
-							!containingAssociation.modal
-					}
-					default:
-						false
+				RangeElement: {
+					val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
+						getContainerOfType(PropertyAssociation)
+					getPropertyStatusNeverUndefined(containingAssociation).editable &&
+						!containingAssociation.modal
 				}
-			]
-		}
+				ListElement: {
+					val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
+						getContainerOfType(PropertyAssociation)
+					getPropertyStatusNeverUndefined(containingAssociation).editable &&
+						!containingAssociation.modal
+				}
+				default:
+					false
+			}
+		]
 	}
 
 	def package getInput() {
@@ -502,29 +499,29 @@ class AadlPropertyView extends ViewPart {
 			viewSite.actionBars.toolBarManager.add(it)
 			toolTipText = COLLAPSE_ALL_TOOL_TIP
 		]
-		
+
 		// Show only property groups defined with the with clause
 		showOnlyImportedPropertiesAction = new Action("Show Only Imported Property Groups", IAction.AS_CHECK_BOX) {
 			override run() {
-				showOnlyImportedPropertiesAction.toolTipText = if(showOnlyImportedPropertiesAction.checked) {
-					SHOW_ONLY_IMPORTED_PROPERTIES					
+				showOnlyImportedPropertiesAction.toolTipText = if (showOnlyImportedPropertiesAction.checked) {
+					SHOW_ONLY_IMPORTED_PROPERTIES
 				} else {
 					SHOW_ALL_AVAILABLE_PROPERTIES
 				}
-				
-				if(showOnlyImportedPropertiesAction.checked) {
+
+				if (showOnlyImportedPropertiesAction.checked) {
 					currentPropertyGroup = new ArrayList<FilterCriterion>(importedPropertyGroups)
 				} else {
 					currentPropertyGroup.clear()
 				}
-				
+
 				treeViewer.refresh()
-			}		
+			}
 		} => [
-				enabled = false
-				imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/filter_ps.png")
-				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
-				viewSite.actionBars.toolBarManager.add(it)
+			enabled = false
+			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/filter_ps.png")
+			toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
+			viewSite.actionBars.toolBarManager.add(it)
 		]
 
 		showUndefinedAction = new Action(null, IAction.AS_CHECK_BOX) {
@@ -534,7 +531,7 @@ class AadlPropertyView extends ViewPart {
 				} else {
 					SHOW_UNDEFINED_TOOL_TIP
 				}
-				
+
 				treeViewer.refresh
 			}
 		} => [
@@ -550,7 +547,7 @@ class AadlPropertyView extends ViewPart {
 				} else {
 					SHOW_DEFAULT_TOOL_TIP
 				}
-				
+
 				treeViewer.refresh
 			}
 		} => [
@@ -559,58 +556,100 @@ class AadlPropertyView extends ViewPart {
 			toolTipText = SHOW_DEFAULT_TOOL_TIP
 		]
 
-
-
 		removeElementAction = new Action("Remove") {
 			override run() {
 				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
 				switch treeElement : selectedElement.treeElement {
 					URI: {
-						val postModificationUpdate = xtextDocument.modify[
-							switch treeElementObject : resourceSet.getEObject(treeElement, true) {
-								Property: {
-									val associationURI = cachedPropertyAssociations.get(
-										(selectedElement.parent as TreeEntry).treeElement).get(selectedElement.treeElement)
-									val association = resourceSet.getEObject(associationURI, true) as PropertyAssociation
-									(association.owner as NamedElement).ownedPropertyAssociations.remove(association);
-									[|
-										synchronized (jobLock) {
-											if (cachePropertyLookupJob !== null &&
-												cachePropertyLookupJob.state != Job.NONE) {
-												cachePropertyLookupJob.cancel
-											}
-											cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-											cachePropertyLookupJob.schedule
-										}]
+						if (xtextDocument === null) {
+							[|
+							val treeElementObject = resourceSetFromSelection.getEObject(treeElement, true)
+								switch treeElementObject {
+										Property: {
+											val associationURI = cachedPropertyAssociations.get(
+												(selectedElement.parent as TreeEntry).treeElement).get(
+												selectedElement.treeElement)
+											val association = resourceSetFromSelection.getEObject(associationURI,
+												true) as PropertyAssociation
+											(association.owner as NamedElement).ownedPropertyAssociations.remove(
+												association)
+										}
+										BasicPropertyAssociation: {
+											(treeElementObject.owner as RecordValue).ownedFieldValues.remove(
+												treeElementObject);
+										}
+									}
+
+									(resourceSetFromSelection.getEObject(input, true).eResource as XtextResource).save(
+										SaveOptions.newBuilder().format().getOptions().toOptionsMap())
+									updateView(input, null)
+							].executeCommand
+						} else {
+							val postModificationUpdate = xtextDocument.modify [
+								switch treeElementObject : resourceSet.getEObject(treeElement, true) {
+									Property: {
+										val associationURI = cachedPropertyAssociations.get(
+											(selectedElement.parent as TreeEntry).treeElement).get(
+											selectedElement.treeElement)
+										val association = resourceSet.getEObject(associationURI,
+											true) as PropertyAssociation
+										(association.owner as NamedElement).ownedPropertyAssociations.remove(
+											association);
+										[|
+											updateView(input, null)
+										]
+									}
+									BasicPropertyAssociation: {
+										(treeElementObject.owner as RecordValue).ownedFieldValues.remove(
+											treeElementObject);
+										[|treeViewer.refresh(selectedElement.parent)]
+									}
 								}
-								BasicPropertyAssociation: {
-									(treeElementObject.owner as RecordValue).ownedFieldValues.remove(treeElementObject);
-									[|treeViewer.refresh(selectedElement.parent)]
-								}
-							}]
-						postModificationUpdate.apply
+							]
+							postModificationUpdate.apply
+						}
 					}
 					RangeElement: {
-						xtextDocument.modify(
-							new IUnitOfWork.Void<XtextResource> {
+						if (xtextDocument === null) {
+							val inputElement = resourceSetFromSelection.getEObject(input, true) as NamedElement
+							[|
+								((editingDomain.resourceSet.getEObject((treeElement as RangeElement).expressionURI,
+										true) as PropertyExpression).owner as RangeValue).delta = null
+									(inputElement.eResource as XtextResource).save(
+										SaveOptions.newBuilder().format().getOptions().toOptionsMap())
+							].executeCommand
+						} else {
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
 								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as RangeElement).expressionURI, true) as PropertyExpression).
-										owner as RangeValue).delta = null
+									((state.resourceSet.getEObject((treeElement as RangeElement).expressionURI,
+										true) as PropertyExpression).owner as RangeValue).delta = null
 								}
 							})
-						treeViewer.refresh(selectedElement.parent)
+							treeViewer.refresh(selectedElement.parent)
+						}
 					}
 					ListElement: {
-						xtextDocument.modify(
-							new IUnitOfWork.Void<XtextResource> {
+						if (xtextDocument === null) {
+							val inputElement = resourceSetFromSelection.getEObject(input, true) as NamedElement
+							[|
+								((resourceSetFromSelection.getEObject((treeElement as ListElement).expressionURI,
+									true) as PropertyExpression).owner as ListValue).ownedListElements.remove(
+									(treeElement as ListElement).index
+								)
+								(inputElement.eResource as XtextResource).save(
+									SaveOptions.newBuilder().format().getOptions().toOptionsMap())
+							].executeCommand
+						} else {
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
 								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as ListElement).expressionURI, true) as PropertyExpression).
-										owner as ListValue).ownedListElements.remove(
+									((state.resourceSet.getEObject((treeElement as ListElement).expressionURI,
+										true) as PropertyExpression).owner as ListValue).ownedListElements.remove(
 										(treeElement as ListElement).index
 									)
 								}
 							})
-						treeViewer.refresh(selectedElement.parent)
+							treeViewer.refresh(selectedElement.parent)
+						}
 					}
 				}
 			}
@@ -639,17 +678,17 @@ class AadlPropertyView extends ViewPart {
 				val uriToOpen = safeRead[ extension it |
 
 					val associationTemp = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).
-						get(selectedElement.treeElement).getEObject(true) 
-					
+						get(selectedElement.treeElement).getEObject(true)
+
 					val association = 
 						switch associationTemp {
-							PropertyAssociationInstance : { 
+							PropertyAssociationInstance: {
 								associationTemp.getPropertyAssociation();
 							}
 							PropertyAssociation : associationTemp
 							default : null
 						}
-								
+
 					val inputElement = input.getEObject(true)
 					(if (inputElement instanceof RefinableElement) {
 						association.appliesTos.map[containmentPathElements.last].filter [
@@ -673,46 +712,18 @@ class AadlPropertyView extends ViewPart {
 				val propertyURI = selectedElement.treeElement as URI
 				val associationURI = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).
 					get(propertyURI)
-				val postModificationUpdate = xtextDocument.modify[
-					var ()=>void update = [|]
-					val inputElement = resourceSet.getEObject(input, true) as NamedElement
-					if (associationURI !== null) {
-						val oldPA = resourceSet.getEObject(associationURI, true) as PropertyAssociation
-						val newPA = EcoreUtil.copy(oldPA)
-						newPA.appliesTos.clear
-						if (oldPA.appliesTos.size == 1) {
-							// non-shared local contained => remove the PA
-							(oldPA.owner as NamedElement).ownedPropertyAssociations.remove(oldPA)
-							update = [|
-								synchronized (jobLock) {
-									if (cachePropertyLookupJob !== null &&
-										cachePropertyLookupJob.state != Job.NONE) {
-										cachePropertyLookupJob.cancel
-									}
-									cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-									cachePropertyLookupJob.schedule
-								}]
-						} else if (oldPA.appliesTos.size > 1) {
-							// shared local contained => remove from applies to list
-							val toRemove = oldPA.appliesTos.findFirst[
-								path.namedElement === inputElement
-							]
-							oldPA.appliesTos.remove(toRemove)
-						}
-						inputElement.ownedPropertyAssociations.add(newPA)
-					} else {
-						// copy property's default value
-						val property = resourceSet.getEObject(propertyURI, true) as Property
-						inputElement.createOwnedPropertyAssociation => [
-							it.property = property
-							createOwnedValue => [
-								ownedValue = EcoreUtil.copy(property.defaultValue)
-							]
-						]
-					}
-					update
-				]
-				postModificationUpdate.apply
+
+				if (xtextDocument !== null) {
+					val postModificationUpdate = xtextDocument.modify [
+						makeLocalProc(resourceSet, associationURI, propertyURI)
+					]
+					postModificationUpdate.apply
+				} else {
+					[|
+						makeLocalProc(resourceSetFromSelection, associationURI, propertyURI)
+						saveAndRefreshSelection(resourceSetFromSelection.getEObject(input, true).eResource as XtextResource)
+					].executeCommand
+				}
 			}
 		}
 
@@ -723,58 +734,17 @@ class AadlPropertyView extends ViewPart {
 				val propertyURI = selectedElement.treeElement as URI
 				val associationURI = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).
 					get(propertyURI)
-				val postModificationUpdate = xtextDocument.modify[
-					var ()=>void update = [|]
-					val inputElement = resourceSet.getEObject(input, true) as NamedElement
-					if (associationURI !== null) {
-						val oldPA = resourceSet.getEObject(associationURI, true) as PropertyAssociation
-						val newPA = EcoreUtil.copy(oldPA)
-						newPA.appliesTos.clear
-						newPA.appliesTos.add(
-							Aadl2Factory.eINSTANCE.createContainedNamedElement => [
-								createPath => [
-									namedElement = inputElement
-								]
-							]
-						)
-						if (oldPA.appliesTos.size == 0 && oldPA.owner === inputElement) {
-							// local PA
-							inputElement.ownedPropertyAssociations.remove(oldPA)
-							update = [|
-								synchronized (jobLock) {
-									if (cachePropertyLookupJob !== null &&
-										cachePropertyLookupJob.state != Job.NONE) {
-										cachePropertyLookupJob.cancel
-									}
-									cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-									cachePropertyLookupJob.schedule
-								}]
-						} else if (oldPA.appliesTos.size > 1) {
-							// shared local contained => remove from applies to list
-							val toRemove = oldPA.appliesTos.findFirst[
-								path.namedElement === inputElement
-							]
-							oldPA.appliesTos.remove(toRemove)
-						}
-						(inputElement.owner as NamedElement).ownedPropertyAssociations.add(newPA)
-					} else {
-						// copy property's default value
-						val property = resourceSet.getEObject(propertyURI, true) as Property
-						(inputElement.owner as NamedElement).createOwnedPropertyAssociation => [
-							it.property = property
-							createOwnedValue => [
-								ownedValue = EcoreUtil.copy(property.defaultValue)
-							]
-							appliesTos.add(Aadl2Factory.eINSTANCE.createContainedNamedElement => [
-								createPath => [
-									namedElement = inputElement
-								]
-							])
-						]
-					}
-					update
-				]
-				postModificationUpdate.apply
+				if (xtextDocument !== null) {
+					val postModificationUpdate = xtextDocument.modify [
+						makeLocalContainedProc(resourceSet, associationURI, propertyURI)
+					]
+					postModificationUpdate.apply
+				} else {
+					[|
+						makeLocalContainedProc(resourceSetFromSelection, associationURI, propertyURI)
+							saveAndRefreshSelection(resourceSetFromSelection.getEObject(input, true).eResource as XtextResource)
+					].executeCommand
+				}
 			}
 		}
 
@@ -795,6 +765,96 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 
+	def private saveAndRefreshSelection(XtextResource resource) {
+		// Save resource
+		resource.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap())
+		
+		// Refresh editor selection
+		propertySource.refreshEditorSelection
+	}
+
+	def private makeLocalContainedProc(ResourceSet resourceSet, URI associationURI, URI propertyURI) {
+		var ()=>void update = [|]
+		val inputElement = resourceSet.getEObject(input, true) as NamedElement
+		if (associationURI !== null) {
+			val oldPA = resourceSet.getEObject(associationURI, true) as PropertyAssociation
+			val newPA = EcoreUtil.copy(oldPA)
+			newPA.appliesTos.clear
+			newPA.appliesTos.add(
+				Aadl2Factory.eINSTANCE.createContainedNamedElement => [
+					createPath => [
+						namedElement = inputElement
+					]
+				]
+			)
+			if (oldPA.appliesTos.size == 0 && oldPA.owner === inputElement) {
+				// local PA
+				inputElement.ownedPropertyAssociations.remove(oldPA)
+				update = [|
+					updateView(input, null)
+				]
+			} else if (oldPA.appliesTos.size > 1) {
+				// shared local contained => remove from applies to list
+				val toRemove = oldPA.appliesTos.findFirst [
+					path.namedElement === inputElement
+				]
+				oldPA.appliesTos.remove(toRemove)
+			}
+			(inputElement.owner as NamedElement).ownedPropertyAssociations.add(newPA)
+		} else {
+			// copy property's default value
+			val property = resourceSet.getEObject(propertyURI, true) as Property
+			(inputElement.owner as NamedElement).createOwnedPropertyAssociation => [
+				it.property = property
+				createOwnedValue => [
+					ownedValue = EcoreUtil.copy(property.defaultValue)
+				]
+				appliesTos.add(Aadl2Factory.eINSTANCE.createContainedNamedElement => [
+					createPath => [
+						namedElement = inputElement
+					]
+				])
+			]
+		}
+
+		update
+	}
+
+	def private makeLocalProc(ResourceSet resourceSet, URI associationURI, URI propertyURI) {
+		var ()=>void update = [|]
+		val inputElement = resourceSet.getEObject(input, true) as NamedElement
+		if (associationURI !== null) {
+			val oldPA = resourceSet.getEObject(associationURI, true) as PropertyAssociation
+			val newPA = EcoreUtil.copy(oldPA)
+			newPA.appliesTos.clear
+			if (oldPA.appliesTos.size == 1) {
+				// non-shared local contained => remove the PA
+				(oldPA.owner as NamedElement).ownedPropertyAssociations.remove(oldPA)
+				update = [|
+					updateView(input, null)
+				]
+			} else if (oldPA.appliesTos.size > 1) {
+				// shared local contained => remove from applies to list
+				val toRemove = oldPA.appliesTos.findFirst [
+					path.namedElement === inputElement
+				]
+				oldPA.appliesTos.remove(toRemove)
+			}
+			inputElement.ownedPropertyAssociations.add(newPA)
+		} else {
+			// copy property's default value
+			val property = resourceSet.getEObject(propertyURI, true) as Property
+			inputElement.createOwnedPropertyAssociation => [
+				it.property = property
+				createOwnedValue => [
+					ownedValue = EcoreUtil.copy(property.defaultValue)
+				]
+			]
+		}
+
+		update
+	}
+
 	def private createContextMenu() {
 		new MenuManager => [
 			removeAllWhenShown = true
@@ -813,7 +873,7 @@ class AadlPropertyView extends ViewPart {
 				makeLocalAction.enabled = false
 				makeLocalContainedAction.enabled = false
 				removeElementAction.enabled = false
-				
+
 				val selection = treeViewer.selection as IStructuredSelection
 				if (selection.size == 1) {
 					val firstSelectedElement = selection.firstElement as TreeEntry
@@ -822,351 +882,378 @@ class AadlPropertyView extends ViewPart {
 						openDefinitionAction.enabled = safeRead[ extension it |
 							val treeElementEObject = (firstSelectedElement.treeElement as URI).getEObject(true)
 							treeElementEObject instanceof PropertySet || treeElementEObject instanceof Property ||
-									treeElementEObject instanceof BasicPropertyAssociation ||
-									treeElementEObject instanceof BasicProperty
+								treeElementEObject instanceof BasicPropertyAssociation ||
+								treeElementEObject instanceof BasicProperty
 						]
-						if (safeRead[extension it|
-							(firstSelectedElement.treeElement as URI).getEObject(true) instanceof Property]) {
-							val propertyStatus = getPropertyStatus(
-									(firstSelectedElement.parent as TreeEntry).treeElement as URI,
-									firstSelectedElement.treeElement as URI)
-							openPropertyAssociationAction.enabled = #[PropertyStatus.INHERITED, PropertyStatus.LOCAL, 
-								PropertyStatus.LOCAL_CONTAINED
-							].contains(propertyStatus)
-							createLocalAssociationAction.enabled = xtextDocument !== null && (propertyStatus ==
-								PropertyStatus.INHERITED || propertyStatus == PropertyStatus.DEFAULT ||
-								propertyStatus == PropertyStatus.UNDEFINED) && safeRead[ extension it |
-								val inputElement = input.getEObject(true)
-								inputElement instanceof AadlPackage || inputElement instanceof Classifier ||
+								if (safeRead[ extension it |
+									(firstSelectedElement.treeElement as URI).getEObject(true) instanceof Property]) {
+									val propertyStatus = getPropertyStatus(
+										(firstSelectedElement.parent as TreeEntry).treeElement as URI,
+										firstSelectedElement.treeElement as URI)
+									openPropertyAssociationAction.enabled = #[PropertyStatus.INHERITED,	PropertyStatus.LOCAL,
+										PropertyStatus.LOCAL_CONTAINED
+									].contains(propertyStatus)
+									createLocalAssociationAction.enabled = (propertyStatus ==
+										PropertyStatus.INHERITED || propertyStatus == PropertyStatus.DEFAULT ||
+										propertyStatus == PropertyStatus.UNDEFINED) && safeRead[ extension it |
+										val inputElement = input.getEObject(true)
+										inputElement instanceof AadlPackage || inputElement instanceof Classifier ||
+											inputElement instanceof Subcomponent || inputElement instanceof ModalPath ||
+											inputElement instanceof BehavioralFeature || inputElement instanceof Prototype ||
+											inputElement instanceof Feature ||	inputElement instanceof ModeFeature
+									]
+									createLocalContainedAssociationAction.enabled = (propertyStatus ==
+										PropertyStatus.INHERITED || propertyStatus == PropertyStatus.DEFAULT ||
+										propertyStatus == PropertyStatus.UNDEFINED) && safeRead[ extension it |
+										val inputElement = input.getEObject(true)
 										inputElement instanceof Subcomponent || inputElement instanceof ModalPath ||
-										inputElement instanceof BehavioralFeature || inputElement instanceof Prototype ||
-										inputElement instanceof Feature || inputElement instanceof ModeFeature
-							]
-							createLocalContainedAssociationAction.enabled = xtextDocument !== null && (propertyStatus ==
-								PropertyStatus.INHERITED || propertyStatus == PropertyStatus.DEFAULT ||
-								propertyStatus == PropertyStatus.UNDEFINED) && safeRead[ extension it |
-								val inputElement = input.getEObject(true)
-								inputElement instanceof Subcomponent || inputElement instanceof ModalPath ||
-										inputElement instanceof BehavioralFeature || inputElement instanceof Prototype ||
-										inputElement instanceof Feature || inputElement instanceof ModeFeature
-							]
-							makeLocalAction.enabled = xtextDocument !== null &&
-								#[PropertyStatus.INHERITED, PropertyStatus.LOCAL_CONTAINED, PropertyStatus.LOCAL_SHARED, 
-									PropertyStatus.DEFAULT
-								].contains(propertyStatus)
-							makeLocalContainedAction.enabled = xtextDocument !== null &&
-								#[PropertyStatus.INHERITED, PropertyStatus.LOCAL, PropertyStatus.LOCAL_SHARED, 
-									PropertyStatus.DEFAULT
-								].contains(propertyStatus) && safeRead[ extension it |
-									val inputElement = input.getEObject(true)
-									inputElement instanceof Subcomponent || inputElement instanceof ModalPath ||
 											inputElement instanceof BehavioralFeature || inputElement instanceof Prototype ||
 											inputElement instanceof Feature || inputElement instanceof ModeFeature
-								]	
-						}
-					}
-
-					removeElementAction.enabled = xtextDocument !== null && canEdit(firstSelectedElement) && 
-						switch treeElement : firstSelectedElement.treeElement {
-							URI:
-								safeRead[ extension it |
-									switch treeElementEObject : treeElement.getEObject(true) {
-										Property:
-											true
-										BasicPropertyAssociation:
-											(treeElementEObject.owner as RecordValue).ownedFieldValues.size >= 2
-										default:
-											false
-									}]
-							RangeElement:
-								treeElement.label == RangeElement.DELTA_LABEL
-							ListElement:
-								true
-							default:
-								false
-						}
-				}
-				add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS))
-			]
-			treeViewer.control.menu = createContextMenu(treeViewer.control)
-			site.registerContextMenu(it, treeViewer)
-		]
-	}
-
-	def private updateSelection(IWorkbenchPart part, ISelection selection) {
-		xtextDocument?.removeModelListener(xtextModelListener)
-		val currentSelection = switch selection {
-			case selection.empty: {
-				null
-			}
-			ITextSelection case part instanceof XtextEditor: {
-				xtextDocument = (part as XtextEditor).document
-				xtextDocument.readOnly[new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
-			}
-			IStructuredSelection case selection.size == 1: {
-				switch selectedObject : selection.firstElement {
-					EObject: {
-						xtextDocument = null
-						selectedObject
-					}
-					EObjectNode: {
-						xtextDocument = selectedObject.document
-						selectedObject.readOnly[it]
-					}
-					IAdaptable: {
-						val propertySource = selectedObject.getAdapter(IAadlPropertySource)
-						if (propertySource !== null) {
-							xtextDocument = propertySource.document
-							propertySource.namedElement
-						}
-					}
-				}
-			}
-		}
-		xtextDocument?.addModelListener(xtextModelListener)
-		var Object treeElementToSelect
-		val currentSelectionURI = try {
-			switch currentSelection {
-				PropertySet,
-				Property,
-				PropertyType,
-				PropertyConstant,
-				PackageSection:
-					null
-				NamedElement:
-					currentSelection.URI
-				PropertyAssociation case currentSelection.appliesTos.empty: {
-					treeElementToSelect = new TreeEntry(
-						new TreeEntry(currentSelection.owner.URI,
-							currentSelection.property.getContainerOfType(PropertySet).URI), currentSelection.property.URI)
-					currentSelection.owner.URI
-				}
-				PropertyAssociation case currentSelection.appliesTos.size == 1 &&
-					currentSelection.appliesTos.head.containmentPathElements.size == 1: {
-					treeElementToSelect = new TreeEntry(
-						new TreeEntry(
-							currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI,
-							currentSelection.property.getContainerOfType(PropertySet).URI
-						), currentSelection.property.URI)
-					currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI
-				}
-				ContainmentPathElement case currentSelection.path === null &&
-					currentSelection.owner instanceof ContainedNamedElement: {
-					treeElementToSelect = new TreeEntry(
-						new TreeEntry(
-							currentSelection.namedElement.URI,
-							currentSelection.getContainerOfType(PropertyAssociation).property.
-								getContainerOfType(PropertySet).URI
-						), currentSelection.getContainerOfType(PropertyAssociation).property.URI)
-					currentSelection.namedElement.URI
-				}
-				BasicPropertyAssociation,
-				PropertyExpression: {
-					val path = new ArrayDeque
-					if (currentSelection instanceof BasicPropertyAssociation) {
-						path.push(currentSelection.URI)
-					}
-					var currentElement = currentSelection.owner
-					var Element previousElement = currentSelection
-					while (currentElement !== null && !(currentElement instanceof PropertyAssociation)) {
-						switch currentElement {
-							ModalPropertyValue case (currentElement.owner as PropertyAssociation).modal,
-							BasicPropertyAssociation:
-								path.push(currentElement.URI)
-							ListValue:
-								path.push(
-									new ListElement(currentElement.ownedListElements.indexOf(previousElement),
-										previousElement.URI))
-							RangeValue:
-								path.push(
-									new RangeElement(
-										switch previousElement {
-											case currentElement.minimum: RangeElement.MINIMUM_LABEL
-											case currentElement.maximum: RangeElement.MAXIMUM_LABEL
-											case currentElement.delta: RangeElement.DELTA_LABEL
-										}, previousElement.URI))
-						}
-						previousElement = currentElement
-						currentElement = currentElement.owner
-					}
-					if (currentElement instanceof PropertyAssociation) {
-						path.push(currentElement.property.URI)
-						val root = if (currentElement.appliesTos.empty) {
-								currentElement.owner.URI
-							} else if (currentElement.appliesTos.size == 1 &&
-								currentElement.appliesTos.head.containmentPathElements.size == 1) {
-								currentElement.appliesTos.head.containmentPathElements.head.namedElement.URI
+									]
+									makeLocalAction.enabled = #[
+										PropertyStatus.INHERITED,
+										PropertyStatus.LOCAL_CONTAINED,
+										PropertyStatus.LOCAL_SHARED,
+										PropertyStatus.DEFAULT
+									].contains(propertyStatus)
+									makeLocalContainedAction.enabled = #[
+										PropertyStatus.INHERITED,
+										PropertyStatus.LOCAL,
+										PropertyStatus.LOCAL_SHARED,
+										PropertyStatus.DEFAULT
+									].contains(propertyStatus) && safeRead[ extension it |
+										val inputElement = input.getEObject(true)
+										inputElement instanceof Subcomponent || inputElement instanceof ModalPath ||
+											inputElement instanceof BehavioralFeature ||inputElement instanceof Prototype ||
+											inputElement instanceof Feature || inputElement instanceof ModeFeature
+									]
+								}
 							}
-						treeElementToSelect = path.fold(
-							new TreeEntry(root, currentElement.property.getContainerOfType(PropertySet).URI),
-							[new TreeEntry($0, $1)])
-						root
+
+							removeElementAction.enabled = canEdit(firstSelectedElement) &&
+								switch treeElement : firstSelectedElement.treeElement {
+									URI:
+										safeRead[ extension it |
+											switch treeElementEObject : treeElement.getEObject(true) {
+												Property:
+													true
+												BasicPropertyAssociation:
+													(treeElementEObject.owner as RecordValue).ownedFieldValues.size >= 2
+												default:
+													false
+											}]
+									RangeElement:
+										treeElement.label == RangeElement.DELTA_LABEL
+									ListElement:
+										true
+									default:
+										false
+								}
+						}
+						add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS))
+					]
+					treeViewer.control.menu = createContextMenu(treeViewer.control)
+					site.registerContextMenu(it, treeViewer)
+				]
+			}
+
+			def private updateSelection(IWorkbenchPart part, ISelection selection) {
+				xtextDocument?.removeModelListener(xtextModelListener)
+
+				val currentSelection = switch selection {
+					case selection.empty: {
+						null
+					}
+					ITextSelection case part instanceof XtextEditor: {
+						xtextDocument = (part as XtextEditor).document
+						xtextDocument.readOnly [new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
+					}
+					IStructuredSelection case selection.size == 1: {
+						switch selectedObject : selection.firstElement {
+							EObject: {
+								xtextDocument = null
+								selectedObject
+							}
+							EObjectNode: {
+								xtextDocument = selectedObject.document
+								selectedObject.readOnly[it]
+							}
+							IAdaptable: {
+								propertySource = selectedObject.getAdapter(IAadlPropertySource)
+								if (propertySource !== null) {
+									xtextDocument = propertySource.document
+									propertySource.namedElement
+								}
+							}
+						}
+					}
+				}
+
+				xtextDocument?.addModelListener(xtextModelListener)
+				var Object treeElementToSelect
+				val currentSelectionURI = try {
+						switch currentSelection {
+							PropertySet,
+							Property,
+							PropertyType,
+							PropertyConstant,
+							PackageSection:
+								null
+							NamedElement:
+								currentSelection.URI
+							PropertyAssociation case currentSelection.appliesTos.empty: {
+								treeElementToSelect = new TreeEntry(
+									new TreeEntry(currentSelection.owner.URI,
+										currentSelection.property.getContainerOfType(PropertySet).URI),	currentSelection.property.URI)
+								currentSelection.owner.URI
+							}
+							PropertyAssociation case currentSelection.appliesTos.size == 1 &&
+								currentSelection.appliesTos.head.containmentPathElements.size == 1: {
+								treeElementToSelect = new TreeEntry(
+									new TreeEntry(
+										currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI,
+										currentSelection.property.getContainerOfType(PropertySet).URI
+									), currentSelection.property.URI)
+								currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI
+							}
+							ContainmentPathElement case currentSelection.path === null &&
+								currentSelection.owner instanceof ContainedNamedElement: {
+								treeElementToSelect = new TreeEntry(
+									new TreeEntry(
+										currentSelection.namedElement.URI,
+										currentSelection.getContainerOfType(PropertyAssociation).property.
+											getContainerOfType(PropertySet).URI
+									), currentSelection.getContainerOfType(PropertyAssociation).property.URI)
+								currentSelection.namedElement.URI
+							}
+							BasicPropertyAssociation,
+							PropertyExpression: {
+								val path = new ArrayDeque
+								if (currentSelection instanceof BasicPropertyAssociation) {
+									path.push(currentSelection.URI)
+								}
+								var currentElement = currentSelection.owner
+								var Element previousElement = currentSelection
+								while (currentElement !== null && !(currentElement instanceof PropertyAssociation)) {
+									switch currentElement {
+										ModalPropertyValue case (currentElement.owner as PropertyAssociation).modal,
+										BasicPropertyAssociation:
+											path.push(currentElement.URI)
+										ListValue:
+											path.push(
+												new ListElement(currentElement.ownedListElements.indexOf(previousElement),
+													previousElement.URI))
+										RangeValue:
+											path.push(
+												new RangeElement(
+													switch previousElement {
+														case currentElement.minimum: RangeElement.MINIMUM_LABEL
+														case currentElement.maximum: RangeElement.MAXIMUM_LABEL
+														case currentElement.delta: RangeElement.DELTA_LABEL
+													}, previousElement.URI))
+									}
+									previousElement = currentElement
+									currentElement = currentElement.owner
+								}
+								if (currentElement instanceof PropertyAssociation) {
+									path.push(currentElement.property.URI)
+									val root = if (currentElement.appliesTos.empty) {
+											currentElement.owner.URI
+										} else if (currentElement.appliesTos.size == 1 &&
+											currentElement.appliesTos.head.containmentPathElements.size == 1) {
+											currentElement.appliesTos.head.containmentPathElements.head.namedElement.URI
+										}
+									treeElementToSelect = path.fold(
+										new TreeEntry(root, currentElement.property.getContainerOfType(PropertySet).URI),
+											[new TreeEntry($0, $1)])
+									root
+								}
+							}
+						}
+					} catch (NullPointerException e) {
+					}
+					
+				if (currentSelectionURI !== null) {
+					editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
+					if (currentSelection !== null && currentSelection.eResource !== null) {
+						resourceSetFromSelection = currentSelection.eResource.resourceSet
+						if (currentSelectionURI == previousSelectionURI) {
+							if (treeElementToSelect !== null) {
+								treeViewer.setSelection(new StructuredSelection(treeElementToSelect), true)
+							}
+							pageBook.showPage(treeViewerComposite)
+						} else {
+							previousSelectionURI = currentSelectionURI
+							updateView(currentSelectionURI, treeElementToSelect)
+						}
+					}
+				} else {
+					synchronized (jobLock) {
+						if (cachePropertyLookupJob !== null) {
+							cachePropertyLookupJob.cancel
+							cachePropertyLookupJob = null
+						}
+					}
+					pageBook.showPage(noPropertiesLabel)
+					editingDomain = null
+					resourceSetFromSelection = null
+					previousSelectionURI = null
+				}
+
+				// Build list of imported properties for "Show only imported properties" filter button to use
+				var package = getPackageSection(currentSelection)
+				importedPropertyGroups.clear
+				if (package !== null) {
+					val units = (package as PackageSection).getImportedUnits()
+
+					for (ModelUnit unit : units) {
+						if (unit instanceof PropertySet) {
+							for (prop : unit.ownedProperties) {
+								importedPropertyGroups.add(new FilterCriterion(unit.name, prop.name))
+							}
+						}
+					}
+					showOnlyImportedPropertiesAction.enabled = true
+				} else {
+					showOnlyImportedPropertiesAction.enabled = false
+				}
+			}
+
+			// Recursive function to get the package section related to a node if it exists
+			def private EObject getPackageSection(EObject selection) {
+				if (selection === null) {
+					return null
+				}
+
+				if (selection instanceof PackageSection) {
+					return selection
+				} else if (selection instanceof Element) {
+					var owner = selection.owner
+					if (owner !== null) {
+						getPackageSection(owner)
 					}
 				}
 			}
-		} catch (NullPointerException e) {
-		}
-		if (currentSelectionURI !== null) {
-			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
-			resourceSetFromSelection = currentSelection.eResource.resourceSet
-			if (currentSelectionURI == previousSelectionURI) {
-				if (treeElementToSelect !== null) {
-					treeViewer.setSelection(new StructuredSelection(treeElementToSelect), true)
-				}
-				pageBook.showPage(treeViewerComposite)
-			} else {
-				previousSelectionURI = currentSelectionURI
 
+			def package <T> safeRead((ResourceSet)=>T operation) {
+				// text editor open, click element.  close text editor.  go to diagram and null is thrown
+				if (xtextDocument !== null) {
+					xtextDocument.readOnly[operation.apply(resourceSet)]
+				} else if (editingDomain instanceof TransactionalEditingDomain) {
+					try {
+						TransactionUtil.runExclusive(editingDomain, new RunnableWithResult.Impl<T> {
+							override run() {
+								result = operation.apply(editingDomain.resourceSet)
+								status = Status.OK_STATUS
+							}
+						})
+					} catch (InterruptedException e) {
+
+						// Allow the operation to determine what the result should be
+						operation.apply(null)
+					}
+				} else {
+					operation.apply(resourceSetFromSelection)
+				}
+			}
+
+			def package createCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
+				new CachePropertyLookupJob(elementURI, this, site.shell.display, scopeProvider, [|
+					pageBook.showPage(populatingViewLabel)
+				], [|
+					treeViewer.input = elementURI
+					if (objectToSelect !== null) {
+						treeViewer.setSelection(new StructuredSelection(objectToSelect), true)
+					}
+					pageBook.showPage(treeViewerComposite)
+				])
+			}
+
+			def package getPropertyStatus(URI propertySetURI, URI propertyURI) {
+				safeRead[ extension it |
+					val associationURI = cachedPropertyAssociations.get(propertySetURI).get(propertyURI)
+					if (associationURI !== null) {
+						val association = associationURI.getEObject(true) as PropertyAssociation
+						if (association === null) {
+							associationURI.getEObject(true) as PropertyAssociation
+						}
+						val inputElement = input.getEObject(true)
+						if (inputElement == association.owner) {
+							PropertyStatus.LOCAL
+						} else if (association.appliesTos.exists [
+							inputElement == containmentPathElements.last.namedElement
+						]) {
+							if (association.appliesTos.size > 1) {
+								PropertyStatus.LOCAL_SHARED
+							} else {
+								PropertyStatus.LOCAL_CONTAINED
+							}
+						} else {
+							PropertyStatus.INHERITED
+						}
+					} else if ((propertyURI.getEObject(true) as Property).defaultValue !== null) {
+						PropertyStatus.DEFAULT
+					} else {
+						PropertyStatus.UNDEFINED
+					}
+				]
+			}
+
+			def private getPropertyStatusNeverUndefined(URI associationURI) {
+				if (associationURI !== null) {
+					safeRead[ extension it |
+						val association = associationURI.getEObject(true) as PropertyAssociation
+						val inputElement = input.getEObject(true)
+						if (inputElement == association.owner) {
+							PropertyStatus.LOCAL
+						} else if (association.appliesTos.exists [
+							inputElement == containmentPathElements.last.namedElement
+						]) {
+							PropertyStatus.LOCAL_CONTAINED
+						} else {
+							PropertyStatus.INHERITED
+						}
+					]
+				} else {
+					PropertyStatus.DEFAULT
+				}
+			}
+
+			def package getPropertyStatusNeverUndefined(extension ResourceSet resourceSet,
+				PropertyAssociation association) {
+				if (association === null) {
+					PropertyStatus.DEFAULT
+				} else {
+					val inputElement = input.getEObject(true)
+					if (inputElement == association.owner) {
+						PropertyStatus.LOCAL
+					} else if (association.appliesTos.
+						exists[inputElement == containmentPathElements.last.namedElement]) {
+						PropertyStatus.LOCAL_CONTAINED
+					} else {
+						PropertyStatus.INHERITED
+					}
+				}
+			}
+
+			def package updateView(URI elementURI, Object objectToSelect) {
 				synchronized (jobLock) {
 					if (cachePropertyLookupJob !== null && cachePropertyLookupJob.state != Job.NONE) {
 						cachePropertyLookupJob.cancel
 					}
-					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI, treeElementToSelect)
+					cachePropertyLookupJob = createCachePropertyLookupJob(elementURI, objectToSelect)
 					cachePropertyLookupJob.schedule
 				}
 			}
-		} else {
-
-			synchronized (jobLock) {
-				if (cachePropertyLookupJob !== null) {
-					cachePropertyLookupJob.cancel
-					cachePropertyLookupJob = null
-				}
-			}
-			pageBook.showPage(noPropertiesLabel)
-			editingDomain = null
-			resourceSetFromSelection = null
-			previousSelectionURI = null
-		}
-		
-		// Build list of imported properties for "Show only imported properties" filter button to use
-		var package = getPackageSection(currentSelection)
-		importedPropertyGroups.clear
-		if (package !== null) {
-			val units = (package as PackageSection).getImportedUnits()
-			
-			for (ModelUnit unit: units) {
-				if (unit instanceof PropertySet) {
-					for (prop: unit.ownedProperties) {
-						importedPropertyGroups.add(new FilterCriterion(unit.name, prop.name))
+	
+			def package executeCommand(()=>void proc) {
+				var cmd = new RecordingCommand(editingDomain as TransactionalEditingDomain) {
+					override protected doExecute() {
+						proc.apply
 					}
 				}
-			}
-			showOnlyImportedPropertiesAction.enabled = true
-		} else {
-			showOnlyImportedPropertiesAction.enabled = false
-		}
-	}
-
-	// Recursive function to get the package section related to a node if it exists
-	def private EObject getPackageSection(EObject selection) {
-		
-		if (selection === null ) {
-			return null
+				
+				editingDomain.commandStack.execute(cmd)
+			}	
 		}
 		
-		if (selection instanceof PackageSection) {
-			return selection
-		} 
-		else if (selection instanceof Element){
-			var owner = selection.owner
-			if (owner !== null) {
-				getPackageSection(owner)
-			}
-		}
-	}
-	
-	def package <T> safeRead((ResourceSet)=>T operation) {
-		if (xtextDocument !== null) {
-			xtextDocument.readOnly[operation.apply(resourceSet)]
-		} else if (editingDomain instanceof TransactionalEditingDomain) {
-			try {
-				TransactionUtil.runExclusive(editingDomain,
-					new RunnableWithResult.Impl<T> {
-						override run() {
-							result = operation.apply(editingDomain.resourceSet)
-							status = Status.OK_STATUS
-						}
-					})
-			} catch (InterruptedException e) {
-
-				//Allow the operation to determine what the result should be
-				operation.apply(null)
-			}
-		} else {
-			operation.apply(resourceSetFromSelection)
-		}
-	}
-
-	def private createCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
-		new CachePropertyLookupJob(elementURI, this, site.shell.display, scopeProvider,
-			[|
-				pageBook.showPage(populatingViewLabel)
-			],
-			[|
-				treeViewer.input = elementURI
-				if (objectToSelect !== null) {
-					treeViewer.setSelection(new StructuredSelection(objectToSelect), true)
-				}
-				pageBook.showPage(treeViewerComposite)
-			])
-	}
-	
-	def package getPropertyStatus(URI propertySetURI, URI propertyURI) {
-		safeRead[ extension it |
-			val associationURI = cachedPropertyAssociations.get(propertySetURI).get(propertyURI)
-			if (associationURI !== null) {
-				val association = associationURI.getEObject(true) as PropertyAssociation
-				val inputElement = input.getEObject(true)
-				if (inputElement == association.owner) {
-					PropertyStatus.LOCAL
-				} else if (association.appliesTos.exists[inputElement == containmentPathElements.last.namedElement]) {
-					if (association.appliesTos.size > 1) {
-						PropertyStatus.LOCAL_SHARED
-					} else {
-						PropertyStatus.LOCAL_CONTAINED
-					}
-				} else {
-					PropertyStatus.INHERITED
-				}
-			} else if ((propertyURI.getEObject(true) as Property).defaultValue !== null) {
-				PropertyStatus.DEFAULT
-			} else {
-				PropertyStatus.UNDEFINED
-			}
-		]
-	}
-
-	def private getPropertyStatusNeverUndefined(URI associationURI) {
-		if (associationURI !== null) {
-			safeRead[ extension it |
-				val association = associationURI.getEObject(true) as PropertyAssociation
-				val inputElement = input.getEObject(true)
-				if (inputElement == association.owner) {
-					PropertyStatus.LOCAL
-				} else if (association.appliesTos.exists[inputElement == containmentPathElements.last.namedElement]) {
-					PropertyStatus.LOCAL_CONTAINED
-				} else {
-					PropertyStatus.INHERITED
-				}
-			]
-		} else {
-			PropertyStatus.DEFAULT
-		}
-	}
-
-	def package getPropertyStatusNeverUndefined(extension ResourceSet resourceSet, PropertyAssociation association) {
-		if (association === null) {
-			PropertyStatus.DEFAULT
-		} else {
-			val inputElement = input.getEObject(true)
-			if (inputElement == association.owner) {
-				PropertyStatus.LOCAL
-			} else if (association.appliesTos.exists[inputElement == containmentPathElements.last.namedElement]) {
-				PropertyStatus.LOCAL_CONTAINED
-			} else {
-				PropertyStatus.INHERITED
-			}
-		}
-	}
-}

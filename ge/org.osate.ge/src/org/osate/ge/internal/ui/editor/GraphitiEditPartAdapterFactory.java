@@ -82,6 +82,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 				return adapterType.cast(new IAadlPropertySource() {
 					private final IXtextDocument document = AgeXtextUtil.getDocumentByRootElement(namedElement.getElementRoot());
 					private final NamedElement element = namedElement;
+					private final AgeDiagramEditor editor = (AgeDiagramEditor) editorPart;
 
 					@Override
 					public IXtextDocument getDocument() {
@@ -91,6 +92,13 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 					@Override
 					public NamedElement getNamedElement() {
 						return element;
+					}
+
+					@Override
+					public void refreshEditorSelection() {
+						editor.clearSelection();
+						editor.setFocus();
+						editor.selectDiagramElements(new DiagramElement[] { de });
 					}
 				});
 			}
