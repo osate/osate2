@@ -8,10 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.internal.util;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.InternalFeature;
@@ -97,5 +99,26 @@ public class AadlHelper {
 		}
 
 		return ne;
+	}
+
+	/**
+	 * Gets an array of business objects which describes the logical diagram element path from the container to the business object
+	 * @param container
+	 * @param bo
+	 * @return
+	 */
+	public static Object[] getPathToBusinessObject(final EObject container, final EObject bo) {
+		if (bo == null) {
+			return null;
+		}
+
+		final LinkedList<Object> path = new LinkedList<>();
+		EObject tmp = bo;
+		do {
+			path.addFirst(tmp);
+			tmp = tmp.eContainer();
+		} while (tmp != null && tmp != container);
+
+		return path.toArray();
 	}
 }
