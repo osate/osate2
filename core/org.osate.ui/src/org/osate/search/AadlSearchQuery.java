@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 
-public final class AADLSearchQuery implements ISearchQuery {
+public final class AadlSearchQuery implements ISearchQuery {
 	public enum SearchFor {
 		CLASSIFIER, PROPERTY;
 	}
@@ -20,14 +20,14 @@ public final class AADLSearchQuery implements ISearchQuery {
 	private final SearchFor searchFor;
 	private final LimitTo limitTo;
 	private final int scope;
-	private final AADLSearchResult searchResult;
+	private final AadlSearchResult searchResult;
 
-	public AADLSearchQuery(final String substring, final SearchFor searchFor, final LimitTo limitTo, final int scope) {
+	public AadlSearchQuery(final String substring, final SearchFor searchFor, final LimitTo limitTo, final int scope) {
 		this.substring = substring;
 		this.searchFor = searchFor;
 		this.limitTo = limitTo;
 		this.scope = scope;
-		this.searchResult = new AADLSearchResult(this);
+		this.searchResult = new AadlSearchResult(this);
 	}
 
 	@Override

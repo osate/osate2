@@ -6,11 +6,11 @@ import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 
-public final class AADLSearchResult implements ISearchResult {
-	private final AADLSearchQuery searchQuery;
+public final class AadlSearchResult implements ISearchResult {
+	private final AadlSearchQuery searchQuery;
 	private final ListenerList<ISearchResultListener> listeners = new ListenerList<>();
 
-	public AADLSearchResult(final AADLSearchQuery searchQuery) {
+	public AadlSearchResult(final AadlSearchQuery searchQuery) {
 		this.searchQuery = searchQuery;
 	}
 
@@ -27,7 +27,7 @@ public final class AADLSearchResult implements ISearchResult {
 	// TODO Use this eventually
 	@SuppressWarnings("unused")
 	private void notifyListeners() {
-		final AADLSearchResultEvent event = new AADLSearchResultEvent(this);
+		final AadlSearchResultEvent event = new AadlSearchResultEvent(this);
 
 		for (ISearchResultListener listener : listeners) {
 			listener.searchResultChanged(event);

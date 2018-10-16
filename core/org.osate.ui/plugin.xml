@@ -54,7 +54,7 @@
    <extension
          point="org.eclipse.search.searchPages">
       <page
-            class="org.osate.ui.search.AADLSearchPage"
+            class="org.osate.ui.search.AadlSearchPage"
             id="org.osate.ui.search.AADLSearchPage"
             showScopeSection="true"
             label="AADL Search"

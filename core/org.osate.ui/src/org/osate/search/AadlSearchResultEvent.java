@@ -3,9 +3,9 @@ package org.osate.search;
 import org.eclipse.search.ui.SearchResultEvent;
 
 @SuppressWarnings("serial")
-public final class AADLSearchResultEvent extends SearchResultEvent {
+public final class AadlSearchResultEvent extends SearchResultEvent {
 	// TODO Add stuff here
-	protected AADLSearchResultEvent(final AADLSearchResult searchResult) {
+	protected AadlSearchResultEvent(final AadlSearchResult searchResult) {
 		super(searchResult);
 	}
 }
