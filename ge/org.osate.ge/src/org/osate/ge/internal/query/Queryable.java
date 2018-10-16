@@ -2,6 +2,7 @@ package org.osate.ge.internal.query;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface Queryable {
 	Queryable getParent();
@@ -23,5 +24,9 @@ public interface Queryable {
 		}
 
 		return Optional.empty();
+	}
+
+	public default Stream<Queryable> getAllDescendants() {
+		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(Queryable::getAllDescendants));
 	}
 }
