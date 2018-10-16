@@ -54,7 +54,7 @@ public class ExecuteResoluteUtil {
 		FunctionDefinition fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
 		String name = fn.getName();
 		fn.setName("dummy");
-		if (name.startsWith("org.osate")) {
+		if (name != null && name.startsWith("org.osate")) {
 			return false;
 		} else {
 			return true;

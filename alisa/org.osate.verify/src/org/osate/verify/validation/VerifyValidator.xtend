@@ -105,7 +105,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
 				val name = fn.getName();
 				fn.setName("dummy");
-				if (name.startsWith("org.osate")) {
+				if (name !== null && name.startsWith("org.osate")) {
 					RESOLUTE_INSTALLED = false;
 				} else {
 					RESOLUTE_INSTALLED = true;
