@@ -19,6 +19,7 @@ public class AadlClassifierUtil {
 	 */
 	public static Optional<ComponentImplementation> getComponentImplementation(final Object bo) {
 		final ComponentImplementation ci;
+
 		if (bo instanceof Queryable) {
 			return getComponentImplementation(((Queryable) bo).getBusinessObject());
 		} else if (bo instanceof ComponentImplementation) {

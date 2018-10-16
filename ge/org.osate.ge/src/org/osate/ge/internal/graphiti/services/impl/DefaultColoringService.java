@@ -27,6 +27,12 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -37,6 +43,7 @@ import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil;
 
 import com.google.common.base.Predicates;
@@ -126,39 +133,61 @@ public class DefaultColoringService implements ColoringService {
 			// Highlighting ModalElements
 			if (modeFeatureContainer != null) {
 				if (highlightInModeName != null) {
-					AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
-						ci.getAllModes().stream().filter(mode -> mode.getName().equalsIgnoreCase(highlightInModeName))
-						.findAny()
-						.ifPresent(selectedMode -> inModeHighlightableElements
-								.addAll(getInModeElements(selectedMode, modeFeatureContainer)
-										.map(queryable -> (DiagramElement) queryable)
-										.collect(Collectors.toList())));
-					});
-				} else if (highlightInModeTransitionName != null) {
-					AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
-						ci.getAllModeTransitions().stream()
-						.filter(modeTransition -> modeTransition.getName().equalsIgnoreCase(highlightInModeTransitionName))
-						.findAny().ifPresent(modeTransition -> {
-							inModeHighlightableElements
-							.addAll(getInModeElements(modeTransition, modeFeatureContainer)
-									.map(queryable -> (DiagramElement) queryable)
-									.collect(Collectors.toList()));
+					if (modeFeatureContainer.getBusinessObject() instanceof ComponentInstance) {
+						AadlInstanceObjectUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
+							ci.getModeInstances().stream().filter(mi -> mi.getName().equalsIgnoreCase(highlightInModeName))
+							.findAny().ifPresent(selectedModeInstance -> inModeHighlightableElements
+									.addAll(getInModeElements(selectedModeInstance, modeFeatureContainer)
+											.map(queryable -> (DiagramElement) queryable)
+											.collect(Collectors.toList())));
 						});
-					});
+					} else {
+						AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
+							ci.getAllModes().stream().filter(mode -> mode.getName().equalsIgnoreCase(highlightInModeName))
+							.findAny()
+							.ifPresent(selectedMode -> inModeHighlightableElements
+									.addAll(getInModeElements(selectedMode, modeFeatureContainer)
+											.map(queryable -> (DiagramElement) queryable)
+											.collect(Collectors.toList())));
+						});
+					}
+				} else if (highlightInModeTransitionName != null) {
+					if (modeFeatureContainer.getBusinessObject() instanceof ComponentInstance) {
+						AadlInstanceObjectUtil.getComponentInstance(modeFeatureContainer).ifPresent(ci -> {
+							ci.getModeTransitionInstances().stream()
+							.filter(mi -> mi.getName().equalsIgnoreCase(highlightInModeTransitionName)).findAny()
+							.ifPresent(selectedModeInstance -> {
+								inModeHighlightableElements
+								.addAll(getInModeElements(selectedModeInstance, modeFeatureContainer)
+										.map(queryable -> (DiagramElement) queryable)
+										.collect(Collectors.toList()));
+							});
+						});
+					} else {
+						AadlClassifierUtil.getComponentImplementation(modeFeatureContainer).ifPresent(ci -> {
+							ci.getAllModeTransitions().stream()
+							.filter(modeTransition -> modeTransition.getName().equalsIgnoreCase(highlightInModeTransitionName))
+							.findAny().ifPresent(modeTransition -> {
+								inModeHighlightableElements
+								.addAll(getInModeElements(modeTransition, modeFeatureContainer)
+										.map(queryable -> (DiagramElement) queryable)
+										.collect(Collectors.toList()));
+							});
+						});
+					}
 				}
 			}
 
 			// Highlighting FlowImplemenations and EndToEndFlows
 			if (flowsContainerBoc != null) {
-				ComponentImplementation ci = null;
-				if (flowsContainerBoc.getBusinessObject() instanceof ComponentImplementation) {
-					ci = (ComponentImplementation) flowsContainerBoc.getBusinessObject();
-				} else if (flowsContainerBoc.getBusinessObject() instanceof Subcomponent) {
+				Object container = flowsContainerBoc.getBusinessObject();
+				if (container instanceof Subcomponent) {
 					final Subcomponent sc = (Subcomponent) flowsContainerBoc.getBusinessObject();
-					ci = sc.getComponentImplementation();
+					container = sc.getComponentImplementation();
 				}
 
-				if (ci != null) {
+				if (container instanceof ComponentImplementation) {
+					final ComponentImplementation ci = (ComponentImplementation) container;
 					if (highlightFlowImplSpecName != null) {
 						final Optional<FlowImplementation> highlightFlowImpl = ci.getAllFlowImplementations().stream()
 								.filter(fi -> highlightFlowImplSpecName
@@ -177,11 +206,17 @@ public class DefaultColoringService implements ColoringService {
 						final Optional<EndToEndFlow> highlightEndToEndFlow = ci.getAllEndToEndFlows().stream()
 								.filter(etef -> highlightEndToEndFlowName.equalsIgnoreCase(etef.getName())).findFirst();
 						highlightEndToEndFlow.ifPresent(endToEndFlow -> {
-							final FlowSegmentReference flowSegmentRef = AadlFlowSpecificationUtil
-									.createFlowSegmentReference(endToEndFlow, flowsContainerBoc);
-							final Stream<FlowSegmentReference> allFlowSegmentRefs = getAllChildren(
-									AadlFlowSpecificationUtil.findChildren(flowSegmentRef));
-							findAndAddDiagramElements(allFlowSegmentRefs, flowSegmentHighlights);
+							findFlowSegments(endToEndFlow, flowSegmentHighlights);
+						});
+					}
+				} else if (container instanceof ComponentInstance) {
+					// ComponentInstances only support EndToEndFlows
+					final ComponentInstance ci = (ComponentInstance) container;
+					if (highlightEndToEndFlowName != null) {
+						final Optional<EndToEndFlowInstance> highlightEndToEndInstance = ci.getEndToEndFlows().stream()
+								.filter(etef -> highlightEndToEndFlowName.equalsIgnoreCase(etef.getName())).findFirst();
+						highlightEndToEndInstance.ifPresent(endToEndFlow -> {
+							findFlowSegments(endToEndFlow, flowSegmentHighlights);
 						});
 					}
 				}
@@ -207,14 +242,36 @@ public class DefaultColoringService implements ColoringService {
 			return Collections.unmodifiableMap(elementToColorMap);
 		}
 
+		private void findFlowSegments(final Object endToEndFlow, final Set<DiagramElement> flowSegmentHighlights) {
+			final FlowSegmentReference flowSegmentRef = AadlFlowSpecificationUtil
+					.createFlowSegmentReference(endToEndFlow, flowsContainerBoc);
+
+			final Stream<FlowSegmentReference> allFlowSegmentsRefs = getAllChildren(
+					AadlFlowSpecificationUtil.findChildren(flowSegmentRef).filter(Predicates.notNull()));
+			findAndAddDiagramElements(allFlowSegmentsRefs, flowSegmentHighlights);
+		}
+
 		/**
 		 * Returns a stream of queryables that can be highlighted
-		 * @param selectedModeFeature
+		 * @param selectedMode
 		 * @param modeFeatureContainer
 		 * @return
 		 */
-		private Stream<Queryable> getInModeElements(final ModeFeature selectedModeFeature,
+		private Stream<Queryable> getInModeElements(
+				final NamedElement selectedMode,
 				final Queryable modeFeatureContainer) {
+			final ModeFeature selectedModeFeature;
+
+			if(selectedMode instanceof ModeFeature) {
+				selectedModeFeature = (ModeFeature) selectedMode;
+			} else if (selectedMode instanceof ModeInstance) {
+				selectedModeFeature = ((ModeInstance) selectedMode).getMode();
+			} else if (selectedMode instanceof ModeTransitionInstance) {
+				selectedModeFeature = ((ModeTransitionInstance) selectedMode).getModeTransition();
+			} else {
+				throw new RuntimeException("unsupported mode " + selectedMode.getName());
+			}
+
 			return modeFeatureContainer.getChildren().stream().flatMap(child -> {
 				final Object childBo = child.getBusinessObject();
 				if (AadlModalElementUtil.isModalElementWithContainer(childBo)) {
@@ -229,7 +286,7 @@ public class DefaultColoringService implements ColoringService {
 								.anyMatch(mf -> AadlHelper.namesMatch(mf, selectedModeFeature))) {
 							return Stream.of(child);
 						}
-					} else {
+					} else if (childBo instanceof ModalElement) {
 						final ModalElement me = (ModalElement) childBo;
 						if (selectedModeFeature instanceof ModeTransition) {
 							// If in all modes, highlight ModalElement and it's children
@@ -247,8 +304,34 @@ public class DefaultColoringService implements ColoringService {
 								return getDerivedSubcomponentInModes(selectedModeFeature, child);
 							}
 						}
-
 						return getInModeElements(selectedModeFeature, me, child);
+					} else if (childBo instanceof EndToEndFlowInstance
+							|| childBo instanceof FlowSpecificationInstance || childBo instanceof ConnectionReference) {
+						final ModalPath modalPath = AadlInstanceObjectUtil.getModalPath(childBo);
+						final List<ModeFeature> inModeOrTransitions = AadlModalElementUtil
+								.getAllInModesOrTransitions(modalPath);
+						if (inModeOrTransitions.isEmpty() || inModeOrTransitions.stream()
+								.anyMatch(mi -> AadlHelper.namesMatch(selectedModeFeature, mi))) {
+							return Stream.of(child);
+						}
+					} else if (childBo instanceof ComponentInstance) {
+						final ComponentInstance ci = (ComponentInstance) childBo;
+						if (selectedModeFeature instanceof ModeTransition) {
+							// If in all modes, highlight component instance and it's children
+							return ci.getInModes().isEmpty()
+									? Stream.concat(Stream.of(child),
+											getModalElementChildren(getChildrenApplicableToModeHighlighting(child)))
+											: Stream.empty();
+						}
+
+						// Check for derived modes
+						if (ci.getSubcomponent() instanceof Subcomponent) {
+							final Subcomponent subcomponent = (Subcomponent) ci.getSubcomponent();
+							if (isDerived(subcomponent)) {
+								return getDerivedSubcomponentInModes(selectedModeFeature, child);
+							}
+						}
+						return getInModeElements(selectedModeFeature, ci, child);
 					}
 				} else if (isApplicableElementToModeHighlighting(child.getBusinessObject())) {
 					return Stream.of(child);
@@ -271,35 +354,39 @@ public class DefaultColoringService implements ColoringService {
 		 */
 		private Stream<? extends Queryable> getDerivedSubcomponentInModes(final ModeFeature selectedModeFeature,
 				final Queryable subcompQueryable) {
-			final Subcomponent subcomponent = (Subcomponent) subcompQueryable.getBusinessObject();
-			// In all modes
-			final List<ModeBinding> modeBindings = AadlModalElementUtil.getAllModeBindings(subcomponent);
-			if (modeBindings.isEmpty()) {
-				if (subcomponent.getComponentType() == null) {
-					return Stream.of(subcompQueryable);
-				}
+			final Subcomponent subcomponent = subcompQueryable.getBusinessObject() instanceof Subcomponent
+					? (Subcomponent) subcompQueryable.getBusinessObject()
+							: ((ComponentInstance) subcompQueryable.getBusinessObject())
+							.getSubcomponent();
+					// In all modes
+					final List<ModeBinding> modeBindings = AadlModalElementUtil.getAllModeBindings(subcomponent);
+					if (modeBindings.isEmpty()) {
+						if (subcomponent.getComponentType() == null) {
+							return Stream.of(subcompQueryable);
+						}
 
-				final Optional<Mode> modeOpt = subcomponent.getComponentType().getAllModes().stream()
-						.filter(mode -> AadlHelper.namesMatch(mode, selectedModeFeature)).findAny();
-				// Check if mode in subcomponent is also in component type
-				if (modeOpt.isPresent()) {
-					return Stream.concat(Stream.of(subcompQueryable),
-							getInModeElements(modeOpt.get(), subcompQueryable));
-				}
-			} else {
-				// In modes
-				// Use derived mode to highlight children. If derived mode is null, find the mode with same name as parent mode
-				final Optional<ModeBinding> mbOpt = modeBindings.stream()
-						.filter(mb -> AadlHelper.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
-				if (mbOpt.isPresent()) {
-					final ModeBinding mb = mbOpt.get();
-					// If derived mode is null, look for parent mode
-					final Mode inMode = mb.getDerivedMode() == null ? mb.getParentMode() : mb.getDerivedMode();
-					return Stream.concat(Stream.of(subcompQueryable), getInModeElements(inMode, subcompQueryable));
-				}
-			}
+						final Optional<Mode> modeOpt = subcomponent.getComponentType().getAllModes().stream()
+								.filter(mode -> AadlHelper.namesMatch(mode, selectedModeFeature)).findAny();
+						// Check if mode in subcomponent is also in component type
+						if (modeOpt.isPresent()) {
+							return Stream.concat(Stream.of(subcompQueryable),
+									getInModeElements(modeOpt.get(), subcompQueryable));
+						}
+					} else {
 
-			return Stream.empty();
+						// In modes
+						// Use derived mode to highlight children. If derived mode is null, find the mode with same name as parent mode
+						final Optional<ModeBinding> mbOpt = modeBindings.stream()
+								.filter(mb -> AadlHelper.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
+						if (mbOpt.isPresent()) {
+							final ModeBinding mb = mbOpt.get();
+							// If derived mode is null, look for parent mode
+							final Mode inMode = mb.getDerivedMode() == null ? mb.getParentMode() : mb.getDerivedMode();
+							return Stream.concat(Stream.of(subcompQueryable), getInModeElements(inMode, subcompQueryable));
+						}
+					}
+
+					return Stream.empty();
 		}
 
 		/**
@@ -322,6 +409,32 @@ public class DefaultColoringService implements ColoringService {
 			if (allModes.stream()
 					.anyMatch(inMode -> AadlHelper.namesMatch(mode, inMode))) {
 				return Stream.concat(Stream.of(container), getModalElementChildren(getChildrenApplicableToModeHighlighting(container)));
+			}
+
+			return Stream.empty();
+		}
+
+		/**
+		 * Returns a stream of elements that are in the selected mode.
+		 * @param mode
+		 * @param ci
+		 * @param container
+		 * @return
+		 */
+		private Stream<Queryable> getInModeElements(final ModeFeature mode, final ComponentInstance ci,
+				final Queryable container) {
+			final List<ModeInstance> allModes = ci.getInModes();
+
+			// In all modes
+			if (allModes.isEmpty()) {
+				return Stream.concat(Stream.of(container),
+						getModalElementChildren(getChildrenApplicableToModeHighlighting(container)));
+			}
+
+			// In selected modes
+			if (allModes.stream().anyMatch(inMode -> AadlHelper.namesMatch(mode, inMode))) {
+				return Stream.concat(Stream.of(container),
+						getModalElementChildren(getChildrenApplicableToModeHighlighting(container)));
 			}
 
 			return Stream.empty();
@@ -351,8 +464,10 @@ public class DefaultColoringService implements ColoringService {
 		 */
 		private Stream<FlowSegmentReference> getAllChildren(
 				final Stream<FlowSegmentReference> highlightableFlowElements) {
-			return highlightableFlowElements.flatMap(fsr -> Stream.concat(Stream.of(fsr),
-					getAllChildren(AadlFlowSpecificationUtil.findChildren(fsr).filter(Predicates.notNull()))));
+			return highlightableFlowElements.flatMap(fsr -> {
+				return Stream.concat(Stream.of(fsr),
+						getAllChildren(AadlFlowSpecificationUtil.findChildren(fsr).filter(Predicates.notNull())));
+			});
 
 		}
 	};
@@ -378,7 +493,8 @@ public class DefaultColoringService implements ColoringService {
 	}
 
 	private static boolean isApplicableElementToModeHighlighting(final Object element) {
-		return !(element instanceof ModeFeature) && element instanceof NamedElement;
+		return !(element instanceof ModeFeature || element instanceof ModeInstance
+				|| element instanceof ModeTransitionInstance) && element instanceof NamedElement;
 	}
 
 	@Override
@@ -391,9 +507,12 @@ public class DefaultColoringService implements ColoringService {
 	@Override
 	public void setHighlightedMode(final NamedElement highlightInMode, final Queryable modalElementBoc) {
 		this.modeFeatureContainer = modalElementBoc;
-		highlightInModeName = highlightInMode instanceof Mode ? highlightInMode.getName() : null;
-		highlightInModeTransitionName = highlightInMode instanceof ModeTransition ? highlightInMode.getName() : null;
-		refreshDiagramColoring();
+		highlightInModeName = highlightInMode instanceof Mode || highlightInMode instanceof ModeInstance
+				? highlightInMode.getName()
+						: null;
+				highlightInModeTransitionName = highlightInMode instanceof ModeTransition
+						|| highlightInMode instanceof ModeTransitionInstance ? highlightInMode.getName() : null;
+						refreshDiagramColoring();
 	}
 
 	@Override
@@ -402,8 +521,9 @@ public class DefaultColoringService implements ColoringService {
 		highlightFlowImplSpecName = highlightedFlow instanceof FlowSpecification
 				? ((FlowSpecification) highlightedFlow).getName()
 						: null;
-				highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow ? highlightedFlow.getName() : null;
-				refreshDiagramColoring();
+				highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow
+						|| highlightedFlow instanceof EndToEndFlowInstance ? highlightedFlow.getName() : null;
+						refreshDiagramColoring();
 	}
 
 	@Override
