@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchPageContainer;
+import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,21 +16,16 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+import org.osate.search.AADLSearchQuery;
 import org.osate.search.AADLSearchQuery.LimitTo;
 import org.osate.search.AADLSearchQuery.SearchFor;
 
 public final class AADLSearchPage extends DialogPage implements ISearchPage {
-	private ISearchPageContainer seachPageContainer;
+	private ISearchPageContainer searchPageContainer;
 	private Text substringText;
 
 	private SearchFor searchFor;
 	private LimitTo limitTo;
-
-//	private Button classifierRadio;
-//	private Button propertyRadio;
-//	private Button refAndDeclRadio;
-//	private Button referenceRadio;
-//	private Button declarationRadio;
 
 	public AADLSearchPage() {
 		super();
@@ -53,11 +49,6 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 		searchForGroup.setText("Search For");
 
 		searchForGroup.setLayout(new RowLayout(SWT.VERTICAL));
-//		classifierRadio = new Button(searchForGroup, SWT.RADIO);
-//		classifierRadio.setText("Classifier");
-//		classifierRadio.setSelection(true);
-//		propertyRadio = new Button(searchForGroup, SWT.RADIO);
-//		propertyRadio.setText("Property");
 		createRadioButton(searchForGroup, "Classifier", true, this::setSearchFor, SearchFor.CLASSIFIER);
 		createRadioButton(searchForGroup, "Property", false, this::setSearchFor, SearchFor.PROPERTY);
 
@@ -66,13 +57,6 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 		limitToGroup.setText("Limit To");
 
 		limitToGroup.setLayout(new RowLayout(SWT.VERTICAL));
-//		refAndDeclRadio = new Button(limitToGroup, SWT.RADIO);
-//		refAndDeclRadio.setText("All occurances");
-//		referenceRadio = new Button(limitToGroup, SWT.RADIO);
-//		referenceRadio.setText("References");
-//		referenceRadio.setSelection(true);
-//		declarationRadio = new Button(limitToGroup, SWT.RADIO);
-//		declarationRadio.setText("Declarations");
 		createRadioButton(limitToGroup, "All occurances", false, this::setLimitTo, LimitTo.ALL);
 		createRadioButton(limitToGroup, "References", true, this::setLimitTo, LimitTo.REFERENCES);
 		createRadioButton(limitToGroup, "Declarations", false, this::setLimitTo, LimitTo.DECLARATIONS);
@@ -109,13 +93,16 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 
 	@Override
 	public boolean performAction() {
-		// TODO Auto-generated method stub
-		return false;
+		final AADLSearchQuery query = new AADLSearchQuery(substringText.getText(), searchFor, limitTo,
+				searchPageContainer.getSelectedScope());
+		NewSearchUI.runQueryInForeground(searchPageContainer.getRunnableContext(), query);
+
+		return true;
 	}
 
 	@Override
 	public void setContainer(final ISearchPageContainer container) {
-		seachPageContainer = container;
+		searchPageContainer = container;
 	}
 
 }

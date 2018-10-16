@@ -3,6 +3,7 @@ package org.osate.search;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 
@@ -30,9 +31,10 @@ public final class AADLSearchQuery implements ISearchQuery {
 	}
 
 	@Override
-	public IStatus run(IProgressMonitor monitor) throws OperationCanceledException {
-		// TODO Auto-generated method stub
-		return null;
+	public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
+		System.out.println("Searching for " + searchFor + " " + limitTo + " \"" + substring + "\"; scope = "
+				+ scope);
+		return Status.OK_STATUS;
 	}
 
 	@Override
