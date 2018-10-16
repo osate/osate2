@@ -183,9 +183,10 @@
             labelProvider="org.osate.ui.navigator.AadlProjectDependenciesLabelProvider"
             name="AADL Project Dependencies">
          <enablement>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
+         	<or>
+            	<instanceof value="org.eclipse.core.resources.IProject" />
+            	<instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+            </or>
          </enablement>
          <commonSorter
                class="org.osate.ui.navigator.AadlProjectDependenciesSorter">
@@ -276,19 +277,15 @@
          <enablement>
         	 <or>
 		         <and>
-		            <instanceof
-		                  value="org.eclipse.core.resources.IProject">
-		            </instanceof>
-		            <test
-		                  property="org.eclipse.core.resources.open">
-		            </test>
+		            <instanceof value="org.eclipse.core.resources.IProject" />
+		            <test property="org.eclipse.core.resources.open" />
 		            <test
 		                  property="org.eclipse.core.resources.projectNature"
-		                  value="org.osate.core.aadlnature">
-		            </test>
+		                  value="org.osate.core.aadlnature" />
 		         </and>
 		         
 		         <instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectNode" />
 		     </or>
          </enablement>
       </actionProvider>

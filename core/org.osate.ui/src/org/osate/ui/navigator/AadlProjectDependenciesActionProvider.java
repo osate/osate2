@@ -31,6 +31,8 @@ public class AadlProjectDependenciesActionProvider extends CommonActionProvider 
 						project = (IProject) selection;
 					} else if (selection instanceof VirtualProjectDependencies) {
 						project = ((VirtualProjectDependencies) selection).getProject();
+					} else if (selection instanceof VirtualProjectNode) {
+						project = ((VirtualProjectNode) selection).getParent().getProject();
 					}
 					if (project != null) {
 						PreferencesUtil.createPropertyDialogOn(getActionSite().getViewSite().getShell(), project, ID,

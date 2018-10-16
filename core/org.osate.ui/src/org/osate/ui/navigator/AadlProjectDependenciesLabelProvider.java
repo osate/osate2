@@ -44,6 +44,8 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 	public String getText(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
 			return "Referenced Projects";
+		} else if (element instanceof VirtualProjectNode) {
+			return ((VirtualProjectNode) element).getLabel();
 		}
 		return null;
 	}
@@ -52,7 +54,10 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 	public Image getImage(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
 			return OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
+		} else if (element instanceof VirtualProjectNode) {
+			return OsateUiPlugin.getImageDescriptor("icons/project.png").createImage();
 		}
+
 		return null;
 	}
 

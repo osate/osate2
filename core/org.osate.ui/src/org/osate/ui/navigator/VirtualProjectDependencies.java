@@ -4,11 +4,14 @@ import org.eclipse.core.resources.IProject;
 
 public final class VirtualProjectDependencies {
 	private final IProject project;
-	private final IProject[] children;
+	private final VirtualProjectNode[] children;
 
 	public VirtualProjectDependencies(final IProject project, final IProject[] children) {
 		this.project = project;
-		this.children = children;
+		this.children = new VirtualProjectNode[children.length];
+		for (int i = 0; i < children.length; i++) {
+			this.children[i] = new VirtualProjectNode(this, children[i]);
+		}
 	}
 
 	public IProject getProject() {
@@ -19,7 +22,7 @@ public final class VirtualProjectDependencies {
 		return children.length > 0;
 	}
 
-	public IProject[] getChildren() {
+	public VirtualProjectNode[] getChildren() {
 		return children;
 	}
 }
