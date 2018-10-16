@@ -76,6 +76,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.instantia
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.ResultType
+import org.eclipse.core.runtime.CoreException
 
 class AssureUtilExtension {
 
@@ -229,8 +230,14 @@ class AssureUtilExtension {
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
-		// XXX org.eclipse.core.internal.resources.ResourceException: Resource '/org.osate.assure.tests/models/SimpleControlSystem/aadl/instances/SimpleControlSystem_SCS_tier1_Instance.aaxl2' does not exist.
-		val markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
+
+		var  IMarker[] markers
+		try {
+			markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
+		} catch (CoreException e){
+			verificationActivityResult.setToError("Could not find Markers. Instance model was not saved.", instance)
+			return
+		}
 		val targetURI = EcoreUtil.getURI(instance).toString()
 		var targetmarkers = markers.filter [ IMarker m |
 			matchURI(m.getAttribute(AadlConstants.AADLURI) as String, targetURI)
