@@ -16,18 +16,18 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
-import org.osate.search.AADLSearchQuery;
-import org.osate.search.AADLSearchQuery.LimitTo;
-import org.osate.search.AADLSearchQuery.SearchFor;
+import org.osate.search.AadlSearchQuery;
+import org.osate.search.AadlSearchQuery.LimitTo;
+import org.osate.search.AadlSearchQuery.SearchFor;
 
-public final class AADLSearchPage extends DialogPage implements ISearchPage {
+public final class AadlSearchPage extends DialogPage implements ISearchPage {
 	private ISearchPageContainer searchPageContainer;
 	private Text substringText;
 
 	private SearchFor searchFor;
 	private LimitTo limitTo;
 
-	public AADLSearchPage() {
+	public AadlSearchPage() {
 		super();
 	}
 
@@ -93,7 +93,7 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 
 	@Override
 	public boolean performAction() {
-		final AADLSearchQuery query = new AADLSearchQuery(substringText.getText(), searchFor, limitTo,
+		final AadlSearchQuery query = new AadlSearchQuery(substringText.getText(), searchFor, limitTo,
 				searchPageContainer.getSelectedScope());
 		NewSearchUI.runQueryInForeground(searchPageContainer.getRunnableContext(), query);
 
