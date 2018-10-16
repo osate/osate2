@@ -25,11 +25,11 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 	private SearchFor searchFor;
 	private LimitTo limitTo;
 
-	private Button classifierRadio;
-	private Button propertyRadio;
-	private Button refAndDeclRadio;
-	private Button referenceRadio;
-	private Button declarationRadio;
+//	private Button classifierRadio;
+//	private Button propertyRadio;
+//	private Button refAndDeclRadio;
+//	private Button referenceRadio;
+//	private Button declarationRadio;
 
 	public AADLSearchPage() {
 		super();
@@ -53,34 +53,44 @@ public final class AADLSearchPage extends DialogPage implements ISearchPage {
 		searchForGroup.setText("Search For");
 
 		searchForGroup.setLayout(new RowLayout(SWT.VERTICAL));
-		classifierRadio = new Button(searchForGroup, SWT.RADIO);
-		classifierRadio.setText("Classifier");
-		classifierRadio.setSelection(true);
-		propertyRadio = new Button(searchForGroup, SWT.RADIO);
-		propertyRadio.setText("Property");
-//		createRadioButton(searchForGroup, "Classifier", this::setSearchFor, SearchFor.CLASSIFIER);
-//		createRadioButton(searchForGroup, "Property", this::setSearchFor, SearchFor.PROPERTY);
+//		classifierRadio = new Button(searchForGroup, SWT.RADIO);
+//		classifierRadio.setText("Classifier");
+//		classifierRadio.setSelection(true);
+//		propertyRadio = new Button(searchForGroup, SWT.RADIO);
+//		propertyRadio.setText("Property");
+		createRadioButton(searchForGroup, "Classifier", true, this::setSearchFor, SearchFor.CLASSIFIER);
+		createRadioButton(searchForGroup, "Property", false, this::setSearchFor, SearchFor.PROPERTY);
 
 		final Group limitToGroup = new Group(root, SWT.SHADOW_ETCHED_IN);
 		limitToGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		limitToGroup.setText("Limit To");
 
 		limitToGroup.setLayout(new RowLayout(SWT.VERTICAL));
-		refAndDeclRadio = new Button(limitToGroup, SWT.RADIO);
-		refAndDeclRadio.setText("All occurances");
-		referenceRadio = new Button(limitToGroup, SWT.RADIO);
-		referenceRadio.setText("References");
-		referenceRadio.setSelection(true);
-		declarationRadio = new Button(limitToGroup, SWT.RADIO);
-		declarationRadio.setText("Declarations");
+//		refAndDeclRadio = new Button(limitToGroup, SWT.RADIO);
+//		refAndDeclRadio.setText("All occurances");
+//		referenceRadio = new Button(limitToGroup, SWT.RADIO);
+//		referenceRadio.setText("References");
+//		referenceRadio.setSelection(true);
+//		declarationRadio = new Button(limitToGroup, SWT.RADIO);
+//		declarationRadio.setText("Declarations");
+		createRadioButton(limitToGroup, "All occurances", false, this::setLimitTo, LimitTo.ALL);
+		createRadioButton(limitToGroup, "References", true, this::setLimitTo, LimitTo.REFERENCES);
+		createRadioButton(limitToGroup, "Declarations", false, this::setLimitTo, LimitTo.DECLARATIONS);
 
 		setControl(root);
 	}
 
-	private <T> void createRadioButtion(final Group group, final String label, final Consumer<T> setter,
+	private <T> void createRadioButton(final Group group, final String label, final boolean selected,
+			final Consumer<T> setter,
 			final T value) {
 		final Button radio = new Button(group, SWT.RADIO);
 		radio.setText(label);
+
+		radio.setSelection(selected);
+		if (selected) {
+			setter.accept(value);
+		}
+
 		radio.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
