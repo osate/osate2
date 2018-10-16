@@ -17,8 +17,8 @@ public class AadlProjectDependenciesActionProvider extends CommonActionProvider 
 	public AadlProjectDependenciesActionProvider() {
 		editDependenciesAction = new Action() {
 			{
-				setText("Edit Project Dependencies...");
-				setToolTipText("Open the dependencies project property page.");
+				setText("Edit Referenced Projects...");
+				setToolTipText("Open the project references property page.");
 			}
 
 			@Override
@@ -36,7 +36,6 @@ public class AadlProjectDependenciesActionProvider extends CommonActionProvider 
 						PreferencesUtil.createPropertyDialogOn(getActionSite().getViewSite().getShell(), project, ID,
 								ID_LIST, DUMMY_DATA).open();
 					}
-//					MessageDialog.openInformation(getActionSite().getViewSite().getShell(), "test", "Hello!");
 				}
 			}
 		};

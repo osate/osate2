@@ -15,6 +15,10 @@ public final class VirtualProjectDependencies {
 		return project;
 	}
 
+	public boolean hasChildren() {
+		return children.length > 0;
+	}
+
 	public IProject[] getChildren() {
 		return children;
 	}

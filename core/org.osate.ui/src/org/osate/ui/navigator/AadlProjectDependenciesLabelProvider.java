@@ -43,7 +43,7 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 	@Override
 	public String getText(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
-			return "Depends On";
+			return "Referenced Projects";
 		}
 		return null;
 	}
@@ -59,7 +59,7 @@ public final class AadlProjectDependenciesLabelProvider extends LabelProvider im
 	@Override
 	public String getDescription(Object element) {
 		if (element instanceof VirtualProjectDependencies) {
-			return "Projects depended on by this project";
+			return "Projects referenced by this project";
 		}
 		return null;
 	}
