@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @see com.rockwellcollins.atc.resolute.resolute.ResolutePackage#getFunctionDefinition()
  * @model
- * @generated
+ * @generated NOT
  */
 public class FunctionDefinition extends EObjectImpl {
 	public void setName(String string) {
@@ -31,6 +31,6 @@ public class FunctionDefinition extends EObjectImpl {
 	}
 
 	public String getName() {
-		return null;
+		return "org.osate.resolute.stub";
 	}
 } // FunctionDefinition
