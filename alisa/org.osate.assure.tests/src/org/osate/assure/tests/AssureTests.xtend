@@ -657,7 +657,7 @@ class AssureTests extends XtextTest {
 			"scsimplvplan".assertEquals(name)
 			5.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				2.assertEquals(activities.size)
+				1.assertEquals(activities.size)
 			]
 			claim.get(1) as Claim => [
 				0.assertEquals(activities.size)
@@ -760,11 +760,11 @@ class AssureTests extends XtextTest {
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteInstalled){
-			14.assertEquals(counts.successCount)
-			22.assertEquals(counts.failCount)
+			15.assertEquals(counts.successCount)
+			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
-			9.assertEquals(counts.successCount)
+			8.assertEquals(counts.successCount)
 			11.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
