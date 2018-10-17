@@ -675,8 +675,11 @@ public class Util {
 	private static boolean RESOLUTE_INSTALLED;
 	static {
 		try {
-			ExecuteResoluteUtil.eInstance.tryLoad();
-			RESOLUTE_INSTALLED = true;
+			if (ExecuteResoluteUtil.eInstance.tryLoad()) {
+				RESOLUTE_INSTALLED = true;
+			} else {
+				RESOLUTE_INSTALLED = false;
+			}
 		} catch (NoClassDefFoundError e) {
 			RESOLUTE_INSTALLED = false;
 		}

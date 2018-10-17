@@ -230,6 +230,7 @@ class AssureUtilExtension {
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
+
 		var  IMarker[] markers
 		try {
 			markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
