@@ -43,4 +43,18 @@ public final class AadlFinder {
 		return classifiers;
 	}
 
+	/**
+	 * Get all the {@link Property} Declarations in the workspace.
+	 */
+	public EList<IEObjectDescription> getAllPropertyDeclarationsInWorkspace() {
+		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
+		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
+				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		for (final IEObjectDescription eod : resourceDescriptions
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty())) {
+			classifiers.add(eod);
+		}
+		return classifiers;
+	}
+
 }
