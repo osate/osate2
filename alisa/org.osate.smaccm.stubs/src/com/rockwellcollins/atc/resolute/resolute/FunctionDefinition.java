@@ -31,6 +31,6 @@ public class FunctionDefinition extends EObjectImpl {
 	}
 
 	public String getName() {
-		return null;
+		return "org.osate.resolute.stub";
 	}
 } // FunctionDefinition

@@ -4,7 +4,7 @@ verification plan dcsvplan for dcsreqs
 [
 	claim R1 [
 		activities
-			va2 : Plugins.MassAnalysis()
+			va2 : actualweight = Plugins.GetTotalWeight()
 			va3 : Resolute.verifyDCSReq1(MaximumWeight in kg) [category Layer.Tier1]
 		assert all [ va2, va3]
 	]
