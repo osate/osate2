@@ -135,8 +135,12 @@ class AssureProcessor implements IAssureProcessor {
 		env.add('vals', vals)
 		env.add('computes', computes)
 		try {
-			ExecuteResoluteUtil.eInstance.tryLoad();
-			RESOLUTE_INSTALLED = true;
+			val isresolute = ExecuteResoluteUtil.eInstance.tryLoad();
+			if (isresolute){
+				RESOLUTE_INSTALLED = true;
+			} else {
+				RESOLUTE_INSTALLED = false;
+			}
 		} catch (NoClassDefFoundError e) {
 			RESOLUTE_INSTALLED = false;
 		}
