@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @see com.rockwellcollins.atc.resolute.resolute.ResolutePackage#getFunctionDefinition()
  * @model
- * @generated NOT
+ * @generated
  */
 public class FunctionDefinition extends EObjectImpl {
 	public void setName(String string) {
