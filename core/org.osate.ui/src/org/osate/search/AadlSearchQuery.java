@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
+import org.eclipse.xtext.resource.IEObjectDescription;
 
 public final class AadlSearchQuery implements ISearchQuery {
 	public enum SearchFor {
@@ -34,6 +35,15 @@ public final class AadlSearchQuery implements ISearchQuery {
 	public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
 		System.out.println("Searching for " + searchFor + " " + limitTo + " \"" + substring + "\"; scope = "
 				+ scope);
+
+		final AadlFinder aadlFinder = AadlFinder.getInstance();
+		for (final IEObjectDescription objectDesc : aadlFinder.getAllClassifiersInWorkspace()) {
+			for (final String segment : objectDesc.getName().getSegments()) {
+				System.out.print("[" + segment + "]");
+			}
+			System.out.println(" -- " + objectDesc.getEObjectURI());
+		}
+
 		return Status.OK_STATUS;
 	}
 
