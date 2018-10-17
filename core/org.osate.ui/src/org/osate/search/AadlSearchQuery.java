@@ -33,11 +33,21 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 	@Override
 	public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
+		final AadlFinder aadlFinder = AadlFinder.getInstance();
+
 		System.out.println("Searching for " + searchFor + " " + limitTo + " \"" + substring + "\"; scope = "
 				+ scope);
 
-		final AadlFinder aadlFinder = AadlFinder.getInstance();
+		System.out.println("== Classifier Declarations ==");
 		for (final IEObjectDescription objectDesc : aadlFinder.getAllClassifiersInWorkspace()) {
+			for (final String segment : objectDesc.getName().getSegments()) {
+				System.out.print("[" + segment + "]");
+			}
+			System.out.println(" -- " + objectDesc.getEObjectURI());
+		}
+
+		System.out.println("== Property Declarations ==");
+		for (final IEObjectDescription objectDesc : aadlFinder.getAllPropertyDeclarationsInWorkspace()) {
 			for (final String segment : objectDesc.getName().getSegments()) {
 				System.out.print("[" + segment + "]");
 			}
