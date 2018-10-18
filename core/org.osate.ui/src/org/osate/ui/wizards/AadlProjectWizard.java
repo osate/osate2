@@ -203,6 +203,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		final IProjectDescription description = workspace.newProjectDescription(newProjectHandle.getName());
 		description.setLocation(newPath);
+		description.setReferencedProjects(referencePage.getReferencedProjects());
 
 		// create the new project operation
 		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
