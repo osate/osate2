@@ -94,7 +94,7 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 	@Override
 	public boolean performAction() {
 		final AadlSearchQuery query = new AadlSearchQuery(substringText.getText(), searchFor, limitTo,
-				searchPageContainer.getSelectedScope());
+				AadlSearchQuery.getScope(searchPageContainer.getSelectedScope()));
 		NewSearchUI.runQueryInForeground(searchPageContainer.getRunnableContext(), query);
 
 		return true;

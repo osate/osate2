@@ -18,8 +18,8 @@ import com.google.inject.Injector;
 
 public final class AadlFinder {
 	@FunctionalInterface
-	public interface EObjectConsumer {
-		public void foundEObject(IEObjectDescription objDesc);
+	public interface FinderConsumer<T> {
+		public void found(T objDesc);
 	}
 
 	private static final AadlFinder instance = new AadlFinder();
@@ -41,11 +41,11 @@ public final class AadlFinder {
 	 * Get all the {@code EObject}s of the given type in the workspace.
 	 */
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
-			final EObjectConsumer consumer) {
+			final FinderConsumer<IEObjectDescription> consumer) {
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		for (final IEObjectDescription objDesc : resourceDescriptions.getExportedObjectsByType(eClass)) {
-			consumer.foundEObject(objDesc);
+			consumer.found(objDesc);
 		}
 	}
 
@@ -55,46 +55,14 @@ public final class AadlFinder {
 		return classifiers;
 	}
 
-//	/**
-//	 * Get all the {@link Classifier}s in the workspace.
-//	 */
-//	public EList<IEObjectDescription> getAllClassifiersInWorkspace() {
-//		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
-//		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-//				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-//		for (final IEObjectDescription eod : resourceDescriptions
-//				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier())) {
-//			classifiers.add(eod);
-//		}
-//		return classifiers;
-//	}
-//
-//	/**
-//	 * Get all the {@link Property} Declarations in the workspace.
-//	 */
-//	public EList<IEObjectDescription> getAllPropertyDeclarationsInWorkspace() {
-//		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
-//		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-//				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-//		for (final IEObjectDescription eod : resourceDescriptions
-//				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty())) {
-//			classifiers.add(eod);
-//		}
-//		return classifiers;
-//	}
-
-	public void doStuff() {
+	public void getAllReferencesToTypeInWorkspace(final EClass eClass,
+			final FinderConsumer<IReferenceDescription> consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
-			System.out.println(">>> " + rsrcDesc.getURI());
 			for (final IReferenceDescription refDesc : rsrcDesc.getReferenceDescriptions()) {
-				System.out.println("  Source: " + resourceSet.getEObject(refDesc.getSourceEObjectUri(), true));
-				System.out.println("  Target: " + resourceSet.getEObject(refDesc.getTargetEObjectUri(), true));
-//				System.out.println(refDesc.getSourceEObjectUri() + " -> " + refDesc.getTargetEObjectUri());
-//				System.out.println("  Container URI: " + refDesc.getContainerEObjectURI());
-//				System.out.println("  EReference: " + refDesc.getEReference());
+				consumer.found(refDesc);
 			}
 		}
 	}
