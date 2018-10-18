@@ -3,6 +3,7 @@ package org.osate.search;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
@@ -10,13 +11,17 @@ import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceDescriptionsProvider;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public final class AadlFinder {
+	@FunctionalInterface
+	public interface EObjectConsumer {
+		public void foundEObject(IEObjectDescription objDesc);
+	}
+
 	private static final AadlFinder instance = new AadlFinder();
 
 	@Inject
@@ -33,32 +38,50 @@ public final class AadlFinder {
 	}
 
 	/**
-	 * Get all the {@link Classifier}s in the workspace.
+	 * Get all the {@code EObject}s of the given type in the workspace.
 	 */
-	public EList<IEObjectDescription> getAllClassifiersInWorkspace() {
-		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
+	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
+			final EObjectConsumer consumer) {
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		for (final IEObjectDescription eod : resourceDescriptions
-				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier())) {
-			classifiers.add(eod);
+		for (final IEObjectDescription objDesc : resourceDescriptions.getExportedObjectsByType(eClass)) {
+			consumer.foundEObject(objDesc);
 		}
+	}
+
+	public EList<IEObjectDescription> getAllObjectsOfTypeInWorkspace(final EClass eClass) {
+		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
+		getAllObjectsOfTypeInWorkspace(eClass, objDesc -> classifiers.add(objDesc));
 		return classifiers;
 	}
 
-	/**
-	 * Get all the {@link Property} Declarations in the workspace.
-	 */
-	public EList<IEObjectDescription> getAllPropertyDeclarationsInWorkspace() {
-		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
-		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		for (final IEObjectDescription eod : resourceDescriptions
-				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty())) {
-			classifiers.add(eod);
-		}
-		return classifiers;
-	}
+//	/**
+//	 * Get all the {@link Classifier}s in the workspace.
+//	 */
+//	public EList<IEObjectDescription> getAllClassifiersInWorkspace() {
+//		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
+//		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
+//				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+//		for (final IEObjectDescription eod : resourceDescriptions
+//				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier())) {
+//			classifiers.add(eod);
+//		}
+//		return classifiers;
+//	}
+//
+//	/**
+//	 * Get all the {@link Property} Declarations in the workspace.
+//	 */
+//	public EList<IEObjectDescription> getAllPropertyDeclarationsInWorkspace() {
+//		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
+//		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
+//				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+//		for (final IEObjectDescription eod : resourceDescriptions
+//				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty())) {
+//			classifiers.add(eod);
+//		}
+//		return classifiers;
+//	}
 
 	public void doStuff() {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
