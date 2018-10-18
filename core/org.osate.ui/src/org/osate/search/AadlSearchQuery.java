@@ -54,6 +54,9 @@ public final class AadlSearchQuery implements ISearchQuery {
 			System.out.println(" -- " + objectDesc.getEObjectURI());
 		}
 
+		System.out.println("== References ==");
+		aadlFinder.doStuff();
+
 		return Status.OK_STATUS;
 	}
 
