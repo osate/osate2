@@ -537,14 +537,14 @@ public class InstantiateModel {
 		}
 
 		/*
-		 * add modes & transitions. Must do this before adding subcomponents
+		 * Add modes. Must do this before adding subcomponents
 		 * because we need to know what are the ModeInstances when processing
 		 * modal subcomponents.
 		 */
 		if (impl != null) {
-			fillModesAndTransitions(ci, impl.getAllModes(), impl.getAllModeTransitions());
+			fillModes(ci, impl.getAllModes());
 		} else if (type != null) {
-			fillModesAndTransitions(ci, type.getAllModes(), type.getAllModeTransitions());
+			fillModes(ci, type.getAllModes());
 		}
 		if (impl != null) {
 			// Recursively add subcomponents
@@ -569,10 +569,18 @@ public class InstantiateModel {
 			instantiateFeatures(ci);
 			instantiateFlowSpecs(ci);
 		}
-		return;
+		/*
+		 * Add mode transitions. Must do this after adding subcomponents
+		 * because we need reference subcomponent features as triggers.
+		 */
+		if (impl != null) {
+			fillModeTransitions(ci, impl.getAllModeTransitions());
+		} else if (type != null) {
+			fillModeTransitions(ci, type.getAllModeTransitions());
+		}
 	}
 
-	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans)
+	private void fillModes(ComponentInstance ci, List<Mode> modes)
 			throws InterruptedException {
 		for (Mode m : modes) {
 			if (monitor.isCanceled()) {
@@ -626,32 +634,68 @@ public class InstantiateModel {
 				}
 			}
 		}
-		for (ModeTransition m : modetrans) {
+	}
+
+	/**
+	 * @param ci
+	 * @param transitions
+	 * @throws InterruptedException
+	 */
+	protected void fillModeTransitions(ComponentInstance ci, List<ModeTransition> transitions)
+			throws InterruptedException {
+		for (ModeTransition mt : transitions) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
 			}
 			ModeTransitionInstance mti = InstanceFactory.eINSTANCE.createModeTransitionInstance();
-			Mode srcmode = m.getSource();
-			Mode dstmode = m.getDestination();
+			Mode srcmode = mt.getSource();
+			Mode dstmode = mt.getDestination();
 			ModeInstance srcI = ci.findModeInstance(srcmode);
 			ModeInstance dstI = ci.findModeInstance(dstmode);
 
 			mti.setSource(srcI);
 			mti.setDestination(dstI);
-			mti.setModeTransition(m);
-			List<ModeTransitionTrigger> triggers = m.getOwnedTriggers();
+			mti.setModeTransition(mt);
+			List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
 			String eventName = "";
+
 			if (!triggers.isEmpty()) {
 				TriggerPort tp = triggers.get(0).getTriggerPort();
+
 				if (tp instanceof Port) {
-					Context o = triggers.get(0).getContext();
-					if (o instanceof Subcomponent) {
-						eventName = ((Subcomponent) o).getName() + ".";
+					Context ctx = triggers.get(0).getContext();
+
+					if (ctx instanceof Subcomponent) {
+						eventName = ((Subcomponent) ctx).getName() + ".";
 					}
 				}
 				eventName += tp.getName();
 			}
 			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
+
+			// add only triggers that are ports
+			for (ModeTransitionTrigger t : triggers) {
+				TriggerPort tp = t.getTriggerPort();
+
+				if (tp instanceof Port) {
+					Port port = (Port) tp;
+					FeatureInstance porti = null;
+					Context ctx = triggers.get(0).getContext();
+
+					if (ctx instanceof Subcomponent) {
+						ComponentInstance subi = ci.findSubcomponentInstance((Subcomponent) ctx);
+						porti = subi.findFeatureInstance(port);
+					} else if (ctx instanceof FeatureGroup) {
+						FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) ctx);
+						porti = fgi.findFeatureInstance(port);
+					} else if (ctx == null) {
+						porti = ci.findFeatureInstance(port);
+					}
+					if (porti != null) {
+						mti.getTriggers().add(porti);
+					}
+				}
+			}
 			ci.getModeTransitionInstances().add(mti);
 		}
 	}
