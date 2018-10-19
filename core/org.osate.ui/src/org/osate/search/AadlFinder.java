@@ -1,7 +1,5 @@
 package org.osate.search;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -23,6 +21,21 @@ import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
 public final class AadlFinder {
+	@FunctionalInterface
+	public interface Scope {
+		public boolean contains(IResourceDescription rsrcDesc);
+	}
+
+	/**
+	 * Scope that contains the whole workspace.
+	 */
+	public static final Scope WORKSPACE_SCOPE = rsrcDesc -> true;
+
+	/**
+	 * The empty scope&mdash;contains nothing.
+	 */
+	public static final Scope EMPTY_SCOPE = rsrcDesc -> false;
+
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
 		public void found(T objDesc);
@@ -51,38 +64,51 @@ public final class AadlFinder {
 	 */
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfType(eClass, WORKSPACE_SCOPE, consumer);
+	}
+
+	/**
+	 * Get all the {@code EObject}s of the given type contained in the given scope.
+	 */
+	public void getAllObjectsOfType(final EClass eClass, final Scope scope,
+			final FinderConsumer<IEObjectDescription> consumer) {
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
-		for (final IEObjectDescription objDesc : resourceDescriptions.getExportedObjectsByType(eClass)) {
-			consumer.found(objDesc);
+		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
+			if (scope.contains(rsrcDesc)) {
+				for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
+					consumer.found(objDesc);
+				}
+			}
 		}
 	}
 
-	public EList<IEObjectDescription> getAllObjectsOfTypeInWorkspace(final EClass eClass) {
-		final EList<IEObjectDescription> classifiers = new BasicEList<IEObjectDescription>();
-		getAllObjectsOfTypeInWorkspace(eClass, objDesc -> classifiers.add(objDesc));
-		return classifiers;
+	public void getAllReferencesToTypeInWorkspace(final EClass eClass,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToType(eClass, WORKSPACE_SCOPE, consumer);
 	}
 
-	public void getAllReferencesToTypeInWorkspace(final EClass eClass,
+	public void getAllReferencesToType(final EClass eClass, final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
-			final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
-			referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
-				@Override
-				public void accept(final EObject source, final URI sourceURI, final EReference eReference,
-						final int index, final EObject targetOrProxy, final URI targetURI) {
-					accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
-				}
+			if (scope.contains(rsrcDesc)) {
+				final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
+				referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
+					@Override
+					public void accept(final EObject source, final URI sourceURI, final EReference eReference,
+							final int index, final EObject targetOrProxy, final URI targetURI) {
+						accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
+					}
 
-				@Override
-				public void accept(final IReferenceDescription refDesc) {
-					consumer.found(refDesc);
-				}
-			}, null);
+					@Override
+					public void accept(final IReferenceDescription refDesc) {
+						consumer.found(refDesc);
+					}
+				}, null);
+			}
 		}
 	}
 }

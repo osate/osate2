@@ -6,12 +6,10 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 public final class AadlSearchQuery implements ISearchQuery {
 	public enum SearchFor {
@@ -73,35 +71,33 @@ public final class AadlSearchQuery implements ISearchQuery {
 		public abstract boolean declarations();
 	}
 
+	// XXX Fix this after fixing the name checking
 	public enum Scope {
 		WORKSPACE {
 			@Override
-			public boolean filter(final URI uri) {
-				// All the URIs we get from the resource set are going in the workspace
-				return true;
+			public org.osate.search.AadlFinder.Scope getScope() {
+				return AadlFinder.WORKSPACE_SCOPE;
 			}
 		},
 
 		SELECTION {
 			@Override
-			public boolean filter(URI uri) {
-				// TODO Auto-generated method stub
-				return false;
+			public org.osate.search.AadlFinder.Scope getScope() {
+				return AadlFinder.EMPTY_SCOPE;
 			}
 		},
 
 		WORKING_SET {
 			@Override
-			public boolean filter(URI uri) {
-				// TODO Auto-generated method stub
-				return false;
+			public org.osate.search.AadlFinder.Scope getScope() {
+				return AadlFinder.EMPTY_SCOPE;
 			}
 		};
 
 		/**
 		 * Is the given URI in the scope?
 		 */
-		public abstract boolean filter(URI uri);
+		public abstract AadlFinder.Scope getScope();
 	}
 
 	/**
@@ -112,6 +108,10 @@ public final class AadlSearchQuery implements ISearchQuery {
 		return Scope.values()[scope];
 	}
 
+	/**
+	 * The substring to search for in the identifier name.  This is always in all uppercase because AADL identifiers
+	 * are case insensitve.
+	 */
 	private final String substring;
 	private final SearchFor searchFor;
 	private final LimitTo limitTo;
@@ -120,11 +120,15 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 	public AadlSearchQuery(final String substring, final SearchFor searchFor, final LimitTo limitTo,
 			final Scope scope) {
-		this.substring = substring;
+		this.substring = substring.toUpperCase();
 		this.searchFor = searchFor;
 		this.limitTo = limitTo;
 		this.scope = scope;
 		this.searchResult = new AadlSearchResult(this);
+	}
+
+	private boolean findSubstring(final String testIdentifier) {
+		return testIdentifier.toUpperCase().contains(substring);
 	}
 
 	@Override
@@ -138,31 +142,26 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 		if (limitTo.declarations()) {
 			System.out.println("== Declarations ==");
-			aadlFinder.getAllObjectsOfTypeInWorkspace(searchFor.declarationEClass(), objectDesc -> {
-				if (scope.filter(objectDesc.getEObjectURI())) {
-					// now check the name, which in the last segment (skip over the package names)
-					final String nameToTest = objectDesc.getName().getLastSegment();
-					// TODO Deal with case insensitivity
-					if (nameToTest.contains(substring)) {
-						for (final String segment : objectDesc.getName().getSegments()) {
-							System.out.print("[" + segment + "]");
-						}
-						System.out.println(" -- " + objectDesc.getEObjectURI());
+			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope.getScope(), objectDesc -> {
+				// now check the name, which in the last segment (skip over the package names)
+				final String testIdentifier = objectDesc.getName().getLastSegment();
+				// TODO Deal with case insensitivity
+				if (findSubstring(testIdentifier)) {
+					for (final String segment : objectDesc.getName().getSegments()) {
+						System.out.print("[" + segment + "]");
 					}
+					System.out.println(" -- " + objectDesc.getEObjectURI());
 				}
 			});
 		}
 
 		if (limitTo.references()) {
 			// XXX When is the best time to get the target EObject and test it's type?
-			final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 			System.out.println("== References ==");
-			aadlFinder.getAllReferencesToTypeInWorkspace(null, refDesc -> {
+			aadlFinder.getAllReferencesToType(null, scope.getScope(), refDesc -> {
 				final URI sourceURI = refDesc.getSourceEObjectUri();
 				final URI targetURI = refDesc.getTargetEObjectUri();
 				System.out.println(sourceURI + " -> " + targetURI);
-//				System.out.println("  Source: " + resourceSet.getEObject(sourceURI, true));
-//				System.out.println("  Target: " + resourceSet.getEObject(targetURI, true));
 			});
 		}
 
