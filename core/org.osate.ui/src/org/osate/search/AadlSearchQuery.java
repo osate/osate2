@@ -158,8 +158,11 @@ public final class AadlSearchQuery implements ISearchQuery {
 			final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 			System.out.println("== References ==");
 			aadlFinder.getAllReferencesToTypeInWorkspace(null, refDesc -> {
-				System.out.println("  Source: " + resourceSet.getEObject(refDesc.getSourceEObjectUri(), true));
-				System.out.println("  Target: " + resourceSet.getEObject(refDesc.getTargetEObjectUri(), true));
+				final URI sourceURI = refDesc.getSourceEObjectUri();
+				final URI targetURI = refDesc.getTargetEObjectUri();
+				System.out.println(sourceURI + " -> " + targetURI);
+//				System.out.println("  Source: " + resourceSet.getEObject(sourceURI, true));
+//				System.out.println("  Target: " + resourceSet.getEObject(targetURI, true));
 			});
 		}
 
