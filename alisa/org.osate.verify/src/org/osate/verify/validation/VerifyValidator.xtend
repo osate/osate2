@@ -69,6 +69,7 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
+import org.osate.verify.verify.AgreeMethod
 
 /**
  * Custom validation rules. 
@@ -102,8 +103,13 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		if (!INSTALL_INITIALIZED) {
 			try {
 				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+				val name = fn.getName();
 				fn.setName("dummy");
-				RESOLUTE_INSTALLED = true;
+				if (name !== null && name.startsWith("org.osate")) {
+					RESOLUTE_INSTALLED = false;
+				} else {
+					RESOLUTE_INSTALLED = true;
+				}
 			} catch (NoClassDefFoundError e) {
 				RESOLUTE_INSTALLED = false;
 			}
@@ -157,6 +163,11 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			warning('Plugin verification method ID not found', VerifyPackage.Literals.PLUGIN_METHOD__METHOD_ID,
 				INCORRECT_METHOD_ID)
 		}
+	}
+
+	@Check
+	def checkAgreeMethod(AgreeMethod method) {
+		warning("Execution of AGREE verification methods is not supported", VerifyPackage.Literals.VERIFICATION_METHOD__METHOD_KIND)
 	}
 
 	@Check
