@@ -6,10 +6,10 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.search.AadlFinder.Scope;
 
 public final class AadlSearchQuery implements ISearchQuery {
 	public enum SearchFor {
@@ -71,42 +71,42 @@ public final class AadlSearchQuery implements ISearchQuery {
 		public abstract boolean declarations();
 	}
 
-	// XXX Fix this after fixing the name checking
-	public enum Scope {
-		WORKSPACE {
-			@Override
-			public org.osate.search.AadlFinder.Scope getScope() {
-				return AadlFinder.WORKSPACE_SCOPE;
-			}
-		},
-
-		SELECTION {
-			@Override
-			public org.osate.search.AadlFinder.Scope getScope() {
-				return AadlFinder.EMPTY_SCOPE;
-			}
-		},
-
-		WORKING_SET {
-			@Override
-			public org.osate.search.AadlFinder.Scope getScope() {
-				return AadlFinder.EMPTY_SCOPE;
-			}
-		};
-
-		/**
-		 * Is the given URI in the scope?
-		 */
-		public abstract AadlFinder.Scope getScope();
-	}
-
-	/**
-	 * Get the {@link Scope} object for the value returned from
-	 * {@link ISearchPageContainer#getSelectedScope()}.
-	 */
-	public static Scope getScope(final int scope) {
-		return Scope.values()[scope];
-	}
+//	// XXX Fix this after fixing the name checking
+//	public enum Scope {
+//		WORKSPACE {
+//			@Override
+//			public org.osate.search.AadlFinder.Scope getScope() {
+//				return AadlFinder.WORKSPACE_SCOPE;
+//			}
+//		},
+//
+//		SELECTION {
+//			@Override
+//			public org.osate.search.AadlFinder.Scope getScope() {
+//				return AadlFinder.EMPTY_SCOPE;
+//			}
+//		},
+//
+//		WORKING_SET {
+//			@Override
+//			public org.osate.search.AadlFinder.Scope getScope() {
+//				return AadlFinder.EMPTY_SCOPE;
+//			}
+//		};
+//
+//		/**
+//		 * Is the given URI in the scope?
+//		 */
+//		public abstract AadlFinder.Scope getScope();
+//	}
+//
+//	/**
+//	 * Get the {@link Scope} object for the value returned from
+//	 * {@link ISearchPageContainer#getSelectedScope()}.
+//	 */
+//	public static Scope getScope(final int scope) {
+//		return Scope.values()[scope];
+//	}
 
 	/**
 	 * The substring to search for in the identifier name.  This is always in all uppercase because AADL identifiers
@@ -142,7 +142,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 		if (limitTo.declarations()) {
 			System.out.println("== Declarations ==");
-			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope.getScope(), objectDesc -> {
+			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope, objectDesc -> {
 				// now check the name, which in the last segment (skip over the package names)
 				final String testIdentifier = objectDesc.getName().getLastSegment();
 				// TODO Deal with case insensitivity
@@ -158,7 +158,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 		if (limitTo.references()) {
 			// XXX When is the best time to get the target EObject and test it's type?
 			System.out.println("== References ==");
-			aadlFinder.getAllReferencesToType(null, scope.getScope(), refDesc -> {
+			aadlFinder.getAllReferencesToType(null, scope, refDesc -> {
 				final URI sourceURI = refDesc.getSourceEObjectUri();
 				final URI targetURI = refDesc.getTargetEObjectUri();
 				System.out.println(sourceURI + " -> " + targetURI);
