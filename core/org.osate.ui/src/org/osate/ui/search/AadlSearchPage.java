@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.search.internal.ui.text.LineElement;
 import org.eclipse.search.ui.ISearchPage;
 import org.eclipse.search.ui.ISearchPageContainer;
 import org.eclipse.search.ui.NewSearchUI;
@@ -24,9 +23,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkingSet;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.search.AadlFinder;
 import org.osate.search.AadlFinder.Scope;
 import org.osate.search.AadlSearchQuery;
@@ -35,7 +33,7 @@ import org.osate.search.AadlSearchQuery.SearchFor;
 
 public final class AadlSearchPage extends DialogPage implements ISearchPage {
 	private static enum ScopeSelection {
-		WORKSPACE, SELECTED;
+		WORKSPACE, SELECTED, OPEN_EDITORS;
 	}
 
 	private ISearchPageContainer searchPageContainer;
@@ -87,12 +85,19 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 		final ISelection selection = searchPageContainer.getSelection();
 		final boolean hasSelection = selection instanceof IStructuredSelection && !selection.isEmpty();
 		createRadioButton(scopeGroup, "Workspace", !hasSelection, this::setScope, ScopeSelection.WORKSPACE);
-		createRadioButton(scopeGroup, "Selected", hasSelection, this::setScope, ScopeSelection.SELECTED);
-
+		final Button selectedButton = createRadioButton(scopeGroup, hasSelection ? "Selected" : "No Selection",
+				hasSelection, this::setScope,
+				ScopeSelection.SELECTED);
+		selectedButton.setEnabled(hasSelection);
+		final IEditorInput input = searchPageContainer.getActiveEditorInput();
+		final Button editorButton = createRadioButton(scopeGroup,
+				input == null ? "No Open Editor" : "Front Editor: " + input.getName(), false,
+				this::setScope, ScopeSelection.OPEN_EDITORS);
+		editorButton.setEnabled(input != null);
 		setControl(root);
 	}
 
-	private <T> void createRadioButton(final Group group, final String label, final boolean selected,
+	private <T> Button createRadioButton(final Group group, final String label, final boolean selected,
 			final Consumer<T> setter,
 			final T value) {
 		final Button radio = new Button(group, SWT.RADIO);
@@ -109,6 +114,8 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 				setter.accept(value);
 			}
 		});
+
+		return radio;
 	}
 
 	private void setSearchFor(final SearchFor v) {
@@ -128,13 +135,18 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 			return AadlFinder.WORKSPACE_SCOPE;
 		} else if (scope == ScopeSelection.SELECTED) {
 			return getSelectedResourcesScope();
+		} else if (scope == ScopeSelection.OPEN_EDITORS) {
+			return getOpenEditorsScope();
 		} else {
 			// Shouldn't get here
 			return AadlFinder.EMPTY_SCOPE;
 		}
 	}
 
-	@SuppressWarnings("restriction")
+	/*
+	 * This is based on org.eclipse.search.internal.ui.text.TestSearchPage.getSelectedResourcesScope(). It probably
+	 * does more than is truly needed here.
+	 */
 	private Scope getSelectedResourcesScope() {
 		final Set<IResource> resources = new HashSet<>();
 		final ISelection selection = searchPageContainer.getSelection();
@@ -142,11 +154,6 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 			for (final Object selectedItem : ((IStructuredSelection) selection).toList()) {
 				if (selectedItem instanceof IWorkingSet) {
 					// XXX Come back to this
-				} else if (selectedItem instanceof LineElement) {
-					final IResource resource = ((LineElement) selectedItem).getParent();
-					if (resource != null && resource.isAccessible()) {
-						resources.add(resource);
-					}
 				} else if (selectedItem instanceof IAdaptable) {
 					final IResource resource = ((IAdaptable) selectedItem).getAdapter(IResource.class);
 					if (resource != null && resource.isAccessible()) {
@@ -154,11 +161,19 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 					}
 				}
 			}
-		} else {
-			// No selected items, use the open editors
-			resources.add(searchPageContainer.getActiveEditorInput().getAdapter(IFile.class));
 		}
-		return new ResourceSetScope(resources);
+		return new AadlFinder.ResourceSetScope(resources);
+	}
+
+	/*
+	 * This is based on org.eclipse.search.internal.ui.text.TestSearchPage.getSelectedResourcesScope(). It probably
+	 * does more than is truly needed here.
+	 */
+	private Scope getOpenEditorsScope() {
+		final Set<IResource> resources = new HashSet<>();
+		resources.add(searchPageContainer.getActiveEditorInput().getAdapter(IFile.class));
+		return new AadlFinder.ResourceSetScope(resources);
+
 	}
 
 	@Override
@@ -174,25 +189,4 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 	public void setContainer(final ISearchPageContainer container) {
 		searchPageContainer = container;
 	}
-
-}
-
-final class ResourceSetScope implements AadlFinder.Scope {
-	private final Set<IResource> resources;
-
-	public ResourceSetScope(final Set<IResource> resources) {
-		this.resources = resources;
-
-		System.out.println("*** selection scope ***");
-		for (IResource resource : resources) {
-			System.out.println(OsateResourceUtil.getResourceURI(resource));
-		}
-		System.out.println("*** end selection scope ***");
-	}
-
-	@Override
-	public boolean contains(final IResourceDescription rsrcDesc) {
-		return true;
-	}
-
 }
