@@ -166,7 +166,8 @@
             contentProvider="org.osate.ui.navigator.AadlContributionContentProvider"
             id="org.osate.ui.navigator.contributedAadl"
             labelProvider="org.osate.ui.navigator.AadlContributionLabelProvider"
-            name="Contributed AADL Packages and Property Sets">
+            name="Contributed AADL Packages and Property Sets"
+            priority="higher">
          <enablement>
             <instanceof
                   value="org.eclipse.core.resources.IProject">
@@ -181,7 +182,8 @@
             contentProvider="org.osate.ui.navigator.AadlProjectDependenciesContentProvider"
             id="org.osate.ui.navigator.aadlProjectDependencies"
             labelProvider="org.osate.ui.navigator.AadlProjectDependenciesLabelProvider"
-            name="AADL Project Dependencies">
+            name="AADL Project Dependencies"
+            priority="higher">
          <enablement>
          	<or>
             	<instanceof value="org.eclipse.core.resources.IProject" />
