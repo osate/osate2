@@ -71,43 +71,6 @@ public final class AadlSearchQuery implements ISearchQuery {
 		public abstract boolean declarations();
 	}
 
-//	// XXX Fix this after fixing the name checking
-//	public enum Scope {
-//		WORKSPACE {
-//			@Override
-//			public org.osate.search.AadlFinder.Scope getScope() {
-//				return AadlFinder.WORKSPACE_SCOPE;
-//			}
-//		},
-//
-//		SELECTION {
-//			@Override
-//			public org.osate.search.AadlFinder.Scope getScope() {
-//				return AadlFinder.EMPTY_SCOPE;
-//			}
-//		},
-//
-//		WORKING_SET {
-//			@Override
-//			public org.osate.search.AadlFinder.Scope getScope() {
-//				return AadlFinder.EMPTY_SCOPE;
-//			}
-//		};
-//
-//		/**
-//		 * Is the given URI in the scope?
-//		 */
-//		public abstract AadlFinder.Scope getScope();
-//	}
-//
-//	/**
-//	 * Get the {@link Scope} object for the value returned from
-//	 * {@link ISearchPageContainer#getSelectedScope()}.
-//	 */
-//	public static Scope getScope(final int scope) {
-//		return Scope.values()[scope];
-//	}
-
 	/**
 	 * The substring to search for in the identifier name.  This is always in all uppercase because AADL identifiers
 	 * are case insensitve.

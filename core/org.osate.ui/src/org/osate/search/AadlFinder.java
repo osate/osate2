@@ -1,5 +1,8 @@
 package org.osate.search;
 
+import java.util.Set;
+
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -24,6 +27,61 @@ public final class AadlFinder {
 	@FunctionalInterface
 	public interface Scope {
 		public boolean contains(IResourceDescription rsrcDesc);
+	}
+
+	public static class ResourceSetScope implements Scope {
+		private final URI[] uris;
+
+		public ResourceSetScope(final Set<IResource> resources) {
+			final URI[] temp = new URI[resources.size()];
+			int i = 0;
+			for (final IResource resource : resources) {
+				temp[i++] = OsateResourceUtil.getResourceURI(resource);
+			}
+			this.uris = temp;
+		}
+
+		@Override
+		public boolean contains(final IResourceDescription rsrcDesc) {
+			for (final URI uri : uris) {
+				if (isPrefixOf(uri, rsrcDesc.getURI())) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * A URI is a prefix of another URI if:
+		 * <br/>
+		 * <ul>
+		 * 	<li>Both have the same scheme</li>
+		 * 	<li>The segments of both URIs match up to the prefix's length</li>
+		 * </ul>
+		 */
+		/*
+		 * Took this from org.eclipse.emf.common.util.URI.UriUtil, but took out the check for the trailing separator on the
+		 * prefix.
+		 */
+		private static boolean isPrefixOf(URI prefix, URI uri) {
+			if (prefix.scheme() == null || !prefix.scheme().equals(uri.scheme())) {
+				return false;
+			}
+			String[] prefixSeg = prefix.segments();
+			String[] uriSeg = uri.segments();
+			if (prefixSeg.length == 0 || uriSeg.length == 0) {
+				return false;
+			}
+			if (uriSeg.length < prefixSeg.length) {
+				return false;
+			}
+			for (int i = 0; i < prefixSeg.length; i++) {
+				if (!uriSeg[i].equals(prefixSeg[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 	/**
