@@ -56,7 +56,7 @@
       <page
             class="org.osate.ui.search.AadlSearchPage"
             id="org.osate.ui.search.AADLSearchPage"
-            showScopeSection="true"
+            extensions="aadl:1"
             label="AADL Search"
             icon="icons/aadl.gif"> 
       </page>
