@@ -2,6 +2,7 @@ package org.osate.search;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
@@ -125,47 +126,63 @@ public final class AadlSearchQuery implements ISearchQuery {
 	public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
 		// TDOD Make a proper task out of this!
 
-		System.out.println(getLabel());
+		// make sure the progress monitor is not null
+		final IProgressMonitor nonNullmonitor = monitor == null ? new NullProgressMonitor() : monitor;
+		try {
+			System.out.println(getLabel());
 
-		final AadlFinder aadlFinder = AadlFinder.getInstance();
-		final EClass declarationEClass = searchFor.declarationEClass();
-		aadlFinder.processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
-			System.out.println("==== " + rsrcDesc.getURI());
-			if (limitTo.declarations()) {
-				System.out.println("== Declarations ==");
-				callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, searchFor.declarationEClass(),
-						(callback2, resourceSet2, objDesc2) -> {
-							// now check the name, which in the last segment (skip over the package names)
-							final String testIdentifier = objDesc2.getName().getLastSegment();
-							if (findSubstring(testIdentifier)) {
-								for (final String segment : objDesc2.getName().getSegments()) {
-									System.out.print("[" + segment + "]");
+			nonNullmonitor.beginTask(getLabel(), IProgressMonitor.UNKNOWN);
+			final AadlFinder aadlFinder = AadlFinder.getInstance();
+			final EClass declarationEClass = searchFor.declarationEClass();
+			aadlFinder.processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
+				final String fileString = rsrcDesc.getURI().lastSegment();
+				nonNullmonitor.subTask(fileString);
+				System.out.println("==== " + fileString);
+
+				if (limitTo.declarations()) {
+					System.out.println("== Declarations ==");
+					callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, searchFor.declarationEClass(),
+							(callback2, resourceSet2, objDesc2) -> {
+								// now check the name, which in the last segment (skip over the package names)
+								final String testIdentifier = objDesc2.getName().getLastSegment();
+								if (findSubstring(testIdentifier)) {
+									for (final String segment : objDesc2.getName().getSegments()) {
+										System.out.print("[" + segment + "]");
+									}
+									System.out.println(" -- " + objDesc2.getEObjectURI());
 								}
-								System.out.println(" -- " + objDesc2.getEObjectURI());
-							}
-						});
-			}
-			if (limitTo.references()) {
-				System.out.println("== References ==");
-				callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet,
-						(callback2, resourceSet2, refDesc2) -> {
-							final URI targetURI = refDesc2.getTargetEObjectUri();
-							final EObject eObj = resourceSet2.getEObject(targetURI, true);
-							if (eObj != null) { // target object might be null if the file being searched has errors
-								// filter by eClass
-								if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
-									// filter by name
-									if (eObj instanceof NamedElement
-											&& findSubstring(((NamedElement) eObj).getName())) {
-										final URI sourceURI = refDesc2.getSourceEObjectUri();
-										System.out.println(sourceURI + " -> " + targetURI);
+							});
+					nonNullmonitor.worked(1);
+				}
+
+				if (nonNullmonitor.isCanceled()) {
+					throw new OperationCanceledException();
+				}
+
+				if (limitTo.references()) {
+					System.out.println("== References ==");
+					callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet,
+							(callback2, resourceSet2, refDesc2) -> {
+								final URI targetURI = refDesc2.getTargetEObjectUri();
+								final EObject eObj = resourceSet2.getEObject(targetURI, true);
+								if (eObj != null) { // target object might be null if the file being searched has errors
+									// filter by eClass
+									if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
+										// filter by name
+										if (eObj instanceof NamedElement
+												&& findSubstring(((NamedElement) eObj).getName())) {
+											final URI sourceURI = refDesc2.getSourceEObjectUri();
+											System.out.println(sourceURI + " -> " + targetURI);
+										}
 									}
 								}
-							}
-						});
-			}
-		});
-
+							});
+					nonNullmonitor.worked(1);
+				}
+			});
+		} finally {
+			nonNullmonitor.done();
+		}
 		return Status.OK_STATUS;
 	}
 
