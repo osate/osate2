@@ -20,12 +20,22 @@ public final class AadlSearchQuery implements ISearchQuery {
 			public EClass declarationEClass() {
 				return Aadl2Package.eINSTANCE.getClassifier();
 			}
+
+			@Override
+			public String toString() {
+				return "classifier";
+			}
 		},
 
 		PROPERTY {
 			@Override
 			public EClass declarationEClass() {
 				return Aadl2Package.eINSTANCE.getProperty();
+			}
+
+			@Override
+			public String toString() {
+				return "property";
 			}
 		};
 
@@ -43,6 +53,11 @@ public final class AadlSearchQuery implements ISearchQuery {
 			public boolean declarations() {
 				return true;
 			}
+
+			@Override
+			public String toString() {
+				return "references and declarations";
+			}
 		},
 
 		REFERENCES {
@@ -54,6 +69,11 @@ public final class AadlSearchQuery implements ISearchQuery {
 			@Override
 			public boolean declarations() {
 				return false;
+			}
+
+			@Override
+			public String toString() {
+				return "references";
 			}
 		},
 
@@ -67,6 +87,11 @@ public final class AadlSearchQuery implements ISearchQuery {
 			public boolean declarations() {
 				return true;
 			}
+
+			@Override
+			public String toString() {
+				return "declarations";
+			}
 		};
 
 		public abstract boolean references();
@@ -75,7 +100,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 	/**
 	 * The substring to search for in the identifier name.  This is always in all uppercase because AADL identifiers
-	 * are case insensitve.
+	 * are case insensitive.
 	 */
 	private final String substring;
 	private final SearchFor searchFor;
@@ -100,43 +125,46 @@ public final class AadlSearchQuery implements ISearchQuery {
 	public IStatus run(final IProgressMonitor monitor) throws OperationCanceledException {
 		// TDOD Make a proper task out of this!
 
-		System.out.println("Searching for " + searchFor + " " + limitTo + " \"" + substring + "\"; scope = "
-				+ scope);
+		System.out.println(getLabel());
 
 		final AadlFinder aadlFinder = AadlFinder.getInstance();
-
-		if (limitTo.declarations()) {
-			System.out.println("== Declarations ==");
-			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope, (resourceSet, objectDesc) -> {
-				// now check the name, which in the last segment (skip over the package names)
-				final String testIdentifier = objectDesc.getName().getLastSegment();
-				if (findSubstring(testIdentifier)) {
-					for (final String segment : objectDesc.getName().getSegments()) {
-						System.out.print("[" + segment + "]");
-					}
-					System.out.println(" -- " + objectDesc.getEObjectURI());
-				}
-			});
-		}
-
-		if (limitTo.references()) {
-			System.out.println("== References ==");
-			final EClass declarationEClass = searchFor.declarationEClass();
-			aadlFinder.getAllReferencesToType(scope, (resourceSet, refDesc) -> {
-				final URI targetURI = refDesc.getTargetEObjectUri();
-				final EObject eObj = resourceSet.getEObject(targetURI, true);
-				if (eObj != null) { // target object might be null if the file being searched has errors
-					// filter by eClass
-					if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
-						// filter by name
-						if (eObj instanceof NamedElement && findSubstring(((NamedElement) eObj).getName())) {
-							final URI sourceURI = refDesc.getSourceEObjectUri();
-							System.out.println(sourceURI + " -> " + targetURI);
-						}
-					}
-				}
-			});
-		}
+		final EClass declarationEClass = searchFor.declarationEClass();
+		aadlFinder.processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
+			System.out.println("==== " + rsrcDesc.getURI());
+			if (limitTo.declarations()) {
+				System.out.println("== Declarations ==");
+				callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, searchFor.declarationEClass(),
+						(callback2, resourceSet2, objDesc2) -> {
+							// now check the name, which in the last segment (skip over the package names)
+							final String testIdentifier = objDesc2.getName().getLastSegment();
+							if (findSubstring(testIdentifier)) {
+								for (final String segment : objDesc2.getName().getSegments()) {
+									System.out.print("[" + segment + "]");
+								}
+								System.out.println(" -- " + objDesc2.getEObjectURI());
+							}
+						});
+			}
+			if (limitTo.references()) {
+				System.out.println("== References ==");
+				callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet,
+						(callback2, resourceSet2, refDesc2) -> {
+							final URI targetURI = refDesc2.getTargetEObjectUri();
+							final EObject eObj = resourceSet2.getEObject(targetURI, true);
+							if (eObj != null) { // target object might be null if the file being searched has errors
+								// filter by eClass
+								if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
+									// filter by name
+									if (eObj instanceof NamedElement
+											&& findSubstring(((NamedElement) eObj).getName())) {
+										final URI sourceURI = refDesc2.getSourceEObjectUri();
+										System.out.println(sourceURI + " -> " + targetURI);
+									}
+								}
+							}
+						});
+			}
+		});
 
 		return Status.OK_STATUS;
 	}
