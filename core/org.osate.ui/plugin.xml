@@ -152,30 +152,21 @@
 		<viewerContentBinding 
             viewerId="org.osate.ui.navigator.AadlNavigator">
 			<includes>
-    <contentExtension
-          pattern="org.eclipse.ui.navigator.resources.workingSets">
-    </contentExtension>
+   				<contentExtension pattern="org.eclipse.ui.navigator.resources.workingSets" />
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
-    <contentExtension
-          pattern="org.osate.ui.navigator.contributedAadl">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.aadlFileContent">
-    </contentExtension>
-    <contentExtension
-          pattern="org.osate.ui.navigator.menuActions">
-    </contentExtension>
-				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+			    <contentExtension pattern="org.osate.ui.navigator.menuActions" />
+				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper" />
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding
         	viewerId="org.osate.ui.navigator.AadlNavigator">
      		<includes>
      			<actionExtension pattern="org.eclipse.ui.navigator.resources.*" />
-        <actionExtension
-              pattern="org.osate.ui.navigator.*">
-        </actionExtension>
+     			<actionExtension pattern="org.osate.ui.navigator.*" />
      		</includes>
 	  </viewerActionBinding>
    </extension>
@@ -195,6 +186,22 @@
          </enablement>
          <commonSorter
                class="org.osate.ui.navigator.AadlContributionSorter">
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ui.navigator.AadlProjectDependenciesContentProvider"
+            id="org.osate.ui.navigator.aadlProjectDependencies"
+            labelProvider="org.osate.ui.navigator.AadlProjectDependenciesLabelProvider"
+            name="AADL Project Dependencies">
+         <enablement>
+         	<or>
+            	<instanceof value="org.eclipse.core.resources.IProject" />
+            	<instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+            </or>
+         </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlProjectDependenciesSorter">
          </commonSorter>
       </navigatorContent>
       <navigatorContent
@@ -266,11 +273,32 @@
       </navigatorContent>
       <actionProvider
             class="org.osate.ui.navigator.AadlNavigatorActionProvider"
-            id="org.osate.ui.navigator.openContributed">
+            id="org.osate.ui.navigator.openContributedAndDeclarativeObject">
+			<enablement>
+			    <or>
+			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
+			        <and>
+						<instanceof value="org.osate.aadl2.Element" />
+			        </and>
+			    </or>
+         </enablement>
+      </actionProvider>
+      <actionProvider
+            class="org.osate.ui.navigator.AadlProjectDependenciesActionProvider"
+            id="org.osate.ui.navigator.editDependencies">
          <enablement>
-            <instanceof
-                  value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
-            </instanceof>
+        	 <or>
+		         <and>
+		            <instanceof value="org.eclipse.core.resources.IProject" />
+		            <test property="org.eclipse.core.resources.open" />
+		            <test
+		                  property="org.eclipse.core.resources.projectNature"
+		                  value="org.osate.core.aadlnature" />
+		         </and>
+		         
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectNode" />
+		     </or>
          </enablement>
       </actionProvider>
    </extension>
@@ -317,6 +345,32 @@
        </wizard>
     </extension-->
    <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            category="org.eclipse.ui.Basic"
+            class="org.osate.ui.wizards.workingsets.WorkingSetExportWizard"
+            icon="icons/workingsets/workingSets2.gif"
+            id="org.osate.ui.workingSetExportWizard"
+            name="Working Sets">
+         <description>
+            Exports working sets.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            category="org.eclipse.ui.Basic"
+            class="org.osate.ui.wizards.workingsets.WorkingSetImportWizard"
+            icon="icons/workingsets/workingSets.gif"
+            id="org.osate.ui.workingSetImportWizard"
+            name="Working Sets">
+         <description>
+            Imports working sets.
+         </description>
+      </wizard>
+   </extension>
+   <extension
          id="org.osate.views"
          point="org.eclipse.ui.views">
       <category
@@ -348,6 +402,9 @@
              <instanceof value="org.osate.aadl2.Property"/>
              <instanceof value="org.osate.aadl2.PropertyConstant"/>
              <instanceof value="org.osate.aadl2.PropertyType"/>
+             <instanceof
+                   value="org.osate.aadl2.instance.InstanceObject">
+             </instanceof>
            </or>
           </selectionEnablement>
           <editorInputEnablement>

@@ -130,24 +130,20 @@ class AssureProcessor implements IAssureProcessor {
 	var boolean save = true
 
 	var private static boolean RESOLUTE_INSTALLED;
-	var private static boolean AGREE_INSTALLED;
 
 	new() {
 		env.add('vals', vals)
 		env.add('computes', computes)
 		try {
-			ExecuteResoluteUtil.eInstance.tryLoad();
-			RESOLUTE_INSTALLED = true;
+			val isresolute = ExecuteResoluteUtil.eInstance.tryLoad();
+			if (isresolute){
+				RESOLUTE_INSTALLED = true;
+			} else {
+				RESOLUTE_INSTALLED = false;
+			}
 		} catch (NoClassDefFoundError e) {
 			RESOLUTE_INSTALLED = false;
 		}
-		try {
-			new AgreeVerifySingleHandler(null);
-			AGREE_INSTALLED = true;
-		} catch (NoClassDefFoundError e) {
-			AGREE_INSTALLED = false;
-		}
-
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -467,21 +463,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				AgreeMethod: {
-					if (AGREE_INSTALLED) {
-//					AssureUtilExtension.initializeResoluteContext(instanceroot);
-						val agreemethod = methodtype
-
-						if (agreemethod.isAll) { // is recursive
-							// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
-						} else if (agreemethod.singleLayer) {
-							val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler(verificationResult);
-							// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
-							// Currently Agree does not work on Flows or Connections so this is valid
-							verHandler.executeSystemInstance(targetComponent, null);
-						}
-					} else {
-						setToError(verificationResult, "Agree not installed")
-					}
+					setToError(verificationResult, "Execution of AGREE methods is not supported")
 				}
 				JUnit4Method: {
 					val test = ExecuteJavaUtil.eInstance.getJavaClass(methodtype.classPath);
@@ -798,17 +780,12 @@ class AssureProcessor implements IAssureProcessor {
 						setToSuccess(verificationResult)
 					}
 				}
-				// We need to create a resource in order to store the reference to the AnalysisResult object
-				val aruri = ResultUtil.getAnalysisResultURI(returned);
-				val rset = verificationResult.eResource().getResourceSet();
-				val res = OsateResourceUtil.getResource(aruri, rset);
-				res.getContents().clear();
-				res.getContents().add(returned);
-				if (save) {
-					res.save(null);
-				}
 				// record a reference to the AnalysisResult
-				verificationResult.analysisresultreference = returned
+				verificationResult.analysisresult = returned
+			} else if (returned instanceof Exception){
+				setToError(verificationResult, "Verification method execution exception: "+returned.message,
+					target);
+				
 			} else if (method.results.size == 1) {
 				// set compute variable value from the returned value
 				if (verificationResult instanceof VerificationActivityResult) {
@@ -840,10 +817,6 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Precondition or Validation expect boolean as single return value",
 					target);
 				}
-			} else if (returned instanceof Exception){
-				setToError(verificationResult, "Java method execution exception: "+returned.message,
-					target);
-				
 			} else {
 				setToError(verificationResult, "Single return value but no expected compute variable for predicate",
 					target);
