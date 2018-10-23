@@ -96,7 +96,7 @@ public final class AadlFinder {
 
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
-		public void found(ResourceSet resourceSet, T objDesc);
+		public void found(AadlFinder callback, ResourceSet resourceSet, T objDesc);
 	}
 
 	private static final AadlFinder instance = new AadlFinder();
@@ -118,55 +118,69 @@ public final class AadlFinder {
 	}
 
 	/**
+	 * Get all the {@code EObject}s of the given type contained in the given scope.
+	 */
+	public void processAllAadlFilesInScope(final Scope scope, final FinderConsumer<IResourceDescription> consumer) {
+		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
+				.getResourceDescriptions(resourceSet);
+		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
+			if (scope.contains(rsrcDesc)) {
+				consumer.found(this, resourceSet, rsrcDesc);
+			}
+		}
+	}
+
+	/**
 	 * Get all the {@code EObject}s of the given type in the workspace.
 	 */
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
 			final FinderConsumer<IEObjectDescription> consumer) {
-		getAllObjectsOfType(eClass, WORKSPACE_SCOPE, consumer);
+		getAllObjectsOfTypeInScope(eClass, WORKSPACE_SCOPE, consumer);
 	}
 
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
 	 */
-	public void getAllObjectsOfType(final EClass eClass, final Scope scope,
+	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
 			final FinderConsumer<IEObjectDescription> consumer) {
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-				.getResourceDescriptions(resourceSet);
-		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
-			if (scope.contains(rsrcDesc)) {
-				for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
-					consumer.found(resourceSet, objDesc);
-				}
-			}
+		processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
+			callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, eClass, consumer);
+		});
+	}
+
+	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
+			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
+		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
+			consumer.found(this, resourceSet, objDesc);
 		}
 	}
 
 	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToType(WORKSPACE_SCOPE, consumer);
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer);
 	}
 
-	public void getAllReferencesToType(final Scope scope,
+	public void getAllReferencesToTypeInScope(final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-				.getResourceDescriptions(resourceSet);
-		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
-			if (scope.contains(rsrcDesc)) {
-				final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
-				referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
-					@Override
-					public void accept(final EObject source, final URI sourceURI, final EReference eReference,
-							final int index, final EObject targetOrProxy, final URI targetURI) {
-						accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
-					}
+		processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
+			callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet, consumer);
+		});
+	}
 
-					@Override
-					public void accept(final IReferenceDescription refDesc) {
-						consumer.found(resourceSet, refDesc);
-					}
-				}, null);
+	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
+		referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
+			@Override
+			public void accept(final EObject source, final URI sourceURI, final EReference eReference,
+					final int index, final EObject targetOrProxy, final URI targetURI) {
+				accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
 			}
-		}
+
+			@Override
+			public void accept(final IReferenceDescription refDesc) {
+				consumer.found(AadlFinder.this, resourceSet, refDesc);
+			}
+		}, null);
 	}
 }
