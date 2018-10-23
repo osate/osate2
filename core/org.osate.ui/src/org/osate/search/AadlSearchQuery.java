@@ -146,6 +146,9 @@ public final class AadlSearchQuery implements ISearchQuery {
 								// now check the name, which in the last segment (skip over the package names)
 								final String testIdentifier = objDesc2.getName().getLastSegment();
 								if (findSubstring(testIdentifier)) {
+									// FOUND A MATCH
+									searchResult.addFoundDeclaration(resourceSet2, objDesc2);
+
 									for (final String segment : objDesc2.getName().getSegments()) {
 										System.out.print("[" + segment + "]");
 									}
@@ -171,6 +174,9 @@ public final class AadlSearchQuery implements ISearchQuery {
 										// filter by name
 										if (eObj instanceof NamedElement
 												&& findSubstring(((NamedElement) eObj).getName())) {
+											// FOUND A MATCH
+											searchResult.addFoundReference(resourceSet2, refDesc2);
+
 											final URI sourceURI = refDesc2.getSourceEObjectUri();
 											System.out.println(sourceURI + " -> " + targetURI);
 										}
