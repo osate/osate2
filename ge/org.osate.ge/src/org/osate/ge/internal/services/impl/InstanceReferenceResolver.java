@@ -2,22 +2,22 @@
 Copyright (c) 2015, Rockwell Collins.
 Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
-including any software or models in source or binary form, as well as any drawings, specifications, 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
+including any software or models in source or binary form, as well as any drawings, specifications,
 and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
 subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or 
+The above copyright notice and this permission notice shall be included in all copies or
 substantial portions of the Data.
 
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 package org.osate.ge.internal.services.impl;
 
 import java.util.HashMap;
@@ -42,7 +42,10 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
@@ -53,49 +56,47 @@ public class InstanceReferenceResolver {
 	private final ProjectProvider projectProvider;
 	private final SystemInstanceLoadingService systemInstanceLoader;
 	private final Map<String, SystemInstanceInfo> keyToSystemInstanceInfoMap = new HashMap<String, SystemInstanceInfo>();
-	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {		
-		private IResourceDeltaVisitor deltaVisitor = new IResourceDeltaVisitor() {
-			public boolean visit(final IResourceDelta delta) {
-				final IResource resource = delta.getResource();
-				if(resource.getType() == IResource.FILE) {
-					// Check if the file matches the resource of one of the system instances
-					synchronized(keyToSystemInstanceInfoMap) {
-						final URI changedUri = URI.createPlatformResourceURI(delta.getResource().getFullPath().toString(), true);
-						String systemInstanceKey = null;
-						for(final Entry<String, SystemInstanceInfo> mapEntry : keyToSystemInstanceInfoMap.entrySet()) {
-							if(changedUri.equals(mapEntry.getValue().systemInstance.eResource().getURI())) {
-								systemInstanceKey = mapEntry.getKey();
-								break;
-							}
-						}
-						
-						// Remove the entry from the map
-						if(systemInstanceKey != null) {
-							keyToSystemInstanceInfoMap.remove(systemInstanceKey);						
-							return false;
+	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
+		private IResourceDeltaVisitor deltaVisitor = delta -> {
+			final IResource resource = delta.getResource();
+			if(resource.getType() == IResource.FILE) {
+				// Check if the file matches the resource of one of the system instances
+				synchronized(keyToSystemInstanceInfoMap) {
+					final URI changedUri = URI.createPlatformResourceURI(delta.getResource().getFullPath().toString(), true);
+					String systemInstanceKey = null;
+					for(final Entry<String, SystemInstanceInfo> mapEntry : keyToSystemInstanceInfoMap.entrySet()) {
+						if(changedUri.equals(mapEntry.getValue().systemInstance.eResource().getURI())) {
+							systemInstanceKey = mapEntry.getKey();
+							break;
 						}
 					}
+
+					// Remove the entry from the map
+					if(systemInstanceKey != null) {
+						keyToSystemInstanceInfoMap.remove(systemInstanceKey);
+						return false;
+					}
 				}
-								
-				return true;
 			}
+
+			return true;
 		};
 
 		@Override
 		public void resourceChanged(final IResourceChangeEvent event) {
 			if(event.getType() == IResourceChangeEvent.POST_CHANGE) {
 				final IResourceDelta delta = event.getDelta();
-				
+
 				try {
 					// Process the resource delta
 					delta.accept(deltaVisitor);
 				} catch (final CoreException e) {
 					throw new RuntimeException(e);
 				}
-	         }
+			}
 		}
 	};
-	
+
 	/**
 	 * Stores mappings for elements inside of a system instance
 	 *
@@ -103,14 +104,14 @@ public class InstanceReferenceResolver {
 	private class SystemInstanceInfo {
 		public final SystemInstance systemInstance;
 		private final Map<String, InstanceObject> idToElementMap = new HashMap<String, InstanceObject>();
-		
+
 		public SystemInstanceInfo(final SystemInstance systemInstance) {
 			this.systemInstance = systemInstance;
-			
+
 			// Add component instances
 			for(final ComponentInstance ci : systemInstance.getAllComponentInstances()) {
 				idToElementMap.put(ci.getInstanceObjectPath().toLowerCase(), ci);
-				
+
 				for(final FeatureInstance featureInstance : ci.getFeatureInstances()) {
 					addFeatureInstance(featureInstance);
 				}
@@ -121,40 +122,52 @@ public class InstanceReferenceResolver {
 					idToElementMap.put(InstanceReferenceBuilder.buildConnectionReferenceId(cr), cr);
 				}
 			}
+
+			for(final FlowSpecificationInstance fsi : systemInstance.getFlowSpecifications()) {
+				idToElementMap.put(fsi.getInstanceObjectPath().toLowerCase(), fsi);
+			}
+
+			for (final ModeInstance mi : systemInstance.getModeInstances()) {
+				idToElementMap.put(mi.getInstanceObjectPath().toLowerCase(), mi);
+			}
+
+			for (final ModeTransitionInstance mti : systemInstance.getModeTransitionInstances()) {
+				idToElementMap.put(mti.getInstanceObjectPath().toLowerCase(), mti);
+			}
 		}
-		
+
 		private void addFeatureInstance(final FeatureInstance fi) {
 			idToElementMap.put(fi.getInstanceObjectPath().toLowerCase(), fi);
 			for(final FeatureInstance child : fi.getFeatureInstances()) {
 				addFeatureInstance(child);
 			}
 		}
-		
+
 		public InstanceObject getInstanceObject(final String id) {
 			return idToElementMap.get(id);
 		}
 	}
-	
+
 	@Inject
-	public InstanceReferenceResolver(final ProjectProvider projectProvider, 
+	public InstanceReferenceResolver(final ProjectProvider projectProvider,
 			final SystemInstanceLoadingService systemInstanceLoader) {
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader, "systemInstanceLoader must not be null");
 
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 	}
-	
+
 	@PreDestroy
 	public void dispose() {
 		// Remove the resource listener
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
-		
+
 		// Clear the map
 		synchronized(keyToSystemInstanceInfoMap) {
 			keyToSystemInstanceInfoMap.clear();
 		}
 	}
-	
+
 	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs) {
 		if(refSegs.length < 3) {
@@ -172,31 +185,36 @@ public class InstanceReferenceResolver {
 			if(type.equals(InstanceReferenceBuilder.SYSTEM_INSTANCE_KEY)) {
 				return siInfo.systemInstance;
 			} else if(refSegs.length >= 4) {
-				if(type.equals(InstanceReferenceBuilder.COMPONENT_INSTANCE_KEY) || type.equals(InstanceReferenceBuilder.FEATURE_INSTANCE_KEY) || type.equals(InstanceReferenceBuilder.CONNECTION_REFERENCE_KEY)) {
+				if (type.equals(InstanceReferenceBuilder.COMPONENT_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.FEATURE_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.CONNECTION_REFERENCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.MODE_INSTANCE_KEY)
+						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)) {
 					return siInfo.getInstanceObject(refSegs[3]);
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	private SystemInstanceInfo getSystemInstanceInfo(final String key) {
 		synchronized(keyToSystemInstanceInfoMap) {
 			SystemInstanceInfo siInfo = keyToSystemInstanceInfoMap.get(key);
-			
+
 			// If it wasn't loaded previously, load the system instance
 			if(siInfo == null) {
 				final IProject project = projectProvider.getProject();
 				final SystemInstance si = systemInstanceLoader.loadSystemInstance(project, key);
 				if(si != null) {
 					siInfo = new SystemInstanceInfo(si);
-					
+
 					// Add it the map
 					keyToSystemInstanceInfoMap.put(key, siInfo);
 				}
 			}
-			
+
 			return siInfo;
 		}
 	}

@@ -1,6 +1,6 @@
 /**
  * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
+ * 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
  * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
  * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
@@ -8,9 +8,9 @@
  * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
  * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
  * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
+ * 
  * See COPYRIGHT file for full details.
  */
 
@@ -58,57 +58,95 @@ import org.osate.assure.generator.IAssureConstructor
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.evaluator.AssureProcessor
 import org.eclipse.core.runtime.NullProgressMonitor
+import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
+import org.eclipse.xtext.validation.Issue
+import java.util.List
 
 @RunWith(XtextRunner)
-@InjectWith(FullAlisaInjectorProvider)  
+@InjectWith(FullAlisaInjectorProvider)
 class AssureTests extends XtextTest {
 	@Inject
 	TestHelper<AssuranceCase> alisaTestHelper
 	@Inject extension ValidationTestHelper
-	
+
 	@Inject
 	IAssureConstructor assureConstructor
 
+	var private static boolean RESOLUTE_INSTALLED = false;
+	var private static boolean INSTALL_INITIALIZED = false;
+
+	def ResoluteInstalled() {
+		if (!INSTALL_INITIALIZED) {
+			try {
+				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+				val name = fn.getName();
+				fn.setName("dummy");
+				if (name !== null && name.startsWith("org.osate")) {
+					RESOLUTE_INSTALLED = false;
+				} else {
+					RESOLUTE_INSTALLED = true;
+				}
+			} catch (NoClassDefFoundError e) {
+				RESOLUTE_INSTALLED = false;
+			}
+			INSTALL_INITIALIZED = true
+		}
+		return RESOLUTE_INSTALLED
+	}
+
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
-	val propertiesprefix = projectprefix+"Properties/"
-	val aadlprefix = projectprefix+"aadl/"
-	val alisaprefix = projectprefix+"alisa/"
-	val resoluteprefix = projectprefix+"resolute/"
+	val propertiesprefix = projectprefix + "Properties/"
+	val aadlprefix = projectprefix + "aadl/"
+	val alisaprefix = projectprefix + "alisa/"
+	val resoluteprefix = projectprefix + "resolute/"
 	var primaryroot = null
 
 	@Before
 	def void setUp() {
-		primaryroot = alisaTestHelper.parseFile(alisaprefix+"SCSVerification.alisa"
-			,aadlprefix+"SimpleControlSystem.aadl"
-			,propertiesprefix+"ACVIP.aadl", propertiesprefix+"Physical.aadl",
-			aadlprefix+"PhysicalResources.aadl",aadlprefix+"DataDictionary.aadl",
-			aadlprefix+"Platform.aadl",aadlprefix+"Software.aadl", aadlprefix+"DigitalControlSystem.aadl"
-			,alisaprefix+"sei.org" ,alisaprefix+"authors.constants" 
-			,alisaprefix+"predefined.cat"
-			,alisaprefix+"Resolute.methodregistry"
-			,alisaprefix+"Plugins.methodregistry"
-			,alisaprefix+"Alisa_Consistency.methodregistry"
-			,alisaprefix+"DCS.reqspec",alisaprefix+"dcsvplan.verify"
-			,alisaprefix+"DualSCS.reqspec",alisaprefix+"dualscsvplan.verify"
-			,alisaprefix+"globalReq.reqspec" ,alisaprefix+"GlobalVPlan.verify" 
-			,alisaprefix+"Peter.reqspec" ,alisaprefix+"PeterPlan.verify" 
-			,alisaprefix+"SCS.reqspec" ,alisaprefix+"scsvplan.verify" 
-			,alisaprefix+"SCSImplementationReqs.reqspec" ,alisaprefix+"scsimplvplan.verify" 
-			,alisaprefix+"SCSgoals2.goals"  
-			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
+		primaryroot = alisaTestHelper.parseFile(
+			alisaprefix + "SCSVerification.alisa",
+			aadlprefix + "SimpleControlSystem.aadl",
+			propertiesprefix + "ACVIP.aadl",
+			propertiesprefix + "Physical.aadl",
+			aadlprefix + "PhysicalResources.aadl",
+			aadlprefix + "DataDictionary.aadl",
+			aadlprefix + "Platform.aadl",
+			aadlprefix + "Software.aadl",
+			aadlprefix + "DigitalControlSystem.aadl",
+			alisaprefix + "sei.org",
+			alisaprefix + "authors.constants",
+			alisaprefix + "predefined.cat",
+			alisaprefix + "Resolute.methodregistry",
+			alisaprefix + "Plugins.methodregistry",
+			alisaprefix + "Alisa_Consistency.methodregistry",
+			alisaprefix + "DCS.reqspec",
+			alisaprefix + "dcsvplan.verify",
+			alisaprefix + "DualSCS.reqspec",
+			alisaprefix + "dualscsvplan.verify",
+			alisaprefix + "globalReq.reqspec",
+			alisaprefix + "GlobalVPlan.verify",
+			alisaprefix + "Peter.reqspec",
+			alisaprefix + "PeterPlan.verify",
+			alisaprefix + "SCS.reqspec",
+			alisaprefix + "scsvplan.verify",
+			alisaprefix + "SCSImplementationReqs.reqspec",
+			alisaprefix + "scsimplvplan.verify",
+			alisaprefix + "SCSgoals2.goals",
+			resoluteprefix + "BasicResolute.aadl",
+			resoluteprefix + "BudgetResolute.aadl"
 		)
-	}
 
+	}
 
 	@Test
 	def void SEIOrgtest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"sei.org"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "sei.org"), true)
 		val org = scssrc.contents.get(0) as Organization
 		org => [
 			"sei".assertEquals(name)
-			assertTrue(stakeholder.size > 1)	
+			assertTrue(stakeholder.size > 1)
 			stakeholder.get(0) as Stakeholder => [
 				"phf".assertEquals(name)
 			]
@@ -116,17 +154,17 @@ class AssureTests extends XtextTest {
 				"dpg".assertEquals(name)
 			]
 		]
-		assertNoIssues(org)	
+		assertNoIssues(org)
 	}
 
 	@Test
 	def void Categorytest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"predefined.cat"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "predefined.cat"), true)
 		val cd = scssrc.contents.get(0) as CategoriesDefinitions
 		cd => [
-			4.assertEquals(categories.size)	
+			4.assertEquals(categories.size)
 			categories.get(0) as Categories => [
 				"Quality".assertEquals(name)
 				13.assertEquals(category.size)
@@ -136,179 +174,183 @@ class AssureTests extends XtextTest {
 				9.assertEquals(category.size)
 			]
 		]
-		assertNoIssues(cd)	
+		assertNoIssues(cd)
 	}
-	
+
 	@Test
 	def void Constantstest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"authors.constants"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "authors.constants"), true)
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val gc = reqspec.parts.get(0) as GlobalConstants
 		gc => [
-			"authors".assertEquals(name)	
+			"authors".assertEquals(name)
 			1.assertEquals(constants.size)
-		]	
-		assertNoIssues(gc)	
+		]
+		assertNoIssues(gc)
 	}
-	
+
 	@Test
 	def void ACVIPPropstest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(propertiesprefix+"ACVIP.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(propertiesprefix + "ACVIP.aadl"), true)
 		val ps = scssrc.contents.get(0) as PropertySet
 		ps => [
-			"ACVIP".assertEquals(name)	
+			"ACVIP".assertEquals(name)
 			2.assertEquals(ownedProperties.size)
 			1.assertEquals(ownedPropertyConstants.size)
-			]	
-		assertNoIssues(ps)	
+		]
+		assertNoIssues(ps)
 	}
 
 	@Test
 	def void PhysicalPropstest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(propertiesprefix+"Physical.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(propertiesprefix + "Physical.aadl"), true)
 		val ps = scssrc.contents.get(0) as PropertySet
 		ps => [
-			"Physical".assertEquals(name)	
+			"Physical".assertEquals(name)
 			1.assertEquals(ownedProperties.size)
 			2.assertEquals(ownedPropertyTypes.size)
-			]	
-		assertNoIssues(ps)	
+		]
+		assertNoIssues(ps)
 	}
 
 	@Test
 	def void SCSAadltest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"SimpleControlSystem.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "SimpleControlSystem.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"SimpleControlSystem".assertEquals(name)	
+			"SimpleControlSystem".assertEquals(name)
 			7.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
-
 
 	@Test
 	def void PhysicalResourcestest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"PhysicalResources.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "PhysicalResources.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"PhysicalResources".assertEquals(name)	
+			"PhysicalResources".assertEquals(name)
 			4.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
 
 	@Test
 	def void DataDictionarystest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"DataDictionary.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "DataDictionary.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"DataDictionary".assertEquals(name)	
+			"DataDictionary".assertEquals(name)
 			2.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
+
 	@Test
 	def void Platformtest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"Platform.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "Platform.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"Platform".assertEquals(name)	
+			"Platform".assertEquals(name)
 			6.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
+
 	@Test
 	def void Softwaretest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"Software.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "Software.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"Software".assertEquals(name)	
+			"Software".assertEquals(name)
 			11.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
+
 	@Test
 	def void DigitalControlSystemtest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix+"DigitalControlSystem.aadl"), true)
+		val scssrc = rs.getResource(URI.createURI(aadlprefix + "DigitalControlSystem.aadl"), true)
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
-			"DigitalControlSystem".assertEquals(name)	
+			"DigitalControlSystem".assertEquals(name)
 			7.assertEquals(publicSection.ownedClassifiers.size)
-			]	
-		assertNoIssues(pkg)	
+		]
+		assertNoIssues(pkg)
 	}
-
 
 	@Test
 	def void ResoluteRegistrytest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"Resolute.methodregistry"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "Resolute.methodregistry"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
-			"Resolute".assertEquals(name)	
+			"Resolute".assertEquals(name)
 			13.assertEquals(methods.size)
-			]	
-		assertNoIssues(reg)	
+		]
+		if (ResoluteInstalled){
+			assertNoIssues(reg)
+		} else {
+			val validate = validate(scssrc);
+			13.assertEquals(validate.size)
+		}
 	}
 
 	@Test
 	def void PluginsRegistrytest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"Plugins.methodregistry"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "Plugins.methodregistry"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
-			"Plugins".assertEquals(name)	
+			"Plugins".assertEquals(name)
 			16.assertEquals(methods.size)
-			]	
-		assertNoIssues(reg)	
+		]
+		assertNoIssues(reg)
 	}
 
 	@Test
 	def void Alisa_ConsistencyRegistrytest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"Alisa_Consistency.methodregistry"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "Alisa_Consistency.methodregistry"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
-			"Alisa_Consistency".assertEquals(name)	
+			"Alisa_Consistency".assertEquals(name)
 			8.assertEquals(methods.size)
-			]	
+		]
 //		assertNoErrors(reg)	
-		assertNoIssues(reg)	
+		assertNoIssues(reg)
 	}
 
 //			,alisaprefix+"DCS.reqspec",alisaprefix+"dcsvplan.verify"
-
-	
 	@Test
 	def void DCSReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"DCS.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "DCS.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -316,50 +358,48 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as SystemRequirementSet
 		srs => [
-			"dcsreqs".assertEquals(name)	
+			"dcsreqs".assertEquals(name)
 			1.assertEquals(constants.size)
 			1.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"R1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"R1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
 			constants.get(0) as ValDeclaration => [
-				"MaximumLatency".assertEquals(name)	
+				"MaximumLatency".assertEquals(name)
 			]
-		]	
-		srs.assertWarning(testFileResult.issues, issueCollection,"Features without requirement: power canbusaccess sensor1in sensor2In actuatorOut")
-		assertNoErrors(srs)	
+		]
+		srs.assertWarning(testFileResult.issues, issueCollection,
+			"Features without requirement: power canbusaccess sensor1in sensor2In actuatorOut")
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void DCSVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"dcsvplan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "dcsvplan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"dcsvplan".assertEquals(name)	
+			"dcsvplan".assertEquals(name)
 			1.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				2.assertEquals(activities.size)	
+				2.assertEquals(activities.size)
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
-
 //			,alisaprefix+"DualSCS.reqspec",alisaprefix+"dualscsvplan.verify"
-
-	
 	@Test
 	def void DualSCSReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"DualSCS.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "DualSCS.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -367,62 +407,60 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as SystemRequirementSet
 		srs => [
-			"DualSCSreqs".assertEquals(name)	
+			"DualSCSreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			4.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"SR1".assertEquals(name)	
+				"SR1".assertEquals(name)
 			]
 			requirements.get(1) as Requirement => [
-				"SR1_1".assertEquals(name)	
+				"SR1_1".assertEquals(name)
 			]
 			requirements.get(2) as Requirement => [
-				"SR1_2".assertEquals(name)	
+				"SR1_2".assertEquals(name)
 			]
 			requirements.get(3) as Requirement => [
-				"SR1_3".assertEquals(name)	
+				"SR1_3".assertEquals(name)
 			]
-		]	
-		srs.assertWarning(testFileResult.issues, issueCollection,"Features without requirement: power force backuppower")
-		assertNoErrors(srs)	
+		]
+		srs.assertWarning(testFileResult.issues, issueCollection,
+			"Features without requirement: power force backuppower")
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void DualSCSVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"dualscsvplan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "dualscsvplan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"DualSCSvplan".assertEquals(name)	
+			"DualSCSvplan".assertEquals(name)
 			1.assertEquals(claim.size)
 			claim.get(0) as Claim => [
 				subclaim.get(0) as Claim => [
-					1.assertEquals(activities.size)	
+					1.assertEquals(activities.size)
 				]
 				subclaim.get(1) as Claim => [
-					1.assertEquals(activities.size)	
+					1.assertEquals(activities.size)
 				]
 				subclaim.get(2) as Claim => [
-					1.assertEquals(activities.size)	
+					1.assertEquals(activities.size)
 				]
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
 //			,alisaprefix+"globalReq.reqspec" ,alisaprefix+"GlobalVPlan.verify" 
-
-	
 	@Test
 	def void GlobalReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"globalReq.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "globalReq.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -430,51 +468,51 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as GlobalRequirementSet
 		srs => [
-			"globalReq".assertEquals(name)	
+			"globalReq".assertEquals(name)
 			0.assertEquals(constants.size)
 			2.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"connected".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"connected".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
 			requirements.get(1) as Requirement => [
-				"Allconnected".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"Allconnected".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
-		]	
-		assertNoErrors(srs)	
+		]
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void GlobalVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"GlobalVPlan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "GlobalVPlan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"globalVPlan".assertEquals(name)	
+			"globalVPlan".assertEquals(name)
 			2.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				2.assertEquals(activities.size)	
+				2.assertEquals(activities.size)
 			]
 			claim.get(1) as Claim => [
-				1.assertEquals(activities.size)	
+				1.assertEquals(activities.size)
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
 //			,alisaprefix+"Peter.reqspec" ,alisaprefix+"PeterPlan.verify" 
-	
 	@Test
 	def void PeterReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"Peter.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "Peter.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -482,46 +520,43 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as GlobalRequirementSet
 		srs => [
-			"Peter".assertEquals(name)	
+			"Peter".assertEquals(name)
 			0.assertEquals(constants.size)
 			1.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"req1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"req1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
-		]	
-		assertNoErrors(srs)	
+		]
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void PeterVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"PeterPlan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "PeterPlan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"PeterPlan".assertEquals(name)	
+			"PeterPlan".assertEquals(name)
 			1.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				1.assertEquals(activities.size)	
+				1.assertEquals(activities.size)
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
-
 //			,alisaprefix+"SCS.reqspec" ,alisaprefix+"scsvplan.verify" 
-
-	
 	@Test
 	def void SCSReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"SCS.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCS.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -529,52 +564,48 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as SystemRequirementSet
 		srs => [
-			"scsreqs".assertEquals(name)	
+			"scsreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			2.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"R1".assertEquals(name)	
+				"R1".assertEquals(name)
 			]
 			requirements.get(1) as Requirement => [
-				"R3".assertEquals(name)	
+				"R3".assertEquals(name)
 			]
-		]	
-		srs.assertWarning(testFileResult.issues, issueCollection,"Features without requirement: force")
-		assertNoErrors(srs)	
+		]
+		srs.assertWarning(testFileResult.issues, issueCollection, "Features without requirement: force")
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void SCSVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"scsvplan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "scsvplan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"scsvplan".assertEquals(name)	
+			"scsvplan".assertEquals(name)
 			2.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				3.assertEquals(activities.size)	
+				3.assertEquals(activities.size)
 			]
 			claim.get(1) as Claim => [
-				3.assertEquals(activities.size)	
+				3.assertEquals(activities.size)
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
-
 //			,alisaprefix+"SCSImplementationReqs.reqspec" ,alisaprefix+"scsimplvplan.verify" 
-
-	
 	@Test
 	def void SCSImplementationReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"SCSImplementationReqs.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCSImplementationReqs.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -582,120 +613,127 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as SystemRequirementSet
 		srs => [
-			"SCSImplementationreqs".assertEquals(name)	
+			"SCSImplementationreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			5.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
-				"R2_Lat".assertEquals(name)	
+				"R2_Lat".assertEquals(name)
 			]
 			requirements.get(1) as Requirement => [
-				"DCS_R1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"DCS_R1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
 			requirements.get(2) as Requirement => [
-				"Sensor1_R1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"Sensor1_R1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
 			requirements.get(3) as Requirement => [
-				"Sensor2_R1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"Sensor2_R1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
 			requirements.get(4) as Requirement => [
-				"Actuator_R1".assertEquals(name)	
-				it.assertWarning(testFileResult.issues, issueCollection,"System requirement should have stakeholder goal or requirement reference")
+				"Actuator_R1".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
 			]
-		]	
-		srs.assertWarning(testFileResult.issues, issueCollection,"Features without requirement: power force")
-		assertNoErrors(srs)	
+		]
+		srs.assertWarning(testFileResult.issues, issueCollection, "Features without requirement: power force")
+		assertNoErrors(srs)
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
 
-	
 	@Test
 	def void SCSImplVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"scsimplvplan.verify"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "scsimplvplan.verify"), true)
 		val ver = scssrc.contents.get(0) as Verification
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
-			"scsimplvplan".assertEquals(name)	
+			"scsimplvplan".assertEquals(name)
 			5.assertEquals(claim.size)
 			claim.get(0) as Claim => [
-				2.assertEquals(activities.size)	
+				1.assertEquals(activities.size)
 			]
 			claim.get(1) as Claim => [
-				0.assertEquals(activities.size)	
+				0.assertEquals(activities.size)
 			]
-		]	
-		assertNoIssues(vp)	
+		]
+		assertNoIssues(vp)
 	}
 
 //			,alisaprefix+"SCSgoals2.goals"  
-	
 	@Test
 	def void SCSGoalstest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix+"SCSgoals2.goals"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCSgoals2.goals"), true)
 
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as StakeholderGoals
 		srs => [
-			"SCSgoals".assertEquals(name)	
+			"SCSgoals".assertEquals(name)
 			0.assertEquals(constants.size)
 			6.assertEquals(goals.size)
 			goals.get(0) as Goal => [
-				"g1".assertEquals(name)	
+				"g1".assertEquals(name)
 			]
 			goals.get(1) as Goal => [
-				"g2".assertEquals(name)	
+				"g2".assertEquals(name)
 			]
-		]	
-		assertNoIssues(srs)	
+		]
+		assertNoIssues(srs)
 	}
 
 //			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
 	@Test
 	def void BasicResolutetest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(resoluteprefix+"BasicResolute.aadl"), true)
-		val pkg = scssrc.contents.get(0) as AadlPackage
-		pkg => [
-			"BasicResolute".assertEquals(name)	
-			1.assertEquals(publicSection.ownedAnnexLibraries.size)
-			(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).parsedAnnexLibrary as ResoluteLibrary => [
+		if (ResoluteInstalled) {
+			val ac = primaryroot as AssuranceCase
+			val rs = ac.eResource.resourceSet
+			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BasicResolute.aadl"), true)
+			val pkg = scssrc.contents.get(0) as AadlPackage
+			pkg => [
+				"BasicResolute".assertEquals(name)
+				1.assertEquals(publicSection.ownedAnnexLibraries.size)
+				(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
+					parsedAnnexLibrary as ResoluteLibrary => [
 					5.assertEquals(definitions.size)
+				]
 			]
-		]	
-		assertNoIssues(pkg)	
+			assertNoIssues(pkg)
+		}
 	}
 
 	@Test
 	def void BudgetResolutetest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(resoluteprefix+"BudgetResolute.aadl"), true)
-		val pkg = scssrc.contents.get(0) as AadlPackage
-		pkg => [
-			"BudgetResolute".assertEquals(name)	
-			1.assertEquals(publicSection.ownedAnnexLibraries.size)
-			(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).parsedAnnexLibrary as ResoluteLibrary => [
+		if (ResoluteInstalled) {
+			val ac = primaryroot as AssuranceCase
+			val rs = ac.eResource.resourceSet
+			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BudgetResolute.aadl"), true)
+			val pkg = scssrc.contents.get(0) as AadlPackage
+			pkg => [
+				"BudgetResolute".assertEquals(name)
+				1.assertEquals(publicSection.ownedAnnexLibraries.size)
+				(publicSection.ownedAnnexLibraries.get(0) as DefaultAnnexLibrary).
+					parsedAnnexLibrary as ResoluteLibrary => [
 					22.assertEquals(definitions.size)
+				]
 			]
-		]	
-		assertNoIssues(pkg)	
+			assertNoIssues(pkg)
+		}
 	}
-
 
 	@Test
 	def void SCSAssuranceCasetest() {
 		val ac = primaryroot as AssuranceCase
 		ac => [
 			"SCSCase".assertEquals(name)
-			1.assertEquals(assurancePlans.size)	
+			1.assertEquals(assurancePlans.size)
 			assurancePlans.get(0) as AssurancePlan => [
 				"SCSPlan".assertEquals(name)
 			]
@@ -704,7 +742,7 @@ class AssureTests extends XtextTest {
 				"SCSWeight".assertEquals(name)
 			]
 		]
-		assertNoIssues(ac)	
+		assertNoIssues(ac)
 	}
 
 	@Test
@@ -717,10 +755,19 @@ class AssureTests extends XtextTest {
 		assuranceCaseResult.resetToTBD(null)
 		assuranceCaseResult.recomputeAllCounts(null)
 		val counts = assuranceCaseResult.metrics
-		37.assertEquals(counts.tbdCount)
+		36.assertEquals(counts.tbdCount)
 		val ap = new AssureProcessor
-		ap.processCase(assuranceCaseResult,null, new NullProgressMonitor(),false)
+		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
+		if (ResoluteInstalled){
+			15.assertEquals(counts.successCount)
+			21.assertEquals(counts.failCount)
+			0.assertEquals(counts.errorCount)
+		} else {
+			8.assertEquals(counts.successCount)
+			11.assertEquals(counts.failCount)
+			17.assertEquals(counts.errorCount)
+		}
 	}
-	
+
 }

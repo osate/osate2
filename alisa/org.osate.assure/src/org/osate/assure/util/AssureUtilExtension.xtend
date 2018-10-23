@@ -76,6 +76,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.instantia
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.ResultType
+import org.eclipse.core.runtime.CoreException
 
 class AssureUtilExtension {
 
@@ -150,12 +151,15 @@ class AssureUtilExtension {
 	}
 
 	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims) {
+		val crefname = cref.requirement.name
 		for (cl : claims) {
-			if (cl.requirement.name.equalsIgnoreCase(cref.requirement.name)) {
-				if (cref.sub !== null && !cl.subclaim.empty) {
-					return getReferencedClaim(cref.sub, cl.subclaim)
+			if (cl.requirement !== null && cl.requirement.name !== null) {
+				if (cl.requirement.name.equalsIgnoreCase(crefname)) {
+					if (cref.sub !== null && !cl.subclaim.empty) {
+						return getReferencedClaim(cref.sub, cl.subclaim)
+					}
+					return cl
 				}
-				return cl
 			}
 		}
 		return null
@@ -226,7 +230,14 @@ class AssureUtilExtension {
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
-		val markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
+
+		var  IMarker[] markers
+		try {
+			markers = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
+		} catch (CoreException e){
+			verificationActivityResult.setToError("Could not find Markers. Instance model was not saved.", instance)
+			return
+		}
 		val targetURI = EcoreUtil.getURI(instance).toString()
 		var targetmarkers = markers.filter [ IMarker m |
 			matchURI(m.getAttribute(AadlConstants.AADLURI) as String, targetURI)

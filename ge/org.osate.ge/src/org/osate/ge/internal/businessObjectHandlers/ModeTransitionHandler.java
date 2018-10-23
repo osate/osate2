@@ -32,12 +32,10 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
-import org.osate.ge.graphics.ConnectionBuilder;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
@@ -54,8 +52,6 @@ public class ModeTransitionHandler {
 	private static final StandaloneQuery containerQuery = StandaloneQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
-	private static final Graphic graphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));
 
@@ -82,7 +78,7 @@ public class ModeTransitionHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
 			final QueryService queryService) {
 		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
+				graphic(AadlGraphics.getModeTransitionGraphic()).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
 				style(StyleBuilder.create(
