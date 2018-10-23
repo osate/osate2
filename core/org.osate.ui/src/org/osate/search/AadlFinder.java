@@ -96,7 +96,7 @@ public final class AadlFinder {
 
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
-		public void found(T objDesc);
+		public void found(ResourceSet resourceSet, T objDesc);
 	}
 
 	private static final AadlFinder instance = new AadlFinder();
@@ -130,23 +130,23 @@ public final class AadlFinder {
 	 */
 	public void getAllObjectsOfType(final EClass eClass, final Scope scope,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
-				.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+				.getResourceDescriptions(resourceSet);
 		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
 			if (scope.contains(rsrcDesc)) {
 				for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
-					consumer.found(objDesc);
+					consumer.found(resourceSet, objDesc);
 				}
 			}
 		}
 	}
 
-	public void getAllReferencesToTypeInWorkspace(final EClass eClass,
-			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToType(eClass, WORKSPACE_SCOPE, consumer);
+	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToType(WORKSPACE_SCOPE, consumer);
 	}
 
-	public void getAllReferencesToType(final EClass eClass, final Scope scope,
+	public void getAllReferencesToType(final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
@@ -163,7 +163,7 @@ public final class AadlFinder {
 
 					@Override
 					public void accept(final IReferenceDescription refDesc) {
-						consumer.found(refDesc);
+						consumer.found(resourceSet, refDesc);
 					}
 				}, null);
 			}

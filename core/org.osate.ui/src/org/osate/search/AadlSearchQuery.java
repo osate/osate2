@@ -6,9 +6,11 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.NamedElement;
 import org.osate.search.AadlFinder.Scope;
 
 public final class AadlSearchQuery implements ISearchQuery {
@@ -105,10 +107,9 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 		if (limitTo.declarations()) {
 			System.out.println("== Declarations ==");
-			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope, objectDesc -> {
+			aadlFinder.getAllObjectsOfType(searchFor.declarationEClass(), scope, (resourceSet, objectDesc) -> {
 				// now check the name, which in the last segment (skip over the package names)
 				final String testIdentifier = objectDesc.getName().getLastSegment();
-				// TODO Deal with case insensitivity
 				if (findSubstring(testIdentifier)) {
 					for (final String segment : objectDesc.getName().getSegments()) {
 						System.out.print("[" + segment + "]");
@@ -119,12 +120,21 @@ public final class AadlSearchQuery implements ISearchQuery {
 		}
 
 		if (limitTo.references()) {
-			// XXX When is the best time to get the target EObject and test it's type?
 			System.out.println("== References ==");
-			aadlFinder.getAllReferencesToType(null, scope, refDesc -> {
-				final URI sourceURI = refDesc.getSourceEObjectUri();
+			final EClass declarationEClass = searchFor.declarationEClass();
+			aadlFinder.getAllReferencesToType(scope, (resourceSet, refDesc) -> {
 				final URI targetURI = refDesc.getTargetEObjectUri();
-				System.out.println(sourceURI + " -> " + targetURI);
+				final EObject eObj = resourceSet.getEObject(targetURI, true);
+				if (eObj != null) { // target object might be null if the file being searched has errors
+					// filter by eClass
+					if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
+						// filter by name
+						if (eObj instanceof NamedElement && findSubstring(((NamedElement) eObj).getName())) {
+							final URI sourceURI = refDesc.getSourceEObjectUri();
+							System.out.println(sourceURI + " -> " + targetURI);
+						}
+					}
+				}
 			});
 		}
 
