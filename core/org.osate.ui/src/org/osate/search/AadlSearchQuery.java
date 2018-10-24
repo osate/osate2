@@ -129,18 +129,13 @@ public final class AadlSearchQuery implements ISearchQuery {
 		// make sure the progress monitor is not null
 		final IProgressMonitor nonNullmonitor = monitor == null ? new NullProgressMonitor() : monitor;
 		try {
-			System.out.println(getLabel());
-
 			nonNullmonitor.beginTask(getLabel(), IProgressMonitor.UNKNOWN);
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
 			aadlFinder.processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
 				final String fileString = rsrcDesc.getURI().lastSegment();
 				nonNullmonitor.subTask(fileString);
-				System.out.println("==== " + fileString);
-
 				if (limitTo.declarations()) {
-					System.out.println("== Declarations ==");
 					callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, searchFor.declarationEClass(),
 							(callback2, resourceSet2, objDesc2) -> {
 								// now check the name, which in the last segment (skip over the package names)
@@ -148,11 +143,6 @@ public final class AadlSearchQuery implements ISearchQuery {
 								if (findSubstring(testIdentifier)) {
 									// FOUND A MATCH
 									searchResult.addFoundDeclaration(resourceSet2, objDesc2);
-
-									for (final String segment : objDesc2.getName().getSegments()) {
-										System.out.print("[" + segment + "]");
-									}
-									System.out.println(" -- " + objDesc2.getEObjectURI());
 								}
 							});
 					nonNullmonitor.worked(1);
@@ -163,7 +153,6 @@ public final class AadlSearchQuery implements ISearchQuery {
 				}
 
 				if (limitTo.references()) {
-					System.out.println("== References ==");
 					callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet,
 							(callback2, resourceSet2, refDesc2) -> {
 								final URI targetURI = refDesc2.getTargetEObjectUri();
@@ -176,9 +165,6 @@ public final class AadlSearchQuery implements ISearchQuery {
 												&& findSubstring(((NamedElement) eObj).getName())) {
 											// FOUND A MATCH
 											searchResult.addFoundReference(resourceSet2, refDesc2);
-
-											final URI sourceURI = refDesc2.getSourceEObjectUri();
-											System.out.println(sourceURI + " -> " + targetURI);
 										}
 									}
 								}
@@ -194,7 +180,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 
 	@Override
 	public String getLabel() {
-		return "Search for \"" + substring + "\" in " + searchFor + " " + limitTo;
+		return "\"" + substring + "\" in " + searchFor + " " + limitTo;
 	}
 
 	@Override
@@ -212,4 +198,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 		return searchResult;
 	}
 
+	public LimitTo getLimitTo() {
+		return limitTo;
+	}
 }
