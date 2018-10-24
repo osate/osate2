@@ -8,6 +8,7 @@ import org.eclipse.search.ui.ISearchResult;
 import org.eclipse.search.ui.ISearchResultListener;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
+import org.osate.search.AadlSearchQuery.LimitTo;
 import org.osate.ui.OsateUiPlugin;
 
 public final class AadlSearchResult implements ISearchResult {
@@ -41,9 +42,21 @@ public final class AadlSearchResult implements ISearchResult {
 
 	@Override
 	public String getLabel() {
-		// TODO Only show the counts for things that were explicitly searched for
-		return "Here is the AadlSearchResultLabel: " + searchQuery.getLabel() + "; Found " + numFoundDeclarations
-				+ " matching declarations and " + numFoundReferences + " matching references";
+		final LimitTo limitTo = searchQuery.getLimitTo();
+		final StringBuilder sb = new StringBuilder(searchQuery.getLabel());
+		sb.append("; Found ");
+		if (limitTo.declarations()) {
+			sb.append(numFoundDeclarations);
+			sb.append(" declarations");
+			if (limitTo.references()) {
+				sb.append(" and ");
+			}
+		}
+		if (limitTo.references()) {
+			sb.append(numFoundReferences);
+			sb.append(" references");
+		}
+		return sb.toString();
 	}
 
 	@Override
