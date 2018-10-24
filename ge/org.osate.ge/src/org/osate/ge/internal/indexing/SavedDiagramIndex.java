@@ -37,6 +37,8 @@ import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.internal.util.Log;
 
+import com.google.common.collect.ImmutableMap;
+
 // Indexes saved diagram files
 public class SavedDiagramIndex {
 	public static interface DiagramIndexEntry {
@@ -283,20 +285,22 @@ public class SavedDiagramIndex {
 
 	private class ProjectDiagramIndex {
 		public final IProject project;
-		public Map<IFile, DiagramFileIndex> fileToIndexMap;
+		public ImmutableMap<IFile, DiagramFileIndex> fileToIndexMap;
 
 		public ProjectDiagramIndex(final IProject project) {
 			this.project = Objects.requireNonNull(project, "project must not be null");
 		}
 
-		public Map<IFile, DiagramFileIndex> getOrCreateFileToIndexMap() {
+		public ImmutableMap<IFile, DiagramFileIndex> getOrCreateFileToIndexMap() {
 			if(fileToIndexMap == null) {
-				fileToIndexMap = new HashMap<>();
+				final ImmutableMap.Builder<IFile, DiagramFileIndex> builder = ImmutableMap.builder();
 
 				// Create diagram references as appropriate
-				for(final IFile diagramFile : findDiagramFiles(project, null)) {
-					createDiagramFileIndex(this, diagramFile);
+				for (final IFile diagramFile : findDiagramFiles(project, null)) {
+					builder.put(diagramFile, new DiagramFileIndex(this, diagramFile));
 				}
+
+				fileToIndexMap = builder.build();
 			}
 
 			return fileToIndexMap;
@@ -390,11 +394,19 @@ public class SavedDiagramIndex {
 	public synchronized void remove(final IFile file) {
 		final ProjectDiagramIndex projectDiagramIndex = projectToIndexMap.get(file.getProject());
 		if (projectDiagramIndex != null && projectDiagramIndex.fileToIndexMap != null) {
-			projectDiagramIndex.fileToIndexMap.remove(file);
+			// Build a new immutable map without the file
+			final ImmutableMap.Builder<IFile, DiagramFileIndex> builder = ImmutableMap.builder();
+			projectDiagramIndex.fileToIndexMap.entrySet().stream().filter(e -> !Objects.equals(e.getKey(), file))
+			.forEachOrdered(e -> {
+				builder.put(e);
+			});
 
-			if(file.exists()) {
-				createDiagramFileIndex(projectDiagramIndex, file);
+			// Add the file to the builder if it still exists
+			if (file.exists()) {
+				builder.put(file, new DiagramFileIndex(projectDiagramIndex, file));
 			}
+
+			projectDiagramIndex.fileToIndexMap = builder.build();
 		}
 	}
 
@@ -408,13 +420,6 @@ public class SavedDiagramIndex {
 		}
 
 		return projectDiagramIndex;
-	}
-
-	private DiagramFileIndex createDiagramFileIndex(final ProjectDiagramIndex projectDiagramIndex,
-			final IFile diagramFile) {
-		final DiagramFileIndex diagramFileIndex = new DiagramFileIndex(projectDiagramIndex, diagramFile);
-		projectDiagramIndex.fileToIndexMap.put(diagramFile, diagramFileIndex);
-		return diagramFileIndex;
 	}
 
 	private static class SimpleUnqueryableBusinessObjectContext implements BusinessObjectContext {
