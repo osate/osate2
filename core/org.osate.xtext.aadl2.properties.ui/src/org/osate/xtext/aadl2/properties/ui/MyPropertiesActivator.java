@@ -35,37 +35,19 @@
 package org.osate.xtext.aadl2.properties.ui;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.IPropertyService;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.framework.BundleContext;
 
-import com.google.inject.Inject;
-
 public class MyPropertiesActivator extends PropertiesActivator {
-	@Inject
-	private ResourceDescriptionsProvider rdp;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
-			EMFIndexRetrieval.registerResourceProviders(rdp);
-
 			// DB bug #147 Added to provide property lookup service to meta-modem using GetProperties.
-			Aadl2Util.propertyService = new IPropertyService() {
-
-				@Override
-				public Property lookupPropertyDefinition(EObject context, String propertySetName, String propertyName) {
-					// TODO Auto-generated method stub
-					return GetProperties.lookupPropertyDefinition(context, propertySetName, propertyName);
-				}
-			};
+			Aadl2Util.propertyService = (context1, propertySetName, propertyName) -> GetProperties.lookupPropertyDefinition(context1, propertySetName, propertyName);
 
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
