@@ -7,12 +7,11 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
-import org.osate.ge.di.Create;
 import org.osate.ge.di.Delete;
-import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -22,6 +21,9 @@ import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -69,12 +71,6 @@ public class ErrorTypeExtensionHandler {
 		subtype.setSuperType(null);
 	}
 
-	@GetCreateOwner
-	public BusinessObjectContext getCreateConnectionOwner(
-			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext subtype) {
-		return subtype;
-	}
-
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final ErrorType subtype) {
 		return true;
@@ -85,10 +81,17 @@ public class ErrorTypeExtensionHandler {
 		return supertype != subtype;
 	}
 
-	@Create
-	public ErrorTypeExtension createConnectionBusinessObject(@Named(Names.MODIFY_BO) final ErrorType subtype,
-			@Named(Names.DESTINATION_BO) final ErrorType supertype) {
-		subtype.setSuperType(supertype);
-		return new ErrorTypeExtension(supertype, subtype);
+	@BuildCreateOperation
+	public Operation buildCreateOperation(
+			final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
+			final @Named(Names.SOURCE_BO) ErrorType subtypeReadonly,
+			final @Named(Names.DESTINATION_BO) ErrorType supertype) {
+		return Operation.create(createOp -> {
+			createOp.supply(() -> StepResult.forValue(subtypeReadonly)).modifyPreviousResult(subtype -> {
+				subtype.setSuperType(supertype);
+				final Object newBo = new ErrorTypeExtension(supertype, subtype);
+				return StepResultBuilder.create().showNewBusinessObject(srcBoc, newBo).build();
+			});
+		});
 	}
 }

@@ -12,13 +12,14 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -30,6 +31,9 @@ import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -58,17 +62,23 @@ public class ErrorBehaviorEventHandler {
 		return true;
 	}
 
-	@Create
-	public Object createBusinessObject(@Named(Names.MODIFY_BO) final ErrorBehaviorStateMachine stateMachine, @Named(Names.PALETTE_ENTRY_CONTEXT) final EClass classToCreate) {
-		// Create the state
-		final  ErrorBehaviorEvent newEvent = ( ErrorBehaviorEvent)EcoreUtil.create(classToCreate);
-		final String newEventName = ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_event");
-		newEvent.setName(newEventName);
+	@BuildCreateOperation
+	public Operation buildCreateOperation(@Named(Names.TARGET_BO) final ErrorBehaviorStateMachine stateMachineReadOnly,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
+			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classToCreate) {
+		return Operation.create(createOp -> {
+			createOp.supply(() -> StepResult.forValue(stateMachineReadOnly)).modifyPreviousResult(stateMachine -> {
+				// Create the state
+				final ErrorBehaviorEvent newEvent = (ErrorBehaviorEvent) EcoreUtil.create(classToCreate);
+				final String newEventName = ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_event");
+				newEvent.setName(newEventName);
 
-		// Add the new event to the state machine
-		stateMachine.getEvents().add(newEvent);
+				// Add the new event to the state machine
+				stateMachine.getEvents().add(newEvent);
 
-		return newEvent;
+				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newEvent).build();
+			});
+		});
 	}
 
 	@GetGraphicalConfiguration

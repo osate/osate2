@@ -11,14 +11,14 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Create;
-import org.osate.ge.di.GetBusinessObjectToModify;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -30,6 +30,9 @@ import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -55,24 +58,22 @@ public class ErrorTypeHandler {
 		return true;
 	}
 
-	@GetBusinessObjectToModify
-	public ErrorModelLibrary getBusinessObjectToModify(
-			final @Named(Names.TARGET_BO) ErrorTypeLibrary lib) {
-		return lib.getErrorModelLibrary();
-	}
+	@BuildCreateOperation
+	public Operation buildCreateOperation(@Named(Names.TARGET_BO) final ErrorTypeLibrary typeLib,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc) {
+		return Operation.create(createOp -> {
+			createOp.supply(() -> StepResult.forValue(typeLib.getErrorModelLibrary())).modifyPreviousResult(lib -> {
+				// Create the ErrorType
+				final ErrorType newErrorType = (ErrorType) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
+				final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "NewErrorType");
+				newErrorType.setName(newErrorTypeName);
 
-	@Create
-	public Object createBusinessObject(final @Named(Names.MODIFY_BO) ErrorModelLibrary lib) {
-		// Create the ErrorType
-		final ErrorType newErrorType = (ErrorType)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
-		final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(lib,
-				"NewErrorType");
-		newErrorType.setName(newErrorTypeName);
+				// Add the new type to the error model library
+				lib.getTypes().add(newErrorType);
 
-		// Add the new type to the error model library
-		lib.getTypes().add(newErrorType);
-
-		return newErrorType;
+				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newErrorType).build();
+			});
+		});
 	}
 
 	@GetGraphicalConfiguration
