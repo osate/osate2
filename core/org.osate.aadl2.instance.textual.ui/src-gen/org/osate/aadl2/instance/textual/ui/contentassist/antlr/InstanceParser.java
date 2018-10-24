@@ -122,7 +122,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeInstanceAccess().getGroup_4_1_1_2(), "rule__ModeInstance__Group_4_1_1_2__0");
 					put(grammarAccess.getModeInstanceAccess().getGroup_7(), "rule__ModeInstance__Group_7__0");
 					put(grammarAccess.getModeTransitionInstanceAccess().getGroup(), "rule__ModeTransitionInstance__Group__0");
-					put(grammarAccess.getModeTransitionInstanceAccess().getGroup_8(), "rule__ModeTransitionInstance__Group_8__0");
+					put(grammarAccess.getModeTransitionInstanceAccess().getGroup_5(), "rule__ModeTransitionInstance__Group_5__0");
+					put(grammarAccess.getModeTransitionInstanceAccess().getGroup_5_1(), "rule__ModeTransitionInstance__Group_5_1__0");
+					put(grammarAccess.getModeTransitionInstanceAccess().getGroup_10(), "rule__ModeTransitionInstance__Group_10__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup(), "rule__SystemOperationMode__Group__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup_2(), "rule__SystemOperationMode__Group_2__0");
 					put(grammarAccess.getSystemOperationModeAccess().getGroup_2_1(), "rule__SystemOperationMode__Group_2_1__0");
@@ -156,6 +158,7 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_1_1(), "rule__InstanceRef__Group_1_1_1_1__0");
 					put(grammarAccess.getTransitionRefAccess().getGroup(), "rule__TransitionRef__Group__0");
 					put(grammarAccess.getModeTransitionNameAccess().getGroup(), "rule__ModeTransitionName__Group__0");
+					put(grammarAccess.getModeTransitionNameAccess().getGroup_2(), "rule__ModeTransitionName__Group_2__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup(), "rule__PropertyAssociationRef__Group__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup_0(), "rule__PropertyAssociationRef__Group_0__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup_2(), "rule__PropertyAssociationRef__Group_2__0");
@@ -280,9 +283,11 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeInstanceAccess().getOwnedPropertyAssociationAssignment_7_1(), "rule__ModeInstance__OwnedPropertyAssociationAssignment_7_1");
 					put(grammarAccess.getModeTransitionInstanceAccess().getNameAssignment_2(), "rule__ModeTransitionInstance__NameAssignment_2");
 					put(grammarAccess.getModeTransitionInstanceAccess().getSourceAssignment_3(), "rule__ModeTransitionInstance__SourceAssignment_3");
-					put(grammarAccess.getModeTransitionInstanceAccess().getDestinationAssignment_5(), "rule__ModeTransitionInstance__DestinationAssignment_5");
-					put(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionAssignment_7(), "rule__ModeTransitionInstance__ModeTransitionAssignment_7");
-					put(grammarAccess.getModeTransitionInstanceAccess().getOwnedPropertyAssociationAssignment_8_1(), "rule__ModeTransitionInstance__OwnedPropertyAssociationAssignment_8_1");
+					put(grammarAccess.getModeTransitionInstanceAccess().getTriggerAssignment_5_0(), "rule__ModeTransitionInstance__TriggerAssignment_5_0");
+					put(grammarAccess.getModeTransitionInstanceAccess().getTriggerAssignment_5_1_1(), "rule__ModeTransitionInstance__TriggerAssignment_5_1_1");
+					put(grammarAccess.getModeTransitionInstanceAccess().getDestinationAssignment_7(), "rule__ModeTransitionInstance__DestinationAssignment_7");
+					put(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionAssignment_9(), "rule__ModeTransitionInstance__ModeTransitionAssignment_9");
+					put(grammarAccess.getModeTransitionInstanceAccess().getOwnedPropertyAssociationAssignment_10_1(), "rule__ModeTransitionInstance__OwnedPropertyAssociationAssignment_10_1");
 					put(grammarAccess.getSystemOperationModeAccess().getNameAssignment_1(), "rule__SystemOperationMode__NameAssignment_1");
 					put(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2_0(), "rule__SystemOperationMode__CurrentModeAssignment_2_0");
 					put(grammarAccess.getSystemOperationModeAccess().getCurrentModeAssignment_2_1_1(), "rule__SystemOperationMode__CurrentModeAssignment_2_1_1");
