@@ -682,7 +682,7 @@ public class InstantiateModel {
 				if (tp instanceof Port) {
 					Port port = (Port) tp;
 					FeatureInstance porti = null;
-					Context ctx = triggers.get(0).getContext();
+					Context ctx = t.getContext();
 
 					if (ctx instanceof Subcomponent) {
 						ComponentInstance subi = ci.findSubcomponentInstance((Subcomponent) ctx);
