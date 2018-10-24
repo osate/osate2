@@ -567,7 +567,6 @@ public class InstantiateModel {
 		// do it only if subcomponent has type
 		if (type != null) {
 			instantiateFeatures(ci);
-			instantiateFlowSpecs(ci);
 		}
 		/*
 		 * Add mode transitions. Must do this after adding subcomponents
@@ -577,6 +576,9 @@ public class InstantiateModel {
 			fillModeTransitions(ci, impl.getAllModeTransitions());
 		} else if (type != null) {
 			fillModeTransitions(ci, type.getAllModeTransitions());
+		}
+		if (type != null) {
+			instantiateFlowSpecs(ci);
 		}
 	}
 
