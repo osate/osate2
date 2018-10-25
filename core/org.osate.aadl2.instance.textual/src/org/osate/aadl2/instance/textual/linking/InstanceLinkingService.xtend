@@ -105,7 +105,8 @@ class InstanceLinkingService extends DefaultLinkingService {
 				case flowSpecificationInstance_Source,
 				case flowSpecificationInstance_Destination,
 				case endToEndFlowInstance_FlowElement,
-				case systemOperationMode_CurrentMode: context.getInstanceObject(qName, ref)
+				case systemOperationMode_CurrentMode,
+				case modeTransitionInstance_Trigger: context.getInstanceObject(qName, ref)
 				case connectionInstance_InSystemOperationMode,
 				case endToEndFlowInstance_InSystemOperationMode,
 				case modalElement_InMode: context.getContainerOfType(SystemInstance).systemOperationModes.findFirst[name == qName.firstSegment]

@@ -367,15 +367,275 @@ class Serializer2Test extends AbstractSerializerTest {
 					in eventPort p1 : pkg1::s:p1
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
-					mode transition m1.p1.m2 m1 -> m2 : pkg1::s:mt1
+					mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
 				}
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
-				mode transition m1.p1.m2 m1 -> m2 : pkg1::s:mt1
+				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
 				som "som_0" m1 , sub1[0].m1
 				som "som_1" m1 , sub1[0].m2
 				som "som_2" m2 , sub1[0].m1
 				som "som_3" m2 , sub1[0].m2
+			}''')
+	}
+	
+	@Test
+	def void testModeTransitionTriggers() {
+		val pkg1 = testHelper.parseString('''
+			package pkg1
+			public
+				system s1
+					features
+						port1: in event port;
+						port2: in event port;
+						port3: in event port;
+						arrayPort1: in event port[2];
+						fg1: feature group fgt1;
+						arrayFg1: feature group fgt1[2];
+				end s1;
+				
+				system implementation s1.i
+					subcomponents
+						sub1: system s1;
+						arraySub1: system s1[2];
+						multiArraySub1: system s1[2][2][2];
+					internal features
+						es1: event;
+					processor features
+						pp1: port;
+					modes
+						m1: initial mode;
+						m2: mode;
+						m3: mode;
+						m4: mode;
+						m1 -[port1]-> m2;
+						m2 -[arrayPort1]-> m1;
+						m1 -[self.es1]-> m3;
+						m2 -[processor.pp1]-> m3;
+						m3 -[fg1.port4]-> m1;
+						m3 -[arrayFg1.port4]-> m2;
+						m1 -[sub1.port1]-> m4;
+						m2 -[arraySub1.arrayPort1]-> m4;
+						m3 -[multiArraySub1.arrayPort1]-> m4;
+						m4 -[port1, port2, port3]-> m1;
+				end s1.i;
+				
+				feature group fgt1
+					features
+						port4: in event port;
+				end fgt1;
+			end pkg1;
+		''')
+		assertSerialize(pkg1, "s1.i", '''
+			system s1_i_Instance : pkg1::s1.i {
+				in out featureGroup fg1 : pkg1::s1:fg1 {
+					in eventPort port4 : pkg1::fgt1:port4
+				}
+				in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+					in eventPort port4 : pkg1::fgt1:port4
+				}
+				in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+					in eventPort port4 : pkg1::fgt1:port4
+				}
+				in eventPort port1 : pkg1::s1:port1
+				in eventPort port2 : pkg1::s1:port2
+				in eventPort port3 : pkg1::s1:port3
+				in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+				in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				system pkg1::s1 sub1 [ 0 ] : pkg1::s1.i:sub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 arraySub1 [ 1 ] : pkg1::s1.i:arraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 arraySub1 [ 2 ] : pkg1::s1.i:arraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 1 ] [ 1 ] [ 1 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 1 ] [ 1 ] [ 2 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 1 ] [ 2 ] [ 1 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 1 ] [ 2 ] [ 2 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 2 ] [ 1 ] [ 1 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 2 ] [ 1 ] [ 2 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 2 ] [ 2 ] [ 1 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				system pkg1::s1 multiArraySub1 [ 2 ] [ 2 ] [ 2 ] : pkg1::s1.i:multiArraySub1 {
+					in out featureGroup fg1 : pkg1::s1:fg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 1 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in out featureGroup arrayFg1 [ 2 ] : pkg1::s1:arrayFg1 {
+						in eventPort port4 : pkg1::fgt1:port4
+					}
+					in eventPort port1 : pkg1::s1:port1
+					in eventPort port2 : pkg1::s1:port2
+					in eventPort port3 : pkg1::s1:port3
+					in eventPort arrayPort1 [ 1 ] : pkg1::s1:arrayPort1
+					in eventPort arrayPort1 [ 2 ] : pkg1::s1:arrayPort1
+				}
+				initial mode m1 : pkg1::s1.i:m1
+				mode m2 : pkg1::s1.i:m2
+				mode m3 : pkg1::s1.i:m3
+				mode m4 : pkg1::s1.i:m4
+				mode transition m1.port1.m2 m1 -[ port1 ]-> m2 : pkg1::s1.i:transition#0
+				mode transition m2.arrayPort1.m1 m2 -[ arrayPort1[1] ]-> m1 : pkg1::s1.i:transition#1
+				mode transition m1.es1.m3 m1 -[ ]-> m3 : pkg1::s1.i:transition#2
+				mode transition m2.pp1.m3 m2 -[ ]-> m3 : pkg1::s1.i:transition#3
+				mode transition m3.port4.m1 m3 -[ fg1.port4 ]-> m1 : pkg1::s1.i:transition#4
+				mode transition m3.port4.m2 m3 -[ arrayFg1[1].port4 ]-> m2 : pkg1::s1.i:transition#5
+				mode transition m1.sub1.port1.m4 m1 -[ sub1[0].port1 ]-> m4 : pkg1::s1.i:transition#6
+				mode transition m2.arraySub1.arrayPort1.m4 m2 -[ arraySub1[1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#7
+				mode transition m3.multiArraySub1.arrayPort1.m4 m3 -[ multiArraySub1[1][1][1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#8
+				mode transition m4.port1.m1 m4 -[ port1 , port2 , port3 ]-> m1 : pkg1::s1.i:transition#9
+				som "som_0" m1
+				som "som_1" m2
+				som "som_2" m3
+				som "som_3" m4
 			}''')
 	}
 	
@@ -429,7 +689,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				flow f1 ( p3 -> ) in transitions ( transition#0 ) : pkg1::s3:f1
 				initial mode m1 : pkg1::s3:m1
 				mode m2 : pkg1::s3:m2
-				mode transition m1.p3.m2 m1 -> m2 : pkg1::s3:mt1
+				mode transition m1.p3.m2 m1 -[ p3 ]-> m2 : pkg1::s3:mt1
 				som "som_0" m1
 				som "som_1" m2
 			}''')
@@ -505,10 +765,10 @@ class Serializer2Test extends AbstractSerializerTest {
 						ps1::bool1 => true : pkg1::s1:m1:property#0
 					}
 					mode m2 : pkg1::s1:m2
-					mode transition m1.p2.m2 m1 -> m2 : pkg1::s1:mt1 {
+					mode transition m1.p2.m2 m1 -[ p2 ]-> m2 : pkg1::s1:mt1 {
 						ps1::bool1 => true : pkg1::s1:mt1:property#0
 					}
-					mode transition m2.p2.m1 m2 -> m1 : pkg1::s1:transition#1 {
+					mode transition m2.p2.m1 m2 -[ p2 ]-> m1 : pkg1::s1:transition#1 {
 						ps1::bool1 => true : pkg1::s1:transition#1:property#0
 					}
 					ps1::bool1 => true : pkg1::s3.i:sub1:property#0
@@ -765,7 +1025,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
-				mode transition m1.p1.m2 m1 -> m2 : pkg1::s1:mt1
+				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s1:mt1
 				som "som_0" m1
 				som "som_1" m2
 				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0

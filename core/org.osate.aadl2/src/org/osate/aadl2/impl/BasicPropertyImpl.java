@@ -155,7 +155,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
-				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType)
+				: propertyType;
 	}
 
 	/**

@@ -205,7 +205,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**

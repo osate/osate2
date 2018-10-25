@@ -271,7 +271,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<>(FeatureInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;
@@ -297,7 +297,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<ComponentInstance> getComponentInstances() {
 		if (componentInstances == null) {
-			componentInstances = new EObjectContainmentEList<ComponentInstance>(ComponentInstance.class, this,
+			componentInstances = new EObjectContainmentEList<>(ComponentInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__COMPONENT_INSTANCE);
 		}
 		return componentInstances;
@@ -377,7 +377,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<Long> getIndices() {
 		if (indices == null) {
-			indices = new EDataTypeEList<Long>(Long.class, this, InstancePackage.COMPONENT_INSTANCE__INDEX);
+			indices = new EDataTypeEList<>(Long.class, this, InstancePackage.COMPONENT_INSTANCE__INDEX);
 		}
 		return indices;
 	}
@@ -434,7 +434,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<ModeInstance> getModeInstances() {
 		if (modeInstances == null) {
-			modeInstances = new EObjectContainmentEList<ModeInstance>(ModeInstance.class, this,
+			modeInstances = new EObjectContainmentEList<>(ModeInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__MODE_INSTANCE);
 		}
 		return modeInstances;
@@ -460,7 +460,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<ModeTransitionInstance> getModeTransitionInstances() {
 		if (modeTransitionInstances == null) {
-			modeTransitionInstances = new EObjectContainmentEList<ModeTransitionInstance>(ModeTransitionInstance.class,
+			modeTransitionInstances = new EObjectContainmentEList<>(ModeTransitionInstance.class,
 					this, InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
 		}
 		return modeTransitionInstances;
@@ -512,7 +512,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -526,7 +526,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<FlowSpecificationInstance> getFlowSpecifications() {
 		if (flowSpecifications == null) {
-			flowSpecifications = new EObjectContainmentEList<FlowSpecificationInstance>(FlowSpecificationInstance.class,
+			flowSpecifications = new EObjectContainmentEList<>(FlowSpecificationInstance.class,
 					this, InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION);
 		}
 		return flowSpecifications;
@@ -553,7 +553,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<EndToEndFlowInstance> getEndToEndFlows() {
 		if (endToEndFlows == null) {
-			endToEndFlows = new EObjectContainmentEList<EndToEndFlowInstance>(EndToEndFlowInstance.class, this,
+			endToEndFlows = new EObjectContainmentEList<>(EndToEndFlowInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW);
 		}
 		return endToEndFlows;
@@ -580,7 +580,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	public EList<ConnectionInstance> getConnectionInstances() {
 		if (connectionInstances == null) {
-			connectionInstances = new EObjectContainmentEList<ConnectionInstance>(ConnectionInstance.class, this,
+			connectionInstances = new EObjectContainmentEList<>(ConnectionInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE);
 		}
 		return connectionInstances;
@@ -987,7 +987,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return null;
 		} else {
 			// Get all SOMs that contain one of the mode instances in inModes
-			final List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
+			final List<SystemOperationMode> processedModes = new ArrayList<>();
 
 			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
 				for (ModeInstance mi : som.getCurrentModes()) {
@@ -1008,7 +1008,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public EList<ConnectionInstance> findConnectionInstance(Connection conn) {
-		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		EList<ConnectionInstance> result = new BasicEList<>();
 
 		for (ConnectionInstance conni : getSystemInstance().allConnectionInstances()) {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
@@ -1080,7 +1080,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public EList<ComponentInstance> getAllComponentInstances() {
-		EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
+		EList<ComponentInstance> result = new BasicEList<>();
 		doAddComponentInstances(result);
 		return result;
 	}
@@ -1099,7 +1099,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public EList<ComponentInstance> getAllComponentInstances(ComponentCategory category) {
-		EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
+		EList<ComponentInstance> result = new BasicEList<>();
 		doAddComponentInstances(result, category);
 		return result;
 	}
@@ -1120,7 +1120,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public EList<FeatureInstance> getAllFeatureInstances() {
-		EList<FeatureInstance> result = new BasicEList<FeatureInstance>();
+		EList<FeatureInstance> result = new BasicEList<>();
 		for (FeatureInstance fi : getFeatureInstances()) {
 			addLeafFeatures(result, fi);
 		}
@@ -1143,7 +1143,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	@Override
 	public EList<FeatureInstance> getAllFeatureInstances(FeatureCategory category) {
-		EList<FeatureInstance> result = new BasicEList<FeatureInstance>();
+		EList<FeatureInstance> result = new BasicEList<>();
 		for (FeatureInstance fi : getFeatureInstances()) {
 			doAddFeatureInstances(result, fi, category);
 		}

@@ -310,7 +310,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -324,7 +324,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;

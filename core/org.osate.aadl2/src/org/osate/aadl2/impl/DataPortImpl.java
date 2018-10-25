@@ -99,7 +99,8 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
-				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**

@@ -6,7 +6,7 @@ print("Open UML file");
 explorerView = bot.viewByTitle("Package Explorer");
 explorerView.show();
 explorer = explorerView.bot().tree()
-node = findTreeItem(explorer.getAllItems(), "osate2-core")
+node = findTreeItem(explorer.getAllItems(), "core")
 waitExpand(node);
 node = findTreeItem(node.getItems(), "org.osate.aadl2.metamodel");
 waitExpand(node);
@@ -64,7 +64,7 @@ editor.close();
 
 //reload genmodel file
 print("Reload generator model");
-node = findTreeItem(explorer.getAllItems(), "osate2-core")
+node = findTreeItem(explorer.getAllItems(), "core")
 waitExpand(node);
 node = findTreeItem(node.getItems(), "org.osate.aadl2");
 waitExpand(node);

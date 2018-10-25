@@ -108,7 +108,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	public PropertyType getElementType() {
 		PropertyType elementType = basicGetElementType();
 		return elementType != null && ((EObject) elementType).eIsProxy()
-				? (PropertyType) eResolveProxy((InternalEObject) elementType) : elementType;
+				? (PropertyType) eResolveProxy((InternalEObject) elementType)
+				: elementType;
 	}
 
 	/**
