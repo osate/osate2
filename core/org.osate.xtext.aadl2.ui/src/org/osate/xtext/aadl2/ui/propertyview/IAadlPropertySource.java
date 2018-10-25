@@ -20,9 +20,4 @@ public interface IAadlPropertySource {
 	 * @return the Xtext document
 	 */
 	IXtextDocument getDocument();
-
-	/**
-	 * Refresh editor selection
-	 */
-	void refreshEditorSelection();
 }
