@@ -144,9 +144,13 @@
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
     			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
     			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
 			    <contentExtension pattern="org.osate.ui.navigator.menuActions" />
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper" />
+    <contentExtension
+          pattern="org.osate.ui.navigator viewerRefresher">
+    </contentExtension>
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding
@@ -173,6 +177,22 @@
          </enablement>
          <commonSorter
                class="org.osate.ui.navigator.AadlContributionSorter">
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ui.navigator.AadlProjectDependenciesContentProvider"
+            id="org.osate.ui.navigator.aadlProjectDependencies"
+            labelProvider="org.osate.ui.navigator.AadlProjectDependenciesLabelProvider"
+            name="AADL Project Dependencies">
+         <enablement>
+         	<or>
+            	<instanceof value="org.eclipse.core.resources.IProject" />
+            	<instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+            </or>
+         </enablement>
+         <commonSorter
+               class="org.osate.ui.navigator.AadlProjectDependenciesSorter">
          </commonSorter>
       </navigatorContent>
       <navigatorContent
@@ -254,6 +274,35 @@
 			    </or>
          </enablement>
       </actionProvider>
+      <actionProvider
+            class="org.osate.ui.navigator.AadlProjectDependenciesActionProvider"
+            id="org.osate.ui.navigator.editDependencies">
+         <enablement>
+        	 <or>
+		         <and>
+		            <instanceof value="org.eclipse.core.resources.IProject" />
+		            <test property="org.eclipse.core.resources.open" />
+		            <test
+		                  property="org.eclipse.core.resources.projectNature"
+		                  value="org.osate.core.aadlnature" />
+		         </and>
+		         
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+		         <instanceof value="org.osate.ui.navigator.VirtualProjectNode" />
+		     </or>
+         </enablement>
+      </actionProvider>
+      <navigatorContent
+            contentProvider="org.osate.ui.navigator.ViewerRefresher"
+            id="org.osate.ui.navigator viewerRefresher"
+            labelProvider="org.osate.ui.navigator.NullLabelProvider"
+            name="Viewer Refresher">
+         <enablement>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enablement>
+      </navigatorContent>
    </extension>
    
    <extension 
