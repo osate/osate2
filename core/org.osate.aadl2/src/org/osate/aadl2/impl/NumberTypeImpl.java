@@ -234,7 +234,8 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	public UnitsType getUnitsType() {
 		UnitsType unitsType = basicGetUnitsType();
 		return unitsType != null && ((EObject) unitsType).eIsProxy()
-				? (UnitsType) eResolveProxy((InternalEObject) unitsType) : unitsType;
+				? (UnitsType) eResolveProxy((InternalEObject) unitsType)
+				: unitsType;
 	}
 
 	/**

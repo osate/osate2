@@ -3352,7 +3352,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	private String getRedefinitionDetail(EClass eClass, String featureName, String key) {
-		List<EClass> eClasses = new ArrayList<EClass>();
+		List<EClass> eClasses = new ArrayList<>();
 		eClasses.add(eClass);
 		eClasses.addAll(eClass.getEAllSuperTypes());
 		String redefinitionDetail = null;

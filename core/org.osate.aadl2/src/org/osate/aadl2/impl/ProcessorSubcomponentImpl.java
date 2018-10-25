@@ -99,7 +99,8 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements Proce
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
-				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType) : subcomponentType;
+				? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+				: subcomponentType;
 	}
 
 	/**

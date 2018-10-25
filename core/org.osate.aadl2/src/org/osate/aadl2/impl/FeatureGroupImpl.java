@@ -187,7 +187,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	public FeatureGroupType getFeatureGroupType() {
 		EObject featureGroupType = getFeatureType();
 		return (FeatureGroupType) (featureGroupType instanceof FeatureGroupType && !featureGroupType.eIsProxy()
-				? featureGroupType : null);
+				? featureGroupType
+				: null);
 	}
 
 	/**

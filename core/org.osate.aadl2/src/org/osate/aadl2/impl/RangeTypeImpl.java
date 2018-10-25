@@ -109,7 +109,8 @@ public class RangeTypeImpl extends NonListTypeImpl implements RangeType {
 	public NumberType getNumberType() {
 		NumberType numberType = basicGetNumberType();
 		return numberType != null && ((EObject) numberType).eIsProxy()
-				? (NumberType) eResolveProxy((InternalEObject) numberType) : numberType;
+				? (NumberType) eResolveProxy((InternalEObject) numberType)
+				: numberType;
 	}
 
 	/**

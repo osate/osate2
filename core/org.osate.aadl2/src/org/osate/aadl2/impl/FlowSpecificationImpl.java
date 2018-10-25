@@ -201,7 +201,7 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.FLOW_SPECIFICATION__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -701,7 +701,8 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**

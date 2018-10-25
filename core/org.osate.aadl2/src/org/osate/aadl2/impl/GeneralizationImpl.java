@@ -98,12 +98,12 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Target());
 			if (targets == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
-						targets = new DerivedUnionEObjectEList<Element>(Element.class, this,
+						targets = new DerivedUnionEObjectEList<>(Element.class, this,
 								Aadl2Package.GENERALIZATION__TARGET, TARGET_ESUBSETS));
 			}
 			return targets;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
 				TARGET_ESUBSETS);
 	}
 
@@ -132,12 +132,12 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Source());
 			if (sources == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
-						sources = new DerivedUnionEObjectEList<Element>(Element.class, this,
+						sources = new DerivedUnionEObjectEList<>(Element.class, this,
 								Aadl2Package.GENERALIZATION__SOURCE, SOURCE_ESUBSETS));
 			}
 			return sources;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
 				SOURCE_ESUBSETS);
 	}
 
