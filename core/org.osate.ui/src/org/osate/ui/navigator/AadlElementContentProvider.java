@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.PackageSection;
@@ -102,12 +101,6 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 		} catch (CoreException e) {
 			// ignore
 		}
-		Display.getDefault().asyncExec(() -> {
-			TreeViewer tv = (TreeViewer) viewer;
-			Object[] expanded = tv.getExpandedElements();
-			viewer.refresh();
-			tv.setExpandedElements(expanded);
-		});
 	}
 
 	@Override

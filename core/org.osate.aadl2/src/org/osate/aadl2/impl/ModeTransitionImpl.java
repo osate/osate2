@@ -212,7 +212,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	@Override
 	public EList<ModeTransitionTrigger> getOwnedTriggers() {
 		if (ownedTriggers == null) {
-			ownedTriggers = new EObjectContainmentEList<ModeTransitionTrigger>(ModeTransitionTrigger.class, this,
+			ownedTriggers = new EObjectContainmentEList<>(ModeTransitionTrigger.class, this,
 					Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER);
 		}
 		return ownedTriggers;

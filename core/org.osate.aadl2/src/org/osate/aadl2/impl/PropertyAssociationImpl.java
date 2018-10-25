@@ -185,7 +185,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	@Override
 	public EList<ContainedNamedElement> getAppliesTos() {
 		if (appliesTos == null) {
-			appliesTos = new EObjectContainmentEList<ContainedNamedElement>(ContainedNamedElement.class, this,
+			appliesTos = new EObjectContainmentEList<>(ContainedNamedElement.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO);
 		}
 		return appliesTos;
@@ -221,7 +221,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	@Override
 	public EList<Classifier> getInBindings() {
 		if (inBindings == null) {
-			inBindings = new EObjectResolvingEList<Classifier>(Classifier.class, this,
+			inBindings = new EObjectResolvingEList<>(Classifier.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__IN_BINDING);
 		}
 		return inBindings;
@@ -285,7 +285,7 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	@Override
 	public EList<ModalPropertyValue> getOwnedValues() {
 		if (ownedValues == null) {
-			ownedValues = new EObjectContainmentEList<ModalPropertyValue>(ModalPropertyValue.class, this,
+			ownedValues = new EObjectContainmentEList<>(ModalPropertyValue.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE);
 		}
 		return ownedValues;

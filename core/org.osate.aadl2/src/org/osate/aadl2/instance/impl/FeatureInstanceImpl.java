@@ -305,7 +305,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	@Override
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
-			srcFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+			srcFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		}
@@ -320,7 +320,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	@Override
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
-			dstFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
+			dstFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		}
@@ -335,7 +335,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	@Override
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<>(FeatureInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;

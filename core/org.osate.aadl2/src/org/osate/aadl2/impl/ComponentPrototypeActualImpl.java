@@ -161,7 +161,7 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	@Override
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;

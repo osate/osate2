@@ -143,7 +143,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
 		@Override
 		protected LinkedList<Property> initialValue() {
-			return new LinkedList<Property>();
+			return new LinkedList<>();
 		}
 	};
 
@@ -209,7 +209,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
-			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class,
+			ownedPropertyAssociations = new EObjectContainmentEList<>(PropertyAssociation.class,
 					this, Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION);
 		}
 		return ownedPropertyAssociations;
@@ -464,9 +464,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * 				  reference dependencies.
 	 */
 	@Override
-	public PropertyAcc getPropertyValue(final Property property, final boolean all)
-			throws IllegalStateException, InvalidModelException,
-			PropertyDoesNotApplyToHolderException, IllegalArgumentException {
+	public PropertyAcc getPropertyValue(final Property property, final boolean all) throws IllegalStateException,
+			InvalidModelException, PropertyDoesNotApplyToHolderException, IllegalArgumentException {
 		// Error if the property is not acceptable
 		if (property == null) {
 			throw new IllegalArgumentException("Property property cannot be null.");
@@ -517,8 +516,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 */
 	@Override
 	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
-			final boolean all)
-			throws InvalidModelException {
+			final boolean all) throws InvalidModelException {
 		if (!fromInstanceSlaveCall && getContainingClassifier() != null
 				&& pas.addLocalContained(this, getContainingClassifier())) {
 			if (!all) {
@@ -672,7 +670,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			if (pe instanceof ListValue) {
 				return ((ListValue) pe).getOwnedListElements();
 			} else {
-				List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
+				List<PropertyExpression> pes = new BasicEList<>();
 
 				pes.add(pe);
 				return pes;
