@@ -86,7 +86,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
 		return refinementContext != null && ((EObject) refinementContext).eIsProxy()
-				? (Classifier) eResolveProxy((InternalEObject) refinementContext) : refinementContext;
+				? (Classifier) eResolveProxy((InternalEObject) refinementContext)
+				: refinementContext;
 	}
 
 	/**
@@ -109,7 +110,8 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**

@@ -60,10 +60,6 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 	val extension InstancePackage = InstancePackage.eINSTANCE
 	val extension Aadl2Package = Aadl2Package.eINSTANCE
 
-	override isValid(EObject semanticObject, CrossReference crossref, EObject target, INode node, Acceptor errors) {
-		super.isValid(semanticObject, crossref, target, node, errors)
-	}
-
 	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node, Acceptor errors) {
 		switch crossref.getReference(semanticObject.eClass) {
 			case systemInstance_ComponentImplementation,
@@ -97,7 +93,8 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case flowSpecificationInstance_Source,
 			case flowSpecificationInstance_Destination,
 			case endToEndFlowInstance_FlowElement,
-			case systemOperationMode_CurrentMode: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(ComponentInstance))
+			case systemOperationMode_CurrentMode,
+			case modeTransitionInstance_Trigger: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(ComponentInstance))
 			
 			case connectionInstance_InModeTransition,
 			case flowSpecificationInstance_InModeTransition: "transition#" + target.getContainerOfType(ComponentInstance).modeTransitionInstances.indexOf(target)
@@ -149,7 +146,7 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 		result.toString
 	}
 
-	def private static serializeChainSegment(EObject segment) {
+	def private static String serializeChainSegment(EObject segment) {
 		switch segment {
 			ComponentInstance: '''«segment.name»«FOR index : segment.indices»[«index»]«ENDFOR»'''
 			FeatureInstance: '''«segment.name»«IF segment.index != 0»[«segment.index»]«ENDIF»'''

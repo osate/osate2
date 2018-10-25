@@ -35,6 +35,7 @@
  */
 package org.osate.aadl2.instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ModeTransition;
 
 /**
@@ -48,6 +49,7 @@ import org.osate.aadl2.ModeTransition;
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getModeTransition <em>Mode Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getTriggers <em>Trigger</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeTransitionInstance#getSource <em>Source</em>}</li>
  * </ul>
  *
@@ -109,6 +111,22 @@ public interface ModeTransitionInstance extends ConnectionInstanceEnd, InstanceO
 	 * @generated
 	 */
 	void setModeTransition(ModeTransition value);
+
+	/**
+	 * Returns the value of the '<em><b>Trigger</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.FeatureInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Trigger</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Trigger</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getModeTransitionInstance_Trigger()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	EList<FeatureInstance> getTriggers();
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.

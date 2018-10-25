@@ -550,9 +550,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	@Override
 	public final void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall,
-			final boolean all)
-			throws InvalidModelException {
-		//Do nothing because there should be no properties looked up on a ConnectionReference.
+			final boolean all) throws InvalidModelException {
+		// Do nothing because there should be no properties looked up on a ConnectionReference.
 	}
 
 } // ConnectionReferenceImpl

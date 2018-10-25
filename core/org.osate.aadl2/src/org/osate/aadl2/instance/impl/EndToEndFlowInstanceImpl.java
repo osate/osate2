@@ -214,7 +214,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	@Override
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -228,7 +228,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<>(SystemOperationMode.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -332,7 +332,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	@Override
 	public EList<EList<ModeInstance>> getModesList() {
 		if (modesList == null) {
-			modesList = new BasicEList<EList<ModeInstance>>();
+			modesList = new BasicEList<>();
 		}
 		return modesList;
 	}
@@ -348,7 +348,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			// /* inModes is a list of ModeInstances. We want all the SOMs that contain
 			// * these mode instances.
 			// */
-			List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
+			List<SystemOperationMode> processedModes = new ArrayList<>();
 			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
 				for (ModeInstance mi : som.getCurrentModes()) {
 					if (inModes.contains(mi)) {
