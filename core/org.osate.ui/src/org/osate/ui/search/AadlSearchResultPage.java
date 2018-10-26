@@ -6,6 +6,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -28,13 +30,21 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
+import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.osate.search.AadlSearchResult;
 import org.osate.search.AadlSearchResultEvent;
 import org.osate.search.FoundDeclarationEvent;
 import org.osate.search.FoundReferenceEvent;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public final class AadlSearchResultPage implements ISearchResultListener, ISearchResultPage {
 	private static final Object[] NO_CHILDREN = new Object[0];
+
+	@Inject
+	private IURIEditorOpener editorOpener;
 
 	private AadlSearchResult searchResult;
 	private IPageSite pageSite;
@@ -48,7 +58,9 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 	private final List[] inputNode = { declsList, refsList };
 
 	public AadlSearchResultPage() {
-		super();
+		// XXX Stole this from AadlNavigatorActionProvider, not sure if this is correct
+		final Injector injector = Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
+		editorOpener = injector.getInstance(IURIEditorOpener.class);
 	}
 
 	@Override
@@ -79,6 +91,11 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 		treeViewer.setLabelProvider(new TreeLabelProvider());
 		treeViewer.setContentProvider(new TreeContentProvider());
 		treeViewer.setInput(inputNode);
+
+		treeViewer.addDoubleClickListener(event -> {
+			openURI(event);
+		});
+
 	}
 
 	@Override
@@ -185,6 +202,23 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 			}
 
 			Display.getDefault().asyncExec(() -> treeViewer.refresh());
+		}
+	}
+
+	// Called in the UI thread
+	private final void openURI(final DoubleClickEvent event) {
+		final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
+		final Object selectedNode = selected.getFirstElement();
+		if (selectedNode instanceof URI) {
+			editorOpener.open((URI) selectedNode, true);
+		} else {
+			if (treeViewer.isExpandable(selectedNode)) {
+				if (treeViewer.getExpandedState(selectedNode)) {
+					treeViewer.collapseToLevel(selectedNode, 1);
+				} else {
+					treeViewer.expandToLevel(selectedNode, 1);
+				}
+			}
 		}
 	}
 
