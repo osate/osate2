@@ -265,7 +265,6 @@ class AadlPropertyView extends ViewPart {
 		}
 
 		override partActivated(IWorkbenchPart part) {
-			System.err.println(part + " part")
 			if (part instanceof XtextEditor) {
 				val selectionProvider = part.internalSourceViewer.selectionProvider
 				if (selectionProvider instanceof IPostSelectionProvider) {
@@ -959,7 +958,6 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
-		System.err.println(selection.class + " selection")
 		xtextDocument?.removeModelListener(xtextModelListener)
 		selectedPart = part
 		val currentSelection = switch selection {
