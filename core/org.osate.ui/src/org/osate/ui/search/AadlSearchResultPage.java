@@ -115,10 +115,17 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 			// clean up old search
 			if (searchResult != null) {
 				searchResult.removeListener(this);
+				searchResult = null;
 			}
+			declsList.clear();
+			refsList.clear();
 		} else {
-			searchResult = (AadlSearchResult) search;
-			search.addListener(this);
+			final AadlSearchResult aadlSearchResult = (AadlSearchResult) search;
+			searchResult = aadlSearchResult;
+			aadlSearchResult.addListener(this);
+			aadlSearchResult.getFoundDeclarations().forEach(objDesc -> declsList.add(objDesc.getEObjectURI()));
+			aadlSearchResult.getFoundReferences().forEach(refDesc -> refsList.add(refDesc.getSourceEObjectUri()));
+			Display.getDefault().asyncExec(() -> treeViewer.refresh());
 		}
 	}
 

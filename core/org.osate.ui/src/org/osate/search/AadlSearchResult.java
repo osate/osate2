@@ -1,5 +1,8 @@
 package org.osate.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -15,8 +18,8 @@ public final class AadlSearchResult implements ISearchResult {
 	private final AadlSearchQuery searchQuery;
 	private final ListenerList<ISearchResultListener> listeners = new ListenerList<>();
 
-	private int numFoundDeclarations = 0;
-	private int numFoundReferences = 0;
+	private List<IEObjectDescription> foundDeclarations = new ArrayList<>();
+	private List<IReferenceDescription> foundReferences = new ArrayList<>();
 
 	public AadlSearchResult(final AadlSearchQuery searchQuery) {
 		this.searchQuery = searchQuery;
@@ -46,14 +49,14 @@ public final class AadlSearchResult implements ISearchResult {
 		final StringBuilder sb = new StringBuilder(searchQuery.getLabel());
 		sb.append("; Found ");
 		if (limitTo.declarations()) {
-			sb.append(numFoundDeclarations);
+			sb.append(foundDeclarations.size());
 			sb.append(" declarations");
 			if (limitTo.references()) {
 				sb.append(" and ");
 			}
 		}
 		if (limitTo.references()) {
-			sb.append(numFoundReferences);
+			sb.append(foundReferences.size());
 			sb.append(" references");
 		}
 		return sb.toString();
@@ -76,12 +79,20 @@ public final class AadlSearchResult implements ISearchResult {
 	}
 
 	public void addFoundDeclaration(final ResourceSet resourceSet, final IEObjectDescription objDesc) {
-		numFoundDeclarations += 1;
+		foundDeclarations.add(objDesc);
 		notifyListeners(new FoundDeclarationEvent(this, resourceSet, objDesc));
 	}
 
 	public void addFoundReference(final ResourceSet resourceSet, final IReferenceDescription refDesc) {
-		numFoundReferences += 1;
+		foundReferences.add(refDesc);
 		notifyListeners(new FoundReferenceEvent(this, resourceSet, refDesc));
+	}
+
+	public Iterable<IEObjectDescription> getFoundDeclarations() {
+		return foundDeclarations;
+	}
+
+	public Iterable<IReferenceDescription> getFoundReferences() {
+		return foundReferences;
 	}
 }
