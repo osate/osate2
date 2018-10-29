@@ -159,7 +159,7 @@ VerificationMethod:
 	;
 
 MethodKind:
-	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod|JUnit4Method
+	ResoluteMethod | JavaMethod | ManualMethod | PluginMethod | AgreeMethod|JUnit4Method | PythonMethod
 ;
 	
 	ResoluteMethod:
@@ -168,6 +168,10 @@ MethodKind:
 	
 	JavaMethod:
 		'java' methodPath=QualifiedName ('(' (params+=JavaParameter (',' params+=JavaParameter)*)?')')?
+	;
+	
+	PythonMethod:
+		'python' methodPath=QualifiedName
 	;
 	
 	ManualMethod:
