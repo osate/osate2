@@ -794,6 +794,34 @@ public interface VerifyPackage extends EPackage
   int JAVA_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.PythonMethodImpl <em>Python Method</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.PythonMethodImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPythonMethod()
+   * @generated
+   */
+  int PYTHON_METHOD = 13;
+
+  /**
+   * The feature id for the '<em><b>Method Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PYTHON_METHOD__METHOD_PATH = METHOD_KIND_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Python Method</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PYTHON_METHOD_FEATURE_COUNT = METHOD_KIND_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -801,7 +829,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getManualMethod()
    * @generated
    */
-  int MANUAL_METHOD = 13;
+  int MANUAL_METHOD = 14;
 
   /**
    * The feature id for the '<em><b>Dialog ID</b></em>' attribute.
@@ -829,7 +857,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPluginMethod()
    * @generated
    */
-  int PLUGIN_METHOD = 14;
+  int PLUGIN_METHOD = 15;
 
   /**
    * The feature id for the '<em><b>Method ID</b></em>' attribute.
@@ -857,7 +885,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAgreeMethod()
    * @generated
    */
-  int AGREE_METHOD = 15;
+  int AGREE_METHOD = 16;
 
   /**
    * The feature id for the '<em><b>Single Layer</b></em>' attribute.
@@ -894,7 +922,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJUnit4Method()
    * @generated
    */
-  int JUNIT4_METHOD = 16;
+  int JUNIT4_METHOD = 17;
 
   /**
    * The feature id for the '<em><b>Class Path</b></em>' attribute.
@@ -922,7 +950,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getJavaParameter()
    * @generated
    */
-  int JAVA_PARAMETER = 17;
+  int JAVA_PARAMETER = 18;
 
   /**
    * The feature id for the '<em><b>Parameter Type</b></em>' attribute.
@@ -959,7 +987,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getThenExpr()
    * @generated
    */
-  int THEN_EXPR = 18;
+  int THEN_EXPR = 19;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -996,7 +1024,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getElseExpr()
    * @generated
    */
-  int ELSE_EXPR = 19;
+  int ELSE_EXPR = 20;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1051,7 +1079,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 20;
+  int ALL_EXPR = 21;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -1079,7 +1107,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 21;
+  int REF_EXPR = 22;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -1107,7 +1135,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 22;
+  int VERIFICATION_VALIDATION = 23;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1144,7 +1172,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 23;
+  int VERIFICATION_PRECONDITION = 24;
 
   /**
    * The feature id for the '<em><b>Method</b></em>' reference.
@@ -1886,6 +1914,27 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getJavaMethod_Params();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.PythonMethod <em>Python Method</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Python Method</em>'.
+   * @see org.osate.verify.verify.PythonMethod
+   * @generated
+   */
+  EClass getPythonMethod();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.PythonMethod#getMethodPath <em>Method Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Method Path</em>'.
+   * @see org.osate.verify.verify.PythonMethod#getMethodPath()
+   * @see #getPythonMethod()
+   * @generated
+   */
+  EAttribute getPythonMethod_MethodPath();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ManualMethod <em>Manual Method</em>}'.
@@ -2738,6 +2787,24 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference JAVA_METHOD__PARAMS = eINSTANCE.getJavaMethod_Params();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.PythonMethodImpl <em>Python Method</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.PythonMethodImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getPythonMethod()
+     * @generated
+     */
+    EClass PYTHON_METHOD = eINSTANCE.getPythonMethod();
+
+    /**
+     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PYTHON_METHOD__METHOD_PATH = eINSTANCE.getPythonMethod_MethodPath();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ManualMethodImpl <em>Manual Method</em>}' class.

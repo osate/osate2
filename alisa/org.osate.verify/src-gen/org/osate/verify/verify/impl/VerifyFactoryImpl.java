@@ -90,6 +90,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.METHOD_KIND: return createMethodKind();
       case VerifyPackage.RESOLUTE_METHOD: return createResoluteMethod();
       case VerifyPackage.JAVA_METHOD: return createJavaMethod();
+      case VerifyPackage.PYTHON_METHOD: return createPythonMethod();
       case VerifyPackage.MANUAL_METHOD: return createManualMethod();
       case VerifyPackage.PLUGIN_METHOD: return createPluginMethod();
       case VerifyPackage.AGREE_METHOD: return createAgreeMethod();
@@ -247,6 +248,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     JavaMethodImpl javaMethod = new JavaMethodImpl();
     return javaMethod;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PythonMethod createPythonMethod()
+  {
+    PythonMethodImpl pythonMethod = new PythonMethodImpl();
+    return pythonMethod;
   }
 
   /**
