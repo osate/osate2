@@ -131,7 +131,8 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
 import org.eclipse.xtext.resource.SaveOptions
 import org.eclipse.emf.transaction.RecordingCommand
-import org.eclipse.ui.part.EditorPart
+import org.eclipse.core.runtime.Adapters
+import org.eclipse.jface.viewers.ITreeSelection
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -270,8 +271,6 @@ class AadlPropertyView extends ViewPart {
 				if (selectionProvider instanceof IPostSelectionProvider) {
 					selectionProvider.addPostSelectionChangedListener(selectionChangedListener)
 				}
-			} else if (part instanceof EditorPart) {
-				updateSelection(part.editorSite.selectionProvider.selection)
 			}
 		}
 	}
@@ -967,6 +966,14 @@ class AadlPropertyView extends ViewPart {
 			ITextSelection case part instanceof XtextEditor: {
 				xtextDocument = (part as XtextEditor).document
 				xtextDocument.readOnly[new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
+			}
+			// Outline selection
+			ITreeSelection: {
+				val propertySource = Adapters.adapt(selection, IAadlPropertySource)
+				if (propertySource !== null) {
+					xtextDocument = propertySource.document
+					propertySource.namedElement
+				}
 			}
 			IStructuredSelection case selection.size == 1: {
 				switch selectedObject : selection.firstElement {
