@@ -1370,29 +1370,42 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSourceAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cSourceModeInstanceCrossReference_3_0 = (CrossReference)cSourceAssignment_3.eContents().get(0);
 		private final RuleCall cSourceModeInstanceIDTerminalRuleCall_3_0_1 = (RuleCall)cSourceModeInstanceCrossReference_3_0.eContents().get(1);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cDestinationAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cDestinationModeInstanceCrossReference_5_0 = (CrossReference)cDestinationAssignment_5.eContents().get(0);
-		private final RuleCall cDestinationModeInstanceIDTerminalRuleCall_5_0_1 = (RuleCall)cDestinationModeInstanceCrossReference_5_0.eContents().get(1);
-		private final Keyword cColonKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cModeTransitionAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final CrossReference cModeTransitionModeTransitionCrossReference_7_0 = (CrossReference)cModeTransitionAssignment_7.eContents().get(0);
-		private final RuleCall cModeTransitionModeTransitionDeclarativeRefParserRuleCall_7_0_1 = (RuleCall)cModeTransitionModeTransitionCrossReference_7_0.eContents().get(1);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cLeftCurlyBracketKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_8_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_8_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
+		private final Keyword cHyphenMinusLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cTriggerAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final CrossReference cTriggerFeatureInstanceCrossReference_5_0_0 = (CrossReference)cTriggerAssignment_5_0.eContents().get(0);
+		private final RuleCall cTriggerFeatureInstanceInstanceRefParserRuleCall_5_0_0_1 = (RuleCall)cTriggerFeatureInstanceCrossReference_5_0_0.eContents().get(1);
+		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
+		private final Keyword cCommaKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cTriggerAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final CrossReference cTriggerFeatureInstanceCrossReference_5_1_1_0 = (CrossReference)cTriggerAssignment_5_1_1.eContents().get(0);
+		private final RuleCall cTriggerFeatureInstanceInstanceRefParserRuleCall_5_1_1_0_1 = (RuleCall)cTriggerFeatureInstanceCrossReference_5_1_1_0.eContents().get(1);
+		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cDestinationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cDestinationModeInstanceCrossReference_7_0 = (CrossReference)cDestinationAssignment_7.eContents().get(0);
+		private final RuleCall cDestinationModeInstanceIDTerminalRuleCall_7_0_1 = (RuleCall)cDestinationModeInstanceCrossReference_7_0.eContents().get(1);
+		private final Keyword cColonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cModeTransitionAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final CrossReference cModeTransitionModeTransitionCrossReference_9_0 = (CrossReference)cModeTransitionAssignment_9.eContents().get(0);
+		private final RuleCall cModeTransitionModeTransitionDeclarativeRefParserRuleCall_9_0_1 = (RuleCall)cModeTransitionModeTransitionCrossReference_9_0.eContents().get(1);
+		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
+		private final Keyword cLeftCurlyBracketKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_10_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_10_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_10_2 = (Keyword)cGroup_10.eContents().get(2);
 		
 		//ModeTransitionInstance instance::ModeTransitionInstance:
-		//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance]
+		//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance]
+		//	'-[' (trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
+		//	destination=[instance::ModeInstance]
 		//	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance
 		//	'}')?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance]
-		//':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance
-		//'}')?
+		//'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '-['
+		//(trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
+		//destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{'
+		//ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 		public Group getGroup() { return cGroup; }
 
 		//'mode'
@@ -1416,44 +1429,74 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getSourceModeInstanceIDTerminalRuleCall_3_0_1() { return cSourceModeInstanceIDTerminalRuleCall_3_0_1; }
 
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
+		//'-['
+		public Keyword getHyphenMinusLeftSquareBracketKeyword_4() { return cHyphenMinusLeftSquareBracketKeyword_4; }
+
+		//(trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//trigger+=[instance::FeatureInstance|InstanceRef]
+		public Assignment getTriggerAssignment_5_0() { return cTriggerAssignment_5_0; }
+
+		//[instance::FeatureInstance|InstanceRef]
+		public CrossReference getTriggerFeatureInstanceCrossReference_5_0_0() { return cTriggerFeatureInstanceCrossReference_5_0_0; }
+
+		//InstanceRef
+		public RuleCall getTriggerFeatureInstanceInstanceRefParserRuleCall_5_0_0_1() { return cTriggerFeatureInstanceInstanceRefParserRuleCall_5_0_0_1; }
+
+		//(',' trigger+=[instance::FeatureInstance|InstanceRef])*
+		public Group getGroup_5_1() { return cGroup_5_1; }
+
+		//','
+		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
+
+		//trigger+=[instance::FeatureInstance|InstanceRef]
+		public Assignment getTriggerAssignment_5_1_1() { return cTriggerAssignment_5_1_1; }
+
+		//[instance::FeatureInstance|InstanceRef]
+		public CrossReference getTriggerFeatureInstanceCrossReference_5_1_1_0() { return cTriggerFeatureInstanceCrossReference_5_1_1_0; }
+
+		//InstanceRef
+		public RuleCall getTriggerFeatureInstanceInstanceRefParserRuleCall_5_1_1_0_1() { return cTriggerFeatureInstanceInstanceRefParserRuleCall_5_1_1_0_1; }
+
+		//']->'
+		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_6() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_6; }
 
 		//destination=[instance::ModeInstance]
-		public Assignment getDestinationAssignment_5() { return cDestinationAssignment_5; }
+		public Assignment getDestinationAssignment_7() { return cDestinationAssignment_7; }
 
 		//[instance::ModeInstance]
-		public CrossReference getDestinationModeInstanceCrossReference_5_0() { return cDestinationModeInstanceCrossReference_5_0; }
+		public CrossReference getDestinationModeInstanceCrossReference_7_0() { return cDestinationModeInstanceCrossReference_7_0; }
 
 		//ID
-		public RuleCall getDestinationModeInstanceIDTerminalRuleCall_5_0_1() { return cDestinationModeInstanceIDTerminalRuleCall_5_0_1; }
+		public RuleCall getDestinationModeInstanceIDTerminalRuleCall_7_0_1() { return cDestinationModeInstanceIDTerminalRuleCall_7_0_1; }
 
 		//':'
-		public Keyword getColonKeyword_6() { return cColonKeyword_6; }
+		public Keyword getColonKeyword_8() { return cColonKeyword_8; }
 
 		//modeTransition=[aadl2::ModeTransition|DeclarativeRef]
-		public Assignment getModeTransitionAssignment_7() { return cModeTransitionAssignment_7; }
+		public Assignment getModeTransitionAssignment_9() { return cModeTransitionAssignment_9; }
 
 		//[aadl2::ModeTransition|DeclarativeRef]
-		public CrossReference getModeTransitionModeTransitionCrossReference_7_0() { return cModeTransitionModeTransitionCrossReference_7_0; }
+		public CrossReference getModeTransitionModeTransitionCrossReference_9_0() { return cModeTransitionModeTransitionCrossReference_9_0; }
 
 		//DeclarativeRef
-		public RuleCall getModeTransitionModeTransitionDeclarativeRefParserRuleCall_7_0_1() { return cModeTransitionModeTransitionDeclarativeRefParserRuleCall_7_0_1; }
+		public RuleCall getModeTransitionModeTransitionDeclarativeRefParserRuleCall_9_0_1() { return cModeTransitionModeTransitionDeclarativeRefParserRuleCall_9_0_1; }
 
 		//('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
-		public Group getGroup_8() { return cGroup_8; }
+		public Group getGroup_10() { return cGroup_10; }
 
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
+		public Keyword getLeftCurlyBracketKeyword_10_0() { return cLeftCurlyBracketKeyword_10_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociationInstance
-		public Assignment getOwnedPropertyAssociationAssignment_8_1() { return cOwnedPropertyAssociationAssignment_8_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_10_1() { return cOwnedPropertyAssociationAssignment_10_1; }
 
 		//PropertyAssociationInstance
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_8_1_0() { return cOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_8_1_0; }
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_10_1_0() { return cOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_10_1_0; }
 
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8_2() { return cRightCurlyBracketKeyword_8_2; }
+		public Keyword getRightCurlyBracketKeyword_10_2() { return cRightCurlyBracketKeyword_10_2; }
 	}
 
 	public class SystemOperationModeElements extends AbstractParserRuleElementFinder {
@@ -2296,15 +2339,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Keyword cFullStopKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cIDTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final RuleCall cIDTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final Keyword cFullStopKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//ModeTransitionName:
-		//	ID '.' ID '.' ID;
+		//	ID '.' (ID '.')* ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID '.' ID '.' ID
+		//ID '.' (ID '.')* ID
 		public Group getGroup() { return cGroup; }
 
 		//ID
@@ -2313,14 +2357,17 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//'.'
 		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
 
+		//(ID '.')*
+		public Group getGroup_2() { return cGroup_2; }
+
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getIDTerminalRuleCall_2_0() { return cIDTerminalRuleCall_2_0; }
 
 		//'.'
-		public Keyword getFullStopKeyword_3() { return cFullStopKeyword_3; }
+		public Keyword getFullStopKeyword_2_1() { return cFullStopKeyword_2_1; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_4() { return cIDTerminalRuleCall_4; }
+		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
 	}
 
 	public class PropertyAssociationRefElements extends AbstractParserRuleElementFinder {
@@ -2631,7 +2678,9 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModeTransitionInstance instance::ModeTransitionInstance:
-	//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '->' destination=[instance::ModeInstance]
+	//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance]
+	//	'-[' (trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
+	//	destination=[instance::ModeInstance]
 	//	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance
 	//	'}')?;
 	public ModeTransitionInstanceElements getModeTransitionInstanceAccess() {
@@ -2803,7 +2852,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModeTransitionName:
-	//	ID '.' ID '.' ID;
+	//	ID '.' (ID '.')* ID;
 	public ModeTransitionNameElements getModeTransitionNameAccess() {
 		return pModeTransitionName;
 	}

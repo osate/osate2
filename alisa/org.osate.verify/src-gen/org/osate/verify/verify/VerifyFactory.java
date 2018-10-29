@@ -153,6 +153,15 @@ public interface VerifyFactory extends EFactory
   JavaMethod createJavaMethod();
 
   /**
+   * Returns a new object of class '<em>Python Method</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Python Method</em>'.
+   * @generated
+   */
+  PythonMethod createPythonMethod();
+
+  /**
    * Returns a new object of class '<em>Manual Method</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

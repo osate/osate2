@@ -174,7 +174,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	public PropertyType getPropertyTypeGen() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
-				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType)
+				: propertyType;
 	}
 
 	/**
@@ -186,7 +187,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	public PropertyType getPropertyType() {
 		PropertyType propertyType = basicGetPropertyType();
 		return propertyType != null && ((EObject) propertyType).eIsProxy()
-				? (PropertyType) eResolveProxy((InternalEObject) propertyType) : propertyType;
+				? (PropertyType) eResolveProxy((InternalEObject) propertyType)
+				: propertyType;
 	}
 
 	/**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="18">
+<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="19">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.birt.feature.group" version="0.0.0"/>
@@ -53,5 +53,19 @@
 <unit id="org.eclipse.elk.algorithms.feature.feature.group" version="0.3.0"/>
 <repository location="http://download.eclipse.org/elk/updates/releases/0.3.0/"/>
 </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="org.eclipse.ease.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.lang.python.py4j.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.lang.scriptarchive.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.lang.unittest.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.modules.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.modules.modeling.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.ease.ui.feature.feature.group" version="0.0.0"/>
+      <repository location="http://download.eclipse.org/ease/update/release"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
+      <repository location="https://eclipse.py4j.org"/>
+    </location>
 </locations>
 </target>
