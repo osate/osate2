@@ -1,0 +1,14 @@
+package pkg
+public
+	abstract a1 extends a2
+		features
+			f2: in feature;
+			f1: in feature;
+	end a1;
+
+	abstract a2 extends a1
+	end a2;
+
+	abstract implementation a1.impl
+	end a1.impl;
+end pkg;
