@@ -83,6 +83,7 @@ public class ErrorBehaviorEventHandler {
 
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration() {
+		// TODO: label placement
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				build();
