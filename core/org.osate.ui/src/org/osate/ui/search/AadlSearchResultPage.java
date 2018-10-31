@@ -226,15 +226,11 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 		final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
 		final Object selectedNode = selected.getFirstElement();
 
-		URI uriToOpen = null;
 		if (selectedNode instanceof IEObjectDescription) {
-			uriToOpen = ((IEObjectDescription) selectedNode).getEObjectURI();
+			editorOpener.open(((IEObjectDescription) selectedNode).getEObjectURI(), true);
 		} else if (selectedNode instanceof IReferenceDescription) {
-			uriToOpen = ((IReferenceDescription) selectedNode).getSourceEObjectUri();
-		}
-
-		if (uriToOpen != null) {
-			editorOpener.open(uriToOpen, true);
+			final IReferenceDescription refDesc = (IReferenceDescription) selectedNode;
+			editorOpener.open(refDesc.getSourceEObjectUri(), refDesc.getEReference(), refDesc.getIndexInList(), true);
 		} else {
 			if (treeViewer.isExpandable(selectedNode)) {
 				if (treeViewer.getExpandedState(selectedNode)) {
