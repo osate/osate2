@@ -18,11 +18,21 @@ public final class AadlSearchResult implements ISearchResult {
 	private final AadlSearchQuery searchQuery;
 	private final ListenerList<ISearchResultListener> listeners = new ListenerList<>();
 
-	private List<IEObjectDescription> foundDeclarations = new ArrayList<>();
-	private List<IReferenceDescription> foundReferences = new ArrayList<>();
+	private ResourceSet resourceSet;
+	private final List<IEObjectDescription> foundDeclarations = new ArrayList<>();
+	private final List<IReferenceDescription> foundReferences = new ArrayList<>();
 
 	public AadlSearchResult(final AadlSearchQuery searchQuery) {
 		this.searchQuery = searchQuery;
+	}
+
+	// only called from AadlSearchQuery
+	void setResourceSet(final ResourceSet resourceSet) {
+		this.resourceSet = resourceSet;
+	}
+
+	public ResourceSet getResourceSet() {
+		return resourceSet;
 	}
 
 	@Override

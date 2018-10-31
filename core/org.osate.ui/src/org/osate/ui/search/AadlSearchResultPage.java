@@ -33,6 +33,7 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
+import org.osate.aadl2.NamedElement;
 import org.osate.search.AadlSearchResult;
 import org.osate.search.AadlSearchResultEvent;
 import org.osate.search.FoundDeclarationEvent;
@@ -298,7 +299,10 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 			} else if (element instanceof IEObjectDescription) {
 				return "Declaration of " + ((IEObjectDescription) element).getName().toString("::");
 			} else if (element instanceof IReferenceDescription) {
-				return "Reference to " + ((IReferenceDescription) element).getTargetEObjectUri(); // XXX: fix this
+				final URI targetEObjectUri = ((IReferenceDescription) element).getTargetEObjectUri();
+				final NamedElement namedElement = (NamedElement) searchResult.getResourceSet()
+						.getEObject(targetEObjectUri, true);
+				return "Reference to " + namedElement.getName();
 			} else {
 				return null;
 			}
