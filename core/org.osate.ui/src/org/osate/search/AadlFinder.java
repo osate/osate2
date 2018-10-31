@@ -96,7 +96,29 @@ public final class AadlFinder {
 
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
-		public void found(AadlFinder callback, ResourceSet resourceSet, T objDesc);
+		public void found(T objDesc);
+	}
+
+	public static abstract class ResourceConsumer {
+		private ResourceSet resourceSet;
+
+		protected final ResourceSet getResourceSet() {
+			return resourceSet;
+		}
+
+		private void init(final ResourceSet resourceSet) {
+			this.resourceSet = resourceSet;
+			begin();
+		}
+
+		protected void begin() {
+		};
+
+		protected void found(final IResourceDescription rsrcDesc) {
+		};
+
+		protected void end() {
+		};
 	}
 
 	private static final AadlFinder instance = new AadlFinder();
@@ -120,13 +142,14 @@ public final class AadlFinder {
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
 	 */
-	public void processAllAadlFilesInScope(final Scope scope, final FinderConsumer<IResourceDescription> consumer) {
+	public void processAllAadlFilesInScope(final Scope scope, final ResourceConsumer consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		consumer.init(resourceSet);
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
 			if (scope.contains(rsrcDesc)) {
-				consumer.found(this, resourceSet, rsrcDesc);
+				consumer.found(rsrcDesc);
 			}
 		}
 	}
@@ -144,15 +167,18 @@ public final class AadlFinder {
 	 */
 	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
 			final FinderConsumer<IEObjectDescription> consumer) {
-		processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
-			callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, eClass, consumer);
+		processAllAadlFilesInScope(scope, new ResourceConsumer() {
+			@Override
+			protected void found(final IResourceDescription rsrcDesc) {
+				getAllObjectsOfTypeInResource(rsrcDesc, getResourceSet(), eClass, consumer);
+			}
 		});
 	}
 
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
 			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
 		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
-			consumer.found(this, resourceSet, objDesc);
+			consumer.found(objDesc);
 		}
 	}
 
@@ -162,8 +188,11 @@ public final class AadlFinder {
 
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
-			callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet, consumer);
+		processAllAadlFilesInScope(scope, new ResourceConsumer() {
+			@Override
+			protected void found(final IResourceDescription rsrcDesc) {
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+			}
 		});
 	}
 
@@ -179,7 +208,7 @@ public final class AadlFinder {
 
 			@Override
 			public void accept(final IReferenceDescription refDesc) {
-				consumer.found(AadlFinder.this, resourceSet, refDesc);
+				consumer.found(refDesc);
 			}
 		}, null);
 	}

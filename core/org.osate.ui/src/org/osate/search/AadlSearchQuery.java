@@ -10,8 +10,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.search.ui.ISearchQuery;
 import org.eclipse.search.ui.ISearchResult;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NamedElement;
+import org.osate.search.AadlFinder.ResourceConsumer;
 import org.osate.search.AadlFinder.Scope;
 
 public final class AadlSearchQuery implements ISearchQuery {
@@ -132,44 +134,55 @@ public final class AadlSearchQuery implements ISearchQuery {
 			nonNullmonitor.beginTask(getLabel(), IProgressMonitor.UNKNOWN);
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
-			aadlFinder.processAllAadlFilesInScope(scope, (callback, resourceSet, rsrcDesc) -> {
-				final String fileString = rsrcDesc.getURI().lastSegment();
-				nonNullmonitor.subTask(fileString);
-				if (limitTo.declarations()) {
-					callback.getAllObjectsOfTypeInResource(rsrcDesc, resourceSet, searchFor.declarationEClass(),
-							(callback2, resourceSet2, objDesc2) -> {
-								// now check the name, which in the last segment (skip over the package names)
-								final String testIdentifier = objDesc2.getName().getLastSegment();
-								if (findSubstring(testIdentifier)) {
-									// FOUND A MATCH
-									searchResult.addFoundDeclaration(resourceSet2, objDesc2);
-								}
-							});
-					nonNullmonitor.worked(1);
+			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer() {
+				@Override
+				protected void begin() {
+					searchResult.setResourceSet(getResourceSet());
 				}
 
-				if (nonNullmonitor.isCanceled()) {
-					throw new OperationCanceledException();
-				}
+				@Override
+				protected void found(final IResourceDescription rsrcDesc) {
+					final String fileString = rsrcDesc.getURI().lastSegment();
+					nonNullmonitor.subTask(fileString);
+					if (limitTo.declarations()) {
+						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, getResourceSet(),
+								searchFor.declarationEClass(), objDesc -> {
+									// now check the name, which in the last segment (skip over the package names)
+									final String testIdentifier = objDesc.getName().getLastSegment();
+									if (findSubstring(testIdentifier)) {
+										// FOUND A MATCH
+										searchResult.addFoundDeclaration(getResourceSet(), objDesc);
+									}
+								});
+						nonNullmonitor.worked(1);
+					}
 
-				if (limitTo.references()) {
-					callback.getAllReferencesToTypeInResource(rsrcDesc, resourceSet,
-							(callback2, resourceSet2, refDesc2) -> {
-								final URI targetURI = refDesc2.getTargetEObjectUri();
-								final EObject eObj = resourceSet2.getEObject(targetURI, true);
-								if (eObj != null) { // target object might be null if the file being searched has errors
-									// filter by eClass
-									if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
-										// filter by name
-										if (eObj instanceof NamedElement
-												&& findSubstring(((NamedElement) eObj).getName())) {
-											// FOUND A MATCH
-											searchResult.addFoundReference(resourceSet2, refDesc2);
+					if (nonNullmonitor.isCanceled()) {
+						throw new OperationCanceledException();
+					}
+
+					if (limitTo.references()) {
+						aadlFinder.getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), refDesc -> {
+							final URI targetURI = refDesc.getTargetEObjectUri();
+							final EObject eObj = getResourceSet().getEObject(targetURI, true);
+									if (eObj != null) { // target object might be null if the file being searched has errors
+										// filter by eClass
+										if (declarationEClass.isSuperTypeOf(eObj.eClass())) {
+											// filter by name
+											if (eObj instanceof NamedElement
+													&& findSubstring(((NamedElement) eObj).getName())) {
+												// FOUND A MATCH
+										searchResult.addFoundReference(getResourceSet(), refDesc);
+											}
 										}
 									}
-								}
-							});
-					nonNullmonitor.worked(1);
+								});
+						nonNullmonitor.worked(1);
+					}
+
+					if (nonNullmonitor.isCanceled()) {
+						throw new OperationCanceledException();
+					}
 				}
 			});
 		} finally {
