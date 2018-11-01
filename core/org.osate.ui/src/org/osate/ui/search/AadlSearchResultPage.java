@@ -33,7 +33,10 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.parsesupport.AObject;
 import org.osate.search.AadlSearchResult;
 import org.osate.search.AadlSearchResultEvent;
 import org.osate.search.FoundDeclarationEvent;
@@ -282,6 +285,15 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 			return null;
 		}
 
+		private String getContainerName(final AObject aObject) {
+			final Classifier classifier = AadlUtil.getContainingClassifier(aObject);
+			if (classifier != null) {
+				return " in " + classifier.getName();
+			} else {
+				return "";
+			}
+		}
+
 		@Override
 		public String getText(final Object element) {
 			if (element instanceof URI) {
@@ -293,12 +305,16 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 				}
 				return sb.toString();
 			} else if (element instanceof IEObjectDescription) {
-				return "Declaration of " + ((IEObjectDescription) element).getName().toString("::");
+				final IEObjectDescription objDesc = (IEObjectDescription) element;
+				return "Declaration of " + objDesc.getName().toString("::");
 			} else if (element instanceof IReferenceDescription) {
-				final URI targetEObjectUri = ((IReferenceDescription) element).getTargetEObjectUri();
+				final IReferenceDescription refDesc = (IReferenceDescription) element;
+				final URI targetEObjectUri = refDesc.getTargetEObjectUri();
+				final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
 				final NamedElement namedElement = (NamedElement) searchResult.getResourceSet()
 						.getEObject(targetEObjectUri, true);
-				return "Reference to " + namedElement.getName();
+				final AObject srcObject = (AObject) searchResult.getResourceSet().getEObject(sourceEObjectUri, true);
+				return "Reference to " + namedElement.getName() + getContainerName(srcObject);
 			} else {
 				return null;
 			}
