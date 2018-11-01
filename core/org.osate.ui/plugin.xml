@@ -1099,4 +1099,11 @@
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
        </propertyTester>
     </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc_ui.xml"
+            primary="true">
+      </toc>
+   </extension>
 </plugin>
