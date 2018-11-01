@@ -180,7 +180,7 @@ public final class AadlSearchPage extends DialogPage implements ISearchPage {
 	public boolean performAction() {
 		final AadlSearchQuery query = new AadlSearchQuery(substringText.getText(), searchFor, limitTo,
 				getScope());
-		NewSearchUI.runQueryInForeground(searchPageContainer.getRunnableContext(), query);
+		NewSearchUI.runQueryInBackground(query);
 
 		return true;
 	}
