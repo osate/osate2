@@ -1128,13 +1128,22 @@ public interface InstancePackage extends EPackage {
 	int MODE_TRANSITION_INSTANCE__MODE_TRANSITION = CONNECTION_INSTANCE_END_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Trigger</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_TRANSITION_INSTANCE__TRIGGER = CONNECTION_INSTANCE_END_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_TRANSITION_INSTANCE__SOURCE = CONNECTION_INSTANCE_END_FEATURE_COUNT + 2;
+	int MODE_TRANSITION_INSTANCE__SOURCE = CONNECTION_INSTANCE_END_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Mode Transition Instance</em>' class.
@@ -1143,7 +1152,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_TRANSITION_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 3;
+	int MODE_TRANSITION_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl <em>Connection Reference</em>}' class.
@@ -2392,6 +2401,17 @@ public interface InstancePackage extends EPackage {
 	EReference getModeTransitionInstance_ModeTransition();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ModeTransitionInstance#getTriggers <em>Trigger</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Trigger</em>'.
+	 * @see org.osate.aadl2.instance.ModeTransitionInstance#getTriggers()
+	 * @see #getModeTransitionInstance()
+	 * @generated
+	 */
+	EReference getModeTransitionInstance_Trigger();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.ModeTransitionInstance#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3158,6 +3178,14 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODE_TRANSITION_INSTANCE__MODE_TRANSITION = eINSTANCE.getModeTransitionInstance_ModeTransition();
+
+		/**
+		 * The meta object literal for the '<em><b>Trigger</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_TRANSITION_INSTANCE__TRIGGER = eINSTANCE.getModeTransitionInstance_Trigger();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.

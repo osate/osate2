@@ -127,7 +127,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
 					Aadl2Package.FEATURE__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -155,7 +155,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
-				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier) : featureClassifier;
+				? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+				: featureClassifier;
 	}
 
 	/**
@@ -187,7 +188,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
 		return (basicGetFeatureClassifier() instanceof ComponentClassifier)
-				? (ComponentClassifier) basicGetFeatureClassifier() : null;
+				? (ComponentClassifier) basicGetFeatureClassifier()
+				: null;
 	}
 
 	/**
@@ -210,7 +212,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
 		return (basicGetFeatureClassifier() instanceof ComponentPrototype)
-				? (ComponentPrototype) basicGetFeatureClassifier() : null;
+				? (ComponentPrototype) basicGetFeatureClassifier()
+				: null;
 	}
 
 	/**
@@ -445,7 +448,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -480,7 +484,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	// work.
 	@Override
 	public EList<Feature> getAllFeatureRefinements() {
-		BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		BasicEList<Feature> returnlist = new BasicEList<>();
 		Feature more = this;
 		while (more != null) {
 			returnlist.add(more);

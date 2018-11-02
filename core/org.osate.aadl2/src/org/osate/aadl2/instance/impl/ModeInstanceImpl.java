@@ -181,7 +181,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	@Override
 	public EList<ModeTransitionInstance> getSrcModeTransitions() {
 		if (srcModeTransitions == null) {
-			srcModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			srcModeTransitions = new EObjectWithInverseEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE);
 		}
@@ -196,7 +196,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	@Override
 	public EList<ModeTransitionInstance> getDstModeTransitions() {
 		if (dstModeTransitions == null) {
-			dstModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			dstModeTransitions = new EObjectWithInverseEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION);
 		}
@@ -279,7 +279,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	@Override
 	public EList<ModeInstance> getParents() {
 		if (parents == null) {
-			parents = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			parents = new EObjectResolvingEList<>(ModeInstance.class, this,
 					InstancePackage.MODE_INSTANCE__PARENT);
 		}
 		return parents;

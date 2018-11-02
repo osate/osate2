@@ -105,7 +105,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl implemen
 	@Override
 	public EList<ComponentPrototypeActual> getActuals() {
 		if (actuals == null) {
-			actuals = new EObjectContainmentEList<ComponentPrototypeActual>(ComponentPrototypeActual.class, this,
+			actuals = new EObjectContainmentEList<>(ComponentPrototypeActual.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL);
 		}
 		return actuals;

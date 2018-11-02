@@ -75,6 +75,7 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 
 			addDestinationPropertyDescriptor(object);
 			addModeTransitionPropertyDescriptor(object);
+			addTriggerPropertyDescriptor(object);
 			addSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -109,6 +110,21 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 								"_UI_ModeTransitionInstance_modeTransition_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$
 						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__MODE_TRANSITION, true, false, true, null,
 						null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Trigger feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTriggerPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_ModeTransitionInstance_trigger_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_trigger_feature", //$NON-NLS-1$//$NON-NLS-2$
+						"_UI_ModeTransitionInstance_type"), //$NON-NLS-1$
+				InstancePackage.Literals.MODE_TRANSITION_INSTANCE__TRIGGER, true, false, true, null, null, null));
 	}
 
 	/**

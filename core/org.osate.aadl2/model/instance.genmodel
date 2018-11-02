@@ -129,6 +129,8 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ModeTransitionInstance/modeTransition"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ModeTransitionInstance/trigger"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ModeTransitionInstance/source"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//ConnectionReference">

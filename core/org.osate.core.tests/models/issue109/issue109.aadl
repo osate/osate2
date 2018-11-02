@@ -1,0 +1,42 @@
+package issue109
+public
+	abstract A
+		features
+			e: out event port;
+	end A;
+	
+	abstract B
+		features
+			e: in event port;
+			fg: feature group fgt;
+	end B;
+	
+	abstract implementation B.i
+		modes
+			m1: initial mode;
+			m2: mode;
+			t1: m1 -[e]-> m2;
+			t2: m2 -[fg.f]-> m1;
+	end B.i;
+	
+	abstract T
+	end T;
+	
+	abstract implementation T.i
+		subcomponents
+			a: abstract A;
+			b: abstract B.i;
+		connections
+			c: port a.e -> b.e;
+		modes
+			m1: initial mode;
+			m2: mode;
+			t1: m1 -[b.e]-> m2;
+	end T.i;
+	
+	feature group fgt
+		features
+			f: in event port;
+	end fgt;
+	
+end issue109;

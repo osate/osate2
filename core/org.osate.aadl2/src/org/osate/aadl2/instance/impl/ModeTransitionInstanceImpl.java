@@ -35,17 +35,21 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
@@ -61,6 +65,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getModeTransition <em>Mode Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getTriggers <em>Trigger</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl#getSource <em>Source</em>}</li>
  * </ul>
  *
@@ -86,6 +91,15 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 */
 	protected ModeTransition modeTransition;
 
+	/**
+	 * The cached value of the '{@link #getTriggers() <em>Trigger</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTriggers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FeatureInstance> triggers;
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -223,6 +237,20 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * @generated
 	 */
 	@Override
+	public EList<FeatureInstance> getTriggers() {
+		if (triggers == null) {
+			triggers = new EObjectResolvingEList<>(FeatureInstance.class, this,
+					InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER);
+		}
+		return triggers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ModeInstance getSource() {
 		return source;
 	}
@@ -329,6 +357,8 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 				return getModeTransition();
 			}
 			return basicGetModeTransition();
+		case InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER:
+			return getTriggers();
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
 			return getSource();
 		}
@@ -340,6 +370,7 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -348,6 +379,10 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 			return;
 		case InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION:
 			setModeTransition((ModeTransition) newValue);
+			return;
+		case InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER:
+			getTriggers().clear();
+			getTriggers().addAll((Collection<? extends FeatureInstance>) newValue);
 			return;
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
 			setSource((ModeInstance) newValue);
@@ -370,6 +405,9 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		case InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION:
 			setModeTransition((ModeTransition) null);
 			return;
+		case InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER:
+			getTriggers().clear();
+			return;
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
 			setSource((ModeInstance) null);
 			return;
@@ -389,6 +427,8 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 			return destination != null;
 		case InstancePackage.MODE_TRANSITION_INSTANCE__MODE_TRANSITION:
 			return modeTransition != null;
+		case InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER:
+			return triggers != null && !triggers.isEmpty();
 		case InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE:
 			return source != null;
 		}
