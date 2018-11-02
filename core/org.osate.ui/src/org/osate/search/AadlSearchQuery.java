@@ -131,17 +131,22 @@ public final class AadlSearchQuery implements ISearchQuery {
 		// make sure the progress monitor is not null
 		final IProgressMonitor nonNullmonitor = monitor == null ? new NullProgressMonitor() : monitor;
 		try {
-			nonNullmonitor.beginTask(getLabel(), IProgressMonitor.UNKNOWN);
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
 			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer() {
 				@Override
-				protected void begin() {
+				protected void begin(final int count) {
 					searchResult.setResourceSet(getResourceSet());
+					nonNullmonitor.beginTask(getLabel(), count);
 				}
 
 				@Override
-				protected void found(final IResourceDescription rsrcDesc) {
+				protected void skipped(final IResourceDescription rsrcDesc) {
+					nonNullmonitor.worked(1);
+				}
+
+				@Override
+				protected void inScope(final IResourceDescription rsrcDesc) {
 					final String fileString = rsrcDesc.getURI().lastSegment();
 					nonNullmonitor.subTask(fileString);
 					if (limitTo.declarations()) {

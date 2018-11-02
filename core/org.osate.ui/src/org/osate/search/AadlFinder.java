@@ -106,16 +106,19 @@ public final class AadlFinder {
 			return resourceSet;
 		}
 
-		private void init(final ResourceSet resourceSet) {
+		private void init(final ResourceSet resourceSet, final int count) {
 			this.resourceSet = resourceSet;
-			begin();
+			begin(count);
 		}
 
-		protected void begin() {
+		protected void begin(int count) {
 		};
 
-		protected void found(final IResourceDescription rsrcDesc) {
+		protected void inScope(final IResourceDescription rsrcDesc) {
 		};
+
+		protected void skipped(final IResourceDescription rsrcDesc) {
+		}
 
 		protected void end() {
 		};
@@ -144,13 +147,25 @@ public final class AadlFinder {
 	 */
 	public void processAllAadlFilesInScope(final Scope scope, final ResourceConsumer consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-		consumer.init(resourceSet);
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
-		for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
-			if (scope.contains(rsrcDesc)) {
-				consumer.found(rsrcDesc);
+
+		int count = 0;
+		for (@SuppressWarnings("unused")
+		final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
+			count += 1;
+		}
+		consumer.init(resourceSet, count);
+		try {
+			for (final IResourceDescription rsrcDesc : resourceDescriptions.getAllResourceDescriptions()) {
+				if (scope.contains(rsrcDesc)) {
+					consumer.inScope(rsrcDesc);
+				} else {
+					consumer.skipped(rsrcDesc);
+				}
 			}
+		} finally {
+			consumer.end();
 		}
 	}
 
@@ -169,7 +184,7 @@ public final class AadlFinder {
 			final FinderConsumer<IEObjectDescription> consumer) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer() {
 			@Override
-			protected void found(final IResourceDescription rsrcDesc) {
+			protected void inScope(final IResourceDescription rsrcDesc) {
 				getAllObjectsOfTypeInResource(rsrcDesc, getResourceSet(), eClass, consumer);
 			}
 		});
@@ -190,7 +205,7 @@ public final class AadlFinder {
 			final FinderConsumer<IReferenceDescription> consumer) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer() {
 			@Override
-			protected void found(final IResourceDescription rsrcDesc) {
+			protected void inScope(final IResourceDescription rsrcDesc) {
 				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
 			}
 		});
