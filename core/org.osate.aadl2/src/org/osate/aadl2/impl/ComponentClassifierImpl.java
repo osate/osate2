@@ -183,13 +183,13 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
+						classifierFeatures = new DerivedUnionEObjectEList<>(ClassifierFeature.class,
 								this, Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE,
 								CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -219,12 +219,12 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -249,7 +249,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	@Override
 	public EList<Mode> getOwnedModes() {
 		if (ownedModes == null) {
-			ownedModes = new EObjectContainmentEList<Mode>(Mode.class, this,
+			ownedModes = new EObjectContainmentEList<>(Mode.class, this,
 					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE);
 		}
 		return ownedModes;
@@ -275,7 +275,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	@Override
 	public EList<ModeTransition> getOwnedModeTransitions() {
 		if (ownedModeTransitions == null) {
-			ownedModeTransitions = new EObjectContainmentEList<ModeTransition>(ModeTransition.class, this,
+			ownedModeTransitions = new EObjectContainmentEList<>(ModeTransition.class, this,
 					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
 		}
 		return ownedModeTransitions;

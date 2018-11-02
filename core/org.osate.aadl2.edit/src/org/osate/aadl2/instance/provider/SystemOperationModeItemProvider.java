@@ -154,53 +154,52 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	public ResourceLocator getResourceLocator() {
 		return Aadl2EditPlugin.INSTANCE;
 	}
-	
+
 	/**
 	 * Manually added to show the individual modes of a SystemOperationMode.
 	 */
 	@Override
 	public Collection<?> getChildren(Object object) {
 		SystemOperationMode som = (SystemOperationMode) object;
-		return som.getCurrentModes().stream()
-				.map(subMode -> new SubModeItemProvider(adapterFactory, som, subMode))
+		return som.getCurrentModes().stream().map(subMode -> new SubModeItemProvider(adapterFactory, som, subMode))
 				.collect(Collectors.toList());
 	}
 
 	public static class SubModeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
 			IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 		private final ModeInstance subMode;
-		
+
 		private SubModeItemProvider(AdapterFactory adapterFactory, SystemOperationMode som, ModeInstance subMode) {
 			super(adapterFactory);
 			this.subMode = subMode;
 			som.eAdapters().add(this);
 		}
-		
+
 		public ModeInstance getSubMode() {
 			return subMode;
 		}
-		
+
 		@Override
 		public Collection<?> getChildren(Object object) {
 			return Collections.emptyList();
 		}
-		
+
 		@Override
 		public Object getParent(Object object) {
 			return target;
 		}
-		
+
 		@Override
 		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
 			return Collections.emptyList();
 		}
-		
+
 		@Override
 		public String getText(Object object) {
 			String label = subMode.getComponentInstancePath();
 			return label == null || label.length() == 0 ? "Mode" : "Mode " + label;
 		}
-		
+
 		@Override
 		public Object getImage(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(subMode, IItemLabelProvider.class)).getImage(subMode);

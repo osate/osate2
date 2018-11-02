@@ -40,7 +40,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.uml2.types.TypesPackage;
+import org.eclipse.uml2.uml.UMLPackage;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -248,6 +251,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 
 		// Initialize simple dependencies
 		Aadl2Package.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
+		UMLPackage.eINSTANCE.eClass();
+		TypesPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theInstancePackage.createPackageContents();
@@ -659,8 +665,18 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
-	public EReference getModeTransitionInstance_Source() {
+	public EReference getModeTransitionInstance_Trigger() {
 		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getModeTransitionInstance_Source() {
+		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1112,6 +1128,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		modeTransitionInstanceEClass = createEClass(MODE_TRANSITION_INSTANCE);
 		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__DESTINATION);
 		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__MODE_TRANSITION);
+		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__TRIGGER);
 		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__SOURCE);
 
 		connectionReferenceEClass = createEClass(CONNECTION_REFERENCE);
@@ -1275,8 +1292,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				"inSystemOperationMode", null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, //$NON-NLS-1$
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectionInstance_InModeTransition(), getModeTransitionInstance(), null, "inModeTransition", //$NON-NLS-1$
-				null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getConnectionInstance_Complete(), theAadl2Package.getBoolean(), "complete", null, 1, 1, //$NON-NLS-1$
 				ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, !IS_ORDERED);
@@ -1339,6 +1355,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEReference(getModeTransitionInstance_ModeTransition(), theAadl2Package.getModeTransition(), null,
 				"modeTransition", null, 1, 1, ModeTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, //$NON-NLS-1$
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getModeTransitionInstance_Trigger(), getFeatureInstance(), null, "trigger", null, 0, -1, //$NON-NLS-1$
+				ModeTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getModeTransitionInstance_Source(), getModeInstance(), getModeInstance_SrcModeTransition(),
 				"source", null, 1, 1, ModeTransitionInstance.class, //$NON-NLS-1$
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
@@ -1389,8 +1408,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getComponentInstance_ConnectionInstance(), getConnectionInstance(), null, "connectionInstance", //$NON-NLS-1$
-				null, 0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+				null, 0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getComponentInstance_Subcomponent(), theAadl2Package.getSubcomponent(), null, "subcomponent", //$NON-NLS-1$
 				null, 0, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -1439,8 +1457,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEClass(systemInstanceEClass, SystemInstance.class, "SystemInstance", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSystemInstance_SystemOperationMode(), getSystemOperationMode(), null, "systemOperationMode", //$NON-NLS-1$
-				null, 0, -1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				null, 0, -1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemInstance_ComponentImplementation(), theAadl2Package.getComponentImplementation(), null,
 				"componentImplementation", null, 1, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, //$NON-NLS-1$
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

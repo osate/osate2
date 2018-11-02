@@ -229,7 +229,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<>(SystemOperationMode.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -243,7 +243,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<>(ModeTransitionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
@@ -366,7 +366,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	@Override
 	public EList<ConnectionReference> getConnectionReferences() {
 		if (connectionReferences == null) {
-			connectionReferences = new EObjectContainmentEList<ConnectionReference>(ConnectionReference.class, this,
+			connectionReferences = new EObjectContainmentEList<>(ConnectionReference.class, this,
 					InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		}
 		return connectionReferences;
@@ -782,7 +782,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public List<Connection> getInstantiatedObjects() {
-		List<Connection> conns = new LinkedList<Connection>();
+		List<Connection> conns = new LinkedList<>();
 
 		for (ConnectionReference ref : getConnectionReferences()) {
 			conns.add(ref.getConnection());
@@ -862,7 +862,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public List<InstanceObject> getThroughFeatureInstances() {
-		final List<InstanceObject> featureList = new ArrayList<InstanceObject>();
+		final List<InstanceObject> featureList = new ArrayList<>();
 
 		InstanceObject lastDest = null;
 		for (ConnectionReference connRef : getConnectionReferences()) {

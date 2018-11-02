@@ -2539,6 +2539,16 @@ ruleMethodKind returns [EObject current=null]
         $current = $this_JUnit4Method_5.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getMethodKindAccess().getPythonMethodParserRuleCall_6()); 
+    }
+    this_PythonMethod_6=rulePythonMethod
+    { 
+        $current = $this_PythonMethod_6.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -2671,6 +2681,49 @@ ruleJavaMethod returns [EObject current=null]
     	newLeafNode(otherlv_6, grammarAccess.getJavaMethodAccess().getRightParenthesisKeyword_2_2());
     }
 )?)
+;
+
+
+
+
+
+// Entry rule entryRulePythonMethod
+entryRulePythonMethod returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getPythonMethodRule()); }
+	 iv_rulePythonMethod=rulePythonMethod 
+	 { $current=$iv_rulePythonMethod.current; } 
+	 EOF 
+;
+
+// Rule PythonMethod
+rulePythonMethod returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='python' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getPythonMethodAccess().getPythonKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPythonMethodAccess().getMethodPathQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_methodPath_1_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPythonMethodRule());
+	        }
+       		set(
+       			$current, 
+       			"methodPath",
+        		lv_methodPath_1_0, 
+        		"org.osate.alisa.common.Common.QualifiedName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

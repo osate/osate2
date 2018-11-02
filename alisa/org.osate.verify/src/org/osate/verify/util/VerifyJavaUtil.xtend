@@ -48,6 +48,20 @@ class VerifyJavaUtil {
 			}
 			objects
 		}
+		
+		/**
+		 * Create list of Java objects as parameters to be used
+		 */
+		static def List<Object> getActualJavaObjects(EList<FormalParameter> formalparameters, InstanceObject target, List<PropertyExpression> parameters) {
+			val objects = new ArrayList()
+			objects.add(target)
+			val fpiter = formalparameters.iterator
+			for (actual : parameters) {
+				val fp = fpiter.next
+				objects.add(convertActualToJavaObject(fp, actual))
+			}
+			objects
+		}
 
 		/*
 		 * returns collection of Java classes for parameters

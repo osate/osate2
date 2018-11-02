@@ -146,7 +146,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	@Override
 	public EList<ArrayRange> getArrayRanges() {
 		if (arrayRanges == null) {
-			arrayRanges = new EObjectContainmentEList<ArrayRange>(ArrayRange.class, this,
+			arrayRanges = new EObjectContainmentEList<>(ArrayRange.class, this,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE);
 		}
 		return arrayRanges;

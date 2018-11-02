@@ -1842,26 +1842,28 @@ ruleModeTransitionInstance returns [EObject current=null]
 	}
 
 )
-)	otherlv_4='->' 
+)	otherlv_4='-[' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getModeTransitionInstanceAccess().getHyphenMinusGreaterThanSignKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getModeTransitionInstanceAccess().getHyphenMinusLeftSquareBracketKeyword_4());
     }
-(
+((
 (
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getModeTransitionInstanceRule());
 	        }
         }
-	otherlv_5=RULE_ID
-	{
-		newLeafNode(otherlv_5, grammarAccess.getModeTransitionInstanceAccess().getDestinationModeInstanceCrossReference_5_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getTriggerFeatureInstanceCrossReference_5_0_0()); 
+	    }
+		ruleInstanceRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
-)	otherlv_6=':' 
+)(	otherlv_6=',' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getModeTransitionInstanceAccess().getColonKeyword_6());
+    	newLeafNode(otherlv_6, grammarAccess.getModeTransitionInstanceAccess().getCommaKeyword_5_1_0());
     }
 (
 (
@@ -1871,38 +1873,74 @@ ruleModeTransitionInstance returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionModeTransitionCrossReference_7_0()); 
+	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getTriggerFeatureInstanceCrossReference_5_1_1_0()); 
+	    }
+		ruleInstanceRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?	otherlv_8=']->' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getModeTransitionInstanceAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_6());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModeTransitionInstanceRule());
+	        }
+        }
+	otherlv_9=RULE_ID
+	{
+		newLeafNode(otherlv_9, grammarAccess.getModeTransitionInstanceAccess().getDestinationModeInstanceCrossReference_7_0()); 
+	}
+
+)
+)	otherlv_10=':' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getModeTransitionInstanceAccess().getColonKeyword_8());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getModeTransitionInstanceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getModeTransitionModeTransitionCrossReference_9_0()); 
 	    }
 		ruleDeclarativeRef		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_8='{' 
+)(	otherlv_12='{' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getModeTransitionInstanceAccess().getLeftCurlyBracketKeyword_8_0());
+    	newLeafNode(otherlv_12, grammarAccess.getModeTransitionInstanceAccess().getLeftCurlyBracketKeyword_10_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getOwnedPropertyAssociationPropertyAssociationInstanceParserRuleCall_10_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_9_0=rulePropertyAssociationInstance		{
+		lv_ownedPropertyAssociation_13_0=rulePropertyAssociationInstance		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getModeTransitionInstanceRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_9_0, 
+        		lv_ownedPropertyAssociation_13_0, 
         		"org.osate.aadl2.instance.textual.Instance.PropertyAssociationInstance");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_10='}' 
+)	otherlv_14='}' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getModeTransitionInstanceAccess().getRightCurlyBracketKeyword_8_2());
+    	newLeafNode(otherlv_14, grammarAccess.getModeTransitionInstanceAccess().getRightCurlyBracketKeyword_10_2());
     }
 )?)
 ;
@@ -3138,25 +3176,25 @@ ruleModeTransitionName returns [AntlrDatatypeRuleToken current=new AntlrDatatype
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getModeTransitionNameAccess().getFullStopKeyword_1()); 
     }
-    this_ID_2=RULE_ID    {
+(    this_ID_2=RULE_ID    {
 		$current.merge(this_ID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_2()); 
+    newLeafNode(this_ID_2, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_2_0()); 
     }
 
 	kw='.' 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getModeTransitionNameAccess().getFullStopKeyword_3()); 
+        newLeafNode(kw, grammarAccess.getModeTransitionNameAccess().getFullStopKeyword_2_1()); 
     }
-    this_ID_4=RULE_ID    {
+)*    this_ID_4=RULE_ID    {
 		$current.merge(this_ID_4);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_4()); 
+    newLeafNode(this_ID_4, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_3()); 
     }
 )
     ;

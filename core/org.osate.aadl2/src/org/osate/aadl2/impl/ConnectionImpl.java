@@ -213,7 +213,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -228,7 +228,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
-				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement) : refinedElement;
+				? (RefinableElement) eResolveProxy((InternalEObject) refinedElement)
+				: refinedElement;
 	}
 
 	/**
@@ -262,7 +263,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
-		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
+		final EList<Classifier> list = new NonNotifyingEObjectEList<>(Classifier.class, this,
 				Aadl2Package.CONNECTION__FEATURING_CLASSIFIER);
 		// BasicEList<Classifier> list = new BasicEList<Classifier>();
 

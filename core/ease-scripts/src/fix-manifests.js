@@ -14,7 +14,7 @@ print("done");
 function fixManifest(plugin) {
 	print("Fix manifest for " + plugin);
 	
-	node = findTreeItem(explorer.getAllItems(), "osate2-core")
+	node = findTreeItem(explorer.getAllItems(), "core")
 	waitExpand(node);
 	node = findTreeItem(node.getItems(), plugin);
 	waitExpand(node);
