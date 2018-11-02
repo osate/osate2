@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>OSATE Graphical Editor User Guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../css/pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">OSATE Graphical Editor User Guide</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#tutorial-getting-started"><span class="toc-section-number">1</span> Tutorial: Getting Started</a><ul>
+<li><a href="#create-a-new-project"><span class="toc-section-number">1.1</span> Create a New Project</a></li>
+<li><a href="#create-a-new-package"><span class="toc-section-number">1.2</span> Create a New Package</a></li>
+</ul></li>
+<li><a href="#creating-model-elements"><span class="toc-section-number">2</span> Creating Model Elements</a><ul>
+<li><a href="#creating-implementations"><span class="toc-section-number">2.1</span> Creating Implementations</a></li>
+</ul></li>
+<li><a href="#editing-model-elements"><span class="toc-section-number">3</span> Editing Model Elements</a><ul>
+<li><a href="#property-view"><span class="toc-section-number">3.1</span> Property View</a></li>
+<li><a href="#renaming"><span class="toc-section-number">3.2</span> Renaming</a></li>
+<li><a href="#deleting"><span class="toc-section-number">3.3</span> Deleting</a></li>
+<li><a href="#indirect-editing.-should-reference-inherited-elements."><span class="toc-section-number">3.4</span> Indirect editing. (Should reference inherited elements.?)</a></li>
+</ul></li>
+<li><a href="#copying-and-pasting"><span class="toc-section-number">4</span> Copying and Pasting</a></li>
+<li><a href="#diagram-configuration"><span class="toc-section-number">5</span> Diagram Configuration</a></li>
+<li><a href="#visualization"><span class="toc-section-number">6</span> Visualization</a><ul>
+<li><a href="#sec:inherited_elements"><span class="toc-section-number">6.1</span> Inherited Elements</a></li>
+<li><a href="#elements-appearance"><span class="toc-section-number">6.2</span> Element's Appearance</a></li>
+</ul></li>
+<li><a href="#navigating-between-diagrams"><span class="toc-section-number">7</span> Navigating Between Diagrams</a><ul>
+<li><a href="#layout-diagrams"><span class="toc-section-number">7.1</span> Layout Diagrams</a></li>
+<li><a href="#flow-editing"><span class="toc-section-number">7.2</span> Flow Editing</a></li>
+<li><a href="#binding-creation-maybe-move-somewhere"><span class="toc-section-number">7.3</span> Binding Creation??? maybe move somewhere</a></li>
+<li><a href="#copy-and-pasting"><span class="toc-section-number">7.4</span> Copy and Pasting</a></li>
+<li><a href="#annotations-and-documentation"><span class="toc-section-number">7.5</span> Annotations and Documentation</a></li>
+<li><a href="#troubleshooting"><span class="toc-section-number">7.6</span> Troubleshooting</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="tutorial-getting-started"><span class="header-section-number">1</span> Tutorial: Getting Started</h1>
+<h2 id="create-a-new-project"><span class="header-section-number">1.1</span> Create a New Project</h2>
+<ol type="1">
+<li>Select <em>File-&gt;New-&gt;Other...-&gt;AADL Project</em></li>
+<li>Enter project name: MyFirstProject</li>
+<li>Click <em>Finish</em></li>
+</ol>
+<h2 id="create-a-new-package"><span class="header-section-number">1.2</span> Create a New Package</h2>
+<ol type="1">
+<li>Right-click your new project</li>
+<li>Select <em>New-&gt;Other...-&gt;AADL-&gt;AADL Package</em></li>
+<li>Enter package name: MyFirstPackage</li>
+<li>Select <em>Diagram Editor</em></li>
+<li>Click <em>Finish</em></li>
+<li>Click <em>OK</em></li>
+</ol>
+<h1 id="creating-model-elements"><span class="header-section-number">2</span> Creating Model Elements</h1>
+<p>Elements are created by selecting the desired element from the palette and placing it on the diagram.</p>
+<h2 id="creating-implementations"><span class="header-section-number">2.1</span> Creating Implementations</h2>
+<p>Selecting the desired implementation from the palette and placing on an eligible type.</p>
+<h1 id="editing-model-elements"><span class="header-section-number">3</span> Editing Model Elements</h1>
+<h2 id="property-view"><span class="header-section-number">3.1</span> Property View</h2>
+<p>The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting <em>Properties...</em> from the context menu.</p>
+<h2 id="renaming"><span class="header-section-number">3.2</span> Renaming</h2>
+<p>Elements can be renamed three ways: <br>  1. Right clicking an element in the <em>Outline</em> view selecting <em>Rename...</em>. <br>  2. Right clicking an element on the diagram and selecting <em>Rename...</em>. <br>  3. Selecting an element on the diagram, then clicking and hovering over the label.</p>
+<h2 id="deleting"><span class="header-section-number">3.3</span> Deleting</h2>
+<p>Elements can be deleted three ways: <br>  1. Right clicking an element in the <em>Outline</em> view selecting <em>Delete</em>. <br>  2. Right clicking an element on the diagram and selecting <em>Delete</em>. <br>  3. Selecting an element on the diagram and pressing the <em>Delete</em> key.</p>
+<h2 id="indirect-editing.-should-reference-inherited-elements."><span class="header-section-number">3.4</span> Indirect editing. (Should reference inherited elements.?)</h2>
+<p>To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type (See section <a href="#sec:inherited_elements">6.1</a>). In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.</p>
+<h1 id="copying-and-pasting"><span class="header-section-number">4</span> Copying and Pasting</h1>
+<p>Portions of a diagram can by copied and pasted using the menu items described in table <a href="#tbl:copy_and_paste_menu_items">1</a>.</p>
+<div id="tbl:copy_and_paste_menu_items">
+<table style="width:86%;">
+<caption>Table 1: Copy and Paste Menu Items</caption>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Menu Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Copy</em></td>
+<td>Copies the selected diagram elements along with the associated model elements.</td>
+</tr>
+<tr class="even">
+<td><em>Copy Diagram Elements</em></td>
+<td>Copies the diagram elements without copying the associated model elements. Pasting will create a diagram element for each copied diagram element for which the selected diagram element has a matching child model element. Useful for copying diagram element layout to another diagram.</td>
+</tr>
+<tr class="odd">
+<td><em>Paste</em></td>
+<td>Pastes the previously copied content into the selected diagram element.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="diagram-configuration"><span class="header-section-number">5</span> Diagram Configuration</h1>
+<p>Configuring a diagram allows customizing the contents of the diagram. To configure a diagram, right-click in the diagram and select Configure Diagram…. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.</p>
+<p>The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The communication_properties::timing property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.</p>
+<p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram.</p>
+<p>The Hide Connection Labels option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section 3.1.16.</p>
+<h1 id="visualization"><span class="header-section-number">6</span> Visualization</h1>
+<h2 id="sec:inherited_elements"><span class="header-section-number">6.1</span> Inherited Elements</h2>
+<p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.</p>
+<h2 id="elements-appearance"><span class="header-section-number">6.2</span> Element's Appearance</h2>
+<h1 id="navigating-between-diagrams"><span class="header-section-number">7</span> Navigating Between Diagrams</h1>
+<h2 id="layout-diagrams"><span class="header-section-number">7.1</span> Layout Diagrams</h2>
+<h2 id="flow-editing"><span class="header-section-number">7.2</span> Flow Editing</h2>
+<h2 id="binding-creation-maybe-move-somewhere"><span class="header-section-number">7.3</span> Binding Creation??? maybe move somewhere</h2>
+<h2 id="copy-and-pasting"><span class="header-section-number">7.4</span> Copy and Pasting</h2>
+<h2 id="annotations-and-documentation"><span class="header-section-number">7.5</span> Annotations and Documentation</h2>
+<h2 id="troubleshooting"><span class="header-section-number">7.6</span> Troubleshooting</h2>
+</body>
+</html>
