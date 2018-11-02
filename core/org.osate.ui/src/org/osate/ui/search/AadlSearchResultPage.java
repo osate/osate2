@@ -54,6 +54,7 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 	private IPageSite pageSite;
 	private String id;
 
+	private ISearchResultViewPart viewPart;
 	private Composite root;
 	private TreeViewer treeViewer;
 
@@ -131,13 +132,11 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 
 	@Override
 	public void setFocus() {
-		// TODO Is there a sub component that can receive the focus?
 		root.setFocus();
 	}
 
 	@Override
 	public Object getUIState() {
-		// TODO Something better we can do here?
 		return null;
 	}
 
@@ -162,8 +161,7 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 
 	@Override
 	public void setViewPart(final ISearchResultViewPart part) {
-		// nothing to do
-
+		viewPart = part;
 	}
 
 	@Override
@@ -203,7 +201,10 @@ public final class AadlSearchResultPage implements ISearchResultListener, ISearc
 				final IReferenceDescription refDesc = ((FoundReferenceEvent) e).getReferenceDescription();
 				addReference(refDesc);
 			}
-			Display.getDefault().asyncExec(() -> treeViewer.refresh());
+			Display.getDefault().asyncExec(() -> {
+				viewPart.updateLabel();
+				treeViewer.refresh();
+			});
 		}
 	}
 
