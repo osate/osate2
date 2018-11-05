@@ -227,8 +227,6 @@ class AadlPropertyView extends ViewPart {
 
 	var URI previousSelectionURI = null
 
-	var IWorkbenchPart selectedPart = null
-
 	var CachePropertyLookupJob cachePropertyLookupJob = null
 	val jobLock = new Object
 
@@ -288,15 +286,7 @@ class AadlPropertyView extends ViewPart {
 
 	val IXtextModelListener xtextModelListener = [
 		if (modelListenerEnabled) {
-			synchronized (jobLock) {
-				if (cachePropertyLookupJob !== null && cachePropertyLookupJob.state != Job.NONE) {
-					cachePropertyLookupJob.cancel
-				}
-				if (input !== null) {
-					cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-					cachePropertyLookupJob.schedule
-				}
-			}
+			runCachePropertyLookupJob(input, null)
 		}
 	]
 
@@ -582,15 +572,7 @@ class AadlPropertyView extends ViewPart {
 										(selectedElement.parent as TreeEntry).treeElement).get(selectedElement.treeElement)
 									val association = resourceSet.getEObject(associationURI, true) as PropertyAssociation
 									(association.owner as NamedElement).ownedPropertyAssociations.remove(association);
-									[|
-										synchronized (jobLock) {
-											if (cachePropertyLookupJob !== null &&
-												cachePropertyLookupJob.state != Job.NONE) {
-												cachePropertyLookupJob.cancel
-											}
-											cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-											cachePropertyLookupJob.schedule
-										}]
+									[|runCachePropertyLookupJob(input, null)]
 								}
 								BasicPropertyAssociation: {
 									(treeElementObject.owner as RecordValue).ownedFieldValues.remove(treeElementObject);
@@ -693,15 +675,7 @@ class AadlPropertyView extends ViewPart {
 						if (oldPA.appliesTos.size == 1) {
 							// non-shared local contained => remove the PA
 							(oldPA.owner as NamedElement).ownedPropertyAssociations.remove(oldPA)
-							update = [|
-								synchronized (jobLock) {
-									if (cachePropertyLookupJob !== null &&
-										cachePropertyLookupJob.state != Job.NONE) {
-										cachePropertyLookupJob.cancel
-									}
-									cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-									cachePropertyLookupJob.schedule
-								}]
+							update = [|runCachePropertyLookupJob(input, null)]
 						} else if (oldPA.appliesTos.size > 1) {
 							// shared local contained => remove from applies to list
 							val toRemove = oldPA.appliesTos.findFirst[
@@ -751,15 +725,7 @@ class AadlPropertyView extends ViewPart {
 						if (oldPA.appliesTos.size == 0 && oldPA.owner === inputElement) {
 							// local PA
 							inputElement.ownedPropertyAssociations.remove(oldPA)
-							update = [|
-								synchronized (jobLock) {
-									if (cachePropertyLookupJob !== null &&
-										cachePropertyLookupJob.state != Job.NONE) {
-										cachePropertyLookupJob.cancel
-									}
-									cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-									cachePropertyLookupJob.schedule
-								}]
+							update = [|runCachePropertyLookupJob(input, null)]
 						} else if (oldPA.appliesTos.size > 1) {
 							// shared local contained => remove from applies to list
 							val toRemove = oldPA.appliesTos.findFirst[
@@ -937,7 +903,6 @@ class AadlPropertyView extends ViewPart {
 
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
 		xtextDocument?.removeModelListener(xtextModelListener)
-		selectedPart = part
 		val currentSelection = switch selection {
 			case selection.empty: {
 				null
@@ -1067,14 +1032,7 @@ class AadlPropertyView extends ViewPart {
 				pageBook.showPage(treeViewerComposite)
 			} else {
 				previousSelectionURI = currentSelectionURI
-
-				synchronized (jobLock) {
-					if (cachePropertyLookupJob !== null && cachePropertyLookupJob.state != Job.NONE) {
-						cachePropertyLookupJob.cancel
-					}
-					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI, treeElementToSelect)
-					cachePropertyLookupJob.schedule
-				}
+				runCachePropertyLookupJob(currentSelectionURI, treeElementToSelect)
 			}
 		} else {
 
@@ -1224,6 +1182,17 @@ class AadlPropertyView extends ViewPart {
 			} else {
 				PropertyStatus.INHERITED
 			}
+		}
+	}
+	
+	def package runCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
+		synchronized (jobLock) {
+			if (cachePropertyLookupJob !== null &&
+				cachePropertyLookupJob.state != Job.NONE) {
+				cachePropertyLookupJob.cancel
+			}
+			cachePropertyLookupJob = createCachePropertyLookupJob(elementURI, objectToSelect)
+			cachePropertyLookupJob.schedule
 		}
 	}
 

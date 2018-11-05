@@ -258,6 +258,7 @@ package class ValueColumnEditingSupport extends EditingSupport {
 				}
 			})
 			
+			propertyView.runCachePropertyLookupJob(propertyView.input, null)
 			propertyView.treeViewer.refresh((element as TreeEntry).propertyParent)
 
 			// select inserted/modified text in editor			
