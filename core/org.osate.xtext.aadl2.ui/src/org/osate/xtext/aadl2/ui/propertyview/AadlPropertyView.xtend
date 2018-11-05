@@ -789,13 +789,35 @@ class AadlPropertyView extends ViewPart {
 		if (xtextDocument !== null) {
 			xtextDocument.modify(work);
 		} else if(resourceFromSelection instanceof XtextResource) {
-			[|
-				val result = work.exec(resourceFromSelection as XtextResource);
-				resourceFromSelection.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
-				result				
-			].executeCommand
+			val resource = resourceFromSelection as XtextResource;
+			var cmd = new RecordingCommand(editingDomain as TransactionalEditingDomain) {
+				T result;
+				
+				override protected doExecute() {
+					result = work.exec(resource)
+				}
+			}
+		
+			editingDomain.commandStack.execute(cmd)
+			
+			// Run the serializer. Otherwise if an invalid modification is made, the resource could be erased.
+			// Sanity check to ensure that we don't save if the modification caused serialization to fail. 
+			// We need to undo to restore the resource to a valid state because the resource may still in use by the owner of the resource(such as the graphical editor)
+			val serializedSrc = resource.getSerializer().serialize(resource.getContents().get(0));
+			val modificationSuccessful = serializedSrc !== null && !serializedSrc.trim().isEmpty();			
+			if (!modificationSuccessful) {
+				if(!editingDomain.getCommandStack().canUndo() || editingDomain.getCommandStack.getUndoCommand() != cmd) {
+					throw new RuntimeException("Property modification failed and unable to undo. Unexpected state.")
+				}
+				
+				editingDomain.getCommandStack().undo()
+			}
+			
+			resourceFromSelection.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap())
+							
+			cmd.result
 		} else {
-			throw new RuntimeException("Unsupported case. Cannot modify model without an Xtext Document or an Xtext resource");
+			throw new RuntimeException("Unsupported case. Cannot modify model without an Xtext Document or an Xtext resource")
 		}
 	}
 
@@ -1196,16 +1218,4 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 
-	def package <T> executeCommand(()=>T proc) {
-		var cmd = new RecordingCommand(editingDomain as TransactionalEditingDomain) {
-			T result;
-			
-			override protected doExecute() {
-				result = proc.apply
-			}
-		}
-		
-		editingDomain.commandStack.execute(cmd)
-		cmd.result
-	}	
 }
