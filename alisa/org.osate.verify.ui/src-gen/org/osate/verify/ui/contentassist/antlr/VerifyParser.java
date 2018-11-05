@@ -156,6 +156,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJavaMethodAccess().getGroup_2(), "rule__JavaMethod__Group_2__0");
 					put(grammarAccess.getJavaMethodAccess().getGroup_2_1(), "rule__JavaMethod__Group_2_1__0");
 					put(grammarAccess.getJavaMethodAccess().getGroup_2_1_1(), "rule__JavaMethod__Group_2_1_1__0");
+					put(grammarAccess.getPythonMethodAccess().getGroup(), "rule__PythonMethod__Group__0");
 					put(grammarAccess.getManualMethodAccess().getGroup(), "rule__ManualMethod__Group__0");
 					put(grammarAccess.getPluginMethodAccess().getGroup(), "rule__PluginMethod__Group__0");
 					put(grammarAccess.getAgreeMethodAccess().getGroup(), "rule__AgreeMethod__Group__0");
@@ -322,6 +323,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJavaMethodAccess().getMethodPathAssignment_1(), "rule__JavaMethod__MethodPathAssignment_1");
 					put(grammarAccess.getJavaMethodAccess().getParamsAssignment_2_1_0(), "rule__JavaMethod__ParamsAssignment_2_1_0");
 					put(grammarAccess.getJavaMethodAccess().getParamsAssignment_2_1_1_1(), "rule__JavaMethod__ParamsAssignment_2_1_1_1");
+					put(grammarAccess.getPythonMethodAccess().getMethodPathAssignment_1(), "rule__PythonMethod__MethodPathAssignment_1");
 					put(grammarAccess.getManualMethodAccess().getDialogIDAssignment_2(), "rule__ManualMethod__DialogIDAssignment_2");
 					put(grammarAccess.getPluginMethodAccess().getMethodIDAssignment_1(), "rule__PluginMethod__MethodIDAssignment_1");
 					put(grammarAccess.getAgreeMethodAccess().getSingleLayerAssignment_1_0(), "rule__AgreeMethod__SingleLayerAssignment_1_0");

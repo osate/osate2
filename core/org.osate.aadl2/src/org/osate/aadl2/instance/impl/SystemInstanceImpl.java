@@ -134,7 +134,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	@Override
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
-			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
+			systemOperationModes = new EObjectContainmentEList<>(SystemOperationMode.class, this,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
 		}
 		return systemOperationModes;
@@ -293,7 +293,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
-		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
+		final List<SystemOperationMode> output = new ArrayList<>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis)) {
 				output.add(som);
@@ -332,7 +332,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		 * not exist in some SOMs.
 		 */
 		currentSOM = null;
-		final LinkedList<ComponentInstance> comps = new LinkedList<ComponentInstance>();
+		final LinkedList<ComponentInstance> comps = new LinkedList<>();
 		comps.add(this);
 		while (!comps.isEmpty()) {
 			final ComponentInstance ci = comps.removeFirst();
@@ -378,7 +378,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	@Override
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
-		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
+		List<ConnectionInstance> result = new LinkedList<>();
 
 		for (ConnectionInstance conni : getAllConnectionInstances()) {
 			boolean foundFirst = (first == second);
@@ -437,7 +437,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
-		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
+		final List<SystemOperationMode> output = new ArrayList<>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
 			if (som.getCurrentModes().contains(mi)) {
@@ -527,7 +527,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	@Override
 	public EList<ConnectionInstance> getAllConnectionInstances() {
-		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		EList<ConnectionInstance> result = new BasicEList<>();
 
 		for (ConnectionInstance conni : allConnectionInstances()) {
 			result.add(conni);

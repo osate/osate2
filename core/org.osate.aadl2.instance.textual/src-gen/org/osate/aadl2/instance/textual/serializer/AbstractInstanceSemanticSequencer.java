@@ -414,6 +414,7 @@ public abstract class AbstractInstanceSemanticSequencer extends PropertiesSemant
 	 *     (
 	 *         name=ModeTransitionName 
 	 *         source=[ModeInstance|ID] 
+	 *         (trigger+=[FeatureInstance|InstanceRef] trigger+=[FeatureInstance|InstanceRef]*)? 
 	 *         destination=[ModeInstance|ID] 
 	 *         modeTransition=[ModeTransition|DeclarativeRef] 
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance?

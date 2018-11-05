@@ -153,6 +153,11 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createJavaMethodAdapter();
       }
       @Override
+      public Adapter casePythonMethod(PythonMethod object)
+      {
+        return createPythonMethodAdapter();
+      }
+      @Override
       public Adapter caseManualMethod(ManualMethod object)
       {
         return createManualMethodAdapter();
@@ -420,6 +425,21 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createJavaMethodAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.PythonMethod <em>Python Method</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.PythonMethod
+   * @generated
+   */
+  public Adapter createPythonMethodAdapter()
   {
     return null;
   }

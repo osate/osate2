@@ -58,6 +58,14 @@
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature" version="0.3.0"/>
       <feature id="org.eclipse.elk.algorithms.feature" version="0.3.0"/>
+      <feature id="org.eclipse.ease.feature"/>
+      <feature id="org.eclipse.ease.lang.python.py4j.feature"/>
+      <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
+      <feature id="org.eclipse.ease.lang.unittest.feature"/>
+      <feature id="org.eclipse.ease.modules.feature"/>
+      <feature id="org.eclipse.ease.modules.modeling.feature"/>
+      <feature id="org.eclipse.ease.ui.feature"/>
+      <feature id="org.py4j.feature"/>
    </features>
 
    <configurations>

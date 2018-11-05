@@ -150,7 +150,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	@Override
 	public EList<String> getMetaclassNames() {
 		if (metaclassNames == null) {
-			metaclassNames = new EDataTypeEList<String>(String.class, this,
+			metaclassNames = new EDataTypeEList<>(String.class, this,
 					Aadl2Package.METACLASS_REFERENCE__METACLASS_NAME);
 		}
 		return metaclassNames;
