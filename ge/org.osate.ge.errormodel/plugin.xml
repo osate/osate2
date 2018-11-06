@@ -54,5 +54,31 @@
             class="org.osate.ge.errormodel.ErrorModelBusinessObjectProvider">
       </provider>
    </extension>
-  
+   <extension
+         point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeLibraryFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeExtensionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorStateMachineFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorStateFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorTransitionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorEventFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorEventTypeFilterFactory">
+      </contentFilter>
+   </extension>
 </plugin>

@@ -48,7 +48,8 @@ public class ErrorBehaviorStateHandler {
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] {
-				PaletteEntryBuilder.create().label("State").category(ErrorModelCategories.ERROR_MODEL).build()
+				PaletteEntryBuilder.create().label("Error Behavior State").category(ErrorModelCategories.ERROR_MODEL)
+						.build()
 		};
 	}
 
