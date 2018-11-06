@@ -17,8 +17,37 @@
      <command 
             categoryId="org.osate.aadl2.errormodel.analysis.category"
             id="org.osate.aadl2.errormodel.analysis.fta"
-            description="View FTA graphically or as minimal cutset table"
+            description="Run and view FTA graphically or tabular"
             name="Run Fault Tree Analysis">
+     </command>     
+    </extension>
+    
+     <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.aadl2.errormodel.analysis.category"
+            name="OSATE Fault Analyses">
+      </category>
+
+     <command 
+            categoryId="org.osate.aadl2.errormodel.analysis.category"
+            id="org.osate.aadl2.errormodel.view.FTTable"
+            description="View Fault Tree tabular"
+            name="View Fault Tree Table">
+     </command>     
+    </extension>
+      <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.aadl2.errormodel.analysis.category"
+            name="OSATE Fault Analyses">
+      </category>
+
+     <command 
+            categoryId="org.osate.aadl2.errormodel.analysis.category"
+            id="org.osate.aadl2.errormodel.view.FTGraph"
+            description="View Fault Tree graphically"
+            name="View Fault Tree Graph">
      </command>     
     </extension>
     
@@ -49,12 +78,73 @@
          </enabledWhen>
       </handler>
      </extension>  
+    
+   	<extension point="org.eclipse.ui.handlers">
+        <handler
+            class="org.osate.aadl2.errormodel.faulttree.handler.FTTableViewHandler" 
+            commandId="org.osate.aadl2.errormodel.view.FTTable">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.emv2.isFTFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.errormodel.FaultTree">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+     </extension>  
+   	<extension point="org.eclipse.ui.handlers">
+        <handler
+            class="org.osate.aadl2.errormodel.faulttree.handler.FTGraphicalViewHandler" 
+            commandId="org.osate.aadl2.errormodel.view.FTGraph">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.emv2.isFTFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.errormodel.FaultTree">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+     </extension>  
  
     <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.aadl2.errormodel.analysis.fta"
-            icon="icons/fta.png">
+            commandId="org.osate.aadl2.errormodel.analysis.FTTable"
+            icon="icons/ftTV.png">
+      </image>
+     </extension> 
+      
+    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.aadl2.errormodel.view.FTGraph"
+            icon="icons/ftGV.png">
       </image>
     </extension>  
      
@@ -67,10 +157,62 @@
           </command>
        </menuContribution>
        <menuContribution
+             locationURI="menu:org.osate.ui.safetyMenu?after=core">
+           <command
+                commandId="org.osate.aadl2.errormodel.view.FTTable">
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="menu:org.osate.ui.safetyMenu?after=core">
+           <command
+                commandId="org.osate.aadl2.errormodel.view.FTGraph">
+          </command>
+       </menuContribution>
+       <menuContribution
              locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
           <command
                 commandId="org.osate.aadl2.errormodel.analysis.fta"
                 tooltip="Run fault tree analysis">
+             <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+          </command>
+        </menuContribution>
+       <menuContribution
+             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.view.FTTable"
+                tooltip="View fault tree">
+             <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="toolbar:org.osate.ui.safetyToolbar?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.view.FTGraph"
+                tooltip="View fault tree">
              <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -95,6 +237,67 @@
              </visibleWhen>
           </command>
         </menuContribution>
+      <menuContribution
+             locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.view.FTTable">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+        </menuContribution>
+      <menuContribution
+             locationURI="popup:org.osate.ui.safetyNavigatorPopup?after=core">
+          <command
+                commandId="org.osate.aadl2.errormodel.view.FTGraph">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+        </menuContribution>
  	</extension>
+ 	
+ 	   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-extensions="faulttree"
+            id="org.osate.emv2.faulttreeFile"
+            name="Fault Tree File"
+            priority="normal">
+         <describer
+               class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber2">
+            <parameter
+                  name="element"
+                  value="{http://www.aadl.info/FaultTree}FaultTree">
+            </parameter>
+         </describer>
+      </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.osate.emv2.isFTFileSelected">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="1">
+               </count>
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.contentTypeId"
+                           value="org.osate.emv2.faulttreeFile">
+                     </test>
+                  </adapt>
+               </iterate>
+            </and>
+         </with>
+      </definition>
+   </extension>
+ 	
 
 </plugin>
