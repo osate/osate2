@@ -42,6 +42,10 @@ package org.osate.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.model.FindUnusedClassifiersAnalysis;
 
 /**
  * XXX Fill this in
@@ -49,7 +53,8 @@ import org.eclipse.core.commands.ExecutionException;
 public final class FindUnusedClassifiers extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		System.out.println("Hello");
+		FindUnusedClassifiersAnalysis.doIt(getCurrentSelection(event));
+
 //		final Job job = new ReinstantiateJob(getCurrentSelection(event));
 //		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 //		job.setUser(true); // important!
@@ -90,25 +95,12 @@ public final class FindUnusedClassifiers extends AbstractHandler {
 	 *   If the set is empty then the action will run on
 	 * all instance models in open AADL projects in the workspace.
 	 */
-//	private Set<IResource> getCurrentSelection(ExecutionEvent event) {
-//		ISelection selection = HandlerUtil.getCurrentSelection(event);
-//		Set<IResource> currentSelection = new HashSet<>();
-//		if (selection instanceof IStructuredSelection) {
-//			for (final Iterator<?> elts = ((IStructuredSelection) selection).iterator(); elts.hasNext();) {
-//				final Object object = elts.next();
-//				if (object != null) {
-//					IResource p = null;
-//					if (object instanceof IResource) {
-//						p = (IResource) object;
-//					} else if (object instanceof IAdaptable) {
-//						p = ((IAdaptable) object).getAdapter(IResource.class);
-//					}
-//					if (p != null && IResourceUtility.isInstanceFile(p) && AadlNature.hasNature(p.getProject())) {
-//						currentSelection.add(p);
-//					}
-//				}
-//			}
-//		}
-//		return currentSelection;
-//	}
+	private Object[] getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection) {
+			return ((IStructuredSelection) selection).toArray();
+		} else {
+			return new Object[0];
+		}
+	}
 }
