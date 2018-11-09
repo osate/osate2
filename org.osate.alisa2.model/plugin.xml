@@ -14,28 +14,4 @@
             genModel="model/safe2.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated safe2 -->
-      <package
-            uri="http://www.aadl.info/EMV2"
-            class="errorModel.ErrorModelPackage"
-            genModel="model/safe2.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated safe2 -->
-      <package
-            uri="http://aadl.info/AADL/2.0"
-            class="aadl2.Aadl2Package"
-            genModel="model/safe2.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated safe2 -->
-      <package
-            uri="http://www.eclipse.org/emf/2002/Ecore"
-            class="ecore.EcorePackage"
-            genModel="model/safe2.genmodel"/>
-   </extension>
-
 </plugin>

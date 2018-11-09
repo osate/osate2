@@ -8,6 +8,14 @@
     <semanticResources>platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore</semanticResources>
     <semanticResources>../plugin.properties</semanticResources>
     <semanticResources>../build.properties</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel</semanticResources>
+    <semanticResources>platform:/resource/org.osate.aadl2/model/aadl2.genmodel</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore</semanticResources>
+    <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.uml2.types/model/Types.ecore</semanticResources>
+    <semanticResources>platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_z_GT4MWIEeiM46_ltOSIwQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_0GR58MWIEeiM46_ltOSIwQ" name="safe2" repPath="#_0B7lcMWIEeiM46_ltOSIwQ">
