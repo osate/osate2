@@ -11,7 +11,6 @@
   <genPackages prefix="Safe2" basePackage="org.osate.alisa2.model" disposableProviderFactory="true"
       ecorePackage="safe2.ecore#/">
     <genClasses image="false" ecoreClass="safe2.ecore#//Fundamental">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Fundamental/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Fundamental/description"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//Accident">
@@ -29,6 +28,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/errorType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/element"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/hazard"/>
+    </genClasses>
+    <genClasses ecoreClass="safe2.ecore#//ControlAction"/>
+    <genClasses image="false" ecoreClass="safe2.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Node/name"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="ErrorModel" ecorePackage="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/">
