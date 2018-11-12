@@ -121,10 +121,10 @@ public class LayoutUtil {
 					// Special handling of labels.
 					final IGaService gaService = Graphiti.getGaService();
 					if (decorationElement.getGraphic() instanceof Label) {
-						if (decorationElement.getName() != null) {
+						if (decorationElement.getLabelName() != null) {
 							final Text text = gaService.createDefaultText(graphitiDiagram, cd);
 							PropertyUtil.setIsStylingChild(text, true);
-							text.setValue(decorationElement.getName());
+							text.setValue(decorationElement.getLabelName());
 							TextUtil.setStyleAndSize(graphitiDiagram, text, decorationElement.getStyle().getFontSize());
 							if (decorationElement.hasPosition()) {
 								gaService.setLocation(text, (int) Math.round(decorationElement.getX()),
@@ -198,7 +198,7 @@ public class LayoutUtil {
 
 						// Add decoration shapes to the list. Sort them by name so that labels will be ordered consistently.
 						element.getDiagramElements().stream().filter(childElement -> childElement.isDecoration()).sorted((ce1,
-								ce2) -> Strings.nullToEmpty(ce1.getName()).compareToIgnoreCase(Strings.nullToEmpty(ce2.getName())))
+								ce2) -> Strings.nullToEmpty(ce1.getLabelName()).compareToIgnoreCase(Strings.nullToEmpty(ce2.getLabelName())))
 						.forEachOrdered(childElement -> {
 							final PictogramElement decorationPictogramElement = diagramNodeProvider
 									.getPictogramElement(childElement);

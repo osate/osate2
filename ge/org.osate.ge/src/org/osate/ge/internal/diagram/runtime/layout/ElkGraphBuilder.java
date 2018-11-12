@@ -479,8 +479,8 @@ class ElkGraphBuilder {
 		final Style style = styleProvider.getStyle(parentElement);
 		if (style.getPrimaryLabelVisible()) {
 			// Create Primary Label
-			if (parentElement.getName() != null) {
-				final ElkLabel elkLabel = createElkLabel(parentLayoutElement, parentElement.getName(),
+			if (parentElement.getLabelName() != null) {
+				final ElkLabel elkLabel = createElkLabel(parentLayoutElement, parentElement.getLabelName(),
 						layoutInfoProvider.getPrimaryLabelSize(parentElement));
 				if (isConnection) {
 					mapping.getGraphMap().put(elkLabel, new PrimaryConnectionLabelReference(parentElement));
@@ -497,7 +497,7 @@ class ElkGraphBuilder {
 		// Create Secondary Labels
 		parentElement.getDiagramElements().stream().filter(c -> c.getGraphic() instanceof Label)
 		.forEachOrdered(labelElement -> {
-			final ElkLabel elkLabel = createElkLabel(parentLayoutElement, labelElement.getName(),
+			final ElkLabel elkLabel = createElkLabel(parentLayoutElement, labelElement.getLabelName(),
 					labelElement.getSize());
 			if (isConnection) {
 				mapping.getGraphMap().put(elkLabel, new SecondaryConnectionLabelReference(labelElement));

@@ -126,7 +126,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public Object[] getChildren(final Object parentElement) {
 				if(parentElement instanceof DiagramNode) {
 					// Show all diagram elements for which the label provider can generate a label.
-					return ((DiagramNode) parentElement).getDiagramElements().stream().filter((de) -> de.getName() != null || de.getBusinessObject() instanceof EObject).toArray();
+					return ((DiagramNode) parentElement).getDiagramElements().stream().filter(
+							(de) -> de.getUserInterfaceName() != null || de.getBusinessObject() instanceof EObject)
+							.toArray();
 				}
 
 				return new Object[0];
@@ -164,8 +166,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						lblTxt += StringUtil.camelCaseToUser(((EObject)bo).eClass().getName()) + " ";
 					}
 
-					if(de.getName() != null) {
-						lblTxt += de.getName();
+					if (de.getUserInterfaceName() != null) {
+						lblTxt += de.getUserInterfaceName();
 					}
 
 					return lblTxt;
