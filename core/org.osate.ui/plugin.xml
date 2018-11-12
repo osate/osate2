@@ -121,6 +121,14 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
+
+   <extension
+         id="UnusedClassifierMarker"
+         name="Unused Classifier Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
    
    <extension
          point="org.eclipse.ui.views">

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -22,11 +24,15 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.search.AadlFinder;
 import org.osate.search.AadlFinder.ResourceConsumer;
 
 public final class FindUnusedClassifiersAnalysis {
+	private static final String MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
 
 	public FindUnusedClassifiersAnalysis() {
 		// TODO Auto-generated constructor stub
@@ -62,6 +68,11 @@ public final class FindUnusedClassifiersAnalysis {
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
 			final SubMonitor subMonitor = SubMonitor.convert(monitor, 3);
+
+			// Clear out the old warning markers
+			for (final IFile packageFile : packageFiles) {
+				packageFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
+			}
 
 			// (1) Get all the declarations in the packages
 			final List<URI> declarationURIs = new ArrayList<>();
@@ -111,6 +122,19 @@ public final class FindUnusedClassifiersAnalysis {
 
 				if (!referencedThings.contains(classifierDecl)) {
 					System.out.println("UNUSED: " + classifierDecl);
+
+					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
+					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
+					try {
+						final IMarker marker = iRsrc.createMarker(MARKER_TYPE);
+						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
+						marker.setAttribute(IMarker.MESSAGE,
+								"Classifier " + classifier.getQualifiedName() + " is never referenced");
+						marker.setAttribute(AadlConstants.AADLURI, classifierDecl.toString());
+					} catch (final CoreException e) {
+						Activator.logThrowable(e);
+						;
+					}
 				}
 
 				lastMonitor.internalWorked(1);
