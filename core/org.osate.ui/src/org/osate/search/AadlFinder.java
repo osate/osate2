@@ -215,6 +215,38 @@ public final class AadlFinder {
 		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer);
 	}
 
+	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer);
+	}
+
+	public void getAllReferencesToTypeInScope(final Scope scope,
+			final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
+			@Override
+			protected void begin(int count) {
+				rsrcConsumer.begin(count);
+			}
+
+			@Override
+			protected void inScope(final IResourceDescription rsrcDesc) {
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				rsrcConsumer.inScope(rsrcDesc);
+			}
+
+			@Override
+			protected void skipped(final IResourceDescription rsrcDesc) {
+				rsrcConsumer.skipped(rsrcDesc);
+			}
+
+			@Override
+			protected void end() {
+				rsrcConsumer.end();
+			}
+		});
+	}
+
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
