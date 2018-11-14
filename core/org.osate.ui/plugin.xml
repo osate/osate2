@@ -149,7 +149,7 @@
 			    <contentExtension pattern="org.osate.ui.navigator.menuActions" />
 				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper" />
     <contentExtension
-          pattern="org.osate.ui.navigator viewerRefresher">
+          pattern="org.osate.ui.navigator.viewerRefresher">
     </contentExtension>
 			</includes>
 		</viewerContentBinding>
@@ -294,7 +294,7 @@
       </actionProvider>
       <navigatorContent
             contentProvider="org.osate.ui.navigator.ViewerRefresher"
-            id="org.osate.ui.navigator viewerRefresher"
+            id="org.osate.ui.navigator.viewerRefresher"
             labelProvider="org.osate.ui.navigator.NullLabelProvider"
             name="Viewer Refresher">
          <enablement>
@@ -1099,4 +1099,11 @@
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
        </propertyTester>
     </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc_ui.xml"
+            primary="true">
+      </toc>
+   </extension>
 </plugin>
