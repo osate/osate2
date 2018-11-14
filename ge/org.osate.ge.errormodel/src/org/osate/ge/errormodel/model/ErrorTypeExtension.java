@@ -17,16 +17,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 public class ErrorTypeExtension implements EmfContainerProvider {
 	private final ErrorType supertype;
 	private final ErrorType subtype;
-	
+
 	public ErrorTypeExtension(final ErrorType supertype, final ErrorType subtype) {
 		this.supertype = Objects.requireNonNull(supertype, "supertype must not be null");
 		this.subtype = Objects.requireNonNull(subtype, "subtype must not be null");
 	}
-	
+
 	public final ErrorType getSupertype() {
 		return supertype;
 	}
-	
+
 	public final ErrorType getSubtype() {
 		return subtype;
 	}

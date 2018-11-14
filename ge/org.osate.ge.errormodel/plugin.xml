@@ -81,4 +81,27 @@
             class="org.osate.ge.errormodel.filters.ErrorBehaviorEventTypeFilterFactory">
       </contentFilter>
    </extension>
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertyTab
+               afterTab="org.osate.ge.ui.properties.tabs.aadl"
+               category="org.osate.ge.contributions"
+               id="org.osate.ge.errormodel.propertyTabs.emv2"
+               indented="false"
+               label="EMV2">
+         </propertyTab>
+	</propertyTabs>
+	</extension>
+	   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorBehaviorState"
+               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+         </propertySection>
+         </propertySections>
+         </extension>
 </plugin>

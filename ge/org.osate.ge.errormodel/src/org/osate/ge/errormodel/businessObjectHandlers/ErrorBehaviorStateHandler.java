@@ -27,6 +27,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.errormodel.util.ErrorModelUtil;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.operations.Operation;
@@ -43,6 +44,15 @@ public class ErrorBehaviorStateHandler {
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
 		return true;
+	}
+
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				annotation(state.isIntial() ? "<Initial>" : null).
+				style(ErrorModelUtil.centeredStyle).
+				build();
 	}
 
 	@GetPaletteEntries
@@ -75,13 +85,6 @@ public class ErrorBehaviorStateHandler {
 				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newState).build();
 			});
 		});
-	}
-
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				build();
 	}
 
 	@GetName

@@ -2,6 +2,8 @@ package org.osate.ge.errormodel.util;
 
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.GraphicalAnnexUtil;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -16,4 +18,9 @@ public class ErrorModelUtil {
 		return (ErrorModelLibrary) GraphicalAnnexUtil.getFirstParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
 				ErrorModelPackage.eINSTANCE.getErrorModelLibrary());
 	}
+
+	public static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
+			.build();
+
+	public static final Style centeredStyle = StyleBuilder.create().labelsCenter().build();
 }

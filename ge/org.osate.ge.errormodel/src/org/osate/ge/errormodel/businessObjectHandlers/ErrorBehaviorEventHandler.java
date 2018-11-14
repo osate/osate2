@@ -28,6 +28,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.errormodel.util.ErrorModelUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
@@ -36,7 +37,10 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 
 public class ErrorBehaviorEventHandler {
 	private static final Graphic graphic = PolyBuilder.create()
@@ -46,6 +50,25 @@ public class ErrorBehaviorEventHandler {
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent event) {
 		return true;
+	}
+
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(
+			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent event) {
+		return GraphicalConfigurationBuilder.create().graphic(graphic).annotation(getAnnotation(event))
+				.style(ErrorModelUtil.centeredStyle).build();
+	}
+
+	private static String getAnnotation(final ErrorBehaviorEvent event) {
+		if (event instanceof ErrorEvent) {
+			return "<Error>";
+		} else if (event instanceof RecoverEvent) {
+			return "<Recover>";
+		} else if (event instanceof RepairEvent) {
+			return "<Repair>";
+		} else {
+			return null;
+		}
 	}
 
 	@GetPaletteEntries
@@ -79,14 +102,6 @@ public class ErrorBehaviorEventHandler {
 				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newEvent).build();
 			});
 		});
-	}
-
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		// TODO: label placement
-		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				build();
 	}
 
 	@GetName

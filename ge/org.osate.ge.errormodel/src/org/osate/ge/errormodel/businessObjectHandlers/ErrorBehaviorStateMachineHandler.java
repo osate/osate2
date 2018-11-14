@@ -39,6 +39,13 @@ public class ErrorBehaviorStateMachineHandler {
 		return true;
 	}
 
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().graphic(graphic)
+				.annotation("<Error Behavior State Machine>")
+				.style(ErrorModelUtil.topCenteredLabelStyle).build();
+	}
+
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { PaletteEntryBuilder.create().label("Error Behavior State Machine")
@@ -82,12 +89,6 @@ public class ErrorBehaviorStateMachineHandler {
 				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newBehavior).build();
 			});
 		});
-	}
-
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).build();
 	}
 
 	@GetName
