@@ -360,7 +360,7 @@ class AssureTests extends XtextTest {
 		srs => [
 			"dcsreqs".assertEquals(name)
 			1.assertEquals(constants.size)
-			1.assertEquals(requirements.size)
+			2.assertEquals(requirements.size)
 			requirements.get(0) as Requirement => [
 				"R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
@@ -755,17 +755,17 @@ class AssureTests extends XtextTest {
 		assuranceCaseResult.resetToTBD(null)
 		assuranceCaseResult.recomputeAllCounts(null)
 		val counts = assuranceCaseResult.metrics
-		36.assertEquals(counts.tbdCount)
+		37.assertEquals(counts.tbdCount)
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteInstalled){
 			15.assertEquals(counts.successCount)
-			21.assertEquals(counts.failCount)
+			22.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
 			8.assertEquals(counts.successCount)
-			11.assertEquals(counts.failCount)
+			12.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
 	}
