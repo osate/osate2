@@ -291,8 +291,13 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
+		var InstanceObject target = targetComponent
+		if (targetElement !== null && targetElement.name !== null) {
+				target = targetComponent.findElementInstance(targetElement)
+				if (target === null) { target =  targetComponent }
+			}
 		env.add("component", targetComponent)
-		env.add("element", targetElement ?: targetComponent)
+		env.add("element", target)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
@@ -390,11 +395,6 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
-					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-							targetComponent.findElementInstance(targetElement) ?: targetComponent
-						} else {
-							targetComponent
-						}
 					if (res instanceof String) {
 						val result = res as String
 						if (target instanceof ConnectionInstance) {

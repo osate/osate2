@@ -177,7 +177,7 @@ class CommonUtilExtension {
 	def static InstanceObject findElementInstanceInList(List<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
-			if (name.equalsIgnoreCase(n1)) return ei
+			if (n1.equalsIgnoreCase(name)) return ei
 		}
 		return null
 	}
