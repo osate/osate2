@@ -369,6 +369,11 @@ class AssureTests extends XtextTest {
 			constants.get(0) as ValDeclaration => [
 				"MaximumLatency".assertEquals(name)
 			]
+			requirements.get(1) as Requirement => [
+				"R2".assertEquals(name)
+				it.assertWarning(testFileResult.issues, issueCollection,
+					"System requirement should have stakeholder goal or requirement reference")
+			]
 		]
 		srs.assertWarning(testFileResult.issues, issueCollection,
 			"Features without requirement: power canbusaccess sensor1in sensor2In actuatorOut")
@@ -386,7 +391,7 @@ class AssureTests extends XtextTest {
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
 			"dcsvplan".assertEquals(name)
-			1.assertEquals(claim.size)
+			2.assertEquals(claim.size)
 			claim.get(0) as Claim => [
 				2.assertEquals(activities.size)
 			]
@@ -760,8 +765,8 @@ class AssureTests extends XtextTest {
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteInstalled){
-			15.assertEquals(counts.successCount)
-			22.assertEquals(counts.failCount)
+			16.assertEquals(counts.successCount)
+			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
 			8.assertEquals(counts.successCount)
