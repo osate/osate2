@@ -6,7 +6,7 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator2;
 
 public final class UnusedClassifierMarkerResolutionGenerator implements IMarkerResolutionGenerator2 {
-	private static final String UNUSED_CLASSIFIER_MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
+	protected static final String UNUSED_CLASSIFIER_MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
 
 	private static final IMarkerResolution[] RESOLVERS = { new UnusedClassifierMarkerResolution() };
 	private static final IMarkerResolution[] EMPTY = new IMarkerResolution[0];

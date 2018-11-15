@@ -20,11 +20,9 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.Activator;
@@ -110,7 +108,6 @@ public final class FindUnusedClassifiersAnalysis {
 							subMon.worked(1);
 						}
 					},
-
 					refDesc -> referencedThings.add(refDesc.getTargetEObjectUri()));
 
 			// (3) See if the declarations in the set of referenced things
@@ -122,8 +119,6 @@ public final class FindUnusedClassifiersAnalysis {
 				}
 
 				if (!referencedThings.contains(classifierDecl)) {
-					System.out.println("UNUSED: " + classifierDecl);
-
 					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
 					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
 					try {
@@ -136,7 +131,6 @@ public final class FindUnusedClassifiersAnalysis {
 						marker.setAttribute(EValidator.URI_ATTRIBUTE, urIString);
 					} catch (final CoreException e) {
 						Activator.logThrowable(e);
-						;
 					}
 				}
 
@@ -145,12 +139,5 @@ public final class FindUnusedClassifiersAnalysis {
 
 			return Status.OK_STATUS;
 		}
-
-		private String getPackageName(final IFile packageFile) {
-			final Resource resource = OsateResourceUtil.getResource(packageFile, resourceSet);
-			final AadlPackage root = (AadlPackage) resource.getContents().get(0);
-			return root.getName();
-		}
-
 	}
 }
