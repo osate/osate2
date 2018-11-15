@@ -1,5 +1,8 @@
 package org.osate.ui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -12,13 +15,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.ui.IMarkerResolution;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-public final class UnusedClassifierMarkerResolution implements IMarkerResolution {
+public final class UnusedClassifierMarkerResolution extends WorkbenchMarkerResolution {
 
 	public UnusedClassifierMarkerResolution() {
 		super();
@@ -59,8 +63,6 @@ public final class UnusedClassifierMarkerResolution implements IMarkerResolution
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 					@Override
 					protected void doExecute() {
-//						final Classifier classifierDecl = (Classifier) OsateResourceUtil.getResourceSet()
-//								.getEObject(uri, true);
 						final Classifier classifierDecl = (Classifier) rsrc.getEObject(uri.fragment());
 						final PackageSection packageSection = (PackageSection) classifierDecl.getOwner();
 						packageSection.getOwnedClassifiers().remove(classifierDecl);
@@ -76,5 +78,30 @@ public final class UnusedClassifierMarkerResolution implements IMarkerResolution
 			return Status.OK_STATUS;
 		}
 
+	}
+
+	@Override
+	public String getDescription() {
+		return null;
+	}
+
+	@Override
+	public Image getImage() {
+		return null;
+	}
+
+	@Override
+	public IMarker[] findOtherMarkers(final IMarker[] markers) {
+		final List<IMarker> alsoGood = new ArrayList<>();
+		for (final IMarker test : markers) {
+			try {
+				if (test.getType().equals(UnusedClassifierMarkerResolutionGenerator.UNUSED_CLASSIFIER_MARKER_TYPE)) {
+					alsoGood.add(test);
+				}
+			} catch (final CoreException e) {
+				// eat it
+			}
+		}
+		return alsoGood.toArray(new IMarker[alsoGood.size()]);
 	}
 }
