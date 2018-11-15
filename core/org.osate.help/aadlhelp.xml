@@ -12,6 +12,9 @@
 		<topic href="html/start2/OSATEUserGuide.html#analysis" label="Analyzing Models" />
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
 	</topic>
+	<topic label="Concepts">
+		<anchor id="_workingSets"/>
+	</topic>
 	<topic label="Model Analyses">
     	<anchor id="_latency"/>
 		<anchor id="_codegen_checker"/>
@@ -20,7 +23,7 @@
     	</topic>
 	</topic>
 
-	<topic href="html/std/section-1.html" label="Reference Manual">
+	<topic href="html/std/section-1.html" label="AADL Reference Manual">
 		<topic href="html/std/section-2-1.html" label="Scope">
 			<topic href="html/std/section-2-2.html" label="Purpose/Extent" />
 			<topic href="html/std/section-2-3.html" label="Field of Application" />
