@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -130,7 +131,9 @@ public final class FindUnusedClassifiersAnalysis {
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 						marker.setAttribute(IMarker.MESSAGE,
 								"Classifier " + classifier.getQualifiedName() + " is never referenced");
-						marker.setAttribute(AadlConstants.AADLURI, classifierDecl.toString());
+						final String urIString = classifierDecl.toString();
+						marker.setAttribute(AadlConstants.AADLURI, urIString);
+						marker.setAttribute(EValidator.URI_ATTRIBUTE, urIString);
 					} catch (final CoreException e) {
 						Activator.logThrowable(e);
 						;

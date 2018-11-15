@@ -1156,4 +1156,11 @@
             type="org.eclipse.core.resources.IFile">
        </propertyTester>
     </extension>
+    <extension
+          point="org.eclipse.ui.ide.markerResolution">
+       <markerResolutionGenerator
+             class="org.osate.ui.model.UnusedClassifierMarkerResolutionGenerator"
+             markerType="org.osate.ui.UnusedClassifierMarker">
+       </markerResolutionGenerator>
+    </extension>
 </plugin>
