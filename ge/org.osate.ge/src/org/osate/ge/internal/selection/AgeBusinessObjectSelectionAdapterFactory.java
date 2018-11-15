@@ -4,9 +4,15 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -27,6 +33,30 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 			return adapterType
 					.cast(new AgeBusinessObjectSelection(SelectionUtil.getSelectedBusinessObjectContexts(selection),
 							modificationService));
+		} else if (IAadlPropertySource.class.equals(adapterType) && adaptableObject instanceof IStructuredSelection) {
+			final IStructuredSelection ss = (IStructuredSelection) adaptableObject;
+			if (ss.getFirstElement() instanceof DiagramElement) {
+				final DiagramElement de = (DiagramElement) ss.getFirstElement();
+				// If the business object is an AADL Named Element
+				if (de.getBusinessObject() instanceof NamedElement) {
+					final NamedElement namedElement = (NamedElement) de.getBusinessObject();
+					return adapterType.cast(new IAadlPropertySource() {
+						private final IXtextDocument document = AgeXtextUtil
+								.getDocumentByRootElement(namedElement.getElementRoot());
+						private final NamedElement element = namedElement;
+
+						@Override
+						public IXtextDocument getDocument() {
+							return document;
+						}
+
+						@Override
+						public NamedElement getNamedElement() {
+							return element;
+						}
+					});
+				}
+			}
 		}
 
 		return null;
@@ -34,7 +64,7 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 
 	@Override
 	public Class<?>[] getAdapterList() {
-		return new Class[] { BusinessObjectSelection.class };
+		return new Class[] { IAadlPropertySource.class, BusinessObjectSelection.class };
 	}
 
 }
