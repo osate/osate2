@@ -316,7 +316,7 @@ public class Aadl2Utils
     String result = PropertyUtils.getEnumValue(ne, "Parameter_Usage") ;
     if(result == null)
     {
-      Property prop = GetProperties.lookupPropertyDefinition(ne, "Generation_Properties", "Parameter_Usage");
+      Property prop = GetProperties.lookupPropertyDefinition(ne, "Code_Generation_Properties", "Parameter_Usage");
       if(prop != null)
       {
         NamedValue nv = (NamedValue) prop.getDefaultValue() ;
