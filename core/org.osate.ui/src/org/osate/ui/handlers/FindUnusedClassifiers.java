@@ -53,43 +53,9 @@ import org.osate.ui.model.FindUnusedClassifiersAnalysis;
 public final class FindUnusedClassifiers extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		FindUnusedClassifiersAnalysis.doIt(getCurrentSelection(event));
-
-//		final Job job = new ReinstantiateJob(getCurrentSelection(event));
-//		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-//		job.setUser(true); // important!
-//		job.schedule();
+		FindUnusedClassifiersAnalysis.INSTANCE.doIt(getCurrentSelection(event));
 		return null;
 	}
-
-//	private final class ReinstantiateJob extends WorkspaceJob {
-//		private final Set<IResource> selection;
-//
-//		public ReinstantiateJob(final Set<IResource> selection) {
-//			super("Reinstantiate models");
-//			this.selection = selection;
-//		}
-//
-//		@Override
-//		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-//			monitor.beginTask("Reinstantiate all instance models", IProgressMonitor.UNKNOWN);
-//			try {
-//				if (!selection.isEmpty()) {
-//					for (Iterator<IResource> iterator = selection.iterator(); iterator.hasNext();) {
-//						IResource obj = iterator.next();
-//						InstantiateModel.rebuildInstanceModelFile(obj);
-//					}
-//				} else {
-//					InstantiateModel.rebuildAllInstanceModelFiles(monitor);
-//				}
-//			} catch (Exception e) {
-//				System.err.println("Model Instantiate: Error while re-instantiating the model: " + e.getMessage());
-//
-//			}
-//			monitor.done();
-//			return Status.OK_STATUS;
-//		}
-//	}
 
 	/** Set of currently selected instance models as IResources.
 	 *   If the set is empty then the action will run on
