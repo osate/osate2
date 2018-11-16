@@ -36,7 +36,6 @@ package org.osate.xtext.aadl2.ui.propertyview
 
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.SWT
@@ -64,6 +63,7 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.findNodesForFeature
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
 import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
+import org.eclipse.emf.ecore.resource.ResourceSet
 
 package class ValueColumnEditingSupport extends EditingSupport {
 	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
@@ -104,16 +104,50 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	}
 	
 	override protected getCellEditor(Object element) {
-		new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2), propertyView.xtextDocument.readOnly[convertToIResource.project]) => [
+		new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2), getProject()) => [
 			create(propertyView.treeViewer.tree)
 		]
 	}
 	
-	override protected getValue(Object element) {
-		propertyView.xtextDocument.readOnly[
+	def private getProject() {
+		if(propertyView.xtextDocument === null) {
+			val NamedElement curSelection = propertyView.resourceFromSelection.resourceSet.getEObject(propertyView.input,
+				true) as NamedElement
+			curSelection.eResource.convertToIResource.project
+		} else {
+			propertyView.xtextDocument.readOnly[convertToIResource.project]
+		}
+	}
+	
+	override protected getValue(Object element) {		
+		propertyView.safeReadResource[extension resource|
+			// Helper function. If length is negative then it is an offset from the end of the source
+			val getText = if (propertyView.xtextDocument === null) {
+				val xtextResource = resource as XtextResource
+				val text = xtextResource.parseResult.rootNode.text;
+				[int offset, int length |  
+					val positiveLength = if(length < 0) {
+						text.length + length
+					} else {
+						length;
+					}
+					
+					text.substring(offset, offset + positiveLength)				
+				]
+			} else {
+				[int offset, int length | 
+					val positiveLength = if(length < 0) {
+						propertyView.xtextDocument.length + length
+					} else {
+						length;
+					}
+					
+					propertyView.xtextDocument.get(offset, positiveLength)				
+				]
+			}
+			 
 			val modelUnitNameEndOffset = contents.head.findNodesForFeature(Aadl2Package.eINSTANCE.namedElement_Name).head.endOffset
 			val endNameEndOffset = contents.head.node.lastLeaf.previousNode.endOffset
-
 			if (creatingNewLocalInEdit) {
 				val propertyName = (element as TreeEntry).property.getQualifiedName.stripPredeclaredName
 				val inputElement = resourceSet.getEObject(propertyView.input, true) as NamedElement
@@ -168,37 +202,37 @@ package class ValueColumnEditingSupport extends EditingSupport {
 				} else {
 					delim
 				}
-				val prefix = propertyView.xtextDocument.get(0, updateOffset)
-				val suffix = propertyView.xtextDocument.get(updateOffset, propertyView.xtextDocument.length - updateOffset)
+				val prefix = getText.apply(0, updateOffset)
+				val suffix = getText.apply(updateOffset, -updateOffset)
 				new CellEditorPartialValue('''«new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»«updatePrefix»''',
 					initialEditablePart,
 					'''«updateSuffix»«new StringBuilder(suffix).insert(endNameEndOffset - updateOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»'''
 				)
 			} else {
-				val expression = getPropertyExpression(element)
+				val expression = getPropertyExpression(resourceSet, element)
 				val expressionNode = expression.node
 				updateOffset = expressionNode.offset
 				updateLength = expressionNode.length
 				updatePrefix = ""
 				updateSuffix = ""
-				initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-				val prefix = propertyView.xtextDocument.get(0, expressionNode.offset)
-				val suffix = propertyView.xtextDocument.get(expressionNode.endOffset, propertyView.xtextDocument.length - expressionNode.endOffset)
+				initialEditablePart = (resource as XtextResource).serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
+				val prefix = getText.apply(0, expressionNode.offset)
+				val suffix = getText.apply(expressionNode.endOffset, -expressionNode.endOffset)
 				new CellEditorPartialValue(new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).toString,
 					initialEditablePart,
 					new StringBuilder(suffix).insert(endNameEndOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).toString
 				)
 			}
-		]
+		];
 	}
 
-	private def PropertyExpression getPropertyExpression(Resource resource, Object element) {
-		val resourceSet = resource.resourceSet
+	private def PropertyExpression getPropertyExpression(ResourceSet resourceSet, Object element) {
 		switch treeElement : (element as TreeEntry).treeElement {
 			URI: switch treeElementObject : resourceSet.getEObject(treeElement, true) {
 				Property: {
 					(resourceSet.getEObject(
-						propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement), true
+						propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement),
+						true
 					) as PropertyAssociation).ownedValues.head.ownedValue
 				}
 				BasicPropertyAssociation: treeElementObject.value
@@ -207,7 +241,7 @@ package class ValueColumnEditingSupport extends EditingSupport {
 			ListElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
 		}
 	}
-	
+
 	private def stripPredeclaredName(String qualifiedName) {
 		val predeclaredNames = #['communication_properties::', 'deployment_properties::', 'memory_properties::',
 				'modeling_properties::', 'programming_properties::', 'thread_properties::', 'timing_properties::']
@@ -218,12 +252,13 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	override protected setValue(Object element, Object value) {
 		if (creatingNewLocalInEdit || !(value as String).empty && initialEditablePart != value) {
 			// insert new property value
-			propertyView.xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+			propertyView.modify(new IUnitOfWork.Void<XtextResource> {
 				override process(XtextResource state) throws Exception {
 					state.update(updateOffset, updateLength, updatePrefix + value + updateSuffix)
 				}
 			})
 			
+			propertyView.runCachePropertyLookupJob(propertyView.input, null)
 			propertyView.treeViewer.refresh((element as TreeEntry).propertyParent)
 
 			// select inserted/modified text in editor			
@@ -233,7 +268,7 @@ package class ValueColumnEditingSupport extends EditingSupport {
 			}
 		}
 	}
-
+	
 	def private static getLastLeaf(ICompositeNode node) {
 		var INode result = node
 		while (result instanceof ICompositeNode) {
