@@ -291,8 +291,13 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
+		var InstanceObject target = targetComponent
+		if (targetElement !== null && targetElement.name !== null) {
+				target = targetComponent.findElementInstance(targetElement)
+				if (target === null) { target =  targetComponent }
+			}
 		env.add("component", targetComponent)
-		env.add("element", targetElement ?: targetComponent)
+		env.add("element", target)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
@@ -390,15 +395,10 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
 					val res = VerificationMethodDispatchers.eInstance.
 						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
-					val InstanceObject target = if (targetElement !== null && !targetElement.eIsProxy) {
-							targetComponent.findElementInstance(targetElement) ?: targetComponent
-						} else {
-							targetComponent
-						}
 					if (res instanceof String) {
 						val result = res as String
 						if (target instanceof ConnectionInstance) {
-							val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
+							val conns = findConnectionInstances(targetComponent.connectionInstances, target)
 							for (conni : conns) {
 								addMarkersAsResult(verificationResult, conni, result, method)
 							}
@@ -481,7 +481,7 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				default: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					executeVerificationMethod(verificationResult, method, targetComponent, targetElement,
+					executeVerificationMethod(verificationResult, method, targetComponent, target,
 						parameterObjects)
 				}
 			} // end switch on method
@@ -650,18 +650,9 @@ class AssureProcessor implements IAssureProcessor {
 	 * Then call on ExecuteMethodOnce, which handles Java and Resolute
 	 */
 	def void executeVerificationMethod(VerificationResult verificationResult, VerificationMethod method,
-		ComponentInstance targetComponent, NamedElement targetElement, List<PropertyExpression> parameters) {
-		val InstanceObject target = if (targetElement !== null) {
-				if (targetElement.eIsProxy) {
-					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-					return
-				}
-				targetComponent.findElementInstance(targetElement)
-			} else {
-				targetComponent
-			}
+		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
 		if (target instanceof ConnectionInstance) {
-			val conns = findConnectionInstances(targetComponent.connectionInstances, targetElement.name)
+			val conns = findConnectionInstances(targetComponent.connectionInstances, target)
 			for (conni : conns) {
 				if (checkPropertyValues(verificationResult, conni)) {
 					verificationResult.executeMethodOnce(method, targetComponent, conni, parameters)
@@ -678,7 +669,7 @@ class AssureProcessor implements IAssureProcessor {
 				verificationResult.executeMethodOnce(method, targetComponent, target, parameters)
 			}
 		} else {
-			setToError(verificationResult, "Could not find target element instance " + targetElement.name,
+			setToError(verificationResult, "Could not find target element instance " + target.name,
 				targetComponent)
 		}
 	}
@@ -762,7 +753,7 @@ class AssureProcessor implements IAssureProcessor {
 			} else if (returned instanceof Result) {
 				verificationResult.results.add(returned)
 				if (verificationResult instanceof VerificationActivityResult) {
-					evaluateComputePredicate(verificationResult, method, returned)
+					evaluateComputePredicate(verificationResult, method, target, returned)
 				}
 				if (verificationResult.isError){
 					// no need to do anything 
@@ -786,7 +777,7 @@ class AssureProcessor implements IAssureProcessor {
 				} else {
 					if (verificationResult instanceof VerificationActivityResult) {
 						for (Result r : returned.results) {
-							evaluateComputePredicate(verificationResult, method, r)
+							evaluateComputePredicate(verificationResult, method, target, r)
 						}	
 					}
 					if (verificationResult.isError){
@@ -851,7 +842,7 @@ class AssureProcessor implements IAssureProcessor {
 	/*
 	 * evaluate value predicate with compute variable results bound. Result is recorded in returned
 	 */
-	def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method,
+	def void evaluateComputePredicate(VerificationActivityResult verificationResult, VerificationMethod method, InstanceObject target,
 		Result returned) {
 		val predicate = verificationResult.claimResult.target.predicate
 		if(!returned.resultSuccess || verificationResult.isError || predicate === null || !(predicate instanceof ValuePredicate)) return;
@@ -865,6 +856,8 @@ class AssureProcessor implements IAssureProcessor {
 			return
 		}
 		// reset computes for each predicate evaluation
+		env.decrement("element")
+		env.add("element", target)
 		computes.clear
 		val formalIter = method.results.iterator
 		val valsIter = returned.values.iterator
