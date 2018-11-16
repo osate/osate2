@@ -21,7 +21,10 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -30,14 +33,24 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.search.AadlFinder;
 import org.osate.search.AadlFinder.ResourceConsumer;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public final class FindUnusedClassifiersAnalysis {
 	private static final String MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
 
-	public FindUnusedClassifiersAnalysis() {
-		// TODO Auto-generated constructor stub
+	public static final FindUnusedClassifiersAnalysis INSTANCE = new FindUnusedClassifiersAnalysis();
+
+	@Inject
+	private ILocationInFileProvider locationProvider;
+
+	private FindUnusedClassifiersAnalysis() {
+		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
+		injector.injectMembers(this);
 	}
 
-	public static void doIt(final Object[] array) {
+	public void doIt(final Object[] array) {
 		final List<IFile> packages = new ArrayList<>(array.length);
 		for (final Object file : array) {
 			packages.add((IFile) file);
@@ -45,16 +58,16 @@ public final class FindUnusedClassifiersAnalysis {
 		doIt(packages);
 	}
 
-	public static void doIt(final Collection<IFile> packages) {
+	public void doIt(final Collection<IFile> packages) {
 		final Job job = new FindUnusedClassifiersJob(OsateResourceUtil.getResourceSet(), packages);
-		// XXX Make the rule based on the contents of the resource set
+		// TODO Make the rule based on the contents of the resource set
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
 		job.schedule();
 
 	}
 
-	private final static class FindUnusedClassifiersJob extends WorkspaceJob {
+	private final class FindUnusedClassifiersJob extends WorkspaceJob {
 		private final ResourceSet resourceSet;
 		private final Collection<IFile> packageFiles;
 
@@ -126,9 +139,16 @@ public final class FindUnusedClassifiersAnalysis {
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 						marker.setAttribute(IMarker.MESSAGE,
 								"Classifier " + classifier.getQualifiedName() + " is never referenced");
+
 						final String urIString = classifierDecl.toString();
 						marker.setAttribute(AadlConstants.AADLURI, urIString);
 						marker.setAttribute(EValidator.URI_ATTRIBUTE, urIString);
+
+						final ITextRegion where = locationProvider.getFullTextRegion(classifier);
+						final int start = where.getOffset();
+						final int end = start + where.getLength();
+						marker.setAttribute(IMarker.CHAR_START, start);
+						marker.setAttribute(IMarker.CHAR_END, end);
 					} catch (final CoreException e) {
 						Activator.logThrowable(e);
 					}
