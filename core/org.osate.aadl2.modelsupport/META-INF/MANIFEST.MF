@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.aadl2.modelsupport.Activator
 Require-Bundle: org.osate.aadl2,
  org.osate.workspace;visibility:=reexport,
- org.osate.pluginsupport,
  org.apache.log4j,
  org.osate.core;visibility:=reexport,
  org.eclipse.xtext;bundle-version="2.0.1"
