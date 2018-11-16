@@ -23,6 +23,7 @@ package org.osate.ba.utils;
 
 import java.lang.System ;
 import java.util.Comparator ;
+import java.util.List ;
 import java.util.ListIterator ;
 
 import javax.naming.OperationNotSupportedException ;
@@ -760,6 +761,29 @@ public class AadlBaUtils {
     return getDataClassifier(t, null);
   }
   
+  
+  /**
+   * Returns the DataClassifier object associated to the given List of PrototypeBinging objects.
+   * 
+   * @param prototypeBindings the list of PrototypeBinging object
+   * @param dp the DataPrototype searched for in prototypeBindings
+   * @return the DataClassifier object (null if not found)
+   */
+  private static DataClassifier getDataClassifier(List<PrototypeBinding> prototypeBindings, DataPrototype dp)
+  {
+    for(PrototypeBinding pb: prototypeBindings)
+    {
+      if(pb instanceof ComponentPrototypeBinding && pb.getFormal().equals(dp))
+      {
+        ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) pb;
+        ComponentPrototypeActual cpa = cpb.getActuals().get(cpb.getActuals().size()-1);
+        if(cpa.getSubcomponentType() instanceof DataClassifier)
+          return (DataClassifier) cpa.getSubcomponentType();
+      }
+    }
+    return null;
+  }
+  
   /**
    * Returns the DataClassifier object associated to the given Target object.
    * 
@@ -796,7 +820,17 @@ public class AadlBaUtils {
     else if(result instanceof DataSubcomponent)
     {
       DataSubcomponentType dst = ((DataSubcomponent) result).getDataSubcomponentType(); 
-      return (DataClassifier) dst;
+      if(dst instanceof DataPrototype)
+      {
+        DataPrototype dp = (DataPrototype) dst;
+        if (t instanceof DataComponentReference)
+        {
+          DataComponentReference r = (DataComponentReference) t;
+          return prototypeBindingResolverForDataComponentReference(r, dp, parentContainer);
+        }
+      }
+      else if(dst instanceof DataClassifier)
+        return (DataClassifier) dst;
     }
     else if (result instanceof BehaviorVariable)
     {
@@ -831,6 +865,87 @@ public class AadlBaUtils {
     return null;
   }
   
+  
+  /**
+   * Returns the DataClassifier object associated to prototype binding in a DataComponentReference
+   * 
+   * @param r the DataComponentRefenrence object from which the binding will be resolved
+   * @param dp the DataPrototpye object that enables to identify the targeted prototype binding
+   * @param parentContainer the object that contains the element binded to the
+   * given DataComponentRefenrence
+   * @return the DataClassifier object
+   */
+  private static DataClassifier
+          prototypeBindingResolverForDataComponentReference(DataComponentReference r,
+                                                            DataPrototype dp,
+                                                            NamedElement parentContainer)
+  {
+    if(r.getData().size()>1)
+    {
+      DataHolder h = r.getData().get(r.getData().size() - 2);
+      NamedElement parent = h.getElement();
+      if(parent instanceof Classifier)
+      {
+        Classifier c = (Classifier) parent;
+        return getDataClassifier(c.getOwnedPrototypeBindings(), dp);
+      }
+      if(parent instanceof Subcomponent)
+      {
+        Subcomponent s = (Subcomponent) parent;
+        return getDataClassifier(s.getOwnedPrototypeBindings(), dp);
+      }
+      else if (parent instanceof DataAccess)
+      {
+        DataAccess da = (DataAccess) parent;
+        DataSubcomponentType parentDst = da.getDataFeatureClassifier();
+        Classifier c = (Classifier) parentDst;
+        DataClassifier matchedPrototype = getDataClassifier(c.getOwnedPrototypeBindings(), dp);
+        if(matchedPrototype == null)
+        {
+          if(parentContainer instanceof ComponentType)
+          {
+            ComponentType ct = (ComponentType) parentContainer;
+            for(Feature f: ct.getOwnedFeatures())
+            {
+              if(f instanceof DataAccess && f.getName().equals(parent.getName()))
+              {
+                DataAccess containerDa = (DataAccess) f;
+                DataSubcomponentType containerDst = containerDa.getDataFeatureClassifier();
+                Classifier c2 = (Classifier) containerDst;
+                return getDataClassifier(c2.getOwnedPrototypeBindings(), dp);
+              }
+            }
+          }
+        }
+      }
+      else if(parent instanceof DataPort)
+      {
+        DataPort dataport = (DataPort) parent;
+        DataSubcomponentType parentDst = dataport.getDataFeatureClassifier();
+        Classifier c = (Classifier) parentDst;
+        DataClassifier matchedPrototype = getDataClassifier(c.getOwnedPrototypeBindings(), dp);
+        if(matchedPrototype == null)
+        {
+          if(parentContainer instanceof ComponentType)
+          {
+            ComponentType ct = (ComponentType) parentContainer;
+            for(Feature f: ct.getOwnedFeatures())
+            {
+              if(f instanceof DataPort && f.getName().equals(parent.getName()))
+              {
+                DataPort containerDp = (DataPort) f;
+                DataSubcomponentType containerDst = containerDp.getDataFeatureClassifier();
+                Classifier c2 = (Classifier) containerDst;
+                return getDataClassifier(c2.getOwnedPrototypeBindings(), dp);
+              }
+            }
+          }
+        }
+      }
+    }
+    return null;
+  }
+
   /**
    * Returns the DataClassifier of the element binded to the given 
    * Value object. A target instance can be given to this method as 
