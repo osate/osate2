@@ -23,6 +23,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.Style;
@@ -33,7 +34,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphiti.AgeGraphicsAlgorithmRendererFactory;
 import org.osate.ge.internal.graphiti.AnchorNames;
@@ -330,7 +330,7 @@ public class LayoutUtil {
 						// Only adjust the size of an element if it doesn't have a size. If it doens't already have a size, the incremental layout will handle it.
 						if (!DiagramElementPredicates.isResizeable(element) || element.hasSize()) {
 							mod.setSize(element,
-									new org.osate.ge.internal.diagram.runtime.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
+									new org.osate.ge.graphics.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
 						}
 						// Position docked shapes
 						for (final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {

@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;

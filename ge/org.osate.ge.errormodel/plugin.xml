@@ -30,6 +30,12 @@
       <handler
             class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorTransitionHandler">
       </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.BehaviorTransitionTrunkHandler">
+      </handler>
+	  <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.TransitionBranchHandler">
+      </handler>
    </extension>
    <extension
          point="org.osate.ge.categories">
@@ -80,6 +86,9 @@
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorBehaviorEventTypeFilterFactory">
       </contentFilter>
+      <fundamentalContentFilter
+            class="org.osate.ge.errormodel.filters.FundamentalErrorBusinessObjectFilter">
+      </fundamentalContentFilter>
    </extension>
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
@@ -102,6 +111,19 @@
                id="org.osate.ge.errormodel.propertySections.errorBehaviorState"
                tab="org.osate.ge.errormodel.propertyTabs.emv2">
          </propertySection>
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.transitionBranch"
+               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+         </propertySection>
          </propertySections>
          </extension>
+    <extension
+          point="org.osate.ge.tooltips">
+       <tooltipContributor
+             class="org.osate.ge.errormodel.tooltips.ErrorModelTooltipContributor"
+             priority="5">
+       </tooltipContributor>
+    </extension>
 </plugin>

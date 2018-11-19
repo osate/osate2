@@ -28,7 +28,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.errormodel.util.ErrorModelUtil;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
@@ -56,7 +56,7 @@ public class ErrorBehaviorEventHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(
 			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent event) {
 		return GraphicalConfigurationBuilder.create().graphic(graphic).annotation(getAnnotation(event))
-				.style(ErrorModelUtil.centeredStyle).build();
+				.style(ErrorModelGeUtil.centeredStyle).build();
 	}
 
 	private static String getAnnotation(final ErrorBehaviorEvent event) {

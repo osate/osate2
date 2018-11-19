@@ -20,7 +20,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.errormodel.util.ErrorModelUtil;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.operations.Operation;
@@ -43,7 +43,7 @@ public class ErrorBehaviorStateMachineHandler {
 	public GraphicalConfiguration getGraphicalConfiguration() {
 		return GraphicalConfigurationBuilder.create().graphic(graphic)
 				.annotation("<Error Behavior State Machine>")
-				.style(ErrorModelUtil.topCenteredLabelStyle).build();
+				.style(ErrorModelGeUtil.topCenteredLabelStyle).build();
 	}
 
 	@GetPaletteEntries
@@ -63,7 +63,7 @@ public class ErrorBehaviorStateMachineHandler {
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc) {
 		return Operation.create(createOp -> {
 			createOp.supply(() -> {
-				final ErrorModelLibrary errorModelLibrary = ErrorModelUtil.getErrorModelLibrary(pkgReadOnly);
+				final ErrorModelLibrary errorModelLibrary = ErrorModelGeUtil.getErrorModelLibrary(pkgReadOnly);
 				final Object boToModify = errorModelLibrary == null ? pkgReadOnly : errorModelLibrary;
 				return StepResult.forValue(boToModify);
 			}).modifyPreviousResult(modifyBo -> {
@@ -71,7 +71,7 @@ public class ErrorBehaviorStateMachineHandler {
 				// cases such as when an Xtext document is open.
 				final ErrorModelLibrary errorModelLibrary;
 				if (modifyBo instanceof AadlPackage) {
-					errorModelLibrary = ErrorModelUtil.getOrCreateErrorModelLibrary((AadlPackage) modifyBo);
+					errorModelLibrary = ErrorModelGeUtil.getOrCreateErrorModelLibrary((AadlPackage) modifyBo);
 				} else if (modifyBo instanceof ErrorModelLibrary) {
 					errorModelLibrary = (ErrorModelLibrary) modifyBo;
 				} else {

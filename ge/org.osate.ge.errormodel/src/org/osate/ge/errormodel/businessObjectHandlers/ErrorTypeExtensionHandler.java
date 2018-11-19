@@ -43,15 +43,6 @@ public class ErrorTypeExtensionHandler {
 					.descendantsByBusinessObjectsRelativeReference(
 							ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
 
-	// TODO: Move
-	private static Object[] getBusinessObjectPath(final ErrorType et) {
-		if (!(et.eContainer() instanceof ErrorModelLibrary)) {
-			return null;
-		}
-
-		return new Object[] { et.getElementRoot(), new ErrorTypeLibrary((ErrorModelLibrary) et.eContainer()), et };
-	}
-
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { PaletteEntryBuilder.create().connectionCreation().label("Error Type Extension")
@@ -72,13 +63,8 @@ public class ErrorTypeExtensionHandler {
 		if (destination == null) {
 			return GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build();
 		} else {
-			// TODO: Is source redundant?
-			// TODO: What about partial connections?
-			// boc.getParent()
 			return GraphicalConfigurationBuilder.create().graphic(connectionGraphic).
-			// style(getStyle(bo)).
-					source(boc.getParent()).
-					destination(destination).build();
+					source(boc.getParent()).destination(destination).build();
 		}
 	}
 
@@ -146,5 +132,13 @@ public class ErrorTypeExtensionHandler {
 				return StepResultBuilder.create().showNewBusinessObject(srcBoc, newBo).build();
 			});
 		});
+	}
+
+	private static Object[] getBusinessObjectPath(final ErrorType et) {
+		if (!(et.eContainer() instanceof ErrorModelLibrary)) {
+			return null;
+		}
+
+		return new Object[] { et.getElementRoot(), new ErrorTypeLibrary((ErrorModelLibrary) et.eContainer()), et };
 	}
 }

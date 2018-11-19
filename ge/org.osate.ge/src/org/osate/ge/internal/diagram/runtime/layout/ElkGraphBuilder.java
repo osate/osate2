@@ -33,6 +33,7 @@ import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.util.ElkGraphUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
@@ -41,7 +42,6 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
 
@@ -641,6 +641,12 @@ class ElkGraphBuilder {
 								insideSelfLoopsYo = false;
 							}
 						}
+					}
+
+					// If the start and end of the edge is the same element, route the edge outside of the element.
+					// An example of this sort of edge is a steady state state transition in the EMV2
+					if (start == end) {
+						insideSelfLoopsYo = false;
 					}
 
 					newEdge.setProperty(CoreOptions.INSIDE_SELF_LOOPS_YO, insideSelfLoopsYo);

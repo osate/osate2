@@ -28,7 +28,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.errormodel.util.ErrorModelUtil;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.operations.Operation;
@@ -49,7 +49,7 @@ public class ErrorTypeHandler {
 
 	@GetGraphicalConfiguration
 	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().graphic(graphic).style(ErrorModelUtil.topCenteredLabelStyle)
+		return GraphicalConfigurationBuilder.create().graphic(graphic).style(ErrorModelGeUtil.topCenteredLabelStyle)
 				.build();
 	}
 
