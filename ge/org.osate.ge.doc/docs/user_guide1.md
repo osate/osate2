@@ -14,22 +14,320 @@ secPrefix:
 
 # Tutorial: Getting Started
 ## Create a New Project
-1. Select *File->New->Other…->AADL->AADL Project*
-2. Enter project name: MyFirstProject
-3. Click *Finish*
 
-## Create a New Package
-make sure to add references to docs
+1. Select *File->New->Other…->AADL->AADL Project*.
 
-1. Right-click MyFirstProject in the *AADL Navigator*
-2. Select *New->Other…->AADL->AADL Package*
-3. Enter package name: MyFirstPackage
-4. Select *Diagram Editor*
-5. Click *Finish*
-6. Click *OK*
+2. Enter project name: "Demo".
+
+3. Select *Finish*.
+
+## Create Package
+
+1. Right-click Demo project in the *AADL Navigator*.
+
+2. Select *New->Other…->AADL->AADL Package*.
+
+3. Enter package name: "hardware".
+
+![](../images/create_package.png)
+
+4. Select *Finish*.
+
+## Create Package Diagram
+
+1. Right-click the hardware.aadl package in the *AADL Navigator*.
+
+2. Select *Create Diagram...*
+
+3. Select *OK* on the *Create Diagram* dialog.
+
+## Create Bus Type
+While viewing the hardware package diagram:
+
+1. Expand the *Classifiers* section in the palette.
+
+2. Select *Bus Type*.
+
+![](../images/palette_bus_type.png)
+
+3. Click inside the hardware package diagram element, the bus type will appear on the diagram.
+
+![](../images/create_bus_type.png)
+
+4. Select the new bus type to rename.
+
+5. Select the name label.  An editable field will appear.
+
+![](../images/rename_bus_type.png)
+
+6. Enter: "cbus".
+
+7. Press the *Enter* key.
+
+### Create Features
+1. Select *Abstract Feature* from the *Features* section in the palette.
+
+2. Click inside the *cbus* diagram element.
+
+3. Rename the abstract feature to "power".
+
+4. Add a bus access named "busaccess" to *cbus*.
+
+![](../images/simple_tutorial_cbus_created.png)
+
+### Set Features Direction
+1. Double click on *power* to open the *Properties* view.
+
+2. Select the *AADL* section.
+
+![](../images/feature_direction.png)
+
+4. Select *Input* in the *Direction* options.
+
+5. Set *busaccess* access type to *Provides* using the *Properties* view.
+
+## Create Processor Type
+1. Create a processor type in the hardware package named "cpu".
+
+2. Add an input abstract feature named "power" to *cpu*.
+
+3. Add a requires bus access named "busaccess" to *cpu*.
+
+![](../images/simple_tutorial_cpu_created.png)
+
+## Create Device Types
+1. Create a device type in the hardware package named "sensor".
+
+2. Add an input abstract feature named "power" to *sensor*.
+
+3. Add an ouput data port named "sensor_out" to *sensor*.
+
+4. Create a device type in the hardware package named "actuator".
+
+5. Add an input abstract feature named "power" to *actuator*.
+
+6. Add an input data port named "data_in" to *actuator*.
+
+7. Add a requires bus access named "busaccess" to *actuator*.
+
+![](../images/simple_tutorial_types_created.png)
+
+## Create System Type and Implementation
+1. Select *System Implementation* from the palette.
+
+2. Click inside the hardware package diagram element, a *Create Component Implementation* dialog will appear.
+
+3. Enter the implementation's identifier: impl.
+
+4. Select *New Component Type* to create a new type.
+
+![](../images/simple_tutorial_create_implementation_dialog.png)
+
+5. Enter the type's identifier: platform.
+
+6. Select *OK*
+
+### Create Features
+1. Add an input abstract feature named "power" to *platform.impl*.
+
+2. Add a provides bus access named "busaccess" to *platform.impl*.
+
+3. Add an output data port named "data_out" to *platform.impl*.
+
+4. Add an input data port named "sensor_in" to *platform.impl*.
+
+![](../images/simple_tutorial_platform_impl_created.png)
+
+### Create Processor Subcomponent
+1. Add a processor subcomponent named "cpu" to platform.impl.
+
+2. Select *cpu* and open the *AADL* tab in the *Properties* view.
+
+3. Select *Choose...* in the *Classifier* section.
+
+4. Select *hardware::cpu* from the *Select a Classifier* dialog.
+
+![](../images/simple_tutorial_set_classifier.png)
+
+5. Select *OK*.
+
+### Create Bus Subcomponent
+1. Add a bus subcomponent named "cbus" to platform.impl.
+
+2. Set *cbus*'s classifier to *hardware::cbus*.
+
+### Create Connections
+
+1. Select *cpu*, hold the *ctrl* key and select *cbus*.
+
+2. Right click *cpu*.
+
+3. Select *Show->Features->All*.
+
+4. Select *Featre Connection* from the palette and select the source then destination on the diagram.
+
+	platform.impl.power -> cbus.power.
+	
+	platform.impl.power -> cpu.power.
+	
+5. Create an access connection for:
+
+	cbus.busaccess -> cpu.busaccess.
+	
+	cbus.busaccess -> platform.impl.busaccess.
+	
+![](../images/simple_tutorial_platform_impl.png)
+
+## Create System Type and Implementation
+1. Create a system named hardware and a system implementation named hardware.impl in the hardware package.
+
+2. Add an input abstract feature named power to *hardware*.
+
+### Create Device Subcomponents
+1. Add a device subcomponent named "sensor" to *hardware.impl*.
+
+2. Set *sensor*'s classifier to *hardware::sensor*.
+
+3. Add a device subcomponent named "actuator" to *hardware.impl*.
+
+4. Set 'actuator*'s classifier to *hardware::actuator*.
+
+### Create System Subcomponent
+1. Add a system subcomponent named "platform" to *hardware.impl*.
+
+2. Set *platform*'s classifier to *hardware::platform*.
+
+### Create Connections
+
+1. Select *sensor*, *actuator*, and *platform*.
+
+2. Right click *sensor*.
+
+3. Select Show->Features->All.
+
+4. Create a feature connection for:
+
+	hardware.impl.power -> sensor.power.
+	
+	hardware.impl.power -> actuator.power.
+	
+	hardware.impl.power -> platform.power
+	
+5. Create an access connection for platform.busaccess -> actuator.busaccess.
+
+6. Create a port connection for:
+	
+	sensor.sensor_out -> platform.sensor_in.
+	
+	platform.data_out -> actuator.data_in
+
+![](../images/simple_tutorial_hardware_impl_created.png)
+
+# Tutorial: Advanced
+## Create a New Project
+Create a new project named "Demo".
+
+## Hardware Package
+### Create Package
+Create a package named "hardware".
+
+### Create Memory Type
+Create a memory type named "main_memory" that contains:
+
+	- An input abstract feature named "power".
+
+	- A provides bus access named "pci".
+
+
+### Create Bus Types
+Create two bus types named "cbus" and "pci" that contain an input abstract feature named "power".
+
+### Create Device Types
+1. Create a device type named "actuator" that contains:
+ 
+	- An input abstract feature named "power".
+ 
+	- An input data port named "sensor_in".
+ 
+	- A requires bus access named "busaccess".
+
+2. Create a device type named "sensor" that contains:
+
+	- An input abstract feature named "power".
+	
+	- An output data port named "sensor_out".
+
+	- A requires bus access named "busaccess".
+	
+### Create Processor Type
+Create a processor type named "cpu" that contains:
+
+	- An input abstract feature named "power".
+	
+	- A requires bus access named "cb"
+	
+	- A requires bus access named "pci"
+
+### Create Memory Type
+Create a memory type named "main_memory" that contains
+
+	- An input abstract feature named "power"
+	
+	- A provides bus access named "pci"
 
 
 
+## Create Processor
+Using the palette, create a processor type.
+
+### Rename Processor
+1. Select the new processor type to rename.
+
+2. Select the name label.  An editable field will appear.
+
+![](../images/rename_processor.png)
+
+3. Enter: cpu.
+
+4. Press the *Enter* key.
+
+## Create Devices
+1. Create a device type and rename to sensor.
+
+2. Create a device type and rename to actuator.
+
+### Create Data Ports{#sec:create_data_port}
+1. Select *Data Port* from the *Features* section in the palette.
+
+2. Click inside the device type *sensor* diagram element.
+
+3. Rename the data port to dp_out.
+
+4. Create a data port in actuator and rename it to dp_in.
+
+#### Set Data Port Direction
+1. Double click on dp_out to open the *Properties* view.
+
+2. Select the *AADL* section.
+
+![](../images/feature_direction.png)
+
+4. Select *Output* in the *Direction* options.
+
+Repeat the steps to set the direction for dp_in and select *Input*.
+
+### Create Bus
+Create a bus type and rename it to ethernet_switch.
+
+### Create Feature Group
+Create a feature group type and rename it to sensor_data.
+
+#### Create Data Port
+Create an output data port named sd_out in sensor_data (See @sec:create_data_port).
+
+## Software Package
+### Create Package
+Create a new package named software (See ).
 
 # Creating Model Elements
 Most elements are created by selecting the desired element from the palette and placing it on the diagram.

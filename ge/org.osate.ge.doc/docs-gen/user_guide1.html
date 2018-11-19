@@ -19,128 +19,418 @@
 <ul>
 <li><a href="#tutorial-getting-started"><span class="toc-section-number">1</span> Tutorial: Getting Started</a><ul>
 <li><a href="#create-a-new-project"><span class="toc-section-number">1.1</span> Create a New Project</a></li>
-<li><a href="#create-a-new-package"><span class="toc-section-number">1.2</span> Create a New Package</a></li>
+<li><a href="#create-package"><span class="toc-section-number">1.2</span> Create Package</a></li>
+<li><a href="#create-package-diagram"><span class="toc-section-number">1.3</span> Create Package Diagram</a></li>
+<li><a href="#create-bus-type"><span class="toc-section-number">1.4</span> Create Bus Type</a><ul>
+<li><a href="#create-features"><span class="toc-section-number">1.4.1</span> Create Features</a></li>
+<li><a href="#set-features-direction"><span class="toc-section-number">1.4.2</span> Set Features Direction</a></li>
 </ul></li>
-<li><a href="#creating-model-elements"><span class="toc-section-number">2</span> Creating Model Elements</a><ul>
-<li><a href="#creating-classifier-implementations"><span class="toc-section-number">2.1</span> Creating Classifier Implementations</a></li>
-<li><a href="#creating-mode-transitions"><span class="toc-section-number">2.2</span> Creating Mode Transitions</a></li>
-<li><a href="#creating-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">2.3</span> Creating Flow Implementations and End-To-End Flow Specifications</a></li>
-<li><a href="#creating-subprogram-call-sequences"><span class="toc-section-number">2.4</span> Creating Subprogram Call Sequences</a></li>
+<li><a href="#create-processor-type"><span class="toc-section-number">1.5</span> Create Processor Type</a></li>
+<li><a href="#create-device-types"><span class="toc-section-number">1.6</span> Create Device Types</a></li>
+<li><a href="#create-system-type-and-implementation"><span class="toc-section-number">1.7</span> Create System Type and Implementation</a><ul>
+<li><a href="#create-features-1"><span class="toc-section-number">1.7.1</span> Create Features</a></li>
+<li><a href="#create-processor-subcomponent"><span class="toc-section-number">1.7.2</span> Create Processor Subcomponent</a></li>
+<li><a href="#create-bus-subcomponent"><span class="toc-section-number">1.7.3</span> Create Bus Subcomponent</a></li>
+<li><a href="#create-connections"><span class="toc-section-number">1.7.4</span> Create Connections</a></li>
 </ul></li>
-<li><a href="#editing-model-elements"><span class="toc-section-number">3</span> Editing Model Elements</a><ul>
-<li><a href="#sec:properties_view"><span class="toc-section-number">3.1</span> Properties View</a></li>
-<li><a href="#renaming"><span class="toc-section-number">3.2</span> Renaming</a></li>
-<li><a href="#deleting"><span class="toc-section-number">3.3</span> Deleting</a></li>
-<li><a href="#indirect-editing"><span class="toc-section-number">3.4</span> Indirect Editing</a></li>
-<li><a href="#setting-the-initial-mode"><span class="toc-section-number">3.5</span> Setting the Initial Mode</a></li>
-<li><a href="#arrays"><span class="toc-section-number">3.6</span> Arrays</a></li>
-<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">3.7</span> Editing Flow Implementations and End-to-End Flows</a></li>
-<li><a href="#refining"><span class="toc-section-number">3.8</span> Refining</a></li>
+<li><a href="#create-system-type-and-implementation-1"><span class="toc-section-number">1.8</span> Create System Type and Implementation</a><ul>
+<li><a href="#create-device-subcomponents"><span class="toc-section-number">1.8.1</span> Create Device Subcomponents</a></li>
+<li><a href="#create-system-subcomponent"><span class="toc-section-number">1.8.2</span> Create System Subcomponent</a></li>
+<li><a href="#create-connections-1"><span class="toc-section-number">1.8.3</span> Create Connections</a></li>
 </ul></li>
-<li><a href="#sec:instantiating"><span class="toc-section-number">4</span> Instantiating</a></li>
-<li><a href="#copying-and-pasting"><span class="toc-section-number">5</span> Copying and Pasting</a></li>
-<li><a href="#diagram-configuration"><span class="toc-section-number">6</span> Diagram Configuration</a><ul>
-<li><a href="#diagram-types"><span class="toc-section-number">6.1</span> Diagram Types</a></li>
 </ul></li>
-<li><a href="#visualization"><span class="toc-section-number">7</span> Visualization</a><ul>
-<li><a href="#sec:inherited_elements"><span class="toc-section-number">7.1</span> Inherited Elements</a></li>
-<li><a href="#sec:de_apperance"><span class="toc-section-number">7.2</span> Customizing an Element's Appearance</a></li>
-<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">7.3</span> Selecting a Diagram Element's Container</a></li>
-<li><a href="#sec:hidden_children"><span class="toc-section-number">7.4</span> Hidden Children</a></li>
-<li><a href="#sec:abstracted_connections"><span class="toc-section-number">7.5</span> Abstracted Connections</a></li>
-<li><a href="#highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">7.6</span> Highlighting Flow Implementations and End-to-End Flow Specifications</a></li>
+<li><a href="#tutorial-advanced"><span class="toc-section-number">2</span> Tutorial: Advanced</a><ul>
+<li><a href="#create-a-new-project-1"><span class="toc-section-number">2.1</span> Create a New Project</a></li>
+<li><a href="#hardware-package"><span class="toc-section-number">2.2</span> Hardware Package</a><ul>
+<li><a href="#create-package-1"><span class="toc-section-number">2.2.1</span> Create Package</a></li>
+<li><a href="#create-bus-types"><span class="toc-section-number">2.2.2</span> Create Bus Types</a></li>
+<li><a href="#create-memory-type"><span class="toc-section-number">2.2.3</span> Create Memory Type</a></li>
+<li><a href="#create-device-types-1"><span class="toc-section-number">2.2.4</span> Create Device Types</a></li>
+<li><a href="#create-processor-type-1"><span class="toc-section-number">2.2.5</span> Create Processor Type</a></li>
+<li><a href="#create-memory-type-1"><span class="toc-section-number">2.2.6</span> Create Memory Type</a></li>
 </ul></li>
-<li><a href="#navigating-between-diagrams"><span class="toc-section-number">8</span> Navigating Between Diagrams</a><ul>
-<li><a href="#creating-a-new-diagram"><span class="toc-section-number">8.1</span> Creating a New Diagram</a></li>
-<li><a href="#opening-diagrams"><span class="toc-section-number">8.2</span> Opening Diagrams</a><ul>
-<li><a href="#aadl-element-related-diagrams"><span class="toc-section-number">8.2.1</span> AADL Element Related Diagrams</a></li>
-<li><a href="#aadl-instance-model-diagrams"><span class="toc-section-number">8.2.2</span> AADL Instance Model Diagrams</a></li>
+<li><a href="#create-processor"><span class="toc-section-number">2.3</span> Create Processor</a><ul>
+<li><a href="#rename-processor"><span class="toc-section-number">2.3.1</span> Rename Processor</a></li>
 </ul></li>
-<li><a href="#diagrams-view"><span class="toc-section-number">8.3</span> Diagrams View</a></li>
+<li><a href="#create-devices"><span class="toc-section-number">2.4</span> Create Devices</a><ul>
+<li><a href="#sec:create_data_port"><span class="toc-section-number">2.4.1</span> Create Data Ports</a></li>
+<li><a href="#create-bus"><span class="toc-section-number">2.4.2</span> Create Bus</a></li>
+<li><a href="#create-feature-group"><span class="toc-section-number">2.4.3</span> Create Feature Group</a></li>
 </ul></li>
-<li><a href="#diagram-layout"><span class="toc-section-number">9</span> Diagram Layout</a><ul>
-<li><a href="#layout-commands"><span class="toc-section-number">9.1</span> Layout Commands</a></li>
-<li><a href="#layout-preferences"><span class="toc-section-number">9.2</span> Layout Preferences</a></li>
-<li><a href="#incremental-layout"><span class="toc-section-number">9.3</span> Incremental Layout</a></li>
-<li><a href="#layout-feature-based-on-direction"><span class="toc-section-number">9.4</span> Layout Feature Based on Direction</a></li>
-<li><a href="#known-layout-issues-and-limitations"><span class="toc-section-number">9.5</span> Known Layout Issues and Limitations</a></li>
+<li><a href="#software-package"><span class="toc-section-number">2.5</span> Software Package</a><ul>
+<li><a href="#create-package-2"><span class="toc-section-number">2.5.1</span> Create Package</a></li>
 </ul></li>
-<li><a href="#binding-creation"><span class="toc-section-number">10</span> Binding Creation</a></li>
-<li><a href="#annotations-and-documentation"><span class="toc-section-number">11</span> Annotations and Documentation</a><ul>
-<li><a href="#annotations"><span class="toc-section-number">11.1</span> Annotations</a></li>
-<li><a href="#aadl-documentation"><span class="toc-section-number">11.2</span> AADL Documentation</a></li>
 </ul></li>
-<li><a href="#troubleshooting"><span class="toc-section-number">12</span> Troubleshooting</a><ul>
-<li><a href="#undoredo-is-unavailable-after-opening-or-closing-aadl-source-files"><span class="toc-section-number">12.1</span> Undo/Redo is Unavailable After Opening or Closing AADL Source Files</a></li>
-<li><a href="#build-automatically"><span class="toc-section-number">12.2</span> Build Automatically</a></li>
-<li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">12.3</span> Inconsistent Font Sizes Across Machines</a></li>
-<li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">12.4</span> Unable to Set Properties Unless Text Model is Open</a></li>
-<li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">12.5</span> Missing Diagram Elements After Modification of AADL Source</a></li>
-<li><a href="#reporting-issues"><span class="toc-section-number">12.6</span> Reporting Issues</a></li>
+<li><a href="#creating-model-elements"><span class="toc-section-number">3</span> Creating Model Elements</a><ul>
+<li><a href="#creating-classifier-implementations"><span class="toc-section-number">3.1</span> Creating Classifier Implementations</a></li>
+<li><a href="#creating-mode-transitions"><span class="toc-section-number">3.2</span> Creating Mode Transitions</a></li>
+<li><a href="#creating-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">3.3</span> Creating Flow Implementations and End-To-End Flow Specifications</a></li>
 </ul></li>
-<li><a href="#notices"><span class="toc-section-number">13</span> Notices</a></li>
+<li><a href="#editing-model-elements"><span class="toc-section-number">4</span> Editing Model Elements</a><ul>
+<li><a href="#sec:properties_view"><span class="toc-section-number">4.1</span> Properties View</a></li>
+<li><a href="#renaming"><span class="toc-section-number">4.2</span> Renaming</a></li>
+<li><a href="#deleting"><span class="toc-section-number">4.3</span> Deleting</a></li>
+<li><a href="#indirect-editing"><span class="toc-section-number">4.4</span> Indirect Editing</a></li>
+<li><a href="#setting-the-initial-mode"><span class="toc-section-number">4.5</span> Setting the Initial Mode</a></li>
+<li><a href="#arrays"><span class="toc-section-number">4.6</span> Arrays</a></li>
+<li><a href="#bindings"><span class="toc-section-number">4.7</span> Bindings</a></li>
+<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">4.8</span> Editing Flow Implementations and End-to-End Flows</a></li>
+<li><a href="#refining"><span class="toc-section-number">4.9</span> Refining</a></li>
+<li><a href="#sec:selective_active_components"><span class="toc-section-number">4.10</span> Selecting Active Components</a></li>
+<li><a href="#editing-subprogram-call-sequences"><span class="toc-section-number">4.11</span> Editing Subprogram Call Sequences</a></li>
+<li><a href="#extending"><span class="toc-section-number">4.12</span> Extending</a></li>
+<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">4.13</span> Selecting a Diagram Element's Container</a></li>
+<li><a href="#selecting-all-connections"><span class="toc-section-number">4.14</span> Selecting All Connections</a></li>
+</ul></li>
+<li><a href="#sec:instantiating"><span class="toc-section-number">5</span> Instantiating</a></li>
+<li><a href="#copying-and-pasting"><span class="toc-section-number">6</span> Copying and Pasting</a></li>
+<li><a href="#diagram-configuration"><span class="toc-section-number">7</span> Diagram Configuration</a><ul>
+<li><a href="#diagram-types"><span class="toc-section-number">7.1</span> Diagram Types</a></li>
+</ul></li>
+<li><a href="#visualization"><span class="toc-section-number">8</span> Visualization</a><ul>
+<li><a href="#sec:inherited_elements"><span class="toc-section-number">8.1</span> Inherited Elements</a></li>
+<li><a href="#sec:de_apperance"><span class="toc-section-number">8.2</span> Customizing an Element's Appearance</a></li>
+<li><a href="#sec:hidden_children"><span class="toc-section-number">8.3</span> Hidden Children</a></li>
+<li><a href="#sec:abstracted_connections"><span class="toc-section-number">8.4</span> Abstracted Connections</a></li>
+<li><a href="#highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">8.5</span> Highlighting Flow Implementations and End-to-End Flow Specifications</a></li>
+<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">8.6</span> Moving Shapes Using Arrow Keys</a></li>
+<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">8.7</span> Restore Missing Diagram Elements</a></li>
+</ul></li>
+<li><a href="#navigating-between-diagrams"><span class="toc-section-number">9</span> Navigating Between Diagrams</a><ul>
+<li><a href="#creating-a-new-diagram"><span class="toc-section-number">9.1</span> Creating a New Diagram</a></li>
+<li><a href="#opening-diagrams"><span class="toc-section-number">9.2</span> Opening Diagrams</a><ul>
+<li><a href="#aadl-element-related-diagrams"><span class="toc-section-number">9.2.1</span> AADL Element Related Diagrams</a></li>
+<li><a href="#aadl-instance-model-diagrams"><span class="toc-section-number">9.2.2</span> AADL Instance Model Diagrams</a></li>
+</ul></li>
+<li><a href="#diagrams-view"><span class="toc-section-number">9.3</span> Diagrams View</a></li>
+<li><a href="#diagram-context-adjustment"><span class="toc-section-number">9.4</span> Diagram Context Adjustment</a></li>
+</ul></li>
+<li><a href="#diagram-layout"><span class="toc-section-number">10</span> Diagram Layout</a><ul>
+<li><a href="#layout-commands"><span class="toc-section-number">10.1</span> Layout Commands</a></li>
+<li><a href="#layout-preferences"><span class="toc-section-number">10.2</span> Layout Preferences</a></li>
+<li><a href="#incremental-layout"><span class="toc-section-number">10.3</span> Incremental Layout</a></li>
+<li><a href="#layout-feature-based-on-direction"><span class="toc-section-number">10.4</span> Layout Feature Based on Direction</a></li>
+<li><a href="#known-layout-issues-and-limitations"><span class="toc-section-number">10.5</span> Known Layout Issues and Limitations</a></li>
+</ul></li>
+<li><a href="#binding-creation"><span class="toc-section-number">11</span> Binding Creation</a></li>
+<li><a href="#annotations-and-documentation"><span class="toc-section-number">12</span> Annotations and Documentation</a><ul>
+<li><a href="#annotations"><span class="toc-section-number">12.1</span> Annotations</a></li>
+<li><a href="#aadl-documentation"><span class="toc-section-number">12.2</span> AADL Documentation</a></li>
+</ul></li>
+<li><a href="#troubleshooting"><span class="toc-section-number">13</span> Troubleshooting</a><ul>
+<li><a href="#undoredo-is-unavailable-after-opening-or-closing-aadl-source-files"><span class="toc-section-number">13.1</span> Undo/Redo is Unavailable After Opening or Closing AADL Source Files</a></li>
+<li><a href="#build-automatically"><span class="toc-section-number">13.2</span> Build Automatically</a></li>
+<li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">13.3</span> Inconsistent Font Sizes Across Machines</a></li>
+<li><a href="#missing-diagram-elements-after-modification-of-aadl-source"><span class="toc-section-number">13.4</span> Missing Diagram Elements After Modification of AADL Source</a></li>
+<li><a href="#reporting-issues"><span class="toc-section-number">13.5</span> Reporting Issues</a></li>
+</ul></li>
+<li><a href="#notices"><span class="toc-section-number">14</span> Notices</a></li>
 </ul>
 </nav>
 <h1 id="tutorial-getting-started"><span class="header-section-number">1</span> Tutorial: Getting Started</h1>
 <h2 id="create-a-new-project"><span class="header-section-number">1.1</span> Create a New Project</h2>
 <ol type="1">
-<li>Select <em>File-&gt;New-&gt;Other…-&gt;AADL Project</em></li>
-<li>Enter project name: MyFirstProject</li>
-<li>Click <em>Finish</em></li>
+<li><p>Select <em>File-&gt;New-&gt;Other…-&gt;AADL-&gt;AADL Project</em>.</p></li>
+<li><p>Enter project name: &quot;Demo&quot;.</p></li>
+<li><p>Select <em>Finish</em>.</p></li>
 </ol>
-<h2 id="create-a-new-package"><span class="header-section-number">1.2</span> Create a New Package</h2>
-<p>make sure to add references to docs</p>
+<h2 id="create-package"><span class="header-section-number">1.2</span> Create Package</h2>
 <ol type="1">
-<li>Right-click your new project</li>
-<li>Select <em>New-&gt;Other…-&gt;AADL-&gt;AADL Package</em></li>
-<li>Enter package name: MyFirstPackage</li>
-<li>Select <em>Diagram Editor</em></li>
-<li>Click <em>Finish</em></li>
-<li>Click <em>OK</em></li>
-</ol>
-<h1 id="creating-model-elements"><span class="header-section-number">2</span> Creating Model Elements</h1>
-<p>Most elements are created by selecting the desired element from the palette and placing it on the diagram.</p>
-<h2 id="creating-classifier-implementations"><span class="header-section-number">2.1</span> Creating Classifier Implementations</h2>
-<p>Select the desired implementation from the palette and place it on the diagram or on an eligible type.</p>
-<h2 id="creating-mode-transitions"><span class="header-section-number">2.2</span> Creating Mode Transitions</h2>
-<p>Select <em>Mode Transition</em> from the palette and select the starting mode then the ending mode (See section <strong>¿sec:mode_transition?</strong>).</p>
-<h2 id="creating-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">2.3</span> Creating Flow Implementations and End-To-End Flow Specifications</h2>
-<p>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram (See section <strong>¿sec:ete_flow?</strong> and section <strong>¿sec:flow_implmentation?</strong>).</p>
-<h2 id="creating-subprogram-call-sequences"><span class="header-section-number">2.4</span> Creating Subprogram Call Sequences</h2>
-<p>Possible make one during demo, will refernce instead of having steps here When viewing a thread implementation diagram, subprogram call sequences can be created.</p>
-<ol type="1">
-<li>Select <em>Subprogram Call Sequence</em> from the palette and select inside the thread implementation diagram.</li>
-<li>In the <em>Select Subprogram</em> dialog, select desired type and subprogram component.</li>
+<li><p>Right-click Demo project in the <em>AADL Navigator</em>.</p></li>
+<li><p>Select <em>New-&gt;Other…-&gt;AADL-&gt;AADL Package</em>.</p></li>
+<li><p>Enter package name: &quot;hardware&quot;.</p></li>
 </ol>
 <figure>
-<img src="../images/SubprogramCallSequence.png" />
+<img src="../images/create_package.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select <em>Finish</em>.</li>
+</ol>
+<h2 id="create-package-diagram"><span class="header-section-number">1.3</span> Create Package Diagram</h2>
+<ol type="1">
+<li><p>Right-click the hardware.aadl package in the <em>AADL Navigator</em>.</p></li>
+<li><p>Select <em>Create Diagram...</em></p></li>
+<li><p>Select <em>OK</em> on the <em>Create Diagram</em> dialog.</p></li>
+</ol>
+<h2 id="create-bus-type"><span class="header-section-number">1.4</span> Create Bus Type</h2>
+<p>While viewing the hardware package diagram:</p>
+<ol type="1">
+<li><p>Expand the <em>Classifiers</em> section in the palette.</p></li>
+<li><p>Select <em>Bus Type</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/palette_bus_type.png" />
 </figure>
 <ol start="3" type="1">
-<li>Select <em>OK</em>. The new call sequence will appear.</li>
+<li>Click inside the hardware package diagram element, the bus type will appear on the diagram.</li>
 </ol>
-<h1 id="editing-model-elements"><span class="header-section-number">3</span> Editing Model Elements</h1>
-<h2 id="sec:properties_view"><span class="header-section-number">3.1</span> Properties View</h2>
+<figure>
+<img src="../images/create_bus_type.png" />
+</figure>
+<ol start="4" type="1">
+<li><p>Select the new bus type to rename.</p></li>
+<li><p>Select the name label. An editable field will appear.</p></li>
+</ol>
+<figure>
+<img src="../images/rename_bus_type.png" />
+</figure>
+<ol start="6" type="1">
+<li><p>Enter: &quot;cbus&quot;.</p></li>
+<li><p>Press the <em>Enter</em> key.</p></li>
+</ol>
+<h3 id="create-features"><span class="header-section-number">1.4.1</span> Create Features</h3>
+<ol type="1">
+<li><p>Select <em>Abstract Feature</em> from the <em>Features</em> section in the palette.</p></li>
+<li><p>Click inside the <em>cbus</em> diagram element.</p></li>
+<li><p>Rename the abstract feature to &quot;power&quot;.</p></li>
+<li><p>Add a bus access named &quot;busaccess&quot; to <em>cbus</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_cbus_created.png" />
+</figure>
+<h3 id="set-features-direction"><span class="header-section-number">1.4.2</span> Set Features Direction</h3>
+<ol type="1">
+<li><p>Double click on <em>power</em> to open the <em>Properties</em> view.</p></li>
+<li><p>Select the <em>AADL</em> section.</p></li>
+</ol>
+<figure>
+<img src="../images/feature_direction.png" />
+</figure>
+<ol start="4" type="1">
+<li><p>Select <em>Input</em> in the <em>Direction</em> options.</p></li>
+<li><p>Set <em>busaccess</em> access type to <em>Provides</em> using the <em>Properties</em> view.</p></li>
+</ol>
+<h2 id="create-processor-type"><span class="header-section-number">1.5</span> Create Processor Type</h2>
+<ol type="1">
+<li><p>Create a processor type in the hardware package named &quot;cpu&quot;.</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>cpu</em>.</p></li>
+<li><p>Add a requires bus access named &quot;busaccess&quot; to <em>cpu</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_cpu_created.png" />
+</figure>
+<h2 id="create-device-types"><span class="header-section-number">1.6</span> Create Device Types</h2>
+<ol type="1">
+<li><p>Create a device type in the hardware package named &quot;sensor&quot;.</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>sensor</em>.</p></li>
+<li><p>Add an ouput data port named &quot;sensor_out&quot; to <em>sensor</em>.</p></li>
+<li><p>Create a device type in the hardware package named &quot;actuator&quot;.</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>actuator</em>.</p></li>
+<li><p>Add an input data port named &quot;data_in&quot; to <em>actuator</em>.</p></li>
+<li><p>Add a requires bus access named &quot;busaccess&quot; to <em>actuator</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_types_created.png" />
+</figure>
+<h2 id="create-system-type-and-implementation"><span class="header-section-number">1.7</span> Create System Type and Implementation</h2>
+<ol type="1">
+<li><p>Select <em>System Implementation</em> from the palette.</p></li>
+<li><p>Click inside the hardware package diagram element, a <em>Create Component Implementation</em> dialog will appear.</p></li>
+<li><p>Enter the implementation's identifier: impl.</p></li>
+<li><p>Select <em>New Component Type</em> to create a new type.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_create_implementation_dialog.png" />
+</figure>
+<ol start="5" type="1">
+<li><p>Enter the type's identifier: platform.</p></li>
+<li><p>Select <em>OK</em></p></li>
+</ol>
+<h3 id="create-features-1"><span class="header-section-number">1.7.1</span> Create Features</h3>
+<ol type="1">
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>platform.impl</em>.</p></li>
+<li><p>Add a provides bus access named &quot;busaccess&quot; to <em>platform.impl</em>.</p></li>
+<li><p>Add an output data port named &quot;data_out&quot; to <em>platform.impl</em>.</p></li>
+<li><p>Add an input data port named &quot;sensor_in&quot; to <em>platform.impl</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_platform_impl_created.png" />
+</figure>
+<h3 id="create-processor-subcomponent"><span class="header-section-number">1.7.2</span> Create Processor Subcomponent</h3>
+<ol type="1">
+<li><p>Add a processor subcomponent named &quot;cpu&quot; to platform.impl.</p></li>
+<li><p>Select <em>cpu</em> and open the <em>AADL</em> tab in the <em>Properties</em> view.</p></li>
+<li><p>Select <em>Choose...</em> in the <em>Classifier</em> section.</p></li>
+<li><p>Select <em>hardware::cpu</em> from the <em>Select a Classifier</em> dialog.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_set_classifier.png" />
+</figure>
+<ol start="5" type="1">
+<li>Select <em>OK</em>.</li>
+</ol>
+<h3 id="create-bus-subcomponent"><span class="header-section-number">1.7.3</span> Create Bus Subcomponent</h3>
+<ol type="1">
+<li><p>Add a bus subcomponent named &quot;cbus&quot; to platform.impl.</p></li>
+<li><p>Set <em>cbus</em>'s classifier to <em>hardware::cbus</em>.</p></li>
+</ol>
+<h3 id="create-connections"><span class="header-section-number">1.7.4</span> Create Connections</h3>
+<ol type="1">
+<li><p>Select <em>cpu</em>, hold the <em>ctrl</em> key and select <em>cbus</em>.</p></li>
+<li><p>Right click <em>cpu</em>.</p></li>
+<li><p>Select <em>Show-&gt;Features-&gt;All</em>.</p></li>
+<li><p>Select <em>Featre Connection</em> from the palette and select the source then destination on the diagram.</p>
+<p>platform.impl.power -&gt; cbus.power.</p>
+<p>platform.impl.power -&gt; cpu.power.</p></li>
+<li><p>Create an access connection for:</p>
+<p>cbus.busaccess -&gt; cpu.busaccess.</p>
+<p>cbus.busaccess -&gt; platform.impl.busaccess.</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_platform_impl.png" />
+</figure>
+<h2 id="create-system-type-and-implementation-1"><span class="header-section-number">1.8</span> Create System Type and Implementation</h2>
+<ol type="1">
+<li><p>Create a system named hardware and a system implementation named hardware.impl in the hardware package.</p></li>
+<li><p>Add an input abstract feature named power to <em>hardware</em>.</p></li>
+</ol>
+<h3 id="create-device-subcomponents"><span class="header-section-number">1.8.1</span> Create Device Subcomponents</h3>
+<ol type="1">
+<li><p>Add a device subcomponent named &quot;sensor&quot; to <em>hardware.impl</em>.</p></li>
+<li><p>Set <em>sensor</em>'s classifier to <em>hardware::sensor</em>.</p></li>
+<li><p>Add a device subcomponent named &quot;actuator&quot; to <em>hardware.impl</em>.</p></li>
+<li><p>Set 'actuator<em>'s classifier to </em>hardware::actuator*.</p></li>
+</ol>
+<h3 id="create-system-subcomponent"><span class="header-section-number">1.8.2</span> Create System Subcomponent</h3>
+<ol type="1">
+<li><p>Add a system subcomponent named &quot;platform&quot; to <em>hardware.impl</em>.</p></li>
+<li><p>Set <em>platform</em>'s classifier to <em>hardware::platform</em>.</p></li>
+</ol>
+<h3 id="create-connections-1"><span class="header-section-number">1.8.3</span> Create Connections</h3>
+<ol type="1">
+<li><p>Select <em>sensor</em>, <em>actuator</em>, and <em>platform</em>.</p></li>
+<li><p>Right click <em>sensor</em>.</p></li>
+<li><p>Select Show-&gt;Features-&gt;All.</p></li>
+<li><p>Create a feature connection for:</p>
+<p>hardware.impl.power -&gt; sensor.power.</p>
+<p>hardware.impl.power -&gt; actuator.power.</p>
+<p>hardware.impl.power -&gt; platform.power</p></li>
+<li><p>Create an access connection for platform.busaccess -&gt; actuator.busaccess.</p></li>
+<li><p>Create a port connection for:</p>
+<p>sensor.sensor_out -&gt; platform.sensor_in.</p>
+<p>platform.data_out -&gt; actuator.data_in</p></li>
+</ol>
+<figure>
+<img src="../images/simple_tutorial_hardware_impl_created.png" />
+</figure>
+<h1 id="tutorial-advanced"><span class="header-section-number">2</span> Tutorial: Advanced</h1>
+<h2 id="create-a-new-project-1"><span class="header-section-number">2.1</span> Create a New Project</h2>
+<p>Create a new project named &quot;Demo&quot;.</p>
+<h2 id="hardware-package"><span class="header-section-number">2.2</span> Hardware Package</h2>
+<h3 id="create-package-1"><span class="header-section-number">2.2.1</span> Create Package</h3>
+<p>Create a package named &quot;hardware&quot;.</p>
+<h3 id="create-bus-types"><span class="header-section-number">2.2.2</span> Create Bus Types</h3>
+<ol type="1">
+<li><p>Create a bus type named &quot;cbus&quot;.</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>cbus</em>.</p></li>
+<li><p>Create a bus type named &quot;pci&quot;.</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot; to <em>pci</em>.</p></li>
+</ol>
+<h3 id="create-memory-type"><span class="header-section-number">2.2.3</span> Create Memory Type</h3>
+<ol type="1">
+<li><p>Create a memory type named &quot;main_memory&quot; that contains:</p></li>
+<li><p>Add an input abstract feature named &quot;power&quot;.</p></li>
+<li><p>Add a provides bus access named &quot;pci&quot;.</p></li>
+</ol>
+<h3 id="create-device-types-1"><span class="header-section-number">2.2.4</span> Create Device Types</h3>
+<ol type="1">
+<li><p>Create a device type named &quot;actuator&quot; that contains:</p>
+<p>1.1 An input abstract feature named &quot;power&quot;.</p>
+<p>1.2 An input data port named &quot;sensor_in&quot;.</p>
+<p>1.3 A requires bus access named &quot;busaccess&quot;.</p></li>
+<li><p>Create a device type named &quot;sensor&quot; that contains:</p>
+<ul>
+<li><p>An input abstract feature named &quot;power&quot;.</p></li>
+<li><p>An output data port named &quot;sensor_out&quot;.</p></li>
+<li><p>A requires bus access named &quot;busaccess&quot;.</p></li>
+</ul></li>
+</ol>
+<h3 id="create-processor-type-1"><span class="header-section-number">2.2.5</span> Create Processor Type</h3>
+<p>Create a processor type named &quot;cpu&quot; in the hardware package.</p>
+<h3 id="create-memory-type-1"><span class="header-section-number">2.2.6</span> Create Memory Type</h3>
+<p>Create a memory type named &quot;main_memory&quot; that contains</p>
+<ul>
+<li><p>An input abstract feature named &quot;power&quot;</p></li>
+<li><p>A provides bus access named &quot;pci&quot;</p></li>
+</ul>
+<h2 id="create-processor"><span class="header-section-number">2.3</span> Create Processor</h2>
+<p>Using the palette, create a processor type.</p>
+<h3 id="rename-processor"><span class="header-section-number">2.3.1</span> Rename Processor</h3>
+<ol type="1">
+<li><p>Select the new processor type to rename.</p></li>
+<li><p>Select the name label. An editable field will appear.</p></li>
+</ol>
+<figure>
+<img src="../images/rename_processor.png" />
+</figure>
+<ol start="3" type="1">
+<li><p>Enter: cpu.</p></li>
+<li><p>Press the <em>Enter</em> key.</p></li>
+</ol>
+<h2 id="create-devices"><span class="header-section-number">2.4</span> Create Devices</h2>
+<ol type="1">
+<li><p>Create a device type and rename to sensor.</p></li>
+<li><p>Create a device type and rename to actuator.</p></li>
+</ol>
+<h3 id="sec:create_data_port"><span class="header-section-number">2.4.1</span> Create Data Ports</h3>
+<ol type="1">
+<li><p>Select <em>Data Port</em> from the <em>Features</em> section in the palette.</p></li>
+<li><p>Click inside the device type <em>sensor</em> diagram element.</p></li>
+<li><p>Rename the data port to dp_out.</p></li>
+<li><p>Create a data port in actuator and rename it to dp_in.</p></li>
+</ol>
+<h4 id="set-data-port-direction"><span class="header-section-number">2.4.1.1</span> Set Data Port Direction</h4>
+<ol type="1">
+<li><p>Double click on dp_out to open the <em>Properties</em> view.</p></li>
+<li><p>Select the <em>AADL</em> section.</p></li>
+</ol>
+<figure>
+<img src="../images/feature_direction.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select <em>Output</em> in the <em>Direction</em> options.</li>
+</ol>
+<p>Repeat the steps to set the direction for dp_in and select <em>Input</em>.</p>
+<h3 id="create-bus"><span class="header-section-number">2.4.2</span> Create Bus</h3>
+<p>Create a bus type and rename it to ethernet_switch.</p>
+<h3 id="create-feature-group"><span class="header-section-number">2.4.3</span> Create Feature Group</h3>
+<p>Create a feature group type and rename it to sensor_data.</p>
+<h4 id="create-data-port"><span class="header-section-number">2.4.3.1</span> Create Data Port</h4>
+<p>Create an output data port named sd_out in sensor_data (See section <a href="#sec:create_data_port">2.4.1</a>).</p>
+<h2 id="software-package"><span class="header-section-number">2.5</span> Software Package</h2>
+<h3 id="create-package-2"><span class="header-section-number">2.5.1</span> Create Package</h3>
+<p>Create a new package named software (See ).</p>
+<h1 id="creating-model-elements"><span class="header-section-number">3</span> Creating Model Elements</h1>
+<p>Most elements are created by selecting the desired element from the palette and placing it on the diagram.</p>
+<h2 id="creating-classifier-implementations"><span class="header-section-number">3.1</span> Creating Classifier Implementations</h2>
+<p>Select the desired implementation from the palette and place it on the diagram or on an eligible type.</p>
+<h2 id="creating-mode-transitions"><span class="header-section-number">3.2</span> Creating Mode Transitions</h2>
+<p>Select <em>Mode Transition</em> from the palette and select the starting mode then the ending mode (See section <strong>¿sec:mode_transition?</strong>).</p>
+<h2 id="creating-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">3.3</span> Creating Flow Implementations and End-To-End Flow Specifications</h2>
+<p>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram (See section <strong>¿sec:ete_flow?</strong> and section <strong>¿sec:flow_implmentation?</strong>).</p>
+<h1 id="editing-model-elements"><span class="header-section-number">4</span> Editing Model Elements</h1>
+<h2 id="sec:properties_view"><span class="header-section-number">4.1</span> Properties View</h2>
 <p>The properties sheet contains properties for the currently selected diagram elements. The properties sheet can be opened by double-clicking on a diagram element in the diagram or in the outline. Alternatively, the properties sheet can be opened by right-clicking on a diagram element in the diagram or outline and selecting <em>Properties…</em> from the context menu.</p>
-<h2 id="renaming"><span class="header-section-number">3.2</span> Renaming</h2>
+<h2 id="renaming"><span class="header-section-number">4.2</span> Renaming</h2>
 <p>Elements can be renamed three ways:</p>
 <ol type="1">
 <li>Right click an element in the <em>Outline</em> view select <em>Rename…</em> from the context menu.</li>
 <li>Right click an element on the diagram and select <em>Rename…</em> from the context menu.</li>
 <li>Select an element on the diagram, then click and hover over the label.</li>
 </ol>
-<h2 id="deleting"><span class="header-section-number">3.3</span> Deleting</h2>
+<h2 id="deleting"><span class="header-section-number">4.3</span> Deleting</h2>
 <p>Elements can be deleted three ways:</p>
 <ol type="1">
 <li>Right click an element in the <em>Outline</em> view select <em>Delete</em> from the context menu.</li>
 <li>Right click an element on the diagram and select <em>Delete</em> from the context menu.</li>
 <li>Selecting an element on the diagram and press the <em>Delete</em> key.</li>
 </ol>
-<h2 id="indirect-editing"><span class="header-section-number">3.4</span> Indirect Editing</h2>
-<p>To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type (See section <a href="#sec:inherited_elements">7.1</a>). In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.</p>
-<h2 id="setting-the-initial-mode"><span class="header-section-number">3.5</span> Setting the Initial Mode</h2>
-<p>A mode can be designated as the initial mode by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">3.1</a>), and using the <em>Initial</em> section option.</p>
-<h2 id="arrays"><span class="header-section-number">3.6</span> Arrays</h2>
-<p>A mode can be designated as the initial mode by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">3.1</a>), and using the <em>Dimensions</em> section options.</p>
+<h2 id="indirect-editing"><span class="header-section-number">4.4</span> Indirect Editing</h2>
+<p>To allow for easier editing, the editor allows editing classifiers in the context of related model elements. For example, a data port may be created inside a component implementation. Since AADL component implementations cannot contain data ports, the data port will be created inside the component implementation's type (See section <a href="#sec:inherited_elements">8.1</a>). In cases where there are multiple potential classifiers to edit, the editor will prompt to select a classifier.</p>
+<h2 id="setting-the-initial-mode"><span class="header-section-number">4.5</span> Setting the Initial Mode</h2>
+<p>A mode can be designated as the initial mode by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Initial</em> section option.</p>
+<h2 id="arrays"><span class="header-section-number">4.6</span> Arrays</h2>
+<p>A mode can be designated as the initial mode by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Dimensions</em> section options.</p>
 <table style="width:86%;">
 <colgroup>
 <col style="width: 26%" />
@@ -171,13 +461,24 @@
 </tr>
 </tbody>
 </table>
-<h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">3.7</span> Editing Flow Implementations and End-to-End Flows</h2>
+<h2 id="bindings"><span class="header-section-number">4.7</span> Bindings</h2>
+<p>When editing a component implementation, binding property associations can be created by selecting the diagram element for which to set the binding, then selecting the <em>Bind...</em> button from the toolbar (See section <strong>¿sec:binding?</strong>).</p>
+<h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.8</span> Editing Flow Implementations and End-to-End Flows</h2>
 <p>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking the component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit...</em> from the <em>Flows</em> section.</p>
-<h2 id="refining"><span class="header-section-number">3.8</span> Refining</h2>
-<p>Appropriate elements can be refined by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">3.1</a>), and using the <em>Refined</em> section option.</p>
-<h1 id="sec:instantiating"><span class="header-section-number">4</span> Instantiating</h1>
+<h2 id="refining"><span class="header-section-number">4.9</span> Refining</h2>
+<p>Appropriate elements can be refined by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Refined</em> section option.</p>
+<h2 id="sec:selective_active_components"><span class="header-section-number">4.10</span> Selecting Active Components</h2>
+<p>Modes can be specified for selected element(s) by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>In Modes</em> section options.</p>
+<h2 id="editing-subprogram-call-sequences"><span class="header-section-number">4.11</span> Editing Subprogram Call Sequences</h2>
+<p>The subprogram call's order in the subprogram call sequence can be changed from the <em>AADL</em> tab of the <em>Properties</em> view, and using the <em>Call Order</em> section options.</p>
+<h2 id="extending"><span class="header-section-number">4.12</span> Extending</h2>
+<h2 id="selecting-a-diagram-elements-container"><span class="header-section-number">4.13</span> Selecting a Diagram Element's Container</h2>
+<p>To select a diagram element's container, right click on the child element and select <em>Select Container</em> from the context menu.</p>
+<h2 id="selecting-all-connections"><span class="header-section-number">4.14</span> Selecting All Connections</h2>
+<p>All connections can be selected by selecting <em>Edit-&gt;Select All Connections</em>.</p>
+<h1 id="sec:instantiating"><span class="header-section-number">5</span> Instantiating</h1>
 <p>Component implementations can be instantiated by right-clicking the implementation on the diagram or <em>Outline</em> view and selecting <em>Instantiate</em> from the context menu. The instance model will be created in that projects <em>instances</em> folder in the AADL Navigator.</p>
-<h1 id="copying-and-pasting"><span class="header-section-number">5</span> Copying and Pasting</h1>
+<h1 id="copying-and-pasting"><span class="header-section-number">6</span> Copying and Pasting</h1>
 <p>Portions of a diagram can by copied and pasted using the menu items described in table <a href="#tbl:copy_and_paste_menu_items">1</a>.</p>
 <div id="tbl:copy_and_paste_menu_items">
 <table style="width:86%;">
@@ -208,12 +509,12 @@
 </tbody>
 </table>
 </div>
-<h1 id="diagram-configuration"><span class="header-section-number">6</span> Diagram Configuration</h1>
-<p>Configuring a diagram allows customizing the contents of the diagram (See section <a href="#sec:hidden_children">7.4</a>). To configure a diagram, right-click in the diagram or an element in the <em>Outline</em> view and select <em>Configure Diagram…</em>. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.</p>
+<h1 id="diagram-configuration"><span class="header-section-number">7</span> Diagram Configuration</h1>
+<p>Configuring a diagram allows customizing the contents of the diagram (See section <a href="#sec:hidden_children">8.3</a>). To configure a diagram, right-click in the diagram or an element in the <em>Outline</em> view and select <em>Configure Diagram…</em>. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.</p>
 <p>The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The communication_properties::timing property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.</p>
-<p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram. Connections that have one connection end visible on the diagram are represented as abstracted connections. (See section <a href="#sec:abstracted_connections">7.5</a>)</p>
+<p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram. Connections that have one connection end visible on the diagram are represented as abstracted connections. (See section <a href="#sec:abstracted_connections">8.4</a>)</p>
 <p>The Hide Connection Labels option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section 3.1.16.</p>
-<h2 id="diagram-types"><span class="header-section-number">6.1</span> Diagram Types</h2>
+<h2 id="diagram-types"><span class="header-section-number">7.1</span> Diagram Types</h2>
 <p>When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.</p>
 <div id="tbl:diagram_types">
 <table>
@@ -277,16 +578,15 @@
 </tbody>
 </table>
 </div>
-<h1 id="visualization"><span class="header-section-number">7</span> Visualization</h1>
-<h2 id="sec:inherited_elements"><span class="header-section-number">7.1</span> Inherited Elements</h2>
+<h1 id="visualization"><span class="header-section-number">8</span> Visualization</h1>
+<p>The following sections describe the diagram visual capabilities of the graphical editor.</p>
+<h2 id="sec:inherited_elements"><span class="header-section-number">8.1</span> Inherited Elements</h2>
 <p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.</p>
-<h2 id="sec:de_apperance"><span class="header-section-number">7.2</span> Customizing an Element's Appearance</h2>
-<p>The appearance of diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">3.1</a>). - The <em>Label Visibility</em> option allows hiding or showing the diagram element's label. - Font size can be edited by selecting the font size drop-down menu. - Line width can be edited by selecting the line width drop-down menu. - Elements can be displayed as an image by selecting the set image button, selecting <em>Select…</em>, and then selecting the desired image. Only images contained in referenced projects may be selected. To reference other projects, edit the project's properties. Whether an element is displayed as an image or using standard notation can be toggled by selecting the <em>Show as Image</em> check box. The editor supports the following image file types: bmp, png, jpg, gif. - Outline color can be edited by clicking the outline button and selecting the desired color. - Font color can be edited by clicking the font color button and selecting the desired color. - Background color can be edited by clicking the background color button and selecting the desired color.</p>
-<h2 id="selecting-a-diagram-elements-container"><span class="header-section-number">7.3</span> Selecting a Diagram Element's Container</h2>
-<p>To select a diagram element's container, right click on the child element and select <em>Select Container</em> from the context menu.</p>
-<h2 id="sec:hidden_children"><span class="header-section-number">7.4</span> Hidden Children</h2>
+<h2 id="sec:de_apperance"><span class="header-section-number">8.2</span> Customizing an Element's Appearance</h2>
+<p>The appearance of diagram elements can be edited by using the <em>Appearance</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>). - The <em>Label Visibility</em> option allows hiding or showing the diagram element's label. - Font size can be edited by selecting the font size drop-down menu. - Line width can be edited by selecting the line width drop-down menu. - Elements can be displayed as an image by selecting the set image button, selecting <em>Select…</em>, and then selecting the desired image. Only images contained in referenced projects may be selected. To reference other projects, edit the project's properties. Whether an element is displayed as an image or using standard notation can be toggled by selecting the <em>Show as Image</em> check box. The editor supports the following image file types: bmp, png, jpg, gif. - Outline color can be edited by clicking the outline button and selecting the desired color. - Font color can be edited by clicking the font color button and selecting the desired color. - Background color can be edited by clicking the background color button and selecting the desired color.</p>
+<h2 id="sec:hidden_children"><span class="header-section-number">8.3</span> Hidden Children</h2>
 <p>Diagram elements which have children that are hidden have an asterisk appended to their labels.</p>
-<h2 id="sec:abstracted_connections"><span class="header-section-number">7.5</span> Abstracted Connections</h2>
+<h2 id="sec:abstracted_connections"><span class="header-section-number">8.4</span> Abstracted Connections</h2>
 <p>In some cases a connection between diagram elements will be represented by a dotted connection. This indicates that the connection is an abstraction of one or more AADL model elements. A tooltip will provide additional information about the abstracted model elements. Cases in which this occurs are listed below.</p>
 <ul>
 <li>An AADL connection between subcomponents where one or more of the referenced features are hidden.</li>
@@ -294,19 +594,33 @@
 <li>An AADL property reference value for which the model element to which the property value applies is hidden.</li>
 <li>An AADL property reference value for which the referenced model element is hidden.</li>
 </ul>
-<h2 id="highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">7.6</span> Highlighting Flow Implementations and End-to-End Flow Specifications</h2>
+<h2 id="highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">8.5</span> Highlighting Flow Implementations and End-to-End Flow Specifications</h2>
 <p>Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow. Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.</p>
-<h1 id="navigating-between-diagrams"><span class="header-section-number">8</span> Navigating Between Diagrams</h1>
+<h2 id="moving-shapes-using-arrow-keys"><span class="header-section-number">8.6</span> Moving Shapes Using Arrow Keys</h2>
+<ol type="1">
+<li><p>Select the element to be moved.</p></li>
+<li><p>Press the <strong>.</strong> key.</p></li>
+<li><p>Using the <em>Arrow</em> keys, move the element to desired location.</p></li>
+<li><p>Press the <em>Enter</em> key.</p></li>
+</ol>
+<h2 id="sec:restore_missing_diagram_elements"><span class="header-section-number">8.7</span> Restore Missing Diagram Elements</h2>
+<p>If a a model element is renamed from the AADL text editor without using the <em>Rename Element</em> menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.</p>
+<ol type="1">
+<li>Select <em>Edit-&gt;Restore Missing Diagram Elements</em>. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.</li>
+<li>Update the desired model references in the <em>New Reference</em> column.</li>
+<li>Select OK. The diagram elements will be restored.</li>
+</ol>
+<h1 id="navigating-between-diagrams"><span class="header-section-number">9</span> Navigating Between Diagrams</h1>
 <p>The graphical editor supports several methods for navigating between diagrams.</p>
-<h2 id="creating-a-new-diagram"><span class="header-section-number">8.1</span> Creating a New Diagram</h2>
+<h2 id="creating-a-new-diagram"><span class="header-section-number">9.1</span> Creating a New Diagram</h2>
 <p>Diagrams may be associated with an existing model element such as an AADL package or classifier. Diagrams which are not associated with a specific model element may also be created. Such diagrams are referred to as contextless diagrams and may contain multiple AADL packages. An AADL model element may have multiple diagrams associated it.</p>
-<h2 id="opening-diagrams"><span class="header-section-number">8.2</span> Opening Diagrams</h2>
+<h2 id="opening-diagrams"><span class="header-section-number">9.2</span> Opening Diagrams</h2>
 <p>Diagrams can be opened by right clicking on the AADL diagram in the <em>AADL Navigator</em> view and selecting <em>Open</em> from the context menu.</p>
-<h3 id="aadl-element-related-diagrams"><span class="header-section-number">8.2.1</span> AADL Element Related Diagrams</h3>
+<h3 id="aadl-element-related-diagrams"><span class="header-section-number">9.2.1</span> AADL Element Related Diagrams</h3>
 <p>Diagrams that are related to an element can be opened by right clicking the desired element from the <em>Outline</em> view and using the <em>Open</em> sub-menu of the context menu.</p>
-<h3 id="aadl-instance-model-diagrams"><span class="header-section-number">8.2.2</span> AADL Instance Model Diagrams</h3>
-<p>Instance model diagrams (See section <a href="#sec:instantiating">4</a>) can be opened by right clicking on the AADL instance model in the <em>AADL Navigator</em> view and selecting <em>Open Diagram</em> from the context menu. The instance model may not be modified using the graphical editor.</p>
-<h2 id="diagrams-view"><span class="header-section-number">8.3</span> Diagrams View</h2>
+<h3 id="aadl-instance-model-diagrams"><span class="header-section-number">9.2.2</span> AADL Instance Model Diagrams</h3>
+<p>Instance model diagrams (See section <a href="#sec:instantiating">5</a>) can be opened by right clicking on the AADL instance model in the <em>AADL Navigator</em> view and selecting <em>Open Diagram</em> from the context menu. The instance model may not be modified using the graphical editor.</p>
+<h2 id="diagrams-view"><span class="header-section-number">9.3</span> Diagrams View</h2>
 <p>The <em>AADL Diagrams</em> view shows the diagrams contained in the workspace. To open the <em>AADL Diagrams</em> view:</p>
 <ol type="1">
 <li>Select <em>Windows-&gt;Show View-&gt;Other…</em> from the top-level menu. The <em>Show View</em> window will appear.</li>
@@ -314,9 +628,12 @@
 <li>Select <em>Open</em>. The <em>AADL Diagrams</em> view will be opened.</li>
 </ol>
 <p>By default, the <em>AADL Diagrams</em> view will group diagrams by the diagram type and the diagram's context. Grouping can be customized using the <em>Group By Type</em> and <em>Group by Context</em> options in the view menu (<img src="../images/ui_view_menu_icon.png" alt="View Menu" />) for the <em>AADL Diagrams</em> view. Selecting <em>Show Decorations</em> from the view menu will toggle display of the context and type for diagrams which are not grouped.</p>
-<h1 id="diagram-layout"><span class="header-section-number">9</span> Diagram Layout</h1>
+<h2 id="diagram-context-adjustment"><span class="header-section-number">9.4</span> Diagram Context Adjustment</h2>
+<p>Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the <em>Rename Element</em> menu option will break its association with diagrams.</p>
+<p>When opening a diagram, the <em>Missing Diagram Context</em> dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select <em>OK</em>.</p>
+<h1 id="diagram-layout"><span class="header-section-number">10</span> Diagram Layout</h1>
 <p>The following sections describe the diagram layout capabilities of the graphical editor.</p>
-<h2 id="layout-commands"><span class="header-section-number">9.1</span> Layout Commands</h2>
+<h2 id="layout-commands"><span class="header-section-number">10.1</span> Layout Commands</h2>
 <p>Layout menu items are available from the <em>Edit-&gt;Layout</em> menu or by right clicking on the diagram or diagram element and using the <em>Layout</em> sub-menu. The behavior of the layout menu items are described in table <a href="#tbl:layout_menu_items">3</a>.</p>
 <figure>
 <img src="../images/layout_menu.png" />
@@ -402,7 +719,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="layout-preferences"><span class="header-section-number">9.2</span> Layout Preferences</h2>
+<h2 id="layout-preferences"><span class="header-section-number">10.2</span> Layout Preferences</h2>
 <p>The preferences dialog contains preferences which affect the layout behavior of the graphical editor. To edit layout preferences:</p>
 <ol type="1">
 <li><p>Select <em>Window-&gt;Preferences</em></p></li>
@@ -412,7 +729,7 @@
 <figure>
 <img src="../images/Preferences.png" />
 </figure>
-<h2 id="incremental-layout"><span class="header-section-number">9.3</span> Incremental Layout</h2>
+<h2 id="incremental-layout"><span class="header-section-number">10.3</span> Incremental Layout</h2>
 <p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</p>
 <div id="tbl:incremental_layout_modes">
 <table style="width:82%;">
@@ -443,9 +760,9 @@
 </tbody>
 </table>
 </div>
-<h2 id="layout-feature-based-on-direction"><span class="header-section-number">9.4</span> Layout Feature Based on Direction</h2>
+<h2 id="layout-feature-based-on-direction"><span class="header-section-number">10.4</span> Layout Feature Based on Direction</h2>
 <p>When the <em>Layout Features Based on Direction</em> preference is enabled, the graphical editor will position ports based on the feature's direction. Input features will be placed on the left side and output features will be placed on the right side. If the preference is disabled, the layout algorithm will decide the side on which to place the feature.</p>
-<h2 id="known-layout-issues-and-limitations"><span class="header-section-number">9.5</span> Known Layout Issues and Limitations</h2>
+<h2 id="known-layout-issues-and-limitations"><span class="header-section-number">10.5</span> Known Layout Issues and Limitations</h2>
 <ul>
 <li>Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.</li>
 <li>Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.</li>
@@ -454,32 +771,30 @@
 </li>
 <li>Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.</li>
 </ul>
-<h1 id="binding-creation"><span class="header-section-number">10</span> Binding Creation</h1>
+<h1 id="binding-creation"><span class="header-section-number">11</span> Binding Creation</h1>
 <p>When viewing a component implementation diagram, a binding property associations can be created using the toolbar. <img src="../images/BindToolbar.png" /></p>
-<h1 id="annotations-and-documentation"><span class="header-section-number">11</span> Annotations and Documentation</h1>
+<h1 id="annotations-and-documentation"><span class="header-section-number">12</span> Annotations and Documentation</h1>
 <p>The following sections describe the graphical editors support for annotations and AADL documentation.</p>
-<h2 id="annotations"><span class="header-section-number">11.1</span> Annotations</h2>
+<h2 id="annotations"><span class="header-section-number">12.1</span> Annotations</h2>
 <p>Diagrams can be annotated using the tools available in the <em>Annotation</em> section of the palette. The <em>Note</em> option allows adding text notes to the diagram. Notes are part of the diagram and are not part of the AADL model. The <em>Note Reference</em> option can be used to associate a note with another element in the diagram.</p>
-<h2 id="aadl-documentation"><span class="header-section-number">11.2</span> AADL Documentation</h2>
+<h2 id="aadl-documentation"><span class="header-section-number">12.2</span> AADL Documentation</h2>
 <p>AADL comments which begin with an extra hyphen are displayed by the diagram editor. They are displayed in the tooltips for the corresponding diagram element. Such comments are also displayed in the <em>Documentation</em> section of the <em>Properties</em> view. They cannot be modified using the graphical editor.</p>
-<h1 id="troubleshooting"><span class="header-section-number">12</span> Troubleshooting</h1>
+<h1 id="troubleshooting"><span class="header-section-number">13</span> Troubleshooting</h1>
 <p>The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.</p>
-<h2 id="undoredo-is-unavailable-after-opening-or-closing-aadl-source-files"><span class="header-section-number">12.1</span> Undo/Redo is Unavailable After Opening or Closing AADL Source Files</h2>
+<h2 id="undoredo-is-unavailable-after-opening-or-closing-aadl-source-files"><span class="header-section-number">13.1</span> Undo/Redo is Unavailable After Opening or Closing AADL Source Files</h2>
 <p>After opening or closing AADL source files, the undo and redo commands in the graphical editor are disabled. To workaround, either open the AADL source files before making changes or undo or redo operations as necessary before opening AADL source files.</p>
-<h2 id="build-automatically"><span class="header-section-number">12.2</span> Build Automatically</h2>
+<h2 id="build-automatically"><span class="header-section-number">13.2</span> Build Automatically</h2>
 <p><em>Project-&gt;Build Automatically</em> must be enabled. If it is not enabled, the graphical editor will not function properly.</p>
 <figure>
 <img src="../images/BuildAutomatically.png" />
 </figure>
-<h2 id="inconsistent-font-sizes-across-machines"><span class="header-section-number">12.3</span> Inconsistent Font Sizes Across Machines</h2>
+<h2 id="inconsistent-font-sizes-across-machines"><span class="header-section-number">13.3</span> Inconsistent Font Sizes Across Machines</h2>
 <p>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</p>
-<h2 id="unable-to-set-properties-unless-text-model-is-open"><span class="header-section-number">12.4</span> Unable to Set Properties Unless Text Model is Open</h2>
-<p>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</p>
-<h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">12.5</span> Missing Diagram Elements After Modification of AADL Source</h2>
-<p>See section <strong>¿sec:restore_missing_diagram_elements?</strong>.</p>
-<h2 id="reporting-issues"><span class="header-section-number">12.6</span> Reporting Issues</h2>
+<h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">13.4</span> Missing Diagram Elements After Modification of AADL Source</h2>
+<p>See section <a href="#sec:restore_missing_diagram_elements">8.7</a>.</p>
+<h2 id="reporting-issues"><span class="header-section-number">13.5</span> Reporting Issues</h2>
 <p>Issues should be reported using the <a href="https://github.com/osate/osate2/issues" target="_blank">OSATE Issue Tracker</a>.</p>
-<h1 id="notices"><span class="header-section-number">13</span> Notices</h1>
+<h1 id="notices"><span class="header-section-number">14</span> Notices</h1>
 <p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>
 <p>The view, opinions, and/or filings contained in this material are those of the author(s) and should not be construed as an official position, policy, or decision of the Government of the United States or Carnegie Mellon University or the Software Engineering Institute, unless designated by other documentation.</p>
 </body>
