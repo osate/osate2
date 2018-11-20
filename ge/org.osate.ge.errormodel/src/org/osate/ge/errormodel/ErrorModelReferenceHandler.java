@@ -62,9 +62,9 @@ public class ErrorModelReferenceHandler {
 			final ErrorBehaviorTransition t = (ErrorBehaviorTransition) bo;
 			final String name = t.getName();
 			if (name == null) {
-				return buildAnonymousBehaviorTransitionRelativeReference((ErrorBehaviorTransition) bo);
+				return buildAnonymousBehaviorTransitionRelativeReference(t);
 			} else {
-				return new String[] { TYPE_BEHAVIOR_TRANSITION, ((ErrorBehaviorTransition) bo).getName() };
+				return new String[] { TYPE_BEHAVIOR_TRANSITION, name };
 			}
 
 		} else if (bo instanceof TransitionBranch) {
