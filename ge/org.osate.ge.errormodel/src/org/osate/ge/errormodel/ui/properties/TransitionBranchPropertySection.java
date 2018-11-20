@@ -70,10 +70,17 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (valueField.isEnabled()) {
+					String value = valueField.getText();
+					if (value.startsWith(".")) {
+						value = "0" + value;
+					}
+
+					final String newValueStr = value;
+
 					selectedBos.modify(TransitionBranch.class, branch -> {
 						final BranchValue newValue = (BranchValue) EcoreUtil
 								.create(ErrorModelPackage.eINSTANCE.getBranchValue());
-						newValue.setRealvalue(valueField.getText());
+						newValue.setRealvalue(newValueStr);
 						branch.setValue(newValue);
 					});
 				}
