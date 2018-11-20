@@ -8,4 +8,6 @@ verification plan dcsvplan for dcsreqs
 			va3 : Resolute.verifyDCSReq1(MaximumWeight in kg) [category Layer.Tier1]
 		assert all [ va2, va3]
 	]
+claim R2 [
+	]
 ] 

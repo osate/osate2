@@ -15,10 +15,17 @@ public interface DiagramElementInformationProvider extends BusinessObjectHandler
 	 * @param element
 	 * @return
 	 */
-	String getName(DiagramElement element);
-	
+	String getLabelName(DiagramElement element);
+
 	/**
-	 * Provides the graphic configuration should be used for a business object. 
+	 * Returns the name to be displayed in the user interface for the business object
+	 * @param element
+	 * @return
+	 */
+	String getUserInterfaceName(DiagramElement element);
+
+	/**
+	 * Provides the graphic configuration should be used for a business object.
 	 * The specified diagram element may not be fully initialized.
 	 * @param element
 	 * @return must not be null.
