@@ -58,7 +58,6 @@
 <h2 id="images"><span class="header-section-number">3.2</span> Images</h2>
 <p>The graphical editor references images using unique identifiers. Images are registered using the <strong>org.osate.go.images</strong> extension point.</p>
 <h2 id="adding-support-for-a-new-business-object"><span class="header-section-number">3.3</span> Adding Support for a new Business Object</h2>
-<p><strong>The extension points used for adding support for new business objects are experimental. The following documentation is out of date. These APIs will be changed after the extension points have been refined.</strong></p>
 <p>Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.</p>
 <h3 id="non-emf-objects"><span class="header-section-number">3.3.1</span> Non-EMF Objects</h3>
 <p>The graphical editor depends on capabilities provided by EMF objects. The <a href="../api/org/osate/ge/EmfContainerProvider.html">EmfContainerProvider</a> interface must be implemented by all business objects which are not EMF objects.</p>
@@ -116,7 +115,7 @@
 <ul>
 <li><a href="../api/org/osate/ge/di/GetPaletteEntries.html">GetPaletteEntries</a></li>
 <li><a href="../api/org/osate/ge/di/CanCreate.html">CanCreate</a></li>
-<li><a href="../api/org/osate/ge/di/GetCreateOwner.html">GetCreateOwner</a></li>
+<li><a href="../api/org/osate/ge/di/BuildCreateOperation.html">BuildCreateOperation</a></li>
 <li><a href="../api/org/osate/ge/di/CanStartConnection.html">CanStartConnection</a></li>
 <li><a href="../api/org/osate/ge/di/Create.html">Create</a></li>
 </ul>
@@ -128,6 +127,7 @@
 <h5 id="naming"><span class="header-section-number">3.3.3.2.5</span> Naming</h5>
 <ul>
 <li><a href="../api/org/osate/ge/di/GetName.html">GetName</a></li>
+<li><a href="../api/org/osate/ge/di/GetNameForEditing.html">GetNameForEditing</a></li>
 <li><a href="../api/org/osate/ge/di/ValidateName.html">ValidateName</a></li>
 <li><a href="../api/org/osate/ge/di/Rename.html">Rename</a></li>
 </ul>
