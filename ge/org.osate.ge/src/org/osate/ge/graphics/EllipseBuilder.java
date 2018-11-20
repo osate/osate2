@@ -16,6 +16,8 @@ import org.osate.ge.graphics.internal.Ellipse;
  * @see Graphic
  */
 public class EllipseBuilder {
+	private Dimension fixedSize;
+
 	private EllipseBuilder() {}
 
 	/**
@@ -27,10 +29,20 @@ public class EllipseBuilder {
 	}
 
 	/**
+	 * Configures the ellipse builder to build a ellipse that has a fixed size and is not resizable.
+	 * @param value is the size of the ellipse
+	 * @return this builder to allow method chaining.
+	 */
+	public EllipseBuilder fixedSize(final Dimension value) {
+		fixedSize = value;
+		return this;
+	}
+
+	/**
 	 * Creates an ellipse graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Ellipse();
+		return new Ellipse(fixedSize);
 	}
 }

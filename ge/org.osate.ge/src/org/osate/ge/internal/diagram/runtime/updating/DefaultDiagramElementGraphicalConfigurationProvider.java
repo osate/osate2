@@ -16,30 +16,36 @@ import org.osate.ge.internal.util.BusinessObjectContextHelper;
 public class DefaultDiagramElementGraphicalConfigurationProvider implements DiagramElementInformationProvider, AutoCloseable {
 	private final BusinessObjectHandlerProvider bohProvider;
 	private final BusinessObjectContextHelper bocHelper;
-	
+
 	public DefaultDiagramElementGraphicalConfigurationProvider(final ProjectReferenceService refService,
 			final ExtensionService extService) {
 		this.bohProvider = Objects.requireNonNull(extService, "extService must not be null");
 		this.bocHelper = new BusinessObjectContextHelper(extService);
 	}
-	
+
 	@Override
 	public void close() {
 		bocHelper.close();
 	}
-	
+
 	@Override
-	public String getName(final DiagramElement element) {
+	public String getLabelName(final DiagramElement element) {
 		final Object boh = element.getBusinessObjectHandler();
-		return bocHelper.getName(element, boh);
+		return bocHelper.getNameForLabel(element, boh);
 	}
-	
+
+	@Override
+	public String getUserInterfaceName(final DiagramElement element) {
+		final Object boh = element.getBusinessObjectHandler();
+		return bocHelper.getNameForUserInterface(element, boh);
+	}
+
 	@Override
 	public AgeGraphicalConfiguration getGraphicalConfiguration(final DiagramElement element) {
 		final Object boh = element.getBusinessObjectHandler();
 		return bocHelper.getGraphicalConfiguration(element, boh);
 	}
-	
+
 	@Override
 	public Object getApplicableBusinessObjectHandler(final Object bo) {
 		return bohProvider.getApplicableBusinessObjectHandler(bo);

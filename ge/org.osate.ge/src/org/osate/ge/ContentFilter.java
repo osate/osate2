@@ -1,7 +1,8 @@
 package org.osate.ge;
 
 /**
- * Content filters must be stateless.
+ * A configurable content filters is one whose enablement can be toggled by the user. Must be stateless.
+ * This interface does not have Configurable in the name because it predates the concept of fundamental content filters.
  *
  */
 public interface ContentFilter {

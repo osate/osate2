@@ -177,7 +177,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 	public String getInitialValue(final IDirectEditingContext context) {
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());
 		return RenameUtil.getCurrentEditingName(de.getBusinessObject(), de.getBusinessObjectHandler(),
-				extService, de.getName());
+				extService, de.getLabelName());
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package org.osate.ge.internal.diagram.runtime;
 import java.util.List;
 
 import org.osate.ge.ContentFilter;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
@@ -42,7 +43,9 @@ public interface DiagramModification {
 
 	void setContentFilters(final DiagramElement e, final ImmutableSet<ContentFilter> value);
 	void setCompleteness(final DiagramElement e, final Completeness value);
-	void setName(final DiagramElement e, final String value);
+	void setLabelName(final DiagramElement e, final String value);
+
+	void setUserInterfaceName(final DiagramElement e, final String value);
 	void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value);
 
 	default void setPosition(final DiagramElement e, final Point value) {

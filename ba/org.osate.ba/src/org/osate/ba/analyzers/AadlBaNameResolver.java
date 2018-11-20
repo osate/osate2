@@ -55,6 +55,7 @@ import org.osate.aadl2.PrototypeBinding ;
 import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
@@ -653,8 +654,14 @@ public class AadlBaNameResolver
      Identifier timeUnit = bt.getUnitId() ;
      
      
-     return integerValueResolver(bt.getIntegerValue()) &
-            timeUnitResolver(timeUnit);
+     boolean result = integerValueResolver(bt.getIntegerValue());
+     result &= timeUnitResolver(timeUnit);
+     if(result && bt.getIntegerValue() instanceof BehaviorIntegerLiteral)
+     {
+       BehaviorIntegerLiteral bil = (BehaviorIntegerLiteral) bt.getIntegerValue();
+       bil.setUnit((UnitLiteral) timeUnit.getOsateRef());
+     }
+     return result;
    }
 
    private boolean communicationActionResolver(CommAction act)

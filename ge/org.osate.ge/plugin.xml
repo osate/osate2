@@ -2359,6 +2359,9 @@
       <contentFilter
             class="org.osate.ge.internal.diagram.runtime.filtering.ComponentCategoryFilterFactory">
       </contentFilter>
+      <fundamentalContentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FundamentalTagFilter">
+      </fundamentalContentFilter>
    </extension>
    <extension
          point="org.osate.ge.diagramTypes">
