@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.eclipse.elk.core.math.KVector;
 import org.eclipse.elk.core.options.CoreOptions;
 import org.eclipse.elk.core.options.NodeLabelPlacement;
 import org.eclipse.elk.core.options.PortSide;
+import org.eclipse.elk.core.options.SizeConstraint;
 import org.eclipse.elk.core.service.LayoutMapping;
 import org.eclipse.elk.core.util.BasicProgressMonitor;
 import org.eclipse.elk.core.util.ElkUtil;
@@ -35,6 +37,7 @@ import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
@@ -47,7 +50,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
@@ -379,14 +381,29 @@ public class DiagramElementLayoutUtil {
 				double minHeight = Math.max(Math.max(35, labelHeightSum), heightForFlowIndicators);
 
 				if (dn instanceof DiagramElement) {
+					final DiagramElement de = ((DiagramElement) dn);
+
 					// Special min height handling for initial modes
-					final Graphic graphic = ((DiagramElement) dn).getGraphic();
+					final Graphic graphic = de.getGraphic();
+
+					if (graphic instanceof AgeShape && !((AgeShape) graphic).isResizeable() && de.hasSize()) {
+						final Dimension dim = de.getSize();
+						minHeight = dim.height;
+						minWidth = dim.width;
+
+						// Adjust size constraints for fixed sized shapes which do not have contents.
+						if (n.getChildren().size() == 0 || n.getLabels().size() == 0 && n.getPorts().size() == 0) {
+							final EnumSet<SizeConstraint> nodeSizeConstraints = EnumSet.of(SizeConstraint.MINIMUM_SIZE);
+							n.setProperty(CoreOptions.NODE_SIZE_CONSTRAINTS, nodeSizeConstraints);
+						}
+					}
+
 					if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
 						minHeight += ModeGraphic.initialModeAreaHeight;
 					}
 
 					// Special min size handling for elements shown as image
-					final Style style = ((DiagramElement) dn).getStyle();
+					final Style style = de.getStyle();
 					if (style != null && Boolean.TRUE.equals(style.getShowAsImage())) {
 						final Dimension dim = ((DiagramElement) dn).getSize();
 						minHeight = dim.height;

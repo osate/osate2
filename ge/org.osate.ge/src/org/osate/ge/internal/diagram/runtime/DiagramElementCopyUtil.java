@@ -31,7 +31,8 @@ public class DiagramElementCopyUtil {
 		newElement.setManual(elementToCopy.isManual());
 		newElement.setContentFilters(elementToCopy.getContentFilters());
 		newElement.setCompleteness(elementToCopy.getCompleteness());
-		newElement.setName(elementToCopy.getName());
+		newElement.setLabelName(elementToCopy.getLabelName());
+		newElement.setUserInterfaceName(elementToCopy.getUserInterfaceName());
 		newElement.setGraphicalConfiguration(elementToCopy.getGraphicalConfiguration());
 		newElement.setStyle(elementToCopy.getStyle());
 		newElement.setPosition(elementToCopy.getPosition());
