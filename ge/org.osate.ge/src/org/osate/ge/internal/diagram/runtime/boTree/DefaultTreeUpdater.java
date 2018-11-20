@@ -36,7 +36,6 @@ import org.osate.ge.internal.aadlproperties.PropertyValueUtil;
 import org.osate.ge.internal.aadlproperties.ReferenceValueWithContext;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.AgePropertyValue;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
@@ -398,7 +397,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			final RelativeBusinessObjectReference relativeReference = refService
 					.getRelativeReference(potentialBusinessObject);
 			if (relativeReference != null) {
-				if (forcedRefs.contains(relativeReference) || Filtering.isFundamental(potentialBusinessObject)
+				if (forcedRefs.contains(relativeReference) || extService.isFundamental(potentialBusinessObject)
 						|| passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
 					// Special handling of proxies. Only resolve them if they are needed
 					Object resolvedBo = potentialBusinessObject;

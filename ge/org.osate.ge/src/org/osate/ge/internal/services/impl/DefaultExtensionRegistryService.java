@@ -47,6 +47,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.Categories;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
+import org.osate.ge.FundamentalContentFilter;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -93,7 +94,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private final ImmutableList<Category> categories;
 	private final ImmutableCollection<Object> tooltipContributors;
 	private final ImmutableCollection<Object> businessObjectProviders;
-	private final ImmutableCollection<ContentFilter> contentFilters;
+	private final ImmutableCollection<ContentFilter> configurableContentFilters;
+	private final ImmutableCollection<FundamentalContentFilter> fundamentalContentFilters;
 	private final ImmutableCollection<DiagramType> diagramTypes;
 
 	public DefaultExtensionRegistryService() {
@@ -104,8 +106,10 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		categories = instantiateCategories(registry);
 		businessObjectProviders = instantiateSimpleExtensions(registry, BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID,
 				"provider");
-		contentFilters = instantiateSimpleExtensions(registry, CONTENT_FILTERS_EXTENSION_POINT_ID, "contentFilter",
-				ContentFilter.class);
+		configurableContentFilters = instantiateSimpleExtensions(registry, CONTENT_FILTERS_EXTENSION_POINT_ID,
+				"contentFilter", ContentFilter.class);
+		fundamentalContentFilters = instantiateSimpleExtensions(registry, CONTENT_FILTERS_EXTENSION_POINT_ID,
+				"fundamentalContentFilter", FundamentalContentFilter.class);
 		diagramTypes = instantiateSimpleExtensions(registry, DIAGRAM_TYPES_EXTENSION_POINT_ID, "diagramType",
 				DiagramType.class);
 	}
@@ -154,8 +158,13 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
-	public ImmutableCollection<ContentFilter> getContentFilters() {
-		return contentFilters;
+	public ImmutableCollection<ContentFilter> getConfigurableContentFilters() {
+		return configurableContentFilters;
+	}
+
+	@Override
+	public ImmutableCollection<FundamentalContentFilter> getFundamentalContentFilters() {
+		return fundamentalContentFilters;
 	}
 
 	@Override

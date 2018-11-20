@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
@@ -32,7 +33,8 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	private ImmutableSet<ContentFilter> contentFilters = ImmutableSet.of();
 	private Completeness completeness = Completeness.UNKNOWN;
 	private final DiagramElementCollection children = new DiagramElementCollection();
-	private String name;
+	private String labelName;
+	private String uiName;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
 	private Style style = Style.EMPTY; // Will never be null
 
@@ -151,12 +153,20 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		return boRelReference;
 	}
 
-	public final String getName() {
-		return name;
+	public final String getLabelName() {
+		return labelName;
 	}
 
-	final void setName(final String value) {
-		this.name = value;
+	final void setLabelName(final String value) {
+		this.labelName = value;
+	}
+
+	public final String getUserInterfaceName() {
+		return uiName;
+	}
+
+	final void setUserInterfaceName(final String value) {
+		this.uiName = value;
 	}
 
 	public final boolean hasPosition() {
