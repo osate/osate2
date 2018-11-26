@@ -25,7 +25,8 @@ public class InheritedElementNoticePropertySection extends AbstractPropertySecti
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof Element);
+			return PropertySectionUtil.isBoCompatible(toTest,
+					bo -> bo instanceof Element);
 		}
 	}
 
@@ -76,6 +77,7 @@ public class InheritedElementNoticePropertySection extends AbstractPropertySecti
 		final boolean visible = selectedBos.bocStream()
 				.anyMatch(boc -> !(boc.getBusinessObject() instanceof Classifier
 						|| boc.getBusinessObject() instanceof InstanceObject) && boc.getParent() != null
+						&& ((Element) boc.getBusinessObject()).getContainingClassifier() != null
 						&& boc.getParent().getBusinessObject() != ((Element) boc.getBusinessObject())
 						.getContainingClassifier());
 

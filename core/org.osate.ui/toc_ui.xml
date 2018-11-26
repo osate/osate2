@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc link_to="../org.osate.help/aadlhelp.xml#_workingSets" label="Working Sets">
+	<topic href="html/WorkingSets.html" label="Working Sets">
+		<topic href="html/WorkingSets.html#introduction" label="Introduction"/>
+		<topic href="html/WorkingSets.html#creating-a-working-set" label="Creating a Working Set"/>
+		<topic href="html/WorkingSets.html#showing-the-working-sets-in-the-aadl-navigator" label="Showing the Working Sets in the AADL Navigator"/>
+		<topic href="html/WorkingSets.html#exporting-and-importing-working-sets" label="Exporting and Importing Working Sets"/>
+	</topic>
+</toc>

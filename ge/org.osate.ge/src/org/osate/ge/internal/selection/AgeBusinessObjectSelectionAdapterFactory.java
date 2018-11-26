@@ -36,7 +36,7 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 		} else if (IAadlPropertySource.class.equals(adapterType) && adaptableObject instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) adaptableObject;
 			if (ss.getFirstElement() instanceof DiagramElement) {
-				DiagramElement de = (DiagramElement) ss.getFirstElement();
+				final DiagramElement de = (DiagramElement) ss.getFirstElement();
 				// If the business object is an AADL Named Element
 				if (de.getBusinessObject() instanceof NamedElement) {
 					final NamedElement namedElement = (NamedElement) de.getBusinessObject();

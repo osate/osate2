@@ -111,7 +111,11 @@ public class UiUtil {
 			baseName = ((BusinessObjectProxy) bo).getName();
 		} else {
 			final Object boh = extService.getApplicableBusinessObjectHandler(bo);
-			baseName = boh == null ? null : bocHelper.getName(boc, boh);
+			if (boh == null) {
+				baseName = null;
+			} else {
+				baseName = bocHelper.getNameForUserInterface(boc, boh);
+			}
 		}
 
 		if (baseName == null) {
@@ -139,7 +143,7 @@ public class UiUtil {
 	public static String getPathLabel(final DiagramNode dn) {
 		if (dn instanceof DiagramElement) {
 			final String parentPath = getPathLabel(dn.getParent());
-			final String name = ((DiagramElement) dn).getName();
+			final String name = ((DiagramElement) dn).getLabelName();
 			if (name.isEmpty()) {
 				return parentPath;
 			} else if (parentPath.isEmpty()) {

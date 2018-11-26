@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.query.Queryable;
 

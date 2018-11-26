@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import org.osate.ge.ContentFilter;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeConnection;
@@ -285,15 +286,24 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setName(final DiagramElement e, final String value) {
-			if (value == null && e.getName() == null) {
+		public void setLabelName(final DiagramElement e, final String value) {
+			if (value == null && e.getLabelName() == null) {
 				return;
 			}
 
-			if (value == null || !value.equals(e.getName())) {
-				storeFieldChange(e, ModifiableField.NAME, e.getName(), value);
-				e.setName(value);
-				afterUpdate(e, ModifiableField.NAME);
+			if (value == null || !value.equals(e.getLabelName())) {
+				storeFieldChange(e, ModifiableField.LABEL_NAME, e.getLabelName(), value);
+				e.setLabelName(value);
+				afterUpdate(e, ModifiableField.LABEL_NAME);
+			}
+		}
+
+		@Override
+		public void setUserInterfaceName(final DiagramElement e, final String value) {
+			if (!Objects.equals(e.getUserInterfaceName(), value)) {
+				storeFieldChange(e, ModifiableField.USER_INTERFACE_NAME, e.getUserInterfaceName(), value);
+				e.setUserInterfaceName(value);
+				afterUpdate(e, ModifiableField.USER_INTERFACE_NAME);
 			}
 		}
 
@@ -632,8 +642,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				m.setCompleteness(element, (Completeness) value);
 				break;
 
-			case NAME:
-				m.setName(element, (String) value);
+			case LABEL_NAME:
+				m.setLabelName(element, (String) value);
+				break;
+
+			case USER_INTERFACE_NAME:
+				m.setUserInterfaceName(element, (String) value);
 				break;
 
 			case BENDPOINTS:
@@ -679,7 +693,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public boolean affectsChangeNumber() {
 			if (field == ModifiableField.COMPLETENESS
-					|| (field == ModifiableField.NAME
+					|| (field == ModifiableField.LABEL_NAME
 					&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
 					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;

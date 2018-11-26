@@ -91,6 +91,7 @@ public class ToggleContentFilterHandler extends AbstractHandler implements IElem
 		final ContentFilterProvider contentFilterProvider = getContentFilterProvider();
 		final ContentFilter filter = contentFilterProvider.getContentFilterById(contentFilterId).orElseThrow(
 				() -> new RuntimeException("Unable to retrieve content filter for ID: " + contentFilterId));
+
 		element.setChecked(isFilterEnabled(filter,
 				contentFilterProvider));
 	}
@@ -117,7 +118,7 @@ public class ToggleContentFilterHandler extends AbstractHandler implements IElem
 				if (!de.getContentFilters().contains(contentFilter)
 						&& !ContentFilterUtil.anyAncestorsEnabled(contentFilter,
 								de.getContentFilters(),
-								contentFilterProvider.getContentFilters())) {
+								contentFilterProvider.getConfigurableContentFilters())) {
 					return false;
 				}
 			}
