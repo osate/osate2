@@ -2,6 +2,7 @@
  */
 package org.osate.aadl2.errormodel.FaultTree;
 
+import java.math.BigDecimal;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -138,12 +139,12 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Assigned Probability</em>' attribute.
-	 * @see #setAssignedProbability(double)
+	 * @see #setAssignedProbability(BigDecimal)
 	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_AssignedProbability()
 	 * @model
 	 * @generated
 	 */
-	double getAssignedProbability();
+	BigDecimal getAssignedProbability();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getAssignedProbability <em>Assigned Probability</em>}' attribute.
@@ -153,7 +154,7 @@ public interface Event extends EObject {
 	 * @see #getAssignedProbability()
 	 * @generated
 	 */
-	void setAssignedProbability(double value);
+	void setAssignedProbability(BigDecimal value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -165,7 +166,7 @@ public interface Event extends EObject {
 	 * @model kind="operation"
 	 * @generated
 	 */
-	double getProbability();
+	BigDecimal getProbability();
 
 	/**
 	 * Returns the value of the '<em><b>Computed Probability</b></em>' attribute.
@@ -176,12 +177,12 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Computed Probability</em>' attribute.
-	 * @see #setComputedProbability(double)
+	 * @see #setComputedProbability(BigDecimal)
 	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_ComputedProbability()
 	 * @model
 	 * @generated
 	 */
-	double getComputedProbability();
+	BigDecimal getComputedProbability();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getComputedProbability <em>Computed Probability</em>}' attribute.
@@ -191,7 +192,7 @@ public interface Event extends EObject {
 	 * @see #getComputedProbability()
 	 * @generated
 	 */
-	void setComputedProbability(double value);
+	void setComputedProbability(BigDecimal value);
 
 	/**
 	 * Returns the value of the '<em><b>Related Instance Object</b></em>' reference.
@@ -340,12 +341,12 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Scale</em>' attribute.
-	 * @see #setScale(double)
+	 * @see #setScale(BigDecimal)
 	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_Scale()
 	 * @model default="1.0"
 	 * @generated
 	 */
-	double getScale();
+	BigDecimal getScale();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getScale <em>Scale</em>}' attribute.
@@ -355,7 +356,7 @@ public interface Event extends EObject {
 	 * @see #getScale()
 	 * @generated
 	 */
-	void setScale(double value);
+	void setScale(BigDecimal value);
 
 	/**
 	 * Returns the value of the '<em><b>Related Error Type</b></em>' reference.
