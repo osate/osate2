@@ -96,11 +96,11 @@ While viewing the hardware package diagram:
 ![](../images/simple_tutorial_cpu_created.png)
 
 ## Create Device Types
-1. Create a device type in the hardware package named "sensor".
+1. Create a device type named "sensor" that contains:
 
-2. Add an input abstract feature named "power" to *sensor*.
+	2. Add an input abstract feature named "power" to *sensor*.
 
-3. Add an ouput data port named "sensor_out" to *sensor*.
+	3. Add an ouput data port named "sensor_out" to *sensor*.
 
 4. Create a device type in the hardware package named "actuator".
 
@@ -164,7 +164,7 @@ While viewing the hardware package diagram:
 
 3. Select *Show->Features->All*.
 
-4. Select *Featre Connection* from the palette and select the source then destination on the diagram.
+4. Select *Feature Connection* from the palette and select the source then destination on the diagram.
 
 	platform.impl.power -> cbus.power.
 	

@@ -43,8 +43,8 @@
 <li><a href="#create-a-new-project-1"><span class="toc-section-number">2.1</span> Create a New Project</a></li>
 <li><a href="#hardware-package"><span class="toc-section-number">2.2</span> Hardware Package</a><ul>
 <li><a href="#create-package-1"><span class="toc-section-number">2.2.1</span> Create Package</a></li>
-<li><a href="#create-bus-types"><span class="toc-section-number">2.2.2</span> Create Bus Types</a></li>
-<li><a href="#create-memory-type"><span class="toc-section-number">2.2.3</span> Create Memory Type</a></li>
+<li><a href="#create-memory-type"><span class="toc-section-number">2.2.2</span> Create Memory Type</a></li>
+<li><a href="#create-bus-types"><span class="toc-section-number">2.2.3</span> Create Bus Types</a></li>
 <li><a href="#create-device-types-1"><span class="toc-section-number">2.2.4</span> Create Device Types</a></li>
 <li><a href="#create-processor-type-1"><span class="toc-section-number">2.2.5</span> Create Processor Type</a></li>
 <li><a href="#create-memory-type-1"><span class="toc-section-number">2.2.6</span> Create Memory Type</a></li>
@@ -211,9 +211,11 @@
 </figure>
 <h2 id="create-device-types"><span class="header-section-number">1.6</span> Create Device Types</h2>
 <ol type="1">
-<li><p>Create a device type in the hardware package named &quot;sensor&quot;.</p></li>
+<li><p>Create a device type named &quot;sensor&quot; that contains:</p>
+<ol start="2" type="1">
 <li><p>Add an input abstract feature named &quot;power&quot; to <em>sensor</em>.</p></li>
 <li><p>Add an ouput data port named &quot;sensor_out&quot; to <em>sensor</em>.</p></li>
+</ol></li>
 <li><p>Create a device type in the hardware package named &quot;actuator&quot;.</p></li>
 <li><p>Add an input abstract feature named &quot;power&quot; to <em>actuator</em>.</p></li>
 <li><p>Add an input data port named &quot;data_in&quot; to <em>actuator</em>.</p></li>
@@ -269,7 +271,7 @@
 <li><p>Select <em>cpu</em>, hold the <em>ctrl</em> key and select <em>cbus</em>.</p></li>
 <li><p>Right click <em>cpu</em>.</p></li>
 <li><p>Select <em>Show-&gt;Features-&gt;All</em>.</p></li>
-<li><p>Select <em>Featre Connection</em> from the palette and select the source then destination on the diagram.</p>
+<li><p>Select <em>Feature Connection</em> from the palette and select the source then destination on the diagram.</p>
 <p>platform.impl.power -&gt; cbus.power.</p>
 <p>platform.impl.power -&gt; cpu.power.</p></li>
 <li><p>Create an access connection for:</p>
@@ -319,25 +321,21 @@
 <h2 id="hardware-package"><span class="header-section-number">2.2</span> Hardware Package</h2>
 <h3 id="create-package-1"><span class="header-section-number">2.2.1</span> Create Package</h3>
 <p>Create a package named &quot;hardware&quot;.</p>
-<h3 id="create-bus-types"><span class="header-section-number">2.2.2</span> Create Bus Types</h3>
-<ol type="1">
-<li><p>Create a bus type named &quot;cbus&quot;.</p></li>
-<li><p>Add an input abstract feature named &quot;power&quot; to <em>cbus</em>.</p></li>
-<li><p>Create a bus type named &quot;pci&quot;.</p></li>
-<li><p>Add an input abstract feature named &quot;power&quot; to <em>pci</em>.</p></li>
-</ol>
-<h3 id="create-memory-type"><span class="header-section-number">2.2.3</span> Create Memory Type</h3>
-<ol type="1">
-<li><p>Create a memory type named &quot;main_memory&quot; that contains:</p></li>
-<li><p>Add an input abstract feature named &quot;power&quot;.</p></li>
-<li><p>Add a provides bus access named &quot;pci&quot;.</p></li>
-</ol>
+<h3 id="create-memory-type"><span class="header-section-number">2.2.2</span> Create Memory Type</h3>
+<p>Create a memory type named &quot;main_memory&quot; that contains:</p>
+<pre><code>- An input abstract feature named &quot;power&quot;.
+
+- A provides bus access named &quot;pci&quot;.</code></pre>
+<h3 id="create-bus-types"><span class="header-section-number">2.2.3</span> Create Bus Types</h3>
+<p>Create two bus types named &quot;cbus&quot; and &quot;pci&quot; that contain an input abstract feature named &quot;power&quot;.</p>
 <h3 id="create-device-types-1"><span class="header-section-number">2.2.4</span> Create Device Types</h3>
 <ol type="1">
 <li><p>Create a device type named &quot;actuator&quot; that contains:</p>
-<p>1.1 An input abstract feature named &quot;power&quot;.</p>
-<p>1.2 An input data port named &quot;sensor_in&quot;.</p>
-<p>1.3 A requires bus access named &quot;busaccess&quot;.</p></li>
+<ul>
+<li><p>An input abstract feature named &quot;power&quot;.</p></li>
+<li><p>An input data port named &quot;sensor_in&quot;.</p></li>
+<li><p>A requires bus access named &quot;busaccess&quot;.</p></li>
+</ul></li>
 <li><p>Create a device type named &quot;sensor&quot; that contains:</p>
 <ul>
 <li><p>An input abstract feature named &quot;power&quot;.</p></li>
@@ -346,13 +344,17 @@
 </ul></li>
 </ol>
 <h3 id="create-processor-type-1"><span class="header-section-number">2.2.5</span> Create Processor Type</h3>
-<p>Create a processor type named &quot;cpu&quot; in the hardware package.</p>
+<p>Create a processor type named &quot;cpu&quot; that contains:</p>
+<pre><code>- An input abstract feature named &quot;power&quot;.
+
+- A requires bus access named &quot;cb&quot;
+
+- A requires bus access named &quot;pci&quot;</code></pre>
 <h3 id="create-memory-type-1"><span class="header-section-number">2.2.6</span> Create Memory Type</h3>
 <p>Create a memory type named &quot;main_memory&quot; that contains</p>
-<ul>
-<li><p>An input abstract feature named &quot;power&quot;</p></li>
-<li><p>A provides bus access named &quot;pci&quot;</p></li>
-</ul>
+<pre><code>- An input abstract feature named &quot;power&quot;
+
+- A provides bus access named &quot;pci&quot;</code></pre>
 <h2 id="create-processor"><span class="header-section-number">2.3</span> Create Processor</h2>
 <p>Using the palette, create a processor type.</p>
 <h3 id="rename-processor"><span class="header-section-number">2.3.1</span> Rename Processor</h3>
