@@ -13,7 +13,7 @@ secPrefix:
 ---
 
 # Tutorial: Getting Started
-This tutorial shows how to create a very simple model designed to show the basic functionality of the graphical editor.  
+This tutorial shows how to create a very simple model designed to show the basic functionality of the graphical editor.    
 1. **Create a New Project**
 	1. Select *File->New->Other…->AADL->AADL Project*.
 	2. Enter project name: "Alarm".
