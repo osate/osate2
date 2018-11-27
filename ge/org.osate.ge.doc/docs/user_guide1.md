@@ -13,220 +13,211 @@ secPrefix:
 ---
 
 # Tutorial: Getting Started
-## Create a New Project
-
-1. Select *File->New->Other…->AADL->AADL Project*.
-
-2. Enter project name: "Demo".
-
-3. Select *Finish*.
-
-## Create Package
-
-1. Right-click Demo project in the *AADL Navigator*.
-
-2. Select *New->Other…->AADL->AADL Package*.
-
-3. Enter package name: "hardware".
-
-![](../images/create_package.png)
-
-4. Select *Finish*.
-
-## Create Package Diagram
-
-1. Right-click the hardware.aadl package in the *AADL Navigator*.
-
-2. Select *Create Diagram...*
-
-3. Select *OK* on the *Create Diagram* dialog.
-
-## Create Bus Type
-While viewing the hardware package diagram:
-
-1. Expand the *Classifiers* section in the palette.
-
-2. Select *Bus Type*.
-
-![](../images/palette_bus_type.png)
-
-3. Click inside the hardware package diagram element, the bus type will appear on the diagram.
-
-![](../images/create_bus_type.png)
-
-4. Select the new bus type to rename.
-
-5. Select the name label.  An editable field will appear.
-
-![](../images/rename_bus_type.png)
-
-6. Enter: "cbus".
-
-7. Press the *Enter* key.
-
-### Create Features
-1. Select *Abstract Feature* from the *Features* section in the palette.
-
-2. Click inside the *cbus* diagram element.
-
-3. Rename the abstract feature to "power".
-
-4. Add a bus access named "busaccess" to *cbus*.
-
-![](../images/simple_tutorial_cbus_created.png)
-
-### Set Features Direction
-1. Double click on *power* to open the *Properties* view.
-
-2. Select the *AADL* section.
-
-![](../images/feature_direction.png)
-
-4. Select *Input* in the *Direction* options.
-
-5. Set *busaccess* access type to *Provides* using the *Properties* view.
-
-## Create Processor Type
-1. Create a processor type in the hardware package named "cpu".
-
-2. Add an input abstract feature named "power" to *cpu*.
-
-3. Add a requires bus access named "busaccess" to *cpu*.
-
-![](../images/simple_tutorial_cpu_created.png)
-
-## Create Device Types
-1. Create a device type named "sensor" that contains:
-
-	2. Add an input abstract feature named "power" to *sensor*.
-
-	3. Add an ouput data port named "sensor_out" to *sensor*.
-
-4. Create a device type in the hardware package named "actuator".
-
-5. Add an input abstract feature named "power" to *actuator*.
-
-6. Add an input data port named "data_in" to *actuator*.
-
-7. Add a requires bus access named "busaccess" to *actuator*.
-
-![](../images/simple_tutorial_types_created.png)
-
-## Create System Type and Implementation
-1. Select *System Implementation* from the palette.
-
-2. Click inside the hardware package diagram element, a *Create Component Implementation* dialog will appear.
-
-3. Enter the implementation's identifier: impl.
-
-4. Select *New Component Type* to create a new type.
-
-![](../images/simple_tutorial_create_implementation_dialog.png)
-
-5. Enter the type's identifier: platform.
-
-6. Select *OK*
-
-### Create Features
-1. Add an input abstract feature named "power" to *platform.impl*.
-
-2. Add a provides bus access named "busaccess" to *platform.impl*.
-
-3. Add an output data port named "data_out" to *platform.impl*.
-
-4. Add an input data port named "sensor_in" to *platform.impl*.
-
-![](../images/simple_tutorial_platform_impl_created.png)
-
-### Create Processor Subcomponent
-1. Add a processor subcomponent named "cpu" to platform.impl.
-
-2. Select *cpu* and open the *AADL* tab in the *Properties* view.
-
-3. Select *Choose...* in the *Classifier* section.
-
-4. Select *hardware::cpu* from the *Select a Classifier* dialog.
-
-![](../images/simple_tutorial_set_classifier.png)
-
-5. Select *OK*.
-
-### Create Bus Subcomponent
-1. Add a bus subcomponent named "cbus" to platform.impl.
-
-2. Set *cbus*'s classifier to *hardware::cbus*.
-
-### Create Connections
-
-1. Select *cpu*, hold the *ctrl* key and select *cbus*.
-
-2. Right click *cpu*.
-
-3. Select *Show->Features->All*.
-
-4. Select *Feature Connection* from the palette and select the source then destination on the diagram.
-
-	platform.impl.power -> cbus.power.
+1. **Create a New Project**
+	1. Select *File->New->Other…->AADL->AADL Project*.
+	2. Enter project name: "Alarm".
+	3. Select *Finish*.
+
+2. **Create Package**
+	1. Right-click Demo project in the *AADL Navigator*.
+	2. Select *New->Other…->AADL->AADL Package*.
+	3. Enter package name: "AlarmModel".  
+![](../images/create_package.png)  
+	4. Select *Finish*.
 	
-	platform.impl.power -> cpu.power.
-	
-5. Create an access connection for:
+3. **Create Package Diagram**
+	1. Right-click the AlarmModel.aadl package in the *AADL Navigator*.
+	2. Select *Create Diagram...*
+	3. Select *OK* on the *Create Diagram* dialog.
 
-	cbus.busaccess -> cpu.busaccess.
-	
-	cbus.busaccess -> platform.impl.busaccess.
-	
-![](../images/simple_tutorial_platform_impl.png)
+4. **Create Classifiers**  
+While viewing the Alarm_Model package diagram:  
+	1. Expand the *Classifiers* section in the palette.
+	2. Select *Device Type*.
+	3. Click inside the AlarmModel package diagram element, the device will appear on the diagram.
+	4. **Rename** the new device type.
+		1. Select the device type diagram element.
+		2. Select the name label, a editable field will appear.
+		3. Enter: "Alarm".
+		4. Press the *Enter* key.
+	5. Create the following types:
+		1. Device type named "DoorSensor".
+		2. Data type named "SensorData".
+		3. System type named "Controller".
+	6. Create a system type and implementation.
+		1. Create a *System Implementation* from the palette, a *Create Component Implemenation* dialog will appear.
+		2. Enter the implementation's identifier: "Impl".
+		3. Select *New Component Type*.
+		4. Enter the type's identifier: "SecuritySystem".
 
-## Create System Type and Implementation
-1. Create a system named hardware and a system implementation named hardware.impl in the hardware package.
+5. **Open Implementation Diagram**
+	1. Right-click *SecuritySystem.Impl*.
+	2. Select *Open->Implementation Diagram*, a *Create New Diagram?* dialog will appear.
+	3. Select *Yes*, a *Create Diagram* dialog will appear.
+	4. Select *OK*.
 
-2. Add an input abstract feature named power to *hardware*.
+6. **Create Subcomponents**
+	1. Create a device subcomponent using the palette and rename it to "DoorSensor".
+	2. Double click the *DoorSensor* subcomponent to open the ***Properties*** view.
+	3. Select the *AADL* tab in the *Properties* view.
+	4. In the *Classifier* section, select *Choose...*, a *Select a classifier.* dialog will appear.
+	5. Select *AlarmModel::DoorSensor*.
+	6. Select *OK*.
+	7. Create the following subcomponents:
+		1. Device subcomponent named *Alarm*, Classifier: *AlarmModel::Alarm*.
+		2. System subcomponent named *Controller*, Classifier: *AlarmModel::Controller*.
 
-### Create Device Subcomponents
-1. Add a device subcomponent named "sensor" to *hardware.impl*.
+7. **Create Features**
+	1. Use the palette to create a *Data Port* named "DataOut" in *DoorSensor*.
+	2. Use the *AADL* section in the *Properties* view to:
+		1. Set *DataOut* to *Output*.
+		2. Set the classifier to *AlarmModel::SensorData*
+	3. Create an input data port named "DataIn" in *Controller* and set the classifier to *AlarmModel::SensorData*.
+	4. Create two output event ports, "TriggerPortOut" and "SilencePortOut", to *Controller*.
+	5. Create two input event ports, "TriggerPortIn" and "SilencePortIn", to *Alarm*.
 
-2. Set *sensor*'s classifier to *hardware::sensor*.
+8. **Create Connections**
+	1. Select *Port Connection* from the palette.
+	2. Select the connection source, *DoorSensor.DataOut*.
+	3. Select the connection destination, *Controller.DataIn*.
+	4. Right-click the connection in the *Outline* view.
+	5. Select *Rename...*, the *Rename* dialog will appear.
+	6. Enter *SensorDataConnection*
+	7. Select *OK*.
+	8. Create the following connections:
+		1. Port connection named "TriggerPortConnection", with Source: *Controller.TriggerPortOut* and Destination: *Controller.TriggerPortIn*.
+		2. Port connection named "SilencePortConnection", with Source: *Alarm.TriggerPortOut* and Destination: *Alarm.TriggerPortIn*.
 
-3. Add a device subcomponent named "actuator" to *hardware.impl*.
-
-4. Set 'actuator*'s classifier to *hardware::actuator*.
-
-### Create System Subcomponent
-1. Add a system subcomponent named "platform" to *hardware.impl*.
-
-2. Set *platform*'s classifier to *hardware::platform*.
-
-### Create Connections
-
-1. Select *sensor*, *actuator*, and *platform*.
-
-2. Right click *sensor*.
-
-3. Select Show->Features->All.
-
-4. Create a feature connection for:
-
-	hardware.impl.power -> sensor.power.
-	
-	hardware.impl.power -> actuator.power.
-	
-	hardware.impl.power -> platform.power
-	
-5. Create an access connection for platform.busaccess -> actuator.busaccess.
-
-6. Create a port connection for:
-	
-	sensor.sensor_out -> platform.sensor_in.
-	
-	platform.data_out -> actuator.data_in
-
-![](../images/simple_tutorial_hardware_impl_created.png)
 
 # Tutorial: Advanced
-## Create a New Project
-Create a new project named "Demo".
+1. Create a new project named "ClimateControl".
 
+2. Create a new package named "Hardware" and open with diagram editor.
+
+3. **Create Classifiers**
+	1. Create a bus type named "EthernetSwitch" that contains four provides bus accesses: 
+		1. "CPUAccess".
+		2. "Sensor1Access".
+		3. "Sensor2Access".
+		4. "ActuatorAccess".
+	2. Create a device type named "Ethernet" that contains:
+		1. Bidirectional data port named "EthernetPort".
+		2. Requires bus access named "SwitchAccess".
+	3. Create a device type named "Sensor" that contains:
+		1. Bidirectional data port named "SensorData".
+		2. Output data port named "SensorOut".
+	4. Create a device type named "Actuator" that contains:
+		1. Bidirectional data port named "ActuatorData".
+		2. Input data port named "ActuatorIn".
+	5. Create a processor type named "CPU" that contains a bidirectional data port named "CPUData".
+	6. Create a system and system implementation named "TempuratureSystem" and "TempuratureSystem.Impl", respectively, that contains:
+		1. Input data port named "CommandIn".
+		2. Output data port named "Sensor1DataOut".
+		3. Output data port named "Sensor2DataOut".
+		
+4. **Set AADL Properties**
+	1. Select *Window->Show View-> AADL Property Values*.
+	2. Select *Show undefined properties* in the view menu.
+	3. Select the *EthernetSwitch* diagram element.
+		1. Set *Memory_Properties::Data_Size* to 200 Bytes.
+		2. Set *SEI::BandwidthCapacity* to 50.0 KBytesps.
+		3. Set *Timing_Properties::Period* to 25ms.
+		
+5. Open the *TempuratureSystem.Impl* implementation diagram.
+
+6. **Create Subcomponents**
+	1. Create a processor named "CPU" with classifier set to *TemperatureSystem::CPU*.
+	2. Create a device named "TempSensor1" with classifier set to *TemperatureSystem::Sensor*.
+	3. Create a device named "TempSensor2" with classifier set to *TemperatureSystem::Sensor*.
+	4. Create a device named "Actuator" with classifier set to *TemeratureSystem::Actuator*.
+	5. Create four devices named "CPUEthernet", "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and set their classifiers to *TemperatureSystem::Ethernet*.
+	6. Create a bus named "EthernetSwitch" with classifier set to *TemperatureSystem::EthernetSwtich*.
+	
+7. **Create Connections**
+	1. Create access connections:
+		1. EthernetSwitch.CPUAccess -> CPUEthernet.SwitchAccess named "CPUAccessCon".
+		2. EthernetSwitch.Sensor1Access -> Sensor1Ethernet.SwitchAccess named "Sensor1AccessCon".
+		3. EthernetSwitch.Sensor2Access -> Sensor2Ethernet.SwitchAccess named "Sensor2AccessCon".
+		4. EthernetSwitch.ActuatorAccess -> ActuatorEthernet.SwitchAccess named "ActuatorAccessCon".
+	2. Create port connections:
+		1. CPUEthernet.EthernetPort -> CPU.CPUData.
+		2. Sensor1Ethernet.EthernetPort -> TempSensor1.SensorData.
+		3. Sensor2Ethernet.EthernetPort -> TempSensor2.SensorData.
+		4. ActuatorEthernet.EthernetPort -> Actuator.ActuatorData.
+	3. Select *Edit->Select All Connections*.
+	4. Select *Bidirectional* in the *AADL* section of the *Properties* view.
+	5. Create port connections:
+		1. TempSensor1.SensorOut -> TemperatureSystem.Impl.Sensor1DataOut.
+		2. TempSensor2.SensorOut -> TemperatureSystem.Impl.Sensor2DataOut.
+		3. TemperatureSystem.Impl.CommandIn -> Actuator.ActuatorIn
+ 	6. Create Connection Bindings
+		1. Select *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
+		2. Select *Bind...*, the *Bind* dialog will appear.
+		3. Select *Actual_Connection_Binding* from the drop-down.
+		4. Select *OK*.
+	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 10.0 KBytesps for *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
+
+8. Create a package named "Software" and open with diagram editor.
+
+9. **Create Classifiers**
+	1. Create a thread type named "ProcessData" that contains:
+		1. Input data port named "DataIn".
+		2. Output data port named "DataOut".
+	2. Create a thread type named "ReadData" that contains:
+		1. Input data port named "Sensor1DataIn".
+		2. Input data port named "Sensor2DataIn".
+		2. Output data port named "DataOut".
+	2. Create a process type and implementation named "Controller" and "Controller.Impl", respectively, that contains:
+		1. Input data port named "ControllerIn".
+		2. Output data port named ""ControllerOut".
+		3. Thread named "ProduceCommand" with classifier set to *Software::ProcessData*.
+		4. Port connection: *Controller.Impl.ControllerIn* -> *ProduceCommand.DataIn*.
+		5. Port connection: *Controller.Impl.ControllerOut* -> *ProduceCommand.DataOut*.
+	4. Create a process type and implementation named "Fuser" and "Fuser.Impl", respectively, that contains:
+		1. Input data port named "Sensor1DataIn".
+		2. Input data port named "Sensor2DataIn".
+		3. Output data port named "FuseOut".
+		4. Thread named "ReadSensors" with classifier set to *Software::ReadData*.
+		5. Thread named "FuseData" with classifier set to *Software::ProcessData*.
+		6. Port connection: *Fuser.Impl.Sensor1DataIn* -> *ReadSensors.Sensor1DataIn*.
+		7. Port connection: *Fuser.Impl.Sensor2DataIn* -> *ReadSensors.Sensor2DataIn*.
+		8. Port connection: *ReadData.DataOut* -> *FuseData.DataIn*.
+		9. Port connection: *FuseData.DataOut* -> *FuseOut*.
+	5. Create a system type and implementation named "Application" and "Application.Impl", respectively, that contains:
+		1. Two input data ports named "Sensor1DataIn" and "Sensor2DataIn".
+		2. Output data port named "CommandOut".
+		
+10. Open *Application.Impl* implementation diagram.
+
+11. **Create Subcomponents and Connections**
+	1. Create a process named "Fuser" with classifier set to *Software::Fuser.Impl*.
+	2. Create a process named "Controller" with classifier set to *Software::Controller.Impl*.
+	3. Create port connections:
+		1. *Application.Impl.Sensor1DataIn* -> *Fuser.Sensor1DataIn*.
+		2. *Application.Impl.Sensor2DataIn* -> *Fuser.Sensor2DataIn*.
+		3. *Fuser.FuseOut* -> *Controller.ControllerIn*.
+		4. *Controller.ControllerOut* -> *Application.CommandOut*.
+		
+12. Create a package named "Integration" and open with diagram editor.
+
+13. Create a system type and implementation named "ControlSystem" and "ControlSystem.Impl", respectively, that contains:
+	1. System named "TemperatureSystem" with classifier set to *Hardware::TemperatureSystem*.
+	2. System named "Application" with classifier set to *Software::Application*.
+	3. Port connection: *Application.CommandOut* -> *TemperatureSystem.CommandIn*.
+	3. Port connection: *TemperatureSystem.Sensor1DataOut* -> *Application.Sensor1DataIn*.
+	3. Port connection: *TemperatureSystem.Sensor2DataOut* -> *Application.Sensor2DataIn*.
+		
+14. **Instantiate**
+	1. Right-click *ControlSystem.Impl*.
+	2. Select *Instantiate*.
+	
+15. **Run Analysis**
+	1. Expand tree in *AADL Navigator* to **ClimateControl->Instances*.
+	1. Right-click *Integration_ControlSystem_Impl_Instance.aaxl2*.
+	2. Select *Analyses->Budget->Analyze Bus Load*.
+	3. Expand the subfolder *reports->Bandwidth*.
+	4. Open *Integration_ControlSystem_Impl_Instance__Bandwidth.csv*.
+		
 ## Hardware Package
 ### Create Package
 Create a package named "hardware".
