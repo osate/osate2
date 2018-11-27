@@ -18,27 +18,7 @@
 <nav id="TOC">
 <ul>
 <li><a href="#tutorial-getting-started"><span class="toc-section-number">1</span> Tutorial: Getting Started</a></li>
-<li><a href="#tutorial-advanced"><span class="toc-section-number">2</span> Tutorial: Advanced</a><ul>
-<li><a href="#hardware-package"><span class="toc-section-number">2.1</span> Hardware Package</a><ul>
-<li><a href="#create-package"><span class="toc-section-number">2.1.1</span> Create Package</a></li>
-<li><a href="#create-memory-type"><span class="toc-section-number">2.1.2</span> Create Memory Type</a></li>
-<li><a href="#create-bus-types"><span class="toc-section-number">2.1.3</span> Create Bus Types</a></li>
-<li><a href="#create-device-types"><span class="toc-section-number">2.1.4</span> Create Device Types</a></li>
-<li><a href="#create-processor-type"><span class="toc-section-number">2.1.5</span> Create Processor Type</a></li>
-<li><a href="#create-memory-type-1"><span class="toc-section-number">2.1.6</span> Create Memory Type</a></li>
-</ul></li>
-<li><a href="#create-processor"><span class="toc-section-number">2.2</span> Create Processor</a><ul>
-<li><a href="#rename-processor"><span class="toc-section-number">2.2.1</span> Rename Processor</a></li>
-</ul></li>
-<li><a href="#create-devices"><span class="toc-section-number">2.3</span> Create Devices</a><ul>
-<li><a href="#sec:create_data_port"><span class="toc-section-number">2.3.1</span> Create Data Ports</a></li>
-<li><a href="#create-bus"><span class="toc-section-number">2.3.2</span> Create Bus</a></li>
-<li><a href="#create-feature-group"><span class="toc-section-number">2.3.3</span> Create Feature Group</a></li>
-</ul></li>
-<li><a href="#software-package"><span class="toc-section-number">2.4</span> Software Package</a><ul>
-<li><a href="#create-package-1"><span class="toc-section-number">2.4.1</span> Create Package</a></li>
-</ul></li>
-</ul></li>
+<li><a href="#tutorial-advanced"><span class="toc-section-number">2</span> Tutorial: Advanced</a></li>
 <li><a href="#creating-model-elements"><span class="toc-section-number">3</span> Creating Model Elements</a><ul>
 <li><a href="#creating-classifier-implementations"><span class="toc-section-number">3.1</span> Creating Classifier Implementations</a></li>
 <li><a href="#creating-mode-transitions"><span class="toc-section-number">3.2</span> Creating Mode Transitions</a></li>
@@ -115,10 +95,10 @@
 </ol></li>
 <li><strong>Create Package</strong>
 <ol type="1">
-<li>Right-click Demo project in the <em>AADL Navigator</em>.</li>
+<li>Right-click <em>Alarm</em> project in the <em>AADL Navigator</em>.</li>
 <li>Select <em>New-&gt;Other…-&gt;AADL-&gt;AADL Package</em>.</li>
 <li>Enter package name: &quot;AlarmModel&quot;.<br />
-<img src="../images/create_package.png" /><br />
+<img src="../images/CreatePackage.png" /><br />
 </li>
 <li>Select <em>Finish</em>.</li>
 </ol></li>
@@ -134,7 +114,7 @@ While viewing the Alarm_Model package diagram:
 <li>Expand the <em>Classifiers</em> section in the palette.</li>
 <li>Select <em>Device Type</em>.</li>
 <li>Click inside the AlarmModel package diagram element, the device will appear on the diagram.</li>
-<li><strong>Rename</strong> the new device type.
+<li>Rename the new device type.
 <ol type="1">
 <li>Select the device type diagram element.</li>
 <li>Select the name label, a editable field will appear.</li>
@@ -187,6 +167,7 @@ While viewing the Alarm_Model package diagram:
 <li>Create an input data port named &quot;DataIn&quot; in <em>Controller</em> and set the classifier to <em>AlarmModel::SensorData</em>.</li>
 <li>Create two output event ports, &quot;TriggerPortOut&quot; and &quot;SilencePortOut&quot;, to <em>Controller</em>.</li>
 <li>Create two input event ports, &quot;TriggerPortIn&quot; and &quot;SilencePortIn&quot;, to <em>Alarm</em>.</li>
+<li>Right-click the diagram and select <em>Layout-&gt;Layout Diagram</em> for easier viewing.</li>
 </ol></li>
 <li><strong>Create Connections</strong>
 <ol type="1">
@@ -210,7 +191,7 @@ While viewing the Alarm_Model package diagram:
 <li><p>Create a new package named &quot;Hardware&quot; and open with diagram editor.</p></li>
 <li><strong>Create Classifiers</strong>
 <ol type="1">
-<li>Create a bus type named &quot;EthernetSwitch&quot; that contains four provides bus accesses:
+<li>Create a bus type named &quot;EthernetSwitch&quot; that contains four provides bus accesses with their classifier set to <em>Hardware::EthernetSwitch</em>:
 <ol type="1">
 <li>&quot;CPUAccess&quot;.</li>
 <li>&quot;Sensor1Access&quot;.</li>
@@ -244,12 +225,20 @@ While viewing the Alarm_Model package diagram:
 <ol type="1">
 <li>Select <em>Window-&gt;Show View-&gt; AADL Property Values</em>.</li>
 <li>Select <em>Show undefined properties</em> in the view menu.</li>
-<li>Select the <em>EthernetSwitch</em> diagram element.
-<ol type="1">
-<li>Set <em>Memory_Properties::Data_Size</em> to 200 Bytes.</li>
-<li>Set <em>SEI::BandwidthCapacity</em> to 50.0 KBytesps.</li>
-<li>Set <em>Timing_Properties::Period</em> to 25ms.</li>
+<li>Select the <em>EthernetSwitch</em> diagram element.</li>
+<li>Right-click <em>Memory_Properties::Data_Size</em></li>
+<li>Select <em>Create Local Property Association</em>.</li>
+<li>Enter &quot;200 Bytes&quot;.</li>
+<li>Set <em>SEI::BandwidthCapacity</em> to &quot;50.0 KBytesps&quot;.</li>
+<li>Set <em>Timing_Properties::Period</em> to &quot;25ms&quot;.</li>
 </ol></li>
+<li><strong>Show AADL Properties on Diagrams</strong>
+<ol type="1">
+<li>Right-click <em>EthernetSwitch</em>.</li>
+<li>Select <em>Configure Diagram...</em>, the dialog will appear.</li>
+<li>Select <em>Add...</em> in the <em>AADL Properties</em> section.</li>
+<li>Select <em>Timing_Properties-&gt;Period</em>.</li>
+<li>Select <em>OK</em>.</li>
 </ol></li>
 <li><p>Open the <em>TempuratureSystem.Impl</em> implementation diagram.</p></li>
 <li><strong>Create Subcomponents</strong>
@@ -288,7 +277,8 @@ While viewing the Alarm_Model package diagram:
 <li>Create Connection Bindings
 <ol type="1">
 <li>Select <em>CPUAccessCon</em>, <em>ActuatorAccessCon</em>, <em>Sensor1AccessCon</em>, and <em>Sensor2AccessCon</em>.</li>
-<li>Select <em>Bind...</em>, the <em>Bind</em> dialog will appear.</li>
+<li>Select <em>Bind...</em> from the toolbar, the <em>Bind</em> dialog will appear.</li>
+<li>Select the <em>EthernetSwitch</em> diagram element.</li>
 <li>Select <em>Actual_Connection_Binding</em> from the drop-down.</li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
@@ -313,8 +303,9 @@ While viewing the Alarm_Model package diagram:
 <li>Input data port named &quot;ControllerIn&quot;.</li>
 <li>Output data port named &quot;&quot;ControllerOut&quot;.</li>
 <li>Thread named &quot;ProduceCommand&quot; with classifier set to <em>Software::ProcessData</em>.</li>
+<li>Right-click <em>Controller.Impl.ProduceCommand</em> and select <em>Show-&gt;Features-&gt;All</em>.</li>
 <li>Port connection: <em>Controller.Impl.ControllerIn</em> -&gt; <em>ProduceCommand.DataIn</em>.</li>
-<li>Port connection: <em>Controller.Impl.ControllerOut</em> -&gt; <em>ProduceCommand.DataOut</em>.</li>
+<li>Port connection: <em>ProduceCommand.DataOut</em> -&gt; <em>Controller.Impl.ControllerOut</em>.</li>
 </ol></li>
 <li>Create a process type and implementation named &quot;Fuser&quot; and &quot;Fuser.Impl&quot;, respectively, that contains:
 <ol type="1">
@@ -325,7 +316,7 @@ While viewing the Alarm_Model package diagram:
 <li>Thread named &quot;FuseData&quot; with classifier set to <em>Software::ProcessData</em>.</li>
 <li>Port connection: <em>Fuser.Impl.Sensor1DataIn</em> -&gt; <em>ReadSensors.Sensor1DataIn</em>.</li>
 <li>Port connection: <em>Fuser.Impl.Sensor2DataIn</em> -&gt; <em>ReadSensors.Sensor2DataIn</em>.</li>
-<li>Port connection: <em>ReadData.DataOut</em> -&gt; <em>FuseData.DataIn</em>.</li>
+<li>Port connection: <em>ReadSensors.DataOut</em> -&gt; <em>FuseData.DataIn</em>.</li>
 <li>Port connection: <em>FuseData.DataOut</em> -&gt; <em>FuseOut</em>.</li>
 </ol></li>
 <li>Create a system type and implementation named &quot;Application&quot; and &quot;Application.Impl&quot;, respectively, that contains:
@@ -350,11 +341,28 @@ While viewing the Alarm_Model package diagram:
 <li><p>Create a package named &quot;Integration&quot; and open with diagram editor.</p></li>
 <li>Create a system type and implementation named &quot;ControlSystem&quot; and &quot;ControlSystem.Impl&quot;, respectively, that contains:
 <ol type="1">
-<li>System named &quot;TemperatureSystem&quot; with classifier set to <em>Hardware::TemperatureSystem</em>.</li>
-<li>System named &quot;Application&quot; with classifier set to <em>Software::Application</em>.</li>
+<li>System named &quot;TemperatureSystem&quot; with classifier set to <em>Hardware::TemperatureSystem.Impl</em>.</li>
+<li>System named &quot;Application&quot; with classifier set to <em>Software::Application.Impl</em>.</li>
 <li>Port connection: <em>Application.CommandOut</em> -&gt; <em>TemperatureSystem.CommandIn</em>.</li>
 <li>Port connection: <em>TemperatureSystem.Sensor1DataOut</em> -&gt; <em>Application.Sensor1DataIn</em>.</li>
 <li>Port connection: <em>TemperatureSystem.Sensor2DataOut</em> -&gt; <em>Application.Sensor2DataIn</em>.</li>
+</ol></li>
+<li><strong>Create Processor Binding</strong>
+<ol type="1">
+<li>Right-click <em>TemperatureSystem</em> diagram element.</li>
+<li>Select <em>Show-&gt;Subcomponents-&gt;Processors</em>.</li>
+<li>Select <em>Application</em> diagram element.</li>
+<li>Select <em>Bind...</em> from the toolbar.</li>
+<li>Select <em>Actual_Processor_Binding</em>.</li>
+<li>Select <em>TemperatureSystem</em>.</li>
+<li>Select <em>OK</em>.</li>
+</ol></li>
+<li><strong>Open Processor Binding Diagram</strong>
+<ol type="1">
+<li>Right-click <em>ControlSystem.Impl</em>.</li>
+<li>Select <em>Open-&gt;New Diagram...</em>.</li>
+<li>Select <em>Processor Binding Diagram</em> from the <em>Type</em> drop-down.</li>
+<li>Select <em>OK</em>.</li>
 </ol></li>
 <li><strong>Instantiate</strong>
 <ol type="1">
@@ -363,97 +371,13 @@ While viewing the Alarm_Model package diagram:
 </ol></li>
 <li><strong>Run Analysis</strong>
 <ol type="1">
-<li>Expand tree in <em>AADL Navigator</em> to **ClimateControl-&gt;Instances*.</li>
+<li>Expand tree in <em>AADL Navigator</em> to <em>ClimateControl-&gt;Instances</em>.</li>
 <li>Right-click <em>Integration_ControlSystem_Impl_Instance.aaxl2</em>.</li>
 <li>Select <em>Analyses-&gt;Budget-&gt;Analyze Bus Load</em>.</li>
 <li>Expand the subfolder <em>reports-&gt;Bandwidth</em>.</li>
 <li>Open *Integration_ControlSystem_Impl_Instance__Bandwidth.csv*.</li>
 </ol></li>
 </ol>
-<h2 id="hardware-package"><span class="header-section-number">2.1</span> Hardware Package</h2>
-<h3 id="create-package"><span class="header-section-number">2.1.1</span> Create Package</h3>
-<p>Create a package named &quot;hardware&quot;.</p>
-<h3 id="create-memory-type"><span class="header-section-number">2.1.2</span> Create Memory Type</h3>
-<p>Create a memory type named &quot;main_memory&quot; that contains:</p>
-<pre><code>- An input abstract feature named &quot;power&quot;.
-
-- A provides bus access named &quot;pci&quot;.</code></pre>
-<h3 id="create-bus-types"><span class="header-section-number">2.1.3</span> Create Bus Types</h3>
-<p>Create two bus types named &quot;cbus&quot; and &quot;pci&quot; that contain an input abstract feature named &quot;power&quot;.</p>
-<h3 id="create-device-types"><span class="header-section-number">2.1.4</span> Create Device Types</h3>
-<ol type="1">
-<li><p>Create a device type named &quot;actuator&quot; that contains:</p>
-<ul>
-<li><p>An input abstract feature named &quot;power&quot;.</p></li>
-<li><p>An input data port named &quot;sensor_in&quot;.</p></li>
-<li><p>A requires bus access named &quot;busaccess&quot;.</p></li>
-</ul></li>
-<li><p>Create a device type named &quot;sensor&quot; that contains:</p>
-<ul>
-<li><p>An input abstract feature named &quot;power&quot;.</p></li>
-<li><p>An output data port named &quot;sensor_out&quot;.</p></li>
-<li><p>A requires bus access named &quot;busaccess&quot;.</p></li>
-</ul></li>
-</ol>
-<h3 id="create-processor-type"><span class="header-section-number">2.1.5</span> Create Processor Type</h3>
-<p>Create a processor type named &quot;cpu&quot; that contains:</p>
-<pre><code>- An input abstract feature named &quot;power&quot;.
-
-- A requires bus access named &quot;cb&quot;
-
-- A requires bus access named &quot;pci&quot;</code></pre>
-<h3 id="create-memory-type-1"><span class="header-section-number">2.1.6</span> Create Memory Type</h3>
-<p>Create a memory type named &quot;main_memory&quot; that contains</p>
-<pre><code>- An input abstract feature named &quot;power&quot;
-
-- A provides bus access named &quot;pci&quot;</code></pre>
-<h2 id="create-processor"><span class="header-section-number">2.2</span> Create Processor</h2>
-<p>Using the palette, create a processor type.</p>
-<h3 id="rename-processor"><span class="header-section-number">2.2.1</span> Rename Processor</h3>
-<ol type="1">
-<li><p>Select the new processor type to rename.</p></li>
-<li><p>Select the name label. An editable field will appear.</p></li>
-</ol>
-<figure>
-<img src="../images/rename_processor.png" />
-</figure>
-<ol start="3" type="1">
-<li><p>Enter: cpu.</p></li>
-<li><p>Press the <em>Enter</em> key.</p></li>
-</ol>
-<h2 id="create-devices"><span class="header-section-number">2.3</span> Create Devices</h2>
-<ol type="1">
-<li><p>Create a device type and rename to sensor.</p></li>
-<li><p>Create a device type and rename to actuator.</p></li>
-</ol>
-<h3 id="sec:create_data_port"><span class="header-section-number">2.3.1</span> Create Data Ports</h3>
-<ol type="1">
-<li><p>Select <em>Data Port</em> from the <em>Features</em> section in the palette.</p></li>
-<li><p>Click inside the device type <em>sensor</em> diagram element.</p></li>
-<li><p>Rename the data port to dp_out.</p></li>
-<li><p>Create a data port in actuator and rename it to dp_in.</p></li>
-</ol>
-<h4 id="set-data-port-direction"><span class="header-section-number">2.3.1.1</span> Set Data Port Direction</h4>
-<ol type="1">
-<li><p>Double click on dp_out to open the <em>Properties</em> view.</p></li>
-<li><p>Select the <em>AADL</em> section.</p></li>
-</ol>
-<figure>
-<img src="../images/feature_direction.png" />
-</figure>
-<ol start="4" type="1">
-<li>Select <em>Output</em> in the <em>Direction</em> options.</li>
-</ol>
-<p>Repeat the steps to set the direction for dp_in and select <em>Input</em>.</p>
-<h3 id="create-bus"><span class="header-section-number">2.3.2</span> Create Bus</h3>
-<p>Create a bus type and rename it to ethernet_switch.</p>
-<h3 id="create-feature-group"><span class="header-section-number">2.3.3</span> Create Feature Group</h3>
-<p>Create a feature group type and rename it to sensor_data.</p>
-<h4 id="create-data-port"><span class="header-section-number">2.3.3.1</span> Create Data Port</h4>
-<p>Create an output data port named sd_out in sensor_data (See section <a href="#sec:create_data_port">2.3.1</a>).</p>
-<h2 id="software-package"><span class="header-section-number">2.4</span> Software Package</h2>
-<h3 id="create-package-1"><span class="header-section-number">2.4.1</span> Create Package</h3>
-<p>Create a new package named software (See ).</p>
 <h1 id="creating-model-elements"><span class="header-section-number">3</span> Creating Model Elements</h1>
 <p>Most elements are created by selecting the desired element from the palette and placing it on the diagram.</p>
 <h2 id="creating-classifier-implementations"><span class="header-section-number">3.1</span> Creating Classifier Implementations</h2>
