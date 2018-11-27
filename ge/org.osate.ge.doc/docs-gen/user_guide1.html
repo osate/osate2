@@ -63,7 +63,7 @@
 <li><a href="#diagrams-view"><span class="toc-section-number">9.3</span> Diagrams View</a></li>
 <li><a href="#diagram-context-adjustment"><span class="toc-section-number">9.4</span> Diagram Context Adjustment</a></li>
 </ul></li>
-<li><a href="#diagram-layout"><span class="toc-section-number">10</span> Diagram Layout</a><ul>
+<li><a href="#sec:diagram_layout"><span class="toc-section-number">10</span> Diagram Layout</a><ul>
 <li><a href="#layout-commands"><span class="toc-section-number">10.1</span> Layout Commands</a></li>
 <li><a href="#layout-preferences"><span class="toc-section-number">10.2</span> Layout Preferences</a></li>
 <li><a href="#incremental-layout"><span class="toc-section-number">10.3</span> Incremental Layout</a></li>
@@ -86,13 +86,9 @@
 </ul>
 </nav>
 <h1 id="tutorial-getting-started"><span class="header-section-number">1</span> Tutorial: Getting Started</h1>
-<ol type="1">
-<li><strong>Create a New Project</strong>
-<ol type="1">
-<li>Select <em>File-&gt;New-&gt;Other…-&gt;AADL-&gt;AADL Project</em>.</li>
-<li>Enter project name: &quot;Alarm&quot;.</li>
-<li>Select <em>Finish</em>.</li>
-</ol></li>
+<p>This tutorial shows how to create a very simple model designed to show the basic functionality of the graphical editor.<br />
+1. <strong>Create a New Project</strong> 1. Select <em>File-&gt;New-&gt;Other…-&gt;AADL-&gt;AADL Project</em>. 2. Enter project name: &quot;Alarm&quot;. 3. Select <em>Finish</em>.</p>
+<ol start="2" type="1">
 <li><strong>Create Package</strong>
 <ol type="1">
 <li>Right-click <em>Alarm</em> project in the <em>AADL Navigator</em>.</li>
@@ -104,20 +100,28 @@
 </ol></li>
 <li><strong>Create Package Diagram</strong>
 <ol type="1">
-<li>Right-click the AlarmModel.aadl package in the <em>AADL Navigator</em>.</li>
-<li>Select <em>Create Diagram...</em></li>
+<li>Right-click <em>Alarm-&gt;AlarmModel.aadl</em> in the <em>AADL Navigator</em>.</li>
+<li>Select <em>Create Diagram...</em><br />
+<img src="../images/CreateDiagram.png" /><br />
+</li>
 <li>Select <em>OK</em> on the <em>Create Diagram</em> dialog.</li>
 </ol></li>
 <li><strong>Create Classifiers</strong><br />
-While viewing the Alarm_Model package diagram:
+While viewing the AlarmModel package diagram:
 <ol type="1">
 <li>Expand the <em>Classifiers</em> section in the palette.</li>
-<li>Select <em>Device Type</em>.</li>
+<li>Select <em>Device Type</em>.<br />
+<img src="../images/ClassifiersPalette.png" /><br />
+</li>
 <li>Click inside the AlarmModel package diagram element, the device will appear on the diagram.</li>
 <li>Rename the new device type.
 <ol type="1">
-<li>Select the device type diagram element.</li>
-<li>Select the name label, a editable field will appear.</li>
+<li>Select the device type diagram element.<br />
+<img src="../images/SelectForRename.png" /><br />
+</li>
+<li>Select the name label, a editable field will appear.<br />
+<img src="../images/RenameEditField.png" /><br />
+</li>
 <li>Enter: &quot;Alarm&quot;.</li>
 <li>Press the <em>Enter</em> key.</li>
 </ol></li>
@@ -125,15 +129,20 @@ While viewing the Alarm_Model package diagram:
 <ol type="1">
 <li>Device type named &quot;DoorSensor&quot;.</li>
 <li>Data type named &quot;SensorData&quot;.</li>
-<li>System type named &quot;Controller&quot;.</li>
+<li>System type named &quot;Controller&quot;.<br />
+<img src="../images/AlarmModelPackage.png" /><br />
+</li>
 </ol></li>
 <li>Create a system type and implementation.
 <ol type="1">
 <li>Create a <em>System Implementation</em> from the palette, a <em>Create Component Implemenation</em> dialog will appear.</li>
 <li>Enter the implementation's identifier: &quot;Impl&quot;.</li>
 <li>Select <em>New Component Type</em>.</li>
-<li>Enter the type's identifier: &quot;SecuritySystem&quot;.</li>
+<li>Enter the type's identifier: &quot;SecuritySystem&quot;.<br />
+<img src="../images/CreateImplementation.png" /><br />
+</li>
 </ol></li>
+<li>Right-click the diagram and select <em>Layout-&gt;Layout Diagram</em> for easier viewing (See section <a href="#sec:diagram_layout">10</a>).</li>
 </ol></li>
 <li><strong>Open Implementation Diagram</strong>
 <ol type="1">
@@ -145,29 +154,33 @@ While viewing the Alarm_Model package diagram:
 <li><strong>Create Subcomponents</strong>
 <ol type="1">
 <li>Create a device subcomponent using the palette and rename it to &quot;DoorSensor&quot;.</li>
-<li>Double click the <em>DoorSensor</em> subcomponent to open the <strong><em>Properties</em></strong> view.</li>
-<li>Select the <em>AADL</em> tab in the <em>Properties</em> view.</li>
+<li>Double click the <em>DoorSensor</em> subcomponent to open the <em>Properties</em> view.</li>
+<li>Select the <em>AADL</em> tab in the <em>Properties</em> view.<br />
+<img src="../images/PropertiesView.png" /><br />
+</li>
 <li>In the <em>Classifier</em> section, select <em>Choose...</em>, a <em>Select a classifier.</em> dialog will appear.</li>
-<li>Select <em>AlarmModel::DoorSensor</em>.</li>
+<li>Select <em>AlarmModel::DoorSensor</em>.<br />
+<img src="../images/SetClassifier.png" /><br />
+</li>
 <li>Select <em>OK</em>.</li>
 <li>Create the following subcomponents:
 <ol type="1">
 <li>Device subcomponent named <em>Alarm</em>, Classifier: <em>AlarmModel::Alarm</em>.</li>
-<li>System subcomponent named <em>Controller</em>, Classifier: <em>AlarmModel::Controller</em>.</li>
+<li>System subcomponent named <em>Controller</em>, Classifier: <em>AlarmModel::Controller</em>.<br />
+<img src="../images/SecuritySystemImplSubcomponents.png" /></li>
 </ol></li>
 </ol></li>
 <li><strong>Create Features</strong>
 <ol type="1">
-<li>Use the palette to create a <em>Data Port</em> named &quot;DataOut&quot; in <em>DoorSensor</em>.</li>
+<li>Use the palette to create a data Port named &quot;DataOut&quot; in <em>DoorSensor</em>.</li>
 <li>Use the <em>AADL</em> section in the <em>Properties</em> view to:
 <ol type="1">
 <li>Set <em>DataOut</em> to <em>Output</em>.</li>
 <li>Set the classifier to <em>AlarmModel::SensorData</em></li>
 </ol></li>
 <li>Create an input data port named &quot;DataIn&quot; in <em>Controller</em> and set the classifier to <em>AlarmModel::SensorData</em>.</li>
-<li>Create two output event ports, &quot;TriggerPortOut&quot; and &quot;SilencePortOut&quot;, to <em>Controller</em>.</li>
-<li>Create two input event ports, &quot;TriggerPortIn&quot; and &quot;SilencePortIn&quot;, to <em>Alarm</em>.</li>
-<li>Right-click the diagram and select <em>Layout-&gt;Layout Diagram</em> for easier viewing.</li>
+<li>Create two output event ports, &quot;TriggerPortOut&quot; and &quot;SilencePortOut&quot; to <em>Controller</em>.</li>
+<li>Create two input event ports, &quot;TriggerPortIn&quot; and &quot;SilencePortIn&quot; to <em>Alarm</em>. <img src="../images/SecuritySystemImplFeatures.png" /></li>
 </ol></li>
 <li><strong>Create Connections</strong>
 <ol type="1">
@@ -181,13 +194,14 @@ While viewing the Alarm_Model package diagram:
 <li>Create the following connections:
 <ol type="1">
 <li>Port connection named &quot;TriggerPortConnection&quot;, with Source: <em>Controller.TriggerPortOut</em> and Destination: <em>Controller.TriggerPortIn</em>.</li>
-<li>Port connection named &quot;SilencePortConnection&quot;, with Source: <em>Alarm.TriggerPortOut</em> and Destination: <em>Alarm.TriggerPortIn</em>.</li>
+<li>Port connection named &quot;SilencePortConnection&quot;, with Source: <em>Alarm.TriggerPortOut</em> and Destination: <em>Alarm.TriggerPortIn</em>. <img src="../images/SecuritySystemImplConnections.png" /></li>
 </ol></li>
 </ol></li>
 </ol>
 <h1 id="tutorial-advanced"><span class="header-section-number">2</span> Tutorial: Advanced</h1>
-<ol type="1">
-<li><p>Create a new project named &quot;ClimateControl&quot;.</p></li>
+<p>This tutorial will show more advanced features of the graphical editor. These features include bindings, AADL properties, instantiation, and analysis.<br />
+1. Create a new project named &quot;ClimateControl&quot;.</p>
+<ol start="2" type="1">
 <li><p>Create a new package named &quot;Hardware&quot; and open with diagram editor.</p></li>
 <li><strong>Create Classifiers</strong>
 <ol type="1">
@@ -196,39 +210,52 @@ While viewing the Alarm_Model package diagram:
 <li>&quot;CPUAccess&quot;.</li>
 <li>&quot;Sensor1Access&quot;.</li>
 <li>&quot;Sensor2Access&quot;.</li>
-<li>&quot;ActuatorAccess&quot;.</li>
+<li>&quot;ActuatorAccess&quot;.<br />
+<img src="../images/EthernetSwitch.png" /><br />
+</li>
 </ol></li>
 <li>Create a device type named &quot;Ethernet&quot; that contains:
 <ol type="1">
 <li>Bidirectional data port named &quot;EthernetPort&quot;.</li>
-<li>Requires bus access named &quot;SwitchAccess&quot;.</li>
+<li>Requires bus access named &quot;SwitchAccess&quot; with the classifier set to <em>Hardware::EthernetSwitch</em>.<br />
+<img src="../images/Ethernet.png" /><br />
+</li>
 </ol></li>
 <li>Create a device type named &quot;Sensor&quot; that contains:
 <ol type="1">
 <li>Bidirectional data port named &quot;SensorData&quot;.</li>
-<li>Output data port named &quot;SensorOut&quot;.</li>
+<li>Output data port named &quot;SensorOut&quot;.<br />
+<img src="../images/Sensor.png" /><br />
+</li>
 </ol></li>
 <li>Create a device type named &quot;Actuator&quot; that contains:
 <ol type="1">
 <li>Bidirectional data port named &quot;ActuatorData&quot;.</li>
-<li>Input data port named &quot;ActuatorIn&quot;.</li>
+<li>Input data port named &quot;ActuatorIn&quot;.<br />
+<img src="../images/Actuator.png" /><br />
+</li>
 </ol></li>
-<li>Create a processor type named &quot;CPU&quot; that contains a bidirectional data port named &quot;CPUData&quot;.</li>
+<li>Create a processor type named &quot;CPU&quot; that contains a bidirectional data port named &quot;CPUData&quot;.<br />
+<img src="../images/CPU.png" /><br />
+</li>
 <li>Create a system and system implementation named &quot;TempuratureSystem&quot; and &quot;TempuratureSystem.Impl&quot;, respectively, that contains:
 <ol type="1">
 <li>Input data port named &quot;CommandIn&quot;.</li>
 <li>Output data port named &quot;Sensor1DataOut&quot;.</li>
-<li>Output data port named &quot;Sensor2DataOut&quot;.</li>
+<li>Output data port named &quot;Sensor2DataOut&quot;. <img src="../images/HardwarePackage.png" /></li>
 </ol></li>
 </ol></li>
 <li><strong>Set AADL Properties</strong>
 <ol type="1">
 <li>Select <em>Window-&gt;Show View-&gt; AADL Property Values</em>.</li>
-<li>Select <em>Show undefined properties</em> in the view menu.</li>
+<li>Select <em>Show undefined properties</em> in the view menu. <img src="../images/ShowUndefinedProperties.png" /><br />
+</li>
 <li>Select the <em>EthernetSwitch</em> diagram element.</li>
 <li>Right-click <em>Memory_Properties::Data_Size</em></li>
 <li>Select <em>Create Local Property Association</em>.</li>
-<li>Enter &quot;200 Bytes&quot;.</li>
+<li>Enter &quot;200 Bytes&quot;.<br />
+<img src="../images/AADLPropertyValues.png" /><br />
+</li>
 <li>Set <em>SEI::BandwidthCapacity</em> to &quot;50.0 KBytesps&quot;.</li>
 <li>Set <em>Timing_Properties::Period</em> to &quot;25ms&quot;.</li>
 </ol></li>
@@ -248,7 +275,8 @@ While viewing the Alarm_Model package diagram:
 <li>Create a device named &quot;TempSensor2&quot; with classifier set to <em>TemperatureSystem::Sensor</em>.</li>
 <li>Create a device named &quot;Actuator&quot; with classifier set to <em>TemeratureSystem::Actuator</em>.</li>
 <li>Create four devices named &quot;CPUEthernet&quot;, &quot;Sensor1Ethernet&quot;, &quot;Sensor2Ethernet&quot;, &quot;ActuatorEthernet&quot;, and set their classifiers to <em>TemperatureSystem::Ethernet</em>.</li>
-<li>Create a bus named &quot;EthernetSwitch&quot; with classifier set to <em>TemperatureSystem::EthernetSwtich</em>.</li>
+<li>Create a bus named &quot;EthernetSwitch&quot; with classifier set to <em>TemperatureSystem::EthernetSwtich</em>.<br />
+<img src="../images/TemperatureSystemImplSubcomponents.png" /></li>
 </ol></li>
 <li><strong>Create Connections</strong>
 <ol type="1">
@@ -257,7 +285,9 @@ While viewing the Alarm_Model package diagram:
 <li>EthernetSwitch.CPUAccess -&gt; CPUEthernet.SwitchAccess named &quot;CPUAccessCon&quot;.</li>
 <li>EthernetSwitch.Sensor1Access -&gt; Sensor1Ethernet.SwitchAccess named &quot;Sensor1AccessCon&quot;.</li>
 <li>EthernetSwitch.Sensor2Access -&gt; Sensor2Ethernet.SwitchAccess named &quot;Sensor2AccessCon&quot;.</li>
-<li>EthernetSwitch.ActuatorAccess -&gt; ActuatorEthernet.SwitchAccess named &quot;ActuatorAccessCon&quot;.</li>
+<li>EthernetSwitch.ActuatorAccess -&gt; ActuatorEthernet.SwitchAccess named &quot;ActuatorAccessCon&quot;.<br />
+<img src="../images/EthernetSwitchConnections.png" /><br />
+</li>
 </ol></li>
 <li>Create port connections:
 <ol type="1">
@@ -272,14 +302,17 @@ While viewing the Alarm_Model package diagram:
 <ol type="1">
 <li>TempSensor1.SensorOut -&gt; TemperatureSystem.Impl.Sensor1DataOut.</li>
 <li>TempSensor2.SensorOut -&gt; TemperatureSystem.Impl.Sensor2DataOut.</li>
-<li>TemperatureSystem.Impl.CommandIn -&gt; Actuator.ActuatorIn</li>
+<li>TemperatureSystem.Impl.CommandIn -&gt; Actuator.ActuatorIn.<br />
+<img src="../images/TemperatureSystemImplConnections.png" /><br />
+</li>
 </ol></li>
 <li>Create Connection Bindings
 <ol type="1">
 <li>Select <em>CPUAccessCon</em>, <em>ActuatorAccessCon</em>, <em>Sensor1AccessCon</em>, and <em>Sensor2AccessCon</em>.</li>
-<li>Select <em>Bind...</em> from the toolbar, the <em>Bind</em> dialog will appear.</li>
+<li>Select <em>Bind...</em> from the toolbar, the <em>Bind</em> dialog will appear. <img src="../images/BindToolbar.png" /></li>
 <li>Select the <em>EthernetSwitch</em> diagram element.</li>
-<li>Select <em>Actual_Connection_Binding</em> from the drop-down.</li>
+<li>Select <em>Actual_Connection_Binding</em> from the drop-down.<br />
+<img src="../images/ConnectionBinding.png" /></li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
 <li>Use the <em>AADL Property Values</em> view to set <em>SEI::BandwidthBudget</em> to 10.0 KBytesps for <em>CPUAccessCon</em>, <em>ActuatorAccessCon</em>, <em>Sensor1AccessCon</em>, and <em>Sensor2AccessCon</em>.</li>
@@ -290,13 +323,14 @@ While viewing the Alarm_Model package diagram:
 <li>Create a thread type named &quot;ProcessData&quot; that contains:
 <ol type="1">
 <li>Input data port named &quot;DataIn&quot;.</li>
-<li>Output data port named &quot;DataOut&quot;.</li>
+<li>Output data port named &quot;DataOut&quot;. <img src="../images/ProcessData.png" /></li>
 </ol></li>
 <li>Create a thread type named &quot;ReadData&quot; that contains:
 <ol type="1">
 <li>Input data port named &quot;Sensor1DataIn&quot;.</li>
 <li>Input data port named &quot;Sensor2DataIn&quot;.</li>
-<li>Output data port named &quot;DataOut&quot;.</li>
+<li>Output data port named &quot;DataOut&quot;. <img src="../images/ReadData.png" /><br />
+</li>
 </ol></li>
 <li>Create a process type and implementation named &quot;Controller&quot; and &quot;Controller.Impl&quot;, respectively, that contains:
 <ol type="1">
@@ -305,7 +339,8 @@ While viewing the Alarm_Model package diagram:
 <li>Thread named &quot;ProduceCommand&quot; with classifier set to <em>Software::ProcessData</em>.</li>
 <li>Right-click <em>Controller.Impl.ProduceCommand</em> and select <em>Show-&gt;Features-&gt;All</em>.</li>
 <li>Port connection: <em>Controller.Impl.ControllerIn</em> -&gt; <em>ProduceCommand.DataIn</em>.</li>
-<li>Port connection: <em>ProduceCommand.DataOut</em> -&gt; <em>Controller.Impl.ControllerOut</em>.</li>
+<li>Port connection: <em>ProduceCommand.DataOut</em> -&gt; <em>Controller.Impl.ControllerOut</em>. <img src="../images/ControllerImpl.png" /><br />
+</li>
 </ol></li>
 <li>Create a process type and implementation named &quot;Fuser&quot; and &quot;Fuser.Impl&quot;, respectively, that contains:
 <ol type="1">
@@ -317,12 +352,14 @@ While viewing the Alarm_Model package diagram:
 <li>Port connection: <em>Fuser.Impl.Sensor1DataIn</em> -&gt; <em>ReadSensors.Sensor1DataIn</em>.</li>
 <li>Port connection: <em>Fuser.Impl.Sensor2DataIn</em> -&gt; <em>ReadSensors.Sensor2DataIn</em>.</li>
 <li>Port connection: <em>ReadSensors.DataOut</em> -&gt; <em>FuseData.DataIn</em>.</li>
-<li>Port connection: <em>FuseData.DataOut</em> -&gt; <em>FuseOut</em>.</li>
+<li>Port connection: <em>FuseData.DataOut</em> -&gt; <em>FuseOut</em>. <img src="../images/FuserImpl.png" /><br />
+</li>
 </ol></li>
 <li>Create a system type and implementation named &quot;Application&quot; and &quot;Application.Impl&quot;, respectively, that contains:
 <ol type="1">
 <li>Two input data ports named &quot;Sensor1DataIn&quot; and &quot;Sensor2DataIn&quot;.</li>
-<li>Output data port named &quot;CommandOut&quot;.</li>
+<li>Output data port named &quot;CommandOut&quot;.<br />
+<img src="../images/ApplicationImpl.png" /></li>
 </ol></li>
 </ol></li>
 <li><p>Open <em>Application.Impl</em> implementation diagram.</p></li>
@@ -335,7 +372,7 @@ While viewing the Alarm_Model package diagram:
 <li><em>Application.Impl.Sensor1DataIn</em> -&gt; <em>Fuser.Sensor1DataIn</em>.</li>
 <li><em>Application.Impl.Sensor2DataIn</em> -&gt; <em>Fuser.Sensor2DataIn</em>.</li>
 <li><em>Fuser.FuseOut</em> -&gt; <em>Controller.ControllerIn</em>.</li>
-<li><em>Controller.ControllerOut</em> -&gt; <em>Application.CommandOut</em>.</li>
+<li><em>Controller.ControllerOut</em> -&gt; <em>Application.CommandOut</em>. <img src="../images/ApplicationImplFull.png" /></li>
 </ol></li>
 </ol></li>
 <li><p>Create a package named &quot;Integration&quot; and open with diagram editor.</p></li>
@@ -345,7 +382,7 @@ While viewing the Alarm_Model package diagram:
 <li>System named &quot;Application&quot; with classifier set to <em>Software::Application.Impl</em>.</li>
 <li>Port connection: <em>Application.CommandOut</em> -&gt; <em>TemperatureSystem.CommandIn</em>.</li>
 <li>Port connection: <em>TemperatureSystem.Sensor1DataOut</em> -&gt; <em>Application.Sensor1DataIn</em>.</li>
-<li>Port connection: <em>TemperatureSystem.Sensor2DataOut</em> -&gt; <em>Application.Sensor2DataIn</em>.</li>
+<li>Port connection: <em>TemperatureSystem.Sensor2DataOut</em> -&gt; <em>Application.Sensor2DataIn</em>. <img src="../images/ControlSystemImpl.png" /></li>
 </ol></li>
 <li><strong>Create Processor Binding</strong>
 <ol type="1">
@@ -354,14 +391,16 @@ While viewing the Alarm_Model package diagram:
 <li>Select <em>Application</em> diagram element.</li>
 <li>Select <em>Bind...</em> from the toolbar.</li>
 <li>Select <em>Actual_Processor_Binding</em>.</li>
-<li>Select <em>TemperatureSystem</em>.</li>
+<li>Select <em>CPU</em>.</li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
 <li><strong>Open Processor Binding Diagram</strong>
 <ol type="1">
 <li>Right-click <em>ControlSystem.Impl</em>.</li>
 <li>Select <em>Open-&gt;New Diagram...</em>.</li>
-<li>Select <em>Processor Binding Diagram</em> from the <em>Type</em> drop-down.</li>
+<li>Select <em>Processor Binding Diagram</em> from the drop-down.<br />
+<img src="../images/CreateBindingDiagram.png" /><br />
+</li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
 <li><strong>Instantiate</strong>
@@ -609,7 +648,7 @@ While viewing the Alarm_Model package diagram:
 <h2 id="diagram-context-adjustment"><span class="header-section-number">9.4</span> Diagram Context Adjustment</h2>
 <p>Diagrams are associated with model elements. Moving a model element between packages or renaming it or any of its containers from the AADL text editor without using the <em>Rename Element</em> menu option will break its association with diagrams.</p>
 <p>When opening a diagram, the <em>Missing Diagram Context</em> dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select <em>OK</em>.</p>
-<h1 id="diagram-layout"><span class="header-section-number">10</span> Diagram Layout</h1>
+<h1 id="sec:diagram_layout"><span class="header-section-number">10</span> Diagram Layout</h1>
 <p>The following sections describe the diagram layout capabilities of the graphical editor.</p>
 <h2 id="layout-commands"><span class="header-section-number">10.1</span> Layout Commands</h2>
 <p>Layout menu items are available from the <em>Edit-&gt;Layout</em> menu or by right clicking on the diagram or diagram element and using the <em>Layout</em> sub-menu. The behavior of the layout menu items are described in table <a href="#tbl:layout_menu_items">3</a>.</p>

@@ -13,6 +13,7 @@ secPrefix:
 ---
 
 # Tutorial: Getting Started
+This tutorial shows how to create a very simple model designed to show the basic functionality of the graphical editor.  
 1. **Create a New Project**
 	1. Select *File->New->Other…->AADL->AADL Project*.
 	2. Enter project name: "Alarm".
@@ -40,22 +41,22 @@ secPrefix:
 	4. Rename the new device type.
 		1. Select the device type diagram element.  
 ![](../images/SelectForRename.png)  
-		2. Select the name label, a editable field will appear.
+		2. Select the name label, a editable field will appear.  
 ![](../images/RenameEditField.png)  
 		3. Enter: "Alarm".
 		4. Press the *Enter* key.
 	5. Create the following types:
 		1. Device type named "DoorSensor".
 		2. Data type named "SensorData".
-		3. System type named "Controller".
+		3. System type named "Controller".  
 ![](../images/AlarmModelPackage.png)  
 	6. Create a system type and implementation.
 		1. Create a *System Implementation* from the palette, a *Create Component Implemenation* dialog will appear.
 		2. Enter the implementation's identifier: "Impl".
 		3. Select *New Component Type*.
-		4. Enter the type's identifier: "SecuritySystem".
+		4. Enter the type's identifier: "SecuritySystem".  
 ![](../images/CreateImplementation.png)  
-	7. Right-click the diagram and select *Layout->Layout Diagram* for easier viewing.
+	7. Right-click the diagram and select *Layout->Layout Diagram* for easier viewing (See @sec:diagram_layout).
 	
 
 5. **Open Implementation Diagram**
@@ -67,15 +68,15 @@ secPrefix:
 6. **Create Subcomponents**
 	1. Create a device subcomponent using the palette and rename it to "DoorSensor".
 	2. Double click the *DoorSensor* subcomponent to open the *Properties* view.
-	3. Select the *AADL* tab in the *Properties* view.
+	3. Select the *AADL* tab in the *Properties* view.  
 ![](../images/PropertiesView.png)  
 	4. In the *Classifier* section, select *Choose...*, a *Select a classifier.* dialog will appear.
-	5. Select *AlarmModel::DoorSensor*.
+	5. Select *AlarmModel::DoorSensor*.  
 ![](../images/SetClassifier.png)  
 	6. Select *OK*.
 	7. Create the following subcomponents:
 		1. Device subcomponent named *Alarm*, Classifier: *AlarmModel::Alarm*.
-		2. System subcomponent named *Controller*, Classifier: *AlarmModel::Controller*.
+		2. System subcomponent named *Controller*, Classifier: *AlarmModel::Controller*.  
 ![](../images/SecuritySystemImplSubcomponents.png)
   
 7. **Create Features**
@@ -102,6 +103,7 @@ secPrefix:
 ![](../images/SecuritySystemImplConnections.png)
 
 # Tutorial: Advanced
+This tutorial will show more advanced features of the graphical editor.  These features include bindings, AADL properties, instantiation, and analysis.  
 1. Create a new project named "ClimateControl".
 
 2. Create a new package named "Hardware" and open with diagram editor.
@@ -111,17 +113,22 @@ secPrefix:
 		1. "CPUAccess".
 		2. "Sensor1Access".
 		3. "Sensor2Access".
-		4. "ActuatorAccess".
+		4. "ActuatorAccess".  
+![](../images/EthernetSwitch.png)  
 	2. Create a device type named "Ethernet" that contains:
 		1. Bidirectional data port named "EthernetPort".
-		2. Requires bus access named "SwitchAccess".
+		2. Requires bus access named "SwitchAccess" with the classifier set to *Hardware::EthernetSwitch*.  
+		![](../images/Ethernet.png)  
 	3. Create a device type named "Sensor" that contains:
 		1. Bidirectional data port named "SensorData".
-		2. Output data port named "SensorOut".
+		2. Output data port named "SensorOut".  
+		![](../images/Sensor.png)  
 	4. Create a device type named "Actuator" that contains:
 		1. Bidirectional data port named "ActuatorData".
-		2. Input data port named "ActuatorIn".
-	5. Create a processor type named "CPU" that contains a bidirectional data port named "CPUData".
+		2. Input data port named "ActuatorIn".  
+		![](../images/Actuator.png)  
+	5. Create a processor type named "CPU" that contains a bidirectional data port named "CPUData".  
+	![](../images/CPU.png)  
 	6. Create a system and system implementation named "TempuratureSystem" and "TempuratureSystem.Impl", respectively, that contains:
 		1. Input data port named "CommandIn".
 		2. Output data port named "Sensor1DataOut".
@@ -131,10 +138,12 @@ secPrefix:
 4. **Set AADL Properties**
 	1. Select *Window->Show View-> AADL Property Values*.
 	2. Select *Show undefined properties* in the view menu.
+	![](../images/ShowUndefinedProperties.png)  
 	3. Select the *EthernetSwitch* diagram element.
 	4. Right-click *Memory_Properties::Data_Size*
 	5. Select *Create Local Property Association*.
-	6. Enter "200 Bytes".
+	6. Enter "200 Bytes".  
+	![](../images/AADLPropertyValues.png)  
 	7. Set *SEI::BandwidthCapacity* to "50.0 KBytesps".
 	8. Set *Timing_Properties::Period* to "25ms".
 	
@@ -153,14 +162,17 @@ secPrefix:
 	3. Create a device named "TempSensor2" with classifier set to *TemperatureSystem::Sensor*.
 	4. Create a device named "Actuator" with classifier set to *TemeratureSystem::Actuator*.
 	5. Create four devices named "CPUEthernet", "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and set their classifiers to *TemperatureSystem::Ethernet*.
-	6. Create a bus named "EthernetSwitch" with classifier set to *TemperatureSystem::EthernetSwtich*.
-	
+	6. Create a bus named "EthernetSwitch" with classifier set to *TemperatureSystem::EthernetSwtich*.  
+	![](../images/TemperatureSystemImplSubcomponents.png)  
+
+
 8. **Create Connections**
 	1. Create access connections:
 		1. EthernetSwitch.CPUAccess -> CPUEthernet.SwitchAccess named "CPUAccessCon".
 		2. EthernetSwitch.Sensor1Access -> Sensor1Ethernet.SwitchAccess named "Sensor1AccessCon".
 		3. EthernetSwitch.Sensor2Access -> Sensor2Ethernet.SwitchAccess named "Sensor2AccessCon".
-		4. EthernetSwitch.ActuatorAccess -> ActuatorEthernet.SwitchAccess named "ActuatorAccessCon".
+		4. EthernetSwitch.ActuatorAccess -> ActuatorEthernet.SwitchAccess named "ActuatorAccessCon".  
+			![](../images/EthernetSwitchConnections.png)  
 	2. Create port connections:
 		1. CPUEthernet.EthernetPort -> CPU.CPUData.
 		2. Sensor1Ethernet.EthernetPort -> TempSensor1.SensorData.
@@ -171,12 +183,15 @@ secPrefix:
 	5. Create port connections:
 		1. TempSensor1.SensorOut -> TemperatureSystem.Impl.Sensor1DataOut.
 		2. TempSensor2.SensorOut -> TemperatureSystem.Impl.Sensor2DataOut.
-		3. TemperatureSystem.Impl.CommandIn -> Actuator.ActuatorIn
+		3. TemperatureSystem.Impl.CommandIn -> Actuator.ActuatorIn.  
+				![](../images/TemperatureSystemImplConnections.png)  
  	6. Create Connection Bindings
 		1. Select *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
 		2. Select *Bind...* from the toolbar, the *Bind* dialog will appear.
+		![](../images/BindToolbar.png)
 		3. Select the *EthernetSwitch* diagram element.
-		3. Select *Actual_Connection_Binding* from the drop-down.
+		3. Select *Actual_Connection_Binding* from the drop-down.  
+		![](../images/ConnectionBinding.png)
 		4. Select *OK*.
 	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 10.0 KBytesps for *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
 
@@ -186,10 +201,12 @@ secPrefix:
 	1. Create a thread type named "ProcessData" that contains:
 		1. Input data port named "DataIn".
 		2. Output data port named "DataOut".
+			![](../images/ProcessData.png)
 	2. Create a thread type named "ReadData" that contains:
 		1. Input data port named "Sensor1DataIn".
 		2. Input data port named "Sensor2DataIn".
 		2. Output data port named "DataOut".
+		![](../images/ReadData.png)  
 	2. Create a process type and implementation named "Controller" and "Controller.Impl", respectively, that contains:
 		1. Input data port named "ControllerIn".
 		2. Output data port named ""ControllerOut".
@@ -197,6 +214,7 @@ secPrefix:
 		4. Right-click *Controller.Impl.ProduceCommand* and select *Show->Features->All*.
 		5. Port connection: *Controller.Impl.ControllerIn* -> *ProduceCommand.DataIn*.
 		6. Port connection: *ProduceCommand.DataOut* -> *Controller.Impl.ControllerOut*.
+				![](../images/ControllerImpl.png)  
 	4. Create a process type and implementation named "Fuser" and "Fuser.Impl", respectively, that contains:
 		1. Input data port named "Sensor1DataIn".
 		2. Input data port named "Sensor2DataIn".
@@ -207,9 +225,11 @@ secPrefix:
 		7. Port connection: *Fuser.Impl.Sensor2DataIn* -> *ReadSensors.Sensor2DataIn*.
 		8. Port connection: *ReadSensors.DataOut* -> *FuseData.DataIn*.
 		9. Port connection: *FuseData.DataOut* -> *FuseOut*.
+		![](../images/FuserImpl.png)    
 	5. Create a system type and implementation named "Application" and "Application.Impl", respectively, that contains:
 		1. Two input data ports named "Sensor1DataIn" and "Sensor2DataIn".
-		2. Output data port named "CommandOut".
+		2. Output data port named "CommandOut".  
+		![](../images/ApplicationImpl.png)
 		
 11. Open *Application.Impl* implementation diagram.
 
@@ -221,6 +241,7 @@ secPrefix:
 		2. *Application.Impl.Sensor2DataIn* -> *Fuser.Sensor2DataIn*.
 		3. *Fuser.FuseOut* -> *Controller.ControllerIn*.
 		4. *Controller.ControllerOut* -> *Application.CommandOut*.
+		![](../images/ApplicationImplFull.png)
 		
 13. Create a package named "Integration" and open with diagram editor.
 
@@ -230,6 +251,7 @@ secPrefix:
 	3. Port connection: *Application.CommandOut* -> *TemperatureSystem.CommandIn*.
 	4. Port connection: *TemperatureSystem.Sensor1DataOut* -> *Application.Sensor1DataIn*.
 	5. Port connection: *TemperatureSystem.Sensor2DataOut* -> *Application.Sensor2DataIn*.
+	![](../images/ControlSystemImpl.png)
 
 15. **Create Processor Binding**
 	1. Right-click *TemperatureSystem* diagram element.
@@ -237,13 +259,14 @@ secPrefix:
 	3. Select *Application* diagram element.
 	4. Select *Bind...* from the toolbar.
 	5. Select *Actual_Processor_Binding*.
-	6. Select *TemperatureSystem*.
+	6. Select *CPU*.
 	7. Select *OK*.
 	
 16. **Open Processor Binding Diagram**
 	1. Right-click *ControlSystem.Impl*.
 	2. Select *Open->New Diagram...*.
-	3. Select *Processor Binding Diagram* from the *Type* drop-down.
+	3. Select *Processor Binding Diagram* from the drop-down.  
+		![](../images/CreateBindingDiagram.png)  
 	4. Select *OK*.
 
 17. **Instantiate**
@@ -452,7 +475,7 @@ Diagrams are associated with model elements. Moving a model element between pack
 
 When opening a diagram, the *Missing Diagram Context* dialog will appear if the graphical editor is unable to find the model element associated with a diagram for any reason. If the element has been previously renamed, select the new name for the element and select *OK*.
 
-# Diagram Layout
+# Diagram Layout{#sec:diagram_layout}
 The following sections describe the diagram layout capabilities of the graphical editor.
 
 ## Layout Commands
