@@ -1,4 +1,4 @@
-package org.osate.ui.model;
+package org.osate.analysis.architecture.unusedclassifiers;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
@@ -6,8 +6,6 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolutionGenerator2;
 
 public final class UnusedClassifierMarkerResolutionGenerator implements IMarkerResolutionGenerator2 {
-	protected static final String UNUSED_CLASSIFIER_MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
-
 	private static final IMarkerResolution[] RESOLVERS = { new UnusedClassifierMarkerResolution() };
 	private static final IMarkerResolution[] EMPTY = new IMarkerResolution[0];
 
@@ -18,7 +16,7 @@ public final class UnusedClassifierMarkerResolutionGenerator implements IMarkerR
 	@Override
 	public IMarkerResolution[] getResolutions(final IMarker marker) {
 		try {
-			if (marker.getType().equals(UNUSED_CLASSIFIER_MARKER_TYPE)) {
+			if (marker.getType().equals(FindUnusedClassifiersAnalysis.MARKER_TYPE)) {
 				return RESOLVERS;
 			}
 		} catch (final CoreException e) {
@@ -30,7 +28,7 @@ public final class UnusedClassifierMarkerResolutionGenerator implements IMarkerR
 	@Override
 	public boolean hasResolutions(final IMarker marker) {
 		try {
-			if (marker.getType().equals(UNUSED_CLASSIFIER_MARKER_TYPE)) {
+			if (marker.getType().equals(FindUnusedClassifiersAnalysis.MARKER_TYPE)) {
 				return true;
 			}
 		} catch (final CoreException e) {

@@ -1,4 +1,4 @@
-package org.osate.ui.model;
+package org.osate.analysis.architecture.unusedclassifiers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,7 +37,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public final class FindUnusedClassifiersAnalysis {
-	private static final String MARKER_TYPE = "org.osate.ui.UnusedClassifierMarker";
+	public static final String MARKER_TYPE = "org.osate.analysis.architecture.UnusedClassifierMarker";
 
 	public static final FindUnusedClassifiersAnalysis INSTANCE = new FindUnusedClassifiersAnalysis();
 
