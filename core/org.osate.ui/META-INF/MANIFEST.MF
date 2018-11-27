@@ -9,7 +9,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.osate.internal.ui.actions,
  org.osate.internal.ui.preferences,
- org.osate.ui.preferences,
+ org.osate.search,
  org.osate.ui,
  org.osate.ui.actions,
  org.osate.ui.dialogs,
@@ -17,6 +17,7 @@ Export-Package: org.osate.internal.ui.actions,
  org.osate.ui.marker,
  org.osate.ui.navigator,
  org.osate.ui.perspective,
+ org.osate.ui.preferences,
  org.osate.ui.utils,
  org.osate.ui.wizards
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",

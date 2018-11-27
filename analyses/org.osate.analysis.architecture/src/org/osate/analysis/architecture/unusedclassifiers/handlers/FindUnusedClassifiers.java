@@ -37,7 +37,7 @@
  *
  * @version $Id$
  */
-package org.osate.ui.handlers;
+package org.osate.analysis.architecture.unusedclassifiers.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -45,7 +45,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ui.model.FindUnusedClassifiersAnalysis;
+import org.osate.analysis.architecture.unusedclassifiers.FindUnusedClassifiersAnalysis;
 
 /**
  * XXX Fill this in

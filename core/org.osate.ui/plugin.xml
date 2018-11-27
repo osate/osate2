@@ -121,14 +121,6 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
-
-   <extension
-         id="UnusedClassifierMarker"
-         name="Unused Classifier Marker"
-         point="org.eclipse.core.resources.markers">
-      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
-      <persistent value="true"/>
-   </extension>
    
    <extension
          point="org.eclipse.ui.views">
@@ -300,7 +292,7 @@
 		     </or>
          </enablement>
       </actionProvider>
-      <actionProvider
+      <!--actionProvider
             class="org.osate.ui.navigator.FindUnusedClassifiersActionProvider"
             id="org.osate.ui.navigator.findUnusedClassifiersAction">
          <enablement>
@@ -309,7 +301,7 @@
                <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
             </and>
          </enablement>
-      </actionProvider>
+      </actionProvider-->
       <navigatorContent
             contentProvider="org.osate.ui.navigator.ViewerRefresher"
             id="org.osate.ui.navigator.viewerRefresher"
@@ -716,9 +708,6 @@
                    commandId="org.osate.ui.reinstantiateAllAadl"
                    style="push">
              </command>
-             <command
-                   commandId="org.osate.ui.findUnusedClassifiers"
-                   style="push" />
              <separator
                    name="generateTextual">
              </separator>
@@ -779,6 +768,16 @@
              <menu
                    id="org.osate.ui.safetyMenu"
                    label="Safety">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
+                   id="org.osate.ui.modelCleanupMenu"
+                   label="Model Maintenance">
                 <separator
                       name="core">
                 </separator>
@@ -971,9 +970,6 @@
              name="%ReinstantiateAllModelsAction.label">
        </command>
        <command
-       		 id="org.osate.ui.findUnusedClassifiers"
-       		 name="Find Unused Classifiers" />
-       <command
              id="org.osate.ui.conversion"
              name="Add/Remove AADL Nature">
        </command>
@@ -1070,23 +1066,6 @@
              commandId="org.osate.ui.reinstantiateAllAadl">
        </handler>
        <handler
-             class="org.osate.ui.handlers.FindUnusedClassifiers"
-             commandId="org.osate.ui.findUnusedClassifiers">
-          <enabledWhen>
-             <with variable="selection">
-                <and>
-                   <count value="+" />
-                   <iterate>
-                      <and>
-                         <instanceof value="org.eclipse.core.resources.IFile" />
-                         <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
-                      </and>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
              class="org.osate.ui.handlers.ConversionHandler"
              commandId="org.osate.ui.conversion">
        </handler>
@@ -1155,13 +1134,6 @@
             properties="aadlPropertySet"
             type="org.eclipse.core.resources.IFile">
        </propertyTester>
-    </extension>
-    <extension
-          point="org.eclipse.ui.ide.markerResolution">
-       <markerResolutionGenerator
-             class="org.osate.ui.model.UnusedClassifierMarkerResolutionGenerator"
-             markerType="org.osate.ui.UnusedClassifierMarker">
-       </markerResolutionGenerator>
     </extension>
    <extension
          point="org.eclipse.help.toc">

@@ -4,7 +4,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
-import org.osate.ui.model.FindUnusedClassifiersAnalysis;
 
 public class FindUnusedClassifiersActionProvider extends CommonActionProvider {
 	private final Action findUnusedClassifiersAction;
@@ -18,8 +17,8 @@ public class FindUnusedClassifiersActionProvider extends CommonActionProvider {
 
 			@Override
 			public void run() {
-				FindUnusedClassifiersAnalysis.INSTANCE
-						.doIt(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
+//				FindUnusedClassifiersAnalysis.INSTANCE
+//						.doIt(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
 			}
 		};
 	}

@@ -1,4 +1,4 @@
-package org.osate.ui.model;
+package org.osate.analysis.architecture.unusedclassifiers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public final class UnusedClassifierMarkerResolution extends WorkbenchMarkerResol
 		final List<IMarker> alsoGood = new ArrayList<>();
 		for (final IMarker test : markers) {
 			try {
-				if (test.getType().equals(UnusedClassifierMarkerResolutionGenerator.UNUSED_CLASSIFIER_MARKER_TYPE)) {
+				if (test.getType().equals(FindUnusedClassifiersAnalysis.MARKER_TYPE)) {
 					alsoGood.add(test);
 				}
 			} catch (final CoreException e) {
