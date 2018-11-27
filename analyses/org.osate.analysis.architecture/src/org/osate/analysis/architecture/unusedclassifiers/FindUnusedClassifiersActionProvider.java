@@ -1,4 +1,4 @@
-package org.osate.ui.navigator;
+package org.osate.analysis.architecture.unusedclassifiers;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
