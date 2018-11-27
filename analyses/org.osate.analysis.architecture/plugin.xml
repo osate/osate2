@@ -443,5 +443,17 @@
        </markerResolutionGenerator>
     </extension>
 
-   
+	<extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <actionProvider
+            class="org.osate.ui.navigator.FindUnusedClassifiersActionProvider"
+            id="org.osate.ui.navigator.findUnusedClassifiersAction">
+         <enablement>
+            <and>
+               <instanceof value="org.eclipse.core.resources.IFile" />
+               <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
+            </and>
+         </enablement>
+      </actionProvider>
+	</extension>
 </plugin>
