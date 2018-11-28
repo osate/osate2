@@ -12,16 +12,18 @@ secPrefix:
 - sections
 ---
 
-# Tutorial: Getting Started
-This tutorial shows how to create a very simple model designed to show the basic functionality of the graphical editor.  
+# Tutorial: Getting Started{#sec:getting_started}
+This tutorial will show the basic functionality of using the graphical editor. In this tutorial we will create a simple model of an alarm system. The alarm system will consist of a controller which receives data from a single door sensor and controls an alarm.
+
+![](../images/SecuritySystemImplConnections.png)
 
 1. **Create a New Project**
 	1. Select *File->New->Other…->AADL->AADL Project*.  
 	2. Enter project name: "Alarm".
-	3. Select *Finish*.
+	3. Select *Finish*. This will create a new project for our AADL model.
 
-2. **Create Package**
-	1. Right-click *Alarm* project in the *AADL Navigator*.
+2. **Create an AADL Package**
+	1. Right-click the *Alarm* project in the *AADL Navigator*.
 	2. Select *New->Other…->AADL->AADL Package*.
 	3. Enter package name: "AlarmModel".  
 ![](../images/CreatePackage.png)  
@@ -33,8 +35,8 @@ This tutorial shows how to create a very simple model designed to show the basic
 ![](../images/CreateDiagram.png)  
 	3. Select *OK* on the *Create Diagram* dialog.
 
-4. **Create Classifiers**  
-	While viewing the AlarmModel package diagram:  
+4. **Create AADL Types**  
+	Add AADL types to the model by editing the AlarmModel package diagram:  
 	1. Expand the *Classifiers* section in the palette.
 	2. Select *Device Type*.  
 ![](../images/ClassifiersPalette.png)  
@@ -46,27 +48,27 @@ This tutorial shows how to create a very simple model designed to show the basic
 ![](../images/RenameEditField.png)  
 		3. Enter: "Alarm".
 		4. Press the *Enter* key.
-	5. Create the following types:
+	5. Repeat the previous steps with the appropriate palette entries to create the following types:
 		1. Device type named "DoorSensor".
 		2. Data type named "SensorData".
 		3. System type named "Controller".  
 ![](../images/AlarmModelPackage.png)  
-	6. Create a system type and implementation.
-		1. Create a *System Implementation* from the palette, a *Create Component Implemenation* dialog will appear.
-		2. Enter the implementation's identifier: "Impl".
-		3. Select *New Component Type*.
-		4. Enter the type's identifier: "SecuritySystem".  
-![](../images/CreateImplementation.png)  
-	7. Right-click the diagram and select *Layout->Layout Diagram* for easier viewing (See @sec:diagram_layout and @#sec:layout_preferences).
-	
 
-5. **Open Implementation Diagram**
+5. **Create a system type and implementation.**
+	1. Using the *System Implementation* item from the palette, create a system implementation for the security system. The *Create Component Implementation* dialog will appear.
+	2. Enter the implementation's identifier: "Impl".
+	3. Select *New Component Type*.
+	4. Enter the type's identifier: "SecuritySystem".  
+![](../images/CreateImplementation.png)  
+	5. Right-click the diagram and select *Layout->Layout Diagram* for easier viewing (See @sec:diagram_layout and @sec:layout_preferences).
+	
+6. **Open Diagram for the Security System Implementation**
 	1. Right-click *SecuritySystem.Impl*.
 	2. Select *Open->Implementation Diagram*, a *Create New Diagram?* dialog will appear.
 	3. Select *Yes*, a *Create Diagram* dialog will appear.
 	4. Select *OK*.
 
-6. **Create Subcomponents**
+7. **Create Subcomponents**
 	1. Create a device subcomponent using the palette and rename it to "DoorSensor".
 	2. Double click the *DoorSensor* subcomponent to open the *Properties* view (See @sec:properties_view).
 	3. Select the *AADL* tab in the *Properties* view.  
@@ -75,22 +77,22 @@ This tutorial shows how to create a very simple model designed to show the basic
 	5. Select *AlarmModel::DoorSensor*.  
 ![](../images/SetClassifier.png)  
 	6. Select *OK*.
-	7. Create the following subcomponents:
+	7. Repeat the previous steps for create the following subcomponents:
 		1. Device subcomponent named *Alarm*, Classifier: *AlarmModel::Alarm*.
 		2. System subcomponent named *Controller*, Classifier: *AlarmModel::Controller*.  
 ![](../images/SecuritySystemImplSubcomponents.png)
   
-7. **Create Features**
+8. **Create Features**
 	1. Use the palette to create a data Port named "DataOut" in *DoorSensor*.
 	2. Use the *AADL* section in the *Properties* view to:
 		1. Set *DataOut* to *Output*.
 		2. Set the classifier to *AlarmModel::SensorData*
 	3. Create an input data port named "DataIn" in *Controller* and set the classifier to *AlarmModel::SensorData*.
-	4. Create two output event ports, "TriggerPortOut" and "SilencePortOut" to *Controller*.
-	5. Create two input event ports, "TriggerPortIn" and "SilencePortIn" to *Alarm*.  
+	4. Create two additional output event ports, "TriggerPortOut" and "SilencePortOut" in *Controller*.
+	5. Create two additional input event ports, "TriggerPortIn" and "SilencePortIn" in *Alarm*.
 ![](../images/SecuritySystemImplFeatures.png)
 	
-8. **Create Connections**
+9. **Create Connections**
 	1. Select *Port Connection* from the palette.
 	2. Select the connection source, *DoorSensor.DataOut*.
 	3. Select the connection destination, *Controller.DataIn*.
@@ -98,29 +100,35 @@ This tutorial shows how to create a very simple model designed to show the basic
 	5. Select *Rename...*, the *Rename* dialog will appear.
 	6. Enter *SensorDataConnection*
 	7. Select *OK*.
-	8. Create the following connections:
+	8. Repeat the previous steps to create the following connections:
 		1. Port connection named "TriggerPortConnection", with Source: *Controller.TriggerPortOut* and Destination: *Controller.TriggerPortIn*.
 		2. Port connection named "SilencePortConnection", with Source: *Alarm.TriggerPortOut* and Destination: *Alarm.TriggerPortIn*.
 ![](../images/SecuritySystemImplConnections.png)
 
 # Tutorial: Advanced
-This tutorial will show more advanced features of the graphical editor.  These features include bindings, AADL properties, instantiation, and analysis.
+This tutorial will show more advanced features of the graphical editor.  These features include bindings, AADL properties, system instantiation, and running analysis. In this tutorial we will create a simple climate control system which controls an actuator based on the state of two temperature sensors. Our model will be divided into execution platform components and software components.
 
-1. **Create Project**  
-	Create a new project named "ClimateControl".
+See @sec:getting_started for an introduction to the basics.
 
-2. **Create Package**  
-	Create a new package named "Hardware" and open with diagram editor.
+Start by creating an AADL project named "ClimateControl".
 
-3. **Create Classifiers**
+## Define the Execution Platform
+We will begin by defining the execution platform. The execution platform will consist of a two sensors, an actuator, a CPU, and an Ethernet network.
+
+![](../images/ExecutionPlatformImplAllConnections.png)  
+
+1. **Create a new AADL Package**  
+	Start by creating a new package named "Hardware" and open with diagram editor.
+
+2. **Create Classifiers**
 	1. Create a bus type named "Ethernet".  
 	2. Create a device type named "EthernetSwitch".
 		1. Create Features:
 			1. Requires bus access named "Eth1".
-			2. Provides bus access named "Eth2".
-			3. Provides bus access named "Eth3".
-			4. Provides bus access named "Eth4".
-		2. Set the four bus accesses' classifier to *Hardware::Ethernet*.  
+			2. Requires bus access named "Eth2".
+			3. Requires bus access named "Eth3".
+			4. Requires bus access named "Eth4".
+		2. Set the classifier of the four bus access features to *Hardware::Ethernet*.  
 ![](../images/EthernetSwitch.png)  
 	3. Create a device type named "Sensor" that contains:
 		1. Requires bus access named "Eth" with classifier set to *Hardware::Ethernet*.
@@ -138,7 +146,7 @@ This tutorial will show more advanced features of the graphical editor.  These f
 		3. Output data port named "Sensor2".  
 ![](../images/HardwarePackage.png)
 		
-4. **Set AADL Properties**
+3. **Set AADL Properties**
 	1. Select *Window->Show View-> AADL Property Values*.
 	2. Select *Show undefined properties* in the view menu.
 	![](../images/ShowUndefinedProperties.png)  
@@ -148,29 +156,31 @@ This tutorial will show more advanced features of the graphical editor.  These f
 	6. Enter "100.0 MBytesps".  
 	![](../images/AADLPropertyValues.png)  
 	
-5. **Show AADL Properties on Diagrams**
+4. **Show AADL Properties on Diagrams**
+	AADL properties can be shown on the diagram.
 	1. Right-click *Ethernet* diagram element.
 	2. Select *Configure Diagram...*, the dialog will appear.
 	3. Select *Add...* in the *AADL Properties* section.
 	4. Select *SEI->BandWidthCapacity*.
 	5. Select *OK*.
 	
-6. **Open Implementation Diagram**	
+5. **Open Implementation Diagram**	
 	Open the *ExecutionPlatform.Impl* implementation diagram.
 
-7. **Create Subcomponents**
+6. **Create Subcomponents**
 	1. Create a processor named "CPU" with classifier set to *Hardware::CPU*.
 	2. Create a device named "TempSensor1" with classifier set to *Hardware::Sensor*.
 	3. Create a device named "TempSensor2" with classifier set to *Hardware::Sensor*.
 	4. Create a device named "Actuator" with classifier set to *Hardware::Actuator*.
-	5. Create three buses named "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and set their classifiers to *Hardware::Ethernet*.
+	5. Create four buses named "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and "CPUEthernet". Set their classifiers to *Hardware::Ethernet*.
 	6. Create a device named "EthernetSwitch" with classifier set to *Hardware::EthernetSwitch*.  
 	![](../images/ExecutionPlatformImplSubcomponents.png)  
 
-8. **Create Connections**
+7. **Create Connections**
 	1. Create access connections:
-		1. EthernetSwitch.Eth1 -> CPU.Eth named "CPUCon".
-		2. Sensor1Ethernet -> EthernetSwitch.Eth2 named "Sensor1Eth1".
+		1. CPUEthernet -> EthernetSwitch.Eth1 named "CpuEth1".
+		2. CPUEthernet -> CPU.Eth named "CpuEth2".		
+		3. Sensor1Ethernet -> EthernetSwitch.Eth2 named "Sensor1Eth1".
 		4. Sensor1Ethernet -> TempSensor1.Eth named "Sensor1Eth2".
 		5. Sensor2Ethernet -> EthernetSwtich.Eth3 named "Sensor2Eth1".
 		6. Sensor2Ethernet -> TempSensor2.Eth named "Sensor2Eth2".
@@ -182,6 +192,8 @@ This tutorial will show more advanced features of the graphical editor.  These f
 		2. TempSensor1.Sensor -> ExecutionPlatform.Impl.Sensor1
 		3. TempSensor2.Sensor -> ExecutionPlatform.Impl.Sensor2
 		![](../images/ExecutionPlatformImplAllConnections.png)  
+		
+		REVIEW:
  	6. Create Connection Bindings (See @sec:bindings)
  		1. *Sensor1Ethernet* Bindings
 			1. Select connections *Sensor1Eth1* and *Sensor1Eth2*.
@@ -196,10 +208,12 @@ This tutorial will show more advanced features of the graphical editor.  These f
 			2.*ActuatorEth1* and *ActuatorEth2* to *ActuatorEthernet*.		
 	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 50.0 MBytesps for *Sensor1Eth1*, *Sensor1Eth2*, *Sensor2Eth1*, *Sensor2Eth2*, *ActuatorEth1*, and *ActuatorEth2*.
 
-9. **Create Package**  
+
+## Define the Application
+1. **Create Package**  
 	Create a package named "Software" and open with diagram editor.
 
-10. **Create Classifiers**
+2. **Create Classifiers**
 	1. Create a thread type named "ProcessData" that contains:
 		1. Input data port named "DataIn".
 		2. Output data port named "DataOut".  
@@ -233,10 +247,10 @@ This tutorial will show more advanced features of the graphical editor.  These f
 		2. Output data port named "Command".  
 		![](../images/ApplicationImpl.png)
 		
-11. **Open Implementation Diagram**  
+3. **Open Implementation Diagram**  
 	Open *Application.Impl* implementation diagram.
 
-12. **Create Subcomponents and Connections**
+4. **Create Subcomponents and Connections**
 	1. Create a process named "Fuser" with classifier set to *Software::Fuser.Impl*.
 	2. Create a process named "Controller" with classifier set to *Software::Controller.Impl*.
 	3. Create port connections:
@@ -245,11 +259,12 @@ This tutorial will show more advanced features of the graphical editor.  These f
 		3. *Fuser.Fused* -> *Controller.Controller*.
 		4. *Controller.Command* -> *Application.Command*.
 		![](../images/ApplicationImplFull.png)
-		
-13. **Create Package**  
+
+## Define the Integrated System		
+1. **Create Package**  
 	Create a package named "Integration" and open with diagram editor.
 
-14. **Create System Classifiers**  
+2. **Create System Classifiers**  
 	Create a system type and implementation named "ControlSystem" and "ControlSystem.Impl", respectively, that contains:  
 	1. System named "ExecutionPlatform" with classifier set to *Hardware::ExecutionPlatform.Impl*.
 	2. System named "Application" with classifier set to *Software::Application.Impl*.
@@ -258,7 +273,7 @@ This tutorial will show more advanced features of the graphical editor.  These f
 	5. Port connection: *ExecutionPlatform.Sensor2* -> *Application.Sensor2*.
 	![](../images/ControlSystemImpl.png)
 
-15. **Create Processor Binding** (See @sec:bindings)
+3. **Create Processor Binding** (See @sec:bindings)
 	1. Right-click *ExecutionPlaform* diagram element.
 	2. Select *Show->Subcomponents->Processors*.
 	3. Select *Application* diagram element.
@@ -267,18 +282,19 @@ This tutorial will show more advanced features of the graphical editor.  These f
 	6. Select *CPU*.
 	7. Select *OK*.
 	
-16. **Open Processor Binding Diagram**
+4. **Open Processor Binding Diagram**
 	1. Right-click *ControlSystem.Impl*.
 	2. Select *Open->New Diagram...*.
 	3. Select *Processor Binding Diagram* from the drop-down.  
 		![](../images/CreateBindingDiagram.png)  
 	4. Select *OK*.
 
-17. **Instantiate**
+## Perform Analysis
+1. **Instantiate**
 	1. Right-click *ControlSystem.Impl*.
 	2. Select *Instantiate*.
 	
-18. **Run Analysis**
+2. **Run Analysis**
 	1. Expand tree in *AADL Navigator* to *ClimateControl->Instances*.
 	1. Right-click *Integration_ControlSystem_Impl_Instance.aaxl2*.
 	2. Select *Analyses->Budget->Analyze Bus Load*.
