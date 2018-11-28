@@ -69,6 +69,14 @@
             primary="true">
       </toc>
    </extension>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_model_maintenance.xml"
+            primary="true">
+      </toc>
+   </extension>
    <extension
          point="org.eclipse.ui.commands">
       <category
@@ -444,10 +452,20 @@
     </extension>
 
 	<extension
+         point="org.eclipse.ui.navigator.viewer">
+  		<viewerActionBinding
+        	viewerId="org.osate.ui.navigator.AadlNavigator">
+     		<includes>
+     			<actionExtension pattern="org.osate.analysis.architecture.unusedclassifiers.*" />
+     		</includes>
+	  </viewerActionBinding>
+   </extension>
+
+	<extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <actionProvider
-            class="org.osate.ui.navigator.FindUnusedClassifiersActionProvider"
-            id="org.osate.ui.navigator.findUnusedClassifiersAction">
+            class="org.osate.analysis.architecture.unusedclassifiers.FindUnusedClassifiersActionProvider"
+            id="org.osate.analysis.architecture.unusedclassifiers.findUnusedClassifiersAction">
          <enablement>
             <and>
                <instanceof value="org.eclipse.core.resources.IFile" />

@@ -17,8 +17,8 @@ public class FindUnusedClassifiersActionProvider extends CommonActionProvider {
 
 			@Override
 			public void run() {
-//				FindUnusedClassifiersAnalysis.INSTANCE
-//						.doIt(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
+				FindUnusedClassifiersAnalysis.INSTANCE
+						.doIt(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
 			}
 		};
 	}
