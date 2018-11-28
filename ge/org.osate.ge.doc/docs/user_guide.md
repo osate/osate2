@@ -106,7 +106,7 @@ This tutorial will show the basic functionality of using the graphical editor. I
 ![](../images/SecuritySystemImplConnections.png)
 
 # Tutorial: Advanced
-This tutorial will show more advanced features of the graphical editor.  These features include bindings, AADL properties, system instantiation, and running analysis. In this tutorial we will create a simple climate control system which controls an actuator based on the state of two temperature sensors. Our model will be divided into execution platform components and software components.
+This tutorial will show more advanced features of the graphical editor.  These features include binding configuration and visualization, setting and viewing AADL properties, and system instantiation. In this tutorial we will create a simple climate control system which controls an actuator based on the state of two temperature sensors. Our model will be divided into execution platform components and software components.
 
 See @sec:getting_started for an introduction to the basics.
 
@@ -147,6 +147,7 @@ We will begin by defining the execution platform. The execution platform will co
 ![](../images/HardwarePackage.png)
 		
 3. **Set AADL Properties**
+	AADL properties can be assigned to model elements using the *AADL Property Values* view while editing a diagram in the same way it can be used when using the textual editor. 
 	1. Select *Window->Show View-> AADL Property Values*.
 	2. Select *Show undefined properties* in the view menu.
 	![](../images/ShowUndefinedProperties.png)  
@@ -193,23 +194,11 @@ We will begin by defining the execution platform. The execution platform will co
 		3. TempSensor2.Sensor -> ExecutionPlatform.Impl.Sensor2
 		![](../images/ExecutionPlatformImplAllConnections.png)  
 		
-		REVIEW:
- 	6. Create Connection Bindings (See @sec:bindings)
- 		1. *Sensor1Ethernet* Bindings
-			1. Select connections *Sensor1Eth1* and *Sensor1Eth2*.
-			2. Select *Bind...* from the toolbar, the *Bind* dialog will appear.
-			![](../images/BindToolbar.png)
-			3. Select the *Sensor1Ethernet* diagram element.
-			3. Select *Actual_Connection_Binding* from the drop-down.  
-			![](../images/ConnectionBinding.png)
-			4. Select *OK*.
-		2. Use the *Bind...* tool to set *Actual_Connection_Binding* for:
-			1. *Sensor2Eth1* and *Sensor2Eth2* to *Sensor2Ethernet*.
-			2.*ActuatorEth1* and *ActuatorEth2* to *ActuatorEthernet*.		
-	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 50.0 MBytesps for *Sensor1Eth1*, *Sensor1Eth2*, *Sensor2Eth1*, *Sensor2Eth2*, *ActuatorEth1*, and *ActuatorEth2*.
-
-
 ## Define the Application
+Next, we will model the software application. The application will consist of two processes. One process will process data from both sensors and produce a single output. The other process will be responsible for sending commands to the actuator.
+
+![](../images/ApplicationImplFull.png)
+
 1. **Create Package**  
 	Create a package named "Software" and open with diagram editor.
 
@@ -236,31 +225,29 @@ We will begin by defining the execution platform. The execution platform will co
 		2. Input data port named "Sensor2".
 		3. Output data port named "Fused".
 		4. Thread named "ReadSensors" with classifier set to *Software::ReadData*.
-		5. Thread named "FuseData" with classifier set to *Software::ProcessData*.
-		6. Port connection: *Fuser.Impl.Sensor1* -> *ReadSensors.Sensor1*.
-		7. Port connection: *Fuser.Impl.Sensor2* -> *ReadSensors.Sensor2*.
-		8. Port connection: *ReadSensors.DataOut* -> *FuseData.DataIn*.
-		9. Port connection: *FuseData.DataOut* -> *Fuser.Impl.Fused*.
+		5. Port connection: *Fuser.Impl.Sensor1* -> *ReadSensors.Sensor1*.
+		6. Port connection: *Fuser.Impl.Sensor2* -> *ReadSensors.Sensor2*.
+		7. Port connection: *ReadSensors.DataOut* -> *Fuser.Impl.Fused*.
 		![](../images/FuserImpl.png)  
 	5. Create a system type and implementation named "Application" and "Application.Impl", respectively, that contains:
 		1. Two input data ports named "Sensor1" and "Sensor2".
 		2. Output data port named "Command".  
 		![](../images/ApplicationImpl.png)
 		
-3. **Open Implementation Diagram**  
-	Open *Application.Impl* implementation diagram.
-
-4. **Create Subcomponents and Connections**
-	1. Create a process named "Fuser" with classifier set to *Software::Fuser.Impl*.
-	2. Create a process named "Controller" with classifier set to *Software::Controller.Impl*.
-	3. Create port connections:
+3. **Create Subcomponents and Connections**
+	1. Start by opening the implementation diagram for *Application.Impl*. Although we can continue editing classifiers from the package diagram, editing classifiers using a structure diagram results in simpler diagrams.
+	2. Create a process named "Fuser" with classifier set to *Software::Fuser.Impl*.
+	3. Create a process named "Controller" with classifier set to *Software::Controller.Impl*.
+	4. Create port connections:
 		1. *Application.Impl.Sensor1* -> *Fuser.Sensor1*.
 		2. *Application.Impl.Sensor2* -> *Fuser.Sensor2*.
 		3. *Fuser.Fused* -> *Controller.Controller*.
 		4. *Controller.Command* -> *Application.Command*.
 		![](../images/ApplicationImplFull.png)
 
-## Define the Integrated System		
+## Define the Integrated System
+Now that we will define an integrated system which contains both the execution platform and the software application. Then we will bind the application to the CPU. 
+		
 1. **Create Package**  
 	Create a package named "Integration" and open with diagram editor.
 
@@ -282,25 +269,18 @@ We will begin by defining the execution platform. The execution platform will co
 	6. Select *CPU*.
 	7. Select *OK*.
 	
-4. **Open Processor Binding Diagram**
+4. **Create a Processor Binding Diagram**
+	A *Processor Binding Diagram* is a type of diagram which is preconfigured to visualize the bindings. For more information about diagram types, see section @sec:diagram_types. Create the diagram using the following steps.
 	1. Right-click *ControlSystem.Impl*.
 	2. Select *Open->New Diagram...*.
 	3. Select *Processor Binding Diagram* from the drop-down.  
 		![](../images/CreateBindingDiagram.png)  
-	4. Select *OK*.
+	4. Select *OK*. A new *Processor Binding Diagram* is created. The binding between the CPU and the application is shown. In the case of our system, the binding is not very interesting. However, this type of diagram is helpful when visualizing the bindings of a system with multiple processors.
 
-## Perform Analysis
-1. **Instantiate**
-	1. Right-click *ControlSystem.Impl*.
-	2. Select *Instantiate*.
+## Instantiate System
+1. Right-click *ControlSystem.Impl*.
+2. Select *Instantiate*. Now that the system is instantiated, analysis can now be executed on the instance model. Depending on the desired analysis, additional properties may be needed.
 	
-2. **Run Analysis**
-	1. Expand tree in *AADL Navigator* to *ClimateControl->Instances*.
-	1. Right-click *Integration_ControlSystem_Impl_Instance.aaxl2*.
-	2. Select *Analyses->Budget->Analyze Bus Load*.
-	3. Expand the subfolder *reports->Bandwidth*.
-	4. Open <i>Integration_ControlSystem_Impl_Instance__Bandwidth.csv</i>.
-
 # Creating Model Elements
 Most elements are created by selecting the desired element from the palette and placing it on the diagram.
 
@@ -487,7 +467,7 @@ Connections which are manually enabled will be removed if the connection ends ar
 
 The Hide Connection Labels option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section 3.1.16.
 
-## Diagram Types
+## Diagram Types(#sec:diagram_types)
 When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
 
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+

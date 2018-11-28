@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <toc label="OSATE Graphical Editor User Guide" topic="docs-gen/user_guide.html">
-	<topic label="Tutorial: Getting Started" href="docs-gen/user_guide.html#tutorial-getting-started">
+	<topic label="Tutorial: Getting Started" href="docs-gen/user_guide.html#sec:getting_started">
 	</topic>
 	<topic label="Tutorial: Advanced" href="docs-gen/user_guide.html#tutorial-advanced">
+		<topic label="Define the Execution Platform" href="docs-gen/user_guide.html#define-the-execution-platform">
+		</topic>
+		<topic label="Define the Application" href="docs-gen/user_guide.html#define-the-application">
+		</topic>
+		<topic label="Define the Integrated System" href="docs-gen/user_guide.html#define-the-integrated-system">
+		</topic>
+		<topic label="Instantiate System" href="docs-gen/user_guide.html#instantiate-system">
+		</topic>
 	</topic>
 	<topic label="Creating Model Elements" href="docs-gen/user_guide.html#creating-model-elements">
 		<topic label="Creating Classifier Implementations" href="docs-gen/user_guide.html#creating-classifier-implementations">
@@ -51,7 +59,7 @@
 		</topic>
 		<topic label="Extending" href="docs-gen/user_guide.html#extending">
 		</topic>
-		<topic label="Selecting a Diagram Element&#39;s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
+		<topic label="Selecting a Diagram Element’s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
 		</topic>
 		<topic label="Selecting All Connections" href="docs-gen/user_guide.html#selecting-all-connections">
 		</topic>
@@ -61,13 +69,13 @@
 	<topic label="Copying and Pasting" href="docs-gen/user_guide.html#copying-and-pasting">
 	</topic>
 	<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
-		<topic label="Diagram Types" href="docs-gen/user_guide.html#diagram-types">
+		<topic label="Diagram Types(#sec:diagram_types)" href="docs-gen/user_guide.html#diagram-typessecdiagram_types">
 		</topic>
 	</topic>
 	<topic label="Visualization" href="docs-gen/user_guide.html#visualization">
 		<topic label="Inherited Elements" href="docs-gen/user_guide.html#sec:inherited_elements">
 		</topic>
-		<topic label="Customizing an Element&#39;s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
+		<topic label="Customizing an Element’s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
 		</topic>
 		<topic label="Hidden Children" href="docs-gen/user_guide.html#sec:hidden_children">
 		</topic>
@@ -127,3 +135,4 @@
 	<topic label="Notices" href="docs-gen/user_guide.html#notices">
 	</topic>
 </toc>
+
