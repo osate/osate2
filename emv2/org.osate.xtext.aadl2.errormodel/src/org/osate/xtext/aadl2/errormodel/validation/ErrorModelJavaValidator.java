@@ -924,7 +924,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					foundothers = true;
 				}
 			}
-			String bv = transitionBranch.getValue().getRealvalue();
+			String bv = transitionBranch.getValue().getRealvalue().replaceAll("_", "");
 			Property sl = transitionBranch.getValue().getSymboliclabel();
 			if (bv != null) {
 				prob = prob.add(new BigDecimal(bv, MathContext.UNLIMITED));
