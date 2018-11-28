@@ -87,7 +87,7 @@ This tutorial shows how to create a very simple model designed to show the basic
 		2. Set the classifier to *AlarmModel::SensorData*
 	3. Create an input data port named "DataIn" in *Controller* and set the classifier to *AlarmModel::SensorData*.
 	4. Create two output event ports, "TriggerPortOut" and "SilencePortOut" to *Controller*.
-	5. Create two input event ports, "TriggerPortIn" and "SilencePortIn" to *Alarm*.
+	5. Create two input event ports, "TriggerPortIn" and "SilencePortIn" to *Alarm*.  
 ![](../images/SecuritySystemImplFeatures.png)
 	
 8. **Create Connections**
@@ -113,91 +113,88 @@ This tutorial will show more advanced features of the graphical editor.  These f
 	Create a new package named "Hardware" and open with diagram editor.
 
 3. **Create Classifiers**
-	1. Create a bus type named "EthernetSwitch" that contains four provides bus accesses with their classifier set to *Hardware::EthernetSwitch*: 
-		1. "CPUAccess".
-		2. "Sensor1Access".
-		3. "Sensor2Access".
-		4. "ActuatorAccess".  
+	1. Create a bus type named "Ethernet".  
+	2. Create a device type named "EthernetSwitch".
+		1. Create Features:
+			1. Requires bus access named "Eth1".
+			2. Provides bus access named "Eth2".
+			3. Provides bus access named "Eth3".
+			4. Provides bus access named "Eth4".
+		2. Set the four bus accesses' classifier to *Hardware::Ethernet*.  
 ![](../images/EthernetSwitch.png)  
-	2. Create a device type named "Ethernet" that contains:
-		1. Bidirectional data port named "EthernetPort".
-		2. Requires bus access named "SwitchAccess" with the classifier set to *Hardware::EthernetSwitch*.  
-		![](../images/Ethernet.png)  
 	3. Create a device type named "Sensor" that contains:
-		1. Bidirectional data port named "SensorData".
-		2. Output data port named "SensorOut".  
+		1. Requires bus access named "Eth" with classifier set to *Hardware::Ethernet*.
+		2. Output data port named "Sensor".  
 		![](../images/Sensor.png)  
 	4. Create a device type named "Actuator" that contains:
-		1. Bidirectional data port named "ActuatorData".
-		2. Input data port named "ActuatorIn".  
+		1. Requires bus access named "Eth" with classifier set to *Hardware::Ethernet*.
+		2. Input data port named "Command".  
 		![](../images/Actuator.png)  
-	5. Create a processor type named "CPU" that contains a bidirectional data port named "CPUData".  
+	5. Create a processor type named "CPU" that contains a requires bus access named "Eth" with classifier set to *Hardware::Ethernet*.  
 	![](../images/CPU.png)  
-	6. Create a system and system implementation named "TempuratureSystem" and "TempuratureSystem.Impl", respectively, that contains:
-		1. Input data port named "CommandIn".
-		2. Output data port named "Sensor1DataOut".
-		3. Output data port named "Sensor2DataOut".
+	6. Create a system and system implementation named "ExecutionPlatform" and "ExecutionPlatform.Impl", respectively, that contains:
+		1. Input data port named "Command".
+		2. Output data port named "Sensor1".
+		3. Output data port named "Sensor2".  
 ![](../images/HardwarePackage.png)
 		
 4. **Set AADL Properties**
 	1. Select *Window->Show View-> AADL Property Values*.
 	2. Select *Show undefined properties* in the view menu.
 	![](../images/ShowUndefinedProperties.png)  
-	3. Select the *EthernetSwitch* diagram element.
-	4. Right-click *Memory_Properties::Data_Size*
+	3. Select the *Ethernet* diagram element.
+	4. Right-click *SEI::BandWidthCapacity*
 	5. Select *Create Local Property Association*.
-	6. Enter "200 Bytes".  
+	6. Enter "100.0 MBytesps".  
 	![](../images/AADLPropertyValues.png)  
-	7. Set *SEI::BandwidthCapacity* to "50.0 KBytesps".
-	8. Set *Timing_Properties::Period* to "25ms".
 	
 5. **Show AADL Properties on Diagrams**
-	1. Right-click *EthernetSwitch*.
+	1. Right-click *Ethernet* diagram element.
 	2. Select *Configure Diagram...*, the dialog will appear.
 	3. Select *Add...* in the *AADL Properties* section.
-	4. Select *Timing_Properties->Period*.
+	4. Select *SEI->BandWidthCapacity*.
 	5. Select *OK*.
 	
 6. **Open Implementation Diagram**	
-	Open the *TempuratureSystem.Impl* implementation diagram.
+	Open the *ExecutionPlatform.Impl* implementation diagram.
 
 7. **Create Subcomponents**
-	1. Create a processor named "CPU" with classifier set to *TemperatureSystem::CPU*.
-	2. Create a device named "TempSensor1" with classifier set to *TemperatureSystem::Sensor*.
-	3. Create a device named "TempSensor2" with classifier set to *TemperatureSystem::Sensor*.
-	4. Create a device named "Actuator" with classifier set to *TemeratureSystem::Actuator*.
-	5. Create four devices named "CPUEthernet", "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and set their classifiers to *TemperatureSystem::Ethernet*.
-	6. Create a bus named "EthernetSwitch" with classifier set to *TemperatureSystem::EthernetSwtich*.  
-	![](../images/TemperatureSystemImplSubcomponents.png)  
+	1. Create a processor named "CPU" with classifier set to *Hardware::CPU*.
+	2. Create a device named "TempSensor1" with classifier set to *Hardware::Sensor*.
+	3. Create a device named "TempSensor2" with classifier set to *Hardware::Sensor*.
+	4. Create a device named "Actuator" with classifier set to *Hardware::Actuator*.
+	5. Create three buses named "Sensor1Ethernet", "Sensor2Ethernet", "ActuatorEthernet", and set their classifiers to *Hardware::Ethernet*.
+	6. Create a device named "EthernetSwitch" with classifier set to *Hardware::EthernetSwitch*.  
+	![](../images/ExecutionPlatformImplSubcomponents.png)  
 
 8. **Create Connections**
 	1. Create access connections:
-		1. EthernetSwitch.CPUAccess -> CPUEthernet.SwitchAccess named "CPUAccessCon".
-		2. EthernetSwitch.Sensor1Access -> Sensor1Ethernet.SwitchAccess named "Sensor1AccessCon".
-		3. EthernetSwitch.Sensor2Access -> Sensor2Ethernet.SwitchAccess named "Sensor2AccessCon".
-		4. EthernetSwitch.ActuatorAccess -> ActuatorEthernet.SwitchAccess named "ActuatorAccessCon".  
-			![](../images/EthernetSwitchConnections.png)  
+		1. EthernetSwitch.Eth1 -> CPU.Eth named "CPUCon".
+		2. Sensor1Ethernet -> EthernetSwitch.Eth2 named "Sensor1Eth1".
+		4. Sensor1Ethernet -> TempSensor1.Eth named "Sensor1Eth2".
+		5. Sensor2Ethernet -> EthernetSwtich.Eth3 named "Sensor2Eth1".
+		6. Sensor2Ethernet -> TempSensor2.Eth named "Sensor2Eth2".
+		7. ActuatorEthernet -> EthernetSwitch.Eth4 named "ActuatorEth1".
+		8. ActuatorEthernet -> Actuator.Eth named "ActuatorEth2".  
+		![](../images/ExecutionPlatformImplAccessConnections.png)  
 	2. Create port connections:
-		1. CPUEthernet.EthernetPort -> CPU.CPUData.
-		2. Sensor1Ethernet.EthernetPort -> TempSensor1.SensorData.
-		3. Sensor2Ethernet.EthernetPort -> TempSensor2.SensorData.
-		4. ActuatorEthernet.EthernetPort -> Actuator.ActuatorData.
-	3. Select *Edit->Select All Connections*.
-	4. Select *Bidirectional* in the *AADL* section of the *Properties* view.
-	5. Create port connections:
-		1. TempSensor1.SensorOut -> TemperatureSystem.Impl.Sensor1DataOut.
-		2. TempSensor2.SensorOut -> TemperatureSystem.Impl.Sensor2DataOut.
-		3. TemperatureSystem.Impl.CommandIn -> Actuator.ActuatorIn.  
-				![](../images/TemperatureSystemImplConnections.png)  
+		1. ExecutionPlatform.Impl.Command -> Actuator.Command.
+		2. TempSensor1.Sensor -> ExecutionPlatform.Impl.Sensor1
+		3. TempSensor2.Sensor -> ExecutionPlatform.Impl.Sensor2
+		![](../images/ExecutionPlatformImplAllConnections.png)  
  	6. Create Connection Bindings (See @sec:bindings)
-		1. Select *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
-		2. Select *Bind...* from the toolbar, the *Bind* dialog will appear.
-		![](../images/BindToolbar.png)
-		3. Select the *EthernetSwitch* diagram element.
-		3. Select *Actual_Connection_Binding* from the drop-down.  
-		![](../images/ConnectionBinding.png)
-		4. Select *OK*.
-	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 10.0 KBytesps for *CPUAccessCon*, *ActuatorAccessCon*, *Sensor1AccessCon*, and *Sensor2AccessCon*.
+ 		1. *Sensor1Ethernet* Bindings
+			1. Select connections *Sensor1Eth1* and *Sensor1Eth2*.
+			2. Select *Bind...* from the toolbar, the *Bind* dialog will appear.
+			![](../images/BindToolbar.png)
+			3. Select the *Sensor1Ethernet* diagram element.
+			3. Select *Actual_Connection_Binding* from the drop-down.  
+			![](../images/ConnectionBinding.png)
+			4. Select *OK*.
+		2. Use the *Bind...* tool to set *Actual_Connection_Binding* for:
+			1. *Sensor2Eth1* and *Sensor2Eth2* to *Sensor2Ethernet*.
+			2.*ActuatorEth1* and *ActuatorEth2* to *ActuatorEthernet*.		
+	7. Use the *AADL Property Values* view to set *SEI::BandwidthBudget* to 50.0 MBytesps for *Sensor1Eth1*, *Sensor1Eth2*, *Sensor2Eth1*, *Sensor2Eth2*, *ActuatorEth1*, and *ActuatorEth2*.
 
 9. **Create Package**  
 	Create a package named "Software" and open with diagram editor.
@@ -217,23 +214,23 @@ This tutorial will show more advanced features of the graphical editor.  These f
 		2. Output data port named ""ControllerOut".
 		3. Thread named "ProduceCommand" with classifier set to *Software::ProcessData*.
 		4. Right-click *Controller.Impl.ProduceCommand* and select *Show->Features->All*.
-		5. Port connection: *Controller.Impl.ControllerIn* -> *ProduceCommand.DataIn*.
-		6. Port connection: *ProduceCommand.DataOut* -> *Controller.Impl.ControllerOut*.
+		5. Port connection: *Controller.Impl.Controller* -> *ProduceCommand.DataIn*.
+		6. Port connection: *ProduceCommand.DataOut* -> *Controller.Impl.Command*.
 				![](../images/ControllerImpl.png)  
 	4. Create a process type and implementation named "Fuser" and "Fuser.Impl", respectively, that contains:
-		1. Input data port named "Sensor1DataIn".
-		2. Input data port named "Sensor2DataIn".
-		3. Output data port named "FuseOut".
+		1. Input data port named "Sensor1".
+		2. Input data port named "Sensor2".
+		3. Output data port named "Fused".
 		4. Thread named "ReadSensors" with classifier set to *Software::ReadData*.
 		5. Thread named "FuseData" with classifier set to *Software::ProcessData*.
-		6. Port connection: *Fuser.Impl.Sensor1DataIn* -> *ReadSensors.Sensor1DataIn*.
-		7. Port connection: *Fuser.Impl.Sensor2DataIn* -> *ReadSensors.Sensor2DataIn*.
+		6. Port connection: *Fuser.Impl.Sensor1* -> *ReadSensors.Sensor1*.
+		7. Port connection: *Fuser.Impl.Sensor2* -> *ReadSensors.Sensor2*.
 		8. Port connection: *ReadSensors.DataOut* -> *FuseData.DataIn*.
-		9. Port connection: *FuseData.DataOut* -> *FuseOut*.
-		![](../images/FuserImpl.png)    
+		9. Port connection: *FuseData.DataOut* -> *Fuser.Impl.Fused*.
+		![](../images/FuserImpl.png)  
 	5. Create a system type and implementation named "Application" and "Application.Impl", respectively, that contains:
-		1. Two input data ports named "Sensor1DataIn" and "Sensor2DataIn".
-		2. Output data port named "CommandOut".  
+		1. Two input data ports named "Sensor1" and "Sensor2".
+		2. Output data port named "Command".  
 		![](../images/ApplicationImpl.png)
 		
 11. **Open Implementation Diagram**  
@@ -243,26 +240,26 @@ This tutorial will show more advanced features of the graphical editor.  These f
 	1. Create a process named "Fuser" with classifier set to *Software::Fuser.Impl*.
 	2. Create a process named "Controller" with classifier set to *Software::Controller.Impl*.
 	3. Create port connections:
-		1. *Application.Impl.Sensor1DataIn* -> *Fuser.Sensor1DataIn*.
-		2. *Application.Impl.Sensor2DataIn* -> *Fuser.Sensor2DataIn*.
-		3. *Fuser.FuseOut* -> *Controller.ControllerIn*.
-		4. *Controller.ControllerOut* -> *Application.CommandOut*.
+		1. *Application.Impl.Sensor1* -> *Fuser.Sensor1*.
+		2. *Application.Impl.Sensor2* -> *Fuser.Sensor2*.
+		3. *Fuser.Fused* -> *Controller.Controller*.
+		4. *Controller.Command* -> *Application.Command*.
 		![](../images/ApplicationImplFull.png)
 		
 13. **Create Package**  
 	Create a package named "Integration" and open with diagram editor.
 
-13. **Create System Classifiers**  
-	Create a system type and implementation named "ControlSystem" and "ControlSystem.Impl", respectively, that contains:
-	1. System named "TemperatureSystem" with classifier set to *Hardware::TemperatureSystem.Impl*.
+14. **Create System Classifiers**  
+	Create a system type and implementation named "ControlSystem" and "ControlSystem.Impl", respectively, that contains:  
+	1. System named "ExecutionPlatform" with classifier set to *Hardware::ExecutionPlatform.Impl*.
 	2. System named "Application" with classifier set to *Software::Application.Impl*.
-	3. Port connection: *Application.CommandOut* -> *TemperatureSystem.CommandIn*.
-	4. Port connection: *TemperatureSystem.Sensor1DataOut* -> *Application.Sensor1DataIn*.
-	5. Port connection: *TemperatureSystem.Sensor2DataOut* -> *Application.Sensor2DataIn*.
+	3. Port connection: *Application.Command* -> *ExecutionPlatform.Command*.
+	4. Port connection: *ExecutionPlatform.Sensor1* -> *Application.Sensor1*.
+	5. Port connection: *ExecutionPlatform.Sensor2* -> *Application.Sensor2*.
 	![](../images/ControlSystemImpl.png)
 
 15. **Create Processor Binding** (See @sec:bindings)
-	1. Right-click *TemperatureSystem* diagram element.
+	1. Right-click *ExecutionPlaform* diagram element.
 	2. Select *Show->Subcomponents->Processors*.
 	3. Select *Application* diagram element.
 	4. Select *Bind...* from the toolbar.

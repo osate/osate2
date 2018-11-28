@@ -194,7 +194,8 @@ While viewing the AlarmModel package diagram:
 </ol></li>
 <li>Create an input data port named &quot;DataIn&quot; in <em>Controller</em> and set the classifier to <em>AlarmModel::SensorData</em>.</li>
 <li>Create two output event ports, &quot;TriggerPortOut&quot; and &quot;SilencePortOut&quot; to <em>Controller</em>.</li>
-<li>Create two input event ports, &quot;TriggerPortIn&quot; and &quot;SilencePortIn&quot; to <em>Alarm</em>. <img src="../images/SecuritySystemImplFeatures.png" /></li>
+<li>Create two input event ports, &quot;TriggerPortIn&quot; and &quot;SilencePortIn&quot; to <em>Alarm</em>.<br />
+<img src="../images/SecuritySystemImplFeatures.png" /></li>
 </ol></li>
 <li><strong>Create Connections</strong>
 <ol type="1">
@@ -221,44 +222,44 @@ Create a new project named &quot;ClimateControl&quot;.</p></li>
 Create a new package named &quot;Hardware&quot; and open with diagram editor.</p></li>
 <li><strong>Create Classifiers</strong>
 <ol type="1">
-<li>Create a bus type named &quot;EthernetSwitch&quot; that contains four provides bus accesses with their classifier set to <em>Hardware::EthernetSwitch</em>:
-<ol type="1">
-<li>&quot;CPUAccess&quot;.</li>
-<li>&quot;Sensor1Access&quot;.</li>
-<li>&quot;Sensor2Access&quot;.</li>
-<li>&quot;ActuatorAccess&quot;.<br />
-<img src="../images/EthernetSwitch.png" /><br />
+<li>Create a bus type named &quot;Ethernet&quot;.<br />
 </li>
-</ol></li>
-<li>Create a device type named &quot;Ethernet&quot; that contains:
+<li>Create a device type named &quot;EthernetSwitch&quot;.
 <ol type="1">
-<li>Bidirectional data port named &quot;EthernetPort&quot;.</li>
-<li>Requires bus access named &quot;SwitchAccess&quot; with the classifier set to <em>Hardware::EthernetSwitch</em>.<br />
-<img src="../images/Ethernet.png" /><br />
+<li>Create Features:
+<ol type="1">
+<li>Requires bus access named &quot;Eth1&quot;.</li>
+<li>Provides bus access named &quot;Eth2&quot;.</li>
+<li>Provides bus access named &quot;Eth3&quot;.</li>
+<li>Provides bus access named &quot;Eth4&quot;.</li>
+</ol></li>
+<li>Set the four bus accesses' classifier to <em>Hardware::Ethernet</em>.<br />
+<img src="../images/EthernetSwitch.png" /><br />
 </li>
 </ol></li>
 <li>Create a device type named &quot;Sensor&quot; that contains:
 <ol type="1">
-<li>Bidirectional data port named &quot;SensorData&quot;.</li>
-<li>Output data port named &quot;SensorOut&quot;.<br />
+<li>Requires bus access named &quot;Eth&quot; with classifier set to <em>Hardware::Ethernet</em>.</li>
+<li>Output data port named &quot;Sensor&quot;.<br />
 <img src="../images/Sensor.png" /><br />
 </li>
 </ol></li>
 <li>Create a device type named &quot;Actuator&quot; that contains:
 <ol type="1">
-<li>Bidirectional data port named &quot;ActuatorData&quot;.</li>
-<li>Input data port named &quot;ActuatorIn&quot;.<br />
+<li>Requires bus access named &quot;Eth&quot; with classifier set to <em>Hardware::Ethernet</em>.</li>
+<li>Input data port named &quot;Command&quot;.<br />
 <img src="../images/Actuator.png" /><br />
 </li>
 </ol></li>
-<li>Create a processor type named &quot;CPU&quot; that contains a bidirectional data port named &quot;CPUData&quot;.<br />
+<li>Create a processor type named &quot;CPU&quot; that contains a requires bus access named &quot;Eth&quot; with classifier set to <em>Hardware::Ethernet</em>.<br />
 <img src="../images/CPU.png" /><br />
 </li>
-<li>Create a system and system implementation named &quot;TempuratureSystem&quot; and &quot;TempuratureSystem.Impl&quot;, respectively, that contains:
+<li>Create a system and system implementation named &quot;ExecutionPlatform&quot; and &quot;ExecutionPlatform.Impl&quot;, respectively, that contains:
 <ol type="1">
-<li>Input data port named &quot;CommandIn&quot;.</li>
-<li>Output data port named &quot;Sensor1DataOut&quot;.</li>
-<li>Output data port named &quot;Sensor2DataOut&quot;. <img src="../images/HardwarePackage.png" /></li>
+<li>Input data port named &quot;Command&quot;.</li>
+<li>Output data port named &quot;Sensor1&quot;.</li>
+<li>Output data port named &quot;Sensor2&quot;.<br />
+<img src="../images/HardwarePackage.png" /></li>
 </ol></li>
 </ol></li>
 <li><strong>Set AADL Properties</strong>
@@ -266,73 +267,71 @@ Create a new package named &quot;Hardware&quot; and open with diagram editor.</p
 <li>Select <em>Window-&gt;Show View-&gt; AADL Property Values</em>.</li>
 <li>Select <em>Show undefined properties</em> in the view menu. <img src="../images/ShowUndefinedProperties.png" /><br />
 </li>
-<li>Select the <em>EthernetSwitch</em> diagram element.</li>
-<li>Right-click <em>Memory_Properties::Data_Size</em></li>
+<li>Select the <em>Ethernet</em> diagram element.</li>
+<li>Right-click <em>SEI::BandWidthCapacity</em></li>
 <li>Select <em>Create Local Property Association</em>.</li>
-<li>Enter &quot;200 Bytes&quot;.<br />
-<img src="../images/AADLPropertyValues.png" /><br />
-</li>
-<li>Set <em>SEI::BandwidthCapacity</em> to &quot;50.0 KBytesps&quot;.</li>
-<li>Set <em>Timing_Properties::Period</em> to &quot;25ms&quot;.</li>
+<li>Enter &quot;100.0 MBytesps&quot;.<br />
+<img src="../images/AADLPropertyValues.png" /></li>
 </ol></li>
 <li><strong>Show AADL Properties on Diagrams</strong>
 <ol type="1">
-<li>Right-click <em>EthernetSwitch</em>.</li>
+<li>Right-click <em>Ethernet</em> diagram element.</li>
 <li>Select <em>Configure Diagram...</em>, the dialog will appear.</li>
 <li>Select <em>Add...</em> in the <em>AADL Properties</em> section.</li>
-<li>Select <em>Timing_Properties-&gt;Period</em>.</li>
+<li>Select <em>SEI-&gt;BandWidthCapacity</em>.</li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
 <li><p><strong>Open Implementation Diagram</strong><br />
-Open the <em>TempuratureSystem.Impl</em> implementation diagram.</p></li>
+Open the <em>ExecutionPlatform.Impl</em> implementation diagram.</p></li>
 <li><strong>Create Subcomponents</strong>
 <ol type="1">
-<li>Create a processor named &quot;CPU&quot; with classifier set to <em>TemperatureSystem::CPU</em>.</li>
-<li>Create a device named &quot;TempSensor1&quot; with classifier set to <em>TemperatureSystem::Sensor</em>.</li>
-<li>Create a device named &quot;TempSensor2&quot; with classifier set to <em>TemperatureSystem::Sensor</em>.</li>
-<li>Create a device named &quot;Actuator&quot; with classifier set to <em>TemeratureSystem::Actuator</em>.</li>
-<li>Create four devices named &quot;CPUEthernet&quot;, &quot;Sensor1Ethernet&quot;, &quot;Sensor2Ethernet&quot;, &quot;ActuatorEthernet&quot;, and set their classifiers to <em>TemperatureSystem::Ethernet</em>.</li>
-<li>Create a bus named &quot;EthernetSwitch&quot; with classifier set to <em>TemperatureSystem::EthernetSwtich</em>.<br />
-<img src="../images/TemperatureSystemImplSubcomponents.png" /></li>
+<li>Create a processor named &quot;CPU&quot; with classifier set to <em>Hardware::CPU</em>.</li>
+<li>Create a device named &quot;TempSensor1&quot; with classifier set to <em>Hardware::Sensor</em>.</li>
+<li>Create a device named &quot;TempSensor2&quot; with classifier set to <em>Hardware::Sensor</em>.</li>
+<li>Create a device named &quot;Actuator&quot; with classifier set to <em>Hardware::Actuator</em>.</li>
+<li>Create three buses named &quot;Sensor1Ethernet&quot;, &quot;Sensor2Ethernet&quot;, &quot;ActuatorEthernet&quot;, and set their classifiers to <em>Hardware::Ethernet</em>.</li>
+<li>Create a device named &quot;EthernetSwitch&quot; with classifier set to <em>Hardware::EthernetSwitch</em>.<br />
+<img src="../images/ExecutionPlatformImplSubcomponents.png" /></li>
 </ol></li>
 <li><strong>Create Connections</strong>
 <ol type="1">
 <li>Create access connections:
 <ol type="1">
-<li>EthernetSwitch.CPUAccess -&gt; CPUEthernet.SwitchAccess named &quot;CPUAccessCon&quot;.</li>
-<li>EthernetSwitch.Sensor1Access -&gt; Sensor1Ethernet.SwitchAccess named &quot;Sensor1AccessCon&quot;.</li>
-<li>EthernetSwitch.Sensor2Access -&gt; Sensor2Ethernet.SwitchAccess named &quot;Sensor2AccessCon&quot;.</li>
-<li>EthernetSwitch.ActuatorAccess -&gt; ActuatorEthernet.SwitchAccess named &quot;ActuatorAccessCon&quot;.<br />
-<img src="../images/EthernetSwitchConnections.png" /><br />
+<li>EthernetSwitch.Eth1 -&gt; CPU.Eth named &quot;CPUCon&quot;.</li>
+<li>Sensor1Ethernet -&gt; EthernetSwitch.Eth2 named &quot;Sensor1Eth1&quot;.</li>
+<li>Sensor1Ethernet -&gt; TempSensor1.Eth named &quot;Sensor1Eth2&quot;.</li>
+<li>Sensor2Ethernet -&gt; EthernetSwtich.Eth3 named &quot;Sensor2Eth1&quot;.</li>
+<li>Sensor2Ethernet -&gt; TempSensor2.Eth named &quot;Sensor2Eth2&quot;.</li>
+<li>ActuatorEthernet -&gt; EthernetSwitch.Eth4 named &quot;ActuatorEth1&quot;.</li>
+<li>ActuatorEthernet -&gt; Actuator.Eth named &quot;ActuatorEth2&quot;.<br />
+<img src="../images/ExecutionPlatformImplAccessConnections.png" /><br />
 </li>
 </ol></li>
 <li>Create port connections:
 <ol type="1">
-<li>CPUEthernet.EthernetPort -&gt; CPU.CPUData.</li>
-<li>Sensor1Ethernet.EthernetPort -&gt; TempSensor1.SensorData.</li>
-<li>Sensor2Ethernet.EthernetPort -&gt; TempSensor2.SensorData.</li>
-<li>ActuatorEthernet.EthernetPort -&gt; Actuator.ActuatorData.</li>
-</ol></li>
-<li>Select <em>Edit-&gt;Select All Connections</em>.</li>
-<li>Select <em>Bidirectional</em> in the <em>AADL</em> section of the <em>Properties</em> view.</li>
-<li>Create port connections:
-<ol type="1">
-<li>TempSensor1.SensorOut -&gt; TemperatureSystem.Impl.Sensor1DataOut.</li>
-<li>TempSensor2.SensorOut -&gt; TemperatureSystem.Impl.Sensor2DataOut.</li>
-<li>TemperatureSystem.Impl.CommandIn -&gt; Actuator.ActuatorIn.<br />
-<img src="../images/TemperatureSystemImplConnections.png" /><br />
+<li>ExecutionPlatform.Impl.Command -&gt; Actuator.Command.</li>
+<li>TempSensor1.Sensor -&gt; ExecutionPlatform.Impl.Sensor1</li>
+<li>TempSensor2.Sensor -&gt; ExecutionPlatform.Impl.Sensor2 <img src="../images/ExecutionPlatformImplAllConnections.png" /><br />
 </li>
 </ol></li>
 <li>Create Connection Bindings (See section <a href="#sec:bindings">4.7</a>)
 <ol type="1">
-<li>Select <em>CPUAccessCon</em>, <em>ActuatorAccessCon</em>, <em>Sensor1AccessCon</em>, and <em>Sensor2AccessCon</em>.</li>
+<li><em>Sensor1Ethernet</em> Bindings
+<ol type="1">
+<li>Select connections <em>Sensor1Eth1</em> and <em>Sensor1Eth2</em>.</li>
 <li>Select <em>Bind...</em> from the toolbar, the <em>Bind</em> dialog will appear. <img src="../images/BindToolbar.png" /></li>
-<li>Select the <em>EthernetSwitch</em> diagram element.</li>
+<li>Select the <em>Sensor1Ethernet</em> diagram element.</li>
 <li>Select <em>Actual_Connection_Binding</em> from the drop-down.<br />
 <img src="../images/ConnectionBinding.png" /></li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
-<li>Use the <em>AADL Property Values</em> view to set <em>SEI::BandwidthBudget</em> to 10.0 KBytesps for <em>CPUAccessCon</em>, <em>ActuatorAccessCon</em>, <em>Sensor1AccessCon</em>, and <em>Sensor2AccessCon</em>.</li>
+<li>Use the <em>Bind...</em> tool to set <em>Actual_Connection_Binding</em> for:
+<ol type="1">
+<li><em>Sensor2Eth1</em> and <em>Sensor2Eth2</em> to <em>Sensor2Ethernet</em>. 2.<em>ActuatorEth1</em> and <em>ActuatorEth2</em> to <em>ActuatorEthernet</em>.<br />
+</li>
+</ol></li>
+</ol></li>
+<li>Use the <em>AADL Property Values</em> view to set <em>SEI::BandwidthBudget</em> to 50.0 MBytesps for <em>Sensor1Eth1</em>, <em>Sensor1Eth2</em>, <em>Sensor2Eth1</em>, <em>Sensor2Eth2</em>, <em>ActuatorEth1</em>, and <em>ActuatorEth2</em>.</li>
 </ol></li>
 <li><p><strong>Create Package</strong><br />
 Create a package named &quot;Software&quot; and open with diagram editor.</p></li>
@@ -358,27 +357,27 @@ Create a package named &quot;Software&quot; and open with diagram editor.</p></l
 <li>Output data port named &quot;&quot;ControllerOut&quot;.</li>
 <li>Thread named &quot;ProduceCommand&quot; with classifier set to <em>Software::ProcessData</em>.</li>
 <li>Right-click <em>Controller.Impl.ProduceCommand</em> and select <em>Show-&gt;Features-&gt;All</em>.</li>
-<li>Port connection: <em>Controller.Impl.ControllerIn</em> -&gt; <em>ProduceCommand.DataIn</em>.</li>
-<li>Port connection: <em>ProduceCommand.DataOut</em> -&gt; <em>Controller.Impl.ControllerOut</em>. <img src="../images/ControllerImpl.png" /><br />
+<li>Port connection: <em>Controller.Impl.Controller</em> -&gt; <em>ProduceCommand.DataIn</em>.</li>
+<li>Port connection: <em>ProduceCommand.DataOut</em> -&gt; <em>Controller.Impl.Command</em>. <img src="../images/ControllerImpl.png" /><br />
 </li>
 </ol></li>
 <li>Create a process type and implementation named &quot;Fuser&quot; and &quot;Fuser.Impl&quot;, respectively, that contains:
 <ol type="1">
-<li>Input data port named &quot;Sensor1DataIn&quot;.</li>
-<li>Input data port named &quot;Sensor2DataIn&quot;.</li>
-<li>Output data port named &quot;FuseOut&quot;.</li>
+<li>Input data port named &quot;Sensor1&quot;.</li>
+<li>Input data port named &quot;Sensor2&quot;.</li>
+<li>Output data port named &quot;Fused&quot;.</li>
 <li>Thread named &quot;ReadSensors&quot; with classifier set to <em>Software::ReadData</em>.</li>
 <li>Thread named &quot;FuseData&quot; with classifier set to <em>Software::ProcessData</em>.</li>
-<li>Port connection: <em>Fuser.Impl.Sensor1DataIn</em> -&gt; <em>ReadSensors.Sensor1DataIn</em>.</li>
-<li>Port connection: <em>Fuser.Impl.Sensor2DataIn</em> -&gt; <em>ReadSensors.Sensor2DataIn</em>.</li>
+<li>Port connection: <em>Fuser.Impl.Sensor1</em> -&gt; <em>ReadSensors.Sensor1</em>.</li>
+<li>Port connection: <em>Fuser.Impl.Sensor2</em> -&gt; <em>ReadSensors.Sensor2</em>.</li>
 <li>Port connection: <em>ReadSensors.DataOut</em> -&gt; <em>FuseData.DataIn</em>.</li>
-<li>Port connection: <em>FuseData.DataOut</em> -&gt; <em>FuseOut</em>. <img src="../images/FuserImpl.png" /><br />
+<li>Port connection: <em>FuseData.DataOut</em> -&gt; <em>Fuser.Impl.Fused</em>. <img src="../images/FuserImpl.png" /><br />
 </li>
 </ol></li>
 <li>Create a system type and implementation named &quot;Application&quot; and &quot;Application.Impl&quot;, respectively, that contains:
 <ol type="1">
-<li>Two input data ports named &quot;Sensor1DataIn&quot; and &quot;Sensor2DataIn&quot;.</li>
-<li>Output data port named &quot;CommandOut&quot;.<br />
+<li>Two input data ports named &quot;Sensor1&quot; and &quot;Sensor2&quot;.</li>
+<li>Output data port named &quot;Command&quot;.<br />
 <img src="../images/ApplicationImpl.png" /></li>
 </ol></li>
 </ol></li>
@@ -390,10 +389,10 @@ Open <em>Application.Impl</em> implementation diagram.</p></li>
 <li>Create a process named &quot;Controller&quot; with classifier set to <em>Software::Controller.Impl</em>.</li>
 <li>Create port connections:
 <ol type="1">
-<li><em>Application.Impl.Sensor1DataIn</em> -&gt; <em>Fuser.Sensor1DataIn</em>.</li>
-<li><em>Application.Impl.Sensor2DataIn</em> -&gt; <em>Fuser.Sensor2DataIn</em>.</li>
-<li><em>Fuser.FuseOut</em> -&gt; <em>Controller.ControllerIn</em>.</li>
-<li><em>Controller.ControllerOut</em> -&gt; <em>Application.CommandOut</em>. <img src="../images/ApplicationImplFull.png" /></li>
+<li><em>Application.Impl.Sensor1</em> -&gt; <em>Fuser.Sensor1</em>.</li>
+<li><em>Application.Impl.Sensor2</em> -&gt; <em>Fuser.Sensor2</em>.</li>
+<li><em>Fuser.Fused</em> -&gt; <em>Controller.Controller</em>.</li>
+<li><em>Controller.Command</em> -&gt; <em>Application.Command</em>. <img src="../images/ApplicationImplFull.png" /></li>
 </ol></li>
 </ol></li>
 <li><p><strong>Create Package</strong><br />
@@ -401,15 +400,15 @@ Create a package named &quot;Integration&quot; and open with diagram editor.</p>
 <li><strong>Create System Classifiers</strong><br />
 Create a system type and implementation named &quot;ControlSystem&quot; and &quot;ControlSystem.Impl&quot;, respectively, that contains:
 <ol type="1">
-<li>System named &quot;TemperatureSystem&quot; with classifier set to <em>Hardware::TemperatureSystem.Impl</em>.</li>
+<li>System named &quot;ExecutionPlatform&quot; with classifier set to <em>Hardware::ExecutionPlatform.Impl</em>.</li>
 <li>System named &quot;Application&quot; with classifier set to <em>Software::Application.Impl</em>.</li>
-<li>Port connection: <em>Application.CommandOut</em> -&gt; <em>TemperatureSystem.CommandIn</em>.</li>
-<li>Port connection: <em>TemperatureSystem.Sensor1DataOut</em> -&gt; <em>Application.Sensor1DataIn</em>.</li>
-<li>Port connection: <em>TemperatureSystem.Sensor2DataOut</em> -&gt; <em>Application.Sensor2DataIn</em>. <img src="../images/ControlSystemImpl.png" /></li>
+<li>Port connection: <em>Application.Command</em> -&gt; <em>ExecutionPlatform.Command</em>.</li>
+<li>Port connection: <em>ExecutionPlatform.Sensor1</em> -&gt; <em>Application.Sensor1</em>.</li>
+<li>Port connection: <em>ExecutionPlatform.Sensor2</em> -&gt; <em>Application.Sensor2</em>. <img src="../images/ControlSystemImpl.png" /></li>
 </ol></li>
 <li><strong>Create Processor Binding</strong> (See section <a href="#sec:bindings">4.7</a>)
 <ol type="1">
-<li>Right-click <em>TemperatureSystem</em> diagram element.</li>
+<li>Right-click <em>ExecutionPlaform</em> diagram element.</li>
 <li>Select <em>Show-&gt;Subcomponents-&gt;Processors</em>.</li>
 <li>Select <em>Application</em> diagram element.</li>
 <li>Select <em>Bind...</em> from the toolbar.</li>
