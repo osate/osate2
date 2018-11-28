@@ -51,32 +51,6 @@
 			<arg value="../docs-gen/user_guide_toc.xml"/>
 		</exec>
 		
-		<!-- User Guide -->
-				<exec executable="pandoc" dir="./docs/">
-					<arg value="user_guide1.md"/>
-					<arg value="--toc"/>
-					<arg value="--number-sections"/>
-			    	<arg value="-s"/>
-					<arg value="--filter"/>
-					<arg value="pandoc-crossref"/>
-			   		<arg value="-f"/>
-			   	    <arg value="markdown"/>
-			   		<arg value="-t"/>
-			   		<arg value="html5"/>
-					<arg value="--css=../css/pandoc.css"/>
-			   		<arg value="-o"/>
-					<arg value="../docs-gen/user_guide1.html"/>
-				</exec>
-				
-				<exec executable="pandoc" dir="./docs/">
-					<env key="HTML_FILEPATH" value="docs-gen/user_guide1.html"/>
-					<arg value="user_guide.md"/>
-			    	<arg value="-t"/>
-			   		<arg value="../create_toc.lua"/>
-			   		<arg value="-o"/>
-					<arg value="../docs-gen/user_guide_toc1.xml"/>
-				</exec>
-		
 		<!-- Developer Guide -->
 		<exec executable="pandoc" dir="./docs/">
 			<arg value="dev_guide.md"/>
