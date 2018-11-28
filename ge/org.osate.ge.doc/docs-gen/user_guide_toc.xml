@@ -1,205 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <toc label="OSATE Graphical Editor User Guide" topic="docs-gen/user_guide.html">
-	<topic label="Getting Started" href="docs-gen/user_guide.html#getting-started">
-		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
-			<topic label="Creating an AADL Diagram using the AADL Diagram Wizard" href="docs-gen/user_guide.html#creating-an-aadl-diagram-using-the-aadl-diagram-wizard">
+	<topic label="Tutorial: Getting Started" href="docs-gen/user_guide.html#sec:getting_started">
+	</topic>
+	<topic label="Tutorial: Advanced" href="docs-gen/user_guide.html#tutorial-advanced">
+		<topic label="Define the Execution Platform" href="docs-gen/user_guide.html#define-the-execution-platform">
+		</topic>
+		<topic label="Define the Application" href="docs-gen/user_guide.html#define-the-application">
+		</topic>
+		<topic label="Define the Integrated System" href="docs-gen/user_guide.html#define-the-integrated-system">
+		</topic>
+		<topic label="Instantiate System" href="docs-gen/user_guide.html#instantiate-system">
+		</topic>
+	</topic>
+	<topic label="Creating Model Elements" href="docs-gen/user_guide.html#creating-model-elements">
+		<topic label="Creating Classifier Implementations" href="docs-gen/user_guide.html#creating-classifier-implementations">
+		</topic>
+		<topic label="Creating Mode Transitions" href="docs-gen/user_guide.html#creating-mode-transitions">
+		</topic>
+		<topic label="Creating Flow Implementations and End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-flow-implementations-and-end-to-end-flow-specifications">
+			<topic label="Creating Flow Implementations" href="docs-gen/user_guide.html#creating-flow-implementations">
 			</topic>
-			<topic label="Creating a AADL Diagram from the AADL Diagram Editor" href="docs-gen/user_guide.html#creating-a-aadl-diagram-from-the-aadl-diagram-editor">
+			<topic label="Creating Source Flow Implementations" href="docs-gen/user_guide.html#creating-source-flow-implementations">
 			</topic>
-			<topic label="Creating a AADL Diagram from the AADL Text Editor" href="docs-gen/user_guide.html#creating-a-aadl-diagram-from-the-aadl-text-editor">
+			<topic label="Creating Sink Flow Implementations" href="docs-gen/user_guide.html#creating-sink-flow-implementations">
+			</topic>
+			<topic label="Creating Path Flow Implementations" href="docs-gen/user_guide.html#creating-path-flow-implementations">
+			</topic>
+			<topic label="Creating End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-end-to-end-flow-specifications">
 			</topic>
 		</topic>
-		<topic label="Opening a Diagram for an Existing AADL Model Element" href="docs-gen/user_guide.html#opening-a-diagram-for-an-existing-aadl-model-element">
+		<topic label="Creating Subprogram Call Sequences" href="docs-gen/user_guide.html#sec:subprogram_call_seq">
+			<topic label="Adding Subprogram Calls" href="docs-gen/user_guide.html#adding-subprogram-calls">
+			</topic>
+		</topic>
+	</topic>
+	<topic label="Editing Model Elements" href="docs-gen/user_guide.html#editing-model-elements">
+		<topic label="Properties View" href="docs-gen/user_guide.html#sec:properties_view">
+		</topic>
+		<topic label="Renaming" href="docs-gen/user_guide.html#sec:renaming">
+		</topic>
+		<topic label="Deleting" href="docs-gen/user_guide.html#deleting">
+		</topic>
+		<topic label="Indirect Editing" href="docs-gen/user_guide.html#indirect-editing">
+		</topic>
+		<topic label="Setting the Initial Mode" href="docs-gen/user_guide.html#setting-the-initial-mode">
+		</topic>
+		<topic label="Arrays" href="docs-gen/user_guide.html#arrays">
+		</topic>
+		<topic label="Bindings" href="docs-gen/user_guide.html#sec:bindings">
+		</topic>
+		<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
+		</topic>
+		<topic label="Refining" href="docs-gen/user_guide.html#refining">
+		</topic>
+		<topic label="Selecting Active Components" href="docs-gen/user_guide.html#sec:selective_active_components">
+		</topic>
+		<topic label="Editing Subprogram Call Sequences" href="docs-gen/user_guide.html#editing-subprogram-call-sequences">
+		</topic>
+		<topic label="Extending" href="docs-gen/user_guide.html#extending">
+		</topic>
+		<topic label="Selecting a Diagram Element’s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
+		</topic>
+		<topic label="Selecting All Connections" href="docs-gen/user_guide.html#selecting-all-connections">
+		</topic>
+	</topic>
+	<topic label="Instantiating" href="docs-gen/user_guide.html#sec:instantiating">
+	</topic>
+	<topic label="Copying and Pasting" href="docs-gen/user_guide.html#copying-and-pasting">
+	</topic>
+	<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
+		<topic label="Diagram Types(#sec:diagram_types)" href="docs-gen/user_guide.html#diagram-typessecdiagram_types">
+		</topic>
+	</topic>
+	<topic label="Visualization" href="docs-gen/user_guide.html#visualization">
+		<topic label="Inherited Elements" href="docs-gen/user_guide.html#sec:inherited_elements">
+		</topic>
+		<topic label="Customizing an Element’s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
+		</topic>
+		<topic label="Hidden Children" href="docs-gen/user_guide.html#sec:hidden_children">
+		</topic>
+		<topic label="Abstracted Connections" href="docs-gen/user_guide.html#sec:abstracted_connections">
+		</topic>
+		<topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="docs-gen/user_guide.html#highlighting-flow-implementations-and-end-to-end-flow-specifications">
+		</topic>
+		<topic label="Moving Shapes Using Arrow Keys" href="docs-gen/user_guide.html#moving-shapes-using-arrow-keys">
+		</topic>
+		<topic label="Restore Missing Diagram Elements" href="docs-gen/user_guide.html#sec:restore_missing_diagram_elements">
 		</topic>
 	</topic>
 	<topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams">
-		<topic label="Using the AADL Diagrams View" href="docs-gen/user_guide.html#using-the-aadl-diagrams-view">
+		<topic label="Creating a New Diagram" href="docs-gen/user_guide.html#creating-a-new-diagram">
 		</topic>
-		<topic label="Opening an Associated Diagram" href="docs-gen/user_guide.html#opening-an-associated-diagram">
+		<topic label="Opening Diagrams" href="docs-gen/user_guide.html#opening-diagrams">
+			<topic label="AADL Element Related Diagrams" href="docs-gen/user_guide.html#aadl-element-related-diagrams">
+			</topic>
+			<topic label="AADL Instance Model Diagrams" href="docs-gen/user_guide.html#aadl-instance-model-diagrams">
+			</topic>
 		</topic>
-		<topic label="Opening an Element’s Package Diagram" href="docs-gen/user_guide.html#opening-an-elements-package-diagram">
+		<topic label="Diagrams View" href="docs-gen/user_guide.html#diagrams-view">
 		</topic>
-		<topic label="Opening the Type Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-component-implementation-or-subcomponent">
-		</topic>
-		<topic label="Opening the Implementation Diagram for a Component Implementation or Subcomponent" href="docs-gen/user_guide.html#opening-the-implementation-diagram-for-a-component-implementation-or-subcomponent">
-		</topic>
-		<topic label="Opening an AADL Instance Model" href="docs-gen/user_guide.html#opening-an-aadl-instance-model">
+		<topic label="Diagram Context Adjustment" href="docs-gen/user_guide.html#diagram-context-adjustment">
 		</topic>
 	</topic>
-	<topic label="Editing AADL Diagrams" href="docs-gen/user_guide.html#editing-aadl-diagrams">
-		<topic label="Basics" href="docs-gen/user_guide.html#basics">
-			<topic label="Diagram Types" href="docs-gen/user_guide.html#diagram-types">
-			</topic>
-			<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
-			</topic>
-			<topic label="Showing and Hiding Diagram Element Contents" href="docs-gen/user_guide.html#showing-and-hiding-diagram-element-contents">
-			</topic>
-			<topic label="Hidden Children" href="docs-gen/user_guide.html#hidden-children">
-			</topic>
-			<topic label="Abstracted Connections" href="docs-gen/user_guide.html#abstracted-connections">
-			</topic>
-			<topic label="Copying and Pasting" href="docs-gen/user_guide.html#copying-and-pasting">
-			</topic>
-			<topic label="Inherited Elements" href="docs-gen/user_guide.html#inherited-elements">
-			</topic>
-			<topic label="Indirect Editing" href="docs-gen/user_guide.html#indirect-editing">
-			</topic>
-			<topic label="Editing Properties" href="docs-gen/user_guide.html#editing-properties">
-			</topic>
-			<topic label="Deleting" href="docs-gen/user_guide.html#deleting">
-			</topic>
-			<topic label="Renaming" href="docs-gen/user_guide.html#renaming">
-			</topic>
-			<topic label="Refining" href="docs-gen/user_guide.html#refining">
-			</topic>
-			<topic label="Instantiating" href="docs-gen/user_guide.html#instantiating">
-			</topic>
-			<topic label="Moving Shapes Using Arrow Keys" href="docs-gen/user_guide.html#moving-shapes-using-arrow-keys">
-			</topic>
-			<topic label="Selecting a Diagram Element’s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
-			</topic>
-			<topic label="Editing a Diagram Element’s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
-			</topic>
-			<topic label="Diagram Context Adjustment" href="docs-gen/user_guide.html#diagram-context-adjustment">
-			</topic>
-			<topic label="Restore Missing Diagram Elements" href="docs-gen/user_guide.html#sec:restore_missing_diagram_elements">
-			</topic>
+	<topic label="Diagram Layout" href="docs-gen/user_guide.html#sec:diagram_layout">
+		<topic label="Layout Commands" href="docs-gen/user_guide.html#layout-commands">
 		</topic>
-		<topic label="Annotations and Documentation" href="docs-gen/user_guide.html#annotations-and-documentation">
-			<topic label="Annotations" href="docs-gen/user_guide.html#annotations">
-			</topic>
-			<topic label="AADL Documentation" href="docs-gen/user_guide.html#aadl-documentation">
-			</topic>
+		<topic label="Layout Preferences" href="docs-gen/user_guide.html#sec:layout_preferences">
 		</topic>
-		<topic label="Diagram Layout" href="docs-gen/user_guide.html#diagram-layout">
-			<topic label="Layout Commands" href="docs-gen/user_guide.html#layout-commands">
-			</topic>
-			<topic label="Layout Preferences" href="docs-gen/user_guide.html#layout-preferences">
-				<topic label="Incremental Layout" href="docs-gen/user_guide.html#incremental-layout">
-				</topic>
-				<topic label="Layout Feature Based on Direction" href="docs-gen/user_guide.html#layout-feature-based-on-direction">
-				</topic>
-			</topic>
-			<topic label="Known Layout Issues and Limitations" href="docs-gen/user_guide.html#known-layout-issues-and-limitations">
-			</topic>
+		<topic label="Incremental Layout" href="docs-gen/user_guide.html#incremental-layout">
 		</topic>
-		<topic label="Connections" href="docs-gen/user_guide.html#connections">
-			<topic label="Creating Connections" href="docs-gen/user_guide.html#creating-connections">
-			</topic>
-			<topic label="Editing Connections" href="docs-gen/user_guide.html#editing-connections">
-				<topic label="Using the  View to Edit Connections" href="docs-gen/user_guide.html#using-the-properties-view-to-edit-connections">
-				</topic>
-			</topic>
-			<topic label="Connection_Pattern Property Visualization" href="docs-gen/user_guide.html#connection_pattern-property-visualization">
-			</topic>
-			<topic label="Selecting All Connections" href="docs-gen/user_guide.html#selecting-all-connections">
-			</topic>
+		<topic label="Layout Feature Based on Direction" href="docs-gen/user_guide.html#layout-feature-based-on-direction">
 		</topic>
-		<topic label="Classifiers" href="docs-gen/user_guide.html#classifiers">
-			<topic label="Creating" href="docs-gen/user_guide.html#creating">
-			</topic>
-			<topic label="Extending" href="docs-gen/user_guide.html#extending">
-				<topic label="Using the Palette to Extend a Classifier" href="docs-gen/user_guide.html#using-the-palette-to-extend-a-classifier">
-				</topic>
-				<topic label="Using the  View to Set Extended Classifier" href="docs-gen/user_guide.html#using-the-properties-view-to-set-extended-classifier">
-				</topic>
-			</topic>
+		<topic label="Known Layout Issues and Limitations" href="docs-gen/user_guide.html#known-layout-issues-and-limitations">
 		</topic>
-		<topic label="Features" href="docs-gen/user_guide.html#features">
-			<topic label="Creating" href="docs-gen/user_guide.html#creating-1">
-			</topic>
-			<topic label="Setting the Feature Classifier" href="docs-gen/user_guide.html#setting-the-feature-classifier">
-			</topic>
-			<topic label="Setting the Feature Direction (Directional Features Only)" href="docs-gen/user_guide.html#setting-the-feature-direction-directional-features-only">
-			</topic>
-			<topic label="Setting Access Kind (Access Features Only)" href="docs-gen/user_guide.html#setting-access-kind-access-features-only">
-			</topic>
-			<topic label="Setting a Feature Group as Inverse" href="docs-gen/user_guide.html#setting-a-feature-group-as-inverse">
-			</topic>
+	</topic>
+	<topic label="Annotations and Documentation" href="docs-gen/user_guide.html#annotations-and-documentation">
+		<topic label="Annotations" href="docs-gen/user_guide.html#annotations">
 		</topic>
-		<topic label="Subcomponents" href="docs-gen/user_guide.html#subcomponents">
-			<topic label="Creating" href="docs-gen/user_guide.html#creating-2">
-			</topic>
-			<topic label="Setting the Classifier" href="docs-gen/user_guide.html#setting-the-classifier">
-			</topic>
-			<topic label="Opening the Type Diagram for a Subcomponent" href="docs-gen/user_guide.html#opening-the-type-diagram-for-a-subcomponent">
-			</topic>
-			<topic label="Setting Modes" href="docs-gen/user_guide.html#setting-modes">
-			</topic>
-		</topic>
-		<topic label="Flows" href="docs-gen/user_guide.html#flows">
-			<topic label="Creating Flow Specifications" href="docs-gen/user_guide.html#creating-flow-specifications">
-				<topic label="Creating Flow Paths" href="docs-gen/user_guide.html#creating-flow-paths">
-				</topic>
-				<topic label="Creating Flow Sinks" href="docs-gen/user_guide.html#creating-flow-sinks">
-				</topic>
-				<topic label="Creating Flow Sources" href="docs-gen/user_guide.html#creating-flow-sources">
-				</topic>
-			</topic>
-			<topic label="Creating Flow Implementations and End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-flow-implementations-and-end-to-end-flow-specifications">
-				<topic label="Creating Flow Implementations" href="docs-gen/user_guide.html#creating-flow-implementations">
-				</topic>
-				<topic label="Creating Source Flow Implementations" href="docs-gen/user_guide.html#creating-source-flow-implementations">
-				</topic>
-				<topic label="Creating Sink Flow Implementations" href="docs-gen/user_guide.html#creating-sink-flow-implementations">
-				</topic>
-				<topic label="Creating Path Flow Implementations" href="docs-gen/user_guide.html#creating-path-flow-implementations">
-				</topic>
-				<topic label="Creating End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-end-to-end-flow-specifications">
-				</topic>
-			</topic>
-			<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
-			</topic>
-			<topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="docs-gen/user_guide.html#highlighting-flow-implementations-and-end-to-end-flow-specifications">
-			</topic>
-		</topic>
-		<topic label="Modes" href="docs-gen/user_guide.html#modes">
-			<topic label="Creating Modes" href="docs-gen/user_guide.html#creating-modes">
-			</topic>
-			<topic label="Setting the Initial Mode" href="docs-gen/user_guide.html#setting-the-initial-mode">
-			</topic>
-			<topic label="Creating Mode Transitions" href="docs-gen/user_guide.html#creating-mode-transitions">
-			</topic>
-			<topic label="Setting Mode Transition Triggers" href="docs-gen/user_guide.html#setting-mode-transition-triggers">
-			</topic>
-			<topic label="Switching Between Derived and Non-derived Modes" href="docs-gen/user_guide.html#switching-between-derived-and-non-derived-modes">
-			</topic>
-			<topic label="Highlighting" href="docs-gen/user_guide.html#highlighting">
-			</topic>
-			<topic label="Selecting Active Components" href="docs-gen/user_guide.html#sec:selective_active_components">
-			</topic>
-		</topic>
-		<topic label="Bindings" href="docs-gen/user_guide.html#bindings">
-			<topic label="Creating Bindings" href="docs-gen/user_guide.html#creating-bindings">
-			</topic>
-			<topic label="Setting Bindings" href="docs-gen/user_guide.html#setting-bindings">
-				<topic label="Using the Toolbar to Set Bindings" href="docs-gen/user_guide.html#using-the-toolbar-to-set-bindings">
-				</topic>
-			</topic>
-		</topic>
-		<topic label="Arrays" href="docs-gen/user_guide.html#sec:arrays">
-			<topic label="Creating Arrays" href="docs-gen/user_guide.html#creating-arrays">
-			</topic>
-			<topic label="Editing Arrays" href="docs-gen/user_guide.html#editing-arrays">
-				<topic label="Add Dimension" href="docs-gen/user_guide.html#add-dimension">
-				</topic>
-				<topic label="Change Dimension Order" href="docs-gen/user_guide.html#change-dimension-order">
-				</topic>
-				<topic label="Delete Dimension" href="docs-gen/user_guide.html#delete-dimension">
-				</topic>
-			</topic>
-		</topic>
-		<topic label="Subprogram Call Sequences" href="docs-gen/user_guide.html#subprogram-call-sequences">
-			<topic label="Creating Subprogram Call Sequences" href="docs-gen/user_guide.html#creating-subprogram-call-sequences">
-				<topic label="Adding Subprogram Calls" href="docs-gen/user_guide.html#adding-subprogram-calls">
-				</topic>
-			</topic>
-			<topic label="Editing Subprogram Call Sequences" href="docs-gen/user_guide.html#editing-subprogram-call-sequences">
-			</topic>
-		</topic>
-		<topic label="Annexes" href="docs-gen/user_guide.html#annexes">
-			<topic label="Creating Annex Libraries and Annex Subclauses" href="docs-gen/user_guide.html#creating-annex-libraries-and-annex-subclauses">
-			</topic>
+		<topic label="AADL Documentation" href="docs-gen/user_guide.html#aadl-documentation">
 		</topic>
 	</topic>
 	<topic label="Troubleshooting" href="docs-gen/user_guide.html#troubleshooting">
@@ -208,8 +126,6 @@
 		<topic label="Build Automatically" href="docs-gen/user_guide.html#build-automatically">
 		</topic>
 		<topic label="Inconsistent Font Sizes Across Machines" href="docs-gen/user_guide.html#inconsistent-font-sizes-across-machines">
-		</topic>
-		<topic label="Unable to Set Properties Unless Text Model is Open" href="docs-gen/user_guide.html#unable-to-set-properties-unless-text-model-is-open">
 		</topic>
 		<topic label="Missing Diagram Elements After Modification of AADL Source" href="docs-gen/user_guide.html#missing-diagram-elements-after-modification-of-aadl-source">
 		</topic>

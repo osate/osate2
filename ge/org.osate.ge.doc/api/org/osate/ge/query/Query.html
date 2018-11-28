@@ -102,8 +102,8 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public interface <span class="typeNameLabel">Query</span></pre>
 <div class="block"><p>
- Describes how to retrieve diagram elements from a diagram.  
- </p> 
+ Describes how to retrieve diagram elements from a diagram.
+ </p>
  <p>
  Diagrams are represented as a tree of diagram elements. Each diagram element is associated with a business object.
  Each method of this interface returns a query whose results will be based on the results of this query.
@@ -179,7 +179,7 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code><a href="../../../../org/osate/ge/query/Query.html" title="interface in org.osate.ge.query">Query</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/query/Query.html#filterByBusinessObjectCanonicalReference-org.osate.ge.query.Supplier-">filterByBusinessObjectCanonicalReference</a></span>(<a href="../../../../org/osate/ge/query/Supplier.html" title="interface in org.osate.ge.query">Supplier</a>&lt;?,java.lang.Object&gt;&nbsp;boSupplier)</code>
 <div class="block">Returns a query whose results are all the results of this query for which the associated business object's canonical reference
- matches the relative reference of the business object provided by the specified supplier.</div>
+ matches the canonical reference of the business object provided by the specified supplier.</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
@@ -297,7 +297,7 @@ var activeTableTab = "activeTableTab";
 <h4>filterByBusinessObjectCanonicalReference</h4>
 <pre><a href="../../../../org/osate/ge/query/Query.html" title="interface in org.osate.ge.query">Query</a>&nbsp;filterByBusinessObjectCanonicalReference(<a href="../../../../org/osate/ge/query/Supplier.html" title="interface in org.osate.ge.query">Supplier</a>&lt;?,java.lang.Object&gt;&nbsp;boSupplier)</pre>
 <div class="block">Returns a query whose results are all the results of this query for which the associated business object's canonical reference
- matches the relative reference of the business object provided by the specified supplier.</div>
+ matches the canonical reference of the business object provided by the specified supplier.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>boSupplier</code> - the supplier of the business object to use for filtering. The supplier's argument is the query argument.</dd>
