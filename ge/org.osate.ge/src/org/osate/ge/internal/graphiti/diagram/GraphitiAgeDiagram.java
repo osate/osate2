@@ -459,9 +459,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		// Build the primary label which includes the element's name
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? incompleteIndicator : "";
 		final Style finalStyle = finalStyleProvider.getStyle(de);
-		final String primaryLabelStr = (!finalStyle.getPrimaryLabelVisible().booleanValue() || de.getName() == null)
+		final String primaryLabelStr = (!finalStyle.getPrimaryLabelVisible().booleanValue() || de.getLabelName() == null)
 				? null
-						: (de.getName() + completenessSuffix);
+						: (de.getLabelName() + completenessSuffix);
 
 		if (pe instanceof ContainerShape) {
 			final double fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()

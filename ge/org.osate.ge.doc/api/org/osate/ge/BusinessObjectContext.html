@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var methods = {"i0":18,"i1":6,"i2":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -119,16 +119,22 @@ extends org.osate.ge.internal.query.Queryable</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>default <a href="../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/BusinessObjectContext.html#getAncestor-int-">getAncestor</a></span>(int&nbsp;depth)</code>
+<div class="block">Returns the ancestors which has a specified depth relative to this query.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/BusinessObjectContext.html#getBusinessObject--">getBusinessObject</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/BusinessObjectContext.html#getParent--">getParent</a></span>()</code>&nbsp;</td>
 </tr>
@@ -138,7 +144,7 @@ extends org.osate.ge.internal.query.Queryable</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;org.osate.ge.internal.query.Queryable</h3>
-<code>getChildren, getFirstCommonAncestor</code></li>
+<code>getAllDescendants, getChildren, getFirstCommonAncestor</code></li>
 </ul>
 </li>
 </ul>
@@ -170,13 +176,32 @@ extends org.osate.ge.internal.query.Queryable</pre>
 <a name="getBusinessObject--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getBusinessObject</h4>
 <pre>java.lang.Object&nbsp;getBusinessObject()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>getBusinessObject</code>&nbsp;in interface&nbsp;<code>org.osate.ge.internal.query.Queryable</code></dd>
+</dl>
+</li>
+</ul>
+<a name="getAncestor-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getAncestor</h4>
+<pre>default&nbsp;<a href="../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;getAncestor(int&nbsp;depth)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code>org.osate.ge.internal.query.Queryable</code></span></div>
+<div class="block">Returns the ancestors which has a specified depth relative to this query.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>getAncestor</code>&nbsp;in interface&nbsp;<code>org.osate.ge.internal.query.Queryable</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>depth</code> - must be &gt; 0. A value of 1 returns the immediate ancestor.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the new query</dd>
 </dl>
 </li>
 </ul>

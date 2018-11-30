@@ -169,7 +169,7 @@ public class PasteAction extends ActionStackAction {
 
 					ensureBusinessObjectHasUniqueName(copiedEObject,
 							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
-							copiedDiagramElement.getDiagramElement().getName(), projectProvider.getProject(),
+							copiedDiagramElement.getDiagramElement().getLabelName(), projectProvider.getProject(),
 							namingService, extService);
 
 					ensurePackagesAreImported(copiedEObject);

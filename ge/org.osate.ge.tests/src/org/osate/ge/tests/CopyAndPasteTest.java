@@ -123,7 +123,7 @@ public class CopyAndPasteTest {
 
 		// Optionally, compare names. Useful for children
 		if (compareNames) {
-			assertEquals("names do not match", e1.getName(), e2.getName());
+			assertEquals("names do not match", e1.getLabelName(), e2.getLabelName());
 		}
 
 		// Optionally, compare position. Useful for children
@@ -131,17 +131,17 @@ public class CopyAndPasteTest {
 			assertEquals("positions do not match", e1.getPosition(), e2.getPosition());
 		}
 
-		assertEquals("number of children do not match for " + e1.getName(), e1.getDiagramElements().size(),
+		assertEquals("number of children do not match for " + e1.getLabelName(), e1.getDiagramElements().size(),
 				e2.getDiagramElements().size());
 
 		for (DiagramElement c1 : e1.getDiagramElements()) {
-			assertElementsMatch(c1, getChildByName(e2, c1.getName()), true, true);
+			assertElementsMatch(c1, getChildByName(e2, c1.getLabelName()), true, true);
 		}
 	}
 
 	private DiagramElement getChildByName(final DiagramElement parent, final String searchName) {
 		for (DiagramElement c : parent.getDiagramElements()) {
-			if (Objects.equal(c.getName(), searchName)) {
+			if (Objects.equal(c.getLabelName(), searchName)) {
 				return c;
 			}
 		}

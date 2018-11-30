@@ -24,6 +24,7 @@ import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
