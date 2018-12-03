@@ -2241,12 +2241,17 @@ public class InstantiateModel {
 			}
 
 			protected Iterator<ModeInstance> getActiveModes(ComponentInstance ci, ModeInstance parentMode) {
+				List<ModeInstance> modes = ci.getModeInstances();
 				if (parentMode == null) {
-					return ci.getModeInstances().iterator();
+					// system instance
+					return modes.iterator();
+				} else if (!ci.getInModes().isEmpty() && !ci.getInModes().contains(parentMode)) {
+					// component not active in parent mode
+					return Collections.emptyIterator();
 				} else {
-					return ci.getModeInstances().stream().filter(mi -> {
-						List<ModeInstance> parents = mi.getParents();
-						return !mi.isDerived() || parents.isEmpty() || parents.contains(parentMode);
+					// limit derived modes to mapping
+					return modes.stream().filter(mi -> {
+						return !mi.isDerived() || mi.getParents().contains(parentMode);
 					}).iterator();
 				}
 			}
