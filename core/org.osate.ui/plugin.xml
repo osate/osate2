@@ -385,6 +385,13 @@
             id="org.osate.ui.logger_view"
             name="%osate_logger_view.label">
       </view>
+      <view
+            category="aadl.view_category"
+            class="org.osate.ui.views.ClassifierInfoView"
+            icon="icons/aadl.gif"
+            id="org.osate.ui.classifier_info_view"
+            name="%osate_classifier_info_view.label">
+      </view>
    </extension>
    
     <extension
