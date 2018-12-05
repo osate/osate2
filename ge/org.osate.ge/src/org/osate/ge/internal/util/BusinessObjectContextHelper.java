@@ -7,6 +7,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
+import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.services.ExtensionService;
@@ -28,7 +29,29 @@ public class BusinessObjectContextHelper implements AutoCloseable {
 		ctx.dispose();
 	}
 
-	public String getName(final BusinessObjectContext boc, final Object boh) {
+	/**
+	 * Returns the name for the user interface provided by the business object handler. If it does not provide a name or provided null, then
+	 * the label name is returned.
+	 * @param boc
+	 * @param boh
+	 * @return
+	 */
+	public String getNameForUserInterface(final BusinessObjectContext boc, final Object boh) {
+		try {
+			updateContextArguments(boc);
+			final String nameForUi = (String) ContextInjectionFactory.invoke(boh, GetNameForUserInterface.class, ctx,
+					null);
+			if (nameForUi != null) {
+				return nameForUi;
+			}
+		} finally {
+			clearContextArguments();
+		}
+
+		return getNameForLabel(boc, boh);
+	}
+
+	public String getNameForLabel(final BusinessObjectContext boc, final Object boh) {
 		try {
 			updateContextArguments(boc);
 			return (String)ContextInjectionFactory.invoke(boh, GetName.class, ctx, null);

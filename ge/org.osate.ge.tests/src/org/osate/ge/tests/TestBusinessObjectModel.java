@@ -39,8 +39,13 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 
 	// DiagramElementInfoProvider
 	@Override
-	public String getName(final DiagramElement element) {
+	public String getLabelName(final DiagramElement element) {
 		return "ELEMENT: " + element.getRelativeReference().toString();
+	}
+
+	@Override
+	public String getUserInterfaceName(final DiagramElement element) {
+		return "ELEMENT-UI: " + element.getRelativeReference().toString();
 	}
 
 	@Override
