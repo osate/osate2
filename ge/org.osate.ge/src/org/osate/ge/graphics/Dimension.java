@@ -1,4 +1,4 @@
-package org.osate.ge.internal.diagram.runtime;
+package org.osate.ge.graphics;
 
 import java.util.Objects;
 

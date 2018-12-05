@@ -30,6 +30,12 @@
       <handler
             class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorTransitionHandler">
       </handler>
+      <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.BehaviorTransitionTrunkHandler">
+      </handler>
+	  <handler
+            class="org.osate.ge.errormodel.businessObjectHandlers.TransitionBranchHandler">
+      </handler>
    </extension>
    <extension
          point="org.osate.ge.categories">
@@ -54,5 +60,70 @@
             class="org.osate.ge.errormodel.ErrorModelBusinessObjectProvider">
       </provider>
    </extension>
-  
+   <extension
+         point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeLibraryFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorTypeExtensionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorStateMachineFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorStateFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorTransitionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorEventFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorBehaviorEventTypeFilterFactory">
+      </contentFilter>
+      <fundamentalContentFilter
+            class="org.osate.ge.errormodel.filters.FundamentalErrorBusinessObjectFilter">
+      </fundamentalContentFilter>
+   </extension>
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertyTab
+               afterTab="org.osate.ge.ui.properties.tabs.aadl"
+               category="org.osate.ge.contributions"
+               id="org.osate.ge.errormodel.propertyTabs.emv2"
+               indented="false"
+               label="EMV2">
+         </propertyTab>
+	</propertyTabs>
+	</extension>
+	   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorBehaviorState"
+               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+         </propertySection>
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.transitionBranch"
+               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+         </propertySection>
+         </propertySections>
+         </extension>
+    <extension
+          point="org.osate.ge.tooltips">
+       <tooltipContributor
+             class="org.osate.ge.errormodel.tooltips.ErrorModelTooltipContributor"
+             priority="5">
+       </tooltipContributor>
+    </extension>
 </plugin>

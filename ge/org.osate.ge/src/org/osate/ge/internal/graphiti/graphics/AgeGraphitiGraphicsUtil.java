@@ -3,6 +3,7 @@ package org.osate.ge.internal.graphiti.graphics;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -12,6 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.BusGraphic;
@@ -30,7 +32,6 @@ import org.osate.ge.graphics.internal.Parallelogram;
 import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.graphics.internal.ProcessorGraphic;
 import org.osate.ge.graphics.internal.Rectangle;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 
@@ -171,7 +172,9 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		ga.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
 		ga.setFilled(fillBackground);
-		gaService.setSize(ga, width, height);
+		final Optional<Dimension> fixedSize = ellipse.getFixedSize();
+		gaService.setSize(ga, fixedSize.map(d -> (int) d.width).orElse(width),
+				fixedSize.map(d -> (int) d.height).orElse(height));
 
 		return ga;
 	}

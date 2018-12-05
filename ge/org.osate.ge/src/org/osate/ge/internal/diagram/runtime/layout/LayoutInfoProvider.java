@@ -1,7 +1,7 @@
 package org.osate.ge.internal.diagram.runtime.layout;
 
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.Dimension;
 
 /**
  * Provides information needed to layout a diagram which is not contained in the runtime diagram data structure.
