@@ -448,11 +448,11 @@ class CheckBindingConstraintsTest extends XtextTest {
 					2.assertEquals(issues.size)
 					issues.get(0) => [
 						"s1_i_Instance.dev_sub1".assertEquals(target.instanceObjectPath)
-						"Device 'dev_sub1' has a memory binding to 'proc_sub2' in mode 'som_0' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
+						"Device 'dev_sub1' has a memory binding to 'proc_sub2' in mode 'som_1' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
 					]
 					issues.get(1) => [
 						"s1_i_Instance.vb_sub1".assertEquals(target.instanceObjectPath)
-						"Virtual bus 'vb_sub1' has a Required_Connection_Quality_Of_Service 'GuaranteedDelivery' in mode 'som_1' which is not provided by 'dev_sub1'".assertEquals(message)
+						"Virtual bus 'vb_sub1' has a Required_Connection_Quality_Of_Service 'GuaranteedDelivery' in mode 'som_2' which is not provided by 'dev_sub1'".assertEquals(message)
 					]
 				]
 			]
