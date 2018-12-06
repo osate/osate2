@@ -250,7 +250,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-   * 
+   *
    * <p>This method is used to initialize {@link CommonPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
@@ -265,7 +265,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     if (isInited) return (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
     // Obtain or create and register package
-    CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new CommonPackageImpl());
+    Object registeredCommonPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    CommonPackageImpl theCommonPackage = registeredCommonPackage instanceof CommonPackageImpl ? (CommonPackageImpl)registeredCommonPackage : new CommonPackageImpl();
 
     isInited = true;
 
@@ -282,7 +283,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Mark meta-data to indicate it can't be changed
     theCommonPackage.freeze();
 
-  
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(CommonPackage.eNS_URI, theCommonPackage);
     return theCommonPackage;
