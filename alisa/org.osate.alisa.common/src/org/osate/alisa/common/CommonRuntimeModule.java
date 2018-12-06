@@ -19,10 +19,9 @@
  */
 package org.osate.alisa.common;
 
+import org.eclipse.xsemantics.runtime.StringRepresentation;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IScopeProvider;
-
-import it.xsemantics.runtime.StringRepresentation;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.

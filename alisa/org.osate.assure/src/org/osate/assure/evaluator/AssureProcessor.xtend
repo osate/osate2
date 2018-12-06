@@ -17,8 +17,8 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import it.xsemantics.runtime.RuleEnvironment
-import it.xsemantics.runtime.RuleFailedException
+import org.eclipse.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
