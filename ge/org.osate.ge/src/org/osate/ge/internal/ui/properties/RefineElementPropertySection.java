@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -104,7 +105,7 @@ public class RefineElementPropertySection extends AbstractPropertySection {
 				});
 			} else {
 				// Refine selected elements
-				selectedBos.modify(boc -> boc.getParent().getBusinessObject(), (container, boc) -> {
+				selectedBos.modify(boc -> (EObject) boc.getParent().getBusinessObject(), (container, boc) -> {
 					final RefinableElement re = (RefinableElement) boc.getBusinessObject();
 					if (re.getRefinedElement() == null) {
 						if (re instanceof Feature) {
