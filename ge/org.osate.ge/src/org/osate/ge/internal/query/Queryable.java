@@ -29,4 +29,19 @@ public interface Queryable {
 	public default Stream<Queryable> getAllDescendants() {
 		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(Queryable::getAllDescendants));
 	}
+
+	/**
+	 * Returns the ancestors which has a specified depth relative to this query.
+	 * @param depth must be {@literal >} 0. A value of 1 returns the immediate ancestor.
+	 * @return the new query
+	 */
+	public default Queryable getAncestor(final int depth) {
+		Queryable e = this;
+		for (int i = 0; i < depth && e != null; i++) {
+			e = e.getParent();
+		}
+
+		return e;
+	}
+
 }

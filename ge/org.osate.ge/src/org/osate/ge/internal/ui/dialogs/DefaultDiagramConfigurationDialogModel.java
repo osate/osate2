@@ -154,7 +154,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public boolean shouldShowBusinessObject(final Object bo) {
-		return Filtering.isConfigurable(bo);
+		return Filtering.isConfigurable(extService, bo);
 	}
 
 	@Override

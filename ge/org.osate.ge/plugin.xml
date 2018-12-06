@@ -1230,6 +1230,7 @@
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
         class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
+        <adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
      <adapter
            type="org.osate.ge.BusinessObjectSelection">
      </adapter>
@@ -2358,6 +2359,9 @@
       <contentFilter
             class="org.osate.ge.internal.diagram.runtime.filtering.ComponentCategoryFilterFactory">
       </contentFilter>
+      <fundamentalContentFilter
+            class="org.osate.ge.internal.diagram.runtime.filtering.FundamentalTagFilter">
+      </fundamentalContentFilter>
    </extension>
    <extension
          point="org.osate.ge.diagramTypes">

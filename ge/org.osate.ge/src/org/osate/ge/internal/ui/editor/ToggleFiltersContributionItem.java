@@ -67,7 +67,7 @@ public class ToggleFiltersContributionItem extends CompoundContributionItem {
 		}
 
 		final Multimap<String, ContentFilter> parentToApplicableFiltersMap = HashMultimap.create();
-		for (final ContentFilter contentFilter : extRegistry.getContentFilters()) {
+		for (final ContentFilter contentFilter : extRegistry.getConfigurableContentFilters()) {
 			for (final DiagramElement diagramElement : diagramElements) {
 				if (contentFilter.isApplicable(diagramElement.getBusinessObject())) {
 					parentToApplicableFiltersMap.put(contentFilter.getParentId(), contentFilter);

@@ -106,7 +106,8 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		IResource changedResource = delta.getResource();
-		if (changedResource.getType() == IResource.FILE && (changedResource.getFileExtension().equals("aadl")
+		if (changedResource.getType() == IResource.FILE && changedResource.getFileExtension() != null
+				&& (changedResource.getFileExtension().equals("aadl")
 				|| changedResource.getFileExtension().equals("aaxl2"))) {
 			try {
 				String path = ((IFile) changedResource).getFullPath().toString();

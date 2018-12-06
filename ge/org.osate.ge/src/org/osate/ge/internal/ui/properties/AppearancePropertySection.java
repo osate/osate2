@@ -351,7 +351,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static boolean supportsFontOptions(final DiagramElement de) {
-		return de.getName() != null || de.getGraphic() instanceof Label;
+		return de.getLabelName() != null || de.getGraphic() instanceof Label;
 	}
 
 	private static boolean supportsLineWidth(final DiagramElement de) {

@@ -2882,7 +2882,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Collections.sort(list, (a, b) -> {
 			int aExtendCount = -1;
 			Classifier aExtended = a.getContainingClassifier();
-			while (null != aExtended) {
+			while (null != aExtended && aExtendCount < 50) {
 				aExtendCount++;
 				if (aExtended instanceof ComponentImplementation && null == aExtended.getExtended()) {
 					aExtended = ((ComponentImplementation) aExtended).getType();
@@ -2892,7 +2892,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			int bExtendCount = -1;
 			Classifier bExtended = b.getContainingClassifier();
-			while (null != bExtended) {
+			while (null != bExtended && bExtendCount < 50) {
 				bExtendCount++;
 				if (bExtended instanceof ComponentImplementation && null == bExtended.getExtended()) {
 					bExtended = ((ComponentImplementation) bExtended).getType();

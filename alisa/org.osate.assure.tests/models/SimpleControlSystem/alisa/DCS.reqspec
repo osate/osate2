@@ -9,4 +9,10 @@ system requirements dcsreqs for DigitalControlSystem::DCS [
 		description this " shall be within weight of " MaximumWeight 
 		value predicate actualweight <= MaximumWeight
 	]
+	requirement R2 : "DCS response time" for sensorprocessing [
+		val ExpectedLatency = [15ms .. 18ms]
+		category Quality.Latency
+		description this " shall response time of " ExpectedLatency
+		value predicate ExpectedLatency == #Latency
+	]
 ]
