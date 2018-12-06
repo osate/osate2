@@ -336,7 +336,7 @@ public class SetBindingTool {
 		final ComponentImplementation ci = (ComponentImplementation)ciBoc.getBusinessObject();
 		aadlModService.modify(Modification.create(ci, new SimpleModifier<ComponentClassifier>() {
 			@Override
-			public void modify(final ComponentClassifier cc) {
+			public void modify(final ComponentClassifier ci) {
 				for (final BusinessObjectContext bocToBind : currentWindow.getBocsToBind()) {
 					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
@@ -362,8 +362,8 @@ public class SetBindingTool {
 					removeOldPropertyAssociation(ci, newPa);
 
 					// Add the property association
-					cc.setNoProperties(false);
-					cc.getOwnedPropertyAssociations().add(newPa);
+					ci.setNoProperties(false);
+					ci.getOwnedPropertyAssociations().add(newPa);
 				}
 			}
 
@@ -421,7 +421,8 @@ public class SetBindingTool {
 
 		while (cp1 != null) {
 			// Compare Named Elements
-			if (cp1.getNamedElement() != cp2.getNamedElement()) {
+			if (cp1.getNamedElement().getName() != null
+					&& !cp1.getNamedElement().getName().equalsIgnoreCase(cp2.getNamedElement().getName())) {
 				return false;
 			}
 

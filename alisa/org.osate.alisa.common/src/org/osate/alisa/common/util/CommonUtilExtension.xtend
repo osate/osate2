@@ -167,8 +167,8 @@ class CommonUtilExtension {
 			Feature: return findElementInstanceInList(io.featureInstances, n)
 			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
 			Connection: {
-				val conns= findConnectionInstances(io.connectionInstances,n)
-				return if (conns.empty) null else conns.head
+				val conn= findConnectionInstance(io.connectionInstances,n)
+				return conn
 			}
 		}
 		return null
@@ -177,23 +177,41 @@ class CommonUtilExtension {
 	def static InstanceObject findElementInstanceInList(List<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
-			if (name.equalsIgnoreCase(n1)) return ei
+			if (n1.equalsIgnoreCase(name)) return ei
+		}
+		return null
+	}
+	
+	def static ConnectionInstance findConnectionInstance(Collection<ConnectionInstance> connilist, String name) {
+		for (ei : connilist) {
+			val conn = getCrossConnection(ei)
+			if (name.equalsIgnoreCase(conn.name)) {
+				return ei
+			}
 		}
 		return null
 	}
 
-	def static Collection<ConnectionInstance> findConnectionInstances(Collection<ConnectionInstance> connilist, String name) {
+	def static Collection<ConnectionInstance> findConnectionInstances(Collection<ConnectionInstance> connilist, ConnectionInstance conni) {
 		val Collection<ConnectionInstance> result = newArrayList()
+		val targetconn = getCrossConnection(conni)
 		for (ei : connilist) {
-			for (connref : ei.connectionReferences) {
-				val conn = connref.connection
-				if (conn.isAcross &&
-					name.equalsIgnoreCase(conn.name)) {
-						result.add(ei)
-					}
+			val conn = getCrossConnection(ei)
+			if (targetconn == conn) {
+				result.add(ei)
 			}
 		}
 		return result
+	}
+	
+	def static Connection getCrossConnection(ConnectionInstance conni){
+		for (connref : conni.connectionReferences) {
+			val conn = connref.connection
+			if (conn.isAcross){
+				return conn
+			} 
+		}
+		
 	}
 
 	def static getCrossConnections(ComponentImplementation ci) {

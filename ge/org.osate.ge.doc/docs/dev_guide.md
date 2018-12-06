@@ -35,8 +35,6 @@ The graphical editor manages a list of categories. These categories are used to 
 The graphical editor references images using unique identifiers. Images are registered using the **org.osate.go.images** extension point.
 
 ## Adding Support for a new Business Object
-**The extension points used for adding support for new business objects are experimental. The following documentation is out of date. These APIs will be changed after the extension points have been refined.**
-
 Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.
 
 ### Non-EMF Objects
@@ -92,7 +90,7 @@ If a business object handler exists for a parsed annex library or subclause, nei
 ##### Business Object Creation
 * [GetPaletteEntries](../api/org/osate/ge/di/GetPaletteEntries.html)
 * [CanCreate](../api/org/osate/ge/di/CanCreate.html)
-* [GetCreateOwner](../api/org/osate/ge/di/GetCreateOwner.html)
+* [BuildCreateOperation](../api/org/osate/ge/di/BuildCreateOperation.html)
 * [CanStartConnection](../api/org/osate/ge/di/CanStartConnection.html)
 * [Create](../api/org/osate/ge/di/Create.html)
 
@@ -102,6 +100,7 @@ If a business object handler exists for a parsed annex library or subclause, nei
 
 ##### Naming
 * [GetName](../api/org/osate/ge/di/GetName.html)
+* [GetNameForEditing](../api/org/osate/ge/di/GetNameForEditing.html)
 * [ValidateName](../api/org/osate/ge/di/ValidateName.html)
 * [Rename](../api/org/osate/ge/di/Rename.html)
 

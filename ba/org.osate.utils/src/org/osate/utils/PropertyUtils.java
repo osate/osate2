@@ -218,6 +218,52 @@ public class PropertyUtils {
   }
   
   /**
+   * Extract integer value from a specified property. Convert it
+   * to a given unit. 
+   * May return null
+   * 
+   * @param i
+   *            component instance.
+   * @param propertyName
+   *            property name.
+   * @param unit
+   * 			target unit for conversion
+   * @return property value.
+   */
+  public static Long getIntValue(NamedElement i, String propertyName, String targetUnit) {
+	    PropertyAssociation pa = findPropertyAssociation(propertyName, i);
+
+	    if (pa != null) {
+	      Property p = pa.getProperty();
+
+	      if (p.getName().equalsIgnoreCase(propertyName)) {
+	        List<ModalPropertyValue> values = pa.getOwnedValues();
+
+	        if (values.size() == 1) {
+	          ModalPropertyValue v = values.get(0);
+	          PropertyExpression expr = v.getOwnedValue();
+
+	          if (expr instanceof IntegerLiteral) {
+	            IntegerLiteral il = (IntegerLiteral) expr;
+	            final UnitLiteral unit = il.getUnit();
+	            if (unit != null) {
+	              // Warning: the cast from double to long is licit
+	              // only if the result of the conversion is an
+	              // integer
+	              return (long) il.getScaledValue(targetUnit);
+	            }
+
+	            return ((IntegerLiteral) expr).getValue();
+	          }
+	        }
+	      }
+	    }
+
+	    return null ;
+	  }
+  
+  
+  /**
    * Extract integer value from a specified property. May return null
    * 
    * @param i
@@ -240,26 +286,6 @@ public class PropertyUtils {
           PropertyExpression expr = v.getOwnedValue();
 
           if (expr instanceof IntegerLiteral) {
-            IntegerLiteral il = (IntegerLiteral) expr;
-            final UnitLiteral unit = il.getUnit();
-            if (unit != null) {
-              if (pa.getProperty().getPropertyType() instanceof AadlInteger) {
-                // XXX: Ms and Bytes are chosen for base units;
-                // this is specific for POK
-                AadlInteger ai = (AadlInteger) pa.getProperty().getPropertyType();
-                if (ai.getUnitsType().getName().equalsIgnoreCase(AadlProject.SIZE_UNITS))
-                  unit.setBaseUnit(GetProperties.findUnitLiteral(p,
-                                                        AadlProject.B_LITERAL));
-                if (ai.getUnitsType().getName().equalsIgnoreCase(AadlProject.TIME_UNITS))
-                  unit.setBaseUnit(GetProperties.findUnitLiteral(p,
-                      AadlProject.MS_LITERAL));
-              }
-              // Warning: the cast from double to long is licit
-              // only if the result of the conversion is an
-              // integer
-              return (long) il.getScaledValue(unit.getBaseUnit());
-            }
-
             return ((IntegerLiteral) expr).getValue();
           }
         }

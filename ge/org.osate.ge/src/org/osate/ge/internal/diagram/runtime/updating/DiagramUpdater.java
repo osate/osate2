@@ -201,8 +201,9 @@ public class DiagramUpdater {
 			m.setManual(element, n.isManual());
 			m.setCompleteness(element, n.getCompleteness());
 
-			// Set the name
-			m.setName(element, infoProvider.getName(element));
+			// Set name fields
+			m.setLabelName(element, infoProvider.getLabelName(element));
+			m.setUserInterfaceName(element, infoProvider.getUserInterfaceName(element));
 
 			// Set the graphical Configuration
 			final AgeGraphicalConfiguration graphicalConfiguration = infoProvider.getGraphicalConfiguration(element);

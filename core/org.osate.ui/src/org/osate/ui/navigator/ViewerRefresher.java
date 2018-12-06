@@ -1,6 +1,8 @@
 package org.osate.ui.navigator;
 
+import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
@@ -15,6 +17,7 @@ public class ViewerRefresher extends WorkbenchContentProvider {
 		super.inputChanged(viewer, oldInput, newInput);
 
 		this.viewer = viewer;
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
 	}
 
 	@Override

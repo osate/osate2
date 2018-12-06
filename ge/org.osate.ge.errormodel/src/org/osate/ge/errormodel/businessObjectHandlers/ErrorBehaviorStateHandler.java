@@ -11,13 +11,14 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -26,8 +27,12 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -41,10 +46,20 @@ public class ErrorBehaviorStateHandler {
 		return true;
 	}
 
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				annotation(state.isIntial() ? "<Initial>" : null).
+				style(ErrorModelGeUtil.centeredStyle).
+				build();
+	}
+
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] {
-				PaletteEntryBuilder.create().label("State").category(ErrorModelCategories.ERROR_MODEL).build()
+				PaletteEntryBuilder.create().label("Error Behavior State").category(ErrorModelCategories.ERROR_MODEL)
+						.build()
 		};
 	}
 
@@ -53,24 +68,23 @@ public class ErrorBehaviorStateHandler {
 		return true;
 	}
 
-	@Create
-	public Object createBusinessObject(@Named(Names.MODIFY_BO) final ErrorBehaviorStateMachine stateMachine) {
-		// Create the state
-		final ErrorBehaviorState newState = (ErrorBehaviorState)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorState());
-		final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_state");
-		newState.setName(newErrorTypeName);
+	@BuildCreateOperation
+	public Operation buildCreateOperation(@Named(Names.TARGET_BO) final ErrorBehaviorStateMachine stateMachineReadOnly,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc) {
+		return Operation.create(createOp -> {
+			createOp.supply(() -> StepResult.forValue(stateMachineReadOnly)).modifyPreviousResult(stateMachine -> {
+				// Create the state
+				final ErrorBehaviorState newState = (ErrorBehaviorState) EcoreUtil
+						.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorState());
+				final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_state");
+				newState.setName(newErrorTypeName);
 
-		// Add the new state to the state machine
-		stateMachine.getStates().add(newState);
+				// Add the new state to the state machine
+				stateMachine.getStates().add(newState);
 
-		return newState;
-	}
-
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				build();
+				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newState).build();
+			});
+		});
 	}
 
 	@GetName
