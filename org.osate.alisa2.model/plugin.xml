@@ -10,7 +10,7 @@
       <!-- @generated safe2 -->
       <package
             uri="http://www.example.org/safe2"
-            class="org.osate.alisa2.safe2.Safe2Package"
+            class="org.osate.alisa2.model.safe2.Safe2Package"
             genModel="model/safe2.genmodel"/>
    </extension>
 

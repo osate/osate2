@@ -6,7 +6,7 @@
     usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel"
     operationReflection="true" importOrganizing="true">
   <foreignModel>safe2.ecore</foreignModel>
-  <genPackages prefix="Safe2" basePackage="org.osate.alisa2" disposableProviderFactory="true"
+  <genPackages prefix="Safe2" basePackage="org.osate.alisa2.model" disposableProviderFactory="true"
       ecorePackage="safe2.ecore#/">
     <genClasses image="false" ecoreClass="safe2.ecore#//Fundamental">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Fundamental/description"/>

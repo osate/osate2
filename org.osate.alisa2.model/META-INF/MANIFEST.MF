@@ -7,12 +7,13 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.osate.alisa2.safe2,
- org.osate.alisa2.safe2.impl,
- org.osate.alisa2.safe2.util
+Export-Package: org.osate.alisa2.model.safe2,
+ org.osate.alisa2.model.safe2.impl,
+ org.osate.alisa2.model.safe2.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.osate.aadl2;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.osate.aadl2.modelsupport
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.alisa2.model
