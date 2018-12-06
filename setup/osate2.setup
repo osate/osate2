@@ -11,8 +11,8 @@
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
     xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
-    name="osate2"
-    label="OSATE2 Development">
+    name="osate2_2018-09"
+    label="OSATE2 Development 2018-09">
   <setupTask
       xsi:type="setup:CompoundTask"
       filter=""
@@ -942,12 +942,12 @@
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
-  <stream name="develop"
-      label="develop">
+  <stream name="2018-09"
+      label="2018-09">
     <setupTask
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.osate2"
-        value="=https://raw.githubusercontent.com/osate/osate2/develop/setup/osate2.setup->${git.clone.osate2.location|uri}/setup/osate2.setup"
+        value="=https://raw.githubusercontent.com/osate/osate2/1466_eclipse_2018-09/setup/osate2.setup->${git.clone.osate2.location|uri}/setup/osate2.setup"
         vm="true">
       <description>
         Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.
