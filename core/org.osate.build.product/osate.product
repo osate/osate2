@@ -48,7 +48,7 @@
       <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
-      <feature id="it.xsemantics.runtime.feature"/>
+      <feature id="org.eclipse.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.equinox.executable"/>
@@ -83,7 +83,7 @@
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2018-09" enabled="true" />
    </repositories>
 
 </product>
