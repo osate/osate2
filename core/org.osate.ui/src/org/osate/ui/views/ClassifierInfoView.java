@@ -3,6 +3,7 @@ package org.osate.ui.views;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -10,6 +11,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.ISelectionListener;
@@ -18,10 +20,10 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
 	/**
@@ -33,8 +35,10 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	private TreeViewer ancestorTree;
 
+	private final ILabelProvider modelElementLabelProvider;
+
 	public ClassifierInfoView() {
-		// TODO Auto-generated constructor stub
+		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
 	// ======================================================================
@@ -85,8 +89,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
 		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
 			@Override
+			public Image getImage(Object element) {
+				return ((AncestorTreeNode) element).getImage();
+			}
+
+			@Override
 			public String getText(final Object element) {
-				return ((AncestorTreeNode) element).getLabel();
+				return ((AncestorTreeNode) element).getText();
 			}
 		});
 		treeViewer.setContentProvider(new ITreeContentProvider() {
@@ -148,7 +157,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			classifier = "<not structured>";
 		}
 		if (input != null) {
-			ancestorTree.setInput(AncestorTree.createFor(input));
+			ancestorTree.setInput(createAncestorTree(input));
 		}
 		label2.setText(classifier);
 	}
@@ -157,7 +166,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	// == Helper classes
 	// ======================================================================
 
-	private static final class AncestorTree {
+	private final class AncestorTree {
 		private final AncestorTreeNode[] children;
 
 		private AncestorTree(final AncestorTreeNode root) {
@@ -167,13 +176,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		public AncestorTreeNode[] getChildren() {
 			return children;
 		}
-
-		public static AncestorTree createFor(final Classifier classifier) {
-			return new AncestorTree(AncestorTreeNode.create(classifier, ""));
-		}
 	}
 
-	private static final class AncestorTreeNode {
+	private AncestorTree createAncestorTree(final Classifier classifier) {
+		return new AncestorTree(createAncestorTreeNode(classifier, ""));
+	}
+
+	private final class AncestorTreeNode {
 		protected final Classifier classifier;
 		private final String prefix;
 		private AncestorTreeNode parent;
@@ -188,42 +197,12 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			}
 		}
 
-		public static AncestorTreeNode create(final Classifier classifier, final String prefix) {
-			AncestorTreeNode[] children = new AncestorTreeNode[0];
-			if (classifier instanceof ComponentType) {
-				final ComponentType extended = ((ComponentType) classifier.getExtended());
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeNode.create(extended, "extends ") };
-				}
-			} else if (classifier instanceof ComponentImplementation) {
-				final ComponentImplementation asCompImpl = (ComponentImplementation) classifier;
-				final ComponentType implemented = asCompImpl.getType();
-				final ComponentImplementation extended = asCompImpl.getExtended();
-				if (extended == null) {
-					children = new AncestorTreeNode[] { AncestorTreeNode.create(implemented, "implements ") };
-				} else {
-					children = new AncestorTreeNode[] { AncestorTreeNode.create(implemented, "implements "),
-							AncestorTreeNode.create(extended, "extends ") };
-				}
-			} else if (classifier instanceof FeatureGroupType) {
-				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeNode.create(extended, "extends ") };
-				}
-			}
-			return new AncestorTreeNode(classifier, prefix, children);
+		public Image getImage() {
+			return modelElementLabelProvider.getImage(classifier);
 		}
 
-		public String getLabel() {
-			final String label;
-			if (classifier instanceof ComponentClassifier) {
-				label = ((ComponentClassifier) classifier).getCategory() + " " + classifier.getQualifiedName();
-			} else if (classifier instanceof FeatureGroupType) {
-				label = "feature group " + classifier.getQualifiedName();
-			} else {
-				label = "***";
-			}
-			return prefix + label;
+		public String getText() {
+			return prefix + modelElementLabelProvider.getText(classifier);
 		}
 
 		public final boolean hasChildren() {
@@ -242,4 +221,31 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			this.parent = parent;
 		}
 	}
+
+	private AncestorTreeNode createAncestorTreeNode(final Classifier classifier, final String prefix) {
+		AncestorTreeNode[] children = new AncestorTreeNode[0];
+		if (classifier instanceof ComponentType) {
+			final ComponentType extended = ((ComponentType) classifier.getExtended());
+			if (extended != null) {
+				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, "extends ") };
+			}
+		} else if (classifier instanceof ComponentImplementation) {
+			final ComponentImplementation asCompImpl = (ComponentImplementation) classifier;
+			final ComponentType implemented = asCompImpl.getType();
+			final ComponentImplementation extended = asCompImpl.getExtended();
+			if (extended == null) {
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, "implements ") };
+			} else {
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, "implements "),
+						createAncestorTreeNode(extended, "extends ") };
+			}
+		} else if (classifier instanceof FeatureGroupType) {
+			final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
+			if (extended != null) {
+				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, "extends ") };
+			}
+		}
+		return new AncestorTreeNode(classifier, prefix, children);
+	}
+
 }
