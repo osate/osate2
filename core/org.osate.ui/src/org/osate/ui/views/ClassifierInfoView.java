@@ -17,8 +17,9 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.FeatureGroupType;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
 	/**
@@ -83,31 +84,24 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
-				final ComponentClassifier componentClassifier = (ComponentClassifier) element;
-				return componentClassifier.getCategory() + " " + componentClassifier.getQualifiedName();
+				return ((AncestorTreeNode) element).getLabel();
 			}
 		});
 		treeViewer.setContentProvider(new ITreeContentProvider() {
 			@Override
 			public boolean hasChildren(final Object element) {
-				// TODO Feature Groups
-				// TODO Component Implementation
-				if (element instanceof ComponentType) {
-					return ((ComponentType) element).getExtended() != null;
-				} else {
-					return false;
-				}
+				return ((AncestorTreeNode) element).hasChildren();
 			}
 
 			@Override
 			public Object getParent(Object element) {
-				return null;
+				return ((AncestorTreeNode) element).getParent();
 			}
 
 			@Override
 			public Object[] getElements(Object inputElement) {
 				if (inputElement != null) {
-					return ((AncestorTreeRoot) inputElement).getChildren();
+					return ((AncestorTree) inputElement).getChildren();
 				} else {
 					return new Object[0];
 				}
@@ -115,13 +109,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				// TODO Feature Groups
-				// TODO Component Implementation
-				if (parentElement instanceof ComponentType) {
-					return new Object[] { ((ComponentType) parentElement).getExtended() };
-				} else {
-					return new Object[0];
-				}
+				return ((AncestorTreeNode) parentElement).getChildren();
 			}
 		});
 
@@ -141,16 +129,16 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		currentSelection = selection;
 
 		String classifier = null;
-		ComponentClassifier input = null;
+		Classifier input = null;
 		if (selection.isEmpty()) {
 			classifier = "<no selection>";
 		} else if (selection instanceof IStructuredSelection) {
 			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
 			if (selectedObject == null) {
 				classifier = "<selection is null>";
-			} else if (selectedObject instanceof ComponentClassifier) {
-				input = (ComponentClassifier) selectedObject;
-				classifier = ((ComponentClassifier) selectedObject).getQualifiedName();
+			} else if (selectedObject instanceof Classifier) {
+				input = (Classifier) selectedObject;
+				classifier = ((Classifier) selectedObject).getQualifiedName();
 			} else {
 				classifier = "<selection is not a component classifier: " + selectedObject.getClass() + ">";
 			}
@@ -158,7 +146,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			classifier = "<not structured>";
 		}
 		if (input != null) {
-			ancestorTree.setInput(new AncestorTreeRoot(input));
+			ancestorTree.setInput(AncestorTree.createFor(input));
 		}
 		label2.setText(classifier);
 	}
@@ -167,15 +155,118 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	// == Helper classes
 	// ======================================================================
 
-	private static final class AncestorTreeRoot {
-		private final Object[] children;
+	private static final class AncestorTree {
+		private final AncestorTreeRoot[] children;
 
-		public AncestorTreeRoot(final ComponentClassifier componentClassifier) {
-			children = new Object[] { componentClassifier };
+		private AncestorTree(final AncestorTreeRoot root) {
+			children = new AncestorTreeRoot[] { root };
 		}
 
-		public Object[] getChildren() {
+		public AncestorTreeRoot[] getChildren() {
 			return children;
 		}
+
+		public static AncestorTree createFor(final Classifier classifier) {
+			return new AncestorTree(AncestorTreeRoot.create(classifier));
+		}
 	}
+
+	private static abstract class AncestorTreeNode {
+		protected final Classifier classifier;
+		private AncestorTreeNode parent;
+		private AncestorTreeNode[] children;
+
+		private AncestorTreeNode(final Classifier classifier, final AncestorTreeNode[] children) {
+			this.classifier = classifier;
+			this.children = children;
+			for (final AncestorTreeNode child : children) {
+				child.setParent(this);
+			}
+		}
+
+		public abstract String getLabel();
+
+		public final boolean hasChildren() {
+			return children.length > 0;
+		}
+
+		public final AncestorTreeNode[] getChildren() {
+			return children;
+		}
+
+		public final AncestorTreeNode getParent() {
+			return parent;
+		}
+
+		final void setParent(final AncestorTreeNode parent) {
+			this.parent = parent;
+		}
+	}
+
+	private static final class AncestorTreeRoot extends AncestorTreeNode {
+		private AncestorTreeRoot(final Classifier classifier, final AncestorTreeNode[] children) {
+			super(classifier, children);
+		}
+
+		public static AncestorTreeRoot create(final Classifier classifier) {
+			AncestorTreeNode[] children = new AncestorTreeNode[0];
+			if (classifier instanceof ComponentType) {
+				final ComponentType extended = ((ComponentType) classifier.getExtended());
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
+				}
+			} else if (classifier instanceof FeatureGroupType) {
+				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
+				}
+			}
+			return new AncestorTreeRoot(classifier, children);
+		}
+
+		@Override
+		public String getLabel() {
+			if (classifier instanceof ComponentType) {
+				return ((ComponentType) classifier).getCategory() + " " + classifier.getQualifiedName();
+			} else if (classifier instanceof FeatureGroupType) {
+				return "feature group " + classifier.getQualifiedName();
+			} else {
+				return "***";
+			}
+		}
+	}
+
+	private static final class AncestorTreeAncestor extends AncestorTreeNode {
+		private AncestorTreeAncestor(final Classifier classifier, final AncestorTreeNode[] children) {
+			super(classifier, children);
+		}
+
+		public static AncestorTreeAncestor create(final Classifier classifier) {
+			AncestorTreeNode[] children = new AncestorTreeNode[0];
+			if (classifier instanceof ComponentType) {
+				final ComponentType extended = ((ComponentType) classifier.getExtended());
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
+				}
+			} else if (classifier instanceof FeatureGroupType) {
+				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
+				}
+			}
+			return new AncestorTreeAncestor(classifier, children);
+		}
+
+		@Override
+		public String getLabel() {
+			if (classifier instanceof ComponentType) {
+				return "extends " + ((ComponentType) classifier).getCategory() + " " + classifier.getQualifiedName();
+			} else if (classifier instanceof FeatureGroupType) {
+				return "extends feature group " + classifier.getQualifiedName();
+			} else {
+				return "extends ***";
+			}
+		}
+	}
+
 }
