@@ -83,16 +83,16 @@ class Issue667Test extends AbstractSerializerTest {
 					initial mode m5 : pkg1::s3.i:m5
 					mode m6 : pkg1::s3.i:m6
 				}
-				complete featureConnection "sub1.sub3.f2 -> sub2.sub4.f2" : sub1[0].sub3[0].f2 -> sub2[0].sub4[0].f2 in modes ( som_1 ) {
+				complete featureConnection "sub1.sub3.f2 -> sub2.sub4.f2" : sub1[0].sub3[0].f2 -> sub2[0].sub4[0].f2 in modes ( som_2 ) {
 					sub1[0].sub3[0].f2 -> sub1[0].f1 : pkg1::s2.i:conn2 in sub1[0]
 					sub1[0].f1 -> sub2[0].f2 : pkg1::s1.i:conn1 in parent
 					sub2[0].f2 -> sub2[0].sub4[0].f2 : pkg1::s3.i:conn3 in sub2[0]
 				}
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
-				som "som_0" m1 , sub1[0].m3
-				som "som_1" m2 , sub1[0].m4 , sub2[0].m5
-				som "som_2" m2 , sub1[0].m4 , sub2[0].m6
+				som "som_1" m1 , sub1[0].m3
+				som "som_2" m2 , sub1[0].m4 , sub2[0].m5
+				som "som_3" m2 , sub1[0].m4 , sub2[0].m6
 			}''')
 	}
 }

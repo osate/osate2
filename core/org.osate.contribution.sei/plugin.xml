@@ -8,6 +8,14 @@
             id="org.osate.contributes.SEI.aadlcontribution1">
       </aadlcontribution>
       <aadlcontribution
+            file="resources/properties/Data_Model.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution2">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/packages/Base_Types.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution3">
+      </aadlcontribution>
+      <aadlcontribution
             file="resources/properties/ARINC653.aadl"
             id="org.osate.contributes.SAE.aadlcontribution4">
       </aadlcontribution>
@@ -16,12 +24,8 @@
             id="org.osate.contributes.SAE.aadlcontribution5">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/properties/Data_Model.aadl"
-            id="org.osate.contributes.SAE.aadlcontribution2">
-      </aadlcontribution>
-      <aadlcontribution
-            file="resources/packages/Base_Types.aadl"
-            id="org.osate.contributes.SAE.aadlcontribution3">
+            file="resources/properties/Code_Generation_Properties.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution6">
       </aadlcontribution>
    </extension>
 </plugin>
