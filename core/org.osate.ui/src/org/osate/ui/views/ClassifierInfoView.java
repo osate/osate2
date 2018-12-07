@@ -18,6 +18,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
 
@@ -156,35 +158,73 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	// ======================================================================
 
 	private static final class AncestorTree {
-		private final AncestorTreeRoot[] children;
+		private final AncestorTreeNode[] children;
 
-		private AncestorTree(final AncestorTreeRoot root) {
-			children = new AncestorTreeRoot[] { root };
+		private AncestorTree(final AncestorTreeNode root) {
+			children = new AncestorTreeNode[] { root };
 		}
 
-		public AncestorTreeRoot[] getChildren() {
+		public AncestorTreeNode[] getChildren() {
 			return children;
 		}
 
 		public static AncestorTree createFor(final Classifier classifier) {
-			return new AncestorTree(AncestorTreeRoot.create(classifier));
+			return new AncestorTree(AncestorTreeNode.create(classifier, ""));
 		}
 	}
 
-	private static abstract class AncestorTreeNode {
+	private static final class AncestorTreeNode {
 		protected final Classifier classifier;
+		private final String prefix;
 		private AncestorTreeNode parent;
 		private AncestorTreeNode[] children;
 
-		private AncestorTreeNode(final Classifier classifier, final AncestorTreeNode[] children) {
+		private AncestorTreeNode(final Classifier classifier, final String prefix, final AncestorTreeNode[] children) {
 			this.classifier = classifier;
+			this.prefix = prefix;
 			this.children = children;
 			for (final AncestorTreeNode child : children) {
 				child.setParent(this);
 			}
 		}
 
-		public abstract String getLabel();
+		public static AncestorTreeNode create(final Classifier classifier, final String prefix) {
+			AncestorTreeNode[] children = new AncestorTreeNode[0];
+			if (classifier instanceof ComponentType) {
+				final ComponentType extended = ((ComponentType) classifier.getExtended());
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeNode.create(extended, "extends ") };
+				}
+			} else if (classifier instanceof ComponentImplementation) {
+				final ComponentImplementation asCompImpl = (ComponentImplementation) classifier;
+				final ComponentType implemented = asCompImpl.getType();
+				final ComponentImplementation extended = asCompImpl.getExtended();
+				if (extended == null) {
+					children = new AncestorTreeNode[] { AncestorTreeNode.create(implemented, "implements ") };
+				} else {
+					children = new AncestorTreeNode[] { AncestorTreeNode.create(implemented, "implements "),
+							AncestorTreeNode.create(extended, "extends ") };
+				}
+			} else if (classifier instanceof FeatureGroupType) {
+				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
+				if (extended != null) {
+					children = new AncestorTreeNode[] { AncestorTreeNode.create(extended, "extends ") };
+				}
+			}
+			return new AncestorTreeNode(classifier, prefix, children);
+		}
+
+		public String getLabel() {
+			final String label;
+			if (classifier instanceof ComponentClassifier) {
+				label = ((ComponentClassifier) classifier).getCategory() + " " + classifier.getQualifiedName();
+			} else if (classifier instanceof FeatureGroupType) {
+				label = "feature group " + classifier.getQualifiedName();
+			} else {
+				label = "***";
+			}
+			return prefix + label;
+		}
 
 		public final boolean hasChildren() {
 			return children.length > 0;
@@ -202,71 +242,4 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			this.parent = parent;
 		}
 	}
-
-	private static final class AncestorTreeRoot extends AncestorTreeNode {
-		private AncestorTreeRoot(final Classifier classifier, final AncestorTreeNode[] children) {
-			super(classifier, children);
-		}
-
-		public static AncestorTreeRoot create(final Classifier classifier) {
-			AncestorTreeNode[] children = new AncestorTreeNode[0];
-			if (classifier instanceof ComponentType) {
-				final ComponentType extended = ((ComponentType) classifier.getExtended());
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
-				}
-			} else if (classifier instanceof FeatureGroupType) {
-				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
-				}
-			}
-			return new AncestorTreeRoot(classifier, children);
-		}
-
-		@Override
-		public String getLabel() {
-			if (classifier instanceof ComponentType) {
-				return ((ComponentType) classifier).getCategory() + " " + classifier.getQualifiedName();
-			} else if (classifier instanceof FeatureGroupType) {
-				return "feature group " + classifier.getQualifiedName();
-			} else {
-				return "***";
-			}
-		}
-	}
-
-	private static final class AncestorTreeAncestor extends AncestorTreeNode {
-		private AncestorTreeAncestor(final Classifier classifier, final AncestorTreeNode[] children) {
-			super(classifier, children);
-		}
-
-		public static AncestorTreeAncestor create(final Classifier classifier) {
-			AncestorTreeNode[] children = new AncestorTreeNode[0];
-			if (classifier instanceof ComponentType) {
-				final ComponentType extended = ((ComponentType) classifier.getExtended());
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
-				}
-			} else if (classifier instanceof FeatureGroupType) {
-				final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
-				if (extended != null) {
-					children = new AncestorTreeNode[] { AncestorTreeAncestor.create(extended) };
-				}
-			}
-			return new AncestorTreeAncestor(classifier, children);
-		}
-
-		@Override
-		public String getLabel() {
-			if (classifier instanceof ComponentType) {
-				return "extends " + ((ComponentType) classifier).getCategory() + " " + classifier.getQualifiedName();
-			} else if (classifier instanceof FeatureGroupType) {
-				return "extends feature group " + classifier.getQualifiedName();
-			} else {
-				return "extends ***";
-			}
-		}
-	}
-
 }
