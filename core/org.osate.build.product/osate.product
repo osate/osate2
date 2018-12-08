@@ -56,8 +56,8 @@
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.graphiti.export.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
-      <feature id="org.eclipse.elk.feature" version="0.3.0"/>
-      <feature id="org.eclipse.elk.algorithms.feature" version="0.3.0"/>
+      <feature id="org.eclipse.elk.feature"/>
+      <feature id="org.eclipse.elk.algorithms.feature"/>
       <feature id="org.eclipse.ease.feature"/>
       <feature id="org.eclipse.ease.lang.python.py4j.feature"/>
       <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
