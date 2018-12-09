@@ -13,7 +13,7 @@
 		<tycho.version>1.0.0</tycho.version>
 		<tycho-extras.version>1.0.0</tycho-extras.version>
 		<xtext.version>2.15.0</xtext.version>
-		<xsemantics.version>1.15.0</xsemantics.version>
+		<xsemantics.version>1.15.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.4.0-SNAPSHOT</osate.version>
 
@@ -309,14 +309,6 @@
 						</configuration>
 					</execution>
 				</executions>
-				<!-- workaround for dependency issue, see https://github.com/eclipse/xtext/issues/1231 -->
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.platform</groupId>
-						<artifactId>org.eclipse.equinox.common</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -392,7 +384,7 @@
 					<configuration>
 						<languages>
 							<language>
-								<setup>it.xsemantics.dsl.XsemanticsStandaloneSetup</setup>
+								<setup>org.eclipse.xsemantics.dsl.XsemanticsStandaloneSetup</setup>
 								<outputConfigurations>
 									<outputConfiguration>
 										<outputDirectory>${basedir}/xsemantics-gen</outputDirectory>
@@ -403,8 +395,8 @@
 					</configuration>
 					<dependencies>
 						<dependency>
-							<groupId>net.sf.xsemantics</groupId>
-							<artifactId>it.xsemantics.dsl</artifactId>
+							<groupId>org.eclipse.xsemantics</groupId>
+							<artifactId>org.eclipse.xsemantics.dsl</artifactId>
 							<version>${xsemantics.version}</version>
 						</dependency>
 					</dependencies>

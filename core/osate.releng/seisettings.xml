@@ -28,7 +28,7 @@
 			<layout>p2</layout>
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
 		</mirror>
-  		<mirror>
+		<mirror>
 			<id>osate-build-jericho</id>
 			<mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
 			<url>http://jericho.sei.cmu.edu/</url>
@@ -36,4 +36,24 @@
 			<mirrorOfLayouts>p2</mirrorOfLayouts>
 		</mirror>
 	</mirrors>
+	<profiles>
+		<profile>
+			<id>allow-snapshots</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>snapshots-repo</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 </settings>

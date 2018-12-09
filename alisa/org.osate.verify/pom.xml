@@ -27,14 +27,6 @@
 						<sourceRoot>${basedir}/src</sourceRoot>
 					</sourceRoots>
 				</configuration>
-				<!-- workaround for dependency issue, see https://github.com/eclipse/xtext/issues/1231 -->
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.platform</groupId>
-						<artifactId>org.eclipse.equinox.common</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
@@ -53,14 +45,6 @@
 						</configuration>
 					</execution>
 				</executions>
-				<!-- workaround for dependency issue, see https://github.com/eclipse/xtext/issues/1231 -->
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.platform</groupId>
-						<artifactId>org.eclipse.equinox.common</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
