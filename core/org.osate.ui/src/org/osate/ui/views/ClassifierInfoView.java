@@ -1,5 +1,8 @@
 package org.osate.ui.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -50,9 +53,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final SashForm sash = new SashForm(parent, SWT.HORIZONTAL);
 
 		ancestorTree = createAncestorTree(sash);
-
-//		label1 = new Label(sash, SWT.LEFT);
-//		label1.setText("Hierarchy section");
 
 		label2 = new Label(sash, SWT.LEFT);
 		label2.setText("Member section");
@@ -240,10 +240,17 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 						createAncestorTreeNode(extended, "extends ") };
 			}
 		} else if (classifier instanceof FeatureGroupType) {
-			final FeatureGroupType extended = ((FeatureGroupType) classifier).getExtended();
-			if (extended != null) {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, "extends ") };
+			final FeatureGroupType asFeatureGroup = (FeatureGroupType) classifier;
+			final FeatureGroupType inverseOf = asFeatureGroup.getInverse();
+			final FeatureGroupType extended = asFeatureGroup.getExtended();
+			final List<AncestorTreeNode> childrenList = new ArrayList<>(2);
+			if (inverseOf != null) {
+				childrenList.add(createAncestorTreeNode(inverseOf, "inverse of "));
 			}
+			if (extended != null) {
+				childrenList.add(createAncestorTreeNode(extended, "extends "));
+			}
+			children = childrenList.toArray(children);
 		}
 		return new AncestorTreeNode(classifier, prefix, children);
 	}
