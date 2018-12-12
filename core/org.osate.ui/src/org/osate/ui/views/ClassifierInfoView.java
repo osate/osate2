@@ -16,7 +16,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
@@ -26,6 +25,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.Prototype;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
@@ -34,9 +34,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	 */
 	private ISelection currentSelection;
 
-	private Label label2;
-
 	private TreeViewer ancestorTree;
+	private TreeViewer memberTree;
 
 	private final ILabelProvider modelElementLabelProvider;
 
@@ -53,9 +52,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final SashForm sash = new SashForm(parent, SWT.HORIZONTAL);
 
 		ancestorTree = createAncestorTree(sash);
-
-		label2 = new Label(sash, SWT.LEFT);
-		label2.setText("Member section");
+		memberTree = createMemberTree(sash);
 	}
 
 	@Override
@@ -105,12 +102,12 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			}
 
 			@Override
-			public Object getParent(Object element) {
+			public Object getParent(final Object element) {
 				return ((AncestorTreeNode) element).getParent();
 			}
 
 			@Override
-			public Object[] getElements(Object inputElement) {
+			public Object[] getElements(final Object inputElement) {
 				if (inputElement != null) {
 					return ((AncestorTree) inputElement).getChildren();
 				} else {
@@ -119,8 +116,61 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			}
 
 			@Override
-			public Object[] getChildren(Object parentElement) {
+			public Object[] getChildren(final Object parentElement) {
 				return ((AncestorTreeNode) parentElement).getChildren();
+			}
+		});
+
+		return treeViewer;
+	}
+
+	private TreeViewer createMemberTree(final Composite parent) {
+		final Composite treeComposite = new Composite(parent, SWT.NONE);
+		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
+		treeComposite.setLayout(treeColumnLayout);
+
+		final TreeViewer treeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
+		treeViewer.getTree().setLinesVisible(false);
+		treeViewer.getTree().setHeaderVisible(false);
+		treeViewer.getTree().setFont(parent.getFont());
+
+		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(treeViewer, SWT.LEFT);
+		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
+		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public Image getImage(Object element) {
+				return ((MemberTreeNode) element).getImage();
+			}
+
+			@Override
+			public String getText(final Object element) {
+				return ((MemberTreeNode) element).getText();
+			}
+		});
+		treeViewer.setContentProvider(new ITreeContentProvider() {
+			@Override
+			public boolean hasChildren(final Object element) {
+				return ((MemberTreeNode) element).hasChildren();
+			}
+
+			@Override
+			public Object getParent(final Object element) {
+//				return ((AncestorTreeNode) element).getParent();
+				return null;
+			}
+
+			@Override
+			public Object[] getElements(final Object inputElement) {
+				if (inputElement != null) {
+					return ((MemberTree) inputElement).getSections();
+				} else {
+					return new Object[0];
+				}
+			}
+
+			@Override
+			public Object[] getChildren(final Object parentElement) {
+				return ((MemberTreeNode) parentElement).getChildren();
 			}
 		});
 
@@ -139,32 +189,57 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 		currentSelection = selection;
 
-		String classifier = null;
 		Classifier input = null;
 		if (selection.isEmpty()) {
-			classifier = "<no selection>";
+//			classifier = "<no selection>";
 		} else if (selection instanceof IStructuredSelection) {
 			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
 			if (selectedObject == null) {
-				classifier = "<selection is null>";
+//				classifier = "<selection is null>";
 			} else if (selectedObject instanceof Classifier) {
 				input = (Classifier) selectedObject;
-				classifier = ((Classifier) selectedObject).getQualifiedName();
+//				classifier = ((Classifier) selectedObject).getQualifiedName();
 			} else {
-				classifier = "<selection is not a component classifier: " + selectedObject.getClass() + ">";
+//				classifier = "<selection is not a component classifier: " + selectedObject.getClass() + ">";
 			}
 		} else {
-			classifier = "<not structured>";
+//			classifier = "<not structured>";
 		}
 		if (input != null) {
 			ancestorTree.setInput(createAncestorTree(input));
+			if (input instanceof ComponentType) {
+				memberTree.setInput(createMemberTree((ComponentType) input));
+				memberTree.expandToLevel(2);
+				printOut((ComponentType) input);
+			}
 		}
-		label2.setText(classifier);
+	}
+
+	private void printOut(final ComponentType ct) {
+		System.out.println();
+		final List<Prototype> prototypes = ct.getAllPrototypes();
+		for (final Prototype p : prototypes) {
+			final ComponentType q = (ComponentType) p.eContainer();
+			final boolean isLocal = q.equals(ct);
+			final boolean isRefined = p.getRefined() != null;
+			System.out.print(modelElementLabelProvider.getText(p));
+			if (!isLocal) {
+				System.out.print(" [from " + q.getFullName() + "]");
+			}
+			if (isRefined) {
+				System.out.print(" [refined]");
+			}
+			System.out.println();
+		}
 	}
 
 	// ======================================================================
 	// == Helper classes
 	// ======================================================================
+
+	// ----------------------------------------------------------------------
+	// -- Ancestor tree
+	// ----------------------------------------------------------------------
 
 	private final class AncestorTree {
 		private final AncestorTreeNode[] children;
@@ -253,6 +328,124 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			children = childrenList.toArray(children);
 		}
 		return new AncestorTreeNode(classifier, prefix, children);
+	}
+
+	// ----------------------------------------------------------------------
+	// -- Member tree
+	// ----------------------------------------------------------------------
+
+	private final static class MemberTree {
+		private final SectionNode[] sections;
+
+		private MemberTree(List<SectionNode> sectionsList) {
+			sections = sectionsList.toArray(new SectionNode[sectionsList.size()]);
+		}
+
+		public SectionNode[] getSections() {
+			return sections;
+		}
+	}
+
+	public MemberTree createMemberTree(final ComponentType ct) {
+		final List<SectionNode> sections = new ArrayList<>();
+		final List<Prototype> prototypes = ct.getAllPrototypes();
+		if (prototypes != null && prototypes.size() > 0) {
+			sections.add(createPrototypesSection(ct, prototypes));
+		}
+		return new MemberTree(sections);
+	}
+
+	private static interface MemberTreeNode {
+		public String getText();
+
+		public Image getImage();
+		public boolean hasChildren();
+		public Object[] getChildren();
+	}
+
+	private final class SectionNode implements MemberTreeNode {
+		private final String heading;
+		private final MemberNode[] members;
+
+		private SectionNode(final String heading, List<MemberNode> membersList) {
+			this.heading = heading;
+			this.members = membersList.toArray(new MemberNode[membersList.size()]);
+		}
+
+		@Override
+		public String getText() {
+			return heading;
+		}
+
+		@Override
+		public Image getImage() {
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren() {
+			return members.length > 0;
+		}
+
+		@Override
+		public MemberNode[] getChildren() {
+			return members;
+		}
+	}
+
+	public SectionNode createPrototypesSection(final ComponentType ct, final List<Prototype> prototypes) {
+		final List<MemberNode> members = new ArrayList<>();
+		for (final Prototype p : prototypes) {
+			members.add(createPrototypeNode(ct, p));
+		}
+		return new SectionNode("Prototypes", members);
+	}
+
+	private final class MemberNode implements MemberTreeNode {
+		private final Object member;
+		private final String name;
+		private final Classifier inheritedFrom;
+		private final boolean isRefined;
+		private final MemberNode[] ancestorMember;
+
+		private MemberNode(final Object m, final String n, final Classifier from, final boolean refined,
+				final MemberNode ancestor) {
+			member = m;
+			name = n;
+			inheritedFrom = from;
+			isRefined = refined;
+			ancestorMember = ancestor == null ? new MemberNode[0] : new MemberNode[] { ancestor };
+		}
+
+		@Override
+		public String getText() {
+			return (isRefined ? "refined " : "") + name
+					+ (inheritedFrom != null ? (" [from " + inheritedFrom.getName() + "]") : "");
+		}
+
+		@Override
+		public Image getImage() {
+			return modelElementLabelProvider.getImage(member);
+		}
+
+		@Override
+		public boolean hasChildren() {
+			return ancestorMember.length > 0;
+		}
+
+		@Override
+		public MemberNode[] getChildren() {
+			return ancestorMember;
+		}
+	}
+
+	public MemberNode createPrototypeNode(final ComponentType ct, final Prototype prototype) {
+		final ComponentType q = (ComponentType) prototype.eContainer();
+		final boolean isLocal = q.equals(ct);
+		final Prototype refined = prototype.getRefined();
+		final boolean isRefined = refined != null;
+		return new MemberNode(prototype, prototype.getName(), isLocal ? null : q, isRefined,
+				!isRefined ? null : createPrototypeNode(ct /* (ComponentType) refined.eContainer() */, refined));
 	}
 
 }
