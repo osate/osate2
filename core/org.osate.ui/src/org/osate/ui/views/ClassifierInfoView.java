@@ -24,6 +24,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.ui.UiUtil;
@@ -38,6 +39,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private TreeViewer memberTree;
 
 	private final ILabelProvider modelElementLabelProvider;
+	private Image aadlImage;
 
 	public ClassifierInfoView() {
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
@@ -58,12 +60,16 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
 		site.getPage().addPostSelectionListener(this);
+		aadlImage = new Image(site.getShell().getDisplay(),
+				ClassifierInfoView.class.getResourceAsStream("/icons/aadl.gif"));
 		super.init(site);
 	}
 
 	@Override
 	public void dispose() {
 		getSite().getPage().removePostSelectionListener(this);
+		aadlImage.dispose();
+		aadlImage = null;
 		currentSelection = null;
 	}
 
@@ -352,6 +358,10 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		if (prototypes != null && prototypes.size() > 0) {
 			sections.add(createPrototypesSection(ct, prototypes));
 		}
+		final List<Feature> features = ct.getAllFeatures();
+		if (features != null && features.size() > 0) {
+			sections.add(createFeaturesSection(ct, features));
+		}
 		return new MemberTree(sections);
 	}
 
@@ -379,7 +389,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 		@Override
 		public Image getImage() {
-			return null;
+			return aadlImage;
 		}
 
 		@Override
@@ -399,6 +409,14 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			members.add(createPrototypeNode(ct, p));
 		}
 		return new SectionNode("Prototypes", members);
+	}
+
+	public SectionNode createFeaturesSection(final ComponentType ct, final List<Feature> features) {
+		final List<MemberNode> members = new ArrayList<>();
+		for (final Feature f : features) {
+			members.add(createFeatureNode(ct, f));
+		}
+		return new SectionNode("Features", members);
 	}
 
 	private final class MemberNode implements MemberTreeNode {
@@ -446,6 +464,15 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final boolean isRefined = refined != null;
 		return new MemberNode(prototype, prototype.getName(), isLocal ? null : q, isRefined,
 				!isRefined ? null : createPrototypeNode(ct /* (ComponentType) refined.eContainer() */, refined));
+	}
+
+	public MemberNode createFeatureNode(final ComponentType ct, final Feature feature) {
+		final ComponentType q = (ComponentType) feature.eContainer();
+		final boolean isLocal = q.equals(ct);
+		final Feature refined = feature.getRefined();
+		final boolean isRefined = refined != null;
+		return new MemberNode(feature, feature.getName(), isLocal ? null : q, isRefined,
+				!isRefined ? null : createFeatureNode(ct /* (ComponentType) refined.eContainer() */, refined));
 	}
 
 }
