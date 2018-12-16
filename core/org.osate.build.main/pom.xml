@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.4.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.7.9</jacoco.version>
+		<jacoco.version>0.8.2</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
@@ -239,6 +239,38 @@
 							<execution>
 								<goals>
 									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>sign</id>
+			<activation>
+				<property>
+					<name>sign</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jarsigner-plugin</artifactId>
+						<version>3.0.0</version>
+						<configuration>
+							<keystore>file:///home/lw/.pki/osate-signing.keystore</keystore>
+							<storepass>STOREPASS</storepass>
+							<alias>testsign</alias>
+							<keypass>KEYPASS</keypass>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign</id>
+								<goals>
+									<goal>sign</goal>
 								</goals>
 							</execution>
 						</executions>
