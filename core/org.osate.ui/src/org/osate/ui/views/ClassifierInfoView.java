@@ -27,6 +27,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.ui.UiUtil;
@@ -222,6 +223,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 		if (input != null) {
 			ancestorTree.setInput(createAncestorTree(input));
+			ancestorTree.expandToLevel(2);
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
 				memberTree.expandToLevel(2);
@@ -400,24 +402,20 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-	public MemberTree createMemberTree(final ComponentType ct) {
+	private MemberTree createMemberTree(final ComponentType ct) {
 		final List<SectionNode> sections = new ArrayList<>();
-		final List<Prototype> prototypes = ct.getAllPrototypes();
-		if (prototypes != null && prototypes.size() > 0) {
-//			sections.add(createPrototypesSection(ct, prototypes));
-			sections.add(createSectionNode(ct, prototypes, "Prototypes", ClassifierInfoView::getRefinedPrototype));
-		}
-		final List<Feature> features = ct.getAllFeatures();
-		if (features != null && features.size() > 0) {
-//			sections.add(createFeaturesSection(ct, features));
-			sections.add(createSectionNode(ct, features, "Features", ClassifierInfoView::getRefinedFeature));
-		}
-		final List<FlowSpecification> flowSpecs = ct.getAllFlowSpecifications();
-		if (flowSpecs != null && flowSpecs.size() > 0) {
-//			sections.add(createFlowsSection(ct, flowSpecs));
-			sections.add(createSectionNode(ct, flowSpecs, "Flows", ClassifierInfoView::getRefinedFlowSpec));
-		}
+		addSection(sections, "Prototypes", ct, ct.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
+		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
 		return new MemberTree(sections);
+	}
+
+	private <M extends NamedElement> void addSection(final List<SectionNode> sections, final String heading,
+			final ComponentType ct, final List<M> members, final GetRefined<M> gr) {
+		if (members != null && members.size() > 0) {
+			sections.add(createSectionNode(ct, members, heading, gr));
+		}
 	}
 
 	private static interface MemberTreeNode {
@@ -457,30 +455,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			return members;
 		}
 	}
-
-//	public SectionNode createPrototypesSection(final ComponentType ct, final List<Prototype> prototypes) {
-//		final List<MemberNode> members = new ArrayList<>();
-//		for (final Prototype p : prototypes) {
-//			members.add(createPrototypeNode(ct, p));
-//		}
-//		return new SectionNode("Prototypes", members);
-//	}
-//
-//	public SectionNode createFeaturesSection(final ComponentType ct, final List<Feature> features) {
-//		final List<MemberNode> members = new ArrayList<>();
-//		for (final Feature f : features) {
-//			members.add(createFeatureNode(ct, f));
-//		}
-//		return new SectionNode("Features", members);
-//	}
-//
-//	public SectionNode createFlowsSection(final ComponentType ct, final List<FlowSpecification> flowSpecs) {
-//		final List<MemberNode> members = new ArrayList<>();
-//		for (final FlowSpecification f : flowSpecs) {
-//			members.add(createFlowSpecNode(ct, f));
-//		}
-//		return new SectionNode("Flows", members);
-//	}
 
 	public <M extends NamedElement> SectionNode createSectionNode(final ComponentType ct, final List<M> members,
 			final String heading,
@@ -530,33 +504,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-//	public MemberNode createPrototypeNode(final ComponentType ct, final Prototype prototype) {
-//		final ComponentType q = (ComponentType) prototype.eContainer();
-//		final boolean isLocal = q.equals(ct);
-//		final Prototype refined = prototype.getRefined();
-//		final boolean isRefined = refined != null;
-//		return new MemberNode(prototype, prototype.getName(), isLocal ? null : q, isRefined,
-//				!isRefined ? null : createPrototypeNode(ct /* (ComponentType) refined.eContainer() */, refined));
-//	}
-//
-//	public MemberNode createFeatureNode(final ComponentType ct, final Feature feature) {
-//		final ComponentType q = (ComponentType) feature.eContainer();
-//		final boolean isLocal = q.equals(ct);
-//		final Feature refined = feature.getRefined();
-//		final boolean isRefined = refined != null;
-//		return new MemberNode(feature, feature.getName(), isLocal ? null : q, isRefined,
-//				!isRefined ? null : createFeatureNode(ct /* (ComponentType) refined.eContainer() */, refined));
-//	}
-//
-//	public MemberNode createFlowSpecNode(final ComponentType ct, final FlowSpecification flowSpec) {
-//		final ComponentType q = (ComponentType) flowSpec.eContainer();
-//		final boolean isLocal = q.equals(ct);
-//		final FlowSpecification refined = flowSpec.getRefined();
-//		final boolean isRefined = refined != null;
-//		return new MemberNode(flowSpec, flowSpec.getName(), isLocal ? null : q, isRefined,
-//				!isRefined ? null : createFlowSpecNode(ct /* (ComponentType) refined.eContainer() */, refined));
-//	}
-
 	public <M extends NamedElement> MemberNode createMemberNode(final ComponentType ct, final M member,
 			final GetRefined<M> gr)
 	{
@@ -566,6 +513,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final boolean isRefined = refined != null;
 		return new MemberNode(member, member.getName(), isLocal ? null : q, isRefined,
 				!isRefined ? null : createMemberNode(ct, refined, gr));
+	}
+
+	private static final List<ModeFeature> getAllModesAndModeTransitions(final ComponentType ct) {
+		final List<ModeFeature> modeFeatures = new ArrayList<>();
+		modeFeatures.addAll(ct.getAllModes());
+		modeFeatures.addAll(ct.getAllModeTransitions());
+		return modeFeatures;
 	}
 
 	@FunctionalInterface
@@ -583,5 +537,10 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	private static FlowSpecification getRefinedFlowSpec(final FlowSpecification fs) {
 		return fs.getRefined();
+	}
+
+	private static ModeFeature getRefinedMode(final ModeFeature mf) {
+		// Modes cannot be refined
+		return null;
 	}
 }
