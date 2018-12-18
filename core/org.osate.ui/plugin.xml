@@ -151,6 +151,13 @@
             icon="icons/aadlNav.gif"
             id="org.osate.ui.navigator.AadlNavigator"
             name="AADL Navigator"/>
+      <view
+            id="org.eclipse.ui.projectvisualization"
+            name="Graph Project Dependencies"
+            icon="icons/obj16/req_plugins_obj.gif"
+            category="aadl.view_category"
+            class="org.osate.ui.projectvisualization.PluginVisualizationView">
+      </view>
    </extension>
    
 	<extension
