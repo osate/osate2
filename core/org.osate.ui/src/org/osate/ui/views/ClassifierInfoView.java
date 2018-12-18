@@ -26,6 +26,8 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.ui.UiUtil;
 
@@ -41,7 +43,14 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
+//	@Inject
+//	private ISerializer serializer;
+
 	public ClassifierInfoView() {
+//		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+//				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
+//		injector.injectMembers(this);
+
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
@@ -216,28 +225,67 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
 				memberTree.expandToLevel(2);
-				printOut((ComponentType) input);
+//				printOut((ComponentType) input);
 			}
 		}
 	}
 
-	private void printOut(final ComponentType ct) {
-		System.out.println();
-		final List<Prototype> prototypes = ct.getAllPrototypes();
-		for (final Prototype p : prototypes) {
-			final ComponentType q = (ComponentType) p.eContainer();
-			final boolean isLocal = q.equals(ct);
-			final boolean isRefined = p.getRefined() != null;
-			System.out.print(modelElementLabelProvider.getText(p));
-			if (!isLocal) {
-				System.out.print(" [from " + q.getFullName() + "]");
-			}
-			if (isRefined) {
-				System.out.print(" [refined]");
-			}
-			System.out.println();
-		}
-	}
+//	private void printOut(final ComponentType ct) {
+//		System.out.println(serializer.getClass());
+//		final SaveOptions options = SaveOptions.newBuilder().format().getOptions();
+//		System.out.println();
+//		for (final Prototype p : ct.getAllPrototypes()) {
+//			final ComponentType q = (ComponentType) p.eContainer();
+//			final boolean isLocal = q.equals(ct);
+//			final boolean isRefined = p.getRefined() != null;
+//			System.out.println("******");
+//			System.out.println(modelElementLabelProvider.getText(p));
+//			System.out.println("............");
+//			System.out.println(serializer.serialize(p, options));
+//			System.out.println("******");
+////			if (!isLocal) {
+////				System.out.print(" [from " + q.getFullName() + "]");
+////			}
+////			if (isRefined) {
+////				System.out.print(" [refined]");
+////			}
+//			System.out.println();
+//		}
+//		for (final Feature p : ct.getAllFeatures()) {
+//			final ComponentType q = (ComponentType) p.eContainer();
+//			final boolean isLocal = q.equals(ct);
+//			final boolean isRefined = p.getRefined() != null;
+//			System.out.println("******");
+//			System.out.println(modelElementLabelProvider.getText(p));
+//			System.out.println("............");
+//			System.out.println(serializer.serialize(p, options));
+//			System.out.println("******");
+////			if (!isLocal) {
+////				System.out.print(" [from " + q.getFullName() + "]");
+////			}
+////			if (isRefined) {
+////				System.out.print(" [refined]");
+////			}
+//			System.out.println();
+//		}
+//		for (final FlowSpecification p : ct.getAllFlowSpecifications()) {
+//			final ComponentType q = (ComponentType) p.eContainer();
+//			final boolean isLocal = q.equals(ct);
+//			final boolean isRefined = p.getRefined() != null;
+//			System.out.println("******");
+//			System.out.println(modelElementLabelProvider.getText(p));
+//			System.out.println("............");
+//			System.out.println(serializer.serialize(p, options));
+//			System.out.println("******");
+////			if (!isLocal) {
+////				System.out.print(" [from " + q.getFullName() + "]");
+////			}
+////			if (isRefined) {
+////				System.out.print(" [refined]");
+////			}
+//			System.out.println();
+//		}
+//	}
 
 	// ======================================================================
 	// == Helper classes
@@ -356,11 +404,18 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final List<SectionNode> sections = new ArrayList<>();
 		final List<Prototype> prototypes = ct.getAllPrototypes();
 		if (prototypes != null && prototypes.size() > 0) {
-			sections.add(createPrototypesSection(ct, prototypes));
+//			sections.add(createPrototypesSection(ct, prototypes));
+			sections.add(createSectionNode(ct, prototypes, "Prototypes", ClassifierInfoView::getRefinedPrototype));
 		}
 		final List<Feature> features = ct.getAllFeatures();
 		if (features != null && features.size() > 0) {
-			sections.add(createFeaturesSection(ct, features));
+//			sections.add(createFeaturesSection(ct, features));
+			sections.add(createSectionNode(ct, features, "Features", ClassifierInfoView::getRefinedFeature));
+		}
+		final List<FlowSpecification> flowSpecs = ct.getAllFlowSpecifications();
+		if (flowSpecs != null && flowSpecs.size() > 0) {
+//			sections.add(createFlowsSection(ct, flowSpecs));
+			sections.add(createSectionNode(ct, flowSpecs, "Flows", ClassifierInfoView::getRefinedFlowSpec));
 		}
 		return new MemberTree(sections);
 	}
@@ -403,20 +458,38 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-	public SectionNode createPrototypesSection(final ComponentType ct, final List<Prototype> prototypes) {
-		final List<MemberNode> members = new ArrayList<>();
-		for (final Prototype p : prototypes) {
-			members.add(createPrototypeNode(ct, p));
-		}
-		return new SectionNode("Prototypes", members);
-	}
+//	public SectionNode createPrototypesSection(final ComponentType ct, final List<Prototype> prototypes) {
+//		final List<MemberNode> members = new ArrayList<>();
+//		for (final Prototype p : prototypes) {
+//			members.add(createPrototypeNode(ct, p));
+//		}
+//		return new SectionNode("Prototypes", members);
+//	}
+//
+//	public SectionNode createFeaturesSection(final ComponentType ct, final List<Feature> features) {
+//		final List<MemberNode> members = new ArrayList<>();
+//		for (final Feature f : features) {
+//			members.add(createFeatureNode(ct, f));
+//		}
+//		return new SectionNode("Features", members);
+//	}
+//
+//	public SectionNode createFlowsSection(final ComponentType ct, final List<FlowSpecification> flowSpecs) {
+//		final List<MemberNode> members = new ArrayList<>();
+//		for (final FlowSpecification f : flowSpecs) {
+//			members.add(createFlowSpecNode(ct, f));
+//		}
+//		return new SectionNode("Flows", members);
+//	}
 
-	public SectionNode createFeaturesSection(final ComponentType ct, final List<Feature> features) {
-		final List<MemberNode> members = new ArrayList<>();
-		for (final Feature f : features) {
-			members.add(createFeatureNode(ct, f));
+	public <M extends NamedElement> SectionNode createSectionNode(final ComponentType ct, final List<M> members,
+			final String heading,
+			final GetRefined<M> gr) {
+		final List<MemberNode> memberNodes = new ArrayList<>();
+		for (final M member : members) {
+			memberNodes.add(createMemberNode(ct, member, gr));
 		}
-		return new SectionNode("Features", members);
+		return new SectionNode(heading, memberNodes);
 	}
 
 	private final class MemberNode implements MemberTreeNode {
@@ -457,22 +530,58 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-	public MemberNode createPrototypeNode(final ComponentType ct, final Prototype prototype) {
-		final ComponentType q = (ComponentType) prototype.eContainer();
+//	public MemberNode createPrototypeNode(final ComponentType ct, final Prototype prototype) {
+//		final ComponentType q = (ComponentType) prototype.eContainer();
+//		final boolean isLocal = q.equals(ct);
+//		final Prototype refined = prototype.getRefined();
+//		final boolean isRefined = refined != null;
+//		return new MemberNode(prototype, prototype.getName(), isLocal ? null : q, isRefined,
+//				!isRefined ? null : createPrototypeNode(ct /* (ComponentType) refined.eContainer() */, refined));
+//	}
+//
+//	public MemberNode createFeatureNode(final ComponentType ct, final Feature feature) {
+//		final ComponentType q = (ComponentType) feature.eContainer();
+//		final boolean isLocal = q.equals(ct);
+//		final Feature refined = feature.getRefined();
+//		final boolean isRefined = refined != null;
+//		return new MemberNode(feature, feature.getName(), isLocal ? null : q, isRefined,
+//				!isRefined ? null : createFeatureNode(ct /* (ComponentType) refined.eContainer() */, refined));
+//	}
+//
+//	public MemberNode createFlowSpecNode(final ComponentType ct, final FlowSpecification flowSpec) {
+//		final ComponentType q = (ComponentType) flowSpec.eContainer();
+//		final boolean isLocal = q.equals(ct);
+//		final FlowSpecification refined = flowSpec.getRefined();
+//		final boolean isRefined = refined != null;
+//		return new MemberNode(flowSpec, flowSpec.getName(), isLocal ? null : q, isRefined,
+//				!isRefined ? null : createFlowSpecNode(ct /* (ComponentType) refined.eContainer() */, refined));
+//	}
+
+	public <M extends NamedElement> MemberNode createMemberNode(final ComponentType ct, final M member,
+			final GetRefined<M> gr)
+	{
+		final ComponentType q = (ComponentType) member.eContainer();
 		final boolean isLocal = q.equals(ct);
-		final Prototype refined = prototype.getRefined();
+		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
-		return new MemberNode(prototype, prototype.getName(), isLocal ? null : q, isRefined,
-				!isRefined ? null : createPrototypeNode(ct /* (ComponentType) refined.eContainer() */, refined));
+		return new MemberNode(member, member.getName(), isLocal ? null : q, isRefined,
+				!isRefined ? null : createMemberNode(ct, refined, gr));
 	}
 
-	public MemberNode createFeatureNode(final ComponentType ct, final Feature feature) {
-		final ComponentType q = (ComponentType) feature.eContainer();
-		final boolean isLocal = q.equals(ct);
-		final Feature refined = feature.getRefined();
-		final boolean isRefined = refined != null;
-		return new MemberNode(feature, feature.getName(), isLocal ? null : q, isRefined,
-				!isRefined ? null : createFeatureNode(ct /* (ComponentType) refined.eContainer() */, refined));
+	@FunctionalInterface
+	private static interface GetRefined<M extends NamedElement> {
+		public M getRefined(M member);
 	}
 
+	private static Prototype getRefinedPrototype(final Prototype p) {
+		return p.getRefined();
+	}
+
+	private static Feature getRefinedFeature(final Feature f) {
+		return f.getRefined();
+	}
+
+	private static FlowSpecification getRefinedFlowSpec(final FlowSpecification fs) {
+		return fs.getRefined();
+	}
 }
