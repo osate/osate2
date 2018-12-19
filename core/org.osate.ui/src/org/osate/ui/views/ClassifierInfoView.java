@@ -227,7 +227,9 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
 				memberTree.expandToLevel(2);
-//				printOut((ComponentType) input);
+			} else if (input instanceof ComponentImplementation) {
+				memberTree.setInput(createMemberTree((ComponentImplementation) input));
+				memberTree.expandToLevel(2);
 			}
 		}
 	}
@@ -411,10 +413,19 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return new MemberTree(sections);
 	}
 
+	private MemberTree createMemberTree(final ComponentImplementation ci) {
+		final List<SectionNode> sections = new ArrayList<>();
+		addSection(sections, "Prototypes", ci, ci.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+//		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+//		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
+//		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
+		return new MemberTree(sections);
+	}
+
 	private <M extends NamedElement> void addSection(final List<SectionNode> sections, final String heading,
-			final ComponentType ct, final List<M> members, final GetRefined<M> gr) {
+			final Classifier classifier, final List<M> members, final GetRefined<M> gr) {
 		if (members != null && members.size() > 0) {
-			sections.add(createSectionNode(ct, members, heading, gr));
+			sections.add(createSectionNode(classifier, members, heading, gr));
 		}
 	}
 
@@ -456,12 +467,12 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-	public <M extends NamedElement> SectionNode createSectionNode(final ComponentType ct, final List<M> members,
+	public <M extends NamedElement> SectionNode createSectionNode(final Classifier classifier, final List<M> members,
 			final String heading,
 			final GetRefined<M> gr) {
 		final List<MemberNode> memberNodes = new ArrayList<>();
 		for (final M member : members) {
-			memberNodes.add(createMemberNode(ct, member, gr));
+			memberNodes.add(createMemberNode(classifier, member, gr));
 		}
 		return new SectionNode(heading, memberNodes);
 	}
@@ -504,15 +515,15 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 	}
 
-	public <M extends NamedElement> MemberNode createMemberNode(final ComponentType ct, final M member,
+	public <M extends NamedElement> MemberNode createMemberNode(final Classifier classifier, final M member,
 			final GetRefined<M> gr)
 	{
-		final ComponentType q = (ComponentType) member.eContainer();
-		final boolean isLocal = q.equals(ct);
+		final Classifier q = (Classifier) member.eContainer();
+		final boolean isLocal = q.equals(classifier);
 		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
 		return new MemberNode(member, member.getName(), isLocal ? null : q, isRefined,
-				!isRefined ? null : createMemberNode(ct, refined, gr));
+				!isRefined ? null : createMemberNode(classifier, refined, gr));
 	}
 
 	private static final List<ModeFeature> getAllModesAndModeTransitions(final ComponentType ct) {
