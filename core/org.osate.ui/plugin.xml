@@ -539,6 +539,12 @@
                    checkEnabled="true">
              </visibleWhen>
           </command>
+          <command
+                commandId="org.osate.ui.visualizeProjectReferences">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
           <menu
                 id="org.osate.ui.analysesNavigatorPopup"
                 label="Analyses">
@@ -996,6 +1002,10 @@
              id="org.osate.ui.wizards.propertySetWizard"
              name="New AADL Property Set">
        </command>
+       <command
+             id="org.osate.ui.visualizeProjectReferences"
+             name="Visualize Project References">
+       </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
@@ -1085,6 +1095,25 @@
             class="org.osate.ui.handlers.NewPropertySetWizardHandler"
             commandId="org.osate.ui.wizards.propertySetWizard">
       </handler>
+      <handler
+             class="org.osate.ui.projectvisualization.FocusVisualizationHandler"
+             commandId="org.osate.ui.visualizeProjectReferences">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <adapt
+                            type="org.eclipse.ui.IWorkingSet">
+                      </adapt>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
     </extension>
     <extension
           point="org.eclipse.ui.commandImages">
