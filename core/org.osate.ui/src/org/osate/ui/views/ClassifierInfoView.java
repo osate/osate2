@@ -410,14 +410,18 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		addSection(sections, "Prototypes", ct, ct.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
 		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
 		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
-		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
+		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::cannotBeRefined);
 		return new MemberTree(sections);
 	}
 
 	private MemberTree createMemberTree(final ComponentImplementation ci) {
 		final List<SectionNode> sections = new ArrayList<>();
 		addSection(sections, "Prototypes", ci, ci.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, "Features", ci, ci.getType().getAllFeatures(), ClassifierInfoView::getRefinedFeature);
 		addSection(sections, "Subcomponents", ci, ci.getAllSubcomponents(), ClassifierInfoView::getRefinedSubcomponent);
+		addSection(sections, "Internal features", ci, ci.getAllInternalFeatures(), ClassifierInfoView::cannotBeRefined);
+		addSection(sections, "Processor features", ci, ci.getAllProcessorFeatures(),
+				ClassifierInfoView::cannotBeRefined);
 //		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
 //		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
 //		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
@@ -552,8 +556,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return fs.getRefined();
 	}
 
-	private static ModeFeature getRefinedMode(final ModeFeature mf) {
-		// Modes cannot be refined
+	private static <X extends NamedElement> X cannotBeRefined(final X x) {
+		// cannot be refined
 		return null;
 	}
 
