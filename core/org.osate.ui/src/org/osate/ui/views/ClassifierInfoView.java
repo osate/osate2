@@ -30,6 +30,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
@@ -416,6 +417,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private MemberTree createMemberTree(final ComponentImplementation ci) {
 		final List<SectionNode> sections = new ArrayList<>();
 		addSection(sections, "Prototypes", ci, ci.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, "Subcomponents", ci, ci.getAllSubcomponents(), ClassifierInfoView::getRefinedSubcomponent);
 //		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
 //		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
 //		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
@@ -553,5 +555,9 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private static ModeFeature getRefinedMode(final ModeFeature mf) {
 		// Modes cannot be refined
 		return null;
+	}
+
+	private static Subcomponent getRefinedSubcomponent(final Subcomponent sub) {
+		return sub.getRefined();
 	}
 }
