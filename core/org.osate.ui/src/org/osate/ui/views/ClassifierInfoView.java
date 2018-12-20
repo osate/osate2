@@ -24,6 +24,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
@@ -422,6 +423,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		addSection(sections, "Internal features", ci, ci.getAllInternalFeatures(), ClassifierInfoView::cannotBeRefined);
 		addSection(sections, "Processor features", ci, ci.getAllProcessorFeatures(),
 				ClassifierInfoView::cannotBeRefined);
+		// TODO Skipping calls for now
+		addSection(sections, "Connections", ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
 //		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
 //		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
 //		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
@@ -544,6 +547,11 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		public M getRefined(M member);
 	}
 
+	private static <X extends NamedElement> X cannotBeRefined(final X x) {
+		// cannot be refined
+		return null;
+	}
+
 	private static Prototype getRefinedPrototype(final Prototype p) {
 		return p.getRefined();
 	}
@@ -556,12 +564,11 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return fs.getRefined();
 	}
 
-	private static <X extends NamedElement> X cannotBeRefined(final X x) {
-		// cannot be refined
-		return null;
-	}
-
 	private static Subcomponent getRefinedSubcomponent(final Subcomponent sub) {
 		return sub.getRefined();
+	}
+
+	private static Connection getRefinedConnection(final Connection c) {
+		return c.getRefined();
 	}
 }
