@@ -425,9 +425,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				ClassifierInfoView::cannotBeRefined);
 		// TODO Skipping calls for now
 		addSection(sections, "Connections", ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
-//		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
-//		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
-//		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::getRefinedMode);
+		// TODO Skipping flows
+		addSection(sections, "Modes", ci, getAllModesAndModeTransitions(ci), ClassifierInfoView::cannotBeRefined);
 		return new MemberTree(sections);
 	}
 
@@ -539,6 +538,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final List<ModeFeature> modeFeatures = new ArrayList<>();
 		modeFeatures.addAll(ct.getAllModes());
 		modeFeatures.addAll(ct.getAllModeTransitions());
+		return modeFeatures;
+	}
+
+	private static final List<ModeFeature> getAllModesAndModeTransitions(final ComponentImplementation ci) {
+		final List<ModeFeature> modeFeatures = new ArrayList<>();
+		modeFeatures.addAll(ci.getAllModes());
+		modeFeatures.addAll(ci.getAllModeTransitions());
 		return modeFeatures;
 	}
 
