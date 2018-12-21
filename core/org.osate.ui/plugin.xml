@@ -1106,9 +1106,17 @@
                          value="1">
                    </count>
                    <iterate>
-                      <adapt
-                            type="org.eclipse.ui.IWorkingSet">
-                      </adapt>
+                      <or>
+                         <adapt
+                               type="org.eclipse.ui.IWorkingSet">
+                         </adapt>
+                         <adapt
+                               type="org.eclipse.core.resources.IProject">
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                         </adapt>
+                      </or>
                    </iterate>
                 </and>
              </with>
