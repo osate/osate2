@@ -15,9 +15,14 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.statushandlers.StatusManager;
@@ -34,11 +39,22 @@ import org.osate.ui.OsateUiPlugin;
 public class ProjectVisualizationView extends ViewPart {
 	public static final String ID = "org.osate.ui.projectvisualization";
 
+	private Label label;
+	private Font labelFont;
 	private GraphViewer graph;
 
 	@Override
 	public void createPartControl(Composite parent) {
+		parent.setLayout(new GridLayout());
+		
+		label = new Label(parent, SWT.NONE);
+		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		label.setText("Scope: All Projects");
+		labelFont = FontDescriptor.createFrom(label.getFont()).increaseHeight(10).createFont(label.getDisplay());
+		label.setFont(labelFont);
+		
 		graph = new GraphViewer(parent, SWT.NONE);
+		graph.getGraphControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		graph.setContentProvider(new IGraphEntityContentProvider() {
 			private Set<IProject> projects;
 
@@ -116,12 +132,20 @@ public class ProjectVisualizationView extends ViewPart {
 	public void setFocus() {
 		graph.getGraphControl().setFocus();
 	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		labelFont.dispose();
+	}
 
 	public void setScope(IWorkingSet workingSet) {
 		graph.setInput(workingSet);
+		label.setText("Scope: Working Set " + workingSet.getName());
 	}
 
 	public void setScope(IProject project) {
 		graph.setInput(project);
+		label.setText("Scope: Project " + project.getName());
 	}
 }
