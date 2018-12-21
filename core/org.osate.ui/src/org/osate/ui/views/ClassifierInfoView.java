@@ -1,6 +1,7 @@
 package org.osate.ui.views;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -25,8 +26,10 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
@@ -425,7 +428,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				ClassifierInfoView::cannotBeRefined);
 		// TODO Skipping calls for now
 		addSection(sections, "Connections", ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
-		// TODO Skipping flows
+		addFlowImplementationSection(sections, ci);
 		addSection(sections, "Modes", ci, getAllModesAndModeTransitions(ci), ClassifierInfoView::cannotBeRefined);
 		return new MemberTree(sections);
 	}
@@ -434,6 +437,20 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			final Classifier classifier, final List<M> members, final GetRefined<M> gr) {
 		if (members != null && members.size() > 0) {
 			sections.add(createSectionNode(classifier, members, heading, gr));
+		}
+	}
+
+	private void addFlowImplementationSection(final List<SectionNode> sections, final ComponentImplementation ci) {
+		List<FlowImplementation> flowImpls = ci.getAllFlowImplementations();
+		if (flowImpls == null) {
+			flowImpls = Collections.emptyList();
+		}
+		List<EndToEndFlow> end2endFlows = ci.getAllEndToEndFlows();
+		if (end2endFlows == null) {
+			end2endFlows = Collections.emptyList();
+		}
+		if (!flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
+			sections.add(createSectionFromFlowImplementations(ci, flowImpls, end2endFlows));
 		}
 	}
 
@@ -485,6 +502,15 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return new SectionNode(heading, memberNodes);
 	}
 
+	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
+			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
+		final List<MemberNode> memberNodes = new ArrayList<>();
+		for (final FlowImplementation flowImpl : flowImpls) {
+			memberNodes.add(createMemberNodeFromFlowImplentation(ci, flowImpl));
+		}
+		return new SectionNode("Flows", memberNodes);
+	}
+
 	private final class MemberNode implements MemberTreeNode {
 		private final Object member;
 		private final String name;
@@ -532,6 +558,14 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		final boolean isRefined = refined != null;
 		return new MemberNode(member, member.getName(), isLocal ? null : q, isRefined,
 				!isRefined ? null : createMemberNode(classifier, refined, gr));
+	}
+
+	public MemberNode createMemberNodeFromFlowImplentation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
+		final Classifier q = (Classifier) flowImpl.eContainer();
+		final boolean isLocal = q.equals(ci);
+		final FlowSpecification flowSpec = flowImpl.getSpecification();
+		return new MemberNode(flowImpl, flowSpec.getName(), isLocal ? null : q, false,
+				createMemberNode(ci, flowSpec, ClassifierInfoView::getRefinedFlowSpec));
 	}
 
 	private static final List<ModeFeature> getAllModesAndModeTransitions(final ComponentType ct) {
