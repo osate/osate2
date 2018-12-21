@@ -2,8 +2,10 @@ package org.osate.ui.projectvisualization;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,7 +33,7 @@ import org.osate.ui.OsateUiPlugin;
 
 public class ProjectVisualizationView extends ViewPart {
 	public static final String ID = "org.osate.ui.projectvisualization";
-	
+
 	private GraphViewer graph;
 
 	@Override
@@ -50,10 +52,32 @@ public class ProjectVisualizationView extends ViewPart {
 					Stream<IAdaptable> stream = Arrays.stream(((IWorkingSet) inputElement).getElements());
 					projects = stream.map(adaptable -> Adapters.adapt(adaptable, IProject.class))
 							.filter(project -> project.isOpen()).collect(Collectors.toCollection(LinkedHashSet::new));
+				} else if (inputElement instanceof IProject) {
+					projects = new HashSet<>();
+					projects.add((IProject) inputElement);
+					traverseDependencies((IProject) inputElement, projects, p -> {
+						try {
+							return p.getReferencedProjects();
+						} catch (CoreException e) {
+							StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
+							return new IProject[0];
+						}
+					});
+					traverseDependencies((IProject) inputElement, projects, IProject::getReferencingProjects);
 				} else {
 					projects = Collections.emptySet();
 				}
 				return projects.toArray();
+			}
+
+			private void traverseDependencies(IProject project, Set<IProject> visited,
+					Function<IProject, IProject[]> getDependencies) {
+				for (IProject dependency : getDependencies.apply(project)) {
+					if (dependency.isOpen() && !visited.contains(dependency)) {
+						visited.add(dependency);
+						traverseDependencies(dependency, visited, getDependencies);
+					}
+				}
 			}
 
 			@Override
@@ -95,5 +119,9 @@ public class ProjectVisualizationView extends ViewPart {
 
 	public void setScope(IWorkingSet workingSet) {
 		graph.setInput(workingSet);
+	}
+
+	public void setScope(IProject project) {
+		graph.setInput(project);
 	}
 }
