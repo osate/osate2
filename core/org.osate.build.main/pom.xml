@@ -12,8 +12,8 @@
 	<properties>
 		<tycho.version>1.0.0</tycho.version>
 		<tycho-extras.version>1.0.0</tycho-extras.version>
-		<xtext.version>2.15.0</xtext.version>
-		<xsemantics.version>1.15.0-SNAPSHOT</xsemantics.version>
+		<xtext.version>2.16.0</xtext.version>
+		<xsemantics.version>1.16.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.4.0-SNAPSHOT</osate.version>
 
@@ -23,7 +23,7 @@
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2018-09</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2018-12</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
@@ -70,11 +70,6 @@
 									<os>linux</os>
 									<ws>gtk</ws>
 									<arch>x86_64</arch>
-								</environment>
-								<environment>
-									<os>win32</os>
-									<ws>win32</ws>
-									<arch>x86</arch>
 								</environment>
 								<environment>
 									<os>win32</os>
