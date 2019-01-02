@@ -20,7 +20,6 @@ public class FocusVisualizationHandler extends AbstractHandler {
 		try {
 			ProjectVisualizationView view = (ProjectVisualizationView) HandlerUtil.getActiveWorkbenchWindow(event)
 					.getActivePage().showView(ProjectVisualizationView.ID);
-//			view.setScope((IWorkingSet) HandlerUtil.getCurrentStructuredSelection(event).getFirstElement());
 			Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
 			if (selection instanceof IWorkingSet) {
 				view.setScope((IWorkingSet) selection);
