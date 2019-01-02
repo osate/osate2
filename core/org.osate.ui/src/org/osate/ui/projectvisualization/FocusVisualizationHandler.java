@@ -13,7 +13,7 @@ import org.osate.ui.OsateUiPlugin;
 
 public class FocusVisualizationHandler extends AbstractHandler {
 	/*
-	 * Handler is only enabled when the selection is one IWorkingSet.
+	 * Handler is only enabled when the selection is one IWorkingSet or one IProject.
 	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
