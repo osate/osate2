@@ -46,13 +46,13 @@ public class ProjectVisualizationView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout());
-		
+
 		label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		label.setText("Scope: All Projects");
 		labelFont = FontDescriptor.createFrom(label.getFont()).increaseHeight(10).createFont(label.getDisplay());
 		label.setFont(labelFont);
-		
+
 		graph = new GraphViewer(parent, SWT.NONE);
 		graph.getGraphControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		graph.setContentProvider(new IGraphEntityContentProvider() {
@@ -98,15 +98,11 @@ public class ProjectVisualizationView extends ViewPart {
 
 			@Override
 			public Object[] getConnectedTo(Object entity) {
-				if (entity instanceof IProject) {
-					try {
-						IProject[] references = ((IProject) entity).getReferencedProjects();
-						return Arrays.stream(references).filter(project -> projects.contains(project)).toArray();
-					} catch (CoreException e) {
-						StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
-						return new Object[0];
-					}
-				} else {
+				try {
+					IProject[] references = ((IProject) entity).getReferencedProjects();
+					return Arrays.stream(references).filter(project -> projects.contains(project)).toArray();
+				} catch (CoreException e) {
+					StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
 					return new Object[0];
 				}
 			}
@@ -132,7 +128,7 @@ public class ProjectVisualizationView extends ViewPart {
 	public void setFocus() {
 		graph.getGraphControl().setFocus();
 	}
-	
+
 	@Override
 	public void dispose() {
 		super.dispose();
