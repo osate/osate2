@@ -49,14 +49,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
-//	@Inject
-//	private ISerializer serializer;
-
 	public ClassifierInfoView() {
-//		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
-//				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
-//		injector.injectMembers(this);
-
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
@@ -176,7 +169,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 			@Override
 			public Object getParent(final Object element) {
-//				return ((AncestorTreeNode) element).getParent();
 				return null;
 			}
 
@@ -211,21 +203,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		currentSelection = selection;
 
 		Classifier input = null;
-		if (selection.isEmpty()) {
-//			classifier = "<no selection>";
-		} else if (selection instanceof IStructuredSelection) {
+		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
 			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
-			if (selectedObject == null) {
-//				classifier = "<selection is null>";
-			} else if (selectedObject instanceof Classifier) {
+			if (selectedObject != null && selectedObject instanceof Classifier) {
 				input = (Classifier) selectedObject;
-//				classifier = ((Classifier) selectedObject).getQualifiedName();
-			} else {
-//				classifier = "<selection is not a component classifier: " + selectedObject.getClass() + ">";
 			}
-		} else {
-//			classifier = "<not structured>";
 		}
+
 		if (input != null) {
 			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
@@ -238,63 +222,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			}
 		}
 	}
-
-//	private void printOut(final ComponentType ct) {
-//		System.out.println(serializer.getClass());
-//		final SaveOptions options = SaveOptions.newBuilder().format().getOptions();
-//		System.out.println();
-//		for (final Prototype p : ct.getAllPrototypes()) {
-//			final ComponentType q = (ComponentType) p.eContainer();
-//			final boolean isLocal = q.equals(ct);
-//			final boolean isRefined = p.getRefined() != null;
-//			System.out.println("******");
-//			System.out.println(modelElementLabelProvider.getText(p));
-//			System.out.println("............");
-//			System.out.println(serializer.serialize(p, options));
-//			System.out.println("******");
-////			if (!isLocal) {
-////				System.out.print(" [from " + q.getFullName() + "]");
-////			}
-////			if (isRefined) {
-////				System.out.print(" [refined]");
-////			}
-//			System.out.println();
-//		}
-//		for (final Feature p : ct.getAllFeatures()) {
-//			final ComponentType q = (ComponentType) p.eContainer();
-//			final boolean isLocal = q.equals(ct);
-//			final boolean isRefined = p.getRefined() != null;
-//			System.out.println("******");
-//			System.out.println(modelElementLabelProvider.getText(p));
-//			System.out.println("............");
-//			System.out.println(serializer.serialize(p, options));
-//			System.out.println("******");
-////			if (!isLocal) {
-////				System.out.print(" [from " + q.getFullName() + "]");
-////			}
-////			if (isRefined) {
-////				System.out.print(" [refined]");
-////			}
-//			System.out.println();
-//		}
-//		for (final FlowSpecification p : ct.getAllFlowSpecifications()) {
-//			final ComponentType q = (ComponentType) p.eContainer();
-//			final boolean isLocal = q.equals(ct);
-//			final boolean isRefined = p.getRefined() != null;
-//			System.out.println("******");
-//			System.out.println(modelElementLabelProvider.getText(p));
-//			System.out.println("............");
-//			System.out.println(serializer.serialize(p, options));
-//			System.out.println("******");
-////			if (!isLocal) {
-////				System.out.print(" [from " + q.getFullName() + "]");
-////			}
-////			if (isRefined) {
-////				System.out.print(" [refined]");
-////			}
-//			System.out.println();
-//		}
-//	}
 
 	// ======================================================================
 	// == Helper classes
