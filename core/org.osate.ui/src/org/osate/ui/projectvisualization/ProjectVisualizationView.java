@@ -12,6 +12,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
@@ -105,9 +107,16 @@ public class ProjectVisualizationView extends ViewPart {
 		graph.setLayoutAlgorithm(new CompositeLayoutAlgorithm(
 				new LayoutAlgorithm[] { new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING),
 						new HorizontalShift(LayoutStyles.NO_LAYOUT_NODE_RESIZING) }));
-		scopedProjects = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
-				.filter(project -> project.isOpen()).collect(Collectors.toCollection(LinkedHashSet::new));
-		graph.setInput(scopedProjects);
+		setScopeToWorkspace();
+
+		MenuManager menuManager = new MenuManager();
+		menuManager.add(new Action("Show All Projects") {
+			@Override
+			public void run() {
+				setScopeToWorkspace();
+			}
+		});
+		graph.getGraphControl().setMenu(menuManager.createContextMenu(graph.getGraphControl()));
 	}
 
 	@Override
@@ -133,6 +142,12 @@ public class ProjectVisualizationView extends ViewPart {
 		scopedProjects = Collections.singleton(project);
 		graph.setInput(scopedProjects);
 		label.setText("Scope: Project " + project.getName());
+	}
+
+	private void setScopeToWorkspace() {
+		scopedProjects = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+				.filter(project -> project.isOpen()).collect(Collectors.toCollection(LinkedHashSet::new));
+		graph.setInput(scopedProjects);
 	}
 
 	private class VisualizationLabelProvider extends LabelProvider implements IEntityStyleProvider {
