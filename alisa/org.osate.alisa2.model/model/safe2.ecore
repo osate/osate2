@@ -31,4 +31,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//String"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccidentLevels">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="accidentlevel" lowerBound="1"
+        upperBound="-1" eType="#//AccidentLevel" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

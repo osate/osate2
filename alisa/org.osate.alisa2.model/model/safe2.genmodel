@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.alisa2.model/src-gen" modelPluginID="org.osate.alisa2.model"
     modelName="Safe2" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel"
+    usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel"
     operationReflection="true" importOrganizing="true">
   <foreignModel>safe2.ecore</foreignModel>
   <genPackages prefix="Safe2" basePackage="org.osate.alisa2.model" disposableProviderFactory="true"
@@ -30,6 +30,9 @@
     <genClasses ecoreClass="safe2.ecore#//ControlAction"/>
     <genClasses image="false" ecoreClass="safe2.ecore#//Node">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Node/name"/>
+    </genClasses>
+    <genClasses ecoreClass="safe2.ecore#//AccidentLevels">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevels/accidentlevel"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

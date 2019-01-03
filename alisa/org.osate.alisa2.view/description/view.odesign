@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" name="view" version="12.0.0.2017041100">
+  <ownedViewpoints name="SystemOverview" modelFileExtension="safe2">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="System Overview" domainClass="fundamentals::AccidentLevels" enablePopupBars="true">
+      <metamodel href="../../org.osate.safe2/model/safe2.ecore#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="AccidentLevelNode" domainClass="fundamentals::AccidentLevel"/>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+  </ownedViewpoints>
+</description:Group>
