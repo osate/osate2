@@ -53,7 +53,6 @@ public class ProjectVisualizationView extends ViewPart {
 
 		label = new Label(parent, SWT.NONE);
 		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		label.setText("Scope: All Projects");
 		labelFont = FontDescriptor.createFrom(label.getFont()).increaseHeight(5).createFont(label.getDisplay());
 		label.setFont(labelFont);
 
@@ -148,6 +147,7 @@ public class ProjectVisualizationView extends ViewPart {
 		scopedProjects = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
 				.filter(project -> project.isOpen()).collect(Collectors.toCollection(LinkedHashSet::new));
 		graph.setInput(scopedProjects);
+		label.setText("Scope: All Projects");
 	}
 
 	private class VisualizationLabelProvider extends LabelProvider implements IEntityStyleProvider {
