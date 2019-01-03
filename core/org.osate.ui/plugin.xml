@@ -52,6 +52,24 @@
    </extension>
    
    <extension
+         point="org.eclipse.search.searchPages">
+      <page
+            class="org.osate.ui.search.AadlSearchPage"
+            id="org.osate.ui.search.AadlSearchPage"
+            extensions="aadl:1"
+            label="AADL Search"
+            icon="icons/aadl.gif" /> 
+   </extension>
+
+   <extension point="org.eclipse.search.searchResultViewPages">
+       <viewPage
+               class="org.osate.ui.search.AadlSearchResultPage"
+               id="org.osate.ui.search.AadlSearchResultPage"
+               label="AADL Search"
+               searchResultClass="org.osate.search.AadlSearchResult" />
+   </extension>
+   
+   <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.osate.Wizard.category.ID"
