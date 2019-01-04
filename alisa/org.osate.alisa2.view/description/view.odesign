@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" name="view" version="12.0.0.2017041100">
-  <ownedViewpoints name="SystemOverview" modelFileExtension="safe2">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="System Overview" domainClass="fundamentals::AccidentLevels" enablePopupBars="true">
-      <metamodel href="../../org.osate.safe2/model/safe2.ecore#/"/>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
+  <ownedViewpoints name="Fundamentals" modelFileExtension="safe2">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="System Overview" domainClass="safe2::SystemOverview" enablePopupBars="true">
+      <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
       <defaultLayer name="Default">
-        <nodeMappings name="AccidentLevelNode" domainClass="fundamentals::AccidentLevel"/>
+        <nodeMappings name="AccidentLevel" semanticCandidatesExpression="service:getFundamentals()" domainClass="safe2::AccidentLevel">
+          <style xsi:type="style:LozengeNodeDescription" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+          </style>
+        </nodeMappings>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
