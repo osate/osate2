@@ -61,6 +61,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 			case Safe2Package.ACCIDENT_LEVEL: return createAccidentLevel();
 			case Safe2Package.CONSTRAINT: return createConstraint();
 			case Safe2Package.CONTROL_ACTION: return createControlAction();
+			case Safe2Package.SYSTEM_OVERVIEW: return createSystemOverview();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -114,6 +115,16 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	public ControlAction createControlAction() {
 		ControlActionImpl controlAction = new ControlActionImpl();
 		return controlAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemOverview createSystemOverview() {
+		SystemOverviewImpl systemOverview = new SystemOverviewImpl();
+		return systemOverview;
 	}
 
 	/**

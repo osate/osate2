@@ -78,7 +78,7 @@ public interface Constraint extends Fundamental {
 	void setElement(NamedElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Hazard</b></em>' reference.
+	 * Returns the value of the '<em><b>Hazard</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.osate.alisa2.model.safe2.Hazard#getConstraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -86,20 +86,20 @@ public interface Constraint extends Fundamental {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Hazard</em>' reference.
+	 * @return the value of the '<em>Hazard</em>' container reference.
 	 * @see #setHazard(Hazard)
 	 * @see org.osate.alisa2.model.safe2.Safe2Package#getConstraint_Hazard()
 	 * @see org.osate.alisa2.model.safe2.Hazard#getConstraint
-	 * @model opposite="constraint" required="true"
+	 * @model opposite="constraint" required="true" transient="false"
 	 * @generated
 	 */
 	Hazard getHazard();
 
 	/**
-	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}' reference.
+	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Hazard</em>' reference.
+	 * @param value the new value of the '<em>Hazard</em>' container reference.
 	 * @see #getHazard()
 	 * @generated
 	 */

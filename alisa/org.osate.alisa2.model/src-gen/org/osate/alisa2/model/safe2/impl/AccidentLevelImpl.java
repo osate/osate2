@@ -14,8 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa2.model.safe2.Accident;
@@ -79,7 +78,7 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAccident() <em>Accident</em>}' reference list.
+	 * The cached value of the '{@link #getAccident() <em>Accident</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAccident()
@@ -156,7 +155,7 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 	 */
 	public EList<Accident> getAccident() {
 		if (accident == null) {
-			accident = new EObjectWithInverseResolvingEList<Accident>(Accident.class, this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, Safe2Package.ACCIDENT__ACCIDENTLEVEL);
+			accident = new EObjectContainmentWithInverseEList<Accident>(Accident.class, this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, Safe2Package.ACCIDENT__ACCIDENTLEVEL);
 		}
 		return accident;
 	}

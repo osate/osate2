@@ -4,14 +4,13 @@ package org.osate.alisa2.model.safe2.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa2.model.safe2.Constraint;
@@ -97,16 +96,6 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @ordered
 	 */
 	protected NamedElement element;
-
-	/**
-	 * The cached value of the '{@link #getHazard() <em>Hazard</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHazard()
-	 * @generated
-	 * @ordered
-	 */
-	protected Hazard hazard;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -251,24 +240,8 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	public Hazard getHazard() {
-		if (hazard != null && hazard.eIsProxy()) {
-			InternalEObject oldHazard = (InternalEObject)hazard;
-			hazard = (Hazard)eResolveProxy(oldHazard);
-			if (hazard != oldHazard) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.CONSTRAINT__HAZARD, oldHazard, hazard));
-			}
-		}
-		return hazard;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Hazard basicGetHazard() {
-		return hazard;
+		if (eContainerFeatureID() != Safe2Package.CONSTRAINT__HAZARD) return null;
+		return (Hazard)eInternalContainer();
 	}
 
 	/**
@@ -277,12 +250,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	public NotificationChain basicSetHazard(Hazard newHazard, NotificationChain msgs) {
-		Hazard oldHazard = hazard;
-		hazard = newHazard;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__HAZARD, oldHazard, newHazard);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
+		msgs = eBasicSetContainer((InternalEObject)newHazard, Safe2Package.CONSTRAINT__HAZARD, msgs);
 		return msgs;
 	}
 
@@ -292,10 +260,12 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	public void setHazard(Hazard newHazard) {
-		if (newHazard != hazard) {
+		if (newHazard != eInternalContainer() || (eContainerFeatureID() != Safe2Package.CONSTRAINT__HAZARD && newHazard != null)) {
+			if (EcoreUtil.isAncestor(this, newHazard))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (hazard != null)
-				msgs = ((InternalEObject)hazard).eInverseRemove(this, Safe2Package.HAZARD__CONSTRAINT, Hazard.class, msgs);
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
 			if (newHazard != null)
 				msgs = ((InternalEObject)newHazard).eInverseAdd(this, Safe2Package.HAZARD__CONSTRAINT, Hazard.class, msgs);
 			msgs = basicSetHazard(newHazard, msgs);
@@ -314,8 +284,8 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Safe2Package.CONSTRAINT__HAZARD:
-				if (hazard != null)
-					msgs = ((InternalEObject)hazard).eInverseRemove(this, Safe2Package.HAZARD__CONSTRAINT, Hazard.class, msgs);
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetHazard((Hazard)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -341,6 +311,20 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case Safe2Package.CONSTRAINT__HAZARD:
+				return eInternalContainer().eInverseRemove(this, Safe2Package.HAZARD__CONSTRAINT, Hazard.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Safe2Package.CONSTRAINT__NAME:
@@ -354,8 +338,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				if (resolve) return getElement();
 				return basicGetElement();
 			case Safe2Package.CONSTRAINT__HAZARD:
-				if (resolve) return getHazard();
-				return basicGetHazard();
+				return getHazard();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -365,6 +348,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -431,7 +415,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__ELEMENT:
 				return element != null;
 			case Safe2Package.CONSTRAINT__HAZARD:
-				return hazard != null;
+				return getHazard() != null;
 		}
 		return super.eIsSet(featureID);
 	}

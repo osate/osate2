@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/org.osate.xtext.aadl2.errormodel.edit/
+/org.osate.xtext.aadl2.errormodel.editor/

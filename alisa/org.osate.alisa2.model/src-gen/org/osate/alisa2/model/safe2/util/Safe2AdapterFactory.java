@@ -96,6 +96,10 @@ public class Safe2AdapterFactory extends AdapterFactoryImpl {
 				return createNodeAdapter();
 			}
 			@Override
+			public Adapter caseSystemOverview(SystemOverview object) {
+				return createSystemOverviewAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -210,6 +214,20 @@ public class Safe2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.alisa2.model.safe2.SystemOverview <em>System Overview</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.alisa2.model.safe2.SystemOverview
+	 * @generated
+	 */
+	public Adapter createSystemOverviewAdapter() {
 		return null;
 	}
 

@@ -9,17 +9,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="accidentlevel" lowerBound="1"
         eType="#//AccidentLevel" eOpposite="#//AccidentLevel/accident"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
-        upperBound="-1" eType="#//Hazard" eOpposite="#//Hazard/accident"/>
+        upperBound="-1" eType="#//Hazard" containment="true" eOpposite="#//Hazard/accident"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Hazard" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
         eType="#//Accident" eOpposite="#//Accident/hazard"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" lowerBound="1"
-        upperBound="-1" eType="#//Constraint" eOpposite="#//Constraint/hazard"/>
+        upperBound="-1" eType="#//Constraint" containment="true" eOpposite="#//Constraint/hazard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccidentLevel" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
-        upperBound="-1" eType="#//Accident" eOpposite="#//Accident/accidentlevel"/>
+        upperBound="-1" eType="#//Accident" containment="true" eOpposite="#//Accident/accidentlevel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
@@ -31,8 +31,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//String"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccidentLevels">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="accidentlevel" lowerBound="1"
-        upperBound="-1" eType="#//AccidentLevel" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemOverview">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fundamentals" upperBound="-1"
+        eType="#//Fundamental" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

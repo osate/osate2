@@ -2,7 +2,6 @@
  */
 package org.osate.alisa2.model.safe2;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Fundamental</b></em>'.

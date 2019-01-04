@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface AccidentLevel extends Fundamental {
 	/**
-	 * Returns the value of the '<em><b>Accident</b></em>' reference list.
+	 * Returns the value of the '<em><b>Accident</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.alisa2.model.safe2.Accident}.
 	 * It is bidirectional and its opposite is '{@link org.osate.alisa2.model.safe2.Accident#getAccidentlevel <em>Accidentlevel</em>}'.
 	 * <!-- begin-user-doc -->
@@ -31,10 +31,10 @@ public interface AccidentLevel extends Fundamental {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Accident</em>' reference list.
+	 * @return the value of the '<em>Accident</em>' containment reference list.
 	 * @see org.osate.alisa2.model.safe2.Safe2Package#getAccidentLevel_Accident()
 	 * @see org.osate.alisa2.model.safe2.Accident#getAccidentlevel
-	 * @model opposite="accidentlevel" required="true"
+	 * @model opposite="accidentlevel" containment="true" required="true"
 	 * @generated
 	 */
 	EList<Accident> getAccident();

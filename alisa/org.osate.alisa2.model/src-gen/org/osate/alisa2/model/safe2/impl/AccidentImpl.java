@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa2.model.safe2.Accident;
@@ -81,17 +81,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAccidentlevel() <em>Accidentlevel</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAccidentlevel()
-	 * @generated
-	 * @ordered
-	 */
-	protected AccidentLevel accidentlevel;
-
-	/**
-	 * The cached value of the '{@link #getHazard() <em>Hazard</em>}' reference list.
+	 * The cached value of the '{@link #getHazard() <em>Hazard</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getHazard()
@@ -167,24 +157,8 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * @generated
 	 */
 	public AccidentLevel getAccidentlevel() {
-		if (accidentlevel != null && accidentlevel.eIsProxy()) {
-			InternalEObject oldAccidentlevel = (InternalEObject)accidentlevel;
-			accidentlevel = (AccidentLevel)eResolveProxy(oldAccidentlevel);
-			if (accidentlevel != oldAccidentlevel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.ACCIDENT__ACCIDENTLEVEL, oldAccidentlevel, accidentlevel));
-			}
-		}
-		return accidentlevel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AccidentLevel basicGetAccidentlevel() {
-		return accidentlevel;
+		if (eContainerFeatureID() != Safe2Package.ACCIDENT__ACCIDENTLEVEL) return null;
+		return (AccidentLevel)eInternalContainer();
 	}
 
 	/**
@@ -193,12 +167,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * @generated
 	 */
 	public NotificationChain basicSetAccidentlevel(AccidentLevel newAccidentlevel, NotificationChain msgs) {
-		AccidentLevel oldAccidentlevel = accidentlevel;
-		accidentlevel = newAccidentlevel;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Safe2Package.ACCIDENT__ACCIDENTLEVEL, oldAccidentlevel, newAccidentlevel);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
+		msgs = eBasicSetContainer((InternalEObject)newAccidentlevel, Safe2Package.ACCIDENT__ACCIDENTLEVEL, msgs);
 		return msgs;
 	}
 
@@ -208,10 +177,12 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * @generated
 	 */
 	public void setAccidentlevel(AccidentLevel newAccidentlevel) {
-		if (newAccidentlevel != accidentlevel) {
+		if (newAccidentlevel != eInternalContainer() || (eContainerFeatureID() != Safe2Package.ACCIDENT__ACCIDENTLEVEL && newAccidentlevel != null)) {
+			if (EcoreUtil.isAncestor(this, newAccidentlevel))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (accidentlevel != null)
-				msgs = ((InternalEObject)accidentlevel).eInverseRemove(this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, AccidentLevel.class, msgs);
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
 			if (newAccidentlevel != null)
 				msgs = ((InternalEObject)newAccidentlevel).eInverseAdd(this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, AccidentLevel.class, msgs);
 			msgs = basicSetAccidentlevel(newAccidentlevel, msgs);
@@ -228,7 +199,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 */
 	public EList<Hazard> getHazard() {
 		if (hazard == null) {
-			hazard = new EObjectWithInverseResolvingEList<Hazard>(Hazard.class, this, Safe2Package.ACCIDENT__HAZARD, Safe2Package.HAZARD__ACCIDENT);
+			hazard = new EObjectContainmentWithInverseEList<Hazard>(Hazard.class, this, Safe2Package.ACCIDENT__HAZARD, Safe2Package.HAZARD__ACCIDENT);
 		}
 		return hazard;
 	}
@@ -243,8 +214,8 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
-				if (accidentlevel != null)
-					msgs = ((InternalEObject)accidentlevel).eInverseRemove(this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, AccidentLevel.class, msgs);
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetAccidentlevel((AccidentLevel)otherEnd, msgs);
 			case Safe2Package.ACCIDENT__HAZARD:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getHazard()).basicAdd(otherEnd, msgs);
@@ -274,6 +245,20 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
+				return eInternalContainer().eInverseRemove(this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, AccidentLevel.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Safe2Package.ACCIDENT__NAME:
@@ -281,8 +266,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				return getDescription();
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
-				if (resolve) return getAccidentlevel();
-				return basicGetAccidentlevel();
+				return getAccidentlevel();
 			case Safe2Package.ACCIDENT__HAZARD:
 				return getHazard();
 		}
@@ -352,7 +336,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
-				return accidentlevel != null;
+				return getAccidentlevel() != null;
 			case Safe2Package.ACCIDENT__HAZARD:
 				return hazard != null && !hazard.isEmpty();
 		}

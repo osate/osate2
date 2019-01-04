@@ -168,7 +168,7 @@ public interface Safe2Package extends EPackage {
 	int ACCIDENT__DESCRIPTION = FUNDAMENTAL__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Accidentlevel</b></em>' reference.
+	 * The feature id for the '<em><b>Accidentlevel</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -177,7 +177,7 @@ public interface Safe2Package extends EPackage {
 	int ACCIDENT__ACCIDENTLEVEL = FUNDAMENTAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Hazard</b></em>' reference list.
+	 * The feature id for the '<em><b>Hazard</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -232,7 +232,7 @@ public interface Safe2Package extends EPackage {
 	int HAZARD__DESCRIPTION = FUNDAMENTAL__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Accident</b></em>' reference.
+	 * The feature id for the '<em><b>Accident</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -241,7 +241,7 @@ public interface Safe2Package extends EPackage {
 	int HAZARD__ACCIDENT = FUNDAMENTAL_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Constraint</b></em>' reference list.
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -296,7 +296,7 @@ public interface Safe2Package extends EPackage {
 	int ACCIDENT_LEVEL__DESCRIPTION = FUNDAMENTAL__DESCRIPTION;
 
 	/**
-	 * The feature id for the '<em><b>Accident</b></em>' reference list.
+	 * The feature id for the '<em><b>Accident</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -369,7 +369,7 @@ public interface Safe2Package extends EPackage {
 	int CONSTRAINT__ELEMENT = FUNDAMENTAL_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Hazard</b></em>' reference.
+	 * The feature id for the '<em><b>Hazard</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -434,6 +434,52 @@ public interface Safe2Package extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl <em>System Overview</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.alisa2.model.safe2.impl.SystemOverviewImpl
+	 * @see org.osate.alisa2.model.safe2.impl.Safe2PackageImpl#getSystemOverview()
+	 * @generated
+	 */
+	int SYSTEM_OVERVIEW = 7;
+
+	/**
+	 * The feature id for the '<em><b>System Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_OVERVIEW__SYSTEM_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Fundamentals</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_OVERVIEW__FUNDAMENTALS = 1;
+
+	/**
+	 * The number of structural features of the '<em>System Overview</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_OVERVIEW_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>System Overview</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_OVERVIEW_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.Fundamental <em>Fundamental</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -465,10 +511,10 @@ public interface Safe2Package extends EPackage {
 	EClass getAccident();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Accident#getAccidentlevel <em>Accidentlevel</em>}'.
+	 * Returns the meta object for the container reference '{@link org.osate.alisa2.model.safe2.Accident#getAccidentlevel <em>Accidentlevel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Accidentlevel</em>'.
+	 * @return the meta object for the container reference '<em>Accidentlevel</em>'.
 	 * @see org.osate.alisa2.model.safe2.Accident#getAccidentlevel()
 	 * @see #getAccident()
 	 * @generated
@@ -476,10 +522,10 @@ public interface Safe2Package extends EPackage {
 	EReference getAccident_Accidentlevel();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.alisa2.model.safe2.Accident#getHazard <em>Hazard</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.alisa2.model.safe2.Accident#getHazard <em>Hazard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Hazard</em>'.
+	 * @return the meta object for the containment reference list '<em>Hazard</em>'.
 	 * @see org.osate.alisa2.model.safe2.Accident#getHazard()
 	 * @see #getAccident()
 	 * @generated
@@ -497,10 +543,10 @@ public interface Safe2Package extends EPackage {
 	EClass getHazard();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Hazard#getAccident <em>Accident</em>}'.
+	 * Returns the meta object for the container reference '{@link org.osate.alisa2.model.safe2.Hazard#getAccident <em>Accident</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Accident</em>'.
+	 * @return the meta object for the container reference '<em>Accident</em>'.
 	 * @see org.osate.alisa2.model.safe2.Hazard#getAccident()
 	 * @see #getHazard()
 	 * @generated
@@ -508,10 +554,10 @@ public interface Safe2Package extends EPackage {
 	EReference getHazard_Accident();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.alisa2.model.safe2.Hazard#getConstraint <em>Constraint</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.alisa2.model.safe2.Hazard#getConstraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Constraint</em>'.
+	 * @return the meta object for the containment reference list '<em>Constraint</em>'.
 	 * @see org.osate.alisa2.model.safe2.Hazard#getConstraint()
 	 * @see #getHazard()
 	 * @generated
@@ -529,10 +575,10 @@ public interface Safe2Package extends EPackage {
 	EClass getAccidentLevel();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.alisa2.model.safe2.AccidentLevel#getAccident <em>Accident</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.alisa2.model.safe2.AccidentLevel#getAccident <em>Accident</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Accident</em>'.
+	 * @return the meta object for the containment reference list '<em>Accident</em>'.
 	 * @see org.osate.alisa2.model.safe2.AccidentLevel#getAccident()
 	 * @see #getAccidentLevel()
 	 * @generated
@@ -572,10 +618,10 @@ public interface Safe2Package extends EPackage {
 	EReference getConstraint_Element();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}'.
+	 * Returns the meta object for the container reference '{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Hazard</em>'.
+	 * @return the meta object for the container reference '<em>Hazard</em>'.
 	 * @see org.osate.alisa2.model.safe2.Constraint#getHazard()
 	 * @see #getConstraint()
 	 * @generated
@@ -612,6 +658,38 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 */
 	EAttribute getNode_Name();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.SystemOverview <em>System Overview</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>System Overview</em>'.
+	 * @see org.osate.alisa2.model.safe2.SystemOverview
+	 * @generated
+	 */
+	EClass getSystemOverview();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.alisa2.model.safe2.SystemOverview#getSystemName <em>System Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>System Name</em>'.
+	 * @see org.osate.alisa2.model.safe2.SystemOverview#getSystemName()
+	 * @see #getSystemOverview()
+	 * @generated
+	 */
+	EAttribute getSystemOverview_SystemName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.alisa2.model.safe2.SystemOverview#getFundamentals <em>Fundamentals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Fundamentals</em>'.
+	 * @see org.osate.alisa2.model.safe2.SystemOverview#getFundamentals()
+	 * @see #getSystemOverview()
+	 * @generated
+	 */
+	EReference getSystemOverview_Fundamentals();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -665,7 +743,7 @@ public interface Safe2Package extends EPackage {
 		EClass ACCIDENT = eINSTANCE.getAccident();
 
 		/**
-		 * The meta object literal for the '<em><b>Accidentlevel</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Accidentlevel</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -673,7 +751,7 @@ public interface Safe2Package extends EPackage {
 		EReference ACCIDENT__ACCIDENTLEVEL = eINSTANCE.getAccident_Accidentlevel();
 
 		/**
-		 * The meta object literal for the '<em><b>Hazard</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Hazard</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -691,7 +769,7 @@ public interface Safe2Package extends EPackage {
 		EClass HAZARD = eINSTANCE.getHazard();
 
 		/**
-		 * The meta object literal for the '<em><b>Accident</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Accident</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -699,7 +777,7 @@ public interface Safe2Package extends EPackage {
 		EReference HAZARD__ACCIDENT = eINSTANCE.getHazard_Accident();
 
 		/**
-		 * The meta object literal for the '<em><b>Constraint</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -717,7 +795,7 @@ public interface Safe2Package extends EPackage {
 		EClass ACCIDENT_LEVEL = eINSTANCE.getAccidentLevel();
 
 		/**
-		 * The meta object literal for the '<em><b>Accident</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Accident</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -751,7 +829,7 @@ public interface Safe2Package extends EPackage {
 		EReference CONSTRAINT__ELEMENT = eINSTANCE.getConstraint_Element();
 
 		/**
-		 * The meta object literal for the '<em><b>Hazard</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Hazard</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -785,6 +863,32 @@ public interface Safe2Package extends EPackage {
 		 * @generated
 		 */
 		EAttribute NODE__NAME = eINSTANCE.getNode_Name();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl <em>System Overview</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.alisa2.model.safe2.impl.SystemOverviewImpl
+		 * @see org.osate.alisa2.model.safe2.impl.Safe2PackageImpl#getSystemOverview()
+		 * @generated
+		 */
+		EClass SYSTEM_OVERVIEW = eINSTANCE.getSystemOverview();
+
+		/**
+		 * The meta object literal for the '<em><b>System Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SYSTEM_OVERVIEW__SYSTEM_NAME = eINSTANCE.getSystemOverview_SystemName();
+
+		/**
+		 * The meta object literal for the '<em><b>Fundamentals</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYSTEM_OVERVIEW__FUNDAMENTALS = eINSTANCE.getSystemOverview_Fundamentals();
 
 	}
 

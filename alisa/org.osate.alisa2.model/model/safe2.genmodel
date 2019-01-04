@@ -13,14 +13,14 @@
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//Accident">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Accident/accidentlevel"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Accident/hazard"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Accident/hazard"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//Hazard">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/accident"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/constraint"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/constraint"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//AccidentLevel">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevel/accident"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevel/accident"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//Constraint">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/errorType"/>
@@ -31,8 +31,9 @@
     <genClasses image="false" ecoreClass="safe2.ecore#//Node">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Node/name"/>
     </genClasses>
-    <genClasses ecoreClass="safe2.ecore#//AccidentLevels">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevels/accidentlevel"/>
+    <genClasses ecoreClass="safe2.ecore#//SystemOverview">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//SystemOverview/SystemName"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//SystemOverview/fundamentals"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

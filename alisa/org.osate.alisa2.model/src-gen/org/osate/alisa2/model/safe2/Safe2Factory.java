@@ -67,6 +67,15 @@ public interface Safe2Factory extends EFactory {
 	ControlAction createControlAction();
 
 	/**
+	 * Returns a new object of class '<em>System Overview</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>System Overview</em>'.
+	 * @generated
+	 */
+	SystemOverview createSystemOverview();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

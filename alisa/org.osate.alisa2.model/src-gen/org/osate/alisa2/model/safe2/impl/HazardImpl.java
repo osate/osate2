@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa2.model.safe2.Accident;
@@ -81,17 +81,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAccident() <em>Accident</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAccident()
-	 * @generated
-	 * @ordered
-	 */
-	protected Accident accident;
-
-	/**
-	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' reference list.
+	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getConstraint()
@@ -167,24 +157,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	public Accident getAccident() {
-		if (accident != null && accident.eIsProxy()) {
-			InternalEObject oldAccident = (InternalEObject)accident;
-			accident = (Accident)eResolveProxy(oldAccident);
-			if (accident != oldAccident) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__ACCIDENT, oldAccident, accident));
-			}
-		}
-		return accident;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Accident basicGetAccident() {
-		return accident;
+		if (eContainerFeatureID() != Safe2Package.HAZARD__ACCIDENT) return null;
+		return (Accident)eInternalContainer();
 	}
 
 	/**
@@ -193,12 +167,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	public NotificationChain basicSetAccident(Accident newAccident, NotificationChain msgs) {
-		Accident oldAccident = accident;
-		accident = newAccident;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__ACCIDENT, oldAccident, newAccident);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
+		msgs = eBasicSetContainer((InternalEObject)newAccident, Safe2Package.HAZARD__ACCIDENT, msgs);
 		return msgs;
 	}
 
@@ -208,10 +177,12 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	public void setAccident(Accident newAccident) {
-		if (newAccident != accident) {
+		if (newAccident != eInternalContainer() || (eContainerFeatureID() != Safe2Package.HAZARD__ACCIDENT && newAccident != null)) {
+			if (EcoreUtil.isAncestor(this, newAccident))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (accident != null)
-				msgs = ((InternalEObject)accident).eInverseRemove(this, Safe2Package.ACCIDENT__HAZARD, Accident.class, msgs);
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
 			if (newAccident != null)
 				msgs = ((InternalEObject)newAccident).eInverseAdd(this, Safe2Package.ACCIDENT__HAZARD, Accident.class, msgs);
 			msgs = basicSetAccident(newAccident, msgs);
@@ -228,7 +199,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 */
 	public EList<Constraint> getConstraint() {
 		if (constraint == null) {
-			constraint = new EObjectWithInverseResolvingEList<Constraint>(Constraint.class, this, Safe2Package.HAZARD__CONSTRAINT, Safe2Package.CONSTRAINT__HAZARD);
+			constraint = new EObjectContainmentWithInverseEList<Constraint>(Constraint.class, this, Safe2Package.HAZARD__CONSTRAINT, Safe2Package.CONSTRAINT__HAZARD);
 		}
 		return constraint;
 	}
@@ -243,8 +214,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Safe2Package.HAZARD__ACCIDENT:
-				if (accident != null)
-					msgs = ((InternalEObject)accident).eInverseRemove(this, Safe2Package.ACCIDENT__HAZARD, Accident.class, msgs);
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetAccident((Accident)otherEnd, msgs);
 			case Safe2Package.HAZARD__CONSTRAINT:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getConstraint()).basicAdd(otherEnd, msgs);
@@ -274,6 +245,20 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case Safe2Package.HAZARD__ACCIDENT:
+				return eInternalContainer().eInverseRemove(this, Safe2Package.ACCIDENT__HAZARD, Accident.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Safe2Package.HAZARD__NAME:
@@ -281,8 +266,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__DESCRIPTION:
 				return getDescription();
 			case Safe2Package.HAZARD__ACCIDENT:
-				if (resolve) return getAccident();
-				return basicGetAccident();
+				return getAccident();
 			case Safe2Package.HAZARD__CONSTRAINT:
 				return getConstraint();
 		}
@@ -352,7 +336,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case Safe2Package.HAZARD__ACCIDENT:
-				return accident != null;
+				return getAccident() != null;
 			case Safe2Package.HAZARD__CONSTRAINT:
 				return constraint != null && !constraint.isEmpty();
 		}
