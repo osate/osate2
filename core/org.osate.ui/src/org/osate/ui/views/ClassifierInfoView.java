@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -22,6 +24,8 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -37,6 +41,9 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ui.UiUtil;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
 	/**
 	 * The current selection.
@@ -49,7 +56,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
+	@Inject
+	private ISerializer serializer;
+
 	public ClassifierInfoView() {
+		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
+		injector.injectMembers(this);
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
@@ -433,19 +446,22 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
 		final List<MemberNode> memberNodes = new ArrayList<>();
 		for (final FlowImplementation flowImpl : flowImpls) {
-			memberNodes.add(createMemberNodeFromFlowImplentation(ci, flowImpl));
+			memberNodes.add(createMemberNodeFromFlowImplementation(ci, flowImpl));
+		}
+		for (final EndToEndFlow e2e : end2endFlows) {
+			memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow));
 		}
 		return new SectionNode("Flows", memberNodes);
 	}
 
 	private final class MemberNode implements MemberTreeNode {
-		private final Object member;
+		private final EObject member;
 		private final String name;
 		private final Classifier inheritedFrom;
 		private final boolean isRefined;
 		private final MemberNode[] ancestorMember;
 
-		private MemberNode(final Object m, final String n, final Classifier from, final boolean refined,
+		private MemberNode(final EObject m, final String n, final Classifier from, final boolean refined,
 				final MemberNode ancestor) {
 			member = m;
 			name = n;
@@ -456,7 +472,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 		@Override
 		public String getText() {
-			return (isRefined ? "refined " : "") + name
+			return (isRefined ? "refined " : "") + unparseMember(member, name)
 					+ (inheritedFrom != null ? (" [from " + inheritedFrom.getName() + "]") : "");
 		}
 
@@ -474,20 +490,31 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		public MemberNode[] getChildren() {
 			return ancestorMember;
 		}
+
+		private String unparseMember(final EObject member, final String name) {
+//			if (member instanceof Feature) {
+//				final Feature feature = (Feature) member;
+//				final StringBuilder sb = new StringBuilder();
+//				sb.append(serializer.serialize(member));
+//				return sb.toString();
+//			} else {
+				return name;
+//			}
+		}
 	}
 
 	public <M extends NamedElement> MemberNode createMemberNode(final Classifier classifier, final M member,
-			final GetRefined<M> gr)
-	{
+			final GetRefined<M> gr) {
 		final Classifier q = (Classifier) member.eContainer();
 		final boolean isLocal = q.equals(classifier);
 		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
-		return new MemberNode(member, member.getName(), isLocal ? null : q, isRefined,
+		return new MemberNode(member, member.getName(),
+				isLocal ? null : q, isRefined,
 				!isRefined ? null : createMemberNode(classifier, refined, gr));
 	}
 
-	public MemberNode createMemberNodeFromFlowImplentation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
+	public MemberNode createMemberNodeFromFlowImplementation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
 		final Classifier q = (Classifier) flowImpl.eContainer();
 		final boolean isLocal = q.equals(ci);
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
@@ -537,5 +564,9 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	private static Connection getRefinedConnection(final Connection c) {
 		return c.getRefined();
+	}
+
+	private static EndToEndFlow getRefinedEndToEndFlow(final EndToEndFlow e) {
+		return e.getRefined();
 	}
 }
