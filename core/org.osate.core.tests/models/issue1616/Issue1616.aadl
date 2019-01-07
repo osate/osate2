@@ -1,0 +1,43 @@
+package Issue1616
+public
+	system main
+	end main;
+
+	system implementation main.impl
+		subcomponents
+			proc: process proc1.impl;
+	end main.impl;
+
+	process proc1
+		modes
+			LO: initial mode;
+			HI: mode;
+	end proc1;
+
+	process implementation proc1.impl
+		subcomponents
+			group1: thread group group1.impl in modes (LO => LO, HI => HI);
+	end proc1.impl;
+
+	thread group group1
+		requires modes
+			LO: initial mode;
+			HI: mode;
+	end group1;
+
+	thread group implementation group1.impl
+		subcomponents
+			thread1: thread thread1.impl {
+						Compute_Execution_Time => 200ms .. 200ms in modes (LO), 300ms .. 300ms in modes (HI);
+					} in modes (LO => LO, HI => HI);
+	end group1.impl;
+
+	thread thread1
+		requires modes
+			LO: initial mode;
+			HI: mode;
+	end thread1;
+
+	thread implementation thread1.impl
+	end thread1.impl;
+end Issue1616;

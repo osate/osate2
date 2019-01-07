@@ -40,15 +40,17 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import java.util.Map
-import org.eclipse.core.runtime.IAdaptable
+import org.eclipse.core.runtime.Adapters
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
 import org.eclipse.emf.edit.domain.EditingDomain
+import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.RunnableWithResult
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.emf.transaction.util.TransactionUtil
@@ -85,6 +87,7 @@ import org.eclipse.ui.dialogs.PatternFilter
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
+import org.eclipse.xtext.resource.SaveOptions
 import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
@@ -129,11 +132,6 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import org.eclipse.xtext.resource.SaveOptions
-import org.eclipse.emf.transaction.RecordingCommand
-import org.eclipse.core.runtime.Adapters
-import org.eclipse.jface.viewers.ITreeSelection
-import org.eclipse.emf.ecore.resource.Resource
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -933,14 +931,6 @@ class AadlPropertyView extends ViewPart {
 				xtextDocument = (part as XtextEditor).document
 				xtextDocument.readOnly[new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
 			}
-			// Outline selection
-			ITreeSelection: {
-				val propertySource = Adapters.adapt(selection, IAadlPropertySource)
-				if (propertySource !== null) {
-					xtextDocument = propertySource.document
-					propertySource.namedElement
-				}
-			}
 			IStructuredSelection case selection.size == 1: {
 				switch selectedObject : selection.firstElement {
 					EObject: {
@@ -951,8 +941,9 @@ class AadlPropertyView extends ViewPart {
 						xtextDocument = selectedObject.document
 						selectedObject.readOnly[it]
 					}
-					IAdaptable: {
-						val propertySource = selectedObject.getAdapter(IAadlPropertySource)
+					default: {
+						val propertySource = Adapters.adapt(selectedObject, IAadlPropertySource) ?:
+								Adapters.adapt(selection, IAadlPropertySource)
 						if (propertySource !== null) {
 							xtextDocument = propertySource.document
 							propertySource.namedElement
