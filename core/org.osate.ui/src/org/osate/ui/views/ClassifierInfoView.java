@@ -2,9 +2,9 @@ package org.osate.ui.views;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -24,8 +24,6 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -41,9 +39,6 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ui.UiUtil;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
 	/**
 	 * The current selection.
@@ -56,13 +51,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
-	@Inject
-	private ISerializer serializer;
+//	@Inject
+//	private ISerializer serializer;
 
 	public ClassifierInfoView() {
-		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
-				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
-		injector.injectMembers(this);
+//		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+//				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
+//		injector.injectMembers(this);
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
@@ -443,8 +438,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	public <M extends NamedElement> SectionNode createSectionNode(final Classifier classifier, final List<M> members,
-			final String heading,
-			final GetRefined<M> gr) {
+			final String heading, final GetRefined<M> gr) {
+		Collections.sort(members, MEMBER_COMPARATOR);
 		final List<MemberNode> memberNodes = new ArrayList<>();
 		for (final M member : members) {
 			memberNodes.add(createMemberNode(classifier, member, gr));
@@ -455,9 +450,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
 			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
 		final List<MemberNode> memberNodes = new ArrayList<>();
+
+		Collections.sort(flowImpls, MEMBER_COMPARATOR);
 		for (final FlowImplementation flowImpl : flowImpls) {
 			memberNodes.add(createMemberNodeFromFlowImplementation(ci, flowImpl));
 		}
+
+		Collections.sort(end2endFlows, MEMBER_COMPARATOR);
 		for (final EndToEndFlow e2e : end2endFlows) {
 			memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow));
 		}
@@ -544,6 +543,15 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		modeFeatures.addAll(ci.getAllModes());
 		modeFeatures.addAll(ci.getAllModeTransitions());
 		return modeFeatures;
+	}
+
+	private static final Comparator<NamedElement> MEMBER_COMPARATOR = new MemberComparator();
+
+	private static final class MemberComparator implements Comparator<NamedElement> {
+		@Override
+		public int compare(final NamedElement o1, final NamedElement o2) {
+			return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+		}
 	}
 
 	@FunctionalInterface
