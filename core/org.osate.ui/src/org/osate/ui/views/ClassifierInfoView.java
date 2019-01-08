@@ -232,6 +232,9 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			} else if (input instanceof ComponentImplementation) {
 				memberTree.setInput(createMemberTree((ComponentImplementation) input));
 				memberTree.expandToLevel(2);
+			} else if (input instanceof FeatureGroupType) {
+				memberTree.setInput(createMemberTree((FeatureGroupType) input));
+				memberTree.expandToLevel(2);
 			}
 		}
 	}
@@ -347,6 +350,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		public SectionNode[] getSections() {
 			return sections;
 		}
+	}
+
+	private MemberTree createMemberTree(final FeatureGroupType fgt) {
+		final List<SectionNode> sections = new ArrayList<>();
+		addSection(sections, "Prototypes", fgt, fgt.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+//		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+		return new MemberTree(sections);
 	}
 
 	private MemberTree createMemberTree(final ComponentType ct) {
