@@ -24,6 +24,7 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -371,7 +372,10 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		addSection(sections, "Internal features", ci, ci.getAllInternalFeatures(), ClassifierInfoView::cannotBeRefined);
 		addSection(sections, "Processor features", ci, ci.getAllProcessorFeatures(),
 				ClassifierInfoView::cannotBeRefined);
-		// TODO Skipping calls for now
+		if (ci instanceof BehavioredImplementation) {
+			addSection(sections, "Calls", ci, ((BehavioredImplementation) ci).getAllSubprogramCallSequences(),
+					ClassifierInfoView::cannotBeRefined);
+		}
 		addSection(sections, "Connections", ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
 		addFlowImplementationSection(sections, ci);
 		addSection(sections, "Modes", ci, getAllModesAndModeTransitions(ci), ClassifierInfoView::cannotBeRefined);
