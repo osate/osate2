@@ -2,7 +2,6 @@ package org.osate.ui.projectvisualization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,7 +71,7 @@ public class ProjectVisualizationView extends ViewPart {
 	private final IResourceDescriptions resourceDescriptions;
 
 	// Either IProject or URI<AadlPackage>
-	private Set<Object> scopedElements;
+	private final Set<Object> scopedElements = new LinkedHashSet<>();
 
 	private Label label;
 	private Font labelFont;
@@ -261,13 +260,14 @@ public class ProjectVisualizationView extends ViewPart {
 			IProject project = (IProject) graph.getStructuredSelection().getFirstElement();
 			List<IFile> files = getAllAadlFiles(project);
 			ResourceSet resourceSet = new ResourceSetImpl();
-			scopedElements = files.stream()
-					.map(file -> URI.createPlatformResourceURI(file.getFullPath().toString(), true))
-					.map(uri -> resourceSet.getResource(uri, true))
+			List<URI> packages = files.stream()
+					.map(file -> resourceSet
+							.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true))
 					.filter(resource -> !resource.getContents().isEmpty())
 					.map(resource -> resource.getContents().get(0)).filter(eObject -> eObject instanceof AadlPackage)
-					.map(eObject -> (AadlPackage) eObject).map(EcoreUtil::getURI)
-					.collect(Collectors.toCollection(LinkedHashSet::new));
+					.map(EcoreUtil::getURI).collect(Collectors.toList());
+			scopedElements.clear();
+			scopedElements.addAll(packages);
 			graph.setInput(scopedElements);
 			label.setText("Scope: Packages in Project '" + project.getName() + "'");
 		}
@@ -304,22 +304,27 @@ public class ProjectVisualizationView extends ViewPart {
 	}
 
 	public void setScope(IWorkingSet workingSet) {
-		scopedElements = Arrays.stream(workingSet.getElements())
+		List<IProject> projects = Arrays.stream(workingSet.getElements())
 				.map(adaptable -> Adapters.adapt(adaptable, IProject.class)).filter(IProject::isOpen)
-				.collect(Collectors.toCollection(LinkedHashSet::new));
+				.collect(Collectors.toList());
+		scopedElements.clear();
+		scopedElements.addAll(projects);
 		graph.setInput(scopedElements);
 		label.setText("Scope: Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setScope(IProject project) {
-		scopedElements = Collections.singleton(project);
+		scopedElements.clear();
+		scopedElements.add(project);
 		graph.setInput(scopedElements);
 		label.setText("Scope: Project '" + project.getName() + "'");
 	}
 
 	private void setScopeToWorkspace() {
-		scopedElements = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(IProject::isOpen)
-				.collect(Collectors.toCollection(LinkedHashSet::new));
+		List<IProject> projects = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+				.filter(IProject::isOpen).collect(Collectors.toList());
+		scopedElements.clear();
+		scopedElements.addAll(projects);
 		graph.setInput(scopedElements);
 		label.setText("Scope: All Projects");
 	}
