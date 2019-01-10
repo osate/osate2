@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -351,7 +352,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private MemberTree createMemberTree(final FeatureGroupType fgt) {
 		final List<SectionNode> sections = new ArrayList<>();
 		addSection(sections, "Prototypes", fgt, fgt.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
-//		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+		final EList<Feature> allFeatures = fgt.getAllFeatures();
+		addFeatureGroupFeaturesSection(sections, fgt, allFeatures);
 		return new MemberTree(sections);
 	}
 
@@ -386,6 +388,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			final Classifier classifier, final List<M> members, final GetRefined<M> gr) {
 		if (members != null && members.size() > 0) {
 			sections.add(createSectionNode(classifier, members, heading, gr));
+		}
+	}
+
+	private void addFeatureGroupFeaturesSection(final List<SectionNode> sections, final FeatureGroupType fgt,
+			final List<Feature> members) {
+		if (members != null && members.size() > 0) {
+			sections.add(createFeatureGroupFeaturesSectionNode(fgt, members));
 		}
 	}
 
@@ -451,6 +460,16 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return new SectionNode(heading, memberNodes);
 	}
 
+	public SectionNode createFeatureGroupFeaturesSectionNode(final FeatureGroupType fgt, final List<Feature> members) {
+		final boolean isInverted = (fgt.getInverse() != null) && fgt.getOwnedFeatures().isEmpty();
+		Collections.sort(members, MEMBER_COMPARATOR);
+		final List<MemberNode> memberNodes = new ArrayList<>();
+		for (final Feature member : members) {
+			memberNodes.add(createMemberNode(fgt, isInverted, member, ClassifierInfoView::getRefinedFeature));
+		}
+		return new SectionNode("Features", memberNodes);
+	}
+
 	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
 			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
 		final List<MemberNode> memberNodes = new ArrayList<>();
@@ -471,21 +490,29 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		private final EObject member;
 		private final String name;
 		private final Classifier inheritedFrom;
+		private final boolean isInverted;
 		private final boolean isRefined;
 		private final MemberNode[] ancestorMember;
 
-		private MemberNode(final EObject m, final String n, final Classifier from, final boolean refined,
+		private MemberNode(final EObject m, final String n, final Classifier from, final boolean inverted,
+				final boolean refined,
 				final MemberNode ancestor) {
 			member = m;
 			name = n;
 			inheritedFrom = from;
+			isInverted = inverted;
 			isRefined = refined;
 			ancestorMember = ancestor == null ? new MemberNode[0] : new MemberNode[] { ancestor };
 		}
 
+		private MemberNode(final EObject m, final String n, final Classifier from, final boolean refined,
+				final MemberNode ancestor) {
+			this(m, n, from, false, refined, ancestor);
+		}
+
 		@Override
 		public String getText() {
-			return (isRefined ? "refined " : "") + unparseMember(member, name)
+			return (isInverted ? "inverse of " : "") + (isRefined ? "refined " : "") + unparseMember(member, name)
 					+ (inheritedFrom != null ? (" [from " + inheritedFrom.getName() + "]") : "");
 		}
 
@@ -525,6 +552,16 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return new MemberNode(member, member.getName(),
 				isLocal ? null : q, isRefined,
 				!isRefined ? null : createMemberNode(classifier, refined, gr));
+	}
+
+	public <M extends NamedElement> MemberNode createMemberNode(final FeatureGroupType fgt, final boolean isInverted,
+			final M member, final GetRefined<M> gr) {
+		final Classifier q = (Classifier) member.eContainer();
+		final boolean isLocal = q.equals(fgt);
+		final M refined = gr.getRefined(member);
+		final boolean isRefined = refined != null;
+		return new MemberNode(member, member.getName(), isLocal ? null : q, isInverted, isRefined,
+				!isRefined ? null : createMemberNode(fgt, isInverted, refined, gr));
 	}
 
 	public MemberNode createMemberNodeFromFlowImplementation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
