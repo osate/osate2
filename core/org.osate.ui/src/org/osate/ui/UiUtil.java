@@ -64,7 +64,7 @@ public final class UiUtil {
 		return result.value;
 	}
 
-	private static boolean openEditor(final IWorkbenchPage page, final IMarker marker, final boolean activate) {
+	public static boolean openEditor(final IWorkbenchPage page, final IMarker marker, final boolean activate) {
 		final class Result {
 			public volatile boolean value = true;
 		}
