@@ -57,6 +57,7 @@ import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.PropertySet;
 import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 
@@ -70,7 +71,7 @@ public class ProjectVisualizationView extends ViewPart {
 	private final IReferenceFinder referenceFinder;
 	private final IResourceDescriptions resourceDescriptions;
 
-	// Either IProject or URI<AadlPackage>
+	// Either IProject or URI<ModelUnit>
 	private final Set<Object> scopedElements = new LinkedHashSet<>();
 
 	private Label label;
@@ -120,24 +121,24 @@ public class ProjectVisualizationView extends ViewPart {
 					}
 					return allProjects.toArray();
 				} else {
-					// inputSet is set of URI<AadlPackage>
-					Set<AadlPackage> allPackages = new LinkedHashSet<>();
+					// inputSet is set of URI<ModelUnit>
+					Set<ModelUnit> allModelUnits = new LinkedHashSet<>();
 					ResourceSet resourceSet = new ResourceSetImpl();
 					for (Object inputSetElement : inputSet) {
-						URI pkgURI = (URI) inputSetElement;
-						AadlPackage pkg = (AadlPackage) resourceSet.getEObject(pkgURI, true);
-						allPackages.add(pkg);
-						traverseDependencies(pkg, allPackages, this::getReferencedPackages);
-						traverseDependencies(pkg, allPackages, this::getReferencingPackages);
+						URI modelUnitURI = (URI) inputSetElement;
+						ModelUnit modelUnit = (ModelUnit) resourceSet.getEObject(modelUnitURI, true);
+						allModelUnits.add(modelUnit);
+						traverseDependencies(modelUnit, allModelUnits, this::getReferencedModelUnits);
+						traverseDependencies(modelUnit, allModelUnits, this::getReferencingModelUnits);
 					}
-					return allPackages.stream().map(EcoreUtil::getURI).toArray();
+					return allModelUnits.stream().map(EcoreUtil::getURI).toArray();
 				}
 			}
 
-			private List<AadlPackage> getReferencingPackages(AadlPackage pkg) {
+			private List<ModelUnit> getReferencingModelUnits(ModelUnit modelUnit) {
 				TargetURIs uris = injector.getInstance(TargetURIs.class);
-				uris.addURI(EcoreUtil.getURI(pkg));
-				List<AadlPackage> referencingPackages = new ArrayList<>();
+				uris.addURI(EcoreUtil.getURI(modelUnit));
+				List<ModelUnit> referencingModelUnits = new ArrayList<>();
 				referenceFinder.findAllReferences(uris, null, resourceDescriptions, new Acceptor() {
 					@Override
 					public void accept(EObject source, URI sourceURI, EReference eReference, int index,
@@ -147,36 +148,37 @@ public class ProjectVisualizationView extends ViewPart {
 
 					@Override
 					public void accept(IReferenceDescription description) {
-						EObject source = pkg.eResource().getResourceSet().getEObject(description.getSourceEObjectUri(),
+						EObject source = modelUnit.eResource().getResourceSet().getEObject(description.getSourceEObjectUri(),
 								true);
-						AadlPackage sourcePkg = EcoreUtil2.getContainerOfType(source, AadlPackage.class);
-						if (sourcePkg != null) {
-							referencingPackages.add(sourcePkg);
+						ModelUnit sourceModelUnit = EcoreUtil2.getContainerOfType(source, ModelUnit.class);
+						if (sourceModelUnit != null) {
+							referencingModelUnits.add(sourceModelUnit);
 						}
 					}
 				}, null);
-				return referencingPackages;
+				return referencingModelUnits;
 			}
 
-			private List<AadlPackage> getReferencedPackages(AadlPackage pkg) {
-				List<AadlPackage> referencedPackages = new ArrayList<>();
-				if (pkg.getOwnedPublicSection() != null) {
-					for (ModelUnit imported : pkg.getOwnedPublicSection().getImportedUnits()) {
-						ModelUnit resolved = (ModelUnit) EcoreUtil.resolve(imported, pkg);
-						if (resolved instanceof AadlPackage) {
-							referencedPackages.add((AadlPackage) resolved);
+			private List<ModelUnit> getReferencedModelUnits(ModelUnit modelUnit) {
+				List<ModelUnit> referencedModelUnits = new ArrayList<>();
+				if (modelUnit instanceof AadlPackage) {
+					AadlPackage pkg = (AadlPackage) modelUnit;
+					if (pkg.getOwnedPublicSection() != null) {
+						for (ModelUnit imported : pkg.getOwnedPublicSection().getImportedUnits()) {
+							referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
 						}
 					}
-				}
-				if (pkg.getOwnedPrivateSection() != null) {
-					for (ModelUnit imported : pkg.getOwnedPrivateSection().getImportedUnits()) {
-						ModelUnit resolved = (ModelUnit) EcoreUtil.resolve(imported, pkg);
-						if (resolved instanceof AadlPackage) {
-							referencedPackages.add((AadlPackage) resolved);
+					if (pkg.getOwnedPrivateSection() != null) {
+						for (ModelUnit imported : pkg.getOwnedPrivateSection().getImportedUnits()) {
+							referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
 						}
 					}
+				} else {
+					for (ModelUnit imported : ((PropertySet) modelUnit).getImportedUnits()) {
+						referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
+					}
 				}
-				return referencedPackages;
+				return referencedModelUnits;
 			}
 
 			private void traverseDependencies(IProject project, Set<IProject> visited,
@@ -189,9 +191,9 @@ public class ProjectVisualizationView extends ViewPart {
 				}
 			}
 
-			private void traverseDependencies(AadlPackage pkg, Set<AadlPackage> visited,
-					Function<AadlPackage, List<AadlPackage>> getDependencies) {
-				for (AadlPackage dependency : getDependencies.apply(pkg)) {
+			private void traverseDependencies(ModelUnit modelUnit, Set<ModelUnit> visited,
+					Function<ModelUnit, List<ModelUnit>> getDependencies) {
+				for (ModelUnit dependency : getDependencies.apply(modelUnit)) {
 					if (!visited.contains(dependency)) {
 						visited.add(dependency);
 						traverseDependencies(dependency, visited, getDependencies);
@@ -210,9 +212,9 @@ public class ProjectVisualizationView extends ViewPart {
 						return new Object[0];
 					}
 				} else {
-					// entity is URI<AadlPackage>
-					AadlPackage pkg = (AadlPackage) new ResourceSetImpl().getEObject((URI) entity, true);
-					return getReferencedPackages(pkg).stream().map(EcoreUtil::getURI).toArray();
+					// entity is URI<ModelUnit>
+					ModelUnit modelUnit = (ModelUnit) new ResourceSetImpl().getEObject((URI) entity, true);
+					return getReferencedModelUnits(modelUnit).stream().map(EcoreUtil::getURI).toArray();
 				}
 			}
 		});
@@ -234,9 +236,9 @@ public class ProjectVisualizationView extends ViewPart {
 					IProject selectedProject = (IProject) selectedObject;
 					try {
 						if (selectedProject.hasNature(AadlNature.ID)) {
-							showPackagesInProjectAction
-									.setText("Show AADL Packages in project '" + selectedProject.getName() + "'");
-							manager.add(showPackagesInProjectAction);
+							showModelUnitsInProjectAction
+									.setText("Show Packages and Property Sets in project '" + selectedProject.getName() + "'");
+							manager.add(showModelUnitsInProjectAction);
 						}
 					} catch (CoreException e) {
 						StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
@@ -254,22 +256,22 @@ public class ProjectVisualizationView extends ViewPart {
 		}
 	};
 
-	private final IAction showPackagesInProjectAction = new Action() {
+	private final IAction showModelUnitsInProjectAction = new Action() {
 		@Override
 		public void run() {
 			IProject project = (IProject) graph.getStructuredSelection().getFirstElement();
 			List<IFile> files = getAllAadlFiles(project);
 			ResourceSet resourceSet = new ResourceSetImpl();
-			List<URI> packages = files.stream()
+			List<URI> modelUnits = files.stream()
 					.map(file -> resourceSet
 							.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true))
 					.filter(resource -> !resource.getContents().isEmpty())
-					.map(resource -> resource.getContents().get(0)).filter(eObject -> eObject instanceof AadlPackage)
+					.map(resource -> resource.getContents().get(0)).filter(eObject -> eObject instanceof ModelUnit)
 					.map(EcoreUtil::getURI).collect(Collectors.toList());
 			scopedElements.clear();
-			scopedElements.addAll(packages);
+			scopedElements.addAll(modelUnits);
 			graph.setInput(scopedElements);
-			label.setText("Scope: Packages in Project '" + project.getName() + "'");
+			label.setText("Scope: Packages and Property Sets in Project '" + project.getName() + "'");
 		}
 
 		private List<IFile> getAllAadlFiles(IContainer container) {
@@ -342,7 +344,7 @@ public class ProjectVisualizationView extends ViewPart {
 				return ((IProject) element).getName();
 			} else if (element instanceof URI) {
 				ResourceSet resourceSet = new ResourceSetImpl();
-				return ((AadlPackage) resourceSet.getEObject((URI) element, true)).getName();
+				return ((ModelUnit) resourceSet.getEObject((URI) element, true)).getName();
 			} else {
 				return null;
 			}
