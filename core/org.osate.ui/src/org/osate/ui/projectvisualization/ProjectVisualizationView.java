@@ -1,27 +1,23 @@
 package org.osate.ui.projectvisualization;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
@@ -39,11 +35,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.statushandlers.StatusManager;
-import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.findReferences.IReferenceFinder;
-import org.eclipse.xtext.findReferences.IReferenceFinder.Acceptor;
-import org.eclipse.xtext.findReferences.TargetURIs;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -55,23 +49,20 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Injector;
 
-@SuppressWarnings("restriction")
 public class ProjectVisualizationView extends ViewPart {
 	public static final String ID = "org.osate.ui.projectvisualization";
 
 	private final Injector injector;
-	private final IReferenceFinder referenceFinder;
 	private final IResourceDescriptions resourceDescriptions;
 
-	// Either IProject or URI<ModelUnit>
+	// Either IProject or IEObjectDescription<ModelUnit>
 	private final Set<Object> scopedElements = new LinkedHashSet<>();
 
 	private Label label;
@@ -81,7 +72,6 @@ public class ProjectVisualizationView extends ViewPart {
 	public ProjectVisualizationView() {
 		injector = IResourceServiceProvider.Registry.INSTANCE
 				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
-		referenceFinder = injector.getInstance(IReferenceFinder.class);
 		resourceDescriptions = injector.getInstance(IResourceDescriptions.class);
 	}
 
@@ -108,95 +98,40 @@ public class ProjectVisualizationView extends ViewPart {
 						IProject project = (IProject) inputSetElement;
 						if (project.isOpen()) {
 							allProjects.add(project);
-							traverseDependencies(project, allProjects, p -> {
+							traverseDependencies(project, allProjects, IProject::isOpen, dependency -> {
 								try {
-									return p.getReferencedProjects();
+									return Arrays.asList(dependency.getReferencedProjects());
 								} catch (CoreException e) {
 									StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
-									return new IProject[0];
+									return Collections.emptySet();
 								}
 							});
-							traverseDependencies(project, allProjects, IProject::getReferencingProjects);
+							traverseDependencies(project, allProjects, IProject::isOpen,
+									dependency -> Arrays.asList(dependency.getReferencingProjects()));
 						}
 					}
 					return allProjects.toArray();
 				} else {
-					// inputSet is set of URI<ModelUnit>
-					Set<ModelUnit> allModelUnits = new LinkedHashSet<>();
-					ResourceSet resourceSet = new ResourceSetImpl();
+					// inputSet is set of IEObjectDescription<ModelUnit>
+					Set<IEObjectDescription> allModelUnits = new LinkedHashSet<>();
 					for (Object inputSetElement : inputSet) {
-						URI modelUnitURI = (URI) inputSetElement;
-						ModelUnit modelUnit = (ModelUnit) resourceSet.getEObject(modelUnitURI, true);
+						IEObjectDescription modelUnit = (IEObjectDescription) inputSetElement;
 						allModelUnits.add(modelUnit);
-						traverseDependencies(modelUnit, allModelUnits, this::getReferencedModelUnits);
-						traverseDependencies(modelUnit, allModelUnits, this::getReferencingModelUnits);
+						traverseDependencies(modelUnit, allModelUnits, dependency -> true,
+								dependency -> referencingModelUnits.getOrDefault(dependency, Collections.emptySet()));
+						traverseDependencies(modelUnit, allModelUnits, dependency -> true,
+								dependency -> referencedModelUnits.getOrDefault(dependency, Collections.emptySet()));
 					}
-					return allModelUnits.stream().map(EcoreUtil::getURI).toArray();
+					return allModelUnits.toArray();
 				}
 			}
 
-			private List<ModelUnit> getReferencingModelUnits(ModelUnit modelUnit) {
-				TargetURIs uris = injector.getInstance(TargetURIs.class);
-				uris.addURI(EcoreUtil.getURI(modelUnit));
-				List<ModelUnit> referencingModelUnits = new ArrayList<>();
-				referenceFinder.findAllReferences(uris, null, resourceDescriptions, new Acceptor() {
-					@Override
-					public void accept(EObject source, URI sourceURI, EReference eReference, int index,
-							EObject targetOrProxy, URI targetURI) {
-						// Not called.
-					}
-
-					@Override
-					public void accept(IReferenceDescription description) {
-						EObject source = modelUnit.eResource().getResourceSet().getEObject(description.getSourceEObjectUri(),
-								true);
-						ModelUnit sourceModelUnit = EcoreUtil2.getContainerOfType(source, ModelUnit.class);
-						if (sourceModelUnit != null) {
-							referencingModelUnits.add(sourceModelUnit);
-						}
-					}
-				}, null);
-				return referencingModelUnits;
-			}
-
-			private List<ModelUnit> getReferencedModelUnits(ModelUnit modelUnit) {
-				List<ModelUnit> referencedModelUnits = new ArrayList<>();
-				if (modelUnit instanceof AadlPackage) {
-					AadlPackage pkg = (AadlPackage) modelUnit;
-					if (pkg.getOwnedPublicSection() != null) {
-						for (ModelUnit imported : pkg.getOwnedPublicSection().getImportedUnits()) {
-							referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
-						}
-					}
-					if (pkg.getOwnedPrivateSection() != null) {
-						for (ModelUnit imported : pkg.getOwnedPrivateSection().getImportedUnits()) {
-							referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
-						}
-					}
-				} else {
-					for (ModelUnit imported : ((PropertySet) modelUnit).getImportedUnits()) {
-						referencedModelUnits.add((ModelUnit) EcoreUtil.resolve(imported, modelUnit));
-					}
-				}
-				return referencedModelUnits;
-			}
-
-			private void traverseDependencies(IProject project, Set<IProject> visited,
-					Function<IProject, IProject[]> getDependencies) {
-				for (IProject dependency : getDependencies.apply(project)) {
-					if (dependency.isOpen() && !visited.contains(dependency)) {
+			private <T> void traverseDependencies(T start, Set<T> visited, Predicate<T> filter,
+					Function<T, Iterable<T>> getDependencies) {
+				for (T dependency : getDependencies.apply(start)) {
+					if (filter.test(dependency) && !visited.contains(dependency)) {
 						visited.add(dependency);
-						traverseDependencies(dependency, visited, getDependencies);
-					}
-				}
-			}
-
-			private void traverseDependencies(ModelUnit modelUnit, Set<ModelUnit> visited,
-					Function<ModelUnit, List<ModelUnit>> getDependencies) {
-				for (ModelUnit dependency : getDependencies.apply(modelUnit)) {
-					if (!visited.contains(dependency)) {
-						visited.add(dependency);
-						traverseDependencies(dependency, visited, getDependencies);
+						traverseDependencies(dependency, visited, filter, getDependencies);
 					}
 				}
 			}
@@ -212,9 +147,8 @@ public class ProjectVisualizationView extends ViewPart {
 						return new Object[0];
 					}
 				} else {
-					// entity is URI<ModelUnit>
-					ModelUnit modelUnit = (ModelUnit) new ResourceSetImpl().getEObject((URI) entity, true);
-					return getReferencedModelUnits(modelUnit).stream().map(EcoreUtil::getURI).toArray();
+					// entity is IEObjectDescription<ModelUnit>
+					return referencedModelUnits.getOrDefault(entity, Collections.emptySet()).toArray();
 				}
 			}
 		});
@@ -236,8 +170,8 @@ public class ProjectVisualizationView extends ViewPart {
 					IProject selectedProject = (IProject) selectedObject;
 					try {
 						if (selectedProject.hasNature(AadlNature.ID)) {
-							showModelUnitsInProjectAction
-									.setText("Show Packages and Property Sets in project '" + selectedProject.getName() + "'");
+							showModelUnitsInProjectAction.setText(
+									"Show Packages and Property Sets in project '" + selectedProject.getName() + "'");
 							manager.add(showModelUnitsInProjectAction);
 						}
 					} catch (CoreException e) {
@@ -256,41 +190,60 @@ public class ProjectVisualizationView extends ViewPart {
 		}
 	};
 
+	private final Map<IEObjectDescription, Set<IEObjectDescription>> referencingModelUnits = new HashMap<>();
+	private final Map<IEObjectDescription, Set<IEObjectDescription>> referencedModelUnits = new HashMap<>();
+
 	private final IAction showModelUnitsInProjectAction = new Action() {
 		@Override
 		public void run() {
 			IProject project = (IProject) graph.getStructuredSelection().getFirstElement();
-			List<IFile> files = getAllAadlFiles(project);
-			ResourceSet resourceSet = new ResourceSetImpl();
-			List<URI> modelUnits = files.stream()
-					.map(file -> resourceSet
-							.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true))
-					.filter(resource -> !resource.getContents().isEmpty())
-					.map(resource -> resource.getContents().get(0)).filter(eObject -> eObject instanceof ModelUnit)
-					.map(EcoreUtil::getURI).collect(Collectors.toList());
 			scopedElements.clear();
-			scopedElements.addAll(modelUnits);
-			graph.setInput(scopedElements);
-			label.setText("Scope: Packages and Property Sets in Project '" + project.getName() + "'");
-		}
+			referencingModelUnits.clear();
+			referencedModelUnits.clear();
+			Map<URI, IEObjectDescription> eObjectDescriptions = new HashMap<>();
+			for (IEObjectDescription eObjectDescription : resourceDescriptions
+					.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit())) {
+				eObjectDescriptions.put(eObjectDescription.getEObjectURI(), eObjectDescription);
+			}
+			for (IResourceDescription resourceDescription : resourceDescriptions.getAllResourceDescriptions()) {
+				URI resourceURI = resourceDescription.getURI();
+				if (resourceURI.fileExtension().equalsIgnoreCase("aadl")
+						&& resourceURI.toString().startsWith("platform:/resource/" + project.getName() + "/")) {
+					List<IEObjectDescription> modelUnits = Lists.newArrayList(
+							resourceDescription.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit()));
+					if (modelUnits.size() == 1) {
+						IEObjectDescription sourceModelUnit = modelUnits.get(0);
+						scopedElements.add(sourceModelUnit);
+						for (IReferenceDescription referenceDescription : resourceDescription
+								.getReferenceDescriptions()) {
+							EReference eReference = referenceDescription.getEReference();
+							if (eReference.equals(Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit())
+									|| eReference.equals(Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit())) {
+								IEObjectDescription targetModelUnit = eObjectDescriptions
+										.get(referenceDescription.getTargetEObjectUri());
 
-		private List<IFile> getAllAadlFiles(IContainer container) {
-			List<IFile> files = new ArrayList<>();
-			try {
-				for (IResource member : container.members()) {
-					if (member instanceof IFile) {
-						IFile file = (IFile) member;
-						if (file.getFileExtension().contentEquals("aadl")) {
-							files.add(file);
+								// referencing
+								Set<IEObjectDescription> referencingSet = referencingModelUnits.get(targetModelUnit);
+								if (referencingSet == null) {
+									referencingSet = new LinkedHashSet<>();
+									referencingModelUnits.put(targetModelUnit, referencingSet);
+								}
+								referencingSet.add(sourceModelUnit);
+
+								// referenced
+								Set<IEObjectDescription> referencedSet = referencedModelUnits.get(sourceModelUnit);
+								if (referencedSet == null) {
+									referencedSet = new LinkedHashSet<>();
+									referencedModelUnits.put(sourceModelUnit, referencedSet);
+								}
+								referencedSet.add(targetModelUnit);
+							}
 						}
-					} else if (member instanceof IContainer) {
-						files.addAll(getAllAadlFiles((IContainer) member));
 					}
 				}
-			} catch (CoreException e) {
-				StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
 			}
-			return files;
+			graph.setInput(scopedElements);
+			label.setText("Scope: Packages and Property Sets in Project '" + project.getName() + "'");
 		}
 	};
 
@@ -310,6 +263,8 @@ public class ProjectVisualizationView extends ViewPart {
 				.map(adaptable -> Adapters.adapt(adaptable, IProject.class)).filter(IProject::isOpen)
 				.collect(Collectors.toList());
 		scopedElements.clear();
+		referencingModelUnits.clear();
+		referencedModelUnits.clear();
 		scopedElements.addAll(projects);
 		graph.setInput(scopedElements);
 		label.setText("Scope: Working Set '" + workingSet.getName() + "'");
@@ -317,6 +272,8 @@ public class ProjectVisualizationView extends ViewPart {
 
 	public void setScope(IProject project) {
 		scopedElements.clear();
+		referencingModelUnits.clear();
+		referencedModelUnits.clear();
 		scopedElements.add(project);
 		graph.setInput(scopedElements);
 		label.setText("Scope: Project '" + project.getName() + "'");
@@ -326,6 +283,8 @@ public class ProjectVisualizationView extends ViewPart {
 		List<IProject> projects = Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
 				.filter(IProject::isOpen).collect(Collectors.toList());
 		scopedElements.clear();
+		referencingModelUnits.clear();
+		referencedModelUnits.clear();
 		scopedElements.addAll(projects);
 		graph.setInput(scopedElements);
 		label.setText("Scope: All Projects");
@@ -342,9 +301,8 @@ public class ProjectVisualizationView extends ViewPart {
 		public String getText(Object element) {
 			if (element instanceof IProject) {
 				return ((IProject) element).getName();
-			} else if (element instanceof URI) {
-				ResourceSet resourceSet = new ResourceSetImpl();
-				return ((ModelUnit) resourceSet.getEObject((URI) element, true)).getName();
+			} else if (element instanceof IEObjectDescription) {
+				return ((IEObjectDescription) element).getName().toString("::");
 			} else {
 				return null;
 			}
