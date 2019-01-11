@@ -5,14 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.TreeColumnLayout;
-import org.eclipse.jface.util.OpenStrategy;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -30,9 +25,6 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.xtext.resource.ILocationInFileProvider;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -48,13 +40,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.modelsupport.AadlConstants;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
 	/**
@@ -68,13 +54,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
-	@Inject
-	private ILocationInFileProvider locationProvider;
-
 	public ClassifierInfoView() {
-		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
-				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
-		injector.injectMembers(this);
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
 
@@ -241,8 +221,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 
 		if (input != null) {
-			final Object r = input.eResource();
-			System.out.println(r);
 			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
 			if (input instanceof ComponentType) {
@@ -655,29 +633,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		return e.getRefined();
 	}
 
-	public void gotoElement(final Element target) {
-		if (target == null) {
-			return;
-		}
-		final IResource ires = OsateResourceUtil.convertToIResource(target.eResource());
-		if (ires != null && ires.exists()) {
-			try {
-
-				final IMarker marker = ires.createMarker(AadlConstants.AADLGOTOMARKER);
-				marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
-				marker.setAttribute(IMarker.MESSAGE, "temp marker");
-				final ITextRegion where = locationProvider.getFullTextRegion(target);
-				final int start = where.getOffset();
-				final int end = start + where.getLength();
-				marker.setAttribute(IMarker.CHAR_START, start);
-				marker.setAttribute(IMarker.CHAR_END, end);
-				UiUtil.openEditor(getSite().getPage(), marker, OpenStrategy.activateOnOpen());
-				// editor opened --- get rid of goto marker
-				ires.deleteMarkers(AadlConstants.AADLGOTOMARKER, false, IResource.DEPTH_ZERO);
-			} catch (final CoreException e) {
-				OsateUiPlugin.log(e);
-			}
-		}
+	private void gotoElement(final Element gotoElement) {
+		UiUtil.getInstance().openDeclarativeModelElementAsJob(getSite().getPage(), gotoElement);
 	}
-
 }
