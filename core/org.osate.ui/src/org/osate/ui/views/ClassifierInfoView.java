@@ -196,6 +196,21 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				return ((MemberTreeNode) parentElement).getChildren();
 			}
 		});
+		treeViewer.addDoubleClickListener(event -> {
+			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
+			final MemberTreeNode selectedNode = (MemberTreeNode) selected.getFirstElement();
+			if (selectedNode instanceof MemberNode) {
+				gotoElement(((MemberNode) selectedNode).getMember());
+			} else {
+				if (treeViewer.isExpandable(selectedNode)) {
+					if (treeViewer.getExpandedState(selectedNode)) {
+						treeViewer.collapseToLevel(selectedNode, 1);
+					} else {
+						treeViewer.expandToLevel(selectedNode, 1);
+					}
+				}
+			}
+		});
 
 		return treeViewer;
 	}
@@ -491,14 +506,14 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	private final class MemberNode implements MemberTreeNode {
-		private final EObject member;
+		private final Element member;
 		private final String name;
 		private final Classifier inheritedFrom;
 		private final boolean isInverted;
 		private final boolean isRefined;
 		private final MemberNode[] ancestorMember;
 
-		private MemberNode(final EObject m, final String n, final Classifier from, final boolean inverted,
+		private MemberNode(final Element m, final String n, final Classifier from, final boolean inverted,
 				final boolean refined,
 				final MemberNode ancestor) {
 			member = m;
@@ -509,9 +524,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 			ancestorMember = ancestor == null ? new MemberNode[0] : new MemberNode[] { ancestor };
 		}
 
-		private MemberNode(final EObject m, final String n, final Classifier from, final boolean refined,
+		private MemberNode(final Element m, final String n, final Classifier from, final boolean refined,
 				final MemberNode ancestor) {
 			this(m, n, from, false, refined, ancestor);
+		}
+
+		public Element getMember() {
+			return member;
 		}
 
 		@Override
