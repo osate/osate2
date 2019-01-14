@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -40,12 +42,20 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
+	private static final String SYNC_ICON = "icons/synced.png";
+	private static final String DONT_SYNC_ICON = "icons/sync_broken.png";
+
 	/**
-	 * The current selection.
+	 * The most recently selected element in the view, or <code>null</code> is there is no
+	 * selection.  Remembered so that if we toggle from DONT_SYNC to SYNC, we know where to
+	 * jump to.
 	 */
+	private Element lastSelectedElement = null;
+
 	private ISelection currentSelection;
 
 	private TreeViewer ancestorTree;
@@ -53,6 +63,8 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
+
+	private volatile boolean syncWithEditor = true;
 
 	public ClassifierInfoView() {
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
@@ -68,6 +80,31 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 		ancestorTree = createAncestorTree(sash);
 		memberTree = createMemberTree(sash);
+
+		final IAction syncWithEditorAction = new Action("Sync with Editor", SWT.TOGGLE) {
+			{
+				setChecked(syncWithEditor);
+				updateImage(syncWithEditor);
+				setToolTipText(
+						"Synchronizes the view's selection with the editor.  Selecting items in the view "
+								+
+								"immediately highlights the source text in an editor.");
+			}
+
+			@Override
+			public void run() {
+				syncWithEditor = !syncWithEditor;
+				updateImage(syncWithEditor);
+				if (syncWithEditor) {
+					gotoElement(lastSelectedElement);
+				}
+			}
+
+			private void updateImage(final boolean link) {
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(link ? SYNC_ICON : DONT_SYNC_ICON));
+			}
+		};
+		getViewSite().getActionBars().getToolBarManager().add(syncWithEditorAction);
 	}
 
 	@Override
@@ -139,10 +176,27 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				return ((AncestorTreeNode) parentElement).getChildren();
 			}
 		});
+		treeViewer.addSelectionChangedListener(event -> {
+			Element selectedElement = null;
+			final ISelection selection = event.getSelection();
+			if (selection instanceof IStructuredSelection) {
+				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+				if (structuredSelection.size() == 1) {
+					final AncestorTreeNode selectedNode = (AncestorTreeNode) structuredSelection.getFirstElement();
+					selectedElement = selectedNode.getClassifier();
+					if (syncWithEditor) {
+						gotoElement(selectedElement);
+					}
+				}
+			}
+			lastSelectedElement = selectedElement;
+		});
 		treeViewer.addDoubleClickListener(event -> {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
 			final AncestorTreeNode selectedNode = (AncestorTreeNode) selected.getFirstElement();
-			gotoElement(selectedNode.getClassifier());
+			final Classifier selectedElement = selectedNode.getClassifier();
+			gotoElement(selectedElement);
+			lastSelectedElement = selectedElement;
 		});
 
 		return treeViewer;
@@ -196,11 +250,30 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				return ((MemberTreeNode) parentElement).getChildren();
 			}
 		});
+		treeViewer.addSelectionChangedListener(event -> {
+			Element selectedElement = null;
+			final ISelection selection = event.getSelection();
+			if (selection instanceof IStructuredSelection) {
+				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+				if (structuredSelection.size() == 1) {
+					final MemberTreeNode selectedNode = (MemberTreeNode) structuredSelection.getFirstElement();
+					if (selectedNode instanceof MemberNode) {
+						selectedElement = ((MemberNode) selectedNode).getMember();
+						if (syncWithEditor) {
+							gotoElement(selectedElement);
+						}
+					}
+				}
+			}
+			lastSelectedElement = selectedElement;
+		});
 		treeViewer.addDoubleClickListener(event -> {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
 			final MemberTreeNode selectedNode = (MemberTreeNode) selected.getFirstElement();
 			if (selectedNode instanceof MemberNode) {
-				gotoElement(((MemberNode) selectedNode).getMember());
+				final Element selectedElement = ((MemberNode) selectedNode).getMember();
+				gotoElement(selectedElement);
+				lastSelectedElement = selectedElement;
 			} else {
 				if (treeViewer.isExpandable(selectedNode)) {
 					if (treeViewer.getExpandedState(selectedNode)) {
@@ -555,14 +628,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		}
 
 		private String unparseMember(final EObject member, final String name) {
-//			if (member instanceof Feature) {
-//				final Feature feature = (Feature) member;
-//				final StringBuilder sb = new StringBuilder();
-//				sb.append(serializer.serialize(member));
-//				return sb.toString();
-//			} else {
-				return name;
-//			}
+			return name;
 		}
 	}
 
