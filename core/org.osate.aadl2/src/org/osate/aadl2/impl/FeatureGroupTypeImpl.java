@@ -1211,12 +1211,24 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			EList<Feature> owned = current.getOwnedFeatures();
 			if (!owned.isEmpty()) {
 				allFeatures.addAll(0, owned);
-				current = extended;
+				/*
+				 * Go to the extended feature group next if it exists. Otherwise,
+				 * go to the feature group extended by the inverse next. We just looked
+				 * at the inverse group, so don't visit it a second time.
+				 */
+				current = extended != null ? extended : (inverse != null ? inverse.getExtended() : null);
 			} else {
 				if (inverse != null) {
 					allFeatures.addAll(0, inverse.getOwnedFeatures());
+					/*
+					 * Go to the extended feature group next if it exists. Otherwise,
+					 * go to the feature group extended by the inverse next. We just looked
+					 * at the inverse group, so don't visit it a second time.
+					 */
+					current = extended != null ? extended : inverse.getExtended();
+				} else {
+					current = extended != null ? extended : inverse;
 				}
-				current = extended != null ? extended : inverse;
 			}
 		}
 		for (Feature f : allFeatures) {
