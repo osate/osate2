@@ -1249,7 +1249,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 					 */
 					current = extended != null ? extended : inverse.getExtended();
 				} else {
-					current = extended != null ? extended : inverse;
+					current = extended;
 				}
 			}
 		}

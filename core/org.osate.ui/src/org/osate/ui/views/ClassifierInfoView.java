@@ -1,6 +1,7 @@
 package org.osate.ui.views;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -553,11 +554,11 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	public SectionNode createFeatureGroupFeaturesSectionNode(final FeatureGroupType fgt, final List<Feature> members) {
-		final boolean isInverted = (fgt.getInverse() != null) && fgt.getOwnedFeatures().isEmpty();
+		final Collection<Classifier> ancestors = fgt.getSelfPlusAllExtended();
 		// Don't sort the features of a feature group type because the order matters
 		final List<MemberNode> memberNodes = new ArrayList<>();
 		for (final Feature member : members) {
-			memberNodes.add(createMemberNode(fgt, isInverted, member, ClassifierInfoView::getRefinedFeature));
+			memberNodes.add(createMemberNode(fgt, ancestors, member, ClassifierInfoView::getRefinedFeature));
 		}
 		return new SectionNode("Features", memberNodes);
 	}
@@ -643,14 +644,14 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 				!isRefined ? null : createMemberNode(classifier, refined, gr));
 	}
 
-	public <M extends NamedElement> MemberNode createMemberNode(final FeatureGroupType fgt, final boolean isInverted,
-			final M member, final GetRefined<M> gr) {
+	public <M extends NamedElement> MemberNode createMemberNode(final FeatureGroupType fgt,
+			final Collection<Classifier> ancestors, final M member, final GetRefined<M> gr) {
 		final Classifier q = (Classifier) member.eContainer();
 		final boolean isLocal = q.equals(fgt);
 		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
-		return new MemberNode(member, member.getName(), isLocal ? null : q, isInverted, isRefined,
-				!isRefined ? null : createMemberNode(fgt, isInverted, refined, gr));
+		return new MemberNode(member, member.getName(), isLocal ? null : q, !ancestors.contains(q), isRefined,
+				!isRefined ? null : createMemberNode(fgt, refined, gr));
 	}
 
 	public MemberNode createMemberNodeFromFlowImplementation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
