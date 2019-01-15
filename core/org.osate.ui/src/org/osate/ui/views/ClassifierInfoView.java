@@ -554,7 +554,7 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	public SectionNode createFeatureGroupFeaturesSectionNode(final FeatureGroupType fgt, final List<Feature> members) {
 		final boolean isInverted = (fgt.getInverse() != null) && fgt.getOwnedFeatures().isEmpty();
-//		Collections.sort(members, MEMBER_COMPARATOR);
+		// Don't sort the features of a feature group type because the order matters
 		final List<MemberNode> memberNodes = new ArrayList<>();
 		for (final Feature member : members) {
 			memberNodes.add(createMemberNode(fgt, isInverted, member, ClassifierInfoView::getRefinedFeature));
