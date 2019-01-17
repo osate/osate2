@@ -89,11 +89,11 @@ public class ProjectVisualizationView extends ViewPart {
 				if (selectedObject instanceof IProject) {
 					IProject selectedProject = (IProject) selectedObject;
 					try {
-						focusOnProjectAction.setText("Focus on Project '" + selectedProject.getName() + "'");
+						focusOnProjectAction.setText("Show Projects Connected to '" + selectedProject.getName() + "'");
 						manager.add(focusOnProjectAction);
 						if (selectedProject.hasNature(AadlNature.ID)) {
-							showModelUnitsInProjectAction.setText(
-									"Show Packages and Property Sets in Project '" + selectedProject.getName() + "'");
+							showModelUnitsInProjectAction
+									.setText("Show Packages and Property Sets in '" + selectedProject.getName() + "'");
 							manager.add(showModelUnitsInProjectAction);
 						}
 					} catch (CoreException e) {
@@ -102,11 +102,7 @@ public class ProjectVisualizationView extends ViewPart {
 				} else if (selectedObject instanceof IEObjectDescription) {
 					IEObjectDescription selectedModelUnit = (IEObjectDescription) selectedObject;
 					String name = selectedModelUnit.getName().toString("::");
-					if (selectedModelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
-						focusOnModelUnitAction.setText("Focus on Package '" + name + "'");
-					} else if (selectedModelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getPropertySet())) {
-						focusOnModelUnitAction.setText("Focus on Property Set '" + name + "'");
-					}
+					focusOnModelUnitAction.setText("Show Packages and Property Sets Connected to '" + name + "'");
 					manager.add(focusOnModelUnitAction);
 				}
 			}
