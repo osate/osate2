@@ -540,7 +540,13 @@
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.visualizeProjectReferences">
+                commandId="org.osate.ui.visualizeProjectDependencies">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <command
+                commandId="org.osate.ui.visualizeModelUnitDependencies">
              <visibleWhen
                    checkEnabled="true">
              </visibleWhen>
@@ -1003,8 +1009,12 @@
              name="New AADL Property Set">
        </command>
        <command
-             id="org.osate.ui.visualizeProjectReferences"
-             name="Visualize Project References">
+             id="org.osate.ui.visualizeProjectDependencies"
+             name="Visualize Project Dependencies">
+       </command>
+       <command
+             id="org.osate.ui.visualizeModelUnitDependencies"
+             name="Visualize Package and Property Set Dependencies">
        </command>
     </extension>
     <extension
@@ -1096,8 +1106,35 @@
             commandId="org.osate.ui.wizards.propertySetWizard">
       </handler>
       <handler
-             class="org.osate.ui.projectvisualization.FocusVisualizationHandler"
-             commandId="org.osate.ui.visualizeProjectReferences">
+             class="org.osate.ui.projectvisualization.VisualizeProjectDependenciesHandler"
+             commandId="org.osate.ui.visualizeProjectDependencies">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <or>
+                         <adapt
+                               type="org.eclipse.ui.IWorkingSet">
+                         </adapt>
+                         <adapt
+                               type="org.eclipse.core.resources.IProject">
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             class="org.osate.ui.projectvisualization.VisualizeModelUnitDependenciesHandler"
+             commandId="org.osate.ui.visualizeModelUnitDependencies">
           <enabledWhen>
              <with
                    variable="selection">

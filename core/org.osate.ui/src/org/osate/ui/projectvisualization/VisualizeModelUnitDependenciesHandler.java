@@ -11,7 +11,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.ui.OsateUiPlugin;
 
-public class FocusVisualizationHandler extends AbstractHandler {
+public class VisualizeModelUnitDependenciesHandler extends AbstractHandler {
 	/*
 	 * Handler is only enabled when the selection is one IWorkingSet or one IProject.
 	 */
@@ -22,9 +22,9 @@ public class FocusVisualizationHandler extends AbstractHandler {
 					.getActivePage().showView(ProjectVisualizationView.ID);
 			Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
 			if (selection instanceof IWorkingSet) {
-				view.setScope((IWorkingSet) selection);
+				view.setModelUnitScope((IWorkingSet) selection);
 			} else {
-				view.setScope((IProject) selection);
+				view.setModelUnitScope((IProject) selection);
 			}
 		} catch (PartInitException e) {
 			Status status = new Status(e.getStatus().getSeverity(), OsateUiPlugin.PLUGIN_ID, e.getLocalizedMessage(),
