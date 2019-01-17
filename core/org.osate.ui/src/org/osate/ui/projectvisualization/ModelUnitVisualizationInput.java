@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -147,5 +148,18 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	String getImagePath(Object element) {
+		if (element instanceof IEObjectDescription) {
+			EClass eClass = ((IEObjectDescription) element).getEClass();
+			if (eClass.equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
+				return "icons/package.gif";
+			} else if (eClass.equals(Aadl2Package.eINSTANCE.getPropertySet())) {
+				return "icons/properties.gif";
+			}
+		}
+		return null;
 	}
 }
