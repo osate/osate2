@@ -39,8 +39,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 
-public class ProjectVisualizationView extends ViewPart {
-	public static final String ID = "org.osate.ui.projectvisualization";
+public class DependencyVisualizationView extends ViewPart {
+	public static final String ID = "org.osate.ui.dependencyvisualization";
 
 	private AbstractVisualizationInput<?> input;
 

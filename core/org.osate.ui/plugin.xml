@@ -152,10 +152,10 @@
             id="org.osate.ui.navigator.AadlNavigator"
             name="AADL Navigator"/>
       <view
-            id="org.osate.ui.projectvisualization"
-            name="Project Reference Visualization"
+            id="org.osate.ui.dependencyvisualization"
+            name="Dependency Visualization"
             category="aadl.view_category"
-            class="org.osate.ui.projectvisualization.ProjectVisualizationView">
+            class="org.osate.ui.projectvisualization.DependencyVisualizationView">
       </view>
    </extension>
    
