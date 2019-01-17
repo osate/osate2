@@ -129,7 +129,7 @@ public class ProjectVisualizationView extends ViewPart {
 		public void run() {
 			input = ModelUnitVisualizationInput.create();
 			graph.setInput(input);
-			label.setText("Scope: All Packages and Property Sets in Workspace");
+			label.setText("All Packages and Property Sets in Workspace");
 		}
 	};
 
@@ -139,7 +139,7 @@ public class ProjectVisualizationView extends ViewPart {
 			IProject project = (IProject) graph.getStructuredSelection().getFirstElement();
 			input = ModelUnitVisualizationInput.create(project);
 			graph.setInput(input);
-			label.setText("Scope: Packages and Property Sets in Project '" + project.getName() + "'");
+			label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 		}
 	};
 
@@ -150,9 +150,9 @@ public class ProjectVisualizationView extends ViewPart {
 			graph.setInput(input);
 			String name = modelUnit.getName().toString("::");
 			if (modelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
-				label.setText("Scope: Package '" + name + "'");
+				label.setText("Packages and Property Sets Connected to Package '" + name + "'");
 			} else if (modelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getPropertySet())) {
-				label.setText("Scope: Property Set '" + name + "'");
+				label.setText("Packages and Property Sets Connected to Property Set '" + name + "'");
 			}
 		}
 	};
@@ -171,31 +171,31 @@ public class ProjectVisualizationView extends ViewPart {
 	private void setProjectScopeToWorkspace() {
 		input = new ProjectVisualizationInput();
 		graph.setInput(input);
-		label.setText("Scope: All Projects in Workspace");
+		label.setText("All Projects in Workspace");
 	}
 
 	public void setProjectScope(IWorkingSet workingSet) {
 		input = new ProjectVisualizationInput(workingSet);
 		graph.setInput(input);
-		label.setText("Scope: Working Set '" + workingSet.getName() + "'");
+		label.setText("Projects in Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setProjectScope(IProject project) {
 		input = new ProjectVisualizationInput(project);
 		graph.setInput(input);
-		label.setText("Scope: Project '" + project.getName() + "'");
+		label.setText("Projects Connected to Project '" + project.getName() + "'");
 	}
 
 	public void setModelUnitScope(IWorkingSet workingSet) {
 		input = ModelUnitVisualizationInput.create(workingSet);
 		graph.setInput(input);
-		label.setText("Scope: Packages and Property Sets in Working Set '" + workingSet.getName() + "'");
+		label.setText("Packages and Property Sets in Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setModelUnitScope(IProject project) {
 		input = ModelUnitVisualizationInput.create(project);
 		graph.setInput(input);
-		label.setText("Scope: Packages and Property Sets in Project '" + project.getName() + "'");
+		label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 	}
 
 	private class VisualizationLabelProvider extends LabelProvider implements IEntityStyleProvider {
