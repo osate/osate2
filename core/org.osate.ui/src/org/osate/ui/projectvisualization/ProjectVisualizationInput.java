@@ -68,4 +68,13 @@ class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
 			return null;
 		}
 	}
+
+	@Override
+	String getImagePath(Object element) {
+		if (element instanceof IProject) {
+			return "icons/project.png";
+		} else {
+			return null;
+		}
+	}
 }

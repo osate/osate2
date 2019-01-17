@@ -1,5 +1,8 @@
 package org.osate.ui.projectvisualization;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.IFigure;
@@ -13,6 +16,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -201,6 +205,8 @@ public class ProjectVisualizationView extends ViewPart {
 	private class VisualizationLabelProvider extends LabelProvider implements IEntityStyleProvider {
 		private final Display display;
 
+		private Map<String, Image> images = new HashMap<>();
+
 		public VisualizationLabelProvider(Display display) {
 			this.display = display;
 		}
@@ -208,6 +214,16 @@ public class ProjectVisualizationView extends ViewPart {
 		@Override
 		public String getText(Object element) {
 			return input.getText(element);
+		}
+
+		@Override
+		public Image getImage(Object element) {
+			String imagePath = input.getImagePath(element);
+			if (imagePath != null) {
+				return images.computeIfAbsent(imagePath, path -> OsateUiPlugin.getImageDescriptor(path).createImage());
+			} else {
+				return null;
+			}
 		}
 
 		@Override
@@ -252,6 +268,12 @@ public class ProjectVisualizationView extends ViewPart {
 		@Override
 		public boolean fisheyeNode(Object entity) {
 			return false;
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			images.values().forEach(Image::dispose);
 		}
 	}
 }
