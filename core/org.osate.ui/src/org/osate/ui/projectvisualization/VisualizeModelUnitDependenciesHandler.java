@@ -18,8 +18,8 @@ public class VisualizeModelUnitDependenciesHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		try {
-			ProjectVisualizationView view = (ProjectVisualizationView) HandlerUtil.getActiveWorkbenchWindow(event)
-					.getActivePage().showView(ProjectVisualizationView.ID);
+			DependencyVisualizationView view = (DependencyVisualizationView) HandlerUtil.getActiveWorkbenchWindow(event)
+					.getActivePage().showView(DependencyVisualizationView.ID);
 			Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
 			if (selection instanceof IWorkingSet) {
 				view.setModelUnitScope((IWorkingSet) selection);
