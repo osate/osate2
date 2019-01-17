@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IWorkingSet;
@@ -15,13 +15,14 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.ui.OsateUiPlugin;
 
 class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
-	ProjectVisualizationInput(IWorkspace workspace) {
-		super(Arrays.stream(workspace.getRoot().getProjects()).filter(IProject::isOpen).collect(Collectors.toList()));
+	ProjectVisualizationInput() {
+		super(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(IProject::isOpen)
+				.collect(Collectors.toList()));
 	}
 
 	ProjectVisualizationInput(IWorkingSet workingSet) {
 		super(Arrays.stream(workingSet.getElements()).map(adaptable -> Adapters.adapt(adaptable, IProject.class))
-				.filter(IProject::isOpen).collect(Collectors.toList()));
+				.filter(project -> project != null && project.isOpen()).collect(Collectors.toList()));
 	}
 
 	ProjectVisualizationInput(IProject project) {
