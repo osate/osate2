@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -31,6 +32,7 @@ import org.osate.alisa2.model.safe2.Safe2Package;
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl#getExplanations <em>Explanations</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl#getAccident <em>Accident</em>}</li>
  * </ul>
  *
@@ -76,6 +78,16 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExplanations() <em>Explanations</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExplanations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> explanations;
 
 	/**
 	 * The cached value of the '{@link #getAccident() <em>Accident</em>}' containment reference list.
@@ -153,6 +165,18 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<String> getExplanations() {
+		if (explanations == null) {
+			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.ACCIDENT_LEVEL__EXPLANATIONS);
+		}
+		return explanations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Accident> getAccident() {
 		if (accident == null) {
 			accident = new EObjectContainmentWithInverseEList<Accident>(Accident.class, this, Safe2Package.ACCIDENT_LEVEL__ACCIDENT, Safe2Package.ACCIDENT__ACCIDENTLEVEL);
@@ -201,6 +225,8 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 				return getName();
 			case Safe2Package.ACCIDENT_LEVEL__DESCRIPTION:
 				return getDescription();
+			case Safe2Package.ACCIDENT_LEVEL__EXPLANATIONS:
+				return getExplanations();
 			case Safe2Package.ACCIDENT_LEVEL__ACCIDENT:
 				return getAccident();
 		}
@@ -221,6 +247,10 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 				return;
 			case Safe2Package.ACCIDENT_LEVEL__DESCRIPTION:
 				setDescription((String)newValue);
+				return;
+			case Safe2Package.ACCIDENT_LEVEL__EXPLANATIONS:
+				getExplanations().clear();
+				getExplanations().addAll((Collection<? extends String>)newValue);
 				return;
 			case Safe2Package.ACCIDENT_LEVEL__ACCIDENT:
 				getAccident().clear();
@@ -244,6 +274,9 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 			case Safe2Package.ACCIDENT_LEVEL__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
+			case Safe2Package.ACCIDENT_LEVEL__EXPLANATIONS:
+				getExplanations().clear();
+				return;
 			case Safe2Package.ACCIDENT_LEVEL__ACCIDENT:
 				getAccident().clear();
 				return;
@@ -263,6 +296,8 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Safe2Package.ACCIDENT_LEVEL__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case Safe2Package.ACCIDENT_LEVEL__EXPLANATIONS:
+				return explanations != null && !explanations.isEmpty();
 			case Safe2Package.ACCIDENT_LEVEL__ACCIDENT:
 				return accident != null && !accident.isEmpty();
 		}
@@ -283,6 +318,8 @@ public class AccidentLevelImpl extends MinimalEObjectImpl.Container implements A
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", explanations: ");
+		result.append(explanations);
 		result.append(')');
 		return result.toString();
 	}

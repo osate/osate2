@@ -2,8 +2,6 @@
  */
 package org.osate.alisa2.model.safe2;
 
-import org.osate.aadl2.NamedElement;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
@@ -16,7 +14,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.Constraint#getErrorType <em>Error Type</em>}</li>
- *   <li>{@link org.osate.alisa2.model.safe2.Constraint#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}</li>
  * </ul>
  *
@@ -50,32 +47,6 @@ public interface Constraint extends Fundamental {
 	 * @generated
 	 */
 	void setErrorType(ErrorType value);
-
-	/**
-	 * Returns the value of the '<em><b>Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Element</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Element</em>' reference.
-	 * @see #setElement(NamedElement)
-	 * @see org.osate.alisa2.model.safe2.Safe2Package#getConstraint_Element()
-	 * @model
-	 * @generated
-	 */
-	NamedElement getElement();
-
-	/**
-	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Constraint#getElement <em>Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element</em>' reference.
-	 * @see #getElement()
-	 * @generated
-	 */
-	void setElement(NamedElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Hazard</b></em>' container reference.

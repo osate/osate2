@@ -177,6 +177,15 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFundamental_Explanations() {
+		return (EAttribute)fundamentalEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAccident() {
 		return accidentEClass;
 	}
@@ -231,6 +240,33 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getHazard_EnvironmentElement() {
+		return (EReference)hazardEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getHazard_SystemElement() {
+		return (EReference)hazardEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getHazard_HazardousFactor() {
+		return (EAttribute)hazardEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAccidentLevel() {
 		return accidentLevelEClass;
 	}
@@ -267,17 +303,8 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConstraint_Element() {
-		return (EReference)constraintEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getConstraint_Hazard() {
-		return (EReference)constraintEClass.getEStructuralFeatures().get(2);
+		return (EReference)constraintEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -339,6 +366,15 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSystemOverview_TopLevelElement() {
+		return (EReference)systemOverviewEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Safe2Factory getSafe2Factory() {
 		return (Safe2Factory)getEFactoryInstance();
 	}
@@ -364,6 +400,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		// Create classes and their features
 		fundamentalEClass = createEClass(FUNDAMENTAL);
 		createEAttribute(fundamentalEClass, FUNDAMENTAL__DESCRIPTION);
+		createEAttribute(fundamentalEClass, FUNDAMENTAL__EXPLANATIONS);
 
 		accidentEClass = createEClass(ACCIDENT);
 		createEReference(accidentEClass, ACCIDENT__ACCIDENTLEVEL);
@@ -372,13 +409,15 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		hazardEClass = createEClass(HAZARD);
 		createEReference(hazardEClass, HAZARD__ACCIDENT);
 		createEReference(hazardEClass, HAZARD__CONSTRAINT);
+		createEReference(hazardEClass, HAZARD__ENVIRONMENT_ELEMENT);
+		createEReference(hazardEClass, HAZARD__SYSTEM_ELEMENT);
+		createEAttribute(hazardEClass, HAZARD__HAZARDOUS_FACTOR);
 
 		accidentLevelEClass = createEClass(ACCIDENT_LEVEL);
 		createEReference(accidentLevelEClass, ACCIDENT_LEVEL__ACCIDENT);
 
 		constraintEClass = createEClass(CONSTRAINT);
 		createEReference(constraintEClass, CONSTRAINT__ERROR_TYPE);
-		createEReference(constraintEClass, CONSTRAINT__ELEMENT);
 		createEReference(constraintEClass, CONSTRAINT__HAZARD);
 
 		controlActionEClass = createEClass(CONTROL_ACTION);
@@ -389,6 +428,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		systemOverviewEClass = createEClass(SYSTEM_OVERVIEW);
 		createEAttribute(systemOverviewEClass, SYSTEM_OVERVIEW__SYSTEM_NAME);
 		createEReference(systemOverviewEClass, SYSTEM_OVERVIEW__FUNDAMENTALS);
+		createEReference(systemOverviewEClass, SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT);
 	}
 
 	/**
@@ -415,9 +455,9 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage)EPackage.Registry.INSTANCE.getEPackage(ErrorModelPackage.eNS_URI);
-		Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+		Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
+		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage)EPackage.Registry.INSTANCE.getEPackage(ErrorModelPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -434,6 +474,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(fundamentalEClass, Fundamental.class, "Fundamental", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFundamental_Description(), ecorePackage.getEString(), "description", null, 0, 1, Fundamental.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFundamental_Explanations(), theEcorePackage.getEString(), "explanations", null, 0, -1, Fundamental.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(accidentEClass, Accident.class, "Accident", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAccident_Accidentlevel(), this.getAccidentLevel(), this.getAccidentLevel_Accident(), "accidentlevel", null, 1, 1, Accident.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -442,13 +483,15 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEClass(hazardEClass, Hazard.class, "Hazard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHazard_Accident(), this.getAccident(), this.getAccident_Hazard(), "accident", null, 1, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHazard_Constraint(), this.getConstraint(), this.getConstraint_Hazard(), "constraint", null, 1, -1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_EnvironmentElement(), theAadl2Package.getAbstractSubcomponent(), null, "environmentElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_SystemElement(), theAadl2Package.getSubcomponent(), null, "systemElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getHazard_HazardousFactor(), theEcorePackage.getEString(), "hazardousFactor", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(accidentLevelEClass, AccidentLevel.class, "AccidentLevel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAccidentLevel_Accident(), this.getAccident(), this.getAccident_Accidentlevel(), "accident", null, 1, -1, AccidentLevel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstraint_ErrorType(), theErrorModelPackage.getErrorType(), null, "errorType", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConstraint_Element(), theAadl2Package.getNamedElement(), null, "element", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstraint_Hazard(), this.getHazard(), this.getHazard_Constraint(), "hazard", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(controlActionEClass, ControlAction.class, "ControlAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -459,6 +502,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEClass(systemOverviewEClass, SystemOverview.class, "SystemOverview", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSystemOverview_SystemName(), theEcorePackage.getEString(), "SystemName", null, 0, 1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemOverview_Fundamentals(), this.getFundamental(), null, "fundamentals", null, 0, -1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSystemOverview_TopLevelElement(), theAadl2Package.getComponentClassifier(), null, "topLevelElement", null, 0, 1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

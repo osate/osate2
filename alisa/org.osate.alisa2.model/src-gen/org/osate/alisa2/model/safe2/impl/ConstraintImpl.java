@@ -2,17 +2,17 @@
  */
 package org.osate.alisa2.model.safe2.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.NamedElement;
-
 import org.osate.alisa2.model.safe2.Constraint;
 import org.osate.alisa2.model.safe2.Hazard;
 import org.osate.alisa2.model.safe2.Safe2Package;
@@ -29,8 +29,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getExplanations <em>Explanations</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getErrorType <em>Error Type</em>}</li>
- *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getHazard <em>Hazard</em>}</li>
  * </ul>
  *
@@ -78,6 +78,16 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getExplanations() <em>Explanations</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExplanations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> explanations;
+
+	/**
 	 * The cached value of the '{@link #getErrorType() <em>Error Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -86,16 +96,6 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @ordered
 	 */
 	protected ErrorType errorType;
-
-	/**
-	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getElement()
-	 * @generated
-	 * @ordered
-	 */
-	protected NamedElement element;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,6 +163,18 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<String> getExplanations() {
+		if (explanations == null) {
+			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.CONSTRAINT__EXPLANATIONS);
+		}
+		return explanations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ErrorType getErrorType() {
 		if (errorType != null && errorType.eIsProxy()) {
 			InternalEObject oldErrorType = (InternalEObject)errorType;
@@ -194,44 +206,6 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 		errorType = newErrorType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__ERROR_TYPE, oldErrorType, errorType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NamedElement getElement() {
-		if (element != null && ((EObject)element).eIsProxy()) {
-			InternalEObject oldElement = (InternalEObject)element;
-			element = (NamedElement)eResolveProxy(oldElement);
-			if (element != oldElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.CONSTRAINT__ELEMENT, oldElement, element));
-			}
-		}
-		return element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NamedElement basicGetElement() {
-		return element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setElement(NamedElement newElement) {
-		NamedElement oldElement = element;
-		element = newElement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__ELEMENT, oldElement, element));
 	}
 
 	/**
@@ -331,12 +305,11 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				return getName();
 			case Safe2Package.CONSTRAINT__DESCRIPTION:
 				return getDescription();
+			case Safe2Package.CONSTRAINT__EXPLANATIONS:
+				return getExplanations();
 			case Safe2Package.CONSTRAINT__ERROR_TYPE:
 				if (resolve) return getErrorType();
 				return basicGetErrorType();
-			case Safe2Package.CONSTRAINT__ELEMENT:
-				if (resolve) return getElement();
-				return basicGetElement();
 			case Safe2Package.CONSTRAINT__HAZARD:
 				return getHazard();
 		}
@@ -358,11 +331,12 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
+			case Safe2Package.CONSTRAINT__EXPLANATIONS:
+				getExplanations().clear();
+				getExplanations().addAll((Collection<? extends String>)newValue);
+				return;
 			case Safe2Package.CONSTRAINT__ERROR_TYPE:
 				setErrorType((ErrorType)newValue);
-				return;
-			case Safe2Package.CONSTRAINT__ELEMENT:
-				setElement((NamedElement)newValue);
 				return;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				setHazard((Hazard)newValue);
@@ -385,11 +359,11 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
+			case Safe2Package.CONSTRAINT__EXPLANATIONS:
+				getExplanations().clear();
+				return;
 			case Safe2Package.CONSTRAINT__ERROR_TYPE:
 				setErrorType((ErrorType)null);
-				return;
-			case Safe2Package.CONSTRAINT__ELEMENT:
-				setElement((NamedElement)null);
 				return;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				setHazard((Hazard)null);
@@ -410,10 +384,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Safe2Package.CONSTRAINT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case Safe2Package.CONSTRAINT__EXPLANATIONS:
+				return explanations != null && !explanations.isEmpty();
 			case Safe2Package.CONSTRAINT__ERROR_TYPE:
 				return errorType != null;
-			case Safe2Package.CONSTRAINT__ELEMENT:
-				return element != null;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				return getHazard() != null;
 		}
@@ -434,6 +408,8 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", explanations: ");
+		result.append(explanations);
 		result.append(')');
 		return result.toString();
 	}

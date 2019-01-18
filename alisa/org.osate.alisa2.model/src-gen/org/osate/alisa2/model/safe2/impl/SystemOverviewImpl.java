@@ -11,12 +11,14 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.alisa2.model.safe2.Fundamental;
 import org.osate.alisa2.model.safe2.Safe2Package;
 import org.osate.alisa2.model.safe2.SystemOverview;
@@ -31,6 +33,7 @@ import org.osate.alisa2.model.safe2.SystemOverview;
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getSystemName <em>System Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getFundamentals <em>Fundamentals</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +68,16 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected EList<Fundamental> fundamentals;
+
+	/**
+	 * The cached value of the '{@link #getTopLevelElement() <em>Top Level Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTopLevelElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentClassifier topLevelElement;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +136,44 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ComponentClassifier getTopLevelElement() {
+		if (topLevelElement != null && ((EObject)topLevelElement).eIsProxy()) {
+			InternalEObject oldTopLevelElement = (InternalEObject)topLevelElement;
+			topLevelElement = (ComponentClassifier)eResolveProxy(oldTopLevelElement);
+			if (topLevelElement != oldTopLevelElement) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT, oldTopLevelElement, topLevelElement));
+			}
+		}
+		return topLevelElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentClassifier basicGetTopLevelElement() {
+		return topLevelElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTopLevelElement(ComponentClassifier newTopLevelElement) {
+		ComponentClassifier oldTopLevelElement = topLevelElement;
+		topLevelElement = newTopLevelElement;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT, oldTopLevelElement, topLevelElement));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -144,6 +195,9 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 				return getSystemName();
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				return getFundamentals();
+			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
+				if (resolve) return getTopLevelElement();
+				return basicGetTopLevelElement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,6 +218,9 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 				getFundamentals().clear();
 				getFundamentals().addAll((Collection<? extends Fundamental>)newValue);
 				return;
+			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
+				setTopLevelElement((ComponentClassifier)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -182,6 +239,9 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				getFundamentals().clear();
 				return;
+			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
+				setTopLevelElement((ComponentClassifier)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -198,6 +258,8 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 				return SYSTEM_NAME_EDEFAULT == null ? systemName != null : !SYSTEM_NAME_EDEFAULT.equals(systemName);
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				return fundamentals != null && !fundamentals.isEmpty();
+			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
+				return topLevelElement != null;
 		}
 		return super.eIsSet(featureID);
 	}

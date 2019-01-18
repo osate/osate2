@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -33,6 +34,7 @@ import org.osate.alisa2.model.safe2.Safe2Package;
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentImpl#getExplanations <em>Explanations</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentImpl#getAccidentlevel <em>Accidentlevel</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.AccidentImpl#getHazard <em>Hazard</em>}</li>
  * </ul>
@@ -79,6 +81,16 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExplanations() <em>Explanations</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExplanations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> explanations;
 
 	/**
 	 * The cached value of the '{@link #getHazard() <em>Hazard</em>}' containment reference list.
@@ -149,6 +161,18 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 		description = newDescription;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.ACCIDENT__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getExplanations() {
+		if (explanations == null) {
+			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.ACCIDENT__EXPLANATIONS);
+		}
+		return explanations;
 	}
 
 	/**
@@ -265,6 +289,8 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 				return getName();
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				return getDescription();
+			case Safe2Package.ACCIDENT__EXPLANATIONS:
+				return getExplanations();
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
 				return getAccidentlevel();
 			case Safe2Package.ACCIDENT__HAZARD:
@@ -287,6 +313,10 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 				return;
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				setDescription((String)newValue);
+				return;
+			case Safe2Package.ACCIDENT__EXPLANATIONS:
+				getExplanations().clear();
+				getExplanations().addAll((Collection<? extends String>)newValue);
 				return;
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
 				setAccidentlevel((AccidentLevel)newValue);
@@ -313,6 +343,9 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
+			case Safe2Package.ACCIDENT__EXPLANATIONS:
+				getExplanations().clear();
+				return;
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
 				setAccidentlevel((AccidentLevel)null);
 				return;
@@ -335,6 +368,8 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Safe2Package.ACCIDENT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case Safe2Package.ACCIDENT__EXPLANATIONS:
+				return explanations != null && !explanations.isEmpty();
 			case Safe2Package.ACCIDENT__ACCIDENTLEVEL:
 				return getAccidentlevel() != null;
 			case Safe2Package.ACCIDENT__HAZARD:
@@ -357,6 +392,8 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", explanations: ");
+		result.append(explanations);
 		result.append(')');
 		return result.toString();
 	}

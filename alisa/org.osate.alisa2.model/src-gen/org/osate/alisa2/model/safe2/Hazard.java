@@ -3,6 +3,8 @@
 package org.osate.alisa2.model.safe2;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.Subcomponent;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,9 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getAccident <em>Accident</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getConstraint <em>Constraint</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentElement <em>Environment Element</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getSystemElement <em>System Element</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getHazardousFactor <em>Hazardous Factor</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard()
@@ -67,5 +72,83 @@ public interface Hazard extends Fundamental {
 	 * @generated
 	 */
 	EList<Constraint> getConstraint();
+
+	/**
+	 * Returns the value of the '<em><b>Environment Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Environment Element</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Environment Element</em>' reference.
+	 * @see #setEnvironmentElement(AbstractSubcomponent)
+	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_EnvironmentElement()
+	 * @model
+	 * @generated
+	 */
+	AbstractSubcomponent getEnvironmentElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentElement <em>Environment Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Environment Element</em>' reference.
+	 * @see #getEnvironmentElement()
+	 * @generated
+	 */
+	void setEnvironmentElement(AbstractSubcomponent value);
+
+	/**
+	 * Returns the value of the '<em><b>System Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>System Element</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>System Element</em>' reference.
+	 * @see #setSystemElement(Subcomponent)
+	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_SystemElement()
+	 * @model
+	 * @generated
+	 */
+	Subcomponent getSystemElement();
+
+	/**
+	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getSystemElement <em>System Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>System Element</em>' reference.
+	 * @see #getSystemElement()
+	 * @generated
+	 */
+	void setSystemElement(Subcomponent value);
+
+	/**
+	 * Returns the value of the '<em><b>Hazardous Factor</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hazardous Factor</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Hazardous Factor</em>' attribute.
+	 * @see #setHazardousFactor(String)
+	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_HazardousFactor()
+	 * @model
+	 * @generated
+	 */
+	String getHazardousFactor();
+
+	/**
+	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getHazardousFactor <em>Hazardous Factor</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Hazardous Factor</em>' attribute.
+	 * @see #getHazardousFactor()
+	 * @generated
+	 */
+	void setHazardousFactor(String value);
 
 } // Hazard

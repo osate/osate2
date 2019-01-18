@@ -4,6 +4,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Fundamental" abstract="true" interface="true"
       eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explanations" upperBound="-1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Accident" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accidentlevel" lowerBound="1"
@@ -16,6 +18,9 @@
         eType="#//Accident" eOpposite="#//Accident/hazard"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" lowerBound="1"
         upperBound="-1" eType="#//Constraint" containment="true" eOpposite="#//Constraint/hazard"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="environmentElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//AbstractSubcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hazardousFactor" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccidentLevel" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
@@ -23,7 +28,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
         eType="#//Hazard" eOpposite="#//Hazard/constraint"/>
   </eClassifiers>
@@ -35,5 +39,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fundamentals" upperBound="-1"
         eType="#//Fundamental" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/tree/description/1.0.0" name="SystemOverview" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
   <ownedViewpoints name="Fundamentals" modelFileExtension="safe2">
     <ownedRepresentations xsi:type="description_1:TreeDescription" name="Fundamentals Overview" domainClass="safe2::SystemOverview">
       <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
       <subItemMappings name="Accident Levels" domainClass="safe2::AccidentLevel" semanticCandidatesExpression="feature:eAllContents">
-        <defaultStyle>
+        <defaultStyle labelSize="18">
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
         </defaultStyle>
         <subItemMappings name="Accidents" domainClass="safe2::Accident" semanticCandidatesExpression="feature:eAllContents">
-          <defaultStyle>
+          <defaultStyle labelSize="18">
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </defaultStyle>
           <subItemMappings name="Hazards" domainClass="safe2::Hazard" semanticCandidatesExpression="feature:eAllContents">
-            <defaultStyle>
+            <defaultStyle labelSize="18">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </defaultStyle>
             <subItemMappings name="Constraints" label="Constraints" domainClass="safe2::Constraint" semanticCandidatesExpression="feature:eAllContents">
-              <defaultStyle>
+              <defaultStyle labelSize="18">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </defaultStyle>
@@ -28,6 +28,7 @@
         </subItemMappings>
       </subItemMappings>
     </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="Control Actions" domainClass="safe2::"/>
     <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
   </ownedViewpoints>
 </description:Group>
