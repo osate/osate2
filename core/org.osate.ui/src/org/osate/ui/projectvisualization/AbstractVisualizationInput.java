@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 abstract class AbstractVisualizationInput<T> {
 	protected final List<T> scopedElements;
@@ -16,6 +17,8 @@ abstract class AbstractVisualizationInput<T> {
 	abstract Object[] getGraphElements();
 
 	abstract Object[] getConnectedTo(Object entity);
+
+	abstract Stream<T> getConnectedToBothDirections(Object entity);
 
 	abstract String getText(Object element);
 

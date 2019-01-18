@@ -1,10 +1,15 @@
 package org.osate.ui.projectvisualization;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -20,13 +25,14 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.zest.core.viewers.EntityConnectionData;
 import org.eclipse.zest.core.viewers.GraphViewer;
+import org.eclipse.zest.core.viewers.IConnectionStyleProvider;
 import org.eclipse.zest.core.viewers.IEntityStyleProvider;
 import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 import org.eclipse.zest.core.widgets.ZestStyles;
@@ -70,8 +76,7 @@ public class DependencyVisualizationView extends ViewPart {
 				return input.getConnectedTo(entity);
 			}
 		});
-		graph.setLabelProvider(new VisualizationLabelProvider(parent.getDisplay()));
-		graph.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		graph.setLabelProvider(new VisualizationLabelProvider());
 		graph.setLayoutAlgorithm(new CompositeLayoutAlgorithm(
 				new LayoutAlgorithm[] { new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING),
 						new HorizontalShift(LayoutStyles.NO_LAYOUT_NODE_RESIZING) }));
@@ -108,6 +113,11 @@ public class DependencyVisualizationView extends ViewPart {
 			}
 		});
 		graph.getGraphControl().setMenu(menuManager.createContextMenu(graph.getGraphControl()));
+
+		graph.addSelectionChangedListener(event -> {
+			graph.update(graph.getNodeElements(), null);
+			graph.update(graph.getConnectionElements(), null);
+		});
 	}
 
 	private final IAction showAllProjectsAction = new Action("Show All Projects in Workspace") {
@@ -198,19 +208,9 @@ public class DependencyVisualizationView extends ViewPart {
 		label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 	}
 
-	private class VisualizationLabelProvider extends LabelProvider implements IEntityStyleProvider {
-		private final Display display;
-
+	private class VisualizationLabelProvider extends LabelProvider
+			implements IEntityStyleProvider, IConnectionStyleProvider {
 		private Map<String, Image> images = new HashMap<>();
-
-		public VisualizationLabelProvider(Display display) {
-			this.display = display;
-		}
-
-		@Override
-		public String getText(Object element) {
-			return input.getText(element);
-		}
 
 		@Override
 		public Image getImage(Object element) {
@@ -220,6 +220,17 @@ public class DependencyVisualizationView extends ViewPart {
 			} else {
 				return null;
 			}
+		}
+
+		@Override
+		public String getText(Object element) {
+			return input.getText(element);
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+			images.values().forEach(Image::dispose);
 		}
 
 		@Override
@@ -244,10 +255,15 @@ public class DependencyVisualizationView extends ViewPart {
 
 		@Override
 		public Color getBackgroundColour(Object entity) {
-			if (!input.isInScope(entity)) {
-				return display.getSystemColor(SWT.COLOR_WHITE);
+			Stream<?> selected = graph.getStructuredSelection().toList().stream();
+			Set<?> connectedToSelected = selected.flatMap(input::getConnectedToBothDirections)
+					.collect(Collectors.toSet());
+			if (connectedToSelected.contains(entity)) {
+				return ColorConstants.orange;
+			} else if (!input.isInScope(entity)) {
+				return ColorConstants.white;
 			} else {
-				return null;
+				return graph.getGraphControl().LIGHT_BLUE;
 			}
 		}
 
@@ -267,9 +283,41 @@ public class DependencyVisualizationView extends ViewPart {
 		}
 
 		@Override
-		public void dispose() {
-			super.dispose();
-			images.values().forEach(Image::dispose);
+		public int getConnectionStyle(Object rel) {
+			if (isEndPointSelected(rel)) {
+				return ZestStyles.CONNECTIONS_DIRECTED | ZestStyles.CONNECTIONS_DASH;
+			} else {
+				return ZestStyles.CONNECTIONS_DIRECTED;
+			}
+		}
+
+		@Override
+		public Color getColor(Object rel) {
+			if (isEndPointSelected(rel)) {
+				return ColorConstants.red;
+			} else {
+				return ColorConstants.lightGray;
+			}
+		}
+
+		@Override
+		public Color getHighlightColor(Object rel) {
+			return null;
+		}
+
+		@Override
+		public int getLineWidth(Object rel) {
+			if (isEndPointSelected(rel)) {
+				return 3;
+			} else {
+				return 1;
+			}
+		}
+
+		private boolean isEndPointSelected(Object rel) {
+			EntityConnectionData connection = (EntityConnectionData) rel;
+			List<?> selection = graph.getStructuredSelection().toList();
+			return selection.contains(connection.source) || selection.contains(connection.dest);
 		}
 	}
 }

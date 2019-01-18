@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -57,6 +58,23 @@ class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
 		} catch (CoreException e) {
 			StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
 			return new Object[0];
+		}
+	}
+
+	@Override
+	Stream<IProject> getConnectedToBothDirections(Object entity) {
+		if (entity instanceof IProject) {
+			IProject project = (IProject) entity;
+			Stream<IProject> referenced;
+			try {
+				referenced = Arrays.stream(project.getReferencedProjects());
+			} catch (CoreException e) {
+				StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
+				referenced = Stream.empty();
+			}
+			return Stream.concat(referenced, Arrays.stream(project.getReferencingProjects()));
+		} else {
+			return Stream.empty();
 		}
 	}
 
