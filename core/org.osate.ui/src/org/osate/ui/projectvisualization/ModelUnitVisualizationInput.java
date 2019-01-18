@@ -38,7 +38,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.ui.OsateUiPlugin;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Injector;
 
 class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDescription> {
 	private final Map<IEObjectDescription, Set<IEObjectDescription>> referencingModelUnits;
@@ -99,8 +98,7 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 				Map<IEObjectDescription, Set<IEObjectDescription>> referencingModelUnits = new HashMap<>();
 				Map<IEObjectDescription, Set<IEObjectDescription>> referencedModelUnits = new HashMap<>();
 				IResourceDescriptions resourceDescriptions = IResourceServiceProvider.Registry.INSTANCE
-						.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class)
-						.getInstance(IResourceDescriptions.class);
+						.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(IResourceDescriptions.class);
 				Map<URI, IEObjectDescription> eObjectDescriptions = StreamSupport
 						.stream(resourceDescriptions.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit())
 								.spliterator(), false)
