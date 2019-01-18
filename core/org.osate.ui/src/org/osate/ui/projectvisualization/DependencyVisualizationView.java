@@ -137,7 +137,7 @@ public class DependencyVisualizationView extends ViewPart {
 	private final IAction showAllModelUnitsAction = new Action("Show All Packages and Property Sets in Workspace") {
 		@Override
 		public void run() {
-			input = ModelUnitVisualizationInput.create();
+			input = ModelUnitVisualizationInput.create(getSite().getShell());
 			graph.setInput(input);
 			label.setText("All Packages and Property Sets in Workspace");
 		}
@@ -147,7 +147,7 @@ public class DependencyVisualizationView extends ViewPart {
 		@Override
 		public void run() {
 			IProject project = (IProject) graph.getStructuredSelection().getFirstElement();
-			input = ModelUnitVisualizationInput.create(project);
+			input = ModelUnitVisualizationInput.create(getSite().getShell(), project);
 			graph.setInput(input);
 			label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 		}
@@ -156,7 +156,7 @@ public class DependencyVisualizationView extends ViewPart {
 	private final IAction focusOnModelUnitAction = new Action() {
 		public void run() {
 			IEObjectDescription modelUnit = (IEObjectDescription) graph.getStructuredSelection().getFirstElement();
-			input = ModelUnitVisualizationInput.create(modelUnit.getEObjectURI());
+			input = ModelUnitVisualizationInput.create(getSite().getShell(), modelUnit.getEObjectURI());
 			graph.setInput(input);
 			String name = modelUnit.getName().toString("::");
 			if (modelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
@@ -197,13 +197,13 @@ public class DependencyVisualizationView extends ViewPart {
 	}
 
 	public void setModelUnitScope(IWorkingSet workingSet) {
-		input = ModelUnitVisualizationInput.create(workingSet);
+		input = ModelUnitVisualizationInput.create(getSite().getShell(), workingSet);
 		graph.setInput(input);
 		label.setText("Packages and Property Sets in Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setModelUnitScope(IProject project) {
-		input = ModelUnitVisualizationInput.create(project);
+		input = ModelUnitVisualizationInput.create(getSite().getShell(), project);
 		graph.setInput(input);
 		label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 	}
