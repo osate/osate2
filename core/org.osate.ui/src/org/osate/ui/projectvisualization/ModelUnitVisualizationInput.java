@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.eclipse.core.resources.IProject;
@@ -139,6 +140,13 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 	@Override
 	Object[] getConnectedTo(Object entity) {
 		return referencedModelUnits.getOrDefault(entity, Collections.emptySet()).toArray();
+	}
+
+	@Override
+	Stream<IEObjectDescription> getConnectedToBothDirections(Object entity) {
+		Set<IEObjectDescription> referencing = referencingModelUnits.getOrDefault(entity, Collections.emptySet());
+		Set<IEObjectDescription> referenced = referencedModelUnits.getOrDefault(entity, Collections.emptySet());
+		return Stream.concat(referencing.stream(), referenced.stream());
 	}
 
 	@Override
