@@ -1,4 +1,4 @@
-package org.osate.ui.projectvisualization;
+package org.osate.ui.dependencyvisualization;
 
 import java.util.Collections;
 import java.util.List;

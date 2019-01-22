@@ -1,4 +1,4 @@
-package org.osate.ui.projectvisualization;
+package org.osate.ui.dependencyvisualization;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;

@@ -155,7 +155,7 @@
             id="org.osate.ui.dependencyvisualization"
             name="Dependency Visualization"
             category="aadl.view_category"
-            class="org.osate.ui.projectvisualization.DependencyVisualizationView">
+            class="org.osate.ui.dependencyvisualization.DependencyVisualizationView">
       </view>
    </extension>
    
@@ -1106,7 +1106,7 @@
             commandId="org.osate.ui.wizards.propertySetWizard">
       </handler>
       <handler
-             class="org.osate.ui.projectvisualization.VisualizeProjectDependenciesHandler"
+             class="org.osate.ui.dependencyvisualization.VisualizeProjectDependenciesHandler"
              commandId="org.osate.ui.visualizeProjectDependencies">
           <enabledWhen>
              <with
@@ -1133,7 +1133,7 @@
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.projectvisualization.VisualizeModelUnitDependenciesHandler"
+             class="org.osate.ui.dependencyvisualization.VisualizeModelUnitDependenciesHandler"
              commandId="org.osate.ui.visualizeModelUnitDependencies">
           <enabledWhen>
              <with

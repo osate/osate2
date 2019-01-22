@@ -1,4 +1,4 @@
-package org.osate.ui.projectvisualization;
+package org.osate.ui.dependencyvisualization;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -62,10 +62,10 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 				.map(project -> project.getLocation().toString() + "/").collect(Collectors.toList());
 		return create(shell, (resourceURI, modelUnit) -> {
 			if (resourceURI.isPlatformResource()) {
-				String resourceLoaction = ResourcesPlugin.getWorkspace().getRoot()
+				String resourceLocation = ResourcesPlugin.getWorkspace().getRoot()
 						.findMember(resourceURI.toPlatformString(true)).getLocation().toString();
 				return projectLocations.stream()
-						.anyMatch(projectLocation -> resourceLoaction.startsWith(projectLocation));
+						.anyMatch(projectLocation -> resourceLocation.startsWith(projectLocation));
 			} else {
 				return false;
 			}
