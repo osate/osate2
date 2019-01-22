@@ -1,4 +1,4 @@
-package org.osate.ui.projectvisualization;
+package org.osate.ui.dependencyvisualization;
 
 import java.util.HashMap;
 import java.util.List;
@@ -210,7 +210,7 @@ public class DependencyVisualizationView extends ViewPart {
 
 	private class VisualizationLabelProvider extends LabelProvider
 			implements IEntityStyleProvider, IConnectionStyleProvider {
-		private Map<String, Image> images = new HashMap<>();
+		private final Map<String, Image> images = new HashMap<>();
 
 		@Override
 		public Image getImage(Object element) {
