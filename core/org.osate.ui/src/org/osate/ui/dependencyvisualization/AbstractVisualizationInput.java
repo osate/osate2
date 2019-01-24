@@ -20,10 +20,6 @@ abstract class AbstractVisualizationInput<T> {
 
 	abstract Stream<T> getConnectedToBothDirections(Object entity);
 
-	abstract String getText(Object element);
-
-	abstract String getImagePath(Object element);
-
 	boolean isInScope(Object entity) {
 		return scopedElements.contains(entity);
 	}

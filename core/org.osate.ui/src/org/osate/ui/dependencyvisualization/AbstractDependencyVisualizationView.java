@@ -1,8 +1,6 @@
 package org.osate.ui.dependencyvisualization;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,11 +31,10 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
-import org.osate.ui.OsateUiPlugin;
 
 abstract class AbstractDependencyVisualizationView extends ViewPart {
 	protected AbstractVisualizationInput<?> input;
-	
+
 	protected Label label;
 	private Font labelFont;
 	protected GraphViewer graph;
@@ -91,34 +88,26 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 		super.dispose();
 		labelFont.dispose();
 	}
-	
+
 	protected abstract void menuAboutToShow(IMenuManager manager);
+
+	protected abstract Image getImage(Object element);
+
+	protected abstract String getText(Object element);
 
 	protected abstract void setScopeToWorkspace();
 
 	private class VisualizationLabelProvider extends LabelProvider
 			implements IEntityStyleProvider, IConnectionStyleProvider {
-		private final Map<String, Image> images = new HashMap<>();
 
 		@Override
 		public Image getImage(Object element) {
-			String imagePath = input.getImagePath(element);
-			if (imagePath != null) {
-				return images.computeIfAbsent(imagePath, path -> OsateUiPlugin.getImageDescriptor(path).createImage());
-			} else {
-				return null;
-			}
+			return AbstractDependencyVisualizationView.this.getImage(element);
 		}
 
 		@Override
 		public String getText(Object element) {
-			return input.getText(element);
-		}
-
-		@Override
-		public void dispose() {
-			super.dispose();
-			images.values().forEach(Image::dispose);
+			return AbstractDependencyVisualizationView.this.getText(element);
 		}
 
 		@Override
