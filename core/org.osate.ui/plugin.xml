@@ -152,10 +152,18 @@
             id="org.osate.ui.navigator.AadlNavigator"
             name="AADL Navigator"/>
       <view
-            id="org.osate.ui.dependencyvisualization"
-            name="Dependency Visualization"
+            id="org.osate.ui.projectdependencyvisualization"
+            name="Project Dependency Visualization"
             category="aadl.view_category"
-            class="org.osate.ui.dependencyvisualization.DependencyVisualizationView">
+            class="org.osate.ui.dependencyvisualization.ProjectDependencyVisualizationView"
+            icon="icons/project.png">
+      </view>
+      <view
+            id="org.osate.ui.modelunitdependencyvisualization"
+            name="Package and Property Set Dependency Visualization"
+            category="aadl.view_category"
+            class="org.osate.ui.dependencyvisualization.ModelUnitDependencyVisualizationView"
+            icon="icons/package.gif">
       </view>
    </extension>
    
@@ -1177,6 +1185,14 @@
       <image
             commandId="org.osate.ui.wizards.propertySetWizard"
             icon="icons/new_ps.gif">
+      </image>
+      <image
+            commandId="org.osate.ui.visualizeProjectDependencies"
+            icon="icons/project.png">
+      </image>
+      <image
+            commandId="org.osate.ui.visualizeModelUnitDependencies"
+            icon="icons/package.gif">
       </image>
     </extension>
     <extension

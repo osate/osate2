@@ -18,13 +18,13 @@ public class VisualizeProjectDependenciesHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		try {
-			DependencyVisualizationView view = (DependencyVisualizationView) HandlerUtil.getActiveWorkbenchWindow(event)
-					.getActivePage().showView(DependencyVisualizationView.ID);
+			ProjectDependencyVisualizationView view = (ProjectDependencyVisualizationView) HandlerUtil
+					.getActiveWorkbenchWindow(event).getActivePage().showView(ProjectDependencyVisualizationView.ID);
 			Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
 			if (selection instanceof IWorkingSet) {
-				view.setProjectScope((IWorkingSet) selection);
+				view.setScope((IWorkingSet) selection);
 			} else {
-				view.setProjectScope((IProject) selection);
+				view.setScope((IProject) selection);
 			}
 		} catch (PartInitException e) {
 			Status status = new Status(e.getStatus().getSeverity(), OsateUiPlugin.PLUGIN_ID, e.getLocalizedMessage(),
