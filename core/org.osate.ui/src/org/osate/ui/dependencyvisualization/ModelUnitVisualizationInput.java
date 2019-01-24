@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -171,27 +170,5 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 		Set<IEObjectDescription> referencing = referencingModelUnits.getOrDefault(entity, Collections.emptySet());
 		Set<IEObjectDescription> referenced = referencedModelUnits.getOrDefault(entity, Collections.emptySet());
 		return Stream.concat(referencing.stream(), referenced.stream());
-	}
-
-	@Override
-	String getText(Object element) {
-		if (element instanceof IEObjectDescription) {
-			return ((IEObjectDescription) element).getName().toString("::");
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	String getImagePath(Object element) {
-		if (element instanceof IEObjectDescription) {
-			EClass eClass = ((IEObjectDescription) element).getEClass();
-			if (eClass.equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
-				return "icons/package.gif";
-			} else if (eClass.equals(Aadl2Package.eINSTANCE.getPropertySet())) {
-				return "icons/properties.gif";
-			}
-		}
-		return null;
 	}
 }

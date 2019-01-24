@@ -6,10 +6,14 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IWorkingSet;
+import org.osate.ui.OsateUiPlugin;
 
 public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView {
 	public static final String ID = "org.osate.ui.projectdependencyvisualization";
+
+	private final Image projectImage = OsateUiPlugin.getImageDescriptor("icons/project.png").createImage();
 
 	private final IAction showAllProjectsAction = new Action("Show All Projects in Workspace") {
 		@Override
@@ -24,7 +28,13 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 			setScope((IProject) graph.getStructuredSelection().getFirstElement());
 		}
 	};
-	
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		projectImage.dispose();
+	}
+
 	@Override
 	protected void menuAboutToShow(IMenuManager manager) {
 		manager.add(showAllProjectsAction);
@@ -37,6 +47,24 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 				focusOnProjectAction.setText("Show Projects Connected to '" + selectedProject.getName() + "'");
 				manager.add(focusOnProjectAction);
 			}
+		}
+	}
+
+	@Override
+	protected Image getImage(Object element) {
+		if (element instanceof IProject) {
+			return projectImage;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	protected String getText(Object element) {
+		if (element instanceof IProject) {
+			return ((IProject) element).getName();
+		} else {
+			return null;
 		}
 	}
 

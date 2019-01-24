@@ -77,22 +77,4 @@ class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
 			return Stream.empty();
 		}
 	}
-
-	@Override
-	String getText(Object element) {
-		if (element instanceof IProject) {
-			return ((IProject) element).getName();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	String getImagePath(Object element) {
-		if (element instanceof IProject) {
-			return "icons/project.png";
-		} else {
-			return null;
-		}
-	}
 }
