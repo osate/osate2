@@ -203,14 +203,10 @@ class Serializer2Test extends AbstractSerializerTest {
 				}
 				initial mode m5 : pkg1::s3:m5
 				mode m6 : pkg1::s3:m6
-				som "som_0" m5 , s1_sub[0].m1 , s2_sub[0].m3
-				som "som_1" m5 , s1_sub[0].m1 , s2_sub[0].m4
-				som "som_2" m5 , s1_sub[0].m2 , s2_sub[0].m3
-				som "som_3" m5 , s1_sub[0].m2 , s2_sub[0].m4
-				som "som_4" m6 , s1_sub[0].m1 , s2_sub[0].m3
-				som "som_5" m6 , s1_sub[0].m1 , s2_sub[0].m4
-				som "som_6" m6 , s1_sub[0].m2 , s2_sub[0].m3
-				som "som_7" m6 , s1_sub[0].m2 , s2_sub[0].m4
+				som "som_1" m5 , s1_sub[0].m1
+				som "som_2" m5 , s1_sub[0].m2
+				som "som_3" m6 , s1_sub[0].m1
+				som "som_4" m6 , s1_sub[0].m2
 			}''')
 	}
 	
@@ -270,17 +266,17 @@ class Serializer2Test extends AbstractSerializerTest {
 					in dataPort p3 : pkg1::s3:p3
 					flow f3 ( p3 -> ) : pkg1::s3:f3
 				}
-				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in modes ( som_2 ) {
+				complete portConnection "sub1.p2 -> sub4.p3" : sub1[0].p2 -> sub4[0].p3 in modes ( som_3 ) {
 					sub1[0].p2 -> sub4[0].p3 : pkg1::s1.i:conn1 in parent
 				}
 				flow f1 ( p1 -> ) in modes ( m1 , m2 ) : pkg1::s1:f1
-				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes ( som_2 ) : pkg1::s1.i:etef1
+				end to end flow etef1 sub1[0].f2 -> connection#0 -> sub4[0].f3 in modes ( som_3 ) : pkg1::s1.i:etef1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
 				mode m3 : pkg1::s1:m3
-				som "som_0" m1
-				som "som_1" m2
-				som "som_2" m3
+				som "som_1" m1
+				som "som_2" m2
+				som "som_3" m3
 			}''')
 	}
 	
@@ -334,9 +330,9 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m6 : pkg1::s3:m6
 				mode m7 : pkg1::s3:m7
 				mode m5 : pkg1::s3:m5
-				som "som_0" m6 , sub2[0].m3
-				som "som_1" m7 , sub2[0].m3
-				som "som_2" m5 , sub2[0].m5
+				som "som_1" m6 , sub2[0].m3 , sub2[0].sub1[0].m1
+				som "som_2" m7 , sub2[0].m3 , sub2[0].sub1[0].m1
+				som "som_3" m5 , sub2[0].m5
 			}''')
 	}
 	
@@ -372,10 +368,10 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
 				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
-				som "som_0" m1 , sub1[0].m1
-				som "som_1" m1 , sub1[0].m2
-				som "som_2" m2 , sub1[0].m1
-				som "som_3" m2 , sub1[0].m2
+				som "som_1" m1 , sub1[0].m1
+				som "som_2" m1 , sub1[0].m2
+				som "som_3" m2 , sub1[0].m1
+				som "som_4" m2 , sub1[0].m2
 			}''')
 	}
 	
@@ -632,10 +628,10 @@ class Serializer2Test extends AbstractSerializerTest {
 				mode transition m2.arraySub1.arrayPort1.m4 m2 -[ arraySub1[1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#7
 				mode transition m3.multiArraySub1.arrayPort1.m4 m3 -[ multiArraySub1[1][1][1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#8
 				mode transition m4.port1.m1 m4 -[ port1 , port2 , port3 ]-> m1 : pkg1::s1.i:transition#9
-				som "som_0" m1
-				som "som_1" m2
-				som "som_2" m3
-				som "som_3" m4
+				som "som_1" m1
+				som "som_2" m2
+				som "som_3" m3
+				som "som_4" m4
 			}''')
 	}
 	
@@ -690,8 +686,8 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m1 : pkg1::s3:m1
 				mode m2 : pkg1::s3:m2
 				mode transition m1.p3.m2 m1 -[ p3 ]-> m2 : pkg1::s3:mt1
-				som "som_0" m1
-				som "som_1" m2
+				som "som_1" m1
+				som "som_2" m2
 			}''')
 	}
 	
@@ -781,11 +777,11 @@ class Serializer2Test extends AbstractSerializerTest {
 					sub1[0].p1 -> sub2[0].p3 : pkg1::s3.i:conn1 in parent
 					ps1::bool1 => true : pkg1::s3.i:conn1:property#0
 				}
-				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes ( som_0 , som_1 ) : pkg1::s3.i:etef1 {
+				end to end flow etef1 sub1[0].fs1 -> connection#0 -> sub2[0].fs2 in modes ( som_1 , som_2 ) : pkg1::s3.i:etef1 {
 					ps1::bool1 => true : pkg1::s3.i:etef1:property#0
 				}
-				som "som_0" sub1[0].m1
-				som "som_1" sub1[0].m2
+				som "som_1" sub1[0].m1
+				som "som_2" sub1[0].m2
 				ps1::bool1 => true : pkg1::s3:property#0
 			}''')
 	}
@@ -820,15 +816,15 @@ class Serializer2Test extends AbstractSerializerTest {
 				system pkg1::s sub1 [ 0 ] : pkg1::s.i:sub1 {
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
-					ps1::bool1 => true in modes ( som_0 , som_2 ) , false in modes ( som_1 , som_3 ) : pkg1::s:property#0
+					ps1::bool1 => true in modes ( som_1 , som_3 ) , false in modes ( som_2 , som_4 ) : pkg1::s:property#0
 				}
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
-				som "som_0" m1 , sub1[0].m1
-				som "som_1" m1 , sub1[0].m2
-				som "som_2" m2 , sub1[0].m1
-				som "som_3" m2 , sub1[0].m2
-				ps1::bool1 => true in modes ( som_0 , som_1 ) , false in modes ( som_2 , som_3 ) : pkg1::s:property#0
+				som "som_1" m1 , sub1[0].m1
+				som "som_2" m1 , sub1[0].m2
+				som "som_3" m2 , sub1[0].m1
+				som "som_4" m2 , sub1[0].m2
+				ps1::bool1 => true in modes ( som_1 , som_2 ) , false in modes ( som_3 , som_4 ) : pkg1::s:property#0
 			}''')
 	}
 	
@@ -1026,8 +1022,8 @@ class Serializer2Test extends AbstractSerializerTest {
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
 				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s1:mt1
-				som "som_0" m1
-				som "som_1" m2
+				som "som_1" m1
+				som "som_2" m2
 				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0
 				ps1::reference2 => reference ( pkg1::s1:fg1 / pkg1::fgt1:proto2 ) : pkg1::s1.i:property#1
 				ps1::reference3 => reference ( pkg1::s1:fg1 / pkg1::fgt1:fg2 / pkg1::fgt2:proto3 ) : pkg1::s1.i:property#2
@@ -1109,7 +1105,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				}
 				end to end flow etef1 sub1[0] -> connection#0 -> sub2[0].f1 : pkg1::s3.i:etef1
 				initial mode m1 : pkg1::s3:m1
-				som "som_0" m1
+				som "som_1" m1
 				ps1::reference1 => reference ( sub1[0].p1 ) : pkg1::s3.i:property#0
 				ps1::reference2 => reference ( sub2[0].f1 ) : pkg1::s3.i:property#1
 				ps1::reference3 => reference ( m1 ) : pkg1::s3.i:property#2
