@@ -174,7 +174,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -196,7 +196,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -350,7 +350,7 @@ IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, II
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
