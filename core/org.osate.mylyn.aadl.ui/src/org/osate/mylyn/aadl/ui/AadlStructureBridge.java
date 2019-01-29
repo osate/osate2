@@ -4,18 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.UiUtil;
 
 public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public final static String CONTENT_TYPE = "AADL";
 
 	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+	private final ILabelProvider modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 
 	public AadlStructureBridge() {
 		super();
@@ -85,34 +96,42 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	@Override
 	public String getLabel(final Object object) {
 		if (object instanceof Element) {
-			return "";
+			return modelElementLabelProvider.getText(object);
 		} else {
 			return "";
 		}
 	}
 
 	@Override
-	public boolean canBeLandmark(String handle) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canBeLandmark(final String handle) {
+		// Must be a component classifier, feature, subcomponent, etc, or a property declation in a property set.
+		final Element aadlElement = (Element) getObjectForHandle(handle);
+		return aadlElement instanceof Classifier || aadlElement instanceof ClassifierFeature ||
+				aadlElement instanceof PropertyConstant || aadlElement instanceof PropertyType ||
+				aadlElement instanceof Property;
 	}
 
 	@Override
-	public boolean acceptsObject(Object object) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean acceptsObject(final Object object) {
+		if (object instanceof IResource) {
+			final Object adapter = ((IResource) object).getAdapter(Element.class);
+			return adapter instanceof Element;
+		} else {
+			return object instanceof Element;
+		}
 	}
 
 	@Override
-	public boolean canFilter(Object element) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canFilter(final Object element) {
+		// XXX Not entirely sure what this does, but returning true seems reasonable
+		return true;
 	}
 
 	@Override
-	public boolean isDocument(String handle) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isDocument(final String handle) {
+		// Packages and Property Sets can be opened in the editor
+		final Element aadlElement = (Element) getObjectForHandle(handle);
+		return aadlElement instanceof PropertySet || aadlElement instanceof AadlPackage;
 	}
 
 	@Override
@@ -122,9 +141,8 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	}
 
 	@Override
-	public String getContentType(String elementHandle) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getContentType(final String elementHandle) {
+		return getContentType();
 	}
 
 }
