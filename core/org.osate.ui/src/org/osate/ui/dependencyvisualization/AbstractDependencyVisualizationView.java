@@ -9,16 +9,14 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.EntityConnectionData;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -35,19 +33,12 @@ import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 abstract class AbstractDependencyVisualizationView extends ViewPart {
 	protected AbstractVisualizationInput<?> input;
 
-	protected Label label;
-	private Font labelFont;
 	protected GraphViewer graph;
 
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new GridLayout());
-
-		label = new Label(parent, SWT.NONE);
-		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		labelFont = FontDescriptor.createFrom(label.getFont()).increaseHeight(5).createFont(label.getDisplay());
-		label.setFont(labelFont);
-
+		parent.setLayout(new GridLayout(2, false));
+		
 		graph = new GraphViewer(parent, SWT.NONE);
 		graph.getGraphControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		graph.setContentProvider(new IGraphEntityContentProvider() {
@@ -65,7 +56,6 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 		graph.setLayoutAlgorithm(new CompositeLayoutAlgorithm(
 				new LayoutAlgorithm[] { new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING),
 						new HorizontalShift(LayoutStyles.NO_LAYOUT_NODE_RESIZING) }));
-		setScopeToWorkspace();
 
 		MenuManager menuManager = new MenuManager();
 		menuManager.setRemoveAllWhenShown(true);
@@ -76,6 +66,13 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 			graph.update(graph.getNodeElements(), null);
 			graph.update(graph.getConnectionElements(), null);
 		});
+		
+		Group controlGroup = new Group(parent, SWT.SHADOW_NONE);
+		controlGroup.setText("Graph Scope:");
+		controlGroup.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false));
+		fillControlComposite(controlGroup);
+		
+		setScopeToWorkspace();
 	}
 
 	@Override
@@ -83,13 +80,9 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 		graph.getGraphControl().setFocus();
 	}
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		labelFont.dispose();
-	}
-
 	protected abstract void menuAboutToShow(IMenuManager manager);
+	
+	protected abstract void fillControlComposite(Composite parent);
 
 	protected abstract Image getImage(Object element);
 

@@ -8,6 +8,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
@@ -31,12 +32,6 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 			IEObjectDescription modelUnit = (IEObjectDescription) graph.getStructuredSelection().getFirstElement();
 			input = ModelUnitVisualizationInput.create(getSite().getShell(), modelUnit.getEObjectURI());
 			graph.setInput(input);
-			String name = modelUnit.getName().toString("::");
-			if (modelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) {
-				label.setText("Packages and Property Sets Connected to Package '" + name + "'");
-			} else if (modelUnit.getEClass().equals(Aadl2Package.eINSTANCE.getPropertySet())) {
-				label.setText("Packages and Property Sets Connected to Property Set '" + name + "'");
-			}
 		}
 	};
 
@@ -61,6 +56,10 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 				manager.add(focusOnModelUnitAction);
 			}
 		}
+	}
+	
+	@Override
+	protected void fillControlComposite(Composite parent) {
 	}
 
 	@Override
@@ -89,18 +88,15 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 	protected void setScopeToWorkspace() {
 		input = ModelUnitVisualizationInput.create(getSite().getShell());
 		graph.setInput(input);
-		label.setText("All Packages and Property Sets in Workspace");
 	}
 
 	public void setScope(IWorkingSet workingSet) {
 		input = ModelUnitVisualizationInput.create(getSite().getShell(), workingSet);
 		graph.setInput(input);
-		label.setText("Packages and Property Sets in Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setScope(IProject project) {
 		input = ModelUnitVisualizationInput.create(getSite().getShell(), project);
 		graph.setInput(input);
-		label.setText("Packages and Property Sets in Project '" + project.getName() + "'");
 	}
 }
