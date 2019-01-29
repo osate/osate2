@@ -14,7 +14,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.ui.OsateUiPlugin;
 
-public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisualizationView {
+public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisualizationView<IEObjectDescription> {
 	public static final String ID = "org.osate.ui.modelunitdependencyvisualization";
 
 	private final Image packageImage = OsateUiPlugin.getImageDescriptor("icons/package.gif").createImage();
