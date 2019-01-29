@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:filter="http://www.eclipse.org/sirius/diagram/description/filter/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="aadl2" version="12.0.0.2017041100">
+  <ownedViewpoints name="Aadl2InstanceViewpoint" modelFileExtension="aaxl2">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" documentation="Shows the component hierarchy of the instance model using the standard gaphical symbols (defined in SVG)&#xD;&#xA;Features are shown as well.&#xD;&#xA;Includes command to show a neighbors view." name="ComponentHierarchy" titleExpression="aql:'Component Hierarchy of '+self.name" showOnStartup="true" domainClass="instance.ComponentInstance" rootExpression="[self/]" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="feature:componentInstance" nodeMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default">
+        <nodeMappings name="ComponentInstanceMap" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="service:getAllComponents()" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.ComponentInstance">
+          <borderedNodeMappings name="FeatureInstanceMap" semanticCandidatesExpression="feature:featureInstance" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.FeatureInstance">
+            <style xsi:type="style:WorkspaceImageDescription" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.design/images/AbstractFeature.gif">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <forbiddenSides>SOUTH</forbiddenSides>
+              <forbiddenSides>NORTH</forbiddenSides>
+            </style>
+          </borderedNodeMappings>
+          <style xsi:type="style:WorkspaceImageDescription" tooltipExpression="service:getTestMe(element)" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.design/images/abstract.svg">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="ContainmentEdge" sourceMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']" targetMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']" targetFinderExpression="feature:componentInstance">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections name="ContainmentCommands">
+          <ownedTools xsi:type="tool_1:DiagramNavigationDescription" name="NeighborsView" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ConnectedNeighbors']">
+            <containerViewVariable name="containerView"/>
+            <containerVariable name="container"/>
+            <representationNameVariable name="diagramName"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ToolDescription" name="Goto Neighbor View">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ExternalJavaAction" name="OpenInstanceSource" id="org.osate.aadl2.design.OpenInstanceSourceAction"/>
+          <ownedTools xsi:type="tool:ExternalJavaActionCall" name="OpenInstanceSourceCall" action="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='OpenInstanceSource']"/>
+          <ownedTools xsi:type="tool:ExternalJavaAction" name="DoubleClickSelect" id="org.osate.aadl2.design.DoubleClickSelectAction"/>
+          <ownedTools xsi:type="tool_1:DoubleClickDescription" name="DoubleClickMe" mappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@nodeMappings[name='LeafComponentMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='NestedContainment']/@defaultLayer/@containerMappings[name='ComponentContainer']/@subNodeMappings[name='NestedLeafComponent'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainerTopologyDiagram']/@defaultLayer/@containerMappings[name='RootContainerMap']/@subNodeMappings[name='LeafComponentC']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isComponentInstance()">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" applyOnAll="true" attributeName="workspacePath" value="service:getImagePath()"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isFeatureInstance()">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" applyOnAll="true" attributeName="workspacePath" value="service:getImagePath()"/>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isSelection()">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" attributeName="labelFormat" value="bold"/>
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" referenceName="labelColor">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            </featureCustomizations>
+          </vsmElementCustomizations>
+        </customization>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" documentation="Show leaf components and their connections as diagram.&#xD;&#xA;Filter to hide hardware components.&#xD;&#xA;Utilizes ComponentHierarchy mappings and styles." name="ComponentsConnections" titleExpression="aql:'Topology of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <filters xsi:type="filter:CompositeFilterDescription" name="NoHardware">
+        <filters xsi:type="filter:MappingFilter" mappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@edgeMappings[name='ConnectionMap']" semanticConditionExpression="service:noHardwware()"/>
+      </filters>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default" reusedTools="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateComponentsConnections'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram']">
+        <nodeMappings xsi:type="description_1:NodeMappingImport" name="LeafComponentMap" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram']" preconditionExpression="service:isLeafComponent()" semanticCandidatesExpression="service:getAllComponents()" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
+        <edgeMappings name="ConnectionMap" semanticCandidatesExpression="service:getAllConnectionInstances()" sourceMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@nodeMappings[name='LeafComponentMap']" targetMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@nodeMappings[name='LeafComponentMap']" targetFinderExpression="feature:destination" sourceFinderExpression="feature:source" domainClass="instance.ConnectionInstance" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+        </customization>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:TreeDescription" name="ContainmentHierarchyTree" titleExpression="aql:'Component Hierarchy Tree of '+self.name" domainClass="instance.ComponentInstance">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <subItemMappings name="RootElement" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateComponentsConnections']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="[self/]">
+        <defaultStyle>
+          <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultStyle>
+        <subItemMappings name="ContainedElement" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateComponentsConnections']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:componentInstance" reusedTreeItemMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@subItemMappings[name='RootElement']/@subItemMappings[name='ContainedElement']">
+          <defaultStyle>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </defaultStyle>
+        </subItemMappings>
+      </subItemMappings>
+      <ownedRepresentationCreationDescriptions xsi:type="description_2:TreeCreationDescription" name="CreateContainmentTree" label="Containment Tree" treeDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']">
+        <initialOperation/>
+        <containerViewVariable name="containerView"/>
+        <representationNameVariable name="treeName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedRepresentationCreationDescriptions xsi:type="tool_1:DiagramCreationDescription" name="CreateComponentsConnections" label="Components Connections" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']">
+        <initialOperation/>
+        <containerViewVariable name="containerView"/>
+        <representationNameVariable name="diagramName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedRepresentationCreationDescriptions xsi:type="tool_1:DiagramCreationDescription" name="NeighborsDiagram" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ConnectedNeighbors']">
+        <initialOperation/>
+        <containerViewVariable name="containerView"/>
+        <representationNameVariable name="diagramName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedRepresentationNavigationDescriptions xsi:type="description_2:TreeNavigationDescription" name="ContainmentTreeNav" label="Nav Containment Tree" treeDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']">
+        <containerViewVariable name="containerView"/>
+        <containerVariable name="container"/>
+        <representationNameVariable name="treeName"/>
+      </ownedRepresentationNavigationDescriptions>
+      <ownedRepresentationNavigationDescriptions xsi:type="tool_1:DiagramNavigationDescription" name="NavNeighborsDiagram" diagramDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ConnectedNeighbors']">
+        <containerViewVariable name="containerView"/>
+        <containerVariable name="container"/>
+        <representationNameVariable name="diagramName"/>
+      </ownedRepresentationNavigationDescriptions>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ContainerTopologyDiagram" label="Contained Topology" titleExpression="aql:'Contained topology of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <filters xsi:type="filter:CompositeFilterDescription" name="NoHardware">
+        <filters xsi:type="filter:MappingFilter" mappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@edgeMappings[name='ConnectionMap']" semanticConditionExpression="service:noHardwware()"/>
+      </filters>
+      <layout xsi:type="description_1:CompositeLayout" direction="LeftToRight"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default" reusedMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@edgeMappings[name='ConnectionMap']" reusedTools="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateComponentsConnections'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav']">
+        <containerMappings name="RootContainerMap" label="Container Component" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav']" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
+          <subNodeMappings xsi:type="description_1:NodeMappingImport" name="LeafComponentC" label="Leaf Component" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav']" preconditionExpression="service:isLeafComponent()" semanticCandidatesExpression="service:getAllComponents()" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@nodeMappings[name='LeafComponentMap']"/>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" backgroundStyle="Liquid">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </style>
+        </containerMappings>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+        </customization>
+      </defaultLayer>
+      <additionalLayers name="EndToEndFlows">
+        <containerMappings name="ETEFContainer" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
+          <subNodeMappings name="ETEFinstance" semanticCandidatesExpression="feature:eAllContents" domainClass="instance.EndToEndFlowInstance">
+            <style xsi:type="style:BundledImageDescription" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isSelection()">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" attributeName="labelFormat" value="bold"/>
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" referenceName="labelColor">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            </featureCustomizations>
+          </vsmElementCustomizations>
+        </customization>
+      </additionalLayers>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="NestedContainment" titleExpression="aql:'Nested containment of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default" reusedMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@edgeMappings[name='ConnectionMap']">
+        <containerMappings name="ComponentContainer" preconditionExpression="service:isNestedComponent()" semanticCandidatesExpression="feature:componentInstance" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" reusedContainerMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='NestedContainment']/@defaultLayer/@containerMappings[name='ComponentContainer']">
+          <subNodeMappings xsi:type="description_1:NodeMappingImport" name="NestedLeafComponent" preconditionExpression="service:isLeafComponent()" semanticCandidatesExpression="feature:componentInstance" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@nodeMappings[name='LeafComponentMap']"/>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_orange']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_orange']"/>
+          </style>
+          <conditionnalStyles predicateExpression="service:isSystem">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="service:isProcess">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            </style>
+          </conditionnalStyles>
+        </containerMappings>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+        </customization>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <layout xsi:type="description_1:CompositeLayout" direction="LeftToRight"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default" reusedMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentsConnections']/@defaultLayer/@edgeMappings[name='ConnectionMap']" reusedTools="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateComponentsConnections'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram']">
+        <nodeMappings xsi:type="description_1:NodeMappingImport" name="NeighborComponents" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="service:getNeighbors()" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
+        <nodeMappings xsi:type="description_1:NodeMappingImport" name="NeighborRoot" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="[self/]" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
+        <customization>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style"/>
+        </customization>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+  </ownedViewpoints>
+  <ownedViewpoints name="Aadl2PackageViewpoint" modelFileExtension="aadl">
+    <ownedRepresentations xsi:type="description_2:TreeDescription" name="PackageTree" domainClass="aadl2.AadlPackage">
+      <metamodel href="../../org.osate.aadl2/model/aadl2.ecore#/"/>
+      <subItemMappings name="TopPackage" domainClass="aadl2.AadlPackage" semanticCandidatesExpression="service:getTopPackages()">
+        <defaultStyle>
+          <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultStyle>
+        <subItemMappings name="DependentPackage" domainClass="aadl2.AadlPackage" semanticCandidatesExpression="service:getDependentPackages()" reusedTreeItemMappings="//@ownedViewpoints[name='Aadl2PackageViewpoint']/@ownedRepresentations[name='PackageTree']/@subItemMappings[name='TopPackage']/@subItemMappings[name='DependentPackage']">
+          <defaultStyle>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </defaultStyle>
+        </subItemMappings>
+      </subItemMappings>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="PackageDependencyDiagram" domainClass="aadl2.AadlPackage" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/aadl2.ecore#/"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default">
+        <nodeMappings name="AadlPackageNode" domainClass="aadl2.AadlPackage" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2PackageViewpoint']/@ownedRepresentations[name='PackageDependencyDiagram']/@defaultLayer/@nodeMappings[name='AadlPackageNode']">
+          <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="PackageDependency" sourceMapping="//@ownedViewpoints[name='Aadl2PackageViewpoint']/@ownedRepresentations[name='PackageDependencyDiagram']/@defaultLayer/@nodeMappings[name='AadlPackageNode']" targetMapping="//@ownedViewpoints[name='Aadl2PackageViewpoint']/@ownedRepresentations[name='PackageDependencyDiagram']/@defaultLayer/@nodeMappings[name='AadlPackageNode']" targetFinderExpression="service:getDependentPackages()">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:TreeDescription" name="ComponentImplementationTree" domainClass="aadl2.AadlPackage">
+      <metamodel href="../../org.osate.aadl2/model/aadl2.ecore#/"/>
+      <subItemMappings name="TopComponentImplementation" domainClass="aadl2.ComponentImplementation" semanticCandidatesExpression="service:getTopComponentImplementations()">
+        <defaultStyle>
+          <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultStyle>
+        <subItemMappings name="SubComponentClassifier" domainClass="aadl2.ComponentClassifier" semanticCandidatesExpression="service:getSubcomponentClassifiers()" reusedTreeItemMappings="//@ownedViewpoints[name='Aadl2PackageViewpoint']/@ownedRepresentations[name='ComponentImplementationTree']/@subItemMappings[name='TopComponentImplementation']/@subItemMappings[name='SubComponentClassifier']">
+          <defaultStyle>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </defaultStyle>
+        </subItemMappings>
+      </subItemMappings>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+  </ownedViewpoints>
+</description:Group>
