@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkingSetManager;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ui.OsateUiPlugin;
 
-public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView {
+public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView<IProject> {
 	public static final String ID = "org.osate.ui.projectdependencyvisualization";
 
 	private final Image projectImage = OsateUiPlugin.getImageDescriptor("icons/project.png").createImage();

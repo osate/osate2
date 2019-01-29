@@ -30,8 +30,8 @@ import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 
-abstract class AbstractDependencyVisualizationView extends ViewPart {
-	protected AbstractVisualizationInput<?> input;
+abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
+	protected AbstractVisualizationInput<T> input;
 
 	protected GraphViewer graph;
 
