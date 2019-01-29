@@ -136,7 +136,7 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
-		// TODO Auto-generated method stub
+		// XXX Not sure what this does exatcly, seems to be related to markers. Wait and see on this
 		return null;
 	}
 
