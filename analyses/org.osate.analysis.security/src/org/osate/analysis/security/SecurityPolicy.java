@@ -62,7 +62,7 @@ public class SecurityPolicy {
 		this.elements.addAll(elements);
 	}
 
-	public boolean isValid(Access dir, SecurityLabel label1, SecurityLabel label2) {
+	public boolean allows(Access dir, SecurityLabel label1, SecurityLabel label2) {
 		if (label1.equals(label2)) {
 			return true;
 		}
@@ -90,6 +90,9 @@ public class SecurityPolicy {
 				if (dir == Access.WRITE && down) {
 					valid = false;
 				}
+				break;
+			case NO_INTERPARTITION:
+				valid = false;
 				break;
 			default:
 				break;
