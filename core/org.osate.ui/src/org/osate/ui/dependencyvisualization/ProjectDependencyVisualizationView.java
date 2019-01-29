@@ -1,19 +1,47 @@
 package org.osate.ui.dependencyvisualization;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.layout.PixelConverter;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.IWorkingSetManager;
+import org.eclipse.ui.PlatformUI;
 import org.osate.ui.OsateUiPlugin;
 
 public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView {
 	public static final String ID = "org.osate.ui.projectdependencyvisualization";
 
 	private final Image projectImage = OsateUiPlugin.getImageDescriptor("icons/project.png").createImage();
+
+	private Button workspaceButton;
+	private Button workingSetButton;
+	private ComboViewer workingSetCombo;
+	private Button projectButton;
+	private ComboViewer projectCombo;
 
 	private final IAction showAllProjectsAction = new Action("Show All Projects in Workspace") {
 		@Override
@@ -28,11 +56,52 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 			setScope((IProject) graph.getStructuredSelection().getFirstElement());
 		}
 	};
+	
+	private final ISelectionChangedListener workingSetComboListener = event -> {
+		input = new ProjectVisualizationInput((IWorkingSet) event.getStructuredSelection().getFirstElement());
+		graph.setInput(input);
+	};
+	
+	private final ISelectionChangedListener projectComboListener = event -> {
+		input = new ProjectVisualizationInput((IProject) event.getStructuredSelection().getFirstElement());
+		graph.setInput(input);
+	};
 
+	private final IPropertyChangeListener workingSetListener = event -> {
+		if (event.getProperty().contentEquals(IWorkingSetManager.CHANGE_WORKING_SET_ADD)
+				|| event.getProperty().contentEquals(IWorkingSetManager.CHANGE_WORKING_SET_REMOVE)
+				|| event.getProperty().contentEquals(IWorkingSetManager.CHANGE_WORKING_SET_NAME_CHANGE)) {
+			getSite().getShell().getDisplay().asyncExec(() -> {
+				IWorkingSet selected = (IWorkingSet) workingSetCombo.getStructuredSelection().getFirstElement();
+				workingSetCombo.setInput(PlatformUI.getWorkbench().getWorkingSetManager().getWorkingSets());
+				if (selected != null) {
+					workingSetCombo.removeSelectionChangedListener(workingSetComboListener);
+					workingSetCombo.setSelection(new StructuredSelection(selected));
+					workingSetCombo.addSelectionChangedListener(workingSetComboListener);
+				}
+			});
+		}
+	};
+
+	private final IResourceChangeListener resourceListener = event -> {
+		getSite().getShell().getDisplay().asyncExec(() -> {
+			IProject selected = (IProject) projectCombo.getStructuredSelection().getFirstElement();
+			projectCombo.setInput(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+					.filter(IProject::isOpen).collect(Collectors.toList()));
+			if (selected != null) {
+				projectCombo.removeSelectionChangedListener(projectComboListener);
+				projectCombo.setSelection(new StructuredSelection(selected));
+				projectCombo.addSelectionChangedListener(projectComboListener);
+			}
+		});
+	};
+	
 	@Override
 	public void dispose() {
 		super.dispose();
 		projectImage.dispose();
+		PlatformUI.getWorkbench().getWorkingSetManager().removePropertyChangeListener(workingSetListener);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceListener);
 	}
 
 	@Override
@@ -48,6 +117,98 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 				manager.add(focusOnProjectAction);
 			}
 		}
+	}
+
+	@Override
+	protected void fillControlComposite(Composite parent) {
+		parent.setLayout(new GridLayout(2, false));
+
+		workspaceButton = new Button(parent, SWT.RADIO);
+		workspaceButton.setText("Workspace");
+		workspaceButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		workspaceButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (workspaceButton.getSelection()) {
+					workingSetCombo.getCombo().setEnabled(false);
+					projectCombo.getCombo().setEnabled(false);
+					input = new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot());
+					graph.setInput(input);
+				}
+			}
+		});
+
+		workingSetButton = new Button(parent, SWT.RADIO);
+		workingSetButton.setText("Working Set:");
+		workingSetButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		workingSetButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (workingSetButton.getSelection()) {
+					workingSetCombo.getCombo().setEnabled(true);
+					projectCombo.getCombo().setEnabled(false);
+					IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
+					if (comboSelection.isEmpty()) {
+						input = new ProjectVisualizationInput();
+					} else {
+						input = new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement());
+					}
+					graph.setInput(input);
+				}
+			}
+		});
+
+		workingSetCombo = new ComboViewer(parent);
+		int comboWidth = new PixelConverter(workingSetCombo.getCombo()).convertWidthInCharsToPixels(20);
+		GridData workingSetComboGridData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		workingSetComboGridData.widthHint = comboWidth;
+		workingSetCombo.getCombo().setLayoutData(workingSetComboGridData);
+		workingSetCombo.setContentProvider(ArrayContentProvider.getInstance());
+		workingSetCombo.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return ((IWorkingSet) element).getName();
+			}
+		});
+		workingSetCombo.setInput(PlatformUI.getWorkbench().getWorkingSetManager().getWorkingSets());
+		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
+		PlatformUI.getWorkbench().getWorkingSetManager().addPropertyChangeListener(workingSetListener);
+
+		projectButton = new Button(parent, SWT.RADIO);
+		projectButton.setText("Project:");
+		projectButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		projectButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (projectButton.getSelection()) {
+					workingSetCombo.getCombo().setEnabled(false);
+					projectCombo.getCombo().setEnabled(true);
+					IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
+					if (comboSelection.isEmpty()) {
+						input = new ProjectVisualizationInput();
+					} else {
+						input = new ProjectVisualizationInput((IProject) comboSelection.getFirstElement());
+					}
+					graph.setInput(input);
+				}
+			}
+		});
+
+		projectCombo = new ComboViewer(parent);
+		GridData projectComboGridData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+		projectComboGridData.widthHint = comboWidth;
+		projectCombo.getCombo().setLayoutData(projectComboGridData);
+		projectCombo.setContentProvider(ArrayContentProvider.getInstance());
+		projectCombo.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return ((IProject) element).getName();
+			}
+		});
+		projectCombo.setInput(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
+				.filter(IProject::isOpen).collect(Collectors.toList()));
+		projectCombo.addSelectionChangedListener(projectComboListener);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceListener, IResourceChangeEvent.POST_CHANGE);
 	}
 
 	@Override
@@ -70,20 +231,32 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 
 	@Override
 	protected void setScopeToWorkspace() {
-		input = new ProjectVisualizationInput();
+		workspaceButton.setSelection(true);
+		workingSetCombo.getCombo().setEnabled(false);
+		projectCombo.getCombo().setEnabled(false);
+		input = new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot());
 		graph.setInput(input);
-		label.setText("All Projects in Workspace");
 	}
 
 	public void setScope(IWorkingSet workingSet) {
+		workingSetButton.setSelection(true);
+		workingSetCombo.removeSelectionChangedListener(workingSetComboListener);
+		workingSetCombo.setSelection(new StructuredSelection(workingSet));
+		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
+		workingSetCombo.getCombo().setEnabled(true);
+		projectCombo.getCombo().setEnabled(false);
 		input = new ProjectVisualizationInput(workingSet);
 		graph.setInput(input);
-		label.setText("Projects in Working Set '" + workingSet.getName() + "'");
 	}
 
 	public void setScope(IProject project) {
+		workingSetCombo.getCombo().setEnabled(false);
+		projectButton.setSelection(true);
+		projectCombo.removeSelectionChangedListener(projectComboListener);
+		projectCombo.setSelection(new StructuredSelection(project));
+		projectCombo.addSelectionChangedListener(projectComboListener);
+		projectCombo.getCombo().setEnabled(true);
 		input = new ProjectVisualizationInput(project);
 		graph.setInput(input);
-		label.setText("Projects Connected to Project '" + project.getName() + "'");
 	}
 }

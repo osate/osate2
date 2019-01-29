@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IWorkingSet;
@@ -17,8 +17,11 @@ import org.osate.ui.OsateUiPlugin;
 
 class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
 	ProjectVisualizationInput() {
-		super(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(IProject::isOpen)
-				.collect(Collectors.toList()));
+		super(Collections.emptyList());
+	}
+	
+	ProjectVisualizationInput(IWorkspaceRoot root) {
+		super(Arrays.stream(root.getProjects()).filter(IProject::isOpen).collect(Collectors.toList()));
 	}
 
 	ProjectVisualizationInput(IWorkingSet workingSet) {
