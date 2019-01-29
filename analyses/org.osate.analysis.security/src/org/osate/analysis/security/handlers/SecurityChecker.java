@@ -46,7 +46,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.security.ConnectionInstanceLabelChecker;
+import org.osate.analysis.security.SecurityLabelChecker;
 import org.osate.analysis.security.SecurityPolicy;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
@@ -128,12 +128,9 @@ public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelMod
 			return;
 		}
 
-//		final ComponentInstanceLabelChecker componentChecker = new ComponentInstanceLabelChecker(errManager,
-//				policy);
-		final ConnectionInstanceLabelChecker connectionChecker = new ConnectionInstanceLabelChecker(errManager,
+		final SecurityLabelChecker checker = new SecurityLabelChecker(errManager,
 				policy.get());
-//		componentChecker.processPostOrderAll(root);
-		connectionChecker.processPostOrderAll(root);
+		checker.processPostOrderAll(root);
 		monitor.done();
 	}
 }

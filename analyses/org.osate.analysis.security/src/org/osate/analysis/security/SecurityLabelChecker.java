@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -27,7 +25,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 	protected void initSwitches() {
 
 		instanceSwitch = new InstanceSwitch<String>() {
-			
+
 //			@Override
 //			public String caseConnectionInstance(final ConnectionInstance conni) {
 //				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
@@ -66,11 +64,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 					if (srcLabel.isPresent() && dstLabel.isPresent()) {
 						SecurityLabel sl = srcLabel.get();
 						SecurityLabel dl = dstLabel.get();
-						if (!policy.isValid(Access.WRITE, sl, dl)) {
+						if (!policy.allows(Access.WRITE, sl, dl)) {
 							error(element, "Security policy violation: Write access from label " + sl.toString()
 									+ " to label " + dl.toString());
 						}
-						if (!policy.isValid(Access.READ, dl, sl)) {
+						if (!policy.allows(Access.READ, dl, sl)) {
 							error(element, "Security policy violation: Read access from label " + dl.toString()
 									+ " to label " + sl.toString());
 						}
