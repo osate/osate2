@@ -29,9 +29,8 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 
 	private final IAction focusOnModelUnitAction = new Action() {
 		public void run() {
-			IEObjectDescription modelUnit = (IEObjectDescription) graph.getStructuredSelection().getFirstElement();
-			input = ModelUnitVisualizationInput.create(getSite().getShell(), modelUnit.getEObjectURI());
-			graph.setInput(input);
+			IEObjectDescription modelUnit = (IEObjectDescription) getGraphSelection().getFirstElement();
+			setInput(ModelUnitVisualizationInput.create(getSite().getShell(), modelUnit.getEObjectURI()));
 		}
 	};
 
@@ -46,7 +45,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 	protected void menuAboutToShow(IMenuManager manager) {
 		manager.add(showAllModelUnitsAction);
 		manager.add(new Separator());
-		IStructuredSelection selection = graph.getStructuredSelection();
+		IStructuredSelection selection = getGraphSelection();
 		if (selection.size() == 1) {
 			Object selectedObject = selection.getFirstElement();
 			if (selectedObject instanceof IEObjectDescription) {
@@ -86,17 +85,14 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 
 	@Override
 	protected void setScopeToWorkspace() {
-		input = ModelUnitVisualizationInput.create(getSite().getShell());
-		graph.setInput(input);
+		setInput(ModelUnitVisualizationInput.create(getSite().getShell()));
 	}
 
 	public void setScope(IWorkingSet workingSet) {
-		input = ModelUnitVisualizationInput.create(getSite().getShell(), workingSet);
-		graph.setInput(input);
+		setInput(ModelUnitVisualizationInput.create(getSite().getShell(), workingSet));
 	}
 
 	public void setScope(IProject project) {
-		input = ModelUnitVisualizationInput.create(getSite().getShell(), project);
-		graph.setInput(input);
+		setInput(ModelUnitVisualizationInput.create(getSite().getShell(), project));
 	}
 }
