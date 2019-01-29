@@ -53,18 +53,16 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 	private final IAction focusOnProjectAction = new Action() {
 		@Override
 		public void run() {
-			setScope((IProject) graph.getStructuredSelection().getFirstElement());
+			setScope((IProject) getGraphSelection().getFirstElement());
 		}
 	};
 	
 	private final ISelectionChangedListener workingSetComboListener = event -> {
-		input = new ProjectVisualizationInput((IWorkingSet) event.getStructuredSelection().getFirstElement());
-		graph.setInput(input);
+		setInput(new ProjectVisualizationInput((IWorkingSet) event.getStructuredSelection().getFirstElement()));
 	};
 	
 	private final ISelectionChangedListener projectComboListener = event -> {
-		input = new ProjectVisualizationInput((IProject) event.getStructuredSelection().getFirstElement());
-		graph.setInput(input);
+		setInput(new ProjectVisualizationInput((IProject) event.getStructuredSelection().getFirstElement()));
 	};
 
 	private final IPropertyChangeListener workingSetListener = event -> {
@@ -108,7 +106,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 	protected void menuAboutToShow(IMenuManager manager) {
 		manager.add(showAllProjectsAction);
 		manager.add(new Separator());
-		IStructuredSelection selection = graph.getStructuredSelection();
+		IStructuredSelection selection = getGraphSelection();
 		if (selection.size() == 1) {
 			Object selectedObject = selection.getFirstElement();
 			if (selectedObject instanceof IProject) {
@@ -132,8 +130,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 				if (workspaceButton.getSelection()) {
 					workingSetCombo.getCombo().setEnabled(false);
 					projectCombo.getCombo().setEnabled(false);
-					input = new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot());
-					graph.setInput(input);
+					setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
 				}
 			}
 		});
@@ -149,11 +146,10 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(false);
 					IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						input = new ProjectVisualizationInput();
+						setInput(new ProjectVisualizationInput());
 					} else {
-						input = new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement());
+						setInput(new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement()));
 					}
-					graph.setInput(input);
 				}
 			}
 		});
@@ -185,11 +181,10 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(true);
 					IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						input = new ProjectVisualizationInput();
+						setInput(new ProjectVisualizationInput());
 					} else {
-						input = new ProjectVisualizationInput((IProject) comboSelection.getFirstElement());
+						setInput(new ProjectVisualizationInput((IProject) comboSelection.getFirstElement()));
 					}
-					graph.setInput(input);
 				}
 			}
 		});
@@ -234,8 +229,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		workspaceButton.setSelection(true);
 		workingSetCombo.getCombo().setEnabled(false);
 		projectCombo.getCombo().setEnabled(false);
-		input = new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot());
-		graph.setInput(input);
+		setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
 	}
 
 	public void setScope(IWorkingSet workingSet) {
@@ -245,8 +239,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
 		workingSetCombo.getCombo().setEnabled(true);
 		projectCombo.getCombo().setEnabled(false);
-		input = new ProjectVisualizationInput(workingSet);
-		graph.setInput(input);
+		setInput(new ProjectVisualizationInput(workingSet));
 	}
 
 	public void setScope(IProject project) {
@@ -256,7 +249,6 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		projectCombo.setSelection(new StructuredSelection(project));
 		projectCombo.addSelectionChangedListener(projectComboListener);
 		projectCombo.getCombo().setEnabled(true);
-		input = new ProjectVisualizationInput(project);
-		graph.setInput(input);
+		setInput(new ProjectVisualizationInput(project));
 	}
 }

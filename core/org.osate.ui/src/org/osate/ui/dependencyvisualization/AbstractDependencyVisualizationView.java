@@ -9,6 +9,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -31,9 +32,9 @@ import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 
 abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
-	protected AbstractVisualizationInput<T> input;
+	private AbstractVisualizationInput<T> input;
 
-	protected GraphViewer graph;
+	private GraphViewer graph;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -89,7 +90,16 @@ abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 	protected abstract String getText(Object element);
 
 	protected abstract void setScopeToWorkspace();
-
+	
+	protected IStructuredSelection getGraphSelection() {
+		return graph.getStructuredSelection();
+	}
+	
+	protected void setInput(AbstractVisualizationInput<T> input) {
+		this.input = input;
+		graph.setInput(input);
+	}
+	
 	private class VisualizationLabelProvider extends LabelProvider
 			implements IEntityStyleProvider, IConnectionStyleProvider {
 
