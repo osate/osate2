@@ -7,4 +7,5 @@ Automatic-Module-Name: org.osate.mylyn.aadl.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.mylyn.context.core;bundle-version="3.23.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
- org.osate.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.ui;bundle-version="1.0.0"
