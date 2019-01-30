@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -26,17 +28,26 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 
 		instanceSwitch = new InstanceSwitch<String>() {
 
-//			@Override
-//			public String caseConnectionInstance(final ConnectionInstance conni) {
-//				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
-//					NamedElement src = conni.getSource();
-//					NamedElement dst = conni.getDestination();
-//
-//					return checkValid(conni, src, dst);
-//				}
-//				return DONE;
-//			}
+			/**
+			 * Check connection instance for security policy compliance:
+			 * Data flow from source and destination label must conform to policy.
+			 */
+			@Override
+			public String caseConnectionInstance(final ConnectionInstance conni) {
+				// TODO: what about other connection kinds?
+				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
+					NamedElement src = conni.getSource();
+					NamedElement dst = conni.getDestination();
 
+					return checkValid(conni, src, dst);
+				}
+				return DONE;
+			}
+
+			/**
+			 * Check flow specification for security policy compliance:
+			 * Data flow from source and destination label must conform to policy.
+			 */
 			@Override
 			public String caseFlowSpecificationInstance(FlowSpecificationInstance fsi) {
 				NamedElement src = fsi.getSource();
@@ -45,12 +56,21 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 				return checkValid(fsi, src, dst);
 			}
 
+			/**
+			 * Check connection reference for security policy compliance:
+			 * Data flow from source and destination label must conform to policy.
+			 */
 			@Override
 			public String caseConnectionReference(ConnectionReference cref) {
-				NamedElement src = cref.getSource();
-				NamedElement dst = cref.getDestination();
+				ConnectionInstance conni = (ConnectionInstance) cref.getOwner();
+				// TODO: what about other connection kinds?
+				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
+					NamedElement src = cref.getSource();
+					NamedElement dst = cref.getDestination();
 
-				return checkValid(cref, src, dst);
+					return checkValid(cref, src, dst);
+				}
+				return DONE;
 			}
 
 			protected String checkValid(Element element, NamedElement src, NamedElement dst) {
