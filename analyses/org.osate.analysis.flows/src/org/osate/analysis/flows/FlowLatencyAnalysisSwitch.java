@@ -734,14 +734,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
+	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				return invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				results = invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
@@ -751,10 +751,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							bestCaseEmptyQueue));
 					root.clearCurrentSystemOperationMode();
 				}
-				return results;
 			}
+		} else {
+			results = invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+					bestCaseEmptyQueue);
 		}
-		return invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
 	/**
@@ -768,7 +771,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+	private EList<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
@@ -790,7 +793,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = ci.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
@@ -798,7 +801,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				return invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+				results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
@@ -807,10 +811,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							bestCaseEmptyQueue));
 					root.clearCurrentSystemOperationMode();
 				}
-				return results;
 			}
+		} else {
+			results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
-		return invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
 	/**
@@ -824,7 +830,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	private EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		for (EndToEndFlowInstance etef : ci.getEndToEndFlows()) {
@@ -845,7 +851,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = etef.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
@@ -854,7 +860,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				return invokeOnSOM(etef, som0, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				results = invokeOnSOM(etef, som0, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
@@ -864,11 +870,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							worstCaseDeadline, bestCaseEmptyQueue));
 					root.clearCurrentSystemOperationMode();
 				}
-				return results;
 			}
+		} else {
+			results = invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+					bestCaseEmptyQueue);
 		}
-		return invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-				bestCaseEmptyQueue);
+		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
 	/**
@@ -882,7 +890,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return Collection of Result. May be empty if ETEF is not active in SOM
 	 */
-	public EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som,
+	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som,
 			boolean asynchronousSystem, boolean majorFrameDelay, boolean worstCaseDeadline,
 			boolean bestCaseEmptyQueue) {
 		if (report == null) {
@@ -907,14 +915,24 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 
+	/**
+	 * invoke latency analysis and save results in file system as .result, and as .csv files
+	 * @param root
+	 * @param som
+	 * @param asynchronousSystem
+	 * @param majorFrameDelay
+	 * @param worstCaseDeadline
+	 * @param bestCaseEmptyQueue
+	 * @return
+	 */
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		EList<Result> results = invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+		AnalysisResult ar = invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 				bestCaseEmptyQueue);
-		AnalysisResult ar = FlowLatencyUtil.recordAsAnalysisResult(results, root, true, true, true, true);
 		FlowLatencyUtil.saveAnalysisResult(ar);
 		LatencyCSVReport.generateCSVReport(ar);
 		return ar;
 	}
+
 
 }

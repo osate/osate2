@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.analysis.flows.LatencyAnalysisService
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.result.RealValue
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
@@ -43,8 +43,8 @@ class FlowLatencyTest extends XtextTest {
 
 		// check flow latency
 		val som = instance.systemOperationModes.head
-		val checker = new LatencyAnalysisService()
-		val latencyresult = checker.invoke(instance, som)
+		val checker = new FlowLatencyAnalysisSwitch()
+		val latencyresult = checker.invoke(instance, som,true,true,true,true)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
