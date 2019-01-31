@@ -56,11 +56,11 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 			setScope((IProject) getGraphSelection().getFirstElement());
 		}
 	};
-	
+
 	private final ISelectionChangedListener workingSetComboListener = event -> {
 		setInput(new ProjectVisualizationInput((IWorkingSet) event.getStructuredSelection().getFirstElement()));
 	};
-	
+
 	private final ISelectionChangedListener projectComboListener = event -> {
 		setInput(new ProjectVisualizationInput((IProject) event.getStructuredSelection().getFirstElement()));
 	};
@@ -93,7 +93,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 			}
 		});
 	};
-	
+
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -202,7 +202,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		projectCombo.setInput(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
 				.filter(IProject::isOpen).collect(Collectors.toList()));
 		projectCombo.addSelectionChangedListener(projectComboListener);
-		
+
 		PlatformUI.getWorkbench().getWorkingSetManager().addPropertyChangeListener(workingSetListener);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceListener, IResourceChangeEvent.POST_CHANGE);
 	}
@@ -222,6 +222,27 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 			return ((IProject) element).getName();
 		} else {
 			return null;
+		}
+	}
+
+	@Override
+	protected void refresh() {
+		if (workspaceButton.getSelection()) {
+			setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
+		} else if (workingSetButton.getSelection()) {
+			IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
+			if (comboSelection.isEmpty()) {
+				setInput(ProjectVisualizationInput.EMPTY);
+			} else {
+				setInput(new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement()));
+			}
+		} else if (projectButton.getSelection()) {
+			IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
+			if (comboSelection.isEmpty()) {
+				setInput(ProjectVisualizationInput.EMPTY);
+			} else {
+				setInput(new ProjectVisualizationInput((IProject) comboSelection.getFirstElement()));
+			}
 		}
 	}
 

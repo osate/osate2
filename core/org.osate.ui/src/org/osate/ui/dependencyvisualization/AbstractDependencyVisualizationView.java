@@ -7,6 +7,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -30,6 +32,7 @@ import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
+import org.osate.ui.OsateUiPlugin;
 
 abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 	private AbstractVisualizationInput<T> input;
@@ -39,7 +42,7 @@ abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout(2, false));
-		
+
 		graph = new GraphViewer(parent, SWT.NONE);
 		graph.getGraphControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		graph.setContentProvider(new IGraphEntityContentProvider() {
@@ -67,12 +70,21 @@ abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 			graph.update(graph.getNodeElements(), null);
 			graph.update(graph.getConnectionElements(), null);
 		});
-		
+
 		Group controlGroup = new Group(parent, SWT.SHADOW_NONE);
 		controlGroup.setText("Graph Scope:");
 		controlGroup.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false));
 		fillControlComposite(controlGroup);
-		
+
+		IAction refreshAction = new Action("Refresh", IAction.AS_PUSH_BUTTON) {
+			@Override
+			public void run() {
+				refresh();
+			}
+		};
+		refreshAction.setImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/refresh.png"));
+		getViewSite().getActionBars().getToolBarManager().add(refreshAction);
+
 		setScopeToWorkspace();
 	}
 
@@ -82,24 +94,26 @@ abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 	}
 
 	protected abstract void menuAboutToShow(IMenuManager manager);
-	
+
 	protected abstract void fillControlComposite(Composite parent);
 
 	protected abstract Image getImage(Object element);
 
 	protected abstract String getText(Object element);
 
+	protected abstract void refresh();
+
 	protected abstract void setScopeToWorkspace();
-	
+
 	protected IStructuredSelection getGraphSelection() {
 		return graph.getStructuredSelection();
 	}
-	
+
 	protected void setInput(AbstractVisualizationInput<T> input) {
 		this.input = input;
 		graph.setInput(input);
 	}
-	
+
 	private class VisualizationLabelProvider extends LabelProvider
 			implements IEntityStyleProvider, IConnectionStyleProvider {
 
