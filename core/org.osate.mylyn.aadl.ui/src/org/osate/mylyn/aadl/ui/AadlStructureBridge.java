@@ -7,14 +7,17 @@ import java.util.List;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
@@ -51,7 +54,8 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public String getHandleIdentifier(final Object object) {
 		// Use the URI as the identifier
 		if (object instanceof Element) {
-			return EcoreUtil.getURI((Element) object).toString();
+			final String uriString = EcoreUtil.getURI((Element) object).toString();
+			return uriString;
 		} else if (object instanceof IAdaptable) {
 			final Object adapter = ((IAdaptable) object).getAdapter(Element.class);
 			if (adapter instanceof Element) {
@@ -64,15 +68,32 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	@Override
 	public String getParentHandle(final String handle) {
 		final Element aadlElement = (Element) getObjectForHandle(handle);
-		if (aadlElement != null && aadlElement.eContainer() != null) {
-			return getHandleIdentifier(aadlElement.eContainer());
+		if (aadlElement != null) {
+			if (aadlElement.eContainer() != null) {
+				return getHandleIdentifier(aadlElement.eContainer());
+			} else {
+				final AbstractContextStructureBridge parentBridge = ContextCore.getStructureBridge(parentContentType);
+				if (parentBridge != null && ContextCore.CONTENT_TYPE_RESOURCE.equals(parentBridge.getContentType())) {
+					final Resource eRsrc = aadlElement.eResource();
+					final IResource iRsrc = OsateResourceUtil.convertToIResource(eRsrc);
+					return parentBridge.getHandleIdentifier(iRsrc);
+				}
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public Object getObjectForHandle(final String handle) {
-		return resourceSet.getEObject(URI.createURI(handle), true);
+		/*
+		 * The parent ResourceStructureBridge might call us with handles for resources, in this case we fail
+		 * and reutrn null.
+		 */
+		try {
+			return resourceSet.getEObject(URI.createURI(handle), true);
+		} catch (final Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -106,18 +127,23 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public boolean canBeLandmark(final String handle) {
 		// Must be a component classifier, feature, subcomponent, etc, or a property declation in a property set.
 		final Element aadlElement = (Element) getObjectForHandle(handle);
-		return aadlElement instanceof Classifier || aadlElement instanceof ClassifierFeature ||
-				aadlElement instanceof PropertyConstant || aadlElement instanceof PropertyType ||
-				aadlElement instanceof Property;
+		final boolean isLandmark = aadlElement instanceof PropertySet || aadlElement instanceof AadlPackage
+				|| aadlElement instanceof PackageSection
+				|| aadlElement instanceof Classifier || aadlElement instanceof ClassifierFeature
+				|| aadlElement instanceof PropertyConstant || aadlElement instanceof PropertyType
+				|| aadlElement instanceof Property;
+		return isLandmark;
 	}
 
 	@Override
 	public boolean acceptsObject(final Object object) {
 		if (object instanceof IResource) {
 			final Object adapter = ((IResource) object).getAdapter(Element.class);
-			return adapter instanceof Element;
+			final boolean b = adapter instanceof Element;
+			return b;
 		} else {
-			return object instanceof Element;
+			final boolean b = object instanceof Element;
+			return b;
 		}
 	}
 
@@ -141,8 +167,11 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	}
 
 	@Override
-	public String getContentType(final String elementHandle) {
-		return getContentType();
+	public String getContentType(final String parentHandle) {
+		// XXX Not sure how great a test this really is
+		if (parentHandle.endsWith(".aadl")) {
+			return parentContentType;
+		}
+		return CONTENT_TYPE;
 	}
-
 }

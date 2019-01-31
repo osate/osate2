@@ -5,8 +5,8 @@
          point="org.eclipse.mylyn.context.core.bridges">
       <structureBridge
             class="org.osate.mylyn.aadl.ui.AadlStructureBridge"
-            name="%AadlStructureBridge.name" />
-            <!--parentContentType="resource"-->
+            name="%AadlStructureBridge.name"
+            parentContentType="resource" />
    </extension>
 
    <!--extension
