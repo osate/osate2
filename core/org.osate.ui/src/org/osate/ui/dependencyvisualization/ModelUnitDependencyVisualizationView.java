@@ -18,6 +18,7 @@ import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -277,6 +278,17 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 			}
 		});
 		modelUnitCombo.setComparator(new ViewerComparator());
+		modelUnitCombo.setComparer(new IElementComparer() {
+			@Override
+			public boolean equals(Object a, Object b) {
+				return ((IEObjectDescription) a).getEObjectURI().equals(((IEObjectDescription) b).getEObjectURI());
+			}
+
+			@Override
+			public int hashCode(Object element) {
+				return ((IEObjectDescription) element).getEObjectURI().hashCode();
+			}
+		});
 		Iterable<IEObjectDescription> modelUnits = resourceDescriptions
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit());
 		modelUnitCombo.setInput(StreamSupport.stream(modelUnits.spliterator(), false)
@@ -306,6 +318,37 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 			return ((IEObjectDescription) element).getName().toString("::");
 		} else {
 			return null;
+		}
+	}
+
+	@Override
+	protected void refresh() {
+		if (workspaceButton.getSelection()) {
+			setInput(ModelUnitVisualizationInput.create(resourceDescriptions));
+		} else if (workingSetButton.getSelection()) {
+			IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
+			if (comboSelection.isEmpty()) {
+				setInput(ModelUnitVisualizationInput.EMPTY);
+			} else {
+				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
+						(IWorkingSet) comboSelection.getFirstElement()));
+			}
+		} else if (projectButton.getSelection()) {
+			IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
+			if (comboSelection.isEmpty()) {
+				setInput(ModelUnitVisualizationInput.EMPTY);
+			} else {
+				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
+						(IProject) comboSelection.getFirstElement()));
+			}
+		} else if (modelUnitButton.getSelection()) {
+			IStructuredSelection comboSelection = modelUnitCombo.getStructuredSelection();
+			if (comboSelection.isEmpty()) {
+				setInput(ModelUnitVisualizationInput.EMPTY);
+			} else {
+				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
+						((IEObjectDescription) comboSelection.getFirstElement()).getEObjectURI()));
+			}
 		}
 	}
 
