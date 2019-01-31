@@ -16,7 +16,9 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.ui.OsateUiPlugin;
 
 class ProjectVisualizationInput extends AbstractVisualizationInput<IProject> {
-	ProjectVisualizationInput() {
+	final static ProjectVisualizationInput EMPTY = new ProjectVisualizationInput();
+	
+	private ProjectVisualizationInput() {
 		super(Collections.emptyList());
 	}
 	
