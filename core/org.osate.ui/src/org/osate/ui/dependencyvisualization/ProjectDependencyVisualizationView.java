@@ -146,7 +146,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(false);
 					IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(new ProjectVisualizationInput());
+						setInput(ProjectVisualizationInput.EMPTY);
 					} else {
 						setInput(new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement()));
 					}
@@ -168,7 +168,6 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		});
 		workingSetCombo.setInput(PlatformUI.getWorkbench().getWorkingSetManager().getWorkingSets());
 		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
-		PlatformUI.getWorkbench().getWorkingSetManager().addPropertyChangeListener(workingSetListener);
 
 		projectButton = new Button(parent, SWT.RADIO);
 		projectButton.setText("Project:");
@@ -181,7 +180,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(true);
 					IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(new ProjectVisualizationInput());
+						setInput(ProjectVisualizationInput.EMPTY);
 					} else {
 						setInput(new ProjectVisualizationInput((IProject) comboSelection.getFirstElement()));
 					}
@@ -203,6 +202,8 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		projectCombo.setInput(Arrays.stream(ResourcesPlugin.getWorkspace().getRoot().getProjects())
 				.filter(IProject::isOpen).collect(Collectors.toList()));
 		projectCombo.addSelectionChangedListener(projectComboListener);
+		
+		PlatformUI.getWorkbench().getWorkingSetManager().addPropertyChangeListener(workingSetListener);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceListener, IResourceChangeEvent.POST_CHANGE);
 	}
 
