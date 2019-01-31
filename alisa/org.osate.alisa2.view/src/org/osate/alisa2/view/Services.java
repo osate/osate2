@@ -27,6 +27,7 @@ public class Services {
 	public Collection<EObject> getNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
 		// Get the features
+//		((ComponentInstance) self).get
 		for (FeatureInstance fi : ((ComponentInstance) self).getAllFeatureInstances()) {
 			// Get their connections
 			for (ConnectionInstance ci : fi.getAllEnclosingConnectionInstances()) {

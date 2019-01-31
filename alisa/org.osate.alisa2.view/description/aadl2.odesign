@@ -10,16 +10,16 @@
       <defaultLayer name="Default">
         <nodeMappings name="ComponentInstanceMap" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='CreateContainmentTree'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='ContainmentTreeNav'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="service:getAllComponents()" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.ComponentInstance">
           <borderedNodeMappings name="FeatureInstanceMap" semanticCandidatesExpression="feature:featureInstance" doubleClickDescription="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='DoubleClickMe']" domainClass="instance.FeatureInstance">
-            <style xsi:type="style:WorkspaceImageDescription" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.design/images/AbstractFeature.gif">
+            <style xsi:type="style:BundledImageDescription" sizeComputationExpression="5" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <forbiddenSides>SOUTH</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
             </style>
           </borderedNodeMappings>
-          <style xsi:type="style:WorkspaceImageDescription" tooltipExpression="service:getTestMe(element)" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.design/images/abstract.svg">
-            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='orange']"/>
+          <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
           </style>
         </nodeMappings>
         <edgeMappings name="ContainmentEdge" sourceMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']" targetMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']" targetFinderExpression="feature:componentInstance">
@@ -56,14 +56,14 @@
         </toolSections>
         <customization>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isComponentInstance()">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" applyOnAll="true" attributeName="workspacePath" value="service:getImagePath()"/>
+            <featureCustomizations xsi:type="description:EAttributeCustomization" applyOnAll="true" attributeName="workspacePath" value="service:getImagePath()"/>
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isFeatureInstance()">
             <featureCustomizations xsi:type="description:EAttributeCustomization" applyOnAll="true" attributeName="workspacePath" value="service:getImagePath()"/>
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isSelection()">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" attributeName="labelFormat" value="bold"/>
-            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" referenceName="labelColor">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" attributeName="labelFormat" value="bold"/>
+            <featureCustomizations xsi:type="description:EReferenceCustomization" referenceName="labelColor">
               <value href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
             </featureCustomizations>
           </vsmElementCustomizations>
@@ -89,7 +89,7 @@
           </style>
         </edgeMappings>
         <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0"/>
         </customization>
       </defaultLayer>
     </ownedRepresentations>
@@ -153,7 +153,7 @@
           </style>
         </containerMappings>
         <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0"/>
         </customization>
       </defaultLayer>
       <additionalLayers name="EndToEndFlows">
@@ -174,8 +174,8 @@
         </containerMappings>
         <customization>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:isSelection()">
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" attributeName="labelFormat" value="bold"/>
-            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style" referenceName="labelColor">
+            <featureCustomizations xsi:type="description:EAttributeCustomization" attributeName="labelFormat" value="bold"/>
+            <featureCustomizations xsi:type="description:EReferenceCustomization" referenceName="labelColor">
               <value href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
             </featureCustomizations>
           </vsmElementCustomizations>
@@ -214,7 +214,7 @@
           </conditionnalStyles>
         </containerMappings>
         <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0"/>
         </customization>
       </defaultLayer>
     </ownedRepresentations>
@@ -228,7 +228,7 @@
         <nodeMappings xsi:type="description_1:NodeMappingImport" name="NeighborComponents" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="service:getNeighbors()" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
         <nodeMappings xsi:type="description_1:NodeMappingImport" name="NeighborRoot" detailDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationCreationDescriptions[name='NeighborsDiagram']" navigationDescriptions="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ContainmentHierarchyTree']/@ownedRepresentationNavigationDescriptions[name='NavNeighborsDiagram'] //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@toolSections.0/@ownedTools[name='NeighborsView']" semanticCandidatesExpression="[self/]" domainClass="instance.ComponentInstance" reusedBorderedNodeMappings="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']" importedMapping="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']"/>
         <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@borderedNodeMappings[name='FeatureInstanceMap']/@style //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@nodeMappings[name='ComponentInstanceMap']/@style"/>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.0/@featureCustomizations.0 //@ownedViewpoints[name='Aadl2InstanceViewpoint']/@ownedRepresentations[name='ComponentHierarchy']/@defaultLayer/@customization/@vsmElementCustomizations.1/@featureCustomizations.0"/>
         </customization>
       </defaultLayer>
     </ownedRepresentations>
