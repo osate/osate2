@@ -9,6 +9,13 @@
             parentContentType="resource" />
    </extension>
 
+   <extension
+         point="org.eclipse.mylyn.context.ui.bridges">
+      <uiBridge
+            class="org.osate.mylyn.aadl.ui.AadlUiBridge"
+            contentType="aadl"/>
+   </extension>
+
    <!--extension
          point="org.eclipse.mylyn.context.ui.startup">
       <startup
