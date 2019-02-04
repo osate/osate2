@@ -8,7 +8,6 @@ Bundle-Activator: org.osate.analysis.security.SecurityPlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.analysis.security,
- org.osate.analysis.security.actions,
  org.osate.analysis.security.handlers
 Require-Bundle: org.osate.aadl2,
  org.osate.ui,
