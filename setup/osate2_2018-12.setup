@@ -834,8 +834,8 @@
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
-  <stream name="2018-12"
-      label="2018-12">
+  <stream name="develop"
+      label="develop">
     <setupTask
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.osate2_2018-12"
