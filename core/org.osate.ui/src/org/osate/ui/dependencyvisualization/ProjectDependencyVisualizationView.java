@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkingSetManager;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ui.OsateUiPlugin;
 
-public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView<IProject> {
+public class ProjectDependencyVisualizationView extends AbstractDependencyVisualizationView {
 	public static final String ID = "org.osate.ui.projectdependencyvisualization";
 
 	private final Image projectImage = OsateUiPlugin.getImageDescriptor("icons/project.png").createImage();
@@ -130,7 +130,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 				if (workspaceButton.getSelection()) {
 					workingSetCombo.getCombo().setEnabled(false);
 					projectCombo.getCombo().setEnabled(false);
-					setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
+					setInput(new ProjectVisualizationInput());
 				}
 			}
 		});
@@ -146,7 +146,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(false);
 					IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(ProjectVisualizationInput.EMPTY);
+						setInput(IVisualizationInput.EMPTY);
 					} else {
 						setInput(new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement()));
 					}
@@ -180,7 +180,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 					projectCombo.getCombo().setEnabled(true);
 					IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(ProjectVisualizationInput.EMPTY);
+						setInput(IVisualizationInput.EMPTY);
 					} else {
 						setInput(new ProjectVisualizationInput((IProject) comboSelection.getFirstElement()));
 					}
@@ -228,18 +228,18 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 	@Override
 	protected void refresh() {
 		if (workspaceButton.getSelection()) {
-			setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
+			setInput(new ProjectVisualizationInput());
 		} else if (workingSetButton.getSelection()) {
 			IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 			if (comboSelection.isEmpty()) {
-				setInput(ProjectVisualizationInput.EMPTY);
+				setInput(IVisualizationInput.EMPTY);
 			} else {
 				setInput(new ProjectVisualizationInput((IWorkingSet) comboSelection.getFirstElement()));
 			}
 		} else if (projectButton.getSelection()) {
 			IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 			if (comboSelection.isEmpty()) {
-				setInput(ProjectVisualizationInput.EMPTY);
+				setInput(IVisualizationInput.EMPTY);
 			} else {
 				setInput(new ProjectVisualizationInput((IProject) comboSelection.getFirstElement()));
 			}
@@ -251,7 +251,7 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 		workspaceButton.setSelection(true);
 		workingSetCombo.getCombo().setEnabled(false);
 		projectCombo.getCombo().setEnabled(false);
-		setInput(new ProjectVisualizationInput(ResourcesPlugin.getWorkspace().getRoot()));
+		setInput(new ProjectVisualizationInput());
 	}
 
 	public void setScope(IWorkingSet workingSet) {

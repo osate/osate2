@@ -34,8 +34,8 @@ import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 import org.osate.ui.OsateUiPlugin;
 
-abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
-	private AbstractVisualizationInput<T> input;
+abstract class AbstractDependencyVisualizationView extends ViewPart {
+	private IVisualizationInput input;
 
 	private GraphViewer graph;
 
@@ -109,7 +109,7 @@ abstract class AbstractDependencyVisualizationView<T> extends ViewPart {
 		return graph.getStructuredSelection();
 	}
 
-	protected void setInput(AbstractVisualizationInput<T> input) {
+	protected void setInput(IVisualizationInput input) {
 		this.input = input;
 		graph.setInput(input);
 	}

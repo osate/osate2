@@ -41,7 +41,7 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.ui.OsateUiPlugin;
 
-public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisualizationView<IEObjectDescription> {
+public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisualizationView {
 	public static final String ID = "org.osate.ui.modelunitdependencyvisualization";
 
 	private final Image packageImage = OsateUiPlugin.getImageDescriptor("icons/package.gif").createImage();
@@ -185,7 +185,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 					modelUnitCombo.getCombo().setEnabled(false);
 					IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(ModelUnitVisualizationInput.EMPTY);
+						setInput(IVisualizationInput.EMPTY);
 					} else {
 						setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 								(IWorkingSet) comboSelection.getFirstElement()));
@@ -221,7 +221,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 					modelUnitCombo.getCombo().setEnabled(false);
 					IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(ModelUnitVisualizationInput.EMPTY);
+						setInput(IVisualizationInput.EMPTY);
 					} else {
 						setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 								(IProject) comboSelection.getFirstElement()));
@@ -257,7 +257,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 					modelUnitCombo.getCombo().setEnabled(true);
 					IStructuredSelection comboSelection = modelUnitCombo.getStructuredSelection();
 					if (comboSelection.isEmpty()) {
-						setInput(ModelUnitVisualizationInput.EMPTY);
+						setInput(IVisualizationInput.EMPTY);
 					} else {
 						setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 								((IEObjectDescription) comboSelection.getFirstElement()).getEObjectURI()));
@@ -328,7 +328,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 		} else if (workingSetButton.getSelection()) {
 			IStructuredSelection comboSelection = workingSetCombo.getStructuredSelection();
 			if (comboSelection.isEmpty()) {
-				setInput(ModelUnitVisualizationInput.EMPTY);
+				setInput(IVisualizationInput.EMPTY);
 			} else {
 				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 						(IWorkingSet) comboSelection.getFirstElement()));
@@ -336,7 +336,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 		} else if (projectButton.getSelection()) {
 			IStructuredSelection comboSelection = projectCombo.getStructuredSelection();
 			if (comboSelection.isEmpty()) {
-				setInput(ModelUnitVisualizationInput.EMPTY);
+				setInput(IVisualizationInput.EMPTY);
 			} else {
 				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 						(IProject) comboSelection.getFirstElement()));
@@ -344,7 +344,7 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 		} else if (modelUnitButton.getSelection()) {
 			IStructuredSelection comboSelection = modelUnitCombo.getStructuredSelection();
 			if (comboSelection.isEmpty()) {
-				setInput(ModelUnitVisualizationInput.EMPTY);
+				setInput(IVisualizationInput.EMPTY);
 			} else {
 				setInput(ModelUnitVisualizationInput.create(resourceDescriptions,
 						((IEObjectDescription) comboSelection.getFirstElement()).getEObjectURI()));

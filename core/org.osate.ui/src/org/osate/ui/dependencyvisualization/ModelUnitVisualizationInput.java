@@ -27,9 +27,6 @@ import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.osate.aadl2.Aadl2Package;
 
 class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDescription> {
-	final static ModelUnitVisualizationInput EMPTY = new ModelUnitVisualizationInput(Collections.emptyList(),
-			Collections.emptyMap(), Collections.emptyMap());
-
 	private final Map<IEObjectDescription, Set<IEObjectDescription>> referencingModelUnits;
 	private final Map<IEObjectDescription, Set<IEObjectDescription>> referencedModelUnits;
 
@@ -123,7 +120,7 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 	}
 
 	@Override
-	Object[] getGraphElements() {
+	public Object[] getGraphElements() {
 		Set<IEObjectDescription> allModelUnits = new LinkedHashSet<>();
 		for (IEObjectDescription modelUnit : scopedElements) {
 			allModelUnits.add(modelUnit);
@@ -136,12 +133,12 @@ class ModelUnitVisualizationInput extends AbstractVisualizationInput<IEObjectDes
 	}
 
 	@Override
-	Object[] getConnectedTo(Object entity) {
+	public Object[] getConnectedTo(Object entity) {
 		return referencedModelUnits.getOrDefault(entity, Collections.emptySet()).toArray();
 	}
 
 	@Override
-	Stream<IEObjectDescription> getConnectedToBothDirections(Object entity) {
+	public Stream<IEObjectDescription> getConnectedToBothDirections(Object entity) {
 		Set<IEObjectDescription> referencing = referencingModelUnits.getOrDefault(entity, Collections.emptySet());
 		Set<IEObjectDescription> referenced = referencedModelUnits.getOrDefault(entity, Collections.emptySet());
 		return Stream.concat(referencing.stream(), referenced.stream());
