@@ -615,34 +615,6 @@
   </setupTask>
   <setupTask
       xsi:type="setup:CompoundTask"
-      id="smaccm"
-      name="SMACCM">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="git.clone.smaccm"
-        location="${git.clone.location/smaccm}"
-        remoteURI="smaccm/smaccm"
-        pushURI="">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>SMACCM Github repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Clone SMACCM repository</description>
-    </setupTask>
-  </setupTask>
-  <setupTask
-      xsi:type="setup:CompoundTask"
       id="ocarina"
       name="Ocarina bridge">
     <setupTask
@@ -771,23 +743,6 @@
           rootFolder="${git.clone.osate2.location}"/>
       <sourceLocator
           rootFolder="${git.clone.ocarina.location}"/>
-      <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/agree}">
-        <excludedPath>edu.umn.cs.crisys.agree.realtime</excludedPath>
-      </sourceLocator>
-      <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"/>
-      <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/simulator}">
-        <excludedPath>edu.uah.rsesc.aadlsimulator.agree.eval.test</excludedPath>
-      </sourceLocator>
-      <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/tcg}">
-        <excludedPath>com.rockwellcollins.atc.tcg.feature</excludedPath>
-        <excludedPath>com.rockwellcollins.atc.tcg.standalone</excludedPath>
-      </sourceLocator>
-      <sourceLocator
-          rootFolder="${git.clone.smaccm.location/fm-workbench/z3}"/>
       <repositoryList
           name="2018-12">
         <repository
@@ -857,15 +812,6 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/alisa/.*"/>
-      </predicate>
-    </workingSet>
-    <workingSet
-        name="smaccm">
-      <predicate
-          xsi:type="predicates:AndPredicate">
-        <operand
-            xsi:type="predicates:RepositoryPredicate"
-            project="edu.uah.rsesc.aadlsimulator"/>
       </predicate>
     </workingSet>
     <workingSet
