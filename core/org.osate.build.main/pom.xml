@@ -31,6 +31,33 @@
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 	</properties>
 
+	<!-- Begin metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
+	<name>OSATE-Core</name>
+	<description>The Open Source Architecture Tool Environment, an Eclipse-based editing environment for the Architecture Analysis and Design Language</description>
+	<url>http://osate.org</url>
+
+	<licenses>
+		<license>
+			<name>Eclipse Public License Version 2.0</name>
+			<url>https://www.eclipse.org/legal/epl-2.0/</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<email>info@sei.cmu.edu</email>
+			<organization>Software Engineering Institute</organization>
+			<organizationUrl>https://www.sei.cmu.edu/</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/osate/osate2.git</connection>
+		<developerConnection>scm:git:ssh://github.com:osate/osate2.git</developerConnection>
+		<url>http://github.com/osate/osate2/tree/master</url>
+	</scm>
+	<!-- End metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
+
 	<profiles>
 		<profile>
 			<id>pr-build</id>
@@ -336,6 +363,54 @@
 						</configuration>
 					</execution>
 				</executions>
+				<!-- workaround for dependency issue, see https://github.com/eclipse/xtext/issues/1231 -->
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.platform</groupId>
+						<artifactId>org.eclipse.equinox.common</artifactId>
+						<version>3.10.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.jdt</groupId>
+						<artifactId>org.eclipse.jdt.core</artifactId>
+						<version>3.13.102</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.jdt</groupId>
+						<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
+						<version>1.3.110</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.jdt</groupId>
+						<artifactId>org.eclipse.jdt.compiler.tool</artifactId>
+						<version>1.2.101</version>
+					</dependency>
+                    <dependency>
+                        <groupId>org.eclipse.emf</groupId>
+                        <artifactId>org.eclipse.emf.common</artifactId>
+                        <version>2.12.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.emf</groupId>
+                        <artifactId>org.eclipse.emf.ecore</artifactId>
+                        <version>2.12.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.emf</groupId>
+                        <artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+                        <version>2.12.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.emf</groupId>
+                        <artifactId>org.eclipse.emf.codegen</artifactId>
+                        <version>2.11.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.emf</groupId>
+                        <artifactId>org.eclipse.emf.codegen.ecore</artifactId>
+                        <version>2.12.0</version>
+                    </dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>

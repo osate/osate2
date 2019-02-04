@@ -1,5 +1,7 @@
 package org.osate.aadl2.errormodel.FaultTree.util;
 
+import java.math.BigDecimal;
+
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
@@ -34,7 +36,7 @@ public class FaultTreeExport {
 		report.addOutput("<event");
 		report.addOutput(" id=\"" + root.getName() + "\" ");
 
-		if (root.getProbability() != 0.0) {
+		if (root.getProbability().compareTo(FaultTreeUtils.BigZero) != 0) {
 			report.addOutput(" probability=\"" + root.getProbability() + "\"");
 		}
 
@@ -58,7 +60,7 @@ public class FaultTreeExport {
 	}
 
 	private static void toPED(WriteToFile report, Event root) {
-		double prob;
+		BigDecimal prob;
 		String description;
 
 		if (root.getType() != EventType.INTERMEDIATE) {
@@ -67,8 +69,8 @@ public class FaultTreeExport {
 			 * A probability of 0 makes the whole thing crash.
 			 * So, we put a default prob of 0.1
 			 */
-			if (prob == 0) {
-				prob = 0.1;
+			if (prob.compareTo(FaultTreeUtils.BigZero) == 0) {
+				prob = new BigDecimal(0.1);
 			}
 			if (root.getMessage() != null) {
 				description = root.getMessage();

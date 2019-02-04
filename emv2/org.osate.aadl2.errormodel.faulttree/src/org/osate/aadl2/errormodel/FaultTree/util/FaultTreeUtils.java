@@ -1,5 +1,7 @@
 package org.osate.aadl2.errormodel.FaultTree.util;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -288,7 +290,8 @@ public class FaultTreeUtils {
 		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
 		NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
 		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
-		event.setAssignedProbability(EMV2Properties.getProbability(io, ne, type));
+		event.setAssignedProbability(
+				new BigDecimal(EMV2Properties.getProbability(io, ne, type), MathContext.UNLIMITED));
 	}
 
 	public static String getName(ComponentInstance component) {
@@ -357,9 +360,7 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ErrorPropagation) {
-			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
 			String boundaryLabel = "";
-			String epname = EMV2Util.getPrintName(ep);
 			if (event.getType() == EventType.EXTERNAL) {
 				boundaryLabel = "external";
 			} else if (event.getType() == EventType.UNDEVELOPED) {
@@ -398,6 +399,9 @@ public class FaultTreeUtils {
 		return description;
 	}
 
+	public static BigDecimal BigZero = new BigDecimal(0.0);
+	public static BigDecimal BigOne = new BigDecimal(1.0);
+
 	/**
 	 * return computed & spec probability - if computed is zero then only spec.
 	 * @param context
@@ -406,7 +410,8 @@ public class FaultTreeUtils {
 	public static String getProbability(EObject context) {
 		Event ev = (Event) context;
 		String specProb = "";
-		if (ev.getComputedProbability() != 0.0 && ev.getAssignedProbability() != 0.0) {
+		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
+				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
 			specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
 		}
 		return String.format("%1$.1e%2$s", ev.getProbability(), specProb) + getScale(context);
@@ -419,7 +424,7 @@ public class FaultTreeUtils {
 	 */
 	public static String getAssignedProbability(EObject context) {
 		Event ev = (Event) context;
-		if (ev.getAssignedProbability() == 0.0) {
+		if (ev.getAssignedProbability() == null || ev.getAssignedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
 		return String.format("%1$.1e", ev.getAssignedProbability()) + getScale(context);
@@ -432,7 +437,7 @@ public class FaultTreeUtils {
 	 */
 	public static String getComputedProbability(EObject context) {
 		Event ev = (Event) context;
-		if (ev.getComputedProbability() == 0.0) {
+		if (ev.getComputedProbability() == null || ev.getComputedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
 		return String.format("%1$.1e", ev.getComputedProbability()) + getScale(context);
@@ -441,7 +446,7 @@ public class FaultTreeUtils {
 	// return scaling factor if different from 1.0, otherwise empty string
 	public static String getScale(EObject context) {
 		Event ev = (Event) context;
-		if (ev.getScale() == 1.0) {
+		if (ev.getScale() == null || ev.getScale().compareTo(BigOne) == 0) {
 			return "";
 		}
 		return String.format(" * %1$.1f", ev.getScale());
@@ -493,7 +498,6 @@ public class FaultTreeUtils {
 	public static String getHazardDescription(EObject context) {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
-			FaultTree ft = (FaultTree) ev.eContainer();
 			String hazardDescription = EMV2Properties.getHazardDescription(
 					(InstanceObject) ev.getRelatedInstanceObject(), (NamedElement) ev.getRelatedEMV2Object(),
 					(ErrorTypes) ev.getRelatedErrorType());
@@ -540,7 +544,7 @@ public class FaultTreeUtils {
 	 * @param event
 	 * @return double
 	 */
-	public static double getSubeventProbabilities(Event event) {
+	public static BigDecimal getSubeventProbabilities(Event event) {
 		if (!event.getSubEvents().isEmpty()) {
 			switch (event.getSubEventLogic()) {
 			case AND: {
@@ -561,7 +565,7 @@ public class FaultTreeUtils {
 			}
 			default: {
 				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
-				return 1.0;
+				return BigOne;
 			}
 			}
 		} else {
@@ -571,41 +575,41 @@ public class FaultTreeUtils {
 
 	// P(A or B) = P(A) + P(B) - P(A and B)
 	// calculated as 1 - P(!A and !B) = 1 - (1 - P(A))*(1-P(B))
-	public static double pOREvents(Event event) {
-		double inverseProb = 1;
+	public static BigDecimal pOREvents(Event event) {
+		BigDecimal inverseProb = BigOne;
 		for (Event subEvent : event.getSubEvents()) {
-			inverseProb *= (1 - getScaledProbability(subEvent));
+			inverseProb = inverseProb.multiply((BigOne.subtract(getScaledProbability(subEvent))));
 		}
-		return 1 - inverseProb;
+		return BigOne.subtract(inverseProb);
 	}
 
-	public static double pANDEvents(Event event) {
-		double result = 1;
+	public static BigDecimal pANDEvents(Event event) {
+		BigDecimal result = BigOne;
 		for (Event subEvent : event.getSubEvents()) {
-			result = result * getScaledProbability(subEvent);
+			result = result.multiply(getScaledProbability(subEvent));
 		}
 		return result;
 	}
 
 	// Sum P(Xi)*P(!Xk) for k <> i k in 1..n
-	public static double p1OFEvents(Event event) {
-		double result = 0;
+	public static BigDecimal p1OFEvents(Event event) {
+		BigDecimal result = BigZero;
 		for (Event subEvent : event.getSubEvents()) {
-			double subresult = 1;
+			BigDecimal subresult = BigOne;
 			for (Event notEvent : event.getSubEvents()) {
 				if (subEvent == notEvent) {
-					subresult = subresult * getScaledProbability(subEvent);
+					subresult = subresult.multiply(getScaledProbability(subEvent));
 				} else {
-					subresult = subresult * (1 - getScaledProbability(subEvent));
+					subresult = subresult.multiply((BigOne.subtract(getScaledProbability(subEvent))));
 				}
 			}
-			result = result + subresult;
+			result = result.add(subresult);
 		}
 		return result;
 	}
 
-	public static double getScaledProbability(Event event) {
-		return event.getProbability() * event.getScale();
+	public static BigDecimal getScaledProbability(Event event) {
+		return event.getProbability().multiply(event.getScale());
 	}
 
 	public static void fillProbabilities(FaultTree ftaModel) {
@@ -623,7 +627,7 @@ public class FaultTreeUtils {
 			for (Event e : event.getSubEvents()) {
 				computeProbabilities(e);
 			}
-			double subtotalprobability = getSubeventProbabilities(event);
+			BigDecimal subtotalprobability = getSubeventProbabilities(event);
 			event.setComputedProbability(subtotalprobability);
 		}
 	}
