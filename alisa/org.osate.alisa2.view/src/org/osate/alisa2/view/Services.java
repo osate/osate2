@@ -27,7 +27,6 @@ public class Services {
 	public Collection<EObject> getNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
 		// Get the features
-//		((ComponentInstance) self).get
 		for (FeatureInstance fi : ((ComponentInstance) self).getAllFeatureInstances()) {
 			// Get their connections
 			for (ConnectionInstance ci : fi.getAllEnclosingConnectionInstances()) {
@@ -45,7 +44,26 @@ public class Services {
 		return ret;
 	}
 
+	public EList<ComponentInstance> getAllComponents(EObject self) {
+		return ((ComponentInstance) self).getAllComponentInstances();
+	}
+
 	public EList<ConnectionInstance> getAllConnectionInstances(EObject self) {
 		return ((ComponentInstance) self).getConnectionInstances();
+	}
+
+	public boolean isLeafComponent(EObject self) {
+		return ((ComponentInstance) self).getAllComponentInstances().size() == 1;
+	}
+
+	public boolean isNestedComponent(EObject self) {
+		return ((ComponentInstance) self).getContainingComponentInstance() != null;
+	}
+
+	public boolean isHardware(EObject self) {
+		// XXX TODO FIXME
+		// See usage in ContainedTopology->NoHardware->MappingFilterHIDE
+		// just enumerate HW elements -- ie, is processor, etc. Check instanceutil, there may be something there\
+		return false;
 	}
 }
