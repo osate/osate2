@@ -34,6 +34,24 @@ import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalShift;
 import org.osate.ui.OsateUiPlugin;
 
+/**
+ * This class contains the code common to {@link ProjectDependencyVisualizationView} and
+ * {@link ModelUnitDependencyVisualizationView}. Each view has a graph, control group, context menu, and refresh
+ * button. The input object for the graph is an {@link IVisualizationInput}. This is the model object which handles all
+ * the non-UI information necessary to build a directed graph.
+ * 
+ * The graph has a concept of which elements are in the scope and which are out of scope. The scope is specified when
+ * setting the input to the graph. For example, a scope could be all projects in a working set. When building the
+ * graph, the elements in the scope serve as the starting point and all dependencies are calculated from the scope.
+ * This means that the final graph may contain elements that are outside of the scope. The elements in the scope have a
+ * light blue background while the elements outside of the scope have a white and gray background. This is handled by
+ * the graph's label provider which queries {@link IVisualizationInput#isInScope(Object)}.
+ * 
+ * If the user selects a node, that node will be highlighted yellow and all directly connected nodes will be
+ * highlighted orange. The direct connection lines will also be highlighted red and become dashed. This is handled by
+ * the graph's label provider which queries the graph selection and
+ * {@link IVisualizationInput#getConnectedToBothDirections(Object)}.
+ */
 abstract class AbstractDependencyVisualizationView extends ViewPart {
 	private IVisualizationInput input;
 
@@ -93,22 +111,45 @@ abstract class AbstractDependencyVisualizationView extends ViewPart {
 		graph.getGraphControl().setFocus();
 	}
 
+	/**
+	 * This is called when the user opens the graph's context menu. Subclasses should fill the manager with
+	 * appropriate actions.
+	 */
 	protected abstract void menuAboutToShow(IMenuManager manager);
 
+	/**
+	 * Subclasses should fill the control composite with radio buttons and combo boxes for controlling the scope of the
+	 * graph.
+	 */
 	protected abstract void fillControlComposite(Composite parent);
 
+	/**
+	 * Called by the graph's label provider.
+	 */
 	protected abstract Image getImage(Object element);
 
+	/**
+	 * Called by the graph's label provider.
+	 */
 	protected abstract String getText(Object element);
 
+	/**
+	 * When called, subclasses should refresh the graph input based on the current scope.
+	 */
 	protected abstract void refresh();
 
+	/**
+	 * Sets the initial scope for the graph.
+	 */
 	protected abstract void setScopeToWorkspace();
 
 	protected IStructuredSelection getGraphSelection() {
 		return graph.getStructuredSelection();
 	}
 
+	/**
+	 * Call to update the content of the graph.
+	 */
 	protected void setInput(IVisualizationInput input) {
 		this.input = input;
 		graph.setInput(input);
