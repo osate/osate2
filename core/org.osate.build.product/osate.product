@@ -44,8 +44,6 @@
       <feature id="org.osate.ge.feature" installMode="root"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
