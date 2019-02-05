@@ -6,9 +6,9 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 
 /**
@@ -26,20 +26,36 @@ public class Services {
 
 	public Collection<EObject> getNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
+		Set<ConnectionInstance> cis = new HashSet<>();
 		// Get the features
 		for (FeatureInstance fi : ((ComponentInstance) self).getAllFeatureInstances()) {
 			// Get their connections
+			cis.clear();
+			cis.addAll(fi.getDstConnectionInstances());
 			for (ConnectionInstance ci : fi.getAllEnclosingConnectionInstances()) {
-				// Get their sources or destinations
-				if (fi.getDirection() == DirectionType.IN) {
-					ret.add(ci.getSource().getContainingComponentInstance());
-				} else if (fi.getDirection() == DirectionType.OUT) {
-					ret.add(ci.getDestination().getContainingComponentInstance());
-				} else { // fi.getDirection() == IN_OUT
-					ret.add(ci.getSource().getContainingComponentInstance());
-					ret.add(ci.getDestination().getContainingComponentInstance());
+				ConnectionInstanceEnd cieSrc = ci.getSource();
+				ConnectionInstanceEnd cieDst = ci.getDestination();
+				ComponentInstance srcCI = cieSrc.getContainingComponentInstance();
+				ComponentInstance dstCI = cieDst.getContainingComponentInstance();
+				if (srcCI == self) {
+					ret.add(dstCI);
+				} else if (dstCI == self) {
+					ret.add(srcCI);
 				}
+				cieSrc = null;
 			}
+//			cis.addAll(fi.getSrcConnectionInstances());
+//			for (ConnectionInstance ci : cis) {
+//				// Get their sources or destinations
+//				if (fi.getDirection() == DirectionType.IN) {
+//					ret.add(ci.getSource().getContainingComponentInstance());
+//				} else if (fi.getDirection() == DirectionType.OUT) {
+//					ret.add(ci.getDestination().getContainingComponentInstance());
+//				} else { // fi.getDirection() == IN_OUT
+//					ret.add(ci.getSource().getContainingComponentInstance());
+//					ret.add(ci.getDestination().getContainingComponentInstance());
+//				}
+//			}
 		}
 		return ret;
 	}
