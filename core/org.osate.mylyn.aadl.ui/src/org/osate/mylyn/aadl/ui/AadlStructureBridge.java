@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,10 +25,13 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.core.AadlNature;
 import org.osate.ui.UiUtil;
 
 public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public final static String CONTENT_TYPE = "AADL";
+
+	private final static String AADL_PROJECT_PREFIX = "[AADLProject]::";
 
 	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 	private final ILabelProvider modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
@@ -56,6 +61,9 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 		if (object instanceof Element) {
 			final String uriString = EcoreUtil.getURI((Element) object).toString();
 			return uriString;
+		} else if (object instanceof IProject) {
+			final String path = ((IResource) object).getFullPath().toPortableString();
+			return AADL_PROJECT_PREFIX + path.substring(1);
 		} else if (object instanceof IAdaptable) {
 			final Object adapter = ((IAdaptable) object).getAdapter(Element.class);
 			if (adapter instanceof Element) {
@@ -90,7 +98,12 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 		 * and reutrn null.
 		 */
 		try {
-			return resourceSet.getEObject(URI.createURI(handle), true);
+			if (handle.charAt(0) == '[') {
+				final String projectName = handle.substring(AADL_PROJECT_PREFIX.length());
+				return ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+			} else {
+				return resourceSet.getEObject(URI.createURI(handle), true);
+			}
 		} catch (final Exception e) {
 			return null;
 		}
@@ -137,7 +150,10 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public boolean acceptsObject(final Object object) {
-		if (object instanceof IResource) {
+		if (object instanceof IProject) {
+			final IProject project = (IProject) object;
+			return AadlNature.hasNature(project);
+		} else if (object instanceof IResource) {
 			final Object adapter = ((IResource) object).getAdapter(Element.class);
 			final boolean b = adapter instanceof Element;
 			return b;

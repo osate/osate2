@@ -13,12 +13,12 @@
          point="org.eclipse.mylyn.context.ui.bridges">
       <uiBridge
             class="org.osate.mylyn.aadl.ui.AadlUiBridge"
-            contentType="aadl"/>
+            contentType="AADL"/>
    </extension>
 
-   <!--extension
+   <extension
          point="org.eclipse.mylyn.context.ui.startup">
       <startup
-            class="org.osate.mylyn.aadl.ui.Startup" />
-   </extension-->
+            class="org.osate.mylyn.aadl.ui.AadlBridgePlugin$Startup" />
+   </extension>
 </plugin>
