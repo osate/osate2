@@ -179,7 +179,7 @@ public class JUnit4MethodImpl extends MethodKindImpl implements JUnit4Method
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (classPath: ");
     result.append(classPath);
     result.append(')');

@@ -273,7 +273,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-   * 
+   *
    * <p>This method is used to initialize {@link VerifyPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
@@ -288,7 +288,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     if (isInited) return (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
 
     // Obtain or create and register package
-    VerifyPackageImpl theVerifyPackage = (VerifyPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof VerifyPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new VerifyPackageImpl());
+    Object registeredVerifyPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    VerifyPackageImpl theVerifyPackage = registeredVerifyPackage instanceof VerifyPackageImpl ? (VerifyPackageImpl)registeredVerifyPackage : new VerifyPackageImpl();
 
     isInited = true;
 
@@ -309,7 +310,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Mark meta-data to indicate it can't be changed
     theVerifyPackage.freeze();
 
-  
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(VerifyPackage.eNS_URI, theVerifyPackage);
     return theVerifyPackage;

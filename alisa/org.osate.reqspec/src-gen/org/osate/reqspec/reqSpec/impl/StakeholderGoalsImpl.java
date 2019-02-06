@@ -372,7 +372,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (componentCategory: ");
     result.append(componentCategory);
     result.append(')');

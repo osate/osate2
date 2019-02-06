@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
 <booleanAttribute key="M2_DEBUG_OUTPUT" value="false"/>
-<stringAttribute key="M2_GOALS" value="clean install"/>
+<stringAttribute key="M2_GOALS" value="-T 1C clean install"/>
 <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value="local"/>
@@ -9,12 +9,13 @@
 <listEntry value="jgit.dirtyWorkingTree=warning"/>
 <listEntry value="pr.build=false"/>
 <listEntry value="tycho.localArtifacts=ignore"/>
+<listEntry value="sign=true"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
-<intAttribute key="M2_THREADS" value="4"/>
+<intAttribute key="M2_THREADS" value="1"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="true"/>
-<stringAttribute key="M2_USER_SETTINGS" value=""/>
+<stringAttribute key="M2_USER_SETTINGS" value="${workspace_loc:/osate.releng/settings.xml}"/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
 <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${workspace}"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>

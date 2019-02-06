@@ -190,7 +190,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (function: ");
 		result.append(function);
 		result.append(')');

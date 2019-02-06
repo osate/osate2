@@ -291,7 +291,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (realvalue: ");
     result.append(realvalue);
     result.append(", others: ");
