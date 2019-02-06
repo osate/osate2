@@ -243,9 +243,10 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		}
 
 		// Obtain or create and register package
-		InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-						: new InstancePackageImpl());
+		Object registeredInstancePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		InstancePackageImpl theInstancePackage = registeredInstancePackage instanceof InstancePackageImpl
+				? (InstancePackageImpl) registeredInstancePackage
+				: new InstancePackageImpl();
 
 		isInited = true;
 

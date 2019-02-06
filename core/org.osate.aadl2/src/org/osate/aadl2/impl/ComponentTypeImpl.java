@@ -723,7 +723,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noFeatures: ");
 		result.append(noFeatures);
 		result.append(')');

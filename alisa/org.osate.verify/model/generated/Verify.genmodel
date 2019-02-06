@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.verify.editor/src" modelPluginID="org.osate.verify"
     forceOverwrite="true" modelName="Verify" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.verify.edit"
-    editorPluginID="org.osate.verify.editor" runtimeVersion="2.13" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec">
+    editorPluginID="org.osate.verify.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec">
   <genPackages prefix="Verify" basePackage="org.osate.verify" disposableProviderFactory="true"
       fileExtensions="verify,methodregistry" ecorePackage="Verify.ecore#/">
     <genClasses ecoreClass="Verify.ecore#//Verification">
