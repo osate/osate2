@@ -21,4 +21,24 @@
       <startup
             class="org.osate.mylyn.aadl.ui.AadlBridgePlugin$Startup" />
    </extension>
+
+	<extension
+         point="org.eclipse.ui.navigator.viewer">
+		<viewerContentBinding 
+            viewerId="org.eclipse.mylyn.context.ui.navigator.context">
+			<includes>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+    		</includes>
+		</viewerContentBinding>
+		<viewerContentBinding 
+			viewerId="org.eclipse.mylyn.context.ui.navigator.context.quick">
+			<includes>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+			</includes>
+		</viewerContentBinding>
+   </extension>
 </plugin>
