@@ -1998,9 +1998,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		}
 
 		// Obtain or create and register package
-		Aadl2PackageImpl theAadl2Package = (Aadl2PackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof Aadl2PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
-						: new Aadl2PackageImpl());
+		Object registeredAadl2Package = EPackage.Registry.INSTANCE.get(eNS_URI);
+		Aadl2PackageImpl theAadl2Package = registeredAadl2Package instanceof Aadl2PackageImpl
+				? (Aadl2PackageImpl) registeredAadl2Package
+				: new Aadl2PackageImpl();
 
 		isInited = true;
 

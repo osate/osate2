@@ -336,7 +336,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (upto: ");
     result.append(upto);
     result.append(')');

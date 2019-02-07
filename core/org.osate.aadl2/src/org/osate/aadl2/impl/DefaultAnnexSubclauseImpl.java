@@ -310,7 +310,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sourceText: ");
 		result.append(sourceText);
 		result.append(')');
