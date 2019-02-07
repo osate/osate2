@@ -33,11 +33,6 @@
 <setEntry value="edu.cmu.emfta.feature:default"/>
 <setEntry value="edu.uah.rsesc.aadlsimulator.agree.feature:default"/>
 <setEntry value="edu.uah.rsesc.aadlsimulator.feature:default"/>
-<setEntry value="it.xsemantics.doc.feature:default"/>
-<setEntry value="it.xsemantics.examples.feature:default"/>
-<setEntry value="it.xsemantics.feature:default"/>
-<setEntry value="it.xsemantics.runtime.feature:default"/>
-<setEntry value="it.xsemantics.sdk:default"/>
 <setEntry value="net.dependableos.dcase.feature:default"/>
 <setEntry value="org.eclipse.birt.report.designer.editor.xml.wtp:default"/>
 <setEntry value="org.eclipse.birt:default"/>
@@ -128,6 +123,11 @@
 <setEntry value="org.eclipse.wst.xml_core.feature:default"/>
 <setEntry value="org.eclipse.wst.xml_ui.feature:default"/>
 <setEntry value="org.eclipse.wst.xml_userdoc.feature:default"/>
+<setEntry value="org.eclipse.xsemantics.doc.feature:default"/>
+<setEntry value="org.eclipse.xsemantics.examples.feature:default"/>
+<setEntry value="org.eclipse.xsemantics.feature:default"/>
+<setEntry value="org.eclipse.xsemantics.runtime.feature:default"/>
+<setEntry value="org.eclipse.xsemantics.sdk:default"/>
 <setEntry value="org.eclipse.xtext.runtime:default"/>
 <setEntry value="org.eclipse.xtext.ui:default"/>
 <setEntry value="org.eclipse.xtext.xbase.lib:default"/>

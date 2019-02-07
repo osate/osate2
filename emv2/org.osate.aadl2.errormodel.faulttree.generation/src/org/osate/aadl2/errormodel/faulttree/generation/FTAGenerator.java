@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.faulttree.generation;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -51,11 +52,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			if (rootStateOrPropagation instanceof ErrorBehaviorState) {
 				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
 					ftaRootEvent = (Event) traverseCompositeErrorStateOnly(rootComponent,
-							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, 1.0);
+							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, BigOne);
 
 				} else {
 					ftaRootEvent = (Event) traverseCompositeErrorState(rootComponent,
-							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, 1.0);
+							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, BigOne);
 				}
 			} else {
 				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
@@ -68,7 +69,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				} else {
 					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
 							(ErrorPropagation) rootStateOrPropagation,
-							rootComponentTypes, 1.0);
+							rootComponentTypes, BigOne);
 				}
 			}
 			if (ftaRootEvent == null) {
@@ -352,8 +353,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 */
 	private void normalizeEvent(Event event, List<Event> alternatives) {
 		for (Event alternative : alternatives) {
-			if (event.getScale() < 1.0) {
-				alternative.setScale(alternative.getScale() * event.getScale());
+			if (event.getScale().compareTo(FaultTreeUtils.BigOne) < 0) {
+				alternative.setScale(alternative.getScale().multiply(event.getScale()));
 			}
 		}
 		if (event.getSubEvents().isEmpty()) {
@@ -823,7 +824,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		Event result = finalizeAsOrEvents(component, errorPropagation, targetType, subResults);
 		if (result != null && result.getType() == EventType.INTERMEDIATE) {
 			result.setName(FaultTreeUtils.buildName(component, errorPropagation, targetType));
@@ -833,7 +834,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes targetType, double scale) {
+			ErrorTypes targetType, BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorPropagation, targetType);
 		newEvent.setScale(scale);
 		return newEvent;
@@ -841,7 +842,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorSource, type);
 		newEvent.setScale(scale);
 		return newEvent;
@@ -849,7 +850,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processConnectionErrorSource(ConnectionInstance conni, ErrorSource errorSource,
-			ErrorTypes typeTokenConstraint, double scale) {
+			ErrorTypes typeTokenConstraint, BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, conni, errorSource, typeTokenConstraint);
 		newEvent.setScale(scale);
 		return newEvent;
@@ -857,7 +858,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		Event res = FaultTreeUtils.createBasicEvent(ftaModel, component, incoming, type);
 		res.setScale(scale);
 		if (component instanceof SystemInstance) {
@@ -870,14 +871,14 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		return finalizeAsOrEvents(component, errorPropagation, targetType, subResults);
 	}
 
 	@Override
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult,
-			double scale) {
+			BigDecimal scale) {
 		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
 				component, opc, type);
 		return consolidated;
@@ -885,7 +886,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		if (subResults.size() == 1) {
 			Event result = (Event) subResults.get(0);
 			result.setRelatedInstanceObject(component);
@@ -903,7 +904,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, state, type);
 		newEvent.setScale(scale);
 		return newEvent;
@@ -911,7 +912,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, List<EObject> subResults, double scale) {
+			ErrorTypes type, List<EObject> subResults, BigDecimal scale) {
 		Event result = finalizeAsOrEvents(component, state, type, subResults);
 		if (result != null && result.getType() == EventType.INTERMEDIATE) {
 			result.setName(FaultTreeUtils.buildName(component, state, type));
@@ -921,7 +922,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
-			ErrorTypes type, EObject conditionResult, EObject stateResult, double scale) {
+			ErrorTypes type, EObject conditionResult, EObject stateResult, BigDecimal scale) {
 		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
 				component, source, type);
 		return consolidated;
@@ -929,7 +930,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		Event ftaEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorEvent, type);
 		ftaEvent.setScale(scale);
 		return ftaEvent;
@@ -937,28 +938,28 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	@Override
 	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		Event ftaEvent = finalizeAsAndEvents(component, condition, type, subResults);
 		return ftaEvent;
 	}
 
 	@Override
 	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
-			double scale, List<EObject> subResults) {
+			BigDecimal scale, List<EObject> subResults) {
 		Event ftaEvent = finalizeAsXOrEvents(component, condition, type, subResults);
 		return ftaEvent;
 	}
 
 	@Override
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		Event ftaEvent = finalizeAsOrEvents(component, condition, type, subResults);
 		return ftaEvent;
 	}
 
 	@Override
 	protected EObject processTypesetElements(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		return finalizeAsOrEvents(component, condition, type, subResults);
 	}
 

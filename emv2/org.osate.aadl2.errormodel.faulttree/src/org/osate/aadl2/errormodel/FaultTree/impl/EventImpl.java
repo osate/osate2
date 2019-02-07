@@ -3,6 +3,7 @@
 package org.osate.aadl2.errormodel.FaultTree.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -122,7 +123,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double ASSIGNED_PROBABILITY_EDEFAULT = 0.0;
+	protected static final BigDecimal ASSIGNED_PROBABILITY_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getAssignedProbability() <em>Assigned Probability</em>}' attribute.
@@ -132,7 +133,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected double assignedProbability = ASSIGNED_PROBABILITY_EDEFAULT;
+	protected BigDecimal assignedProbability = ASSIGNED_PROBABILITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getComputedProbability() <em>Computed Probability</em>}' attribute.
@@ -142,7 +143,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double COMPUTED_PROBABILITY_EDEFAULT = 0.0;
+	protected static final BigDecimal COMPUTED_PROBABILITY_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getComputedProbability() <em>Computed Probability</em>}' attribute.
@@ -152,7 +153,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected double computedProbability = COMPUTED_PROBABILITY_EDEFAULT;
+	protected BigDecimal computedProbability = COMPUTED_PROBABILITY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRelatedInstanceObject() <em>Related Instance Object</em>}' reference.
@@ -252,7 +253,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double SCALE_EDEFAULT = 1.0;
+	protected static final BigDecimal SCALE_EDEFAULT = new BigDecimal("1.0");
 
 	/**
 	 * The cached value of the '{@link #getScale() <em>Scale</em>}' attribute.
@@ -262,7 +263,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected double scale = SCALE_EDEFAULT;
+	protected BigDecimal scale = SCALE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -302,8 +303,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__NAME, oldName, name));
+		}
 	}
 
 	/**
@@ -325,8 +327,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__MESSAGE, oldMessage, message));
+		}
 	}
 
 	/**
@@ -361,8 +364,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setK(int newK) {
 		int oldK = k;
 		k = newK;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__K, oldK, k));
+		}
 	}
 
 	/**
@@ -371,7 +375,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 */
 	@Override
-	public double getAssignedProbability() {
+	public BigDecimal getAssignedProbability() {
 		return assignedProbability;
 	}
 
@@ -381,11 +385,12 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 */
 	@Override
-	public void setAssignedProbability(double newAssignedProbability) {
-		double oldAssignedProbability = assignedProbability;
+	public void setAssignedProbability(BigDecimal newAssignedProbability) {
+		BigDecimal oldAssignedProbability = assignedProbability;
 		assignedProbability = newAssignedProbability;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__ASSIGNED_PROBABILITY, oldAssignedProbability, assignedProbability));
+		}
 	}
 
 	/**
@@ -395,12 +400,18 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated NOT
 	 */
 	@Override
-	public double getProbability() {
-		if (this.getComputedProbability() == 0.0) {
-			return this.getAssignedProbability();
+	public BigDecimal getProbability() {
+		if (this.getComputedProbability() == null || this.getComputedProbability().compareTo(BigZero) == 0) {
+			if (this.getAssignedProbability() != null) {
+				return this.getAssignedProbability();
+			} else {
+				return BigZero;
+			}
 		}
 		return this.getComputedProbability();
 	}
+
+	public static BigDecimal BigZero = new BigDecimal(0.0);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -408,7 +419,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 */
 	@Override
-	public double getComputedProbability() {
+	public BigDecimal getComputedProbability() {
 		return computedProbability;
 	}
 
@@ -418,11 +429,12 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 */
 	@Override
-	public void setComputedProbability(double newComputedProbability) {
-		double oldComputedProbability = computedProbability;
+	public void setComputedProbability(BigDecimal newComputedProbability) {
+		BigDecimal oldComputedProbability = computedProbability;
 		computedProbability = newComputedProbability;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__COMPUTED_PROBABILITY, oldComputedProbability, computedProbability));
+		}
 	}
 
 	/**
@@ -436,8 +448,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedInstanceObject = (InternalEObject)relatedInstanceObject;
 			relatedInstanceObject = eResolveProxy(oldRelatedInstanceObject);
 			if (relatedInstanceObject != oldRelatedInstanceObject) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
+				}
 			}
 		}
 		return relatedInstanceObject;
@@ -461,8 +474,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedInstanceObject(EObject newRelatedInstanceObject) {
 		EObject oldRelatedInstanceObject = relatedInstanceObject;
 		relatedInstanceObject = newRelatedInstanceObject;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
+		}
 	}
 
 	/**
@@ -484,8 +498,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setReferenceCount(int newReferenceCount) {
 		int oldReferenceCount = referenceCount;
 		referenceCount = newReferenceCount;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__REFERENCE_COUNT, oldReferenceCount, referenceCount));
+		}
 	}
 
 	/**
@@ -507,8 +522,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setType(EventType newType) {
 		EventType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__TYPE, oldType, type));
+		}
 	}
 
 	/**
@@ -530,8 +546,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setSubEventLogic(LogicOperation newSubEventLogic) {
 		LogicOperation oldSubEventLogic = subEventLogic;
 		subEventLogic = newSubEventLogic == null ? SUB_EVENT_LOGIC_EDEFAULT : newSubEventLogic;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SUB_EVENT_LOGIC, oldSubEventLogic, subEventLogic));
+		}
 	}
 
 	/**
@@ -545,8 +562,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedEMV2Object = (InternalEObject)relatedEMV2Object;
 			relatedEMV2Object = eResolveProxy(oldRelatedEMV2Object);
 			if (relatedEMV2Object != oldRelatedEMV2Object) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
+				}
 			}
 		}
 		return relatedEMV2Object;
@@ -570,8 +588,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedEMV2Object(EObject newRelatedEMV2Object) {
 		EObject oldRelatedEMV2Object = relatedEMV2Object;
 		relatedEMV2Object = newRelatedEMV2Object;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
+		}
 	}
 
 	/**
@@ -579,7 +598,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getScale() {
+	@Override
+	public BigDecimal getScale() {
 		return scale;
 	}
 
@@ -588,11 +608,13 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setScale(double newScale) {
-		double oldScale = scale;
+	@Override
+	public void setScale(BigDecimal newScale) {
+		BigDecimal oldScale = scale;
 		scale = newScale;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__SCALE, oldScale, scale));
+		}
 	}
 
 	/**
@@ -606,8 +628,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			InternalEObject oldRelatedErrorType = (InternalEObject)relatedErrorType;
 			relatedErrorType = eResolveProxy(oldRelatedErrorType);
 			if (relatedErrorType != oldRelatedErrorType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
+				}
 			}
 		}
 		return relatedErrorType;
@@ -631,8 +654,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	public void setRelatedErrorType(EObject newRelatedErrorType) {
 		EObject oldRelatedErrorType = relatedErrorType;
 		relatedErrorType = newRelatedErrorType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
+		}
 	}
 
 	/**
@@ -656,10 +680,14 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
 				return getComputedProbability();
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-				if (resolve) return getRelatedInstanceObject();
+				if (resolve) {
+					return getRelatedInstanceObject();
+				}
 				return basicGetRelatedInstanceObject();
 			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
-				if (resolve) return getRelatedErrorType();
+				if (resolve) {
+					return getRelatedErrorType();
+				}
 				return basicGetRelatedErrorType();
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 				return getReferenceCount();
@@ -668,7 +696,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
 				return getSubEventLogic();
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-				if (resolve) return getRelatedEMV2Object();
+				if (resolve) {
+					return getRelatedEMV2Object();
+				}
 				return basicGetRelatedEMV2Object();
 			case FaultTreePackage.EVENT__SCALE:
 				return getScale();
@@ -699,10 +729,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setK((Integer)newValue);
 				return;
 			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-				setAssignedProbability((Double)newValue);
+				setAssignedProbability((BigDecimal)newValue);
 				return;
 			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-				setComputedProbability((Double)newValue);
+				setComputedProbability((BigDecimal)newValue);
 				return;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				setRelatedInstanceObject((EObject)newValue);
@@ -723,7 +753,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setRelatedEMV2Object((EObject)newValue);
 				return;
 			case FaultTreePackage.EVENT__SCALE:
-				setScale((Double)newValue);
+				setScale((BigDecimal)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -797,9 +827,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__K:
 				return k != K_EDEFAULT;
 			case FaultTreePackage.EVENT__ASSIGNED_PROBABILITY:
-				return assignedProbability != ASSIGNED_PROBABILITY_EDEFAULT;
+				return ASSIGNED_PROBABILITY_EDEFAULT == null ? assignedProbability != null : !ASSIGNED_PROBABILITY_EDEFAULT.equals(assignedProbability);
 			case FaultTreePackage.EVENT__COMPUTED_PROBABILITY:
-				return computedProbability != COMPUTED_PROBABILITY_EDEFAULT;
+				return COMPUTED_PROBABILITY_EDEFAULT == null ? computedProbability != null : !COMPUTED_PROBABILITY_EDEFAULT.equals(computedProbability);
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				return relatedInstanceObject != null;
 			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
@@ -813,7 +843,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
 				return relatedEMV2Object != null;
 			case FaultTreePackage.EVENT__SCALE:
-				return scale != SCALE_EDEFAULT;
+				return SCALE_EDEFAULT == null ? scale != null : !SCALE_EDEFAULT.equals(scale);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -839,7 +869,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy()) {
+			return super.toString();
+		}
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

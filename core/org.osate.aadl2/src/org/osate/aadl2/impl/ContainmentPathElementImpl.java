@@ -423,7 +423,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (annexName: ");
 		result.append(annexName);
 		result.append(')');

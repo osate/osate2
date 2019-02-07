@@ -43251,6 +43251,9 @@ public interface Aadl2Package extends EPackage {
 	 * Returns the meta object for data type '{@link java.lang.String <em>String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * <!-- end-model-doc -->
 	 * @return the meta object for data type '<em>String</em>'.
 	 * @see java.lang.String
 	 * @model instanceClass="java.lang.String"
@@ -43262,6 +43265,9 @@ public interface Aadl2Package extends EPackage {
 	 * Returns the meta object for data type '<em>Boolean</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * <!-- end-model-doc -->
 	 * @return the meta object for data type '<em>Boolean</em>'.
 	 * @model instanceClass="boolean"
 	 * @generated
@@ -43272,6 +43278,9 @@ public interface Aadl2Package extends EPackage {
 	 * Returns the meta object for data type '<em>Integer</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * <!-- end-model-doc -->
 	 * @return the meta object for data type '<em>Integer</em>'.
 	 * @model instanceClass="long"
 	 * @generated
@@ -43282,6 +43291,9 @@ public interface Aadl2Package extends EPackage {
 	 * Returns the meta object for data type '<em>Real</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * <!-- end-model-doc -->
 	 * @return the meta object for data type '<em>Real</em>'.
 	 * @model instanceClass="double"
 	 * @generated
