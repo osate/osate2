@@ -534,7 +534,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (allStates: ");
     result.append(allStates);
     result.append(')');

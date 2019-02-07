@@ -242,7 +242,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (methodPath: ");
     result.append(methodPath);
     result.append(')');

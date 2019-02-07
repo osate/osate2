@@ -15,6 +15,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>../../org.eclipse.papyrus.infra.discovery</module>
+		<module>../../org.eclipse.papyrus.infra.discovery.ui</module>
 		<module>../../org.osate.aadl2</module>
 		<module>../../org.osate.aadl2.edit</module>
 		<module>../../org.osate.aadl2.instance.textual</module>

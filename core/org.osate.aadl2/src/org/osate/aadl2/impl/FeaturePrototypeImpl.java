@@ -355,7 +355,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (in: ");
 		result.append(in);
 		result.append(", out: ");

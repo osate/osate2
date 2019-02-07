@@ -1,4 +1,4 @@
-module workflow.GenerateCommonAll
+module workflow.GenerateAll
 
 Workflow {
 	component = @StandaloneSetup {}
