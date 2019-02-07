@@ -291,7 +291,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (intValue: ");
     result.append(intValue);
     result.append(", enumLiteral: ");

@@ -10,7 +10,7 @@ Require-Bundle: org.osate.verify,
  org.eclipse.core.runtime,
  org.eclipse.xtext.junit4,
  org.eclipse.ui.workbench;resolution:=optional,
- org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
+ org.objectweb.asm;resolution:=optional,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.testing
 Import-Package: org.apache.log4j,
