@@ -16,14 +16,13 @@
 
 package org.osate.alisa.common.typing;
 
+import org.eclipse.xsemantics.runtime.StringRepresentation;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.PropertyType;
-
-import it.xsemantics.runtime.StringRepresentation;
 
 public class CommonStringRepresentation extends StringRepresentation {
 

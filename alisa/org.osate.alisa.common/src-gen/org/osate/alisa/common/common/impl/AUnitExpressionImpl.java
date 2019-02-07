@@ -391,7 +391,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (convert: ");
     result.append(convert);
     result.append(", drop: ");
