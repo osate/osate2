@@ -40,15 +40,15 @@ project nor have other projects refer to it are shown as unconnected nodes in th
 
 When **Working Set** is selected, all open projects in the selected working set are shown in the graph. In addition to
 that, any project outside of the working set that has a direct or indirect dependency connection to a project in the
-working set is also shown. These additional projects are considered to be outside of the scope, but are still
-displayed in the graph. Projects in the working set are shown with a light blue background color while projects outside
-of the scope are shown with a gray background color.
+working set is also shown. These additional projects are considered to be outside of the scope, but are still displayed
+in the graph. Projects in the working set are shown with a light blue background color while projects outside of the
+scope are shown with a gray background color.
 
 ### Project
 
-When **Project** is selected, only the selected project is considered to be in scope. The graph consists of that
-project plus any project that has a direct or indirect dependency connection to the selected project. The selected
-project is shown with a light blue background color while the other projects are shown with a gray background color.
+When **Project** is selected, only the selected project is considered to be in scope. The graph consists of that project
+plus any project that has a direct or indirect dependency connection to the selected project. The selected project is
+shown with a light blue background color while the other projects are shown with a gray background color.
 
 ### Setting the Scope
 
@@ -75,7 +75,7 @@ Nodes of the graph can be rearranged by dragging them around.
 
 When clicking on a node in the graph, that selected node will be highlighted along with any other node directly
 connected to it as well as the connections. This can be helpful for understanding complicated graphs. The selected node
-will have a yellow background color. Nodes directly connected to the selected node will have an orange background
-color. Connections in which one endpoint is the selected node will be red in color and dashed.
+will have a yellow background color. Nodes directly connected to the selected node will have an orange background color.
+Connections in which one endpoint is the selected node will be red in color and dashed.
 
 ![Direct Connections](images/dependencyVisualization/ProjectDirectConnections.png)
