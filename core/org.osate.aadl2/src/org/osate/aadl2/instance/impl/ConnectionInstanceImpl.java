@@ -656,7 +656,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (complete: "); //$NON-NLS-1$
 		result.append(complete);
 		result.append(", kind: "); //$NON-NLS-1$

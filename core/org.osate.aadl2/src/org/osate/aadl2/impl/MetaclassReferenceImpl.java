@@ -237,7 +237,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (annexName: ");
 		result.append(annexName);
 		result.append(", metaclassName: ");

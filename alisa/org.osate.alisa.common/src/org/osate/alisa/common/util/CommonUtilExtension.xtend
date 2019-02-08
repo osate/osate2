@@ -16,7 +16,7 @@
 
 package org.osate.alisa.common.util
 
-import it.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xsemantics.runtime.RuleEnvironment
 import java.util.Collection
 import java.util.HashMap
 import java.util.List

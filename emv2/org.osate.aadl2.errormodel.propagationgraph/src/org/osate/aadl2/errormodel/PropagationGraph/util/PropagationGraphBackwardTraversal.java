@@ -1,5 +1,6 @@
 package org.osate.aadl2.errormodel.PropagationGraph.util;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
@@ -51,6 +53,10 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
+
+	public static BigDecimal BigZero = new BigDecimal(0.0);
+	public static BigDecimal BigOne = new BigDecimal(1.0);
+
 	private PropagationGraph currentAnalysisModel;
 
 	public PropagationGraphBackwardTraversal(PropagationGraph m) {
@@ -70,7 +76,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	public EObject traverseOutgoingErrorPropagation(final ComponentInstance component,
-			final ErrorPropagation errorPropagation, ErrorTypes type, double scale) {
+			final ErrorPropagation errorPropagation, ErrorTypes type, BigDecimal scale) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = matchTargetType(errorPropagation.getTypeSet(), type);
 		if (type == null) {
@@ -126,10 +132,10 @@ public class PropagationGraphBackwardTraversal {
 					 * This is a fix for the JMR/SAVI WBS model.
 					 */
 					if (ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), errorPropagation)) {
-						double newscale = scale;
+						BigDecimal newscale = scale;
 						double pathprobability = EMV2Properties.getProbability(component, ep, type);
 						if (pathprobability > 0) {
-							newscale = scale * pathprobability;
+							newscale = scale.multiply(new BigDecimal(pathprobability));
 						}
 						if (ep.getTargetToken() != null) {
 							if (EMV2TypeSetUtil.contains(ep.getTargetToken(), type)) {
@@ -278,11 +284,11 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	private EObject handleOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, HashMultimap<ErrorFlow, String> handledFlows,
-			Collection<ErrorFlow> errorFlows, double scale) {
+			Collection<ErrorFlow> errorFlows, BigDecimal scale) {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
-			conditionResult = processCondition(component, opc.getCondition(), type, 1, false);
+			conditionResult = processCondition(component, opc.getCondition(), type, FaultTreeUtils.BigOne, false);
 		}
 		ErrorBehaviorState state = opc.getState();
 		if (state != null) {
@@ -312,7 +318,7 @@ public class PropagationGraphBackwardTraversal {
 				} else if (subResults.size() == 1) {
 					stateResult = subResults.get(0);
 				} else {
-					stateResult = postProcessXor(component, state, newtype, 1, subResults);
+					stateResult = postProcessXor(component, state, newtype, BigOne, subResults);
 				}
 			}
 		}
@@ -365,17 +371,17 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	public EObject traverseErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			double inscale) {
+			BigDecimal inscale) {
 		if (state == null) {
 			return null;
 		}
 		List<EObject> subResults = new LinkedList<EObject>();
 		preProcessErrorBehaviorState(component, state, type, inscale);
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
-		double combinedscale = inscale;
+		BigDecimal combinedscale = inscale;
 		for (ErrorBehaviorTransition ebt : transitions) {
 			ConditionExpression conditionExpression = null;
-			double branchscale = 1;
+			BigDecimal branchscale = BigOne;
 			boolean sameState = false;
 			ErrorTypes newtype = type;
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())
@@ -413,27 +419,27 @@ public class PropagationGraphBackwardTraversal {
 					if (conditionExpression != null) {
 						BranchValue val = transitionBranch.getValue();
 						if (val.getRealvalue() != null) {
-							branchscale = Double.valueOf(val.getRealvalue());
+							branchscale = new BigDecimal(val.getRealvalue());
 						} else if (val.getSymboliclabel() != null) {
 							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-								branchscale = EMV2Properties.getRealValue(emv2PropertyAssociation);
+								branchscale = new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation));
 							}
 						} else if (val.isOthers()) {
-							branchscale = 1.0;
+							branchscale = BigOne;
 							for (TransitionBranch tb : tbs) {
 								BranchValue valcount = tb.getValue();
 								if (valcount.getRealvalue() != null) {
-									branchscale = branchscale - Double.valueOf(valcount.getRealvalue());
+									branchscale = branchscale.subtract(new BigDecimal(valcount.getRealvalue()));
 								} else if (valcount.getSymboliclabel() != null) {
 									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
 											.getProperty(valcount.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 									for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-										branchscale = branchscale
-												- EMV2Properties.getRealValue(emv2PropertyAssociation);
+										branchscale = branchscale.subtract(
+												new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation)));
 									}
 								}
 							}
@@ -450,7 +456,7 @@ public class PropagationGraphBackwardTraversal {
 					newtype = mapTargetType(ebt.getTypeTokenConstraint(), type);
 				}
 			}
-			combinedscale = inscale * branchscale;
+			combinedscale = inscale.multiply(branchscale);
 			if (!sameState && conditionExpression != null) {
 				// don't include transition staying in same state
 				EObject conditionResult = processCondition(component, conditionExpression, type, combinedscale, false);
@@ -526,7 +532,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return an EObject related to the condition (can be null)
 	 */
 	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
-			double scale, boolean stateOnly) {
+			BigDecimal scale, boolean stateOnly) {
 		/**
 		 * We have an AND expression, so, we create an EVENT to AND' sub events.
 		 */
@@ -786,7 +792,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	private EObject traverseIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		List<EObject> subResults = new LinkedList<EObject>();
 		type = matchTargetType(errorPropagation.getTypeSet(), type);
 		if (type == null) {
@@ -900,18 +906,18 @@ public class PropagationGraphBackwardTraversal {
 	 * @return - EObject (non-null)
 	 */
 	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		return traverseCompositeErrorState(component, state, type, false, scale);
 	}
 
 	public EObject traverseCompositeErrorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
-			boolean stateOnly, double scale) {
+			boolean stateOnly, BigDecimal scale) {
 		preProcessCompositeErrorStates(component, state, type, scale);
 		List<EObject> subResults = new LinkedList<EObject>();
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
 			if (cs.getState() == state && EMV2TypeSetUtil.contains(cs.getTypedToken(), type)) {
-				EObject res = processCondition(component, cs.getCondition(), type, 1, stateOnly);
+				EObject res = processCondition(component, cs.getCondition(), type, new BigDecimal(1.0), stateOnly);
 				if (res != null) {
 					subResults.add(res);
 				}
@@ -928,7 +934,7 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	public EObject traverseCompositeErrorStateOnly(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return traverseCompositeErrorState(component, state, type, true, scale);
 	}
 
@@ -945,7 +951,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -959,7 +965,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes targetType, double scale) {
+			ErrorTypes targetType, BigDecimal scale) {
 		return null;
 	}
 
@@ -971,7 +977,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -983,7 +989,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject processConnectionErrorSource(ConnectionInstance component, ErrorSource errorSource,
-			ErrorTypes typeTokenConstraint, double scale) {
+			ErrorTypes typeTokenConstraint, BigDecimal scale) {
 		return null;
 	}
 
@@ -997,7 +1003,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1009,7 +1015,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1023,7 +1029,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null)
 	 */
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
-			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1035,7 +1041,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation ep,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1050,7 +1056,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult,
-			double scale) {
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -1064,7 +1070,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes targetType, double scale) {
+			ErrorTypes targetType, BigDecimal scale) {
 		return null;
 	}
 
@@ -1078,7 +1084,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes targetType, List<EObject> subResults, double scale) {
+			ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1092,7 +1098,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject or null
 	 */
 	protected EObject preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1106,7 +1112,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, List<EObject> subResults, double scale) {
+			ErrorTypes type, List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1118,7 +1124,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, double scale) {
+			ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1132,7 +1138,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (non-null)
 	 */
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
-			ErrorTypes type, EObject conditionResult, EObject stateResult, double scale) {
+			ErrorTypes type, EObject conditionResult, EObject stateResult, BigDecimal scale) {
 		return null;
 	}
 
@@ -1144,7 +1150,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -1158,7 +1164,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject preProcessAnd(ComponentInstance component, Element condition, ErrorTypes type, double scale) {
+	protected EObject preProcessAnd(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1173,7 +1179,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessAnd(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1187,7 +1193,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type, double scale,
+	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale,
 			List<EObject> subResults) {
 		return null;
 	}
@@ -1203,7 +1209,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject preProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
-			double scale) {
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -1218,7 +1224,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1232,7 +1238,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject preProcessXor(ComponentInstance component, Element condition, ErrorTypes type, double scale) {
+	protected EObject preProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1247,7 +1253,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 
@@ -1261,7 +1267,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param subResults
 	 * @return EObject (can be null )
 	 */
-	protected EObject preProcessOr(ComponentInstance component, Element condition, ErrorTypes type, double scale) {
+	protected EObject preProcessOr(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1275,7 +1281,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject (can be null )
 	 */
 	protected EObject processTypesetElements(ComponentInstance component, Element condition, ErrorTypes type,
-			List<EObject> subResults, double scale) {
+			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 

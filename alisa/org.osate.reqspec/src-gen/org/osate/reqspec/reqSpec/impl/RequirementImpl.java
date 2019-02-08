@@ -687,7 +687,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (exceptionText: ");
     result.append(exceptionText);
     result.append(", componentCategory: ");
