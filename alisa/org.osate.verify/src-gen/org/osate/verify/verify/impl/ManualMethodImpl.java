@@ -179,7 +179,7 @@ public class ManualMethodImpl extends MethodKindImpl implements ManualMethod
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (dialogID: ");
     result.append(dialogID);
     result.append(')');

@@ -460,7 +460,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-   * 
+   *
    * <p>This method is used to initialize {@link ErrorModelPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
@@ -475,7 +475,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     if (isInited) return (ErrorModelPackage)EPackage.Registry.INSTANCE.getEPackage(ErrorModelPackage.eNS_URI);
 
     // Obtain or create and register package
-    ErrorModelPackageImpl theErrorModelPackage = (ErrorModelPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ErrorModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ErrorModelPackageImpl());
+    Object registeredErrorModelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    ErrorModelPackageImpl theErrorModelPackage = registeredErrorModelPackage instanceof ErrorModelPackageImpl ? (ErrorModelPackageImpl)registeredErrorModelPackage : new ErrorModelPackageImpl();
 
     isInited = true;
 
@@ -492,7 +493,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     // Mark meta-data to indicate it can't be changed
     theErrorModelPackage.freeze();
 
-  
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(ErrorModelPackage.eNS_URI, theErrorModelPackage);
     return theErrorModelPackage;

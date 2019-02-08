@@ -1609,7 +1609,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noSubcomponents: ");
 		result.append(noSubcomponents);
 		result.append(", noConnections: ");

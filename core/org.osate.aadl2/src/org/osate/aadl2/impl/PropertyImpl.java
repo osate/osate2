@@ -504,7 +504,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (inherit: ");
 		result.append(inherit);
 		result.append(", emptyListDefault: ");

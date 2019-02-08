@@ -8,8 +8,8 @@
     editorPluginClass="" rootExtendsInterface="org.osate.aadl2.parsesupport.AObject"
     rootExtendsClass="org.osate.aadl2.parsesupport.AObjectImpl" rootImplementsInterface=""
     featureMapWrapperInterface="" codeFormatting="true" testsDirectory="" testSuiteClass=""
-    booleanFlagsField="" importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="8.0"
-    copyrightFields="false" providerRootExtendsClass="" testsPluginID="org.osate.aadl2.editor"
+    booleanFlagsField="" importerID="org.eclipse.uml2.uml.ecore.importer" bundleManifest="false"
+    complianceLevel="8.0" copyrightFields="false" providerRootExtendsClass="" testsPluginID="org.osate.aadl2.editor"
     language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel#//types"
     importOrganizing="true" cleanup="true" factoryMethods="true" pluralizedGetters="true"
     cacheAdapterSupport="true" invariantPrefix="">

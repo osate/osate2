@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="&#xD;&#xA;  Copyright (c)  2012 CEA LIST.&#xD;&#xA;  All rights reserved. This program and the accompanying materials&#xD;&#xA;  are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;  which accompanies this distribution, and is available at&#xD;&#xA;  http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;  &#xD;&#xA;  Contributors:&#xD;&#xA;      CEA LIST - initial API and implementation&#xD;&#xA; "
+    modelDirectory="/org.eclipse.papyrus.infra.discovery/src-gen" creationCommands="false"
+    creationIcons="false" editDirectory="" editorDirectory="" modelPluginID="org.eclipse.papyrus.infra.discovery"
+    modelName="Discovery" modelPluginClass="org.eclipse.papyrus.infra.discovery.Activator"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl" testsDirectory=""
+    booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="org.eclipse.papyrus.infra.discovery.ui"
+    testsPluginID="org.eclipse.papyrus.infra.discovery.ui" tableProviders="true" language=""
+    packedEnums="true" interfaceNamePattern="" classNamePattern="">
+  <foreignModel>discovery.ecore</foreignModel>
+  <genPackages prefix="Discovery" basePackage="org.eclipse.papyrus.infra" disposableProviderFactory="true"
+      fileExtensions="papdiscovery" ecorePackage="discovery.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="discovery.ecore#//Severity">
+      <genEnumLiterals ecoreEnumLiteral="discovery.ecore#//Severity/info"/>
+      <genEnumLiterals ecoreEnumLiteral="discovery.ecore#//Severity/warning"/>
+    </genEnums>
+    <genClasses ecoreClass="discovery.ecore#//InstallableComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/provider"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/sitesURLS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/overview"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/license"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/selected"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/available"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/installed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/groups"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/image32"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/incubation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//InstallableComponent/messages"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//InstallableComponent/hiddingFeatureID"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//Overview">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/summary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/screenshot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Overview/url"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//Category">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//Category/components"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/relevance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//Category/overview"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Category/image48"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//DiscoveryDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//DiscoveryDefinition/categories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference discovery.ecore#//DiscoveryDefinition/filters"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//Group">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Group/name"/>
+    </genClasses>
+    <genClasses ecoreClass="discovery.ecore#//Message">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute discovery.ecore#//Message/icon"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
