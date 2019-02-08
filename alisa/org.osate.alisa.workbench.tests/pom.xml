@@ -49,7 +49,12 @@
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.equinox.event</id>
-								<versionRange>1.3.0</versionRange>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>
 								<!-- for transactional editing domain that is needed during instantiation -->

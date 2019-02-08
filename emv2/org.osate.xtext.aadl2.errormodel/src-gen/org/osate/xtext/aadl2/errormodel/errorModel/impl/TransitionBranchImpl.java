@@ -394,7 +394,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (steadyState: ");
     result.append(steadyState);
     result.append(')');

@@ -660,7 +660,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			for (ContainedNamedElement cne : assoc.getAppliesTos()) {
 				if (cne.getContainmentPathElements().size() == 1) {
 					ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
-					checkOverridingConstant(cpe.getNamedElement(), assoc);
+					NamedElement ne = cpe.getNamedElement();
+					if (!ne.eIsProxy()) {
+						checkOverridingConstant(ne, assoc);
+					}
 				}
 			}
 		}
