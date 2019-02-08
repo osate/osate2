@@ -73,7 +73,7 @@ class PropagationPointsTest  {
 		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		val actual = ft.root.computedProbability
-		assertEquals(7.1e-8, actual, 0.1e-8)
+		assertEquals(7.1e-8, actual.doubleValue, 0.1e-8)
 	}
 
 	@Test
@@ -100,11 +100,11 @@ class PropagationPointsTest  {
 		// three cutsets
 		assertEquals(cutsets.root.subEvents.size, 3)
 		val cutset1 = FaultTreeUtils.findEvent(cutsets, "Cutset3")
-		assertEquals(6.5e-10, cutset1.computedProbability, 0.1e-10)
+		assertEquals(6.5e-10, cutset1.computedProbability.doubleValue, 0.1e-10)
 		val cutset2 = FaultTreeUtils.findEvent(cutsets, "Cutset1")
-		assertEquals(4.9e-15, cutset2.computedProbability, 0.1e-15)
+		assertEquals(4.9e-15, cutset2.computedProbability.doubleValue, 0.1e-15)
 		val cutset3 = FaultTreeUtils.findEvent(cutsets, "Cutset2")
-		assertEquals(7.0e-8, cutset3.computedProbability, 0.1e-8)
+		assertEquals(7.0e-8, cutset3.computedProbability.doubleValue, 0.1e-8)
 	}
 
 	@Test
@@ -115,11 +115,11 @@ class PropagationPointsTest  {
 		// three cutsets
 		assertEquals(cutsets.root.subEvents.size, 3)
 		val cutset1 = FaultTreeUtils.findEvent(cutsets, "Cutset1")
-		assertEquals(6.5e-10, cutset1.computedProbability, 0.1e-10)
+		assertEquals(6.5e-10, cutset1.computedProbability.doubleValue, 0.1e-10)
 		val cutset2 = FaultTreeUtils.findEvent(cutsets, "Cutset2")
-		assertEquals(4.9e-15, cutset2.computedProbability, 0.1e-15)
+		assertEquals(4.9e-15, cutset2.computedProbability.doubleValue, 0.1e-15)
 		val cutset3 = FaultTreeUtils.findEvent(cutsets, "Cutset3")
-		assertEquals(7.0e-8, cutset3.computedProbability, 0.1e-8)
+		assertEquals(7.0e-8, cutset3.computedProbability.doubleValue, 0.1e-8)
 	}
 
 	@Test
@@ -130,7 +130,7 @@ class PropagationPointsTest  {
 		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		val actual = ft.root.computedProbability
-		assertEquals(7.1e-8, actual, 0.1e-8)
+		assertEquals(7.1e-8, actual.doubleValue, 0.1e-8)
 	}
 
 	@Test
@@ -148,11 +148,11 @@ class PropagationPointsTest  {
 		// three cutsets
 		assertEquals(cutsets.root.subEvents.size, 3)
 		val cutset1 = FaultTreeUtils.findEvent(cutsets, "Cutset1")
-		assertEquals(6.5e-10, cutset1.computedProbability, 0.1e-10)
+		assertEquals(6.5e-10, cutset1.computedProbability.doubleValue, 0.1e-10)
 		val cutset2 = FaultTreeUtils.findEvent(cutsets, "Cutset2")
-		assertEquals(4.9e-15, cutset2.computedProbability, 0.1e-15)
+		assertEquals(4.9e-15, cutset2.computedProbability.doubleValue, 0.1e-15)
 		val cutset3 = FaultTreeUtils.findEvent(cutsets, "Cutset3")
-		assertEquals(7.0e-8, cutset3.computedProbability, 0.1e-8)
+		assertEquals(7.0e-8, cutset3.computedProbability.doubleValue, 0.1e-8)
 	}
 
 }

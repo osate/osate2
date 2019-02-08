@@ -396,7 +396,7 @@ public class ResultImpl extends MinimalEObjectImpl.Container implements Result {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (message: ");
 		result.append(message);
 		result.append(", resultType: ");

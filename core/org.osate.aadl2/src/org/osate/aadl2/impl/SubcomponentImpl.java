@@ -756,7 +756,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (allModes: ");
 		result.append(allModes);
 		result.append(')');
