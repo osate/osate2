@@ -144,7 +144,7 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ResultPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -158,7 +158,8 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		if (isInited) return (ResultPackage)EPackage.Registry.INSTANCE.getEPackage(ResultPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ResultPackageImpl theResultPackage = (ResultPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ResultPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ResultPackageImpl());
+		Object registeredResultPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ResultPackageImpl theResultPackage = registeredResultPackage instanceof ResultPackageImpl ? (ResultPackageImpl)registeredResultPackage : new ResultPackageImpl();
 
 		isInited = true;
 
@@ -171,7 +172,6 @@ public class ResultPackageImpl extends EPackageImpl implements ResultPackage {
 		// Mark meta-data to indicate it can't be changed
 		theResultPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ResultPackage.eNS_URI, theResultPackage);
 		return theResultPackage;

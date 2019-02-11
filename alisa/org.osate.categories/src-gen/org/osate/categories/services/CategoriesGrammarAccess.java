@@ -69,7 +69,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Categories:
-		//	name=ID '[' category+=Category+ ']';
+		//	name=ID
+		//	'[' category+=Category+
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID '[' category+=Category+ ']'
@@ -127,14 +129,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		////
-		// //CategoryFilters returns CategoryFilters:
-		// //	'filters' 
-		// //	filters+=NamedCategoryFilter+ 
-		// //;
-		// //
-		//
+		////CategoryFilters returns CategoryFilters:
+		////	'filters' 
+		////	filters+=NamedCategoryFilter+ 
+		////;
+		////
 		//CategoryFilter:
-		//	'filter' name=ID '[' category+=[Category|CatRef]* anyCategory?='any'? ']';
+		//	'filter' name=ID '['
+		//	category+=[Category|CatRef]* anyCategory?='any'?
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'filter' name=ID '[' category+=[Category|CatRef]* anyCategory?='any'? ']'
@@ -179,7 +182,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//// Category reference. 
-		// CatRef:
+		//CatRef:
 		//	ID '.' ID;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -257,7 +260,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Categories:
-	//	name=ID '[' category+=Category+ ']';
+	//	name=ID
+	//	'[' category+=Category+
+	//	']';
 	public CategoriesElements getCategoriesAccess() {
 		return pCategories;
 	}
@@ -279,14 +284,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////
-	// //CategoryFilters returns CategoryFilters:
-	// //	'filters' 
-	// //	filters+=NamedCategoryFilter+ 
-	// //;
-	// //
-	//
+	////CategoryFilters returns CategoryFilters:
+	////	'filters' 
+	////	filters+=NamedCategoryFilter+ 
+	////;
+	////
 	//CategoryFilter:
-	//	'filter' name=ID '[' category+=[Category|CatRef]* anyCategory?='any'? ']';
+	//	'filter' name=ID '['
+	//	category+=[Category|CatRef]* anyCategory?='any'?
+	//	']';
 	public CategoryFilterElements getCategoryFilterAccess() {
 		return pCategoryFilter;
 	}
@@ -296,7 +302,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Category reference. 
-	// CatRef:
+	//CatRef:
 	//	ID '.' ID;
 	public CatRefElements getCatRefAccess() {
 		return pCatRef;
@@ -319,7 +325,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

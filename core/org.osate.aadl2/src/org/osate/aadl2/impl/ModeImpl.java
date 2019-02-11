@@ -219,7 +219,7 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (initial: ");
 		result.append(initial);
 		result.append(')');

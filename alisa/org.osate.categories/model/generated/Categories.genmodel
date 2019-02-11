@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.categories.editor/src" modelPluginID="org.osate.categories"
     forceOverwrite="true" modelName="Categories" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.categories.edit"
-    editorPluginID="org.osate.categories.editor" runtimeVersion="2.13" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+    editorPluginID="org.osate.categories.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
       fileExtensions="cat,filter" ecorePackage="Categories.ecore#/">
     <genClasses ecoreClass="Categories.ecore#//CategoriesDefinitions">

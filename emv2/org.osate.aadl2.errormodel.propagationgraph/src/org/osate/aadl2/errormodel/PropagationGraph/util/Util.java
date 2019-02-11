@@ -680,7 +680,10 @@ public class Util {
 			} else {
 				RESOLUTE_INSTALLED = false;
 			}
-		} catch (NoClassDefFoundError e) {
+		// For some reason
+		// } catch (NoClassDefFoundError e) {
+		// does not catch NoClassDefFoundError when running tests with tycho
+		} catch (Throwable e) {
 			RESOLUTE_INSTALLED = false;
 		}
 	}

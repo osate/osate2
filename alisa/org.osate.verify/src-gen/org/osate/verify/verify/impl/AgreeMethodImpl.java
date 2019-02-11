@@ -233,7 +233,7 @@ public class AgreeMethodImpl extends MethodKindImpl implements AgreeMethod
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (singleLayer: ");
     result.append(singleLayer);
     result.append(", all: ");
