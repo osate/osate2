@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -26,36 +28,44 @@ public class Services {
 
 	public Collection<EObject> getNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
-		Set<ConnectionInstance> cis = new HashSet<>();
+		ComponentInstance ciSelf = (ComponentInstance) self;
 		// Get the features
-		for (FeatureInstance fi : ((ComponentInstance) self).getAllFeatureInstances()) {
+		ret.addAll(getImmediateNeighbors(ciSelf, 0));
+		for (Element subc : ciSelf.getChildren()) {
+			if (subc instanceof ComponentInstance) {
+				ret.addAll(getImmediateNeighbors((ComponentInstance) subc, 1));
+			}
+		}
+		return ret;
+	}
+
+	private Collection<EObject> getImmediateNeighbors(ComponentInstance ciSelf, int depth) {
+		Set<EObject> ret = new HashSet<>();
+		Set<ConnectionInstance> cis = new HashSet<>();
+		for (FeatureInstance fi : ciSelf.getAllFeatureInstances()) {
 			// Get their connections
 			cis.clear();
 			cis.addAll(fi.getDstConnectionInstances());
-			for (ConnectionInstance ci : fi.getAllEnclosingConnectionInstances()) {
-				ConnectionInstanceEnd cieSrc = ci.getSource();
-				ConnectionInstanceEnd cieDst = ci.getDestination();
-				ComponentInstance srcCI = cieSrc.getContainingComponentInstance();
-				ComponentInstance dstCI = cieDst.getContainingComponentInstance();
-				if (srcCI == self) {
-					ret.add(dstCI);
-				} else if (dstCI == self) {
-					ret.add(srcCI);
+			cis.addAll(fi.getSrcConnectionInstances());
+			for (ConnectionInstance ci : cis) {
+				// Get their sources or destinations
+				if (fi.getDirection() == DirectionType.IN) {
+					ret.add(getEnclosingComponentByDepth(ci.getSource(), depth));
+				} else if (fi.getDirection() == DirectionType.OUT) {
+					ret.add(getEnclosingComponentByDepth(ci.getDestination(), depth));
+				} else { // fi.getDirection() == IN_OUT
+					ret.add(getEnclosingComponentByDepth(ci.getSource(), depth));
+					ret.add(getEnclosingComponentByDepth(ci.getDestination(), depth));
 				}
-				cieSrc = null;
 			}
-//			cis.addAll(fi.getSrcConnectionInstances());
-//			for (ConnectionInstance ci : cis) {
-//				// Get their sources or destinations
-//				if (fi.getDirection() == DirectionType.IN) {
-//					ret.add(ci.getSource().getContainingComponentInstance());
-//				} else if (fi.getDirection() == DirectionType.OUT) {
-//					ret.add(ci.getDestination().getContainingComponentInstance());
-//				} else { // fi.getDirection() == IN_OUT
-//					ret.add(ci.getSource().getContainingComponentInstance());
-//					ret.add(ci.getDestination().getContainingComponentInstance());
-//				}
-//			}
+		}
+		return ret;
+	}
+
+	private EObject getEnclosingComponentByDepth(ConnectionInstanceEnd cie, int depth) {
+		ComponentInstance ret = cie.getContainingComponentInstance();
+		for (int x = 0; x < depth; x++) {
+			ret = ret.getContainingComponentInstance();
 		}
 		return ret;
 	}
