@@ -21,8 +21,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2.errormodel.faulttree
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.aadl2.errormodel.propagationgraph
-Import-Package: com.rockwellcollins.atc.resolute.analysis.execution,
- com.rockwellcollins.atc.resolute.analysis.results,
- com.rockwellcollins.atc.resolute.analysis.values,
- com.rockwellcollins.atc.resolute.resolute,
- com.rockwellcollins.atc.resolute.validation
+Import-Package: com.rockwellcollins.atc.resolute.analysis.execution;resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis.results;resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis.values;resolution:=optional,
+ com.rockwellcollins.atc.resolute.resolute;resolution:=optional,
+ com.rockwellcollins.atc.resolute.validation;resolution:=optional

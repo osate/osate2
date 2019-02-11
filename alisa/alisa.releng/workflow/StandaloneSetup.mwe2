@@ -60,8 +60,6 @@ Workflow {
 		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 		registerGeneratedEPackage = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
 		registerGenModelFile = "platform:/resource/org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel"
-		registerGeneratedEPackage = "com.rockwellcollins.atc.resolute.resolute.ResolutePackage"
-		registerGenModelFile = "platform:/resource/com.rockwellcollins.atc.resolute/src-gen/com/rockwellcollins/atc/resolute/Resolute.genmodel"
 		registerGeneratedEPackage = "org.osate.categories.categories.CategoriesPackage"
 		registerGenModelFile = "platform:/resource/org.osate.categories/model/generated/Categories.genmodel"
 		registerGeneratedEPackage = "org.osate.organization.organization.OrganizationPackage"
@@ -70,8 +68,6 @@ Workflow {
 		registerGenModelFile = "platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel"
 		registerGeneratedEPackage = "org.osate.verify.verify.VerifyPackage"
 		registerGenModelFile = "platform:/resource/org.osate.verify/model/generated/Verify.genmodel"
-		registerGeneratedEPackage = "org.osate.results.results.ResultsPackage"
-		registerGenModelFile = "platform:/resource/org.osate.results/model/generated/Results.genmodel"
 		registerGeneratedEPackage = "org.osate.alisa.workbench.alisa.AlisaPackage"
 		registerGenModelFile = "platform:/resource/org.osate.alisa.workbench/model/generated/Alisa.genmodel"
 	}

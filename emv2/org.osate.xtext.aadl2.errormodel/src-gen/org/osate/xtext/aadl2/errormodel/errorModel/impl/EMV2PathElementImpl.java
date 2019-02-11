@@ -389,7 +389,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (emv2PropagationKind: ");
     result.append(emv2PropagationKind);
     result.append(')');
