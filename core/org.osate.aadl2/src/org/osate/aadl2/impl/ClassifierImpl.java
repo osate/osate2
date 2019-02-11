@@ -762,7 +762,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noPrototypes: ");
 		result.append(noPrototypes);
 		result.append(", noAnnexes: ");

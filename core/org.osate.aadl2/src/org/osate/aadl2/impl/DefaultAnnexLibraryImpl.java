@@ -307,7 +307,7 @@ public class DefaultAnnexLibraryImpl extends AnnexLibraryImpl implements Default
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sourceText: ");
 		result.append(sourceText);
 		result.append(')');

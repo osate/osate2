@@ -557,7 +557,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (category: "); //$NON-NLS-1$
 		result.append(category);
 		result.append(", direction: "); //$NON-NLS-1$
