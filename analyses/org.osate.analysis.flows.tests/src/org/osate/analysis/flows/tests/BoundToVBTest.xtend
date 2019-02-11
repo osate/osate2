@@ -11,7 +11,6 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instantiation.InstantiateModel
-import org.osate.analysis.flows.LatencyAnalysisService
 import org.osate.result.RealValue
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
@@ -20,6 +19,7 @@ import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.xtext.aadl2.properties.util.InstanceModelUtil.*
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
@@ -46,8 +46,8 @@ class BoundToVBTest extends XtextTest {
 
 		// check flow latency
 		val som = instance.systemOperationModes.head
-		val checker = new LatencyAnalysisService()
-		val latencyresult = checker.invoke(instance, som)
+		val checker = new FlowLatencyAnalysisSwitch()
+		val latencyresult = checker.invoke(instance, som,true,true,true,true)
 		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (4.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (18.0))
