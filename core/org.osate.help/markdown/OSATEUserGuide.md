@@ -226,7 +226,7 @@ The `Outline` view shows the model in the text editor as a tree structure. Selec
 
 
 
-### Search
+### Search: Basic Text Search
 
 You can search the text of a model using the standard Eclipse search facility under `Search > Search...` in the menu bar.  This brings up a search window.  It can also be used for search and replace.  The scope of the search can also be specified.  In most cases you just want to make sure that the `File Search` tab is selected, and enter your search term in the `Containing text` field.  For example, the below will search for the string `end` in the project we created above:
 
@@ -237,6 +237,29 @@ When you click on the `Search` button, Eclipse performs the search.  The results
 ![Search View](images/OSATEUserGuide/SearchView.png)
 
 Double-clicking on a result in the view opens the editor to the location of the match.  All the matches are highlighted in the editor as well.
+
+
+
+### Search: AADL Search
+
+You can search for AADL classifiers and properties using the OSATE-provided `AADL Search` tab in the Eclipse search window.  
+
+![AADL Search Window](images/OSATEUserGuide/AadlSearch.png)
+
+You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring `find`.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:
+* It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.
+* It can be the the selected resources in the `AADL Navigator` view.  This button is only enabled when there is a selection in the view.
+* It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.
+
+The search results are displayed grouped by the containing resource.  Resources are listed alphabetically by their workspace path.  Under each resource the results are listed in syntactic order.  Here we see the results of the above search:
+
+![AADL Search Results](images/OSATEUserGuide/AadlSearchResults1.png)
+
+There are two classifiers `FIND_ME` and `FIND_ME.impl` that contain the string `find`, and seven references to those classifiers.  Double-clicking on the results opens an editor to the site of the declaration/reference.
+
+These view below shows the result of searching for property declaratiosn in the workspace that contain the string `time`.  Here we see that declarations are found in property sets contributed by plug-ins.
+
+![AADL Search Results](images/OSATEUserGuide/AadlSearchResults2.png)
 
 
 

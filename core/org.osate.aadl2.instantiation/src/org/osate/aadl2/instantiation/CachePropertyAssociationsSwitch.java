@@ -265,7 +265,7 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 							if (!newPA.getOwnedValues().isEmpty()) {
 								/*
 								 * FIXME JD
-								 * 
+								 *
 								 * Try to look if the property references a component or not.
 								 * This was done to fix the issue related to the Bound Bus analysis plugin
 								 */
@@ -400,8 +400,10 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 
 							for (ModeInstance mi : holderModes) {
 								if (mi.getMode() == mode) {
-									inSOMs.addAll(mode2som.get(mi));
-									break;
+									if (mode2som.containsKey(mi)) {
+										inSOMs.addAll(mode2som.get(mi));
+										break;
+									}
 								}
 							}
 						}

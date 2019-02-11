@@ -118,14 +118,6 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 		reportersList = new LinkedList();
 	}
 
-	@Deprecated
-	public AnalysisErrorReporterManager(final InternalErrorReporter ier, final AnalysisErrorReporterFactory fact) {
-		super(ier);
-		factory = fact;
-		reportersMap = new HashMap();
-		reportersList = new LinkedList();
-	}
-
 	/**
 	 * Stop managing the given Resource.
 	 * @param rsrc The resource to forget about.

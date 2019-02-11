@@ -218,29 +218,9 @@ class Issue1092Test extends XtextTest {
 		val t1_modes = testThreadUnmappedModes(messages, t1, "x1", "x2")
 		val t2_modes = testThreadUnmappedModes(messages, t2, "x1", "x2")
 		
-		assertTrue("System is expected to have exactly 8 system operation modes", instance.systemOperationModes.size == 8)
-		val som0 = testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1, t1_modes.get(0), t2_modes.get(0))
-		val som1 = testSystemOperationMode(instance.systemOperationModes.get(1), proc_m1, t1_modes.get(0), t2_modes.get(1))
-		val som2 = testSystemOperationMode(instance.systemOperationModes.get(2), proc_m1, t1_modes.get(1), t2_modes.get(0))
-		val som3 = testSystemOperationMode(instance.systemOperationModes.get(3), proc_m1, t1_modes.get(1), t2_modes.get(1))
-		val som4 = testSystemOperationMode(instance.systemOperationModes.get(4), proc_m2, t1_modes.get(0), t2_modes.get(0))
-		val som5 = testSystemOperationMode(instance.systemOperationModes.get(5), proc_m2, t1_modes.get(0), t2_modes.get(1))
-		val som6 = testSystemOperationMode(instance.systemOperationModes.get(6), proc_m2, t1_modes.get(1), t2_modes.get(0))
-		val som7 = testSystemOperationMode(instance.systemOperationModes.get(7), proc_m2, t1_modes.get(1), t2_modes.get(1))
-		
-		val t1_props = t1.ownedPropertyAssociations
-		assertTrue("Thread 't1' is expected to have exactly 1 property association", t1_props.size == 1)
-		val t1_propVals = t1_props.get(0).ownedValues
-		assertTrue("Thread 't1' is expected to have exactly 2 property values", t1_propVals.size == 2)
-		testPropertyValueModes(t1_propVals.get(0).getInModes(), som0, som1, som4, som5)
-		testPropertyValueModes(t1_propVals.get(1).getInModes(), som2, som3, som6, som7)
-		
-		val t2_props = t2.ownedPropertyAssociations
-		assertTrue("Thread 't2' is expected to have exactly 1 property association", t2_props.size == 1)
-		val t2_propVals = t2_props.get(0).ownedValues
-		assertTrue("Thread 't2' is expected to have exactly 2 property values", t2_propVals.size == 2)
-		testPropertyValueModes(t2_propVals.get(0).getInModes(), som0, som2, som4, som6)
-		testPropertyValueModes(t2_propVals.get(1).getInModes(), som1, som3, som5, som7)
+		assertTrue("System is expected to have exactly 8 system operation modes", instance.systemOperationModes.size == 2)
+		val som0 = testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1)
+		val som1 = testSystemOperationMode(instance.systemOperationModes.get(1), proc_m2)
 	}
 
 	private def static void testPropertyValueModes(List<Mode> actualModes, SystemOperationMode... testModes) {

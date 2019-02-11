@@ -289,7 +289,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (virtual: ");
 		result.append(virtual);
 		result.append(')');

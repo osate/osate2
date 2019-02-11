@@ -795,10 +795,10 @@ class FTATest  {
 		val sube1 = ft.root.subEvents.get(0)
 		val asube1 = sube1.subEvents.get(0)
 		val asube2 = sube1.subEvents.get(1)
-		assertEquals(ft.root.computedProbability, 6.0e-8, 1.0e-12)
-		assertEquals(sube1.computedProbability, 9.0e-16, 1.0e-20)
-		assertEquals(asube1.scale, 0.6, 0.001)
-		assertEquals(asube2.scale, 0.6, 0.001)
+		assertEquals(ft.root.computedProbability.doubleValue, 6.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability.doubleValue, 9.0e-16, 1.0e-20)
+		assertEquals(asube1.scale.doubleValue, 0.6, 0.001)
+		assertEquals(asube2.scale.doubleValue, 0.6, 0.001)
 	}
 		@Test
 	def void allTransitionBranchCutSetTest() {
@@ -809,10 +809,10 @@ class FTATest  {
 		val sube1 = ft.root.subEvents.get(0)
 		val asube1 = sube1.subEvents.get(0)
 		val asube2 = sube1.subEvents.get(1)
-		assertEquals(ft.root.computedProbability, 6.0e-8, 1.0e-12)
-		assertEquals(sube1.computedProbability, 9.0e-16, 1.0e-20)
-		assertEquals(asube1.scale, 0.6, 0.001)
-		assertEquals(asube2.scale, 0.6, 0.001)
+		assertEquals(ft.root.computedProbability.doubleValue, 6.0e-8, 1.0e-12)
+		assertEquals(sube1.computedProbability.doubleValue, 9.0e-16, 1.0e-20)
+		assertEquals(asube1.scale.doubleValue, 0.6, 0.001)
+		assertEquals(asube2.scale.doubleValue, 0.6, 0.001)
 	}
 
 
@@ -823,8 +823,8 @@ class FTATest  {
 		assertEquals(ft.events.size, 9)
 		assertEquals(ft.root.subEvents.size, 2)
 		val sube1 = ft.root.subEvents.get(1)
-		assertEquals(ft.root.computedProbability, 1.30285e-1, 1.0e-5)
-		assertEquals(sube1.computedProbability, 1.215e-1, 1.0e-5)
+		assertEquals(ft.root.computedProbability.doubleValue, 1.30285e-1, 1.0e-5)
+		assertEquals(sube1.computedProbability.doubleValue, 1.215e-1, 1.0e-5)
 	}
 
 		@Test
@@ -835,9 +835,9 @@ class FTATest  {
 		assertEquals(ft.root.subEvents.size, 4)
 		val sube3 = ft.root.subEvents.get(2)
 		val sube4 = ft.root.subEvents.get(3)
-		assertEquals(ft.root.computedProbability, 9.79e-7, 1.0e-10)
-		assertEquals(sube3.scale, 0.7, 0.001)
-		assertEquals(sube4.scale, 0.6, 0.001)
+		assertEquals(ft.root.computedProbability.doubleValue, 9.79e-7, 1.0e-10)
+		assertEquals(sube3.scale.doubleValue, 0.7, 0.001)
+		assertEquals(sube4.scale.doubleValue, 0.6, 0.001)
 	}
 	
 }

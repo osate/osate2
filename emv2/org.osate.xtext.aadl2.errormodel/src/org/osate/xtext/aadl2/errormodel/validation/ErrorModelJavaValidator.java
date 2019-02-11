@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.validation;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -64,8 +66,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
@@ -903,7 +905,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		EList<TransitionBranch> branches = ebt.getDestinationBranches();
 		boolean foundsteady = false;
 		boolean foundothers = false;
-		double prob = 0;
+		BigDecimal prob = new BigDecimal(0.0, MathContext.UNLIMITED);
 		if (branches.isEmpty()) {
 			return;
 		}
@@ -925,19 +927,20 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			String bv = transitionBranch.getValue().getRealvalue();
 			Property sl = transitionBranch.getValue().getSymboliclabel();
 			if (bv != null) {
-				prob = prob + Double.valueOf(bv);
+				prob = prob.add(new BigDecimal(bv, MathContext.UNLIMITED));
 			} else if (sl != null) {
 				ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 				List<EMV2PropertyAssociation> pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
 				for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-					prob = prob + EMV2Properties.getRealValue(emv2PropertyAssociation);
+					prob = prob.add(new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation),
+							MathContext.UNLIMITED));
 				}
 			}
 		}
-		if (!foundothers && prob != 1) {
+		if (!foundothers && prob.compareTo(new BigDecimal(1.0)) != 0) {
 			error(ebt, "Sum of branch probabilities must be 1");
 		}
-		if (foundothers && prob >= 1) {
+		if (foundothers && prob.compareTo(new BigDecimal(1.0)) >= 0) {
 			error(ebt, "Sum of branch probabilities must be less than 1 due to 'others'");
 		}
 	}
