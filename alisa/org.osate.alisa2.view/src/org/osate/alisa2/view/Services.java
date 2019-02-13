@@ -27,36 +27,82 @@ public class Services {
       return self;
     }
 
+	/**
+	 * Get all the "Neighbors" of the specified component, where neighbor is defined as another
+	 * component that directly communicates (ie, without any intermediaries) with a) this one or
+	 * b) one of the components contained within this component.
+	 *
+	 * @param self The component the focus on
+	 * @return The set of neighbors for the given component.
+	 */
 	public Collection<EObject> getAllNeighbors(EObject self) {
 		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
 				.collect(Collectors.toSet());
 	}
 
+	/**
+	 * Get all the "Successors" of the specified component, where successor is defined as another
+	 * component that receives messages directly (ie, without any intermediaries) from a) this one or
+	 * b) one of the components contained within this component.
+	 *
+	 * @param self The component the focus on
+	 * @return The set of successors to the given component.
+	 */
 	public Collection<EObject> getSuccessorNeighbors(EObject self) {
-		return getNeighbors(self, true);
+		ComponentInstance selfCI = (ComponentInstance) self;
+		return getNeighbors(selfCI, true, selfCI.getContainingComponentInstance());
 	}
 
+	/**
+	 * Get all the "Predecessors" of the specified component, where predecessor is defined as another
+	 * component that sends messages directly (ie, without any intermediaries) to a) this one or
+	 * b) one of the components contained within this component.
+	 *
+	 * @param self The component the focus on
+	 * @return The set of predecessors to the given component.
+	 */
 	public Collection<EObject> getPredecessorNeighbors(EObject self) {
-		return getNeighbors(self, false);
+		ComponentInstance selfCI = (ComponentInstance) self;
+		return getNeighbors(selfCI, false, selfCI.getContainingComponentInstance());
 	}
 
-	private Collection<EObject> getNeighbors(EObject self, boolean successors) {
+	/**
+	 * This method recursively builds the set of successors or predecessor components of the
+	 * specified component.
+	 *
+	 * @param self The component to focus on
+	 * @param successors True if we're getting the successors to the specified component, false otherwise
+	 * @param origParent The parent of the originally specified component (ie, the original value of self)
+	 * @return The set of successors (or predecessors) of the specified component.
+	 */
+	private Collection<EObject> getNeighbors(ComponentInstance self, boolean successors, ComponentInstance origParent) {
 		Set<EObject> ret = new HashSet<>();
-		ComponentInstance ciSelf = (ComponentInstance) self;
+
 		// Get the features
-		ret.addAll(getImmediateNeighbors(ciSelf, 0, successors));
-		for (Element subc : ciSelf.getChildren()) {
+		ret.addAll(getImmediateNeighbors(self, successors, origParent));
+		for (Element subc : self.getChildren()) {
 			if (subc instanceof ComponentInstance) {
-				ret.addAll(getImmediateNeighbors((ComponentInstance) subc, 1, successors));
+				ret.addAll(getNeighbors((ComponentInstance) subc, successors, origParent));
 			}
 		}
 		return ret;
 	}
 
-	private Collection<EObject> getImmediateNeighbors(ComponentInstance ciSelf, int depth, boolean successors) {
+	/**
+	 * This method gets the immediate successors and predecessors of the specified component.
+	 * Compared to {@link #getNeighbors(ComponentInstance, boolean, ComponentInstance)}, it does
+	 * the actual neighbor-finding, and does not recurse.
+	 *
+	 * @param self The component to focus on
+	 * @param successors True if we're getting the successors to the specified component, false otherwise
+	 * @param origParent The parent of the originally specified component (ie, the original value of self)
+	 * @return The set of immediate successors (or predecessors) of the specified component.
+	 */
+	private Collection<EObject> getImmediateNeighbors(ComponentInstance self, boolean successors,
+			ComponentInstance origParent) {
 		Set<EObject> ret = new HashSet<>();
 		Set<ConnectionInstance> cis = new HashSet<>();
-		for (FeatureInstance fi : ciSelf.getAllFeatureInstances()) {
+		for (FeatureInstance fi : self.getAllFeatureInstances()) {
 			// Get their connections
 			cis.clear();
 			if (successors) {
@@ -67,21 +113,33 @@ public class Services {
 			for (ConnectionInstance ci : cis) {
 				// Get their sources or destinations
 				if (successors) {
-					ret.add(getEnclosingComponentByDepth(ci.getDestination(), depth));
+					ret.add(getDepthAppropriateNeighbor(ci.getDestination(), self, origParent));
 				} else {
-					ret.add(getEnclosingComponentByDepth(ci.getSource(), depth));
+					ret.add(getDepthAppropriateNeighbor(ci.getSource(), self, origParent));
 				}
 			}
 		}
 		return ret;
 	}
 
-	private EObject getEnclosingComponentByDepth(ConnectionInstanceEnd cie, int depth) {
-		ComponentInstance ret = cie.getContainingComponentInstance();
-		for (int x = 0; x < depth; x++) {
-			ret = ret.getContainingComponentInstance();
+	/**
+	 * This gets a container of the specified ConnectionInstanceEnd. The container will be contained in
+	 * the parent parameter.
+	 *
+	 * @param cie The end to find the container of
+	 * @param self The component that we begin checking for containment at.
+	 * @param parent Containment checking stops once we reach the level of the children of this component.
+	 * @return The containing ComponentInstance
+	 */
+	private EObject getDepthAppropriateNeighbor(ConnectionInstanceEnd cie, ComponentInstance self,
+			ComponentInstance parent) {
+		ComponentInstance prev = self;
+		ComponentInstance tempCI = cie.getContainingComponentInstance();
+		while (tempCI != parent) {
+			prev = tempCI;
+			tempCI = tempCI.getContainingComponentInstance();
 		}
-		return ret;
+		return prev;
 	}
 
 	public EList<ComponentInstance> getAllComponents(EObject self) {
