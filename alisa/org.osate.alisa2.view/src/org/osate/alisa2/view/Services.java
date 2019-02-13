@@ -3,10 +3,11 @@ package org.osate.alisa2.view;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -26,36 +27,49 @@ public class Services {
       return self;
     }
 
-	public Collection<EObject> getNeighbors(EObject self) {
+	public Collection<EObject> getAllNeighbors(EObject self) {
+		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
+				.collect(Collectors.toSet());
+	}
+
+	public Collection<EObject> getSuccessorNeighbors(EObject self) {
+		return getNeighbors(self, true);
+	}
+
+	public Collection<EObject> getPredecessorNeighbors(EObject self) {
+		return getNeighbors(self, false);
+	}
+
+	private Collection<EObject> getNeighbors(EObject self, boolean successors) {
 		Set<EObject> ret = new HashSet<>();
 		ComponentInstance ciSelf = (ComponentInstance) self;
 		// Get the features
-		ret.addAll(getImmediateNeighbors(ciSelf, 0));
+		ret.addAll(getImmediateNeighbors(ciSelf, 0, successors));
 		for (Element subc : ciSelf.getChildren()) {
 			if (subc instanceof ComponentInstance) {
-				ret.addAll(getImmediateNeighbors((ComponentInstance) subc, 1));
+				ret.addAll(getImmediateNeighbors((ComponentInstance) subc, 1, successors));
 			}
 		}
 		return ret;
 	}
 
-	private Collection<EObject> getImmediateNeighbors(ComponentInstance ciSelf, int depth) {
+	private Collection<EObject> getImmediateNeighbors(ComponentInstance ciSelf, int depth, boolean successors) {
 		Set<EObject> ret = new HashSet<>();
 		Set<ConnectionInstance> cis = new HashSet<>();
 		for (FeatureInstance fi : ciSelf.getAllFeatureInstances()) {
 			// Get their connections
 			cis.clear();
-			cis.addAll(fi.getDstConnectionInstances());
-			cis.addAll(fi.getSrcConnectionInstances());
+			if (successors) {
+				cis.addAll(fi.getSrcConnectionInstances());
+			} else {
+				cis.addAll(fi.getDstConnectionInstances());
+			}
 			for (ConnectionInstance ci : cis) {
 				// Get their sources or destinations
-				if (fi.getDirection() == DirectionType.IN) {
-					ret.add(getEnclosingComponentByDepth(ci.getSource(), depth));
-				} else if (fi.getDirection() == DirectionType.OUT) {
+				if (successors) {
 					ret.add(getEnclosingComponentByDepth(ci.getDestination(), depth));
-				} else { // fi.getDirection() == IN_OUT
+				} else {
 					ret.add(getEnclosingComponentByDepth(ci.getSource(), depth));
-					ret.add(getEnclosingComponentByDepth(ci.getDestination(), depth));
 				}
 			}
 		}
