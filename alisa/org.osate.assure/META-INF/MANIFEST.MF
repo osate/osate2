@@ -48,12 +48,12 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.pluginsupport;bundle-version="1.0.0",
  org.osate.organization;bundle-version="1.0.0",
  org.osate.annexsupport
-Import-Package: com.rockwellcollins.atc.resolute.analysis.execution,
- com.rockwellcollins.atc.resolute.analysis.results,
- com.rockwellcollins.atc.resolute.analysis.values,
- com.rockwellcollins.atc.resolute.analysis.views,
- com.rockwellcollins.atc.resolute.resolute,
- com.rockwellcollins.atc.resolute.validation,
+Import-Package: com.rockwellcollins.atc.resolute.analysis.execution;resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis.results;resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis.values;resolution:=optional,
+ com.rockwellcollins.atc.resolute.analysis.views;resolution:=optional,
+ com.rockwellcollins.atc.resolute.resolute;resolution:=optional,
+ com.rockwellcollins.atc.resolute.validation;resolution:=optional,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure.assure,
