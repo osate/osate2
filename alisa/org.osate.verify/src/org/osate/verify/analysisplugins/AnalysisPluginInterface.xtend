@@ -205,37 +205,4 @@ class AnalysisPluginInterface {
 		markerType
 	}
 
-//=======================security========================//	
-	def static String CheckSafety(InstanceObject ci) {
-			val checker = new CheckSafety()
-		val markerType = checker.getMarkerType
-		val instance = ci.elementRoot as SystemInstance
-		if (!getHasRun(markerType, instance)) {
-			val som = instance.systemOperationModes.head					
-			try{
-				checker.invoke(new NullProgressMonitor, instance, som)
-				setHasRun(markerType, instance)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
-			}
-		}
-		markerType
-	}
-
-	def static String CheckSecurity(InstanceObject ci) {
-			val checker = new CheckSecurity()
-		val markerType = checker.getMarkerType
-		val instance = ci.elementRoot as SystemInstance
-		if (!getHasRun(markerType, instance)) {
-			val som = instance.systemOperationModes.head					
-			try{
-				checker.invoke(new NullProgressMonitor, instance, som)
-				setHasRun(markerType, instance)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
-			}
-		}
-		markerType
-	}
-	
 }
