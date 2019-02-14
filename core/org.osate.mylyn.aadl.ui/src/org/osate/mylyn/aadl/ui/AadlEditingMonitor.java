@@ -2,11 +2,14 @@ package org.osate.mylyn.aadl.ui;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.monitor.ui.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IWorkbenchPart;
 import org.osate.aadl2.Element;
+import org.osate.ui.utils.SelectionHelper;
 
 public class AadlEditingMonitor extends AbstractUserInteractionMonitor {
 	protected StructuredSelection currentSelection = null;
@@ -16,7 +19,7 @@ public class AadlEditingMonitor extends AbstractUserInteractionMonitor {
 			final boolean contributeToContext) {
 		System.out.println("part = " + part + "; selection = " + selection + "; contribute = " + contributeToContext);
 
-		Element selectedElement = null;
+		EObject selectedElement = null;
 		if (selection instanceof StructuredSelection) {
 			final StructuredSelection structuredSelection = (StructuredSelection) selection;
 			if (structuredSelection.equals(currentSelection)) {
@@ -33,8 +36,11 @@ public class AadlEditingMonitor extends AbstractUserInteractionMonitor {
 					super.handleElementSelection(part, selectedElement, contributeToContext);
 				}
 			}
-		} else {
-			// TODO Convert text selection to AADL element
+		} else if (selection instanceof TextSelection) {
+			selectedElement = SelectionHelper.getEObjectFromSelection(selection);
+			if (selectedElement != null) {
+				super.handleElementSelection(part, selectedElement, contributeToContext);
+			}
 		}
 	}
 
