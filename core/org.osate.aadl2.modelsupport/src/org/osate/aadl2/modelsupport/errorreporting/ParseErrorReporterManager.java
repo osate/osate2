@@ -83,14 +83,6 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 		reportersList = new LinkedList<ParseErrorReporter>();
 	}
 
-	@Deprecated
-	public ParseErrorReporterManager(final InternalErrorReporter ier, final ParseErrorReporterFactory fact) {
-		super(ier);
-		factory = fact;
-		reportersMap = new HashMap<Resource, ParseErrorReporter>();
-		reportersList = new LinkedList<ParseErrorReporter>();
-	}
-
 	/**
 	 * Get the error reporter that is associated with AADL Text file named by
 	 * the given filename.

@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.organization.editor/src" modelPluginID="org.osate.organization"
     forceOverwrite="true" modelName="Organization" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.organization.edit"
-    editorPluginID="org.osate.organization.editor" runtimeVersion="2.13">
+    editorPluginID="org.osate.organization.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <genPackages prefix="Organization" basePackage="org.osate.organization" disposableProviderFactory="true"
       fileExtensions="org" ecorePackage="Organization.ecore#/">
     <genClasses ecoreClass="Organization.ecore#//Organization">

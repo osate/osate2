@@ -844,6 +844,7 @@
       <sourceLocator
           rootFolder="${git.clone.smaccm.location/fm-workbench/agree}">
         <excludedPath>edu.umn.cs.crisys.agree.realtime</excludedPath>
+        <excludedPath>regression_tests</excludedPath>
       </sourceLocator>
       <sourceLocator
           rootFolder="${git.clone.smaccm.location/fm-workbench/resolute}"/>
