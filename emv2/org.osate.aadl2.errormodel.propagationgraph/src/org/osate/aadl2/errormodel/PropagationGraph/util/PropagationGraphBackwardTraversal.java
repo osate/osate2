@@ -419,7 +419,7 @@ public class PropagationGraphBackwardTraversal {
 					if (conditionExpression != null) {
 						BranchValue val = transitionBranch.getValue();
 						if (val.getRealvalue() != null) {
-							branchscale = new BigDecimal(val.getRealvalue().replaceAll("_", ""));
+							branchscale = new BigDecimal(EMV2Util.stripUnderScore(val.getRealvalue()));
 						} else if (val.getSymboliclabel() != null) {
 							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
@@ -433,7 +433,8 @@ public class PropagationGraphBackwardTraversal {
 								BranchValue valcount = tb.getValue();
 								if (valcount.getRealvalue() != null) {
 									branchscale = branchscale
-											.subtract(new BigDecimal(valcount.getRealvalue().replaceAll("_", "")));
+											.subtract(
+													new BigDecimal(EMV2Util.stripUnderScore(valcount.getRealvalue())));
 								} else if (valcount.getSymboliclabel() != null) {
 									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
