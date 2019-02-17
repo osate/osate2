@@ -8,34 +8,38 @@
   <genPackages prefix="Result" basePackage="org.osate" disposableProviderFactory="true"
       ecorePackage="Result.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Result.ecore#//DiagnosticType">
-      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/TBD"/>
       <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/ERROR"/>
       <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/WARNING"/>
       <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/INFO"/>
-      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/SUCCESS"/>
-      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//DiagnosticType/FAILURE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Result.ecore#//ResultType">
+      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//ResultType/TBD"/>
+      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//ResultType/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//ResultType/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Result.ecore#//ResultType/FAILURE"/>
     </genEnums>
     <genClasses ecoreClass="Result.ecore#//AnalysisResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/analysis"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/info"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/sourceReference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/message"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/results"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//AnalysisResult/diagnostics"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//AnalysisResult/resultType"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Result">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/info"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Result/sourceReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/values"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/diagnostics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//Result/subResults"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/status"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/message"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Result/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Result/resultType"/>
     </genClasses>
     <genClasses ecoreClass="Result.ecore#//Diagnostic">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/diagnosticType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/message"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Diagnostic/sourceReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/exceptionType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//Diagnostic/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Result.ecore#//Diagnostic/modelElement"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Result.ecore#//Value"/>
     <genClasses ecoreClass="Result.ecore#//IntegerValue">
@@ -55,8 +59,8 @@
     <genClasses ecoreClass="Result.ecore#//EObjectValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EReference Result.ecore#//EObjectValue/value"/>
     </genClasses>
-    <genClasses ecoreClass="Result.ecore#//JavaObjectValue">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Result.ecore#//JavaObjectValue/value"/>
+    <genClasses ecoreClass="Result.ecore#//ObjectValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Result.ecore#//ObjectValue/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

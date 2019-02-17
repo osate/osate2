@@ -42,24 +42,6 @@
    <feature id="org.osate.alisa.workbench.sdk.source">
       <category name="alisa.source"/>
    </feature>
-   <feature id="com.rockwellcollins.atc.agree.feature">
-      <category name="fmworkbench"/>
-   </feature>
-   <feature id="com.rockwellcollins.atc.resolute.feature">
-      <category name="fmworkbench"/>
-   </feature>
-   <feature id="com.rockwellcollins.atc.z3.feature">
-      <category name="fmworkbench"/>
-   </feature>
-   <feature id="com.rockwellcollins.atc.agree.feature.source">
-      <category name="fmworkbench.source"/>
-   </feature>
-   <feature id="com.rockwellcollins.atc.resolute.feature.source">
-      <category name="fmworkbench.source"/>
-   </feature>
-   <feature id="com.rockwellcollins.atc.z3.feature.source">
-      <category name="fmworkbench.source"/>
-   </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
@@ -71,9 +53,5 @@
    <category-def name="alisa" label="ALISA Requirements Specification and Verification"/>
    <category-def name="alisa.source" label="ALISA Source Code">
       <category name="alisa"/>
-   </category-def>
-   <category-def name="fmworkbench" label="Resolute/AGREE (by Rockwell Collins)"/>
-   <category-def name="fmworkbench.source" label="Resolute/Agree Source Code">
-      <category name="fmworkbench"/>
    </category-def>
 </site>

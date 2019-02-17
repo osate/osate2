@@ -500,7 +500,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (derivedModes: ");
 		result.append(derivedModes);
 		result.append(", noFlows: ");

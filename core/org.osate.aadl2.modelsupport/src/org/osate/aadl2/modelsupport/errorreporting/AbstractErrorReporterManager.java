@@ -29,11 +29,6 @@ public abstract class AbstractErrorReporterManager implements ErrorReporterManag
 	protected AbstractErrorReporterManager() {
 	}
 
-	@Deprecated
-	protected AbstractErrorReporterManager(final InternalErrorReporter ier) {
-		internalErrDelegate = ier;
-	}
-
 	@Override
 	public void internalError(final String message) {
 		internalErrDelegate.internalError(message);
