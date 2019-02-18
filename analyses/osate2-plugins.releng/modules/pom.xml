@@ -20,7 +20,6 @@
 		<module>../../org.osate.analysis.flows</module>
 		<module>../../org.osate.analysis.resource.budgets</module>
 		<module>../../org.osate.analysis.resource.management</module>
-		<module>../../org.osate.analysis.security</module>
 
 		<module>../../org.osate.codegen.checker</module>
 
