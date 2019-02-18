@@ -7,7 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.flows.LatencyAnalysisService
+import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
@@ -74,8 +74,8 @@ class FlowLatencyCodeCoverageTest {
 					instantiate => [
 						"s1_i1_Instance".assertEquals(name)
 						
-						val analysis = new LatencyAnalysisService()
-						val actual = analysis.invoke(it, it.systemOperationModes.head)
+						val analysis = new FlowLatencyAnalysisSwitch()
+						val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true)
 						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
 						generateOrAssert(generateResults, resultPath,actual)
 					]
@@ -94,8 +94,8 @@ class FlowLatencyCodeCoverageTest {
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
 					
-					val analysis = new LatencyAnalysisService()
-					val actual = analysis.invoke(it, it.systemOperationModes.head)
+					val analysis = new FlowLatencyAnalysisSwitch()
+					val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true)
 
 					val resultPath = '''«DIR_NAME»results/testWithLatencyReport/«emptyPkgName».result'''
 					generateOrAssert(generateResults, resultPath,actual)
@@ -114,7 +114,7 @@ class FlowLatencyCodeCoverageTest {
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
 					
-					val analysis = new LatencyAnalysisService()
+					val analysis = new FlowLatencyAnalysisSwitch()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
 
 					val resultPath = '''«DIR_NAME»results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
@@ -134,7 +134,7 @@ class FlowLatencyCodeCoverageTest {
 				instantiate => [
 					"s1_i1_Instance".assertEquals(name)
 					
-					val analysis = new LatencyAnalysisService()
+					val analysis = new FlowLatencyAnalysisSwitch()
 					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
 					val resultPath = '''«DIR_NAME»results/testBestCaseFullQueue/«queuingPkgName».result'''
 					generateOrAssert(generateResults, resultPath,actual)
