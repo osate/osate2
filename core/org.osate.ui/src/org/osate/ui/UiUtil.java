@@ -8,8 +8,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -28,6 +34,9 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.resource.ILocationInFileProvider;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
@@ -36,6 +45,9 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public final class UiUtil {
 	public static final int SUCCESS = 0;
@@ -46,6 +58,21 @@ public final class UiUtil {
 	private static ComposedAdapterFactory adapterFactory = null;
 	private static AdapterFactoryLabelProvider labelProvider = null;
 	private static AdapterFactoryContentProvider contentProvider = null;
+
+	@Inject
+	private ILocationInFileProvider locationProvider;
+
+	private static final UiUtil PROTOTYPE = new UiUtil();
+
+	private UiUtil() {
+		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
+				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
+		injector.injectMembers(this);
+	}
+
+	public static final UiUtil getInstance() {
+		return PROTOTYPE;
+	}
 
 	private static boolean openEditor(final IWorkbenchPage page, final IFile input, final boolean activate) {
 		final class Result {
@@ -64,7 +91,7 @@ public final class UiUtil {
 		return result.value;
 	}
 
-	private static boolean openEditor(final IWorkbenchPage page, final IMarker marker, final boolean activate) {
+	public static boolean openEditor(final IWorkbenchPage page, final IMarker marker, final boolean activate) {
 		final class Result {
 			public volatile boolean value = true;
 		}
@@ -131,6 +158,10 @@ public final class UiUtil {
 	 * @param page Workbench page
 	 * @param target Element that is the target object
 	 */
+	/*
+	 * XXX this method is obsolete, I think, it does a poor job of locating the
+	 * source text in the declarative model.
+	 */
 	public static void gotoDeclarativeModelElement(IWorkbenchPage page, Element target) {
 		if (target == null) {
 			return;
@@ -157,6 +188,61 @@ public final class UiUtil {
 				OsateUiPlugin.log(e);
 			}
 		}
+	}
+
+	/**
+	 * Open an editor and hightlight the source text of the given declarative AADL element.
+	 *
+	 * <p><em>Assumes the caller has already locked the workspace.</em>  If the workspace
+	 * is not already locked, you can use {@link #openDeclarativeModelElementAsJob(IWorkbenchPage, Element)}.
+	 *
+	 * @param page The workbench page.
+	 * @param target The AADL element to highlight.
+	 */
+	public void openDeclarativeModelElement(final IWorkbenchPage page, final Element target) {
+		if (target == null) {
+			return;
+		}
+		Resource res = target.eResource();
+		final IResource ires = OsateResourceUtil.convertToIResource(res);
+		if (ires != null && ires.exists()) {
+			try {
+				final IMarker marker_p = ires.createMarker(AadlConstants.AADLGOTOMARKER);
+				marker_p.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
+				final String targetURI = EcoreUtil.getURI(target).toString();
+				marker_p.setAttribute(IMarker.MESSAGE, "Going to " + targetURI);
+				final ITextRegion where = locationProvider.getFullTextRegion(target);
+				final int start = where.getOffset();
+				final int end = start + where.getLength();
+				marker_p.setAttribute(IMarker.CHAR_START, start);
+				marker_p.setAttribute(IMarker.CHAR_END, end);
+				marker_p.setAttribute(AadlConstants.AADLURI, targetURI);
+				marker_p.setAttribute(EValidator.URI_ATTRIBUTE, targetURI);
+
+				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
+
+				// editor opened --- get rid of goto marker
+				ires.deleteMarkers(AadlConstants.AADLGOTOMARKER, false, IResource.DEPTH_ZERO);
+			} catch (final CoreException e) {
+				OsateUiPlugin.log(e);
+			}
+		}
+	}
+
+	public void openDeclarativeModelElementAsJob(final IWorkbenchPage page, final Element target) {
+		if (target == null) {
+			return;
+		}
+		final Job job = new WorkspaceJob("Goto AADL Element") {
+			@Override
+			public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
+				openDeclarativeModelElement(page, target);
+				return Status.OK_STATUS;
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.setUser(true); // important!
+		job.schedule();
 	}
 
 //
