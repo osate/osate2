@@ -184,7 +184,7 @@ public class SecurityLabel {
 	}
 
 	public boolean lessThan(SecurityLabel that) {
-		return !this.greaterThan(that);
+		return that.dominates(this) && !this.equals(that);
 	}
 
 	public SecurityLabel join(SecurityLabel that) {

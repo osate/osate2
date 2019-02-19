@@ -18,11 +18,11 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public class SecurityPolicy {
 
 	public enum PolicyElement {
-		NO_WRITE_UP, NO_READ_UP, NO_WRITE_DOWN, NO_READ_DOWN, NO_INTERPARTITION
+		NO_WRITE_UP, NO_READ_UP, NO_WRITE_DOWN, NO_READ_DOWN, NO_FLOW_UP, NO_FLOW_DOWN, NO_CONTAINMENT_UP, NO_CONTAINMENT_DOWN, NO_INTERPARTITION
 	}
 
 	public enum Access {
-		READ, WRITE
+		READ, WRITE, FLOW, CONTAINMENT
 	}
 
 	public List<PolicyElement> elements = new ArrayList<>();
@@ -66,8 +66,11 @@ public class SecurityPolicy {
 		if (label1.equals(label2)) {
 			return true;
 		}
-		boolean down = label1.greaterThan(label2);
-		boolean up = label1.lessThan(label2);
+		boolean down = label1.dominates(label2);
+		boolean up = label2.dominates(label1);
+		if (!(up || down)) {
+			return false;
+		}
 		boolean valid = true;
 		for (PolicyElement pe : elements) {
 			switch (pe) {
@@ -88,6 +91,26 @@ public class SecurityPolicy {
 				break;
 			case NO_WRITE_DOWN:
 				if (dir == Access.WRITE && down) {
+					valid = false;
+				}
+				break;
+			case NO_FLOW_UP:
+				if (dir == Access.FLOW && up) {
+					valid = false;
+				}
+				break;
+			case NO_FLOW_DOWN:
+				if (dir == Access.FLOW && down) {
+					valid = false;
+				}
+				break;
+			case NO_CONTAINMENT_UP:
+				if (dir == Access.CONTAINMENT && up) {
+					valid = false;
+				}
+				break;
+			case NO_CONTAINMENT_DOWN:
+				if (dir == Access.CONTAINMENT && down) {
 					valid = false;
 				}
 				break;

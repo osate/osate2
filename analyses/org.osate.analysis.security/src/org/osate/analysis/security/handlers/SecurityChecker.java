@@ -48,9 +48,9 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.security.SecurityLabelChecker;
 import org.osate.analysis.security.SecurityPolicy;
-import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelModifyHandler {
+public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 	@Override
 	public String getMarkerType() {
