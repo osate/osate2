@@ -1,6 +1,8 @@
 /*
+ * Created on Jan 30, 2004
+ *
  * <copyright>
- * Copyright  2005 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -29,56 +31,42 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
+ *
  * </copyright>
+ *
+ *
+ * @version $Id$
  */
-package org.osate.ui.perspective;
+package org.osate.analysis.architecture.unusedclassifiers.handlers;
 
-import org.eclipse.ui.IFolderLayout;
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.analysis.architecture.unusedclassifiers.FindUnusedClassifiersAnalysis;
 
-public class AadlPerspectiveFactory implements IPerspectiveFactory {
-	public AadlPerspectiveFactory() {
-		super();
+/**
+ * XXX Fill this in
+ */
+public final class FindUnusedClassifiers extends AbstractHandler {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		FindUnusedClassifiersAnalysis.INSTANCE.doIt(getCurrentSelection(event));
+		return null;
 	}
 
-	@Override
-	public void createInitialLayout(IPageLayout layout) {
-
-		String editorArea = layout.getEditorArea();
-
-		IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, (float) 0.25, editorArea);
-		left.addView("org.osate.ui.navigator.AadlNavigator");
-		left.addPlaceholder(IPageLayout.ID_RES_NAV);
-
-		IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, (float) 0.75, editorArea);
-		bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
-		bottom.addView(IPageLayout.ID_PROP_SHEET);
-		bottom.addView("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-		bottom.addView("org.osate.ui.classifier_info_view");
-
-		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
-
-		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
-
-//		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
-		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-
-		layout.addShowViewShortcut("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
-		layout.addShowViewShortcut("org.osate.ui.classifier_info_view");
-
-		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizardID");
-		layout.addNewWizardShortcut("org.osate.ui.NewAadlPackageWizard");
-		layout.addNewWizardShortcut("org.osate.ui.NewPropertySetWizard");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.file");
-		layout.addNewWizardShortcut("org.eclipse.ui.editors.wizards.UntitledTextFileWizard");
-
-		layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.cvs.ui.cvsPerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.ui.TeamSynchronizingPerspective");
+	/** Set of currently selected instance models as IResources.
+	 *   If the set is empty then the action will run on
+	 * all instance models in open AADL projects in the workspace.
+	 */
+	private Object[] getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection) {
+			return ((IStructuredSelection) selection).toArray();
+		} else {
+			return new Object[0];
+		}
 	}
 }
