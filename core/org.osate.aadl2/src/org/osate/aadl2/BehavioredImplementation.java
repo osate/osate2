@@ -85,6 +85,13 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	EList<SubprogramCall> getSubprogramCalls();
 
 	/**
+	 * Get all subprogram call sequences, including inherited.
+	 *
+	 * @return List of subprogram call sequences in this component implementation
+	 */
+	EList<SubprogramCallSequence> getAllSubprogramCallSequences();
+
+	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Call Sequence</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramCallSequence}.
 	 * <p>

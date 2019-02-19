@@ -11,7 +11,7 @@ This manual provides an overview of the basic features of OSATE and describes ho
 * [Importing and Exporting Models](#in_out)
 * [Analyzing a Model](#analysis)
 * [Viewing AADL Property Values](#properties)
-
+* [Viewing Classifier Members])(#classifierView)
 
 
 ## <span id="basics">Eclipse Basics</span>
@@ -82,7 +82,7 @@ This menu is populated with views specific to the current perspective.  Here we 
 
 ![Show View Dialog](images/OSATEUserGuide/ShowViewDialog.png)
 
-This dialog lists all the views avaible.  Views are grouped by category.  Above we see the `Error Log` view in the `General` category being selected for use.
+This dialog lists all the views available.  Views are grouped by category.  Above we see the `Error Log` view in the `General` category being selected for use.
 
 
 
@@ -822,3 +822,41 @@ This action is enabled for **local**, **local contained**, and **shared local co
 * Remove the selected item from the list property value.
 
 Note that executing this action on a **shared local contained** property impacts all model elements that share the selected property value.
+
+
+
+## <span id="classifierView">Viewing Classifier Members</span>
+
+The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.   To use the view, simply select a component classifier in the `AADL Navigator`.  The view becomes populated with information about the classifier:
+
+![Classifier view](images/OSATEUserGuide/classifierView1.png)
+
+The view is split in half:
+1. The left half shows the extension hierarchy
+2. The right half shows the members of the classifier grouped by kind.
+
+In the above, the view shows information about the classifier `T2.i2`.  From the hierarchy tree we see that 
+* It implements `T2` which extends `T1`. 
+* It extends `T2.i1`.
+
+Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.
+
+The members tree shows all the members of `T2.i2`.  If a member is not declared locally it is annotated with the ancestor that declares it, e.g., the feature `f2 [from T2]`.  If a member is a refinement it is annotated with the prefix `refined` and lists the refined member as a child in the tree.  These annotations interact, for example, the feature `refined f1 [from T2]` indicates that a refinement of feature `f1` is inherited from type `T2`.  The child `f1 [from T1]` indicates that the feature was originally declared in type `T1`.
+
+Feature group types may have the additional annotation `inverse of` indicating that the feature is the inverse of given feature.  For example, in the screenshot below, the features groups `IG1` and `IG2` are declared to be inverses of the feature groups `FG1` and `FG2`, respectively.  Neither declares any explicit features.  The `Classifier Info` view shows that feature group type `IG2` has two features:
+1. A feature that is the inverse of the feature `f1` declared in `FG1`.
+2. A feature that is the inverse of the feature `f2` declared in `FG2`.
+
+![Classifier view showing inverse feature groups](images/OSATEUserGuide/inverseFeatureGroup.png)
+
+Double-clicking on any of the members opens the AADL source text for the member in an editor.
+
+
+### Synchronizing with the Editor
+
+The view's toolbar contains a single button that controls whether the view's selection is synchronized with the editor:
+* ![](images/OSATEUserGuide/synced@2x.png) When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
+* ![](images/OSATEUserGuide/sync_broken@2x.png) When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.
+
+
+

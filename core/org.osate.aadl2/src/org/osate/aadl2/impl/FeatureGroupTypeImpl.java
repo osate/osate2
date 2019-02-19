@@ -38,6 +38,8 @@ package org.osate.aadl2.impl;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -1191,6 +1193,26 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		return flist.indexOf(feature);
 	}
 
+	private void processFeatures(final List<Feature> allFeatures, final List<Feature> refinedFeatures,
+			final List<Feature> localFeatures) {
+		/*
+		 * Iterate backwards, so when we insert features at the start of the complete list, they
+		 * still are inserted in the order of declaration. Keep the refined features in order because
+		 * the types get visited from the bottom of the tree up, so the feature being refined will
+		 * not have been added to the list yet.
+		 */
+		for (final ListIterator<Feature> listIter = localFeatures.listIterator(localFeatures.size()); listIter
+				.hasPrevious();) {
+			final Feature f = listIter.previous();
+			final Feature r = f.getRefined();
+			if (r == null) {
+				allFeatures.add(0, f);
+			} else {
+				refinedFeatures.add(0, f);
+			}
+		}
+	}
+
 	/**
 	 * Get a list of Feature objects representing those features in the
 	 * feature group type, including those from super types or inverses.
@@ -1199,9 +1221,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 */
 	@Override
 	public EList<Feature> getAllFeatures() {
-		EList<Feature> allFeatures = new BasicEList<>();
-		HashSet<Feature> toRemove = new HashSet<>();
-		HashSet<FeatureGroupType> seen = new HashSet<>();
+		final List<Feature> allFeatures = new LinkedList<Feature>();
+		final List<Feature> refinedFeatures = new LinkedList<Feature>();
+		final HashSet<FeatureGroupType> seen = new HashSet<>();
 
 		FeatureGroupType current = this;
 		while (current != null && !current.eIsProxy() && !seen.contains(current)) {
@@ -1210,27 +1232,43 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			FeatureGroupType extended = current.getExtended();
 			EList<Feature> owned = current.getOwnedFeatures();
 			if (!owned.isEmpty()) {
-				allFeatures.addAll(0, owned);
-				current = extended;
+				processFeatures(allFeatures, refinedFeatures, owned);
+				/*
+				 * Go to the extended feature group next if it exists. Otherwise,
+				 * go to the feature group extended by the inverse next. We just looked
+				 * at the inverse group, so don't visit it a second time.
+				 */
+				current = extended != null ? extended : (inverse != null ? inverse.getExtended() : null);
 			} else {
 				if (inverse != null) {
-					allFeatures.addAll(0, inverse.getOwnedFeatures());
-				}
-				current = extended != null ? extended : inverse;
-			}
-		}
-		for (Feature f : allFeatures) {
-			Feature r = f.getRefined();
-			if (r != null) {
-				toRemove.add(r);
-				if (!allFeatures.contains(r)) {
-					toRemove.add(f);
+					processFeatures(allFeatures, refinedFeatures, inverse.getOwnedFeatures());
+					/*
+					 * Go to the extended feature group next if it exists. Otherwise,
+					 * go to the feature group extended by the inverse next. We just looked
+					 * at the inverse group, so don't visit it a second time.
+					 */
+					current = extended != null ? extended : inverse.getExtended();
+				} else {
+					current = extended;
 				}
 			}
 		}
-		allFeatures.removeAll(toRemove);
 
-		return allFeatures;
+		/*
+		 * Refinements need to replace the original in the original position. If a feature is repeatedly
+		 * refined, it will keep being replaced.
+		 */
+		for (final Feature f : refinedFeatures) {
+			final Feature r = f.getRefined();
+			final int idx = allFeatures.indexOf(r);
+			if (idx != -1) {
+				allFeatures.set(idx, f);
+			} else {
+				// Feature being refined, doesn't exist, so ignore it
+			}
+		}
+
+		return new BasicEList<Feature>(allFeatures);
 	}
 
 	@Override
