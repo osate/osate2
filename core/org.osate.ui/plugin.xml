@@ -403,6 +403,13 @@
             id="org.osate.ui.logger_view"
             name="%osate_logger_view.label">
       </view>
+      <view
+            category="aadl.view_category"
+            class="org.osate.ui.views.ClassifierInfoView"
+            icon="icons/aadl.gif"
+            id="org.osate.ui.classifier_info_view"
+            name="%osate_classifier_info_view.label">
+      </view>
    </extension>
    
     <extension
@@ -784,6 +791,16 @@
                 </separator>
              </menu>
              <menu
+                   id="org.osate.ui.modelCleanupMenu"
+                   label="Model Maintenance">
+                <separator
+                      name="core">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <menu
                    id="org.osate.ui.miscellaneousMenu"
                    label="Miscellaneous">
                 <separator
@@ -1115,6 +1132,22 @@
             namespace="org.osate.ui"
             properties="superType"
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+       </propertyTester>
+       
+       <propertyTester
+       		class="org.osate.ui.handlers.AadlFileTypePropertyTester"
+            id="org.osate.ui.AadlPackagePropertyTester"
+            namespace="org.osate.ui"
+            properties="aadlPackage"
+            type="org.eclipse.core.resources.IFile">
+       </propertyTester>
+       
+       <propertyTester
+       		class="org.osate.ui.handlers.AadlFileTypePropertyTester"
+            id="org.osate.ui.AadlPropertySetPropertyTester"
+            namespace="org.osate.ui"
+            properties="aadlPropertySet"
+            type="org.eclipse.core.resources.IFile">
        </propertyTester>
     </extension>
    <extension
