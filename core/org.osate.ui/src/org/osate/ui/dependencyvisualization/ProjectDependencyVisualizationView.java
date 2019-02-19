@@ -249,22 +249,28 @@ public class ProjectDependencyVisualizationView extends AbstractDependencyVisual
 	@Override
 	protected void setScopeToWorkspace() {
 		workspaceButton.setSelection(true);
+		workingSetButton.setSelection(false);
 		workingSetCombo.getCombo().setEnabled(false);
+		projectButton.setSelection(false);
 		projectCombo.getCombo().setEnabled(false);
 		setInput(new ProjectVisualizationInput());
 	}
 
 	public void setScope(IWorkingSet workingSet) {
+		workspaceButton.setSelection(false);
 		workingSetButton.setSelection(true);
 		workingSetCombo.removeSelectionChangedListener(workingSetComboListener);
 		workingSetCombo.setSelection(new StructuredSelection(workingSet));
 		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
 		workingSetCombo.getCombo().setEnabled(true);
+		projectButton.setSelection(false);
 		projectCombo.getCombo().setEnabled(false);
 		setInput(new ProjectVisualizationInput(workingSet));
 	}
 
 	public void setScope(IProject project) {
+		workspaceButton.setSelection(false);
+		workingSetButton.setSelection(false);
 		workingSetCombo.getCombo().setEnabled(false);
 		projectButton.setSelection(true);
 		projectCombo.removeSelectionChangedListener(projectComboListener);

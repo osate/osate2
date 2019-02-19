@@ -355,30 +355,39 @@ public class ModelUnitDependencyVisualizationView extends AbstractDependencyVisu
 	@Override
 	protected void setScopeToWorkspace() {
 		workspaceButton.setSelection(true);
+		workingSetButton.setSelection(false);
 		workingSetCombo.getCombo().setEnabled(false);
+		projectButton.setSelection(false);
 		projectCombo.getCombo().setEnabled(false);
+		modelUnitButton.setSelection(false);
 		modelUnitCombo.getCombo().setEnabled(false);
 		setInput(ModelUnitVisualizationInput.create(resourceDescriptions));
 	}
 
 	public void setScope(IWorkingSet workingSet) {
+		workspaceButton.setSelection(false);
 		workingSetButton.setSelection(true);
 		workingSetCombo.removeSelectionChangedListener(workingSetComboListener);
 		workingSetCombo.setSelection(new StructuredSelection(workingSet));
 		workingSetCombo.addSelectionChangedListener(workingSetComboListener);
 		workingSetCombo.getCombo().setEnabled(true);
+		projectButton.setSelection(false);
 		projectCombo.getCombo().setEnabled(false);
+		modelUnitButton.setSelection(false);
 		modelUnitCombo.getCombo().setEnabled(false);
 		setInput(ModelUnitVisualizationInput.create(resourceDescriptions, workingSet));
 	}
 
 	public void setScope(IProject project) {
+		workspaceButton.setSelection(false);
+		workingSetButton.setSelection(false);
 		workingSetCombo.getCombo().setEnabled(false);
 		projectButton.setSelection(true);
 		projectCombo.removeSelectionChangedListener(projectComboListener);
 		projectCombo.setSelection(new StructuredSelection(project));
 		projectCombo.addSelectionChangedListener(projectComboListener);
 		projectCombo.getCombo().setEnabled(true);
+		modelUnitButton.setSelection(false);
 		modelUnitCombo.getCombo().setEnabled(false);
 		setInput(ModelUnitVisualizationInput.create(resourceDescriptions, project));
 	}
