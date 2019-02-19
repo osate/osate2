@@ -133,7 +133,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 		try {
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
-			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer() {
+			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 				@Override
 				protected void begin(final int count) {
 					searchResult.setResourceSet(getResourceSet());
@@ -150,7 +150,7 @@ public final class AadlSearchQuery implements ISearchQuery {
 					final String fileString = rsrcDesc.getURI().lastSegment();
 					nonNullmonitor.subTask(fileString);
 					if (limitTo.declarations()) {
-						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, getResourceSet(),
+						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, 
 								searchFor.declarationEClass(), objDesc -> {
 									// now check the name, which in the last segment (skip over the package names)
 									final String testIdentifier = objDesc.getName().getLastSegment();
