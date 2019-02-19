@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -31,6 +32,17 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 		instanceSwitch = new InstanceSwitch<String>() {
 
 			/**
+			 * Check if component containment complies with the security policy.
+			 * Compare component's security label with the label of its container.
+			 */
+			@Override
+			public String caseComponentInstance(ComponentInstance ci) {
+				ComponentInstance parent = ci.getContainingComponentInstance();
+
+				return checkValidContainment(ci, parent, ci);
+			}
+
+			/**
 			 * Check connection instance for security policy compliance:
 			 * Data flow from source and destination label must conform to policy.
 			 */
@@ -41,7 +53,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 					NamedElement src = conni.getSource();
 					NamedElement dst = conni.getDestination();
 
-					return checkValid(conni, src, dst);
+					return checkValidFlow(conni, src, dst);
 				}
 				return DONE;
 			}
@@ -55,7 +67,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 				NamedElement src = fsi.getSource();
 				NamedElement dst = fsi.getDestination();
 
-				return checkValid(fsi, src, dst);
+				return checkValidFlow(fsi, src, dst);
 			}
 
 			/**
@@ -65,12 +77,12 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			@Override
 			public String caseConnectionReference(ConnectionReference cref) {
 				ConnectionInstance conni = (ConnectionInstance) cref.getOwner();
-				// TODO: what about other connection kinds?
+				// TODO: handle other connection kinds
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 					NamedElement src = cref.getSource();
 					NamedElement dst = cref.getDestination();
 
-					return checkValid(cref, src, dst);
+					return checkValidFlow(cref, src, dst);
 				}
 				return DONE;
 			}
@@ -82,15 +94,25 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			 */
 			@Override
 			public String caseFeatureInstance(FeatureInstance fi) {
-				if (fi.getCategory() == FeatureCategory.DATA_PORT) {
+				FeatureCategory fc = fi.getCategory();
+				// TODO: handle access features, feature groups
+				if (fc == FeatureCategory.DATA_PORT || fc == FeatureCategory.EVENT_DATA_PORT) {
 					NamedElement data = fi.getFeature().getAllClassifier();
 
-					return checkValid(fi, data, fi);
+					return checkValidFlow(fi, data, fi);
 				}
 				return DONE;
 			}
 
-			protected String checkValid(Element element, NamedElement src, NamedElement dst) {
+			protected String checkValidFlow(Element element, NamedElement src, NamedElement dst) {
+				return checkValidFlow(element, Access.FLOW, src, dst);
+			}
+
+			protected String checkValidContainment(Element element, NamedElement src, NamedElement dst) {
+				return checkValidFlow(element, Access.CONTAINMENT, src, dst);
+			}
+
+			protected String checkValidFlow(Element element, Access dir, NamedElement src, NamedElement dst) {
 				if (src == null || dst == null) {
 					return DONE;
 				}
@@ -101,13 +123,10 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 					if (srcLabel.isPresent() && dstLabel.isPresent()) {
 						SecurityLabel sl = srcLabel.get();
 						SecurityLabel dl = dstLabel.get();
-						if (!policy.allows(Access.WRITE, sl, dl)) {
-							error(element, "Security policy violation: Write access from " + sl.toString() + " to "
+						if (!policy.allows(dir, sl, dl)) {
+							error(element,
+									"Security policy violation: Flow from " + sl.toString() + " to "
 									+ dl.toString());
-						}
-						if (!policy.allows(Access.READ, dl, sl)) {
-							error(element, "Security policy violation: Read access from " + dl.toString() + " to "
-									+ sl.toString());
 						}
 					} else {
 						if (!srcLabel.isPresent() && dstLabel.isPresent()) {
