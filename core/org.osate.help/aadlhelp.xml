@@ -11,6 +11,7 @@
 		<topic href="html/start2/OSATEUserGuide.html#in_out" label="Importing and Exporting Models" />
 		<topic href="html/start2/OSATEUserGuide.html#analysis" label="Analyzing Models" />
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
+		<topic href="html/start2/OSATEUserGuide.html#classifierView" label="Viewing Classifier Members" />
 	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
@@ -19,6 +20,7 @@
     	<anchor id="_latency"/>
 		<anchor id="_codegen_checker"/>
 		<anchor id="_check_binding_constraints"/>
+		<anchor id="_model_maintenance"/>
     	<topic href="html/plugins/index.html" label="Other Analyses">
     	</topic>
 	</topic>
