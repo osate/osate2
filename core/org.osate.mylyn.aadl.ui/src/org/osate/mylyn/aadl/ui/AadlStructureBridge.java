@@ -42,11 +42,6 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public Object getAdaptedParent(final Object object) {
-		/*
-		 * XXX: Not really sure what this should do. JavaStructureBridge tries to adapt an IFile to a
-		 * Java element. Probably we want to see if an IFile refers to a package or property set
-		 * and return the appropriate AObject.
-		 */
 		return super.getAdaptedParent(object);
 	}
 
@@ -87,21 +82,20 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public Object getObjectForHandle(final String handle) {
 		/*
 		 * The parent ResourceStructureBridge might call us with handles for resources, in this case we fail
-		 * and reutrn null.
+		 * and return null.
 		 */
 		try {
-				return resourceSet.getEObject(URI.createURI(handle), true);
+			return resourceSet.getEObject(URI.createURI(handle), true);
 		} catch (final Exception e) {
 			return null;
 		}
 	}
 
 	@Override
-	public List<String> getChildHandles(String handle) {
+	public List<String> getChildHandles(final String handle) {
 		final Object object = getObjectForHandle(handle);
 		if (object instanceof Element) {
 			final Element aadlElement = (Element) object;
-			// XXX Do I need to filter the children to just include features, subcomponents, etc.
 			final List<String> childHandles = new ArrayList<String>();
 			for (final Element child : aadlElement.getChildren()) {
 				final String childHandle = getHandleIdentifier(child);
@@ -139,17 +133,19 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 	public boolean acceptsObject(final Object object) {
 		if (object instanceof IResource) {
 			final Object adapter = ((IResource) object).getAdapter(Element.class);
-			final boolean b = adapter instanceof Element;
-			return b;
+			return adapter instanceof Element;
 		} else {
-			final boolean b = object instanceof Element;
-			return b;
+			return object instanceof Element;
 		}
 	}
 
 	@Override
 	public boolean canFilter(final Object element) {
-		// XXX Not entirely sure what this does, but returning true seems reasonable
+		/*
+		 * I don't really know what this does, but if I return false, then the context pane
+		 * of the task editor shows things that don't make sense. All the implementations in
+		 * mylyn basically return true. So we return true here.
+		 */
 		return true;
 	}
 
@@ -162,13 +158,17 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
-		// XXX Not sure what this does exatcly, seems to be related to markers. Wait and see on this
+		/*
+		 * XXX Not sure what this does exactly, seems to be related to markers. Wait and see on this.
+		 * Not even sure when or why this gets called. Definitely safe to return null, as other
+		 * implementations do so.
+		 */
 		return null;
 	}
 
 	@Override
 	public String getContentType(final String parentHandle) {
-		// XXX Not sure how great a test this really is
+		// Not sure how great a test this really is
 		if (parentHandle.endsWith(".aadl")) {
 			return parentContentType;
 		}
