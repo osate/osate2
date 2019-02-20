@@ -128,7 +128,7 @@ public class ExecuteJavaUtil {
 			return obj.getClass();
 		}
 
-		return getJavaClassFromProjects(className);
+		return null;// getJavaClassFromProjects(className);
 	}
 
 	// get Java Class from from searching projects in workspace
