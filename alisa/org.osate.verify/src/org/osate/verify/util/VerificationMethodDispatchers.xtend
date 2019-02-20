@@ -60,10 +60,6 @@ class VerificationMethodDispatchers {
 				if(target === null) true else target.ResourceBudget
 			case "BinPack":
 				if(target === null) true else target.Binpack
-			case "CheckSafety":
-				if(target === null) true else target.CheckSafety
-			case "CheckSecurity":
-				if(target === null) true else target.CheckSecurity
 			default:
 				null
 		}
