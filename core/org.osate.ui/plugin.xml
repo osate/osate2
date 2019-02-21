@@ -1219,5 +1219,13 @@
             file="toc_ui.xml"
             primary="true">
       </toc>
+      <toc
+            file="toc_projectVisualization.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="toc_modelUnitVisualization.xml"
+            primary="true">
+      </toc>
    </extension>
 </plugin>

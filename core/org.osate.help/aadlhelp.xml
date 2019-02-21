@@ -14,6 +14,8 @@
 	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
+		<anchor id="_projectDependencyVisualizationView"/>
+		<anchor id="_modelUnitDependencyVisualizationView"/>
 	</topic>
 	<topic label="Model Analyses">
     	<anchor id="_latency"/>
