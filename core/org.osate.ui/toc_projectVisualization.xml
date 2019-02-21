@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc link_to="../org.osate.help/aadlhelp.xml#_projectDependencyVisualizationView" label="Project Dependency Visualization View">
+	<topic href="html/ProjectDependencyVisualization.html" label="Project Dependency Visualization View">
+		<topic href="html/ProjectDependencyVisualization.html#introduction" label="Introduction"/>
+		<topic href="html/ProjectDependencyVisualization.html#project-references" label="Project References"/>
+		<topic href="html/ProjectDependencyVisualization.html#opening-the-view" label="Opening the View"/>
+		<topic href="html/ProjectDependencyVisualization.html#graph-scope" label="Graph Scope">
+			<topic href="html/ProjectDependencyVisualization.html#workspace" label="Workspace"/>
+			<topic href="html/ProjectDependencyVisualization.html#working-set" label="Working Set"/>
+			<topic href="html/ProjectDependencyVisualization.html#project" label="Project"/>
+			<topic href="html/ProjectDependencyVisualization.html#setting-the-scope" label="Setting the Scope"/>
+			<topic href="html/ProjectDependencyVisualization.html#refreshing-the-scope" label="Refreshing the Scope"/>
+		</topic>
+		<topic href="html/ProjectDependencyVisualization.html#interacting-with-the-graph" label="Interacting with the Graph"/>
+	</topic>
+</toc>
