@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2-plugins.parent</artifactId>
-		<version>2.3.7.vfinal</version>
+		<version>2.4.0-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2-plugins.modules</artifactId>
-	<version>2.3.7.vfinal</version>
+	<version>2.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -20,7 +20,6 @@
 		<module>../../org.osate.analysis.flows</module>
 		<module>../../org.osate.analysis.resource.budgets</module>
 		<module>../../org.osate.analysis.resource.management</module>
-		<module>../../org.osate.analysis.security</module>
 
 		<module>../../org.osate.codegen.checker</module>
 

@@ -2,41 +2,41 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="alisa" nsURI="http://www.osate.org/alisa/workbench/Alisa" nsPrefix="alisa">
   <eClassifiers xsi:type="ecore:EClass" name="AssuranceCase">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="ecore:EClass ../../../org.osate.aadl2/model/aadl2.ecore#//ComponentType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass ../../../org.osate.alisa.common/model/generated/Common.ecore#//Description"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assurancePlans" upperBound="-1"
         eType="#//AssurancePlan" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tasks" upperBound="-1"
-        eType="ecore:EClass ../../../org.osate.categories/model/generated/Categories.ecore#//CategoryFilter"
+        eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//CategoryFilter"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssurancePlan">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass ../../../org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass ../../../org.osate.alisa.common/model/generated/Common.ecore#//Description"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assure" unique="false"
-        upperBound="-1" eType="ecore:EClass ../../../org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureGlobal" unique="false"
-        upperBound="-1" eType="ecore:EClass ../../../org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assureSubsystems" unique="false"
-        upperBound="-1" eType="ecore:EClass ../../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assureAll" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assureAll" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assumeSubsystems" unique="false"
-        upperBound="-1" eType="ecore:EClass ../../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assumeAll" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assumeAll" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
-        upperBound="-1" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssuranceTask" eSuperTypes="../../../org.osate.categories/model/generated/Categories.ecore#//CategoryFilter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass ../../../org.osate.alisa.common/model/generated/Common.ecore#//Description"
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceTask" eSuperTypes="platform:/resource/org.osate.categories/model/generated/Categories.ecore#//CategoryFilter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
-        upperBound="-1" eType="ecore:EDataType ../../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

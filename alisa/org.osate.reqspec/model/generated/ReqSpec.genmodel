@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.reqspec.editor/src" modelPluginID="org.osate.reqspec"
     forceOverwrite="true" modelName="ReqSpec" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
-    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.13" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
+    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec,goals,constants,reqdoc,goaldoc" ecorePackage="ReqSpec.ecore#/">
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">

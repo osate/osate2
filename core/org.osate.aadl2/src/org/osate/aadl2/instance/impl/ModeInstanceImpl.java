@@ -471,7 +471,7 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (initial: "); //$NON-NLS-1$
 		result.append(initial);
 		result.append(", derived: "); //$NON-NLS-1$

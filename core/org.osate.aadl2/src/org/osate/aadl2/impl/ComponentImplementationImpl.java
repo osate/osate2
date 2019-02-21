@@ -1609,7 +1609,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			return super.toString();
 		}
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noSubcomponents: ");
 		result.append(noSubcomponents);
 		result.append(", noConnections: ");
@@ -1922,28 +1922,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	// work.
 	@Override
 	public EList<Prototype> getAllPrototypes() {
-		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Prototype> returnlist = new BasicEList<>();
-		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
-			final ComponentImplementation current = (ComponentImplementation) li.previous();
-			final EList<Prototype> currentItems = current.getOwnedPrototypes();
-			if (currentItems != null) {
-				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
-					final Prototype fe = i.next();
-					final Prototype rfe = fe.getRefined();
-					if (rfe != null) {
-						returnlist.remove(rfe);
-					}
-					returnlist.add(fe);
-				}
-			}
-		}
+
 		ComponentType type = getType();
 		if (Aadl2Util.isNull(type)) {
 			return returnlist;
 		}
-		ancestors = getType().getSelfPlusAllExtended();
+
+		EList<Classifier> ancestors = getType().getSelfPlusAllExtended();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
@@ -1959,6 +1945,24 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 				}
 			}
 		}
+
+		ancestors = getSelfPlusAllExtended();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Prototype> currentItems = current.getOwnedPrototypes();
+			if (currentItems != null) {
+				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
+					final Prototype fe = i.next();
+					final Prototype rfe = fe.getRefined();
+					if (rfe != null) {
+						returnlist.remove(rfe);
+					}
+					returnlist.add(fe);
+				}
+			}
+		}
+
 		return returnlist;
 	}
 

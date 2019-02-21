@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.3.7.vfinal" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.4.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -44,11 +44,9 @@
       <feature id="org.osate.ge.feature" installMode="root"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
-      <feature id="it.xsemantics.runtime.feature"/>
+      <feature id="org.eclipse.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.equinox.executable"/>
@@ -56,8 +54,8 @@
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.graphiti.export.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
-      <feature id="org.eclipse.elk.feature" version="0.3.0"/>
-      <feature id="org.eclipse.elk.algorithms.feature" version="0.3.0"/>
+      <feature id="org.eclipse.elk.feature"/>
+      <feature id="org.eclipse.elk.algorithms.feature"/>
       <feature id="org.eclipse.ease.feature"/>
       <feature id="org.eclipse.ease.lang.python.py4j.feature"/>
       <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
@@ -69,21 +67,19 @@
    </features>
 
    <configurations>
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
-      <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="4" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
    </configurations>
 
    <repositories>
-      <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.7" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
+      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.10" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2018-12" enabled="true" />
    </repositories>
 
 </product>

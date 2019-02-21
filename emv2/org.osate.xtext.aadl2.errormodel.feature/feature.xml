@@ -2,7 +2,7 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="2.3.7.vfinal"
+      version="2.4.0.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding">
 
@@ -52,9 +52,9 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.osate.xtext.aadl2.properties.ui"/>
       <import plugin="org.eclipse.emf.transaction"/>
       <import plugin="org.apache.commons.logging"/>
-      <import plugin="org.eclipse.xtext" version="2.12.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.util" version="2.12.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.common.types" version="2.12.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext" version="2.16.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.util" version="2.16.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.common.types" version="2.16.0" match="equivalent"/>
    </requires>
 
    <plugin
