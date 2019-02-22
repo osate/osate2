@@ -126,7 +126,7 @@
     <extension
          point="org.osate.pluginsupport.registeredjavaclasses">
       <class
-            path="org.osate.analysis.flows.LatencyAnalysisService">
+            path="org.osate.analysis.flows.FlowLatencyAnalysisSwitch">
       </class>
    </extension>
    
