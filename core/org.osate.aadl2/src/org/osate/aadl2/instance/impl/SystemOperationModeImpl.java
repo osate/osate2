@@ -42,12 +42,15 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.impl.ModeImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
 
 /**
  * <!-- begin-user-doc -->
@@ -211,9 +214,9 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		 * name, or else it messes up the XML/XMI processing.
 		 */
 		final StringBuffer name = new StringBuffer();
-		EList ml = getCurrentModes();
-		for (Iterator it = ml.iterator(); it.hasNext();) {
-			final ModeInstance mi = (ModeInstance) it.next();
+		EList<ModeInstance> ml = getCurrentModes();
+		for (Iterator<ModeInstance> it = ml.iterator(); it.hasNext();) {
+			final ModeInstance mi = it.next();
 			final ComponentInstance ci = (ComponentInstance) mi.eContainer();
 			name.append(ci.getComponentInstancePath());
 			if (name.length() > 0) {
@@ -227,4 +230,15 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		return name.toString();
 	}
 
+	@Override
+	public boolean acceptsProperty(Property property) {
+		// SystemOperationModes can't have properties.
+		return false;
+	}
+
+	@Override
+	public void getPropertyValueInternal(Property prop, PropertyAcc pas, boolean fromInstanceSlaveCall, boolean all)
+			throws InvalidModelException {
+		// SystemOperationModes can't have properties.
+	}
 } // SystemOperationModeImpl
