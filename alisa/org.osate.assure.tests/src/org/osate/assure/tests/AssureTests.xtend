@@ -73,27 +73,6 @@ class AssureTests extends XtextTest {
 	@Inject
 	IAssureConstructor assureConstructor
 
-//	var private static boolean RESOLUTE_INSTALLED = false;
-//	var private static boolean INSTALL_INITIALIZED = false;
-//
-//	def ResoluteInstalled() {
-//		if (!INSTALL_INITIALIZED) {
-//			try {
-//				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
-//				val name = fn.getName();
-//				fn.setName("dummy");
-//				if (name !== null && name.startsWith("org.osate")) {
-//					RESOLUTE_INSTALLED = false;
-//				} else {
-//					RESOLUTE_INSTALLED = true;
-//				}
-//			} catch (NoClassDefFoundError e) {
-//				RESOLUTE_INSTALLED = false;
-//			}
-//			INSTALL_INITIALIZED = true
-//		}
-//		return RESOLUTE_INSTALLED
-//	}
 
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
 	val propertiesprefix = projectprefix + "Properties/"
