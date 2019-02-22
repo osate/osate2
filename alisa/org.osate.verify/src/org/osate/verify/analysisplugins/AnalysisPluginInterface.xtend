@@ -35,29 +35,6 @@ import static org.osate.verify.util.VerifyUtilExtension.*
 
 class AnalysisPluginInterface {
 
-	def static AnalysisResult flowLatencyAnalysis(InstanceObject etefi, boolean[] prefs) {
-		var AnalysisResult res = null;
-		val root = etefi.systemInstance
-		val checker = new FlowLatencyAnalysisSwitch(root)
-		val markerType = "LatencyAnalysis"
-		if (!getHasRun(markerType, root)) {
-			val som = root.systemOperationModes.head
-			try {
-				if (prefs !== null && prefs.size === 4) {
-					res = checker.invokeAndSaveResult(root, som, prefs.get(0), prefs.get(1), prefs.get(2), prefs.get(3))
-				} else {
-					res = checker.invokeAndSaveResult(root, som, false, true, true, true)
-				}
-				setHasRun(markerType, root)
-				setAnalysisResult(root, res)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, root)
-			}
-		} else {
-			res = getAnalysisResult(root)
-		}
-		res
-	}
 
 //=======================architecture.analysis========================//
 	def static String A429Consistency(InstanceObject ci) {
