@@ -501,6 +501,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	
 	def dispatch void format(ListType listType, extension IFormattableDocument document) {
 		listType.regionFor.keyword(listOfKeywordsAccess.ofKeyword_1).surround[oneSpace]
+		listType.ownedElementType.format(document)
 	}
 	
 	def dispatch void format(PropertyConstant propertyConstant, extension IFormattableDocument document) {
