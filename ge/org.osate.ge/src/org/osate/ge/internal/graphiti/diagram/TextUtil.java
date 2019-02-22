@@ -41,10 +41,16 @@ public class TextUtil {
 	}
 
 	private static int getScaledFontPointSize(final double unscaledFontSize) {
-		final Device device = Display.getCurrent();
+		double scaleFactor = 1.0;
+		// Don't scale on Linux. Assume font DPI is 96, which is the default for X.org.
+		// There seems to be no OS independent way to get the font DPI if the X.org default is overridden.
+		if (!System.getProperty("os.name").startsWith("Linux")) {
+			final Device device = Display.getCurrent();
+			scaleFactor = 96.0 / device.getDPI().y;
+		}
 		// Round to 1 decimal point before casting to int.
 		// This ensures that the value is rounded up only in cases where the value is within .1 of a whole number
-		final int fontSizeInPoints = (int)(Math.round(unscaledFontSize*96.0/device.getDPI().y*10.0)/10.0);
+		final int fontSizeInPoints = (int) (Math.round(unscaledFontSize * scaleFactor * 10.0) / 10.0);
 		return fontSizeInPoints;
 	}
 }

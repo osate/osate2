@@ -36,8 +36,10 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -48,6 +50,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
@@ -235,6 +238,16 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	public EList<SubprogramCall> getSubprogramCalls() {
 		// DONE: implement this method to return the 'Subprogram Call' reference list
 		return BehavioredImplementationOperations.subprogramCalls(this);
+	}
+
+	public EList<SubprogramCallSequence> getAllSubprogramCallSequences() {
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
+		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final BehavioredImplementation current = (BehavioredImplementation) it.next();
+			returnlist.addAll(current.getOwnedSubprogramCallSequences());
+		}
+		return returnlist;
 	}
 
 	/**

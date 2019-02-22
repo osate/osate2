@@ -1,7 +1,9 @@
 package org.osate.search;
 
+import java.util.Collection;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -99,7 +101,7 @@ public final class AadlFinder {
 		public void found(T objDesc);
 	}
 
-	public static abstract class ResourceConsumer {
+	public static abstract class ResourceConsumer<T> {
 		private ResourceSet resourceSet;
 
 		protected final ResourceSet getResourceSet() {
@@ -112,16 +114,16 @@ public final class AadlFinder {
 		}
 
 		protected void begin(int count) {
-		};
+		}
 
-		protected void inScope(final IResourceDescription rsrcDesc) {
-		};
+		protected void inScope(final T rsrcDesc) {
+		}
 
-		protected void skipped(final IResourceDescription rsrcDesc) {
+		protected void skipped(final T rsrcDesc) {
 		}
 
 		protected void end() {
-		};
+		}
 	}
 
 	private static final AadlFinder instance = new AadlFinder();
@@ -145,7 +147,7 @@ public final class AadlFinder {
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
 	 */
-	public void processAllAadlFilesInScope(final Scope scope, final ResourceConsumer consumer) {
+	public void processAllAadlFilesInScope(final Scope scope, final ResourceConsumer<IResourceDescription> consumer) {
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
@@ -182,15 +184,27 @@ public final class AadlFinder {
 	 */
 	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
 			final FinderConsumer<IEObjectDescription> consumer) {
-		processAllAadlFilesInScope(scope, new ResourceConsumer() {
+		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllObjectsOfTypeInResource(rsrcDesc, getResourceSet(), eClass, consumer);
+				getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
 			}
 		});
 	}
 
-	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
+	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
+			final FinderConsumer<IEObjectDescription> consumer) {
+		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
+				.getResourceDescriptions(resourceSet);
+		for (final IFile file : fileSet) {
+			final IResourceDescription rsrcDesc = resourceDescriptions
+					.getResourceDescription(OsateResourceUtil.getResourceURI(file));
+			getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
+		}
+	}
+
+	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc,
 			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
 		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
 			consumer.found(objDesc);
@@ -201,9 +215,41 @@ public final class AadlFinder {
 		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer);
 	}
 
+	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer);
+	}
+
+	public void getAllReferencesToTypeInScope(final Scope scope,
+			final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer) {
+		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
+			@Override
+			protected void begin(int count) {
+				rsrcConsumer.begin(count);
+			}
+
+			@Override
+			protected void inScope(final IResourceDescription rsrcDesc) {
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				rsrcConsumer.inScope(rsrcDesc);
+			}
+
+			@Override
+			protected void skipped(final IResourceDescription rsrcDesc) {
+				rsrcConsumer.skipped(rsrcDesc);
+			}
+
+			@Override
+			protected void end() {
+				rsrcConsumer.end();
+			}
+		});
+	}
+
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		processAllAadlFilesInScope(scope, new ResourceConsumer() {
+		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
 				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
