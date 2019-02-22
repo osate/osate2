@@ -52,7 +52,7 @@ class PropertyReferenceTest extends XtextTest {
 						bvr_state1: state;
 						bvr_state2: state;
 					transitions
-						transition1: bvr_state1 -[ err_evt1 ]-> (bvr_state2 with 0.2, bvr_state2 with ps1::def1);
+						transition1: bvr_state1 -[ err_evt1 ]-> (bvr_state2 with 0.2_0, bvr_state2 with ps1::def1);
 					end behavior;
 				**};
 			end lib1;

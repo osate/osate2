@@ -41,6 +41,7 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
+   
    <extension
          id="CheckBindingConstraintsObjectMarker"
          name="Check Binding Constraints Marker"
@@ -52,10 +53,27 @@
             value="true">
       </persistent>
    </extension>
+
+   <extension
+         id="UnusedClassifierMarker"
+         name="Unused Classifier Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+
    <extension
          point="org.eclipse.help.toc">
       <toc
             file="help/toc_check_binding_constraints.xml"
+            primary="true">
+      </toc>
+   </extension>
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_model_maintenance.xml"
             primary="true">
       </toc>
    </extension>
@@ -65,6 +83,9 @@
             id="org.osate.analysis.architecture.category"
             name="%actionSet.label">
       </category>
+       <command
+       		 id="org.osate.analysis.architecture.unusedclassifiers.findUnusedClassifiers"
+       		 name="Find Unused Classifiers" />
       <command
             categoryId="org.osate.analysis.architecture.category"
             id="org.osate.analysis.architecture.checkConnectionBindingConsistency"
@@ -93,6 +114,23 @@
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
+       <handler
+             class="org.osate.analysis.architecture.unusedclassifiers.handlers.FindUnusedClassifiers"
+             commandId="org.osate.analysis.architecture.unusedclassifiers.findUnusedClassifiers">
+          <enabledWhen>
+             <with variable="selection">
+                <and>
+                   <count value="+" />
+                   <iterate>
+                      <and>
+                         <instanceof value="org.eclipse.core.resources.IFile" />
+                         <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
+                      </and>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency"
             commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
@@ -244,6 +282,12 @@
          <command
                commandId="org.osate.analysis.architecture.propertyTotals">
          </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.ui.modelCleanupMenu?after=core">
+         <command
+               commandId="org.osate.analysis.architecture.unusedclassifiers.findUnusedClassifiers"
+               style="push" />
       </menuContribution>
       <menuContribution
             locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
@@ -399,6 +443,35 @@
       </class>
    </extension>
    
-   
-   
+    <extension
+          point="org.eclipse.ui.ide.markerResolution">
+       <markerResolutionGenerator
+             class="org.osate.analysis.architecture.unusedclassifiers.UnusedClassifierMarkerResolutionGenerator"
+             markerType="org.osate.analysis.architecture.UnusedClassifierMarker">
+       </markerResolutionGenerator>
+    </extension>
+
+	<extension
+         point="org.eclipse.ui.navigator.viewer">
+  		<viewerActionBinding
+        	viewerId="org.osate.ui.navigator.AadlNavigator">
+     		<includes>
+     			<actionExtension pattern="org.osate.analysis.architecture.unusedclassifiers.*" />
+     		</includes>
+	  </viewerActionBinding>
+   </extension>
+
+	<extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <actionProvider
+            class="org.osate.analysis.architecture.unusedclassifiers.FindUnusedClassifiersActionProvider"
+            id="org.osate.analysis.architecture.unusedclassifiers.findUnusedClassifiersAction">
+         <enablement>
+            <and>
+               <instanceof value="org.eclipse.core.resources.IFile" />
+               <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
+            </and>
+         </enablement>
+      </actionProvider>
+	</extension>
 </plugin>
