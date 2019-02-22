@@ -48,17 +48,26 @@ import com.rockwellcollins.atc.resolute.validation.BaseType;
 public class ExecuteResoluteUtil {
 	public static ExecuteResoluteUtil eInstance = new ExecuteResoluteUtil();
 
-	public boolean tryLoad() throws NoClassDefFoundError {
-		// Nothing needed since static initialization of this class already
-		// tries to load Resolute
-		FunctionDefinition fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
-		String name = fn.getName();
-		fn.setName("dummy");
-		if (name != null && name.startsWith("org.osate")) {
-			return false;
-		} else {
-			return true;
+	private static boolean RESOLUTE_INSTALLED = false;
+	private static boolean INSTALL_INITIALIZED = false;
+
+	public boolean isResoluteInstalled() {
+		if (!INSTALL_INITIALIZED) {
+			try {
+				FunctionDefinition fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
+				String name = fn.getName();
+				fn.setName("dummy");
+				if (name != null && name.startsWith("org.osate")) {
+					RESOLUTE_INSTALLED = false;
+				} else {
+					RESOLUTE_INSTALLED = true;
+				}
+			} catch (NoClassDefFoundError e) {
+				RESOLUTE_INSTALLED = false;
+			}
+			INSTALL_INITIALIZED = true;
 		}
+		return RESOLUTE_INSTALLED;
 	}
 
 	/**
