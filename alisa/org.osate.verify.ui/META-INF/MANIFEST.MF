@@ -24,7 +24,8 @@ Require-Bundle: org.osate.verify;visibility:=reexport,
  org.osate.categories;bundle-version="1.0.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.ui,
- org.osate.ui;bundle-version="1.0.0"
+ org.osate.ui;bundle-version="1.0.0",
+ org.osate.assure
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.verify.ui.quickfix,
