@@ -16,7 +16,6 @@ property set Physical is
   Weight_Type: type aadlreal units Physical::Weight_Units;
   Weight_Units: type units (g, kg => g * 1000, t => kg * 1000);
 
- Weight: Physical::Weight_Type applies to (all); 
-
+  Weight: Physical::Weight_Type applies to (all); 
 
 end Physical;
