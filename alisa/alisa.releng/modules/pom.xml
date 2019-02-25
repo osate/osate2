@@ -17,6 +17,7 @@
 		<module>../../alisa.releng</module>
 		<module>../../org.osate.alisa.common</module>
 		<module>../../org.osate.alisa.common.ui</module>
+		<module>../../org.osate.alisa.contribution</module>
 		<module>../../org.osate.alisa.help</module>
 		<module>../../org.osate.alisa.workbench</module>
 		<module>../../org.osate.alisa.workbench.sdk</module>
