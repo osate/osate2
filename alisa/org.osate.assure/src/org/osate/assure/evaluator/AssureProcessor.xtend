@@ -129,21 +129,9 @@ class AssureProcessor implements IAssureProcessor {
 	var CategoryFilter filter;
 	var boolean save = true
 
-	var private static boolean RESOLUTE_INSTALLED;
-
 	new() {
 		env.add('vals', vals)
 		env.add('computes', computes)
-		try {
-			val isresolute = ExecuteResoluteUtil.eInstance.tryLoad();
-			if (isresolute){
-				RESOLUTE_INSTALLED = true;
-			} else {
-				RESOLUTE_INSTALLED = false;
-			}
-		} catch (NoClassDefFoundError e) {
-			RESOLUTE_INSTALLED = false;
-		}
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -709,7 +697,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
-		if (RESOLUTE_INSTALLED) {
+		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
 			val methodtype = method.methodKind as ResoluteMethod
 			val fundef = methodtype.methodReference
 			val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
