@@ -11,7 +11,7 @@ This manual provides an overview of the basic features of OSATE and describes ho
 * [Importing and Exporting Models](#in_out)
 * [Analyzing a Model](#analysis)
 * [Viewing AADL Property Values](#properties)
-* [Viewing Classifier Members])(#classifierView)
+* [Viewing Classifier Members](#classifierView)
 
 
 ## <span id="basics">Eclipse Basics</span>
@@ -855,8 +855,8 @@ Double-clicking on any of the members opens the AADL source text for the member 
 ### Synchronizing with the Editor
 
 The view's toolbar contains a single button that controls whether the view's selection is synchronized with the editor:
-* ![](images/OSATEUserGuide/synced@2x.png) When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
-* ![](images/OSATEUserGuide/sync_broken@2x.png) When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.
+* ![](images/OSATEUserGuide/linked.png) When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
+* ![](images/OSATEUserGuide/not_linked.png) When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.
 
 
 

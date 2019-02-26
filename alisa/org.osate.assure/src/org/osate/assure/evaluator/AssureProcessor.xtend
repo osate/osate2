@@ -17,8 +17,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import org.eclipse.xsemantics.runtime.RuleEnvironment
-import org.eclipse.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -28,12 +26,13 @@ import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xsemantics.runtime.RuleFailedException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
@@ -61,7 +60,6 @@ import org.osate.assure.util.AssureUtilExtension
 import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
-import org.osate.pluginsupport.ExecutePythonUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
@@ -673,25 +671,9 @@ class AssureProcessor implements IAssureProcessor {
 				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
 			PythonMethod: {
-				executePythonOnce(verificationResult, method, target, parameters);
+				setToError(verificationResult,"Python script execution not supported", null);
 			}
 		}
-	}
-	
-	def void executePythonOnce(VerificationResult verificationResult, VerificationMethod method,
-	InstanceObject target, List<PropertyExpression> parameters) {
-		val engine = new ExecutePythonUtil
-		val methodtype = method.methodKind as PythonMethod
-		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
-		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
-		var returned = engine.runPythonScript(scriptURL,objects);
-		if (returned instanceof Result){
-			if (returned.isResultError){
-				objects.remove(0)
-				returned = engine.runPythonScript(scriptURL,objects);
-			}
-		}
-		processExecutionResult(verificationResult, method, target, returned)
 	}
 	
 
