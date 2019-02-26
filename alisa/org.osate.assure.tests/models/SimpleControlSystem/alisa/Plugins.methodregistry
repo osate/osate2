@@ -3,29 +3,16 @@ verification methods Plugins [
 		 category Quality.Latency
 		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
 For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
-		java org.osate.analysis.flows.LatencyAnalysisService.invoke
+		java org.osate.analysis.flows.FlowLatencyAnalysisSwitch.invoke
 	]
 	
 	method EndToEndFlowLatencyAnalysis (flow): "Verify all flow latencies in system instance" [
 		 category Quality.Latency
 		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
 For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
-		java org.osate.analysis.flows.LatencyAnalysisService.invoke
+		java org.osate.analysis.flows.FlowLatencyAnalysisSwitch.invoke
 	]
 	
-	method EndToEndFlowLatencyAnalysisWithProperty (flow) properties (Latency): "Verify all flow latencies in system instance" [
-		 category Quality.Latency
-		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
-For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
-		java org.osate.analysis.flows.LatencyAnalysisService.invoke
-	]
-	
-	method ComputeEndToEndFlowLatency (flow) returns (MinLatency : Time, MaxLatency:Time ): "Verify all flow latencies in system instance" [
-		 category Quality.Latency
-		description "Analysis of all end-to-end flows in a system instance or for a specific end-to-end flow. 
-For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
-		java org.osate.analysis.flows.LatencyAnalysisService.invoke
-	]
 	
 	method ElectricalPower: "Analyze electrical power across the system" [
 		 category Quality.ElectricalPower
@@ -79,15 +66,5 @@ For details see https://wiki.sei.cmu.edu/aadl/index.php/Latency_Analysis "
 		plugin BinPack
 		category Quality.Timing
 		description "Bind all threads to processors while maintaining schedulability and meeting binding constraints. This analysis uses a BinPacking technique by Dio DeNiz."
-	]
-	method CheckSecurityLevels: "Check security levels for information flow across port connections." [
-		plugin CheckSecurity
-		category Quality.Security
-		description "Check that for all port connections information flows only from lower to higher or between same levels according to SecurityLevel property."
-	]
-	method CheckSafetyLevels: "Check safety levels for information flow across port connections." [
-		plugin CheckSafety
-		category Quality.Safety
-		description "Check that for all port connections information flows only from lower to higher or between same levels according to SafetyLevel property."
 	]
 ]

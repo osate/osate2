@@ -241,7 +241,7 @@ public class PropagationGraphBackwardTraversal {
 					if (conditionExpression != null) {
 						BranchValue val = transitionBranch.getValue();
 						if (val.getRealvalue() != null) {
-							scale = Double.valueOf(val.getRealvalue());
+							scale = Double.valueOf(EMV2Util.stripUnderScore(val.getRealvalue()));
 						} else if (val.getSymboliclabel() != null) {
 							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
