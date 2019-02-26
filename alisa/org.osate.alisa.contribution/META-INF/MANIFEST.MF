@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Contribution
+Bundle-SymbolicName: org.osate.alisa.contribution;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Export-Package: alisa_consistency
+Require-Bundle: org.osate.pluginsupport;bundle-version="1.0.0"
