@@ -31,9 +31,17 @@ class Issue277Test extends XtextTest {
 		val features = fgt.allFeatures
 		val names = features.map[name]
 		
+		/* 2019-01-19: added check for feature q from root feature group type BaseFG.  FeatureGroupTypeImpl.getAllFeatures() 
+		 * used to be broken and was fixed in Issue 1657.  So now 'q' is correctly returned here, but wasn't here before.
+		 */
+		assertTrue('Feature "q" not in feature group', names.contains('q'))
 		assertTrue('Feature "o" not in feature group', names.contains('o'))
 		assertTrue('Feature "r" not in feature group', names.contains('r'))
-		assertTrue('Expected two features but found ' + features.size + ': ' + names, features.size == 2)
+		/* 2019-01-19: As above, this was changed to reflect that there should now be exactly 3 features.  I assume
+		 * the original intent of this check is to verify that the refined feature p from TestExtendedFeatureGroup is 
+		 * part of the inverse feature group.
+		 */
+		assertTrue('Expected three features but found ' + features.size + ': ' + names, features.size == 3)
 	}
 
 	val aadlText = '''

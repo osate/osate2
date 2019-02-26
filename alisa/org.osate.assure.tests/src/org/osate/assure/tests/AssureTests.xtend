@@ -61,6 +61,7 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import org.eclipse.xtext.validation.Issue
 import java.util.List
+import org.osate.assure.util.ExecuteResoluteUtil
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
@@ -72,27 +73,6 @@ class AssureTests extends XtextTest {
 	@Inject
 	IAssureConstructor assureConstructor
 
-	var private static boolean RESOLUTE_INSTALLED = false;
-	var private static boolean INSTALL_INITIALIZED = false;
-
-	def ResoluteInstalled() {
-		if (!INSTALL_INITIALIZED) {
-			try {
-				val fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
-				val name = fn.getName();
-				fn.setName("dummy");
-				if (name !== null && name.startsWith("org.osate")) {
-					RESOLUTE_INSTALLED = false;
-				} else {
-					RESOLUTE_INSTALLED = true;
-				}
-			} catch (NoClassDefFoundError e) {
-				RESOLUTE_INSTALLED = false;
-			}
-			INSTALL_INITIALIZED = true
-		}
-		return RESOLUTE_INSTALLED
-	}
 
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
 	val propertiesprefix = projectprefix + "Properties/"
@@ -308,7 +288,7 @@ class AssureTests extends XtextTest {
 			"Resolute".assertEquals(name)
 			13.assertEquals(methods.size)
 		]
-		if (ResoluteInstalled){
+		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
 			assertNoIssues(reg)
 		} else {
 			val validate = validate(scssrc);
@@ -325,7 +305,7 @@ class AssureTests extends XtextTest {
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
 			"Plugins".assertEquals(name)
-			16.assertEquals(methods.size)
+			12.assertEquals(methods.size)
 		]
 		assertNoIssues(reg)
 	}
@@ -697,7 +677,7 @@ class AssureTests extends XtextTest {
 //			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
 	@Test
 	def void BasicResolutetest() {
-		if (ResoluteInstalled) {
+		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BasicResolute.aadl"), true)
@@ -716,7 +696,7 @@ class AssureTests extends XtextTest {
 
 	@Test
 	def void BudgetResolutetest() {
-		if (ResoluteInstalled) {
+		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BudgetResolute.aadl"), true)
@@ -764,7 +744,7 @@ class AssureTests extends XtextTest {
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
-		if (ResoluteInstalled){
+		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
 			16.assertEquals(counts.successCount)
 			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
