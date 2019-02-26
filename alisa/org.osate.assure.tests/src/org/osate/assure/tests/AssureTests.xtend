@@ -305,7 +305,7 @@ class AssureTests extends XtextTest {
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
 			"Plugins".assertEquals(name)
-			16.assertEquals(methods.size)
+			12.assertEquals(methods.size)
 		]
 		assertNoIssues(reg)
 	}
