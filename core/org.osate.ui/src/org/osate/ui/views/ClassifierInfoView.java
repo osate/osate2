@@ -47,8 +47,7 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
-	private static final String SYNC_ICON = "icons/synced.png";
-	private static final String DONT_SYNC_ICON = "icons/sync_broken.png";
+	private static final String LINK_ICON = "icons/link_to_editor.png";
 
 	/**
 	 * The most recently selected element in the view, or <code>null</code> is there is no
@@ -82,27 +81,19 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		ancestorTree = createAncestorTree(sash);
 		memberTree = createMemberTree(sash);
 
-		final IAction syncWithEditorAction = new Action("Sync with Editor", SWT.TOGGLE) {
+		final IAction syncWithEditorAction = new Action("Link with Editor", SWT.TOGGLE) {
 			{
+				setToolTipText("Link with Editor");
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(LINK_ICON));
 				setChecked(syncWithEditor);
-				updateImage(syncWithEditor);
-				setToolTipText(
-						"Synchronizes the view's selection with the editor.  Selecting items in the view "
-								+
-								"immediately highlights the source text in an editor.");
 			}
 
 			@Override
 			public void run() {
 				syncWithEditor = !syncWithEditor;
-				updateImage(syncWithEditor);
 				if (syncWithEditor) {
 					gotoElement(lastSelectedElement);
 				}
-			}
-
-			private void updateImage(final boolean link) {
-				setImageDescriptor(OsateUiPlugin.getImageDescriptor(link ? SYNC_ICON : DONT_SYNC_ICON));
 			}
 		};
 		getViewSite().getActionBars().getToolBarManager().add(syncWithEditorAction);
