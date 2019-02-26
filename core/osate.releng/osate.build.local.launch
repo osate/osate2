@@ -9,7 +9,7 @@
 <listEntry value="jgit.dirtyWorkingTree=warning"/>
 <listEntry value="pr.build=false"/>
 <listEntry value="tycho.localArtifacts=ignore"/>
-<listEntry value="sign=true"/>
+<listEntry value="sign=false"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
