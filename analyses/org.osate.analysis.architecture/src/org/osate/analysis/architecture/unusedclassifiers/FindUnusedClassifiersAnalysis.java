@@ -27,6 +27,7 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -135,16 +136,18 @@ public final class FindUnusedClassifiersAnalysis {
 					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
 					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
 					try {
+						final List<Generalization> foofoo = classifier.getGeneralizations();
+
 						final IMarker marker = iRsrc.createMarker(MARKER_TYPE);
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 						marker.setAttribute(IMarker.MESSAGE,
 								"Classifier " + classifier.getQualifiedName() + " is never referenced");
 
-						final String urIString = classifierDecl.toString();
-						marker.setAttribute(AadlConstants.AADLURI, urIString);
-						marker.setAttribute(EValidator.URI_ATTRIBUTE, urIString);
+						final String uriString = classifierDecl.toString();
+						marker.setAttribute(AadlConstants.AADLURI, uriString);
+						marker.setAttribute(EValidator.URI_ATTRIBUTE, uriString);
 
-						final ITextRegion where = locationProvider.getFullTextRegion(classifier);
+						final ITextRegion where = locationProvider.getSignificantTextRegion(classifier);
 						final int start = where.getOffset();
 						final int end = start + where.getLength();
 						marker.setAttribute(IMarker.CHAR_START, start);
