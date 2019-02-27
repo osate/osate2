@@ -2,20 +2,40 @@
 // Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 verification methods Alisa_Consistency [
 	
-	method ComponentConnected( ): "Check that all features of a component are connected" [
+	method ComponentConnected( ): "All features of a component are connected" [
 		java alisa_consistency.ModelVerifications.isConnected
 		description "Check that all features of a component are connected."
 	] 
 	
-	method AllComponentsConnected(): "Check that all features of all leaf components are connected" [
+	method FeatureConnected( feature ): "Feature is connected" [
+		java alisa_consistency.ModelVerifications.isConnected
+		description "Check that feature is connected."
+	] 
+	
+	method AllComponentsConnected(): "All features of all leaf components are connected" [
 		java alisa_consistency.ModelVerifications.allComponentFeaturesConnected
 		description "Check that all features of all leaf components are connected."
 	]
+	method IsLeafComponent( ): "Component has no subcomponents" [
+		java alisa_consistency.ModelVerifications.isLeafComponent
+		description "Check that component has no subcomponents."
+	] 
 	
 	method TwoPowerInlets(): "Check that component has two power inlets" [
 		java alisa_consistency.ModelVerifications.twoPowerInlets
 		description "Check that " this " has two power inlets."
 	]
+//method ConsistentPowerBudget (feature, wattage: Physical::Wattage_Type in W)  
+//	:"Ensure PowerBudget property value is consistent with required voltage value" [
+//		java alisa_consistency.ModelVerifications.hasWattageBudgetValue
+//		description "Verify that the PowerBudget property has the same value as specified in the requirement"
+//	]
+//	
+//	method ConsistentPowerCapacity (wattage: Physical::Wattage_Type in W)  
+//	:"Ensure capacity is recorded correctly as PowerCapacity property with value" [
+//		java alisa_consistency.ModelVerifications.hasWattageCapacityValue
+//		description "Verify that the PowerCapacity property has the same value as specified in the requirement"
+//	]
 	
 	method SameVoltage(): "Check that both power inlets have same voltage" [
 		java alisa_consistency.ModelVerifications.sameVoltage
@@ -27,14 +47,14 @@ verification methods Alisa_Consistency [
 		description "Check that both power inlets of " this " have the same wattage."
 	]
 	
-method ConsistentVoltage (feature, voltage: Physical::Voltage_Type )  
+method ConsistentVoltage (feature, voltage: Physical::Voltage_Type in V)  
 	:"Ensure Voltage property value is consistent with required voltage value" [
-		java alisa_consistency.ModelVerifications.hasVoltage(String name, double voltage)
+		java alisa_consistency.ModelVerifications.hasVoltageValue
 		description "Verify that the Voltage property has the same value as specified in the requirement"
 	]
 	
 	method GetVoltage (feature) returns (volts: Physical::Voltage_Type in V )
-	:"Ensure Voltage property value is consistent with required voltage value" [
+	:"Return the voltage value of the feature in specified unit" [
 		java alisa_consistency.ModelVerifications.getVoltage
 		description "Verify that the Voltage property has the same value as specified in the requirement"
 	]
@@ -44,6 +64,41 @@ method ConsistentVoltage (feature, voltage: Physical::Voltage_Type )
 		java alisa_consistency.ModelVerifications.getVoltage
 		description "Verify that the Voltage property has the same value as specified in the requirement, and set the property value if not present."
 	]
+
+	method ElectricalPowerSelfSufficiency: "Verify that a component is electrical power self sufficient" [
+		java alisa_consistency.ModelVerifications.electricalPowerSelfSufficiency
+		description "Verify that a component takes care of its own electrical power."
+	]
+	method CPUSelfSufficiency: "Verify that a component takes care of its own CPU needs" [
+		java alisa_consistency.ModelVerifications.CPUSelfSufficiency
+		description "Verify that a component does not require external CPU resources and does not provide external CPU resources."
+	]
+
+	method NoExternalCPUDemand: "Verify that a component takes care of its own CPU needs" [
+		java alisa_consistency.ModelVerifications.hasNoExternalCPUDemand
+		description "Verify that a component does not require external CPU resources."
+	]
+
+	method NoCPUCapacityForOthers: "Verify that a component has by CPU external use" [
+		java alisa_consistency.ModelVerifications.providesNoCPUExternally
+		description "Verify that a component does not does not provide external CPU resources."
+	]
+
+	method ConsistentWeightLimit (limit: real units SEI::WeightUnits)  
+	:"Ensure weight limit is recorded correctly as WeightLimit property with value" [
+		java alisa_consistency.ModelVerifications.consistentWeightLimit(double limit)
+		description "Verify that the WeightLimit property has the same value as specified in the requirement"
+	]
+
+	method RavenScarCompliance :"Ensure that all contained threads are RavenScar compliant" [
+		java alisa_consistency.ModelVerifications.isRavenscarCompliant
+		description "Verify that all contained threads have only sampling ports"
+	]
 	
+
+	method SamplingPortsOnly :"Ensure that thread has only sampling ports" for thread [
+		java alisa_consistency.ModelVerifications.hasOnlySamplingPorts
+		description "Verify that thread has only sampling ports"
+	]
 
 ]
