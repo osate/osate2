@@ -119,7 +119,7 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public boolean canBeLandmark(final String handle) {
-		// Must be a component classifier, feature, subcomponent, etc, or a property declation in a property set.
+		// Must be a component classifier, feature, subcomponent, etc, or a property declaration in a property set.
 		final Element aadlElement = (Element) getObjectForHandle(handle);
 		final boolean isLandmark = aadlElement instanceof PropertySet || aadlElement instanceof AadlPackage
 				|| aadlElement instanceof PackageSection || aadlElement instanceof Classifier

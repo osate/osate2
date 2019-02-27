@@ -17,8 +17,6 @@ public class AadlEditingMonitor extends AbstractUserInteractionMonitor {
 	@Override
 	protected void handleWorkbenchPartSelection(final IWorkbenchPart part, final ISelection selection,
 			final boolean contributeToContext) {
-		System.out.println("part = " + part + "; selection = " + selection + "; contribute = " + contributeToContext);
-
 		EObject selectedElement = null;
 		if (selection instanceof StructuredSelection) {
 			final StructuredSelection structuredSelection = (StructuredSelection) selection;
