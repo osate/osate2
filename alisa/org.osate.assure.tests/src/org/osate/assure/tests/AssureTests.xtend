@@ -87,7 +87,6 @@ class AssureTests extends XtextTest {
 			alisaprefix + "SCSVerification.alisa",
 			aadlprefix + "SimpleControlSystem.aadl",
 			propertiesprefix + "ACVIP.aadl",
-			propertiesprefix + "Physical.aadl",
 			aadlprefix + "PhysicalResources.aadl",
 			aadlprefix + "DataDictionary.aadl",
 			aadlprefix + "Platform.aadl",
@@ -185,19 +184,6 @@ class AssureTests extends XtextTest {
 		assertNoIssues(ps)
 	}
 
-	@Test
-	def void PhysicalPropstest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(propertiesprefix + "Physical.aadl"), true)
-		val ps = scssrc.contents.get(0) as PropertySet
-		ps => [
-			"Physical".assertEquals(name)
-			1.assertEquals(ownedProperties.size)
-			2.assertEquals(ownedPropertyTypes.size)
-		]
-		assertNoIssues(ps)
-	}
 
 	@Test
 	def void SCSAadltest() {
@@ -208,19 +194,6 @@ class AssureTests extends XtextTest {
 		pkg => [
 			"SimpleControlSystem".assertEquals(name)
 			7.assertEquals(publicSection.ownedClassifiers.size)
-		]
-		assertNoIssues(pkg)
-	}
-
-	@Test
-	def void PhysicalResourcestest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix + "PhysicalResources.aadl"), true)
-		val pkg = scssrc.contents.get(0) as AadlPackage
-		pkg => [
-			"PhysicalResources".assertEquals(name)
-			4.assertEquals(publicSection.ownedClassifiers.size)
 		]
 		assertNoIssues(pkg)
 	}
@@ -319,7 +292,7 @@ class AssureTests extends XtextTest {
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
 			"Alisa_Consistency".assertEquals(name)
-			8.assertEquals(methods.size)
+			17.assertEquals(methods.size)
 		]
 //		assertNoErrors(reg)	
 		assertNoIssues(reg)
@@ -749,8 +722,8 @@ class AssureTests extends XtextTest {
 			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
-			8.assertEquals(counts.successCount)
-			12.assertEquals(counts.failCount)
+			9.assertEquals(counts.successCount)
+			11.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
 	}
