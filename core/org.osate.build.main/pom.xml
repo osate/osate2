@@ -92,6 +92,13 @@
 						<artifactId>target-platform-configuration</artifactId>
 						<version>${tycho.version}</version>
 						<configuration>
+							<filters>
+								<filter>
+									<type>eclipse-plugin</type>
+									<id>org.osate.smaccm.stubs</id>
+									<removeAll/>
+								</filter>
+							</filters>
 							<environments>
 								<environment>
 									<os>linux</os>
