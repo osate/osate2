@@ -8,14 +8,14 @@ property set Physical is
   Voltage_Type: type aadlreal units Physical::Voltage_Units;
   Voltage_Units: type units (mV, V => mV * 1000, KV => V * 1000);
 
-  Wattage: Physical::Wattage_Type applies to (all); 
+--  Wattage: Physical::Wattage_Type applies to (all); 
 
-  Wattage_Type: type aadlreal units Physical::Wattage_Units;
-  Wattage_Units: type units (mW, W => mW * 1000, KW => W * 1000);
+--  Wattage_Type: type aadlreal units Physical::Wattage_Units;
+--  Wattage_Units: type units (mW, W => mW * 1000, KW => W * 1000);
 
-  Weight_Type: type aadlreal units Physical::Weight_Units;
-  Weight_Units: type units (g, kg => g * 1000, t => kg * 1000);
+--  Weight_Type: type aadlreal units Physical::Weight_Units;
+--  Weight_Units: type units (g, kg => g * 1000, t => kg * 1000);
 
-  Weight: Physical::Weight_Type applies to (all); 
+--  Weight: Physical::Weight_Type applies to (all); 
 
 end Physical;
