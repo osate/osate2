@@ -57,7 +57,6 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
-import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
@@ -89,6 +88,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.assure.util.ResoluteUtil
+import org.osate.assure.util.ResoluteInterface
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -679,10 +680,10 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val methodtype = method.methodKind as ResoluteMethod
 			val fundef = methodtype.methodReference
-			val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
+			val returned = (new ResoluteInterface).executeResoluteFunctionOnce(fundef, targetComponent, target,
 				parameters)
 			processExecutionResult(verificationResult, method, target, returned)
 		} else {

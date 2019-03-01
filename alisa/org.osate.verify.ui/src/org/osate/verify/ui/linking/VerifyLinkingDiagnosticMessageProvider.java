@@ -22,7 +22,7 @@ import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.assure.util.ExecuteResoluteUtil;
+import org.osate.assure.util.ResoluteUtil;
 import org.osate.verify.verify.VerifyPackage;
 
 public class VerifyLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider {
@@ -37,7 +37,7 @@ public class VerifyLinkingDiagnosticMessageProvider extends LinkingDiagnosticMes
 			return new DiagnosticMessage(msg, Severity.WARNING, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		if (VerifyPackage.eINSTANCE.getResoluteMethod_MethodReference() == context.getReference()) {
-			if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+			if (ResoluteUtil.isResoluteInstalled()) {
 				return new DiagnosticMessage("Could not find referenced Resolute claim function.", Severity.WARNING,
 						Diagnostic.LINKING_DIAGNOSTIC);
 			} else {
