@@ -1,0 +1,92 @@
+property set MAP_Error_Properties is
+with EMV2, MAP_Errors;
+
+-- =================================== --
+-- Types related to STPA preliminaries --
+-- =================================== --
+
+Accident_Level : type record (
+	Name : aadlstring;
+	Description: aadlstring;
+	Explanations : list of aadlstring;
+	Accidents : list of MAP_Error_Properties::Accident;
+);
+
+Accident : type record (
+	Name : aadlstring;
+	Description : aadlstring;
+	Explanations : list of aadlstring;
+	Hazards : list of MAP_Error_Properties::Hazard;
+);
+
+Hazard: type record (
+	Name : aadlstring;
+	Description : aadlstring;
+	HazardousFactor : aadlstring;
+	SystemElement : reference (device, process);
+	EnvironmentElement : reference (abstract);
+	Explanations : list of aadlstring;
+	Constraints : list of MAP_Error_Properties::Constraint;
+);
+
+Constraint: type record (
+	Name : aadlstring;
+	Description : aadlstring;
+	ErrorType : reference({emv2}** error type);
+	Explanations : list of aadlstring;
+);
+
+Fundamentals : record (
+	AccidentLevels : list of MAP_Error_Properties::Accident_Level;
+	Explanations : list of aadlstring;
+) applies to (all);
+
+Process_Variable : aadlboolean applies to (data);
+
+ExternallyCausedDanger : record (
+	ProcessVariableValue : reference(data);
+	ProcessVariableConstraint : aadlstring;
+	Explanation : aadlstring;
+) applies to (all);
+
+ErrorHandlingApproachType : type enumeration (Rollback, Rollforward, Compensation);
+
+-- Partially tested, no DesignTimeHandling or ControlledProcessState coverage
+	InternallyCausedDanger : record (
+	Explanation : aadlstring;
+) applies to (all);
+
+-- Tested
+	RuntimeErrorDetection : record (
+	ErrorDetectionApproach : enumeration (Concurrent, Preemptive);
+	Explanation : aadlstring; 
+) applies to (all);
+
+-- Tested
+	RuntimeErrorHandling : record (
+	ErrorHandlingApproach : MAP_Error_Properties::ErrorHandlingApproachType;
+	Explanation : aadlstring;
+) applies to (all);
+
+-- Tested
+	DesignTimeFaultDetection : record (
+	FaultDetectionApproach : enumeration (StaticAnalysis, TheoremProving, ModelChecking, SymbolicExecution, Testing);
+	Explanation : aadlstring;
+) applies to (all);
+
+-- Tested
+	RuntimeFaultHandling : record (
+	FaultHandlingApproach : enumeration (Diagnosis, Isolation, Reconfiguration, Reinitialization);
+	ErrorHandlingApproach : MAP_Error_Properties::ErrorHandlingApproachType;
+	Explanation : aadlstring;
+) applies to (all);
+
+-- Tested
+	EliminatedFaults : record (
+	FaultTypes : list of reference({emv2}** error type);
+	Explanation : aadlstring;	
+) applies to (all);
+
+
+
+end MAP_Error_Properties;

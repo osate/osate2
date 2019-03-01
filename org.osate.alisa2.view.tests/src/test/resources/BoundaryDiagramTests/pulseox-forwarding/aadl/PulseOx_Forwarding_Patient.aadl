@@ -1,0 +1,15 @@
+package PulseOx_Forwarding_Patient
+public
+	with MAP_Properties;
+	abstract PulseOx_Forwarding_Patient
+		features
+			Fingerclip: out feature;
+			Treatment: in feature;
+		properties
+			MAP_Properties::Component_Type => controlled_process;
+	end PulseOx_Forwarding_Patient;
+
+	abstract implementation PulseOx_Forwarding_Patient.imp
+	end PulseOx_Forwarding_Patient.imp;
+
+end PulseOx_Forwarding_Patient;

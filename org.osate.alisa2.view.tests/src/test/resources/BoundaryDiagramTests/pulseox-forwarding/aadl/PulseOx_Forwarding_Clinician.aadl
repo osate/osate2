@@ -1,0 +1,15 @@
+package PulseOx_Forwarding_Clinician
+public
+	with MAP_Properties;
+	abstract PulseOx_Forwarding_Clinician
+		features
+			ViewSpO2 : in feature;
+			Treatment: out feature;
+		properties
+			MAP_Properties::Component_Type => controller;
+	end PulseOx_Forwarding_Clinician;
+
+	abstract implementation PulseOx_Forwarding_Clinician.imp
+	end PulseOx_Forwarding_Clinician.imp;
+
+end PulseOx_Forwarding_Clinician;

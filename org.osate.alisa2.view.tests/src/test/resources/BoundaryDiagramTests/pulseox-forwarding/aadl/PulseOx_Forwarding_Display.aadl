@@ -1,0 +1,59 @@
+package PulseOx_Forwarding_Display
+public
+with PulseOx_Forwarding_Types, MAP_Properties, PulseOx_Forwarding_Properties;
+
+	process PulseOx_Display_Process
+	features
+		DerivedAlarm : in event port;
+		ShowSpO2 : out feature;
+		SpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
+		properties
+			MAP_Properties::Process_Type => display;
+		MAP_Properties::Component_Type => actuator;
+	annex EMV2 {**
+			use types PulseOx_Forwarding_Errors;
+			
+			error propagations
+				DerivedAlarm: in propagation {MissedAlarm, BogusAlarm};
+			end propagations;
+		**};
+	end PulseOx_Display_Process;
+
+	process implementation PulseOx_Display_Process.imp
+	subcomponents
+		UpdateSpO2Thread : thread UpdateSpO2Thread.imp;
+		HandleAlarmThread : thread HandleAlarmThread.imp;
+	connections
+		incoming_spo2 : port SpO2 -> UpdateSpO2Thread.SpO2;
+		incoming_alarm : port DerivedAlarm -> HandleAlarmThread.Alarm;
+	annex EMV2 {**
+			use types PulseOx_Forwarding_Errors;
+			
+			error propagations
+			flows
+				AlarmOmission: error sink DerivedAlarm {MissedAlarm};
+			end propagations;
+		**};
+	end PulseOx_Display_Process.imp;
+	
+	thread UpdateSpO2Thread
+	features
+		SpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
+	end UpdateSpO2Thread;
+	
+	thread implementation UpdateSpO2Thread.imp
+	end UpdateSpO2Thread.imp;
+	
+	thread HandleAlarmThread
+	features
+		Alarm : in event port;
+	properties
+		Timing_Properties::Deadline => 75 ms;
+		Timing_Properties::Period => 95 ms;
+		MAP_Properties::Worst_Case_Execution_Time => 7 ms;
+	end HandleAlarmThread;
+	
+	thread implementation HandleAlarmThread.imp
+	end HandleAlarmThread.imp;
+	
+end PulseOx_Forwarding_Display;

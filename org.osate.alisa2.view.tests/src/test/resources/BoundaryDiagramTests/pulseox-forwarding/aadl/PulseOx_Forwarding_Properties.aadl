@@ -1,0 +1,17 @@
+property set PulseOx_Forwarding_Properties is
+
+	Default_Thread_Time : constant Time => 50 ms;
+	
+	Default_Output_Rate : Time_Range => 100 ms .. 300 ms
+		applies to (port);
+	Default_Thread_Dispatch : Supported_Dispatch_Protocols => Sporadic
+		applies to (thread);
+	Default_Thread_Period : Time => PulseOx_Forwarding_Properties::Default_Thread_Time
+		applies to (thread);
+	Default_Thread_Deadline : Time => PulseOx_Forwarding_Properties::Default_Thread_Time
+		applies to (thread);
+	Default_Thread_WCET : Time => 5 ms
+		applies to (thread);
+	Default_Channel_Delay : Time => 100 ms
+		applies to ({PulseOx_Forwarding_System} ** port connection);
+end PulseOx_Forwarding_Properties;

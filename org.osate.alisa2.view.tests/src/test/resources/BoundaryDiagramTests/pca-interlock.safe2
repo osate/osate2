@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<safe2:SystemOverview xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:safe2="http://www.example.org/safe2" SystemName="PulseOx Forwarding System">
+  <fundamentals xsi:type="safe2:AccidentLevel" name="DeathOrInjury" description="A human is killed or seriously injured">
+    <accident name="PatientHarmed" description="Patient is killed or seriously injured.">
+      <hazard name="BadInfoDisplayed" description="Incorrect information is sent to the display.">
+        <constraint name="ShowGoodInfo" description="The app must accurately inform the display of the status of the patient’s vital signs."/>
+      </hazard>
+      <hazard name="InfoLate" description="Information that is out of date is sent to the display.">
+        <constraint name="ShowInfoOnTime" description="The app must inform the display of the status of the patient’s vital signs in a timely manner. "/>
+      </hazard>
+    </accident>
+  </fundamentals>
+</safe2:SystemOverview>

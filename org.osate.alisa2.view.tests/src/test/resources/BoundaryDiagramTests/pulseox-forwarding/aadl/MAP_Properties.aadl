@@ -1,0 +1,10 @@
+property set MAP_Properties is
+	Process_Kind : type enumeration (logic, display);
+	Process_Type : MAP_Properties::Process_Kind applies to (process);
+	Component_Kind : type enumeration (top, actuator, sensor, controller, controlled_process);
+	Component_Type : MAP_Properties::Component_Kind applies to (abstract, device, process, system implementation, thread);
+	Output_Rate : Time_Range applies to (port);
+	Channel_Delay : Time applies to (port connection);
+	Worst_Case_Execution_Time : Time applies to (thread);
+	Exchange_Name : aadlstring applies to (port);
+end MAP_Properties;

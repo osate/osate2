@@ -1,0 +1,79 @@
+package PulseOx_Forwarding_System
+public
+	with PulseOx_Interface, PulseOx_Forwarding_Logic, PulseOx_Forwarding_Display, PulseOx_Forwarding_Properties, MAP_Properties, MAP_Error_Properties, PulseOx_Forwarding_Errors, MAP_Errors, PulseOx_Forwarding_Patient, PulseOx_Forwarding_Clinician;
+
+	system PulseOx_Forwarding_System
+	end PulseOx_Forwarding_System;
+
+	system implementation PulseOx_Forwarding_System.imp
+		subcomponents
+				-- Physiological inputs
+			pulseOx: device PulseOx_Interface::ICEpoInterface.imp;
+					-- App logic
+			appLogic: process PulseOx_Forwarding_Logic::PulseOx_Logic_Process.imp;
+			appDisplay: process PulseOx_Forwarding_Display::PulseOx_Display_Process.imp;
+					-- The humans
+			patient: abstract PulseOx_Forwarding_Patient::PulseOx_Forwarding_Patient;
+			clinician: abstract PulseOx_Forwarding_Clinician::PulseOx_Forwarding_Clinician;
+		connections
+			spo2_to_logic: port pulseOx.SpO2 -> appLogic.SpO2;
+			spo2_to_display: port pulseOx.SpO2 -> appDisplay.SpO2 {MAP_Properties::Channel_Delay => 150ms;};
+			alarm_to_display: port appLogic.DerivedAlarm -> appDisplay.DerivedAlarm;
+			ViewSpO2: feature appDisplay.ShowSpO2 -> clinician.ViewSpO2;
+			AdministerTreatment: feature clinician.Treatment -> patient.Treatment;
+			Sense: feature patient.Fingerclip -> pulseOx.SensorInput;
+		properties
+			MAP_Properties::Component_Type => controller;
+		annex EMV2 {**
+			use types PulseOx_Forwarding_Errors;
+			
+			properties
+				MAP_Error_Properties::Fundamentals => [
+							AccidentLevels => ([
+													Name => "DeathOrInjury";
+													Description => "A human is killed or seriously injured.";
+													Explanations => ("First Explanation", "Second Explanation",
+																"Third Explanation");
+													Accidents => ([
+																			Name => "PatientHarmed";
+																			Description => "Patient is killed or seriously injured.";
+																			Explanations => ("First Explanation",
+																						"Second Explanation", "Third Explanation");
+																			Hazards => ([
+																									Name => "BadInfoDisplayed";
+																									Description => "Incorrect information is sent to the display.";
+																									HazardousFactor => "SpO2 Information";
+																									SystemElement => reference (appLogic);
+																									EnvironmentElement => reference (patient);
+																									Constraints => ([
+																															Name => "ShowGoodInfo";
+																															Description => "The app must accurately inform the display of the status of the patient's vital signs.";
+																															ErrorType => reference (MissedAlarm);
+																															Explanations => (
+																																		"First Explanation",
+																																		"Second Explanation",
+																																		"Third Explanation");
+																														]);
+																								], [
+																									Name => "InfoLate";
+																									Description => "Information that is out of date is sent to the display.";
+																									HazardousFactor => "SpO2 Information";
+																									SystemElement => reference (appLogic);
+																									EnvironmentElement => reference (patient);
+																									Constraints => ([
+																															Name => "ShowInfoOnTime";
+																															Description => "The app must inform the display of the status of the patient's vital signs in a timely manner.";
+																															ErrorType => reference (LateAlarm);
+																															Explanations => (
+																																		"First Explanation",
+																																		"Second Explanation",
+																																		"Third Explanation");
+																														]);
+																								]);
+																		]);
+												]);
+							Explanations => ("First Explanation", "Second Explanation", "Third Explanation");
+						];
+		**};
+	end PulseOx_Forwarding_System.imp;
+end PulseOx_Forwarding_System;

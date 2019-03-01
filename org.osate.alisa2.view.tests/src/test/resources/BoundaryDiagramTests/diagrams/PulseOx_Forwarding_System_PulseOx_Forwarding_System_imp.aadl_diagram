@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="dc196824-29e5-4f08-86d6-d06d29b26f58" manual="true">
+    <element uuid="a35f98fe-3543-4e0f-b2ac-ece553151367">
+      <element uuid="b9b57df8-0167-4ffc-851e-d91754e12d83">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>administertreatment</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="51f37108-90d5-4e92-9a67-b00d27988892">
+      <element uuid="a66584db-3b59-4d6e-944c-c39ed9ecc221">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>alarm_to_display</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="36287e5b-1546-4114-9805-7ac5e777798f">
+      <element uuid="f9ed12bc-f2cf-4e2b-b542-5fa0831ec38a">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>sense</seg>
+      </bo>
+      <bendpoints>
+        <point x="1325.0" y="163.5"/>
+        <point x="1325.0" y="167.0"/>
+        <point x="333.0" y="167.0"/>
+        <point x="333.0" y="139.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element uuid="85dec04d-83fb-4748-92ef-f65d13fc4ba1">
+      <element uuid="b7156f8e-ec4e-4661-9d20-4a693ff2c3e3">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>spo2_to_display</seg>
+      </bo>
+      <bendpoints>
+        <point x="333.0" y="90.0"/>
+        <point x="333.0" y="118.0"/>
+        <point x="675.0" y="118.0"/>
+        <point x="675.0" y="139.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
+    <element uuid="02fc1fa3-e704-46ad-a796-8b3aeac89e2e">
+      <element uuid="232b4d97-83e2-47d8-bf3a-0a18e9be895c">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>spo2_to_logic</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="475a6a48-fc92-4cc1-bf7b-894044be7943">
+      <element uuid="bc915ce3-9cd8-4302-ad4a-5959d2064462">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>viewspo2</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="9ca0d3d8-4356-4e8f-a073-bb527bfd2beb">
+      <element uuid="68186e31-f8fd-4b16-8ccd-a33543f0f44c" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>derivedalarm</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="215d251d-fb2c-4adc-90f6-186b4d2ef4e2" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>showspo2</seg>
+        </bo>
+        <position x="246.0" y="35.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="e5eff02c-596e-44de-a8e1-59fc0e640331" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>spo2</seg>
+        </bo>
+        <position y="59.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>appdisplay</seg>
+      </bo>
+      <position x="673.0" y="37.0"/>
+      <size width="333.0" height="108.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="a4572bcd-8526-408e-9974-a4ca43c2b410">
+      <element uuid="0a0fbbef-6fb4-442c-a8d1-76f29a557ae4" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>derivedalarm</seg>
+        </bo>
+        <position x="220.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="07a2fc64-5396-4d2e-82f8-8a74c4b57ed8" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>spo2</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>applogic</seg>
+      </bo>
+      <position x="331.0" y="37.0"/>
+      <size width="322.0" height="59.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="91ec6d20-e248-450c-9692-9552d9bc82d1">
+      <element uuid="df942b4a-7a22-4f74-aa71-3c4494f63526" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>treatment</seg>
+        </bo>
+        <position x="198.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="f5b8668d-3d89-46ce-b8df-85c2c8df19c1" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>viewspo2</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>clinician</seg>
+      </bo>
+      <position x="1026.0" y="62.0"/>
+      <size width="277.0" height="59.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="c1c4a070-d708-4649-bf1c-ca52faaaa61f">
+      <element uuid="8801aba5-0592-45ee-afc9-00cc895300d5" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>fingerclip</seg>
+        </bo>
+        <position y="59.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="d13c6431-a9b3-4b00-b6d5-fe344025cdd5" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>treatment</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>patient</seg>
+      </bo>
+      <position x="1323.0" y="62.0"/>
+      <size width="264.0" height="108.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="124c347e-cc57-4860-83fb-e5e2a49cecab">
+      <element uuid="dee218a0-7047-4703-87c4-a8622ed334a9" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>incspo2</seg>
+        </bo>
+        <position y="35.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="51c82913-dc6a-44ed-adfc-5e9d603b54cd" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>sensorinput</seg>
+        </bo>
+        <position x="205.0" y="59.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="b145d173-e4e0-4504-bd2a-d5edec20a575" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>spo2</seg>
+        </bo>
+        <position x="247.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>pulseox</seg>
+      </bo>
+      <position x="12.0" y="37.0"/>
+      <size width="299.0" height="108.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>pulseox_forwarding_system.imp</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="1599.0" height="182.0"/>
+    <contentFilters>
+      <filter>features</filter>
+      <filter>internalFeatures</filter>
+      <filter>processorFeatures</filter>
+      <filter>connections</filter>
+      <filter>flowSpecifications</filter>
+      <filter>subcomponents</filter>
+    </contentFilters>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>pulseox_forwarding_system::pulseox_forwarding_system.imp</seg>
+    </context>
+  </config>
+</diagram:Diagram>

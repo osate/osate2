@@ -1,0 +1,50 @@
+package MAP_Errors
+public
+annex EMV2
+{**
+		error types
+			-- We (ab)use the EMV2 type system to model process variables and their values.
+			-- These values shouldn't be used as normal errors, and we use this type at the root
+			-- of the hierarchy to enforce that distinction. 
+			ProcessModel: type;
+				-- Type extension is used throughout this library (rather than renaming) to
+				-- avoid aliasing
+			Content: type;
+			High: type extends Content;
+			Low: type extends Content;
+			Timing: type;
+			Early: type extends Timing;
+			Late: type extends Timing;
+			Halted: type;
+			Erratic: type;
+			Cleartext: type;
+				-- Since our first set of successor dangers are actually violated constraints, we need 
+				-- an error type that represents these violated constraints
+			ViolatedConstraint: type;
+				-- Fault types from Avizienis-etal's taxonomy
+				-- TODO: Group these into their classifications / the question-based groups?
+			SoftwareBug: type;
+			BadSoftwareDesign: type;
+			CompromisedSoftware: type;
+			CompromisedHardware: type;
+			HardwareBug: type;
+			BadHardwareDesign: type;
+			ProductionDefect: type;
+			Deterioration: type;
+			CosmicRay: type;
+			OperatorHWMistake: type;
+			OperatorHWWrongChoice: type;
+			AdversaryAccessesHardware: type;
+			AdversaryAccessesSoftware: type;
+			OperatorSWMistake: type;
+			OperatorSWWrongChoice: type;
+			SyntaxMismatch: type;
+			RateMismatch: type;
+			SemanticMismatch: type;
+			StandardFaultClasses: type set {SoftwareBug, BadSoftwareDesign, CompromisedSoftware, CompromisedHardware,
+				HardwareBug, BadHardwareDesign, ProductionDefect, Deterioration, CosmicRay, OperatorHWMistake,
+				OperatorHWWrongChoice, AdversaryAccessesHardware, AdversaryAccessesSoftware, OperatorSWMistake,
+				OperatorSWWrongChoice, SyntaxMismatch, RateMismatch, SemanticMismatch};
+		end types;
+	**};
+end MAP_Errors;

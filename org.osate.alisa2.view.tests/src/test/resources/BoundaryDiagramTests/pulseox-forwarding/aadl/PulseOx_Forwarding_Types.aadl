@@ -1,0 +1,12 @@
+package PulseOx_Forwarding_Types
+public
+with Data_Model;
+
+	data SpO2
+	properties
+		Data_Model::Data_Representation => Float;
+		Data_Model::Real_Range => 0.0 .. 100.0;
+		Data_Model::Measurement_Unit => "Percent";
+	end SpO2;
+	
+end PulseOx_Forwarding_Types;
