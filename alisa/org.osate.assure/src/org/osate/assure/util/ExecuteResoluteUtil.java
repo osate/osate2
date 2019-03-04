@@ -62,7 +62,7 @@ public class ExecuteResoluteUtil {
 				} else {
 					RESOLUTE_INSTALLED = true;
 				}
-			} catch (NoClassDefFoundError e) {
+			} catch (LinkageError e) {
 				RESOLUTE_INSTALLED = false;
 			}
 			INSTALL_INITIALIZED = true;
