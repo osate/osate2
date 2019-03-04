@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
@@ -26,6 +27,8 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.UiUtil;
 
 public final class AadlStructureBridge extends AbstractContextStructureBridge {
+	private static final String ORG_OSATE2_AADL2 = "org.osate.aadl2";
+
 	public final static String CONTENT_TYPE = "AADL";
 
 	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
@@ -51,6 +54,8 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 		if (object instanceof Element) {
 			final String uriString = EcoreUtil.getURI((Element) object).toString();
 			return uriString;
+		} else if (object instanceof EObjectNode) {
+			return ((EObjectNode) object).getEObjectURI().toString();
 		} else if (object instanceof IAdaptable) {
 			final Object adapter = ((IAdaptable) object).getAdapter(Element.class);
 			if (adapter instanceof Element) {
@@ -134,8 +139,15 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 		if (object instanceof IResource) {
 			final Object adapter = ((IResource) object).getAdapter(Element.class);
 			return adapter instanceof Element;
+		} else if (object instanceof Element) {
+			return true;
+		} else if (object instanceof EObjectNode) {
+			/* These nodes come from the Aadl2OutlinePage. Check that the type name begins with "org.osate.aadl2" */
+			final EObjectNode eObjectNode = (EObjectNode) object;
+			final String instanceTypeName = eObjectNode.getEClass().getInstanceTypeName();
+			return instanceTypeName.startsWith(ORG_OSATE2_AADL2);
 		} else {
-			return object instanceof Element;
+			return false;
 		}
 	}
 
