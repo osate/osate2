@@ -21,7 +21,7 @@
       </handler>
    </extension>
 
- <extension
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:help?after=org.eclipse.equinox.p2.ui.sdk.install">
@@ -30,8 +30,108 @@
                   id="org.osate.menu.discoveryCommand"
                   tooltip="Install Additional OSATE Components">
             </command>
+            <command
+                  commandId="org.eclipse.equinox.p2.ui.discovery.commands.ShowRepositoryCatalog"
+                  label="Option 1: Display p2 repository content in a wizard"
+                  style="push">
+               <parameter
+                     name="org.eclipse.equinox.p2.ui.discovery.commands.RepositoryParameter"
+                     value="https://osate-build.sei.cmu.edu/download/osate/components/face2aadl">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.eclipse.equinox.p2.ui.discovery.commands.ShowBundleCatalog"
+                  label="Option 2: Customize dialog with a discovery site"
+                  style="push">
+               <parameter
+                     name="org.eclipse.equinox.p2.ui.discovery.commands.DirectoryParameter"
+                     value="file:///Users/jseibel/Downloads/localP2Directory.xml">
+               </parameter>
+            </command>
       </menuContribution>
    </extension>
 
-
+   <extension
+         point="org.eclipse.mylyn.discovery.core.connectorDiscovery">
+      <connectorCategory
+            id="org.osate.discovery.seiComponentsCategory"
+            name="SEI Components"
+            description="Components provided by the Software Engineering Institute"
+            relevance="6">
+      </connectorCategory>
+      <connectorCategory
+            id="org.osate.discovery.nonSEIComponentsCategory"
+            name="Non SEI Components"
+            description="Components provided by various organizations">
+      </connectorCategory>
+      <connectorDescriptor
+            id="org.osate.discovery.aadlToAltaRicaTranslator"
+            name="AADL2AR"
+            provider="CMU/SEI"
+            license="EPL"
+            description="AADL to AltaRica Translator"
+            siteUrl="https://osate-build.sei.cmu.edu/download/osate/experimental"
+            categoryId="org.osate.discovery.seiComponentsCategory">
+         <overview
+               summary="AADL to AltaRica Translator">
+         </overview>
+         <iu
+               id="org.osate.altarica.sdk">
+         </iu>
+      </connectorDescriptor>
+      <connectorDescriptor
+            categoryId="org.osate.discovery.seiComponentsCategory"
+            id="org.osate.discovery.faceToAADLTranslator"
+            license="EPL"
+            name="FACE Data Model to AADL Translator"
+            provider="CMU/SEI"
+            siteUrl="https://osate-build.sei.cmu.edu/download/osate/components/face2aadl">
+         <iu
+               id="org.osate.face2aadl.feature">
+         </iu>
+      </connectorDescriptor>
+      <connectorDescriptor
+            id="org.osate.discovery.cheddarPlugin"
+            name="Cheddar Plugin"
+            provider="Universit&#xe9; de Bretagne Occidentale"
+            license="GPL"
+            description="Cheddar is a real-time scheduling analysis tool composed of a scheduling simulator and a set of schedulability tests."
+            siteUrl="http://beru.univ-brest.fr/svn/CHEDDAR/trunk/src/osate/osate2-update-site"
+            categoryId="org.osate.discovery.nonSEIComponentsCategory">
+         <icon
+               image32="images/logo_cheddar.png">
+         </icon>
+         <overview
+               summary="Cheddar is a real-time scheduling analysis tool composed of a scheduling simulator and a set of schedulability tests. &#xA;&#xA;This plugin allows to generate Cheddar models to verify schedulability of uniprocessor and multiprocessor real-time systems."
+               url="http://beru.univ-brest.fr/~singhoff/cheddar/"
+               screenshot="images/cheddar_screenshot.jpg">
+         </overview>
+         <iu
+               id="cheddar_osate2_feature">
+         </iu>
+      </connectorDescriptor>
+      <connectorDescriptor
+            id="org.osate.discovery.blessAnnexSupport"
+            name="BLESS Annex Support"
+            provider="KSU &amp; Multitude Corp."
+            license="CC BY 4.0 / EULA"
+            description="The Behavior Language for Embedded Systems with Software (BLESS) is an annex sublanguage of AADL to express behavior of components with state-transition machines."
+            siteUrl="http://santoslab.org/pub/bless/update/site2.xml"
+            categoryId="org.osate.discovery.nonSEIComponentsCategory">
+         <icon
+               image32="images/bless-logo.png">
+         </icon>
+         <overview
+               summary="The Behavior Language for Embedded Systems with Software (BLESS) is an annex sublanguage of AADL to express behavior of components with state-transition machines.  BLESS is a superset of BA adding non-executed assertions expressing what is true about the system when in a state, or a point during execution of an action during transition.&#xA;&#xA;The goal of the BLESS language and tools is to enable the construction of proofs for AADL models that their (operational) behavior upholds their (declarative) specification. Therefore all specifications, programs, and executions be precise, mathematical objects, about which propositions can be made, and proven correct.  Correctness of containing components can be proved from proved-correct subcomponents and their connections.&#xA;&#xA;Code generation from BLESS state machines to both Slang and ISOSCELES tool chains produces executables.&#xA;&#xA;Providers:&#xA;The BLESS editors and translators are provided by Kansas State University under a Creative Commons Attribution 4.0 international license. &#xA;&#xA;The BLESS proof tool which generates verification conditions and transforms them into deductive proofs is provided by Multitude Corporation under a simple End User License Agreement.&#xA;&#xA;Icon made by Freepik from www.flaticon.com; licensed under CC BY 3.0"
+               url="http://bless.santoslab.org"
+               screenshot="images/bless-screenshot.jpg">
+         </overview>
+         <iu
+               id="edu.ksu.bless.feature">
+         </iu>
+         <iu
+               id="com.multitude.bless.feature">
+         </iu>
+      </connectorDescriptor>
+   </extension>
 </plugin>
