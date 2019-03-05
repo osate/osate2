@@ -816,6 +816,17 @@
           </menu>
        </menuContribution>
        <menuContribution
+             locationURI="menu:help?after=org.eclipse.equinox.p2.ui.sdk.install">
+          <command
+                commandId="org.eclipse.equinox.p2.ui.discovery.commands.ShowBundleCatalog"
+                label="Install Additional OSATE Components">
+             <parameter
+                   name="org.eclipse.equinox.p2.ui.discovery.commands.DirectoryParameter"
+                   value="file:///Users/jseibel/Downloads/localP2Directory.xml">
+             </parameter>
+          </command>
+       </menuContribution>
+       <menuContribution
              locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
           <toolbar
                 id="org.osate.ui.osateWizardsToolbar"
