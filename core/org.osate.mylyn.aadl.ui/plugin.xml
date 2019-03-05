@@ -5,7 +5,7 @@
          point="org.eclipse.mylyn.context.core.bridges">
       <structureBridge
             class="org.osate.mylyn.aadl.ui.AadlStructureBridge"
-            name="%AadlStructureBridge.name"
+            name="AADL Structure Bridge"
             parentContentType="resource" />
    </extension>
 
@@ -40,5 +40,30 @@
     			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
 			</includes>
 		</viewerContentBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.viewActions"> 
+	  <viewContribution 
+		id="org.osate.mylyn.aadl.ui.navigator.filter" 
+   		targetID="org.osate.ui.navigator.AadlNavigator">
+    	<action
+           class="org.osate.mylyn.aadl.ui.FocusAadlNavigatorAction"
+           disabledIcon="icons/focus-disabled.gif"
+           enablesFor="*"
+           icon="icons/focus.gif"
+           id="org.eclipse.mylyn.aadl.ui.actions.focus.aadlNavigator"
+           label="Focus on Active Task"
+           menubarPath="mylyn"
+           style="toggle"
+           toolbarPath="mylyn"
+           tooltip="Focus on Active Task (Alt+click to reveal filtered elements)">
+        <enablement>
+           <systemProperty
+                 name="org.eclipse.mylyn.context.core.context.active"
+                 value="true">
+           </systemProperty>
+        </enablement> 
+  		</action> 
+      </viewContribution> 
    </extension>
 </plugin>
