@@ -89,6 +89,18 @@ public final class AadlUiBridge extends AbstractContextUiBridge {
 
 	@Override
 	public Object getObjectForTextSelection(final TextSelection selection, final IEditorPart editor) {
+		/*
+		 * This only ever called with selection being null, at least this is true as of March 2019. It is also
+		 * true that it is safe to return null here, as that is what the Ant and PDE bridges do. I think
+		 * it's supposed to take the current text selection and turn it into an object whose structural handle
+		 * can be retrieved. When the selection is null it is supposed to return the object represented by the
+		 * top-level of the editor.
+		 *
+		 * However, returning null causes the caller to get the structural handle of the IResource being
+		 * edited by the given editor. Again, considering that this method is only ever called with null,
+		 * there doesn't seem to be any reason to return anything but null. It won't make a big difference
+		 * to the caller if the object is the resource or the package/property set contained in the resource.
+		 */
 		return null;
 	}
 
