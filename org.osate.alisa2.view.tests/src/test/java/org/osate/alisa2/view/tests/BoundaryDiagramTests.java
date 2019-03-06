@@ -75,17 +75,12 @@ public class BoundaryDiagramTests extends AbstractSiriusSwtBotGefTestCase {
 	}
 
 	@Test
-	public void testTargetExists() throws Throwable {
+	public void testNodesExist() throws Throwable {
 		assertNotNull(editor.getEditPart("appLogic"));
-	}
-
-	@Test
-	public void testPredecessorExists() throws Throwable {
 		assertNotNull(editor.getEditPart("pulseOx"));
+		assertNotNull(editor.getEditPart("appDisplay"));
+		assertNotNull(editor.getEditPart("clinician"));
+		assertNotNull(editor.getEditPart("patient"));
 	}
 
-	@Test
-	public void testSuccessorExists() throws Throwable {
-		assertNotNull(editor.getEditPart("appDisplay"));
-	}
 }
