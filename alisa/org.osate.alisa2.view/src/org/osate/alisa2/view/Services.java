@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.sirius.diagram.DEdge;
+import org.eclipse.sirius.diagram.EdgeTarget;
+import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -38,6 +41,24 @@ public class Services {
 	public Collection<EObject> getAllNeighbors(EObject self) {
 		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
 				.collect(Collectors.toSet());
+	}
+
+	/**
+	 * Get all the neighbors of the component's neighbors (cf {@link #getAllNeighbors(EObject)}.
+	 * More specifically, get all the successor's successors and the predecessors predecessors.
+	 *
+	 * @param self The component to focus on
+	 * @return The set of one-hop neighbors for the given component
+	 */
+	public Collection<EObject> getOneHopNeighbors(EObject self) {
+		Set<EObject> ret = new HashSet<>();
+		for(EObject succ : getSuccessorNeighbors(self)) {
+			ret.addAll(getSuccessorNeighbors(succ));
+		}
+		for (EObject pred : getPredecessorNeighbors(self)) {
+			ret.addAll(getPredecessorNeighbors(pred));
+		}
+		return ret;
 	}
 
 	/**
@@ -156,6 +177,25 @@ public class Services {
 
 	public boolean isNestedComponent(EObject self) {
 		return ((ComponentInstance) self).getContainingComponentInstance() != null;
+	}
+
+	/**
+	 * Returns true if this is the first connection between the components. Used to prevent double-creating
+	 * edges between one-hop neighbors when those neighbors "close the loop" ie, are connected to each other.
+	 *
+	 * @param self Required by the Sirius infrastructure, but ignored.
+	 * @param source The source node in the diagram
+	 * @param target The target node in the diagram
+	 * @return True if no connection exists, false otherwise
+	 */
+	public boolean isFirstConnection(EObject self, DSemanticDecorator source, DSemanticDecorator target) {
+		EdgeTarget eTarget = (EdgeTarget) target; // Explicit cast to avoid nuisance 'unlikely argument type' marker
+		for (DEdge edge : ((EdgeTarget) source).getIncomingEdges()) {
+			if ((edge.getSourceNode()).equals(eTarget)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean isHardware(EObject self) {
