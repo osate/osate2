@@ -67,6 +67,12 @@ public final class AadlUiBridge extends AbstractContextUiBridge {
 
 	@Override
 	public IInteractionElement getElement(final IEditorInput input) {
+		/*
+		 * I'm not sure what this method is meant to do. I searched the mylyn source code, and as far as I can tell,
+		 * this method is never even called. The Java and Resource bridges has non-trivial implementations of this, but
+		 * I'm not sure what they are really doing. On the other hand, the Ant and PDE bridges just return null,
+		 * so clearly that is a safe option. We do that here.
+		 */
 		return null;
 	}
 
