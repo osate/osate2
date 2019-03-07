@@ -11,7 +11,6 @@
  *******************************************************************************/
 package org.osate.discovery;
 
-import org.eclipse.papyrus.infra.core.log.LogHelper;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -26,9 +25,6 @@ public class Activator extends AbstractUIPlugin {
 	/** singleton instance of the plugin */
 	private static Activator plugin;
 
-	/** logging system */
-	public static LogHelper logHelper;
-
 	/**
 	 * The constructor
 	 */
@@ -42,7 +38,6 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		logHelper = new LogHelper(this);
 	}
 
 	/**
@@ -50,7 +45,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		logHelper = null;
 		plugin = null;
 		super.stop(context);
 	}
