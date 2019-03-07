@@ -2,187 +2,411 @@
  */
 package com.rockwellcollins.atc.resolute.resolute;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
 
-public class ResoluteFactory implements EFactory {
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
+ * @see com.rockwellcollins.atc.resolute.resolute.ResolutePackage
+ * @generated
+ */
+public interface ResoluteFactory extends EFactory
+{
+  /**
+   * The singleton instance of the factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  ResoluteFactory eINSTANCE = com.rockwellcollins.atc.resolute.resolute.impl.ResoluteFactoryImpl.init();
 
-	public static ResoluteFactory eINSTANCE = new ResoluteFactory();
+  /**
+   * Returns a new object of class '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Library</em>'.
+   * @generated
+   */
+  ResoluteLibrary createResoluteLibrary();
 
-	@Override
-	public EList<EAnnotation> getEAnnotations() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Definition</em>'.
+   * @generated
+   */
+  Definition createDefinition();
 
-	@Override
-	public EAnnotation getEAnnotation(String source) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type</em>'.
+   * @generated
+   */
+  Type createType();
 
-	@Override
-	public EClass eClass() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Base Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Base Type</em>'.
+   * @generated
+   */
+  BaseType createBaseType();
 
-	@Override
-	public Resource eResource() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Arg</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Arg</em>'.
+   * @generated
+   */
+  Arg createArg();
 
-	@Override
-	public EObject eContainer() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Constant Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant Definition</em>'.
+   * @generated
+   */
+  ConstantDefinition createConstantDefinition();
 
-	@Override
-	public EStructuralFeature eContainingFeature() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Function Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Function Definition</em>'.
+   * @generated
+   */
+  FunctionDefinition createFunctionDefinition();
 
-	@Override
-	public EReference eContainmentFeature() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Definition Body</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Definition Body</em>'.
+   * @generated
+   */
+  DefinitionBody createDefinitionBody();
 
-	@Override
-	public EList<EObject> eContents() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Claim Text</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Text</em>'.
+   * @generated
+   */
+  ClaimText createClaimText();
 
-	@Override
-	public TreeIterator<EObject> eAllContents() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Claim Text Var</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Text Var</em>'.
+   * @generated
+   */
+  ClaimTextVar createClaimTextVar();
 
-	@Override
-	public boolean eIsProxy() {
-		return false;
-	}
+  /**
+   * Returns a new object of class '<em>Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Expr</em>'.
+   * @generated
+   */
+  Expr createExpr();
 
-	@Override
-	public EList<EObject> eCrossReferences() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Let Binding</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Let Binding</em>'.
+   * @generated
+   */
+  LetBinding createLetBinding();
 
-	@Override
-	public Object eGet(EStructuralFeature feature) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Subclause</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subclause</em>'.
+   * @generated
+   */
+  ResoluteSubclause createResoluteSubclause();
 
-	@Override
-	public Object eGet(EStructuralFeature feature, boolean resolve) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Nested Dot ID</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Nested Dot ID</em>'.
+   * @generated
+   */
+  NestedDotID createNestedDotID();
 
-	@Override
-	public void eSet(EStructuralFeature feature, Object newValue) {
-	}
+  /**
+   * Returns a new object of class '<em>Prove Statement</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Prove Statement</em>'.
+   * @generated
+   */
+  ProveStatement createProveStatement();
 
-	@Override
-	public boolean eIsSet(EStructuralFeature feature) {
-		return false;
-	}
+  /**
+   * Returns a new object of class '<em>List Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Type</em>'.
+   * @generated
+   */
+  ListType createListType();
 
-	@Override
-	public void eUnset(EStructuralFeature feature) {
-	}
+  /**
+   * Returns a new object of class '<em>Set Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Set Type</em>'.
+   * @generated
+   */
+  SetType createSetType();
 
-	@Override
-	public Object eInvoke(EOperation operation, EList<?> arguments) throws InvocationTargetException {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Quant Arg</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Quant Arg</em>'.
+   * @generated
+   */
+  QuantArg createQuantArg();
 
-	@Override
-	public EList<Adapter> eAdapters() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Function Body</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Function Body</em>'.
+   * @generated
+   */
+  FunctionBody createFunctionBody();
 
-	@Override
-	public boolean eDeliver() {
-		return false;
-	}
+  /**
+   * Returns a new object of class '<em>Claim Body</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Body</em>'.
+   * @generated
+   */
+  ClaimBody createClaimBody();
 
-	@Override
-	public void eSetDeliver(boolean deliver) {
-	}
+  /**
+   * Returns a new object of class '<em>Claim String</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim String</em>'.
+   * @generated
+   */
+  ClaimString createClaimString();
 
-	@Override
-	public void eNotify(Notification notification) {
-	}
+  /**
+   * Returns a new object of class '<em>Claim Arg</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Arg</em>'.
+   * @generated
+   */
+  ClaimArg createClaimArg();
 
-	@Override
-	public EPackage getEPackage() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Binary Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Binary Expr</em>'.
+   * @generated
+   */
+  BinaryExpr createBinaryExpr();
 
-	@Override
-	public void setEPackage(EPackage value) {
-	}
+  /**
+   * Returns a new object of class '<em>Instance Of Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Instance Of Expr</em>'.
+   * @generated
+   */
+  InstanceOfExpr createInstanceOfExpr();
 
-	@Override
-	public EObject create(EClass eClass) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Unary Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Unary Expr</em>'.
+   * @generated
+   */
+  UnaryExpr createUnaryExpr();
 
-	@Override
-	public Object createFromString(EDataType eDataType, String literalValue) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Cast Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Cast Expr</em>'.
+   * @generated
+   */
+  CastExpr createCastExpr();
 
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Id Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Id Expr</em>'.
+   * @generated
+   */
+  IdExpr createIdExpr();
 
-	public FunctionDefinition createFunctionDefinition() {
-		return new FunctionDefinition() {
-			
-			@Override
-			public void setName(String string) {
-			}
-		};
-	}
+  /**
+   * Returns a new object of class '<em>This Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>This Expr</em>'.
+   * @generated
+   */
+  ThisExpr createThisExpr();
 
-	public FnCallExpr createFnCallExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Fail Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fail Expr</em>'.
+   * @generated
+   */
+  FailExpr createFailExpr();
 
-	public RealExpr createRealExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Int Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Int Expr</em>'.
+   * @generated
+   */
+  IntExpr createIntExpr();
 
-	public StringExpr createStringExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Real Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Real Expr</em>'.
+   * @generated
+   */
+  RealExpr createRealExpr();
 
-	public IntExpr createIntExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Bool Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bool Expr</em>'.
+   * @generated
+   */
+  BoolExpr createBoolExpr();
 
-	public BoolExpr createBoolExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>String Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String Expr</em>'.
+   * @generated
+   */
+  StringExpr createStringExpr();
 
-	public NestedDotID createNestedDotID() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>If Then Else Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>If Then Else Expr</em>'.
+   * @generated
+   */
+  IfThenElseExpr createIfThenElseExpr();
 
-	public ThisExpr createThisExpr() {
-		return null;
-	}
+  /**
+   * Returns a new object of class '<em>Quantified Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Quantified Expr</em>'.
+   * @generated
+   */
+  QuantifiedExpr createQuantifiedExpr();
 
-}
+  /**
+   * Returns a new object of class '<em>Built In Fn Call Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Built In Fn Call Expr</em>'.
+   * @generated
+   */
+  BuiltInFnCallExpr createBuiltInFnCallExpr();
+
+  /**
+   * Returns a new object of class '<em>Fn Call Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fn Call Expr</em>'.
+   * @generated
+   */
+  FnCallExpr createFnCallExpr();
+
+  /**
+   * Returns a new object of class '<em>List Filter Map Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Filter Map Expr</em>'.
+   * @generated
+   */
+  ListFilterMapExpr createListFilterMapExpr();
+
+  /**
+   * Returns a new object of class '<em>List Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Expr</em>'.
+   * @generated
+   */
+  ListExpr createListExpr();
+
+  /**
+   * Returns a new object of class '<em>Set Filter Map Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Set Filter Map Expr</em>'.
+   * @generated
+   */
+  SetFilterMapExpr createSetFilterMapExpr();
+
+  /**
+   * Returns a new object of class '<em>Set Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Set Expr</em>'.
+   * @generated
+   */
+  SetExpr createSetExpr();
+
+  /**
+   * Returns a new object of class '<em>Let Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Let Expr</em>'.
+   * @generated
+   */
+  LetExpr createLetExpr();
+
+  /**
+   * Returns the package supported by this factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the package supported by this factory.
+   * @generated
+   */
+  ResolutePackage getResolutePackage();
+
+} //ResoluteFactory

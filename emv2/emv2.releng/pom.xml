@@ -6,11 +6,11 @@
 	<parent>
 		<artifactId>osate2</artifactId>
 		<groupId>org.osate</groupId>
-		<version>2.4.0-SNAPSHOT</version>
+		<version>2.4.1-SNAPSHOT</version>
 		<relativePath>../../core/org.osate.build.main/pom.xml</relativePath>
 	</parent>
 	<groupId>org.osate</groupId>
 	<artifactId>emv2.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.4.0-SNAPSHOT</version>
+	<version>2.4.1-SNAPSHOT</version>
 </project>

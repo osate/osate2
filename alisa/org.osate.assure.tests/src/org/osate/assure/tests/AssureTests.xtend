@@ -61,7 +61,7 @@ import org.eclipse.core.runtime.NullProgressMonitor
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import org.eclipse.xtext.validation.Issue
 import java.util.List
-import org.osate.assure.util.ExecuteResoluteUtil
+import org.osate.assure.util.ResoluteUtil
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
@@ -261,7 +261,7 @@ class AssureTests extends XtextTest {
 			"Resolute".assertEquals(name)
 			13.assertEquals(methods.size)
 		]
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
+		if (ResoluteUtil.isResoluteInstalled()){
 			assertNoIssues(reg)
 		} else {
 			val validate = validate(scssrc);
@@ -650,7 +650,7 @@ class AssureTests extends XtextTest {
 //			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
 	@Test
 	def void BasicResolutetest() {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BasicResolute.aadl"), true)
@@ -669,7 +669,7 @@ class AssureTests extends XtextTest {
 
 	@Test
 	def void BudgetResolutetest() {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BudgetResolute.aadl"), true)
@@ -717,7 +717,7 @@ class AssureTests extends XtextTest {
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
+		if (ResoluteUtil.isResoluteInstalled()){
 			16.assertEquals(counts.successCount)
 			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
