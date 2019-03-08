@@ -23,7 +23,7 @@ public class AadlNavigatorActionProvider extends CommonActionProvider {
 		editorOpener = injector.getInstance(IURIEditorOpener.class);
 		openFileAction = new Action() {
 			{
-				setText("&Open D");
+				setText("&Open");
 				setToolTipText("Open in an AADL editor");
 			}
 

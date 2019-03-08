@@ -782,6 +782,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
+	public AnalysisResult invoke(ComponentInstance ci) {
+		return invoke(ci, null, true, true, true, true);
+	}
 	/**
 	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
 	 *
@@ -840,6 +843,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return results;
 	}
 
+	public AnalysisResult invoke(EndToEndFlowInstance etef) {
+		return invoke(etef, null, true, true, true, true);
+	}
 	/**
 	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
 	 *

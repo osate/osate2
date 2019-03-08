@@ -45,21 +45,7 @@ import com.rockwellcollins.atc.resolute.resolute.StringExpr;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
 import com.rockwellcollins.atc.resolute.validation.BaseType;
 
-public class ExecuteResoluteUtil {
-	public static ExecuteResoluteUtil eInstance = new ExecuteResoluteUtil();
-
-	public boolean tryLoad() throws NoClassDefFoundError {
-		// Nothing needed since static initialization of this class already
-		// tries to load Resolute
-		FunctionDefinition fn = ResoluteFactory.eINSTANCE.createFunctionDefinition();
-		String name = fn.getName();
-		fn.setName("dummy");
-		if (name != null && name.startsWith("org.osate")) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+public class ResoluteInterface {
 
 	/**
 	 * interface with Resolute
@@ -109,7 +95,7 @@ public class ExecuteResoluteUtil {
 		set.add(ne);
 	}
 
-	public ExecuteResoluteUtil() {
+	public ResoluteInterface() {
 	}
 
 	/**
@@ -122,9 +108,8 @@ public class ExecuteResoluteUtil {
 	 * The return value is an Issue object with subissues for the list of issues returned in the Resolute ClaimResult.
 	 * If the proof fails then the top Issue is set to FAIL, if successful it is set to SUCCESS
 	 */
-	public EObject executeResoluteFunctionOnce(EObject fundef,
-			final ComponentInstance targetComponent, final InstanceObject targetElement,
-			List<PropertyExpression> parameterObjects) {
+	public EObject executeResoluteFunctionOnce(EObject fundef, final ComponentInstance targetComponent,
+			final InstanceObject targetElement, List<PropertyExpression> parameterObjects) {
 		FunctionDefinition fd = (FunctionDefinition) fundef;
 		initializeResoluteContext(targetComponent.getSystemInstance());
 		EvaluationContext context = new EvaluationContext(targetComponent, sets, featToConnsMap);
@@ -152,6 +137,7 @@ public class ExecuteResoluteUtil {
 				}
 
 			};
+
 			try {
 				ResoluteResult res = prover.doSwitch(fcncall);
 				return doResoluteResults(res);

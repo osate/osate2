@@ -17,8 +17,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import org.eclipse.xsemantics.runtime.RuleEnvironment
-import org.eclipse.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -28,12 +26,13 @@ import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xsemantics.runtime.RuleFailedException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
@@ -58,10 +57,8 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
-import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
-import org.osate.pluginsupport.ExecutePythonUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
@@ -91,6 +88,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.assure.util.ResoluteUtil
+import org.osate.assure.util.ResoluteInterface
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -129,21 +128,9 @@ class AssureProcessor implements IAssureProcessor {
 	var CategoryFilter filter;
 	var boolean save = true
 
-	var private static boolean RESOLUTE_INSTALLED;
-
 	new() {
 		env.add('vals', vals)
 		env.add('computes', computes)
-		try {
-			val isresolute = ExecuteResoluteUtil.eInstance.tryLoad();
-			if (isresolute){
-				RESOLUTE_INSTALLED = true;
-			} else {
-				RESOLUTE_INSTALLED = false;
-			}
-		} catch (NoClassDefFoundError e) {
-			RESOLUTE_INSTALLED = false;
-		}
 	}
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -685,34 +672,18 @@ class AssureProcessor implements IAssureProcessor {
 				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
 			PythonMethod: {
-				executePythonOnce(verificationResult, method, target, parameters);
+				setToError(verificationResult,"Python script execution not supported", null);
 			}
 		}
-	}
-	
-	def void executePythonOnce(VerificationResult verificationResult, VerificationMethod method,
-	InstanceObject target, List<PropertyExpression> parameters) {
-		val engine = new ExecutePythonUtil
-		val methodtype = method.methodKind as PythonMethod
-		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
-		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
-		var returned = engine.runPythonScript(scriptURL,objects);
-		if (returned instanceof Result){
-			if (returned.isResultError){
-				objects.remove(0)
-				returned = engine.runPythonScript(scriptURL,objects);
-			}
-		}
-		processExecutionResult(verificationResult, method, target, returned)
 	}
 	
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
-		if (RESOLUTE_INSTALLED) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val methodtype = method.methodKind as ResoluteMethod
 			val fundef = methodtype.methodReference
-			val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
+			val returned = (new ResoluteInterface).executeResoluteFunctionOnce(fundef, targetComponent, target,
 				parameters)
 			processExecutionResult(verificationResult, method, target, returned)
 		} else {
