@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.nodemodel.INode;
@@ -23,8 +25,8 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
 
-	private static Map<EObject, IParseResult> parseResults = Collections
-			.synchronizedMap(new WeakHashMap<EObject, IParseResult>());
+	private static Map<URI, IParseResult> parseResults = Collections
+			.synchronizedMap(new WeakHashMap<URI, IParseResult>());
 
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
@@ -34,7 +36,8 @@ public class AnnexParseUtil {
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 
 			if (parseResult.getRootASTElement() != null) {
-				parseResults.put(parseResult.getRootASTElement(), parseResult);
+				URI uri = EcoreUtil.getURI(parseResult.getRootASTElement());
+				parseResults.put(uri, parseResult);
 			}
 			EObject result = null;
 			if (isValidParseResult(parseResult)) {
@@ -55,7 +58,8 @@ public class AnnexParseUtil {
 	}
 
 	public static IParseResult getParseResult(EObject annexObject) {
-		return parseResults.get(annexObject);
+		URI uri = EcoreUtil.getURI(annexObject);
+		return parseResults.get(uri);
 	}
 
 	public static String genWhitespace(int length) {
