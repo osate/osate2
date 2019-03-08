@@ -3,7 +3,8 @@
 package com.rockwellcollins.atc.resolute.resolute;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.osate.aadl2.Namespace;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,15 +23,48 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * @model
  * @generated
  */
-public class FunctionDefinition extends EObjectImpl {
-	public void setName(String string) {
-	}
+public interface FunctionDefinition extends Namespace, Definition
+{
+  /**
+   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+   * The list contents are of type {@link com.rockwellcollins.atc.resolute.resolute.Arg}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Args</em>' containment reference list.
+   * @see com.rockwellcollins.atc.resolute.resolute.ResolutePackage#getFunctionDefinition_Args()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Arg> getArgs();
 
-	public EList<Arg> getArgs() {
-		return null;
-	}
+  /**
+   * Returns the value of the '<em><b>Body</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Body</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Body</em>' containment reference.
+   * @see #setBody(DefinitionBody)
+   * @see com.rockwellcollins.atc.resolute.resolute.ResolutePackage#getFunctionDefinition_Body()
+   * @model containment="true"
+   * @generated
+   */
+  DefinitionBody getBody();
 
-	public String getName() {
-		return "org.osate.resolute.stub";
-	}
+  /**
+   * Sets the value of the '{@link com.rockwellcollins.atc.resolute.resolute.FunctionDefinition#getBody <em>Body</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Body</em>' containment reference.
+   * @see #getBody()
+   * @generated
+   */
+  void setBody(DefinitionBody value);
+
 } // FunctionDefinition
