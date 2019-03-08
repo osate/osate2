@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>osate2</artifactId>
+		<groupId>org.osate</groupId>
+		<version>2.4.1-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
+	</parent>
+	<groupId>org.osate</groupId>
+	<artifactId>org.osate.build.repository</artifactId>
+	<version>2.4.1-SNAPSHOT</version>
+	<packaging>eclipse-repository</packaging>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>jboss-snapshots-repository</id>
+			<name>JBoss Snapshots Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.tools.tycho-plugins</groupId>
+				<artifactId>repository-utils</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<!-- creates index.html and other artifacts -->
+					<execution>
+						<id>generate-facade</id>
+						<phase>package</phase>
+						<goals>
+							<goal>generate-repository-facade</goal>
+						</goals>
+						<configuration>
+							<!-- configuration options for the generated HTML page -->
+							<!-- <symbols> <!- If you set a siteTemplateFolder value, ensure that 
+								the folder exists as site/siteTemplateFolder/ and that it contains site/siteTemplateFolder/index.html 
+								file (and optionally, a site/siteTemplateFolder/web/site.css file, too). 
+								-> <siteTemplateFolder>siteTemplateFolder/</siteTemplateFolder> <update.site.name>${update.site.name}</update.site.name> 
+								<update.site.description>${update.site.description}</update.site.description> 
+								<update.site.version>${update.site.version}</update.site.version> <target.eclipse.version>${target.eclipse.version}</target.eclipse.version> 
+								</symbols> -->
+
+							<!-- this adds repository references to the update site's content.xml -->
+							<associateSites>
+								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.16.0/</site>
+								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0/</site>
+								<site>http://download.eclipse.org/xsemantics/milestones/1.16/</site>
+								<site>http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/</site>
+								<site>http://download.eclipse.org/elk/updates/releases/0.4.1/</site>
+								<site>http://download.eclipse.org/ease/update/release</site>
+								<site>https://eclipse.py4j.org</site>
+							</associateSites>
+
+							<!-- to include other files in the update site zip, list them here -->
+							<!-- <additionalWebResources> <resource>../relative/path/some.file.to.include.in.update.site.zip.archive.txt</resource> 
+								<resource>../another.file.txt</resource> </additionalWebResources> -->
+
+							<!-- to remove the default category created for any uncategorized 
+								features or bundles, set this to true -->
+							<!-- <removeDefaultCategory>true</removeDefaultCategory> -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>rename-file</id>
+						<phase>package</phase>
+						<goals>
+							<goal>rename</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${project.build.directory}/org.osate.build.repository-2.4.1-SNAPSHOT.zip</sourceFile>
+							<destinationFile>${project.build.directory}/osate.repository-${unqualifiedVersion}.${buildQualifier}.zip</destinationFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

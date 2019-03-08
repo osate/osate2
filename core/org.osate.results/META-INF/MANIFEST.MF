@@ -11,8 +11,7 @@ Require-Bundle: org.apache.commons.logging;bundle-version="1.0.4";resolution:=op
  org.eclipse.emf.codegen.ecore;resolution:=optional,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.common,
- org.eclipse.core.runtime;bundle-version="3.10.0",
- org.osate.aadl2
+ org.eclipse.core.runtime;bundle-version="3.10.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.result,
