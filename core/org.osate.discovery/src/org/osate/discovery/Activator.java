@@ -20,7 +20,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	/** ID of the plugin */
-	public static final String PLUGIN_ID = "org.eclipse.papyrus.infra.discovery.ui";
+	public static final String PLUGIN_ID = "org.osate.discovery";
 
 	/** singleton instance of the plugin */
 	private static Activator plugin;
