@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.osate.aadl2.Aadl2Package;
 
 /**
@@ -55,7 +56,7 @@ public interface ResolutePackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-	ResolutePackage eINSTANCE = null;
+  ResolutePackage eINSTANCE = com.rockwellcollins.atc.resolute.resolute.impl.ResolutePackageImpl.init();
 
   /**
    * The meta object id for the '{@link com.rockwellcollins.atc.resolute.resolute.impl.ResoluteLibraryImpl <em>Library</em>}' class.
