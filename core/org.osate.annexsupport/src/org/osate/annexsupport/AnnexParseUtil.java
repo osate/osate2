@@ -4,9 +4,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -26,32 +26,22 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 public class AnnexParseUtil {
 
 	private static Map<URI, IParseResult> parseResults = Collections
-			.synchronizedMap(new WeakHashMap<URI, IParseResult>());
+			.synchronizedMap(new HashMap<URI, IParseResult>());
 
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
-
 		try {
-			editString = genWhitespace(offset) + editString;
-			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
+			IParseResult parseResult = parser.parse(parserRule, new StringReader(genWhitespace(offset) + editString));
 
 			if (parseResult.getRootASTElement() != null) {
 				URI uri = EcoreUtil.getURI(parseResult.getRootASTElement());
+
 				parseResults.put(uri, parseResult);
-			}
-			EObject result = null;
-			if (isValidParseResult(parseResult)) {
-				result = parseResult.getRootASTElement();
-				return result;
-			} else {
-				createDiagnostics(parseResult, filename, err);
-				result = parseResult.getRootASTElement();
-				if (result != null) {
-					return result;
-				} else {
-					return null;
+				if (parseResult.hasSyntaxErrors()) {
+					createDiagnostics(parseResult, filename, err);
 				}
 			}
+			return parseResult.getRootASTElement();
 		} catch (Exception exc) {
 			return null;
 		}
@@ -66,14 +56,6 @@ public class AnnexParseUtil {
 		char[] array = new char[length];
 		Arrays.fill(array, ' ');
 		return new String(array);
-	}
-
-	public static boolean isValidParseResult(IParseResult parseResult) {
-		EObject rootASTElement = parseResult.getRootASTElement();
-		if (rootASTElement != null && !parseResult.hasSyntaxErrors()) {
-			return true;
-		}
-		return false;
 	}
 
 	/**
