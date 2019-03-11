@@ -63,6 +63,7 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
+import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
@@ -147,7 +148,6 @@ public class AnnexParserAgent extends LazyLinker {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
 				int line = node.getStartLine() + computeLineOffset(node);
 				int offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
-				AnnexLibrary al = null;
 				// look for plug-in parser
 				String annexText = defaultAnnexLibrary.getSourceText();
 				String annexName = defaultAnnexLibrary.getName();
@@ -159,7 +159,9 @@ public class AnnexParserAgent extends LazyLinker {
 					AnnexParser ap = registry.getAnnexParser(annexName);
 					try {
 						int errs = errReporter.getNumErrors();
-						al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
+						AnnexLibrary al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset,
+								errReporter);
+						AnnexParseUtil.saveParseResult(defaultAnnexLibrary);
 						if (al != null)// && errReporter.getNumErrors() == errs)
 						{
 							al.setName(annexName);
@@ -219,6 +221,7 @@ public class AnnexParserAgent extends LazyLinker {
 					int errs = errReporter.getNumErrors();
 					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
 							errReporter);
+					AnnexParseUtil.saveParseResult(defaultAnnexSubclause);
 					if (asc != null)// && errReporter.getNumErrors() == errs)
 					{
 						asc.setName(annexName);
