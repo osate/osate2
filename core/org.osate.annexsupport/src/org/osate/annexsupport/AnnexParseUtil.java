@@ -4,12 +4,14 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.nodemodel.INode;
@@ -23,8 +25,11 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
 
-	private static Map<EObject, IParseResult> parseResults = Collections
-			.synchronizedMap(new WeakHashMap<EObject, IParseResult>());
+	private static Map<String, IParseResult> parseResults = Collections
+			.synchronizedMap(new HashMap<String, IParseResult>());
+
+	/* in case we use parallel build */
+	private static ThreadLocal<IParseResult> lastParseResult = new ThreadLocal<IParseResult>();
 
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
@@ -34,28 +39,26 @@ public class AnnexParseUtil {
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 
 			if (parseResult.getRootASTElement() != null) {
-				parseResults.put(parseResult.getRootASTElement(), parseResult);
-			}
-			EObject result = null;
-			if (isValidParseResult(parseResult)) {
-				result = parseResult.getRootASTElement();
-				return result;
-			} else {
-				createDiagnostics(parseResult, filename, err);
-				result = parseResult.getRootASTElement();
-				if (result != null) {
-					return result;
-				} else {
-					return null;
+				lastParseResult.set(parseResult);
+				if (parseResult.hasSyntaxErrors()) {
+					createDiagnostics(parseResult, filename, err);
 				}
 			}
+			return parseResult.getRootASTElement();
 		} catch (Exception exc) {
 			return null;
 		}
 	}
 
 	public static IParseResult getParseResult(EObject annexObject) {
-		return parseResults.get(annexObject);
+		EObject defaultAnnexObject = annexObject.eContainer();
+		URI uri = EcoreUtil.getURI(defaultAnnexObject);
+		return parseResults.get(uri.toString());
+	}
+
+	public static IParseResult saveParseResult(EObject defaultAnnexObject) {
+		URI uri = EcoreUtil.getURI(defaultAnnexObject);
+		return parseResults.put(uri.toString(), lastParseResult.get());
 	}
 
 	public static String genWhitespace(int length) {
