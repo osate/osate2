@@ -6,6 +6,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public final class AadlBridgePlugin extends AbstractUIPlugin {
+	public static final String ID_PLUGIN = "org.osate.mylyn.aadi.ui";
+
 	private static AadlBridgePlugin INSTANCE = null;
 
 	private AadlEditingMonitor aadlEditingMonitor = null;

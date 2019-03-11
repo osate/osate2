@@ -66,4 +66,28 @@
   		</action> 
       </viewContribution> 
    </extension>
+
+   <extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+           adaptable="true"
+           id="org.osate.mylyn.aadl.ui.RemoveFromContext"
+           objectClass="org.osate.aadl2.Element">
+        <action
+              class="org.eclipse.mylyn.internal.context.ui.actions.InterestDecrementAction"
+              definitionId="org.eclipse.mylyn.context.ui.commands.interest.decrement"
+              enablesFor="*"
+              icon="icons/interest-decrease.gif"
+              id="org.osate.mylyn.aadl.ui.remove.element"
+              label="Remove from Context"
+              menubarPath="group.reorganize"
+              tooltip="Mark selected element as uninteresting">
+           <enablement>
+              <systemProperty
+                    name="org.eclipse.mylyn.context.core.context.active"
+                    value="true">
+              </systemProperty>
+           </enablement>
+        </action>
+     </objectContribution>
+   </extension>
 </plugin>

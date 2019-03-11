@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -50,7 +57,33 @@ public final class AadlUiBridge extends AbstractContextUiBridge {
 
 	@Override
 	public void close(final IInteractionElement element) {
-		System.out.println("CLOSE " + element.getHandleIdentifier());
+		try {
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			if (page != null) {
+				List<IEditorReference> toClose = new ArrayList<IEditorReference>(4);
+				for (IEditorReference reference : page.getEditorReferences()) {
+					try {
+						final IEditorInput editorInput = reference.getEditorInput();
+						if (editorInput instanceof FileEditorInput) {
+							final IFile file = ((FileEditorInput) editorInput).getFile();
+							final Element input = ((IAdaptable) file).getAdapter(Element.class);
+							if (input != null
+									&& element.getHandleIdentifier().equals(EcoreUtil.getURI(input).toString())) {
+								toClose.add(reference);
+							}
+						}
+					} catch (PartInitException e) {
+						// ignore
+					}
+				}
+				if (toClose.size() > 0) {
+					page.closeEditors(toClose.toArray(new IEditorReference[toClose.size()]), true);
+				}
+			}
+		} catch (Throwable t) {
+			StatusHandler
+					.log(new Status(IStatus.ERROR, AadlBridgePlugin.ID_PLUGIN, "Could not auto close editor", t));
+		}
 	}
 
 	@Override
