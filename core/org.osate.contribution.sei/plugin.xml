@@ -8,6 +8,14 @@
             id="org.osate.contributes.SEI.aadlcontribution1">
       </aadlcontribution>
       <aadlcontribution
+            file="resources/properties/Physical.aadl"
+            id="org.osate.contributes.SEI.aadlcontribution2">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/packages/PhysicalResources.aadl"
+            id="org.osate.contributes.SEI.aadlcontribution3">
+      </aadlcontribution>
+      <aadlcontribution
             file="resources/properties/Data_Model.aadl"
             id="org.osate.contributes.SAE.aadlcontribution2">
       </aadlcontribution>

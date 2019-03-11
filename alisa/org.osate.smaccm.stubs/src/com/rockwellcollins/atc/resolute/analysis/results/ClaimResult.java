@@ -2,10 +2,20 @@ package com.rockwellcollins.atc.resolute.analysis.results;
 
 import org.eclipse.emf.ecore.EObject;
 
-public interface ClaimResult extends ResoluteResult {
+public class ClaimResult implements ResoluteResult {
 
-	String getText();
+	public String getText() {
+		return null;
+	}
 
-	EObject getLocation();
+	public EObject getLocation() {
+		return null;
+	}
+
+	@Override
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
