@@ -706,7 +706,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val annexName = defaultAnnexLibrary.name
 		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.sourceTextAssignment_2)
 		formatAnnexText(annexName, sourceTextRegion, 1, document, [annexParser, source |
-			annexParser.parseAnnexLibrary(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+			val library = annexParser.parseAnnexLibrary(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+			AnnexParseUtil.saveParseResult(defaultAnnexLibrary)
+			defaultAnnexLibrary.parsedAnnexLibrary = library
+			library
 		])
 		
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
@@ -1455,7 +1458,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val annexName = defaultAnnexSubclause.name
 		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.sourceTextAssignment_2)
 		formatAnnexText(annexName, sourceTextRegion, 2, document, [annexParser, source |
-			annexParser.parseAnnexSubclause(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+			val subclause = annexParser.parseAnnexSubclause(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
+			AnnexParseUtil.saveParseResult(defaultAnnexSubclause)
+			defaultAnnexSubclause.parsedAnnexSubclause = subclause
+			subclause
 		])
 		
 		//In modes
