@@ -28,9 +28,24 @@ public class AnnexParseUtil {
 	private static Map<String, IParseResult> parseResults = Collections
 			.synchronizedMap(new HashMap<String, IParseResult>());
 
-	/* in case we use parallel build */
+	/* Use ThreadLocal in case we use parallel build in the future */
 	private static ThreadLocal<IParseResult> lastParseResult = new ThreadLocal<IParseResult>();
 
+	/**
+	 * Parse an annex.
+	 * Note: After parsing the returned element must be added to a default annex library/subclause
+	 * object and saveParceResult must be called. Various functionality depends on being able to
+	 * retrieve the parse result given an annex library/subclause.
+	 *
+	 * @param parser
+	 * @param editString
+	 * @param parserRule
+	 * @param filename
+	 * @param line
+	 * @param offset
+	 * @param err
+	 * @return
+	 */
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
 
@@ -56,6 +71,13 @@ public class AnnexParseUtil {
 		return parseResults.get(uri.toString());
 	}
 
+	/**
+	 * This method must be called after parsing with the DefaultAnnexLibrary or
+	 * DefaultAnnexSubclasue that contains the parsed annex library/subclause.
+	 *
+	 * @param defaultAnnexObject
+	 * @return
+	 */
 	public static IParseResult saveParseResult(EObject defaultAnnexObject) {
 		URI uri = EcoreUtil.getURI(defaultAnnexObject);
 		return parseResults.put(uri.toString(), lastParseResult.get());
