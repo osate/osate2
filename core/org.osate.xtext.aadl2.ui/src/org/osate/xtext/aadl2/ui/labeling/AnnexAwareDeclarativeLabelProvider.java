@@ -47,13 +47,13 @@ import org.osate.annexsupport.AnnexUtil;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 
-public class AnnexAwareDeclarativeLableProvider extends DeclarativeLabelProvider {
+public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider {
 
-	public AnnexAwareDeclarativeLableProvider() {
+	public AnnexAwareDeclarativeLabelProvider() {
 		super();
 	}
 
-	public AnnexAwareDeclarativeLableProvider(ILabelProvider delegate) {
+	public AnnexAwareDeclarativeLabelProvider(ILabelProvider delegate) {
 		super(delegate);
 	}
 
