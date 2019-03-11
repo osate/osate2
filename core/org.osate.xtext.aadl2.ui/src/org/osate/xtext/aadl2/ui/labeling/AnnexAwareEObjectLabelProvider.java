@@ -18,7 +18,7 @@ import com.google.inject.Inject;
 /**
  * @author Jan Koehnlein - Initial contribution and API
  */
-public class AnnexAwareEObjectLabelProvider extends AnnexAwareDeclarativeLableProvider {
+public class AnnexAwareEObjectLabelProvider extends AnnexAwareDeclarativeLabelProvider {
 
 	public AnnexAwareEObjectLabelProvider() {
 		super();
