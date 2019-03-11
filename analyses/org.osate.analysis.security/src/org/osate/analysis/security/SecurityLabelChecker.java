@@ -39,7 +39,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			public String caseComponentInstance(ComponentInstance ci) {
 				ComponentInstance parent = ci.getContainingComponentInstance();
 
-				return checkValidContainment(ci, parent, ci);
+				return checkValidContainment(ci, ci, parent);
 			}
 
 			/**
@@ -82,7 +82,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 					NamedElement src = cref.getSource();
 					NamedElement dst = cref.getDestination();
 
-					return checkValidFlow(cref, src, dst);
+					checkValidFlow(cref, src, dst);
 				}
 				return DONE;
 			}
@@ -99,8 +99,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 				if (fc == FeatureCategory.DATA_PORT || fc == FeatureCategory.EVENT_DATA_PORT) {
 					NamedElement data = fi.getFeature().getAllClassifier();
 
-					return checkValidFlow(fi, data, fi);
+					checkValidFlow(fi, data, fi);
 				}
+				ComponentInstance parent = fi.getContainingComponentInstance();
+
+				checkValidContainment(fi, fi, parent);
 				return DONE;
 			}
 
@@ -108,8 +111,33 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 				return checkValidFlow(element, Access.FLOW, src, dst);
 			}
 
-			protected String checkValidContainment(Element element, NamedElement src, NamedElement dst) {
-				return checkValidFlow(element, Access.CONTAINMENT, src, dst);
+			protected String checkValidContainment(Element element, NamedElement parent, NamedElement child) {
+				if (parent == null || child == null) {
+					return DONE;
+				}
+				try {
+					Optional<SecurityLabel> parentLabel = SecurityLabel.of(parent);
+					Optional<SecurityLabel> childLabel = SecurityLabel.of(child);
+
+					if (parentLabel.isPresent() && childLabel.isPresent()) {
+						SecurityLabel pl = parentLabel.get();
+						SecurityLabel cl = childLabel.get();
+						if (!policy.allows(Access.CONTAINMENT, pl, cl)) {
+							error(element,
+									"Security policy violation: " + cl.toString() + " contained in " + pl.toString());
+						}
+					} else {
+						if (!parentLabel.isPresent() && childLabel.isPresent()) {
+							error(parent, "Missing security label for " + parent.getQualifiedName());
+						}
+						if (parentLabel.isPresent() && !childLabel.isPresent()) {
+							error(child, "Missing security label for " + child.getQualifiedName());
+						}
+					}
+				} catch (InvalidModelException e) {
+					error(e.getElement(), e.getMessage());
+				}
+				return DONE;
 			}
 
 			protected String checkValidFlow(Element element, Access dir, NamedElement src, NamedElement dst) {
