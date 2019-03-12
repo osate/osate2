@@ -69,7 +69,7 @@
 
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
-           adaptable="true"
+           adaptable="false"
            id="org.osate.mylyn.aadl.ui.RemoveFromContext"
            objectClass="org.osate.aadl2.Element">
         <action
