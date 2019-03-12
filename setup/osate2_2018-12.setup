@@ -452,6 +452,8 @@
         name="org.eclipse.sirius.specifier.feature.group"/>
     <requirement
         name="org.eclipse.sirius.aql.feature.group"/>
+    <requirement
+        name="org.eclipse.sirius.diagram.elk.feature.feature.group"/>
     <repository
         url="http://download.eclipse.org/releases/2018-12"/>
     <repository
@@ -705,6 +707,8 @@
           name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
       <requirement
           name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
+      <requirement
+          name="org.eclipse.sirius.diagram.elk.feature.feature.group"/>
       <requirement
           name="org.eclipse.sirius.tests.support.feature.group"/>
       <requirement
