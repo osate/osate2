@@ -35,8 +35,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//String"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemOverview">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemOverview" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="fundamentals" upperBound="-1"
         eType="#//Fundamental" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>

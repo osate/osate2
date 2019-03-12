@@ -507,13 +507,13 @@ public interface Safe2Package extends EPackage {
 	int SYSTEM_OVERVIEW = 7;
 
 	/**
-	 * The feature id for the '<em><b>System Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OVERVIEW__SYSTEM_NAME = 0;
+	int SYSTEM_OVERVIEW__NAME = NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Fundamentals</b></em>' containment reference list.
@@ -522,7 +522,7 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OVERVIEW__FUNDAMENTALS = 1;
+	int SYSTEM_OVERVIEW__FUNDAMENTALS = NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Top Level Element</b></em>' reference.
@@ -531,7 +531,7 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT = 2;
+	int SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT = NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>System Overview</em>' class.
@@ -540,7 +540,7 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OVERVIEW_FEATURE_COUNT = 3;
+	int SYSTEM_OVERVIEW_FEATURE_COUNT = NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>System Overview</em>' class.
@@ -549,7 +549,7 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OVERVIEW_OPERATION_COUNT = 0;
+	int SYSTEM_OVERVIEW_OPERATION_COUNT = NODE_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.Fundamental <em>Fundamental</em>}'.
@@ -773,17 +773,6 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getSystemOverview();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.alisa2.model.safe2.SystemOverview#getSystemName <em>System Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>System Name</em>'.
-	 * @see org.osate.alisa2.model.safe2.SystemOverview#getSystemName()
-	 * @see #getSystemOverview()
-	 * @generated
-	 */
-	EAttribute getSystemOverview_SystemName();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.alisa2.model.safe2.SystemOverview#getFundamentals <em>Fundamentals</em>}'.
@@ -1013,14 +1002,6 @@ public interface Safe2Package extends EPackage {
 		 * @generated
 		 */
 		EClass SYSTEM_OVERVIEW = eINSTANCE.getSystemOverview();
-
-		/**
-		 * The meta object literal for the '<em><b>System Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SYSTEM_OVERVIEW__SYSTEM_NAME = eINSTANCE.getSystemOverview_SystemName();
 
 		/**
 		 * The meta object literal for the '<em><b>Fundamentals</b></em>' containment reference list feature.

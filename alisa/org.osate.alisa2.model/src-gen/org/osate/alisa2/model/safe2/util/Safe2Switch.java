@@ -121,6 +121,7 @@ public class Safe2Switch<T> extends Switch<T> {
 			case Safe2Package.SYSTEM_OVERVIEW: {
 				SystemOverview systemOverview = (SystemOverview)theEObject;
 				T result = caseSystemOverview(systemOverview);
+				if (result == null) result = caseNode(systemOverview);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

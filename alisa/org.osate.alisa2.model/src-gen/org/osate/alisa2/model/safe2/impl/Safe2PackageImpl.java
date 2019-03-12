@@ -116,7 +116,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link Safe2Package#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -130,7 +130,8 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		if (isInited) return (Safe2Package)EPackage.Registry.INSTANCE.getEPackage(Safe2Package.eNS_URI);
 
 		// Obtain or create and register package
-		Safe2PackageImpl theSafe2Package = (Safe2PackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof Safe2PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new Safe2PackageImpl());
+		Object registeredSafe2Package = EPackage.Registry.INSTANCE.get(eNS_URI);
+		Safe2PackageImpl theSafe2Package = registeredSafe2Package instanceof Safe2PackageImpl ? (Safe2PackageImpl)registeredSafe2Package : new Safe2PackageImpl();
 
 		isInited = true;
 
@@ -148,7 +149,6 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		// Mark meta-data to indicate it can't be changed
 		theSafe2Package.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(Safe2Package.eNS_URI, theSafe2Package);
 		return theSafe2Package;
@@ -159,6 +159,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFundamental() {
 		return fundamentalEClass;
 	}
@@ -168,6 +169,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFundamental_Description() {
 		return (EAttribute)fundamentalEClass.getEStructuralFeatures().get(0);
 	}
@@ -177,6 +179,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFundamental_Explanations() {
 		return (EAttribute)fundamentalEClass.getEStructuralFeatures().get(1);
 	}
@@ -186,6 +189,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAccident() {
 		return accidentEClass;
 	}
@@ -195,6 +199,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAccident_Accidentlevel() {
 		return (EReference)accidentEClass.getEStructuralFeatures().get(0);
 	}
@@ -204,6 +209,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAccident_Hazard() {
 		return (EReference)accidentEClass.getEStructuralFeatures().get(1);
 	}
@@ -213,6 +219,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHazard() {
 		return hazardEClass;
 	}
@@ -222,6 +229,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHazard_Accident() {
 		return (EReference)hazardEClass.getEStructuralFeatures().get(0);
 	}
@@ -231,6 +239,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHazard_Constraint() {
 		return (EReference)hazardEClass.getEStructuralFeatures().get(1);
 	}
@@ -240,6 +249,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHazard_EnvironmentElement() {
 		return (EReference)hazardEClass.getEStructuralFeatures().get(2);
 	}
@@ -249,6 +259,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHazard_SystemElement() {
 		return (EReference)hazardEClass.getEStructuralFeatures().get(3);
 	}
@@ -258,6 +269,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHazard_HazardousFactor() {
 		return (EAttribute)hazardEClass.getEStructuralFeatures().get(4);
 	}
@@ -267,6 +279,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAccidentLevel() {
 		return accidentLevelEClass;
 	}
@@ -276,6 +289,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAccidentLevel_Accident() {
 		return (EReference)accidentLevelEClass.getEStructuralFeatures().get(0);
 	}
@@ -285,6 +299,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConstraint() {
 		return constraintEClass;
 	}
@@ -294,6 +309,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConstraint_ErrorType() {
 		return (EReference)constraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -303,6 +319,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConstraint_Hazard() {
 		return (EReference)constraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -312,6 +329,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getControlAction() {
 		return controlActionEClass;
 	}
@@ -321,6 +339,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNode() {
 		return nodeEClass;
 	}
@@ -330,6 +349,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNode_Name() {
 		return (EAttribute)nodeEClass.getEStructuralFeatures().get(0);
 	}
@@ -339,6 +359,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSystemOverview() {
 		return systemOverviewEClass;
 	}
@@ -348,8 +369,9 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSystemOverview_SystemName() {
-		return (EAttribute)systemOverviewEClass.getEStructuralFeatures().get(0);
+	@Override
+	public EReference getSystemOverview_Fundamentals() {
+		return (EReference)systemOverviewEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -357,7 +379,8 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemOverview_Fundamentals() {
+	@Override
+	public EReference getSystemOverview_TopLevelElement() {
 		return (EReference)systemOverviewEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -366,15 +389,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemOverview_TopLevelElement() {
-		return (EReference)systemOverviewEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public Safe2Factory getSafe2Factory() {
 		return (Safe2Factory)getEFactoryInstance();
 	}
@@ -426,7 +441,6 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		createEAttribute(nodeEClass, NODE__NAME);
 
 		systemOverviewEClass = createEClass(SYSTEM_OVERVIEW);
-		createEAttribute(systemOverviewEClass, SYSTEM_OVERVIEW__SYSTEM_NAME);
 		createEReference(systemOverviewEClass, SYSTEM_OVERVIEW__FUNDAMENTALS);
 		createEReference(systemOverviewEClass, SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT);
 	}
@@ -470,6 +484,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		accidentLevelEClass.getESuperTypes().add(this.getFundamental());
 		constraintEClass.getESuperTypes().add(this.getFundamental());
 		controlActionEClass.getESuperTypes().add(this.getNode());
+		systemOverviewEClass.getESuperTypes().add(this.getNode());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(fundamentalEClass, Fundamental.class, "Fundamental", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -500,7 +515,6 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEAttribute(getNode_Name(), theAadl2Package.getString(), "name", null, 1, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(systemOverviewEClass, SystemOverview.class, "SystemOverview", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSystemOverview_SystemName(), theEcorePackage.getEString(), "SystemName", null, 0, 1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemOverview_Fundamentals(), this.getFundamental(), null, "fundamentals", null, 0, -1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemOverview_TopLevelElement(), theAadl2Package.getComponentClassifier(), null, "topLevelElement", null, 0, 1, SystemOverview.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

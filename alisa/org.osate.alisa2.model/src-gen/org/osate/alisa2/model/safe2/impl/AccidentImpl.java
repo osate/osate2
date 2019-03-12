@@ -126,6 +126,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -135,6 +136,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -147,6 +149,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -156,6 +159,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -168,6 +172,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getExplanations() {
 		if (explanations == null) {
 			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.ACCIDENT__EXPLANATIONS);
@@ -180,6 +185,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccidentLevel getAccidentlevel() {
 		if (eContainerFeatureID() != Safe2Package.ACCIDENT__ACCIDENTLEVEL) return null;
 		return (AccidentLevel)eInternalContainer();
@@ -200,6 +206,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAccidentlevel(AccidentLevel newAccidentlevel) {
 		if (newAccidentlevel != eInternalContainer() || (eContainerFeatureID() != Safe2Package.ACCIDENT__ACCIDENTLEVEL && newAccidentlevel != null)) {
 			if (EcoreUtil.isAncestor(this, newAccidentlevel))
@@ -221,6 +228,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Hazard> getHazard() {
 		if (hazard == null) {
 			hazard = new EObjectContainmentWithInverseEList<Hazard>(Hazard.class, this, Safe2Package.ACCIDENT__HAZARD, Safe2Package.HAZARD__ACCIDENT);
@@ -387,7 +395,7 @@ public class AccidentImpl extends MinimalEObjectImpl.Container implements Accide
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", description: ");

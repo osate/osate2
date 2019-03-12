@@ -171,6 +171,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -180,6 +181,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -192,6 +194,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -201,6 +204,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -213,6 +217,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getExplanations() {
 		if (explanations == null) {
 			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.HAZARD__EXPLANATIONS);
@@ -225,6 +230,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Accident getAccident() {
 		if (eContainerFeatureID() != Safe2Package.HAZARD__ACCIDENT) return null;
 		return (Accident)eInternalContainer();
@@ -245,6 +251,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAccident(Accident newAccident) {
 		if (newAccident != eInternalContainer() || (eContainerFeatureID() != Safe2Package.HAZARD__ACCIDENT && newAccident != null)) {
 			if (EcoreUtil.isAncestor(this, newAccident))
@@ -266,6 +273,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Constraint> getConstraint() {
 		if (constraint == null) {
 			constraint = new EObjectContainmentWithInverseEList<Constraint>(Constraint.class, this, Safe2Package.HAZARD__CONSTRAINT, Safe2Package.CONSTRAINT__HAZARD);
@@ -278,6 +286,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractSubcomponent getEnvironmentElement() {
 		if (environmentElement != null && ((EObject)environmentElement).eIsProxy()) {
 			InternalEObject oldEnvironmentElement = (InternalEObject)environmentElement;
@@ -304,6 +313,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnvironmentElement(AbstractSubcomponent newEnvironmentElement) {
 		AbstractSubcomponent oldEnvironmentElement = environmentElement;
 		environmentElement = newEnvironmentElement;
@@ -316,6 +326,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Subcomponent getSystemElement() {
 		if (systemElement != null && ((EObject)systemElement).eIsProxy()) {
 			InternalEObject oldSystemElement = (InternalEObject)systemElement;
@@ -342,6 +353,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSystemElement(Subcomponent newSystemElement) {
 		Subcomponent oldSystemElement = systemElement;
 		systemElement = newSystemElement;
@@ -354,6 +366,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHazardousFactor() {
 		return hazardousFactor;
 	}
@@ -363,6 +376,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHazardousFactor(String newHazardousFactor) {
 		String oldHazardousFactor = hazardousFactor;
 		hazardousFactor = newHazardousFactor;
@@ -561,7 +575,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", description: ");

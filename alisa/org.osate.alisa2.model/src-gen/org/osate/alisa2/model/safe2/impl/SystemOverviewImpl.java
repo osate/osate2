@@ -31,7 +31,7 @@ import org.osate.alisa2.model.safe2.SystemOverview;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getSystemName <em>System Name</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getFundamentals <em>Fundamentals</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.SystemOverviewImpl#getTopLevelElement <em>Top Level Element</em>}</li>
  * </ul>
@@ -40,24 +40,24 @@ import org.osate.alisa2.model.safe2.SystemOverview;
  */
 public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements SystemOverview {
 	/**
-	 * The default value of the '{@link #getSystemName() <em>System Name</em>}' attribute.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSystemName()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SYSTEM_NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSystemName() <em>System Name</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSystemName()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String systemName = SYSTEM_NAME_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFundamentals() <em>Fundamentals</em>}' containment reference list.
@@ -103,8 +103,9 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSystemName() {
-		return systemName;
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -112,11 +113,12 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSystemName(String newSystemName) {
-		String oldSystemName = systemName;
-		systemName = newSystemName;
+	@Override
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.SYSTEM_OVERVIEW__SYSTEM_NAME, oldSystemName, systemName));
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.SYSTEM_OVERVIEW__NAME, oldName, name));
 	}
 
 	/**
@@ -124,6 +126,7 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Fundamental> getFundamentals() {
 		if (fundamentals == null) {
 			fundamentals = new EObjectContainmentEList<Fundamental>(Fundamental.class, this, Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS);
@@ -136,6 +139,7 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentClassifier getTopLevelElement() {
 		if (topLevelElement != null && ((EObject)topLevelElement).eIsProxy()) {
 			InternalEObject oldTopLevelElement = (InternalEObject)topLevelElement;
@@ -162,6 +166,7 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTopLevelElement(ComponentClassifier newTopLevelElement) {
 		ComponentClassifier oldTopLevelElement = topLevelElement;
 		topLevelElement = newTopLevelElement;
@@ -191,8 +196,8 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case Safe2Package.SYSTEM_OVERVIEW__SYSTEM_NAME:
-				return getSystemName();
+			case Safe2Package.SYSTEM_OVERVIEW__NAME:
+				return getName();
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				return getFundamentals();
 			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
@@ -211,8 +216,8 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case Safe2Package.SYSTEM_OVERVIEW__SYSTEM_NAME:
-				setSystemName((String)newValue);
+			case Safe2Package.SYSTEM_OVERVIEW__NAME:
+				setName((String)newValue);
 				return;
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				getFundamentals().clear();
@@ -233,8 +238,8 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case Safe2Package.SYSTEM_OVERVIEW__SYSTEM_NAME:
-				setSystemName(SYSTEM_NAME_EDEFAULT);
+			case Safe2Package.SYSTEM_OVERVIEW__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				getFundamentals().clear();
@@ -254,8 +259,8 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case Safe2Package.SYSTEM_OVERVIEW__SYSTEM_NAME:
-				return SYSTEM_NAME_EDEFAULT == null ? systemName != null : !SYSTEM_NAME_EDEFAULT.equals(systemName);
+			case Safe2Package.SYSTEM_OVERVIEW__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case Safe2Package.SYSTEM_OVERVIEW__FUNDAMENTALS:
 				return fundamentals != null && !fundamentals.isEmpty();
 			case Safe2Package.SYSTEM_OVERVIEW__TOP_LEVEL_ELEMENT:
@@ -273,9 +278,9 @@ public class SystemOverviewImpl extends MinimalEObjectImpl.Container implements 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (SystemName: ");
-		result.append(systemName);
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

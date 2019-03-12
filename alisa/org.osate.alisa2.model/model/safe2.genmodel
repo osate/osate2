@@ -35,7 +35,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Node/name"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//SystemOverview">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//SystemOverview/SystemName"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//SystemOverview/fundamentals"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//SystemOverview/topLevelElement"/>
     </genClasses>

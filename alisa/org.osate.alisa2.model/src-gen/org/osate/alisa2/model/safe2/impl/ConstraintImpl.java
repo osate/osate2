@@ -121,6 +121,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -130,6 +131,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -142,6 +144,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -151,6 +154,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -163,6 +167,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getExplanations() {
 		if (explanations == null) {
 			explanations = new EDataTypeUniqueEList<String>(String.class, this, Safe2Package.CONSTRAINT__EXPLANATIONS);
@@ -175,6 +180,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ErrorType getErrorType() {
 		if (errorType != null && errorType.eIsProxy()) {
 			InternalEObject oldErrorType = (InternalEObject)errorType;
@@ -201,6 +207,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setErrorType(ErrorType newErrorType) {
 		ErrorType oldErrorType = errorType;
 		errorType = newErrorType;
@@ -213,6 +220,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Hazard getHazard() {
 		if (eContainerFeatureID() != Safe2Package.CONSTRAINT__HAZARD) return null;
 		return (Hazard)eInternalContainer();
@@ -233,6 +241,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHazard(Hazard newHazard) {
 		if (newHazard != eInternalContainer() || (eContainerFeatureID() != Safe2Package.CONSTRAINT__HAZARD && newHazard != null)) {
 			if (EcoreUtil.isAncestor(this, newHazard))
@@ -403,7 +412,7 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", description: ");

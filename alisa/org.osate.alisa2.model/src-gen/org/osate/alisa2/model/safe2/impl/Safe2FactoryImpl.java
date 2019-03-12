@@ -72,6 +72,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Accident createAccident() {
 		AccidentImpl accident = new AccidentImpl();
 		return accident;
@@ -82,6 +83,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Hazard createHazard() {
 		HazardImpl hazard = new HazardImpl();
 		return hazard;
@@ -92,6 +94,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccidentLevel createAccidentLevel() {
 		AccidentLevelImpl accidentLevel = new AccidentLevelImpl();
 		return accidentLevel;
@@ -102,6 +105,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Constraint createConstraint() {
 		ConstraintImpl constraint = new ConstraintImpl();
 		return constraint;
@@ -112,6 +116,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ControlAction createControlAction() {
 		ControlActionImpl controlAction = new ControlActionImpl();
 		return controlAction;
@@ -122,6 +127,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemOverview createSystemOverview() {
 		SystemOverviewImpl systemOverview = new SystemOverviewImpl();
 		return systemOverview;
@@ -132,6 +138,7 @@ public class Safe2FactoryImpl extends EFactoryImpl implements Safe2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Safe2Package getSafe2Package() {
 		return (Safe2Package)getEPackage();
 	}
