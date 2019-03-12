@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -67,7 +68,17 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 			return NO_CHILDREN;
 		}
 
-		return super.getChildren(parentElement);
+		Object[] children = super.getChildren(parentElement);
+		// the navigator compares children by name, so filter out children that don't have a name
+		children = Arrays.stream(children).filter(c -> {
+			if (c instanceof NamedElement) {
+				NamedElement ne = (NamedElement) c;
+				return ne.getName() != null && ne.getQualifiedName() != null && ne.getFullName() != null;
+			} else {
+				return false;
+			}
+		}).toArray();
+		return children;
 	}
 
 	@Override

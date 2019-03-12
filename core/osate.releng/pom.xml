@@ -41,6 +41,7 @@
 			</activation>
 			<modules>
 				<module>../../../osate2-ocarina/osate2-ocarina.releng/modules</module>
+				<module>../org.osate.build.repository</module>
 				<module>../org.osate.build.product</module>
 			</modules>
 		</profile>
