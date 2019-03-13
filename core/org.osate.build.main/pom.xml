@@ -69,11 +69,6 @@
 			</activation>
 			<repositories>
 				<repository>
-					<id>fm-workbench.repo</id>
-					<url>${fm-workbench.repo.url}</url>
-					<layout>p2</layout>
-				</repository>
-				<repository>
 					<id>ocarina.repo</id>
 					<url>${ocarina.repo.url}</url>
 					<layout>p2</layout>
