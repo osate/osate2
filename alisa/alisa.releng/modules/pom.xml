@@ -24,7 +24,7 @@
 		<module>../../org.osate.alisa.workbench.tests</module>
 		<module>../../org.osate.alisa.workbench.ui</module>
 		<module>../../org.osate.assure</module>
-		
+		<module>../../org.osate.assure.tests</module>
 		<module>../../org.osate.categories</module>
 		<module>../../org.osate.categories.ui</module>
 		<module>../../org.osate.organization</module>
