@@ -1242,7 +1242,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 							flows
 								fsource1: flow source af1;
 							modes
-								m1 : mode;
+								m1: initial mode;
 						end s1;
 						system s2 extends s1
 							prototypes
@@ -1461,7 +1461,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 								end ab0;
 								abstract implementation ab0.i1
 									modes
-										m1: mode;
+										m1: initial mode;
 								end ab0.i1;
 								abstract implementation ab1.i1 extends ab0.i1
 									prototypes
