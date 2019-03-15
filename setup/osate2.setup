@@ -841,6 +841,8 @@
       <requirement
           name="org.py4j.feature.feature.group"/>
       <requirement
+          name="org.eclipse.zest.core"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}"/>

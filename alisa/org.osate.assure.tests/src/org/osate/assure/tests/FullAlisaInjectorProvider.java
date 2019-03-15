@@ -11,8 +11,8 @@ import com.google.inject.Injector;
 import com.rockwellcollins.atc.resolute.ResoluteStandaloneSetup;
 
 public class FullAlisaInjectorProvider extends Aadl2InjectorProvider {
-		@Override
-		protected Injector internalCreateInjector() {
+	@Override
+	protected Injector internalCreateInjector() {
 		// from online help
 		CategoriesStandaloneSetup.doSetup();
 		OrganizationStandaloneSetup.doSetup();
