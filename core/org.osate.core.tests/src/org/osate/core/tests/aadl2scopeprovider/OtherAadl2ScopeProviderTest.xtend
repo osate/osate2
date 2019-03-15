@@ -756,7 +756,7 @@ class OtherAadl2ScopeProviderTest extends XtextTest {
 				
 				abstract a2
 				requires modes
-					m3: initial mode;
+					m3: mode;
 					m4: mode;
 				end a2;
 			end pack;
