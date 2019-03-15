@@ -16,6 +16,10 @@
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
 	</topic>
+	<topic label="Tasks">
+		<anchor id="_tasks"/>
+	</topic>
+
 	<topic label="Model Analyses">
     	<anchor id="_latency"/>
 		<anchor id="_codegen_checker"/>
