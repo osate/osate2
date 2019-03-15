@@ -27,7 +27,6 @@
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
-		<fm-workbench.repo.url>http://osate-build.sei.cmu.edu/p2/fm-workbench/</fm-workbench.repo.url>
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 	</properties>
 
@@ -68,11 +67,6 @@
 				</property>
 			</activation>
 			<repositories>
-				<repository>
-					<id>fm-workbench.repo</id>
-					<url>${fm-workbench.repo.url}</url>
-					<layout>p2</layout>
-				</repository>
 				<repository>
 					<id>ocarina.repo</id>
 					<url>${ocarina.repo.url}</url>
