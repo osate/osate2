@@ -848,7 +848,7 @@
                 label="Install Additional OSATE Components">
              <parameter
                    name="org.eclipse.equinox.p2.ui.discovery.commands.DirectoryParameter"
-                   value="file:///Users/jseibel/Downloads/localP2Directory.xml">
+                   value="https://osate-build.sei.cmu.edu/download/osate/discovery/directory.xml">
              </parameter>
           </command>
        </menuContribution>
