@@ -740,6 +740,8 @@
      <requirement
          name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
       <requirement
+          name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
+      <requirement
           name="org.py4j.feature.feature.group"/>
       <requirement
           name="*"/>
