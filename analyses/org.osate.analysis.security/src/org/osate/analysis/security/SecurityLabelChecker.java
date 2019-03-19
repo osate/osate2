@@ -37,6 +37,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			 */
 			@Override
 			public String caseComponentInstance(ComponentInstance ci) {
+
+				if (isTrusted(ci)) {
+					return DONE;
+				}
+
 				ComponentInstance parent = ci.getContainingComponentInstance();
 
 				return checkValidContainment(ci, ci, parent);
@@ -48,6 +53,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			 */
 			@Override
 			public String caseConnectionInstance(final ConnectionInstance conni) {
+
+				if (isTrusted(conni.getContainingComponentInstance())) {
+					return DONE;
+				}
+
 				// TODO: what about other connection kinds?
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 					NamedElement src = conni.getSource();
@@ -64,6 +74,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			 */
 			@Override
 			public String caseFlowSpecificationInstance(FlowSpecificationInstance fsi) {
+
+				if (isTrusted(fsi.getContainingComponentInstance())) {
+					return DONE;
+				}
+
 				NamedElement src = fsi.getSource();
 				NamedElement dst = fsi.getDestination();
 
@@ -77,6 +92,10 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			@Override
 			public String caseConnectionReference(ConnectionReference cref) {
 				ConnectionInstance conni = (ConnectionInstance) cref.getOwner();
+
+				if (isTrusted(conni.getContainingComponentInstance())) {
+					return DONE;
+				}
 				// TODO: handle other connection kinds
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 					NamedElement src = cref.getSource();
@@ -94,6 +113,11 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 			 */
 			@Override
 			public String caseFeatureInstance(FeatureInstance fi) {
+
+				if (isTrusted(fi.getContainingComponentInstance())) {
+					return DONE;
+				}
+
 				FeatureCategory fc = fi.getCategory();
 				// TODO: handle access features, feature groups
 				if (fc == FeatureCategory.DATA_PORT || fc == FeatureCategory.EVENT_DATA_PORT) {
@@ -168,6 +192,10 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 					error(e.getElement(), e.getMessage());
 				}
 				return DONE;
+			}
+
+			boolean isTrusted(ComponentInstance ci) {
+				return false;
 			}
 		};
 	}
