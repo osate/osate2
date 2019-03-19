@@ -493,6 +493,19 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
+		     allPopups="false"
+             locationURI="popup:#TextEditorContext">
+          <command commandId="org.osate.ui.showInClassifierInfoView"
+                style="push">
+             <visibleWhen checkEnabled="false">
+                <reference
+                       definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+             </visibleWhen>
+          </command>
+       </menuContribution> 
+
+       <menuContribution
              locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
           <separator
                 name="osate_begin"
