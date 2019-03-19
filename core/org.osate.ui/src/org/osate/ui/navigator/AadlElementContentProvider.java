@@ -98,8 +98,10 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 		}
 
 		/*
-		 * XXX This is wrong for Classifiers because we filter out Generalization nodes when we get the children, but we
-		 * don't take that into account here.
+		 * The method getChildren() above actually filters out children that do not have names. These are intermediate
+		 * nodes in the model that we don't normally show to the user. It seems pointlessly expensive here to
+		 * filter them out. So in some case, we are going to have nodes in the UI that display the little triangle as
+		 * if they had children, but when you toggle the tree node, they won't have children.
 		 */
 		return super.hasChildren(element);
 	}
