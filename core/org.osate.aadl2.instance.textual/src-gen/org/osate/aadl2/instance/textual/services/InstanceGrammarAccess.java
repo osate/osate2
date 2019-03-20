@@ -1366,7 +1366,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cModeKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cTransitionKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameModeTransitionNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Assignment cSourceAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cSourceModeInstanceCrossReference_3_0 = (CrossReference)cSourceAssignment_3.eContents().get(0);
 		private final RuleCall cSourceModeInstanceIDTerminalRuleCall_3_0_1 = (RuleCall)cSourceModeInstanceCrossReference_3_0.eContents().get(1);
@@ -1395,17 +1395,16 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_10_2 = (Keyword)cGroup_10.eContents().get(2);
 		
 		//ModeTransitionInstance instance::ModeTransitionInstance:
-		//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance]
+		//	'mode' 'transition' name=ID source=[instance::ModeInstance]
 		//	'-[' (trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
 		//	destination=[instance::ModeInstance]
 		//	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance
 		//	'}')?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance] '-['
-		//(trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
-		//destination=[instance::ModeInstance] ':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{'
-		//ownedPropertyAssociation+=PropertyAssociationInstance '}')?
+		//'mode' 'transition' name=ID source=[instance::ModeInstance] '-[' (trigger+=[instance::FeatureInstance|InstanceRef] (','
+		//trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->' destination=[instance::ModeInstance] ':'
+		//modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
 		public Group getGroup() { return cGroup; }
 
 		//'mode'
@@ -1414,11 +1413,11 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//'transition'
 		public Keyword getTransitionKeyword_1() { return cTransitionKeyword_1; }
 
-		//name=ModeTransitionName
+		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ModeTransitionName
-		public RuleCall getNameModeTransitionNameParserRuleCall_2_0() { return cNameModeTransitionNameParserRuleCall_2_0; }
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
 		//source=[instance::ModeInstance]
 		public Assignment getSourceAssignment_3() { return cSourceAssignment_3; }
@@ -2337,18 +2336,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getINTEGER_LITTerminalRuleCall_2() { return cINTEGER_LITTerminalRuleCall_2; }
 	}
 
-	public class ModeTransitionNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.aadl2.instance.textual.Instance.ModeTransitionName");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//ModeTransitionName:
-		//	ID;
-		@Override public ParserRule getRule() { return rule; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
-	}
-
 	public class PropertyAssociationRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.aadl2.instance.textual.Instance.PropertyAssociationRef");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2474,7 +2461,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	private final DeclarativeRefElements pDeclarativeRef;
 	private final InstanceRefElements pInstanceRef;
 	private final TransitionRefElements pTransitionRef;
-	private final ModeTransitionNameElements pModeTransitionName;
 	private final PropertyAssociationRefElements pPropertyAssociationRef;
 	private final LongElements pLong;
 	
@@ -2511,7 +2497,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDeclarativeRef = new DeclarativeRefElements();
 		this.pInstanceRef = new InstanceRefElements();
 		this.pTransitionRef = new TransitionRefElements();
-		this.pModeTransitionName = new ModeTransitionNameElements();
 		this.pPropertyAssociationRef = new PropertyAssociationRefElements();
 		this.pLong = new LongElements();
 	}
@@ -2657,7 +2642,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModeTransitionInstance instance::ModeTransitionInstance:
-	//	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance]
+	//	'mode' 'transition' name=ID source=[instance::ModeInstance]
 	//	'-[' (trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
 	//	destination=[instance::ModeInstance]
 	//	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance
@@ -2831,16 +2816,6 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTransitionRefRule() {
 		return getTransitionRefAccess().getRule();
-	}
-
-	//ModeTransitionName:
-	//	ID;
-	public ModeTransitionNameElements getModeTransitionNameAccess() {
-		return pModeTransitionName;
-	}
-	
-	public ParserRule getModeTransitionNameRule() {
-		return getModeTransitionNameAccess().getRule();
 	}
 
 	//PropertyAssociationRef:
