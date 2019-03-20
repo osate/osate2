@@ -70,9 +70,9 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				if (parsedLibrary !== null && annexUnparser !== null) {
 					try {
 						performModification(semanticObject, new Runnable() {
-							override public run() {
+							override run() {
 								val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
-								(semanticObject as DefaultAnnexLibrary).sourceText = text
+								semanticObject.sourceText = text
 							}
 						})
 					} catch (Exception e) {
@@ -89,9 +89,9 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				if (parsedSubclause !== null && annexUnparser !== null) {
 					try {
 						performModification(semanticObject, new Runnable() {
-							override public run() {
+							override run() {
 								val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
-								(semanticObject as DefaultAnnexSubclause).sourceText = text
+								semanticObject.sourceText = text
 							}				
 						})
 					} catch (Exception e) {
