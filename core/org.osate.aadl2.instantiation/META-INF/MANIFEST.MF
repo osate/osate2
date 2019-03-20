@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2,
  org.eclipse.emf.transaction;bundle-version="1.3.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.aadl2.instantiation

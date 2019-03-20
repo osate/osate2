@@ -58,7 +58,7 @@ import org.osate.annexsupport.AnnexUtil
 
 // TODO: cache injectors per resource
 @Singleton
-public class Aadl2DerivedStateComputer implements IDerivedStateComputer {
+class Aadl2DerivedStateComputer implements IDerivedStateComputer {
 
 	override installDerivedState(DerivedStateAwareResource resource, boolean preLinkingPhase) {
 		val annexElements = resource.allAnnexElements
