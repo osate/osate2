@@ -758,34 +758,6 @@ finally {
 
 
 
-// Entry rule entryRuleModeTransitionName
-entryRuleModeTransitionName 
-:
-{ before(grammarAccess.getModeTransitionNameRule()); }
-	 ruleModeTransitionName
-{ after(grammarAccess.getModeTransitionNameRule()); } 
-	 EOF 
-;
-
-// Rule ModeTransitionName
-ruleModeTransitionName
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall()); }
-	RULE_ID
-{ after(grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRulePropertyAssociationRef
 entryRulePropertyAssociationRef 
 :
@@ -15444,8 +15416,8 @@ rule__ModeTransitionInstance__NameAssignment_2
     }
 :
 (
-{ before(grammarAccess.getModeTransitionInstanceAccess().getNameModeTransitionNameParserRuleCall_2_0()); }
-	ruleModeTransitionName{ after(grammarAccess.getModeTransitionInstanceAccess().getNameModeTransitionNameParserRuleCall_2_0()); }
+{ before(grammarAccess.getModeTransitionInstanceAccess().getNameIDTerminalRuleCall_2_0()); }
+	RULE_ID{ after(grammarAccess.getModeTransitionInstanceAccess().getNameIDTerminalRuleCall_2_0()); }
 )
 
 ;
