@@ -3057,7 +3057,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks legality rule 6 in section 4.3 (Component Types).
 	 * "If the extended component type and an ancestor component type in the extends hierarchy contain modes subclauses,
 	 * they must both be requires_modes_subclause or modes_subclause."
-	 * 
+	 *
 	 * Checks legality rule 2 in section 12 (Modes and Mode Transitions).
 	 * "If a component classifier contains mode declarations, one of those modes must be declared with the reserved word
 	 * initial. If the component classifier extends another component classifier, the initial mode must have been
@@ -3219,7 +3219,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 *
 	 * Checks legality rule 7 in section 4.4 (Component Implementations).
 	 * "If modes are declared in the component type, then modes cannot be declared in component implementations."
-	 * 
+	 *
 	 * Checks legality rule 2 in section 12 (Modes and Mode Transitions).
 	 * "If a component classifier contains mode declarations, one of those modes must be declared with the reserved word
 	 * initial. If the component classifier extends another component classifier, the initial mode must have been

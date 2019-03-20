@@ -215,12 +215,12 @@ class Issue1092Test extends XtextTest {
 		val t2 = getAndTestElement(proc.componentInstances, 1,
 			"Thread 't2' is expected as the second subcomponent of 'proc'", [t | t.name.equals("t2")])
 		
-		val t1_modes = testThreadUnmappedModes(messages, t1, "x1", "x2")
-		val t2_modes = testThreadUnmappedModes(messages, t2, "x1", "x2")
+		testThreadUnmappedModes(messages, t1, "x1", "x2")
+		testThreadUnmappedModes(messages, t2, "x1", "x2")
 		
 		assertTrue("System is expected to have exactly 8 system operation modes", instance.systemOperationModes.size == 2)
-		val som0 = testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1)
-		val som1 = testSystemOperationMode(instance.systemOperationModes.get(1), proc_m2)
+		testSystemOperationMode(instance.systemOperationModes.get(0), proc_m1)
+		testSystemOperationMode(instance.systemOperationModes.get(1), proc_m2)
 	}
 
 	private def static void testPropertyValueModes(List<Mode> actualModes, SystemOperationMode... testModes) {
