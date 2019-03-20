@@ -21,13 +21,13 @@ class Issue818Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
-	val private static PROJECT_LOCATION = "org.osate.core.tests/models/Issue818/"
-	val private static TEST_FILE = "issue.aadl"
+	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue818/"
+	val static TEST_FILE = "issue.aadl"
 	
-	val private static FEATURES = #[ "in1", "x", "y" ]
-	val private static EXTENDED_FEATURES = #[ "in1", "x", "y", "in2" ]
-	val private static INVERSE_FEATURES = #[ "out1", "xx", "yy" ]
-	val private static INVERSE_EXTENDED_FEATURES = #[ "out1", "xx", "yy", "out2" ]
+	val static FEATURES = #[ "in1", "x", "y" ]
+	val static EXTENDED_FEATURES = #[ "in1", "x", "y", "in2" ]
+	val static INVERSE_FEATURES = #[ "out1", "xx", "yy" ]
+	val static INVERSE_EXTENDED_FEATURES = #[ "out1", "xx", "yy", "out2" ]
 
 	@Test
 	def void testFeatureGroups() {
