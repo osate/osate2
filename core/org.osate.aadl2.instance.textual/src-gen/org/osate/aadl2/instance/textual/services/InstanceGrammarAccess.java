@@ -1651,7 +1651,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInModeModeIDTerminalRuleCall_1_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
 		
-		//@ Override OptionalModalPropertyValue aadl2::ModalPropertyValue:
+		//@Override
+		//OptionalModalPropertyValue aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1720,7 +1721,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBooleanLiteralParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		private final RuleCall cLiteralorReferenceTermParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
 		
-		//@ Override PropertyExpression aadl2::PropertyExpression:
+		//@Override
+		//PropertyExpression aadl2::PropertyExpression:
 		//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 		//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 		@Override public ParserRule getRule() { return rule; }
@@ -1779,7 +1781,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPathAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cPathContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cPathAssignment_2_1.eContents().get(0);
 		
-		//@ Override ContainmentPathElement aadl2::ContainmentPathElement:
+		//@Override
+		//ContainmentPathElement aadl2::ContainmentPathElement:
 		//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ('/' path=ContainmentPathElement)?;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2336,38 +2339,14 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ModeTransitionNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.aadl2.instance.textual.Instance.ModeTransitionName");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final RuleCall cIDTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
-		private final Keyword cFullStopKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//ModeTransitionName:
-		//	ID '.' (ID '.')* ID;
+		//	ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID '.' (ID '.')* ID
-		public Group getGroup() { return cGroup; }
-
 		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//'.'
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
-
-		//(ID '.')*
-		public Group getGroup_2() { return cGroup_2; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_2_0() { return cIDTerminalRuleCall_2_0; }
-
-		//'.'
-		public Keyword getFullStopKeyword_2_1() { return cFullStopKeyword_2_1; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
 
 	public class PropertyAssociationRefElements extends AbstractParserRuleElementFinder {
@@ -2714,7 +2693,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyAssociationInstanceAccess().getRule();
 	}
 
-	//@ Override OptionalModalPropertyValue aadl2::ModalPropertyValue:
+	//@Override
+	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression ('in' 'modes' '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?;
 	public OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return pOptionalModalPropertyValue;
@@ -2724,7 +2704,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getOptionalModalPropertyValueAccess().getRule();
 	}
 
-	//@ Override PropertyExpression aadl2::PropertyExpression:
+	//@Override
+	//PropertyExpression aadl2::PropertyExpression:
 	//	RecordTerm | ReferenceTerm | InstanceReferenceValue | ComponentClassifierTerm | ComputedTerm | StringTerm |
 	//	NumericRangeTerm | RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
@@ -2735,7 +2716,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyExpressionAccess().getRule();
 	}
 
-	//@ Override ContainmentPathElement aadl2::ContainmentPathElement:
+	//@Override
+	//ContainmentPathElement aadl2::ContainmentPathElement:
 	//	namedElement=[aadl2::NamedElement|DeclarativeRef] arrayRange+=ArrayRange? ('/' path=ContainmentPathElement)?;
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
 		return pContainmentPathElement;
@@ -2852,7 +2834,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ModeTransitionName:
-	//	ID '.' (ID '.')* ID;
+	//	ID;
 	public ModeTransitionNameElements getModeTransitionNameAccess() {
 		return pModeTransitionName;
 	}
