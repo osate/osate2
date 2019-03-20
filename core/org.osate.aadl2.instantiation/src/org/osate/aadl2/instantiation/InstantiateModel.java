@@ -674,12 +674,12 @@ public class InstantiateModel {
 					Context ctx = triggers.get(0).getContext();
 
 					if (ctx instanceof Subcomponent) {
-						eventName = ((Subcomponent) ctx).getName() + ".";
+						eventName = ((Subcomponent) ctx).getName() + "_";
 					}
 				}
 				eventName += tp.getName();
 			}
-			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
+			mti.setName(srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 
 			// add only triggers that are ports
 			for (ModeTransitionTrigger t : triggers) {
