@@ -652,17 +652,23 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	protected void checkConstantProperty(PropertyAssociation assoc) {
-		EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
-
-		if (appliesTos == null || appliesTos.isEmpty()) {
-			checkOverridingConstant((NamedElement) assoc.getOwner(), assoc);
-		} else {
-			for (ContainedNamedElement cne : assoc.getAppliesTos()) {
-				if (cne.getContainmentPathElements().size() == 1) {
-					ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
-					NamedElement ne = cpe.getNamedElement();
-					if (!ne.eIsProxy()) {
-						checkOverridingConstant(ne, assoc);
+		Property property = assoc.getProperty();
+		if (!property.eIsProxy()) {
+			EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
+	
+			if (appliesTos == null || appliesTos.isEmpty()) {
+				NamedElement holder = (NamedElement) assoc.getOwner();
+				if (holder.acceptsProperty(property)) {
+					checkOverridingConstant(holder, assoc);
+				}
+			} else {
+				for (ContainedNamedElement cne : assoc.getAppliesTos()) {
+					if (cne.getContainmentPathElements().size() == 1) {
+						ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
+						NamedElement ne = cpe.getNamedElement();
+						if (!ne.eIsProxy() && ne.acceptsProperty(property)) {
+							checkOverridingConstant(ne, assoc);
+						}
 					}
 				}
 			}
@@ -670,7 +676,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	protected void checkOverridingConstant(NamedElement holder, PropertyAssociation assoc) {
-		boolean isContained = !assoc.getAppliesTos().isEmpty();
 		Property prop = assoc.getProperty();
 		PropertyAcc acc = holder.getPropertyValue(prop, true);
 		List<PropertyAssociation> pas = acc.getAssociations();
