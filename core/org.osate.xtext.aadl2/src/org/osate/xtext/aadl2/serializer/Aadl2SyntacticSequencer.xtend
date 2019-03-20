@@ -41,9 +41,9 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 
-public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
+class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 
-	override def protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof Classifier) {
 			semanticObject.name
 		} else if (semanticObject instanceof AadlPackage) {
@@ -53,7 +53,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		}
 	}
 
-	override def protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof ComponentImplementation) {
 			semanticObject.name
 		} else {
@@ -61,7 +61,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		}
 	}
 
-	override def protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof AadlPackage) {
 			semanticObject.name
 		} else {
@@ -74,7 +74,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'abstract' 'implementation'
 	 * ;
 	 */
-	override def protected String getAbstractImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getAbstractImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -87,7 +87,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'applies' 'to'
 	 * ;
 	 */
-	override def protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -99,7 +99,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'bus' 'access'
 	 * ;
 	 */
-	override def protected String getBusAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getBusAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -111,8 +111,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'bus' 'implementation'
 	 * ;
 	 */
-	override def protected String getBusImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getBusImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -124,7 +123,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'data' 'access'
 	 * ;
 	 */
-	override def protected String getDataAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getDataAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -136,7 +135,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'data' 'implementation'
 	 * ;
 	 */
-	override def protected String getDataImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getDataImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -149,7 +148,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'data' 'port'
 	 * ;
 	 */
-	override def protected String getDataPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getDataPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -161,7 +160,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'device' 'implementation'
 	 * ;
 	 */
-	override def protected String getDeviceImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getDeviceImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -174,7 +173,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'end' 'to' 'end' 'flow'
 	 * ;
 	 */
-	override def protected String getEndToEndFlowKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getEndToEndFlowKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -186,7 +185,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'event' 'data'
 	 * ;
 	 */
-	override def protected String getEventDataKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getEventDataKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -198,7 +197,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'event' 'data' 'port'
 	 * ;
 	 */
-	override def protected String getEventDataPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getEventDataPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -210,7 +209,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'event' 'port'
 	 * ;
 	 */
-	override def protected String getEventPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getEventPortKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -222,7 +221,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'feature' 'group'
 	 * ;
 	 */
-	override def protected String getFeatureGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getFeatureGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -234,7 +233,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'in' 'binding'
 	 * ;
 	 */
-	override def protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -246,7 +245,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'in' 'modes'
 	 * ;
 	 */
-	override def protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -258,8 +257,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'internal' 'features'
 	 * ;
 	 */
-	override def protected String getInternalFeaturesKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getInternalFeaturesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -271,7 +269,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'inverse' 'of'
 	 * ;
 	 */
-	override def protected String getInverseOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getInverseOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -283,7 +281,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'list' 'of'
 	 * ;
 	 */
-	override def protected String getListOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getListOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -295,7 +293,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'memory' 'implementation'
 	 * ;
 	 */
-	override def protected String getMemoryImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getMemoryImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -308,7 +306,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'process' 'implementation'
 	 * ;
 	 */
-	override def protected String getProcessImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getProcessImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -321,8 +319,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'processor' 'features'
 	 * ;
 	 */
-	override def protected String getProcessorFeaturesKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getProcessorFeaturesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -334,7 +331,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'processor' 'implementation'
 	 * ;
 	 */
-	override def protected String getProcessorImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getProcessorImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -347,7 +344,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'range' 'of'
 	 * ;
 	 */
-	override def protected String getRangeOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getRangeOfKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -359,7 +356,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'refined' 'to'
 	 * ;
 	 */
-	override def protected String getRefinedToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getRefinedToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -371,7 +368,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'requires' 'modes'
 	 * ;
 	 */
-	override def protected String getRequiresModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getRequiresModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -383,8 +380,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'subprogram' 'access'
 	 * ;
 	 */
-	override def protected String getSubprogramAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getSubprogramAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -396,7 +392,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'subprogram' 'group' 'access'
 	 * ;
 	 */
-	override def protected String getSubprogramGroupAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getSubprogramGroupAccessKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -409,8 +405,8 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'subprogram' 'group' 'implementation'
 	 * ;
 	 */
-	override def protected String getSubprogramGroupImplementationKeywordsToken(EObject semanticObject,
-		RuleCall ruleCall, INode node) {
+	override protected String getSubprogramGroupImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+		INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -422,8 +418,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'subprogram' 'group'
 	 * ;
 	 */
-	override def protected String getSubprogramGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getSubprogramGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -435,7 +430,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'subprogram' 'implementation'
 	 * ;
 	 */
-	override def protected String getSubprogramImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getSubprogramImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -448,7 +443,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'system' 'implementation'
 	 * ;
 	 */
-	override def protected String getSystemImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getSystemImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -461,7 +456,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'thread' 'group' 'implementation'
 	 * ;
 	 */
-	override def protected String getThreadGroupImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getThreadGroupImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -474,7 +469,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'thread' 'group'
 	 * ;
 	 */
-	override def protected String getThreadGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getThreadGroupKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -486,7 +481,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'thread' 'implementation'
 	 * ;
 	 */
-	override def protected String getThreadImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getThreadImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -499,7 +494,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'virtual' 'bus' 'implementation'
 	 * ;
 	 */
-	override def protected String getVirtualBusImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+	override protected String getVirtualBusImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
 		INode node) {
 		if (node !== null)
 			getTokenText(node)
@@ -512,7 +507,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'virtual' 'bus'
 	 * ;
 	 */
-	override def protected String getVirtualBusKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	override protected String getVirtualBusKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -524,8 +519,8 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'virtual' 'processor' 'implementation'
 	 * ;
 	 */
-	override def protected String getVirtualProcessorImplementationKeywordsToken(EObject semanticObject,
-		RuleCall ruleCall, INode node) {
+	override protected String getVirtualProcessorImplementationKeywordsToken(EObject semanticObject, RuleCall ruleCall,
+		INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
@@ -537,8 +532,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	 * 	'virtual' 'processor'
 	 * ;
 	 */
-	override def protected String getVirtualProcessorKeywordsToken(EObject semanticObject, RuleCall ruleCall,
-		INode node) {
+	override protected String getVirtualProcessorKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node !== null)
 			getTokenText(node)
 		else
