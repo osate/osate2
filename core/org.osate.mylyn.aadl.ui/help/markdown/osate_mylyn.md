@@ -22,7 +22,7 @@ The tutorials listed above give a good introduction on how to use the `Task List
 
 ## Building a Context
 
-As you navigate the workspace and edit AADL files, Mylyn builds a context for the active task.  You can view the context for a task by opening the editor for the task via the `Task List` view, and then switching to the `Context` pane of the task edito by clicking on the tab at the lower left of the editor:
+As you navigate the workspace and edit AADL files, Mylyn builds a context for the active task.  You can view the context for a task by opening the editor for the task via the `Task List` view, and then switching to the `Context` pane of the task editor by clicking on the tab at the lower left of the editor:
   ![Context Tab](images/context_tab.png)
 
 The image below shows an example context built from browsing an AADL project.
@@ -30,6 +30,7 @@ The image below shows an example context built from browsing an AADL project.
 ![AADL Context](images/context_pane.png)
 
 The context contains
+
 * The system type `Software` in the package `Page_220`
 * The processor subcomponent `Host_A` of the system implementation `Hardware.Basic` in the package `Page_220`
 * The system subcomponent `SW` of the system implementation `Total_System.SW_HW` in the package `Page_220`
