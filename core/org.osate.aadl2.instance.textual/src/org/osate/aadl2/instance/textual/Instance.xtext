@@ -109,7 +109,7 @@ ModeInstance returns instance::ModeInstance:
 ;
 
 ModeTransitionInstance returns instance::ModeTransitionInstance:
-	'mode' 'transition' name=ModeTransitionName source=[instance::ModeInstance]
+	'mode' 'transition' name=ID source=[instance::ModeInstance]
 	'-[' (trigger+=[instance::FeatureInstance|InstanceRef] (',' trigger+=[instance::FeatureInstance|InstanceRef])*)? ']->'
 	destination=[instance::ModeInstance]
 	':' modeTransition=[aadl2::ModeTransition|DeclarativeRef] ('{' ownedPropertyAssociation+=PropertyAssociationInstance '}')?
@@ -183,10 +183,6 @@ InstanceRef:
 
 TransitionRef:
 	'transition' '#' INTEGER_LIT
-;
-
-ModeTransitionName:
-	ID '.' (ID '.')* ID
 ;
 
 PropertyAssociationRef:

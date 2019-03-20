@@ -1,0 +1,30 @@
+package Issue1096
+public
+	system main
+	end main;
+
+	system implementation main.impl
+		subcomponents
+			cpu: processor cpu;
+			proc: process proc;
+		connections
+			c_mode: port cpu.o -> proc.i;
+	end main.impl;
+
+	processor cpu
+		features
+			o: out event port;
+	end cpu;
+
+	process proc
+		features
+			i: in event port;
+		modes
+			m1: initial mode;
+			m2: mode;
+			m1TOm2: m1 -[i]-> m2;
+		properties
+			Mode_Transition_Response => Emergency applies to m1Tom2;
+	end proc;
+
+end Issue1096;
