@@ -1,6 +1,10 @@
 # OSATE and Mylyn
 
-Mylyn is a task-management plug-in that tracks the workspace relevant to the task.  Below are links to several tutorials on how to use Mylyn:
+Mylyn is a task-management plug-in that tracks the workspace relevant to the task. Tasks can be created manually by the user, or OSATE can be connected to a task repository such as github issues or bugzilla. 
+Mylyn associates with each task a set of resources that were edited while that task was active and also the AADL files that were open in in the text editor. This 'task context' is restored whenever the task is activated to work on it.
+In addition, the AADL navigator and outline views can be filtered to show only elements that are part of the task context, i.e., are relevant to the active task.
+
+Below are links to several tutorials on how to use Mylyn:
 
 * [Mylyn Tutorial from Tasktop Technologies](https://www.tasktop.com/mylyn-tutorial)
 * [Task management with Eclipse Mylyn](https://www.vogella.com/tutorials/Mylyn/article.html)
