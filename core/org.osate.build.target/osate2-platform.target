@@ -22,6 +22,7 @@
       <unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.help.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.m2e.logback.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.mylyn.context_feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.rcp.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>
