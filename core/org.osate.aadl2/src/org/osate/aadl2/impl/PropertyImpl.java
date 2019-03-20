@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.MetaclassReference;
@@ -149,20 +150,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @ordered
 	 */
 	protected boolean emptyListDefault = EMPTY_LIST_DEFAULT_EDEFAULT;
-
-	/**
-	 * Stack of property definitions that are in the process of being looked
-	 * up by the current thread.  This is used to check for circular
-	 * dependencies in the values of properties.  The value of this
-	 * thread local is a {@link LinkedList} whose items are
-	 * {@link Property} objects.
-	 */
-	private transient static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
-		@Override
-		protected LinkedList<Property> initialValue() {
-			return new LinkedList<>();
-		}
-	};
 
 	/**
 	 * <!-- begin-user-doc -->
