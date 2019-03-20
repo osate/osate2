@@ -186,7 +186,7 @@ TransitionRef:
 ;
 
 ModeTransitionName:
-	ID '.' (ID '.')* ID
+	ID
 ;
 
 PropertyAssociationRef:
