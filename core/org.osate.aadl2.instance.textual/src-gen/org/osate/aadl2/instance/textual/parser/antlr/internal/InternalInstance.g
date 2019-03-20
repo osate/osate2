@@ -1813,19 +1813,19 @@ ruleModeTransitionInstance returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getModeTransitionInstanceAccess().getNameModeTransitionNameParserRuleCall_2_0()); 
-	    }
-		lv_name_2_0=ruleModeTransitionName		{
+		lv_name_2_0=RULE_ID
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getModeTransitionInstanceAccess().getNameIDTerminalRuleCall_2_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getModeTransitionInstanceRule());
+	            $current = createModelElement(grammarAccess.getModeTransitionInstanceRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"org.osate.aadl2.instance.textual.Instance.ModeTransitionName");
-	        afterParserOrEnumRuleCall();
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -3141,60 +3141,6 @@ ruleTransitionRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 
     { 
     newLeafNode(this_INTEGER_LIT_2, grammarAccess.getTransitionRefAccess().getINTEGER_LITTerminalRuleCall_2()); 
-    }
-)
-    ;
-
-
-
-
-
-// Entry rule entryRuleModeTransitionName
-entryRuleModeTransitionName returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getModeTransitionNameRule()); } 
-	 iv_ruleModeTransitionName=ruleModeTransitionName 
-	 { $current=$iv_ruleModeTransitionName.current.getText(); }  
-	 EOF 
-;
-
-// Rule ModeTransitionName
-ruleModeTransitionName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_0()); 
-    }
-
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getModeTransitionNameAccess().getFullStopKeyword_1()); 
-    }
-(    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_2_0()); 
-    }
-
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getModeTransitionNameAccess().getFullStopKeyword_2_1()); 
-    }
-)*    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
-    }
-
-    { 
-    newLeafNode(this_ID_4, grammarAccess.getModeTransitionNameAccess().getIDTerminalRuleCall_3()); 
     }
 )
     ;
