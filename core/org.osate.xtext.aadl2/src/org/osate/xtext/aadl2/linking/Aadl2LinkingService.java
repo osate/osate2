@@ -137,7 +137,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		}
 
-		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
+		Aadl2Package.eINSTANCE.getPropertyType();
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final String name = getCrossRefNodeAsString(node);
@@ -168,7 +168,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					}
 				}
 			}
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference, name);
