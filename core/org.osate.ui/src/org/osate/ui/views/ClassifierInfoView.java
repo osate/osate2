@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
@@ -25,7 +26,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.BehavioredImplementation;
@@ -47,6 +50,8 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
+	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
+
 	private static final String LINK_ICON = "icons/link_to_editor.png";
 
 	/**
@@ -68,6 +73,26 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	public ClassifierInfoView() {
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
+	}
+
+	// ======================================================================
+	// == Static helper methods
+	// ======================================================================
+
+	/**
+	 * Make the view is open and in front.
+	 */
+	public static ClassifierInfoView open(final IWorkbenchWindow window) {
+		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
+		final IWorkbenchPage page = window.getActivePage();
+		try {
+//			ClassifierInfoView result = (ClassifierInfoView) page.findView(VIEW_ID);
+			final ClassifierInfoView result = (ClassifierInfoView) page.showView(VIEW_ID);
+			return result;
+		} catch (CoreException e) {
+			OsateUiPlugin.log(e);
+		}
+		return null;
 	}
 
 	// ======================================================================
