@@ -15,4 +15,6 @@ Require-Bundle: org.junit,
  org.eclipse.sirius.diagram.ui,
  org.eclipse.sirius.tests.junit.support,
  org.eclipse.sirius.common,
- org.hamcrest.library
+ org.hamcrest.library,
+ org.eclipse.sirius.tree,
+ org.eclipse.sirius.ecore.extender

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<safe2:SystemOverview xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:safe2="http://www.example.org/safe2" SystemName="PulseOx Forwarding System">
+<safe2:SystemOverview xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:safe2="http://www.example.org/safe2" name="PulseOx Forwarding System">
   <fundamentals xsi:type="safe2:AccidentLevel" name="DeathOrInjury" description="A human is killed or seriously injured">
     <accident name="PatientHarmed" description="Patient is killed or seriously injured.">
       <hazard name="BadInfoDisplayed" description="Incorrect information is sent to the display.">

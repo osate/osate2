@@ -710,6 +710,8 @@
       <requirement
           name="org.eclipse.sirius.diagram.elk.feature.feature.group"/>
       <requirement
+          name="org.eclipse.sirius.tests.feature.group"/>
+      <requirement
           name="org.eclipse.sirius.tests.support.feature.group"/>
       <requirement
           name="org.eclipse.swtbot.eclipse.feature.group"/>
@@ -769,6 +771,8 @@
             url="http://xtexttools.libutzki.de/"/>
         <repository
             url="https://eclipse.py4j.org"/>
+        <repository
+            url="http://download.eclipse.org/tools/orbit/downloads/drops/R20181128170323/repository"/>
       </repositoryList>
     </targlet>
     <description></description>
