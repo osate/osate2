@@ -38,42 +38,54 @@ package org.osate.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ui.OsateUiPlugin;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.views.ClassifierInfoView;
 
 /**
  * ConversionAction en- and disables the Aadl Nature.
  */
 public class OpenInClassifierInfoViewHandler extends AbstractHandler {
-	private static final String VIEW_ID = "org.osate.ui.classifier_info_view";
+	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		// (1) Set the input on the view to the currently selected classifier
 		final ISelection selection = HandlerUtil.getCurrentSelection(event);
-		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-		System.out.println("Selection == " + selection);
-		openInView(window);
-		return null;
-	}
-
-	private static ClassifierInfoView openInView(final IWorkbenchWindow window) {
-		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
-		IWorkbenchPage page = window.getActivePage();
-		try {
-			ClassifierInfoView result = (ClassifierInfoView) page.findView(VIEW_ID);
-			if (result != null) {
+		Classifier input = null;
+		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
+			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
+			if (selectedObject != null) {
+				if (selectedObject instanceof Classifier) {
+					input = (Classifier) selectedObject;
+				} else if (selectedObject instanceof EObjectNode) {
+					try {
+						input = (Classifier) resourceSet.getEObject(((EObjectNode) selectedObject).getEObjectURI(),
+								true);
+					} catch (final Exception e) {
+						input = null;
+					}
+				} else if (selectedObject instanceof TextSelection) {
+					// TODO
+				}
 			}
-			result = (ClassifierInfoView) page.showView(VIEW_ID);
-//			result.setInputElements(input);
-			return result;
-		} catch (CoreException e) {
-			OsateUiPlugin.log(e);
 		}
+
+		if (input != null) {
+			// (2) Set the view input
+			// TODO:
+
+			// (3) Bring the classifier info view to the front and make sure it is open
+			ClassifierInfoView.open(HandlerUtil.getActiveWorkbenchWindow(event));
+		}
+
+		// Done, we are always supposed to return null
 		return null;
 	}
 }
