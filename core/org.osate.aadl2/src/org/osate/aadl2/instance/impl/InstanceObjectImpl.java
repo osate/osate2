@@ -519,14 +519,19 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			for (EObject eo : eContents()) {
 				if (eo instanceof InstanceObjectImpl) {
 					InstanceObjectImpl next = (InstanceObjectImpl) eo;
+					List<? extends NamedElement> decls = next.getInstantiatedObjects();
 
-					if (next.getName().equalsIgnoreCase(ne.getName())) {
-						EList<ArrayRange> ranges = cpe.getArrayRanges();
+					if (decls != null && !decls.isEmpty()) {
+						NamedElement decl = decls.get(0);
 
-						if (next.matchesIndex(ranges)) {
-							next.findInstanceObjectsHelper(pathIter, ios);
+						if (decl.getName().equalsIgnoreCase(ne.getName())) {
+							EList<ArrayRange> ranges = cpe.getArrayRanges();
+
+							if (next.matchesIndex(ranges)) {
+								next.findInstanceObjectsHelper(pathIter, ios);
+							}
+							result = true;
 						}
-						result = true;
 					}
 				}
 			}
