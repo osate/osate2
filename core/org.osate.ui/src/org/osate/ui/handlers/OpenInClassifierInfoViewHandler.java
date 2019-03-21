@@ -38,14 +38,42 @@ package org.osate.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.views.ClassifierInfoView;
 
 /**
  * ConversionAction en- and disables the Aadl Nature.
  */
 public class OpenInClassifierInfoViewHandler extends AbstractHandler {
+	private static final String VIEW_ID = "org.osate.ui.classifier_info_view";
+
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		System.out.println("Open in Classifier Info View: " + event.getTrigger());
+		final ISelection selection = HandlerUtil.getCurrentSelection(event);
+		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+		System.out.println("Selection == " + selection);
+		openInView(window);
+		return null;
+	}
+
+	private static ClassifierInfoView openInView(final IWorkbenchWindow window) {
+		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
+		IWorkbenchPage page = window.getActivePage();
+		try {
+			ClassifierInfoView result = (ClassifierInfoView) page.findView(VIEW_ID);
+			if (result != null) {
+			}
+			result = (ClassifierInfoView) page.showView(VIEW_ID);
+//			result.setInputElements(input);
+			return result;
+		} catch (CoreException e) {
+			OsateUiPlugin.log(e);
+		}
 		return null;
 	}
 }
