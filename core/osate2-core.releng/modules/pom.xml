@@ -31,6 +31,7 @@
 		<module>../../org.osate.core</module>
 		<module>../../org.osate.core.feature</module>
 		<module>../../org.osate.help</module>
+		<module>../../org.osate.mylyn.aadl.ui</module>
 		<module>../../org.osate.pluginsupport</module>
 		<module>../../org.osate.results</module>
 		<module>../../org.osate.testsupport</module>

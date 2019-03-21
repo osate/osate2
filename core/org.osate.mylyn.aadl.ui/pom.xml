@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>osate2</artifactId>
+    <groupId>org.osate</groupId>
+    <version>2.4.1-SNAPSHOT</version>
+    <relativePath>../org.osate.build.main/pom.xml</relativePath>
+  </parent>
+  <groupId>org.osate</groupId>
+  <artifactId>org.osate.mylyn.aadl.ui</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>eclipse-plugin</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.ruleoftech</groupId>
+        <artifactId>markdown-page-generator-plugin</artifactId>
+        <version>2.1.0</version>
+        <configuration>
+          <inputDirectory>${project.basedir}/help/markdown/</inputDirectory>
+          <outputDirectory>${project.basedir}/help/html/</outputDirectory>
+          <copyDirectories>images,css</copyDirectories>
+          <attributes>
+            <attribute>BlockQuote|style="font-size:90%"</attribute>
+          </attributes>
+          <pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

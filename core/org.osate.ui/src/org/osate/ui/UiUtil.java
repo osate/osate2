@@ -230,7 +230,7 @@ public final class UiUtil {
 	}
 
 	public void openDeclarativeModelElementAsJob(final IWorkbenchPage page, final Element target) {
-		if (target == null) {
+		if (page == null || target == null) {
 			return;
 		}
 		final Job job = new WorkspaceJob("Goto AADL Element") {
