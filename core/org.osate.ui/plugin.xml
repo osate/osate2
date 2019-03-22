@@ -1098,14 +1098,16 @@
                       	 <!-- For the AADL Navigator View -->
                          <adapt
                                type="org.osate.aadl2.Classifier">
+                            <!-- true -->
                          </adapt>
 
                       	 <!-- For the Outline View -->
-                         <test
-                               property="org.osate.ui.superType"
-                               value="Classifier"
-                               forcePluginActivation="true">
-                         </test>
+                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+	                         <test
+	                               property="org.osate.ui.superType"
+	                               value="Classifier"
+	                               forcePluginActivation="true"/>
+	                     </adapt>
                       </or>
                    </iterate>
                 </and>
