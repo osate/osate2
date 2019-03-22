@@ -38,6 +38,7 @@ package org.osate.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -66,8 +67,9 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 					input = (Classifier) selectedObject;
 				} else if (selectedObject instanceof EObjectNode) {
 					try {
-						input = (Classifier) resourceSet.getEObject(((EObjectNode) selectedObject).getEObjectURI(),
-								true);
+						final EObjectNode eObjectNode = (EObjectNode) selectedObject;
+						final URI eObjectURI = eObjectNode.getEObjectURI();
+						input = (Classifier) resourceSet.getEObject(eObjectURI, true);
 					} catch (final Exception e) {
 						input = null;
 					}
@@ -78,11 +80,11 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 		}
 
 		if (input != null) {
-			// (2) Set the view input
-			// TODO:
+			// (2) Bring the classifier info view to the front and make sure it is open
+			final ClassifierInfoView view = ClassifierInfoView.open(HandlerUtil.getActiveWorkbenchWindow(event));
 
-			// (3) Bring the classifier info view to the front and make sure it is open
-			ClassifierInfoView.open(HandlerUtil.getActiveWorkbenchWindow(event));
+			// (3) Set the input
+			view.setInput(input);
 		}
 
 		// Done, we are always supposed to return null

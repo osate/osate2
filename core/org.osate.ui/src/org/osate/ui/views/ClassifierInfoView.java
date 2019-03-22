@@ -24,10 +24,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
@@ -49,7 +47,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
-public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
+public final class ClassifierInfoView extends ViewPart {
 	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
 
 	private static final String LINK_ICON = "icons/link_to_editor.png";
@@ -60,8 +58,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	 * jump to.
 	 */
 	private Element lastSelectedElement = null;
-
-	private ISelection currentSelection;
 
 	private TreeViewer ancestorTree;
 	private TreeViewer memberTree;
@@ -126,7 +122,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
-		site.getPage().addPostSelectionListener(this);
 		aadlImage = new Image(site.getShell().getDisplay(),
 				ClassifierInfoView.class.getResourceAsStream("/icons/aadl.gif"));
 		super.init(site);
@@ -134,15 +129,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	@Override
 	public void dispose() {
-		getSite().getPage().removePostSelectionListener(this);
 		aadlImage.dispose();
 		aadlImage = null;
-		currentSelection = null;
 	}
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
+		memberTree.getControl().setFocus();
 	}
 
 	private TreeViewer createAncestorTree(final Composite parent) {
@@ -306,27 +299,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	// ======================================================================
-	// == Listeners
+	// == Set the view input
 	// ======================================================================
 
-	@Override
-	public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-		if (part == null || selection == null | selection.equals(currentSelection)) {
-			return;
-		}
-
-		currentSelection = selection;
-
-		Classifier input = null;
-		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
-			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
-			if (selectedObject != null && selectedObject instanceof Classifier) {
-				input = (Classifier) selectedObject;
-			}
-		}
-
+	public void setInput(final Classifier input) {
 		if (input != null) {
-			ancestorTree.setInput(createAncestorTree(input));
+			final AncestorTree tree = createAncestorTree(input);
+			ancestorTree.setInput(tree);
 			ancestorTree.expandToLevel(2);
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
