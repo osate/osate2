@@ -300,9 +300,7 @@
 			<enablement>
 			    <or>
 			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
-			        <and>
-						<instanceof value="org.osate.aadl2.Element" />
-			        </and>
+			        <instanceof value="org.osate.ui.navigator.NavigatorEObjectNode" />
 			    </or>
          </enablement>
       </actionProvider>
