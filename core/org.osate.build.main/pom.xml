@@ -438,7 +438,7 @@
 				<configuration>
 					<effort>Default</effort>
 					<threshold>Low</threshold>
-					<maxHeap>1500</maxHeap>
+					<maxHeap>2048</maxHeap>
 					<timeout>1200000</timeout>
 					<plugins>
 						<plugin>
