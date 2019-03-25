@@ -439,6 +439,7 @@
 					<effort>Default</effort>
 					<threshold>Low</threshold>
 					<maxHeap>1500</maxHeap>
+					<timeout>1200000</timeout>
 					<plugins>
 						<plugin>
 							<groupId>com.h3xstream.findsecbugs</groupId>
