@@ -436,8 +436,16 @@
 				<artifactId>spotbugs-maven-plugin</artifactId>
 				<version>3.1.11</version>
 				<configuration>
-					<effort>Max</effort>
+					<effort>Default</effort>
 					<threshold>Low</threshold>
+					<maxHeap>1500</maxHeap>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>LATEST</version> <!-- Auto-update to the latest stable -->
+						</plugin>
+					</plugins>
 				</configuration>
 				<executions>
 					<execution>
@@ -448,6 +456,17 @@
 					</execution>
 				</executions>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -529,7 +548,27 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
 	</build>
+	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>3.1.11</version>
+				<configuration>
+					<effort>Default</effort>
+					<threshold>Low</threshold>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>LATEST</version> <!-- Auto-update to the latest stable -->
+						</plugin>
+					</plugins>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>
