@@ -1093,23 +1093,28 @@
                    <count
                          value="1">
                    </count>
-                   <iterate>
-                      <or>
-                      	 <!-- For the AADL Navigator View -->
-                         <adapt
-                               type="org.osate.aadl2.Classifier">
-                            <!-- true -->
-                         </adapt>
-
-                      	 <!-- For the Outline View -->
-                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-	                         <test
-	                               property="org.osate.ui.superType"
-	                               value="Classifier"
-	                               forcePluginActivation="true"/>
-	                     </adapt>
-                      </or>
-                   </iterate>
+                   <or>
+                       <!-- for Text Selection in the XText Editor -->
+                       <instanceof value="org.eclipse.jface.text.ITextSelection" />
+                       
+	                   <iterate>
+	                      <or>
+	                      	 <!-- For the AADL Navigator View -->
+	                         <adapt
+	                               type="org.osate.aadl2.Classifier">
+	                            <!-- true -->
+	                         </adapt>
+	
+	                      	 <!-- For the Outline View -->
+	                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Classifier"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+	                      </or>
+	                   </iterate>
+                   </or>
                 </and>
              </with>
           </enabledWhen>

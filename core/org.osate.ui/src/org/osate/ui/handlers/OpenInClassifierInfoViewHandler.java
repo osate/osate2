@@ -39,14 +39,22 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.utils.SelectionHelper;
 import org.osate.ui.views.ClassifierInfoView;
 
 /**
@@ -73,10 +81,11 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 					} catch (final Exception e) {
 						input = null;
 					}
-				} else if (selectedObject instanceof TextSelection) {
-					// TODO
 				}
 			}
+		} else if (selection instanceof TextSelection) {
+			final EObject selectedObject = SelectionHelper.getEObjectFromSelection(selection);
+			input = getClassifierFrom(selectedObject);
 		}
 
 		if (input != null) {
@@ -89,5 +98,30 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 
 		// Done, we are always supposed to return null
 		return null;
+	}
+
+	private static Classifier getClassifierFrom(final EObject eObject) {
+		if (eObject instanceof AccessSpecification) {
+			return ((AccessSpecification) eObject).getClassifier();
+		} else if (eObject instanceof Classifier) {
+			return (Classifier) eObject;
+		} else if (eObject instanceof ClassifierValue) {
+			return ((ClassifierValue) eObject).getClassifier();
+		} else if (eObject instanceof Feature) {
+			return ((Feature) eObject).getClassifier();
+		} else if (eObject instanceof FeatureGroup) {
+			return ((FeatureGroup) eObject).getClassifier();
+		} else if (eObject instanceof PortSpecification) {
+			return ((PortSpecification) eObject).getClassifier();
+		} else if (eObject instanceof Subcomponent) {
+			return ((Subcomponent) eObject).getClassifier();
+		} else {
+			// See if we are inside a Classifier
+			EObject current = eObject;
+			while (current != null && !(current instanceof Classifier)) {
+				current = current.eContainer();
+			}
+			return (Classifier) current;
+		}
 	}
 }
