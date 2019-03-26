@@ -1230,6 +1230,14 @@
        </propertyTester>
        
        <propertyTester
+             id="org.osate.ui.NavigatorEObjectNodePropertyTester"
+             type="org.osate.ui.navigator.NavigatorEObjectNode"
+             namespace="org.osate.ui"
+             properties="navigatorNodeSuperType"
+             class="org.osate.ui.navigator.NavigatorEObjectNodePropertyTester">
+       </propertyTester>
+       
+       <propertyTester
        		class="org.osate.ui.handlers.AadlFileTypePropertyTester"
             id="org.osate.ui.AadlPackagePropertyTester"
             namespace="org.osate.ui"
