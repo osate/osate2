@@ -145,7 +145,7 @@ public final class OsateResourceUtil {
 	/**
 	 * method that creates an Xtext-based ResoruceSet (EMF resource set plus synchronization
 	 * It iwll not use the shared/global Osate resource set
-	 * @return will be removed in 2.5.0
+	 * @deprecated will be removed in 2.5.0
 	 */
 	public static XtextResourceSet createXtextResourceSet() {
 		if (injector == null) {
