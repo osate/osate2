@@ -70,7 +70,7 @@ public class FaultTreeExport {
 			 * So, we put a default prob of 0.1
 			 */
 			if (prob.compareTo(FaultTreeUtils.BigZero) == 0) {
-				prob = new BigDecimal(0.1);
+				prob = BigDecimal.valueOf(0.1);
 			}
 			if (root.getMessage() != null) {
 				description = root.getMessage();

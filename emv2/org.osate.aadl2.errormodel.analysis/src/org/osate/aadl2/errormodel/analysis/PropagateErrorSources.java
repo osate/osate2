@@ -79,8 +79,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
@@ -709,7 +709,7 @@ public class PropagateErrorSources {
 						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
 								+ " [External Effect]";
 						reportEntry(entryText + effectText + connText, depth);
-					} else if (destci != null && destEP != null) {
+					} else if (destci != null) {
 						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP);
 						traceErrorFlows(destci, destEP, targettt, depth, entryText + effectText + connText);
 					}
