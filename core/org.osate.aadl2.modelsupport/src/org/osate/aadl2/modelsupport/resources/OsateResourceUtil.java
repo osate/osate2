@@ -114,7 +114,7 @@ public final class OsateResourceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated will be removed in 2.5.0
 	 * @param rs
 	 */
 	@Deprecated
