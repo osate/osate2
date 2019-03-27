@@ -1203,9 +1203,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						for (ErrorPropagation allepin : epsin) {
 							if (!EMV2TypeSetUtil.contains(allepout.getTypeSet(), allepin.getTypeSet())) {
 								error(ef,
-										"Incoming error propagation " + EMV2Util.getPrintName(allepin)
+										"Incoming error propagation " + EMV2Util.getPrintName(epin)
 										+ " constraint is not contained in type set of outgoing propagation "
-												+ EMV2Util.getPrintName(allepout));
+										+ EMV2Util.getPrintName(epout));
 							}
 						}
 					}

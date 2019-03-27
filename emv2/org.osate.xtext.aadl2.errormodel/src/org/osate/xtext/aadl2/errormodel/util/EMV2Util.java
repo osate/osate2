@@ -2130,10 +2130,10 @@ public class EMV2Util {
 			prefix = "";
 		} else {
 			prefix = "^" + cpe.getNamedElement().getName();
-			while (cpe.getPath() != null) {
-				cpe = cpe.getPath();
-				prefix = prefix + "." + cpe.getNamedElement().getName();
-			}
+		}
+		while (cpe.getPath() != null) {
+			cpe = cpe.getPath();
+			prefix = prefix + "." + cpe.getNamedElement().getName();
 		}
 		if (!prefix.isEmpty()) {
 			prefix = prefix + '@';
