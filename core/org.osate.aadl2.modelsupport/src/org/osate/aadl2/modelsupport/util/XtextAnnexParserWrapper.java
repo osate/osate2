@@ -36,7 +36,9 @@ import org.osate.aadl2.PackageSection;
  * Wraps a (partial) Xtext parser in a Osate Annex {@link IParser}.
  *
  * @author Peter Feiler
+ * @deprecated Unused, will be removed in 2.5.0
  */
+@Deprecated
 public class XtextAnnexParserWrapper {
 
 	private ParserRule libraryParserRule;
