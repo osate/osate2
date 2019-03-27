@@ -65,6 +65,7 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -89,6 +90,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
 
@@ -126,6 +128,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
 	public static final String DATA_SIZE_INCONSISTENT = "org.osate.xtext.aadl2.data_size_inconsistent";
+
+	@Inject
+	private Aadl2GrammarAccess grammarAccess;
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -3049,32 +3054,85 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 5 in section 4.3 (Component Types) on page 36.
-	 * "A component type must not contain both a requires_modes_subcluase and a modes_subclause."
+	 * Checks legality rule 6 in section 4.3 (Component Types).
+	 * "If the extended component type and an ancestor component type in the extends hierarchy contain modes subclauses,
+	 * they must both be requires_modes_subclause or modes_subclause."
 	 *
-	 * Checks legality rule 6 in section 4.3 (Component Types) on page 36. "If
-	 * the extended component type and an ancestor component type in the extends
-	 * hierarchy contain modes subclauses, they must both be
-	 * requires_modes_subclause or modes_subclause."
+	 * Checks legality rule 2 in section 12 (Modes and Mode Transitions).
+	 * "If a component classifier contains mode declarations, one of those modes must be declared with the reserved word
+	 * initial. If the component classifier extends another component classifier, the initial mode must have been
+	 * declared in one of the ancestor component classifier. Requires modes subclauses must not contain the "initial"
+	 * keyword."
 	 */
 	private void checkComponentTypeModes(ComponentType componentType) {
-		boolean containsModes = false;
-		boolean containsRequiresModes = false;
-		if (hasExtendCycles(componentType)) {
-			return;
-		}
-		for (ComponentType currentType = componentType; currentType != null; currentType = currentType.getExtended()) {
-			for (Mode currentMode : currentType.getOwnedModes()) {
-				if (currentMode.isDerived()) {
-					containsRequiresModes = true;
-				} else {
-					containsModes = true;
+		INode modesNode = getModesNode(componentType);
+		if (modesNode != null) {
+			if (componentType.getExtended() != null && componentType.getExtended().getSelfPlusAllExtended().stream()
+					.anyMatch(extended -> ((ComponentType) extended).isDerivedModes())) {
+				// Section 4.3 (L6): Only requires modes permitted when inheriting requires modes.
+				getMessageAcceptor().acceptError("Must be requires modes because requires modes are inherited.",
+						componentType, modesNode.getOffset(), modesNode.getLength(), null);
+			} else if (componentType.getExtended() != null
+					&& componentType.getExtended().getAllModes().stream().anyMatch(Mode::isInitial)) {
+				// Section 12 (L2): No initial modes if modes are inherited from extended.
+				for (Mode mode : componentType.getOwnedModes()) {
+					if (mode.isInitial()) {
+						error("Initial mode not allowed because the initial mode is inherited.", mode,
+								Aadl2Package.eINSTANCE.getMode_Initial());
+					}
+				}
+			} else if (!componentType.getOwnedModes().isEmpty()) {
+				// Section 12 (L2): Exactly one initial mode is required.
+				long initialCount = componentType.getOwnedModes().stream().filter(Mode::isInitial).count();
+				if (initialCount == 0) {
+					getMessageAcceptor().acceptError("One mode must be initial.", componentType, modesNode.getOffset(),
+							modesNode.getLength(), null);
+				} else if (initialCount > 1) {
+					getMessageAcceptor().acceptError("Only one mode can be initial.", componentType,
+							modesNode.getOffset(), modesNode.getLength(), null);
+				}
+			}
+		} else if (componentType.isDerivedModes()) {
+			INode requiresModesNode = getRequiresModesNode(componentType);
+			if (componentType.getExtended() != null && componentType.getExtended().getAllModes().stream()
+					.anyMatch(extendedMode -> !extendedMode.isDerived())) {
+				// Section 4.3 (L6): Only modes permitted when inheriting modes.
+				getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
+						requiresModesNode.getOffset(), requiresModesNode.getLength(), null);
+			} else {
+				// Section 12 (L2): Requires modes can't be initial.
+				for (Mode mode : componentType.getOwnedModes()) {
+					if (mode.isInitial()) {
+						error("Initial mode not allowed for requires modes.", mode,
+								Aadl2Package.eINSTANCE.getMode_Initial());
+					}
 				}
 			}
 		}
-		if (containsModes && containsRequiresModes) {
-			error(componentType, "Component types cannot contain both modes and requires modes.");
+	}
+
+	private INode getModesNode(ComponentType componentType) {
+		for (INode node : NodeModelUtils.getNode(componentType).getChildren()) {
+			if (node.getGrammarElement() instanceof Keyword
+					&& ((Keyword) node.getGrammarElement()).getValue().equals("modes")) {
+				return node;
+			}
 		}
+		return null;
+	}
+
+	private INode getRequiresModesNode(ComponentType componentType) {
+		for (INode node : NodeModelUtils.getNode(componentType).getChildren()) {
+			if (node instanceof CompositeNode) {
+				EObject grammarElement = node.getGrammarElement();
+				if (grammarElement instanceof RuleCall) {
+					if (((RuleCall) grammarElement).getRule() == grammarAccess.getRequiresModesKeywordsRule()) {
+						return node;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -3155,32 +3213,64 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 6 in section 4.4 (Component Implementations) on page
-	 * 42. "If the component type of the component implementation contains a
-	 * requires_modes_subclause then the component implementation must not
-	 * contain any modes subclause."
+	 * Checks legality rule 6 in section 4.4 (Component Implementations).
+	 * "If the component type of the component implementation contains a requires_modes_subclause then the component
+	 * implementation must not contain any modes subclause."
 	 *
-	 * Checks legality rule 7 in section 4.4 (Component Implementations) on page
-	 * 42. "If modes are declared in the component type, then modes cannot be
-	 * declared in component implementations."
+	 * Checks legality rule 7 in section 4.4 (Component Implementations).
+	 * "If modes are declared in the component type, then modes cannot be declared in component implementations."
+	 *
+	 * Checks legality rule 2 in section 12 (Modes and Mode Transitions).
+	 * "If a component classifier contains mode declarations, one of those modes must be declared with the reserved word
+	 * initial. If the component classifier extends another component classifier, the initial mode must have been
+	 * declared in one of the ancestor component classifier. Requires modes subclauses must not contain the "initial"
+	 * keyword."
 	 */
 	private void checkComponentImplementationModes(ComponentImplementation componentImplementation) {
-		if (!componentImplementation.getOwnedModes().isEmpty()) {
-			boolean typeHasModes = false;
-			if (hasExtendCycles(componentImplementation.getType())) {
-				return;
-			}
-			for (ComponentType currentType = componentImplementation.getType(); currentType != null
-					&& !typeHasModes; currentType = currentType.getExtended()) {
-				if (!currentType.getOwnedModes().isEmpty()) {
-					typeHasModes = true;
+		INode modesNode = getModesNode(componentImplementation);
+		if (modesNode != null) {
+			if (componentImplementation.getType().getSelfPlusAllExtended().stream()
+					.anyMatch(type -> ((ComponentType) type).isDerivedModes())) {
+				// Section 4.4 (L6): No modes subclause if type has requires modes.
+				getMessageAcceptor().acceptError("Modes subclause not allowed because type has requires modes.",
+						componentImplementation, modesNode.getOffset(), modesNode.getLength(), null);
+			} else if (!componentImplementation.getType().getAllModes().isEmpty()) {
+				// Section 4.4 (L7): No modes if type has modes. Transitions are ok.
+				for (Mode mode : componentImplementation.getOwnedModes()) {
+					error("Mode not allowed because type has modes.", mode,
+							Aadl2Package.eINSTANCE.getNamedElement_Name());
+				}
+			} else if (componentImplementation.getExtended() != null
+					&& componentImplementation.getExtended().getAllModes().stream().anyMatch(Mode::isInitial)) {
+				// Section 12 (L2): No initial modes if modes are inherited from extended.
+				for (Mode mode : componentImplementation.getOwnedModes()) {
+					if (mode.isInitial()) {
+						error("Initial mode not allowed because the initial mode is inherited.", mode,
+								Aadl2Package.eINSTANCE.getMode_Initial());
+					}
+				}
+			} else if (!componentImplementation.getOwnedModes().isEmpty()) {
+				// Section 12 (L2): Exactly one initial mode is required.
+				long initialCount = componentImplementation.getOwnedModes().stream().filter(Mode::isInitial).count();
+				if (initialCount == 0) {
+					getMessageAcceptor().acceptError("One mode must be initial.", componentImplementation,
+							modesNode.getOffset(), modesNode.getLength(), null);
+				} else if (initialCount > 1) {
+					getMessageAcceptor().acceptError("Only one mode can be initial.", componentImplementation,
+							modesNode.getOffset(), modesNode.getLength(), null);
 				}
 			}
-			if (typeHasModes) {
-				error(componentImplementation,
-						"Implementation cannot contain modes because modes or requires modes are inherited from the type.");
+		}
+	}
+
+	private INode getModesNode(ComponentImplementation componentImplementation) {
+		for (INode node : NodeModelUtils.getNode(componentImplementation).getChildren()) {
+			if (node.getGrammarElement() instanceof Keyword
+					&& ((Keyword) node.getGrammarElement()).getValue().equals("modes")) {
+				return node;
 			}
 		}
+		return null;
 	}
 
 	/**

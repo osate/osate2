@@ -772,6 +772,11 @@
         </detail>
       </annotation>
       <requirement
+          name="org.eclipse.mylyn_feature.feature.group"
+          versionRange="[3.23.1.v20170623-0008,3.23.1.v20170623-0008]"/>
+      <requirement
+          name="org.eclipse.mylyn.context_feature.feature.group"/>
+      <requirement
           name="org.eclipse.sdk"/>
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
@@ -835,6 +840,8 @@
           name="org.eclipse.ease.modules.feature.feature.group"/>
       <requirement
           name="org.py4j.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.zest.core"/>
       <requirement
           name="*"/>
       <sourceLocator

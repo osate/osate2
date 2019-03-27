@@ -17,8 +17,10 @@
 package org.osate.assure.tests
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import com.rockwellcollins.atc.resolute.resolute.ResoluteLibrary
+import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -29,39 +31,26 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.PropertySet
-import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.workbench.alisa.AssuranceCase
-import org.osate.categories.categories.Categories
+import org.osate.alisa.workbench.alisa.AssuranceTask
+import org.osate.assure.evaluator.AssureProcessor
+import org.osate.assure.generator.IAssureConstructor
+import org.osate.assure.util.ResoluteUtil
 import org.osate.categories.categories.CategoriesDefinitions
 import org.osate.organization.organization.Organization
-import org.osate.organization.organization.Stakeholder
 import org.osate.reqspec.reqSpec.GlobalConstants
+import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.ReqSpec
-import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.testsupport.TestHelper
-import org.osate.verify.verify.Claim
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 
 import static extension org.junit.Assert.*
-import static extension org.osate.testsupport.AssertHelper.*
-import com.itemis.xtext.testing.FluentIssueCollection
-import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.Goal
-import org.osate.reqspec.reqSpec.GlobalRequirementSet
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.assure.generator.IAssureConstructor
-
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.assure.evaluator.AssureProcessor
-import org.eclipse.core.runtime.NullProgressMonitor
-import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
-import org.eclipse.xtext.validation.Issue
-import java.util.List
-import org.osate.assure.util.ExecuteResoluteUtil
+import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
@@ -72,7 +61,6 @@ class AssureTests extends XtextTest {
 
 	@Inject
 	IAssureConstructor assureConstructor
-
 
 	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
 	val propertiesprefix = projectprefix + "Properties/"
@@ -87,7 +75,6 @@ class AssureTests extends XtextTest {
 			alisaprefix + "SCSVerification.alisa",
 			aadlprefix + "SimpleControlSystem.aadl",
 			propertiesprefix + "ACVIP.aadl",
-			propertiesprefix + "Physical.aadl",
 			aadlprefix + "PhysicalResources.aadl",
 			aadlprefix + "DataDictionary.aadl",
 			aadlprefix + "Platform.aadl",
@@ -127,10 +114,10 @@ class AssureTests extends XtextTest {
 		org => [
 			"sei".assertEquals(name)
 			assertTrue(stakeholder.size > 1)
-			stakeholder.get(0) as Stakeholder => [
+			stakeholder.get(0) => [
 				"phf".assertEquals(name)
 			]
-			stakeholder.get(1) as Stakeholder => [
+			stakeholder.get(1) => [
 				"dpg".assertEquals(name)
 			]
 		]
@@ -145,11 +132,11 @@ class AssureTests extends XtextTest {
 		val cd = scssrc.contents.get(0) as CategoriesDefinitions
 		cd => [
 			4.assertEquals(categories.size)
-			categories.get(0) as Categories => [
+			categories.get(0) => [
 				"Quality".assertEquals(name)
 				13.assertEquals(category.size)
 			]
-			categories.get(1) as Categories => [
+			categories.get(1) => [
 				"Phase".assertEquals(name)
 				9.assertEquals(category.size)
 			]
@@ -186,20 +173,6 @@ class AssureTests extends XtextTest {
 	}
 
 	@Test
-	def void PhysicalPropstest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(propertiesprefix + "Physical.aadl"), true)
-		val ps = scssrc.contents.get(0) as PropertySet
-		ps => [
-			"Physical".assertEquals(name)
-			1.assertEquals(ownedProperties.size)
-			2.assertEquals(ownedPropertyTypes.size)
-		]
-		assertNoIssues(ps)
-	}
-
-	@Test
 	def void SCSAadltest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
@@ -208,19 +181,6 @@ class AssureTests extends XtextTest {
 		pkg => [
 			"SimpleControlSystem".assertEquals(name)
 			7.assertEquals(publicSection.ownedClassifiers.size)
-		]
-		assertNoIssues(pkg)
-	}
-
-	@Test
-	def void PhysicalResourcestest() {
-		val ac = primaryroot as AssuranceCase
-		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(aadlprefix + "PhysicalResources.aadl"), true)
-		val pkg = scssrc.contents.get(0) as AadlPackage
-		pkg => [
-			"PhysicalResources".assertEquals(name)
-			4.assertEquals(publicSection.ownedClassifiers.size)
 		]
 		assertNoIssues(pkg)
 	}
@@ -288,7 +248,7 @@ class AssureTests extends XtextTest {
 			"Resolute".assertEquals(name)
 			13.assertEquals(methods.size)
 		]
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
+		if (ResoluteUtil.isResoluteInstalled()) {
 			assertNoIssues(reg)
 		} else {
 			val validate = validate(scssrc);
@@ -319,7 +279,7 @@ class AssureTests extends XtextTest {
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
 			"Alisa_Consistency".assertEquals(name)
-			8.assertEquals(methods.size)
+			17.assertEquals(methods.size)
 		]
 //		assertNoErrors(reg)	
 		assertNoIssues(reg)
@@ -341,15 +301,15 @@ class AssureTests extends XtextTest {
 			"dcsreqs".assertEquals(name)
 			1.assertEquals(constants.size)
 			2.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
 			]
-			constants.get(0) as ValDeclaration => [
+			constants.get(0) => [
 				"MaximumLatency".assertEquals(name)
 			]
-			requirements.get(1) as Requirement => [
+			requirements.get(1) => [
 				"R2".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
@@ -372,7 +332,7 @@ class AssureTests extends XtextTest {
 		vp => [
 			"dcsvplan".assertEquals(name)
 			2.assertEquals(claim.size)
-			claim.get(0) as Claim => [
+			claim.get(0) => [
 				2.assertEquals(activities.size)
 			]
 		]
@@ -395,16 +355,16 @@ class AssureTests extends XtextTest {
 			"DualSCSreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			4.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"SR1".assertEquals(name)
 			]
-			requirements.get(1) as Requirement => [
+			requirements.get(1) => [
 				"SR1_1".assertEquals(name)
 			]
-			requirements.get(2) as Requirement => [
+			requirements.get(2) => [
 				"SR1_2".assertEquals(name)
 			]
-			requirements.get(3) as Requirement => [
+			requirements.get(3) => [
 				"SR1_3".assertEquals(name)
 			]
 		]
@@ -425,14 +385,14 @@ class AssureTests extends XtextTest {
 		vp => [
 			"DualSCSvplan".assertEquals(name)
 			1.assertEquals(claim.size)
-			claim.get(0) as Claim => [
-				subclaim.get(0) as Claim => [
+			claim.get(0) => [
+				subclaim.get(0) => [
 					1.assertEquals(activities.size)
 				]
-				subclaim.get(1) as Claim => [
+				subclaim.get(1) => [
 					1.assertEquals(activities.size)
 				]
-				subclaim.get(2) as Claim => [
+				subclaim.get(2) => [
 					1.assertEquals(activities.size)
 				]
 			]
@@ -456,12 +416,12 @@ class AssureTests extends XtextTest {
 			"globalReq".assertEquals(name)
 			0.assertEquals(constants.size)
 			2.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"connected".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
 			]
-			requirements.get(1) as Requirement => [
+			requirements.get(1) => [
 				"Allconnected".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
@@ -482,10 +442,10 @@ class AssureTests extends XtextTest {
 		vp => [
 			"globalVPlan".assertEquals(name)
 			2.assertEquals(claim.size)
-			claim.get(0) as Claim => [
+			claim.get(0) => [
 				2.assertEquals(activities.size)
 			]
-			claim.get(1) as Claim => [
+			claim.get(1) => [
 				1.assertEquals(activities.size)
 			]
 		]
@@ -508,7 +468,7 @@ class AssureTests extends XtextTest {
 			"Peter".assertEquals(name)
 			0.assertEquals(constants.size)
 			1.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"req1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
@@ -529,7 +489,7 @@ class AssureTests extends XtextTest {
 		vp => [
 			"PeterPlan".assertEquals(name)
 			1.assertEquals(claim.size)
-			claim.get(0) as Claim => [
+			claim.get(0) => [
 				1.assertEquals(activities.size)
 			]
 		]
@@ -552,10 +512,10 @@ class AssureTests extends XtextTest {
 			"scsreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			2.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"R1".assertEquals(name)
 			]
-			requirements.get(1) as Requirement => [
+			requirements.get(1) => [
 				"R3".assertEquals(name)
 			]
 		]
@@ -575,10 +535,10 @@ class AssureTests extends XtextTest {
 		vp => [
 			"scsvplan".assertEquals(name)
 			2.assertEquals(claim.size)
-			claim.get(0) as Claim => [
+			claim.get(0) => [
 				3.assertEquals(activities.size)
 			]
-			claim.get(1) as Claim => [
+			claim.get(1) => [
 				3.assertEquals(activities.size)
 			]
 		]
@@ -601,25 +561,25 @@ class AssureTests extends XtextTest {
 			"SCSImplementationreqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			5.assertEquals(requirements.size)
-			requirements.get(0) as Requirement => [
+			requirements.get(0) => [
 				"R2_Lat".assertEquals(name)
 			]
-			requirements.get(1) as Requirement => [
+			requirements.get(1) => [
 				"DCS_R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
 			]
-			requirements.get(2) as Requirement => [
+			requirements.get(2) => [
 				"Sensor1_R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
 			]
-			requirements.get(3) as Requirement => [
+			requirements.get(3) => [
 				"Sensor2_R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
 			]
-			requirements.get(4) as Requirement => [
+			requirements.get(4) => [
 				"Actuator_R1".assertEquals(name)
 				it.assertWarning(testFileResult.issues, issueCollection,
 					"System requirement should have stakeholder goal or requirement reference")
@@ -641,10 +601,10 @@ class AssureTests extends XtextTest {
 		vp => [
 			"scsimplvplan".assertEquals(name)
 			5.assertEquals(claim.size)
-			claim.get(0) as Claim => [
+			claim.get(0) => [
 				1.assertEquals(activities.size)
 			]
-			claim.get(1) as Claim => [
+			claim.get(1) => [
 				0.assertEquals(activities.size)
 			]
 		]
@@ -664,10 +624,10 @@ class AssureTests extends XtextTest {
 			"SCSgoals".assertEquals(name)
 			0.assertEquals(constants.size)
 			6.assertEquals(goals.size)
-			goals.get(0) as Goal => [
+			goals.get(0) => [
 				"g1".assertEquals(name)
 			]
-			goals.get(1) as Goal => [
+			goals.get(1) => [
 				"g2".assertEquals(name)
 			]
 		]
@@ -677,7 +637,7 @@ class AssureTests extends XtextTest {
 //			, resoluteprefix+"BasicResolute.aadl", resoluteprefix+"BudgetResolute.aadl"
 	@Test
 	def void BasicResolutetest() {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BasicResolute.aadl"), true)
@@ -696,7 +656,7 @@ class AssureTests extends XtextTest {
 
 	@Test
 	def void BudgetResolutetest() {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val ac = primaryroot as AssuranceCase
 			val rs = ac.eResource.resourceSet
 			val scssrc = rs.getResource(URI.createURI(resoluteprefix + "BudgetResolute.aadl"), true)
@@ -719,7 +679,7 @@ class AssureTests extends XtextTest {
 		ac => [
 			"SCSCase".assertEquals(name)
 			1.assertEquals(assurancePlans.size)
-			assurancePlans.get(0) as AssurancePlan => [
+			assurancePlans.get(0) => [
 				"SCSPlan".assertEquals(name)
 			]
 			1.assertEquals(tasks.size)
@@ -744,13 +704,13 @@ class AssureTests extends XtextTest {
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()){
+		if (ResoluteUtil.isResoluteInstalled()) {
 			16.assertEquals(counts.successCount)
 			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
-			8.assertEquals(counts.successCount)
-			12.assertEquals(counts.failCount)
+			9.assertEquals(counts.successCount)
+			11.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
 	}

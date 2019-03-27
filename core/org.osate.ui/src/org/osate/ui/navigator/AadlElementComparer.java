@@ -8,10 +8,15 @@ public class AadlElementComparer implements IElementComparer {
 	@Override
 	public boolean equals(Object a, Object b) {
 		if (a instanceof NamedElement && b instanceof NamedElement) {
-			NamedElement nea = (NamedElement) a;
-			NamedElement neb = (NamedElement) b;
-			return nea.eClass() == neb.eClass() && nea.getQualifiedName().equals(neb.getQualifiedName())
-					&& nea.getFullName().equals(neb.getFullName());
+			final NamedElement nea = (NamedElement) a;
+			final NamedElement neb = (NamedElement) b;
+			final String qnA = nea.getQualifiedName();
+			final String qnB = neb.getQualifiedName();
+			final String fnA = nea.getFullName();
+			final String fnB = neb.getFullName();
+			return nea.eClass() == neb.eClass() &&
+					(qnA == null ? qnB == null : qnA.equals(qnB)) &&
+					(fnA == null ? fnB == null : fnA.equals(fnB));
 		} else {
 			return a.equals(b);
 		}

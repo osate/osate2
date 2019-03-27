@@ -678,6 +678,10 @@
       <requirement
           name="org.eclipse.sdk"/>
       <requirement
+          name="org.eclipse.mylyn_feature.feature.group"/>
+      <requirement
+          name="org.eclipse.mylyn.context_feature.feature.group"/>
+      <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
@@ -743,6 +747,10 @@
           name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
       <requirement
           name="org.eclipse.ease.modules.feature.feature.group"/>
+     <requirement
+         name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
       <requirement
           name="org.py4j.feature.feature.group"/>
       <requirement
@@ -852,6 +860,19 @@
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.osate2_2018-12"
         value="=https://raw.githubusercontent.com/osate/osate2/develop/setup/osate2_2018-12.setup->${git.clone.osate2.location|uri}/setup/osate2_2018-12.setup"
+        vm="true">
+      <description>
+        Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.
+        Before enabling this task, replace '...' with the repository path of this setup's containing project.
+      </description>
+    </setupTask>
+  </stream>
+  <stream name="master"
+      label="master">
+    <setupTask
+        xsi:type="setup:EclipseIniTask"
+        option="-Doomph.redirection.osate2_2018-12"
+        value="=https://raw.githubusercontent.com/osate/osate2/master/setup/osate2_2018-12.setup->${git.clone.osate2.location|uri}/setup/osate2_2018-12.setup"
         vm="true">
       <description>
         Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.

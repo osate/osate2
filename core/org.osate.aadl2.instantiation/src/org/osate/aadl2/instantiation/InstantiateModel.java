@@ -57,6 +57,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -449,8 +450,13 @@ public class InstantiateModel {
 		populateComponentInstance(root, 0);
 
 		monitor.subTask("Creating system operation modes");
-		createSystemOperationModes(root,
-				getSOMLimit(OsateResourceUtil.convertToIResource(root.eResource()).getProject()));
+		final int somLimit;
+		if (Platform.isRunning()) {
+			somLimit = getSOMLimit(OsateResourceUtil.convertToIResource(root.eResource()).getProject());
+		} else {
+			somLimit = WorkspacePlugin.MAX_SOM_DEFAULT;
+		}
+		createSystemOperationModes(root, somLimit);
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
@@ -668,12 +674,12 @@ public class InstantiateModel {
 					Context ctx = triggers.get(0).getContext();
 
 					if (ctx instanceof Subcomponent) {
-						eventName = ((Subcomponent) ctx).getName() + ".";
+						eventName = ((Subcomponent) ctx).getName() + "_";
 					}
 				}
 				eventName += tp.getName();
 			}
-			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
+			mti.setName(srcmode.getName() + "_" + (!eventName.equals("") ? eventName + "_" : "") + dstmode.getName());
 
 			// add only triggers that are ports
 			for (ModeTransitionTrigger t : triggers) {

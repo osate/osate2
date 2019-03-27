@@ -1,5 +1,9 @@
 package org.osate.ui.navigator;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -8,6 +12,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -17,7 +22,9 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -50,13 +57,28 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 		} else if (parentElement instanceof ContributedAadlStorage) {
 			URI uri = ((ContributedAadlStorage) parentElement).getUri();
 			parentElement = resourceSet.getResource(uri, true);
-		} else if (parentElement instanceof ComponentImplementation) {
-			return ((ComponentImplementation) parentElement).getOwnedAnnexSubclauses().toArray();
+		} else if (parentElement instanceof Classifier) {
+			// XXX This is stupid, but the easiest way to do this
+			final List<Object> list = new LinkedList<>(Arrays.asList(super.getChildren(parentElement)));
+			final EList<Generalization> generalizations = ((Classifier) parentElement)
+					.getGeneralizations();
+			list.removeAll(generalizations);
+			return list.toArray();
 		} else if (!shouldExpand(parentElement)) {
 			return NO_CHILDREN;
 		}
 
-		return super.getChildren(parentElement);
+		Object[] children = super.getChildren(parentElement);
+		// the navigator compares children by name, so filter out children that don't have a name
+		children = Arrays.stream(children).filter(c -> {
+			if (c instanceof NamedElement) {
+				NamedElement ne = (NamedElement) c;
+				return ne.getName() != null && ne.getQualifiedName() != null && ne.getFullName() != null;
+			} else {
+				return false;
+			}
+		}).toArray();
+		return children;
 	}
 
 	@Override
@@ -71,17 +93,22 @@ public class AadlElementContentProvider extends AdapterFactoryContentProvider
 	public boolean hasChildren(Object element) {
 		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
 			return true;
-		} else if (element instanceof ComponentImplementation) {
-			return !((ComponentImplementation) element).getOwnedAnnexSubclauses().isEmpty();
 		} else if (!shouldExpand(element)) {
 			return false;
 		}
+
+		/*
+		 * The method getChildren() above actually filters out children that do not have names. These are intermediate
+		 * nodes in the model that we don't normally show to the user. It seems pointlessly expensive here to
+		 * filter them out. So in some case, we are going to have nodes in the UI that display the little triangle as
+		 * if they had children, but when you toggle the tree node, they won't have children.
+		 */
 		return super.hasChildren(element);
 	}
 
 	protected boolean shouldExpand(Object element) {
 		return element instanceof AadlPackage || element instanceof PropertySet || element instanceof PackageSection
-				|| element instanceof ComponentInstance;
+				|| element instanceof ComponentInstance || element instanceof Classifier;
 	}
 
 	@Override

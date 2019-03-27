@@ -151,6 +151,20 @@
             icon="icons/aadlNav.gif"
             id="org.osate.ui.navigator.AadlNavigator"
             name="AADL Navigator"/>
+      <view
+            id="org.osate.ui.projectdependencyvisualization"
+            name="Project Dependency Visualization"
+            category="aadl.view_category"
+            class="org.osate.ui.dependencyvisualization.ProjectDependencyVisualizationView"
+            icon="icons/project.png">
+      </view>
+      <view
+            id="org.osate.ui.modelunitdependencyvisualization"
+            name="Package and Property Set Dependency Visualization"
+            category="aadl.view_category"
+            class="org.osate.ui.dependencyvisualization.ModelUnitDependencyVisualizationView"
+            icon="icons/package.gif">
+      </view>
    </extension>
    
 	<extension
@@ -540,6 +554,18 @@
                    checkEnabled="true">
              </visibleWhen>
           </command>
+          <command
+                commandId="org.osate.ui.visualizeProjectDependencies">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <command
+                commandId="org.osate.ui.visualizeModelUnitDependencies">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
           <menu
                 id="org.osate.ui.analysesNavigatorPopup"
                 label="Analyses">
@@ -816,6 +842,17 @@
           </menu>
        </menuContribution>
        <menuContribution
+             locationURI="menu:help?after=org.eclipse.equinox.p2.ui.sdk.install">
+          <command
+                commandId="org.eclipse.equinox.p2.ui.discovery.commands.ShowBundleCatalog"
+                label="Install Additional OSATE Components">
+             <parameter
+                   name="org.eclipse.equinox.p2.ui.discovery.commands.DirectoryParameter"
+                   value="https://osate-build.sei.cmu.edu/download/osate/discovery/directory.xml">
+             </parameter>
+          </command>
+       </menuContribution>
+       <menuContribution
              locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
           <toolbar
                 id="org.osate.ui.osateWizardsToolbar"
@@ -1007,6 +1044,14 @@
              id="org.osate.ui.wizards.propertySetWizard"
              name="New AADL Property Set">
        </command>
+       <command
+             id="org.osate.ui.visualizeProjectDependencies"
+             name="Visualize Project Dependencies">
+       </command>
+       <command
+             id="org.osate.ui.visualizeModelUnitDependencies"
+             name="Visualize Package and Property Set Dependencies">
+       </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
@@ -1096,6 +1141,60 @@
             class="org.osate.ui.handlers.NewPropertySetWizardHandler"
             commandId="org.osate.ui.wizards.propertySetWizard">
       </handler>
+      <handler
+             class="org.osate.ui.dependencyvisualization.VisualizeProjectDependenciesHandler"
+             commandId="org.osate.ui.visualizeProjectDependencies">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <or>
+                         <adapt
+                               type="org.eclipse.ui.IWorkingSet">
+                         </adapt>
+                         <adapt
+                               type="org.eclipse.core.resources.IProject">
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             class="org.osate.ui.dependencyvisualization.VisualizeModelUnitDependenciesHandler"
+             commandId="org.osate.ui.visualizeModelUnitDependencies">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <or>
+                         <adapt
+                               type="org.eclipse.ui.IWorkingSet">
+                         </adapt>
+                         <adapt
+                               type="org.eclipse.core.resources.IProject">
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
     </extension>
     <extension
           point="org.eclipse.ui.commandImages">
@@ -1114,6 +1213,14 @@
       <image
             commandId="org.osate.ui.wizards.propertySetWizard"
             icon="icons/new_ps.gif">
+      </image>
+      <image
+            commandId="org.osate.ui.visualizeProjectDependencies"
+            icon="icons/project.png">
+      </image>
+      <image
+            commandId="org.osate.ui.visualizeModelUnitDependencies"
+            icon="icons/package.gif">
       </image>
     </extension>
     <extension
@@ -1154,6 +1261,14 @@
          point="org.eclipse.help.toc">
       <toc
             file="toc_ui.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="toc_projectVisualization.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="toc_modelUnitVisualization.xml"
             primary="true">
       </toc>
    </extension>
