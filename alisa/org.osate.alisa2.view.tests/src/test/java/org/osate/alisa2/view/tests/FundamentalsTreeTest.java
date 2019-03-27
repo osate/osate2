@@ -1,55 +1,48 @@
 package org.osate.alisa2.view.tests;
 
-import java.util.Collection;
-
-//import org.eclipse.sirius.tests.junit;
-import org.eclipse.sirius.tests.unit.common.TreeCommonTest;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.sirius.tests.support.api.TestsUtil;
+import org.eclipse.sirius.tests.support.api.TreeTestCase;
 import org.eclipse.sirius.tree.DTree;
-import org.eclipse.sirius.tree.business.internal.dialect.common.viewpoint.GlobalContext;
-import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.tree.description.TreeDescription;
+import org.eclipse.sirius.tree.ui.business.api.helper.TreeUIHelper;
+import org.eclipse.sirius.tree.ui.tools.api.editor.DTreeEditor;
+import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.ui.IEditorPart;
 
-public class FundamentalsTreeTest extends TreeCommonTest {
+public class FundamentalsTreeTest extends TreeTestCase {
 
-	private GlobalContext ctx;
+	private static final String SEMANTIC_MODEL_PATH = "/org.osate.alisa2.model/model/safe2.ecore";
+	private static final String MODELER_PATH = "/org.osate.alisa2.view/description/view.odesign";
+	private static final String SESSION_PATH = "/org.osate.alisa2.view/description/representations.aird";
+
+	private static final String TREE_DESCRIPTION_ID = "HackOverview";
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		ctx = new GlobalContext(session.getModelAccessor(), session.getInterpreter(), null);
+		genericSetUp(SEMANTIC_MODEL_PATH, MODELER_PATH, SESSION_PATH);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		ctx = null;
-
 		super.tearDown();
 	}
 
-	public void testItemOrders() {
+// Adapted from org.eclipse.sirius.tests.api.tools.TreeItemRefreshTest.testRefreshElement()
+	public void testFundamentalsTree() {
+		final TreeDescription treeDescription = find(TREE_DESCRIPTION_ID);
+		DTree newTree = (DTree) getRepresentations(TREE_DESCRIPTION_ID).toArray()[0];
+		final TreeDescription desc = newTree.getDescription();
+		IEditorPart openedEditor = DialectUIManager.INSTANCE.openEditor(session, newTree, new NullProgressMonitor());
+		TestsUtil.synchronizationWithUIThread();
+		DTreeEditor treeEditor = (DTreeEditor) openedEditor;
+		Tree tree = (Tree) treeEditor.getControl();
+		String currentHtml = TreeUIHelper.toContentHTMl(tree);
 
-		Collection<DRepresentation> trees = getRepresentations(TREE_DESCRIPTION_ID, semanticModel);
-
-		// Check tests data.
-		assertTrue("Tests data have changed, review this test.", trees.size() == 1);
-		assertTrue("Tests data have changed, review this test.", trees.iterator().next() instanceof DTree);
-
-		final DTree dTree = (DTree) trees.iterator().next();
-
-//		checkItemOrder(dTree);
-//
-//		// Refresh should not change order
-//		session.getTransactionalEditingDomain().getCommandStack()
-//				.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
-//
-//					@Override
-//					protected void doExecute() {
-//						new DTreeUserInteraction(dTree, ctx).refreshContent(defaultProgress);
-//					}
-//				});
-//
-//		checkItemOrder(dTree);
-
+		assertEquals("yuss.", currentHtml);
 	}
 
 }

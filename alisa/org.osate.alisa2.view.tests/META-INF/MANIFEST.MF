@@ -17,4 +17,5 @@ Require-Bundle: org.junit,
  org.eclipse.sirius.common,
  org.hamcrest.library,
  org.eclipse.sirius.tree,
- org.eclipse.sirius.ecore.extender
+ org.eclipse.sirius.ecore.extender,
+ org.eclipse.sirius.tree.ui
