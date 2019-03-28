@@ -1,7 +1,11 @@
 package org.osate.alisa2.view;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,22 +14,43 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
+import org.eclipse.sirius.table.metamodel.table.DColumn;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
- * The services class used by VSM.
+ * Services / supporting utility methods used by the SAFE2.0 view. Everything
+ * is static because, as the docs explain:
+ * https://www.eclipse.org/sirius/doc/specifier/general/Writing_Queries.html
+ *
+ * Warning: Java service methods should be stateless. There is no guarantee
+ * that two successive invocations of the same service method on two model
+ * elements (or even on the same one) will use the same instance of the
+ * service class.
+ *
+ *  @author Sam
  */
 public class Services {
+
+	// Shamelessly adapted from https://stackoverflow.com/a/507658
+	private static final Map<String, ErrorType> colNameToErrorType;
+	static {
+		Map<String, ErrorType> tempMap = new HashMap<>();
+        tempMap.put("Value", );
+		colNameToErrorType = Collections.unmodifiableMap(tempMap);
+    }
+
 
     /**
     * See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24 for documentation on how to write service methods.
     */
-    public EObject myService(EObject self, String arg) {
+	public static EObject myService(EObject self, String arg) {
        // TODO Auto-generated code
       return self;
     }
@@ -38,7 +63,7 @@ public class Services {
 	 * @param self The component the focus on
 	 * @return The set of neighbors for the given component.
 	 */
-	public Collection<EObject> getAllNeighbors(EObject self) {
+	public static Collection<EObject> getAllNeighbors(EObject self) {
 		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
 				.collect(Collectors.toSet());
 	}
@@ -50,7 +75,7 @@ public class Services {
 	 * @param self The component to focus on
 	 * @return The set of one-hop neighbors for the given component
 	 */
-	public Collection<EObject> getOneHopNeighbors(EObject self) {
+	public static Collection<EObject> getOneHopNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
 		for(EObject succ : getSuccessorNeighbors(self)) {
 			ret.addAll(getSuccessorNeighbors(succ));
@@ -69,7 +94,7 @@ public class Services {
 	 * @param self The component the focus on
 	 * @return The set of successors to the given component.
 	 */
-	public Collection<EObject> getSuccessorNeighbors(EObject self) {
+	public static Collection<EObject> getSuccessorNeighbors(EObject self) {
 		ComponentInstance selfCI = (ComponentInstance) self;
 		return getNeighbors(selfCI, true, selfCI.getContainingComponentInstance());
 	}
@@ -82,7 +107,7 @@ public class Services {
 	 * @param self The component the focus on
 	 * @return The set of predecessors to the given component.
 	 */
-	public Collection<EObject> getPredecessorNeighbors(EObject self) {
+	public static Collection<EObject> getPredecessorNeighbors(EObject self) {
 		ComponentInstance selfCI = (ComponentInstance) self;
 		return getNeighbors(selfCI, false, selfCI.getContainingComponentInstance());
 	}
@@ -96,7 +121,8 @@ public class Services {
 	 * @param origParent The parent of the originally specified component (ie, the original value of self)
 	 * @return The set of successors (or predecessors) of the specified component.
 	 */
-	private Collection<EObject> getNeighbors(ComponentInstance self, boolean successors, ComponentInstance origParent) {
+	private static Collection<EObject> getNeighbors(ComponentInstance self, boolean successors,
+			ComponentInstance origParent) {
 		Set<EObject> ret = new HashSet<>();
 
 		// Get the features
@@ -119,7 +145,7 @@ public class Services {
 	 * @param origParent The parent of the originally specified component (ie, the original value of self)
 	 * @return The set of immediate successors (or predecessors) of the specified component.
 	 */
-	private Collection<EObject> getImmediateNeighbors(ComponentInstance self, boolean successors,
+	private static Collection<EObject> getImmediateNeighbors(ComponentInstance self, boolean successors,
 			ComponentInstance origParent) {
 		Set<EObject> ret = new HashSet<>();
 		Set<ConnectionInstance> cis = new HashSet<>();
@@ -152,7 +178,7 @@ public class Services {
 	 * @param parent Containment checking stops once we reach the level of the children of this component.
 	 * @return The containing ComponentInstance
 	 */
-	private EObject getDepthAppropriateNeighbor(ConnectionInstanceEnd cie, ComponentInstance self,
+	private static EObject getDepthAppropriateNeighbor(ConnectionInstanceEnd cie, ComponentInstance self,
 			ComponentInstance parent) {
 		ComponentInstance prev = self;
 		ComponentInstance tempCI = cie.getContainingComponentInstance();
@@ -163,19 +189,19 @@ public class Services {
 		return prev;
 	}
 
-	public EList<ComponentInstance> getAllComponents(EObject self) {
+	public static EList<ComponentInstance> getAllComponents(EObject self) {
 		return ((ComponentInstance) self).getAllComponentInstances();
 	}
 
-	public EList<ConnectionInstance> getAllConnectionInstances(EObject self) {
+	public static EList<ConnectionInstance> getAllConnectionInstances(EObject self) {
 		return ((ComponentInstance) self).getConnectionInstances();
 	}
 
-	public boolean isLeafComponent(EObject self) {
+	public static boolean isLeafComponent(EObject self) {
 		return ((ComponentInstance) self).getAllComponentInstances().size() == 1;
 	}
 
-	public boolean isNestedComponent(EObject self) {
+	public static boolean isNestedComponent(EObject self) {
 		return ((ComponentInstance) self).getContainingComponentInstance() != null;
 	}
 
@@ -188,7 +214,7 @@ public class Services {
 	 * @param target The target node in the diagram
 	 * @return True if no connection exists, false otherwise
 	 */
-	public boolean isFirstConnection(EObject self, DSemanticDecorator source, DSemanticDecorator target) {
+	public static boolean isFirstConnection(EObject self, DSemanticDecorator source, DSemanticDecorator target) {
 		EdgeTarget eTarget = (EdgeTarget) target; // Explicit cast to avoid nuisance 'unlikely argument type' marker
 		for (DEdge edge : ((EdgeTarget) source).getIncomingEdges()) {
 			if ((edge.getSourceNode()).equals(eTarget)) {
@@ -198,10 +224,21 @@ public class Services {
 		return true;
 	}
 
-	public boolean isHardware(EObject self) {
-		// XXX TODO FIXME
-		// See usage in ContainedTopology->NoHardware->MappingFilterHIDE
-		// just enumerate HW elements -- ie, is processor, etc. Check instanceutil, there may be something there\
-		return false;
+	public static String getErrStrForTbl(EObject self, EObject lineSemantic, DColumn column) {
+
+		ErrorType et = null;
+		if (hasErr(et, lineSemantic)) {
+			return "*";
+		} else {
+			return " ";
+		}
 	}
+
+	private static boolean hasErr(ErrorType et, EObject lineSemantic) {
+		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
+		// It's hard because you have error models at different levels of the hierarchy, and
+		// so I don't think it's appropes to calculate that myself
+		return (new Random()).nextBoolean();
+	}
+
 }
