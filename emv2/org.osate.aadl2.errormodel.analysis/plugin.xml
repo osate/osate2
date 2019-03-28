@@ -114,9 +114,19 @@
                            value="1">
                      </count>
                      <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.ComponentInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.ui.navigator.NavigatorEObjectNode">
+                              <test
+                                    property="org.osate.ui.navigatorNodeSuperType"
+                                    value="ComponentInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
                      </iterate>
                   </and>
                </with>
@@ -138,9 +148,19 @@
                            value="1">
                      </count>
                      <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.ComponentInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.ui.navigator.NavigatorEObjectNode">
+                              <test
+                                    property="org.osate.ui.navigatorNodeSuperType"
+                                    value="ComponentInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
                      </iterate>
                   </and>
                </with>
