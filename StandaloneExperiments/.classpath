@@ -2,5 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.aadl2"/>
+	<classpathentry kind="lib" path="jars/org.eclipse.emf.common_2.15.0.v20180914-1817.jar"/>
+	<classpathentry kind="lib" path="jars/org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar"/>
+	<classpathentry kind="lib" path="jars/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar"/>
+	<classpathentry kind="lib" path="jars/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
