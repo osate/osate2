@@ -1,4 +1,4 @@
-package org.osate.ui.navigator;
+package org.osate.aadl2.modelsupport;
 
 import java.util.Objects;
 
@@ -10,26 +10,26 @@ import org.osate.aadl2.instance.ComponentInstance;
 
 /**
  * <p>
- * Represents an expanded element, below the file level, in the AADL Navigator. The purpose of this class is to allow
- * the navigator to hold onto URIs of EObjects instead of holding onto EObjects themselves.
+ * Simple wrapper which is used to store the URI of an EObject instead of an EObject. One place where this is used is in
+ * the AADL Navigator to represent expanded elements below the file level.
  * </p>
  * Handlers and selection listeners can load an EObject from its URI:
  * <pre>
- *     NavigatorEObjectNode node = [some navigator node];
- *     EObject eObject = new ResourceSetImpl().getEObject(node.getUri(), true);
+ *     EObjectURIWrapper wrapper = [some wrapper];
+ *     EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
  * </pre>
  * <p>
  * The {@link #getEClass()} method is useful for determining the type of EObject without actually having to load it.
- * This is used internally when testing the {@code org.osate.ui.navigatorNodeSuperType} property in a
- * <a href="https://wiki.eclipse.org/Command_Core_Expressions">Command Core Expression</a>. This example tests if a node
- * represents a {@link ComponentInstance}.
+ * This is used internally when testing the {@code org.osate.aadl2.modelsupport.wrapperSuperType} property in a
+ * <a href="https://wiki.eclipse.org/Command_Core_Expressions">Command Core Expression</a>. This example tests if a
+ * wrapper represents a {@link ComponentInstance}.
  * </p>
  * <pre>
  * {@code
  * <adapt
- *       type="org.osate.ui.navigator.NavigatorEObjectNode">
+ *       type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
  *    <test
- *       property="org.osate.ui.navigatorNodeSuperType"
+ *       property="org.osate.aadl2.modelsupport.wrapperSuperType"
  *       value="ComponentInstance"
  *       forcePluginActivation="true">
  *    </test>
@@ -37,15 +37,15 @@ import org.osate.aadl2.instance.ComponentInstance;
  * }
  * </pre>
  */
-public class NavigatorEObjectNode {
+public class EObjectURIWrapper {
 	private final URI uri;
 	private final EClass eClass;
-
-	NavigatorEObjectNode(EObject eObject) {
+	
+	public EObjectURIWrapper(EObject eObject) {
 		uri = EcoreUtil.getURI(eObject);
 		eClass = eObject.eClass();
 	}
-
+	
 	public URI getUri() {
 		return uri;
 	}
@@ -58,9 +58,9 @@ public class NavigatorEObjectNode {
 	public int hashCode() {
 		return Objects.hash(uri);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof NavigatorEObjectNode && Objects.equals(uri, ((NavigatorEObjectNode) obj).uri);
+		return obj instanceof EObjectURIWrapper && Objects.equals(uri, ((EObjectURIWrapper) obj).uri);
 	}
 }

@@ -16,6 +16,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlElementContentProvider implements ITreeContentProvider {
@@ -37,8 +38,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 			Resource resource = new ResourceSetImpl().getResource(uri, true);
 			children = resource.getContents().stream();
 		} else {
-			NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) parentElement;
-			EObject eObject = new ResourceSetImpl().getEObject(navigatorNode.getUri(), true);
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) parentElement;
+			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
 				children = eObject.eContents().stream();
@@ -52,13 +53,13 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 				children = Stream.empty();
 			}
 		}
-		return children.map(element -> new NavigatorEObjectNode(element)).toArray();
+		return children.map(element -> new EObjectURIWrapper(element)).toArray();
 	}
 
 	@Override
 	public Object getParent(Object element) {
-		if (element instanceof NavigatorEObjectNode) {
-			return new ResourceSetImpl().getEObject(((NavigatorEObjectNode) element).getUri(), true).eContainer();
+		if (element instanceof EObjectURIWrapper) {
+			return new ResourceSetImpl().getEObject(((EObjectURIWrapper) element).getUri(), true).eContainer();
 		} else {
 			return null;
 		}
@@ -69,8 +70,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 		if (element instanceof IFile || element instanceof ContributedAadlStorage) {
 			return true;
 		} else {
-			NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) element;
-			EObject eObject = new ResourceSetImpl().getEObject(navigatorNode.getUri(), true);
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) element;
+			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
 				return !eObject.eContents().isEmpty();

@@ -26,6 +26,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.UiUtil;
@@ -46,13 +47,13 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 
 	@Override
 	public Image getImage(Object object) {
-		if (object instanceof NavigatorEObjectNode) {
-			final NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) object;
+		if (object instanceof EObjectURIWrapper) {
+			final EObjectURIWrapper wrapper = (EObjectURIWrapper) object;
 			final ResourceSet resourceSet = new ResourceSetImpl();
-			final EObject eObject = resourceSet.getEObject(navigatorNode.getUri(), true);
+			final EObject eObject = resourceSet.getEObject(wrapper.getUri(), true);
 			int severity = -1;
 			try {
-				final IFile file = OsateResourceUtil.getOsateIFile(navigatorNode.getUri().trimFragment());
+				final IFile file = OsateResourceUtil.getOsateIFile(wrapper.getUri().trimFragment());
 				if (file.isAccessible()) {
 					final IMarker[] markers = file.findMarkers(null, true, IResource.DEPTH_INFINITE);
 					for (final IMarker marker : markers) {
@@ -96,9 +97,9 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 
 	@Override
 	public String getText(Object object) {
-		if (object instanceof NavigatorEObjectNode) {
-			NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) object;
-			EObject eObject = new ResourceSetImpl().getEObject(navigatorNode.getUri(), true);
+		if (object instanceof EObjectURIWrapper) {
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) object;
+			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
 			if (eObject instanceof PublicPackageSection) {
 				return "public";
 			} else if (eObject instanceof PrivatePackageSection) {
@@ -117,10 +118,10 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 
 	@Override
 	public String getDescription(Object element) {
-		if (element instanceof NavigatorEObjectNode) {
-			NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) element;
-			URI uri = navigatorNode.getUri();
-			StringBuilder description = new StringBuilder(getText(navigatorNode));
+		if (element instanceof EObjectURIWrapper) {
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) element;
+			URI uri = wrapper.getUri();
+			StringBuilder description = new StringBuilder(getText(wrapper));
 			description.append(" - ");
 			if (uri.isPlatformPlugin()) {
 				// contributed

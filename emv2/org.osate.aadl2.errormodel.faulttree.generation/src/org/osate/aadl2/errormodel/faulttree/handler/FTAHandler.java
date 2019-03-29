@@ -52,10 +52,10 @@ import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.ui.navigator.NavigatorEObjectNode;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -184,8 +184,8 @@ public final class FTAHandler extends AbstractHandler {
 				if (obj instanceof InstanceObject) {
 					return (InstanceObject) obj;
 				}
-				if (obj instanceof NavigatorEObjectNode) {
-					EObject eObject = new ResourceSetImpl().getEObject(((NavigatorEObjectNode) obj).getUri(), true);
+				if (obj instanceof EObjectURIWrapper) {
+					EObject eObject = new ResourceSetImpl().getEObject(((EObjectURIWrapper) obj).getUri(), true);
 					if (eObject instanceof InstanceObject) {
 						return (InstanceObject) eObject;
 					}
