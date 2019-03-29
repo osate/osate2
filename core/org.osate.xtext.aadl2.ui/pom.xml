@@ -1,15 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>osate2</artifactId>
-    <groupId>org.osate</groupId>
-    <version>2.4.1-SNAPSHOT</version>
-    <relativePath>../org.osate.build.main/pom.xml</relativePath>
-  </parent>
-  <groupId>org.osate</groupId>
-  <artifactId>org.osate.xtext.aadl2.ui</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>osate2</artifactId>
+		<groupId>org.osate</groupId>
+		<version>2.4.1-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
+	</parent>
+	<groupId>org.osate</groupId>
+	<artifactId>org.osate.xtext.aadl2.ui</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+
+	<profiles>
+		<profile>
+			<id>spotbugs</id>
+			<activation>
+				<property>
+					<name>spotbugs</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs-maven-plugin</artifactId>
+						<configuration>
+							<onlyAnalyze>
+								de.itemis.-,
+								org.osate.xtext.aadl2.ui.*,
+								org.osate.xtext.aadl2.ui.containers.*,
+								org.osate.xtext.aadl2.ui.contentassist.*,
+								org.osate.xtext.aadl2.ui.editor.-,
+								org.osate.xtext.aadl2.ui.handlers.*,
+								org.osate.xtext.aadl2.ui.highlighting.*,
+								org.osate.xtext.aadl2.ui.labeling.*,
+								org.osate.xtext.aadl2.ui.outline.*,
+								org.osate.xtext.aadl2.ui.propertyview.*,
+								org.osate.xtext.aadl2.ui.quickfix.*,
+								org.osate.xtext.aadl2.ui.refactoring.-,
+								org.osate.xtext.aadl2.ui.resource.*,
+								org.osate.xtext.aadl2.ui.syntax.*,
+								org.osate.xtext.aadl2.ui.util.*
+							</onlyAnalyze>
+							<xmlOutput>true</xmlOutput>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
