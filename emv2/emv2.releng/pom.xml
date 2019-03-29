@@ -13,4 +13,8 @@
 	<artifactId>emv2.parent</artifactId>
 	<packaging>pom</packaging>
 	<version>2.4.1-SNAPSHOT</version>
+
+	<properties>
+		<spotbugs.configdir>${project.parent.parent.basedir}/src/main/resources/spotbugs</spotbugs.configdir>
+	</properties>
 </project>
