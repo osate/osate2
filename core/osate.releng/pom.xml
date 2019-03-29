@@ -21,13 +21,7 @@
 		<module>../../emv2/emv2.releng/modules</module>
 		<module>../../alisa/alisa.releng/modules</module>
 		<module>../../ge/osate-ge.releng/modules</module>
-
-		<module>../../ba/org.osate.ba</module>
-		<module>../../ba/org.osate.ba.contrib</module>
-		<module>../../ba/org.osate.ba.feature</module>
-		<module>../../ba/org.osate.ba.edit</module>
-		<module>../../ba/org.osate.utils</module>
-		<module>../../ba/org.osate.utils.feature</module>
+		<module>../../ba/ba.releng/modules</module>
 	</modules>
 
 	<profiles>
