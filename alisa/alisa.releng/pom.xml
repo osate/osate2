@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>osate2</artifactId>
@@ -14,4 +15,7 @@
 	<version>2.4.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<properties>
+		<spotbugs.configdir>${project.parent.parent.basedir}/src/main/resources/spotbugs</spotbugs.configdir>
+	</properties>
 </project>
