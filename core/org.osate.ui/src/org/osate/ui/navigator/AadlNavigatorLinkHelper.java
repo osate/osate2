@@ -20,6 +20,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
@@ -63,8 +64,8 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			if (editor != null) {
 				page.bringToTop(editor);
 			}
-		} else if (selected instanceof NavigatorEObjectNode) {
-			NavigatorEObjectNode navigatorNode = (NavigatorEObjectNode) selected;
+		} else if (selected instanceof EObjectURIWrapper) {
+			EObjectURIWrapper navigatorNode = (EObjectURIWrapper) selected;
 			URI resourceURI = navigatorNode.getUri().trimFragment();
 			IEditorPart editor = null;
 			if (resourceURI.isPlatformResource()) {

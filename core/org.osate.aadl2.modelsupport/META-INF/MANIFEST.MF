@@ -8,7 +8,8 @@ Require-Bundle: org.osate.aadl2,
  org.osate.workspace;visibility:=reexport,
  org.apache.log4j,
  org.osate.core;visibility:=reexport,
- org.eclipse.xtext;bundle-version="2.0.1"
+ org.eclipse.xtext;bundle-version="2.0.1",
+ org.eclipse.core.expressions;bundle-version="3.6.200"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.errorreporting,

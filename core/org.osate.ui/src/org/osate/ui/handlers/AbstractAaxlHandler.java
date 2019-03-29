@@ -48,7 +48,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
@@ -71,7 +70,6 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.ui.navigator.NavigatorEObjectNode;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
@@ -157,24 +155,7 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		this.event = event;
 		Element root = null;
-		Object selectedObject = getCurrentSelection(event);
-		if (selectedObject instanceof NavigatorEObjectNode) {
-			/*
-			 * It would make sense to put this logic in AadlUtil.getElement(). However, doing so would introduce a
-			 * cyclic dependency between org.osate.aadl2.modelsupport and org.osate.ui.
-			 * 
-			 * One alternative is for NavigatorEObjectNode to implement IAdaptable and override getAdapter to return an
-			 * EObject. AadlUtil.getElement already checks if the object is an IAdaptable. The problem with this is when
-			 * getAdapter is called to determine selection enablement. In that case, the EObject would be loaded,
-			 * checked to see if it is the right type and not null, then thrown away.
-			 */
-			EObject eObject = new ResourceSetImpl().getEObject(((NavigatorEObjectNode) selectedObject).getUri(), true);
-			if (eObject instanceof Element) {
-				root = (Element) eObject;
-			}
-		} else {
-			root = AadlUtil.getElement(selectedObject);
-		}
+		root = AadlUtil.getElement(getCurrentSelection(event));
 		if (root != null) {
 			/*
 			 * Here we create the job, and then do two very important things:

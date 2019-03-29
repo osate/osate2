@@ -69,9 +69,9 @@
                                  value="org.osate.aadl2.instance.SystemInstance">
                            </instanceof>
                            <adapt
-                                 type="org.osate.ui.navigator.NavigatorEObjectNode">
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                               <test
-                                    property="org.osate.ui.navigatorNodeSuperType"
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
                                     value="SystemInstance"
                                     forcePluginActivation="true">
                               </test>
@@ -103,9 +103,9 @@
                                  value="org.osate.aadl2.instance.SystemInstance">
                            </instanceof>
                            <adapt
-                                 type="org.osate.ui.navigator.NavigatorEObjectNode">
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                               <test
-                                    property="org.osate.ui.navigatorNodeSuperType"
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
                                     value="SystemInstance"
                                     forcePluginActivation="true">
                               </test>
@@ -137,9 +137,9 @@
                                  value="org.osate.aadl2.instance.SystemInstance">
                            </instanceof>
                            <adapt
-                                 type="org.osate.ui.navigator.NavigatorEObjectNode">
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                               <test
-                                    property="org.osate.ui.navigatorNodeSuperType"
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
                                     value="SystemInstance"
                                     forcePluginActivation="true">
                               </test>

@@ -300,7 +300,7 @@
 			<enablement>
 			    <or>
 			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
-			        <instanceof value="org.osate.ui.navigator.NavigatorEObjectNode" />
+			        <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper" />
 			    </or>
          </enablement>
       </actionProvider>
@@ -433,7 +433,7 @@
           <or>
              <instanceof value="org.eclipse.core.resources.IFile"/>
              <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
-             <instanceof value="org.osate.ui.navigator.NavigatorEObjectNode"/>
+             <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper"/>
            </or>
           </selectionEnablement>
           <editorInputEnablement>
@@ -1227,14 +1227,6 @@
             namespace="org.osate.ui"
             properties="superType"
             type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-       </propertyTester>
-       
-       <propertyTester
-             id="org.osate.ui.NavigatorEObjectNodePropertyTester"
-             type="org.osate.ui.navigator.NavigatorEObjectNode"
-             namespace="org.osate.ui"
-             properties="navigatorNodeSuperType"
-             class="org.osate.ui.navigator.NavigatorEObjectNodePropertyTester">
        </propertyTester>
        
        <propertyTester
