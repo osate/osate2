@@ -7,19 +7,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 
 public final class LoadInstanceModel {
 	public static void main(String[] args) {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
-		Aadl2Package.eINSTANCE.eClass();
+//		Aadl2Package.eINSTANCE.eClass();
+		InstancePackage.eINSTANCE.eClass();
 
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(URI.createURI(args[0]), true);
 
 		try {
 			resource.load(null);
+			/* Inspect the resource set and see how many files there are */
 			for (final EObject eObj : resource.getContents()) {
 				System.out.println(eObj);
 			}
