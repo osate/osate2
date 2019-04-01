@@ -273,11 +273,4 @@ public class Services {
 	public static String getErrorTypeColumnHeader(EObject self) {
 		return ((ErrorType) self).getName();
 	}
-
-	private static boolean hasErr(ErrorType et, EObject lineSemantic) {
-		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
-		// It's hard because you have error models at different levels of the hierarchy, and
-		// so I don't think it's appropes to calculate that myself
-		return (new Random()).nextBoolean();
-	}
 }
