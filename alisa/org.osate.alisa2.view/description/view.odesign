@@ -6,21 +6,21 @@
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.graphviz.circo" label="Circo" description="Circular layout, after Six and Tollis '99, Kaufmann and Wiese '02. The algorithm finds biconnected components and arranges each component in a circle, trying to minimize the number of crossings inside the circle. This is suitable for certain diagrams of multiple cyclic structures such as certain telecommunications networks."/>
       <diagramInitialisation/>
       <defaultLayer name="Default">
-        <nodeMappings name="OneHopNeighbors" semanticCandidatesExpression="service:getOneHopNeighbors()" domainClass="instance.ComponentInstance">
+        <nodeMappings name="OneHopNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getOneHopNeighbors()" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="RootNode" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
+        <nodeMappings name="RootNode" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="ImmediateNeighbors" semanticCandidatesExpression="service:getAllNeighbors" domainClass="instance.ComponentInstance">
+        <nodeMappings name="ImmediateNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getAllNeighbors" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -66,7 +66,7 @@
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" documentation="Placeholder initial view until we iron out the SAFE2.0 process." endUserDocumentation="Placeholder initial view until we iron out the SAFE2.0 process." name="HackOverview" showOnStartup="true" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
-      <subItemMappings name="component" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='NewConnectedNeighbors']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eAllContents">
+      <subItemMappings name="component" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='NewConnectedNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='HackOverview']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eAllContents">
         <defaultStyle>
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -76,6 +76,11 @@
         <initialOperation/>
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="diagramName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="Table Creation NewTopLevelErrors" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']">
+        <initialOperation/>
+        <containerViewVariable name="containerView"/>
+        <representationNameVariable name="tableName"/>
       </ownedRepresentationCreationDescriptions>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" name="Fundamentals" domainClass="safe2.SystemOverview">
@@ -105,11 +110,12 @@
         </subItemMappings>
       </subItemMappings>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:EditionTableDescription" name="TopLevelErrors" domainClass="instance.ComponentInstance">
+    <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="TopLevelErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance"/>
-      <ownedColumnMappings name="ValueErrorCol" headerLabelExpression="ValErr" featureName="*" labelExpression="service:getErrStrForTbl(lineSemantic, column)"/>
+      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getErrorTypes()"/>
+      <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()"/>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
   </ownedViewpoints>

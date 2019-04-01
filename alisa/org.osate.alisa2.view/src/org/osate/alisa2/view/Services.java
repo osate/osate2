@@ -2,9 +2,7 @@ package org.osate.alisa2.view;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,13 +12,14 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
-import org.eclipse.sirius.table.metamodel.table.DColumn;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -37,23 +36,13 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  *  @author Sam
  */
 public class Services {
-
-	// Shamelessly adapted from https://stackoverflow.com/a/507658
-	private static final Map<String, ErrorType> colNameToErrorType;
-	static {
-		Map<String, ErrorType> tempMap = new HashMap<>();
-        tempMap.put("Value", );
-		colNameToErrorType = Collections.unmodifiableMap(tempMap);
-    }
-
-
-    /**
-    * See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24 for documentation on how to write service methods.
-    */
+	/**
+	* See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24 for documentation on how to write service methods.
+	*/
 	public static EObject myService(EObject self, String arg) {
-       // TODO Auto-generated code
-      return self;
-    }
+		// TODO Auto-generated code
+		return self;
+	}
 
 	/**
 	 * Get all the "Neighbors" of the specified component, where neighbor is defined as another
@@ -77,7 +66,7 @@ public class Services {
 	 */
 	public static Collection<EObject> getOneHopNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
-		for(EObject succ : getSuccessorNeighbors(self)) {
+		for (EObject succ : getSuccessorNeighbors(self)) {
 			ret.addAll(getSuccessorNeighbors(succ));
 		}
 		for (EObject pred : getPredecessorNeighbors(self)) {
@@ -224,14 +213,65 @@ public class Services {
 		return true;
 	}
 
-	public static String getErrStrForTbl(EObject self, EObject lineSemantic, DColumn column) {
+//	public static String getErrStrForTbl(EObject self, EObject lineSemantic, DColumn column) {
+//		ErrorType et = null;
+//		getDisjointSet((Element) self);
+//		if (hasErr(et, lineSemantic)) {
+//			return "*";
+//		} else {
+//			return " ";
+//		}
+//	}
+//
+//	private static void getDisjointSet(Element root) {
+//		ErrorTypeUnionFind etuf = new ErrorTypeUnionFind<ErrorType>(Collections.EMPTY_SET);
+//
+//		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
+//		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses(root.getOwner())) {
+//			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
+//				for (ErrorType currType : currLibrary.getTypes()) {
+//					etuf.addElement(currType);
+//				}
+//			}
+//		}
+//
+//		List<ErrorModelLibrary> libs = EMV2Util.getUseTypes(root.getOwner());
+//		libs = null;
+//	}
 
-		ErrorType et = null;
-		if (hasErr(et, lineSemantic)) {
-			return "*";
-		} else {
-			return " ";
+	public static Collection<EObject> getErrorTypes(EObject self) {
+		Set<EObject> ret = new HashSet<>();
+
+		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
+		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses((Element) self)) {
+			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
+				for (ErrorType currType : currLibrary.getTypes()) {
+					ret.add(getRootType(currType));
+				}
+			}
 		}
+		return ret;
+	}
+
+	public static Set<Object> getErrorTypesByConnection(EObject self) {
+		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
+		// It's hard because you have error models at different levels of the hierarchy, and
+		// so I don't think it's appropes to calculate that myself
+		return (new Random()).nextBoolean() ? Collections.emptySet()
+				: Collections
+						.singleton(getErrorTypes(self).toArray()[new Random().nextInt(getErrorTypes(self).size())]);
+	}
+
+	private static ErrorType getRootType(ErrorType err) {
+		ErrorType ret = err;
+		while (ret.getSuperType() != null) {
+			ret = ret.getSuperType();
+		}
+		return ret;
+	}
+
+	public static String getErrorTypeColumnHeader(EObject self) {
+		return ((ErrorType) self).getName();
 	}
 
 	private static boolean hasErr(ErrorType et, EObject lineSemantic) {
@@ -240,5 +280,4 @@ public class Services {
 		// so I don't think it's appropes to calculate that myself
 		return (new Random()).nextBoolean();
 	}
-
 }
