@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: StandaloneExperiments
+Bundle-SymbolicName: StandaloneExperiments
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: StandaloneExperiments.jar,
+ jars/org.eclipse.emf.common_2.15.0.v20180914-1817.jar,
+ jars/org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar,
+ jars/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar,
+ jars/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar
+Require-Bundle: org.osate.aadl2;bundle-version="1.0.0"
