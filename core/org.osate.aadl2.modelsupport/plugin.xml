@@ -93,4 +93,14 @@
       </factory>
 </extension>
 
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.osate.aadl2.modelsupport.internal.EObjectURIWrapperPropertyTester"
+            id="org.osate.aadl2.modelsupport.eObjectURIWrapperPropertyTester"
+            namespace="org.osate.aadl2.modelsupport"
+            properties="wrapperSuperType"
+            type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+      </propertyTester>
+   </extension>
 </plugin>
