@@ -72,6 +72,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
@@ -147,6 +148,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -1398,6 +1400,13 @@ public final class AadlUtil {
 				}
 			}
 			return null;
+		}
+		if (object instanceof EObjectURIWrapper) {
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) object;
+			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+			if (eObject instanceof Element) {
+				return (Element) eObject;
+			}
 		}
 		return null;
 	}

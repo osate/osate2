@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -33,6 +34,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -132,8 +134,8 @@ public class SelectionUtil {
 		} else if (selectedObject instanceof DiagramGroup) {
 			final DiagramGroup dg = (DiagramGroup) selectedObject;
 			if (dg.isContextReferenceValid()) {
-				final ReferenceService referenceService = (ReferenceService) PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getService(ReferenceService.class);
+				final ReferenceService referenceService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getService(ReferenceService.class);
 				if (referenceService == null) {
 					return null;
 				}
@@ -155,6 +157,19 @@ public class SelectionUtil {
 			}
 
 			final AadlPackage pkg = findPackage((Element) selectedObject);
+			if (pkg != null) {
+				return pkg;
+			}
+		} else if (selectedObject instanceof EObjectURIWrapper) {
+			final EObjectURIWrapper wrapper = (EObjectURIWrapper) selectedObject;
+			final EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+
+			final Classifier classifier = findClassifier(eObject);
+			if (classifier != null) {
+				return classifier;
+			}
+
+			final AadlPackage pkg = findPackage(eObject);
 			if (pkg != null) {
 				return pkg;
 			}
