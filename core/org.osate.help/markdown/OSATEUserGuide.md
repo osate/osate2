@@ -601,7 +601,7 @@ Below is an example of the view in action.  It is displaying the properties of t
 
 From the main menu, select `Window > Show View`.  If OSATE is currently in the `AADL perspective`, then you can select `AADL Property Values`.
 
-![Example Screenshot](images/OSATEUserGuide/Window_View_OSATEUserGuide.png)
+![Example Screenshot](images/OSATEUserGuide/Window_View_AADLPropertyValues.png)
 
 If you are not in the `AADL Perspective`, select `Other...` to bring up the `Show View` dialog box:
 
