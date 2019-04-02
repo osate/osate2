@@ -9,21 +9,21 @@ in the AADL Navigator. Working sets allow you to group related projects in the N
 examples of the AADL Navigator with many projects. The first shows the list of projects without using working sets and
 the second shows the same projects grouped by working set.
 
-![Without Working Sets](images/WithoutWorkingSets.png)
+![Without Working Sets](images/workingSets/WithoutWorkingSets.png)
 
-![With Working Sets](images/WithWorkingSets.png)
+![With Working Sets](images/workingSets/WithWorkingSets.png)
 
 ## Creating a Working Set
 
 To create a working set, start by opening the AADL Navigator's menu. This is accessed by clicking on the small downward
 pointing triangle icon in the top-right of the navigator. From the menu, click **Select Working Set...**
 
-![Navigator Menu](images/NavigatorMenu.png)
+![Navigator Menu](images/workingSets/NavigatorMenu.png)
 
 In the dialog that opened, click on the **New...** button. For the type of working set, select **Resource**, then click
 **Next >**.
 
-![New Working Set Wizard](images/NewWorkingSetWizard.png)
+![New Working Set Wizard](images/workingSets/NewWorkingSetWizard.png)
 
 Specify the name of the new working set and check the projects that it should contain. Note that a project can be
 contained in multiple working sets. Click **Finish** to create the working set. Once created, a working set can be
@@ -35,20 +35,20 @@ Once the working sets are created, the navigator can then be configured to displ
 configure the navigator to display working sets as the top level elements instead of projects. Open the AADL
 Navigator's menu and click **Top Level Elements** -> **Working Sets**.
 
-![Top Level Working Sets](images/TopLevelWorkingSets.png)
+![Top Level Working Sets](images/workingSets/TopLevelWorkingSets.png)
 
 Second, the working sets that should be displayed must be selected. Open the navigator's menu again and click
 **Select Working Set...** Use this dialog to check which working sets should be shown as top level elements in the
 navigator. Once you have made your selection, click **OK**.
 
-![Select Working Set](images/SelectWorkingSet.png)
+![Select Working Set](images/workingSets/SelectWorkingSet.png)
 
 It is also possible to show the contents of the selected working sets without showing the working set name itself. This
 can be useful if you want to focus on one working set and ignore all others. To do this, open the navigator's menu and
 click **Top Level Elements** -> **Projects**. Then open the **Select Working Set** dialog and select the working sets
 you want to display. Here is an example of the navigator showing the projects of only one working set:
 
-![One Working Set](images/OneWorkingSet.png)
+![One Working Set](images/workingSets/OneWorkingSet.png)
 
 If you want to return the navigator to showing all projects, simply open the navigator's menu and click
 **Deselect Working Set**.
@@ -61,7 +61,7 @@ working set definitions among every member of the team. To export your working s
 in the main menu. Select **General** -> **Working Sets** and click **Next >**. Check the working sets you want to
 export and select the file where this should be stored. Click **Finish** to export the working sets.
 
-![Export Working Sets](images/ExportWorkingSets.png)
+![Export Working Sets](images/workingSets/ExportWorkingSets.png)
 
 To import working sets, click on **File** -> **Import...** in the main menu. Select **General** -> **Working Sets** and
 click **Next >**. Select the file to import from and the working sets from that file to import. If
@@ -69,4 +69,4 @@ click **Next >**. Select the file to import from and the working sets from that 
 import, the working set will contain all projects that it previously contained and all projects from the import. If
 **Merge with existing working sets** is not selected, then the import skips any working sets that already exist.
 
-![Import Working Sets](images/ImportWorkingSets.png)
+![Import Working Sets](images/workingSets/ImportWorkingSets.png)

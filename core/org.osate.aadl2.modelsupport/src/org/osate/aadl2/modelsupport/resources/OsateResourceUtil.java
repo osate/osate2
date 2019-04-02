@@ -73,15 +73,17 @@ public final class OsateResourceUtil {
 		super();
 	}
 
-	private static boolean DEBUG = true;
 	public static boolean USES_GUI = true;
-	// private static Injector injector = OsateCorePlugin
-//            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
+
 	private static Injector injector;
 	private static IResourceSetProvider fResourceSetProvider;
 
 	private static XtextResourceSet resourceSet;
 
+	/**
+	 * @deprecated will be removed in 2.5.0
+	 */
+	@Deprecated
 	public static XtextResourceSet getResourceSet() {
 		if (OsateCorePlugin.getDefault() == null) {
 			return null;
@@ -111,10 +113,19 @@ public final class OsateResourceUtil {
 
 	}
 
+	/**
+	 * @deprecated will be removed in 2.5.0
+	 * @param rs
+	 */
+	@Deprecated
 	public static void setResourceSet(XtextResourceSet rs) {
 		resourceSet = rs;
 	}
 
+	/**
+	 * @deprecated will be removed in 2.5.0
+	 */
+	@Deprecated
 	public static XtextResourceSet createResourceSet() {
 		return getResourceSet();
 //    	if (injector==null) {
@@ -134,7 +145,7 @@ public final class OsateResourceUtil {
 	/**
 	 * method that creates an Xtext-based ResoruceSet (EMF resource set plus synchronization
 	 * It iwll not use the shared/global Osate resource set
-	 * @return
+	 * @deprecated will be removed in 2.5.0
 	 */
 	public static XtextResourceSet createXtextResourceSet() {
 		if (injector == null) {
@@ -159,7 +170,9 @@ public final class OsateResourceUtil {
 	/**
 	 * unload all aadl resources so they get reloaded for instantiation
 	 * @param rs Resource Set containing the instance model
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	@Deprecated
 	public static void refreshResourceSet(ResourceSet rset) {
 		EList<Resource> rlist = rset.getResources();
 		for (Resource resource : rlist) {
@@ -281,7 +294,9 @@ public final class OsateResourceUtil {
 	 *
 	 * @param uri Assumed to be an aaxl extension
 	 * @return Resource Aadl2ResourceImpl for aaxl
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	@Deprecated
 	public static Resource getEmptyAaxl2Resource(URI uri) {
 		if (uri == null) {
 			return null;
@@ -338,7 +353,9 @@ public final class OsateResourceUtil {
 	 *
 	 * @param uri Assumed to be an aaxl extension
 	 * @return Resource Aadl2ResourceImpl for aaxl
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	@Deprecated
 	public static void deleteAaxl2Resource(URI uri) {
 		if (uri == null) {
 			return;
@@ -361,6 +378,11 @@ public final class OsateResourceUtil {
 		}
 	}
 
+	/**
+	 * @deprecated will be removed in 2.5.0
+	 * @param res
+	 */
+	@Deprecated
 	public static void save(Resource res) {
 		try {
 			res.save(null);
@@ -372,7 +394,9 @@ public final class OsateResourceUtil {
 
 	/**
 	 * Save model as text and apply Formatter in the process
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	@Deprecated
 	public static void saveFormatted(Resource res) {
 		SaveOptions.Builder sb = SaveOptions.newBuilder();
 		sb = sb.format();
@@ -467,7 +491,11 @@ public final class OsateResourceUtil {
 	 * @param si
 	 *
 	 * @return URI for instance model file
+	 * 
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	// FIXME: Move to class InstantiateModel
+	@Deprecated
 	public static URI getInstanceModelURI(ComponentImplementation ci) {
 		Resource res = ci.eResource();
 		URI modeluri = res.getURI();
@@ -489,7 +517,10 @@ public final class OsateResourceUtil {
 	 * @param si
 	 *
 	 * @return URI for instance model file
+	 * 
+	 * @deprecated unused, will be removed in 2.5.0
 	 */
+	@Deprecated
 	public static URI getReportsURI(InstanceObject obj, String reporttype, String extension) {
 		Resource res = obj.eResource();
 		URI modeluri = res.getURI();

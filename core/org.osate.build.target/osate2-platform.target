@@ -11,6 +11,7 @@
       <unit id="org.eclipse.emf.transaction.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="0.0.0"/>
@@ -21,6 +22,7 @@
       <unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.help.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.m2e.logback.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.mylyn.context_feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.rcp.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.sdk.feature.group" version="0.0.0"/>

@@ -15,6 +15,9 @@
 	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
+		<anchor id="_tasks"/>
+		<anchor id="_projectDependencyVisualizationView"/>
+		<anchor id="_modelUnitDependencyVisualizationView"/>
 	</topic>
 	<topic label="Model Analyses">
     	<anchor id="_latency"/>
@@ -24,7 +27,7 @@
     	<topic href="html/plugins/index.html" label="Other Analyses">
     	</topic>
 	</topic>
-
+	
 	<topic href="html/std/section-1.html" label="AADL Reference Manual">
 		<topic href="html/std/section-2-1.html" label="Scope">
 			<topic href="html/std/section-2-2.html" label="Purpose/Extent" />

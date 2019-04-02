@@ -27,8 +27,9 @@
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
-		<fm-workbench.repo.url>http://osate-build.sei.cmu.edu/p2/fm-workbench/</fm-workbench.repo.url>
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
+		
+		<spotbugs.configdir>${project.parent.basedir}/src/main/resources/spotbugs</spotbugs.configdir>
 	</properties>
 
 	<!-- Begin metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
@@ -68,11 +69,6 @@
 				</property>
 			</activation>
 			<repositories>
-				<repository>
-					<id>fm-workbench.repo</id>
-					<url>${fm-workbench.repo.url}</url>
-					<layout>p2</layout>
-				</repository>
 				<repository>
 					<id>ocarina.repo</id>
 					<url>${ocarina.repo.url}</url>
@@ -268,6 +264,49 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>spotbugs</id>
+			<activation>
+				<property>
+					<name>spotbugs</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs-maven-plugin</artifactId>
+						<version>3.1.11</version>
+						<configuration>
+							<effort>Default</effort>
+							<threshold>Medium</threshold>
+							<maxRank>14</maxRank>
+							<maxHeap>2048</maxHeap>
+							<timeout>1200000</timeout>
+							<excludeFilterFile>${spotbugs.configdir}/exclude-filter.xml</excludeFilterFile>
+							<plugins>
+								<plugin>
+									<groupId>com.h3xstream.findsecbugs</groupId>
+									<artifactId>findsecbugs-plugin</artifactId>
+									<version>LATEST</version> <!-- Auto-update to the latest stable -->
+								</plugin>
+							</plugins>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>spotbugs</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 		<profile>
 			<id>sign</id>
 			<activation>
@@ -437,6 +476,17 @@
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -518,7 +568,27 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>3.1.11</version>
+				<configuration>
+					<effort>Default</effort>
+					<threshold>Low</threshold>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>LATEST</version> <!-- Auto-update to the latest stable -->
+						</plugin>
+					</plugins>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.context.core.bridges">
+      <structureBridge
+            class="org.osate.mylyn.aadl.ui.AadlStructureBridge"
+            name="AADL Structure Bridge"
+            parentContentType="resource" />
+   </extension>
+
+   <extension
+         point="org.eclipse.mylyn.context.ui.bridges">
+      <uiBridge
+            class="org.osate.mylyn.aadl.ui.AadlUiBridge"
+            contentType="AADL"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.mylyn.context.ui.startup">
+      <startup
+            class="org.osate.mylyn.aadl.ui.AadlBridgePlugin$Startup" />
+   </extension>
+
+	<extension
+         point="org.eclipse.ui.navigator.viewer">
+		<viewerContentBinding 
+            viewerId="org.eclipse.mylyn.context.ui.navigator.context">
+			<includes>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+    		</includes>
+		</viewerContentBinding>
+		<viewerContentBinding 
+			viewerId="org.eclipse.mylyn.context.ui.navigator.context.quick">
+			<includes>
+    			<contentExtension pattern="org.osate.ui.navigator.contributedAadl" />
+			    <contentExtension pattern="org.osate.ui.navigator.aadlProjectDependencies" />
+    			<contentExtension pattern="org.osate.ui.navigator.aadlFileContent" />
+			</includes>
+		</viewerContentBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.viewActions"> 
+	  <viewContribution 
+		id="org.osate.mylyn.aadl.ui.navigator.filter" 
+   		targetID="org.osate.ui.navigator.AadlNavigator">
+    	<action
+           class="org.osate.mylyn.aadl.ui.FocusAadlNavigatorAction"
+           disabledIcon="icons/focus-disabled.gif"
+           enablesFor="*"
+           icon="icons/focus.gif"
+           id="org.eclipse.mylyn.aadl.ui.actions.focus.aadlNavigator"
+           label="Focus on Active Task"
+           menubarPath="mylyn"
+           style="toggle"
+           toolbarPath="mylyn"
+           tooltip="Focus on Active Task (Alt+click to reveal filtered elements)">
+        <enablement>
+           <systemProperty
+                 name="org.eclipse.mylyn.context.core.context.active"
+                 value="true">
+           </systemProperty>
+        </enablement> 
+  		</action> 
+      </viewContribution> 
+   </extension>
+
+   <extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+           adaptable="false"
+           id="org.osate.mylyn.aadl.ui.RemoveFromContext"
+           objectClass="org.osate.aadl2.Element">
+        <action
+              class="org.eclipse.mylyn.internal.context.ui.actions.InterestDecrementAction"
+              definitionId="org.eclipse.mylyn.context.ui.commands.interest.decrement"
+              enablesFor="*"
+              icon="icons/interest-decrease.gif"
+              id="org.osate.mylyn.aadl.ui.remove.element"
+              label="Remove from Context"
+              menubarPath="group.reorganize"
+              tooltip="Mark selected element as uninteresting">
+           <enablement>
+              <systemProperty
+                    name="org.eclipse.mylyn.context.core.context.active"
+                    value="true">
+              </systemProperty>
+           </enablement>
+        </action>
+     </objectContribution>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_mylyn.xml"
+            primary="true">
+      </toc>
+   </extension>
+</plugin>

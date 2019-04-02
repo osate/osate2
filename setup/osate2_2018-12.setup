@@ -676,6 +676,10 @@
       <requirement
           name="org.eclipse.sdk"/>
       <requirement
+          name="org.eclipse.mylyn_feature.feature.group"/>
+      <requirement
+          name="org.eclipse.mylyn.context_feature.feature.group"/>
+      <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
@@ -737,6 +741,8 @@
           name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
       <requirement
           name="org.eclipse.ease.modules.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
       <requirement
           name="org.py4j.feature.feature.group"/>
       <requirement

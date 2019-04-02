@@ -240,7 +240,8 @@ class InstanceLinkingService extends DefaultLinkingService {
 							ComponentInstance:
 								container.featureInstances.filter[index == 0] + container.componentInstances.filter [
 									indices.empty
-								] + container.flowSpecifications + container.endToEndFlows + container.modeInstances
+								] + container.flowSpecifications + container.endToEndFlows + container.modeInstances +
+								container.modeTransitionInstances
 							default:
 								emptyList
 						} as Iterable<InstanceObject>).findFirst[name == segment]
