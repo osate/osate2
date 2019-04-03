@@ -3,4 +3,11 @@
 <plugin>
      <extension-point id="aadlcontribution" name="AADL Package / Property Set Contributor" schema="schema/aadlcontribution.exsd"/>
    	<extension-point id="registeredjavaclasses" name="Register Java Class" schema="schema/registeredjavaclasses.exsd"/>
+   	<extension
+   	      point="org.eclipse.help.toc">
+   	   <toc
+             file="toc_includedModelUnits.xml"
+             primary="true">
+   	   </toc>
+   	</extension>
 </plugin>
