@@ -86,7 +86,7 @@
 							<goal>rename</goal>
 						</goals>
 						<configuration>
-							<sourceFile>${project.build.directory}/org.osate.build.repository-2.4.1-SNAPSHOT.zip</sourceFile>
+							<sourceFile>${project.build.directory}/org.osate.build.repository-${project.version}.zip</sourceFile>
 							<destinationFile>${project.build.directory}/osate.repository-${unqualifiedVersion}.${buildQualifier}.zip</destinationFile>
 						</configuration>
 					</execution>
