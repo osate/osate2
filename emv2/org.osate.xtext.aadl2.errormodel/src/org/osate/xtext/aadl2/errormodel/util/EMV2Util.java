@@ -187,8 +187,7 @@ public class EMV2Util {
 			// we are not inside an EMV2 subclause
 			return null;
 		}
-		return Aadl2GlobalScopeUtil.get(emsc,
-				Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
+		return Aadl2GlobalScopeUtil.get(emsc, Aadl2Package.eINSTANCE.getComponentClassifier(), emsc.getQualifiedName());
 	}
 
 	/**
@@ -197,8 +196,8 @@ public class EMV2Util {
 	 * @return ErrorModelSubclause
 	 */
 	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
-		return Aadl2GlobalScopeUtil.get(cl,
-				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), cl.getQualifiedName());
+		return Aadl2GlobalScopeUtil.get(cl, ErrorModelPackage.eINSTANCE.getErrorModelSubclause(),
+				cl.getQualifiedName());
 	}
 
 	/**
@@ -2967,7 +2966,8 @@ public class EMV2Util {
 				if (fg.isInverse()) {
 					inverse = !inverse;
 				}
-				if (fgt != null && fgt.getInverse() != null) {
+				if (fgt != null && fgt.getInverse() != null
+						&& !fgt.getOwnedFeatures().contains(fref.getFeatureorPP())) {
 					inverse = !inverse;
 				}
 			}
