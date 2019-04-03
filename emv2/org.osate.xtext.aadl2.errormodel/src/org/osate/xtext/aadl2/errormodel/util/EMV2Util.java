@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -284,8 +283,7 @@ public class EMV2Util {
 		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
-			for (final Iterator i = el.iterator(); i.hasNext();) {
-				final Object obj = i.next();
+			for (final Object obj : el) {
 				if (obj instanceof NamedElement && !(obj instanceof ErrorPropagation)) {
 					final NamedElement lit = (NamedElement) obj;
 					String name = lit.getName();
@@ -2825,14 +2823,15 @@ public class EMV2Util {
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
+	@SuppressWarnings("unchecked")
 	public static EList<ComponentInstance> getComponentInstancesWithEMV2Subclause(ComponentInstance ci) {
-		EList result = new ForAllElement() {
+		EList<?> result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance && (EMV2Util.hasEMV2Subclause((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
-		return result;
+		return (EList<ComponentInstance>) result;
 	}
 
 	/**
@@ -2840,14 +2839,15 @@ public class EMV2Util {
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
+	@SuppressWarnings("unchecked")
 	public static EList<ComponentInstance> getComponentInstancesWithErrorPropagations(ComponentInstance ci) {
-		EList result = new ForAllElement() {
+		EList<?> result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance && (EMV2Util.hasErrorPropagations((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
-		return result;
+		return (EList<ComponentInstance>) result;
 	}
 
 	/**
@@ -2855,15 +2855,16 @@ public class EMV2Util {
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
+	@SuppressWarnings("unchecked")
 	public static EList<ComponentInstance> getComponentInstancesWithComponentErrorBehaviorStates(ComponentInstance ci) {
-		EList result = new ForAllElement() {
+		EList<?> result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance
 						&& (EMV2Util.hasComponentErrorBehaviorStates((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
-		return result;
+		return (EList<ComponentInstance>) result;
 	}
 
 	/**
@@ -2871,16 +2872,17 @@ public class EMV2Util {
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
+	@SuppressWarnings("unchecked")
 	public static EList<ComponentInstance> getComponentInstancesWithComponentErrorBehaviorTransitions(
 			ComponentInstance ci) {
-		EList result = new ForAllElement() {
+		EList<?> result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance
 						&& (EMV2Util.hasComponentErrorBehaviorTransitions((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
-		return result;
+		return (EList<ComponentInstance>) result;
 	}
 
 	/**
@@ -2888,15 +2890,16 @@ public class EMV2Util {
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
+	@SuppressWarnings("unchecked")
 	public static EList<ComponentInstance> getComponentInstancesWithCompositeErrorBehavior(ComponentInstance ci) {
-		EList result = new ForAllElement() {
+		EList<?> result = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance
 						&& (EMV2Util.hasCompositeErrorBehavior((ComponentInstance) obj)));
 			}
 		}.processPreOrderComponentInstance(ci);
-		return result;
+		return (EList<ComponentInstance>) result;
 	}
 
 	/**
