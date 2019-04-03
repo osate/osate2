@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -272,5 +273,24 @@ public class Services {
 
 	public static String getErrorTypeColumnHeader(EObject self) {
 		return ((ErrorType) self).getName();
+	}
+
+	public static Collection<EObject> getInFeatures(EObject self) {
+		return ((ComponentInstance) self).getFeatureInstances().stream()
+				.filter(f -> f.getDirection() == DirectionType.IN).collect(Collectors.toSet());
+	}
+
+	public static Collection<EObject> getOutFeatures(EObject self) {
+		return ((ComponentInstance) self).getFeatureInstances().stream()
+				.filter(f -> f.getDirection() == DirectionType.OUT).collect(Collectors.toSet());
+	}
+
+	public static Collection<EObject> getInOutFeatures(EObject self) {
+		return ((ComponentInstance) self).getFeatureInstances().stream()
+				.filter(f -> f.getDirection() == DirectionType.IN_OUT).collect(Collectors.toSet());
+	}
+
+	public static Collection<EObject> debug(EObject self) {
+		return null;
 	}
 }

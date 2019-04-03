@@ -129,6 +129,83 @@
       <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getErrorTypes()"/>
       <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()"/>
     </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ProcessModel" domainClass="instance.ComponentInstance" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
+      <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.layered" label="ELK Layered" description="Layer-based algorithm provided by the Eclipse Layout Kernel. Arranges as many edges as possible into one direction by placing nodes into subsequent layers. This implementation supports different routing styles (straight, orthogonal, splines); if orthogonal routing is selected, arbitrary port constraints are respected, thus enabling the layout of block diagrams such as actor-oriented models or circuit schematics. Furthermore, full layout of compound graphs with cross-hierarchy edges is supported when the respective option is activated on the top level."/>
+      <diagramInitialisation/>
+      <defaultLayer name="Default">
+        <edgeMappings name="ErrTransitions" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="TheComponent" semanticCandidatesExpression="var:self" domainClass="instance.ComponentInstance">
+          <borderedNodeMappings name="InFeatures" semanticCandidatesExpression="service:getInFeatures()" domainClass="instance.FeatureInstance">
+            <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="10" height="3">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <forbiddenSides>SOUTH</forbiddenSides>
+              <forbiddenSides>EAST</forbiddenSides>
+              <forbiddenSides>NORTH</forbiddenSides>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </borderedNodeMappings>
+          <borderedNodeMappings name="OutFeatures" semanticCandidatesExpression="service:getOutFeatures()" domainClass="instance.FeatureInstance">
+            <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="10" height="3">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <forbiddenSides>WEST</forbiddenSides>
+              <forbiddenSides>SOUTH</forbiddenSides>
+              <forbiddenSides>NORTH</forbiddenSides>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </borderedNodeMappings>
+          <borderedNodeMappings name="InOutFeatures" semanticCandidatesExpression="service:getInOutFeatures()" domainClass="instance.FeatureInstance">
+            <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="3" height="10">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <forbiddenSides>WEST</forbiddenSides>
+              <forbiddenSides>EAST</forbiddenSides>
+              <forbiddenSides>NORTH</forbiddenSides>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </borderedNodeMappings>
+          <subContainerMappings name="ErrStateMachine" domainClass="errorModel.ErrorBehaviorStateMachine">
+            <subNodeMappings name="ErrState" semanticCandidatesExpression="feature:states" domainClass="errorModel.ErrorBehaviorState">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="10" height="3">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+              </style>
+            </subNodeMappings>
+            <subNodeMappings name="ErrEvent" domainClass="errorModel.ErrorBehaviorEvent">
+              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
+              </style>
+            </subNodeMappings>
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>bold</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+    </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
   </ownedViewpoints>
 </description:Group>
