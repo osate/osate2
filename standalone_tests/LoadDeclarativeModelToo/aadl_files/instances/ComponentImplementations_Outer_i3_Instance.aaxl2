@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="Outer_i3_Instance" category="system">
+  <featureInstance name="f1" category="eventPort">
+    <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedEventPort.0"/>
+  </featureInstance>
+  <featureInstance name="f2" category="eventPort" direction="out">
+    <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedEventPort.1"/>
+  </featureInstance>
+  <componentInstance name="sub1" category="system">
+    <featureInstance name="incoming" category="eventPort">
+      <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedEventPort.0"/>
+    </featureInstance>
+    <featureInstance name="outgoing" category="eventPort" direction="out">
+      <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedEventPort.1"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedSystemSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemType" href="../ComponentImplementations.aadl#ComponentImplementations.Inner"/>
+  </componentInstance>
+  <componentInstance name="sub2" category="system">
+    <featureInstance name="incoming" category="eventPort">
+      <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedEventPort.0"/>
+    </featureInstance>
+    <featureInstance name="outgoing" category="eventPort" direction="out">
+      <feature xsi:type="aadl2:EventPort" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedEventPort.1"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.11/@ownedSystemSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemType" href="../ComponentImplementations.aadl#ComponentImplementations.Inner"/>
+  </componentInstance>
+  <connectionInstance name="f1 -> sub1.incoming" kind="portConnection" destination="//@componentInstance.0/@featureInstance.0" source="//@featureInstance.0">
+    <connectionReference context="/" source="//@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFeatureConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="f1 -> sub2.incoming" kind="portConnection" destination="//@componentInstance.1/@featureInstance.0" source="//@featureInstance.0">
+    <connectionReference context="/" source="//@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.11/@ownedFeatureConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="sub1.outgoing -> f2" kind="portConnection" destination="//@featureInstance.1" source="//@componentInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.1" destination="//@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureConnection" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedFeatureConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="sub2.outgoing -> f2" kind="portConnection" destination="//@featureInstance.1" source="//@componentInstance.1/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1" destination="//@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureConnection" href="../ComponentImplementations.aadl#/0/@ownedPublicSection/@ownedClassifier.11/@ownedFeatureConnection.1"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../ComponentImplementations.aadl#ComponentImplementations.Outer.i3"/>
+</instance:SystemInstance>
