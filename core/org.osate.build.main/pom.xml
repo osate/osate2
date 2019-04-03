@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2</artifactId>
-	<version>2.4.1-SNAPSHOT</version>
+	<version>2.4.1.vfinal</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -15,7 +15,7 @@
 		<xtext.version>2.16.0</xtext.version>
 		<xsemantics.version>1.16.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<osate.version>2.4.1-SNAPSHOT</osate.version>
+		<osate.version>2.4.1.vfinal</osate.version>
 
 		<jacoco.version>0.8.2</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>

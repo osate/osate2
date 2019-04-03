@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>alisa.parent</artifactId>
-		<version>2.4.1-SNAPSHOT</version>
+		<version>2.4.1.vfinal</version>
 		<relativePath>../alisa.releng/pom.xml</relativePath>
 	</parent>
 	<groupId>org.osate</groupId>
