@@ -21,7 +21,6 @@ public final class LoadInstanceModel {
 
 		try {
 			resource.load(null);
-			/* Inspect the resource set and see how many files there are */
 			for (final EObject eObj : resource.getContents()) {
 				System.out.println(eObj);
 			}

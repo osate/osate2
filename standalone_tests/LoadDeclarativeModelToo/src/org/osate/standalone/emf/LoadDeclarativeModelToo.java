@@ -6,8 +6,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.osate.aadl2.instance.InstancePackage;
-import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 
 import com.google.inject.Injector;
@@ -16,8 +14,8 @@ public final class LoadDeclarativeModelToo {
 	public static void main(String[] args) {
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
-		InstancePackage.eINSTANCE.eClass();
+//		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
+//		InstancePackage.eINSTANCE.eClass();
 
 //		final ResourceSet rs = new ResourceSetImpl();
 		XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
@@ -30,7 +28,6 @@ public final class LoadDeclarativeModelToo {
 		for (int i = 0; i < resources.length; i++) {
 			try {
 				resources[i].load(null);
-				/* Inspect the resource set and see how many files there are */
 				for (final EObject eObj : resources[i].getContents()) {
 					System.out.println(eObj);
 				}
