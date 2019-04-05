@@ -12,13 +12,20 @@ import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 
 import com.google.inject.Injector;
 
-public final class LoadDeclarativeModelToo {
+public final class LoadInstanceAndDeclarative {
 	public static void main(String[] args) {
+		// Init AADL2 model
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
+
+		// Init Instance model -- need both these lines
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
+		InstancePackage.eINSTANCE.eClass();
 
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
 		final Resource[] resources = new Resource[args.length];
@@ -39,11 +46,13 @@ public final class LoadDeclarativeModelToo {
 
 		for (int i = 0; i < resources.length; i++) {
 			// Validation
-			IResourceValidator validator = ((XtextResource) resources[i]).getResourceServiceProvider()
-					.getResourceValidator();
-			List<Issue> issues = validator.validate(resources[i], CheckMode.ALL, CancelIndicator.NullImpl);
-			for (Issue issue : issues) {
-				System.out.println(issue.getMessage());
+			if (resources[i] instanceof XtextResource) {
+				IResourceValidator validator = ((XtextResource) resources[i]).getResourceServiceProvider()
+						.getResourceValidator();
+				List<Issue> issues = validator.validate(resources[i], CheckMode.ALL, CancelIndicator.NullImpl);
+				for (Issue issue : issues) {
+					System.out.println(issue.getMessage());
+				}
 			}
 		}
 	}
