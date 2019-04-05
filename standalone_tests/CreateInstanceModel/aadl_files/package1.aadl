@@ -1,0 +1,7 @@
+package package1
+public
+	system s1
+		features
+			f1: in event port;
+	end s1;
+end package1;
