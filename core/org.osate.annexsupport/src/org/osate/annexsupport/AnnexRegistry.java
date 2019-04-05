@@ -119,27 +119,43 @@ public abstract class AnnexRegistry {
 	}
 
 	protected void initialize(String extensionId) {
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
-		IExtension[] exts = extensionPoint.getExtensions();
-
 		extensions = new HashMap();
-		for (int i = 0; i < exts.length; i++) {
-			IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-			for (int j = 0; j < configElems.length; j++) {
-				String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
-				String annexNSURI = configElems[j].getAttribute(ATT_ANNEXNSURI);
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 
-				if (extensions.get(annexName) != null) {
-					AnnexPlugin.logError("Duplicate extension: " + extensionId + ", annex " + annexName, null);
-				} else {
-					ParseUtil.setAnnexNS(annexName, annexNSURI);
+		/* If the system is running outside of Eclipse we wont' have an extension registry */
+		if (extensionRegistry != null) {
+			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
+			IExtension[] exts = extensionPoint.getExtensions();
 
-					extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
+			for (int i = 0; i < exts.length; i++) {
+				IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+
+				for (int j = 0; j < configElems.length; j++) {
+					String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
+					String annexNSURI = configElems[j].getAttribute(ATT_ANNEXNSURI);
+
+					if (extensions.get(annexName) != null) {
+						AnnexPlugin.logError("Duplicate extension: " + extensionId + ", annex " + annexName, null);
+					} else {
+						ParseUtil.setAnnexNS(annexName, annexNSURI);
+
+						extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
+					}
 				}
 			}
+		} else {
+			/* Running outside of eclipse, just use the default support */
+			final Object defaultHandler = getDefault();
+			if (defaultHandler != null) {
+				extensions.put("*", defaultHandler);
+			}
 		}
+	}
+
+	protected Object getDefault() {
+		// By default, there is no default thing to do
+		return null;
 	}
 
 	/**
