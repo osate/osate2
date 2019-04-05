@@ -16,7 +16,7 @@ import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 
 import com.google.inject.Injector;
 
-public final class LoadDeclarativeModelToo {
+public final class LoadDeclarativeModel {
 	public static void main(String[] args) {
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
