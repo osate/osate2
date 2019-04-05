@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LoadDeclarativeModelToo
-Bundle-SymbolicName: LoadDeclarativeModelToo
+Bundle-SymbolicName: LoadDeclarativeModel
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: LoadDeclarativeModelToo
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
