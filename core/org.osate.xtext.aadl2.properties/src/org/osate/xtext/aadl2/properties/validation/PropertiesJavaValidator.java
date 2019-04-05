@@ -40,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.OptionalLong;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -61,6 +62,7 @@ import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
@@ -160,7 +162,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkModalAppliesTo(pa);
 		checkContainedProperties(pa);
 		checkForAppendsInContainedPropertyAssociation(pa);
-		checkPropertyAssociationAppliesToArrayIndex(pa);
 	}
 
 	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
@@ -192,64 +193,75 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkDuplicateFieldAssignment(recordValue);
 	}
 
-	// checking methods
-	public void checkPropertyAssociationAppliesToArrayIndex(PropertyAssociation propertyAssociation) {
-		List<ContainedNamedElement> appliesTos = propertyAssociation.getAppliesTos();
-		if (null == appliesTos || appliesTos.isEmpty()) {
+	@Check(CheckType.FAST)
+	public void checkArrayReference(ContainmentPathElement pathElement) {
+		NamedElement element = pathElement.getNamedElement();
+		List<ArrayRange> providedRanges = pathElement.getArrayRanges();
+		if (element.eIsProxy() || providedRanges.isEmpty()) {
+			// Only validate if the name is resolvable and there really are array indicies.
 			return;
 		}
-		for (ContainedNamedElement appliesTo : appliesTos) {
-			List<ContainmentPathElement> cpes = appliesTo.getContainmentPathElements();
-			for (ContainmentPathElement cpe : cpes) {
-
-				NamedElement ne = cpe.getNamedElement();
-				if (!(ne instanceof ArrayableElement)) {
-					continue;
-				}
-
-				List<ArrayDimension> dimensions = ((ArrayableElement) ne).getArrayDimensions();
-				List<ArrayRange> ranges = cpe.getArrayRanges();
-				if (ranges.size() > dimensions.size()) {
-					error(cpe, "Applies to property array has more dimensions than defined type.");
-					continue;
-				}
-
-				for (int i = 0; i < ranges.size(); i++) {
-					ArrayRange range = ranges.get(i);
-					long rangeUpperbound = range.getUpperBound();
-					long rangeLowerbound = range.getLowerBound();
-					ArrayDimension dimension = dimensions.get(i);
-					long dimensionSize = -1;
-					if (dimension != null && dimension.getSize() != null) {
-						if (dimension.getSize().getSizeProperty() != null
-								&& dimension.getSize().getSizeProperty() instanceof PropertyConstant) {
-							PropertyConstant propertyConstant = (PropertyConstant) dimension.getSize()
-									.getSizeProperty();
-							if (propertyConstant.getConstantValue() instanceof IntegerLiteral) {
-								dimensionSize = ((IntegerLiteral) propertyConstant.getConstantValue()).getValue();
+		String name = element.getName();
+		if (element instanceof ArrayableElement) {
+			List<ArrayDimension> requiredDimensions = ((ArrayableElement) element).getArrayDimensions();
+			if (requiredDimensions.isEmpty()) {
+				error(providedRanges.get(0), "'" + name + "' is not an array");
+			} else if (providedRanges.size() < requiredDimensions.size()) {
+				error(providedRanges.get(providedRanges.size() - 1),
+						"Too few array dimensions: '" + name + "' has " + requiredDimensions.size());
+			} else if (providedRanges.size() > requiredDimensions.size()) {
+				error(providedRanges.get(requiredDimensions.size()),
+						"Too many array dimensions: '" + name + "' has " + requiredDimensions.size());
+			} else {
+				for (int i = 0; i < providedRanges.size(); i++) {
+					ArrayRange providedRange = providedRanges.get(i);
+					if (providedRange.getLowerBound() == 0) {
+						// TODO ARRAY_LOWER_BOUND_IS_ZERO
+						error("Array indicies start at 1", providedRange,
+								Aadl2Package.eINSTANCE.getArrayRange_LowerBound());
+					}
+					// If the upper is zero, then we have an index. Otherwise, we have a range.
+					if (providedRange.getUpperBound() != 0
+							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
+						// TODO ARRAY_RANGE_UPPER_LESS_THAN_LOWER
+						error(providedRange, "Range lower bound is greater than upper bound");
+					}
+					ArrayDimension requiredDimension = requiredDimensions.get(i);
+					if (requiredDimension.getSize() != null) {
+						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
+						OptionalLong size = OptionalLong.empty();
+						/*
+						 * If the size property is null, then an integer literal was specified for the size.
+						 * If the size property is not null, but is a proxy, then the property could not be resolved.
+						 */
+						if (sizeProperty == null) {
+							size = OptionalLong.of(requiredDimension.getSize().getSize());
+						} else if (!sizeProperty.eIsProxy()) {
+							PropertyExpression constantValue = ((PropertyConstant) sizeProperty).getConstantValue();
+							if (constantValue instanceof IntegerLiteral) {
+								size = OptionalLong.of(((IntegerLiteral) constantValue).getValue());
 							}
-						} else {
-							dimensionSize = dimension.getSize().getSize();
 						}
-					}
-
-					if (rangeUpperbound != 0 && rangeUpperbound < rangeLowerbound) {
-						error("Range lower bound is greater than upper bound.", range, null,
-								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
-					}
-					if (rangeLowerbound == 0) {
-						error("0 is out of bounds. Array indices start with 1.", range, null,
-								ARRAY_LOWER_BOUND_IS_ZERO);
-					} else if (rangeUpperbound == 0 && dimensionSize > 0 && rangeLowerbound > dimensionSize) {
-						error(range, "Array index is greater than allowed in type definition.");
-						error("Array index is greater than allowed in type definition.", range, null,
-								ARRAY_INDEX_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
-					} else if (dimensionSize > 0 && rangeUpperbound > dimensionSize) {
-						error("Array range is greater than allowed in type definition.", range, null,
-								ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
+						size.ifPresent(requiredSize -> {
+							// If the upper is zero, then we have an index. Otherwise, we have a range.
+							if (providedRange.getUpperBound() == 0) {
+								long index = providedRange.getLowerBound();
+								if (index > requiredSize) {
+									// TODO ARRAY_INDEX_GREATER_THAN_MAXIMUM
+									error("Index is greater than array size " + requiredSize, providedRange,
+											Aadl2Package.eINSTANCE.getArrayRange_LowerBound());
+								}
+							} else if (providedRange.getUpperBound() > requiredSize) {
+								// TODO ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM
+								error("Upper bound is greater than array size " + requiredSize, providedRange,
+										Aadl2Package.eINSTANCE.getArrayRange_UpperBound());
+							}
+						});
 					}
 				}
 			}
+		} else {
+			error(providedRanges.get(0), "'" + name + "' is not an array");
 		}
 	}
 
@@ -655,7 +667,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		Property property = assoc.getProperty();
 		if (!property.eIsProxy()) {
 			EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
-	
+
 			if (appliesTos == null || appliesTos.isEmpty()) {
 				NamedElement holder = (NamedElement) assoc.getOwner();
 				if (holder.acceptsProperty(property)) {
