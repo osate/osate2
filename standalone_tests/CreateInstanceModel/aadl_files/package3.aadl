@@ -1,0 +1,15 @@
+package package3
+public
+with package2;
+	System s3
+		features
+			f3: in event port;
+	end s3;
+	
+	system implementation s3.i
+		subcomponents
+			sub3: system package2::s2.i;
+		connections
+			c3: feature f3 -> sub3.f2;
+	end s3.i;
+end package3;
