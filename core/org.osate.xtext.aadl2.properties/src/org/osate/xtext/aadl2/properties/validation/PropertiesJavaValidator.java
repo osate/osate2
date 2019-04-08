@@ -216,15 +216,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				for (int i = 0; i < providedRanges.size(); i++) {
 					ArrayRange providedRange = providedRanges.get(i);
 					if (providedRange.getLowerBound() == 0) {
-						// TODO ARRAY_LOWER_BOUND_IS_ZERO
 						error("Array indicies start at 1", providedRange,
-								Aadl2Package.eINSTANCE.getArrayRange_LowerBound());
+								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
 					if (providedRange.getUpperBound() != 0
 							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
-						// TODO ARRAY_RANGE_UPPER_LESS_THAN_LOWER
-						error(providedRange, "Range lower bound is greater than upper bound");
+						error("Range lower bound is greater than upper bound", providedRange, null,
+								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
 					}
 					ArrayDimension requiredDimension = requiredDimensions.get(i);
 					if (requiredDimension.getSize() != null) {
@@ -247,14 +246,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 							if (providedRange.getUpperBound() == 0) {
 								long index = providedRange.getLowerBound();
 								if (index > requiredSize) {
-									// TODO ARRAY_INDEX_GREATER_THAN_MAXIMUM
 									error("Index is greater than array size " + requiredSize, providedRange,
-											Aadl2Package.eINSTANCE.getArrayRange_LowerBound());
+											Aadl2Package.eINSTANCE.getArrayRange_LowerBound(),
+											ARRAY_INDEX_GREATER_THAN_MAXIMUM, Long.toString(requiredSize));
 								}
 							} else if (providedRange.getUpperBound() > requiredSize) {
-								// TODO ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM
 								error("Upper bound is greater than array size " + requiredSize, providedRange,
-										Aadl2Package.eINSTANCE.getArrayRange_UpperBound());
+										Aadl2Package.eINSTANCE.getArrayRange_UpperBound(),
+										ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM, Long.toString(requiredSize));
 							}
 						});
 					}
