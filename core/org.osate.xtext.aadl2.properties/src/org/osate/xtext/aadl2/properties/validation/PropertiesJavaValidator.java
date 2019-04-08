@@ -216,7 +216,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				for (int i = 0; i < providedRanges.size(); i++) {
 					ArrayRange providedRange = providedRanges.get(i);
 					if (providedRange.getLowerBound() == 0) {
-						error("Array indicies start at 1", providedRange,
+						error("Array indices start at 1", providedRange,
 								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
