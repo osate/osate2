@@ -196,8 +196,11 @@ public class Services {
 	}
 
 	/**
-	 * Returns true if this is the first connection between the components. Used to prevent double-creating
+	 * Returns true if this is the first connection between two components. Used to prevent double-creating
 	 * edges between one-hop neighbors when those neighbors "close the loop" ie, are connected to each other.
+	 *
+	 * Note that this checks both directions -- ie, if the target is already connected to the source, this
+	 * will block a connection from the source to the target.
 	 *
 	 * @param self Required by the Sirius infrastructure, but ignored.
 	 * @param source The source node in the diagram
@@ -206,7 +209,8 @@ public class Services {
 	 */
 	public static boolean isFirstConnection(EObject self, DSemanticDecorator source, DSemanticDecorator target) {
 		EdgeTarget eTarget = (EdgeTarget) target; // Explicit cast to avoid nuisance 'unlikely argument type' marker
-		for (DEdge edge : ((EdgeTarget) source).getIncomingEdges()) {
+		EdgeTarget eSource = (EdgeTarget) source; // Explicit cast to avoid nuisance 'unlikely argument type' marker
+		for (DEdge edge : eSource.getIncomingEdges()) {
 			if ((edge.getSourceNode()).equals(eTarget)) {
 				return false;
 			}

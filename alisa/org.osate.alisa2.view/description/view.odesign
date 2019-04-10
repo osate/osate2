@@ -135,7 +135,7 @@
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.layered" label="ELK Layered" description="Layer-based algorithm provided by the Eclipse Layout Kernel. Arranges as many edges as possible into one direction by placing nodes into subsequent layers. This implementation supports different routing styles (straight, orthogonal, splines); if orthogonal routing is selected, arbitrary port constraints are respected, thus enabling the layout of block diagrams such as actor-oriented models or circuit schematics. Furthermore, full layout of compound graphs with cross-hierarchy edges is supported when the respective option is activated on the top level."/>
       <diagramInitialisation/>
       <defaultLayer name="Default">
-        <edgeMappings name="ErrTransitions" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
+        <edgeMappings name="ErrTransitions" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -180,13 +180,6 @@
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
-              </style>
-            </subNodeMappings>
-            <subNodeMappings name="ErrEvent" domainClass="errorModel.ErrorBehaviorEvent">
-              <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
-                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-                <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_gray']"/>
               </style>
             </subNodeMappings>
             <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="12">
