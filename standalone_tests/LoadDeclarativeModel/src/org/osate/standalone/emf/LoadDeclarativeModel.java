@@ -3,6 +3,7 @@ package org.osate.standalone.emf;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,25 +27,36 @@ public final class LoadDeclarativeModel {
 			resources[i] = rs.getResource(URI.createURI(args[i]), true);
 		}
 
-		for (int i = 0; i < resources.length; i++) {
+		System.out.println("Loading...");
+		for (final Resource resource : resources) {
 			try {
-				resources[i].load(null);
-				for (final EObject eObj : resources[i].getContents()) {
-					System.out.println(eObj);
-				}
+				resource.load(null);
 			} catch (final IOException e) {
 				System.err.println("ERROR LOADING RESOURCE: " + e.getMessage());
 			}
 		}
 
-		for (int i = 0; i < resources.length; i++) {
+		System.out.println();
+		System.out.println("Validating...");
+		for (final Resource resource : resources) {
 			// Validation
-			IResourceValidator validator = ((XtextResource) resources[i]).getResourceServiceProvider()
+			IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider()
 					.getResourceValidator();
-			List<Issue> issues = validator.validate(resources[i], CheckMode.ALL, CancelIndicator.NullImpl);
+			List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
 			for (Issue issue : issues) {
 				System.out.println(issue.getMessage());
 			}
+		}
+
+		System.out.println();
+		System.out.println("Traversing...");
+		for (final Resource resource : resources) {
+			System.out.println("*** " + resource.getURI().toString() + " ***");
+			final TreeIterator<EObject> treeIter = resource.getAllContents();
+			while (treeIter.hasNext()) {
+				System.out.println(treeIter.next());
+			}
+			System.out.println("-- -- -- -- -- -- -- --");
 		}
 	}
 }
