@@ -47,6 +47,7 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain
 import org.eclipse.emf.edit.domain.EditingDomain
@@ -126,6 +127,7 @@ import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.PropertyAssociationInstance
+import org.osate.aadl2.modelsupport.EObjectURIWrapper
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
@@ -194,11 +196,6 @@ class AadlPropertyView extends ViewPart {
 	var Action createLocalContainedAssociationAction = null
 
 	var package nextEditIsLocalContainedCreation = false
-
-	/**
-	 * Action for Collapse All.
-	 */
-	var Action collapseAllAction;
 
 	var Action showOnlyImportedPropertiesAction;
 	/**
@@ -492,7 +489,7 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private createActions() {
-		collapseAllAction = new Action("Collapse All") {
+		new Action("Collapse All") {
 			override run() {
 				treeViewer.collapseAll()
 			}
@@ -940,6 +937,10 @@ class AadlPropertyView extends ViewPart {
 					EObjectNode: {
 						xtextDocument = selectedObject.document
 						selectedObject.readOnly[it]
+					}
+					EObjectURIWrapper: {
+						xtextDocument = null
+						new ResourceSetImpl().getEObject(selectedObject.uri, true)
 					}
 					default: {
 						val propertySource = Adapters.adapt(selectedObject, IAadlPropertySource) ?:

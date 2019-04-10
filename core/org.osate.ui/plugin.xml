@@ -300,9 +300,7 @@
 			<enablement>
 			    <or>
 			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
-			        <and>
-						<instanceof value="org.osate.aadl2.Element" />
-			        </and>
+			        <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper" />
 			    </or>
          </enablement>
       </actionProvider>
@@ -435,17 +433,7 @@
           <or>
              <instanceof value="org.eclipse.core.resources.IFile"/>
              <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
-             <instanceof value="org.osate.aadl2.AadlPackage"/>
-             <instanceof value="org.osate.aadl2.AnnexLibrary"/>
-             <instanceof value="org.osate.aadl2.Classifier"/>
-             <instanceof value="org.osate.aadl2.AnnexSubclause"/>
-             <instanceof value="org.osate.aadl2.PropertySet"/>
-             <instanceof value="org.osate.aadl2.Property"/>
-             <instanceof value="org.osate.aadl2.PropertyConstant"/>
-             <instanceof value="org.osate.aadl2.PropertyType"/>
-             <instanceof
-                   value="org.osate.aadl2.instance.InstanceObject">
-             </instanceof>
+             <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper"/>
            </or>
           </selectionEnablement>
           <editorInputEnablement>
@@ -1101,8 +1089,12 @@
 	                      <or>
 	                      	 <!-- For the AADL Navigator View -->
 	                         <adapt
-	                               type="org.osate.aadl2.Classifier">
-	                            <!-- true -->
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Classifier"
+                                      forcePluginActivation="true">
+                                </test>
 	                         </adapt>
 	
 	                      	 <!-- For the Outline View -->

@@ -5,11 +5,43 @@
   <parent>
     <artifactId>osate2</artifactId>
     <groupId>org.osate</groupId>
-    <version>2.4.1-SNAPSHOT</version>
+    <version>2.4.2-SNAPSHOT</version>
     <relativePath>../org.osate.build.main/pom.xml</relativePath>
   </parent>
   <groupId>org.osate</groupId>
   <artifactId>org.osate.pluginsupport</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
+  <build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>html</directory>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.ruleoftech</groupId>
+				<artifactId>markdown-page-generator-plugin</artifactId>
+				<version>2.1.0</version>
+				<configuration>
+					<inputDirectory>${project.basedir}/markdown/</inputDirectory>
+					<outputDirectory>${project.basedir}/html/</outputDirectory>
+					<copyDirectories>images,images/**,css</copyDirectories>
+					<attributes>
+						<attribute>BlockQuote|style="font-size:90%"</attribute>
+					</attributes>
+					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
