@@ -29,7 +29,7 @@
 		<!-- Used in pull request build -->
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 		
-		<spotbugs.configdir>${project.parent.basedir}/src/main/resources/spotbugs</spotbugs.configdir>
+		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 	</properties>
 
 	<!-- Begin metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
