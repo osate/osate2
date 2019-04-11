@@ -455,7 +455,7 @@
     <repository
         url="http://download.eclipse.org/releases/2019-03"/>
     <repository
-        url="http://download.eclipse.org/sirius/updates/releases/6.1.2/photon"/>
+        url="http://download.eclipse.org/sirius/updates/releases/6.2.0/photon"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -753,7 +753,7 @@
         <repository
             url="http://download.eclipse.org/releases/2019-03"/>
         <repository
-            url="http://download.eclipse.org/sirius/updates/releases/6.1.2/photon"/>
+            url="http://download.eclipse.org/sirius/updates/releases/6.2.0/photon"/>
         <repository
             url="http://download.eclipse.org/ease/update/release"/>
         <repository
