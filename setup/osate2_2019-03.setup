@@ -539,7 +539,7 @@
       <requirement
           name="org.eclipse.papyrus.sdk.feature.feature.group"/>
       <requirement
-          name="org.eclipse.xtext.sdk.feature.group"
+          name="org.eclipse.xtext.sdk.feature.group"/>
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"
           versionRange="[0.2.0,1.0.0)"/>
@@ -548,7 +548,7 @@
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.xtend.sdk.feature.group"
+          name="org.eclipse.xtend.sdk.feature.group"/>
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <requirement
@@ -685,9 +685,9 @@
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
-          name="org.eclipse.elk.feature.feature.group"
+          name="org.eclipse.elk.feature.feature.group"/>
       <requirement
-          name="org.eclipse.elk.algorithms.feature.feature.group"
+          name="org.eclipse.elk.algorithms.feature.feature.group"/>
       <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
