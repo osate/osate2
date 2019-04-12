@@ -33,14 +33,38 @@
  */
 package org.osate.annexsupport;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+import java.util.zip.ZipEntry;
 
+import org.eclipse.core.runtime.ContributorFactorySimple;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.RegistryFactory;
+import org.eclipse.core.runtime.spi.IRegistryProvider;
+import org.eclipse.core.runtime.spi.RegistryStrategy;
+import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -124,6 +148,11 @@ public abstract class AnnexRegistry {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 
 		/* If the system is running outside of Eclipse we wont' have an extension registry */
+		if (extensionRegistry == null) {
+			System.out.println("NO ECLIPSE -- Initializing");
+			process(null);
+			extensionRegistry = Platform.getExtensionRegistry();
+		}
 		if (extensionRegistry != null) {
 			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
 			IExtension[] exts = extensionPoint.getExtensions();
@@ -162,4 +191,252 @@ public abstract class AnnexRegistry {
 	 * Factory method for annex proxies.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
+
+	/*
+	 * Mostly stolen from EcorePlugin$ExtensionProcessor.process()
+	 */
+
+	private static boolean initializedAlready = false;
+
+	public static synchronized void process(ClassLoader classLoader) {
+		// Ensure processing only happens once and only when not running an Eclipse application.
+		//
+		if (!initializedAlready && !EMFPlugin.IS_ECLIPSE_RUNNING) {
+			initializedAlready = true;
+
+			// If there isn't already a registry...
+			//
+			IExtensionRegistry registry = RegistryFactory.getRegistry();
+			if (registry == null) {
+				// Create a new registry.
+				//
+				final IExtensionRegistry newRegistry = RegistryFactory.createRegistry(new RegistryStrategy(null, null) {
+					@Override
+					public void log(IStatus status) {
+						AnnexPlugin.log(status);
+					}
+
+					@Override
+					public String translate(String key, ResourceBundle resources) {
+						try {
+							// The org.eclipse.core.resources bundle has keys that aren't translated, so avoid exception propagation.
+							//
+							return super.translate(key, resources);
+						} catch (Throwable throwable) {
+							return key;
+						}
+					}
+				}, null, null);
+
+				// Make the new registry the default.
+				//
+				try {
+					RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
+						@Override
+						public IExtensionRegistry getRegistry() {
+							return newRegistry;
+						}
+					});
+				} catch (CoreException exception) {
+					AnnexPlugin.logError(exception);
+				}
+
+				registry = newRegistry;
+			}
+
+			// If there is no class loader provided, use the thread's context class loader.
+			//
+			if (classLoader == null) {
+				classLoader = Thread.currentThread().getContextClassLoader();
+			}
+
+			// Process all the URIs for plugin.xml files from the class path or the class loader.
+			//
+			for (URI pluginXMLURI : getPluginXMLs(classLoader)) {
+				// Construct the URI for the manifest and check that it exists...
+				//
+				URI pluginLocation = pluginXMLURI.trimSegments(1);
+				URI manifestURI = pluginLocation.appendSegments(new String[] { "META-INF", "MANIFEST.MF" });
+				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
+					InputStream manifestInputStream = null;
+					try {
+						// Read the manifest.
+						//
+						manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
+						Manifest manifest = new Manifest(manifestInputStream);
+						java.util.jar.Attributes mainAttributes = manifest.getMainAttributes();
+
+						// Determine the bundle's name
+						//
+						String bundleSymbolicName = mainAttributes.getValue("Bundle-SymbolicName");
+						if (bundleSymbolicName != null) {
+							// Split out the OSGi noise.
+							//
+							bundleSymbolicName = bundleSymbolicName.split(";")[0].trim();
+
+							// Compute the map entry from platform:/plugin/<bundleSymbolicName>/ to the location URI's root.
+							//
+							URI logicalPlatformPluginURI = URI.createPlatformPluginURI(bundleSymbolicName, true)
+									.appendSegment("");
+							URI pluginLocationURI = pluginLocation.isArchive() ? pluginLocation
+									: pluginLocation.appendSegment("");
+
+							// Also create a global URI mapping so that any uses of platform:/plugin/<plugin-ID> will map to the physical location of that
+							// plugin.
+							// This ensures that registered URI mappings that use a relative URI into the plugin will work correctly.
+							//
+							URIConverter.URI_MAP.put(logicalPlatformPluginURI, pluginLocationURI);
+
+							// Find the localization resource bundle, if there is one.
+							//
+							String bundleLocalization = mainAttributes.getValue("Bundle-Localization");
+							ResourceBundle resourceBundle = null;
+							if (bundleLocalization != null) {
+								bundleLocalization += ".properties";
+								InputStream bundleLocalizationInputStream = URIConverter.INSTANCE
+										.createInputStream(pluginLocation.appendSegment(bundleLocalization));
+								resourceBundle = new PropertyResourceBundle(bundleLocalizationInputStream);
+								bundleLocalizationInputStream.close();
+							}
+
+							// Add the contribution.
+							//
+							InputStream pluginXMLInputStream = URIConverter.INSTANCE.createInputStream(pluginXMLURI);
+							IContributor contributor = ContributorFactorySimple.createContributor(bundleSymbolicName);
+							registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
+									resourceBundle, null);
+						}
+					} catch (IOException exception) {
+						AnnexPlugin.logError(exception);
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	 * Stolen from EcorePlugin
+	 */
+	private static List<URI> getPluginXMLs(ClassLoader classLoader) {
+		List<URI> result = new ArrayList<URI>();
+
+		String classpath = null;
+		try {
+			// Try to get the classpath from the class loader.
+			//
+			Method method = classLoader.getClass().getMethod("getClassPath");
+			if (method != null) {
+				classpath = (String) method.invoke(classLoader);
+			}
+		} catch (Throwable throwable) {
+			// Failing that, get it from the system properties.
+			//
+			classpath = System.getProperty("java.class.path");
+		}
+
+		// Keep track of whether we find any plugin.xml in the parent of a folder on the classpath, i.e., whether we're in development mode with bin folders on
+		// the classpath.
+		//
+		boolean nonClasspathXML = false;
+
+		// If we have a classpath to use...
+		//
+		if (classpath != null) {
+			// Split out the entries on the classpath.
+			//
+			for (String classpathEntry : classpath.split(File.pathSeparator)) {
+				classpathEntry = classpathEntry.trim();
+
+				// Determine if the entry is a folder or an archive file.
+				//
+				File file = new File(classpathEntry);
+				if (file.isDirectory()) {
+					// Determine if there is a plugin.xml at the root of the folder.
+					//
+					File pluginXML = new File(file, "plugin.xml");
+					if (!pluginXML.exists()) {
+						// If not, check if there is one in the parent folder.
+						//
+						File parentFile = file.getParentFile();
+						pluginXML = new File(parentFile, "plugin.xml");
+						if (pluginXML.isFile()) {
+							// If there is, then we have plugin.xml files that aren't on the classpath.
+							//
+							nonClasspathXML = true;
+						} else if (parentFile != null) {
+							// The parent has a parent, check if there is one in the parent's parent folder.
+							//
+							pluginXML = new File(parentFile.getParentFile(), "plugin.xml");
+							if (pluginXML.isFile()) {
+								// If there is, then we have plugin.xml files that aren't on the classpath.
+								//
+								nonClasspathXML = true;
+							} else {
+								// Otherwise this is bogus too.
+								//
+								pluginXML = null;
+							}
+						} else {
+							// Otherwise this is bogus too.
+							//
+							pluginXML = null;
+						}
+					}
+
+					// If we found a plugin.xml, create a URI for it.
+					//
+					if (pluginXML != null) {
+						result.add(URI.createFileURI(pluginXML.getPath()));
+					}
+				} else if (file.isFile()) {
+					// The file must be a jar...
+					//
+					JarFile jarFile = null;
+					try {
+						// Look for a plugin.xml entry...
+						//
+						jarFile = new JarFile(classpathEntry);
+						ZipEntry entry = jarFile.getEntry("plugin.xml");
+						if (entry != null) {
+							// If we find one, create a URI for it.
+							//
+							result.add(URI.createURI("archive:" + URI.createFileURI(classpathEntry) + "!/" + entry));
+						}
+					} catch (IOException exception) {
+						// Ignore.
+					} finally {
+						if (jarFile != null) {
+							try {
+								jarFile.close();
+							} catch (IOException exception) {
+								AnnexPlugin.logError(exception);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// If we didn't find any non-classpath plugin.xml files, use the class loader to enumerate all the plugin.xml files.
+		// This is more reliable given the possibility of specialized class loader behavior.
+		//
+		if (!nonClasspathXML) {
+			result.clear();
+			try {
+				for (Enumeration<URL> resources = classLoader.getResources("plugin.xml"); resources
+						.hasMoreElements();) {
+					// Create a URI for each plugin.xml found by the class loader.
+					//
+					URL url = resources.nextElement();
+					result.add(URI.createURI(url.toURI().toString()));
+				}
+			} catch (IOException exception) {
+				AnnexPlugin.logError(exception);
+			} catch (URISyntaxException exception) {
+				AnnexPlugin.logError(exception);
+			}
+		}
+
+		return result;
+	}
 }

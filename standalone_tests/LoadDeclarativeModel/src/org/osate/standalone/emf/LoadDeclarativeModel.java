@@ -19,9 +19,12 @@ import com.google.inject.Injector;
 
 public final class LoadDeclarativeModel {
 	public static void main(String[] args) {
+		System.out.println("1");
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
+		System.out.println("2");
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
+		System.out.println("3");
 		final Resource[] resources = new Resource[args.length];
 		for (int i = 0; i < args.length; i++ ) {
 			resources[i] = rs.getResource(URI.createURI(args[i]), true);
