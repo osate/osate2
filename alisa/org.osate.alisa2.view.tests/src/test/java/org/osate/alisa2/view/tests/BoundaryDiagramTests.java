@@ -3,14 +3,16 @@ package org.osate.alisa2.view.tests;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gmf.runtime.notation.impl.NodeImpl;
 import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeSpec;
 import org.eclipse.sirius.tests.swtbot.support.api.AbstractSiriusSwtBotGefTestCase;
 import org.eclipse.sirius.tests.swtbot.support.api.business.UIResource;
 import org.eclipse.sirius.tests.swtbot.support.api.editor.SWTBotSiriusDiagramEditor;
+import org.eclipse.sirius.tree.DTree;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefConnectionEditPart;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,8 +20,8 @@ import org.junit.rules.ExpectedException;
 public class BoundaryDiagramTests extends AbstractSiriusSwtBotGefTestCase {
 
 	private static final String PLUGIN_ID = "org.osate.alisa2.view.tests";
-	private static final String ORIG_REPRESENTATION_NAME = "HackOverview";
-	private static final String ORIG_REPRESENTATION_INSTANCE_NAME = "new HackOverview";
+	private static final String ORIG_REPRESENTATION_NAME = "Containment";
+	private static final String ORIG_REPRESENTATION_INSTANCE_NAME = "new Containment";
 	private static final String MAIN_REPRESENTATION_NAME = "ConnectedNeighbors";
 	private static final String MAIN_REPRESENTATION_INSTANCE_NAME = "Neighbors of appLogic";
 
@@ -71,20 +73,14 @@ public class BoundaryDiagramTests extends AbstractSiriusSwtBotGefTestCase {
 
 		sessionAirdResource = new UIResource(designerProject, AIRD_FILE);
 		localSession = designerPerspective.openSessionFromFile(sessionAirdResource, true);
-		editor = (SWTBotSiriusDiagramEditor) openRepresentation(localSession.getOpenedSession(),
-				ORIG_REPRESENTATION_NAME, ORIG_REPRESENTATION_INSTANCE_NAME, DDiagram.class);
+		SWTBotEditor treeEditor = openRepresentation(localSession.getOpenedSession(),
+				ORIG_REPRESENTATION_NAME, ORIG_REPRESENTATION_INSTANCE_NAME, DTree.class);
 
-//		Point p = editor.getLocation(editor.getEditPart("appLogic"));
-//		// the edit part includes the port boxes to the left of the component box, so we
-//		// fudge the x value slightly to make sure we're clicking on the appLogic component
-//		p.setX(p.x + 100);
-//		editor.doubleClick(p.x, p.y);
+		SWTBot treeBot = treeEditor.bot();
+		treeBot.tree().getTreeItem("appLogic").contextMenu().contextMenu("New")
+				.contextMenu("NewConnectedNeighbors").click();
+		treeBot.shell("New ConnectedNeighbors").bot().button("OK").click();
 
-		Point p = editor.getLocation(editor.getEditPart("appLogic"));
-		editor.clickContextMenu(p, "New");
-		editor.clickContextMenu("NewConnectedNeighbors");
-
-		bot.button("OK").click();
 		editor = (SWTBotSiriusDiagramEditor) openRepresentation(localSession.getOpenedSession(),
 				MAIN_REPRESENTATION_NAME, MAIN_REPRESENTATION_INSTANCE_NAME, DDiagram.class);
 	}
