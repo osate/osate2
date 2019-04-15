@@ -149,7 +149,6 @@ public abstract class AnnexRegistry {
 
 		/* If the system is running outside of Eclipse we wont' have an extension registry */
 		if (extensionRegistry == null) {
-			System.out.println("NO ECLIPSE -- Initializing");
 			process(null);
 			extensionRegistry = Platform.getExtensionRegistry();
 		}
@@ -255,8 +254,29 @@ public abstract class AnnexRegistry {
 			for (URI pluginXMLURI : getPluginXMLs(classLoader)) {
 				// Construct the URI for the manifest and check that it exists...
 				//
-				URI pluginLocation = pluginXMLURI.trimSegments(1);
-				URI manifestURI = pluginLocation.appendSegments(new String[] { "META-INF", "MANIFEST.MF" });
+//				URI pluginLocation = pluginXMLURI.trimSegments(1);
+//				URI manifestURI = pluginLocation.appendSegments(new String[] { "META-INF", "MANIFEST.MF" });
+
+				URI pluginLocation;
+				URI manifestURI;
+				if (pluginXMLURI.isHierarchical()) {
+					pluginLocation = pluginXMLURI.trimSegments(1);
+					manifestURI = pluginLocation.appendSegments(new String[] { "META-INF", "MANIFEST.MF" });
+				} else {
+					// We have to do this through string manipulation
+					final String uriString = pluginXMLURI.toString();
+					final int loc = uriString.lastIndexOf('/');
+					final String pluginLocationString = uriString.substring(0, loc + 1);
+					pluginLocation = URI.createURI(pluginLocationString);
+					final String manifestURIString = pluginLocationString + "META-INF/MANIFEST.MF";
+					manifestURI = URI.createURI(manifestURIString);
+				}
+//
+//				System.out.println("pluginXMLURI (" + pluginXMLURI.isHierarchical() + ", "
+//						+ pluginXMLURI.getClass().getName() + ") " + pluginXMLURI);
+//				System.out.println("pluginLocation " + pluginLocation);
+//				System.out.println("manifestURI " + manifestURI);
+
 				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
 					InputStream manifestInputStream = null;
 					try {
