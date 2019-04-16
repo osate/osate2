@@ -265,7 +265,7 @@ class AssureTests extends XtextTest {
 		val reg = ver.contents.get(0) as VerificationMethodRegistry
 		reg => [
 			"Plugins".assertEquals(name)
-			12.assertEquals(methods.size)
+			13.assertEquals(methods.size)
 		]
 		assertNoIssues(reg)
 	}
@@ -602,7 +602,7 @@ class AssureTests extends XtextTest {
 			"scsimplvplan".assertEquals(name)
 			5.assertEquals(claim.size)
 			claim.get(0) => [
-				1.assertEquals(activities.size)
+				2.assertEquals(activities.size)
 			]
 			claim.get(1) => [
 				0.assertEquals(activities.size)
@@ -700,17 +700,17 @@ class AssureTests extends XtextTest {
 		assuranceCaseResult.resetToTBD(null)
 		assuranceCaseResult.recomputeAllCounts(null)
 		val counts = assuranceCaseResult.metrics
-		37.assertEquals(counts.tbdCount)
+		38.assertEquals(counts.tbdCount)
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteUtil.isResoluteInstalled()) {
 			16.assertEquals(counts.successCount)
-			21.assertEquals(counts.failCount)
+			22.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
 			9.assertEquals(counts.successCount)
-			11.assertEquals(counts.failCount)
+			10.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
 	}
