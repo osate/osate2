@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
   <ownedViewpoints name="Hazard Analyst" modelFileExtension="safe2">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
@@ -71,6 +71,12 @@
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
         </defaultStyle>
+        <conditionalStyles predicateExpression="service:isFocused()">
+          <style>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+          </style>
+        </conditionalStyles>
         <subItemMappings name="subcomponent" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
           <defaultStyle>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -120,14 +126,22 @@
             </subItemMappings>
           </subItemMappings>
         </subItemMappings>
+        <popupMenus name="testMenu">
+          <menuItemDescriptions xsi:type="tool_1:OperationAction" name="testOperation">
+            <view name="views"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="testExternalJavaAction" id="org.osate.alisa2.view.FocusManager"/>
+            </initialOperation>
+          </menuItemDescriptions>
+        </popupMenus>
       </subItemMappings>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="TopLevelErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance"/>
-      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getErrorTypes()"/>
-      <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()"/>
+      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()"/>
+      <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ProcessModel" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
@@ -175,7 +189,7 @@
             </style>
           </borderedNodeMappings>
           <subContainerMappings name="ErrStateMachine" domainClass="errorModel.ErrorBehaviorStateMachine">
-            <subNodeMappings name="ErrState" semanticCandidatesExpression="feature:states" domainClass="errorModel.ErrorBehaviorState">
+            <subNodeMappings name="ErrState" semanticCandidatesExpression="feature:states" domainClass="errorModel::ErrorBehaviorState">
               <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="10" height="3">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>

@@ -7,4 +7,11 @@
 	       name="view">
     </component>
   </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="org.osate.alisa2.view.FocusAction"
+           id="org.osate.alisa2.view.FocusActionID">
+     </javaActions>
+  </extension>
 </plugin>

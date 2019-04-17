@@ -25,8 +25,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
- * Services / supporting utility methods used by the SAFE2.0 view. Everything
- * is static because, as the docs explain:
+ * Services / supporting utility methods used by the SAFE2.0 view. Note this
+ * portion of the docs:
  * https://www.eclipse.org/sirius/doc/specifier/general/Writing_Queries.html
  *
  * Warning: Java service methods should be stateless. There is no guarantee
@@ -37,13 +37,6 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  *  @author Sam
  */
 public class Services {
-	/**
-	* See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24 for documentation on how to write service methods.
-	*/
-	public static EObject myService(EObject self, String arg) {
-		// TODO Auto-generated code
-		return self;
-	}
 
 	/**
 	 * Get all the "Neighbors" of the specified component, where neighbor is defined as another
@@ -218,33 +211,15 @@ public class Services {
 		return true;
 	}
 
-//	public static String getErrStrForTbl(EObject self, EObject lineSemantic, DColumn column) {
-//		ErrorType et = null;
-//		getDisjointSet((Element) self);
-//		if (hasErr(et, lineSemantic)) {
-//			return "*";
-//		} else {
-//			return " ";
-//		}
-//	}
-//
-//	private static void getDisjointSet(Element root) {
-//		ErrorTypeUnionFind etuf = new ErrorTypeUnionFind<ErrorType>(Collections.EMPTY_SET);
-//
-//		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
-//		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses(root.getOwner())) {
-//			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
-//				for (ErrorType currType : currLibrary.getTypes()) {
-//					etuf.addElement(currType);
-//				}
-//			}
-//		}
-//
-//		List<ErrorModelLibrary> libs = EMV2Util.getUseTypes(root.getOwner());
-//		libs = null;
-//	}
-
-	public static Collection<EObject> getErrorTypes(EObject self) {
+	/**
+	 * Get the "root" error types referenced by a particular EObject. That is,
+	 * for every error type referenced by self, we get the root of that type's
+	 * hierarchy.
+	 *
+	 * @param self The component to get the error types from
+	 * @return A set of root error types
+	 */
+	public static Collection<EObject> getRootErrorTypes(EObject self) {
 		Set<EObject> ret = new HashSet<>();
 
 		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
@@ -258,15 +233,23 @@ public class Services {
 		return ret;
 	}
 
-	public static Set<Object> getErrorTypesByConnection(EObject self) {
+	public static Set<Object> getRootErrorTypesByConnection(EObject self) {
 		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
 		// It's hard because you have error models at different levels of the hierarchy, and
 		// so I don't think it's appropes to calculate that myself
 		return (new Random()).nextBoolean() ? Collections.emptySet()
 				: Collections
-						.singleton(getErrorTypes(self).toArray()[new Random().nextInt(getErrorTypes(self).size())]);
+						.singleton(getRootErrorTypes(self).toArray()[new Random()
+								.nextInt(getRootErrorTypes(self).size())]);
 	}
 
+	/**
+	 * Get the root error type associated with the given type. We walk up the
+	 * type's hierarchy until we're at the top, then return that.
+	 *
+	 * @param err The type to get the root type from
+	 * @return The root type (which may be the 'err' parameter, if it has no supertype)
+	 */
 	private static ErrorType getRootType(ErrorType err) {
 		ErrorType ret = err;
 		while (ret.getSuperType() != null) {
@@ -275,23 +258,63 @@ public class Services {
 		return ret;
 	}
 
+	/**
+	 * Get text appropriate for the error type column header
+	 *
+	 * @param self The error type to get the title from
+	 * @return Appropriate header text
+	 */
 	public static String getErrorTypeColumnHeader(EObject self) {
 		return ((ErrorType) self).getName();
 	}
 
+	/**
+	 * Gets incoming features for the supplied component instance. More
+	 * specifically, the features whose DirectionType is IN
+	 *
+	 * @param self The component to get the in features for
+	 * @return The set of features
+	 */
 	public static Collection<EObject> getInFeatures(EObject self) {
 		return ((ComponentInstance) self).getFeatureInstances().stream()
 				.filter(f -> f.getDirection() == DirectionType.IN).collect(Collectors.toSet());
 	}
 
+	/**
+	 * Gets outgoing features for the supplied component instance. More
+	 * specifically, the features whose DirectionType is OUT
+	 *
+	 * @param self The component to get the out features for
+	 * @return The set of features
+	 */
 	public static Collection<EObject> getOutFeatures(EObject self) {
 		return ((ComponentInstance) self).getFeatureInstances().stream()
 				.filter(f -> f.getDirection() == DirectionType.OUT).collect(Collectors.toSet());
 	}
 
+	/**
+	 * Gets bidirectional features for the supplied component instance. More
+	 * specifically, the features whose DirectionType is IN_OUT
+	 *
+	 * @param self The component to get the bidirectional features for
+	 * @return The set of features
+	 */
 	public static Collection<EObject> getInOutFeatures(EObject self) {
 		return ((ComponentInstance) self).getFeatureInstances().stream()
 				.filter(f -> f.getDirection() == DirectionType.IN_OUT).collect(Collectors.toSet());
+	}
+
+	/**
+	 * Checks to see if the given EObject is part of whatever has been
+	 * focused by the user
+	 *
+	 * @param self The component or connection to check
+	 * @return True if the parameter is part of the user's focus, false otherwise
+	 */
+	public static boolean isFocused(EObject self) {
+		EObject focus = FocusManager.getInstance().getFocus();
+		// magic
+		return (new Random()).nextBoolean();
 	}
 
 	public static Collection<EObject> debug(EObject self) {
