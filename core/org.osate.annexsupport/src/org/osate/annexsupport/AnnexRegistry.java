@@ -254,9 +254,6 @@ public abstract class AnnexRegistry {
 			for (URI pluginXMLURI : getPluginXMLs(classLoader)) {
 				// Construct the URI for the manifest and check that it exists...
 				//
-//				URI pluginLocation = pluginXMLURI.trimSegments(1);
-//				URI manifestURI = pluginLocation.appendSegments(new String[] { "META-INF", "MANIFEST.MF" });
-
 				URI pluginLocation;
 				URI manifestURI;
 				if (pluginXMLURI.isHierarchical()) {
@@ -271,11 +268,6 @@ public abstract class AnnexRegistry {
 					final String manifestURIString = pluginLocationString + "META-INF/MANIFEST.MF";
 					manifestURI = URI.createURI(manifestURIString);
 				}
-//
-//				System.out.println("pluginXMLURI (" + pluginXMLURI.isHierarchical() + ", "
-//						+ pluginXMLURI.getClass().getName() + ") " + pluginXMLURI);
-//				System.out.println("pluginLocation " + pluginLocation);
-//				System.out.println("manifestURI " + manifestURI);
 
 				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
 					InputStream manifestInputStream = null;
