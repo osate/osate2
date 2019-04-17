@@ -40,7 +40,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -53,16 +53,11 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.ui.utils.SelectionHelper;
 import org.osate.ui.views.ClassifierInfoView;
 
-/**
- * ConversionAction en- and disables the Aadl Nature.
- */
 public class OpenInClassifierInfoViewHandler extends AbstractHandler {
-	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		// (1) Set the input on the view to the currently selected classifier
@@ -71,13 +66,15 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
 			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
 			if (selectedObject != null) {
-				if (selectedObject instanceof Classifier) {
-					input = (Classifier) selectedObject;
+				if (selectedObject instanceof EObjectURIWrapper) {
+					final EObjectURIWrapper wrapper = (EObjectURIWrapper) selectedObject;
+					final URI uri = wrapper.getUri();
+					input = (Classifier) new ResourceSetImpl().getEObject(uri, true);
 				} else if (selectedObject instanceof EObjectNode) {
 					try {
 						final EObjectNode eObjectNode = (EObjectNode) selectedObject;
 						final URI eObjectURI = eObjectNode.getEObjectURI();
-						input = (Classifier) resourceSet.getEObject(eObjectURI, true);
+						input = (Classifier) new ResourceSetImpl().getEObject(eObjectURI, true);
 					} catch (final Exception e) {
 						input = null;
 					}

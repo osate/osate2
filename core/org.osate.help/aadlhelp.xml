@@ -27,145 +27,147 @@
     	<topic href="html/plugins/index.html" label="Other Analyses">
     	</topic>
 	</topic>
-	
-	<topic href="html/std/section-1.html" label="AADL Reference Manual">
-		<topic href="html/std/section-2-1.html" label="Scope">
-			<topic href="html/std/section-2-2.html" label="Purpose/Extent" />
-			<topic href="html/std/section-2-3.html" label="Field of Application" />
-			<topic href="html/std/section-2-4.html" label="Structure of Document" />
-			<topic href="html/std/section-2-5.html" label="Error, Exception, Anomaly and Compliance" />
-			<topic href="html/std/section-2-6.html" label="Method of Description and Syntax Notation" />
-			<topic href="html/std/section-2-7.html"
-				label="Method of Description for Discrete and Temporal Semantics" />
+	<topic label="Reference">
+    	<anchor id="_IncludedPropertySetsAndPackages"/>
+		<topic href="html/std/section-1.html" label="AADL 2.0 Reference Manual">
+			<topic href="html/std/section-2-1.html" label="Scope">
+				<topic href="html/std/section-2-2.html" label="Purpose/Extent" />
+				<topic href="html/std/section-2-3.html" label="Field of Application" />
+				<topic href="html/std/section-2-4.html" label="Structure of Document" />
+				<topic href="html/std/section-2-5.html" label="Error, Exception, Anomaly and Compliance" />
+				<topic href="html/std/section-2-6.html" label="Method of Description and Syntax Notation" />
+				<topic href="html/std/section-2-7.html"
+					label="Method of Description for Discrete and Temporal Semantics" />
+			</topic>
+			<topic href="html/std/section-3-1.html" label="References">
+				<topic href="html/std/section-3-2.html" label="Normative References" />
+				<topic href="html/std/section-3-3.html" label="Informative References" />
+				<topic href="html/std/section-3-4.html" label="Terms and Definitions" />
+			</topic>
+
+
+			<topic href="html/std/section-4-1.html" label="Architecture Analysis and Design Language Summary" />
+
+			<topic href="html/std/section-5-1.html" label="Components, Packages, and Annexes">
+				<topic href="html/std/section-5-2.html" label="AADL Specifications" />
+				<topic href="html/std/section-5-3.html" label=" Packages" />
+				<topic href="html/std/section-5-4.html" label="Component Types" />
+				<topic href="html/std/section-5-5.html" label="Component Implementations" />
+				<topic href="html/std/section-5-6.html" label="Subcomponents" />
+				<topic href="html/std/section-5-7.html" label="Abstract Components" />
+				<topic href="html/std/section-5-8.html" label="Prototypes" />
+				<topic href="html/std/section-5-9.html" label="Annex Subclauses and Annex Libraries" />
+			</topic>
+
+			<topic href="html/std/section-6-1.html" label="Software Components">
+				<topic href="html/std/section-6-2.html" label="Data" />
+				<topic href="html/std/section-6-3.html" label="Subprograms and Subprogram Calls" />
+				<topic href="html/std/section-6-4.html" label="Subprogram Groups and Subprogram Group Types" />
+				<topic href="html/std/section-6-5.html" label="Threads" />
+				<topic href="html/std/section-6-6.html" label="Thread Groups" />
+				<topic href="html/std/section-6-7.html" label="Processes" />
+			</topic>
+
+			<topic href="html/std/section-7-1.html" label="Execution Platform Components">
+				<topic href="html/std/section-7-2.html" label="Processors" />
+				<topic href="html/std/section-7-3.html" label="Virtual Processors" />
+				<topic href="html/std/section-7-4.html" label="Memory" />
+				<topic href="html/std/section-7-5.html" label="Buses" />
+				<topic href="html/std/section-7-6.html" label="Virtual Buses" />
+				<topic href="html/std/section-7-7.html" label="Devices" />
+			</topic>
+
+			<topic href="html/std/section-8-1.html" label="System Composition">
+				<topic href="html/std/section-8-2.html" label="Systems" />
+			</topic>
+
+			<topic href="html/std/section-9-1.html" label="Features and Shared Access">
+				<topic href="html/std/section-9-2.html" label="Abstract Features" />
+				<topic href="html/std/section-9-3.html" label="Feature Groups and Feature Group Types" />
+				<topic href="html/std/section-9-4.html" label="Ports" />
+				<topic href="html/std/section-9-5.html" label="Subprogram and Subprogram Group Access" />
+				<topic href="html/std/section-9-6.html" label="Subprogram Parameters" />
+				<topic href="html/std/section-9-7.html" label="Data Component Access" />
+				<topic href="html/std/section-9-8.html" label="Bus Component Access" />
+			</topic>
+
+			<topic href="html/std/section-10-1.html" label="Connections">
+				<topic href="html/std/section-10-2.html" label="Feature Connections" />
+				<topic href="html/std/section-10-3.html" label="Port Connections" />
+				<topic href="html/std/section-10-4.html" label="Parameter Connections" />
+				<topic href="html/std/section-10-5.html" label="Access Connections" />
+				<topic href="html/std/section-10-6.html" label="Feature Group Connections" />
+			</topic>
+
+			<topic href="html/std/section-11-1.html" label="Flows">
+				<topic href="html/std/section-11-2.html" label="Flow Specifications" />
+				<topic href="html/std/section-11-3.html" label="Flow Implementations" />
+				<topic href="html/std/section-11-4.html" label="End-To-End Flows" />
+			</topic>
+
+			<topic href="html/std/section-12-1.html" label="Properties">
+				<topic href="html/std/section-12-2.html" label="Property Sets" />
+				<topic href="html/std/section-12-3.html" label="Predeclared Property Sets" />
+				<topic href="html/std/section-12-4.html" label="Property Associations" />
+				<topic href="html/std/section-12-5.html" label="Property Expressions" />
+			</topic>
+
+			<topic href="html/std/section-13-1.html" label="Modes and Mode Transitions" />
+
+			<topic href="html/std/section-14-1.html" label="Operational System">
+				<topic href="html/std/section-14-2.html" label="System Instances" />
+				<topic href="html/std/section-14-3.html" label="System Binding" />
+				<topic href="html/std/section-14-4.html" label="System Startup" />
+				<topic href="html/std/section-14-5.html" label="Normal System Operation" />
+				<topic href="html/std/section-14-6.html" label="System Operation Modes" />
+				<topic href="html/std/section-14-7.html" label="System Operation Mode Transitions" />
+				<topic href="html/std/section-14-8.html" label="System-wide Fault Handling, Shutdown, and Restart" />
+			</topic>
+
+			<topic href="html/std/section-15-1.html" label="Layered System Architectures" />
+
+			<topic href="html/std/section-16-1.html" label="Lexical Elements">
+				<topic href="html/std/section-16-2.html" label="Character Set" />
+				<topic href="html/std/section-16-3.html" label="Lexical Elements, Separators, and Delimiters" />
+				<topic href="html/std/section-16-4.html" label="Identifiers" />
+				<topic href="html/std/section-16-5.html" label="Numerical Literals" />
+				<topic href="html/std/section-16-6.html" label="String Literals" />
+				<topic href="html/std/section-16-7.html" label="Comments" />
+				<topic href="html/std/section-16-8.html" label="Reserved Words" />
+			</topic>
+
+			<topic href="html/std/section-17-1.html" label="Appendix A - Predeclared Property Sets">
+				<topic href="html/std/section-17-2.html" label="Predeclared Deployment Properties" />
+				<topic href="html/std/section-17-3.html" label="Predeclared Thread Properties" />
+				<topic href="html/std/section-17-4.html" label="Predeclared Timing Properties" />
+				<topic href="html/std/section-17-5.html" label="Predeclared Communication Properties" />
+				<topic href="html/std/section-17-6.html" label="Predeclared Memory Properties" />
+				<topic href="html/std/section-17-7.html" label="Predeclared Programming Properties" />
+				<topic href="html/std/section-17-8.html" label="Predeclared Modeling Properties" />
+				<topic href="html/std/section-17-9.html" label="Project-Specific Property Set" />
+				<topic href="html/std/section-17-10.html" label="Predeclared Runtime Services" />
+			</topic>
+
+			<topic href="html/std/section-18-1.html" label="Appendix B - Glossary" />
+
+			<topic href="html/std/section-19-1.html" label="Appendix C - Syntax Summary">
+				<topic href="html/std/section-19-2.html" label="Constraints on Component Containment" />
+				<topic href="html/std/section-19-3.html" label="AADL Core Language Syntax Rules" />
+				<topic href="html/std/section-19-4.html" label="AADL Core Language Meta Model Element Identifiers" />
+			</topic>
+
+			<topic href="html/std/section-20-1.html" label="Appendix D - Graphical AADL Notation">
+				<topic href="html/std/section-20-2.html" label="Scope" />
+				<topic href="html/std/section-20-3.html" label="AADL Graphical Symbols" />
+				<topic href="html/std/section-20-4.html" label="Implementation Suggestions" />
+			</topic>
+			<topic href="html/std/section-21-1.html" label="Appendix E - AADL Meta Model and XML Specification" />
+
+			<topic href="html/std/section-22-1.html"
+				label="Appendix F - Unified Modeling Language (UML) Profile" />
+
+			<topic href="html/std/section-23-1.html" label="Appendix G - Profiles and Extensions" />
 		</topic>
-		<topic href="html/std/section-3-1.html" label="References">
-			<topic href="html/std/section-3-2.html" label="Normative References" />
-			<topic href="html/std/section-3-3.html" label="Informative References" />
-			<topic href="html/std/section-3-4.html" label="Terms and Definitions" />
-		</topic>
-
-
-		<topic href="html/std/section-4-1.html" label="Architecture Analysis and Design Language Summary" />
-
-		<topic href="html/std/section-5-1.html" label="Components, Packages, and Annexes">
-			<topic href="html/std/section-5-2.html" label="AADL Specifications" />
-			<topic href="html/std/section-5-3.html" label=" Packages" />
-			<topic href="html/std/section-5-4.html" label="Component Types" />
-			<topic href="html/std/section-5-5.html" label="Component Implementations" />
-			<topic href="html/std/section-5-6.html" label="Subcomponents" />
-			<topic href="html/std/section-5-7.html" label="Abstract Components" />
-			<topic href="html/std/section-5-8.html" label="Prototypes" />
-			<topic href="html/std/section-5-9.html" label="Annex Subclauses and Annex Libraries" />
-		</topic>
-
-		<topic href="html/std/section-6-1.html" label="Software Components">
-			<topic href="html/std/section-6-2.html" label="Data" />
-			<topic href="html/std/section-6-3.html" label="Subprograms and Subprogram Calls" />
-			<topic href="html/std/section-6-4.html" label="Subprogram Groups and Subprogram Group Types" />
-			<topic href="html/std/section-6-5.html" label="Threads" />
-			<topic href="html/std/section-6-6.html" label="Thread Groups" />
-			<topic href="html/std/section-6-7.html" label="Processes" />
-		</topic>
-
-		<topic href="html/std/section-7-1.html" label="Execution Platform Components">
-			<topic href="html/std/section-7-2.html" label="Processors" />
-			<topic href="html/std/section-7-3.html" label="Virtual Processors" />
-			<topic href="html/std/section-7-4.html" label="Memory" />
-			<topic href="html/std/section-7-5.html" label="Buses" />
-			<topic href="html/std/section-7-6.html" label="Virtual Buses" />
-			<topic href="html/std/section-7-7.html" label="Devices" />
-		</topic>
-
-		<topic href="html/std/section-8-1.html" label="System Composition">
-			<topic href="html/std/section-8-2.html" label="Systems" />
-		</topic>
-
-		<topic href="html/std/section-9-1.html" label="Features and Shared Access">
-			<topic href="html/std/section-9-2.html" label="Abstract Features" />
-			<topic href="html/std/section-9-3.html" label="Feature Groups and Feature Group Types" />
-			<topic href="html/std/section-9-4.html" label="Ports" />
-			<topic href="html/std/section-9-5.html" label="Subprogram and Subprogram Group Access" />
-			<topic href="html/std/section-9-6.html" label="Subprogram Parameters" />
-			<topic href="html/std/section-9-7.html" label="Data Component Access" />
-			<topic href="html/std/section-9-8.html" label="Bus Component Access" />
-		</topic>
-
-		<topic href="html/std/section-10-1.html" label="Connections">
-			<topic href="html/std/section-10-2.html" label="Feature Connections" />
-			<topic href="html/std/section-10-3.html" label="Port Connections" />
-			<topic href="html/std/section-10-4.html" label="Parameter Connections" />
-			<topic href="html/std/section-10-5.html" label="Access Connections" />
-			<topic href="html/std/section-10-6.html" label="Feature Group Connections" />
-		</topic>
-
-		<topic href="html/std/section-11-1.html" label="Flows">
-			<topic href="html/std/section-11-2.html" label="Flow Specifications" />
-			<topic href="html/std/section-11-3.html" label="Flow Implementations" />
-			<topic href="html/std/section-11-4.html" label="End-To-End Flows" />
-		</topic>
-
-		<topic href="html/std/section-12-1.html" label="Properties">
-			<topic href="html/std/section-12-2.html" label="Property Sets" />
-			<topic href="html/std/section-12-3.html" label="Predeclared Property Sets" />
-			<topic href="html/std/section-12-4.html" label="Property Associations" />
-			<topic href="html/std/section-12-5.html" label="Property Expressions" />
-		</topic>
-
-		<topic href="html/std/section-13-1.html" label="Modes and Mode Transitions" />
-
-		<topic href="html/std/section-14-1.html" label="Operational System">
-			<topic href="html/std/section-14-2.html" label="System Instances" />
-			<topic href="html/std/section-14-3.html" label="System Binding" />
-			<topic href="html/std/section-14-4.html" label="System Startup" />
-			<topic href="html/std/section-14-5.html" label="Normal System Operation" />
-			<topic href="html/std/section-14-6.html" label="System Operation Modes" />
-			<topic href="html/std/section-14-7.html" label="System Operation Mode Transitions" />
-			<topic href="html/std/section-14-8.html" label="System-wide Fault Handling, Shutdown, and Restart" />
-		</topic>
-
-		<topic href="html/std/section-15-1.html" label="Layered System Architectures" />
-
-		<topic href="html/std/section-16-1.html" label="Lexical Elements">
-			<topic href="html/std/section-16-2.html" label="Character Set" />
-			<topic href="html/std/section-16-3.html" label="Lexical Elements, Separators, and Delimiters" />
-			<topic href="html/std/section-16-4.html" label="Identifiers" />
-			<topic href="html/std/section-16-5.html" label="Numerical Literals" />
-			<topic href="html/std/section-16-6.html" label="String Literals" />
-			<topic href="html/std/section-16-7.html" label="Comments" />
-			<topic href="html/std/section-16-8.html" label="Reserved Words" />
-		</topic>
-
-		<topic href="html/std/section-17-1.html" label="Appendix A - Predeclared Property Sets">
-			<topic href="html/std/section-17-2.html" label="Predeclared Deployment Properties" />
-			<topic href="html/std/section-17-3.html" label="Predeclared Thread Properties" />
-			<topic href="html/std/section-17-4.html" label="Predeclared Timing Properties" />
-			<topic href="html/std/section-17-5.html" label="Predeclared Communication Properties" />
-			<topic href="html/std/section-17-6.html" label="Predeclared Memory Properties" />
-			<topic href="html/std/section-17-7.html" label="Predeclared Programming Properties" />
-			<topic href="html/std/section-17-8.html" label="Predeclared Modeling Properties" />
-			<topic href="html/std/section-17-9.html" label="Project-Specific Property Set" />
-			<topic href="html/std/section-17-10.html" label="Predeclared Runtime Services" />
-		</topic>
-
-		<topic href="html/std/section-18-1.html" label="Appendix B - Glossary" />
-
-		<topic href="html/std/section-19-1.html" label="Appendix C - Syntax Summary">
-			<topic href="html/std/section-19-2.html" label="Constraints on Component Containment" />
-			<topic href="html/std/section-19-3.html" label="AADL Core Language Syntax Rules" />
-			<topic href="html/std/section-19-4.html" label="AADL Core Language Meta Model Element Identifiers" />
-		</topic>
-
-		<topic href="html/std/section-20-1.html" label="Appendix D - Graphical AADL Notation">
-			<topic href="html/std/section-20-2.html" label="Scope" />
-			<topic href="html/std/section-20-3.html" label="AADL Graphical Symbols" />
-			<topic href="html/std/section-20-4.html" label="Implementation Suggestions" />
-		</topic>
-		<topic href="html/std/section-21-1.html" label="Appendix E - AADL Meta Model and XML Specification" />
-
-		<topic href="html/std/section-22-1.html"
-			label="Appendix F - Unified Modeling Language (UML) Profile" />
-
-		<topic href="html/std/section-23-1.html" label="Appendix G - Profiles and Extensions" />
 	</topic>
 	<topic href="html/faq.html" label="Frequently Asked Questions">
 	</topic>
