@@ -700,17 +700,17 @@ class AssureTests extends XtextTest {
 		assuranceCaseResult.resetToTBD(null)
 		assuranceCaseResult.recomputeAllCounts(null)
 		val counts = assuranceCaseResult.metrics
-		38.assertEquals(counts.tbdCount)
+		37.assertEquals(counts.tbdCount)
 		val ap = new AssureProcessor
 		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
 		0.assertEquals(counts.tbdCount)
 		if (ResoluteUtil.isResoluteInstalled()) {
 			16.assertEquals(counts.successCount)
-			22.assertEquals(counts.failCount)
+			21.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
-			8.assertEquals(counts.successCount)
-			10.assertEquals(counts.failCount)
+			9.assertEquals(counts.successCount)
+			11.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
 	}
