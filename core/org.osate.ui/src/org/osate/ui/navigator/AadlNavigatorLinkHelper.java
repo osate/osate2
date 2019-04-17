@@ -1,9 +1,5 @@
 package org.osate.ui.navigator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -12,8 +8,6 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
@@ -23,29 +17,17 @@ import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.navigator.ILinkHelper;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.nodemodel.BidiIterable;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.nodemodel.impl.CompositeNode;
-import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
-import org.eclipse.xtext.nodemodel.impl.LeafNode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInput;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorLinkHelper implements ILinkHelper {
+	private final IURIEditorOpener editorOpener = IResourceServiceProvider.Registry.INSTANCE
+			.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(IURIEditorOpener.class);
 
 	@Override
 	public IStructuredSelection findSelection(IEditorInput anInput) {
@@ -82,31 +64,28 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			if (editor != null) {
 				page.bringToTop(editor);
 			}
-		} else if (shouldLink(selected)) {
-			NamedElement ne = (NamedElement) selected;
-			URI uri = ne.eResource().getURI();
+		} else if (selected instanceof EObjectURIWrapper) {
+			EObjectURIWrapper navigatorNode = (EObjectURIWrapper) selected;
+			URI resourceURI = navigatorNode.getUri().trimFragment();
 			IEditorPart editor = null;
-			if (uri.isPlatformResource()) {
+			if (resourceURI.isPlatformResource()) {
 				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-				IFile file = root.getFile(new Path(null, uri.toPlatformString(true)));
+				IFile file = root.getFile(new Path(null, resourceURI.toPlatformString(true)));
 				editor = page.findEditor(new FileEditorInput(file));
-			} else if (uri.isPlatformPlugin()) {
-				ContributedAadlStorage storage = new ContributedAadlStorage(uri);
+			} else if (resourceURI.isPlatformPlugin()) {
+				ContributedAadlStorage storage = new ContributedAadlStorage(resourceURI);
 				editor = page.findEditor(new ContributedAadlEditorInput(storage));
 			}
 			if (editor != null) {
 				page.bringToTop(editor);
 				if (editor instanceof XtextEditor) {
-					int start = findOffset(ne);
-					int length = ne.getName().length();
-					TextSelection selection = new TextSelection(start, length);
-					editor.getEditorSite().getSelectionProvider().setSelection(selection);
+					editorOpener.open(navigatorNode.getUri(), true);
 				} else {
 					IGotoMarker gotoMarkerAdapter = Adapters.adapt(editor, IGotoMarker.class);
 					if (gotoMarkerAdapter != null) {
 						try {
 							IMarker marker = ResourcesPlugin.getWorkspace().getRoot().createMarker(IMarker.MARKER);
-							marker.setAttribute("uri", EcoreUtil.getURI(ne).toString());
+							marker.setAttribute("uri", navigatorNode.getUri().toString());
 							gotoMarkerAdapter.gotoMarker(marker);
 							marker.delete();
 						} catch (CoreException e) {
@@ -117,51 +96,4 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 			}
 		}
 	}
-
-	protected boolean shouldLink(Object o) {
-		return o instanceof AadlPackage || o instanceof Classifier || o instanceof Property
-				|| o instanceof PropertyConstant || o instanceof PropertyType || o instanceof AnnexSubclause
-				|| o instanceof AnnexLibrary || o instanceof InstanceObject;
-	}
-
-	private int findOffset(NamedElement classifier) {
-		int retval = -1;
-		String name = "";
-		int offset = -1;
-		ICompositeNode cNode = NodeModelUtils.getNode(classifier);
-		List<LeafNode> nodes = resolveCompositeNodeToList(cNode);
-		for (LeafNode leafNode : nodes) {
-			if (leafNode.getGrammarElement() instanceof Keyword) {
-				continue;
-			}
-			name += leafNode.getText();
-			if (offset == -1) {
-				offset = leafNode.getOffset();
-			}
-			if (name.equalsIgnoreCase(classifier.getName())) {
-				return offset;
-			}
-			// component implementation name consists of 3 nodes: <typename> '.' <implname>
-			name += ".";
-		}
-		return retval;
-	}
-
-	private List<LeafNode> resolveCompositeNodeToList(ICompositeNode cNode) {
-		List<LeafNode> nodes = new ArrayList<LeafNode>();
-		BidiIterable<INode> iterable = cNode.getChildren();
-		Iterator<INode> iter = iterable.iterator();
-		while (iter.hasNext()) {
-			INode iterNode = iter.next();
-			if (iterNode instanceof HiddenLeafNode) {
-				continue;
-			} else if (iterNode instanceof LeafNode) {
-				nodes.add((LeafNode) iterNode);
-			} else if (iterNode instanceof CompositeNode) {
-				nodes.addAll(resolveCompositeNodeToList((CompositeNode) iterNode));
-			}
-		}
-		return nodes;
-	}
-
 }

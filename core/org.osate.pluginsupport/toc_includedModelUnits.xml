@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc link_to="../org.osate.help/aadlhelp.xml#_IncludedPropertySetsAndPackages" label="Included Property Sets and Packages">
+   <topic href="html/IncludedPropertySetsAndPackages.html" label="Included Property Sets and Packages">
+      <topic href="html/IncludedPropertySetsAndPackages.html#viewing-included-aadl-files" label="Viewing Included AADL Files"/>
+      <topic href="html/IncludedPropertySetsAndPackages.html#list-of-property-sets-and-packages-included-in-core-osate" label="List of Property Sets and Packages Included in Core OSATE"/>
+   </topic>
+</toc>

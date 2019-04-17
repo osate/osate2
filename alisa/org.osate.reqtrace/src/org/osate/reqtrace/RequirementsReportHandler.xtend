@@ -49,10 +49,12 @@ import org.eclipse.core.runtime.IPath
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
 import org.eclipse.ui.ide.IDE
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.modelsupport.EObjectURIWrapper
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
@@ -77,6 +79,10 @@ class RequirementsReportHandler extends AbstractHandler {
 					selectedObject.fullPath -> selectedObject.fileExtension
 				}
 			ComponentClassifier: selectedObject -> "Classifier"
+			EObjectURIWrapper: {
+				val eObject = new ResourceSetImpl().getEObject(selectedObject.uri, true) as ComponentClassifier
+				eObject -> "Classifier"
+			}
 		}
 		
 		val dialog = new RequirementsReportConfigDialog(event.activeShell, EMITTERS.keySet.sort)
