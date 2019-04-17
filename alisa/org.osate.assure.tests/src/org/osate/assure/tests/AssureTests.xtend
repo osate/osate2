@@ -602,7 +602,7 @@ class AssureTests extends XtextTest {
 			"scsimplvplan".assertEquals(name)
 			5.assertEquals(claim.size)
 			claim.get(0) => [
-				2.assertEquals(activities.size)
+				1.assertEquals(activities.size)
 			]
 			claim.get(1) => [
 				0.assertEquals(activities.size)
@@ -709,7 +709,7 @@ class AssureTests extends XtextTest {
 			22.assertEquals(counts.failCount)
 			0.assertEquals(counts.errorCount)
 		} else {
-			9.assertEquals(counts.successCount)
+			8.assertEquals(counts.successCount)
 			10.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
