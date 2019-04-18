@@ -203,11 +203,12 @@ public abstract class AnnexRegistry {
 		}
 	};
 
-	public static void process() throws CoreException, IOException {
-		process(NULL_REGISTRY_LOGGER);
+	public static void initializeExtensionRegistry() throws CoreException, IOException {
+		initializeExtensionRegistry(NULL_REGISTRY_LOGGER);
 	}
 
-	public static synchronized void process(final RegistryLogger registryLogger) throws CoreException, IOException {
+	public static synchronized void initializeExtensionRegistry(final RegistryLogger registryLogger)
+			throws CoreException, IOException {
 		// Ensure processing only happens once and only when not running an Eclipse application.
 		//
 		if (!initializedAlready && !EMFPlugin.IS_ECLIPSE_RUNNING) {
@@ -239,16 +240,12 @@ public abstract class AnnexRegistry {
 
 				// Make the new registry the default.
 				//
-//				try {
-					RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
-						@Override
-						public IExtensionRegistry getRegistry() {
-							return newRegistry;
-						}
-					});
-//				} catch (CoreException exception) {
-//					AnnexPlugin.logError(exception);
-//				}
+				RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
+					@Override
+					public IExtensionRegistry getRegistry() {
+						return newRegistry;
+					}
+				});
 
 				registry = newRegistry;
 			}
@@ -279,56 +276,52 @@ public abstract class AnnexRegistry {
 
 				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
 					InputStream manifestInputStream = null;
-//					try {
-						// Read the manifest.
+					// Read the manifest.
+					//
+					manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
+					Manifest manifest = new Manifest(manifestInputStream);
+					java.util.jar.Attributes mainAttributes = manifest.getMainAttributes();
+
+					// Determine the bundle's name
+					//
+					String bundleSymbolicName = mainAttributes.getValue("Bundle-SymbolicName");
+					if (bundleSymbolicName != null) {
+						// Split out the OSGi noise.
 						//
-						manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
-						Manifest manifest = new Manifest(manifestInputStream);
-						java.util.jar.Attributes mainAttributes = manifest.getMainAttributes();
+						bundleSymbolicName = bundleSymbolicName.split(";")[0].trim();
 
-						// Determine the bundle's name
+						// Compute the map entry from platform:/plugin/<bundleSymbolicName>/ to the location URI's root.
 						//
-						String bundleSymbolicName = mainAttributes.getValue("Bundle-SymbolicName");
-						if (bundleSymbolicName != null) {
-							// Split out the OSGi noise.
-							//
-							bundleSymbolicName = bundleSymbolicName.split(";")[0].trim();
+						URI logicalPlatformPluginURI = URI.createPlatformPluginURI(bundleSymbolicName, true)
+								.appendSegment("");
+						URI pluginLocationURI = pluginLocation.isArchive() ? pluginLocation
+								: pluginLocation.appendSegment("");
 
-							// Compute the map entry from platform:/plugin/<bundleSymbolicName>/ to the location URI's root.
-							//
-							URI logicalPlatformPluginURI = URI.createPlatformPluginURI(bundleSymbolicName, true)
-									.appendSegment("");
-							URI pluginLocationURI = pluginLocation.isArchive() ? pluginLocation
-									: pluginLocation.appendSegment("");
+						// Also create a global URI mapping so that any uses of platform:/plugin/<plugin-ID> will map to the physical location of that
+						// plugin.
+						// This ensures that registered URI mappings that use a relative URI into the plugin will work correctly.
+						//
+						URIConverter.URI_MAP.put(logicalPlatformPluginURI, pluginLocationURI);
 
-							// Also create a global URI mapping so that any uses of platform:/plugin/<plugin-ID> will map to the physical location of that
-							// plugin.
-							// This ensures that registered URI mappings that use a relative URI into the plugin will work correctly.
-							//
-							URIConverter.URI_MAP.put(logicalPlatformPluginURI, pluginLocationURI);
-
-							// Find the localization resource bundle, if there is one.
-							//
-							String bundleLocalization = mainAttributes.getValue("Bundle-Localization");
-							ResourceBundle resourceBundle = null;
-							if (bundleLocalization != null) {
-								bundleLocalization += ".properties";
-								InputStream bundleLocalizationInputStream = URIConverter.INSTANCE
-										.createInputStream(pluginLocation.appendSegment(bundleLocalization));
-								resourceBundle = new PropertyResourceBundle(bundleLocalizationInputStream);
-								bundleLocalizationInputStream.close();
-							}
-
-							// Add the contribution.
-							//
-							InputStream pluginXMLInputStream = URIConverter.INSTANCE.createInputStream(pluginXMLURI);
-							IContributor contributor = ContributorFactorySimple.createContributor(bundleSymbolicName);
-							registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
-									resourceBundle, null);
+						// Find the localization resource bundle, if there is one.
+						//
+						String bundleLocalization = mainAttributes.getValue("Bundle-Localization");
+						ResourceBundle resourceBundle = null;
+						if (bundleLocalization != null) {
+							bundleLocalization += ".properties";
+							InputStream bundleLocalizationInputStream = URIConverter.INSTANCE
+									.createInputStream(pluginLocation.appendSegment(bundleLocalization));
+							resourceBundle = new PropertyResourceBundle(bundleLocalizationInputStream);
+							bundleLocalizationInputStream.close();
 						}
-//					} catch (IOException exception) {
-//						AnnexPlugin.logError(exception);
-//					}
+
+						// Add the contribution.
+						//
+						InputStream pluginXMLInputStream = URIConverter.INSTANCE.createInputStream(pluginXMLURI);
+						IContributor contributor = ContributorFactorySimple.createContributor(bundleSymbolicName);
+						registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
+								resourceBundle, null);
+					}
 				}
 			}
 		}
