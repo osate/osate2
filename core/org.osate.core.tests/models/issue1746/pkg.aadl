@@ -1,0 +1,22 @@
+package pkg
+public
+	abstract aType
+		features
+			da: requires data access;
+	end aType;
+	
+	system s
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			d: data[2];
+			a: abstract aType[2];
+			b1: bus[2];
+		connections
+			conn1: data access d <-> a.da {connection_pattern => ((one_to_one));};
+		properties
+			Actual_Connection_Binding => (reference (b1[1])) applies to conn1[1];
+			Actual_Connection_Binding => (reference (b1[2])) applies to conn1[2];
+	end s.i;
+end pkg;
