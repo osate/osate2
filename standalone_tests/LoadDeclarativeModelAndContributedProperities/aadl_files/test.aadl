@@ -1,0 +1,9 @@
+package test
+public
+	annex fake {** fake **}; 
+		
+	data d
+		properties
+			Source_language => (Java, C);
+	end d;
+end test;
