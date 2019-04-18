@@ -24,7 +24,7 @@ public final class LoadDeclarativeModelAndEMV2 {
 	public static void main(String[] args) {
 		try {
 			// Read the meta information about the plug-ins to get the annex information
-			AnnexRegistry.process();
+			AnnexRegistry.initializeExtensionRegistry();
 
 			final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 			ErrorModelStandaloneSetup.doSetup();
