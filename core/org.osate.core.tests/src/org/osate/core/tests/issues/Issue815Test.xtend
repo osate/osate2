@@ -40,13 +40,15 @@ class Issue815Test {
 				end efgt1;
 				
 				feature group iefgt1 extends ifgt1
+					features
+						out2: out feature;
 				inverse of efgt1
 				end iefgt1;
 				
 				feature group fgt2
 					features
 						out1: out feature;
-						in2: out feature;
+						out2: out feature;
 				end fgt2;
 				
 				abstract a1
@@ -58,14 +60,14 @@ class Issue815Test {
 					subcomponents
 						sub1: abstract a2;
 					connections
-						conn1: feature sub1.out2 -> fg1.out1;
-						conn2: feature sub1.out2 -> fg1.in2;
+						conn1: feature sub1.out3 -> fg1.out1;
+						conn2: feature sub1.out3 -> fg1.out2;
 						conn3: feature group sub1.fg2 -> fg1 {Classifier_Matching_Rule => Subset;};
 				end a1.i;
 				
 				abstract a2
 					features
-						out2: out feature;
+						out3: out feature;
 						fg2: feature group fgt2;
 				end a2;
 			end pkg1;
