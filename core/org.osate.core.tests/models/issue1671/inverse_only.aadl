@@ -1,0 +1,19 @@
+package inverse_only
+public
+	feature group FG1
+		features
+			f1: out event port;
+	end FG1;
+	
+	feature group FG2 extends FG1
+		features
+			f2: out event port;
+	end FG2;
+	
+	feature group IG2
+		features
+			g1: in event port;
+			g2: in event port;
+		inverse of FG2
+	end IG2;
+end inverse_only;
