@@ -1,0 +1,48 @@
+package reference_arrays
+public
+	with ps1;
+	
+	system s1
+		modes
+			m1: initial mode;
+	end s1;
+	
+	system implementation s1.i
+		subcomponents
+			sub1: system[5][5];
+			sub2: system;
+			sub3: system[5];
+			sub4: system[ps1::const1];
+		properties
+			--Ok
+			ps1::def1 => reference(sub1);
+			--Ok
+			ps1::def2 => reference(sub1[1][2]);
+			--Ok
+			ps1::def3 => reference(sub3[2 .. 4]);
+			--Modes are not ArrayableElements
+			ps1::def4 => reference(m1[1]);
+			--sub2 isn't an array
+			ps1::def5 => reference(sub2[1]);
+			--Too few dimensions
+			ps1::def6 => reference(sub1[1]);
+			--Too many dimensions
+			ps1::def7 => reference(sub1[1][2][3][4][5]);
+			--Index is 0
+			ps1::def8 => reference(sub3[0]);
+			--Index is too large
+			ps1::def9 => reference(sub3[10]);
+			--Range starts at zero
+			ps1::def10 => reference(sub3[0 .. 2]);
+			--Range upper is too large
+			ps1::def11 => reference(sub3[3 .. 7]);
+			--Range starts at zero and upper is too large
+			ps1::def12 => reference(sub3[0 .. 7]);
+			--Range lower is greater than range upper
+			ps1::def13 => reference(sub3[4 .. 2]);
+			--Index is too large
+			ps1::def14 => reference(sub4[10]);
+			--Range upper is too large
+			ps1::def15 => reference(sub4[3 .. 7]);
+	end s1.i;
+end reference_arrays;
