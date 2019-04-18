@@ -5,10 +5,10 @@ verification plan scsimplvplan for SCSImplementationreqs
 	
 claim R2_Lat [
 		activities
-			responsetime : Plugins.EndToEndFlowLatencyAnalysis()
-// timing uses Markers to report back.
+//			responsetime : Plugins.EndToEndFlowLatencyAnalysis()
+			computeLatency: SOM, MinLatency, MaxLatency = Plugins.ComputeEndToEndFlowLatency()
 //			timing: Plugins.ResourceAllocationScheduling()
-//		assert timing then responsetime
+//		assert timing then computeLatency
 
 	]
 claim DCS_R1 [
