@@ -19,14 +19,19 @@ import com.google.inject.Injector;
 
 public final class LoadDeclarativeModel {
 	public static void main(String[] args) {
+		// This doesn't care about annexes, so we don't have to init the extension registry
+
+		// Init the XText/EMF meta model
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
+		// Create a resource set and populate from the command line
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
 		final Resource[] resources = new Resource[args.length];
-		for (int i = 0; i < args.length; i++ ) {
+		for (int i = 0; i < args.length; i++) {
 			resources[i] = rs.getResource(URI.createURI(args[i]), true);
 		}
 
+		// Load the resources
 		System.out.println("Loading...");
 		for (final Resource resource : resources) {
 			try {
@@ -36,6 +41,7 @@ public final class LoadDeclarativeModel {
 			}
 		}
 
+		// Validate the model objects
 		System.out.println();
 		System.out.println("Validating...");
 		for (final Resource resource : resources) {
@@ -48,6 +54,7 @@ public final class LoadDeclarativeModel {
 			}
 		}
 
+		// Print the model objects
 		System.out.println();
 		System.out.println("Traversing...");
 		for (final Resource resource : resources) {

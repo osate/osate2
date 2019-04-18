@@ -29,6 +29,8 @@ public final class CreateInstanceModel {
 			return;
 		}
 
+		// This doesn't care about annexes, so we don't have to init the extension registry
+
 		// Init the AADL2 meta model
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 

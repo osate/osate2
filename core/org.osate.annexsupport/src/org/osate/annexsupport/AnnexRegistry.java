@@ -145,13 +145,7 @@ public abstract class AnnexRegistry {
 	protected void initialize(String extensionId) {
 		extensions = new HashMap();
 
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-
-		/* If the system is running outside of Eclipse we wont' have an extension registry */
-		if (extensionRegistry == null) {
-			process(null);
-			extensionRegistry = Platform.getExtensionRegistry();
-		}
+		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		if (extensionRegistry != null) {
 			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
 			IExtension[] exts = extensionPoint.getExtensions();
@@ -173,7 +167,7 @@ public abstract class AnnexRegistry {
 				}
 			}
 		} else {
-			/* Running outside of eclipse, just use the default support */
+			/* Running outside of eclipse and the extension registry is missing: just use the default support */
 			final Object defaultHandler = getDefault();
 			if (defaultHandler != null) {
 				extensions.put("*", defaultHandler);
@@ -197,7 +191,23 @@ public abstract class AnnexRegistry {
 
 	private static boolean initializedAlready = false;
 
-	public static synchronized void process(ClassLoader classLoader) {
+	@FunctionalInterface
+	public static interface RegistryLogger {
+		public void log(IStatus status);
+	}
+
+	private final static RegistryLogger NULL_REGISTRY_LOGGER = new RegistryLogger() {
+		@Override
+		public void log(final IStatus status) {
+			// do nothing
+		}
+	};
+
+	public static void process() throws CoreException, IOException {
+		process(NULL_REGISTRY_LOGGER);
+	}
+
+	public static synchronized void process(final RegistryLogger registryLogger) throws CoreException, IOException {
 		// Ensure processing only happens once and only when not running an Eclipse application.
 		//
 		if (!initializedAlready && !EMFPlugin.IS_ECLIPSE_RUNNING) {
@@ -211,8 +221,8 @@ public abstract class AnnexRegistry {
 				//
 				final IExtensionRegistry newRegistry = RegistryFactory.createRegistry(new RegistryStrategy(null, null) {
 					@Override
-					public void log(IStatus status) {
-						AnnexPlugin.log(status);
+					public void log(final IStatus status) {
+						registryLogger.log(status);
 					}
 
 					@Override
@@ -229,25 +239,23 @@ public abstract class AnnexRegistry {
 
 				// Make the new registry the default.
 				//
-				try {
+//				try {
 					RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
 						@Override
 						public IExtensionRegistry getRegistry() {
 							return newRegistry;
 						}
 					});
-				} catch (CoreException exception) {
-					AnnexPlugin.logError(exception);
-				}
+//				} catch (CoreException exception) {
+//					AnnexPlugin.logError(exception);
+//				}
 
 				registry = newRegistry;
 			}
 
-			// If there is no class loader provided, use the thread's context class loader.
+			// Use the thread's context class loader.
 			//
-			if (classLoader == null) {
-				classLoader = Thread.currentThread().getContextClassLoader();
-			}
+			final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
 			// Process all the URIs for plugin.xml files from the class path or the class loader.
 			//
@@ -271,7 +279,7 @@ public abstract class AnnexRegistry {
 
 				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
 					InputStream manifestInputStream = null;
-					try {
+//					try {
 						// Read the manifest.
 						//
 						manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
@@ -318,9 +326,9 @@ public abstract class AnnexRegistry {
 							registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
 									resourceBundle, null);
 						}
-					} catch (IOException exception) {
-						AnnexPlugin.logError(exception);
-					}
+//					} catch (IOException exception) {
+//						AnnexPlugin.logError(exception);
+//					}
 				}
 			}
 		}

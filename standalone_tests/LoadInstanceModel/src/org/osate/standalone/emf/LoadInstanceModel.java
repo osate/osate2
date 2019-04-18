@@ -12,6 +12,8 @@ import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 
 public final class LoadInstanceModel {
 	public static void main(String[] args) {
+		// This doesn't care about annexes, so we don't have to init the extension registry
+
 		// Init the instance model -- need both these lines
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
 		InstancePackage.eINSTANCE.eClass();
