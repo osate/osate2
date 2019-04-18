@@ -111,4 +111,105 @@
         	<fileset dir="C:/Users/aarong/git/osate2/core" includes="org.osate.annexsupport/META-INF/MANIFEST.MF" />
         </jar>
     </target>
+
+    <target name="run_app">
+        <java classname="org.osate.standalone.emf.LoadDeclarativeModel">
+        	<arg value="aadl_files/fred2.aadl" />
+			<classpath>
+                <pathelement location="C:/SEI/Tools/Java/jre1.8.0_201/lib/jfxswt.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.generator_2.16.0.v20181203-0528.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xtext.generator_2.16.0.v20181203-0514.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xbase.lib_2.16.0.v20181203-0507.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/com.google.guava_21.0.0.v20170206-1425.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.codegen.ecore_2.16.0.v20181206-1055.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.common_2.15.0.v20180914-1817.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.codegen_2.15.0.v20181120-2156.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/de.itemis.xtext.antlr_2.1.1.v201405091103.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.antlr.generator_3.2.0.v201405091103.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend_2.2.0.v201605260315.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe.core_1.3.21.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.apache.commons.cli_1.2.0.v201404270220.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.runtime_2.9.1.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/com.ibm.icu_63.1.0.v20181030-1705.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xpand_2.2.0.v201605260315.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.lib_2.9.1.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.runtime_3.15.100.v20181107-1343.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/javax.inject_1.0.0.v20091030.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.osgi_3.13.200.v20181130-2106.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.fx.osgi_3.3.0.201809010500.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/javax.transaction_1.1.1.v201105210645.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.osgi.compatibility.state_1.1.300.v20181116-1550.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.common_3.10.200.v20181021-1645.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.jobs_3.10.200.v20180912-1356.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.registry_3.8.200.v20181008-1820.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.preferences_3.7.200.v20180827-1235.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.contenttype_3.7.200.v20181107-1343.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.app_1.4.0.v20181009-1752.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.uml_5.5.0.v20181203-1331.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.common_2.5.0.v20181203-1331.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.types_2.5.0.v20181203-1331.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mapping.ecore2xml_2.11.0.v20180706-1146.jar"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.aadl2/bin"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.apache.log4j_1.2.15.v201012070815.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext_2.16.0.v20181203-0514.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.antlr.runtime_3.2.0.v201101311130.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/com.google.inject_3.0.0.v201312141243.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/com.google.inject.multibindings_3.0.0.v201402270930.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/com.google.inject.assistedinject_3.0.0.v201402270930.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe.utils_1.3.21.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.util_2.16.0.v20181203-0514.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.antlr.runtime_4.3.0.v201502022030.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.launch_2.9.1.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.language_2.9.1.201705291011.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.common.types_2.16.0.v20181203-0528.jar"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.aadl2.modelsupport/bin"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.workspace/bin"/>
+                <pathelement location="C:/Users/aarong/git/osate2/core/org.osate.workspace/etc/antlr.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui_3.111.0.v20181117-0847.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.swt_3.109.0.v20181204-1801.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.109.0.v20181204-1801.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.jface_3.15.0.v20181123-1505.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.commands_3.9.200.v20180827-1727.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.e4.ui.workbench3_0.14.200.v20180828-0227.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.resources_3.13.200.v20181121-1020.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ui_2.16.0.v20181203-1056.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.transaction_1.9.1.201805140824.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.edit_2.14.0.v20180823-0456.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.validation_1.8.0.201805030717.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.editors_3.11.300.v20180914-0606.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.filebuffers_3.6.400.v20181028-0633.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.jface.text_3.15.0.v20181119-1708.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.text_3.8.0.v20180923-1636.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.edit.ui_2.16.0.v20181104-0733.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.views_3.9.200.v20180828-0837.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.common.ui_2.15.0.v20181104-0733.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ltk.core.refactoring_3.9.200.v20181024-1629.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ide_2.16.0.v20181203-0514.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.builder_2.16.0.v20181203-1056.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.debug.ui_3.13.200.v20181026-1523.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.debug.core_3.13.100.v20181201-1650.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ui.shared_2.16.0.v20181203-1056.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.expressions_3.6.200.v20180817-1401.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.workbench.texteditor_3.11.200.v20181108-1458.jar"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.core/bin"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.contribution.sei/bin"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.objectweb.asm_7.0.0.v20181030-2244.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.codegen.ecore_2.5.0.v20181203-1331.jar"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.xtext.aadl2.properties/bin"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.annexsupport/bin"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.annexsupport"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xbase_2.16.0.v20181203-0528.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.lib_2.16.0.v20181203-0507.jar"/>
+                <pathelement location="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.lib.macro_2.16.0.v20181203-0507.jar"/>
+                <pathelement path="C:/Users/aarong/git/osate2/core/org.osate.xtext.aadl2/bin"/>
+                <pathelement path="C:/Users/aarong/git/osate2/standalone_tests/LoadDeclarativeModel/bin"/>
+			</classpath>
+        </java>
+    </target>
 </project>

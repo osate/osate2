@@ -20,6 +20,8 @@ import com.google.inject.Injector;
 
 public final class LoadInstanceAndDeclarative {
 	public static void main(String[] args) {
+		// This doesn't care about annexes, so we don't have to init the extension registry
+
 		// Init AADL2 model
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
