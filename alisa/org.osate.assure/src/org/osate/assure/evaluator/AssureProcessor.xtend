@@ -90,6 +90,12 @@ import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.assure.util.ResoluteUtil
 import org.osate.assure.util.ResoluteInterface
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
+import org.osate.alisa.common.common.TypeRef
+import org.osate.aadl2.PropertyType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -496,7 +502,25 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(Object data, UnitLiteral unit) {
+	def Object getType (FormalParameter fp){
+		val pt = fp.type
+		return getType(pt)
+		}
+		
+	def Object getType (PropertyType pt){
+		switch pt {
+			AadlBoolean: return Boolean
+			AadlInteger: return Integer
+			AadlReal: return Double
+			AadlString: return String
+			TypeRef: return getType(pt.ref)
+		}
+		return null
+	}
+
+	def PropertyExpression toLiteral(Object data, FormalParameter fp) {
+		val unit = fp?.unit
+		val expectedType = getType(fp)
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -504,16 +528,30 @@ class AssureProcessor implements IAssureProcessor {
 				b
 			}
 			Integer: {
-				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				i.value = data
-				if(unit !== null) i.unit = unit
-				i
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			Double: {
-				val r = Aadl2Factory.eINSTANCE.createRealLiteral
-				r.value = data
-				if(unit !== null) r.unit = unit
-				r
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			String: {
 				val str = Aadl2Factory.eINSTANCE.createStringLiteral
@@ -526,16 +564,30 @@ class AssureProcessor implements IAssureProcessor {
 				b
 			}
 			IntegerValue: {
-				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				i.value = data.value
-				if(unit !== null) i.unit = unit
-				i
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data.value
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data.value
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			RealValue: {
-				val r = Aadl2Factory.eINSTANCE.createRealLiteral
-				r.value = data.value
-				if(unit !== null) r.unit = unit
-				r
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data.value
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data.value
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			StringValue: {
 				val str = Aadl2Factory.eINSTANCE.createStringLiteral
@@ -776,8 +828,7 @@ class AssureProcessor implements IAssureProcessor {
 							val computevars = verificationResult.targetReference.verificationActivity.computes
 							if (computevars.size == 1) {
 								val computeRef = computevars.head
-								val tunit = method.results.head?.unit
-								val rval = toLiteral(returned, tunit)
+								val rval = toLiteral(returned, method.results.head)
 								// reset computes variables for interpreter
 								computes.clear
 								computes.put(computeRef.compute.name, rval)
@@ -836,8 +887,7 @@ class AssureProcessor implements IAssureProcessor {
 			computevars.forEach [ computeRef |
 				val value = valsIter.next
 				val formalReturn = formalIter.next
-				val tunit = formalReturn?.unit
-				computes.put(computeRef.compute.name, toLiteral(value, tunit))
+				computes.put(computeRef.compute.name, toLiteral(value, formalReturn))
 			]
 			evaluateComputePredicate(returned, valuePredicate)
 		} else {
