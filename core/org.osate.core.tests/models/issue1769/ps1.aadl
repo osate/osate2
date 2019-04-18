@@ -1,0 +1,18 @@
+property set ps1 is
+	const1: constant aadlinteger => 5;
+	def1: reference applies to (all);
+	def2: reference applies to (all);
+	def3: reference applies to (all);
+	def4: reference applies to (all);
+	def5: reference applies to (all);
+	def6: reference applies to (all);
+	def7: reference applies to (all);
+	def8: reference applies to (all);
+	def9: reference applies to (all);
+	def10: reference applies to (all);
+	def11: reference applies to (all);
+	def12: reference applies to (all);
+	def13: reference applies to (all);
+	def14: reference applies to (all);
+	def15: reference applies to (all);
+end ps1;
