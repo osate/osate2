@@ -29,9 +29,9 @@ public final class LoadDeclarativeModelAndEMV2_api {
 		ErrorModelStandaloneSetup.doSetup();
 
 		// Add the EMV2 annex handling
-		AnnexRegistry.registerProxy(AnnexRegistry.ANNEX_PARSER_EXT_ID, "EMV2", new EMV2AnnexParser());
-		AnnexRegistry.registerProxy(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID, "EMV2", new EMV2AnnexLinkingService());
-		AnnexRegistry.registerProxy(AnnexRegistry.ANNEX_UNPARSER_EXT_ID, "EMV2", new EMV2AnnexUnparser());
+		AnnexRegistry.registerParser("EMV2", new EMV2AnnexParser());
+		AnnexRegistry.registerLinkingService("EMV2", new EMV2AnnexLinkingService());
+		AnnexRegistry.registerUnparser("EMV2", new EMV2AnnexUnparser());
 
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
 		final Resource[] resources = new Resource[args.length];
