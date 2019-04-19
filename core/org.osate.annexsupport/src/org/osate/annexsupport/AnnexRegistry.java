@@ -183,7 +183,7 @@ public abstract class AnnexRegistry {
 	/**
 	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
 	 */
-	public final void registerProxy(final String annexName, final Object handler) {
+	private final void registerExtension(final String annexName, final Object handler) {
 		extensions.put(annexName.toLowerCase(), handler);
 	}
 
@@ -193,8 +193,40 @@ public abstract class AnnexRegistry {
 	 *
 	 * <code>getRegistry(extensionId).registerProxy(id, name, annexName, className)</code>.
 	 */
-	public static void registerProxy(final String extensionId, final String annexName, Object handler) {
-		getRegistry(extensionId).registerProxy(annexName, handler);
+	private static void registerExtension(final String extensionId, final String annexName, Object handler) {
+		getRegistry(extensionId).registerExtension(annexName, handler);
+	}
+
+	public static void registerContentAssist(final String annexName, final AnnexContentAssist extension) {
+		registerExtension(ANNEX_CONTENT_ASSIST_EXT_ID, annexName, extension);
+	}
+
+	public static void registerHighlighter(final String annexName, final AnnexHighlighter extension) {
+		registerExtension(ANNEX_HIGHLIGHTER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerInstantiator(final String annexName, final AnnexInstantiator extension) {
+		registerExtension(ANNEX_INSTANTIATOR_EXT_ID, annexName, extension);
+	}
+
+	public static void registerLinkingService(final String annexName, final AnnexLinkingService extension) {
+		registerExtension(ANNEX_LINKINGSERVICE_EXT_ID, annexName, extension);
+	}
+
+	public static void registerParser(final String annexName, final AnnexParser extension) {
+		registerExtension(ANNEX_PARSER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerResolver(final String annexName, final AnnexResolver extension) {
+		registerExtension(ANNEX_RESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerTextPositionResolver(final String annexName, final AnnexTextPositionResolver extension) {
+		registerExtension(ANNEX_TEXTPOSITIONRESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerUnparser(final String annexName, final AnnexUnparser extension) {
+		registerExtension(ANNEX_UNPARSER_EXT_ID, annexName, extension);
 	}
 
 	/**
