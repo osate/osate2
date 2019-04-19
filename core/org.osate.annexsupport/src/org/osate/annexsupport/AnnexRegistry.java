@@ -181,7 +181,24 @@ public abstract class AnnexRegistry {
 	}
 
 	/**
-	 * Factory method for annex proxies.
+	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
+	 */
+	public final void registerProxy(final String annexName, final Object handler) {
+		extensions.put(annexName.toLowerCase(), handler);
+	}
+
+	/**
+	 * Used by programs running outside of eclipse to register annex extensions.  This is a convenience method and
+	 * is equivalent to
+	 *
+	 * <code>getRegistry(extensionId).registerProxy(id, name, annexName, className)</code>.
+	 */
+	public static void registerProxy(final String extensionId, final String annexName, Object handler) {
+		getRegistry(extensionId).registerProxy(annexName, handler);
+	}
+
+	/**
+	 * Factory method for annex proxies that are created from reading the extension registry.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
 

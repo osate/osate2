@@ -26,6 +26,7 @@ public final class LoadDeclarativeModelAndEMV2 {
 			// Read the meta information about the plug-ins to get the annex information
 			AnnexRegistry.initializeExtensionRegistry();
 
+			// Init the XText/EMF meta model
 			final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 			ErrorModelStandaloneSetup.doSetup();
 
