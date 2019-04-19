@@ -1,0 +1,4 @@
+package test
+public
+	annex fake {** fake **}; 
+end test;
