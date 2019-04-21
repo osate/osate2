@@ -602,9 +602,11 @@
       <requirement
           name="org.eclipse.gef.mvc.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.elk.sdk.feature.feature.group" />
+          name="org.eclipse.elk.sdk.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/2019-03"/>
+      <repository
+          url="http://download.eclipse.org/efxclipse/updates-released/3.5.0/site/"/>
       <repository
           url="http://download.eclipse.org/elk/updates/releases/0.5.0/"/>
       <description>Additional features for the graphical editor</description>
