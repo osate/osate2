@@ -38,6 +38,7 @@ package org.osate.xtext.aadl2.validation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -47,8 +48,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -4784,25 +4783,35 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return false;
 	}
 
-	private List<Feature> sortFeaturesByOffset(List<Feature> features) {
-		if (features == null) {
-			return null;
-		}
-		SortedMap<Integer, Feature> featureMap = new TreeMap<Integer, Feature>();
-		for (Feature nextFeature : features) {
-			featureMap.put(NodeModelUtils.getNode(nextFeature).getOffset(), nextFeature);
-		}
-		return new ArrayList<Feature>(featureMap.values());
+	/**
+	 * Gets all features from a feature group type that are local and inherited through 'extends', but not inherited
+	 * through 'inverse of'. Refined features are filtered out so that only the last feature in a refinement hierarchy
+	 * is in the returned list. The list is ordered based upon the extension order and declaration order. The extension
+	 * order is consistent with (L9) from section 8.2 of the standard: "In the case of feature group type extensions,
+	 * the feature and feature group declarations in the extension are considered to be declared after the declarations
+	 * in the feature group type being extended".
+	 */
+	private List<Feature> getAllExtendsFeaturesFilterRefined(FeatureGroupType fgt) {
+		List<Classifier> extendsHierarchy = fgt.getSelfPlusAllExtended();
+		Collections.reverse(extendsHierarchy);
+		List<Feature> features = extendsHierarchy.stream()
+				.flatMap(classifier -> ((FeatureGroupType) classifier).getOwnedFeatures().stream())
+				.sorted(Comparator.comparingInt(feature -> NodeModelUtils.getNode(feature).getOffset()))
+				.collect(Collectors.toList());
+		List<Feature> refined = features.stream().map(Feature::getRefined).filter(feature -> feature != null)
+				.collect(Collectors.toList());
+		features.removeAll(refined);
+		return features;
 	}
 
 	private void checkFeaturesInInverseFeatureGroupType(FeatureGroupType featureGroupType) {
 		FeatureGroupType inverse = featureGroupType.getInverse();
 		if (inverse != null) {
-			List<Feature> features = sortFeaturesByOffset(featureGroupType.getOwnedFeatures());
-			List<Feature> inverseFeatures = sortFeaturesByOffset(inverse.getOwnedFeatures());
+			List<Feature> features = getAllExtendsFeaturesFilterRefined(featureGroupType);
 			if (features.size() == 0) {
 				return;
 			}
+			List<Feature> inverseFeatures = getAllExtendsFeaturesFilterRefined(inverse);
 			if (features.size() != inverseFeatures.size()) {
 				error(featureGroupType, "Feature Group features list count differs from that of its inverse");
 				return;
