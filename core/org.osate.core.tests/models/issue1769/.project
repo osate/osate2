@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SimpleControlSystem</name>
+	<name>issue1769</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,7 +12,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.osate.core.aadlnature</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
 </projectDescription>
