@@ -28,7 +28,7 @@
 
 		<!-- Used in pull request build -->
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
-		
+
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 	</properties>
 
@@ -59,23 +59,15 @@
 	</scm>
 	<!-- End metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
 
+	<repositories>
+		<repository>
+			<id>ocarina.repo</id>
+			<url>${ocarina.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
 	<profiles>
-		<profile>
-			<id>pr-build</id>
-			<activation>
-				<property>
-					<name>pr.build</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<repositories>
-				<repository>
-					<id>ocarina.repo</id>
-					<url>${ocarina.repo.url}</url>
-					<layout>p2</layout>
-				</repository>
-			</repositories>
-		</profile>
 		<profile>
 			<id>full</id>
 			<properties>
@@ -569,6 +561,17 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 	<reporting>
 		<plugins>
