@@ -11,6 +11,7 @@
 <listEntry value="tycho.localArtifacts=ignore"/>
 <listEntry value="sign=false"/>
 <listEntry value="spotbugs=false"/>
+<listEntry value="codecoverage=false"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
