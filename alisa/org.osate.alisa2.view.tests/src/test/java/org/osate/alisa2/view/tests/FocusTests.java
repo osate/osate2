@@ -14,4 +14,13 @@ public class FocusTests {
 	 *
 	 */
 
+	/*
+	 *
+	 * Lutz says that we may want to split this:
+	 * * Some tests should be written to test the java directly / more quickly
+	 * * But sirius / swtbot should be used for logic embedded in the odesign file and
+	 * for minimal testing of the whole thing (ie, integration / system level tests)
+	 *
+	 */
+
 }

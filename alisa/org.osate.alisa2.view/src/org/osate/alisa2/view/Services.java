@@ -314,7 +314,8 @@ public class Services {
 	public static boolean isFocused(EObject self) {
 		EObject focus = FocusManager.getInstance().getFocus();
 		// magic
-		return (new Random()).nextBoolean();
+//		return (new Random()).nextBoolean();
+		return false;
 	}
 
 	public static Collection<EObject> debug(EObject self) {
