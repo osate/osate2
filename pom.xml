@@ -35,7 +35,6 @@
 				</property>
 			</activation>
 			<modules>
-				<module>../osate2-ocarina</module>
 				<module>core/org.osate.build.repository</module>
 				<module>core/org.osate.build.product</module>
 			</modules>

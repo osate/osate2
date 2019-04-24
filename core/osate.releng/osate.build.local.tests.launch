@@ -8,7 +8,7 @@
 <listAttribute key="M2_PROPERTIES">
 <listEntry value="codecoverage=true"/>
 <listEntry value="spotbugs=true"/>
-<listEntry value="pr.build=true"/>
+<listEntry value="pr.build=false"/>
 <listEntry value="jgit.dirtyWorkingTree=warning"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
