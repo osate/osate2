@@ -264,6 +264,34 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
+	@Check
+	public void checkPropertyReferenceAppliesTo(NamedValue namedValue) {
+		AbstractNamedValue anv = namedValue.getNamedValue();
+		PropertyAssociation association = EcoreUtil2.getContainerOfType(namedValue, PropertyAssociation.class);
+		if (!anv.eIsProxy() && anv instanceof Property && association != null) {
+			Property referencedProperty = (Property) anv;
+			List<ContainedNamedElement> appliesTo = association.getAppliesTos();
+			if (appliesTo.isEmpty()) {
+				NamedElement holder = EcoreUtil2.getContainerOfType(association, NamedElement.class);
+				if (holder != null && !holder.acceptsProperty(referencedProperty)) {
+					error("Property " + referencedProperty.getQualifiedName() + " does not apply to "
+							+ holder.getName());
+				}
+			} else {
+				for (ContainedNamedElement cna : appliesTo) {
+					List<ContainmentPathElement> path = cna.getContainmentPathElements();
+					if (!path.isEmpty()) {
+						NamedElement holder = path.get(path.size() - 1).getNamedElement();
+						if (!holder.eIsProxy() && !holder.acceptsProperty(referencedProperty)) {
+							error("Property " + referencedProperty.getQualifiedName() + " does not apply to "
+									+ unparseAppliesTo(cna));
+						}
+					}
+				}
+			}
+		}
+	}
+
 	public void checkContainedProperties(PropertyAssociation pa) {
 
 		List<ModalPropertyValue> mpvs = pa.getOwnedValues();
