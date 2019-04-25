@@ -1,16 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
-		<artifactId>osate2</artifactId>
 		<groupId>org.osate</groupId>
-		<version>2.4.2-SNAPSHOT</version>
-		<relativePath>../org.osate.build.main/pom.xml</relativePath>
+		<artifactId>core.parent</artifactId>
+		<version>2.5.0-SNAPSHOT</version>
 	</parent>
+
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.core.tests</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
+
 	<repositories>
 		<repository>
 			<id>eclipse</id>
@@ -23,6 +27,7 @@
 			<layout>p2</layout>
 		</repository>
 	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -63,4 +68,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
