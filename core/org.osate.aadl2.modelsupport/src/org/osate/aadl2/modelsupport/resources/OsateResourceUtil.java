@@ -45,15 +45,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
-
-import com.google.inject.Injector;
 
 /**
  * static utility methods for handling models as persistent resources
@@ -69,44 +64,6 @@ public final class OsateResourceUtil {
 	}
 
 	public static boolean USES_GUI = true;
-
-	private static Injector injector;
-	private static IResourceSetProvider fResourceSetProvider;
-
-	private static XtextResourceSet resourceSet;
-
-	/**
-	 * @deprecated will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static XtextResourceSet getResourceSet() {
-		if (OsateCorePlugin.getDefault() == null) {
-			return null;
-		}
-
-		if (injector == null) {
-			injector = IResourceServiceProvider.Registry.INSTANCE
-					.getResourceServiceProvider(URI.createURI("dummy.aadl")).get(Injector.class);
-			if (injector == null) {
-				return null;
-			}
-		}
-		if (USES_GUI) {
-			if (fResourceSetProvider == null) {
-				fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
-			}
-
-			if (resourceSet == null) {
-				resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);// project);
-			}
-		} else {
-			if (resourceSet == null) {
-				resourceSet = injector.getInstance(XtextResourceSet.class);
-			}
-		}
-		return resourceSet;
-
-	}
 
 	/**
 	 * converts Resource into corresponding IResource without use of registry.
@@ -264,19 +221,20 @@ public final class OsateResourceUtil {
 	 * @return Resource
 	 */
 	public static Resource getResource(URI uri) {
+		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource res = null;
 		try {
-			res = getResourceSet().getResource(uri, true);
+			res = resourceSet.getResource(uri, true);
 		} catch (RuntimeException e) {
 			// the resource may have been created but load failed
 			// let's retrieve the resource without loading
 			// NOTE: since demandload is false it will not even be created if it
 			// does not already
 			// exist
-			res = getResourceSet().getResource(uri, false);
+			res = resourceSet.getResource(uri, false);
 			// if the retrieval fails create the resource
 			if (res == null) {
-				res = getResourceSet().createResource(uri);
+				res = resourceSet.createResource(uri);
 			}
 		}
 		return res;

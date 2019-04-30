@@ -241,7 +241,7 @@ public class InstantiateModel {
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = OsateResourceUtil.getResource(instanceURI, OsateResourceUtil.getResourceSet());
+		Resource aadlResource = OsateResourceUtil.getResource(instanceURI, new ResourceSetImpl());
 		aadlResource.getContents().clear();
 		aadlResource.save(null);
 		aadlResource.unload();

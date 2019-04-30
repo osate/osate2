@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
@@ -60,7 +61,7 @@ public final class FindUnusedClassifiersAnalysis {
 	}
 
 	public void doIt(final Collection<IFile> packages) {
-		final Job job = new FindUnusedClassifiersJob(OsateResourceUtil.getResourceSet(), packages);
+		final Job job = new FindUnusedClassifiersJob(new ResourceSetImpl(), packages);
 		// TODO Make the rule based on the contents of the resource set
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
