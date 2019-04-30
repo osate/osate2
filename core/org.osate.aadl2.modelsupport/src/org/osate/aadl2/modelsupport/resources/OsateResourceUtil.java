@@ -115,15 +115,6 @@ public final class OsateResourceUtil {
 
 	/**
 	 * @deprecated will be removed in 2.5.0
-	 * @param rs
-	 */
-	@Deprecated
-	public static void setResourceSet(XtextResourceSet rs) {
-		resourceSet = rs;
-	}
-
-	/**
-	 * @deprecated will be removed in 2.5.0
 	 */
 	@Deprecated
 	public static XtextResourceSet createResourceSet() {
