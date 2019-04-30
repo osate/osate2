@@ -110,26 +110,6 @@ public final class OsateResourceUtil {
 	}
 
 	/**
-	 * @deprecated will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static XtextResourceSet createResourceSet() {
-		return getResourceSet();
-//    	if (injector==null) {
-//    		injector = OsateCorePlugin
-//    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
-//    		if (injector == null){
-//    			return null;
-//    		}
-//    	}
-//        if (fResourceSetProvider == null)
-//        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
-//
-//        	return (XtextResourceSet) fResourceSetProvider.get(null);//project);
-
-	}
-
-	/**
 	 * method that creates an Xtext-based ResoruceSet (EMF resource set plus synchronization
 	 * It iwll not use the shared/global Osate resource set
 	 * @deprecated will be removed in 2.5.0

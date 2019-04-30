@@ -44,6 +44,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.Element;
@@ -69,6 +70,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 */
 	@Override
 	public final EList<Element> visitWorkspace() {
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		HashSet<IFile> files = TraverseWorkspace.getAadlandInstanceFilesInWorkspace();
 		for (final IFile file : files) {
 			/*
@@ -84,8 +86,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
-					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
+					Resource res = OsateResourceUtil.getResource(file, resourceSet);
 					Element target = (Element) res.getContents().get(0);
 
 					visitRoot(target);
@@ -114,6 +115,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 */
 	@Override
 	public final EList<Element> visitWorkspaceDeclarativeModels() {
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
 		for (final IFile file : files) {
 
@@ -125,8 +127,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
-					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
+					Resource res = OsateResourceUtil.getResource(file, resourceSet);
 					Element target = (Element) res.getContents().get(0);
 
 					visitRoot(target);

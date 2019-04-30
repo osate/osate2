@@ -16,11 +16,11 @@ import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Status
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.URIConverter
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.swt.widgets.Display
 import org.eclipse.ui.IStartup
 import org.eclipse.ui.actions.WorkspaceModifyOperation
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.pluginsupport.PluginSupportUtil
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator
 
@@ -40,7 +40,7 @@ class PropertiesUiStartup implements IStartup {
 				val WorkspaceModifyOperation operation = [monitor |
 					setModifiable(pluginResourcesProject)
 					deleteUnmodifiedContributed(pluginResourcesProject, PluginSupportUtil.contributedAadl,
-						OsateResourceUtil.createResourceSet.URIConverter, monitor
+						new ResourceSetImpl().URIConverter, monitor
 					)
 					val visibleMembers = pluginResourcesProject.members.filter[!name.startsWith(".")]
 					if (visibleMembers.empty) {
