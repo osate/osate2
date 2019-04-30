@@ -48,7 +48,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
@@ -266,22 +265,6 @@ public final class OsateResourceUtil {
 	public static void save(Resource res) {
 		try {
 			res.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Save model as text and apply Formatter in the process
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static void saveFormatted(Resource res) {
-		SaveOptions.Builder sb = SaveOptions.newBuilder();
-		sb = sb.format();
-		try {
-			res.save(sb.getOptions().toOptionsMap());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
