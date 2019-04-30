@@ -300,9 +300,7 @@
 			<enablement>
 			    <or>
 			        <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage" />
-			        <and>
-						<instanceof value="org.osate.aadl2.Element" />
-			        </and>
+			        <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper" />
 			    </or>
          </enablement>
       </actionProvider>
@@ -435,17 +433,7 @@
           <or>
              <instanceof value="org.eclipse.core.resources.IFile"/>
              <instanceof value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
-             <instanceof value="org.osate.aadl2.AadlPackage"/>
-             <instanceof value="org.osate.aadl2.AnnexLibrary"/>
-             <instanceof value="org.osate.aadl2.Classifier"/>
-             <instanceof value="org.osate.aadl2.AnnexSubclause"/>
-             <instanceof value="org.osate.aadl2.PropertySet"/>
-             <instanceof value="org.osate.aadl2.Property"/>
-             <instanceof value="org.osate.aadl2.PropertyConstant"/>
-             <instanceof value="org.osate.aadl2.PropertyType"/>
-             <instanceof
-                   value="org.osate.aadl2.instance.InstanceObject">
-             </instanceof>
+             <instanceof value="org.osate.aadl2.modelsupport.EObjectURIWrapper"/>
            </or>
           </selectionEnablement>
           <editorInputEnablement>
@@ -493,11 +481,30 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
+		     allPopups="false"
+             locationURI="popup:#TextEditorContext">
+          <command commandId="org.osate.ui.showInClassifierInfoView"
+                style="push">
+             <visibleWhen checkEnabled="false">
+                <reference
+                       definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+                </reference>
+             </visibleWhen>
+          </command>
+       </menuContribution> 
+
+       <menuContribution
              locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
           <separator
                 name="osate_begin"
                 visible="true">
           </separator>
+          <command
+                commandId="org.osate.ui.showInClassifierInfoView">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
           <command
                 commandId="org.osate.ui.instantiate">
              <visibleWhen
@@ -542,6 +549,12 @@
                 name="osate_begin"
                 visible="true">
           </separator>
+          <command
+                commandId="org.osate.ui.showInClassifierInfoView">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
           <command
                 commandId="org.osate.ui.reinstantiate">
              <visibleWhen
@@ -1006,6 +1019,9 @@
     <extension
           point="org.eclipse.ui.commands">
        <command
+       		 id="org.osate.ui.showInClassifierInfoView"
+       		 name="Open in Classifier Information View"/>
+       <command
              id="org.osate.ui.setAadlProjectProperties"
              name="Set As AADL_Project Property Set">
        </command>
@@ -1055,6 +1071,46 @@
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
+       <handler
+             class="org.osate.ui.handlers.OpenInClassifierInfoViewHandler"
+             commandId="org.osate.ui.showInClassifierInfoView">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <or>
+                       <!-- for Text Selection in the XText Editor -->
+                       <instanceof value="org.eclipse.jface.text.ITextSelection" />
+                       
+	                   <iterate>
+	                      <or>
+	                      	 <!-- For the AADL Navigator View -->
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Classifier"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	
+	                      	 <!-- For the Outline View -->
+	                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Classifier"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+	                      </or>
+	                   </iterate>
+                   </or>
+                </and>
+             </with>
+          </enabledWhen>
+       </handler>
        <handler
              class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
              commandId="org.osate.ui.setAadlProjectProperties">
