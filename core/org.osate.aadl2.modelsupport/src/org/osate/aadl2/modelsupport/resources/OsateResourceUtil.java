@@ -39,7 +39,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -256,36 +255,6 @@ public final class OsateResourceUtil {
 			return new Path(resourceURI.toFileString());
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
-		}
-	}
-
-	/**
-	 * deletes a Resource for file name with path within Eclipse
-	 *
-	 * @param uri Assumed to be an aaxl extension
-	 * @return Resource Aadl2ResourceImpl for aaxl
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static void deleteAaxl2Resource(URI uri) {
-		if (uri == null) {
-			return;
-		}
-		IResource iResource = getOsateIFile(uri);
-		if (iResource != null && iResource.exists()) {
-			try {
-				iResource.delete(true, null);
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		Resource res = getResourceSet().getResource(uri, false);
-		if (res != null) {
-			if (res.isLoaded()) {
-				res.unload();
-			}
-			getResourceSet().getResources().remove(res);
 		}
 	}
 
