@@ -51,7 +51,6 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -372,36 +371,6 @@ public final class OsateResourceUtil {
 				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
-	}
-
-	/*
-	 * returns the instance model URI for a given system implementation
-	 *
-	 * @param si
-	 *
-	 * @return URI for instance model file
-	 * 
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static URI getReportsURI(InstanceObject obj, String reporttype, String extension) {
-		Resource res = obj.eResource();
-		URI modeluri = res.getURI();
-		String last = modeluri.lastSegment();
-		String filename = last.substring(0, last.indexOf('.'));
-		URI path = modeluri.trimSegments(1);
-		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR)) {
-			path = path.trimSegments(1);
-		}
-		URI reportURI = path.appendSegment(WorkspacePlugin.AADL_REPORTS_DIR);
-		if (reporttype != null && !reporttype.isEmpty()) {
-			reportURI = reportURI.appendSegment(reporttype);
-		}
-		reportURI = reportURI.appendSegment(filename);
-		if (extension != null && !extension.isEmpty()) {
-			reportURI = reportURI.appendFileExtension(extension);
-		}
-		return reportURI;
 	}
 
 	public static URI saveEMFModel(EObject root, final URI newURI, EObject context) {
