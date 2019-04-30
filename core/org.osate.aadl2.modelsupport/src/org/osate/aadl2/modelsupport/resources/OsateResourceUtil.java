@@ -43,7 +43,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -258,66 +257,6 @@ public final class OsateResourceUtil {
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
 		}
-	}
-
-	/**
-	 * creates a Resource for file name with path within Eclipse If it exists,
-	 * it will delete the file before creating the resource.
-	 *
-	 * @param uri Assumed to be an aaxl extension
-	 * @return Resource Aadl2ResourceImpl for aaxl
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static Resource getEmptyAaxl2Resource(URI uri) {
-		if (uri == null) {
-			return null;
-		}
-		// the next piece of code deals with the ending of instance files having changed from _Instance to _instance
-		String instancename = uri.trimFileExtension().lastSegment();
-		if (instancename.endsWith("_Instance")) {
-			int idx = instancename.lastIndexOf("_Instance");
-			instancename = instancename.substring(0, idx) + "_instance";
-			String ext = uri.fileExtension();
-			URI olduri = uri.trimSegments(1).appendSegment(instancename).appendFileExtension(ext);
-			IResource iResource = getOsateIFile(olduri);
-			if (iResource != null && iResource.exists()) {
-				try {
-					iResource.delete(true, null);
-				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			Resource res = getResourceSet().getResource(olduri, false);
-			if (res != null) {
-				if (res.isLoaded()) {
-					res.unload();
-				}
-				getResourceSet().getResources().remove(res);
-			}
-		}
-		// get the empty resource
-		IResource iResource = getOsateIFile(uri);
-		if (iResource != null && iResource.exists()) {
-			try {
-				iResource.delete(true, null);
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		Resource res = getResourceSet().getResource(uri, false);
-		if (res == null) {
-			res = getResourceSet().createResource(uri);
-		} else {
-			if (res.isLoaded()) {
-				res.unload();
-			}
-			getResourceSet().getResources().remove(res);
-			res = getResourceSet().createResource(uri);
-		}
-		return res;
 	}
 
 	/**
