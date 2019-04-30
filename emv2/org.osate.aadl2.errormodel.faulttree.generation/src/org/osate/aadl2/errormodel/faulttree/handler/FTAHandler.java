@@ -26,7 +26,6 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
@@ -34,7 +33,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
@@ -191,8 +189,7 @@ public final class FTAHandler extends AbstractHandler {
 					}
 				}
 				if (obj instanceof IFile) {
-					ResourceSet rset = OsateResourceUtil.createXtextResourceSet();
-					Resource res = OsateResourceUtil.getResource((IResource) obj, rset);
+					Resource res = OsateResourceUtil.getResource((IFile) obj, new ResourceSetImpl());
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty()) {
 						return (InstanceObject) rl.get(0);

@@ -41,7 +41,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -106,31 +105,6 @@ public final class OsateResourceUtil {
 			}
 		}
 		return resourceSet;
-
-	}
-
-	/**
-	 * method that creates an Xtext-based ResoruceSet (EMF resource set plus synchronization
-	 * It iwll not use the shared/global Osate resource set
-	 * @deprecated will be removed in 2.5.0
-	 */
-	public static XtextResourceSet createXtextResourceSet() {
-		if (injector == null) {
-			injector = IResourceServiceProvider.Registry.INSTANCE
-					.getResourceServiceProvider(URI.createURI("dummy.aadl")).get(Injector.class);
-			if (injector == null) {
-				return null;
-			}
-		}
-		if (Platform.isRunning()) {
-			if (fResourceSetProvider == null) {
-				fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
-			}
-
-			return (XtextResourceSet) fResourceSetProvider.get(null);// project);
-		} else {
-			return injector.getInstance(XtextResourceSet.class);
-		}
 
 	}
 
