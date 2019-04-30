@@ -154,7 +154,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	@Override
-	public final EList visitWorkspaceInstanceModels() {
+	public final EList<?> visitWorkspaceInstanceModels() {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile file : files) {
 			SystemInstance target = Platform.getAdapterManager().getAdapter(file,
