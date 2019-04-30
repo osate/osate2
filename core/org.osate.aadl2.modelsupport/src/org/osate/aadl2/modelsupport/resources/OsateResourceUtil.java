@@ -159,25 +159,6 @@ public final class OsateResourceUtil {
 	}
 
 	/**
-	 * unload all aadl resources so they get reloaded for instantiation
-	 * @param rs Resource Set containing the instance model
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	@Deprecated
-	public static void refreshResourceSet(ResourceSet rset) {
-		EList<Resource> rlist = rset.getResources();
-		for (Resource resource : rlist) {
-			URI uri = resource.getURI();
-			if (uri.fileExtension() == null) {
-				continue;
-			}
-			if (uri.fileExtension().equalsIgnoreCase("aadl") || uri.fileExtension().equalsIgnoreCase("aadl2")) {
-				resource.unload();
-			}
-		}
-	}
-
-	/**
 	 * converts Resource into corresponding IResource without use of registry.
 	 *
 	 * @param res
