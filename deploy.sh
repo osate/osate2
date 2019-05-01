@@ -13,4 +13,4 @@ cp --recursive repository/* ${TODIR}/updates/.
 ln -s ${TODIR}/updates ${TODIR}/update-site
 
 mkdir -p ${TODIR}/code-coverage
-cd core/org.osate.build.coverage.report/target/site/jacoco-aggregate && cp --recursive * ${TODIR}/code-coverage/.
+cd ../../org.osate.build.coverage.report/target/site/jacoco-aggregate && cp --recursive * ${TODIR}/code-coverage/.
