@@ -18,6 +18,7 @@
 
 package org.osate.aadl2.errormodel.faulttree.handler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,9 +43,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
+import org.osate.aadl2.errormodel.faulttree.generation.Activator;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -205,7 +208,14 @@ public final class FTAHandler extends AbstractHandler {
 				.appendSegment("reports").appendSegment("fta").appendSegment(ftamodel.getName())
 				.appendFileExtension("faulttree");
 		AadlUtil.makeSureFoldersExist(new Path(ftaURI.toPlatformString(true)));
-		return OsateResourceUtil.saveEMFModel(ftamodel, ftaURI, ftamodel.getInstanceRoot());
+		Resource res = ftamodel.getInstanceRoot().eResource().getResourceSet().createResource(ftaURI);
+		res.getContents().add(ftamodel);
+		try {
+			res.save(null);
+		} catch (IOException e) {
+			StatusManager.getManager().handle(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
+		return EcoreUtil.getURI(ftamodel);
 	}
 
 }
