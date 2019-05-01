@@ -17,7 +17,7 @@ pipeline {
     	                	mavenLocalRepo: '.repository') 
     	                {
 	                        // Run the maven build
-                        	sh 'mvn -T 3 -s core/osate.releng/settings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
+                        	sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
                 		} // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
             		}
         	    }
@@ -40,7 +40,7 @@ pipeline {
     	                	mavenLocalRepo: '.repository') 
     	                {
 	                        // Run the maven build
-                        	sh 'mvn -T 3 -s core/osate.releng/settings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
+                        	sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
                 		} // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
             		}
         	    }
