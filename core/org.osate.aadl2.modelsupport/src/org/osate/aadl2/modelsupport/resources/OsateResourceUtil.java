@@ -241,6 +241,10 @@ public final class OsateResourceUtil {
 		return res;
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.5.1
+	 */
+	@Deprecated
 	public static URI saveEMFModel(EObject root, final URI newURI, EObject context) {
 		try {
 			ResourceSet set = context.eResource().getResourceSet();
