@@ -1,5 +1,6 @@
 package org.osate.analysis.architecture.unusedclassifiers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
@@ -69,7 +71,12 @@ public final class UnusedClassifierMarkerResolution extends WorkbenchMarkerResol
 						monitor.worked(1);
 					}
 				});
-				OsateResourceUtil.save(rsrc);
+				try {
+					rsrc.save(null);
+				} catch (IOException e) {
+					IStatus status = new Status(IStatus.ERROR, "org.osate.analysis.architecture", e.getMessage(), e);
+					StatusManager.getManager().handle(status);
+				}
 				marker.delete();
 			} finally {
 				monitor.done();
