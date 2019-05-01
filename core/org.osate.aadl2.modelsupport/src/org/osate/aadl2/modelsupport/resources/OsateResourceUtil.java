@@ -72,7 +72,7 @@ public final class OsateResourceUtil {
 	 *            Resource
 	 * @return IResource
 	 */
-	public static IResource convertToIResource(Resource res) {
+	public static IFile convertToIResource(Resource res) {
 		if (res == null) {
 			return null;
 		}

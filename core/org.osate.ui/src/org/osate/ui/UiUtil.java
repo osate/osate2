@@ -361,7 +361,7 @@ public final class UiUtil {
 	 *         <code>null</code> if the editor was not able to be opened.
 	 */
 	public static final EditingDomain openEditorFor(final Element obj) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
+		final IFile file = OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
 				return AdapterFactoryEditingDomain.getEditingDomainFor(obj);
@@ -391,7 +391,7 @@ public final class UiUtil {
 	 *            The editor command to execute.
 	 */
 	public static final void executeCommand(final Element obj, final Command command) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
+		final IFile file = OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
 			if (editingDomain != null) {
@@ -424,7 +424,7 @@ public final class UiUtil {
 	 *            The editor command to execute.
 	 */
 	public static final void openEditorAndExecute(final Element obj, final Command command) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
+		final IFile file = OsateResourceUtil.convertToIResource(obj.eResource());
 		if (file != null) {
 			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
 				final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
