@@ -45,8 +45,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * static utility methods for handling models as persistent resources
@@ -241,32 +239,6 @@ public final class OsateResourceUtil {
 			}
 		}
 		return res;
-	}
-
-	/*
-	 * returns the instance model URI for a given system implementation
-	 *
-	 * @param si
-	 *
-	 * @return URI for instance model file
-	 * 
-	 * @deprecated unused, will be removed in 2.5.0
-	 */
-	// FIXME: Move to class InstantiateModel
-	@Deprecated
-	public static URI getInstanceModelURI(ComponentImplementation ci) {
-		Resource res = ci.eResource();
-		URI modeluri = res.getURI();
-		String last = modeluri.lastSegment();
-		String filename = last.substring(0, last.indexOf('.'));
-		URI path = modeluri.trimSegments(1);
-		if (!path.isEmpty() && path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
-			path = path.trimSegments(1);
-		}
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
-				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		return instanceURI;
 	}
 
 	public static URI saveEMFModel(EObject root, final URI newURI, EObject context) {
