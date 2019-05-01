@@ -30,7 +30,7 @@ pipeline {
     post {
         always {
             jacoco execPattern: '**/**.exec', exclusionPattern: '**/ba/**,**/tests/**,**/src-gen/**', classPattern: '**/classes', sourcePattern: '**/src', sourceInclusionPattern: '**/*.java'
-            recordIssues tool: spotBugs(pattern: '**/spotbugsXml.xml', reportEncodeing: 'UTF-8'), sourceCodeEncoding: 'UTF-8'
+            recordIssues tool: spotBugs(pattern: '**/spotbugsXml.xml', reportEncoding: 'UTF-8'), sourceCodeEncoding: 'UTF-8'
         }
         success {
 			emailext (
