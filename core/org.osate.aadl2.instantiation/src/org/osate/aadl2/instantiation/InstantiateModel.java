@@ -236,7 +236,7 @@ public class InstantiateModel {
 			throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
+		URI instanceURI = getInstanceModelURI(ci);
 		IFile file = OsateResourceUtil.getOsateIFile(instanceURI);
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
@@ -258,7 +258,7 @@ public class InstantiateModel {
 
 	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager,
 			IProgressMonitor monitor) throws Exception {
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
+		URI instanceURI = getInstanceModelURI(ci);
 		ResourceSet resourceSet = ci.eResource().getResourceSet();
 		Resource aadlResource = resourceSet.createResource(instanceURI);
 
@@ -502,6 +502,28 @@ public class InstantiateModel {
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
 		return;
+	}
+	
+	/*
+	 * returns the instance model URI for a given system implementation
+	 *
+	 * @param si
+	 *
+	 * @return URI for instance model file
+	 */
+	private static URI getInstanceModelURI(ComponentImplementation ci) {
+		Resource res = ci.eResource();
+		URI modeluri = res.getURI();
+		String last = modeluri.lastSegment();
+		String filename = last.substring(0, last.indexOf('.'));
+		URI path = modeluri.trimSegments(1);
+		if (!path.isEmpty() && path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+			path = path.trimSegments(1);
+		}
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
+				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		return instanceURI;
 	}
 
 	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
