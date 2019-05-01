@@ -33,8 +33,6 @@
  */
 package org.osate.aadl2.modelsupport.resources;
 
-import java.io.IOException;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -164,20 +162,6 @@ public final class OsateResourceUtil {
 			return new Path(resourceURI.toFileString());
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
-		}
-	}
-
-	/**
-	 * @deprecated will be removed in 2.5.0
-	 * @param res
-	 */
-	@Deprecated
-	public static void save(Resource res) {
-		try {
-			res.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
