@@ -1,4 +1,4 @@
-This example loads a multiple declarative models and prints out there contents.  It does not understand any
+This example loads multiple declarative models and prints out their contents.  It does not understand any
 annex extensions (all annexes are processed as text).
 
 The examples takes 1 or more declarative files as input.
