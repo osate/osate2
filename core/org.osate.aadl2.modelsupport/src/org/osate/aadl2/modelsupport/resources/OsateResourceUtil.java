@@ -59,6 +59,10 @@ public final class OsateResourceUtil {
 		super();
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.5.1
+	 */
+	@Deprecated
 	public static boolean USES_GUI = true;
 
 	/**
