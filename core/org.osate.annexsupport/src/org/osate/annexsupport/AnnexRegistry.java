@@ -68,6 +68,16 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
+ * For headlesx (non-eclipse) applications, there are two options:
+ *
+ * <ol>
+ * <li>Force the environment to read the <code>plugin.xml</code> files and initialize the Eclipse extension registry.  This is done
+ * by calling {@link #initializeExtensionRegistry}.  This can be slow because all the plug-ins need to be searched.
+ *
+ * <li>Register the annex extensions that you care about using method calls.  This is most easily done using the {@link #registerAnnex}
+ * method.
+ * </ol>
+ *
  * @author lwrage
  * @version $Id: AnnexRegistry.java,v 1.4 2007-07-10 20:41:44 jseibel Exp $
  */
@@ -100,9 +110,11 @@ public abstract class AnnexRegistry {
 	private static final String ATT_ANNEXNAME = "annexName";
 	private static final String ATT_ANNEXNSURI = "annexNSURI";
 
+	@SuppressWarnings("rawtypes")
 	private static final Map registries = new HashMap();
 
 	/** The extensions in this registry */
+	@SuppressWarnings("rawtypes")
 	protected Map extensions;
 
 	/**
@@ -110,6 +122,7 @@ public abstract class AnnexRegistry {
 	 *
 	 * @return the single instance of this class.
 	 */
+	@SuppressWarnings("unchecked")
 	public static AnnexRegistry getRegistry(String extensionId) {
 		AnnexRegistry registry = (AnnexRegistry) registries.get(extensionId);
 
@@ -142,6 +155,7 @@ public abstract class AnnexRegistry {
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void initialize(String extensionId) {
 		extensions = new HashMap();
 
@@ -183,18 +197,22 @@ public abstract class AnnexRegistry {
 	/**
 	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
 	 */
+	@SuppressWarnings("unchecked")
 	private final void registerExtension(final String annexName, final Object handler) {
 		extensions.put(annexName.toLowerCase(), handler);
 	}
 
 	/**
-	 * Used by programs running outside of eclipse to register annex extensions.  This is a convenience method and
+	 * Used by programs running outside of eclipse to register annex extensions.  Checks if <code>handler</code>
+	 * is <code>null</code>, and doesn't register anything if it is.  This is a convenience method and
 	 * is equivalent to
 	 *
 	 * <code>getRegistry(extensionId).registerProxy(id, name, annexName, className)</code>.
 	 */
 	private static void registerExtension(final String extensionId, final String annexName, Object handler) {
-		getRegistry(extensionId).registerExtension(annexName, handler);
+		if (handler != null) {
+			getRegistry(extensionId).registerExtension(annexName, handler);
+		}
 	}
 
 	public static void registerContentAssist(final String annexName, final AnnexContentAssist extension) {
@@ -227,6 +245,23 @@ public abstract class AnnexRegistry {
 
 	public static void registerUnparser(final String annexName, final AnnexUnparser extension) {
 		registerExtension(ANNEX_UNPARSER_EXT_ID, annexName, extension);
+	}
+
+	/**
+	 * Single method to register an annex from a stand-alone application.
+	 */
+	public static void registerAnnex(final String annexName, final AnnexParser parser, final AnnexUnparser unparser,
+			final AnnexLinkingService linkingService, final AnnexContentAssist contextAssist,
+			final AnnexHighlighter highlighter, final AnnexInstantiator instantiator, final AnnexResolver resolver,
+			final AnnexTextPositionResolver textPositionResolver) {
+		registerParser(annexName, parser);
+		registerUnparser(annexName, unparser);
+		registerLinkingService(annexName, linkingService);
+		registerContentAssist(annexName, contextAssist);
+		registerHighlighter(annexName, highlighter);
+		registerInstantiator(annexName, instantiator);
+		registerResolver(annexName, resolver);
+		registerTextPositionResolver(annexName, textPositionResolver);
 	}
 
 	/**
