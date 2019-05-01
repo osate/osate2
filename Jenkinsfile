@@ -1,9 +1,17 @@
 pipeline {
     agent any
     stages {
+    	stage('debug') {
+    	    steps {
+      			echo 'BRANCH ' + env.BRANCH_NAME + ", " + "${env.GIT_BRANCH}"
+      			println("${env.GIT_BRANCH}" == "origin/master")
+      			println("${env.GIT_BRANCH}" != "origin/master")
+    	    }
+    	}
+
 		stage('PR Build') {
 			when {
-			    not { branch 'master' }
+			    expression { return env.BRANCH_NAME }
 			}
         	stages {
         	    stage('Build Pull Request') {
@@ -17,7 +25,7 @@ pipeline {
     	                	mavenLocalRepo: '.repository') 
     	                {
 	                        // Run the maven build
-                        	sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
+                        	echo 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
                 		} // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
             		}
         	    }
@@ -26,7 +34,9 @@ pipeline {
 
 		stage('Nightly Build') {
 			when {
-			    branch 'master'
+			    not {
+			    	expression { return env.BRANCH_NAME }
+			    }
 			}
         	stages {
         	    stage('Build Products') {
@@ -40,13 +50,13 @@ pipeline {
     	                	mavenLocalRepo: '.repository') 
     	                {
 	                        // Run the maven build
-                        	sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
+                        	echo 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
                 		} // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
             		}
         	    }
 		        stage('Deploy') {
         			steps {
-        				sh 'bash ./deploy.sh'
+        				echo 'bash ./deploy.sh'
         			}
         		}
         	}
