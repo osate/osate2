@@ -28,7 +28,6 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Generalization;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -137,8 +136,6 @@ public final class FindUnusedClassifiersAnalysis {
 					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
 					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
 					try {
-						final List<Generalization> foofoo = classifier.getGeneralizations();
-
 						final IMarker marker = iRsrc.createMarker(MARKER_TYPE);
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 						marker.setAttribute(IMarker.MESSAGE,
