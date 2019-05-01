@@ -2,6 +2,7 @@ package org.osate.standalone.emf;
 
 import java.io.IOException;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,8 +24,9 @@ public final class LoadInstanceModel {
 
 		try {
 			resource.load(null);
-			for (final EObject eObj : resource.getContents()) {
-				System.out.println(eObj);
+			final TreeIterator<EObject> treeIter = resource.getAllContents();
+			while (treeIter.hasNext()) {
+				System.out.println(treeIter.next());
 			}
 		} catch (final IOException e) {
 			System.err.println("ERROR LOADING RESOURCE: " + e.getMessage());
