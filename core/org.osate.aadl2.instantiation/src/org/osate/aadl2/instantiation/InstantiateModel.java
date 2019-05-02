@@ -237,7 +237,7 @@ public class InstantiateModel {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = getInstanceModelURI(ci);
-		IFile file = OsateResourceUtil.getOsateIFile(instanceURI);
+		IFile file = OsateResourceUtil.toIFile(instanceURI);
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}

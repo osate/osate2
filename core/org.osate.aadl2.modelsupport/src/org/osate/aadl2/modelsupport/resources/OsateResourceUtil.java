@@ -93,7 +93,9 @@ public final class OsateResourceUtil {
 	 * @exception IllegalArgumentException
 	 *                Thrown if the URI is does not use the "platform:"
 	 *                protocol.
+	 * @deprecated Use {@link #toIFile(URI)} instead. Will be removed in 2.5.1
 	 */
+	@Deprecated
 	public static IFile getOsateIFile(final URI resourceURI) {
 
 		/*
