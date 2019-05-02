@@ -2240,7 +2240,7 @@ public final class AadlUtil {
 	public static IPath getResourcePath(NamedElement component) {
 		Resource res = component.eResource();
 		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.getOsatePath(uri);
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
 		return path.removeLastSegments(1);
 	}
 

@@ -132,7 +132,9 @@ public final class OsateResourceUtil {
 	 * @return IPath to the file identified by the URI
 	 * @exception IllegalArgumentException Thrown if the URI is
 	 * does not use the "platform:" protocol.
+	 * @deprecated Use {@code toIFile(URI).getFullPath()} instead. Will be removed in 2.5.1
 	 */
+	@Deprecated
 	public static IPath getOsatePath(final URI resourceURI) {
 		/*
 		 * I don't really understand why this method does what it does, but
