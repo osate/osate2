@@ -166,6 +166,16 @@ public final class OsateResourceUtil {
 			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
 		}
 	}
+	
+	/**
+	 * Gets an IFile from an EMF Resource's URI.
+	 * 
+	 * @param resourceURI URI of an EMF Resource in the workspace. Must not be null.
+	 * @return The IFile corresponding to the EMF Resource. Never null.
+	 */
+	public static IFile toIFile(URI resourceURI) {
+		return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceURI.toPlatformString(true)));
+	}
 
 	/**
 	 * gets Resource for given IResource. Will create the resource if it does
