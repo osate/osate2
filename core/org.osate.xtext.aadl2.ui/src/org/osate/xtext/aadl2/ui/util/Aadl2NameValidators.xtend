@@ -13,13 +13,13 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
-public final class Aadl2NameValidators {
-	private static val parser = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IParser)
+final class Aadl2NameValidators {
+	static val parser = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IParser)
 	// Not used locally, but clients of the class use it to reference grammar rules
 	public static val grammarAccess = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(Aadl2GrammarAccess)
 
-	private static val globalScopeProvider = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IGlobalScopeProvider)
-	private static val qNameConverter = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IQualifiedNameConverter)
+	static val globalScopeProvider = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IGlobalScopeProvider)
+	static val qNameConverter = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IQualifiedNameConverter)
 
 	// Common validators
 	
@@ -42,7 +42,7 @@ public final class Aadl2NameValidators {
 	 * @param checkWhiteSpace <code>true</code> to require that the text not contain any whitespace
 	 * @param rule The non-terminal parse rule to use for checking
 	 */
-	public static def (String) => boolean getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
+	static def (String) => boolean getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
 		if (checkWhiteSpace) {
 			[fieldValue | fieldValue.matches("\\S+") && 
 				!parser.parse(rule, new StringReader(fieldValue)).hasSyntaxErrors
@@ -70,7 +70,7 @@ public final class Aadl2NameValidators {
 	 * Check if the given model unit exists in the scope of the given parent container.  Returns
 	 * <code>null</code> if it is does not, or an error message it it does.
 	 */
-	public static def validateFileNameInScope(IContainer parent, String modelUnitName) {
+	static def validateFileNameInScope(IContainer parent, String modelUnitName) {
 		/*
 		 * This method checks for 4 different error conditions.  Consider three projects:
 		 * A, B, and C.  Assume project C depends on both A and B, and the neither A nor B
