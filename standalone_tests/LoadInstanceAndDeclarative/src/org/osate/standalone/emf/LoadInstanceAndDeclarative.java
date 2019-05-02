@@ -3,6 +3,7 @@ package org.osate.standalone.emf;
 import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -56,6 +57,17 @@ public final class LoadInstanceAndDeclarative {
 					System.out.println(issue.getMessage());
 				}
 			}
+		}
+
+		System.out.println();
+		System.out.println("Traversing...");
+		for (final Resource resource : resources) {
+			System.out.println("*** " + resource.getURI().toString() + " ***");
+			final TreeIterator<EObject> treeIter = resource.getAllContents();
+			while (treeIter.hasNext()) {
+				System.out.println(treeIter.next());
+			}
+			System.out.println("-- -- -- -- -- -- -- --");
 		}
 	}
 }
