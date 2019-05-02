@@ -101,7 +101,7 @@ public final class Aadl2NameValidators {
 		var String errorMsg = null
 		val foundInScope = findModelUnitInScope(parent, modelUnitName)
 		if (foundInScope !== null) {
-			val foundFile = OsateResourceUtil.getOsateIFile(foundInScope.getEObjectURI())
+			val foundFile = OsateResourceUtil.toIFile(foundInScope.EObjectURI)
 			val foundProject = foundFile.getProject()
 			val label = if (foundInScope.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage()))  "Package '" else "Property set '"
 			if (foundProject === parent.getProject()) {
@@ -119,7 +119,7 @@ public final class Aadl2NameValidators {
 				val foundInScopeOfReferencer = findModelUnitInScope(referencer, modelUnitName);
 				if (foundInScopeOfReferencer !== null) {
 					val label = if (foundInScopeOfReferencer.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) "Package '" else "Property set '"
-					val foundFile = OsateResourceUtil.getOsateIFile(foundInScopeOfReferencer.getEObjectURI())
+					val foundFile = OsateResourceUtil.toIFile(foundInScopeOfReferencer.EObjectURI)
 					val foundProject = foundFile.getProject()
 					if (foundProject === referencer) {
 						// Case (3)
