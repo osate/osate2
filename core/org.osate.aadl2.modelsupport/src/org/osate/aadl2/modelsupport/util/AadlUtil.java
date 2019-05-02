@@ -170,11 +170,6 @@ public final class AadlUtil {
 		// empty!
 	}
 
-	// Constants for namespace resolution
-	private static final int PUBLIC = 0;
-
-	private static final int PRIVATE = 1;
-
 	private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
 
 	static {
@@ -1389,7 +1384,7 @@ public final class AadlUtil {
 			}
 		}
 		if (object instanceof TreeSelection) {
-			for (Iterator iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
+			for (Iterator<?> iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
 				Object f = iterator.next();
 				if (f instanceof IResource) {
 					Resource res = OsateResourceUtil.getResource((IResource) f);
@@ -1620,7 +1615,7 @@ public final class AadlUtil {
 	 * @return The number of model elements in the given subtree that are
 	 *         instances of the given class or one of its subclasses.
 	 */
-	public static int countElementsBySubclass(final Element root, final Class clazz) {
+	public static int countElementsBySubclass(final Element root, final Class<?> clazz) {
 		final SimpleSubclassCounter counter = new SimpleSubclassCounter(clazz);
 		counter.defaultTraversal(root);
 		return counter.getCount();
