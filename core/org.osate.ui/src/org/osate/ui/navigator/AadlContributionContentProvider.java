@@ -40,7 +40,6 @@ import java.util.OptionalInt;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -73,7 +72,7 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			IProject project = (IProject) element;
 			try {
 				if (project.getNature(AadlNature.ID) != null) {
-					Object[] result = { VirtualPluginResources.INSTANCE };
+					Object[] result = { new VirtualPluginResources(project) };
 					return result;
 				}
 			} catch (CoreException e) {
@@ -84,9 +83,9 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(uri);
+					return new ContributedAadlStorage(element, uri);
 				} else {
-					return new ContributedDirectory(
+					return new ContributedDirectory(element,
 							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
 			}).distinct().toArray();
@@ -107,11 +106,11 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 						+ directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(uri);
+					return new ContributedAadlStorage(element, uri);
 				} else {
 					ArrayList<String> newPath = new ArrayList<>(directoryPath);
 					newPath.add(uri.segment(nextSignificantIndex));
-					return new ContributedDirectory(newPath);
+					return new ContributedDirectory(element, newPath);
 				}
 			}).distinct().toArray();
 		}
@@ -121,25 +120,11 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 	@Override
 	public Object getParent(Object element) {
 		if (element instanceof VirtualPluginResources) {
-			return ResourcesPlugin.getWorkspace().getRoot();
+			return ((VirtualPluginResources) element).getParent();
 		} else if (element instanceof ContributedDirectory) {
-			List<String> path = ((ContributedDirectory) element).getPath();
-			if (path.size() == 1) {
-				return VirtualPluginResources.INSTANCE;
-			} else {
-				ArrayList<String> newList = new ArrayList<>(path);
-				newList.remove(path.size() - 1);
-				return new ContributedDirectory(newList);
-			}
+			return ((ContributedDirectory) element).getParent();
 		} else if (element instanceof ContributedAadlStorage) {
-			URI uri = ((ContributedAadlStorage) element).getUri();
-			int firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt();
-			if (firstSignificantIndex == uri.segmentCount() - 1) {
-				return VirtualPluginResources.INSTANCE;
-			} else {
-				List<String> path = uri.segmentsList().subList(firstSignificantIndex, uri.segmentCount() - 1);
-				return new ContributedDirectory(path);
-			}
+			return ((ContributedAadlStorage) element).getParent();
 		} else {
 			return super.getParent(element);
 		}
