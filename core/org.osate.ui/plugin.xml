@@ -219,8 +219,8 @@
             name="AADL Project Dependencies">
          <enablement>
          	<or>
-            	<instanceof value="org.eclipse.core.resources.IProject" />
-            	<instanceof value="org.osate.ui.navigator.VirtualProjectDependencies" />
+            	<instanceof value="org.eclipse.core.resources.IProject"/>
+            	<instanceof value="org.osate.ui.navigator.VirtualProjectDependencies"/>
             </or>
          </enablement>
          <commonSorter
@@ -322,17 +322,6 @@
 		     </or>
          </enablement>
       </actionProvider>
-      <navigatorContent
-            contentProvider="org.osate.ui.navigator.ViewerRefresher"
-            id="org.osate.ui.navigator.viewerRefresher"
-            labelProvider="org.osate.ui.navigator.NullLabelProvider"
-            name="Viewer Refresher">
-         <enablement>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
-         </enablement>
-      </navigatorContent>
    </extension>
    
    <extension 
