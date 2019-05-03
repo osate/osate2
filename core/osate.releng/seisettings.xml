@@ -1,59 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-	<proxies>
-		<proxy>
-			<id>httpproxy</id>
-			<active>true</active>
-			<protocol>http</protocol>
-			<host>proxy.sei.cmu.edu</host>
-			<port>8080</port>
-			<nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
-		</proxy>
-		<proxy>
-			<id>httpsproxy</id>
-			<active>true</active>
-			<protocol>https</protocol>
-			<host>proxy.sei.cmu.edu</host>
-			<port>8080</port>
-			<nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
-		</proxy>
-	</proxies>
-	<mirrors>
-		<mirror>
-			<id>eclipse-osuosl</id>
-			<mirrorOf>http://download.eclipse.org/</mirrorOf>
-			<url>http://ftp.osuosl.org/pub/eclipse/</url>
-			<layout>p2</layout>
-			<mirrorOfLayouts>p2</mirrorOfLayouts>
-		</mirror>
-		<mirror>
-			<id>osate-build-jericho</id>
-			<mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
-			<url>http://jericho.sei.cmu.edu/</url>
-			<layout>p2</layout>
-			<mirrorOfLayouts>p2</mirrorOfLayouts>
-		</mirror>
-	</mirrors>
-	<profiles>
-		<profile>
-			<id>allow-snapshots</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>snapshots-repo</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <profiles>
+    <profile>
+      <id>allow-snapshots</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+      <repositories>
+        <repository>
+          <id>snapshots-repo</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+
+      <pluginRepositories>
+        <pluginRepository>
+          <id>plugin-snapshots-repo</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+
+    </profile>
+  </profiles>
+
+  <proxies>
+    <proxy>
+      <id>httpproxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.sei.cmu.edu</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
+    </proxy>
+
+    <proxy>
+      <id>httpsproxy</id>
+      <active>true</active>
+      <protocol>https</protocol>
+      <host>proxy.sei.cmu.edu</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
+    </proxy>
+
+  </proxies>
+
+  <mirrors>
+    <mirror>
+      <id>eclipse-2019-03</id>
+      <mirrorOf>http://download.eclipse.org/releases/2019-03</mirrorOf>
+      <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-03/201903201000</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>eclipse-2018-12</id>
+      <mirrorOf>http://download.eclipse.org/releases/2018-12</mirrorOf>
+      <url>http://ftp.osuosl.org/pub/eclipse/releases/2018-12/201812191000</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>eclipse-mirror</id>
+      <mirrorOf>http://download.eclipse.org</mirrorOf>
+      <url>http://ftp.osuosl.org/pub/eclipse</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>py4j-mirror</id>
+      <mirrorOf>http://eclipse.py4j.org</mirrorOf>
+      <url>https://dl.bintray.com/py4j/py4j-eclipse/0.10.8.1</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>py4j-mirror-https</id>
+      <mirrorOf>https://eclipse.py4j.org</mirrorOf>
+      <url>https://dl.bintray.com/py4j/py4j-eclipse/0.10.8.1</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>aadl-info-mirror-http</id>
+      <mirrorOf>http://www.aadl.info/aadl/osate/</mirrorOf>
+      <url>http://jericho.sei.cmu.edu/download/osate/</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>aadl-info-mirror-https</id>
+      <mirrorOf>https://www.aadl.info/aadl/osate/</mirrorOf>
+      <url>http://jericho.sei.cmu.edu/download/osate/</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>osate-build-jericho-http</id>
+      <mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
+      <url>http://jericho.sei.cmu.edu/</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>osate-build-jericho-https</id>
+      <mirrorOf>https://osate-build.sei.cmu.edu/</mirrorOf>
+      <url>http://jericho.sei.cmu.edu/</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+  </mirrors>
 </settings>
