@@ -10,7 +10,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ContributedAadlStorage extends PlatformObject implements IStorage {
+
+	val Object parent
+	
 	val URI uri
+	
 	
 	override getContents() throws CoreException {
 		URIConverter.INSTANCE.createInputStream(uri)
