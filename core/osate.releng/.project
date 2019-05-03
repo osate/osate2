@@ -10,6 +10,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Jenkinsfile</name>
+			<type>1</type>
+			<location>/home/lw/git/osate_2019-03/osate2/Jenkinsfile</location>
+		</link>
+		<link>
+			<name>Jenkinsfile.PR</name>
+			<type>1</type>
+			<location>/home/lw/git/osate_2019-03/osate2/Jenkinsfile.PR</location>
+		</link>
+		<link>
 			<name>pom.xml</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/pom.xml</locationURI>

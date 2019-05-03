@@ -34,7 +34,7 @@
 		<module>org.osate.reqspec</module>
 		<module>org.osate.reqspec.ui</module>
 		<module>org.osate.reqtrace</module>
-		<module>org.osate.reqtrace.tests</module>
+		<!--module>org.osate.reqtrace.tests</module-->
 		<module>org.osate.verify</module>
 		<module>org.osate.verify.ui</module>
 
