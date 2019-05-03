@@ -1,110 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project LoadDeclarativeModelAndEMV2 with Jar-in-Jar Loader">
-    <!--this file was created by Eclipse Runnable JAR file Export Wizard-->
-    <!--ANT 1.7 is required-->
+<project default="create_run_jar" name="Create Runnable Jar for Project LoadDeclarativeModelAndEMV2 with libraries in sub-folder">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
     <property name="dir.buildfile" value="."/>
-    <property name="dir.workspace" value="C:/SEI/Tools/Eclipses/osate2_2018-12-develop-2019-02-13/ws"/>
-    <property name="dir.jarfile" value="${dir.buildfile}"/>
+    <property name="dir.workspace" value="C:/SEI/Tools/Eclipses/osate2_2019-03-master/ws"/>
+    <property name="dir.jarfile" value="${dir.buildfile}/executable"/>
     <target name="create_run_jar">
         <jar destfile="${dir.jarfile}/LoadDeclarativeModelAndEMV2.jar">
             <manifest>
-                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
-                <attribute name="Rsrc-Main-Class" value="org.osate.standalone.emf.LoadDeclarativeModelAndEMV2"/>
-                <attribute name="Class-Path" value="."/>
-                <attribute name="Rsrc-Class-Path" value="./ org.osate.annexsupport/ org.osate.xtext.aadl2.errormodel/ jfxswt.jar org.eclipse.xtext.generator_2.16.0.v20181203-0528.jar org.eclipse.xtext.xtext.generator_2.16.0.v20181203-0514.jar org.eclipse.xtext.xbase.lib_2.16.0.v20181203-0507.jar com.google.guava_21.0.0.v20170206-1425.jar org.eclipse.emf.codegen.ecore_2.16.0.v20181206-1055.jar org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar org.eclipse.emf.common_2.15.0.v20180914-1817.jar org.eclipse.emf.codegen_2.15.0.v20181120-2156.jar de.itemis.xtext.antlr_2.1.1.v201405091103.jar org.antlr.generator_3.2.0.v201405091103.jar org.eclipse.xtend_2.2.0.v201605260315.jar org.eclipse.emf.mwe.core_1.3.21.201705291011.jar org.apache.commons.cli_1.2.0.v201404270220.jar org.eclipse.emf.mwe2.runtime_2.9.1.201705291011.jar com.ibm.icu_63.1.0.v20181030-1705.jar org.eclipse.xpand_2.2.0.v201605260315.jar org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar org.eclipse.emf.mwe2.lib_2.9.1.201705291011.jar org.eclipse.core.runtime_3.15.100.v20181107-1343.jar javax.inject_1.0.0.v20091030.jar org.eclipse.osgi_3.13.200.v20181130-2106.jar org.eclipse.fx.osgi_3.3.0.201809010500.jar javax.transaction_1.1.1.v201105210645.jar org.eclipse.osgi.compatibility.state_1.1.300.v20181116-1550.jar org.eclipse.equinox.common_3.10.200.v20181021-1645.jar org.eclipse.core.jobs_3.10.200.v20180912-1356.jar org.eclipse.equinox.registry_3.8.200.v20181008-1820.jar org.eclipse.equinox.preferences_3.7.200.v20180827-1235.jar org.eclipse.core.contenttype_3.7.200.v20181107-1343.jar org.eclipse.equinox.app_1.4.0.v20181009-1752.jar org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar org.eclipse.uml2.uml_5.5.0.v20181203-1331.jar org.eclipse.uml2.common_2.5.0.v20181203-1331.jar org.eclipse.uml2.types_2.5.0.v20181203-1331.jar org.eclipse.emf.mapping.ecore2xml_2.11.0.v20180706-1146.jar org.apache.log4j_1.2.15.v201012070815.jar org.apache.commons.logging_1.2.0.v20180409-1502.jar org.eclipse.xtext_2.16.0.v20181203-0514.jar org.antlr.runtime_3.2.0.v201101311130.jar com.google.inject_3.0.0.v201312141243.jar com.google.inject.multibindings_3.0.0.v201402270930.jar com.google.inject.assistedinject_3.0.0.v201402270930.jar org.eclipse.emf.mwe.utils_1.3.21.201705291011.jar org.eclipse.xtext.util_2.16.0.v20181203-0514.jar org.antlr.runtime_4.3.0.v201502022030.jar org.eclipse.emf.mwe2.launch_2.9.1.201705291011.jar org.eclipse.emf.mwe2.language_2.9.1.201705291011.jar org.eclipse.xtext.common.types_2.16.0.v20181203-0528.jar antlr.jar org.eclipse.ui_3.111.0.v20181117-0847.jar org.eclipse.swt_3.109.0.v20181204-1801.jar org.eclipse.swt.win32.win32.x86_64_3.109.0.v20181204-1801.jar org.eclipse.jface_3.15.0.v20181123-1505.jar org.eclipse.core.commands_3.9.200.v20180827-1727.jar org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar org.eclipse.e4.ui.workbench3_0.14.200.v20180828-0227.jar org.eclipse.core.resources_3.13.200.v20181121-1020.jar org.eclipse.xtext.ui_2.16.0.v20181203-1056.jar org.eclipse.emf.transaction_1.9.1.201805140824.jar org.eclipse.emf.edit_2.14.0.v20180823-0456.jar org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar org.eclipse.emf.validation_1.8.0.201805030717.jar org.eclipse.ui.editors_3.11.300.v20180914-0606.jar org.eclipse.core.filebuffers_3.6.400.v20181028-0633.jar org.eclipse.jface.text_3.15.0.v20181119-1708.jar org.eclipse.text_3.8.0.v20180923-1636.jar org.eclipse.emf.edit.ui_2.16.0.v20181104-0733.jar org.eclipse.ui.views_3.9.200.v20180828-0837.jar org.eclipse.emf.common.ui_2.15.0.v20181104-0733.jar org.eclipse.ltk.core.refactoring_3.9.200.v20181024-1629.jar org.eclipse.xtext.ide_2.16.0.v20181203-0514.jar org.eclipse.xtext.builder_2.16.0.v20181203-1056.jar org.eclipse.debug.ui_3.13.200.v20181026-1523.jar org.eclipse.debug.core_3.13.100.v20181201-1650.jar org.eclipse.xtext.ui.shared_2.16.0.v20181203-1056.jar org.eclipse.core.expressions_3.6.200.v20180817-1401.jar org.eclipse.ui.workbench.texteditor_3.11.200.v20181108-1458.jar org.objectweb.asm_7.0.0.v20181030-2244.jar org.eclipse.uml2.codegen.ecore_2.5.0.v20181203-1331.jar org.eclipse.xtext.xbase_2.16.0.v20181203-0528.jar org.eclipse.xtend.lib_2.16.0.v20181203-0507.jar org.eclipse.xtend.lib.macro_2.16.0.v20181203-0507.jar"/>
+                <attribute name="Main-Class" value="org.osate.standalone.emf.LoadDeclarativeModelAndEMV2"/>
+                <attribute name="Class-Path" value=". LoadDeclarativeModelAndEMV2_lib/org.osate.annexsupport/ LoadDeclarativeModelAndEMV2_lib/org.osate.xtext.aadl2.errormodel/ LoadDeclarativeModelAndEMV2_lib/jfxswt.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.generator_2.17.0.v20190304-0626.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.xtext.generator_2.17.0.v20190304-0545.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.xbase.lib_2.17.0.v20190304-0518.jar LoadDeclarativeModelAndEMV2_lib/com.google.guava_21.0.0.v20170206-1425.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.codegen.ecore_2.17.0.v20190209-1542.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.ecore_2.17.0.v20190116-0940.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.common_2.15.0.v20181220-0846.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.codegen_2.15.0.v20181120-2156.jar LoadDeclarativeModelAndEMV2_lib/de.itemis.xtext.antlr_2.1.1.v201405091103.jar LoadDeclarativeModelAndEMV2_lib/org.antlr.generator_3.2.0.v201405091103.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtend_2.2.0.v201605260315.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe.core_1.4.0.jar LoadDeclarativeModelAndEMV2_lib/org.apache.commons.cli_1.2.0.v201404270220.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe2.runtime_2.10.0.jar LoadDeclarativeModelAndEMV2_lib/com.ibm.icu_63.1.0.v20181030-1705.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xpand_2.2.0.v201605260315.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe2.lib_2.10.0.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.runtime_3.15.200.v20190301-1641.jar LoadDeclarativeModelAndEMV2_lib/javax.inject_1.0.0.v20091030.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.osgi_3.13.300.v20190218-1622.jar LoadDeclarativeModelAndEMV2_lib/javax.transaction_1.1.1.v201105210645.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.fx.osgi_3.5.0.201902220600.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.osgi.compatibility.state_1.1.400.v20190208-1533.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.equinox.common_3.10.300.v20190218-2100.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.jobs_3.10.300.v20190215-2048.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.equinox.registry_3.8.300.v20190218-2100.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.equinox.preferences_3.7.300.v20190218-2100.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.contenttype_3.7.300.v20190215-2048.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.equinox.app_1.4.100.v20190215-2139.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.uml2.uml_5.5.0.v20181203-1331.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.uml2.common_2.5.0.v20181203-1331.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.uml2.types_2.5.0.v20181203-1331.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mapping.ecore2xml_2.11.0.v20180706-1146.jar LoadDeclarativeModelAndEMV2_lib/org.apache.log4j_1.2.15.v201012070815.jar LoadDeclarativeModelAndEMV2_lib/org.apache.commons.logging_1.2.0.v20180409-1502.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext_2.17.0.v20190304-0545.jar LoadDeclarativeModelAndEMV2_lib/org.antlr.runtime_3.2.0.v201101311130.jar LoadDeclarativeModelAndEMV2_lib/com.google.inject_3.0.0.v201312141243.jar LoadDeclarativeModelAndEMV2_lib/com.google.inject.multibindings_3.0.0.v201402270930.jar LoadDeclarativeModelAndEMV2_lib/com.google.inject.assistedinject_3.0.0.v201402270930.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe.utils_1.4.0.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.util_2.17.0.v20190304-0545.jar LoadDeclarativeModelAndEMV2_lib/org.antlr.runtime_4.3.0.v201502022030.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe2.launch_2.10.0.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.mwe2.language_2.10.0.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.common.types_2.17.0.v20190304-0626.jar LoadDeclarativeModelAndEMV2_lib/antlr.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ui_3.112.0.v20190205-1313.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.swt_3.110.0.v20190305-0602.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.swt.win32.win32.x86_64_3.110.0.v20190305-0602.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.jface_3.15.100.v20190222-1334.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.commands_3.9.300.v20190215-1957.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ui.workbench_3.113.0.v20190219-1432.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.e4.ui.workbench3_0.15.0.v20181213-1706.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.resources_3.13.300.v20190218-2054.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.ui_2.17.0.v20190304-1216.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.transaction_1.9.1.201805140824.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.edit_2.14.0.v20180823-0456.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.validation_1.8.0.201812070911.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ui.editors_3.11.400.v20190218-1547.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.filebuffers_3.6.500.v20190218-1547.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.jface.text_3.15.100.v20190305-0811.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.text_3.8.100.v20190306-1823.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.edit.ui_2.16.0.v20181104-0733.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ui.views_3.9.300.v20190216-1545.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.emf.common.ui_2.16.0.v20190301-1325.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ltk.core.refactoring_3.10.0.v20190216-1303.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.ide_2.17.0.v20190304-0545.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.builder_2.17.0.v20190304-1216.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.debug.ui_3.14.0.v20190301-0916.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.debug.core_3.13.200.v20190216-1557.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.ui.shared_2.17.0.v20190304-1216.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.core.expressions_3.6.300.v20190218-1215.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.ui.workbench.texteditor_3.11.300.v20190218-2126.jar LoadDeclarativeModelAndEMV2_lib/org.objectweb.asm_7.0.0.v20181030-2244.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.uml2.codegen.ecore_2.5.0.v20181203-1331.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtext.xbase_2.17.0.v20190304-0626.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtend.lib_2.17.0.v20190304-0518.jar LoadDeclarativeModelAndEMV2_lib/org.eclipse.xtend.lib.macro_2.17.0.v20190304-0518.jar"/>
             </manifest>
-            <zipfileset src="jar-in-jar-loader.zip"/>
-            <zipfileset dir="C:/SEI/Tools/Java/jre1.8.0_201/lib" includes="jfxswt.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.generator_2.16.0.v20181203-0528.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.xtext.generator_2.16.0.v20181203-0514.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.xbase.lib_2.16.0.v20181203-0507.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="com.google.guava_21.0.0.v20170206-1425.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.codegen.ecore_2.16.0.v20181206-1055.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.common_2.15.0.v20180914-1817.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.codegen_2.15.0.v20181120-2156.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="de.itemis.xtext.antlr_2.1.1.v201405091103.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.antlr.generator_3.2.0.v201405091103.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtend_2.2.0.v201605260315.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe.core_1.3.21.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.apache.commons.cli_1.2.0.v201404270220.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe2.runtime_2.9.1.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="com.ibm.icu_63.1.0.v20181030-1705.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xpand_2.2.0.v201605260315.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe2.lib_2.9.1.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.runtime_3.15.100.v20181107-1343.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="javax.inject_1.0.0.v20091030.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.osgi_3.13.200.v20181130-2106.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.fx.osgi_3.3.0.201809010500.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="javax.transaction_1.1.1.v201105210645.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.osgi.compatibility.state_1.1.300.v20181116-1550.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.equinox.common_3.10.200.v20181021-1645.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.jobs_3.10.200.v20180912-1356.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.equinox.registry_3.8.200.v20181008-1820.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.equinox.preferences_3.7.200.v20180827-1235.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.contenttype_3.7.200.v20181107-1343.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.equinox.app_1.4.0.v20181009-1752.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.uml2.uml_5.5.0.v20181203-1331.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.uml2.common_2.5.0.v20181203-1331.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.uml2.types_2.5.0.v20181203-1331.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mapping.ecore2xml_2.11.0.v20180706-1146.jar"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.aadl2/bin"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.apache.log4j_1.2.15.v201012070815.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.apache.commons.logging_1.2.0.v20180409-1502.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext_2.16.0.v20181203-0514.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.antlr.runtime_3.2.0.v201101311130.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="com.google.inject_3.0.0.v201312141243.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="com.google.inject.multibindings_3.0.0.v201402270930.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="com.google.inject.assistedinject_3.0.0.v201402270930.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe.utils_1.3.21.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.util_2.16.0.v20181203-0514.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.antlr.runtime_4.3.0.v201502022030.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe2.launch_2.9.1.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.mwe2.language_2.9.1.201705291011.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.common.types_2.16.0.v20181203-0528.jar"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.aadl2.modelsupport/bin"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.workspace/bin"/>
-            <zipfileset dir="C:/Users/aarong/git/osate2/core/org.osate.workspace/etc" includes="antlr.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ui_3.111.0.v20181117-0847.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.swt_3.109.0.v20181204-1801.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.swt.win32.win32.x86_64_3.109.0.v20181204-1801.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.jface_3.15.0.v20181123-1505.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.commands_3.9.200.v20180827-1727.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.e4.ui.workbench3_0.14.200.v20180828-0227.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.resources_3.13.200.v20181121-1020.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.ui_2.16.0.v20181203-1056.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.transaction_1.9.1.201805140824.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.edit_2.14.0.v20180823-0456.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.validation_1.8.0.201805030717.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ui.editors_3.11.300.v20180914-0606.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.filebuffers_3.6.400.v20181028-0633.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.jface.text_3.15.0.v20181119-1708.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.text_3.8.0.v20180923-1636.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.edit.ui_2.16.0.v20181104-0733.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ui.views_3.9.200.v20180828-0837.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.emf.common.ui_2.15.0.v20181104-0733.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ltk.core.refactoring_3.9.200.v20181024-1629.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.ide_2.16.0.v20181203-0514.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.builder_2.16.0.v20181203-1056.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.debug.ui_3.13.200.v20181026-1523.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.debug.core_3.13.100.v20181201-1650.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.ui.shared_2.16.0.v20181203-1056.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.core.expressions_3.6.200.v20180817-1401.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.ui.workbench.texteditor_3.11.200.v20181108-1458.jar"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.core/bin"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.contribution.sei/bin"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.objectweb.asm_7.0.0.v20181030-2244.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.uml2.codegen.ecore_2.5.0.v20181203-1331.jar"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.xtext.aadl2.properties/bin"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.annexsupport/bin"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtext.xbase_2.16.0.v20181203-0528.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtend.lib_2.16.0.v20181203-0507.jar"/>
-            <zipfileset dir="C:/Users/aarong/.p2/pool/plugins" includes="org.eclipse.xtend.lib.macro_2.16.0.v20181203-0507.jar"/>
             <fileset dir="C:/Users/aarong/git/osate2/core/org.osate.xtext.aadl2/bin"/>
             <fileset dir="C:/Users/aarong/git/osate2/emv2/org.osate.xtext.aadl2.errormodel/bin"/>
             <fileset dir="C:/Users/aarong/git/osate2/standalone_tests/LoadDeclarativeModelAndEMV2/bin"/>
@@ -113,5 +27,95 @@
         	<fileset dir="C:/Users/aarong/git/osate2/emv2" includes="org.osate.xtext.aadl2.errormodel/plugin.xml" />
         	<fileset dir="C:/Users/aarong/git/osate2/emv2" includes="org.osate.xtext.aadl2.errormodel/META-INF/MANIFEST.MF" />
         </jar>
+        <delete dir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <mkdir dir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>    	
+        <copy file="C:/SEI/Tools/Java/jre1.8.0_201/lib/jfxswt.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.generator_2.17.0.v20190304-0626.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xtext.generator_2.17.0.v20190304-0545.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xbase.lib_2.17.0.v20190304-0518.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/com.google.guava_21.0.0.v20170206-1425.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.codegen.ecore_2.17.0.v20190209-1542.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore_2.17.0.v20190116-0940.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.common_2.15.0.v20181220-0846.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.codegen_2.15.0.v20181120-2156.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/de.itemis.xtext.antlr_2.1.1.v201405091103.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.antlr.generator_3.2.0.v201405091103.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend_2.2.0.v201605260315.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe.core_1.4.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.apache.commons.cli_1.2.0.v201404270220.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.runtime_2.10.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/com.ibm.icu_63.1.0.v20181030-1705.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xpand_2.2.0.v201605260315.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.lib_2.10.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.runtime_3.15.200.v20190301-1641.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/javax.inject_1.0.0.v20091030.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.osgi_3.13.300.v20190218-1622.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/javax.transaction_1.1.1.v201105210645.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.fx.osgi_3.5.0.201902220600.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.osgi.compatibility.state_1.1.400.v20190208-1533.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.common_3.10.300.v20190218-2100.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.jobs_3.10.300.v20190215-2048.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.registry_3.8.300.v20190218-2100.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.preferences_3.7.300.v20190218-2100.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.contenttype_3.7.300.v20190215-2048.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.equinox.app_1.4.100.v20190215-2139.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.uml_5.5.0.v20181203-1331.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.common_2.5.0.v20181203-1331.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.types_2.5.0.v20181203-1331.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mapping.ecore2xml_2.11.0.v20180706-1146.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.apache.log4j_1.2.15.v201012070815.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext_2.17.0.v20190304-0545.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.antlr.runtime_3.2.0.v201101311130.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/com.google.inject_3.0.0.v201312141243.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/com.google.inject.multibindings_3.0.0.v201402270930.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/com.google.inject.assistedinject_3.0.0.v201402270930.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe.utils_1.4.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.util_2.17.0.v20190304-0545.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.antlr.runtime_4.3.0.v201502022030.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.launch_2.10.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.mwe2.language_2.10.0.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.common.types_2.17.0.v20190304-0626.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/git/osate2/core/org.osate.workspace/etc/antlr.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui_3.112.0.v20190205-1313.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.swt_3.110.0.v20190305-0602.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.swt.win32.win32.x86_64_3.110.0.v20190305-0602.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.jface_3.15.100.v20190222-1334.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.commands_3.9.300.v20190215-1957.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.workbench_3.113.0.v20190219-1432.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.e4.ui.workbench3_0.15.0.v20181213-1706.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.resources_3.13.300.v20190218-2054.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ui_2.17.0.v20190304-1216.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.transaction_1.9.1.201805140824.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.edit_2.14.0.v20180823-0456.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.validation_1.8.0.201812070911.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.editors_3.11.400.v20190218-1547.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.filebuffers_3.6.500.v20190218-1547.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.jface.text_3.15.100.v20190305-0811.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.text_3.8.100.v20190306-1823.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.edit.ui_2.16.0.v20181104-0733.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.views_3.9.300.v20190216-1545.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.emf.common.ui_2.16.0.v20190301-1325.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ltk.core.refactoring_3.10.0.v20190216-1303.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ide_2.17.0.v20190304-0545.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.builder_2.17.0.v20190304-1216.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.debug.ui_3.14.0.v20190301-0916.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.debug.core_3.13.200.v20190216-1557.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.ui.shared_2.17.0.v20190304-1216.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.core.expressions_3.6.300.v20190218-1215.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.ui.workbench.texteditor_3.11.300.v20190218-2126.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.objectweb.asm_7.0.0.v20181030-2244.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.uml2.codegen.ecore_2.5.0.v20181203-1331.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtext.xbase_2.17.0.v20190304-0626.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.lib_2.17.0.v20190304-0518.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+        <copy file="C:/Users/aarong/.p2/pool/plugins/org.eclipse.xtend.lib.macro_2.17.0.v20190304-0518.jar" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib"/>
+      	
+	<copy file="C:/Users/aarong/git/osate2/core/org.osate.annexsupport/plugin.xml" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib/org.osate.annexsupport/" />
+      	<copy file="C:/Users/aarong/git/osate2/core/org.osate.annexsupport/META-INF/MANIFEST.MF" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib/org.osate.annexsupport/META-INF"/>
+       	<copy file="C:/Users/aarong/git/osate2/emv2/org.osate.xtext.aadl2.errormodel/plugin.xml" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib/org.osate.xtext.aadl2.errormodel" />
+       	<copy file="C:/Users/aarong/git/osate2/emv2/org.osate.xtext.aadl2.errormodel/META-INF/MANIFEST.MF" todir="${dir.jarfile}/LoadDeclarativeModelAndEMV2_lib/org.osate.xtext.aadl2.errormodel/META-INF" />
     </target>
 </project>
