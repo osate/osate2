@@ -1,5 +1,5 @@
 This example loads multiple declarative models and prints out their contents.  This version uses the 
-EMV2 extention to parse EMV2 error model annexes.  More specifically, the EMV2 extention is registered
+EMV2 extension to parse EMV2 error model annexes.  More specifically, the EMV2 extension is registered
 directly by the program using the AnnexRegisty API.
 
 The examples takes 1 or more declarative files as input.
@@ -15,7 +15,7 @@ The directory "aadl_files" contains 3 declarative files:
 - fred2.aadl contains an EMV2 error model specification.
 - test.aadl contains a bogus annex specification for the annex type "fake".
 
-The point here is that if you load fred2.aadl you will see tha tthe error model is parsed into ErrorType nodes.  No extension
+The point here is that if you load fred2.aadl you will see that the error model is parsed into ErrorType nodes.  No extension
 is registered to handle the "fake" annex, so that remains processed as a giant text string.
 
 
