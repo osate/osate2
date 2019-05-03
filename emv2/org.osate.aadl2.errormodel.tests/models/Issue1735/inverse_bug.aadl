@@ -1,0 +1,34 @@
+package inverse_bug
+public
+	feature group a
+		features
+			in_port1: in data port;
+	end a;
+	
+	feature group b
+		features
+			out_port1: out data port;
+		inverse of a
+	end b;
+	
+	feature group c
+		features
+			in_port2: in data port;
+	end c;
+	
+	feature group d
+		inverse of c
+	end d;
+	
+	system s
+		features
+			fg1: feature group b;
+			fg2: feature group d;
+		annex EMV2 {**
+			error propagations
+				fg1.out_port1: out propagation {ErrorLibrary::AboveRange};
+				fg2.in_port2: out propagation {ErrorLibrary::AboveRange};
+			end propagations;
+		**};
+	end s;
+end inverse_bug;
