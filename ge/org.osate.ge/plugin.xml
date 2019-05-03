@@ -1258,9 +1258,15 @@
            priority="highest">
         <enablement>
            <or>
-              <instanceof
-                    value="org.eclipse.core.resources.IResource">
-              </instanceof>
+              <and>
+                 <instanceof
+                       value="org.eclipse.core.resources.IFile">
+                 </instanceof>
+                 <test
+                       property="org.eclipse.core.resources.extension"
+                       value="aadl_diagram">
+                 </test>
+              </and>
            </or>
         </enablement>
      </navigatorContent>
@@ -1484,6 +1490,25 @@
 	                <adapt type="org.osate.aadl2.Classifier"/>
 	                <adapt type="org.osate.aadl2.PackageSection"/>
 	                <adapt type="org.osate.aadl2.AadlPackage"/>
+	                <adapt type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+	                   <or>
+	                      <test
+                             property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                             value="Classifier"
+                             forcePluginActivation="true">
+	                      </test>
+	                      <test
+                             property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                             value="PackageSection"
+                             forcePluginActivation="true">
+	                      </test>
+	                      <test
+                             property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                             value="AadlPackage"
+                             forcePluginActivation="true">
+	                      </test>
+	                   </or>
+	                </adapt>
 	              </or>
 	           </iterate>
 	        </with>
