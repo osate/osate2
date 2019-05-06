@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -51,6 +52,7 @@ import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.dialogs.Dialog;
@@ -174,22 +176,6 @@ public final class FTAHandler extends AbstractHandler {
 		return IStatus.ERROR;
 	}
 
-	private void addState(ErrorBehaviorState ebs) {
-		if (ebs.getTypeSet() == null) {
-			stateNames.add(CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs));
-		} else {
-			EList<TypeToken> result = EMV2TypeSetUtil.generateAllLeafTypeTokens(ebs.getTypeSet(),
-					EMV2Util.getUseTypes(ebs));
-			for (TypeToken tt : result) {
-				String epName = CreateFTAModel.prefixState + EMV2Util.getPrintName(ebs) + EMV2Util.getPrintName(tt);
-				if (!stateNames.contains(epName)) {
-					stateNames.add(epName);
-				}
-			}
-		}
-
-	}
-
 	private InstanceObject getTarget(ISelection currentSelection) {
 		if (currentSelection instanceof IStructuredSelection) {
 			IStructuredSelection iss = (IStructuredSelection) currentSelection;
@@ -197,6 +183,12 @@ public final class FTAHandler extends AbstractHandler {
 				Object obj = iss.getFirstElement();
 				if (obj instanceof InstanceObject) {
 					return (InstanceObject) obj;
+				}
+				if (obj instanceof EObjectURIWrapper) {
+					EObject eObject = new ResourceSetImpl().getEObject(((EObjectURIWrapper) obj).getUri(), true);
+					if (eObject instanceof InstanceObject) {
+						return (InstanceObject) eObject;
+					}
 				}
 				if (obj instanceof IFile) {
 					ResourceSet rset = OsateResourceUtil.createXtextResourceSet();
