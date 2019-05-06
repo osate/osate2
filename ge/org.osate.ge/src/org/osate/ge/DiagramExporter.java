@@ -49,7 +49,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class DiagramExporter {
 
-	public static org.eclipse.graphiti.mm.pictograms.Diagram readDiagram(final IFile diagramFile) throws IOException {
+	private static org.eclipse.graphiti.mm.pictograms.Diagram readDiagram(final IFile diagramFile) throws IOException {
 		// Image container bounds
 		final ContainerBounds containerBounds = new ContainerBounds();
 		final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
