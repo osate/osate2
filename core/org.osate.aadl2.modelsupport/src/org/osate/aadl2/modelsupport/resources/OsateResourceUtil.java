@@ -71,7 +71,9 @@ public final class OsateResourceUtil {
 	 * @param res
 	 *            Resource
 	 * @return IResource
+	 * @deprecated Use {@code toFile(resource.getURI())} instead. Will be removed in 2.5.1
 	 */
+	@Deprecated
 	public static IFile convertToIResource(Resource res) {
 		if (res == null) {
 			return null;

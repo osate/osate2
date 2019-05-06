@@ -134,7 +134,7 @@ public final class FindUnusedClassifiersAnalysis {
 
 				if (!referencedThings.contains(classifierDecl)) {
 					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
-					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
+					final IFile iRsrc = OsateResourceUtil.toIFile(classifier.eResource().getURI());
 					try {
 						final IMarker marker = iRsrc.createMarker(MARKER_TYPE);
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);

@@ -452,7 +452,7 @@ public class InstantiateModel {
 		monitor.subTask("Creating system operation modes");
 		final int somLimit;
 		if (Platform.isRunning()) {
-			somLimit = getSOMLimit(OsateResourceUtil.convertToIResource(root.eResource()).getProject());
+			somLimit = getSOMLimit(OsateResourceUtil.toIFile(root.eResource().getURI()).getProject());
 		} else {
 			somLimit = WorkspacePlugin.MAX_SOM_DEFAULT;
 		}

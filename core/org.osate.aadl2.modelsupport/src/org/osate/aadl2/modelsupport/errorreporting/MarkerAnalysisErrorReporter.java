@@ -33,6 +33,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -156,8 +157,8 @@ public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 				throw new IllegalArgumentException(
 						"Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
 			}
-			final IResource irsrc = OsateResourceUtil.convertToIResource(rsrc);
-			if (irsrc != null && irsrc.exists()) {
+			final IFile irsrc = OsateResourceUtil.toIFile(rsrc.getURI());
+			if (irsrc.exists()) {
 				return new MarkerAnalysisErrorReporter(rsrc, irsrc, markerType);
 			} else {
 				// Try the secondary factory

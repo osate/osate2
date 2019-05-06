@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2.ui.propertyview
 
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.SWT
@@ -62,8 +63,7 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.findNodesForFeature
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.emf.ecore.resource.ResourceSet
+import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.toIFile
 
 package class ValueColumnEditingSupport extends EditingSupport {
 	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
@@ -111,9 +111,9 @@ package class ValueColumnEditingSupport extends EditingSupport {
 		if(propertyView.xtextDocument === null) {
 			val NamedElement curSelection = propertyView.resourceFromSelection.resourceSet.getEObject(propertyView.input,
 				true) as NamedElement
-			curSelection.eResource.convertToIResource.project
+			curSelection.eResource.URI.toIFile.project
 		} else {
-			propertyView.xtextDocument.readOnly[convertToIResource.project]
+			propertyView.xtextDocument.readOnly[URI.toIFile.project]
 		}
 	}
 	
