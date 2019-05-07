@@ -41,10 +41,6 @@ public interface ReqSpec extends EObject
    * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
    * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parts</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parts</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpec_Parts()

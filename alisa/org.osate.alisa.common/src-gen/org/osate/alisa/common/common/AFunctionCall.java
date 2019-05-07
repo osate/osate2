@@ -43,10 +43,6 @@ public interface AFunctionCall extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Function</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Function</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Function</em>' attribute.
    * @see #setFunction(String)
@@ -70,10 +66,6 @@ public interface AFunctionCall extends EObject, PropertyExpression
    * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Arguments</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Arguments</em>' containment reference list.
    * @see org.osate.alisa.common.common.CommonPackage#getAFunctionCall_Arguments()

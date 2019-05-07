@@ -215,10 +215,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>OR</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>OR</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #OR
    * @model literal="or"
@@ -230,10 +226,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>ALT OR</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ALT OR</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #ALT_OR
    * @model literal="||"
@@ -245,10 +237,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>AND</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>AND</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #AND
    * @model literal="and"
@@ -260,10 +248,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>ALT AND</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ALT AND</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #ALT_AND
    * @model literal="&amp;&amp;"
@@ -275,10 +259,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>EQ</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>EQ</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #EQ
    * @model literal="=="
@@ -290,10 +270,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>NEQ</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>NEQ</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #NEQ
    * @model literal="!="
@@ -305,10 +281,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>GEQ</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>GEQ</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #GEQ
    * @model literal="&gt;="
@@ -320,10 +292,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>LEQ</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>LEQ</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #LEQ
    * @model literal="&lt;="
@@ -335,10 +303,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>GT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>GT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #GT
    * @model literal="&gt;"
@@ -350,10 +314,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>LT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>LT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #LT
    * @model literal="&lt;"
@@ -365,10 +325,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>IN</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>IN</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #IN
    * @model literal="&gt;&lt;"
@@ -380,10 +336,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>PLUS</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>PLUS</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #PLUS
    * @model literal="+"
@@ -395,10 +347,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>MINUS</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>MINUS</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #MINUS
    * @model literal="-"
@@ -410,10 +358,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>MULT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>MULT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #MULT
    * @model literal="*"
@@ -425,10 +369,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>DIV</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>DIV</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #DIV
    * @model literal="/"
@@ -440,10 +380,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>INTDIV</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>INTDIV</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #INTDIV
    * @model literal="div"
@@ -455,10 +391,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>MOD</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>MOD</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #MOD
    * @model literal="mod"
@@ -470,10 +402,6 @@ public enum Operation implements Enumerator
   /**
    * The '<em><b>NOT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>NOT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #NOT
    * @model literal="not"
@@ -634,6 +562,7 @@ public enum Operation implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getValue()
   {
     return value;
@@ -644,6 +573,7 @@ public enum Operation implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -654,6 +584,7 @@ public enum Operation implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getLiteral()
   {
     return literal;

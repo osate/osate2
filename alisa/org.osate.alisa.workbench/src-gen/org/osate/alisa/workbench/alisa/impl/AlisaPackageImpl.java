@@ -147,6 +147,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssuranceCase()
   {
     return assuranceCaseEClass;
@@ -157,6 +158,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssuranceCase_Name()
   {
     return (EAttribute)assuranceCaseEClass.getEStructuralFeatures().get(0);
@@ -167,6 +169,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssuranceCase_Title()
   {
     return (EAttribute)assuranceCaseEClass.getEStructuralFeatures().get(1);
@@ -177,6 +180,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssuranceCase_System()
   {
     return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(2);
@@ -187,6 +191,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssuranceCase_Description()
   {
     return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(3);
@@ -197,6 +202,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssuranceCase_AssurancePlans()
   {
     return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(4);
@@ -207,6 +213,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssuranceCase_Tasks()
   {
     return (EReference)assuranceCaseEClass.getEStructuralFeatures().get(5);
@@ -217,6 +224,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssurancePlan()
   {
     return assurancePlanEClass;
@@ -227,6 +235,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssurancePlan_Name()
   {
     return (EAttribute)assurancePlanEClass.getEStructuralFeatures().get(0);
@@ -237,6 +246,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssurancePlan_Title()
   {
     return (EAttribute)assurancePlanEClass.getEStructuralFeatures().get(1);
@@ -247,6 +257,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_Target()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(2);
@@ -257,6 +268,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_Description()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(3);
@@ -267,6 +279,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_Assure()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(4);
@@ -277,6 +290,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_AssureGlobal()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(5);
@@ -287,6 +301,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_AssureSubsystems()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(6);
@@ -297,6 +312,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssurancePlan_AssureAll()
   {
     return (EAttribute)assurancePlanEClass.getEStructuralFeatures().get(7);
@@ -307,6 +323,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssurancePlan_AssumeSubsystems()
   {
     return (EReference)assurancePlanEClass.getEStructuralFeatures().get(8);
@@ -317,6 +334,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssurancePlan_AssumeAll()
   {
     return (EAttribute)assurancePlanEClass.getEStructuralFeatures().get(9);
@@ -327,6 +345,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssurancePlan_Issues()
   {
     return (EAttribute)assurancePlanEClass.getEStructuralFeatures().get(10);
@@ -337,6 +356,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssuranceTask()
   {
     return assuranceTaskEClass;
@@ -347,6 +367,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssuranceTask_Title()
   {
     return (EAttribute)assuranceTaskEClass.getEStructuralFeatures().get(0);
@@ -357,6 +378,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssuranceTask_Description()
   {
     return (EReference)assuranceTaskEClass.getEStructuralFeatures().get(1);
@@ -367,6 +389,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAssuranceTask_Issues()
   {
     return (EAttribute)assuranceTaskEClass.getEStructuralFeatures().get(2);
@@ -377,6 +400,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AlisaFactory getAlisaFactory()
   {
     return (AlisaFactory)getEFactoryInstance();
