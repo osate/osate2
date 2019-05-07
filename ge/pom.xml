@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.osate</groupId>
+		<artifactId>osate2.parent</artifactId>
+		<version>2.5.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.osate</groupId>
+	<artifactId>ge.parent</artifactId>
+	<packaging>pom</packaging>
+	<version>2.5.0-SNAPSHOT</version>
+
+	<modules>
+		<module>org.osate.ge</module>
+		<module>org.osate.ge.diagram</module>
+		<module>org.osate.ge.doc</module>
+		<module>org.osate.ge.feature</module>
+	</modules>
+	
+	<profiles>
+		<profile>
+		<id>ge-tests</id>
+			<modules>
+				<module>org.osate.ge.tests</module>
+			</modules>
+		</profile>
+	</profiles>
+
+</project>

@@ -70,8 +70,6 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	
 	val AadlPropertyView propertyView
 	
-	val delim = System.getProperty("line.separator")
-	
 	var creatingNewLocalInEdit = false
 	var newContained = false
 	var String initialEditablePart
@@ -178,30 +176,41 @@ package class ValueColumnEditingSupport extends EditingSupport {
 					offsetElement.ownedPropertyAssociations.last.node.endOffset
 				}
 				updateLength = 0
-				val inPropertiesSection = newContained || inputElement instanceof AadlPackage || inputElement instanceof Classifier
-				updatePrefix = ''
-				if (firstPA) {
-					updatePrefix += if (inPropertiesSection) {
-						'''properties«delim»'''
+				
+				if (offsetElement instanceof AadlPackage) {
+					if (firstPA) {
+						updatePrefix = "properties" + System.lineSeparator + "\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator 
 					} else {
-						''' {'''
+						updatePrefix = System.lineSeparator + "\t" + propertyName + " => "
+						updateSuffix = ";"
+					}
+				} else if (newContained) {
+					if (firstPA) {
+						updatePrefix = "\tproperties" + System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = " applies to " + inputElement.name + ";" + System.lineSeparator + "\t"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = " applies to " + inputElement.name + ";"
+					}
+				} else if (offsetElement instanceof Classifier) {
+					if (firstPA) {
+						updatePrefix = "\tproperties" + System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator + "\t"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = ";"
 					}
 				} else {
-					updatePrefix += delim
+					if (firstPA) {
+						updatePrefix = " {" + System.lineSeparator + "\t\t\t\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator + "\t\t\t}"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t\t" + propertyName + " => "
+						updateSuffix = ";"
+					}
 				}
-				updatePrefix += '''«propertyName» => '''
-				updateSuffix = ''
-				if (newContained) {
-					updateSuffix += ''' applies to «inputElement.name»'''
-				}
-				updateSuffix += ';'
-				updateSuffix += if (inPropertiesSection) {
-					''
-				} else if (firstPA) {
-					'}'
-				} else {
-					delim
-				}
+
 				val prefix = getText.apply(0, updateOffset)
 				val suffix = getText.apply(updateOffset, -updateOffset)
 				new CellEditorPartialValue('''«new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»«updatePrefix»''',

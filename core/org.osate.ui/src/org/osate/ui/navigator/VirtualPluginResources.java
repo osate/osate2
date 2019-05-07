@@ -1,8 +1,16 @@
 package org.osate.ui.navigator;
 
-public final class VirtualPluginResources {
-	public static final VirtualPluginResources INSTANCE = new VirtualPluginResources();
+import org.eclipse.core.resources.IProject;
 
-	private VirtualPluginResources() {
+public final class VirtualPluginResources {
+	private final IProject project;
+
+	public VirtualPluginResources(final IProject project) {
+		this.project = project;
 	}
+
+	public IProject getParent() {
+		return project;
+	}
+
 }

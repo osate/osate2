@@ -1,0 +1,10 @@
+package issue1770
+public
+	thread t1
+		features
+			p1: out data port {Required_Connection => Runtime_Protection_Support;};
+		properties
+			Period => Clock_Jitter;
+			Required_Connection => Runtime_Protection_Support applies to p1;
+	end t1;
+end issue1770;
