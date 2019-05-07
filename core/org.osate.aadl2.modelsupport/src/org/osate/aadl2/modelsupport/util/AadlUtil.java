@@ -1355,7 +1355,7 @@ public final class AadlUtil {
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
-			Resource res = OsateResourceUtil.getResource((IResource) object);
+			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 			if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 				return (Element) rl.get(0);
@@ -1363,7 +1363,7 @@ public final class AadlUtil {
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
-			Resource res = OsateResourceUtil.getResource((IResource) object);
+			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 
 			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource) {
@@ -1387,7 +1387,8 @@ public final class AadlUtil {
 			for (Iterator<?> iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
 				Object f = iterator.next();
 				if (f instanceof IResource) {
-					Resource res = OsateResourceUtil.getResource((IResource) f);
+					URI uri = OsateResourceUtil.toResourceURI((IResource) f);
+					Resource res = new ResourceSetImpl().getResource(uri, true);
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 						return (Element) rl.get(0);
