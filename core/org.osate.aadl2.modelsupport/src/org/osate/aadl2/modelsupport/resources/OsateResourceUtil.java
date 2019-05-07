@@ -242,6 +242,11 @@ public final class OsateResourceUtil {
 		return res;
 	}
 
+	/**
+	 * @deprecated Use {@link ResourceSet#getResource(URI, boolean)} or {@link ResourceSet#createResource(URI)} instead.
+	 *             Will be removed in 2.5.1
+	 */
+	@Deprecated
 	public static Resource getResource(URI uri, ResourceSet rset) {
 		Resource res = null;
 		try {
