@@ -182,6 +182,13 @@ public final class OsateResourceUtil {
 	public static IFile toIFile(URI resourceURI) {
 		return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceURI.toPlatformString(true)));
 	}
+	
+	/**
+	 * Gets a Resource's URI from an IResource.
+	 */
+	public static URI toResourceURI(IResource iResource) {
+		return URI.createPlatformResourceURI(iResource.getFullPath().toString(), true);
+	}
 
 	/**
 	 * gets Resource for given IResource. Will create the resource if it does
