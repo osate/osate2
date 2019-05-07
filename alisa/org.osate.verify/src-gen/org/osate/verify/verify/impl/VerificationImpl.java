@@ -84,6 +84,7 @@ public class VerificationImpl extends MinimalEObjectImpl.Container implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EObject> getContents()
   {
     if (contents == null)

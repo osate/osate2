@@ -38,10 +38,6 @@ public interface ResoluteMethod extends MethodKind
   /**
    * Returns the value of the '<em><b>Method Reference</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method Reference</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Reference</em>' reference.
    * @see #setMethodReference(EObject)

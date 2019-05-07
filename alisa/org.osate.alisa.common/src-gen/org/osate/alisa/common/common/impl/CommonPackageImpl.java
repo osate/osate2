@@ -293,6 +293,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDescription()
   {
     return descriptionEClass;
@@ -303,6 +304,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDescription_Description()
   {
     return (EReference)descriptionEClass.getEStructuralFeatures().get(0);
@@ -313,6 +315,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDescriptionElement()
   {
     return descriptionElementEClass;
@@ -323,6 +326,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDescriptionElement_Text()
   {
     return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(0);
@@ -333,6 +337,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDescriptionElement_ThisTarget()
   {
     return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(1);
@@ -343,6 +348,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDescriptionElement_Image()
   {
     return (EReference)descriptionElementEClass.getEStructuralFeatures().get(2);
@@ -353,6 +359,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDescriptionElement_ShowValue()
   {
     return (EReference)descriptionElementEClass.getEStructuralFeatures().get(3);
@@ -363,6 +370,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRationale()
   {
     return rationaleEClass;
@@ -373,9 +381,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRationale_Text()
+  @Override
+  public EReference getRationale_Description()
   {
-    return (EAttribute)rationaleEClass.getEStructuralFeatures().get(0);
+    return (EReference)rationaleEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -383,6 +392,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUncertainty()
   {
     return uncertaintyEClass;
@@ -393,6 +403,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getUncertainty_Volatility()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(0);
@@ -403,6 +414,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getUncertainty_Precedence()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(1);
@@ -413,6 +425,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getUncertainty_Impact()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(2);
@@ -423,6 +436,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAVariableDeclaration()
   {
     return aVariableDeclarationEClass;
@@ -433,6 +447,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAVariableDeclaration_Name()
   {
     return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(0);
@@ -443,6 +458,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAVariableDeclaration_Type()
   {
     return (EReference)aVariableDeclarationEClass.getEStructuralFeatures().get(1);
@@ -453,6 +469,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAVariableDeclaration_Range()
   {
     return (EAttribute)aVariableDeclarationEClass.getEStructuralFeatures().get(2);
@@ -463,6 +480,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAExpression()
   {
     return aExpressionEClass;
@@ -473,6 +491,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAModelReference()
   {
     return aModelReferenceEClass;
@@ -483,6 +502,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAModelReference_ModelElement()
   {
     return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(0);
@@ -493,6 +513,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAModelReference_Prev()
   {
     return (EReference)aModelReferenceEClass.getEStructuralFeatures().get(1);
@@ -503,6 +524,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAPropertyReference()
   {
     return aPropertyReferenceEClass;
@@ -513,6 +535,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAPropertyReference_ModelElementReference()
   {
     return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(0);
@@ -523,6 +546,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAPropertyReference_Property()
   {
     return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(1);
@@ -533,6 +557,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAUnitExpression()
   {
     return aUnitExpressionEClass;
@@ -543,6 +568,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAUnitExpression_Expression()
   {
     return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(0);
@@ -553,6 +579,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAUnitExpression_Convert()
   {
     return (EAttribute)aUnitExpressionEClass.getEStructuralFeatures().get(1);
@@ -563,6 +590,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAUnitExpression_Drop()
   {
     return (EAttribute)aUnitExpressionEClass.getEStructuralFeatures().get(2);
@@ -573,6 +601,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAUnitExpression_Unit()
   {
     return (EReference)aUnitExpressionEClass.getEStructuralFeatures().get(3);
@@ -583,6 +612,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getImageReference()
   {
     return imageReferenceEClass;
@@ -593,6 +623,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getImageReference_Imgfile()
   {
     return (EAttribute)imageReferenceEClass.getEStructuralFeatures().get(0);
@@ -603,6 +634,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getModelRef()
   {
     return modelRefEClass;
@@ -613,6 +645,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeRef()
   {
     return typeRefEClass;
@@ -623,6 +656,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeRef_Ref()
   {
     return (EReference)typeRefEClass.getEStructuralFeatures().get(0);
@@ -633,6 +667,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyRef()
   {
     return propertyRefEClass;
@@ -643,6 +678,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertyRef_Ref()
   {
     return (EReference)propertyRefEClass.getEStructuralFeatures().get(0);
@@ -653,6 +689,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValDeclaration()
   {
     return valDeclarationEClass;
@@ -663,6 +700,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValDeclaration_Value()
   {
     return (EReference)valDeclarationEClass.getEStructuralFeatures().get(0);
@@ -673,6 +711,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getComputeDeclaration()
   {
     return computeDeclarationEClass;
@@ -683,6 +722,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAVariableReference()
   {
     return aVariableReferenceEClass;
@@ -693,6 +733,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAVariableReference_Variable()
   {
     return (EReference)aVariableReferenceEClass.getEStructuralFeatures().get(0);
@@ -703,6 +744,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getABinaryOperation()
   {
     return aBinaryOperationEClass;
@@ -713,6 +755,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getABinaryOperation_Left()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(0);
@@ -723,6 +766,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getABinaryOperation_Operator()
   {
     return (EAttribute)aBinaryOperationEClass.getEStructuralFeatures().get(1);
@@ -733,6 +777,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getABinaryOperation_Right()
   {
     return (EReference)aBinaryOperationEClass.getEStructuralFeatures().get(2);
@@ -743,6 +788,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAUnaryOperation()
   {
     return aUnaryOperationEClass;
@@ -753,6 +799,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAUnaryOperation_Operator()
   {
     return (EAttribute)aUnaryOperationEClass.getEStructuralFeatures().get(0);
@@ -763,6 +810,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAUnaryOperation_Operand()
   {
     return (EReference)aUnaryOperationEClass.getEStructuralFeatures().get(1);
@@ -773,6 +821,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAFunctionCall()
   {
     return aFunctionCallEClass;
@@ -783,6 +832,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAFunctionCall_Function()
   {
     return (EAttribute)aFunctionCallEClass.getEStructuralFeatures().get(0);
@@ -793,6 +843,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAFunctionCall_Arguments()
   {
     return (EReference)aFunctionCallEClass.getEStructuralFeatures().get(1);
@@ -803,6 +854,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getARange()
   {
     return aRangeEClass;
@@ -813,6 +865,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getARange_Minimum()
   {
     return (EReference)aRangeEClass.getEStructuralFeatures().get(0);
@@ -823,6 +876,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getARange_Maximum()
   {
     return (EReference)aRangeEClass.getEStructuralFeatures().get(1);
@@ -833,6 +887,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getARange_Delta()
   {
     return (EReference)aRangeEClass.getEStructuralFeatures().get(2);
@@ -843,6 +898,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAConditional()
   {
     return aConditionalEClass;
@@ -853,6 +909,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAConditional_If()
   {
     return (EReference)aConditionalEClass.getEStructuralFeatures().get(0);
@@ -863,6 +920,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAConditional_Then()
   {
     return (EReference)aConditionalEClass.getEStructuralFeatures().get(1);
@@ -873,6 +931,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAConditional_Else()
   {
     return (EReference)aConditionalEClass.getEStructuralFeatures().get(2);
@@ -883,6 +942,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getOperation()
   {
     return operationEEnum;
@@ -893,6 +953,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getTargetType()
   {
     return targetTypeEEnum;
@@ -903,6 +964,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CommonFactory getCommonFactory()
   {
     return (CommonFactory)getEFactoryInstance();
@@ -938,7 +1000,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(descriptionElementEClass, DESCRIPTION_ELEMENT__SHOW_VALUE);
 
     rationaleEClass = createEClass(RATIONALE);
-    createEAttribute(rationaleEClass, RATIONALE__TEXT);
+    createEReference(rationaleEClass, RATIONALE__DESCRIPTION);
 
     uncertaintyEClass = createEClass(UNCERTAINTY);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
@@ -1073,7 +1135,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getDescriptionElement_ShowValue(), this.getAUnitExpression(), null, "showValue", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rationaleEClass, Rationale.class, "Rationale", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRationale_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRationale_Description(), this.getDescriptionElement(), null, "description", null, 0, -1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEInt(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

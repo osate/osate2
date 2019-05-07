@@ -128,6 +128,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getVolatility()
   {
     return volatility;
@@ -138,6 +139,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVolatility(int newVolatility)
   {
     int oldVolatility = volatility;
@@ -151,6 +153,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getPrecedence()
   {
     return precedence;
@@ -161,6 +164,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrecedence(int newPrecedence)
   {
     int oldPrecedence = precedence;
@@ -174,6 +178,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getImpact()
   {
     return impact;
@@ -184,6 +189,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setImpact(int newImpact)
   {
     int oldImpact = impact;

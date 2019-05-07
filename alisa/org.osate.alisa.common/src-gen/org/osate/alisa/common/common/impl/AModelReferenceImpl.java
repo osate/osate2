@@ -91,6 +91,7 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getModelElement()
   {
     if (modelElement != null && ((EObject)modelElement).eIsProxy())
@@ -121,6 +122,7 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setModelElement(NamedElement newModelElement)
   {
     NamedElement oldModelElement = modelElement;
@@ -134,6 +136,7 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AModelReference getPrev()
   {
     return prev;
@@ -161,6 +164,7 @@ public class AModelReferenceImpl extends AExpressionImpl implements AModelRefere
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrev(AModelReference newPrev)
   {
     if (newPrev != prev)

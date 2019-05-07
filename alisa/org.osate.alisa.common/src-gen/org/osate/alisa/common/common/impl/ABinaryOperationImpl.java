@@ -114,6 +114,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getLeft()
   {
     return left;
@@ -141,6 +142,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLeft(PropertyExpression newLeft)
   {
     if (newLeft != left)
@@ -162,6 +164,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Operation getOperator()
   {
     return operator;
@@ -172,6 +175,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOperator(Operation newOperator)
   {
     Operation oldOperator = operator;
@@ -185,6 +189,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getRight()
   {
     return right;
@@ -212,6 +217,7 @@ public class ABinaryOperationImpl extends PropertyExpressionImpl implements ABin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRight(PropertyExpression newRight)
   {
     if (newRight != right)

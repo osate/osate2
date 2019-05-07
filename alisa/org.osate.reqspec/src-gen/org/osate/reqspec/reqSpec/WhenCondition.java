@@ -45,10 +45,6 @@ public interface WhenCondition extends EObject
    * Returns the value of the '<em><b>In Mode</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.Mode}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>In Mode</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>In Mode</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getWhenCondition_InMode()
@@ -61,10 +57,6 @@ public interface WhenCondition extends EObject
    * Returns the value of the '<em><b>In Error State</b></em>' reference list.
    * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>In Error State</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>In Error State</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getWhenCondition_InErrorState()
@@ -76,10 +68,6 @@ public interface WhenCondition extends EObject
   /**
    * Returns the value of the '<em><b>Condition</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Condition</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Condition</em>' attribute.
    * @see #setCondition(String)

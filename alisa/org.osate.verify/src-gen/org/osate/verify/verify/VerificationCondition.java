@@ -41,10 +41,6 @@ public interface VerificationCondition extends EObject
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method</em>' reference.
    * @see #setMethod(VerificationMethod)
@@ -68,10 +64,6 @@ public interface VerificationCondition extends EObject
    * Returns the value of the '<em><b>Parameters</b></em>' reference list.
    * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_Parameters()

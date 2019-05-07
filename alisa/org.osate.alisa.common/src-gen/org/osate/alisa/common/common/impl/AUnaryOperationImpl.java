@@ -103,6 +103,7 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Operation getOperator()
   {
     return operator;
@@ -113,6 +114,7 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOperator(Operation newOperator)
   {
     Operation oldOperator = operator;
@@ -126,6 +128,7 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getOperand()
   {
     return operand;
@@ -153,6 +156,7 @@ public class AUnaryOperationImpl extends PropertyExpressionImpl implements AUnar
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOperand(PropertyExpression newOperand)
   {
     if (newOperand != operand)
