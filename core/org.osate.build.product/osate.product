@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.4.2.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.5.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -79,8 +79,8 @@
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.10" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2018-12" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.11" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2019-03" enabled="true" />
    </repositories>
 
 </product>

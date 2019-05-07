@@ -7,7 +7,7 @@ import org.eclipse.xtext.util.Tuples
 import org.osate.pluginsupport.PluginSupportUtil
 
 class Aadl2Storage2UriMapper extends Storage2UriMapperImpl {
-	val CONTRIBUTED_AADL = PluginSupportUtil.contributedAadl.toInvertedMap[new ContributedAadlStorage(it)]
+	val CONTRIBUTED_AADL = PluginSupportUtil.contributedAadl.toInvertedMap[new ContributedAadlStorage(null, it)]
 	
 	override getStorages(URI uri) {
 		if (CONTRIBUTED_AADL.containsKey(uri)) {

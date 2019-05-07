@@ -1,0 +1,31 @@
+package not_diamond
+public
+	feature group FG1
+		features
+			f0: out event port;
+			f1: out event port;
+	end FG1;
+	
+	feature group FG2 extends FG1
+		features
+			f2: out event port;
+	end FG2;
+	
+	feature group FG3
+		features
+			f3: out event port;
+	end FG3;
+	
+	feature group IG3
+		features
+			g3: in event port;
+		inverse of FG3
+	end IG3;
+	
+	feature group IG2 extends IG3
+		features
+			g1: in event port;
+			g2: in event port;
+		inverse of FG2
+	end IG2;
+end not_diamond;

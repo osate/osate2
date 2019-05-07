@@ -1258,9 +1258,15 @@
            priority="highest">
         <enablement>
            <or>
-              <instanceof
-                    value="org.eclipse.core.resources.IResource">
-              </instanceof>
+              <and>
+                 <instanceof
+                       value="org.eclipse.core.resources.IFile">
+                 </instanceof>
+                 <test
+                       property="org.eclipse.core.resources.extension"
+                       value="aadl_diagram">
+                 </test>
+              </and>
            </or>
         </enablement>
      </navigatorContent>

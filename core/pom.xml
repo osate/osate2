@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.osate</groupId>
+		<artifactId>osate2.parent</artifactId>
+		<version>2.5.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.osate</groupId>
+	<artifactId>core.parent</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>org.osate.aadl2</module>
+		<module>org.osate.aadl2.edit</module>
+		<module>org.osate.aadl2.instance.textual</module>
+		<module>org.osate.aadl2.instance.textual.ui</module>
+		<module>org.osate.aadl2.instance.ui</module>
+		<module>org.osate.aadl2.instantiation</module>
+		<module>org.osate.aadl2.model.editor</module>
+		<module>org.osate.aadl2.modelsupport</module>
+		<module>org.osate.annexsupport</module>
+		<module>org.osate.branding</module>
+		<module>org.osate.build.main</module>
+		<module>org.osate.build.target</module>
+		<module>org.osate.contribution.sei</module>
+		<module>org.osate.core</module>
+		<module>org.osate.core.feature</module>
+		<module>org.osate.help</module>
+		<module>org.osate.mylyn.aadl.ui</module>
+		<module>org.osate.pluginsupport</module>
+		<module>org.osate.results</module>
+		<module>org.osate.testsupport</module>
+		<module>org.osate.ui</module>
+		<module>org.osate.workspace</module>
+		<module>org.osate.xtext.aadl2</module>
+		<module>org.osate.xtext.aadl2.properties</module>
+		<module>org.osate.xtext.aadl2.properties.ui</module>
+		<module>org.osate.xtext.aadl2.ui</module>
+
+		<module>org.osate.aadl2.instance.textual.tests</module>
+		<module>org.osate.core.tests</module>
+		<module>org.osate.core.tests.log4j</module>
+		<module>org.osate.build.coverage.report</module>
+	</modules>
+
+</project>
