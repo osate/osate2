@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.ui.util;
 import java.io.StringReader
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.xtext.ParserRule
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.parser.IParser
@@ -58,7 +59,7 @@ final class Aadl2NameValidators {
 		 * a bogus folder to it.
 		 */
 		val fakeFolder = parent.getFolder(Path.forPosix(".fake"));
-		val rsrc = OsateResourceUtil.getResource(fakeFolder);
+		val rsrc = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI(fakeFolder), true)
 		val scope = new OnChangeEvictingCache().execWithTemporaryCaching(rsrc, [resource |
 			globalScopeProvider.getScope(resource, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
 		])
