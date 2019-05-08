@@ -197,8 +197,9 @@ public final class OsateResourceUtil {
 	 * @param ires
 	 *            IResource
 	 * @return Resource
-	 * @deprecated Use {@code new ResourceSetImpl().getResource(toResourceURI(IResource), boolean)} instead. Will be
-	 *             removed in 2.5.1
+	 * @deprecated Use {@code new ResourceSetImpl().getResource(toResourceURI(IResource), boolean)} or
+	 *             {@code new ResourceSetImpl().createResource(toResourceURI(IResource))} instead.
+	 *             Will be removed in 2.5.1
 	 */
 	@Deprecated
 	public static Resource getResource(IResource ires) {
