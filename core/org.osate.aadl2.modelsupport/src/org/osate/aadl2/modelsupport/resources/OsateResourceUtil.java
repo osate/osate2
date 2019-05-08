@@ -225,7 +225,9 @@ public final class OsateResourceUtil {
 	 * @param ires
 	 *            IResource
 	 * @return Resource
+	 * @deprecated Use {@link #toResourceURI(IResource)} instead. Will be removed in 2.5.1
 	 */
+	@Deprecated
 	public static URI getResourceURI(IResource ires) {
 		IPath path = ires.getFullPath();
 		return URI.createPlatformResourceURI(path.toString(), false);
