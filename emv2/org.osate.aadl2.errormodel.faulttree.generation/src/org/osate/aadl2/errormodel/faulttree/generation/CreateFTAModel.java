@@ -105,23 +105,27 @@ public class CreateFTAModel {
 		ResultUtil.addParameter(ftaResults, startingPoint);
 		ftaResults.setModelElement(root);
 
-		Result result = ResultFactory.eINSTANCE.createResult();
-
-		result.setModelElement(root);
-		result.setMessage(
-				"FTA occurrence probability results for " + ((InstanceObject) root).getName() + ":" + startingPoint);
-		Event rootevent = ft.getRoot();
-		BigDecimal asP = rootevent.getAssignedProbability();
-		BigDecimal coP = rootevent.getComputedProbability();
-		if (coP == null) {
-			addRealValue(result, 0.0);
+		if (ft != null) {
+			Result result = ResultFactory.eINSTANCE.createResult();
+			ftaResults.getResults().add(result);
+			result.setModelElement(root);
+			result.setMessage("FTA occurrence probability results for " + ((InstanceObject) root).getName() + ":"
+					+ startingPoint);
+			Event rootevent = ft.getRoot();
+			BigDecimal asP = rootevent.getAssignedProbability();
+			BigDecimal coP = rootevent.getComputedProbability();
+			if (coP == null) {
+				addRealValue(result, 0.0);
+			} else {
+				addRealValue(result, coP.doubleValue());
+			}
+			if (asP == null) {
+				addRealValue(result, 0.0);
+			} else {
+				addRealValue(result, asP.doubleValue());
+			}
 		} else {
-			addRealValue(result, coP.doubleValue());
-		}
-		if (asP == null) {
-			addRealValue(result, 0.0);
-		} else {
-			addRealValue(result, asP.doubleValue());
+			ftaResults.getResults().add(ResultUtil.createErrorResult("Fault tree analysis failed to run", root));
 		}
 		return ftaResults;
 	}
