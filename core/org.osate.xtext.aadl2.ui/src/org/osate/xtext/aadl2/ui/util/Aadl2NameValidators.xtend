@@ -59,7 +59,9 @@ final class Aadl2NameValidators {
 		 * a bogus folder to it.
 		 */
 		val fakeFolder = parent.getFolder(Path.forPosix(".fake"));
-		val rsrc = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI(fakeFolder), true)
+		val rsrc = new ResourceSetImpl().createResource(OsateResourceUtil.toResourceURI(fakeFolder))
+		// Clear the contents even though the resource is empty so that it will be marked as loaded.
+		rsrc.contents.clear
 		val scope = new OnChangeEvictingCache().execWithTemporaryCaching(rsrc, [resource |
 			globalScopeProvider.getScope(resource, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
 		])
