@@ -207,6 +207,12 @@ public final class OsateResourceUtil {
 		return getResource(URI.createPlatformResourceURI(path.toString(), false));
 	}
 
+	/**
+	 * @deprecated Use {@code new ResourceSetImpl().getResource(toResourceURI(IResource), boolean)} or
+	 *             {@code new ResourceSetImpl().createResource(toResourceURI(IResource))} instead.
+	 *             Will be removed in 2.5.1
+	 */
+	@Deprecated
 	public static Resource getResource(IResource ires, ResourceSet rset) {
 		IPath path = ires.getFullPath();
 		return getResource(URI.createPlatformResourceURI(path.toString(), false), rset);

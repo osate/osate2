@@ -306,7 +306,7 @@ public class InstantiateModel {
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		ResourceSet rset = new ResourceSetImpl();
-		Resource res = OsateResourceUtil.getResource(ires, rset);
+		Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
@@ -333,7 +333,7 @@ public class InstantiateModel {
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-			Resource res = OsateResourceUtil.getResource(ires, rset);
+			Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			ComponentImplementation ci = target.getComponentImplementation();
 			URI uri = EcoreUtil.getURI(ci);
@@ -349,7 +349,7 @@ public class InstantiateModel {
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i), rset);
+			Resource res = rset.getResource(OsateResourceUtil.toResourceURI(instanceIResources.get(i)), true);
 			instantiateModel.createSystemInstance(ci, res);
 		}
 	}
