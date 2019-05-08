@@ -39,7 +39,7 @@ public final class AadlFinder {
 			final URI[] temp = new URI[resources.size()];
 			int i = 0;
 			for (final IResource resource : resources) {
-				temp[i++] = OsateResourceUtil.getResourceURI(resource);
+				temp[i++] = OsateResourceUtil.toResourceURI(resource);
 			}
 			this.uris = temp;
 		}
@@ -200,7 +200,7 @@ public final class AadlFinder {
 				.getResourceDescriptions(resourceSet);
 		for (final IFile file : fileSet) {
 			final IResourceDescription rsrcDesc = resourceDescriptions
-					.getResourceDescription(OsateResourceUtil.getResourceURI(file));
+					.getResourceDescription(OsateResourceUtil.toResourceURI(file));
 			getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
 		}
 	}
