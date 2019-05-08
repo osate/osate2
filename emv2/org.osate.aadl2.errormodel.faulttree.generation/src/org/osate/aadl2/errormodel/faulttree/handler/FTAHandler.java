@@ -192,7 +192,8 @@ public final class FTAHandler extends AbstractHandler {
 					}
 				}
 				if (obj instanceof IFile) {
-					Resource res = OsateResourceUtil.getResource((IFile) obj, new ResourceSetImpl());
+					URI uri = OsateResourceUtil.toResourceURI((IFile) obj);
+					Resource res = new ResourceSetImpl().getResource(uri, true);
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty()) {
 						return (InstanceObject) rl.get(0);

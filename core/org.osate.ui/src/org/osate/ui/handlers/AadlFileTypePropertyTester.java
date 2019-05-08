@@ -2,6 +2,7 @@ package org.osate.ui.handlers;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -15,7 +16,8 @@ public final class AadlFileTypePropertyTester extends PropertyTester {
 		final boolean testAadlPackage = property.equals("aadlPackage");
 		final boolean testAadlPropertySet = property.equals("aadlPropertySet");
 		if (receiver instanceof IFile && (testAadlPackage || testAadlPropertySet)) {
-			final Resource resource = OsateResourceUtil.getResource((IFile) receiver, new ResourceSetImpl());
+			final URI uri = OsateResourceUtil.toResourceURI((IFile) receiver);
+			final Resource resource = new ResourceSetImpl().getResource(uri, true);
 			if (!resource.getContents().isEmpty()) {
 				final EObject root = resource.getContents().get(0);
 				return (testAadlPackage && root instanceof AadlPackage)
