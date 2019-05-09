@@ -4,7 +4,6 @@
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.graphviz.circo" label="Circo" description="Circular layout, after Six and Tollis '99, Kaufmann and Wiese '02. The algorithm finds biconnected components and arranges each component in a circle, trying to minimize the number of crossings inside the circle. This is suitable for certain diagrams of multiple cyclic structures such as certain telecommunications networks."/>
-      <diagramInitialisation/>
       <defaultLayer name="Default">
         <nodeMappings name="OneHopNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getOneHopNeighbors()" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
@@ -59,9 +58,6 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <customization>
-          <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse"/>
-        </customization>
       </defaultLayer>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" documentation="Placeholder initial view until we iron out the SAFE2.0 process." endUserDocumentation="Placeholder initial view until we iron out the SAFE2.0 process." name="Containment" showOnStartup="true" domainClass="instance.ComponentInstance">
@@ -125,9 +121,15 @@
               </defaultStyle>
             </subItemMappings>
           </subItemMappings>
+          <popupMenus name="sdfsdf">
+            <menuItemDescriptions xsi:type="tool_1:OperationAction" name="fsdfsdfs">
+              <view name="views"/>
+              <initialOperation/>
+            </menuItemDescriptions>
+          </popupMenus>
         </subItemMappings>
         <popupMenus name="testMenu">
-          <menuItemDescriptions xsi:type="tool_1:OperationAction" name="testOperation">
+          <menuItemDescriptions xsi:type="tool_1:OperationAction" name="testOperation" icon="/org.osate.aadl2.edit/icons/full/ctool16/CreateThreadImplementation_ownedDataSubcomponent_DataSubcomponent.gif">
             <view name="views"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="testExternalJavaAction" id="org.osate.alisa2.view.FocusManager"/>
@@ -147,7 +149,6 @@
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.layered" label="ELK Layered" description="Layer-based algorithm provided by the Eclipse Layout Kernel. Arranges as many edges as possible into one direction by placing nodes into subsequent layers. This implementation supports different routing styles (straight, orthogonal, splines); if orthogonal routing is selected, arbitrary port constraints are respected, thus enabling the layout of block diagrams such as actor-oriented models or circuit schematics. Furthermore, full layout of compound graphs with cross-hierarchy edges is supported when the respective option is activated on the top level."/>
-      <diagramInitialisation/>
       <defaultLayer name="Default">
         <edgeMappings name="ErrTransitions" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
           <style sizeComputationExpression="2">

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-  <classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="lib/awas-pub_2.12-0.1.0-SNAPSHOT.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.sireum.aadl.osate"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.sireum.aadl.osate.awas"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

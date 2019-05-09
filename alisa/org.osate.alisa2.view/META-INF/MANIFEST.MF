@@ -13,8 +13,12 @@ Require-Bundle: org.eclipse.ui,
  org.osate.alisa2.model;bundle-version="0.1.0",
  org.osate.aadl2.edit;bundle-version="1.0.0",
  org.eclipse.sirius.diagram,
- org.eclipse.sirius.table
+ org.eclipse.sirius.table,
+ org.sireum.aadl.osate.awas,
+ org.sireum.aadl.osate
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.osate.alisa2.view
+Bundle-ClassPath: lib/awas-pub_2.12-0.1.0-SNAPSHOT.jar,
+ .

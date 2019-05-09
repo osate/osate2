@@ -42,4 +42,24 @@ public class FocusManager {
 	public void setFocus(EObject newFocus) {
 		focus = newFocus;
 	}
+
+	public void initFocusGraph() {
+		/*-
+
+		 * Expandable Things
+		 	* Under Fundamentals: (probz collapsable under their own thing, since Accident Levels would have like a trillion)
+		 		* Error types
+		 		* Affected Components
+		 	* Under Components on Containment view:
+		 		* Error Types
+				* Affected Fundamentals
+		 * Focusable Things
+		 	* Fundamentals
+		 	* Components
+		 * Calkalations
+			 * Fundamental -> Error Type @ Component -> Forward and Backward Slice
+			 * Component -> Error Type set -> Fundamentals
+		
+		 */
+	}
 }
