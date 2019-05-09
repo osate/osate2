@@ -1,0 +1,111 @@
+package ComponentImplementations
+public
+	process P
+		-- empty
+	end P;
+	
+	process implementation P.i
+		-- empty
+	end P.i;
+	
+	-- -----------------------------------------------
+	
+	system T1
+		prototypes
+			proto_t1_p1: feature;
+			proto_t1_p2: feature;
+		features
+			f1: out event port;
+	end T1;
+	
+	system T2 extends T1
+		prototypes
+			-- inherits proto_t1_p1 from T1
+			proto_t1_p2: refined to feature;
+			proto_t2_p1: feature;
+			proto_t2_p2: feature;
+		features
+			f1: refined to out event port;
+			f2: in event port;
+	end T2;
+	
+	system implementation T2.i1
+		prototypes
+			-- inherits proto_t1_p1 from T1
+			-- inherits refined proto_t1_p2 from T2
+			-- inherits proto_t2_p1 from T2
+			proto_t2_p2: refined to feature;
+			proto_T1_i1_p1: feature;
+			proto_t1_i1_p2: feature;
+		subcomponents
+			sub_p1: process;
+			sub_p2: process;
+		internal features
+			if1: event;
+		processor features
+			pf1: subprogram;
+	end T2.i1;
+	
+	system implementation T2.i2 extends T2.i1
+		prototypes
+			-- inherits proto_t1_p1 from T1
+			-- inherits refined proto_t1_p2 from T2
+			-- inherits proto_t2_p1 from T2
+			-- inherits refined proto_t2_p2 from T2.i1
+			-- inherits proto_T1_i1_p1 from T2.i1
+			proto_t1_i1_p2: refined to feature;
+		subcomponents
+			-- inherits sub_p1 from T2.i1
+			sub_p2: refined to process P;
+			sub_p3: processor;
+		internal features
+			if2: event;
+		processor features
+			pf2: subprogram;
+	end T2.i2;
+	
+	system implementation T2.i3 extends T2.i2
+		subcomponents
+			-- inherits sub_p1 from T2.i1
+			sub_p2: refined to process P.i;
+			-- inherits sub_p3
+			sub_p4: memory;
+	end T2.i3;
+	
+	
+	system Inner
+		features
+			incoming: in event port;
+			outgoing: out event port;
+	end Inner;
+	
+	system Outer
+		features
+			f1: in event port;
+			f2: out event port;
+	end Outer;
+	
+	system implementation Outer.i1
+		subcomponents
+			sub1: system Inner;
+		connections
+			c1: feature f1 -> sub1.incoming;
+			c2: feature sub1.outgoing -> f2;
+	end Outer.i1;
+	
+	system implementation Outer.i2 extends Outer.i1
+		connections
+			-- inherit c1 from Outer.i1
+			c2: refined to feature;
+	end Outer.i2;
+	
+	system implementation Outer.i3 extends Outer.i2
+		subcomponents
+			sub2: system Inner;
+		connections
+			-- inherit c1 from Outer.i1
+			-- inherit c2 from Outer.i2
+			c3: feature f1 -> sub2.incoming;
+			c4: feature sub2.outgoing -> f2;
+	end Outer.i3;
+end ComponentImplementations;

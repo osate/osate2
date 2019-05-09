@@ -1,0 +1,16 @@
+package fred2
+public
+	annex EMV2 {**
+		error types
+			flintstone: type;
+			fred: type extends flintstone;
+			wilma: type extends flintstone;
+			pebbles: type extends flintstone;
+			
+			rubble: type;
+			barney: type extends rubble;
+			betty: type extends rubble;
+			bambam: type extends rubble;
+		end types;
+	**};
+end fred2;
