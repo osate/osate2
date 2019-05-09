@@ -78,6 +78,7 @@ public final class LoadDeclarativeModelAndContributedProperties {
 		System.out.println("Validating...");
 		for (final Resource resource : resources) {
 			// Validation
+			System.out.println("..." + resource.getURI());
 			IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider()
 					.getResourceValidator();
 			List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
