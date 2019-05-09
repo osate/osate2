@@ -68,6 +68,16 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
+ * For headlesx (non-eclipse) applications, there are two options:
+ *
+ * <ol>
+ * <li>Force the environment to read the <code>plugin.xml</code> files and initialize the Eclipse extension registry.  This is done
+ * by calling {@link #initializeExtensionRegistry}.  This can be slow because all the plug-ins need to be searched.
+ *
+ * <li>Register the annex extensions that you care about using method calls.  This is most easily done using the {@link #registerAnnex}
+ * method.
+ * </ol>
+ *
  * @author lwrage
  * @version $Id: AnnexRegistry.java,v 1.4 2007-07-10 20:41:44 jseibel Exp $
  */
@@ -100,9 +110,11 @@ public abstract class AnnexRegistry {
 	private static final String ATT_ANNEXNAME = "annexName";
 	private static final String ATT_ANNEXNSURI = "annexNSURI";
 
+	@SuppressWarnings("rawtypes")
 	private static final Map registries = new HashMap();
 
 	/** The extensions in this registry */
+	@SuppressWarnings("rawtypes")
 	protected Map extensions;
 
 	/**
@@ -110,6 +122,7 @@ public abstract class AnnexRegistry {
 	 *
 	 * @return the single instance of this class.
 	 */
+	@SuppressWarnings("unchecked")
 	public static AnnexRegistry getRegistry(String extensionId) {
 		AnnexRegistry registry = (AnnexRegistry) registries.get(extensionId);
 
@@ -142,16 +155,11 @@ public abstract class AnnexRegistry {
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void initialize(String extensionId) {
 		extensions = new HashMap();
 
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-
-		/* If the system is running outside of Eclipse we wont' have an extension registry */
-		if (extensionRegistry == null) {
-			process(null);
-			extensionRegistry = Platform.getExtensionRegistry();
-		}
+		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		if (extensionRegistry != null) {
 			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
 			IExtension[] exts = extensionPoint.getExtensions();
@@ -173,7 +181,7 @@ public abstract class AnnexRegistry {
 				}
 			}
 		} else {
-			/* Running outside of eclipse, just use the default support */
+			/* Running outside of eclipse and the extension registry is missing: just use the default support */
 			final Object defaultHandler = getDefault();
 			if (defaultHandler != null) {
 				extensions.put("*", defaultHandler);
@@ -187,7 +195,77 @@ public abstract class AnnexRegistry {
 	}
 
 	/**
-	 * Factory method for annex proxies.
+	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
+	 */
+	@SuppressWarnings("unchecked")
+	private final void registerExtension(final String annexName, final Object handler) {
+		extensions.put(annexName.toLowerCase(), handler);
+	}
+
+	/**
+	 * Used by programs running outside of eclipse to register annex extensions.  Checks if <code>handler</code>
+	 * is <code>null</code>, and doesn't register anything if it is.  This is a convenience method and
+	 * is equivalent to
+	 *
+	 * <code>getRegistry(extensionId).registerProxy(id, name, annexName, className)</code>.
+	 */
+	private static void registerExtension(final String extensionId, final String annexName, Object handler) {
+		if (handler != null) {
+			getRegistry(extensionId).registerExtension(annexName, handler);
+		}
+	}
+
+	public static void registerContentAssist(final String annexName, final AnnexContentAssist extension) {
+		registerExtension(ANNEX_CONTENT_ASSIST_EXT_ID, annexName, extension);
+	}
+
+	public static void registerHighlighter(final String annexName, final AnnexHighlighter extension) {
+		registerExtension(ANNEX_HIGHLIGHTER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerInstantiator(final String annexName, final AnnexInstantiator extension) {
+		registerExtension(ANNEX_INSTANTIATOR_EXT_ID, annexName, extension);
+	}
+
+	public static void registerLinkingService(final String annexName, final AnnexLinkingService extension) {
+		registerExtension(ANNEX_LINKINGSERVICE_EXT_ID, annexName, extension);
+	}
+
+	public static void registerParser(final String annexName, final AnnexParser extension) {
+		registerExtension(ANNEX_PARSER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerResolver(final String annexName, final AnnexResolver extension) {
+		registerExtension(ANNEX_RESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerTextPositionResolver(final String annexName, final AnnexTextPositionResolver extension) {
+		registerExtension(ANNEX_TEXTPOSITIONRESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerUnparser(final String annexName, final AnnexUnparser extension) {
+		registerExtension(ANNEX_UNPARSER_EXT_ID, annexName, extension);
+	}
+
+	/**
+	 * Single method to register an annex from a stand-alone application.
+	 */
+	public static void registerAnnex(final String annexName, final AnnexParser parser, final AnnexUnparser unparser,
+			final AnnexLinkingService linkingService, final AnnexContentAssist contextAssist,
+			final AnnexHighlighter highlighter, final AnnexInstantiator instantiator, final AnnexResolver resolver,
+			final AnnexTextPositionResolver textPositionResolver) {
+		registerParser(annexName, parser);
+		registerUnparser(annexName, unparser);
+		registerLinkingService(annexName, linkingService);
+		registerContentAssist(annexName, contextAssist);
+		registerHighlighter(annexName, highlighter);
+		registerInstantiator(annexName, instantiator);
+		registerResolver(annexName, resolver);
+		registerTextPositionResolver(annexName, textPositionResolver);
+	}
+
+	/**
+	 * Factory method for annex proxies that are created from reading the extension registry.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
 
@@ -197,7 +275,24 @@ public abstract class AnnexRegistry {
 
 	private static boolean initializedAlready = false;
 
-	public static synchronized void process(ClassLoader classLoader) {
+	@FunctionalInterface
+	public static interface RegistryLogger {
+		public void log(IStatus status);
+	}
+
+	private final static RegistryLogger NULL_REGISTRY_LOGGER = new RegistryLogger() {
+		@Override
+		public void log(final IStatus status) {
+			// do nothing
+		}
+	};
+
+	public static void initializeExtensionRegistry() throws CoreException, IOException {
+		initializeExtensionRegistry(NULL_REGISTRY_LOGGER);
+	}
+
+	public static synchronized void initializeExtensionRegistry(final RegistryLogger registryLogger)
+			throws CoreException, IOException {
 		// Ensure processing only happens once and only when not running an Eclipse application.
 		//
 		if (!initializedAlready && !EMFPlugin.IS_ECLIPSE_RUNNING) {
@@ -211,8 +306,8 @@ public abstract class AnnexRegistry {
 				//
 				final IExtensionRegistry newRegistry = RegistryFactory.createRegistry(new RegistryStrategy(null, null) {
 					@Override
-					public void log(IStatus status) {
-						AnnexPlugin.log(status);
+					public void log(final IStatus status) {
+						registryLogger.log(status);
 					}
 
 					@Override
@@ -229,25 +324,19 @@ public abstract class AnnexRegistry {
 
 				// Make the new registry the default.
 				//
-				try {
-					RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
-						@Override
-						public IExtensionRegistry getRegistry() {
-							return newRegistry;
-						}
-					});
-				} catch (CoreException exception) {
-					AnnexPlugin.logError(exception);
-				}
+				RegistryFactory.setDefaultRegistryProvider(new IRegistryProvider() {
+					@Override
+					public IExtensionRegistry getRegistry() {
+						return newRegistry;
+					}
+				});
 
 				registry = newRegistry;
 			}
 
-			// If there is no class loader provided, use the thread's context class loader.
+			// Use the thread's context class loader.
 			//
-			if (classLoader == null) {
-				classLoader = Thread.currentThread().getContextClassLoader();
-			}
+			final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
 			// Process all the URIs for plugin.xml files from the class path or the class loader.
 			//
@@ -271,55 +360,51 @@ public abstract class AnnexRegistry {
 
 				if (URIConverter.INSTANCE.exists(manifestURI, null)) {
 					InputStream manifestInputStream = null;
-					try {
-						// Read the manifest.
+					// Read the manifest.
+					//
+					manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
+					Manifest manifest = new Manifest(manifestInputStream);
+					java.util.jar.Attributes mainAttributes = manifest.getMainAttributes();
+
+					// Determine the bundle's name
+					//
+					String bundleSymbolicName = mainAttributes.getValue("Bundle-SymbolicName");
+					if (bundleSymbolicName != null) {
+						// Split out the OSGi noise.
 						//
-						manifestInputStream = URIConverter.INSTANCE.createInputStream(manifestURI);
-						Manifest manifest = new Manifest(manifestInputStream);
-						java.util.jar.Attributes mainAttributes = manifest.getMainAttributes();
+						bundleSymbolicName = bundleSymbolicName.split(";")[0].trim();
 
-						// Determine the bundle's name
+						// Compute the map entry from platform:/plugin/<bundleSymbolicName>/ to the location URI's root.
 						//
-						String bundleSymbolicName = mainAttributes.getValue("Bundle-SymbolicName");
-						if (bundleSymbolicName != null) {
-							// Split out the OSGi noise.
-							//
-							bundleSymbolicName = bundleSymbolicName.split(";")[0].trim();
+						URI logicalPlatformPluginURI = URI.createPlatformPluginURI(bundleSymbolicName, true)
+								.appendSegment("");
+						URI pluginLocationURI = pluginLocation.isArchive() ? pluginLocation
+								: pluginLocation.appendSegment("");
 
-							// Compute the map entry from platform:/plugin/<bundleSymbolicName>/ to the location URI's root.
-							//
-							URI logicalPlatformPluginURI = URI.createPlatformPluginURI(bundleSymbolicName, true)
-									.appendSegment("");
-							URI pluginLocationURI = pluginLocation.isArchive() ? pluginLocation
-									: pluginLocation.appendSegment("");
+						// Also create a global URI mapping so that any uses of platform:/plugin/<plugin-ID> will map to the physical location of that
+						// plugin.
+						// This ensures that registered URI mappings that use a relative URI into the plugin will work correctly.
+						//
+						URIConverter.URI_MAP.put(logicalPlatformPluginURI, pluginLocationURI);
 
-							// Also create a global URI mapping so that any uses of platform:/plugin/<plugin-ID> will map to the physical location of that
-							// plugin.
-							// This ensures that registered URI mappings that use a relative URI into the plugin will work correctly.
-							//
-							URIConverter.URI_MAP.put(logicalPlatformPluginURI, pluginLocationURI);
-
-							// Find the localization resource bundle, if there is one.
-							//
-							String bundleLocalization = mainAttributes.getValue("Bundle-Localization");
-							ResourceBundle resourceBundle = null;
-							if (bundleLocalization != null) {
-								bundleLocalization += ".properties";
-								InputStream bundleLocalizationInputStream = URIConverter.INSTANCE
-										.createInputStream(pluginLocation.appendSegment(bundleLocalization));
-								resourceBundle = new PropertyResourceBundle(bundleLocalizationInputStream);
-								bundleLocalizationInputStream.close();
-							}
-
-							// Add the contribution.
-							//
-							InputStream pluginXMLInputStream = URIConverter.INSTANCE.createInputStream(pluginXMLURI);
-							IContributor contributor = ContributorFactorySimple.createContributor(bundleSymbolicName);
-							registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
-									resourceBundle, null);
+						// Find the localization resource bundle, if there is one.
+						//
+						String bundleLocalization = mainAttributes.getValue("Bundle-Localization");
+						ResourceBundle resourceBundle = null;
+						if (bundleLocalization != null) {
+							bundleLocalization += ".properties";
+							InputStream bundleLocalizationInputStream = URIConverter.INSTANCE
+									.createInputStream(pluginLocation.appendSegment(bundleLocalization));
+							resourceBundle = new PropertyResourceBundle(bundleLocalizationInputStream);
+							bundleLocalizationInputStream.close();
 						}
-					} catch (IOException exception) {
-						AnnexPlugin.logError(exception);
+
+						// Add the contribution.
+						//
+						InputStream pluginXMLInputStream = URIConverter.INSTANCE.createInputStream(pluginXMLURI);
+						IContributor contributor = ContributorFactorySimple.createContributor(bundleSymbolicName);
+						registry.addContribution(pluginXMLInputStream, contributor, false, bundleSymbolicName,
+								resourceBundle, null);
 					}
 				}
 			}

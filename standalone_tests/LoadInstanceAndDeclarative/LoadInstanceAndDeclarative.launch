@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/LoadInstanceAndDeclarative/src/org/osate/standalone/emf/LoadInstanceAndDeclarative.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.osate.standalone.emf.LoadInstanceAndDeclarative"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="aadl_files/instances/ComponentImplementations_Outer_i3_Instance.aaxl2 aadl_files/ComponentImplementations.aadl"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="LoadInstanceAndDeclarative"/>
+</launchConfiguration>

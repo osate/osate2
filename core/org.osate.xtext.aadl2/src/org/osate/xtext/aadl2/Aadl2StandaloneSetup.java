@@ -35,13 +35,15 @@
 
 package org.osate.xtext.aadl2;
 
+import com.google.inject.Injector;
+
 /**
  * Initialization support for running Xtext languages
  * without equinox extension registry
  */
 public class Aadl2StandaloneSetup extends Aadl2StandaloneSetupGenerated {
 
-	public static void doSetup() {
-		new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
+	public static Injector doSetup() {
+		return new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 	}
 }
