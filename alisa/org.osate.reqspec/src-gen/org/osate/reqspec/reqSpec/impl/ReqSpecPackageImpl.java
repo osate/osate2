@@ -277,6 +277,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReqSpec()
   {
     return reqSpecEClass;
@@ -287,6 +288,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getReqSpec_Parts()
   {
     return (EReference)reqSpecEClass.getEStructuralFeatures().get(0);
@@ -297,6 +299,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGlobalConstants()
   {
     return globalConstantsEClass;
@@ -307,6 +310,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getGlobalConstants_Name()
   {
     return (EAttribute)globalConstantsEClass.getEStructuralFeatures().get(0);
@@ -317,6 +321,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGlobalConstants_Constants()
   {
     return (EReference)globalConstantsEClass.getEStructuralFeatures().get(1);
@@ -327,6 +332,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getContractualElement()
   {
     return contractualElementEClass;
@@ -337,6 +343,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_Name()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(0);
@@ -347,6 +354,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_Title()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(1);
@@ -357,6 +365,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_TargetDescription()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(2);
@@ -367,6 +376,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Target()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(3);
@@ -377,6 +387,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_TargetElement()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(4);
@@ -387,6 +398,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Category()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(5);
@@ -397,6 +409,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Description()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(6);
@@ -407,6 +420,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Constants()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(7);
@@ -417,6 +431,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Whencondition()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(8);
@@ -427,6 +442,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_Rationale()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(9);
@@ -437,6 +453,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_ChangeUncertainty()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(10);
@@ -447,6 +464,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_EvolvesReference()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(11);
@@ -457,6 +475,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_Dropped()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(12);
@@ -467,6 +486,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_DropRationale()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(13);
@@ -477,6 +497,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_DocReference()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(14);
@@ -487,6 +508,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getContractualElement_Issues()
   {
     return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(15);
@@ -497,6 +519,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getContractualElement_GoalReference()
   {
     return (EReference)contractualElementEClass.getEStructuralFeatures().get(16);
@@ -507,6 +530,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReqRoot()
   {
     return reqRootEClass;
@@ -517,6 +541,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getReqRoot_Name()
   {
     return (EAttribute)reqRootEClass.getEStructuralFeatures().get(0);
@@ -527,6 +552,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getReqRoot_Title()
   {
     return (EAttribute)reqRootEClass.getEStructuralFeatures().get(1);
@@ -537,6 +563,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getReqRoot_Description()
   {
     return (EReference)reqRootEClass.getEStructuralFeatures().get(2);
@@ -547,6 +574,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getReqRoot_DocReference()
   {
     return (EReference)reqRootEClass.getEStructuralFeatures().get(3);
@@ -557,6 +585,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getReqRoot_Issues()
   {
     return (EAttribute)reqRootEClass.getEStructuralFeatures().get(4);
@@ -567,6 +596,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStakeholderGoals()
   {
     return stakeholderGoalsEClass;
@@ -577,6 +607,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStakeholderGoals_Target()
   {
     return (EReference)stakeholderGoalsEClass.getEStructuralFeatures().get(0);
@@ -587,6 +618,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholderGoals_ComponentCategory()
   {
     return (EAttribute)stakeholderGoalsEClass.getEStructuralFeatures().get(1);
@@ -597,6 +629,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStakeholderGoals_ImportConstants()
   {
     return (EReference)stakeholderGoalsEClass.getEStructuralFeatures().get(2);
@@ -607,6 +640,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStakeholderGoals_Constants()
   {
     return (EReference)stakeholderGoalsEClass.getEStructuralFeatures().get(3);
@@ -617,6 +651,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStakeholderGoals_Goals()
   {
     return (EReference)stakeholderGoalsEClass.getEStructuralFeatures().get(4);
@@ -627,6 +662,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReqDocument()
   {
     return reqDocumentEClass;
@@ -637,6 +673,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getReqDocument_Content()
   {
     return (EReference)reqDocumentEClass.getEStructuralFeatures().get(0);
@@ -647,6 +684,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDocumentSection()
   {
     return documentSectionEClass;
@@ -657,6 +695,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDocumentSection_Label()
   {
     return (EAttribute)documentSectionEClass.getEStructuralFeatures().get(0);
@@ -667,6 +706,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDocumentSection_Title()
   {
     return (EAttribute)documentSectionEClass.getEStructuralFeatures().get(1);
@@ -677,6 +717,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDocumentSection_Description()
   {
     return (EReference)documentSectionEClass.getEStructuralFeatures().get(2);
@@ -687,6 +728,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDocumentSection_Content()
   {
     return (EReference)documentSectionEClass.getEStructuralFeatures().get(3);
@@ -697,6 +739,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRequirementSet()
   {
     return requirementSetEClass;
@@ -707,6 +750,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirementSet_ImportConstants()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(0);
@@ -717,6 +761,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirementSet_Constants()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(1);
@@ -727,6 +772,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirementSet_Computes()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(2);
@@ -737,6 +783,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirementSet_Requirements()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(3);
@@ -747,6 +794,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirementSet_StakeholderGoals()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(4);
@@ -757,6 +805,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGoal()
   {
     return goalEClass;
@@ -767,6 +816,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGoal_RefinesReference()
   {
     return (EReference)goalEClass.getEStructuralFeatures().get(0);
@@ -777,6 +827,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGoal_ConflictsReference()
   {
     return (EReference)goalEClass.getEStructuralFeatures().get(1);
@@ -787,6 +838,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGoal_StakeholderReference()
   {
     return (EReference)goalEClass.getEStructuralFeatures().get(2);
@@ -797,6 +849,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRequirement()
   {
     return requirementEClass;
@@ -807,6 +860,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_Predicate()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(0);
@@ -817,6 +871,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_Exception()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(1);
@@ -827,6 +882,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getRequirement_ExceptionText()
   {
     return (EAttribute)requirementEClass.getEStructuralFeatures().get(2);
@@ -837,6 +893,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_InheritsReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(3);
@@ -847,6 +904,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_Computes()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(4);
@@ -857,6 +915,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_RefinesReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(5);
@@ -867,6 +926,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_DecomposesReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(6);
@@ -877,6 +937,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_DevelopmentStakeholder()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(7);
@@ -887,6 +948,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRequirement_RequirementReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(8);
@@ -897,6 +959,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getRequirement_ComponentCategory()
   {
     return (EAttribute)requirementEClass.getEStructuralFeatures().get(9);
@@ -907,6 +970,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getRequirement_TargetType()
   {
     return (EAttribute)requirementEClass.getEStructuralFeatures().get(10);
@@ -917,6 +981,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIncludeGlobalRequirement()
   {
     return includeGlobalRequirementEClass;
@@ -927,6 +992,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIncludeGlobalRequirement_Include()
   {
     return (EReference)includeGlobalRequirementEClass.getEStructuralFeatures().get(0);
@@ -937,6 +1003,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getIncludeGlobalRequirement_Local()
   {
     return (EAttribute)includeGlobalRequirementEClass.getEStructuralFeatures().get(1);
@@ -947,6 +1014,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIncludeGlobalRequirement_TargetElement()
   {
     return (EReference)includeGlobalRequirementEClass.getEStructuralFeatures().get(2);
@@ -957,6 +1025,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getWhenCondition()
   {
     return whenConditionEClass;
@@ -967,6 +1036,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getWhenCondition_InMode()
   {
     return (EReference)whenConditionEClass.getEStructuralFeatures().get(0);
@@ -977,6 +1047,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getWhenCondition_InErrorState()
   {
     return (EReference)whenConditionEClass.getEStructuralFeatures().get(1);
@@ -987,6 +1058,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getWhenCondition_Condition()
   {
     return (EAttribute)whenConditionEClass.getEStructuralFeatures().get(2);
@@ -997,6 +1069,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReqPredicate()
   {
     return reqPredicateEClass;
@@ -1007,6 +1080,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getInformalPredicate()
   {
     return informalPredicateEClass;
@@ -1017,6 +1091,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getInformalPredicate_Description()
   {
     return (EAttribute)informalPredicateEClass.getEStructuralFeatures().get(0);
@@ -1027,6 +1102,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValuePredicate()
   {
     return valuePredicateEClass;
@@ -1037,6 +1113,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValuePredicate_Xpression()
   {
     return (EReference)valuePredicateEClass.getEStructuralFeatures().get(0);
@@ -1047,6 +1124,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValuePredicate_DesiredValue()
   {
     return (EReference)valuePredicateEClass.getEStructuralFeatures().get(1);
@@ -1057,6 +1135,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDesiredValue()
   {
     return desiredValueEClass;
@@ -1067,6 +1146,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDesiredValue_Desired()
   {
     return (EReference)desiredValueEClass.getEStructuralFeatures().get(0);
@@ -1077,6 +1157,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDesiredValue_Upto()
   {
     return (EAttribute)desiredValueEClass.getEStructuralFeatures().get(1);
@@ -1087,6 +1168,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDesiredValue_Value()
   {
     return (EReference)desiredValueEClass.getEStructuralFeatures().get(2);
@@ -1097,6 +1179,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getExternalDocument()
   {
     return externalDocumentEClass;
@@ -1107,6 +1190,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getExternalDocument_DocReference()
   {
     return (EAttribute)externalDocumentEClass.getEStructuralFeatures().get(0);
@@ -1117,6 +1201,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getExternalDocument_DocFragment()
   {
     return (EAttribute)externalDocumentEClass.getEStructuralFeatures().get(1);
@@ -1127,6 +1212,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSystemRequirementSet()
   {
     return systemRequirementSetEClass;
@@ -1137,6 +1223,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSystemRequirementSet_Target()
   {
     return (EReference)systemRequirementSetEClass.getEStructuralFeatures().get(0);
@@ -1147,6 +1234,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSystemRequirementSet_Include()
   {
     return (EReference)systemRequirementSetEClass.getEStructuralFeatures().get(1);
@@ -1157,6 +1245,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGlobalRequirementSet()
   {
     return globalRequirementSetEClass;
@@ -1167,6 +1256,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getReqValDeclaration()
   {
     return reqValDeclarationEClass;
@@ -1177,6 +1267,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getReqValDeclaration_Property()
   {
     return (EReference)reqValDeclarationEClass.getEStructuralFeatures().get(0);
@@ -1187,6 +1278,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqSpecFactory getReqSpecFactory()
   {
     return (ReqSpecFactory)getEFactoryInstance();

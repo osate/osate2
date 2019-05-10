@@ -108,6 +108,7 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -118,6 +119,7 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -131,6 +133,7 @@ public class GlobalConstantsImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValDeclaration> getConstants()
   {
     if (constants == null)

@@ -13,7 +13,7 @@ DescriptionElement :
  	text = STRING | =>thisTarget?='this'| =>image=ImageReference | showValue= ShowValue
  ;
 
-Rationale: 'rationale' text=STRING ;
+Rationale: 'rationale' description += DescriptionElement+ ;
 
 
 Uncertainty:

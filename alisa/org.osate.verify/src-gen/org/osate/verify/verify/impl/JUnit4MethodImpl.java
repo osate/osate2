@@ -85,6 +85,7 @@ public class JUnit4MethodImpl extends MethodKindImpl implements JUnit4Method
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getClassPath()
   {
     return classPath;
@@ -95,6 +96,7 @@ public class JUnit4MethodImpl extends MethodKindImpl implements JUnit4Method
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassPath(String newClassPath)
   {
     String oldClassPath = classPath;

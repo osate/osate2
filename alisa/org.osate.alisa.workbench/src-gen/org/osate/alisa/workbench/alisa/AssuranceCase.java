@@ -51,10 +51,6 @@ public interface AssuranceCase extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -77,10 +73,6 @@ public interface AssuranceCase extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -103,10 +95,6 @@ public interface AssuranceCase extends EObject
   /**
    * Returns the value of the '<em><b>System</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>System</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>System</em>' reference.
    * @see #setSystem(ComponentType)
@@ -129,10 +117,6 @@ public interface AssuranceCase extends EObject
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -156,10 +140,6 @@ public interface AssuranceCase extends EObject
    * Returns the value of the '<em><b>Assurance Plans</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssurancePlan}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assurance Plans</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assurance Plans</em>' containment reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCase_AssurancePlans()
@@ -172,10 +152,6 @@ public interface AssuranceCase extends EObject
    * Returns the value of the '<em><b>Tasks</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.categories.categories.CategoryFilter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Tasks</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Tasks</em>' containment reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCase_Tasks()

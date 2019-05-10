@@ -103,6 +103,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getIf()
   {
     return if_;
@@ -130,6 +131,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIf(PropertyExpression newIf)
   {
     if (newIf != if_)
@@ -151,6 +153,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getThen()
   {
     return then;
@@ -178,6 +181,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setThen(PropertyExpression newThen)
   {
     if (newThen != then)
@@ -199,6 +203,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getElse()
   {
     return else_;
@@ -226,6 +231,7 @@ public class AConditionalImpl extends PropertyExpressionImpl implements AConditi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElse(PropertyExpression newElse)
   {
     if (newElse != else_)

@@ -86,6 +86,7 @@ public class ImageReferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getImgfile()
   {
     return imgfile;
@@ -96,6 +97,7 @@ public class ImageReferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setImgfile(String newImgfile)
   {
     String oldImgfile = imgfile;

@@ -82,6 +82,7 @@ public class ReqDocumentImpl extends ReqRootImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EObject> getContent()
   {
     if (content == null)

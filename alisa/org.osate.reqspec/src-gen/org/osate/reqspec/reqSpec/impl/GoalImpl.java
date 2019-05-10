@@ -101,6 +101,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Goal> getRefinesReference()
   {
     if (refinesReference == null)
@@ -115,6 +116,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Goal> getConflictsReference()
   {
     if (conflictsReference == null)
@@ -129,6 +131,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Stakeholder> getStakeholderReference()
   {
     if (stakeholderReference == null)

@@ -692,9 +692,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public boolean affectsChangeNumber() {
-			if (field == ModifiableField.COMPLETENESS
-					|| (field == ModifiableField.LABEL_NAME
-					&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
+			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.USER_INTERFACE_NAME
+					|| ((field == ModifiableField.LABEL_NAME)
+							&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
 					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}

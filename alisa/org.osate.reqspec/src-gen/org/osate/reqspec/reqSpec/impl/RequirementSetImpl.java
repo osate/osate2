@@ -132,6 +132,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GlobalConstants> getImportConstants()
   {
     if (importConstants == null)
@@ -146,6 +147,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValDeclaration> getConstants()
   {
     if (constants == null)
@@ -160,6 +162,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<AVariableDeclaration> getComputes()
   {
     if (computes == null)
@@ -174,6 +177,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Requirement> getRequirements()
   {
     if (requirements == null)
@@ -188,6 +192,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ReqRoot> getStakeholderGoals()
   {
     if (stakeholderGoals == null)
