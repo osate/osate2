@@ -122,6 +122,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -132,6 +133,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -145,6 +147,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyType getType()
   {
     return type;
@@ -172,6 +175,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(PropertyType newType)
   {
     if (newType != type)
@@ -193,6 +197,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isRange()
   {
     return range;
@@ -203,6 +208,7 @@ public class AVariableDeclarationImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRange(boolean newRange)
   {
     boolean oldRange = range;

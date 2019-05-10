@@ -136,6 +136,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getExpression()
   {
     return expression;
@@ -163,6 +164,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setExpression(PropertyExpression newExpression)
   {
     if (newExpression != expression)
@@ -184,6 +186,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isConvert()
   {
     return convert;
@@ -194,6 +197,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setConvert(boolean newConvert)
   {
     boolean oldConvert = convert;
@@ -207,6 +211,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isDrop()
   {
     return drop;
@@ -217,6 +222,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDrop(boolean newDrop)
   {
     boolean oldDrop = drop;
@@ -230,6 +236,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnitLiteral getUnit()
   {
     if (unit != null && ((EObject)unit).eIsProxy())
@@ -260,6 +267,7 @@ public class AUnitExpressionImpl extends PropertyExpressionImpl implements AUnit
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnit(UnitLiteral newUnit)
   {
     UnitLiteral oldUnit = unit;
