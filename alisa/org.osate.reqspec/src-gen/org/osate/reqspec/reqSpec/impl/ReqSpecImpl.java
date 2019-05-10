@@ -84,6 +84,7 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EObject> getParts()
   {
     if (parts == null)

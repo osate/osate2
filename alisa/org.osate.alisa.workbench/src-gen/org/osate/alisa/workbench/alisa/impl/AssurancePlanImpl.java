@@ -243,6 +243,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -253,6 +254,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -266,6 +268,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -276,6 +279,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -289,6 +293,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentImplementation getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -319,6 +324,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ComponentImplementation newTarget)
   {
     ComponentImplementation oldTarget = target;
@@ -332,6 +338,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -359,6 +366,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -380,6 +388,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VerificationPlan> getAssure()
   {
     if (assure == null)
@@ -394,6 +403,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VerificationPlan> getAssureGlobal()
   {
     if (assureGlobal == null)
@@ -408,6 +418,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Subcomponent> getAssureSubsystems()
   {
     if (assureSubsystems == null)
@@ -422,6 +433,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAssureAll()
   {
     return assureAll;
@@ -432,6 +444,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAssureAll(boolean newAssureAll)
   {
     boolean oldAssureAll = assureAll;
@@ -445,6 +458,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Subcomponent> getAssumeSubsystems()
   {
     if (assumeSubsystems == null)
@@ -459,6 +473,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAssumeAll()
   {
     return assumeAll;
@@ -469,6 +484,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAssumeAll(boolean newAssumeAll)
   {
     boolean oldAssumeAll = assumeAll;
@@ -482,6 +498,7 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)

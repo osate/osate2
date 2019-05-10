@@ -41,10 +41,6 @@ public interface ReqDocument extends ReqRoot
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.
    * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Content</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqDocument_Content()

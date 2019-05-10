@@ -41,10 +41,6 @@ public interface ValuePredicate extends ReqPredicate
   /**
    * Returns the value of the '<em><b>Xpression</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Xpression</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xpression</em>' containment reference.
    * @see #setXpression(PropertyExpression)
@@ -68,10 +64,6 @@ public interface ValuePredicate extends ReqPredicate
    * Returns the value of the '<em><b>Desired Value</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.DesiredValue}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Desired Value</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Desired Value</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getValuePredicate_DesiredValue()
