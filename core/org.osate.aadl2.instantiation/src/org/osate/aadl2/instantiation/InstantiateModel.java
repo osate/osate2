@@ -57,7 +57,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -449,9 +448,10 @@ public class InstantiateModel {
 		populateComponentInstance(root, 0);
 
 		monitor.subTask("Creating system operation modes");
+		URI resourceURI = root.eResource().getURI();
 		final int somLimit;
-		if (Platform.isRunning()) {
-			somLimit = getSOMLimit(OsateResourceUtil.toIFile(root.eResource().getURI()).getProject());
+		if (resourceURI.isPlatformResource()) {
+			somLimit = getSOMLimit(OsateResourceUtil.toIFile(resourceURI).getProject());
 		} else {
 			somLimit = WorkspacePlugin.MAX_SOM_DEFAULT;
 		}
