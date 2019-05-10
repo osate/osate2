@@ -66,10 +66,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -92,10 +88,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -118,10 +110,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Description</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Description</em>' attribute.
    * @see #setTargetDescription(String)
@@ -144,10 +132,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentClassifier)
@@ -170,10 +154,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Target Element</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Element</em>' reference.
    * @see #setTargetElement(NamedElement)
@@ -197,10 +177,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Category</b></em>' reference list.
    * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Category</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Category()
@@ -212,10 +188,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -239,10 +211,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Constants()
@@ -254,10 +222,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Whencondition</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Whencondition</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Whencondition</em>' containment reference.
    * @see #setWhencondition(WhenCondition)
@@ -280,10 +244,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Rationale</em>' containment reference.
    * @see #setRationale(Rationale)
@@ -306,10 +266,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Change Uncertainty</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Change Uncertainty</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Change Uncertainty</em>' containment reference.
    * @see #setChangeUncertainty(Uncertainty)
@@ -333,10 +289,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Evolves Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Evolves Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Evolves Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_EvolvesReference()
@@ -348,10 +300,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Dropped</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dropped</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Dropped</em>' attribute.
    * @see #setDropped(boolean)
@@ -374,10 +322,6 @@ public interface ContractualElement extends EObject
   /**
    * Returns the value of the '<em><b>Drop Rationale</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Drop Rationale</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Drop Rationale</em>' attribute.
    * @see #setDropRationale(String)
@@ -401,10 +345,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Doc Reference</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_DocReference()
@@ -417,10 +357,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Issues()
@@ -433,10 +369,6 @@ public interface ContractualElement extends EObject
    * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Goal Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Goal Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_GoalReference()

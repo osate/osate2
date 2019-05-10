@@ -136,7 +136,7 @@ Goal ::=
     ( description Description )? 
     ( Constant )*
     ( WhenCondition )?
-    ( rationale String )?
+    ( rationale Description )?
     ( refines ( &lt;Goal&gt; )+ )? 
     ( conflicts with ( &lt;Goal&gt; )+)? 
     ( evolves ( &lt;Goal&gt; )+)? 
@@ -192,7 +192,7 @@ A goal declaration has the following elements:
 * *WhenCondition*: the condition under which the requirement applies. The condition is a set of AADL2 modes (operational modes), EMV2 error behavior states (failure modes), or a Java or Resolute method that takes an EObject as parameter and returns a boolean.
 
 
-* *Rationale*: the rationale for a stakeholder goal as string.
+* *Rationale*: the rationale for a stakeholder goal in *Description* format (see above).
 
 
 * *Refines*: one or more references to other goals that this goal refines. Refinement of a goal does not change the system for which the goal is specified, but represents a more detailed specification of a goal.
@@ -327,7 +327,7 @@ SystemRequirement ::=
     ( Variable )*
     ( WhenCondition )?
     ( Predicate )?
-    ( rationale String )?
+    ( rationale Description )?
     ( mitigates ( &lt;Hazard&gt; )+ )? 
     ( refines ( &lt;Requirement&gt; )+)?
     ( decomposes ( &lt;Requirement&gt; )+)?
@@ -370,7 +370,7 @@ A SystemRequirement declaration has the following elements:
 * *Predicate*: a formalized specification of the condition that must be met to indicate that the requirement is satisfied. The predicate may refer to variables defined as part of this requirement or the enclosing requirement specification container. See Section Requirement Predicates for details.
 
 
-* *Rationale*: the rationale for a system requirement as a string.
+* *Rationale*: the rationale for a system requirement in Description format (see above).
 
 
 * *Mitigates*: one or more references to hazards that this requirement addresses. The references are to an element in an EMV2 error model associated with the AADL model.  

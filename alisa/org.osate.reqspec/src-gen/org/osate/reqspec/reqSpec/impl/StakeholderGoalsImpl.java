@@ -138,6 +138,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -168,6 +169,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ComponentClassifier newTarget)
   {
     ComponentClassifier oldTarget = target;
@@ -181,6 +183,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ComponentCategory> getComponentCategory()
   {
     if (componentCategory == null)
@@ -195,6 +198,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GlobalConstants> getImportConstants()
   {
     if (importConstants == null)
@@ -209,6 +213,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValDeclaration> getConstants()
   {
     if (constants == null)
@@ -223,6 +228,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Goal> getGoals()
   {
     if (goals == null)
