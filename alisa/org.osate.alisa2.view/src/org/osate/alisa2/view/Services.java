@@ -363,10 +363,7 @@ public class Services {
 	 * @return True if the parameter is part of the user's focus, false otherwise
 	 */
 	public static boolean isFocused(EObject self) {
-		EObject focus = FocusManager.getInstance().getFocus();
-		// magic
-//		return (new Random()).nextBoolean();
-		return false;
+		return FocusManager.getInstance().isFocused(self);
 	}
 
 	public static Collection<EObject> debug(EObject self) {

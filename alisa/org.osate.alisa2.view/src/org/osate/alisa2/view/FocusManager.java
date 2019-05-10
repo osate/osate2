@@ -1,6 +1,15 @@
 package org.osate.alisa2.view;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EObject;
+import org.osate.alisa2.model.safe2.Accident;
+import org.osate.alisa2.model.safe2.AccidentLevel;
+import org.osate.alisa2.model.safe2.Constraint;
+import org.osate.alisa2.model.safe2.Fundamental;
+import org.osate.alisa2.model.safe2.Hazard;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * Singleton that provides access to focus related functionality. We use a
@@ -18,6 +27,11 @@ public class FocusManager {
 	 * The user's focus
 	 */
 	private EObject focus;
+
+	/**
+	 * The set of elements included as part of the user's focus
+	 */
+	private Set<EObject> focusSet = new HashSet<>();
 
 	/**
 	 * Private constructor to enforce singleton pattern. Note that we also
@@ -39,11 +53,18 @@ public class FocusManager {
 		return focus;
 	}
 
-	public void setFocus(EObject newFocus) {
-		focus = newFocus;
+	public boolean isFocused(EObject element) {
+		return focusSet.contains(element);
 	}
 
-	public void initFocusGraph() {
+	public void setFocus(EObject newFocus) {
+		focus = newFocus;
+		clearFocus();
+
+		if(newFocus instanceof Fundamental) {
+			handleFocusedFundamental((Fundamental) newFocus);
+		}
+
 		/*-
 
 		 * Expandable Things
@@ -58,8 +79,38 @@ public class FocusManager {
 		 	* Components
 		 * Calkalations
 			 * Fundamental -> Error Type @ Component -> Forward and Backward Slice
-			 * Component -> Error Type set -> Fundamentals
-		
+			 * Component -> Error Type set -> For each, forward and backward slice -> Fundamentals (based on constraint-Error Type links)
+
 		 */
+	}
+
+	private void handleFocusedFundamental(Fundamental newFocus) {
+		focusSet.add(newFocus);
+		if (newFocus instanceof AccidentLevel) {
+			for (Accident a : ((AccidentLevel) newFocus).getAccident()) {
+				handleFocusedFundamental(a);
+			}
+		}
+		if (newFocus instanceof Accident) {
+			for (Hazard h : ((Accident) newFocus).getHazard()) {
+				handleFocusedFundamental(h);
+			}
+		}
+		if (newFocus instanceof Hazard) {
+			for (Constraint c : ((Hazard) newFocus).getConstraint()) {
+				handleFocusedFundamental(c);
+			}
+		}
+		if (newFocus instanceof Constraint) {
+			handleFocusedErrorType(((Constraint) newFocus).getErrorType());
+		}
+	}
+
+	private void handleFocusedErrorType(ErrorType et) {
+		// slicing stuff -- add components from forward and backward slice
+	}
+
+	public void clearFocus() {
+		focusSet.clear();
 	}
 }

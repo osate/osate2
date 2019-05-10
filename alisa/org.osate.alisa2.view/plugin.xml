@@ -10,8 +10,12 @@
   <extension
         point="org.eclipse.sirius.externalJavaAction">
      <javaActions
-           actionClass="org.osate.alisa2.view.FocusAction"
-           id="org.osate.alisa2.view.FocusActionID">
+           actionClass="org.osate.alisa2.view.DoFocusAction"
+           id="org.osate.alisa2.view.DoFocusActionID">
+     </javaActions>
+     <javaActions
+           actionClass="org.osate.alisa2.view.ClearFocusAction"
+           id="org.osate.alisa2.view.ClearFocusActionID">
      </javaActions>
   </extension>
 </plugin>

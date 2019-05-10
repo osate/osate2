@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
   <ownedViewpoints name="Hazard Analyst" modelFileExtension="safe2">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
@@ -85,8 +85,16 @@
             </defaultStyle>
           </subItemMappings>
         </subItemMappings>
+        <popupMenus name="uuuu">
+          <menuItemDescriptions xsi:type="tool:OperationAction" name="ooo">
+            <view name="views"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="iii" id="org.osate.alisa2.view.FocusActionID"/>
+            </initialOperation>
+          </menuItemDescriptions>
+        </popupMenus>
       </subItemMappings>
-      <ownedRepresentationCreationDescriptions xsi:type="tool:DiagramCreationDescription" name="NewConnectedNeighbors" diagramDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']">
+      <ownedRepresentationCreationDescriptions xsi:type="tool_1:DiagramCreationDescription" name="NewConnectedNeighbors" diagramDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']">
         <initialOperation/>
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="diagramName"/>
@@ -104,35 +112,67 @@
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
         </defaultStyle>
+        <conditionalStyles predicateExpression="service:isFocused()">
+          <style>
+            <labelFormat>bold</labelFormat>
+            <labelFormat>italic</labelFormat>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </conditionalStyles>
         <subItemMappings name="Accident" domainClass="safe2.Accident" semanticCandidatesExpression="feature:eAllContents">
           <defaultStyle>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </defaultStyle>
+          <conditionalStyles predicateExpression="service:isFocused()">
+            <style>
+              <labelFormat>bold</labelFormat>
+              <labelFormat>italic</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            </style>
+          </conditionalStyles>
           <subItemMappings name="Hazard" domainClass="safe2.Hazard" semanticCandidatesExpression="feature:eAllContents">
             <defaultStyle>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </defaultStyle>
+            <conditionalStyles predicateExpression="service:isFocused()">
+              <style>
+                <labelFormat>bold</labelFormat>
+                <labelFormat>italic</labelFormat>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+              </style>
+            </conditionalStyles>
             <subItemMappings name="Constraint" domainClass="safe2.Constraint" semanticCandidatesExpression="feature:eAllContents">
               <defaultStyle>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </defaultStyle>
+              <conditionalStyles predicateExpression="service:isFocused()">
+                <style>
+                  <labelFormat>bold</labelFormat>
+                  <labelFormat>italic</labelFormat>
+                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+                </style>
+              </conditionalStyles>
             </subItemMappings>
           </subItemMappings>
-          <popupMenus name="sdfsdf">
-            <menuItemDescriptions xsi:type="tool_1:OperationAction" name="fsdfsdfs">
-              <view name="views"/>
-              <initialOperation/>
-            </menuItemDescriptions>
-          </popupMenus>
         </subItemMappings>
-        <popupMenus name="testMenu">
-          <menuItemDescriptions xsi:type="tool_1:OperationAction" name="testOperation" icon="/org.osate.aadl2.edit/icons/full/ctool16/CreateThreadImplementation_ownedDataSubcomponent_DataSubcomponent.gif">
+        <popupMenus name="Focus Operations">
+          <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ExternalJavaAction" name="testExternalJavaAction" id="org.osate.alisa2.view.FocusManager"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+            </initialOperation>
+          </menuItemDescriptions>
+          <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
+            <view name="views"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
             </initialOperation>
           </menuItemDescriptions>
         </popupMenus>
