@@ -133,6 +133,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getText()
   {
     return text;
@@ -143,6 +144,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setText(String newText)
   {
     String oldText = text;
@@ -156,6 +158,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isThisTarget()
   {
     return thisTarget;
@@ -166,6 +169,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setThisTarget(boolean newThisTarget)
   {
     boolean oldThisTarget = thisTarget;
@@ -179,6 +183,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ImageReference getImage()
   {
     return image;
@@ -206,6 +211,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setImage(ImageReference newImage)
   {
     if (newImage != image)
@@ -227,6 +233,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AUnitExpression getShowValue()
   {
     return showValue;
@@ -254,6 +261,7 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setShowValue(AUnitExpression newShowValue)
   {
     if (newShowValue != showValue)

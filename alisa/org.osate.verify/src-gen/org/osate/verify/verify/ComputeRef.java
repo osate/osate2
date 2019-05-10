@@ -40,10 +40,6 @@ public interface ComputeRef extends EObject
   /**
    * Returns the value of the '<em><b>Compute</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Compute</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Compute</em>' reference.
    * @see #setCompute(ComputeDeclaration)
