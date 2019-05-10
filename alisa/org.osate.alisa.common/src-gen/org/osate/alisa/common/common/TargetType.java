@@ -105,10 +105,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>COMPONENT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>COMPONENT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #COMPONENT
    * @model literal="component"
@@ -120,10 +116,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>FEATURE</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>FEATURE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #FEATURE
    * @model literal="feature"
@@ -135,10 +127,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>CONNECTION</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>CONNECTION</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #CONNECTION
    * @model literal="connection"
@@ -150,10 +138,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>FLOW</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>FLOW</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #FLOW
    * @model literal="flow"
@@ -165,10 +149,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>MODE</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>MODE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #MODE
    * @model literal="mode"
@@ -180,10 +160,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>ELEMENT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ELEMENT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #ELEMENT
    * @model literal="element"
@@ -195,10 +171,6 @@ public enum TargetType implements Enumerator
   /**
    * The '<em><b>ROOT</b></em>' literal value.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>ROOT</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @see #ROOT
    * @model literal="root"
@@ -337,6 +309,7 @@ public enum TargetType implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getValue()
   {
     return value;
@@ -347,6 +320,7 @@ public enum TargetType implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -357,6 +331,7 @@ public enum TargetType implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getLiteral()
   {
     return literal;

@@ -119,6 +119,7 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -129,6 +130,7 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -142,6 +144,7 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -169,6 +172,7 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -190,6 +194,7 @@ public class AssuranceTaskImpl extends CategoryFilterImpl implements AssuranceTa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)

@@ -107,6 +107,7 @@ public class ExternalDocumentImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDocReference()
   {
     return docReference;
@@ -117,6 +118,7 @@ public class ExternalDocumentImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDocReference(String newDocReference)
   {
     String oldDocReference = docReference;
@@ -130,6 +132,7 @@ public class ExternalDocumentImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDocFragment()
   {
     return docFragment;
@@ -140,6 +143,7 @@ public class ExternalDocumentImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDocFragment(String newDocFragment)
   {
     String oldDocFragment = docFragment;

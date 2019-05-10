@@ -90,6 +90,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssuranceCase createAssuranceCase()
   {
     AssuranceCaseImpl assuranceCase = new AssuranceCaseImpl();
@@ -101,6 +102,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssurancePlan createAssurancePlan()
   {
     AssurancePlanImpl assurancePlan = new AssurancePlanImpl();
@@ -112,6 +114,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssuranceTask createAssuranceTask()
   {
     AssuranceTaskImpl assuranceTask = new AssuranceTaskImpl();
@@ -123,6 +126,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AlisaPackage getAlisaPackage()
   {
     return (AlisaPackage)getEPackage();

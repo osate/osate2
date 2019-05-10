@@ -40,10 +40,6 @@ public interface Uncertainty extends EObject
   /**
    * Returns the value of the '<em><b>Volatility</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Volatility</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Volatility</em>' attribute.
    * @see #setVolatility(int)
@@ -66,10 +62,6 @@ public interface Uncertainty extends EObject
   /**
    * Returns the value of the '<em><b>Precedence</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Precedence</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Precedence</em>' attribute.
    * @see #setPrecedence(int)
@@ -92,10 +84,6 @@ public interface Uncertainty extends EObject
   /**
    * Returns the value of the '<em><b>Impact</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Impact</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Impact</em>' attribute.
    * @see #setImpact(int)
