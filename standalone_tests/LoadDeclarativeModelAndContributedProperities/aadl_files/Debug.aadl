@@ -1,0 +1,3 @@
+property set debug is
+	days: enumeration (mon, tue, wed, thu, fri, sat, sun) applies to (all);
+end debug;
