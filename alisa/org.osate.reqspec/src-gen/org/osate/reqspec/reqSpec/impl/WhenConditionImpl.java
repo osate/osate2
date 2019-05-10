@@ -117,6 +117,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Mode> getInMode()
   {
     if (inMode == null)
@@ -131,6 +132,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EObject> getInErrorState()
   {
     if (inErrorState == null)
@@ -145,6 +147,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getCondition()
   {
     return condition;
@@ -155,6 +158,7 @@ public class WhenConditionImpl extends MinimalEObjectImpl.Container implements W
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(String newCondition)
   {
     String oldCondition = condition;

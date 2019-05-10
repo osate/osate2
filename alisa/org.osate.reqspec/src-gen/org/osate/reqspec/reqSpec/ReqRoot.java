@@ -46,10 +46,6 @@ public interface ReqRoot extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -72,10 +68,6 @@ public interface ReqRoot extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -98,10 +90,6 @@ public interface ReqRoot extends EObject
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -125,10 +113,6 @@ public interface ReqRoot extends EObject
    * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Doc Reference</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqRoot_DocReference()
@@ -141,10 +125,6 @@ public interface ReqRoot extends EObject
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqRoot_Issues()

@@ -47,10 +47,6 @@ public interface StakeholderGoals extends ReqRoot
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentClassifier)
@@ -75,10 +71,6 @@ public interface StakeholderGoals extends ReqRoot
    * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
    * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Component Category</em>' attribute list.
    * @see org.osate.aadl2.ComponentCategory
@@ -92,10 +84,6 @@ public interface StakeholderGoals extends ReqRoot
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.GlobalConstants}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Import Constants</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Import Constants</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_ImportConstants()
@@ -108,10 +96,6 @@ public interface StakeholderGoals extends ReqRoot
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Constants()
@@ -124,10 +108,6 @@ public interface StakeholderGoals extends ReqRoot
    * Returns the value of the '<em><b>Goals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Goals</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Goals</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Goals()

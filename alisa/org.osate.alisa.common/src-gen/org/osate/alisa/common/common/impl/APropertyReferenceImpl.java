@@ -92,6 +92,7 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AModelReference getModelElementReference()
   {
     return modelElementReference;
@@ -119,6 +120,7 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setModelElementReference(AModelReference newModelElementReference)
   {
     if (newModelElementReference != modelElementReference)
@@ -140,6 +142,7 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AbstractNamedValue getProperty()
   {
     if (property != null && ((EObject)property).eIsProxy())
@@ -170,6 +173,7 @@ public class APropertyReferenceImpl extends AExpressionImpl implements AProperty
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProperty(AbstractNamedValue newProperty)
   {
     AbstractNamedValue oldProperty = property;
