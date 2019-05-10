@@ -73,7 +73,7 @@ public class AadlNavigatorLinkHelper implements ILinkHelper {
 				IFile file = root.getFile(new Path(null, resourceURI.toPlatformString(true)));
 				editor = page.findEditor(new FileEditorInput(file));
 			} else if (resourceURI.isPlatformPlugin()) {
-				ContributedAadlStorage storage = new ContributedAadlStorage(resourceURI);
+				ContributedAadlStorage storage = new ContributedAadlStorage(null, resourceURI);
 				editor = page.findEditor(new ContributedAadlEditorInput(storage));
 			}
 			if (editor != null) {
