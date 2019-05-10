@@ -17,7 +17,7 @@ import static extension org.osate.testsupport.AssertHelper.assertError
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue1746 extends XtextTest {
+class Issue1746Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
