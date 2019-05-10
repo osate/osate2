@@ -9019,57 +9019,87 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRationale"
-    // InternalVerify.g:3137:1: ruleRationale returns [EObject current=null] : (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) ;
+    // InternalVerify.g:3137:1: ruleRationale returns [EObject current=null] : (otherlv_0= 'rationale' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) ;
     public final EObject ruleRationale() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        Token lv_text_1_0=null;
+        EObject lv_description_1_0 = null;
+
 
          enterRule(); 
             
         try {
-            // InternalVerify.g:3140:28: ( (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) ) )
-            // InternalVerify.g:3141:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
+            // InternalVerify.g:3140:28: ( (otherlv_0= 'rationale' ( (lv_description_1_0= ruleDescriptionElement ) )+ ) )
+            // InternalVerify.g:3141:1: (otherlv_0= 'rationale' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
             {
-            // InternalVerify.g:3141:1: (otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) ) )
-            // InternalVerify.g:3141:3: otherlv_0= 'rationale' ( (lv_text_1_0= RULE_STRING ) )
+            // InternalVerify.g:3141:1: (otherlv_0= 'rationale' ( (lv_description_1_0= ruleDescriptionElement ) )+ )
+            // InternalVerify.g:3141:3: otherlv_0= 'rationale' ( (lv_description_1_0= ruleDescriptionElement ) )+
             {
-            otherlv_0=(Token)match(input,61,FOLLOW_7); if (state.failed) return current;
+            otherlv_0=(Token)match(input,61,FOLLOW_62); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getRationaleAccess().getRationaleKeyword_0());
                   
             }
-            // InternalVerify.g:3145:1: ( (lv_text_1_0= RULE_STRING ) )
-            // InternalVerify.g:3146:1: (lv_text_1_0= RULE_STRING )
-            {
-            // InternalVerify.g:3146:1: (lv_text_1_0= RULE_STRING )
-            // InternalVerify.g:3147:3: lv_text_1_0= RULE_STRING
-            {
-            lv_text_1_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
+            // InternalVerify.g:3145:1: ( (lv_description_1_0= ruleDescriptionElement ) )+
+            int cnt68=0;
+            loop68:
+            do {
+                int alt68=2;
+                int LA68_0 = input.LA(1);
 
-              			newLeafNode(lv_text_1_0, grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); 
-              		
-            }
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getRationaleRule());
-              	        }
-                     		setWithLastConsumed(
-                     			current, 
-                     			"text",
-                      		lv_text_1_0, 
-                      		"org.eclipse.xtext.common.Terminals.STRING");
-              	    
-            }
-
-            }
+                if ( (LA68_0==RULE_STRING||LA68_0==RULE_ID||LA68_0==60||LA68_0==71) ) {
+                    alt68=1;
+                }
 
 
-            }
+                switch (alt68) {
+            	case 1 :
+            	    // InternalVerify.g:3146:1: (lv_description_1_0= ruleDescriptionElement )
+            	    {
+            	    // InternalVerify.g:3146:1: (lv_description_1_0= ruleDescriptionElement )
+            	    // InternalVerify.g:3147:3: lv_description_1_0= ruleDescriptionElement
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getRationaleAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FOLLOW_63);
+            	    lv_description_1_0=ruleDescriptionElement();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getRationaleRule());
+            	      	        }
+            	             		add(
+            	             			current, 
+            	             			"description",
+            	              		lv_description_1_0, 
+            	              		"org.osate.alisa.common.Common.DescriptionElement");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt68 >= 1 ) break loop68;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(68, input);
+                        throw eee;
+                }
+                cnt68++;
+            } while (true);
 
 
             }
@@ -9154,47 +9184,47 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:3186:1: ( ( () otherlv_1= 'boolean' ) | ( () otherlv_3= 'integer' (otherlv_4= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= 'real' (otherlv_8= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= 'string' ) | ( () otherlv_13= 'model' otherlv_14= 'element' ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
             {
             // InternalVerify.g:3186:1: ( ( () otherlv_1= 'boolean' ) | ( () otherlv_3= 'integer' (otherlv_4= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= 'real' (otherlv_8= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= 'string' ) | ( () otherlv_13= 'model' otherlv_14= 'element' ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            int alt70=6;
+            int alt71=6;
             switch ( input.LA(1) ) {
             case 49:
                 {
-                alt70=1;
+                alt71=1;
                 }
                 break;
             case 62:
                 {
-                alt70=2;
+                alt71=2;
                 }
                 break;
             case 64:
                 {
-                alt70=3;
+                alt71=3;
                 }
                 break;
             case 65:
                 {
-                alt70=4;
+                alt71=4;
                 }
                 break;
             case 66:
                 {
-                alt70=5;
+                alt71=5;
                 }
                 break;
             case RULE_ID:
                 {
-                alt70=6;
+                alt71=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 70, 0, input);
+                    new NoViableAltException("", 71, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt70) {
+            switch (alt71) {
                 case 1 :
                     // InternalVerify.g:3186:2: ( () otherlv_1= 'boolean' )
                     {
@@ -9252,13 +9282,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalVerify.g:3207:1: (otherlv_4= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt68=2;
-                    int LA68_0 = input.LA(1);
+                    int alt69=2;
+                    int LA69_0 = input.LA(1);
 
-                    if ( (LA68_0==63) ) {
-                        alt68=1;
+                    if ( (LA69_0==63) ) {
+                        alt69=1;
                     }
-                    switch (alt68) {
+                    switch (alt69) {
                         case 1 :
                             // InternalVerify.g:3207:3: otherlv_4= 'units' ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -9340,13 +9370,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalVerify.g:3237:1: (otherlv_8= 'units' ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt69=2;
-                    int LA69_0 = input.LA(1);
+                    int alt70=2;
+                    int LA70_0 = input.LA(1);
 
-                    if ( (LA69_0==63) ) {
-                        alt69=1;
+                    if ( (LA70_0==63) ) {
+                        alt70=1;
                     }
-                    switch (alt69) {
+                    switch (alt70) {
                         case 1 :
                             // InternalVerify.g:3237:3: otherlv_8= 'units' ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -9732,23 +9762,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:3371:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             {
             // InternalVerify.g:3371:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
-            int alt72=2;
-            int LA72_0 = input.LA(1);
+            int alt73=2;
+            int LA73_0 = input.LA(1);
 
-            if ( (LA72_0==60) ) {
-                alt72=1;
+            if ( (LA73_0==60) ) {
+                alt73=1;
             }
-            else if ( (LA72_0==68) ) {
-                alt72=2;
+            else if ( (LA73_0==68) ) {
+                alt73=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 72, 0, input);
+                    new NoViableAltException("", 73, 0, input);
 
                 throw nvae;
             }
-            switch (alt72) {
+            switch (alt73) {
                 case 1 :
                     // InternalVerify.g:3371:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
@@ -9772,13 +9802,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalVerify.g:3380:1: ( ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt71=2;
-                    int LA71_0 = input.LA(1);
+                    int alt72=2;
+                    int LA72_0 = input.LA(1);
 
-                    if ( (LA71_0==68) && (synpred6_InternalVerify())) {
-                        alt71=1;
+                    if ( (LA72_0==68) && (synpred6_InternalVerify())) {
+                        alt72=1;
                     }
-                    switch (alt71) {
+                    switch (alt72) {
                         case 1 :
                             // InternalVerify.g:3380:2: ( ( ( () '#' ) )=> ( () otherlv_2= '#' ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -9995,17 +10025,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
 
             // InternalVerify.g:3453:2: ( () otherlv_2= '.' ( (otherlv_3= RULE_ID ) ) )*
-            loop73:
+            loop74:
             do {
-                int alt73=2;
-                int LA73_0 = input.LA(1);
+                int alt74=2;
+                int LA74_0 = input.LA(1);
 
-                if ( (LA73_0==69) ) {
-                    alt73=1;
+                if ( (LA74_0==69) ) {
+                    alt74=1;
                 }
 
 
-                switch (alt73) {
+                switch (alt74) {
             	case 1 :
             	    // InternalVerify.g:3453:3: () otherlv_2= '.' ( (otherlv_3= RULE_ID ) )
             	    {
@@ -10058,7 +10088,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop73;
+            	    break loop74;
                 }
             } while (true);
 
@@ -10427,34 +10457,34 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
 
             // InternalVerify.g:3601:2: ( ( ( (lv_convert_1_0= '%' ) ) | ( (lv_drop_2_0= 'in' ) ) ) ( (otherlv_3= RULE_ID ) ) )?
-            int alt75=2;
-            int LA75_0 = input.LA(1);
+            int alt76=2;
+            int LA76_0 = input.LA(1);
 
-            if ( (LA75_0==45||LA75_0==70) ) {
-                alt75=1;
+            if ( (LA76_0==45||LA76_0==70) ) {
+                alt76=1;
             }
-            switch (alt75) {
+            switch (alt76) {
                 case 1 :
                     // InternalVerify.g:3601:3: ( ( (lv_convert_1_0= '%' ) ) | ( (lv_drop_2_0= 'in' ) ) ) ( (otherlv_3= RULE_ID ) )
                     {
                     // InternalVerify.g:3601:3: ( ( (lv_convert_1_0= '%' ) ) | ( (lv_drop_2_0= 'in' ) ) )
-                    int alt74=2;
-                    int LA74_0 = input.LA(1);
+                    int alt75=2;
+                    int LA75_0 = input.LA(1);
 
-                    if ( (LA74_0==70) ) {
-                        alt74=1;
+                    if ( (LA75_0==70) ) {
+                        alt75=1;
                     }
-                    else if ( (LA74_0==45) ) {
-                        alt74=2;
+                    else if ( (LA75_0==45) ) {
+                        alt75=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 74, 0, input);
+                            new NoViableAltException("", 75, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt74) {
+                    switch (alt75) {
                         case 1 :
                             // InternalVerify.g:3601:4: ( (lv_convert_1_0= '%' ) )
                             {
@@ -10756,23 +10786,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:3709:2: (this_ID_0= RULE_ID kw= '/' )* this_ID_2= RULE_ID kw= '.' this_ID_4= RULE_ID
             {
             // InternalVerify.g:3709:2: (this_ID_0= RULE_ID kw= '/' )*
-            loop76:
+            loop77:
             do {
-                int alt76=2;
-                int LA76_0 = input.LA(1);
+                int alt77=2;
+                int LA77_0 = input.LA(1);
 
-                if ( (LA76_0==RULE_ID) ) {
-                    int LA76_1 = input.LA(2);
+                if ( (LA77_0==RULE_ID) ) {
+                    int LA77_1 = input.LA(2);
 
-                    if ( (LA76_1==72) ) {
-                        alt76=1;
+                    if ( (LA77_1==72) ) {
+                        alt77=1;
                     }
 
 
                 }
 
 
-                switch (alt76) {
+                switch (alt77) {
             	case 1 :
             	    // InternalVerify.g:3709:7: this_ID_0= RULE_ID kw= '/'
             	    {
@@ -10799,7 +10829,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop76;
+            	    break loop77;
                 }
             } while (true);
 
@@ -11021,20 +11051,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:3802:1: ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpOr ) ) ) ) ( (lv_right_3_0= ruleAAndExpression ) ) )*
-            loop77:
+            loop78:
             do {
-                int alt77=2;
-                int LA77_0 = input.LA(1);
+                int alt78=2;
+                int LA78_0 = input.LA(1);
 
-                if ( (LA77_0==73) && (synpred7_InternalVerify())) {
-                    alt77=1;
+                if ( (LA78_0==73) && (synpred7_InternalVerify())) {
+                    alt78=1;
                 }
-                else if ( (LA77_0==74) && (synpred7_InternalVerify())) {
-                    alt77=1;
+                else if ( (LA78_0==74) && (synpred7_InternalVerify())) {
+                    alt78=1;
                 }
 
 
-                switch (alt77) {
+                switch (alt78) {
             	case 1 :
             	    // InternalVerify.g:3802:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpOr ) ) ) ) ( (lv_right_3_0= ruleAAndExpression ) )
             	    {
@@ -11138,7 +11168,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop77;
+            	    break loop78;
                 }
             } while (true);
 
@@ -11218,23 +11248,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:3870:1: (kw= 'or' | kw= '||' )
             {
             // InternalVerify.g:3870:1: (kw= 'or' | kw= '||' )
-            int alt78=2;
-            int LA78_0 = input.LA(1);
+            int alt79=2;
+            int LA79_0 = input.LA(1);
 
-            if ( (LA78_0==73) ) {
-                alt78=1;
+            if ( (LA79_0==73) ) {
+                alt79=1;
             }
-            else if ( (LA78_0==74) ) {
-                alt78=2;
+            else if ( (LA79_0==74) ) {
+                alt79=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 78, 0, input);
+                    new NoViableAltException("", 79, 0, input);
 
                 throw nvae;
             }
-            switch (alt78) {
+            switch (alt79) {
                 case 1 :
                     // InternalVerify.g:3871:2: kw= 'or'
                     {
@@ -11361,20 +11391,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:3913:1: ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAnd ) ) ) ) ( (lv_right_3_0= ruleAEqualityExpression ) ) )*
-            loop79:
+            loop80:
             do {
-                int alt79=2;
-                int LA79_0 = input.LA(1);
+                int alt80=2;
+                int LA80_0 = input.LA(1);
 
-                if ( (LA79_0==75) && (synpred8_InternalVerify())) {
-                    alt79=1;
+                if ( (LA80_0==75) && (synpred8_InternalVerify())) {
+                    alt80=1;
                 }
-                else if ( (LA79_0==76) && (synpred8_InternalVerify())) {
-                    alt79=1;
+                else if ( (LA80_0==76) && (synpred8_InternalVerify())) {
+                    alt80=1;
                 }
 
 
-                switch (alt79) {
+                switch (alt80) {
             	case 1 :
             	    // InternalVerify.g:3913:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAnd ) ) ) ) ( (lv_right_3_0= ruleAEqualityExpression ) )
             	    {
@@ -11478,7 +11508,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop79;
+            	    break loop80;
                 }
             } while (true);
 
@@ -11558,23 +11588,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:3981:1: (kw= 'and' | kw= '&&' )
             {
             // InternalVerify.g:3981:1: (kw= 'and' | kw= '&&' )
-            int alt80=2;
-            int LA80_0 = input.LA(1);
+            int alt81=2;
+            int LA81_0 = input.LA(1);
 
-            if ( (LA80_0==75) ) {
-                alt80=1;
+            if ( (LA81_0==75) ) {
+                alt81=1;
             }
-            else if ( (LA80_0==76) ) {
-                alt80=2;
+            else if ( (LA81_0==76) ) {
+                alt81=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 80, 0, input);
+                    new NoViableAltException("", 81, 0, input);
 
                 throw nvae;
             }
-            switch (alt80) {
+            switch (alt81) {
                 case 1 :
                     // InternalVerify.g:3982:2: kw= 'and'
                     {
@@ -11701,20 +11731,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4024:1: ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpEquality ) ) ) ) ( (lv_right_3_0= ruleARelationalExpression ) ) )*
-            loop81:
+            loop82:
             do {
-                int alt81=2;
-                int LA81_0 = input.LA(1);
+                int alt82=2;
+                int LA82_0 = input.LA(1);
 
-                if ( (LA81_0==77) && (synpred9_InternalVerify())) {
-                    alt81=1;
+                if ( (LA82_0==77) && (synpred9_InternalVerify())) {
+                    alt82=1;
                 }
-                else if ( (LA81_0==78) && (synpred9_InternalVerify())) {
-                    alt81=1;
+                else if ( (LA82_0==78) && (synpred9_InternalVerify())) {
+                    alt82=1;
                 }
 
 
-                switch (alt81) {
+                switch (alt82) {
             	case 1 :
             	    // InternalVerify.g:4024:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpEquality ) ) ) ) ( (lv_right_3_0= ruleARelationalExpression ) )
             	    {
@@ -11818,7 +11848,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop81;
+            	    break loop82;
                 }
             } while (true);
 
@@ -11898,23 +11928,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4092:1: (kw= '==' | kw= '!=' )
             {
             // InternalVerify.g:4092:1: (kw= '==' | kw= '!=' )
-            int alt82=2;
-            int LA82_0 = input.LA(1);
+            int alt83=2;
+            int LA83_0 = input.LA(1);
 
-            if ( (LA82_0==77) ) {
-                alt82=1;
+            if ( (LA83_0==77) ) {
+                alt83=1;
             }
-            else if ( (LA82_0==78) ) {
-                alt82=2;
+            else if ( (LA83_0==78) ) {
+                alt83=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 82, 0, input);
+                    new NoViableAltException("", 83, 0, input);
 
                 throw nvae;
             }
-            switch (alt82) {
+            switch (alt83) {
                 case 1 :
                     // InternalVerify.g:4093:2: kw= '=='
                     {
@@ -12041,29 +12071,29 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4135:1: ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpCompare ) ) ) ) ( (lv_right_3_0= ruleAAdditiveExpression ) ) )*
-            loop83:
+            loop84:
             do {
-                int alt83=2;
-                int LA83_0 = input.LA(1);
+                int alt84=2;
+                int LA84_0 = input.LA(1);
 
-                if ( (LA83_0==79) && (synpred10_InternalVerify())) {
-                    alt83=1;
+                if ( (LA84_0==79) && (synpred10_InternalVerify())) {
+                    alt84=1;
                 }
-                else if ( (LA83_0==80) && (synpred10_InternalVerify())) {
-                    alt83=1;
+                else if ( (LA84_0==80) && (synpred10_InternalVerify())) {
+                    alt84=1;
                 }
-                else if ( (LA83_0==81) && (synpred10_InternalVerify())) {
-                    alt83=1;
+                else if ( (LA84_0==81) && (synpred10_InternalVerify())) {
+                    alt84=1;
                 }
-                else if ( (LA83_0==82) && (synpred10_InternalVerify())) {
-                    alt83=1;
+                else if ( (LA84_0==82) && (synpred10_InternalVerify())) {
+                    alt84=1;
                 }
-                else if ( (LA83_0==83) && (synpred10_InternalVerify())) {
-                    alt83=1;
+                else if ( (LA84_0==83) && (synpred10_InternalVerify())) {
+                    alt84=1;
                 }
 
 
-                switch (alt83) {
+                switch (alt84) {
             	case 1 :
             	    // InternalVerify.g:4135:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpCompare ) ) ) ) ( (lv_right_3_0= ruleAAdditiveExpression ) )
             	    {
@@ -12167,7 +12197,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop83;
+            	    break loop84;
                 }
             } while (true);
 
@@ -12247,42 +12277,42 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4203:1: (kw= '>=' | kw= '<=' | kw= '>' | kw= '<' | kw= '><' )
             {
             // InternalVerify.g:4203:1: (kw= '>=' | kw= '<=' | kw= '>' | kw= '<' | kw= '><' )
-            int alt84=5;
+            int alt85=5;
             switch ( input.LA(1) ) {
             case 79:
                 {
-                alt84=1;
+                alt85=1;
                 }
                 break;
             case 80:
                 {
-                alt84=2;
+                alt85=2;
                 }
                 break;
             case 81:
                 {
-                alt84=3;
+                alt85=3;
                 }
                 break;
             case 82:
                 {
-                alt84=4;
+                alt85=4;
                 }
                 break;
             case 83:
                 {
-                alt84=5;
+                alt85=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 84, 0, input);
+                    new NoViableAltException("", 85, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt84) {
+            switch (alt85) {
                 case 1 :
                     // InternalVerify.g:4204:2: kw= '>='
                     {
@@ -12448,20 +12478,20 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4267:1: ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAdd ) ) ) ) ( (lv_right_3_0= ruleAMultiplicativeExpression ) ) )*
-            loop85:
+            loop86:
             do {
-                int alt85=2;
-                int LA85_0 = input.LA(1);
+                int alt86=2;
+                int LA86_0 = input.LA(1);
 
-                if ( (LA85_0==84) && (synpred11_InternalVerify())) {
-                    alt85=1;
+                if ( (LA86_0==84) && (synpred11_InternalVerify())) {
+                    alt86=1;
                 }
-                else if ( (LA85_0==85) && (synpred11_InternalVerify())) {
-                    alt85=1;
+                else if ( (LA86_0==85) && (synpred11_InternalVerify())) {
+                    alt86=1;
                 }
 
 
-                switch (alt85) {
+                switch (alt86) {
             	case 1 :
             	    // InternalVerify.g:4267:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAdd ) ) ) ) ( (lv_right_3_0= ruleAMultiplicativeExpression ) )
             	    {
@@ -12565,7 +12595,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop85;
+            	    break loop86;
                 }
             } while (true);
 
@@ -12645,23 +12675,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4335:1: (kw= '+' | kw= '-' )
             {
             // InternalVerify.g:4335:1: (kw= '+' | kw= '-' )
-            int alt86=2;
-            int LA86_0 = input.LA(1);
+            int alt87=2;
+            int LA87_0 = input.LA(1);
 
-            if ( (LA86_0==84) ) {
-                alt86=1;
+            if ( (LA87_0==84) ) {
+                alt87=1;
             }
-            else if ( (LA86_0==85) ) {
-                alt86=2;
+            else if ( (LA87_0==85) ) {
+                alt87=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 86, 0, input);
+                    new NoViableAltException("", 87, 0, input);
 
                 throw nvae;
             }
-            switch (alt86) {
+            switch (alt87) {
                 case 1 :
                     // InternalVerify.g:4336:2: kw= '+'
                     {
@@ -12788,26 +12818,26 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4378:1: ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpMulti ) ) ) ) ( (lv_right_3_0= ruleAUnaryOperation ) ) )*
-            loop87:
+            loop88:
             do {
-                int alt87=2;
-                int LA87_0 = input.LA(1);
+                int alt88=2;
+                int LA88_0 = input.LA(1);
 
-                if ( (LA87_0==86) && (synpred12_InternalVerify())) {
-                    alt87=1;
+                if ( (LA88_0==86) && (synpred12_InternalVerify())) {
+                    alt88=1;
                 }
-                else if ( (LA87_0==72) && (synpred12_InternalVerify())) {
-                    alt87=1;
+                else if ( (LA88_0==72) && (synpred12_InternalVerify())) {
+                    alt88=1;
                 }
-                else if ( (LA87_0==87) && (synpred12_InternalVerify())) {
-                    alt87=1;
+                else if ( (LA88_0==87) && (synpred12_InternalVerify())) {
+                    alt88=1;
                 }
-                else if ( (LA87_0==88) && (synpred12_InternalVerify())) {
-                    alt87=1;
+                else if ( (LA88_0==88) && (synpred12_InternalVerify())) {
+                    alt88=1;
                 }
 
 
-                switch (alt87) {
+                switch (alt88) {
             	case 1 :
             	    // InternalVerify.g:4378:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpMulti ) ) ) ) ( (lv_right_3_0= ruleAUnaryOperation ) )
             	    {
@@ -12911,7 +12941,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop87;
+            	    break loop88;
                 }
             } while (true);
 
@@ -12991,37 +13021,37 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4446:1: (kw= '*' | kw= '/' | kw= 'div' | kw= 'mod' )
             {
             // InternalVerify.g:4446:1: (kw= '*' | kw= '/' | kw= 'div' | kw= 'mod' )
-            int alt88=4;
+            int alt89=4;
             switch ( input.LA(1) ) {
             case 86:
                 {
-                alt88=1;
+                alt89=1;
                 }
                 break;
             case 72:
                 {
-                alt88=2;
+                alt89=2;
                 }
                 break;
             case 87:
                 {
-                alt88=3;
+                alt89=3;
                 }
                 break;
             case 88:
                 {
-                alt88=4;
+                alt89=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 88, 0, input);
+                    new NoViableAltException("", 89, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt88) {
+            switch (alt89) {
                 case 1 :
                     // InternalVerify.g:4447:2: kw= '*'
                     {
@@ -13155,23 +13185,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4494:1: ( ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_AUnitExpression_3= ruleAUnitExpression )
             {
             // InternalVerify.g:4494:1: ( ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_AUnitExpression_3= ruleAUnitExpression )
-            int alt89=2;
-            int LA89_0 = input.LA(1);
+            int alt90=2;
+            int LA90_0 = input.LA(1);
 
-            if ( ((LA89_0>=84 && LA89_0<=85)||LA89_0==89) ) {
-                alt89=1;
+            if ( ((LA90_0>=84 && LA90_0<=85)||LA90_0==89) ) {
+                alt90=1;
             }
-            else if ( ((LA89_0>=RULE_STRING && LA89_0<=RULE_REAL_LIT)||LA89_0==21||LA89_0==35||LA89_0==60||LA89_0==68||LA89_0==92||(LA89_0>=94 && LA89_0<=95)) ) {
-                alt89=2;
+            else if ( ((LA90_0>=RULE_STRING && LA90_0<=RULE_REAL_LIT)||LA90_0==21||LA90_0==35||LA90_0==60||LA90_0==68||LA90_0==92||(LA90_0>=94 && LA90_0<=95)) ) {
+                alt90=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 89, 0, input);
+                    new NoViableAltException("", 90, 0, input);
 
                 throw nvae;
             }
-            switch (alt89) {
+            switch (alt90) {
                 case 1 :
                     // InternalVerify.g:4494:2: ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
                     {
@@ -13365,32 +13395,32 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4571:1: (kw= 'not' | kw= '-' | kw= '+' )
             {
             // InternalVerify.g:4571:1: (kw= 'not' | kw= '-' | kw= '+' )
-            int alt90=3;
+            int alt91=3;
             switch ( input.LA(1) ) {
             case 89:
                 {
-                alt90=1;
+                alt91=1;
                 }
                 break;
             case 85:
                 {
-                alt90=2;
+                alt91=2;
                 }
                 break;
             case 84:
                 {
-                alt90=3;
+                alt91=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 90, 0, input);
+                    new NoViableAltException("", 91, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt90) {
+            switch (alt91) {
                 case 1 :
                     // InternalVerify.g:4572:2: kw= 'not'
                     {
@@ -13529,13 +13559,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4621:1: ( () ( ( (lv_convert_2_0= '%' ) ) | ( (lv_drop_3_0= 'in' ) ) )? ( (otherlv_4= RULE_ID ) ) )?
-            int alt92=2;
-            int LA92_0 = input.LA(1);
+            int alt93=2;
+            int LA93_0 = input.LA(1);
 
-            if ( (LA92_0==RULE_ID||LA92_0==45||LA92_0==70) ) {
-                alt92=1;
+            if ( (LA93_0==RULE_ID||LA93_0==45||LA93_0==70) ) {
+                alt93=1;
             }
-            switch (alt92) {
+            switch (alt93) {
                 case 1 :
                     // InternalVerify.g:4621:2: () ( ( (lv_convert_2_0= '%' ) ) | ( (lv_drop_3_0= 'in' ) ) )? ( (otherlv_4= RULE_ID ) )
                     {
@@ -13553,16 +13583,16 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalVerify.g:4627:2: ( ( (lv_convert_2_0= '%' ) ) | ( (lv_drop_3_0= 'in' ) ) )?
-                    int alt91=3;
-                    int LA91_0 = input.LA(1);
+                    int alt92=3;
+                    int LA92_0 = input.LA(1);
 
-                    if ( (LA91_0==70) ) {
-                        alt91=1;
+                    if ( (LA92_0==70) ) {
+                        alt92=1;
                     }
-                    else if ( (LA91_0==45) ) {
-                        alt91=2;
+                    else if ( (LA92_0==45) ) {
+                        alt92=2;
                     }
-                    switch (alt91) {
+                    switch (alt92) {
                         case 1 :
                             // InternalVerify.g:4627:3: ( (lv_convert_2_0= '%' ) )
                             {
@@ -13750,7 +13780,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:4692:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_AModelOrPropertyReference_2= ruleAModelOrPropertyReference | this_AFunctionCall_3= ruleAFunctionCall | this_ARangeExpression_4= ruleARangeExpression | this_AIfExpression_5= ruleAIfExpression | this_AParenthesizedExpression_6= ruleAParenthesizedExpression )
             {
             // InternalVerify.g:4692:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_AModelOrPropertyReference_2= ruleAModelOrPropertyReference | this_AFunctionCall_3= ruleAFunctionCall | this_ARangeExpression_4= ruleARangeExpression | this_AIfExpression_5= ruleAIfExpression | this_AParenthesizedExpression_6= ruleAParenthesizedExpression )
-            int alt93=7;
+            int alt94=7;
             switch ( input.LA(1) ) {
             case RULE_STRING:
             case RULE_INT:
@@ -13758,23 +13788,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             case 94:
             case 95:
                 {
-                alt93=1;
+                alt94=1;
                 }
                 break;
             case RULE_ID:
                 {
-                int LA93_2 = input.LA(2);
+                int LA94_2 = input.LA(2);
 
-                if ( (LA93_2==EOF||LA93_2==RULE_ID||LA93_2==23||(LA93_2>=28 && LA93_2<=29)||LA93_2==34||LA93_2==36||LA93_2==45||LA93_2==70||(LA93_2>=72 && LA93_2<=88)||(LA93_2>=90 && LA93_2<=91)||LA93_2==93) ) {
-                    alt93=2;
+                if ( (LA94_2==EOF||LA94_2==RULE_ID||LA94_2==23||(LA94_2>=28 && LA94_2<=29)||LA94_2==34||LA94_2==36||LA94_2==45||LA94_2==70||(LA94_2>=72 && LA94_2<=88)||(LA94_2>=90 && LA94_2<=91)||LA94_2==93) ) {
+                    alt94=2;
                 }
-                else if ( (LA93_2==35||LA93_2==69) ) {
-                    alt93=4;
+                else if ( (LA94_2==35||LA94_2==69) ) {
+                    alt94=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 93, 2, input);
+                        new NoViableAltException("", 94, 2, input);
 
                     throw nvae;
                 }
@@ -13783,33 +13813,33 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             case 60:
             case 68:
                 {
-                alt93=3;
+                alt94=3;
                 }
                 break;
             case 21:
                 {
-                alt93=5;
+                alt94=5;
                 }
                 break;
             case 92:
                 {
-                alt93=6;
+                alt94=6;
                 }
                 break;
             case 35:
                 {
-                alt93=7;
+                alt94=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 93, 0, input);
+                    new NoViableAltException("", 94, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt93) {
+            switch (alt94) {
                 case 1 :
                     // InternalVerify.g:4693:5: this_ALiteral_0= ruleALiteral
                     {
@@ -14105,13 +14135,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:4810:1: ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAExpression ) ) )* )?
-            int alt95=2;
-            int LA95_0 = input.LA(1);
+            int alt96=2;
+            int LA96_0 = input.LA(1);
 
-            if ( ((LA95_0>=RULE_STRING && LA95_0<=RULE_REAL_LIT)||LA95_0==21||LA95_0==35||LA95_0==60||LA95_0==68||(LA95_0>=84 && LA95_0<=85)||LA95_0==89||LA95_0==92||(LA95_0>=94 && LA95_0<=95)) ) {
-                alt95=1;
+            if ( ((LA96_0>=RULE_STRING && LA96_0<=RULE_REAL_LIT)||LA96_0==21||LA96_0==35||LA96_0==60||LA96_0==68||(LA96_0>=84 && LA96_0<=85)||LA96_0==89||LA96_0==92||(LA96_0>=94 && LA96_0<=95)) ) {
+                alt96=1;
             }
-            switch (alt95) {
+            switch (alt96) {
                 case 1 :
                     // InternalVerify.g:4810:2: ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= ',' ( (lv_arguments_5_0= ruleAExpression ) ) )*
                     {
@@ -14151,17 +14181,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalVerify.g:4828:2: (otherlv_4= ',' ( (lv_arguments_5_0= ruleAExpression ) ) )*
-                    loop94:
+                    loop95:
                     do {
-                        int alt94=2;
-                        int LA94_0 = input.LA(1);
+                        int alt95=2;
+                        int LA95_0 = input.LA(1);
 
-                        if ( (LA94_0==34) ) {
-                            alt94=1;
+                        if ( (LA95_0==34) ) {
+                            alt95=1;
                         }
 
 
-                        switch (alt94) {
+                        switch (alt95) {
                     	case 1 :
                     	    // InternalVerify.g:4828:4: otherlv_4= ',' ( (lv_arguments_5_0= ruleAExpression ) )
                     	    {
@@ -14211,7 +14241,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop94;
+                    	    break loop95;
                         }
                     } while (true);
 
@@ -14410,13 +14440,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
 
             // InternalVerify.g:4925:2: ( ( ( 'delta' )=>otherlv_5= 'delta' ) ( (lv_delta_6_0= ruleAExpression ) ) )?
-            int alt96=2;
-            int LA96_0 = input.LA(1);
+            int alt97=2;
+            int LA97_0 = input.LA(1);
 
-            if ( (LA96_0==91) && (synpred14_InternalVerify())) {
-                alt96=1;
+            if ( (LA97_0==91) && (synpred14_InternalVerify())) {
+                alt97=1;
             }
-            switch (alt96) {
+            switch (alt97) {
                 case 1 :
                     // InternalVerify.g:4925:3: ( ( 'delta' )=>otherlv_5= 'delta' ) ( (lv_delta_6_0= ruleAExpression ) )
                     {
@@ -14662,13 +14692,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
 
             // InternalVerify.g:5023:2: (otherlv_5= 'else' ( (lv_else_6_0= ruleAExpression ) ) )?
-            int alt97=2;
-            int LA97_0 = input.LA(1);
+            int alt98=2;
+            int LA98_0 = input.LA(1);
 
-            if ( (LA97_0==29) ) {
-                alt97=1;
+            if ( (LA98_0==29) ) {
+                alt98=1;
             }
-            switch (alt97) {
+            switch (alt98) {
                 case 1 :
                     // InternalVerify.g:5023:4: otherlv_5= 'else' ( (lv_else_6_0= ruleAExpression ) )
                     {
@@ -14808,38 +14838,38 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:5070:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
             {
             // InternalVerify.g:5070:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
-            int alt98=4;
+            int alt99=4;
             switch ( input.LA(1) ) {
             case 94:
             case 95:
                 {
-                alt98=1;
+                alt99=1;
                 }
                 break;
             case RULE_REAL_LIT:
                 {
-                alt98=2;
+                alt99=2;
                 }
                 break;
             case RULE_INT:
                 {
-                alt98=3;
+                alt99=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt98=4;
+                alt99=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 98, 0, input);
+                    new NoViableAltException("", 99, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt98) {
+            switch (alt99) {
                 case 1 :
                     // InternalVerify.g:5071:5: this_ABooleanLiteral_0= ruleABooleanLiteral
                     {
@@ -15403,23 +15433,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             }
 
             // InternalVerify.g:5270:2: ( ( (lv_value_1_0= 'true' ) ) | otherlv_2= 'false' )
-            int alt99=2;
-            int LA99_0 = input.LA(1);
+            int alt100=2;
+            int LA100_0 = input.LA(1);
 
-            if ( (LA99_0==94) ) {
-                alt99=1;
+            if ( (LA100_0==94) ) {
+                alt100=1;
             }
-            else if ( (LA99_0==95) ) {
-                alt99=2;
+            else if ( (LA100_0==95) ) {
+                alt100=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 99, 0, input);
+                    new NoViableAltException("", 100, 0, input);
 
                 throw nvae;
             }
-            switch (alt99) {
+            switch (alt100) {
                 case 1 :
                     // InternalVerify.g:5270:3: ( (lv_value_1_0= 'true' ) )
                     {
@@ -15843,9 +15873,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:5416:1: (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) )
             {
             // InternalVerify.g:5416:1: (kw= 'abstract' | kw= 'bus' | kw= 'data' | kw= 'device' | kw= 'memory' | kw= 'process' | kw= 'processor' | kw= 'subprogram' | (kw= 'subprogram' kw= 'group' ) | kw= 'system' | (kw= 'thread' kw= 'group' ) | kw= 'thread' | (kw= 'virtual' kw= 'bus' ) | (kw= 'virtual' kw= 'processor' ) )
-            int alt100=14;
-            alt100 = dfa100.predict(input);
-            switch (alt100) {
+            int alt101=14;
+            alt101 = dfa101.predict(input);
+            switch (alt101) {
                 case 1 :
                     // InternalVerify.g:5417:2: kw= 'abstract'
                     {
@@ -16173,18 +16203,18 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:5565:1: (kw= '::' this_ID_2= RULE_ID )+
-            int cnt101=0;
-            loop101:
+            int cnt102=0;
+            loop102:
             do {
-                int alt101=2;
-                int LA101_0 = input.LA(1);
+                int alt102=2;
+                int LA102_0 = input.LA(1);
 
-                if ( (LA101_0==108) ) {
-                    alt101=1;
+                if ( (LA102_0==108) ) {
+                    alt102=1;
                 }
 
 
-                switch (alt101) {
+                switch (alt102) {
             	case 1 :
             	    // InternalVerify.g:5566:2: kw= '::' this_ID_2= RULE_ID
             	    {
@@ -16211,23 +16241,23 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt101 >= 1 ) break loop101;
+            	    if ( cnt102 >= 1 ) break loop102;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(101, input);
+                            new EarlyExitException(102, input);
                         throw eee;
                 }
-                cnt101++;
+                cnt102++;
             } while (true);
 
             // InternalVerify.g:5578:3: (kw= '.' this_ID_4= RULE_ID )?
-            int alt102=2;
-            int LA102_0 = input.LA(1);
+            int alt103=2;
+            int LA103_0 = input.LA(1);
 
-            if ( (LA102_0==69) ) {
-                alt102=1;
+            if ( (LA103_0==69) ) {
+                alt103=1;
             }
-            switch (alt102) {
+            switch (alt103) {
                 case 1 :
                     // InternalVerify.g:5579:2: kw= '.' this_ID_4= RULE_ID
                     {
@@ -16347,13 +16377,13 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:5619:1: (kw= '::' this_ID_2= RULE_ID )?
-            int alt103=2;
-            int LA103_0 = input.LA(1);
+            int alt104=2;
+            int LA104_0 = input.LA(1);
 
-            if ( (LA103_0==108) ) {
-                alt103=1;
+            if ( (LA104_0==108) ) {
+                alt104=1;
             }
-            switch (alt103) {
+            switch (alt104) {
                 case 1 :
                     // InternalVerify.g:5620:2: kw= '::' this_ID_2= RULE_ID
                     {
@@ -16473,17 +16503,17 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalVerify.g:5662:1: (kw= '.' this_ID_2= RULE_ID )*
-            loop104:
+            loop105:
             do {
-                int alt104=2;
-                int LA104_0 = input.LA(1);
+                int alt105=2;
+                int LA105_0 = input.LA(1);
 
-                if ( (LA104_0==69) ) {
-                    alt104=1;
+                if ( (LA105_0==69) ) {
+                    alt105=1;
                 }
 
 
-                switch (alt104) {
+                switch (alt105) {
             	case 1 :
             	    // InternalVerify.g:5663:2: kw= '.' this_ID_2= RULE_ID
             	    {
@@ -16510,7 +16540,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop104;
+            	    break loop105;
                 }
             } while (true);
 
@@ -16634,52 +16664,52 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             // InternalVerify.g:5715:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
             {
             // InternalVerify.g:5715:1: ( (enumLiteral_0= 'component' ) | (enumLiteral_1= 'feature' ) | (enumLiteral_2= 'connection' ) | (enumLiteral_3= 'flow' ) | (enumLiteral_4= 'mode' ) | (enumLiteral_5= 'element' ) | (enumLiteral_6= 'root' ) )
-            int alt105=7;
+            int alt106=7;
             switch ( input.LA(1) ) {
             case 109:
                 {
-                alt105=1;
+                alt106=1;
                 }
                 break;
             case 110:
                 {
-                alt105=2;
+                alt106=2;
                 }
                 break;
             case 111:
                 {
-                alt105=3;
+                alt106=3;
                 }
                 break;
             case 112:
                 {
-                alt105=4;
+                alt106=4;
                 }
                 break;
             case 113:
                 {
-                alt105=5;
+                alt106=5;
                 }
                 break;
             case 67:
                 {
-                alt105=6;
+                alt106=6;
                 }
                 break;
             case 114:
                 {
-                alt105=7;
+                alt106=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 105, 0, input);
+                    new NoViableAltException("", 106, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt105) {
+            switch (alt106) {
                 case 1 :
                     // InternalVerify.g:5715:2: (enumLiteral_0= 'component' )
                     {
@@ -17386,7 +17416,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     protected DFA46 dfa46 = new DFA46(this);
-    protected DFA100 dfa100 = new DFA100(this);
+    protected DFA101 dfa101 = new DFA101(this);
     static final String dfa_1s = "\13\uffff";
     static final String dfa_2s = "\1\6\7\42\3\uffff";
     static final String dfa_3s = "\1\162\7\44\3\uffff";
@@ -17431,10 +17461,10 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_7s = "\22\uffff";
-    static final String dfa_8s = "\10\uffff\1\15\1\uffff\1\17\7\uffff";
+    static final String dfa_8s = "\10\uffff\1\14\1\uffff\1\16\7\uffff";
     static final String dfa_9s = "\1\140\7\uffff\1\25\1\uffff\1\25\1\141\6\uffff";
     static final String dfa_10s = "\1\153\7\uffff\1\153\1\uffff\1\153\1\146\6\uffff";
-    static final String dfa_11s = "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\11\1\10\1\13\1\14\1\15\1\16";
+    static final String dfa_11s = "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10\1\11\1\14\1\13\1\15\1\16";
     static final String dfa_12s = "\22\uffff}>";
     static final String[] dfa_13s = {
             "\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\11\1\12\1\13",
@@ -17445,9 +17475,9 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\15\112\uffff\10\15\1\14\3\15",
+            "\1\14\112\uffff\10\14\1\15\3\14",
             "",
-            "\1\17\112\uffff\10\17\1\16\3\17",
+            "\1\16\112\uffff\10\16\1\17\3\16",
             "\1\20\4\uffff\1\21",
             "",
             "",
@@ -17465,11 +17495,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     static final short[] dfa_12 = DFA.unpackEncodedString(dfa_12s);
     static final short[][] dfa_13 = unpackEncodedStringArray(dfa_13s);
 
-    class DFA100 extends DFA {
+    class DFA101 extends DFA {
 
-        public DFA100(BaseRecognizer recognizer) {
+        public DFA101(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 100;
+            this.decisionNumber = 101;
             this.eot = dfa_7;
             this.eof = dfa_8;
             this.min = dfa_9;

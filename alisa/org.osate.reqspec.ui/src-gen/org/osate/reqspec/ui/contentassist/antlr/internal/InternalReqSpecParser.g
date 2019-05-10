@@ -14639,9 +14639,16 @@ rule__Rationale__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getRationaleAccess().getTextAssignment_1()); }
-(rule__Rationale__TextAssignment_1)
-{ after(grammarAccess.getRationaleAccess().getTextAssignment_1()); }
+(
+{ before(grammarAccess.getRationaleAccess().getDescriptionAssignment_1()); }
+(rule__Rationale__DescriptionAssignment_1)
+{ after(grammarAccess.getRationaleAccess().getDescriptionAssignment_1()); }
+)
+(
+{ before(grammarAccess.getRationaleAccess().getDescriptionAssignment_1()); }
+(rule__Rationale__DescriptionAssignment_1)*
+{ after(grammarAccess.getRationaleAccess().getDescriptionAssignment_1()); }
+)
 )
 
 ;
@@ -26112,14 +26119,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Rationale__TextAssignment_1
+rule__Rationale__DescriptionAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); }
-	RULE_STRING{ after(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getRationaleAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); }
+	ruleDescriptionElement{ after(grammarAccess.getRationaleAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); }
 )
 
 ;

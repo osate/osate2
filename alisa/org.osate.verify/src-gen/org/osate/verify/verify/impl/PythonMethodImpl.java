@@ -85,6 +85,7 @@ public class PythonMethodImpl extends MethodKindImpl implements PythonMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getMethodPath()
   {
     return methodPath;
@@ -95,6 +96,7 @@ public class PythonMethodImpl extends MethodKindImpl implements PythonMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethodPath(String newMethodPath)
   {
     String oldMethodPath = methodPath;

@@ -57,10 +57,6 @@ public interface Requirement extends ContractualElement
   /**
    * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Predicate</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Predicate</em>' containment reference.
    * @see #setPredicate(ReqPredicate)
@@ -83,10 +79,6 @@ public interface Requirement extends ContractualElement
   /**
    * Returns the value of the '<em><b>Exception</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Exception</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exception</em>' reference.
    * @see #setException(EObject)
@@ -109,10 +101,6 @@ public interface Requirement extends ContractualElement
   /**
    * Returns the value of the '<em><b>Exception Text</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Exception Text</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Exception Text</em>' attribute.
    * @see #setExceptionText(String)
@@ -135,10 +123,6 @@ public interface Requirement extends ContractualElement
   /**
    * Returns the value of the '<em><b>Inherits Reference</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inherits Reference</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inherits Reference</em>' reference.
    * @see #setInheritsReference(Requirement)
@@ -162,10 +146,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Computes</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Computes()
@@ -178,10 +158,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Refines Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Refines Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinesReference()
@@ -194,10 +170,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Decomposes Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Decomposes Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Decomposes Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DecomposesReference()
@@ -210,10 +182,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Development Stakeholder</b></em>' reference list.
    * The list contents are of type {@link org.osate.organization.organization.Stakeholder}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Development Stakeholder</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Development Stakeholder</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DevelopmentStakeholder()
@@ -226,10 +194,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Requirement Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Requirement Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RequirementReference()
@@ -243,10 +207,6 @@ public interface Requirement extends ContractualElement
    * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
    * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Component Category</em>' attribute list.
    * @see org.osate.aadl2.ComponentCategory
@@ -260,10 +220,6 @@ public interface Requirement extends ContractualElement
    * Returns the value of the '<em><b>Target Type</b></em>' attribute.
    * The literals are from the enumeration {@link org.osate.alisa.common.common.TargetType}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Type</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Type</em>' attribute.
    * @see org.osate.alisa.common.common.TargetType

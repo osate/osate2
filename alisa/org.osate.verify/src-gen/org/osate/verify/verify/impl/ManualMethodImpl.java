@@ -85,6 +85,7 @@ public class ManualMethodImpl extends MethodKindImpl implements ManualMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDialogID()
   {
     return dialogID;
@@ -95,6 +96,7 @@ public class ManualMethodImpl extends MethodKindImpl implements ManualMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDialogID(String newDialogID)
   {
     String oldDialogID = dialogID;

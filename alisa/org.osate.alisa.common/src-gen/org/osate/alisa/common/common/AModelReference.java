@@ -39,10 +39,6 @@ public interface AModelReference extends AExpression
   /**
    * Returns the value of the '<em><b>Model Element</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Model Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Model Element</em>' reference.
    * @see #setModelElement(NamedElement)
@@ -65,10 +61,6 @@ public interface AModelReference extends AExpression
   /**
    * Returns the value of the '<em><b>Prev</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Prev</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Prev</em>' containment reference.
    * @see #setPrev(AModelReference)

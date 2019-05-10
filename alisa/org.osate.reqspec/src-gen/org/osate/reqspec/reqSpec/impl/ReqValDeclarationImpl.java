@@ -81,6 +81,7 @@ public class ReqValDeclarationImpl extends ValDeclarationImpl implements ReqValD
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyType getProperty()
   {
     return property;
@@ -108,6 +109,7 @@ public class ReqValDeclarationImpl extends ValDeclarationImpl implements ReqValD
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProperty(PropertyType newProperty)
   {
     if (newProperty != property)

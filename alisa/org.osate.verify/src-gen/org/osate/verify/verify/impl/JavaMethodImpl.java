@@ -106,6 +106,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getMethodPath()
   {
     return methodPath;
@@ -116,6 +117,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethodPath(String newMethodPath)
   {
     String oldMethodPath = methodPath;
@@ -129,6 +131,7 @@ public class JavaMethodImpl extends MethodKindImpl implements JavaMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<JavaParameter> getParams()
   {
     if (params == null)
