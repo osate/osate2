@@ -309,11 +309,11 @@ public class EMV2TypeSetUtil {
 	 */
 	public static boolean containsElement(TypeToken typeProduct, ErrorTypes typeElement) {
 		for (ErrorTypes errorType : typeProduct.getType()) {
-			if (!contains(errorType, typeElement)) {
-				return false;
+			if (contains(errorType, typeElement)) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/**

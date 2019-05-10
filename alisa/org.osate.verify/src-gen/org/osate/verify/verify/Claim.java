@@ -51,10 +51,6 @@ public interface Claim extends EObject
   /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Requirement</em>' reference.
    * @see #setRequirement(Requirement)
@@ -77,10 +73,6 @@ public interface Claim extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -104,10 +96,6 @@ public interface Claim extends EObject
    * Returns the value of the '<em><b>Activities</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.VerificationActivity}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Activities</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Activities</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getClaim_Activities()
@@ -119,10 +107,6 @@ public interface Claim extends EObject
   /**
    * Returns the value of the '<em><b>Assert</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assert</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assert</em>' containment reference.
    * @see #setAssert(ArgumentExpr)
@@ -145,10 +129,6 @@ public interface Claim extends EObject
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Rationale</em>' containment reference.
    * @see #setRationale(Rationale)
@@ -171,10 +151,6 @@ public interface Claim extends EObject
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Weight</em>' attribute.
    * @see #setWeight(int)
@@ -198,10 +174,6 @@ public interface Claim extends EObject
    * Returns the value of the '<em><b>Subclaim</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.Claim}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Subclaim</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Subclaim</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getClaim_Subclaim()
@@ -214,10 +186,6 @@ public interface Claim extends EObject
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
    * @see org.osate.verify.verify.VerifyPackage#getClaim_Issues()

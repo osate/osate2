@@ -53,10 +53,6 @@ public interface VerificationActivity extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -79,10 +75,6 @@ public interface VerificationActivity extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -106,10 +98,6 @@ public interface VerificationActivity extends EObject
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.ComputeRef}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Computes</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Computes()
@@ -121,10 +109,6 @@ public interface VerificationActivity extends EObject
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method</em>' reference.
    * @see #setMethod(VerificationMethod)
@@ -148,10 +132,6 @@ public interface VerificationActivity extends EObject
    * Returns the value of the '<em><b>Actuals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Actuals</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Actuals</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Actuals()
@@ -164,10 +144,6 @@ public interface VerificationActivity extends EObject
    * Returns the value of the '<em><b>Property Values</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Property Values</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Property Values</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_PropertyValues()
@@ -180,10 +156,6 @@ public interface VerificationActivity extends EObject
    * Returns the value of the '<em><b>Category</b></em>' reference list.
    * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Category</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Category()
@@ -195,10 +167,6 @@ public interface VerificationActivity extends EObject
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Timeout</em>' containment reference.
    * @see #setTimeout(IntegerLiteral)
@@ -221,10 +189,6 @@ public interface VerificationActivity extends EObject
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Weight</em>' attribute.
    * @see #setWeight(int)

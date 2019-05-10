@@ -107,6 +107,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqSpec createReqSpec()
   {
     ReqSpecImpl reqSpec = new ReqSpecImpl();
@@ -118,6 +119,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public GlobalConstants createGlobalConstants()
   {
     GlobalConstantsImpl globalConstants = new GlobalConstantsImpl();
@@ -129,6 +131,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ContractualElement createContractualElement()
   {
     ContractualElementImpl contractualElement = new ContractualElementImpl();
@@ -140,6 +143,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqRoot createReqRoot()
   {
     ReqRootImpl reqRoot = new ReqRootImpl();
@@ -151,6 +155,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public StakeholderGoals createStakeholderGoals()
   {
     StakeholderGoalsImpl stakeholderGoals = new StakeholderGoalsImpl();
@@ -162,6 +167,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqDocument createReqDocument()
   {
     ReqDocumentImpl reqDocument = new ReqDocumentImpl();
@@ -173,6 +179,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DocumentSection createDocumentSection()
   {
     DocumentSectionImpl documentSection = new DocumentSectionImpl();
@@ -184,6 +191,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public RequirementSet createRequirementSet()
   {
     RequirementSetImpl requirementSet = new RequirementSetImpl();
@@ -195,6 +203,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Goal createGoal()
   {
     GoalImpl goal = new GoalImpl();
@@ -206,6 +215,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Requirement createRequirement()
   {
     RequirementImpl requirement = new RequirementImpl();
@@ -217,6 +227,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IncludeGlobalRequirement createIncludeGlobalRequirement()
   {
     IncludeGlobalRequirementImpl includeGlobalRequirement = new IncludeGlobalRequirementImpl();
@@ -228,6 +239,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public WhenCondition createWhenCondition()
   {
     WhenConditionImpl whenCondition = new WhenConditionImpl();
@@ -239,6 +251,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqPredicate createReqPredicate()
   {
     ReqPredicateImpl reqPredicate = new ReqPredicateImpl();
@@ -250,6 +263,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public InformalPredicate createInformalPredicate()
   {
     InformalPredicateImpl informalPredicate = new InformalPredicateImpl();
@@ -261,6 +275,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValuePredicate createValuePredicate()
   {
     ValuePredicateImpl valuePredicate = new ValuePredicateImpl();
@@ -272,6 +287,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DesiredValue createDesiredValue()
   {
     DesiredValueImpl desiredValue = new DesiredValueImpl();
@@ -283,6 +299,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ExternalDocument createExternalDocument()
   {
     ExternalDocumentImpl externalDocument = new ExternalDocumentImpl();
@@ -294,6 +311,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SystemRequirementSet createSystemRequirementSet()
   {
     SystemRequirementSetImpl systemRequirementSet = new SystemRequirementSetImpl();
@@ -305,6 +323,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public GlobalRequirementSet createGlobalRequirementSet()
   {
     GlobalRequirementSetImpl globalRequirementSet = new GlobalRequirementSetImpl();
@@ -316,6 +335,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqValDeclaration createReqValDeclaration()
   {
     ReqValDeclarationImpl reqValDeclaration = new ReqValDeclarationImpl();
@@ -327,6 +347,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqSpecPackage getReqSpecPackage()
   {
     return (ReqSpecPackage)getEPackage();

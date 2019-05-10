@@ -114,6 +114,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -124,6 +125,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -137,6 +139,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyType getType()
   {
     return type;
@@ -164,6 +167,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(PropertyType newType)
   {
     if (newType != type)
@@ -185,6 +189,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnitLiteral getUnit()
   {
     if (unit != null && ((EObject)unit).eIsProxy())
@@ -215,6 +220,7 @@ public class FormalParameterImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnit(UnitLiteral newUnit)
   {
     UnitLiteral oldUnit = unit;

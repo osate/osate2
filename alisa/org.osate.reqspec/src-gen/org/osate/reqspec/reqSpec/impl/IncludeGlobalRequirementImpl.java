@@ -112,6 +112,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getInclude()
   {
     if (include != null && include.eIsProxy())
@@ -142,6 +143,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInclude(EObject newInclude)
   {
     EObject oldInclude = include;
@@ -155,6 +157,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isLocal()
   {
     return local;
@@ -165,6 +168,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLocal(boolean newLocal)
   {
     boolean oldLocal = local;
@@ -178,6 +182,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getTargetElement()
   {
     if (targetElement != null && ((EObject)targetElement).eIsProxy())
@@ -208,6 +213,7 @@ public class IncludeGlobalRequirementImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetElement(NamedElement newTargetElement)
   {
     NamedElement oldTargetElement = targetElement;

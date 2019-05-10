@@ -15,14 +15,22 @@
  */
 package org.osate.alisa.common.common.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.Rationale;
 
 /**
@@ -33,7 +41,7 @@ import org.osate.alisa.common.common.Rationale;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.RationaleImpl#getText <em>Text</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.RationaleImpl#getDescription <em>Description</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,24 +49,14 @@ import org.osate.alisa.common.common.Rationale;
 public class RationaleImpl extends MinimalEObjectImpl.Container implements Rationale
 {
   /**
-   * The default value of the '{@link #getText() <em>Text</em>}' attribute.
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getText()
+   * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected static final String TEXT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getText()
-   * @generated
-   * @ordered
-   */
-  protected String text = TEXT_EDEFAULT;
+  protected EList<DescriptionElement> description;
 
   /**
    * <!-- begin-user-doc -->
@@ -86,9 +84,14 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getText()
+  @Override
+  public EList<DescriptionElement> getDescription()
   {
-    return text;
+    if (description == null)
+    {
+      description = new EObjectContainmentEList<DescriptionElement>(DescriptionElement.class, this, CommonPackage.RATIONALE__DESCRIPTION);
+    }
+    return description;
   }
 
   /**
@@ -96,12 +99,15 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setText(String newText)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    String oldText = text;
-    text = newText;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.RATIONALE__TEXT, oldText, text));
+    switch (featureID)
+    {
+      case CommonPackage.RATIONALE__DESCRIPTION:
+        return ((InternalEList<?>)getDescription()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -114,8 +120,8 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
   {
     switch (featureID)
     {
-      case CommonPackage.RATIONALE__TEXT:
-        return getText();
+      case CommonPackage.RATIONALE__DESCRIPTION:
+        return getDescription();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -125,13 +131,15 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CommonPackage.RATIONALE__TEXT:
-        setText((String)newValue);
+      case CommonPackage.RATIONALE__DESCRIPTION:
+        getDescription().clear();
+        getDescription().addAll((Collection<? extends DescriptionElement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +155,8 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
   {
     switch (featureID)
     {
-      case CommonPackage.RATIONALE__TEXT:
-        setText(TEXT_EDEFAULT);
+      case CommonPackage.RATIONALE__DESCRIPTION:
+        getDescription().clear();
         return;
     }
     super.eUnset(featureID);
@@ -164,27 +172,10 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
   {
     switch (featureID)
     {
-      case CommonPackage.RATIONALE__TEXT:
-        return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+      case CommonPackage.RATIONALE__DESCRIPTION:
+        return description != null && !description.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (text: ");
-    result.append(text);
-    result.append(')');
-    return result.toString();
   }
 
 } //RationaleImpl

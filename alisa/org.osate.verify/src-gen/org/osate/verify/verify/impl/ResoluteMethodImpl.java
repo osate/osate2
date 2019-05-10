@@ -77,6 +77,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getMethodReference()
   {
     if (methodReference != null && methodReference.eIsProxy())
@@ -107,6 +108,7 @@ public class ResoluteMethodImpl extends MethodKindImpl implements ResoluteMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethodReference(EObject newMethodReference)
   {
     EObject oldMethodReference = methodReference;

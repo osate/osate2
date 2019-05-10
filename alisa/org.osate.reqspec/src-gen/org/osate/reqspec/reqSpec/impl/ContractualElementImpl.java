@@ -328,6 +328,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -338,6 +339,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -351,6 +353,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -361,6 +364,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -374,6 +378,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTargetDescription()
   {
     return targetDescription;
@@ -384,6 +389,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetDescription(String newTargetDescription)
   {
     String oldTargetDescription = targetDescription;
@@ -397,6 +403,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -427,6 +434,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ComponentClassifier newTarget)
   {
     ComponentClassifier oldTarget = target;
@@ -440,6 +448,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getTargetElement()
   {
     if (targetElement != null && ((EObject)targetElement).eIsProxy())
@@ -470,6 +479,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetElement(NamedElement newTargetElement)
   {
     NamedElement oldTargetElement = targetElement;
@@ -483,6 +493,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Category> getCategory()
   {
     if (category == null)
@@ -497,6 +508,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -524,6 +536,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -545,6 +558,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValDeclaration> getConstants()
   {
     if (constants == null)
@@ -559,6 +573,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public WhenCondition getWhencondition()
   {
     return whencondition;
@@ -586,6 +601,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setWhencondition(WhenCondition newWhencondition)
   {
     if (newWhencondition != whencondition)
@@ -607,6 +623,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Rationale getRationale()
   {
     return rationale;
@@ -634,6 +651,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRationale(Rationale newRationale)
   {
     if (newRationale != rationale)
@@ -655,6 +673,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Uncertainty getChangeUncertainty()
   {
     return changeUncertainty;
@@ -682,6 +701,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setChangeUncertainty(Uncertainty newChangeUncertainty)
   {
     if (newChangeUncertainty != changeUncertainty)
@@ -703,6 +723,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Requirement> getEvolvesReference()
   {
     if (evolvesReference == null)
@@ -717,6 +738,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isDropped()
   {
     return dropped;
@@ -727,6 +749,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDropped(boolean newDropped)
   {
     boolean oldDropped = dropped;
@@ -740,6 +763,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDropRationale()
   {
     return dropRationale;
@@ -750,6 +774,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDropRationale(String newDropRationale)
   {
     String oldDropRationale = dropRationale;
@@ -763,6 +788,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ExternalDocument> getDocReference()
   {
     if (docReference == null)
@@ -777,6 +803,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)
@@ -791,6 +818,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Goal> getGoalReference()
   {
     if (goalReference == null)
