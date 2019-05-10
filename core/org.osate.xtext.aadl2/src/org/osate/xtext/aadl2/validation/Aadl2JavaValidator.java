@@ -7515,7 +7515,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * check whether there are duplicate names
 	 */
 	private void checkForDuplicateModelUnits(ModelUnit modelUnit) {
-		IScope scope = scopeProvider.getScope(modelUnit.eResource(), Aadl2Package.eINSTANCE.getModelUnit());
+		IScope scope = scopeProvider.getScope(modelUnit.eResource(), Aadl2Package.eINSTANCE.getModelUnit(),
+				description -> !description.getEObjectURI().equals(EcoreUtil.getURI(modelUnit)));
 		Iterable<IEObjectDescription> elements = scope
 				.getElements(qualifiedNameConverter.toQualifiedName(modelUnit.getName()));
 		if (elements.iterator().hasNext()) {
