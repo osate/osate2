@@ -73,11 +73,27 @@ public class EMV2Properties {
 	public static PropertyExpression getPropertyValue(EMV2PropertyAssociation pa) {
 		if (pa != null) {
 			for (ModalPropertyValue modalPropertyValue : pa.getOwnedValues()) {
-				PropertyExpression val = modalPropertyValue.getOwnedValue();
+				PropertyExpression val = resolvePropertyConstant(modalPropertyValue.getOwnedValue());
 				return val;
 			}
 		}
 		return null;
+	}
+
+	public static PropertyExpression getPropertyValue(BasicPropertyAssociation bpa) {
+		PropertyExpression pe = bpa.getValue();
+		return resolvePropertyConstant(pe);
+	}
+
+	private static PropertyExpression resolvePropertyConstant(PropertyExpression pe) {
+		if (pe instanceof NamedValue) {
+			NamedValue nv = (NamedValue) pe;
+			if (nv.getNamedValue() instanceof PropertyConstant) {
+				PropertyConstant pc = (PropertyConstant) nv.getNamedValue();
+				return pc.getConstantValue();
+			}
+		}
+		return pe;
 	}
 
 	/**
@@ -139,31 +155,29 @@ public class EMV2Properties {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : PA.get(0).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue) {
-				RecordValue rv = (RecordValue) val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-				if (xref != null) {
-					PropertyExpression peVal = xref.getOwnedValue();
-					if (peVal instanceof StringLiteral) {
-						return ((StringLiteral) peVal).getValue();
-					}
+		PropertyExpression val = getPropertyValue(PA.get(0));
+		if (val instanceof RecordValue) {
+			RecordValue rv = (RecordValue) val;
+			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+			BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+			if (xref != null) {
+				PropertyExpression peVal = getPropertyValue(xref);
+				if (peVal instanceof StringLiteral) {
+					return ((StringLiteral) peVal).getValue();
 				}
 			}
-			if (val instanceof ListValue) {
-				ListValue lv = (ListValue) val;
-				for (PropertyExpression pe : lv.getOwnedListElements()) {
-					if (pe instanceof RecordValue) {
-						RecordValue rv = (RecordValue) pe;
-						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-						if (xref != null) {
-							PropertyExpression peVal = xref.getOwnedValue();
-							if (peVal instanceof StringLiteral) {
-								return ((StringLiteral) peVal).getValue();
-							}
+		}
+		if (val instanceof ListValue) {
+			ListValue lv = (ListValue) val;
+			for (PropertyExpression pe : lv.getOwnedListElements()) {
+				if (pe instanceof RecordValue) {
+					RecordValue rv = (RecordValue) pe;
+					EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+					BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+					if (xref != null) {
+						PropertyExpression peVal = getPropertyValue(xref);
+						if (peVal instanceof StringLiteral) {
+							return ((StringLiteral) peVal).getValue();
 						}
 					}
 				}
@@ -199,31 +213,29 @@ public class EMV2Properties {
 			return null;
 		}
 		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : PA.get(0).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue) {
-				RecordValue rv = (RecordValue) val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
-				if (xref != null) {
-					PropertyExpression peVal = xref.getOwnedValue();
-					if (peVal instanceof StringLiteral) {
-						return ((StringLiteral) peVal).getValue();
-					}
+		PropertyExpression val = getPropertyValue(PA.get(0));
+		if (val instanceof RecordValue) {
+			RecordValue rv = (RecordValue) val;
+			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+			BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+			if (xref != null) {
+				PropertyExpression peVal = getPropertyValue(xref);
+				if (peVal instanceof StringLiteral) {
+					return ((StringLiteral) peVal).getValue();
 				}
 			}
-			if (val instanceof ListValue) {
-				ListValue lv = (ListValue) val;
-				for (PropertyExpression pe : lv.getOwnedListElements()) {
-					if (pe instanceof RecordValue) {
-						RecordValue rv = (RecordValue) pe;
-						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
-						if (xref != null) {
-							PropertyExpression peVal = xref.getOwnedValue();
-							if (peVal instanceof StringLiteral) {
-								return ((StringLiteral) peVal).getValue();
-							}
+		}
+		if (val instanceof ListValue) {
+			ListValue lv = (ListValue) val;
+			for (PropertyExpression pe : lv.getOwnedListElements()) {
+				if (pe instanceof RecordValue) {
+					RecordValue rv = (RecordValue) pe;
+					EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+					BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+					if (xref != null) {
+						PropertyExpression peVal = getPropertyValue(xref);
+						if (peVal instanceof StringLiteral) {
+							return ((StringLiteral) peVal).getValue();
 						}
 					}
 				}
@@ -304,20 +316,19 @@ public class EMV2Properties {
 		if (PA == null) {
 			return 0;
 		}
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
+		PropertyExpression val = getPropertyValue(PA);
 
-			if (val instanceof RecordValue) {
+		if (val instanceof RecordValue) {
 
-				RecordValue rv = (RecordValue) val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause
-				for (BasicPropertyAssociation bpa : fields) {
-					if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue")) {
-						if (bpa.getValue() instanceof RealLiteral) {
-							RealLiteral rl = (RealLiteral) bpa.getValue();
-							result = rl.getScaledValue();
-						}
+			RecordValue rv = (RecordValue) val;
+			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+			// for all error types/aliases in type set or the element identified in the containment clause
+			for (BasicPropertyAssociation bpa : fields) {
+				if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue")) {
+					PropertyExpression bva = getPropertyValue(bpa);
+					if (bva instanceof RealLiteral) {
+						RealLiteral rl = (RealLiteral) bva;
+						result = rl.getScaledValue();
 					}
 				}
 			}
@@ -332,20 +343,17 @@ public class EMV2Properties {
 		if (PA == null) {
 			return 0.0;
 		}
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-
-			if (val instanceof RealLiteral) {
-				RealLiteral rl = (RealLiteral) val;
-				return rl.getValue();
-			}
+		PropertyExpression val = getPropertyValue(PA);
+		if (val instanceof RealLiteral) {
+			RealLiteral rl = (RealLiteral) val;
+			return rl.getValue();
 		}
 		return 0.0;
 	}
 
 	public static double getModalRealValue(EMV2PropertyAssociation pa, SystemOperationMode som) {
 		if (!isModal(pa)) {
-			PropertyExpression val = pa.getOwnedValues().get(0).getOwnedValue();
+			PropertyExpression val = getPropertyValue(pa);
 			if (val instanceof RealLiteral) {
 				RealLiteral rl = (RealLiteral) val;
 				return rl.getValue();
@@ -355,9 +363,9 @@ public class EMV2Properties {
 			// find value in SOM
 			for (ModalPropertyValue mpv : pa.getOwnedValues()) {
 				if (mpv.getInModes() == null || mpv.getInModes().size() == 0) {
-					defaultPE = mpv.getOwnedValue();
+					defaultPE = resolvePropertyConstant(mpv.getOwnedValue());
 				} else if (mpv.getInModes().contains(som)) {
-					PropertyExpression val = mpv.getOwnedValue();
+					PropertyExpression val = resolvePropertyConstant(mpv.getOwnedValue());
 					if (val instanceof RealLiteral) {
 						RealLiteral rl = (RealLiteral) val;
 						return rl.getValue();
@@ -372,7 +380,7 @@ public class EMV2Properties {
 				}
 			}
 			// use global default
-			PropertyExpression val = pa.getProperty().getDefaultValue();
+			PropertyExpression val = resolvePropertyConstant(pa.getProperty().getDefaultValue());
 			if (val instanceof RealLiteral) {
 				RealLiteral rl = (RealLiteral) val;
 				return rl.getValue();
@@ -727,8 +735,6 @@ public class EMV2Properties {
 	}
 
 	public static NamedElement getPropagationElement(ErrorPropagation errorPropagation) {
-		NamedElement el;
-
 		return errorPropagation.getFeatureorPPRef().getFeatureorPP();
 	}
 
