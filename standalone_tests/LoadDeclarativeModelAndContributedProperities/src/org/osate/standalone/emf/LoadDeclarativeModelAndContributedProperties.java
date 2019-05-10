@@ -1,20 +1,28 @@
 package org.osate.standalone.emf;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceDescriptionsProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
 
 import com.google.inject.Injector;
@@ -23,7 +31,16 @@ public final class LoadDeclarativeModelAndContributedProperties {
 	public static void main(String[] args) {
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
+		InstancePackage.eINSTANCE.eClass();
+
+		// URI mapping for loading files this defines the "workspace" needed to resolve relative references
+		String wsRoot = Paths.get(".").toAbsolutePath().normalize().toString();
+		EcorePlugin.getPlatformResourceMap().put("foo", URI.createFileURI(wsRoot + "/aadl_files/"));
+
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
+		// ResourceSetImpl works even without platform resource map
+//		final ResourceSet rs = new ResourceSetImpl();
 
 		// Add predeclared resources
 
@@ -35,60 +52,63 @@ public final class LoadDeclarativeModelAndContributedProperties {
 		 *
 		 */
 
-		final URI psURI1 = URI.createPlatformPluginURI(
-				"org.osate.workspace/resources/properties/Predeclared_Property_Sets/Programming_Properties.aadl",
-				false);
+		// this jar file copied manually!
+		String jar = "jar:file:xxx/org.osate.workspace_1.0.0.v20180511-1311.jar!/";
 
-		final URI psURI2 = URI.createPlatformPluginURI(
-				"org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl",
-				false);
+		String path = "resources/properties/Predeclared_Property_Sets/";
 
-		/*
-		 * Map<URI, URI> uriMap = set.getURIConverter().getURIMap();
-		 *
-		 * set.getResource(uri, true);
-		 * uriMap.put(uri, URI.createPlatformResourceURI(uri.path().substring(7), false));
-		 *
-		 */
-
-		final List<Resource> resources = new ArrayList<>();
-
-		final Map<URI, URI> uriMap = rs.getURIConverter().getURIMap();
-		resources.add(rs.getResource(psURI1, true));
-		uriMap.put(psURI1, URI.createPlatformResourceURI(psURI1.path().substring(7), false));
-		resources.add(rs.getResource(psURI2, true));
-		uriMap.put(psURI2, URI.createPlatformResourceURI(psURI2.path().substring(7), false));
+		URI psURI1 = URI.createURI(jar + path + "AADL_Project.aadl");
+		URI psURI2 = URI.createURI(jar + path + "Programming_Properties.aadl");
 
 		// Load the resources
-		for (int i = 0; i < args.length; i++ ) {
-			resources.add(rs.getResource(URI.createURI(args[i]), true));
-		}
 
 		System.out.println("Loading...");
-		for (final Resource resource : resources) {
-			try {
-				System.out.println("..." + resource.getURI());
-				resource.load(null);
-			} catch (final IOException e) {
-				System.err.println("ERROR LOADING RESOURCE: " + e.getMessage());
-			}
+		Resource res;
+
+		res = rs.getResource(psURI1, true);
+		System.out.println("..." + res.getURI());
+
+		res = rs.getResource(psURI2, true);
+		System.out.println("..." + res.getURI());
+
+		for (int i = 0; i < args.length; i++) {
+			res = rs.getResource(URI.createPlatformResourceURI(args[i], true), true);
+			System.out.println("..." + res.getURI());
 		}
+
+		// set up URI mappings for reference resolution
+		final Map<URI, URI> uriMap = rs.getURIConverter().getURIMap();
+		// mapped URIs end in '/' => prefix mapping
+		uriMap.put(URI.createPlatformPluginURI("/org.osate.workspace/", false), URI.createURI(jar));
 
 		System.out.println();
 		System.out.println("Validating...");
-		for (final Resource resource : resources) {
-			// Validation
-			IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider()
-					.getResourceValidator();
-			List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
-			for (Issue issue : issues) {
-				System.out.println(issue.getMessage());
+		for (final Resource resource : rs.getResources()) {
+			if (resource instanceof XtextResource) {
+				// Validation
+				IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider()
+						.getResourceValidator();
+				List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+				for (Issue issue : issues) {
+					System.err.println(issue.getMessage());
+				}
+			} else {
+				EcoreUtil.resolveAll(resource);
+				for (Diagnostic diag : resource.getErrors()) {
+					System.err.println(diag.getMessage());
+				}
 			}
+		}
+
+		IResourceDescriptionsProvider rdp = injector.getInstance(IResourceDescriptionsProvider.class);
+		IResourceDescriptions descs = rdp.getResourceDescriptions(rs);
+		for (IEObjectDescription eod : descs.getExportedObjectsByType(Aadl2Package.eINSTANCE.getProperty())) {
+			System.out.println(eod.getQualifiedName());
 		}
 
 		System.out.println();
 		System.out.println("Traversing...");
-		for (final Resource resource : resources) {
+		for (final Resource resource : rs.getResources()) {
 			System.out.println("*** " + resource.getURI().toString() + " ***");
 			final TreeIterator<EObject> treeIter = resource.getAllContents();
 			while (treeIter.hasNext()) {

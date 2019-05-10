@@ -6,5 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: LoadDeclarativeModelAndContributedProperities
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.osate.xtext.aadl2;bundle-version="1.0.0",
- org.osate.workspace
+ org.osate.workspace,
+ org.osate.aadl2,
+ org.osate.xtext.aadl2.properties
 

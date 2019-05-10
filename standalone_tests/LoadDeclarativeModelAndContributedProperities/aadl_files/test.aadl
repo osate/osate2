@@ -1,9 +1,10 @@
 package test
 public
-	annex fake {** fake **}; 
-		
+	with debug;
+
 	data d
 		properties
-			Source_language => (Java, C);
+			debug::days => mon;
+			source_language => (C); 
 	end d;
 end test;
