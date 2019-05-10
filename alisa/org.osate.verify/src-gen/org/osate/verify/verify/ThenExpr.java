@@ -38,10 +38,6 @@ public interface ThenExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Left</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
    * @see #setLeft(ArgumentExpr)
@@ -64,10 +60,6 @@ public interface ThenExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Successor</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Successor</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Successor</em>' containment reference.
    * @see #setSuccessor(ArgumentExpr)

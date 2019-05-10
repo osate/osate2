@@ -304,6 +304,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -314,6 +315,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -327,6 +329,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TargetType getTargetType()
   {
     return targetType;
@@ -337,6 +340,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetType(TargetType newTargetType)
   {
     TargetType oldTargetType = targetType;
@@ -350,6 +354,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<FormalParameter> getFormals()
   {
     if (formals == null)
@@ -364,6 +369,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Property> getProperties()
   {
     if (properties == null)
@@ -378,6 +384,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<FormalParameter> getResults()
   {
     if (results == null)
@@ -392,6 +399,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isIsPredicate()
   {
     return isPredicate;
@@ -402,6 +410,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIsPredicate(boolean newIsPredicate)
   {
     boolean oldIsPredicate = isPredicate;
@@ -415,6 +424,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isIsResultReport()
   {
     return isResultReport;
@@ -425,6 +435,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIsResultReport(boolean newIsResultReport)
   {
     boolean oldIsResultReport = isResultReport;
@@ -438,6 +449,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -448,6 +460,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -461,6 +474,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -491,6 +505,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ComponentClassifier newTarget)
   {
     ComponentClassifier oldTarget = target;
@@ -504,6 +519,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ComponentCategory> getComponentCategory()
   {
     if (componentCategory == null)
@@ -518,6 +534,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public MethodKind getMethodKind()
   {
     return methodKind;
@@ -545,6 +562,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethodKind(MethodKind newMethodKind)
   {
     if (newMethodKind != methodKind)
@@ -566,6 +584,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -593,6 +612,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -614,6 +634,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VerificationCondition getPrecondition()
   {
     return precondition;
@@ -641,6 +662,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrecondition(VerificationCondition newPrecondition)
   {
     if (newPrecondition != precondition)
@@ -662,6 +684,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VerificationCondition getValidation()
   {
     return validation;
@@ -689,6 +712,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValidation(VerificationCondition newValidation)
   {
     if (newValidation != validation)
@@ -710,6 +734,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Category> getCategory()
   {
     if (category == null)

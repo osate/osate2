@@ -63,10 +63,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -90,10 +86,6 @@ public interface VerificationMethod extends EObject
    * Returns the value of the '<em><b>Target Type</b></em>' attribute.
    * The literals are from the enumeration {@link org.osate.alisa.common.common.TargetType}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Type</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Type</em>' attribute.
    * @see org.osate.alisa.common.common.TargetType
@@ -119,10 +111,6 @@ public interface VerificationMethod extends EObject
    * Returns the value of the '<em><b>Formals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Formals</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Formals</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Formals()
@@ -135,10 +123,6 @@ public interface VerificationMethod extends EObject
    * Returns the value of the '<em><b>Properties</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.Property}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Properties</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Properties</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Properties()
@@ -151,10 +135,6 @@ public interface VerificationMethod extends EObject
    * Returns the value of the '<em><b>Results</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.FormalParameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Results</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Results()
@@ -166,10 +146,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Is Predicate</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Is Predicate</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Is Predicate</em>' attribute.
    * @see #setIsPredicate(boolean)
@@ -192,10 +168,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Is Result Report</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Is Result Report</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Is Result Report</em>' attribute.
    * @see #setIsResultReport(boolean)
@@ -218,10 +190,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -244,10 +212,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentClassifier)
@@ -272,10 +236,6 @@ public interface VerificationMethod extends EObject
    * The list contents are of type {@link org.osate.aadl2.ComponentCategory}.
    * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Component Category</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Component Category</em>' attribute list.
    * @see org.osate.aadl2.ComponentCategory
@@ -288,10 +248,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Method Kind</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method Kind</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Kind</em>' containment reference.
    * @see #setMethodKind(MethodKind)
@@ -314,10 +270,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -340,10 +292,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Precondition</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Precondition</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Precondition</em>' containment reference.
    * @see #setPrecondition(VerificationCondition)
@@ -366,10 +314,6 @@ public interface VerificationMethod extends EObject
   /**
    * Returns the value of the '<em><b>Validation</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Validation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Validation</em>' containment reference.
    * @see #setValidation(VerificationCondition)
@@ -393,10 +337,6 @@ public interface VerificationMethod extends EObject
    * Returns the value of the '<em><b>Category</b></em>' reference list.
    * The list contents are of type {@link org.osate.categories.categories.Category}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Category</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Category()
