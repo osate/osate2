@@ -159,8 +159,50 @@
                   <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
                 </style>
               </conditionalStyles>
+              <popupMenus name="Focus Operations">
+                <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
+                  <view name="views"/>
+                  <initialOperation>
+                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                  </initialOperation>
+                </menuItemDescriptions>
+                <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
+                  <view name="views"/>
+                  <initialOperation>
+                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                  </initialOperation>
+                </menuItemDescriptions>
+              </popupMenus>
             </subItemMappings>
+            <popupMenus name="Focus Operations">
+              <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
+                <view name="views"/>
+                <initialOperation>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                </initialOperation>
+              </menuItemDescriptions>
+              <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
+                <view name="views"/>
+                <initialOperation>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                </initialOperation>
+              </menuItemDescriptions>
+            </popupMenus>
           </subItemMappings>
+          <popupMenus name="Focus Operations">
+            <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
+              <view name="views"/>
+              <initialOperation>
+                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+              </initialOperation>
+            </menuItemDescriptions>
+            <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
+              <view name="views"/>
+              <initialOperation>
+                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+              </initialOperation>
+            </menuItemDescriptions>
+          </popupMenus>
         </subItemMappings>
         <popupMenus name="Focus Operations">
           <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
