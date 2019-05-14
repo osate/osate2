@@ -57,7 +57,9 @@ public final class LoadDeclarativeModelAndContributedProperties {
 		 */
 
 		// this jar file copied manually!
-		String jar = "jar:file:xxx/org.osate.workspace_1.0.0.v20180511-1311.jar!/";
+//		String jar = "jar:file:xxx/org.osate.workspace_1.0.0.v20180511-1311.jar!/";
+		// XtextResourceSet also supports classpath:/
+		String jar = "classpath:/";
 
 		String path = "resources/properties/Predeclared_Property_Sets/";
 
