@@ -42,7 +42,7 @@ To run outside of Eclipse you must export the jar file:
 The JAR file will be created in the specified location.  A folder with the "_lib" suffix will also be generated
 and all the needed libraries will be copied into it.
 
-You can execute the the example now from the command line by going to its directory and, 
+You can execute the example now from the command line by going to its directory and, 
 assuming you called the jar file LoadDeclarativeModelAndEMV2_api.jar, running
 
 	java -jar LoadDeclarativeModelAndEMV2_api.jar <one or more declarative .aadl files>
