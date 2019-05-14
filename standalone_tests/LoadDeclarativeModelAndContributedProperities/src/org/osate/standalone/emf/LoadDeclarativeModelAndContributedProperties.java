@@ -24,15 +24,19 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.xtext.aadl2.Aadl2StandaloneSetup;
+import org.osate.xtext.aadl2.errormodel.ErrorModelStandaloneSetup;
 
 import com.google.inject.Injector;
 
 public final class LoadDeclarativeModelAndContributedProperties {
 	public static void main(String[] args) {
+		EcorePlugin.ExtensionProcessor.process(Thread.currentThread().getContextClassLoader());
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
 
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
 		InstancePackage.eINSTANCE.eClass();
+
+		ErrorModelStandaloneSetup.doSetup();
 
 		// URI mapping for loading files this defines the "workspace" needed to resolve relative references
 		String wsRoot = Paths.get(".").toAbsolutePath().normalize().toString();
