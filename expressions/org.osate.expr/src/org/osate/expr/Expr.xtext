@@ -1,0 +1,12 @@
+grammar org.osate.expr.Expr with org.osate.xtext.aadl2.Aadl2
+
+generate expr "http://www.osate.org/expr/Expr"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "http://aadl.info/AADL/2.0" as aadl2
+
+ExprModel:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';

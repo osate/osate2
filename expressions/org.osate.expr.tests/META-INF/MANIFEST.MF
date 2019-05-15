@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.osate.expr.tests
+Bundle-ManifestVersion: 2
+Bundle-Name: org.osate.expr.tests
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.osate.expr.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.osate.expr,
+ org.junit.jupiter.api;bundle-version="[5.0.0,6.0.0)",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.osate.expr.tests;x-internal=true
