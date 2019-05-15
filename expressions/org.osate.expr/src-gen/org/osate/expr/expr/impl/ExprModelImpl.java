@@ -3,23 +3,19 @@
  */
 package org.osate.expr.expr.impl;
 
-import java.util.Collection;
-
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.NamedElement;
 
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.Greeting;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +25,7 @@ import org.osate.expr.expr.Greeting;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.ExprModelImpl#getGreetings <em>Greetings</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.ExprModelImpl#getAnnex <em>Annex</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,14 +33,14 @@ import org.osate.expr.expr.Greeting;
 public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprModel
 {
   /**
-   * The cached value of the '{@link #getGreetings() <em>Greetings</em>}' containment reference list.
+   * The cached value of the '{@link #getAnnex() <em>Annex</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getGreetings()
+   * @see #getAnnex()
    * @generated
    * @ordered
    */
-  protected EList<Greeting> greetings;
+  protected NamedElement annex;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,13 +69,48 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
    * @generated
    */
   @Override
-  public EList<Greeting> getGreetings()
+  public NamedElement getAnnex()
   {
-    if (greetings == null)
+    return annex;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetAnnex(NamedElement newAnnex, NotificationChain msgs)
+  {
+    NamedElement oldAnnex = annex;
+    annex = newAnnex;
+    if (eNotificationRequired())
     {
-      greetings = new EObjectContainmentEList<Greeting>(Greeting.class, this, ExprPackage.EXPR_MODEL__GREETINGS);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.EXPR_MODEL__ANNEX, oldAnnex, newAnnex);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
-    return greetings;
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setAnnex(NamedElement newAnnex)
+  {
+    if (newAnnex != annex)
+    {
+      NotificationChain msgs = null;
+      if (annex != null)
+        msgs = ((InternalEObject)annex).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.EXPR_MODEL__ANNEX, null, msgs);
+      if (newAnnex != null)
+        msgs = ((InternalEObject)newAnnex).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.EXPR_MODEL__ANNEX, null, msgs);
+      msgs = basicSetAnnex(newAnnex, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.EXPR_MODEL__ANNEX, newAnnex, newAnnex));
   }
 
   /**
@@ -92,8 +123,8 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_MODEL__GREETINGS:
-        return ((InternalEList<?>)getGreetings()).basicRemove(otherEnd, msgs);
+      case ExprPackage.EXPR_MODEL__ANNEX:
+        return basicSetAnnex(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -108,8 +139,8 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_MODEL__GREETINGS:
-        return getGreetings();
+      case ExprPackage.EXPR_MODEL__ANNEX:
+        return getAnnex();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -119,15 +150,13 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_MODEL__GREETINGS:
-        getGreetings().clear();
-        getGreetings().addAll((Collection<? extends Greeting>)newValue);
+      case ExprPackage.EXPR_MODEL__ANNEX:
+        setAnnex((NamedElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -143,8 +172,8 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_MODEL__GREETINGS:
-        getGreetings().clear();
+      case ExprPackage.EXPR_MODEL__ANNEX:
+        setAnnex((NamedElement)null);
         return;
     }
     super.eUnset(featureID);
@@ -160,8 +189,8 @@ public class ExprModelImpl extends MinimalEObjectImpl.Container implements ExprM
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_MODEL__GREETINGS:
-        return greetings != null && !greetings.isEmpty();
+      case ExprPackage.EXPR_MODEL__ANNEX:
+        return annex != null;
     }
     return super.eIsSet(featureID);
   }

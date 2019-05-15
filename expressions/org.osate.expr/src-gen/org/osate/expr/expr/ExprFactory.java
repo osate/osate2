@@ -42,6 +42,24 @@ public interface ExprFactory extends EFactory
   Greeting createGreeting();
 
   /**
+   * Returns a new object of class '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Library</em>'.
+   * @generated
+   */
+  ExprLibrary createExprLibrary();
+
+  /**
+   * Returns a new object of class '<em>Subclause</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subclause</em>'.
+   * @generated
+   */
+  ExprSubclause createExprSubclause();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

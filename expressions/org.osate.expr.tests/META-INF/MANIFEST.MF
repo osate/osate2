@@ -6,7 +6,8 @@ Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.expr.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.osate.expr,
+Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.expr,
  org.junit.jupiter.api;bundle-version="[5.0.0,6.0.0)",
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,

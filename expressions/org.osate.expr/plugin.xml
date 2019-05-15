@@ -7,4 +7,29 @@
 			class="org.osate.expr.expr.ExprPackage"
 			genModel="model/generated/Expr.genmodel"/>
 	</extension>
+ <extension
+       point="org.osate.annexsupport.linkingservice">
+    <linkingservice
+          annexName="Expr"
+          class="org.osate.expr.annex.ExprAnnexLinkingService"
+          id="org.osate.expr.annex.linkingservice">
+    </linkingservice>
+ </extension>
+ <extension
+       point="org.osate.annexsupport.unparser">
+    <unparser
+          annexName="Expr"
+          class="org.osate.expr.annex.ExprAnnexUnparser"
+          id="org.osate.expr.annex.unparser">
+    </unparser>
+ </extension>
+ <extension
+       point="org.osate.annexsupport.parser">
+    <parser
+          annexNSURI="http://www.osate.org/expr/Expr"
+          annexName="Expr"
+          class="org.osate.expr.annex.ExprAnnexParser"
+          id="org.osate.expr.annex.parser">
+    </parser>
+ </extension>
 </plugin>

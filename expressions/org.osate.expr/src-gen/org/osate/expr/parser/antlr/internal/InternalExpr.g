@@ -78,23 +78,147 @@ ruleExprModel returns [EObject current=null]
 }:
 	(
 		(
+			otherlv_0='library'
 			{
-				newCompositeNode(grammarAccess.getExprModelAccess().getGreetingsGreetingParserRuleCall_0());
+				newLeafNode(otherlv_0, grammarAccess.getExprModelAccess().getLibraryKeyword_0_0());
 			}
-			lv_greetings_0_0=ruleGreeting
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getExprModelAccess().getAnnexExprLibraryParserRuleCall_0_1_0());
+					}
+					lv_annex_1_0=ruleExprLibrary
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getExprModelRule());
+						}
+						set(
+							$current,
+							"annex",
+							lv_annex_1_0,
+							"org.osate.expr.Expr.ExprLibrary");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+		    |
+		(
+			otherlv_2='subclause'
 			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getExprModelRule());
-				}
-				add(
-					$current,
-					"greetings",
-					lv_greetings_0_0,
-					"org.osate.expr.Expr.Greeting");
-				afterParserOrEnumRuleCall();
+				newLeafNode(otherlv_2, grammarAccess.getExprModelAccess().getSubclauseKeyword_1_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getExprModelAccess().getAnnexExprSubclauseParserRuleCall_1_1_0());
+					}
+					lv_annex_3_0=ruleExprSubclause
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getExprModelRule());
+						}
+						set(
+							$current,
+							"annex",
+							lv_annex_3_0,
+							"org.osate.expr.Expr.ExprSubclause");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleExprLibrary
+entryRuleExprLibrary returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getExprLibraryRule()); }
+	iv_ruleExprLibrary=ruleExprLibrary
+	{ $current=$iv_ruleExprLibrary.current; }
+	EOF;
+
+// Rule ExprLibrary
+ruleExprLibrary returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getExprLibraryAccess().getExprLibraryAction_0(),
+					$current);
 			}
 		)
-	)*
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getExprLibraryAccess().getGreetingsGreetingParserRuleCall_1_0());
+				}
+				lv_greetings_1_0=ruleGreeting
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getExprLibraryRule());
+					}
+					add(
+						$current,
+						"greetings",
+						lv_greetings_1_0,
+						"org.osate.expr.Expr.Greeting");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleExprSubclause
+entryRuleExprSubclause returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getExprSubclauseRule()); }
+	iv_ruleExprSubclause=ruleExprSubclause
+	{ $current=$iv_ruleExprSubclause.current; }
+	EOF;
+
+// Rule ExprSubclause
+ruleExprSubclause returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getExprSubclauseAccess().getExprSubclauseAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getExprSubclauseAccess().getGreetingsGreetingParserRuleCall_1_0());
+				}
+				lv_greetings_1_0=ruleGreeting
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getExprSubclauseRule());
+					}
+					add(
+						$current,
+						"greetings",
+						lv_greetings_1_0,
+						"org.osate.expr.Expr.Greeting");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+	)
 ;
 
 // Entry rule entryRuleGreeting

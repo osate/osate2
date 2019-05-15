@@ -11,9 +11,13 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.osate.aadl2.Aadl2Package;
+
 import org.osate.expr.expr.ExprFactory;
+import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
+import org.osate.expr.expr.ExprSubclause;
 import org.osate.expr.expr.Greeting;
 
 /**
@@ -37,6 +41,20 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass greetingEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass exprLibraryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass exprSubclauseEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -89,6 +107,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     // Initialize simple dependencies
     EcorePackage.eINSTANCE.eClass();
+    Aadl2Package.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theExprPackage.createPackageContents();
@@ -121,7 +140,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EReference getExprModel_Greetings()
+  public EReference getExprModel_Annex()
   {
     return (EReference)exprModelEClass.getEStructuralFeatures().get(0);
   }
@@ -146,6 +165,50 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EAttribute getGreeting_Name()
   {
     return (EAttribute)greetingEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getExprLibrary()
+  {
+    return exprLibraryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getExprLibrary_Greetings()
+  {
+    return (EReference)exprLibraryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getExprSubclause()
+  {
+    return exprSubclauseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getExprSubclause_Greetings()
+  {
+    return (EReference)exprSubclauseEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -180,10 +243,16 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     // Create classes and their features
     exprModelEClass = createEClass(EXPR_MODEL);
-    createEReference(exprModelEClass, EXPR_MODEL__GREETINGS);
+    createEReference(exprModelEClass, EXPR_MODEL__ANNEX);
 
     greetingEClass = createEClass(GREETING);
     createEAttribute(greetingEClass, GREETING__NAME);
+
+    exprLibraryEClass = createEClass(EXPR_LIBRARY);
+    createEReference(exprLibraryEClass, EXPR_LIBRARY__GREETINGS);
+
+    exprSubclauseEClass = createEClass(EXPR_SUBCLAUSE);
+    createEReference(exprSubclauseEClass, EXPR_SUBCLAUSE__GREETINGS);
   }
 
   /**
@@ -211,6 +280,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
+    Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
     // Create type parameters
@@ -218,13 +288,21 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    exprLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
+    exprSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
 
     // Initialize classes and features; add operations and parameters
     initEClass(exprModelEClass, ExprModel.class, "ExprModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExprModel_Greetings(), this.getGreeting(), null, "greetings", null, 0, -1, ExprModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExprModel_Annex(), theAadl2Package.getNamedElement(), null, "annex", null, 0, 1, ExprModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(greetingEClass, Greeting.class, "Greeting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getGreeting_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Greeting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(exprLibraryEClass, ExprLibrary.class, "ExprLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExprLibrary_Greetings(), this.getGreeting(), null, "greetings", null, 0, -1, ExprLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(exprSubclauseEClass, ExprSubclause.class, "ExprSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExprSubclause_Greetings(), this.getGreeting(), null, "greetings", null, 0, -1, ExprSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

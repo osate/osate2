@@ -5,8 +5,17 @@ generate expr "http://www.osate.org/expr/Expr"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://aadl.info/AADL/2.0" as aadl2
 
+// dummy rule to keep ExprLibrary and ExprSubclause in the parser
 ExprModel:
-	greetings+=Greeting*;
+	'library' annex=ExprLibrary
+	| 'subclause' annex=ExprSubclause
+;
+
+ExprLibrary returns aadl2::AnnexLibrary:
+	{ExprLibrary} greetings+=Greeting*;
+
+ExprSubclause returns aadl2::AnnexSubclause:
+	{ExprSubclause} greetings+=Greeting*;
 	
 Greeting:
 	'Hello' name=ID '!';

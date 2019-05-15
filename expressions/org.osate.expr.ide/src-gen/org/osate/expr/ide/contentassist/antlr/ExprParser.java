@@ -19,6 +19,7 @@ public class ExprParser extends AbstractContentAssistParser {
 		
 		private static final class Init0 {
 			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, ExprGrammarAccess grammarAccess) {
+				builder.put(grammarAccess.getExprModelAccess().getAlternatives(), "rule__ExprModel__Alternatives");
 				builder.put(grammarAccess.getModelAccess().getAlternatives(), "rule__Model__Alternatives");
 				builder.put(grammarAccess.getAadlPackageAccess().getAlternatives_2(), "rule__AadlPackage__Alternatives_2");
 				builder.put(grammarAccess.getAadlPackageAccess().getAlternatives_3_1(), "rule__AadlPackage__Alternatives_3_1");
@@ -408,6 +409,10 @@ public class ExprParser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
 				builder.put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
 				builder.put(grammarAccess.getFlowKindAccess().getAlternatives(), "rule__FlowKind__Alternatives");
+				builder.put(grammarAccess.getExprModelAccess().getGroup_0(), "rule__ExprModel__Group_0__0");
+				builder.put(grammarAccess.getExprModelAccess().getGroup_1(), "rule__ExprModel__Group_1__0");
+				builder.put(grammarAccess.getExprLibraryAccess().getGroup(), "rule__ExprLibrary__Group__0");
+				builder.put(grammarAccess.getExprSubclauseAccess().getGroup(), "rule__ExprSubclause__Group__0");
 				builder.put(grammarAccess.getGreetingAccess().getGroup(), "rule__Greeting__Group__0");
 				builder.put(grammarAccess.getAadlPackageAccess().getGroup(), "rule__AadlPackage__Group__0");
 				builder.put(grammarAccess.getAadlPackageAccess().getGroup_2_0(), "rule__AadlPackage__Group_2_0__0");
@@ -1462,7 +1467,10 @@ public class ExprParser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getQCREFAccess().getGroup(), "rule__QCREF__Group__0");
 				builder.put(grammarAccess.getQCREFAccess().getGroup_0(), "rule__QCREF__Group_0__0");
 				builder.put(grammarAccess.getQCREFAccess().getGroup_2(), "rule__QCREF__Group_2__0");
-				builder.put(grammarAccess.getExprModelAccess().getGreetingsAssignment(), "rule__ExprModel__GreetingsAssignment");
+				builder.put(grammarAccess.getExprModelAccess().getAnnexAssignment_0_1(), "rule__ExprModel__AnnexAssignment_0_1");
+				builder.put(grammarAccess.getExprModelAccess().getAnnexAssignment_1_1(), "rule__ExprModel__AnnexAssignment_1_1");
+				builder.put(grammarAccess.getExprLibraryAccess().getGreetingsAssignment_1(), "rule__ExprLibrary__GreetingsAssignment_1");
+				builder.put(grammarAccess.getExprSubclauseAccess().getGreetingsAssignment_1(), "rule__ExprSubclause__GreetingsAssignment_1");
 				builder.put(grammarAccess.getGreetingAccess().getNameAssignment_1(), "rule__Greeting__NameAssignment_1");
 				builder.put(grammarAccess.getAadlPackageAccess().getNameAssignment_1(), "rule__AadlPackage__NameAssignment_1");
 				builder.put(grammarAccess.getAadlPackageAccess().getOwnedPublicSectionAssignment_2_0_0(), "rule__AadlPackage__OwnedPublicSectionAssignment_2_0_0");
@@ -2511,6 +2519,11 @@ public class ExprParser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getComponentImplementationReferenceAccess().getImplementationAssignment_1(), "rule__ComponentImplementationReference__ImplementationAssignment_1");
 				builder.put(grammarAccess.getComponentImplementationReferenceAccess().getOwnedPrototypeBindingAssignment_2_1(), "rule__ComponentImplementationReference__OwnedPrototypeBindingAssignment_2_1");
 				builder.put(grammarAccess.getComponentImplementationReferenceAccess().getOwnedPrototypeBindingAssignment_2_2_1(), "rule__ComponentImplementationReference__OwnedPrototypeBindingAssignment_2_2_1");
+			}
+		}
+		
+		private static final class Init1 {
+			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, ExprGrammarAccess grammarAccess) {
 				builder.put(grammarAccess.getDataPortAccess().getNameAssignment_1_0_0(), "rule__DataPort__NameAssignment_1_0_0");
 				builder.put(grammarAccess.getDataPortAccess().getRefinedAssignment_1_1_0(), "rule__DataPort__RefinedAssignment_1_1_0");
 				builder.put(grammarAccess.getDataPortAccess().getInAssignment_2_0_0(), "rule__DataPort__InAssignment_2_0_0");
@@ -2519,11 +2532,6 @@ public class ExprParser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getDataPortAccess().getDataFeatureClassifierAssignment_4(), "rule__DataPort__DataFeatureClassifierAssignment_4");
 				builder.put(grammarAccess.getDataPortAccess().getArrayDimensionAssignment_5(), "rule__DataPort__ArrayDimensionAssignment_5");
 				builder.put(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__DataPort__OwnedPropertyAssociationAssignment_6_1");
-			}
-		}
-		
-		private static final class Init1 {
-			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, ExprGrammarAccess grammarAccess) {
 				builder.put(grammarAccess.getEventDataPortAccess().getNameAssignment_1_0_0(), "rule__EventDataPort__NameAssignment_1_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getRefinedAssignment_1_1_0(), "rule__EventDataPort__RefinedAssignment_1_1_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");

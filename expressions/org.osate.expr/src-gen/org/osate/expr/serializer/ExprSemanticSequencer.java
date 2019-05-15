@@ -164,8 +164,10 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorType;
+import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
+import org.osate.expr.expr.ExprSubclause;
 import org.osate.expr.expr.Greeting;
 import org.osate.expr.services.ExprGrammarAccess;
 import org.osate.xtext.aadl2.serializer.Aadl2SemanticSequencer;
@@ -916,8 +918,14 @@ public class ExprSemanticSequencer extends Aadl2SemanticSequencer {
 			}
 		else if (epackage == ExprPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case ExprPackage.EXPR_LIBRARY:
+				sequence_ExprLibrary(context, (ExprLibrary) semanticObject); 
+				return; 
 			case ExprPackage.EXPR_MODEL:
 				sequence_ExprModel(context, (ExprModel) semanticObject); 
+				return; 
+			case ExprPackage.EXPR_SUBCLAUSE:
+				sequence_ExprSubclause(context, (ExprSubclause) semanticObject); 
 				return; 
 			case ExprPackage.GREETING:
 				sequence_Greeting(context, (Greeting) semanticObject); 
@@ -929,12 +937,36 @@ public class ExprSemanticSequencer extends Aadl2SemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     ExprLibrary returns ExprLibrary
+	 *
+	 * Constraint:
+	 *     greetings+=Greeting*
+	 */
+	protected void sequence_ExprLibrary(ISerializationContext context, ExprLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     ExprModel returns ExprModel
 	 *
 	 * Constraint:
-	 *     greetings+=Greeting+
+	 *     (annex=ExprLibrary | annex=ExprSubclause)
 	 */
 	protected void sequence_ExprModel(ISerializationContext context, ExprModel semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ExprSubclause returns ExprSubclause
+	 *
+	 * Constraint:
+	 *     greetings+=Greeting*
+	 */
+	protected void sequence_ExprSubclause(ISerializationContext context, ExprSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

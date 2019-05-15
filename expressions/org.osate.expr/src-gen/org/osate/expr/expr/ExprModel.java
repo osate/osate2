@@ -3,9 +3,9 @@
  */
 package org.osate.expr.expr;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.ExprModel#getGreetings <em>Greetings</em>}</li>
+ *   <li>{@link org.osate.expr.expr.ExprModel#getAnnex <em>Annex</em>}</li>
  * </ul>
  *
  * @see org.osate.expr.expr.ExprPackage#getExprModel()
@@ -26,15 +26,25 @@ import org.eclipse.emf.ecore.EObject;
 public interface ExprModel extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Greetings</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.expr.expr.Greeting}.
+   * Returns the value of the '<em><b>Annex</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Greetings</em>' containment reference list.
-   * @see org.osate.expr.expr.ExprPackage#getExprModel_Greetings()
+   * @return the value of the '<em>Annex</em>' containment reference.
+   * @see #setAnnex(NamedElement)
+   * @see org.osate.expr.expr.ExprPackage#getExprModel_Annex()
    * @model containment="true"
    * @generated
    */
-  EList<Greeting> getGreetings();
+  NamedElement getAnnex();
+
+  /**
+   * Sets the value of the '{@link org.osate.expr.expr.ExprModel#getAnnex <em>Annex</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Annex</em>' containment reference.
+   * @see #getAnnex()
+   * @generated
+   */
+  void setAnnex(NamedElement value);
 
 } // ExprModel

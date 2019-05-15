@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.osate.aadl2.Aadl2Package;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -68,13 +70,13 @@ public interface ExprPackage extends EPackage
   int EXPR_MODEL = 0;
 
   /**
-   * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
+   * The feature id for the '<em><b>Annex</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_MODEL__GREETINGS = 0;
+  int EXPR_MODEL__ANNEX = 0;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -113,6 +115,161 @@ public interface ExprPackage extends EPackage
    */
   int GREETING_FEATURE_COUNT = 1;
 
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.ExprLibraryImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprLibrary()
+   * @generated
+   */
+  int EXPR_LIBRARY = 2;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__OWNED_ELEMENT = Aadl2Package.ANNEX_LIBRARY__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__OWNED_COMMENT = Aadl2Package.ANNEX_LIBRARY__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__NAME = Aadl2Package.ANNEX_LIBRARY__NAME;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__QUALIFIED_NAME = Aadl2Package.ANNEX_LIBRARY__QUALIFIED_NAME;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.ANNEX_LIBRARY__OWNED_PROPERTY_ASSOCIATION;
+
+  /**
+   * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY__GREETINGS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Library</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_LIBRARY_FEATURE_COUNT = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ExprSubclauseImpl <em>Subclause</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.ExprSubclauseImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprSubclause()
+   * @generated
+   */
+  int EXPR_SUBCLAUSE = 3;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__OWNED_ELEMENT = Aadl2Package.ANNEX_SUBCLAUSE__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__OWNED_COMMENT = Aadl2Package.ANNEX_SUBCLAUSE__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__NAME = Aadl2Package.ANNEX_SUBCLAUSE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__QUALIFIED_NAME = Aadl2Package.ANNEX_SUBCLAUSE__QUALIFIED_NAME;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.ANNEX_SUBCLAUSE__OWNED_PROPERTY_ASSOCIATION;
+
+  /**
+   * The feature id for the '<em><b>In Mode</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__IN_MODE = Aadl2Package.ANNEX_SUBCLAUSE__IN_MODE;
+
+  /**
+   * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE__GREETINGS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Subclause</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPR_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.ExprModel <em>Model</em>}'.
@@ -125,15 +282,15 @@ public interface ExprPackage extends EPackage
   EClass getExprModel();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprModel#getGreetings <em>Greetings</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.ExprModel#getAnnex <em>Annex</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Greetings</em>'.
-   * @see org.osate.expr.expr.ExprModel#getGreetings()
+   * @return the meta object for the containment reference '<em>Annex</em>'.
+   * @see org.osate.expr.expr.ExprModel#getAnnex()
    * @see #getExprModel()
    * @generated
    */
-  EReference getExprModel_Greetings();
+  EReference getExprModel_Annex();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.Greeting <em>Greeting</em>}'.
@@ -155,6 +312,48 @@ public interface ExprPackage extends EPackage
    * @generated
    */
   EAttribute getGreeting_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.ExprLibrary <em>Library</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Library</em>'.
+   * @see org.osate.expr.expr.ExprLibrary
+   * @generated
+   */
+  EClass getExprLibrary();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprLibrary#getGreetings <em>Greetings</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Greetings</em>'.
+   * @see org.osate.expr.expr.ExprLibrary#getGreetings()
+   * @see #getExprLibrary()
+   * @generated
+   */
+  EReference getExprLibrary_Greetings();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.ExprSubclause <em>Subclause</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Subclause</em>'.
+   * @see org.osate.expr.expr.ExprSubclause
+   * @generated
+   */
+  EClass getExprSubclause();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprSubclause#getGreetings <em>Greetings</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Greetings</em>'.
+   * @see org.osate.expr.expr.ExprSubclause#getGreetings()
+   * @see #getExprSubclause()
+   * @generated
+   */
+  EReference getExprSubclause_Greetings();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -190,12 +389,12 @@ public interface ExprPackage extends EPackage
     EClass EXPR_MODEL = eINSTANCE.getExprModel();
 
     /**
-     * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Annex</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_MODEL__GREETINGS = eINSTANCE.getExprModel_Greetings();
+    EReference EXPR_MODEL__ANNEX = eINSTANCE.getExprModel_Annex();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.GreetingImpl <em>Greeting</em>}' class.
@@ -214,6 +413,42 @@ public interface ExprPackage extends EPackage
      * @generated
      */
     EAttribute GREETING__NAME = eINSTANCE.getGreeting_Name();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.ExprLibraryImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprLibrary()
+     * @generated
+     */
+    EClass EXPR_LIBRARY = eINSTANCE.getExprLibrary();
+
+    /**
+     * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPR_LIBRARY__GREETINGS = eINSTANCE.getExprLibrary_Greetings();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ExprSubclauseImpl <em>Subclause</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.ExprSubclauseImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprSubclause()
+     * @generated
+     */
+    EClass EXPR_SUBCLAUSE = eINSTANCE.getExprSubclause();
+
+    /**
+     * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPR_SUBCLAUSE__GREETINGS = eINSTANCE.getExprSubclause_Greetings();
 
   }
 

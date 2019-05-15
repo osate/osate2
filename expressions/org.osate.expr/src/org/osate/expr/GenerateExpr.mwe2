@@ -95,6 +95,8 @@ Workflow {
 			generator = {
 				generateStub = false
 			}
+			qualifiedNamesProvider = {
+			}
 			serializer = {
 				generateStub = false
 			}

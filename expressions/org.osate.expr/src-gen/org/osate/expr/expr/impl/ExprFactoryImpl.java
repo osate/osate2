@@ -67,6 +67,8 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
     {
       case ExprPackage.EXPR_MODEL: return createExprModel();
       case ExprPackage.GREETING: return createGreeting();
+      case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
+      case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -94,6 +96,30 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     GreetingImpl greeting = new GreetingImpl();
     return greeting;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ExprLibrary createExprLibrary()
+  {
+    ExprLibraryImpl exprLibrary = new ExprLibraryImpl();
+    return exprLibrary;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ExprSubclause createExprSubclause()
+  {
+    ExprSubclauseImpl exprSubclause = new ExprSubclauseImpl();
+    return exprSubclause;
   }
 
   /**

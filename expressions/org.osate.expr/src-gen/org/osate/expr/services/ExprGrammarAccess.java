@@ -6,6 +6,8 @@ package org.osate.expr.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.EnumRule;
 import org.eclipse.xtext.Grammar;
@@ -25,18 +27,94 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class ExprModelElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.ExprModel");
-		private final Assignment cGreetingsAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cGreetingsGreetingParserRuleCall_0 = (RuleCall)cGreetingsAssignment.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cLibraryKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cAnnexAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cAnnexExprLibraryParserRuleCall_0_1_0 = (RuleCall)cAnnexAssignment_0_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cSubclauseKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cAnnexAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cAnnexExprSubclauseParserRuleCall_1_1_0 = (RuleCall)cAnnexAssignment_1_1.eContents().get(0);
 		
+		//// dummy rule to keep ExprLibrary and ExprSubclause in the parser
 		//ExprModel:
-		//	greetings+=Greeting*;
+		//	'library' annex=ExprLibrary
+		//	| 'subclause' annex=ExprSubclause;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//'library' annex=ExprLibrary | 'subclause' annex=ExprSubclause
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'library' annex=ExprLibrary
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//'library'
+		public Keyword getLibraryKeyword_0_0() { return cLibraryKeyword_0_0; }
+		
+		//annex=ExprLibrary
+		public Assignment getAnnexAssignment_0_1() { return cAnnexAssignment_0_1; }
+		
+		//ExprLibrary
+		public RuleCall getAnnexExprLibraryParserRuleCall_0_1_0() { return cAnnexExprLibraryParserRuleCall_0_1_0; }
+		
+		//'subclause' annex=ExprSubclause
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'subclause'
+		public Keyword getSubclauseKeyword_1_0() { return cSubclauseKeyword_1_0; }
+		
+		//annex=ExprSubclause
+		public Assignment getAnnexAssignment_1_1() { return cAnnexAssignment_1_1; }
+		
+		//ExprSubclause
+		public RuleCall getAnnexExprSubclauseParserRuleCall_1_1_0() { return cAnnexExprSubclauseParserRuleCall_1_1_0; }
+	}
+	public class ExprLibraryElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.ExprLibrary");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cExprLibraryAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cGreetingsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cGreetingsGreetingParserRuleCall_1_0 = (RuleCall)cGreetingsAssignment_1.eContents().get(0);
+		
+		//ExprLibrary aadl2::AnnexLibrary:
+		//	{ExprLibrary} greetings+=Greeting*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{ExprLibrary} greetings+=Greeting*
+		public Group getGroup() { return cGroup; }
+		
+		//{ExprLibrary}
+		public Action getExprLibraryAction_0() { return cExprLibraryAction_0; }
+		
 		//greetings+=Greeting*
-		public Assignment getGreetingsAssignment() { return cGreetingsAssignment; }
+		public Assignment getGreetingsAssignment_1() { return cGreetingsAssignment_1; }
 		
 		//Greeting
-		public RuleCall getGreetingsGreetingParserRuleCall_0() { return cGreetingsGreetingParserRuleCall_0; }
+		public RuleCall getGreetingsGreetingParserRuleCall_1_0() { return cGreetingsGreetingParserRuleCall_1_0; }
+	}
+	public class ExprSubclauseElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.ExprSubclause");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cExprSubclauseAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cGreetingsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cGreetingsGreetingParserRuleCall_1_0 = (RuleCall)cGreetingsAssignment_1.eContents().get(0);
+		
+		//ExprSubclause aadl2::AnnexSubclause:
+		//	{ExprSubclause} greetings+=Greeting*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{ExprSubclause} greetings+=Greeting*
+		public Group getGroup() { return cGroup; }
+		
+		//{ExprSubclause}
+		public Action getExprSubclauseAction_0() { return cExprSubclauseAction_0; }
+		
+		//greetings+=Greeting*
+		public Assignment getGreetingsAssignment_1() { return cGreetingsAssignment_1; }
+		
+		//Greeting
+		public RuleCall getGreetingsGreetingParserRuleCall_1_0() { return cGreetingsGreetingParserRuleCall_1_0; }
 	}
 	public class GreetingElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.expr.Expr.Greeting");
@@ -68,6 +146,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private final ExprModelElements pExprModel;
+	private final ExprLibraryElements pExprLibrary;
+	private final ExprSubclauseElements pExprSubclause;
 	private final GreetingElements pGreeting;
 	
 	private final Grammar grammar;
@@ -84,6 +164,8 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaAadl2 = gaAadl2;
 		this.gaProperties = gaProperties;
 		this.pExprModel = new ExprModelElements();
+		this.pExprLibrary = new ExprLibraryElements();
+		this.pExprSubclause = new ExprSubclauseElements();
 		this.pGreeting = new GreetingElements();
 	}
 	
@@ -118,14 +200,36 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	//// dummy rule to keep ExprLibrary and ExprSubclause in the parser
 	//ExprModel:
-	//	greetings+=Greeting*;
+	//	'library' annex=ExprLibrary
+	//	| 'subclause' annex=ExprSubclause;
 	public ExprModelElements getExprModelAccess() {
 		return pExprModel;
 	}
 	
 	public ParserRule getExprModelRule() {
 		return getExprModelAccess().getRule();
+	}
+	
+	//ExprLibrary aadl2::AnnexLibrary:
+	//	{ExprLibrary} greetings+=Greeting*;
+	public ExprLibraryElements getExprLibraryAccess() {
+		return pExprLibrary;
+	}
+	
+	public ParserRule getExprLibraryRule() {
+		return getExprLibraryAccess().getRule();
+	}
+	
+	//ExprSubclause aadl2::AnnexSubclause:
+	//	{ExprSubclause} greetings+=Greeting*;
+	public ExprSubclauseElements getExprSubclauseAccess() {
+		return pExprSubclause;
+	}
+	
+	public ParserRule getExprSubclauseRule() {
+		return getExprSubclauseAccess().getRule();
 	}
 	
 	//Greeting:
