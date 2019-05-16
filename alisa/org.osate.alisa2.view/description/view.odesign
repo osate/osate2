@@ -11,6 +11,15 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
           </style>
+          <conditionnalStyles predicateExpression="service:isFocused()">
+            <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <labelFormat>bold</labelFormat>
+              <labelFormat>italic</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
         <nodeMappings name="RootNode" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
@@ -18,6 +27,15 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
           </style>
+          <conditionnalStyles predicateExpression="service:isFocused()">
+            <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <labelFormat>bold</labelFormat>
+              <labelFormat>italic</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
         <nodeMappings name="ImmediateNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getAllNeighbors" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
@@ -25,6 +43,15 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
           </style>
+          <conditionnalStyles predicateExpression="service:isFocused()">
+            <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <labelFormat>bold</labelFormat>
+              <labelFormat>italic</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </style>
+          </conditionnalStyles>
         </nodeMappings>
         <edgeMappings name="ConnectedSuccessorEdges" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getSuccessorNeighbors()">
           <style sizeComputationExpression="2">
@@ -33,6 +60,14 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
+          <conditionnalStyles predicateExpression="service:isFocused()">
+            <style sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="ConnectedPredecessorEdges" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getPredecessorNeighbors()">
           <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
@@ -41,6 +76,14 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
+          <conditionnalStyles predicateExpression="service:isFocused()">
+            <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="ConnectedOneHopSuccessorEdges" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']" targetFinderExpression="service:getSuccessorNeighbors()">
           <style sizeComputationExpression="2">
@@ -49,6 +92,14 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
+          <conditionnalStyles>
+            <style sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="ConnectedOneHopPredecessorEdges" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']" targetFinderExpression="service:getPredecessorNeighbors()">
           <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
@@ -57,6 +108,14 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
+          <conditionnalStyles>
+            <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
         </edgeMappings>
       </defaultLayer>
     </ownedRepresentations>
@@ -116,7 +175,7 @@
           <style>
             <labelFormat>bold</labelFormat>
             <labelFormat>italic</labelFormat>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </conditionalStyles>
@@ -129,7 +188,7 @@
             <style>
               <labelFormat>bold</labelFormat>
               <labelFormat>italic</labelFormat>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </style>
           </conditionalStyles>
@@ -142,7 +201,7 @@
               <style>
                 <labelFormat>bold</labelFormat>
                 <labelFormat>italic</labelFormat>
-                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </style>
             </conditionalStyles>
@@ -155,7 +214,7 @@
                 <style>
                   <labelFormat>bold</labelFormat>
                   <labelFormat>italic</labelFormat>
-                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                  <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
                   <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
                 </style>
               </conditionalStyles>

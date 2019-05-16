@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -58,9 +59,9 @@ public class Services {
 	 * @return The set of neighbors for the given component.
 	 */
 	public static Collection<EObject> getAllNeighbors(EObject self) {
-		return getNeighborsHari((ComponentInstance) self);
-//		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
-//				.collect(Collectors.toSet());
+//		return getNeighborsHari((ComponentInstance) self);
+		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
+				.collect(Collectors.toSet());
 	}
 
 	/**
@@ -363,7 +364,8 @@ public class Services {
 	 * @return True if the parameter is part of the user's focus, false otherwise
 	 */
 	public static boolean isFocused(EObject self) {
-		return FocusManager.getInstance().isFocused(self);
+//		return FocusManager.getInstance().isFocused(self);
+		return new Random().nextBoolean();
 	}
 
 	public static Collection<EObject> debug(EObject self) {

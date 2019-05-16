@@ -64,15 +64,14 @@ public class FocusManager {
 		if(newFocus instanceof Fundamental) {
 			handleFocusedFundamental((Fundamental) newFocus);
 		}
+		// components need to add themselves, as well as connections between themselves
 
 		/*-
 
 		 * Expandable Things
 		 	* Under Fundamentals: (probz collapsable under their own thing, since Accident Levels would have like a trillion)
-		 		* Error types
 		 		* Affected Components
 		 	* Under Components on Containment view:
-		 		* Error Types
 				* Affected Fundamentals
 		 * Focusable Things
 		 	* Fundamentals
