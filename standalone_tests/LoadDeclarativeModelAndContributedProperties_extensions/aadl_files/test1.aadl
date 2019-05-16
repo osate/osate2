@@ -1,0 +1,8 @@
+package test1
+public
+	with test;
+
+	data d1 extends test::d
+	end d1;
+	
+end test1;

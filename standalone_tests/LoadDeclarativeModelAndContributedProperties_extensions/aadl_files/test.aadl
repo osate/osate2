@@ -1,0 +1,10 @@
+package test
+public
+	with debug;
+
+	data d
+		properties
+			debug::days => mon;
+			source_language => (C); 
+	end d;
+end test;
