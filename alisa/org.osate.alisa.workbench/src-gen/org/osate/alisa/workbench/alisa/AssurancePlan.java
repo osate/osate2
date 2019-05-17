@@ -57,10 +57,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -83,10 +79,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -109,10 +101,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentImplementation)
@@ -135,10 +123,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -162,10 +146,6 @@ public interface AssurancePlan extends EObject
    * Returns the value of the '<em><b>Assure</b></em>' reference list.
    * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assure</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assure</em>' reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_Assure()
@@ -178,10 +158,6 @@ public interface AssurancePlan extends EObject
    * Returns the value of the '<em><b>Assure Global</b></em>' reference list.
    * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assure Global</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assure Global</em>' reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureGlobal()
@@ -194,10 +170,6 @@ public interface AssurancePlan extends EObject
    * Returns the value of the '<em><b>Assure Subsystems</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.Subcomponent}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assure Subsystems</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assure Subsystems</em>' reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssureSubsystems()
@@ -209,10 +181,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Assure All</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assure All</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assure All</em>' attribute.
    * @see #setAssureAll(boolean)
@@ -236,10 +204,6 @@ public interface AssurancePlan extends EObject
    * Returns the value of the '<em><b>Assume Subsystems</b></em>' reference list.
    * The list contents are of type {@link org.osate.aadl2.Subcomponent}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assume Subsystems</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assume Subsystems</em>' reference list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_AssumeSubsystems()
@@ -251,10 +215,6 @@ public interface AssurancePlan extends EObject
   /**
    * Returns the value of the '<em><b>Assume All</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assume All</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Assume All</em>' attribute.
    * @see #setAssumeAll(boolean)
@@ -278,10 +238,6 @@ public interface AssurancePlan extends EObject
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_Issues()

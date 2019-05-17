@@ -114,6 +114,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AVariableReference getDesired()
   {
     if (desired != null && desired.eIsProxy())
@@ -144,6 +145,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDesired(AVariableReference newDesired)
   {
     AVariableReference oldDesired = desired;
@@ -157,6 +159,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isUpto()
   {
     return upto;
@@ -167,6 +170,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUpto(boolean newUpto)
   {
     boolean oldUpto = upto;
@@ -180,6 +184,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getValue()
   {
     return value;
@@ -207,6 +212,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(PropertyExpression newValue)
   {
     if (newValue != value)

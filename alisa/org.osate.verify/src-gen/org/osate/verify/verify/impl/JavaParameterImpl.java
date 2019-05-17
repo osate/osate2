@@ -107,6 +107,7 @@ public class JavaParameterImpl extends MinimalEObjectImpl.Container implements J
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getParameterType()
   {
     return parameterType;
@@ -117,6 +118,7 @@ public class JavaParameterImpl extends MinimalEObjectImpl.Container implements J
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setParameterType(String newParameterType)
   {
     String oldParameterType = parameterType;
@@ -130,6 +132,7 @@ public class JavaParameterImpl extends MinimalEObjectImpl.Container implements J
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -140,6 +143,7 @@ public class JavaParameterImpl extends MinimalEObjectImpl.Container implements J
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;

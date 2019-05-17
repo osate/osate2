@@ -89,6 +89,7 @@ public class ThenExprImpl extends ArgumentExprImpl implements ThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getLeft()
   {
     return left;
@@ -116,6 +117,7 @@ public class ThenExprImpl extends ArgumentExprImpl implements ThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLeft(ArgumentExpr newLeft)
   {
     if (newLeft != left)
@@ -137,6 +139,7 @@ public class ThenExprImpl extends ArgumentExprImpl implements ThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getSuccessor()
   {
     return successor;
@@ -164,6 +167,7 @@ public class ThenExprImpl extends ArgumentExprImpl implements ThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSuccessor(ArgumentExpr newSuccessor)
   {
     if (newSuccessor != successor)

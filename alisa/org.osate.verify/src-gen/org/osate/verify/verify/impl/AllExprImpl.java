@@ -82,6 +82,7 @@ public class AllExprImpl extends ArgumentExprImpl implements AllExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ArgumentExpr> getElements()
   {
     if (elements == null)
