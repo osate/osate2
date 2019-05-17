@@ -1,0 +1,19 @@
+package resolvePC
+public
+	
+	system s
+		features
+			dp1: out data port;
+			dp2: out data port;
+		annex EMV2 {**
+				use types ErrorLibrary;
+			error propagations
+				dp1: out propagation {AboveRange};
+				dp2: out propagation {AboveRange};
+			end propagations;
+			properties
+			EMV2::OccurrenceDistribution => PC::MyFailureRate applies to dp1.AboveRange;
+			EMV2::OccurrenceDistribution => PC::MyFailureRate2 applies to dp2.AboveRange;
+		**};
+	end s;
+end resolvePC;

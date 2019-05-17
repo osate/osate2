@@ -704,16 +704,10 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Rationale returns Rationale
 	 *
 	 * Constraint:
-	 *     text=STRING
+	 *     description+=DescriptionElement+
 	 */
 	protected void sequence_Rationale(ISerializationContext context, Rationale semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, CommonPackage.Literals.RATIONALE__TEXT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.RATIONALE__TEXT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0(), semanticObject.getText());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

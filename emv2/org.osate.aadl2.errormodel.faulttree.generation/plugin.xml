@@ -106,5 +106,14 @@
           </command>
         </menuContribution>
  	</extension>
+             <!--
+               Register analysis classes with methods to be called for analysis execution
+            -->
+    <extension
+         point="org.osate.pluginsupport.registeredjavaclasses">
+      <class
+            path="org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel">
+      </class>
+   </extension>
 
 </plugin>

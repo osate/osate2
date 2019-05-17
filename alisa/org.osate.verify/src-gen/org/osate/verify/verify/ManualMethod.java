@@ -37,10 +37,6 @@ public interface ManualMethod extends MethodKind
   /**
    * Returns the value of the '<em><b>Dialog ID</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dialog ID</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Dialog ID</em>' attribute.
    * @see #setDialogID(String)

@@ -41,10 +41,6 @@ public interface SystemRequirementSet extends RequirementSet
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
    * @see #setTarget(ComponentClassifier)
@@ -68,10 +64,6 @@ public interface SystemRequirementSet extends RequirementSet
    * Returns the value of the '<em><b>Include</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.IncludeGlobalRequirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Include</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Include</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSystemRequirementSet_Include()

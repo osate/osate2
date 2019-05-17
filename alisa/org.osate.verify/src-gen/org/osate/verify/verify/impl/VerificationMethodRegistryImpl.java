@@ -141,6 +141,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -151,6 +152,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -164,6 +166,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -174,6 +177,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -187,6 +191,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -214,6 +219,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -235,6 +241,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VerificationMethod> getMethods()
   {
     if (methods == null)

@@ -1,0 +1,9 @@
+property set PC
+is
+	with EMV2;
+
+	FailureRateValue : constant aadlreal => 0.123;
+	
+	MyFailureRate: constant EMV2::DistributionSpecification => [ProbabilityValue => 0.567;];
+	MyFailureRate2: constant EMV2::DistributionSpecification => [ProbabilityValue => PC::FailureRateValue;];
+end PC;

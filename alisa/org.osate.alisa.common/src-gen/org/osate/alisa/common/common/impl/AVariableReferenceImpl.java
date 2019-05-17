@@ -77,6 +77,7 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AVariableDeclaration getVariable()
   {
     if (variable != null && variable.eIsProxy())
@@ -107,6 +108,7 @@ public class AVariableReferenceImpl extends AExpressionImpl implements AVariable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVariable(AVariableDeclaration newVariable)
   {
     AVariableDeclaration oldVariable = variable;

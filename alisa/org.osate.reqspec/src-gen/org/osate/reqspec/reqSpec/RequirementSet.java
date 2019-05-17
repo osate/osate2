@@ -46,10 +46,6 @@ public interface RequirementSet extends ReqRoot
    * Returns the value of the '<em><b>Import Constants</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.GlobalConstants}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Import Constants</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Import Constants</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_ImportConstants()
@@ -62,10 +58,6 @@ public interface RequirementSet extends ReqRoot
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constants</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Constants()
@@ -78,10 +70,6 @@ public interface RequirementSet extends ReqRoot
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Computes</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Computes()
@@ -94,10 +82,6 @@ public interface RequirementSet extends ReqRoot
    * Returns the value of the '<em><b>Requirements</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirements</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Requirements</em>' containment reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Requirements()
@@ -110,10 +94,6 @@ public interface RequirementSet extends ReqRoot
    * Returns the value of the '<em><b>Stakeholder Goals</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.ReqRoot}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Stakeholder Goals</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Stakeholder Goals</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_StakeholderGoals()
