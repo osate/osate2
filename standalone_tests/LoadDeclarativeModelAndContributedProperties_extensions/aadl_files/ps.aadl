@@ -1,3 +1,0 @@
-property set ps is
-	test_property: aadlstring applies to (all);
-end ps;

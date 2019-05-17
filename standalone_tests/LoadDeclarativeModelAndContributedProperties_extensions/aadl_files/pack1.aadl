@@ -1,9 +1,0 @@
-package pack1
-public
-	with ps;
-
-	system s
-		properties
-			ps::test_property => "hello";
-	end s;
-end pack1;
