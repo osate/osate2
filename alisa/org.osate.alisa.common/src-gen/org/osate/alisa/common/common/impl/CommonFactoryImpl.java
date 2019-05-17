@@ -147,6 +147,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description createDescription()
   {
     DescriptionImpl description = new DescriptionImpl();
@@ -158,6 +159,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DescriptionElement createDescriptionElement()
   {
     DescriptionElementImpl descriptionElement = new DescriptionElementImpl();
@@ -169,6 +171,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Rationale createRationale()
   {
     RationaleImpl rationale = new RationaleImpl();
@@ -180,6 +183,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Uncertainty createUncertainty()
   {
     UncertaintyImpl uncertainty = new UncertaintyImpl();
@@ -191,6 +195,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AVariableDeclaration createAVariableDeclaration()
   {
     AVariableDeclarationImpl aVariableDeclaration = new AVariableDeclarationImpl();
@@ -202,6 +207,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AExpression createAExpression()
   {
     AExpressionImpl aExpression = new AExpressionImpl();
@@ -213,6 +219,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AModelReference createAModelReference()
   {
     AModelReferenceImpl aModelReference = new AModelReferenceImpl();
@@ -224,6 +231,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public APropertyReference createAPropertyReference()
   {
     APropertyReferenceImpl aPropertyReference = new APropertyReferenceImpl();
@@ -235,6 +243,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AUnitExpression createAUnitExpression()
   {
     AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
@@ -246,6 +255,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ImageReference createImageReference()
   {
     ImageReferenceImpl imageReference = new ImageReferenceImpl();
@@ -257,6 +267,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ModelRef createModelRef()
   {
     ModelRefImpl modelRef = new ModelRefImpl();
@@ -268,6 +279,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeRef createTypeRef()
   {
     TypeRefImpl typeRef = new TypeRefImpl();
@@ -279,6 +291,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyRef createPropertyRef()
   {
     PropertyRefImpl propertyRef = new PropertyRefImpl();
@@ -290,6 +303,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValDeclaration createValDeclaration()
   {
     ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
@@ -301,6 +315,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComputeDeclaration createComputeDeclaration()
   {
     ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
@@ -312,6 +327,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AVariableReference createAVariableReference()
   {
     AVariableReferenceImpl aVariableReference = new AVariableReferenceImpl();
@@ -323,6 +339,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ABinaryOperation createABinaryOperation()
   {
     ABinaryOperationImpl aBinaryOperation = new ABinaryOperationImpl();
@@ -334,6 +351,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AUnaryOperation createAUnaryOperation()
   {
     AUnaryOperationImpl aUnaryOperation = new AUnaryOperationImpl();
@@ -345,6 +363,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AFunctionCall createAFunctionCall()
   {
     AFunctionCallImpl aFunctionCall = new AFunctionCallImpl();
@@ -356,6 +375,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ARange createARange()
   {
     ARangeImpl aRange = new ARangeImpl();
@@ -367,6 +387,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AConditional createAConditional()
   {
     AConditionalImpl aConditional = new AConditionalImpl();
@@ -422,6 +443,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CommonPackage getCommonPackage()
   {
     return (CommonPackage)getEPackage();

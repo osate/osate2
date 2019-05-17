@@ -166,13 +166,13 @@ public interface CommonPackage extends EPackage
   int RATIONALE = 2;
 
   /**
-   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * The feature id for the '<em><b>Description</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATIONALE__TEXT = 0;
+  int RATIONALE__DESCRIPTION = 0;
 
   /**
    * The number of structural features of the '<em>Rationale</em>' class.
@@ -1289,15 +1289,15 @@ public interface CommonPackage extends EPackage
   EClass getRationale();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Rationale#getText <em>Text</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.Rationale#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Text</em>'.
-   * @see org.osate.alisa.common.common.Rationale#getText()
+   * @return the meta object for the containment reference list '<em>Description</em>'.
+   * @see org.osate.alisa.common.common.Rationale#getDescription()
    * @see #getRationale()
    * @generated
    */
-  EAttribute getRationale_Text();
+  EReference getRationale_Description();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Uncertainty <em>Uncertainty</em>}'.
@@ -1945,12 +1945,12 @@ public interface CommonPackage extends EPackage
     EClass RATIONALE = eINSTANCE.getRationale();
 
     /**
-     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATIONALE__TEXT = eINSTANCE.getRationale_Text();
+    EReference RATIONALE__DESCRIPTION = eINSTANCE.getRationale_Description();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.UncertaintyImpl <em>Uncertainty</em>}' class.

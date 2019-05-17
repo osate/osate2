@@ -39,10 +39,6 @@ public interface ExternalDocument extends EObject
   /**
    * Returns the value of the '<em><b>Doc Reference</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Reference</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Doc Reference</em>' attribute.
    * @see #setDocReference(String)
@@ -65,10 +61,6 @@ public interface ExternalDocument extends EObject
   /**
    * Returns the value of the '<em><b>Doc Fragment</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Fragment</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Doc Fragment</em>' attribute.
    * @see #setDocFragment(String)

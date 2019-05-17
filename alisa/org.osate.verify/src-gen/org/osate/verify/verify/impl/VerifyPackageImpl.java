@@ -320,6 +320,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerification()
   {
     return verificationEClass;
@@ -330,6 +331,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerification_Contents()
   {
     return (EReference)verificationEClass.getEStructuralFeatures().get(0);
@@ -340,6 +342,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationPlan()
   {
     return verificationPlanEClass;
@@ -350,6 +353,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationPlan_Name()
   {
     return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(0);
@@ -360,6 +364,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationPlan_Title()
   {
     return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(1);
@@ -370,6 +375,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationPlan_RequirementSet()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(2);
@@ -380,6 +386,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationPlan_Description()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(3);
@@ -390,6 +397,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationPlan_Claim()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(4);
@@ -400,6 +408,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationPlan_Rationale()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(5);
@@ -410,6 +419,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationPlan_Issues()
   {
     return (EAttribute)verificationPlanEClass.getEStructuralFeatures().get(6);
@@ -420,6 +430,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClaim()
   {
     return claimEClass;
@@ -430,6 +441,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClaim_Requirement()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(0);
@@ -440,6 +452,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClaim_Title()
   {
     return (EAttribute)claimEClass.getEStructuralFeatures().get(1);
@@ -450,6 +463,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClaim_Activities()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(2);
@@ -460,6 +474,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClaim_Assert()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(3);
@@ -470,6 +485,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClaim_Rationale()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(4);
@@ -480,6 +496,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClaim_Weight()
   {
     return (EAttribute)claimEClass.getEStructuralFeatures().get(5);
@@ -490,6 +507,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClaim_Subclaim()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(6);
@@ -500,6 +518,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getClaim_Issues()
   {
     return (EAttribute)claimEClass.getEStructuralFeatures().get(7);
@@ -510,6 +529,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getArgumentExpr()
   {
     return argumentExprEClass;
@@ -520,6 +540,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getComputeRef()
   {
     return computeRefEClass;
@@ -530,6 +551,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getComputeRef_Compute()
   {
     return (EReference)computeRefEClass.getEStructuralFeatures().get(0);
@@ -540,6 +562,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationActivity()
   {
     return verificationActivityEClass;
@@ -550,6 +573,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationActivity_Name()
   {
     return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(0);
@@ -560,6 +584,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationActivity_Title()
   {
     return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(1);
@@ -570,6 +595,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_Computes()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(2);
@@ -580,6 +606,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_Method()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(3);
@@ -590,6 +617,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_Actuals()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(4);
@@ -600,6 +628,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_PropertyValues()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(5);
@@ -610,6 +639,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_Category()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(6);
@@ -620,6 +650,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationActivity_Timeout()
   {
     return (EReference)verificationActivityEClass.getEStructuralFeatures().get(7);
@@ -630,6 +661,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationActivity_Weight()
   {
     return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(8);
@@ -640,6 +672,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationCondition()
   {
     return verificationConditionEClass;
@@ -650,6 +683,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationCondition_Method()
   {
     return (EReference)verificationConditionEClass.getEStructuralFeatures().get(0);
@@ -660,6 +694,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationCondition_Parameters()
   {
     return (EReference)verificationConditionEClass.getEStructuralFeatures().get(1);
@@ -670,6 +705,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationMethodRegistry()
   {
     return verificationMethodRegistryEClass;
@@ -680,6 +716,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethodRegistry_Name()
   {
     return (EAttribute)verificationMethodRegistryEClass.getEStructuralFeatures().get(0);
@@ -690,6 +727,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethodRegistry_Title()
   {
     return (EAttribute)verificationMethodRegistryEClass.getEStructuralFeatures().get(1);
@@ -700,6 +738,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethodRegistry_Description()
   {
     return (EReference)verificationMethodRegistryEClass.getEStructuralFeatures().get(2);
@@ -710,6 +749,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethodRegistry_Methods()
   {
     return (EReference)verificationMethodRegistryEClass.getEStructuralFeatures().get(3);
@@ -720,6 +760,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFormalParameter()
   {
     return formalParameterEClass;
@@ -730,6 +771,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFormalParameter_Name()
   {
     return (EAttribute)formalParameterEClass.getEStructuralFeatures().get(0);
@@ -740,6 +782,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFormalParameter_Type()
   {
     return (EReference)formalParameterEClass.getEStructuralFeatures().get(1);
@@ -750,6 +793,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFormalParameter_Unit()
   {
     return (EReference)formalParameterEClass.getEStructuralFeatures().get(2);
@@ -760,6 +804,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationMethod()
   {
     return verificationMethodEClass;
@@ -770,6 +815,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_Name()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(0);
@@ -780,6 +826,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_TargetType()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(1);
@@ -790,6 +837,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Formals()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(2);
@@ -800,6 +848,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Properties()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(3);
@@ -810,6 +859,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Results()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(4);
@@ -820,6 +870,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_IsPredicate()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(5);
@@ -830,6 +881,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_IsResultReport()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(6);
@@ -840,6 +892,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_Title()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(7);
@@ -850,6 +903,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Target()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(8);
@@ -860,6 +914,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVerificationMethod_ComponentCategory()
   {
     return (EAttribute)verificationMethodEClass.getEStructuralFeatures().get(9);
@@ -870,6 +925,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_MethodKind()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(10);
@@ -880,6 +936,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Description()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(11);
@@ -890,6 +947,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Precondition()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(12);
@@ -900,6 +958,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Validation()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(13);
@@ -910,6 +969,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVerificationMethod_Category()
   {
     return (EReference)verificationMethodEClass.getEStructuralFeatures().get(14);
@@ -920,6 +980,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getMethodKind()
   {
     return methodKindEClass;
@@ -930,6 +991,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getResoluteMethod()
   {
     return resoluteMethodEClass;
@@ -940,6 +1002,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getResoluteMethod_MethodReference()
   {
     return (EReference)resoluteMethodEClass.getEStructuralFeatures().get(0);
@@ -950,6 +1013,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJavaMethod()
   {
     return javaMethodEClass;
@@ -960,6 +1024,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getJavaMethod_MethodPath()
   {
     return (EAttribute)javaMethodEClass.getEStructuralFeatures().get(0);
@@ -970,6 +1035,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getJavaMethod_Params()
   {
     return (EReference)javaMethodEClass.getEStructuralFeatures().get(1);
@@ -980,6 +1046,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPythonMethod()
   {
     return pythonMethodEClass;
@@ -990,6 +1057,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getPythonMethod_MethodPath()
   {
     return (EAttribute)pythonMethodEClass.getEStructuralFeatures().get(0);
@@ -1000,6 +1068,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getManualMethod()
   {
     return manualMethodEClass;
@@ -1010,6 +1079,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getManualMethod_DialogID()
   {
     return (EAttribute)manualMethodEClass.getEStructuralFeatures().get(0);
@@ -1020,6 +1090,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPluginMethod()
   {
     return pluginMethodEClass;
@@ -1030,6 +1101,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getPluginMethod_MethodID()
   {
     return (EAttribute)pluginMethodEClass.getEStructuralFeatures().get(0);
@@ -1040,6 +1112,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAgreeMethod()
   {
     return agreeMethodEClass;
@@ -1050,6 +1123,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAgreeMethod_SingleLayer()
   {
     return (EAttribute)agreeMethodEClass.getEStructuralFeatures().get(0);
@@ -1060,6 +1134,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAgreeMethod_All()
   {
     return (EAttribute)agreeMethodEClass.getEStructuralFeatures().get(1);
@@ -1070,6 +1145,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJUnit4Method()
   {
     return jUnit4MethodEClass;
@@ -1080,6 +1156,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getJUnit4Method_ClassPath()
   {
     return (EAttribute)jUnit4MethodEClass.getEStructuralFeatures().get(0);
@@ -1090,6 +1167,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJavaParameter()
   {
     return javaParameterEClass;
@@ -1100,6 +1178,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getJavaParameter_ParameterType()
   {
     return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(0);
@@ -1110,6 +1189,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getJavaParameter_Name()
   {
     return (EAttribute)javaParameterEClass.getEStructuralFeatures().get(1);
@@ -1120,6 +1200,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getThenExpr()
   {
     return thenExprEClass;
@@ -1130,6 +1211,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getThenExpr_Left()
   {
     return (EReference)thenExprEClass.getEStructuralFeatures().get(0);
@@ -1140,6 +1222,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getThenExpr_Successor()
   {
     return (EReference)thenExprEClass.getEStructuralFeatures().get(1);
@@ -1150,6 +1233,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getElseExpr()
   {
     return elseExprEClass;
@@ -1160,6 +1244,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElseExpr_Left()
   {
     return (EReference)elseExprEClass.getEStructuralFeatures().get(0);
@@ -1170,6 +1255,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElseExpr_Error()
   {
     return (EReference)elseExprEClass.getEStructuralFeatures().get(1);
@@ -1180,6 +1266,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElseExpr_Fail()
   {
     return (EReference)elseExprEClass.getEStructuralFeatures().get(2);
@@ -1190,6 +1277,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElseExpr_Timeout()
   {
     return (EReference)elseExprEClass.getEStructuralFeatures().get(3);
@@ -1200,6 +1288,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAllExpr()
   {
     return allExprEClass;
@@ -1210,6 +1299,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAllExpr_Elements()
   {
     return (EReference)allExprEClass.getEStructuralFeatures().get(0);
@@ -1220,6 +1310,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRefExpr()
   {
     return refExprEClass;
@@ -1230,6 +1321,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRefExpr_Verification()
   {
     return (EReference)refExprEClass.getEStructuralFeatures().get(0);
@@ -1240,6 +1332,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationValidation()
   {
     return verificationValidationEClass;
@@ -1250,6 +1343,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVerificationPrecondition()
   {
     return verificationPreconditionEClass;
@@ -1260,6 +1354,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VerifyFactory getVerifyFactory()
   {
     return (VerifyFactory)getEFactoryInstance();

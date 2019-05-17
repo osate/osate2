@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.alisa.workbench.editor/src" modelPluginID="org.osate.alisa.workbench"
     forceOverwrite="true" modelName="Alisa" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.workbench.edit"
-    editorPluginID="org.osate.alisa.workbench.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
+    editorPluginID="org.osate.alisa.workbench.editor" runtimeVersion="2.17" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
   <genPackages prefix="Alisa" basePackage="org.osate.alisa.workbench" disposableProviderFactory="true"
       fileExtensions="alisa" ecorePackage="Alisa.ecore#/">
     <genClasses ecoreClass="Alisa.ecore#//AssuranceCase">

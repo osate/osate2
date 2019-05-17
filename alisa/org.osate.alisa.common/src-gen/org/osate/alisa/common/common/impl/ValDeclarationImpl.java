@@ -79,6 +79,7 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getValue()
   {
     return value;
@@ -106,6 +107,7 @@ public class ValDeclarationImpl extends AVariableDeclarationImpl implements ValD
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(PropertyExpression newValue)
   {
     if (newValue != value)

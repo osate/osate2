@@ -99,6 +99,7 @@ public class SystemRequirementSetImpl extends RequirementSetImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -129,6 +130,7 @@ public class SystemRequirementSetImpl extends RequirementSetImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ComponentClassifier newTarget)
   {
     ComponentClassifier oldTarget = target;
@@ -142,6 +144,7 @@ public class SystemRequirementSetImpl extends RequirementSetImpl implements Syst
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IncludeGlobalRequirement> getInclude()
   {
     if (include == null)

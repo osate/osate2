@@ -42,10 +42,6 @@ public interface ARange extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Minimum</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Minimum</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Minimum</em>' containment reference.
    * @see #setMinimum(PropertyExpression)
@@ -68,10 +64,6 @@ public interface ARange extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Maximum</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Maximum</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Maximum</em>' containment reference.
    * @see #setMaximum(PropertyExpression)
@@ -94,10 +86,6 @@ public interface ARange extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Delta</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Delta</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Delta</em>' containment reference.
    * @see #setDelta(PropertyExpression)
