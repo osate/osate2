@@ -37,6 +37,7 @@ package org.osate.pluginsupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -53,7 +54,7 @@ import org.eclipse.emf.common.util.URI;
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
  */
 public class PluginSupportUtil {
-	public static List<URI> getContributedAadl() {
+	private static List<URI> getContributedAadl(final Function<IConfigurationElement, URI> makeUri) {
 		ArrayList<URI> result = new ArrayList<URI>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(PluginSupportPlugin.PLUGIN_ID,
@@ -64,16 +65,30 @@ public class PluginSupportUtil {
 			IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
 			for (int j = 0; j < configElems.length; j++) {
-				String path = configElems[j].getAttribute("file");
-				String fullpath = configElems[j].getDeclaringExtension().getContributor().getName()
-						+ (path.charAt(0) == '/' ? "" : "/") + path;
-
-				result.add(URI.createPlatformPluginURI(fullpath, false));
+				result.add(makeUri.apply(configElems[j]));
 			}
 		}
 		return result;
 	}
-	
+
+	public static List<URI> getContributedAadl() {
+		return getContributedAadl(configElem -> {
+			String path = configElem.getAttribute("file");
+			String fullpath = configElem.getDeclaringExtension().getContributor().getName()
+					+ (path.charAt(0) == '/' ? "" : "/") + path;
+			return URI.createPlatformPluginURI(fullpath, false);
+		});
+	}
+
+	private static final String CLASSPATH_PREFIX = "classpath:/";
+
+	public static List<URI> getContributedAadlAsClasspath() {
+		return getContributedAadl(configElem -> {
+			String path = configElem.getAttribute("file");
+			return URI.createURI(CLASSPATH_PREFIX + path);
+		});
+	}
+
 	public static OptionalInt getFirstSignificantIndex(URI uri) {
 		return IntStream.range(2, uri.segmentCount()).filter(index -> {
 			String segment = uri.segment(index);
