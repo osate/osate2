@@ -1,0 +1,5 @@
+jdk:
+  - openjdk8
+install:
+   - echo "Running a custom install command"
+   - mvn clean install -U -Plocal -Dpr.build=true -DskipTests

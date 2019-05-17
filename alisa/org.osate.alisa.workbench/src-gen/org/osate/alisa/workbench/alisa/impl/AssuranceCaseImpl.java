@@ -168,6 +168,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -178,6 +179,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -191,6 +193,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -201,6 +204,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -214,6 +218,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComponentType getSystem()
   {
     if (system != null && ((EObject)system).eIsProxy())
@@ -244,6 +249,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSystem(ComponentType newSystem)
   {
     ComponentType oldSystem = system;
@@ -257,6 +263,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -284,6 +291,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -305,6 +313,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<AssurancePlan> getAssurancePlans()
   {
     if (assurancePlans == null)
@@ -319,6 +328,7 @@ public class AssuranceCaseImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<CategoryFilter> getTasks()
   {
     if (tasks == null)

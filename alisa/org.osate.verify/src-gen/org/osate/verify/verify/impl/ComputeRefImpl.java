@@ -79,6 +79,7 @@ public class ComputeRefImpl extends MinimalEObjectImpl.Container implements Comp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ComputeDeclaration getCompute()
   {
     if (compute != null && compute.eIsProxy())
@@ -109,6 +110,7 @@ public class ComputeRefImpl extends MinimalEObjectImpl.Container implements Comp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCompute(ComputeDeclaration newCompute)
   {
     ComputeDeclaration oldCompute = compute;

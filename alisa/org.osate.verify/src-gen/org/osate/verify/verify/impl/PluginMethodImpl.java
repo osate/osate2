@@ -85,6 +85,7 @@ public class PluginMethodImpl extends MethodKindImpl implements PluginMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getMethodID()
   {
     return methodID;
@@ -95,6 +96,7 @@ public class PluginMethodImpl extends MethodKindImpl implements PluginMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethodID(String newMethodID)
   {
     String oldMethodID = methodID;
