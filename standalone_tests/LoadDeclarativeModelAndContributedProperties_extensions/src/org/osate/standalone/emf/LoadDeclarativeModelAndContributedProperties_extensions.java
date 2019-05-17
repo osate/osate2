@@ -2,7 +2,6 @@ package org.osate.standalone.emf;
 
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -52,23 +51,23 @@ public final class LoadDeclarativeModelAndContributedProperties_extensions {
 		// Load the contributed resources and map their URIs for name resolution
 		System.out.println();
 		System.out.println("Loading...");
-		final Map<URI, URI> uriMap = rs.getURIConverter().getURIMap();
-		System.out.println("URI MAP == " + uriMap);
-		System.out.println("PLATFORM RESOURCE MAP == " + EcorePlugin.getPlatformResourceMap());
-
-		System.out.println();
-		System.out.println("Loading...");
-
 		for (final URI uri : contributed) {
 			System.out.println("..." + uri.toString());
 			rs.getResource(uri, true);
 		}
 
+		// Load the user resources from the command line
 		for (int i = 0; i < args.length; i++) {
 			Resource res = rs.getResource(URI.createPlatformResourceURI(args[i], true), true);
 			System.out.println("..." + res.getURI());
 		}
 
+		/*
+		 * We do no need to explicitly add to the URI Convertor's URI Map because
+		 * the ExtensionProcessor above has already done this.
+		 */
+
+		// Validate the models -- look for errors
 		System.out.println();
 		for (final Resource resource : rs.getResources()) {
 			System.out.println("Validating " + resource.getURI() + "...");

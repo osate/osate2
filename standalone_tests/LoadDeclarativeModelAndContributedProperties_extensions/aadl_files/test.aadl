@@ -1,10 +1,23 @@
 package test
 public
-	with debug;
-
+	with Debug;
+	
+	annex fake {** fake **}; 
+		
 	data d
 		properties
-			debug::days => mon;
-			source_language => (C); 
+			Source_language => (Java, C, Ada95); -- Needs Programking_Properties and AADL_Project
+			Access_Right => read_only; -- Needs Memory_Properties
 	end d;
+	
+	system s
+		properties
+			Source_language => (Java, C, Ada95); -- Needs Programking_Properties and AADL_Project		
+			Debug::days => wed;
+	end s;
+	
+	system implementation s.i
+		subcomponents
+			myData: data d;
+	end s.i;
 end test;

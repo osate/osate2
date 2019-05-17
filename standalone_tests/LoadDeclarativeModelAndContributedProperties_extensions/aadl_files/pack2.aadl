@@ -1,9 +1,0 @@
-package pack2
-public
-	with ps, pack1;
-
-	system t extends pack1::s
-		properties
-			ps::test_property => "hello";
-	end t;
-end pack2;
