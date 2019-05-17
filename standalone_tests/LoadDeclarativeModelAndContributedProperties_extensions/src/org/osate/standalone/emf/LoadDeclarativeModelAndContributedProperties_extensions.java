@@ -1,5 +1,6 @@
 package org.osate.standalone.emf;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.pluginsupport.PluginSupportUtil;
@@ -28,12 +28,14 @@ public final class LoadDeclarativeModelAndContributedProperties_extensions {
 	public static void main(String[] args) {
 		// Init AADL meta model
 		final Injector injector = new Aadl2StandaloneSetup().createInjectorAndDoEMFRegistration();
+
+		// Init the instance model
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("aaxl2", new Aadl2ResourceFactoryImpl());
 		InstancePackage.eINSTANCE.eClass();
 
-//		// URI mapping for loading files this defines the "workspace" needed to resolve relative references
-//		String wsRoot = Paths.get(".").toAbsolutePath().normalize().toString();
-//		EcorePlugin.getPlatformResourceMap().put("foo", URI.createFileURI(wsRoot + "/aadl_files/"));
+		// URI mapping for loading files this defines the "workspace" needed to resolve relative references
+		String wsRoot = Paths.get(".").toAbsolutePath().normalize().toString();
+		EcorePlugin.getPlatformResourceMap().put("foo", URI.createFileURI(wsRoot + "/aadl_files/"));
 
 		final XtextResourceSet rs = injector.getInstance(XtextResourceSet.class);
 
@@ -41,7 +43,7 @@ public final class LoadDeclarativeModelAndContributedProperties_extensions {
 
 		// Find from extensions
 		EcorePlugin.ExtensionProcessor.process(Thread.currentThread().getContextClassLoader());
-		final List<URI> contributed = PluginSupportUtil.getContributedAadl();
+		final List<URI> contributed = PluginSupportUtil.getContributedAadlAsClasspath();
 		System.out.println("Found contributed files...");
 		for (final URI uri : contributed) {
 			System.out.println("..." + uri.toString());
@@ -51,18 +53,21 @@ public final class LoadDeclarativeModelAndContributedProperties_extensions {
 		System.out.println();
 		System.out.println("Loading...");
 		final Map<URI, URI> uriMap = rs.getURIConverter().getURIMap();
+		System.out.println("URI MAP == " + uriMap);
+		System.out.println("PLATFORM RESOURCE MAP == " + EcorePlugin.getPlatformResourceMap());
+
+		System.out.println();
+		System.out.println("Loading...");
+
 		for (final URI uri : contributed) {
 			System.out.println("..." + uri.toString());
 			rs.getResource(uri, true);
-//			System.out
-//					.println("Mapping " + uri + " to " + URI.createPlatformResourceURI(uri.path().substring(7), false));
-//			uriMap.put(uri, URI.createPlatformResourceURI(uri.path().substring(7), false));
 		}
 
-//		for (int i = 0; i < args.length; i++) {
-//			res = rs.getResource(URI.createPlatformResourceURI(args[i], true), true);
-//			System.out.println("..." + res.getURI());
-//		}
+		for (int i = 0; i < args.length; i++) {
+			Resource res = rs.getResource(URI.createPlatformResourceURI(args[i], true), true);
+			System.out.println("..." + res.getURI());
+		}
 
 		System.out.println();
 		for (final Resource resource : rs.getResources()) {
@@ -91,9 +96,6 @@ public final class LoadDeclarativeModelAndContributedProperties_extensions {
 			final TreeIterator<EObject> treeIter = resource.getAllContents();
 			while (treeIter.hasNext()) {
 				final EObject next = treeIter.next();
-				if (next instanceof Property && ((Property) next).getName().equalsIgnoreCase("Partition_Latency")) {
-					System.out.println("p");
-				}
 				System.out.println(next);
 			}
 			System.out.println("-- -- -- -- -- -- -- --");
