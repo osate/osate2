@@ -102,24 +102,24 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.common.Common.Rationale");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cRationaleKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cTextAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTextSTRINGTerminalRuleCall_1_0 = (RuleCall)cTextAssignment_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cDescriptionDescriptionElementParserRuleCall_1_0 = (RuleCall)cDescriptionAssignment_1.eContents().get(0);
 		
 		//Rationale:
-		//	'rationale' text=STRING;
+		//	'rationale' description+=DescriptionElement+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'rationale' text=STRING
+		//'rationale' description+=DescriptionElement+
 		public Group getGroup() { return cGroup; }
 
 		//'rationale'
 		public Keyword getRationaleKeyword_0() { return cRationaleKeyword_0; }
 
-		//text=STRING
-		public Assignment getTextAssignment_1() { return cTextAssignment_1; }
+		//description+=DescriptionElement+
+		public Assignment getDescriptionAssignment_1() { return cDescriptionAssignment_1; }
 
-		//STRING
-		public RuleCall getTextSTRINGTerminalRuleCall_1_0() { return cTextSTRINGTerminalRuleCall_1_0; }
+		//DescriptionElement
+		public RuleCall getDescriptionDescriptionElementParserRuleCall_1_0() { return cDescriptionDescriptionElementParserRuleCall_1_0; }
 	}
 
 	public class UncertaintyElements extends AbstractParserRuleElementFinder {
@@ -2511,7 +2511,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	'rationale' text=STRING;
+	//	'rationale' description+=DescriptionElement+;
 	public RationaleElements getRationaleAccess() {
 		return pRationale;
 	}
@@ -3109,8 +3109,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

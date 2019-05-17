@@ -77,6 +77,7 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VerificationActivity getVerification()
   {
     if (verification != null && verification.eIsProxy())
@@ -107,6 +108,7 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVerification(VerificationActivity newVerification)
   {
     VerificationActivity oldVerification = verification;

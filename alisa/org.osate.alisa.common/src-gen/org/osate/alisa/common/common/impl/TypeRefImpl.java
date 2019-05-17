@@ -81,6 +81,7 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyType getRef()
   {
     if (ref != null && ((EObject)ref).eIsProxy())
@@ -111,6 +112,7 @@ public class TypeRefImpl extends PropertyTypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRef(PropertyType newRef)
   {
     PropertyType oldRef = ref;

@@ -98,6 +98,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getXpression()
   {
     return xpression;
@@ -125,6 +126,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setXpression(PropertyExpression newXpression)
   {
     if (newXpression != xpression)
@@ -146,6 +148,7 @@ public class ValuePredicateImpl extends ReqPredicateImpl implements ValuePredica
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DesiredValue> getDesiredValue()
   {
     if (desiredValue == null)

@@ -39,10 +39,6 @@ public interface JavaMethod extends MethodKind
   /**
    * Returns the value of the '<em><b>Method Path</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Method Path</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Method Path</em>' attribute.
    * @see #setMethodPath(String)
@@ -66,10 +62,6 @@ public interface JavaMethod extends MethodKind
    * Returns the value of the '<em><b>Params</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.JavaParameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Params</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Params</em>' containment reference list.
    * @see org.osate.verify.verify.VerifyPackage#getJavaMethod_Params()
