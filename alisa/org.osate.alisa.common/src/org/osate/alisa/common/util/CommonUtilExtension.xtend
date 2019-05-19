@@ -185,7 +185,7 @@ class CommonUtilExtension {
 	def static ConnectionInstance findConnectionInstance(Collection<ConnectionInstance> connilist, String name) {
 		for (ei : connilist) {
 			val conn = getCrossConnection(ei)
-			if (name.equalsIgnoreCase(conn.name)) {
+			if (conn !== null && name.equalsIgnoreCase(conn.name)) {
 				return ei
 			}
 		}
@@ -211,7 +211,7 @@ class CommonUtilExtension {
 				return conn
 			} 
 		}
-		
+		return null
 	}
 
 	def static getCrossConnections(ComponentImplementation ci) {
