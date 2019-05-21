@@ -63,9 +63,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.workspace.IAadlProject;
-import org.osate.workspace.IAadlWorkspace;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -121,21 +118,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			projectRenameHandler = null;
 		}
 		super.stop(context);
-	}
-
-	/**
-	 * Returns the AADL project corresponding to the given project.
-	 * <p>
-	 * Note that no check is done at this time on the existence or the AADL nature of this project.
-	 * @param project the given project
-	 * @return the AADL project corresponding to the given project, null if the given project is null
-	 */
-	public static IAadlProject create(IProject project) {
-		if (project == null) {
-			return null;
-		}
-		IAadlWorkspace aadlWs = AadlWorkspace.getAadlWorkspace();
-		return aadlWs.getAadlProject(project);
 	}
 
 	/**
