@@ -98,7 +98,6 @@ Workflow {
 			qualifiedNamesProvider = {
 			}
 			serializer = {
-				generateStub = false
 			}
 			validator = {
 				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"

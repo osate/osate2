@@ -7,7 +7,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.expr.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.expr,
- org.osate.expr.ide,
  org.eclipse.xtext.ui,
  org.eclipse.xtext.ui.shared,
  org.eclipse.xtext.ui.codetemplates.ui,
@@ -18,7 +17,7 @@ Require-Bundle: org.osate.expr,
  org.eclipse.xtext.builder,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional,
- org.osate.xtext.aadl2.ui
+ org.antlr.runtime
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.expr.ui.internal,

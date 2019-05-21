@@ -4,6 +4,7 @@
 package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -11,7 +12,33 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.osate.expr.expr.*;
+import org.osate.expr.expr.BagType;
+import org.osate.expr.expr.Category;
+import org.osate.expr.expr.CategoryEnum;
+import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.ExprFactory;
+import org.osate.expr.expr.ExprLibrary;
+import org.osate.expr.expr.ExprModel;
+import org.osate.expr.expr.ExprPackage;
+import org.osate.expr.expr.ExprSubclause;
+import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FunDecl;
+import org.osate.expr.expr.ListType;
+import org.osate.expr.expr.MapType;
+import org.osate.expr.expr.MetaClass;
+import org.osate.expr.expr.MetaClassEnum;
+import org.osate.expr.expr.NamedElement;
+import org.osate.expr.expr.PrimitiveType;
+import org.osate.expr.expr.Real;
+import org.osate.expr.expr.RecordType;
+import org.osate.expr.expr.SetType;
+import org.osate.expr.expr.TupleField;
+import org.osate.expr.expr.TupleType;
+import org.osate.expr.expr.Type;
+import org.osate.expr.expr.TypeDecl;
+import org.osate.expr.expr.TypeRef;
+import org.osate.expr.expr.UnionType;
+import org.osate.expr.expr.VarDecl;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,11 +93,71 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
     switch (eClass.getClassifierID())
     {
       case ExprPackage.EXPR_MODEL: return createExprModel();
-      case ExprPackage.GREETING: return createGreeting();
+      case ExprPackage.NAMED_ELEMENT: return createNamedElement();
+      case ExprPackage.DECLARATION: return createDeclaration();
+      case ExprPackage.TYPE_DECL: return createTypeDecl();
+      case ExprPackage.VAR_DECL: return createVarDecl();
+      case ExprPackage.FUN_DECL: return createFunDecl();
+      case ExprPackage.TYPE: return createType();
+      case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
+      case ExprPackage.CATEGORY: return createCategory();
+      case ExprPackage.META_CLASS: return createMetaClass();
+      case ExprPackage.RECORD_TYPE: return createRecordType();
+      case ExprPackage.FIELD: return createField();
+      case ExprPackage.UNION_TYPE: return createUnionType();
+      case ExprPackage.TUPLE_TYPE: return createTupleType();
+      case ExprPackage.TUPLE_FIELD: return createTupleField();
+      case ExprPackage.LIST_TYPE: return createListType();
+      case ExprPackage.SET_TYPE: return createSetType();
+      case ExprPackage.BAG_TYPE: return createBagType();
+      case ExprPackage.MAP_TYPE: return createMapType();
+      case ExprPackage.TYPE_REF: return createTypeRef();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
+      case ExprPackage.BOOLEAN: return createBoolean();
+      case ExprPackage.INTEGER: return createInteger();
+      case ExprPackage.REAL: return createReal();
+      case ExprPackage.STRING: return createString();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object createFromString(EDataType eDataType, String initialValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case ExprPackage.CATEGORY_ENUM:
+        return createCategoryEnumFromString(eDataType, initialValue);
+      case ExprPackage.META_CLASS_ENUM:
+        return createMetaClassEnumFromString(eDataType, initialValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String convertToString(EDataType eDataType, Object instanceValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case ExprPackage.CATEGORY_ENUM:
+        return convertCategoryEnumToString(eDataType, instanceValue);
+      case ExprPackage.META_CLASS_ENUM:
+        return convertMetaClassEnumToString(eDataType, instanceValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
   }
 
@@ -92,10 +179,226 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public Greeting createGreeting()
+  public NamedElement createNamedElement()
   {
-    GreetingImpl greeting = new GreetingImpl();
-    return greeting;
+    NamedElementImpl namedElement = new NamedElementImpl();
+    return namedElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Declaration createDeclaration()
+  {
+    DeclarationImpl declaration = new DeclarationImpl();
+    return declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TypeDecl createTypeDecl()
+  {
+    TypeDeclImpl typeDecl = new TypeDeclImpl();
+    return typeDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public VarDecl createVarDecl()
+  {
+    VarDeclImpl varDecl = new VarDeclImpl();
+    return varDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FunDecl createFunDecl()
+  {
+    FunDeclImpl funDecl = new FunDeclImpl();
+    return funDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Type createType()
+  {
+    TypeImpl type = new TypeImpl();
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public PrimitiveType createPrimitiveType()
+  {
+    PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
+    return primitiveType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Category createCategory()
+  {
+    CategoryImpl category = new CategoryImpl();
+    return category;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public MetaClass createMetaClass()
+  {
+    MetaClassImpl metaClass = new MetaClassImpl();
+    return metaClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public RecordType createRecordType()
+  {
+    RecordTypeImpl recordType = new RecordTypeImpl();
+    return recordType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Field createField()
+  {
+    FieldImpl field = new FieldImpl();
+    return field;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public UnionType createUnionType()
+  {
+    UnionTypeImpl unionType = new UnionTypeImpl();
+    return unionType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TupleType createTupleType()
+  {
+    TupleTypeImpl tupleType = new TupleTypeImpl();
+    return tupleType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TupleField createTupleField()
+  {
+    TupleFieldImpl tupleField = new TupleFieldImpl();
+    return tupleField;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ListType createListType()
+  {
+    ListTypeImpl listType = new ListTypeImpl();
+    return listType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public SetType createSetType()
+  {
+    SetTypeImpl setType = new SetTypeImpl();
+    return setType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public BagType createBagType()
+  {
+    BagTypeImpl bagType = new BagTypeImpl();
+    return bagType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public MapType createMapType()
+  {
+    MapTypeImpl mapType = new MapTypeImpl();
+    return mapType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TypeRef createTypeRef()
+  {
+    TypeRefImpl typeRef = new TypeRefImpl();
+    return typeRef;
   }
 
   /**
@@ -120,6 +423,98 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     ExprSubclauseImpl exprSubclause = new ExprSubclauseImpl();
     return exprSubclause;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public org.osate.expr.expr.Boolean createBoolean()
+  {
+    BooleanImpl boolean_ = new BooleanImpl();
+    return boolean_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public org.osate.expr.expr.Integer createInteger()
+  {
+    IntegerImpl integer = new IntegerImpl();
+    return integer;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Real createReal()
+  {
+    RealImpl real = new RealImpl();
+    return real;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public org.osate.expr.expr.String createString()
+  {
+    StringImpl string = new StringImpl();
+    return string;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CategoryEnum createCategoryEnumFromString(EDataType eDataType, String initialValue)
+  {
+    CategoryEnum result = CategoryEnum.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertCategoryEnumToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MetaClassEnum createMetaClassEnumFromString(EDataType eDataType, String initialValue)
+  {
+    MetaClassEnum result = MetaClassEnum.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertMetaClassEnumToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

@@ -21,7 +21,12 @@ class ExprParsingTest {
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
-			library Hello Xtext!
+			library
+				val x: int;
+				var y: int;
+				def f();
+				type L: list{int};
+				type R: real;
 		''')
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors

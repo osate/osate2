@@ -3,6 +3,17 @@
  */
 package org.osate.expr.scoping
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.FilteringScope
+import org.osate.expr.expr.ExprLibrary
+import org.osate.expr.expr.ExprPackage
+import org.osate.expr.expr.ExprSubclause
+import org.osate.expr.expr.TypeDecl
+import org.osate.expr.expr.TypeRef
 
 /**
  * This class contains custom scoping description.
@@ -10,6 +21,38 @@ package org.osate.expr.scoping
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#scoping
  * on how and when to use it.
  */
-class ExprScopeProvider extends AbstractExprScopeProvider {
+class ExprScopeProvider extends AbstractDeclarativeScopeProvider {
+
+	override getScope(EObject context, EReference reference) {
+		if (context instanceof TypeRef && reference == ExprPackage.Literals.TYPE_REF__REF) {
+			val rootElement = getExprAnnexRoot(context)
+			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeDecl)
+			val existingScope = Scopes.scopeFor(candidates, delegateGetScope(context, reference))
+			val thisTypeDecl = EcoreUtil2.getContainerOfType(context, TypeDecl)
+
+			if (thisTypeDecl === null)
+				existingScope
+			else
+				// Scope that filters out the context element from the candidates list
+				new FilteringScope(existingScope, [getEObjectOrProxy != thisTypeDecl])
+		} else {
+			super.getScope(context, reference)
+		}
+	}
+
+	static def getExprAnnexRoot(EObject ele) {
+		getContainerOfTypes(ele, ExprLibrary, ExprSubclause)
+	}
+
+	static def EObject getContainerOfTypes(EObject ele, Class<? extends EObject> type1,
+		Class<? extends EObject> type2) {
+		for (var e = ele; e !== null; e = e.eContainer())
+			if (type1.isInstance(e))
+				return type1.cast(e)
+			else if (type2.isInstance(e))
+				return type2.cast(e)
+
+		null
+	}
 
 }

@@ -1,21 +1,204 @@
-grammar org.osate.expr.Expr with org.osate.xtext.aadl2.Aadl2
+grammar org.osate.expr.Expr hidden(WS, SL_COMMENT)
 
 generate expr "http://www.osate.org/expr/Expr"
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://aadl.info/AADL/2.0" as aadl2
 
-// dummy rule to keep ExprLibrary and ExprSubclause in the parser
+// for testing
 ExprModel:
 	'library' annex=ExprLibrary
 	| 'subclause' annex=ExprSubclause
 ;
 
+@Exported
 ExprLibrary returns aadl2::AnnexLibrary:
-	{ExprLibrary} greetings+=Greeting*;
+	{ExprLibrary} decls+=Declaration*
+;
 
 ExprSubclause returns aadl2::AnnexSubclause:
-	{ExprSubclause} greetings+=Greeting*;
+	{ExprSubclause} decls+=Declaration*
+;
+
+NamedElement:
+	Declaration
+;
+
+@Exported
+Declaration:
+	TypeDecl | VarDecl | FunDecl
+;
+
+TypeDecl:
+	'type' name=ID ':' type=Type ';'
+;
+
+VarDecl:
+	((const?='val') | 'var') name=ID (':' type=Type)? ('=' Expression)? ';'
+;
+
+FunDecl:
+	'def' name=ID '(' ')' ';'
+;
+
+// Types
+
+Type:
+	PrimitiveType | Category | MetaClass
+	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType | TypeRef
+;
+
+PrimitiveType:
+	{Boolean} 'bool' | {Integer} 'int' | {Real} 'real' | {String} 'string'
+;
+
+
+Category:
+	category=CategoryEnum
+;
+
+enum CategoryEnum:
+	ABSTRACT | BUS | DATA
+	| DEVICE | MEMEORY | PROCESS | PROCESSOR 
+	| SUBPROGRAM | SUBPROGRAMGROUP | SYSTEM 
+	| THREAD_GROUP | THREAD | VIRTUAL_BUS | VIRTUAL_PROCESSOR
+;
+
+MetaClass:
+	class=MetaClassEnum
+;
+
+enum MetaClassEnum:
+	CLASSIFIER | SUBCOMPONENT | FEATURE
+	|CONNECTION | FLOW | MODE
+;
+
+RecordType:
+	{RecordType}
+	'record' '{'
+		field+=Field*
+	'}'
+;
+
+Field:
+	name=ID ':' type=Type ';'
+;
+
+UnionType:
+	{UnionType}
+	'union' '{'
+		'???'
+	'}'
+;
+
+TupleType:
+	{TupleType}
+	'tuple' '{'
+		field+=TupleField*
+	'}'
+;
+
+TupleField:
+	{Field}
+	type=Type ';'
+;
+
+ListType:
+	{ListType}
+	'list' '{' type=Type '}'
+;
+
+SetType:
+	'set' '{' type=Type '}'
+;
+
+BagType:
+	'bag' '{' type=Type '}'
+;
+
+MapType:
+	'map' '{' dom=Type '->' img=Type '}' 
+;
+
+TypeRef:
+	ref=[TypeDecl|QCREF]
+;
+
+Expression:
+	'???'
+;
+
+
+
+// TERMINALS copied from properties language
+
+terminal SL_COMMENT:
+	'--' !('\n' | '\r')* ('\r'? '\n')?;
+
+INTVALUE returns aadl2::Integer:
+	INTEGER_LIT //NUMERAL 	
+;
+
+
+//terminal NUMERAL:
+//	(DIGIT)+('_' (DIGIT)+)*
+//;
+//terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
+
+terminal fragment EXPONENT:
+	('e'|'E') ('+'|'-')? ( DIGIT )+
+;
+
+terminal fragment INT_EXPONENT:
+	('e'|'E') ('+')? ( DIGIT )+
+;
+
+
+terminal REAL_LIT : 	
+	(DIGIT)+('_' (DIGIT)+)* ( '.' (DIGIT)+('_' (DIGIT)+)* ( EXPONENT )?)
+;
+
+terminal INTEGER_LIT : 
+		(DIGIT)+('_' (DIGIT)+)*
+		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+			| (INT_EXPONENT)?
+		)
+  ;
+
+terminal fragment DIGIT:
+	( '0'..'9' )
+;
+
+terminal fragment EXTENDED_DIGIT:
+	( '0'..'9' | 'a'..'f' | 'A'..'F')
+;
+
+terminal fragment BASED_INTEGER:
+	( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )*
+;
+
+QCLREF:
+	ID '::' ID;
+
+QPREF:
+	ID ('::' ID)?;
+
+QCREF:
+	(ID '::')* ID ('.' ID)?;
 	
-Greeting:
-	'Hello' name=ID '!';
+STAR : '*';
+
+terminal STRING	: 
+	'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
+	"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+; 
+
+terminal ID:
+	('a'..'z'|'A'..'Z') 
+	( ('_')? ('a'..'z'|'A'..'Z'|'0'..'9'))*
+;
+
+terminal WS:
+	(' '|'\t'|'\r'|'\n')+
+;
+	

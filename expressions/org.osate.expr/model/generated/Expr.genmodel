@@ -6,17 +6,107 @@
     copyrightFields="false" runtimeVersion="2.17" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Expr" basePackage="org.osate.expr" disposableProviderFactory="true"
       fileExtensions="expr" ecorePackage="Expr.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//CategoryEnum">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/ABSTRACT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/BUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/DATA"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/DEVICE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/MEMEORY"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/PROCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/PROCESSOR"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAM"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAMGROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SYSTEM"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/THREAD_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/THREAD"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/VIRTUAL_BUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/VIRTUAL_PROCESSOR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//MetaClassEnum">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CLASSIFIER"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/MODE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//ExprComponentCategory">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/ABSTRACT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/BUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/DATA"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/DEVICE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/MEMEORY"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/PROCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/PROCESSOR"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/SUBPROGRAM"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/SUBPROGRAMGROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/SYSTEM"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/THREAD_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/THREAD"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/VIRTUAL_BUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/VIRTUAL_PROCESSOR"/>
+    </genEnums>
     <genClasses ecoreClass="Expr.ecore#//ExprModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprModel/annex"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//Greeting">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Greeting/name"/>
+    <genClasses ecoreClass="Expr.ecore#//NamedElement"/>
+    <genClasses ecoreClass="Expr.ecore#//Declaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Declaration/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//TypeDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//TypeDecl/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//VarDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//VarDecl/const"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//FunDecl"/>
+    <genClasses ecoreClass="Expr.ecore#//Type"/>
+    <genClasses ecoreClass="Expr.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="Expr.ecore#//Category">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Category/category"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//MetaClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//MetaClass/class"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//RecordType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RecordType/field"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Field">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Field/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Field/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//UnionType"/>
+    <genClasses ecoreClass="Expr.ecore#//TupleType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//TupleType/field"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//TupleField"/>
+    <genClasses ecoreClass="Expr.ecore#//ListType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ListType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//SetType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//SetType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//BagType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BagType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//MapType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/dom"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/img"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//TypeRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//TypeRef/ref"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ExprLibrary">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprLibrary/greetings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprLibrary/decls"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ExprSubclause">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprSubclause/greetings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprSubclause/decls"/>
     </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Boolean"/>
+    <genClasses ecoreClass="Expr.ecore#//Integer"/>
+    <genClasses ecoreClass="Expr.ecore#//Real"/>
+    <genClasses ecoreClass="Expr.ecore#//String"/>
+    <genClasses ecoreClass="Expr.ecore#//ComponentCategory"/>
   </genPackages>
 </genmodel:GenModel>

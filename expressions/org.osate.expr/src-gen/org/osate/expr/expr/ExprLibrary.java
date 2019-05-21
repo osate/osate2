@@ -18,7 +18,7 @@ import org.osate.aadl2.AnnexLibrary;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.ExprLibrary#getGreetings <em>Greetings</em>}</li>
+ *   <li>{@link org.osate.expr.expr.ExprLibrary#getDecls <em>Decls</em>}</li>
  * </ul>
  *
  * @see org.osate.expr.expr.ExprPackage#getExprLibrary()
@@ -28,15 +28,15 @@ import org.osate.aadl2.AnnexLibrary;
 public interface ExprLibrary extends EObject, AnnexLibrary
 {
   /**
-   * Returns the value of the '<em><b>Greetings</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.expr.expr.Greeting}.
+   * Returns the value of the '<em><b>Decls</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.expr.expr.Declaration}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Greetings</em>' containment reference list.
-   * @see org.osate.expr.expr.ExprPackage#getExprLibrary_Greetings()
+   * @return the value of the '<em>Decls</em>' containment reference list.
+   * @see org.osate.expr.expr.ExprPackage#getExprLibrary_Decls()
    * @model containment="true"
    * @generated
    */
-  EList<Greeting> getGreetings();
+  EList<Declaration> getDecls();
 
 } // ExprLibrary

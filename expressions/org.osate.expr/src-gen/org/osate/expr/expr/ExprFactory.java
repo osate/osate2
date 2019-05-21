@@ -33,13 +33,175 @@ public interface ExprFactory extends EFactory
   ExprModel createExprModel();
 
   /**
-   * Returns a new object of class '<em>Greeting</em>'.
+   * Returns a new object of class '<em>Named Element</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Greeting</em>'.
+   * @return a new object of class '<em>Named Element</em>'.
    * @generated
    */
-  Greeting createGreeting();
+  NamedElement createNamedElement();
+
+  /**
+   * Returns a new object of class '<em>Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Declaration</em>'.
+   * @generated
+   */
+  Declaration createDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Type Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Decl</em>'.
+   * @generated
+   */
+  TypeDecl createTypeDecl();
+
+  /**
+   * Returns a new object of class '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var Decl</em>'.
+   * @generated
+   */
+  VarDecl createVarDecl();
+
+  /**
+   * Returns a new object of class '<em>Fun Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fun Decl</em>'.
+   * @generated
+   */
+  FunDecl createFunDecl();
+
+  /**
+   * Returns a new object of class '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type</em>'.
+   * @generated
+   */
+  Type createType();
+
+  /**
+   * Returns a new object of class '<em>Primitive Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Primitive Type</em>'.
+   * @generated
+   */
+  PrimitiveType createPrimitiveType();
+
+  /**
+   * Returns a new object of class '<em>Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category</em>'.
+   * @generated
+   */
+  Category createCategory();
+
+  /**
+   * Returns a new object of class '<em>Meta Class</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Meta Class</em>'.
+   * @generated
+   */
+  MetaClass createMetaClass();
+
+  /**
+   * Returns a new object of class '<em>Record Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Record Type</em>'.
+   * @generated
+   */
+  RecordType createRecordType();
+
+  /**
+   * Returns a new object of class '<em>Field</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Field</em>'.
+   * @generated
+   */
+  Field createField();
+
+  /**
+   * Returns a new object of class '<em>Union Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Union Type</em>'.
+   * @generated
+   */
+  UnionType createUnionType();
+
+  /**
+   * Returns a new object of class '<em>Tuple Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tuple Type</em>'.
+   * @generated
+   */
+  TupleType createTupleType();
+
+  /**
+   * Returns a new object of class '<em>Tuple Field</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tuple Field</em>'.
+   * @generated
+   */
+  TupleField createTupleField();
+
+  /**
+   * Returns a new object of class '<em>List Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Type</em>'.
+   * @generated
+   */
+  ListType createListType();
+
+  /**
+   * Returns a new object of class '<em>Set Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Set Type</em>'.
+   * @generated
+   */
+  SetType createSetType();
+
+  /**
+   * Returns a new object of class '<em>Bag Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bag Type</em>'.
+   * @generated
+   */
+  BagType createBagType();
+
+  /**
+   * Returns a new object of class '<em>Map Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Map Type</em>'.
+   * @generated
+   */
+  MapType createMapType();
+
+  /**
+   * Returns a new object of class '<em>Type Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Ref</em>'.
+   * @generated
+   */
+  TypeRef createTypeRef();
 
   /**
    * Returns a new object of class '<em>Library</em>'.
@@ -58,6 +220,42 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   ExprSubclause createExprSubclause();
+
+  /**
+   * Returns a new object of class '<em>Boolean</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Boolean</em>'.
+   * @generated
+   */
+  Boolean createBoolean();
+
+  /**
+   * Returns a new object of class '<em>Integer</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Integer</em>'.
+   * @generated
+   */
+  Integer createInteger();
+
+  /**
+   * Returns a new object of class '<em>Real</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Real</em>'.
+   * @generated
+   */
+  Real createReal();
+
+  /**
+   * Returns a new object of class '<em>String</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String</em>'.
+   * @generated
+   */
+  String createString();
 
   /**
    * Returns the package supported by this factory.

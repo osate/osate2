@@ -14,9 +14,31 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.NamedElement;
 
-import org.osate.expr.expr.*;
+import org.osate.expr.expr.BagType;
+import org.osate.expr.expr.Category;
+import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.ExprLibrary;
+import org.osate.expr.expr.ExprModel;
+import org.osate.expr.expr.ExprPackage;
+import org.osate.expr.expr.ExprSubclause;
+import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FunDecl;
+import org.osate.expr.expr.ListType;
+import org.osate.expr.expr.MapType;
+import org.osate.expr.expr.MetaClass;
+import org.osate.expr.expr.NamedElement;
+import org.osate.expr.expr.PrimitiveType;
+import org.osate.expr.expr.Real;
+import org.osate.expr.expr.RecordType;
+import org.osate.expr.expr.SetType;
+import org.osate.expr.expr.TupleField;
+import org.osate.expr.expr.TupleType;
+import org.osate.expr.expr.Type;
+import org.osate.expr.expr.TypeDecl;
+import org.osate.expr.expr.TypeRef;
+import org.osate.expr.expr.UnionType;
+import org.osate.expr.expr.VarDecl;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,9 +109,99 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createExprModelAdapter();
       }
       @Override
-      public Adapter caseGreeting(Greeting object)
+      public Adapter caseNamedElement(NamedElement object)
       {
-        return createGreetingAdapter();
+        return createNamedElementAdapter();
+      }
+      @Override
+      public Adapter caseDeclaration(Declaration object)
+      {
+        return createDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseTypeDecl(TypeDecl object)
+      {
+        return createTypeDeclAdapter();
+      }
+      @Override
+      public Adapter caseVarDecl(VarDecl object)
+      {
+        return createVarDeclAdapter();
+      }
+      @Override
+      public Adapter caseFunDecl(FunDecl object)
+      {
+        return createFunDeclAdapter();
+      }
+      @Override
+      public Adapter caseType(Type object)
+      {
+        return createTypeAdapter();
+      }
+      @Override
+      public Adapter casePrimitiveType(PrimitiveType object)
+      {
+        return createPrimitiveTypeAdapter();
+      }
+      @Override
+      public Adapter caseCategory(Category object)
+      {
+        return createCategoryAdapter();
+      }
+      @Override
+      public Adapter caseMetaClass(MetaClass object)
+      {
+        return createMetaClassAdapter();
+      }
+      @Override
+      public Adapter caseRecordType(RecordType object)
+      {
+        return createRecordTypeAdapter();
+      }
+      @Override
+      public Adapter caseField(Field object)
+      {
+        return createFieldAdapter();
+      }
+      @Override
+      public Adapter caseUnionType(UnionType object)
+      {
+        return createUnionTypeAdapter();
+      }
+      @Override
+      public Adapter caseTupleType(TupleType object)
+      {
+        return createTupleTypeAdapter();
+      }
+      @Override
+      public Adapter caseTupleField(TupleField object)
+      {
+        return createTupleFieldAdapter();
+      }
+      @Override
+      public Adapter caseListType(ListType object)
+      {
+        return createListTypeAdapter();
+      }
+      @Override
+      public Adapter caseSetType(SetType object)
+      {
+        return createSetTypeAdapter();
+      }
+      @Override
+      public Adapter caseBagType(BagType object)
+      {
+        return createBagTypeAdapter();
+      }
+      @Override
+      public Adapter caseMapType(MapType object)
+      {
+        return createMapTypeAdapter();
+      }
+      @Override
+      public Adapter caseTypeRef(TypeRef object)
+      {
+        return createTypeRefAdapter();
       }
       @Override
       public Adapter caseExprLibrary(ExprLibrary object)
@@ -102,14 +214,34 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createExprSubclauseAdapter();
       }
       @Override
+      public Adapter caseBoolean(org.osate.expr.expr.Boolean object)
+      {
+        return createBooleanAdapter();
+      }
+      @Override
+      public Adapter caseInteger(org.osate.expr.expr.Integer object)
+      {
+        return createIntegerAdapter();
+      }
+      @Override
+      public Adapter caseReal(Real object)
+      {
+        return createRealAdapter();
+      }
+      @Override
+      public Adapter caseString(org.osate.expr.expr.String object)
+      {
+        return createStringAdapter();
+      }
+      @Override
       public Adapter caseElement(Element object)
       {
         return createElementAdapter();
       }
       @Override
-      public Adapter caseNamedElement(NamedElement object)
+      public Adapter caseAadl2_NamedElement(org.osate.aadl2.NamedElement object)
       {
-        return createNamedElementAdapter();
+        return createAadl2_NamedElementAdapter();
       }
       @Override
       public Adapter caseAnnexLibrary(AnnexLibrary object)
@@ -164,16 +296,286 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Greeting <em>Greeting</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.NamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.expr.expr.Greeting
+   * @see org.osate.expr.expr.NamedElement
    * @generated
    */
-  public Adapter createGreetingAdapter()
+  public Adapter createNamedElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Declaration <em>Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Declaration
+   * @generated
+   */
+  public Adapter createDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TypeDecl <em>Type Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.TypeDecl
+   * @generated
+   */
+  public Adapter createTypeDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.VarDecl
+   * @generated
+   */
+  public Adapter createVarDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.FunDecl <em>Fun Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.FunDecl
+   * @generated
+   */
+  public Adapter createFunDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Type
+   * @generated
+   */
+  public Adapter createTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.PrimitiveType <em>Primitive Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.PrimitiveType
+   * @generated
+   */
+  public Adapter createPrimitiveTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Category <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Category
+   * @generated
+   */
+  public Adapter createCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.MetaClass <em>Meta Class</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.MetaClass
+   * @generated
+   */
+  public Adapter createMetaClassAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.RecordType <em>Record Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.RecordType
+   * @generated
+   */
+  public Adapter createRecordTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Field <em>Field</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Field
+   * @generated
+   */
+  public Adapter createFieldAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.UnionType <em>Union Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.UnionType
+   * @generated
+   */
+  public Adapter createUnionTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TupleType <em>Tuple Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.TupleType
+   * @generated
+   */
+  public Adapter createTupleTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TupleField <em>Tuple Field</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.TupleField
+   * @generated
+   */
+  public Adapter createTupleFieldAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.ListType <em>List Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.ListType
+   * @generated
+   */
+  public Adapter createListTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.SetType <em>Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.SetType
+   * @generated
+   */
+  public Adapter createSetTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.BagType <em>Bag Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.BagType
+   * @generated
+   */
+  public Adapter createBagTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.MapType <em>Map Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.MapType
+   * @generated
+   */
+  public Adapter createMapTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TypeRef <em>Type Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.TypeRef
+   * @generated
+   */
+  public Adapter createTypeRefAdapter()
   {
     return null;
   }
@@ -209,6 +611,66 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Boolean <em>Boolean</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Boolean
+   * @generated
+   */
+  public Adapter createBooleanAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Integer <em>Integer</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Integer
+   * @generated
+   */
+  public Adapter createIntegerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Real <em>Real</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Real
+   * @generated
+   */
+  public Adapter createRealAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.String <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.String
+   * @generated
+   */
+  public Adapter createStringAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -233,7 +695,7 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @see org.osate.aadl2.NamedElement
    * @generated
    */
-  public Adapter createNamedElementAdapter()
+  public Adapter createAadl2_NamedElementAdapter()
   {
     return null;
   }

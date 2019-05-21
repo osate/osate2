@@ -17,9 +17,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.impl.AnnexLibraryImpl;
 
+import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.Greeting;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +29,7 @@ import org.osate.expr.expr.Greeting;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.ExprLibraryImpl#getGreetings <em>Greetings</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.ExprLibraryImpl#getDecls <em>Decls</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,14 +37,14 @@ import org.osate.expr.expr.Greeting;
 public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
 {
   /**
-   * The cached value of the '{@link #getGreetings() <em>Greetings</em>}' containment reference list.
+   * The cached value of the '{@link #getDecls() <em>Decls</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getGreetings()
+   * @see #getDecls()
    * @generated
    * @ordered
    */
-  protected EList<Greeting> greetings;
+  protected EList<Declaration> decls;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,13 +73,13 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
    * @generated
    */
   @Override
-  public EList<Greeting> getGreetings()
+  public EList<Declaration> getDecls()
   {
-    if (greetings == null)
+    if (decls == null)
     {
-      greetings = new EObjectContainmentEList<Greeting>(Greeting.class, this, ExprPackage.EXPR_LIBRARY__GREETINGS);
+      decls = new EObjectContainmentEList<Declaration>(Declaration.class, this, ExprPackage.EXPR_LIBRARY__DECLS);
     }
-    return greetings;
+    return decls;
   }
 
   /**
@@ -92,8 +92,8 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_LIBRARY__GREETINGS:
-        return ((InternalEList<?>)getGreetings()).basicRemove(otherEnd, msgs);
+      case ExprPackage.EXPR_LIBRARY__DECLS:
+        return ((InternalEList<?>)getDecls()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -108,8 +108,8 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_LIBRARY__GREETINGS:
-        return getGreetings();
+      case ExprPackage.EXPR_LIBRARY__DECLS:
+        return getDecls();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -125,9 +125,9 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_LIBRARY__GREETINGS:
-        getGreetings().clear();
-        getGreetings().addAll((Collection<? extends Greeting>)newValue);
+      case ExprPackage.EXPR_LIBRARY__DECLS:
+        getDecls().clear();
+        getDecls().addAll((Collection<? extends Declaration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -143,8 +143,8 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_LIBRARY__GREETINGS:
-        getGreetings().clear();
+      case ExprPackage.EXPR_LIBRARY__DECLS:
+        getDecls().clear();
         return;
     }
     super.eUnset(featureID);
@@ -160,8 +160,8 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
   {
     switch (featureID)
     {
-      case ExprPackage.EXPR_LIBRARY__GREETINGS:
-        return greetings != null && !greetings.isEmpty();
+      case ExprPackage.EXPR_LIBRARY__DECLS:
+        return decls != null && !decls.isEmpty();
     }
     return super.eIsSet(featureID);
   }

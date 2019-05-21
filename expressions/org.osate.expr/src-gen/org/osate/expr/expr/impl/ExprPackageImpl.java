@@ -5,6 +5,7 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -13,12 +14,33 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.expr.expr.BagType;
+import org.osate.expr.expr.Category;
+import org.osate.expr.expr.CategoryEnum;
+import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.ExprSubclause;
-import org.osate.expr.expr.Greeting;
+import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FunDecl;
+import org.osate.expr.expr.ListType;
+import org.osate.expr.expr.MapType;
+import org.osate.expr.expr.MetaClass;
+import org.osate.expr.expr.MetaClassEnum;
+import org.osate.expr.expr.NamedElement;
+import org.osate.expr.expr.PrimitiveType;
+import org.osate.expr.expr.Real;
+import org.osate.expr.expr.RecordType;
+import org.osate.expr.expr.SetType;
+import org.osate.expr.expr.TupleField;
+import org.osate.expr.expr.TupleType;
+import org.osate.expr.expr.Type;
+import org.osate.expr.expr.TypeDecl;
+import org.osate.expr.expr.TypeRef;
+import org.osate.expr.expr.UnionType;
+import org.osate.expr.expr.VarDecl;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +62,133 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass greetingEClass = null;
+  private EClass namedElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass varDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass funDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass primitiveTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass categoryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass metaClassEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass recordTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fieldEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass unionTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tupleTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass tupleFieldEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass listTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass setTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass bagTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass mapTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeRefEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -55,6 +203,48 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass exprSubclauseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass booleanEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass integerEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass realEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass stringEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum categoryEnumEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum metaClassEnumEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -151,9 +341,9 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EClass getGreeting()
+  public EClass getNamedElement()
   {
-    return greetingEClass;
+    return namedElementEClass;
   }
 
   /**
@@ -162,9 +352,372 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EAttribute getGreeting_Name()
+  public EClass getDeclaration()
   {
-    return (EAttribute)greetingEClass.getEStructuralFeatures().get(0);
+    return declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getDeclaration_Name()
+  {
+    return (EAttribute)declarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTypeDecl()
+  {
+    return typeDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTypeDecl_Type()
+  {
+    return (EReference)typeDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getVarDecl()
+  {
+    return varDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getVarDecl_Const()
+  {
+    return (EAttribute)varDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getVarDecl_Type()
+  {
+    return (EReference)varDeclEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getFunDecl()
+  {
+    return funDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getType()
+  {
+    return typeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getPrimitiveType()
+  {
+    return primitiveTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getCategory()
+  {
+    return categoryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getCategory_Category()
+  {
+    return (EAttribute)categoryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getMetaClass()
+  {
+    return metaClassEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getMetaClass_Class()
+  {
+    return (EAttribute)metaClassEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getRecordType()
+  {
+    return recordTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getRecordType_Field()
+  {
+    return (EReference)recordTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getField()
+  {
+    return fieldEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getField_Name()
+  {
+    return (EAttribute)fieldEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getField_Type()
+  {
+    return (EReference)fieldEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getUnionType()
+  {
+    return unionTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTupleType()
+  {
+    return tupleTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTupleType_Field()
+  {
+    return (EReference)tupleTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTupleField()
+  {
+    return tupleFieldEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getListType()
+  {
+    return listTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getListType_Type()
+  {
+    return (EReference)listTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getSetType()
+  {
+    return setTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getSetType_Type()
+  {
+    return (EReference)setTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getBagType()
+  {
+    return bagTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getBagType_Type()
+  {
+    return (EReference)bagTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getMapType()
+  {
+    return mapTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getMapType_Dom()
+  {
+    return (EReference)mapTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getMapType_Img()
+  {
+    return (EReference)mapTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTypeRef()
+  {
+    return typeRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTypeRef_Ref()
+  {
+    return (EReference)typeRefEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -184,7 +737,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EReference getExprLibrary_Greetings()
+  public EReference getExprLibrary_Decls()
   {
     return (EReference)exprLibraryEClass.getEStructuralFeatures().get(0);
   }
@@ -206,9 +759,75 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EReference getExprSubclause_Greetings()
+  public EReference getExprSubclause_Decls()
   {
     return (EReference)exprSubclauseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getBoolean()
+  {
+    return booleanEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getInteger()
+  {
+    return integerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getReal()
+  {
+    return realEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getString()
+  {
+    return stringEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EEnum getCategoryEnum()
+  {
+    return categoryEnumEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EEnum getMetaClassEnum()
+  {
+    return metaClassEnumEEnum;
   }
 
   /**
@@ -245,14 +864,77 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     exprModelEClass = createEClass(EXPR_MODEL);
     createEReference(exprModelEClass, EXPR_MODEL__ANNEX);
 
-    greetingEClass = createEClass(GREETING);
-    createEAttribute(greetingEClass, GREETING__NAME);
+    namedElementEClass = createEClass(NAMED_ELEMENT);
+
+    declarationEClass = createEClass(DECLARATION);
+    createEAttribute(declarationEClass, DECLARATION__NAME);
+
+    typeDeclEClass = createEClass(TYPE_DECL);
+    createEReference(typeDeclEClass, TYPE_DECL__TYPE);
+
+    varDeclEClass = createEClass(VAR_DECL);
+    createEAttribute(varDeclEClass, VAR_DECL__CONST);
+    createEReference(varDeclEClass, VAR_DECL__TYPE);
+
+    funDeclEClass = createEClass(FUN_DECL);
+
+    typeEClass = createEClass(TYPE);
+
+    primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
+
+    categoryEClass = createEClass(CATEGORY);
+    createEAttribute(categoryEClass, CATEGORY__CATEGORY);
+
+    metaClassEClass = createEClass(META_CLASS);
+    createEAttribute(metaClassEClass, META_CLASS__CLASS);
+
+    recordTypeEClass = createEClass(RECORD_TYPE);
+    createEReference(recordTypeEClass, RECORD_TYPE__FIELD);
+
+    fieldEClass = createEClass(FIELD);
+    createEAttribute(fieldEClass, FIELD__NAME);
+    createEReference(fieldEClass, FIELD__TYPE);
+
+    unionTypeEClass = createEClass(UNION_TYPE);
+
+    tupleTypeEClass = createEClass(TUPLE_TYPE);
+    createEReference(tupleTypeEClass, TUPLE_TYPE__FIELD);
+
+    tupleFieldEClass = createEClass(TUPLE_FIELD);
+
+    listTypeEClass = createEClass(LIST_TYPE);
+    createEReference(listTypeEClass, LIST_TYPE__TYPE);
+
+    setTypeEClass = createEClass(SET_TYPE);
+    createEReference(setTypeEClass, SET_TYPE__TYPE);
+
+    bagTypeEClass = createEClass(BAG_TYPE);
+    createEReference(bagTypeEClass, BAG_TYPE__TYPE);
+
+    mapTypeEClass = createEClass(MAP_TYPE);
+    createEReference(mapTypeEClass, MAP_TYPE__DOM);
+    createEReference(mapTypeEClass, MAP_TYPE__IMG);
+
+    typeRefEClass = createEClass(TYPE_REF);
+    createEReference(typeRefEClass, TYPE_REF__REF);
 
     exprLibraryEClass = createEClass(EXPR_LIBRARY);
-    createEReference(exprLibraryEClass, EXPR_LIBRARY__GREETINGS);
+    createEReference(exprLibraryEClass, EXPR_LIBRARY__DECLS);
 
     exprSubclauseEClass = createEClass(EXPR_SUBCLAUSE);
-    createEReference(exprSubclauseEClass, EXPR_SUBCLAUSE__GREETINGS);
+    createEReference(exprSubclauseEClass, EXPR_SUBCLAUSE__DECLS);
+
+    booleanEClass = createEClass(BOOLEAN);
+
+    integerEClass = createEClass(INTEGER);
+
+    realEClass = createEClass(REAL);
+
+    stringEClass = createEClass(STRING);
+
+    // Create enums
+    categoryEnumEEnum = createEEnum(CATEGORY_ENUM);
+    metaClassEnumEEnum = createEEnum(META_CLASS_ENUM);
   }
 
   /**
@@ -288,21 +970,125 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    declarationEClass.getESuperTypes().add(this.getNamedElement());
+    typeDeclEClass.getESuperTypes().add(this.getDeclaration());
+    varDeclEClass.getESuperTypes().add(this.getDeclaration());
+    funDeclEClass.getESuperTypes().add(this.getDeclaration());
+    primitiveTypeEClass.getESuperTypes().add(this.getType());
+    categoryEClass.getESuperTypes().add(this.getType());
+    metaClassEClass.getESuperTypes().add(this.getType());
+    recordTypeEClass.getESuperTypes().add(this.getType());
+    fieldEClass.getESuperTypes().add(this.getTupleField());
+    unionTypeEClass.getESuperTypes().add(this.getType());
+    tupleTypeEClass.getESuperTypes().add(this.getType());
+    listTypeEClass.getESuperTypes().add(this.getType());
+    setTypeEClass.getESuperTypes().add(this.getType());
+    bagTypeEClass.getESuperTypes().add(this.getType());
+    mapTypeEClass.getESuperTypes().add(this.getType());
+    typeRefEClass.getESuperTypes().add(this.getType());
     exprLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     exprSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
+    booleanEClass.getESuperTypes().add(this.getPrimitiveType());
+    integerEClass.getESuperTypes().add(this.getPrimitiveType());
+    realEClass.getESuperTypes().add(this.getPrimitiveType());
+    stringEClass.getESuperTypes().add(this.getPrimitiveType());
 
     // Initialize classes and features; add operations and parameters
     initEClass(exprModelEClass, ExprModel.class, "ExprModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExprModel_Annex(), theAadl2Package.getNamedElement(), null, "annex", null, 0, 1, ExprModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(greetingEClass, Greeting.class, "Greeting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getGreeting_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Greeting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(namedElementEClass, NamedElement.class, "NamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeDeclEClass, TypeDecl.class, "TypeDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeDecl_Type(), this.getType(), null, "type", null, 0, 1, TypeDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(varDeclEClass, VarDecl.class, "VarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVarDecl_Const(), theEcorePackage.getEBoolean(), "const", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVarDecl_Type(), this.getType(), null, "type", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(funDeclEClass, FunDecl.class, "FunDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCategory_Category(), this.getCategoryEnum(), "category", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(metaClassEClass, MetaClass.class, "MetaClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getMetaClass_Class(), this.getMetaClassEnum(), "class", null, 0, 1, MetaClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(recordTypeEClass, RecordType.class, "RecordType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getRecordType_Field(), this.getField(), null, "field", null, 0, -1, RecordType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getField_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getField_Type(), this.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(unionTypeEClass, UnionType.class, "UnionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(tupleTypeEClass, TupleType.class, "TupleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTupleType_Field(), this.getTupleField(), null, "field", null, 0, -1, TupleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(tupleFieldEClass, TupleField.class, "TupleField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(listTypeEClass, ListType.class, "ListType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getListType_Type(), this.getType(), null, "type", null, 0, 1, ListType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(setTypeEClass, SetType.class, "SetType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSetType_Type(), this.getType(), null, "type", null, 0, 1, SetType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(bagTypeEClass, BagType.class, "BagType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBagType_Type(), this.getType(), null, "type", null, 0, 1, BagType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(mapTypeEClass, MapType.class, "MapType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMapType_Dom(), this.getType(), null, "dom", null, 0, 1, MapType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMapType_Img(), this.getType(), null, "img", null, 0, 1, MapType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeRefEClass, TypeRef.class, "TypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeRef_Ref(), this.getTypeDecl(), null, "ref", null, 0, 1, TypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprLibraryEClass, ExprLibrary.class, "ExprLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExprLibrary_Greetings(), this.getGreeting(), null, "greetings", null, 0, -1, ExprLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExprLibrary_Decls(), this.getDeclaration(), null, "decls", null, 0, -1, ExprLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprSubclauseEClass, ExprSubclause.class, "ExprSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExprSubclause_Greetings(), this.getGreeting(), null, "greetings", null, 0, -1, ExprSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExprSubclause_Decls(), this.getDeclaration(), null, "decls", null, 0, -1, ExprSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(booleanEClass, org.osate.expr.expr.Boolean.class, "Boolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(integerEClass, org.osate.expr.expr.Integer.class, "Integer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(realEClass, Real.class, "Real", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(stringEClass, org.osate.expr.expr.String.class, "String", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    // Initialize enums and add enum literals
+    initEEnum(categoryEnumEEnum, CategoryEnum.class, "CategoryEnum");
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.ABSTRACT);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.BUS);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.DATA);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.DEVICE);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.MEMEORY);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.PROCESS);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.PROCESSOR);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.SUBPROGRAM);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.SUBPROGRAMGROUP);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.SYSTEM);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.THREAD_GROUP);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.THREAD);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.VIRTUAL_BUS);
+    addEEnumLiteral(categoryEnumEEnum, CategoryEnum.VIRTUAL_PROCESSOR);
+
+    initEEnum(metaClassEnumEEnum, MetaClassEnum.class, "MetaClassEnum");
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.CLASSIFIER);
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.SUBCOMPONENT);
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.FEATURE);
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.CONNECTION);
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.FLOW);
+    addEEnumLiteral(metaClassEnumEEnum, MetaClassEnum.MODE);
 
     // Create resource
     createResource(eNS_URI);

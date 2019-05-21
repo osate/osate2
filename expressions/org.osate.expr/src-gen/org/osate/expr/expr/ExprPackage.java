@@ -3,8 +3,11 @@
  */
 package org.osate.expr.expr;
 
+import java.lang.String;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -88,14 +91,33 @@ public interface ExprPackage extends EPackage
   int EXPR_MODEL_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.osate.expr.expr.impl.GreetingImpl <em>Greeting</em>}' class.
+   * The meta object id for the '{@link org.osate.expr.expr.impl.NamedElementImpl <em>Named Element</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.expr.expr.impl.GreetingImpl
-   * @see org.osate.expr.expr.impl.ExprPackageImpl#getGreeting()
+   * @see org.osate.expr.expr.impl.NamedElementImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getNamedElement()
    * @generated
    */
-  int GREETING = 1;
+  int NAMED_ELEMENT = 1;
+
+  /**
+   * The number of structural features of the '<em>Named Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAMED_ELEMENT_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.DeclarationImpl <em>Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.DeclarationImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getDeclaration()
+   * @generated
+   */
+  int DECLARATION = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -104,16 +126,501 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GREETING__NAME = 0;
+  int DECLARATION__NAME = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Greeting</em>' class.
+   * The number of structural features of the '<em>Declaration</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GREETING_FEATURE_COUNT = 1;
+  int DECLARATION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.TypeDeclImpl <em>Type Decl</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.TypeDeclImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getTypeDecl()
+   * @generated
+   */
+  int TYPE_DECL = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DECL__NAME = DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DECL__TYPE = DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Type Decl</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DECL_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.VarDeclImpl <em>Var Decl</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.VarDeclImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getVarDecl()
+   * @generated
+   */
+  int VAR_DECL = 4;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__NAME = DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Const</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__CONST = DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__TYPE = DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Var Decl</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.FunDeclImpl <em>Fun Decl</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.FunDeclImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getFunDecl()
+   * @generated
+   */
+  int FUN_DECL = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUN_DECL__NAME = DECLARATION__NAME;
+
+  /**
+   * The number of structural features of the '<em>Fun Decl</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FUN_DECL_FEATURE_COUNT = DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.TypeImpl <em>Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.TypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getType()
+   * @generated
+   */
+  int TYPE = 6;
+
+  /**
+   * The number of structural features of the '<em>Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.PrimitiveTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getPrimitiveType()
+   * @generated
+   */
+  int PRIMITIVE_TYPE = 7;
+
+  /**
+   * The number of structural features of the '<em>Primitive Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRIMITIVE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.CategoryImpl <em>Category</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.CategoryImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getCategory()
+   * @generated
+   */
+  int CATEGORY = 8;
+
+  /**
+   * The feature id for the '<em><b>Category</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CATEGORY__CATEGORY = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Category</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CATEGORY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.MetaClassImpl <em>Meta Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.MetaClassImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClass()
+   * @generated
+   */
+  int META_CLASS = 9;
+
+  /**
+   * The feature id for the '<em><b>Class</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int META_CLASS__CLASS = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Meta Class</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int META_CLASS_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.RecordTypeImpl <em>Record Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.RecordTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getRecordType()
+   * @generated
+   */
+  int RECORD_TYPE = 10;
+
+  /**
+   * The feature id for the '<em><b>Field</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RECORD_TYPE__FIELD = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Record Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RECORD_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.TupleFieldImpl <em>Tuple Field</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.TupleFieldImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleField()
+   * @generated
+   */
+  int TUPLE_FIELD = 14;
+
+  /**
+   * The number of structural features of the '<em>Tuple Field</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUPLE_FIELD_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.FieldImpl <em>Field</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.FieldImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getField()
+   * @generated
+   */
+  int FIELD = 11;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD__NAME = TUPLE_FIELD_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD__TYPE = TUPLE_FIELD_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Field</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_FEATURE_COUNT = TUPLE_FIELD_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.UnionTypeImpl <em>Union Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.UnionTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnionType()
+   * @generated
+   */
+  int UNION_TYPE = 12;
+
+  /**
+   * The number of structural features of the '<em>Union Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNION_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.TupleTypeImpl <em>Tuple Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.TupleTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleType()
+   * @generated
+   */
+  int TUPLE_TYPE = 13;
+
+  /**
+   * The feature id for the '<em><b>Field</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUPLE_TYPE__FIELD = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Tuple Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TUPLE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ListTypeImpl <em>List Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.ListTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getListType()
+   * @generated
+   */
+  int LIST_TYPE = 15;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LIST_TYPE__TYPE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>List Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LIST_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.SetTypeImpl <em>Set Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.SetTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getSetType()
+   * @generated
+   */
+  int SET_TYPE = 16;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SET_TYPE__TYPE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Set Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SET_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.BagTypeImpl <em>Bag Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.BagTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getBagType()
+   * @generated
+   */
+  int BAG_TYPE = 17;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BAG_TYPE__TYPE = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Bag Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BAG_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.MapTypeImpl <em>Map Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.MapTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getMapType()
+   * @generated
+   */
+  int MAP_TYPE = 18;
+
+  /**
+   * The feature id for the '<em><b>Dom</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MAP_TYPE__DOM = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Img</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MAP_TYPE__IMG = TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Map Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MAP_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.TypeRefImpl <em>Type Ref</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.TypeRefImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getTypeRef()
+   * @generated
+   */
+  int TYPE_REF = 19;
+
+  /**
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_REF__REF = TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Type Ref</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_REF_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
@@ -123,7 +630,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprLibrary()
    * @generated
    */
-  int EXPR_LIBRARY = 2;
+  int EXPR_LIBRARY = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -171,13 +678,13 @@ public interface ExprPackage extends EPackage
   int EXPR_LIBRARY__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.ANNEX_LIBRARY__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-   * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
+   * The feature id for the '<em><b>Decls</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_LIBRARY__GREETINGS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 0;
+  int EXPR_LIBRARY__DECLS = Aadl2Package.ANNEX_LIBRARY_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Library</em>' class.
@@ -196,7 +703,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprSubclause()
    * @generated
    */
-  int EXPR_SUBCLAUSE = 3;
+  int EXPR_SUBCLAUSE = 21;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -253,13 +760,13 @@ public interface ExprPackage extends EPackage
   int EXPR_SUBCLAUSE__IN_MODE = Aadl2Package.ANNEX_SUBCLAUSE__IN_MODE;
 
   /**
-   * The feature id for the '<em><b>Greetings</b></em>' containment reference list.
+   * The feature id for the '<em><b>Decls</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EXPR_SUBCLAUSE__GREETINGS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
+  int EXPR_SUBCLAUSE__DECLS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Subclause</em>' class.
@@ -269,6 +776,102 @@ public interface ExprPackage extends EPackage
    * @ordered
    */
   int EXPR_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.BooleanImpl <em>Boolean</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.BooleanImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getBoolean()
+   * @generated
+   */
+  int BOOLEAN = 22;
+
+  /**
+   * The number of structural features of the '<em>Boolean</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOLEAN_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.IntegerImpl <em>Integer</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.IntegerImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getInteger()
+   * @generated
+   */
+  int INTEGER = 23;
+
+  /**
+   * The number of structural features of the '<em>Integer</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTEGER_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.RealImpl <em>Real</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.RealImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getReal()
+   * @generated
+   */
+  int REAL = 24;
+
+  /**
+   * The number of structural features of the '<em>Real</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.StringImpl <em>String</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.StringImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getString()
+   * @generated
+   */
+  int STRING = 25;
+
+  /**
+   * The number of structural features of the '<em>String</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.CategoryEnum <em>Category Enum</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.CategoryEnum
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getCategoryEnum()
+   * @generated
+   */
+  int CATEGORY_ENUM = 26;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.MetaClassEnum <em>Meta Class Enum</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.MetaClassEnum
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClassEnum()
+   * @generated
+   */
+  int META_CLASS_ENUM = 27;
 
 
   /**
@@ -293,25 +896,370 @@ public interface ExprPackage extends EPackage
   EReference getExprModel_Annex();
 
   /**
-   * Returns the meta object for class '{@link org.osate.expr.expr.Greeting <em>Greeting</em>}'.
+   * Returns the meta object for class '{@link org.osate.expr.expr.NamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Greeting</em>'.
-   * @see org.osate.expr.expr.Greeting
+   * @return the meta object for class '<em>Named Element</em>'.
+   * @see org.osate.expr.expr.NamedElement
    * @generated
    */
-  EClass getGreeting();
+  EClass getNamedElement();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.expr.expr.Greeting#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link org.osate.expr.expr.Declaration <em>Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Declaration</em>'.
+   * @see org.osate.expr.expr.Declaration
+   * @generated
+   */
+  EClass getDeclaration();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.Declaration#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.expr.expr.Greeting#getName()
-   * @see #getGreeting()
+   * @see org.osate.expr.expr.Declaration#getName()
+   * @see #getDeclaration()
    * @generated
    */
-  EAttribute getGreeting_Name();
+  EAttribute getDeclaration_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.TypeDecl <em>Type Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Decl</em>'.
+   * @see org.osate.expr.expr.TypeDecl
+   * @generated
+   */
+  EClass getTypeDecl();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.TypeDecl#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.TypeDecl#getType()
+   * @see #getTypeDecl()
+   * @generated
+   */
+  EReference getTypeDecl_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Var Decl</em>'.
+   * @see org.osate.expr.expr.VarDecl
+   * @generated
+   */
+  EClass getVarDecl();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.VarDecl#isConst <em>Const</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Const</em>'.
+   * @see org.osate.expr.expr.VarDecl#isConst()
+   * @see #getVarDecl()
+   * @generated
+   */
+  EAttribute getVarDecl_Const();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.VarDecl#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.VarDecl#getType()
+   * @see #getVarDecl()
+   * @generated
+   */
+  EReference getVarDecl_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.FunDecl <em>Fun Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Fun Decl</em>'.
+   * @see org.osate.expr.expr.FunDecl
+   * @generated
+   */
+  EClass getFunDecl();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type</em>'.
+   * @see org.osate.expr.expr.Type
+   * @generated
+   */
+  EClass getType();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.PrimitiveType <em>Primitive Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Primitive Type</em>'.
+   * @see org.osate.expr.expr.PrimitiveType
+   * @generated
+   */
+  EClass getPrimitiveType();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Category <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Category</em>'.
+   * @see org.osate.expr.expr.Category
+   * @generated
+   */
+  EClass getCategory();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.Category#getCategory <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Category</em>'.
+   * @see org.osate.expr.expr.Category#getCategory()
+   * @see #getCategory()
+   * @generated
+   */
+  EAttribute getCategory_Category();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.MetaClass <em>Meta Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Meta Class</em>'.
+   * @see org.osate.expr.expr.MetaClass
+   * @generated
+   */
+  EClass getMetaClass();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.MetaClass#getClass_ <em>Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Class</em>'.
+   * @see org.osate.expr.expr.MetaClass#getClass_()
+   * @see #getMetaClass()
+   * @generated
+   */
+  EAttribute getMetaClass_Class();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.RecordType <em>Record Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Record Type</em>'.
+   * @see org.osate.expr.expr.RecordType
+   * @generated
+   */
+  EClass getRecordType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.RecordType#getField <em>Field</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Field</em>'.
+   * @see org.osate.expr.expr.RecordType#getField()
+   * @see #getRecordType()
+   * @generated
+   */
+  EReference getRecordType_Field();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Field <em>Field</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Field</em>'.
+   * @see org.osate.expr.expr.Field
+   * @generated
+   */
+  EClass getField();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.Field#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.expr.expr.Field#getName()
+   * @see #getField()
+   * @generated
+   */
+  EAttribute getField_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.Field#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.Field#getType()
+   * @see #getField()
+   * @generated
+   */
+  EReference getField_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.UnionType <em>Union Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Union Type</em>'.
+   * @see org.osate.expr.expr.UnionType
+   * @generated
+   */
+  EClass getUnionType();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.TupleType <em>Tuple Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Tuple Type</em>'.
+   * @see org.osate.expr.expr.TupleType
+   * @generated
+   */
+  EClass getTupleType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.TupleType#getField <em>Field</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Field</em>'.
+   * @see org.osate.expr.expr.TupleType#getField()
+   * @see #getTupleType()
+   * @generated
+   */
+  EReference getTupleType_Field();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.TupleField <em>Tuple Field</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Tuple Field</em>'.
+   * @see org.osate.expr.expr.TupleField
+   * @generated
+   */
+  EClass getTupleField();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.ListType <em>List Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>List Type</em>'.
+   * @see org.osate.expr.expr.ListType
+   * @generated
+   */
+  EClass getListType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.ListType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.ListType#getType()
+   * @see #getListType()
+   * @generated
+   */
+  EReference getListType_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.SetType <em>Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Set Type</em>'.
+   * @see org.osate.expr.expr.SetType
+   * @generated
+   */
+  EClass getSetType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.SetType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.SetType#getType()
+   * @see #getSetType()
+   * @generated
+   */
+  EReference getSetType_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.BagType <em>Bag Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bag Type</em>'.
+   * @see org.osate.expr.expr.BagType
+   * @generated
+   */
+  EClass getBagType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.BagType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.expr.expr.BagType#getType()
+   * @see #getBagType()
+   * @generated
+   */
+  EReference getBagType_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.MapType <em>Map Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Map Type</em>'.
+   * @see org.osate.expr.expr.MapType
+   * @generated
+   */
+  EClass getMapType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.MapType#getDom <em>Dom</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Dom</em>'.
+   * @see org.osate.expr.expr.MapType#getDom()
+   * @see #getMapType()
+   * @generated
+   */
+  EReference getMapType_Dom();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.MapType#getImg <em>Img</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Img</em>'.
+   * @see org.osate.expr.expr.MapType#getImg()
+   * @see #getMapType()
+   * @generated
+   */
+  EReference getMapType_Img();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.TypeRef <em>Type Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Ref</em>'.
+   * @see org.osate.expr.expr.TypeRef
+   * @generated
+   */
+  EClass getTypeRef();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.expr.expr.TypeRef#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.osate.expr.expr.TypeRef#getRef()
+   * @see #getTypeRef()
+   * @generated
+   */
+  EReference getTypeRef_Ref();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.ExprLibrary <em>Library</em>}'.
@@ -324,15 +1272,15 @@ public interface ExprPackage extends EPackage
   EClass getExprLibrary();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprLibrary#getGreetings <em>Greetings</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprLibrary#getDecls <em>Decls</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Greetings</em>'.
-   * @see org.osate.expr.expr.ExprLibrary#getGreetings()
+   * @return the meta object for the containment reference list '<em>Decls</em>'.
+   * @see org.osate.expr.expr.ExprLibrary#getDecls()
    * @see #getExprLibrary()
    * @generated
    */
-  EReference getExprLibrary_Greetings();
+  EReference getExprLibrary_Decls();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.ExprSubclause <em>Subclause</em>}'.
@@ -345,15 +1293,75 @@ public interface ExprPackage extends EPackage
   EClass getExprSubclause();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprSubclause#getGreetings <em>Greetings</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.ExprSubclause#getDecls <em>Decls</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Greetings</em>'.
-   * @see org.osate.expr.expr.ExprSubclause#getGreetings()
+   * @return the meta object for the containment reference list '<em>Decls</em>'.
+   * @see org.osate.expr.expr.ExprSubclause#getDecls()
    * @see #getExprSubclause()
    * @generated
    */
-  EReference getExprSubclause_Greetings();
+  EReference getExprSubclause_Decls();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Boolean <em>Boolean</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Boolean</em>'.
+   * @see org.osate.expr.expr.Boolean
+   * @generated
+   */
+  EClass getBoolean();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Integer <em>Integer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Integer</em>'.
+   * @see org.osate.expr.expr.Integer
+   * @generated
+   */
+  EClass getInteger();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Real <em>Real</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Real</em>'.
+   * @see org.osate.expr.expr.Real
+   * @generated
+   */
+  EClass getReal();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.String <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String</em>'.
+   * @see org.osate.expr.expr.String
+   * @generated
+   */
+  EClass getString();
+
+  /**
+   * Returns the meta object for enum '{@link org.osate.expr.expr.CategoryEnum <em>Category Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Category Enum</em>'.
+   * @see org.osate.expr.expr.CategoryEnum
+   * @generated
+   */
+  EEnum getCategoryEnum();
+
+  /**
+   * Returns the meta object for enum '{@link org.osate.expr.expr.MetaClassEnum <em>Meta Class Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Meta Class Enum</em>'.
+   * @see org.osate.expr.expr.MetaClassEnum
+   * @generated
+   */
+  EEnum getMetaClassEnum();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -397,14 +1405,24 @@ public interface ExprPackage extends EPackage
     EReference EXPR_MODEL__ANNEX = eINSTANCE.getExprModel_Annex();
 
     /**
-     * The meta object literal for the '{@link org.osate.expr.expr.impl.GreetingImpl <em>Greeting</em>}' class.
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.NamedElementImpl <em>Named Element</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.expr.expr.impl.GreetingImpl
-     * @see org.osate.expr.expr.impl.ExprPackageImpl#getGreeting()
+     * @see org.osate.expr.expr.impl.NamedElementImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getNamedElement()
      * @generated
      */
-    EClass GREETING = eINSTANCE.getGreeting();
+    EClass NAMED_ELEMENT = eINSTANCE.getNamedElement();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.DeclarationImpl <em>Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.DeclarationImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getDeclaration()
+     * @generated
+     */
+    EClass DECLARATION = eINSTANCE.getDeclaration();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -412,7 +1430,297 @@ public interface ExprPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute GREETING__NAME = eINSTANCE.getGreeting_Name();
+    EAttribute DECLARATION__NAME = eINSTANCE.getDeclaration_Name();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.TypeDeclImpl <em>Type Decl</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.TypeDeclImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getTypeDecl()
+     * @generated
+     */
+    EClass TYPE_DECL = eINSTANCE.getTypeDecl();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_DECL__TYPE = eINSTANCE.getTypeDecl_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.VarDeclImpl <em>Var Decl</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.VarDeclImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getVarDecl()
+     * @generated
+     */
+    EClass VAR_DECL = eINSTANCE.getVarDecl();
+
+    /**
+     * The meta object literal for the '<em><b>Const</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VAR_DECL__CONST = eINSTANCE.getVarDecl_Const();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VAR_DECL__TYPE = eINSTANCE.getVarDecl_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.FunDeclImpl <em>Fun Decl</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.FunDeclImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getFunDecl()
+     * @generated
+     */
+    EClass FUN_DECL = eINSTANCE.getFunDecl();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.TypeImpl <em>Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.TypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getType()
+     * @generated
+     */
+    EClass TYPE = eINSTANCE.getType();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.PrimitiveTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getPrimitiveType()
+     * @generated
+     */
+    EClass PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.CategoryImpl <em>Category</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.CategoryImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getCategory()
+     * @generated
+     */
+    EClass CATEGORY = eINSTANCE.getCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Category</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CATEGORY__CATEGORY = eINSTANCE.getCategory_Category();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.MetaClassImpl <em>Meta Class</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.MetaClassImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClass()
+     * @generated
+     */
+    EClass META_CLASS = eINSTANCE.getMetaClass();
+
+    /**
+     * The meta object literal for the '<em><b>Class</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute META_CLASS__CLASS = eINSTANCE.getMetaClass_Class();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.RecordTypeImpl <em>Record Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.RecordTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getRecordType()
+     * @generated
+     */
+    EClass RECORD_TYPE = eINSTANCE.getRecordType();
+
+    /**
+     * The meta object literal for the '<em><b>Field</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RECORD_TYPE__FIELD = eINSTANCE.getRecordType_Field();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.FieldImpl <em>Field</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.FieldImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getField()
+     * @generated
+     */
+    EClass FIELD = eINSTANCE.getField();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FIELD__NAME = eINSTANCE.getField_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FIELD__TYPE = eINSTANCE.getField_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.UnionTypeImpl <em>Union Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.UnionTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnionType()
+     * @generated
+     */
+    EClass UNION_TYPE = eINSTANCE.getUnionType();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.TupleTypeImpl <em>Tuple Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.TupleTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleType()
+     * @generated
+     */
+    EClass TUPLE_TYPE = eINSTANCE.getTupleType();
+
+    /**
+     * The meta object literal for the '<em><b>Field</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TUPLE_TYPE__FIELD = eINSTANCE.getTupleType_Field();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.TupleFieldImpl <em>Tuple Field</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.TupleFieldImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleField()
+     * @generated
+     */
+    EClass TUPLE_FIELD = eINSTANCE.getTupleField();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ListTypeImpl <em>List Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.ListTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getListType()
+     * @generated
+     */
+    EClass LIST_TYPE = eINSTANCE.getListType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LIST_TYPE__TYPE = eINSTANCE.getListType_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.SetTypeImpl <em>Set Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.SetTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getSetType()
+     * @generated
+     */
+    EClass SET_TYPE = eINSTANCE.getSetType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SET_TYPE__TYPE = eINSTANCE.getSetType_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.BagTypeImpl <em>Bag Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.BagTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getBagType()
+     * @generated
+     */
+    EClass BAG_TYPE = eINSTANCE.getBagType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BAG_TYPE__TYPE = eINSTANCE.getBagType_Type();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.MapTypeImpl <em>Map Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.MapTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getMapType()
+     * @generated
+     */
+    EClass MAP_TYPE = eINSTANCE.getMapType();
+
+    /**
+     * The meta object literal for the '<em><b>Dom</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MAP_TYPE__DOM = eINSTANCE.getMapType_Dom();
+
+    /**
+     * The meta object literal for the '<em><b>Img</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MAP_TYPE__IMG = eINSTANCE.getMapType_Img();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.TypeRefImpl <em>Type Ref</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.TypeRefImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getTypeRef()
+     * @generated
+     */
+    EClass TYPE_REF = eINSTANCE.getTypeRef();
+
+    /**
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_REF__REF = eINSTANCE.getTypeRef_Ref();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
@@ -425,12 +1733,12 @@ public interface ExprPackage extends EPackage
     EClass EXPR_LIBRARY = eINSTANCE.getExprLibrary();
 
     /**
-     * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Decls</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_LIBRARY__GREETINGS = eINSTANCE.getExprLibrary_Greetings();
+    EReference EXPR_LIBRARY__DECLS = eINSTANCE.getExprLibrary_Decls();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.ExprSubclauseImpl <em>Subclause</em>}' class.
@@ -443,12 +1751,72 @@ public interface ExprPackage extends EPackage
     EClass EXPR_SUBCLAUSE = eINSTANCE.getExprSubclause();
 
     /**
-     * The meta object literal for the '<em><b>Greetings</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Decls</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EXPR_SUBCLAUSE__GREETINGS = eINSTANCE.getExprSubclause_Greetings();
+    EReference EXPR_SUBCLAUSE__DECLS = eINSTANCE.getExprSubclause_Decls();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.BooleanImpl <em>Boolean</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.BooleanImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getBoolean()
+     * @generated
+     */
+    EClass BOOLEAN = eINSTANCE.getBoolean();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.IntegerImpl <em>Integer</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.IntegerImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getInteger()
+     * @generated
+     */
+    EClass INTEGER = eINSTANCE.getInteger();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.RealImpl <em>Real</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.RealImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getReal()
+     * @generated
+     */
+    EClass REAL = eINSTANCE.getReal();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.StringImpl <em>String</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.StringImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getString()
+     * @generated
+     */
+    EClass STRING = eINSTANCE.getString();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.CategoryEnum <em>Category Enum</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.CategoryEnum
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getCategoryEnum()
+     * @generated
+     */
+    EEnum CATEGORY_ENUM = eINSTANCE.getCategoryEnum();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.MetaClassEnum <em>Meta Class Enum</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.MetaClassEnum
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClassEnum()
+     * @generated
+     */
+    EEnum META_CLASS_ENUM = eINSTANCE.getMetaClassEnum();
 
   }
 
