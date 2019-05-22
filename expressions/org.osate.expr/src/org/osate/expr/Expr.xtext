@@ -1,4 +1,4 @@
-grammar org.osate.expr.Expr hidden(WS, SL_COMMENT)
+grammar org.osate.expr.Expr /*with org.eclipse.xtext.common.Terminals*/ hidden(WS, SL_COMMENT)
 
 generate expr "http://www.osate.org/expr/Expr"
 
@@ -34,7 +34,7 @@ TypeDecl:
 ;
 
 VarDecl:
-	((const?='val') | 'var') name=ID (':' type=Type)? ('=' Expression)? ';'
+	((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)? ';'
 ;
 
 FunDecl:
@@ -44,7 +44,7 @@ FunDecl:
 // Types
 
 Type:
-	PrimitiveType | Category | MetaClass
+	PrimitiveType | Category | MetaClass | ClassifierType
 	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType | TypeRef
 ;
 
@@ -54,14 +54,13 @@ PrimitiveType:
 
 
 Category:
-	category=CategoryEnum
+	category=ComponentCategory
 ;
 
-enum CategoryEnum:
-	ABSTRACT | BUS | DATA
-	| DEVICE | MEMEORY | PROCESS | PROCESSOR 
-	| SUBPROGRAM | SUBPROGRAMGROUP | SYSTEM 
-	| THREAD_GROUP | THREAD | VIRTUAL_BUS | VIRTUAL_PROCESSOR
+ComponentCategory returns aadl2::ComponentCategory:
+	'abstract' | 'bus'| 'data' | 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
+	| 'subprogram' 'group' | 'system' | 'thread' 'group' | 'thread' 
+	| 'virtual' 'bus' | 'virtual' 'processor'
 ;
 
 MetaClass:
@@ -69,8 +68,19 @@ MetaClass:
 ;
 
 enum MetaClassEnum:
-	CLASSIFIER | SUBCOMPONENT | FEATURE
-	|CONNECTION | FLOW | MODE
+	COMPONENT='component' | SUBCOMPONENT='subcomponent' | FEATURE='feature'
+	|CONNECTION='connection' | FLOW='flow' | MODE='mode'
+;
+
+
+enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
+
+
+ClassifierType:
+	{ClassifierType}
+	'classifier' ( 
+		'(' base=[aadl2::Classifier|QCREF] ')'
+	)?
 ;
 
 RecordType:
@@ -100,44 +110,236 @@ TupleType:
 
 TupleField:
 	{Field}
-	type=Type ';'
+	type=Type
 ;
 
 ListType:
 	{ListType}
-	'list' '{' type=Type '}'
+	'list' 'of' type=Type
 ;
 
 SetType:
-	'set' '{' type=Type '}'
+	'set' 'of' type=Type
 ;
 
 BagType:
-	'bag' '{' type=Type '}'
+	'bag' 'of' type=Type
 ;
 
 MapType:
-	'map' '{' dom=Type '->' img=Type '}' 
+	'map' dom=Type '->' img=Type 
 ;
 
 TypeRef:
 	ref=[TypeDecl|QCREF]
 ;
 
-Expression:
-	'???'
+// Expressions
+
+enum Operation:
+	OR='or' | ALT_OR='||'
+	| AND='and' | ALT_AND='&&'
+	| EQ='==' | NEQ='!='
+	| GEQ='>=' | LEQ='<=' | GT='>' | LT='<' | IN='><'
+	| PLUS='+' | MINUS='-'
+	| MULT='*' | DIV='/' | INTDIV='div' | MOD='mod'
+	| NOT='not'
 ;
 
+Expression returns Expression: 
+	OrExpression
+;
 
+OrExpression returns Expression:
+	AndExpression (=>({BinaryOperation.left=current} operator=OpOr) right=AndExpression)*
+;
+
+OpOr returns Operation:
+	'or' | '||'
+;
+
+AndExpression returns Expression:
+	EqualityExpression (=>({BinaryOperation.left=current} operator=OpAnd) right=EqualityExpression)*
+;
+
+OpAnd returns Operation:
+	'and' | '&&'
+;
+
+EqualityExpression returns Expression:
+	RelationalExpression (=>({BinaryOperation.left=current} operator=OpEquality) right=RelationalExpression)*
+;
+
+OpEquality returns Operation:
+	'==' | '!=' 
+;
+
+RelationalExpression returns Expression:
+//	OtherOperatorExpression
+//	( =>({BinaryOperation.leftOperand=current} feature=OpCompare) rightOperand=OtherOperatorExpression)*;
+	AdditiveExpression ( =>({BinaryOperation.left=current} operator=OpCompare) right=AdditiveExpression)*
+;
+
+OpCompare returns Operation:
+	'>=' | '<=' | '>' | '<' | '><'
+;
+
+//OtherOperatorExpression returns aadl2::PropertyExpression:
+//	AdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
+//	rightOperand=AAdditiveExpression)*;
+//
+//OpOther:
+//	  '->' 
+//	| '..<'
+//	| '>' '..'
+//	| '..'
+//	| '=>' 
+//	| '>' (=>('>' '>') | '>') 
+//	| '<' (=>('<' '<') | '<' | '=>')
+//	| '<>'
+//	| '?:';
+
+AdditiveExpression returns Expression:
+	MultiplicativeExpression (=>({BinaryOperation.left=current} operator=OpAdd) right=MultiplicativeExpression)*
+;
+
+OpAdd returns Operation:
+	'+' | '-'
+;
+
+MultiplicativeExpression returns Expression:
+	UnaryOperation (=>({BinaryOperation.left=current} operator=OpMulti) right=UnaryOperation)*
+;
+
+OpMulti returns Operation:
+	'*' | '/' | 'div' | 'mod'
+;
+
+UnaryOperation returns Expression:
+	{UnaryOperation} =>operator=OpUnary operand=UnitExpression 
+	| UnitExpression
+;
+
+OpUnary returns Operation:
+	"not" | "-" | "+"
+;
+
+UnitExpression returns Expression:
+	PrimaryExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
+;
+
+PrimaryExpression returns Expression:
+	VarRef | ModelOrPropertyReference 
+	| FunctionCall | RangeExpression | IfExpression
+	| Literal | '(' Expression ')'
+;
+
+VarRef:
+	ref=[VarDecl|QCREF]
+;
+
+// Reference to property, property constant, or model element.
+ModelOrPropertyReference returns Expression:
+	ModelReference (
+		=>({PropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|QPREF]
+	)? 
+	| PropertyReference
+;
+
+ModelReference:
+	modelElement=[aadl2::NamedElement|This] (
+		{ModelReference.prev=current} '.' modelElement=[aadl2::NamedElement|ID]
+	)*
+;
+
+// must be a rule, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=318482 
+This:
+	'this'
+;
+
+PropertyReference returns PropertyReference:
+	{PropertyReference}'#' property=[aadl2::AbstractNamedValue|QPREF]
+;
+
+FunctionCall returns Expression:
+	{FunctionCall} function=QCREF '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
+;
+
+RangeExpression returns Expression:
+	{Range} '[' minimum=Expression '..' maximum=Expression (=> 'delta' delta=Expression)? ']'
+;
+
+IfExpression returns Expression:
+	{Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif'
+;
+
+Literal returns Expression:
+	BooleanLiteral | IntegerLiteral | RealLiteral | StringLiteral
+	| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral 
+	| BagLiteral | MapLiteral 
+;
+
+BooleanLiteral returns Expression :
+	{BooleanLiteral} (value?='true'|'false')
+;
+
+IntegerLiteral returns Expression:
+	{IntegerLiteral} value=INTEGER_LIT
+;
+
+RealLiteral returns Expression:
+	{RealLiteral} value=REAL_LIT
+;
+
+StringLiteral returns Expression:
+	{StringLiteral} value=NoQuoteString
+;
+
+fragment CommaSeparatedExpressions:
+	elements+=Expression ( ',' elements+=Expression)*
+;
+
+ListLiteral returns Expression:
+	{ListLiteral} 'list' '(' CommaSeparatedExpressions? ')'
+;
+
+SetLiteral returns Expression:
+	{SetLiteral} 'set' '(' CommaSeparatedExpressions? ')'
+;
+
+RecordLiteral returns Expression:
+	{RecordLiteral} 'record'
+;
+
+UnionLiteral returns Expression:
+	{UnionLiteral} 'union'
+;
+
+TupleLiteral returns Expression:
+	{TupleLiteral} 'tuple' '(' CommaSeparatedExpressions? ')'
+;
+
+BagLiteral returns Expression:
+	{BagLiteral} 'bag' '(' CommaSeparatedExpressions? ')'
+;
+
+MapLiteral returns Expression:
+	{MapLiteral} 'map'
+;
+
+NoQuoteString:
+	// remove quotes from string in ValueConverter
+	STRING
+;
 
 // TERMINALS copied from properties language
 
 terminal SL_COMMENT:
 	'--' !('\n' | '\r')* ('\r'? '\n')?;
 
-INTVALUE returns aadl2::Integer:
-	INTEGER_LIT //NUMERAL 	
-;
+//INTVALUE returns aadl2::Integer:
+//	INTEGER_LIT //NUMERAL 	
+//;
 
 
 //terminal NUMERAL:
@@ -159,11 +361,11 @@ terminal REAL_LIT :
 ;
 
 terminal INTEGER_LIT : 
-		(DIGIT)+('_' (DIGIT)+)*
-		(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
-			| (INT_EXPONENT)?
-		)
-  ;
+	(DIGIT)+('_' (DIGIT)+)*
+	(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
+		| (INT_EXPONENT)?
+	)
+;
 
 terminal fragment DIGIT:
 	( '0'..'9' )
@@ -201,4 +403,5 @@ terminal ID:
 terminal WS:
 	(' '|'\t'|'\r'|'\n')+
 ;
+
 	

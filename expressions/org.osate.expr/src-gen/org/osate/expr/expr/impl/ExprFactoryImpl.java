@@ -12,33 +12,57 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
+import org.osate.expr.expr.BinaryOperation;
+import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
-import org.osate.expr.expr.CategoryEnum;
+import org.osate.expr.expr.ClassifierType;
+import org.osate.expr.expr.CommaSeparatedExpressions;
+import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.ExprSubclause;
+import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.Field;
 import org.osate.expr.expr.FunDecl;
+import org.osate.expr.expr.FunctionCall;
+import org.osate.expr.expr.IntegerLiteral;
+import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.ListType;
+import org.osate.expr.expr.MapLiteral;
 import org.osate.expr.expr.MapType;
 import org.osate.expr.expr.MetaClass;
 import org.osate.expr.expr.MetaClassEnum;
+import org.osate.expr.expr.ModelReference;
 import org.osate.expr.expr.NamedElement;
+import org.osate.expr.expr.Operation;
 import org.osate.expr.expr.PrimitiveType;
+import org.osate.expr.expr.PropertyReference;
+import org.osate.expr.expr.Range;
 import org.osate.expr.expr.Real;
+import org.osate.expr.expr.RealLiteral;
+import org.osate.expr.expr.RecordLiteral;
 import org.osate.expr.expr.RecordType;
+import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
+import org.osate.expr.expr.StringLiteral;
+import org.osate.expr.expr.TargetType;
 import org.osate.expr.expr.TupleField;
+import org.osate.expr.expr.TupleLiteral;
 import org.osate.expr.expr.TupleType;
 import org.osate.expr.expr.Type;
 import org.osate.expr.expr.TypeDecl;
 import org.osate.expr.expr.TypeRef;
+import org.osate.expr.expr.UnaryOperation;
+import org.osate.expr.expr.UnionLiteral;
 import org.osate.expr.expr.UnionType;
+import org.osate.expr.expr.UnitExpression;
 import org.osate.expr.expr.VarDecl;
+import org.osate.expr.expr.VarRef;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,6 +126,7 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
       case ExprPackage.CATEGORY: return createCategory();
       case ExprPackage.META_CLASS: return createMetaClass();
+      case ExprPackage.CLASSIFIER_TYPE: return createClassifierType();
       case ExprPackage.RECORD_TYPE: return createRecordType();
       case ExprPackage.FIELD: return createField();
       case ExprPackage.UNION_TYPE: return createUnionType();
@@ -112,12 +137,34 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.BAG_TYPE: return createBagType();
       case ExprPackage.MAP_TYPE: return createMapType();
       case ExprPackage.TYPE_REF: return createTypeRef();
+      case ExprPackage.EXPRESSION: return createExpression();
+      case ExprPackage.VAR_REF: return createVarRef();
+      case ExprPackage.MODEL_REFERENCE: return createModelReference();
+      case ExprPackage.PROPERTY_REFERENCE: return createPropertyReference();
+      case ExprPackage.COMMA_SEPARATED_EXPRESSIONS: return createCommaSeparatedExpressions();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
       case ExprPackage.BOOLEAN: return createBoolean();
       case ExprPackage.INTEGER: return createInteger();
       case ExprPackage.REAL: return createReal();
       case ExprPackage.STRING: return createString();
+      case ExprPackage.BINARY_OPERATION: return createBinaryOperation();
+      case ExprPackage.UNARY_OPERATION: return createUnaryOperation();
+      case ExprPackage.UNIT_EXPRESSION: return createUnitExpression();
+      case ExprPackage.FUNCTION_CALL: return createFunctionCall();
+      case ExprPackage.RANGE: return createRange();
+      case ExprPackage.CONDITIONAL: return createConditional();
+      case ExprPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
+      case ExprPackage.INTEGER_LITERAL: return createIntegerLiteral();
+      case ExprPackage.REAL_LITERAL: return createRealLiteral();
+      case ExprPackage.STRING_LITERAL: return createStringLiteral();
+      case ExprPackage.LIST_LITERAL: return createListLiteral();
+      case ExprPackage.SET_LITERAL: return createSetLiteral();
+      case ExprPackage.RECORD_LITERAL: return createRecordLiteral();
+      case ExprPackage.UNION_LITERAL: return createUnionLiteral();
+      case ExprPackage.TUPLE_LITERAL: return createTupleLiteral();
+      case ExprPackage.BAG_LITERAL: return createBagLiteral();
+      case ExprPackage.MAP_LITERAL: return createMapLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -133,10 +180,12 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case ExprPackage.CATEGORY_ENUM:
-        return createCategoryEnumFromString(eDataType, initialValue);
       case ExprPackage.META_CLASS_ENUM:
         return createMetaClassEnumFromString(eDataType, initialValue);
+      case ExprPackage.TARGET_TYPE:
+        return createTargetTypeFromString(eDataType, initialValue);
+      case ExprPackage.OPERATION:
+        return createOperationFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -152,10 +201,12 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case ExprPackage.CATEGORY_ENUM:
-        return convertCategoryEnumToString(eDataType, instanceValue);
       case ExprPackage.META_CLASS_ENUM:
         return convertMetaClassEnumToString(eDataType, instanceValue);
+      case ExprPackage.TARGET_TYPE:
+        return convertTargetTypeToString(eDataType, instanceValue);
+      case ExprPackage.OPERATION:
+        return convertOperationToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -287,6 +338,18 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
+  public ClassifierType createClassifierType()
+  {
+    ClassifierTypeImpl classifierType = new ClassifierTypeImpl();
+    return classifierType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public RecordType createRecordType()
   {
     RecordTypeImpl recordType = new RecordTypeImpl();
@@ -407,6 +470,66 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
+  public Expression createExpression()
+  {
+    ExpressionImpl expression = new ExpressionImpl();
+    return expression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public VarRef createVarRef()
+  {
+    VarRefImpl varRef = new VarRefImpl();
+    return varRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ModelReference createModelReference()
+  {
+    ModelReferenceImpl modelReference = new ModelReferenceImpl();
+    return modelReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public PropertyReference createPropertyReference()
+  {
+    PropertyReferenceImpl propertyReference = new PropertyReferenceImpl();
+    return propertyReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public CommaSeparatedExpressions createCommaSeparatedExpressions()
+  {
+    CommaSeparatedExpressionsImpl commaSeparatedExpressions = new CommaSeparatedExpressionsImpl();
+    return commaSeparatedExpressions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public ExprLibrary createExprLibrary()
   {
     ExprLibraryImpl exprLibrary = new ExprLibraryImpl();
@@ -478,11 +601,11 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public CategoryEnum createCategoryEnumFromString(EDataType eDataType, String initialValue)
+  @Override
+  public BinaryOperation createBinaryOperation()
   {
-    CategoryEnum result = CategoryEnum.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
+    BinaryOperationImpl binaryOperation = new BinaryOperationImpl();
+    return binaryOperation;
   }
 
   /**
@@ -490,9 +613,191 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertCategoryEnumToString(EDataType eDataType, Object instanceValue)
+  @Override
+  public UnaryOperation createUnaryOperation()
   {
-    return instanceValue == null ? null : instanceValue.toString();
+    UnaryOperationImpl unaryOperation = new UnaryOperationImpl();
+    return unaryOperation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public UnitExpression createUnitExpression()
+  {
+    UnitExpressionImpl unitExpression = new UnitExpressionImpl();
+    return unitExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FunctionCall createFunctionCall()
+  {
+    FunctionCallImpl functionCall = new FunctionCallImpl();
+    return functionCall;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Range createRange()
+  {
+    RangeImpl range = new RangeImpl();
+    return range;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Conditional createConditional()
+  {
+    ConditionalImpl conditional = new ConditionalImpl();
+    return conditional;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public BooleanLiteral createBooleanLiteral()
+  {
+    BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
+    return booleanLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public IntegerLiteral createIntegerLiteral()
+  {
+    IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
+    return integerLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public RealLiteral createRealLiteral()
+  {
+    RealLiteralImpl realLiteral = new RealLiteralImpl();
+    return realLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public StringLiteral createStringLiteral()
+  {
+    StringLiteralImpl stringLiteral = new StringLiteralImpl();
+    return stringLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ListLiteral createListLiteral()
+  {
+    ListLiteralImpl listLiteral = new ListLiteralImpl();
+    return listLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public SetLiteral createSetLiteral()
+  {
+    SetLiteralImpl setLiteral = new SetLiteralImpl();
+    return setLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public RecordLiteral createRecordLiteral()
+  {
+    RecordLiteralImpl recordLiteral = new RecordLiteralImpl();
+    return recordLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public UnionLiteral createUnionLiteral()
+  {
+    UnionLiteralImpl unionLiteral = new UnionLiteralImpl();
+    return unionLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TupleLiteral createTupleLiteral()
+  {
+    TupleLiteralImpl tupleLiteral = new TupleLiteralImpl();
+    return tupleLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public BagLiteral createBagLiteral()
+  {
+    BagLiteralImpl bagLiteral = new BagLiteralImpl();
+    return bagLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public MapLiteral createMapLiteral()
+  {
+    MapLiteralImpl mapLiteral = new MapLiteralImpl();
+    return mapLiteral;
   }
 
   /**
@@ -513,6 +818,50 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   public String convertMetaClassEnumToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TargetType createTargetTypeFromString(EDataType eDataType, String initialValue)
+  {
+    TargetType result = TargetType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertTargetTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Operation createOperationFromString(EDataType eDataType, String initialValue)
+  {
+    Operation result = Operation.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertOperationToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

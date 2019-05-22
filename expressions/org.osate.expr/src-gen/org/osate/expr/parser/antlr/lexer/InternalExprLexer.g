@@ -16,75 +16,99 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-VIRTUAL_PROCESSOR : ('V'|'v')('I'|'i')('R'|'r')('T'|'t')('U'|'u')('A'|'a')('L'|'l')'_'('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
+Subcomponent : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
 
-SUBPROGRAMGROUP : ('S'|'s')('U'|'u')('B'|'b')('P'|'p')('R'|'r')('O'|'o')('G'|'g')('R'|'r')('A'|'a')('M'|'m')('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
+Classifier : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-SUBCOMPONENT : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
+Connection : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
-THREAD_GROUP : ('T'|'t')('H'|'h')('R'|'r')('E'|'e')('A'|'a')('D'|'d')'_'('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
+Subprogram : ('S'|'s')('U'|'u')('B'|'b')('P'|'p')('R'|'r')('O'|'o')('G'|'g')('R'|'r')('A'|'a')('M'|'m');
 
-VIRTUAL_BUS : ('V'|'v')('I'|'i')('R'|'r')('T'|'t')('U'|'u')('A'|'a')('L'|'l')'_'('B'|'b')('U'|'u')('S'|'s');
+Component : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
 
-CLASSIFIER : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
-
-CONNECTION : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
-
-SUBPROGRAM : ('S'|'s')('U'|'u')('B'|'b')('P'|'p')('R'|'r')('O'|'o')('G'|'g')('R'|'r')('A'|'a')('M'|'m');
-
-PROCESSOR : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
+Processor : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
 
 Subclause : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('L'|'l')('A'|'a')('U'|'u')('S'|'s')('E'|'e');
 
-ABSTRACT : ('A'|'a')('B'|'b')('S'|'s')('T'|'t')('R'|'r')('A'|'a')('C'|'c')('T'|'t');
+Abstract : ('A'|'a')('B'|'b')('S'|'s')('T'|'t')('R'|'r')('A'|'a')('C'|'c')('T'|'t');
 
-FEATURE : ('F'|'f')('E'|'e')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('E'|'e');
+Element : ('E'|'e')('L'|'l')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
 
-MEMEORY : ('M'|'m')('E'|'e')('M'|'m')('E'|'e')('O'|'o')('R'|'r')('Y'|'y');
-
-PROCESS : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
+Feature : ('F'|'f')('E'|'e')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('E'|'e');
 
 Library : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
 
-DEVICE : ('D'|'d')('E'|'e')('V'|'v')('I'|'i')('C'|'c')('E'|'e');
+Process : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
 
-SYSTEM : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
+Virtual : ('V'|'v')('I'|'i')('R'|'r')('T'|'t')('U'|'u')('A'|'a')('L'|'l');
 
-THREAD : ('T'|'t')('H'|'h')('R'|'r')('E'|'e')('A'|'a')('D'|'d');
+Device : ('D'|'d')('E'|'e')('V'|'v')('I'|'i')('C'|'c')('E'|'e');
+
+Memory : ('M'|'m')('E'|'e')('M'|'m')('O'|'o')('R'|'r')('Y'|'y');
 
 Record : ('R'|'r')('E'|'e')('C'|'c')('O'|'o')('R'|'r')('D'|'d');
 
 String : ('S'|'s')('T'|'t')('R'|'r')('I'|'i')('N'|'n')('G'|'g');
 
+KW_System : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
+
+Thread : ('T'|'t')('H'|'h')('R'|'r')('E'|'e')('A'|'a')('D'|'d');
+
+Delta : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
+
+Endif : ('E'|'e')('N'|'n')('D'|'d')('I'|'i')('F'|'f');
+
+False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+
+Group : ('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
+
 Tuple : ('T'|'t')('U'|'u')('P'|'p')('L'|'l')('E'|'e');
 
 Union : ('U'|'u')('N'|'n')('I'|'i')('O'|'o')('N'|'n');
 
-DATA : ('D'|'d')('A'|'a')('T'|'t')('A'|'a');
-
-FLOW : ('F'|'f')('L'|'l')('O'|'o')('W'|'w');
-
-MODE : ('M'|'m')('O'|'o')('D'|'d')('E'|'e');
-
 Bool : ('B'|'b')('O'|'o')('O'|'o')('L'|'l');
+
+Data : ('D'|'d')('A'|'a')('T'|'t')('A'|'a');
+
+Else : ('E'|'e')('L'|'l')('S'|'s')('E'|'e');
+
+Flow : ('F'|'f')('L'|'l')('O'|'o')('W'|'w');
 
 List : ('L'|'l')('I'|'i')('S'|'s')('T'|'t');
 
+Mode : ('M'|'m')('O'|'o')('D'|'d')('E'|'e');
+
 Real : ('R'|'r')('E'|'e')('A'|'a')('L'|'l');
+
+Root : ('R'|'r')('O'|'o')('O'|'o')('T'|'t');
+
+Then : ('T'|'t')('H'|'h')('E'|'e')('N'|'n');
+
+This : ('T'|'t')('H'|'h')('I'|'i')('S'|'s');
+
+True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
 Type : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
 
 QuestionMarkQuestionMarkQuestionMark : '?''?''?';
 
-BUS : ('B'|'b')('U'|'u')('S'|'s');
+And : ('A'|'a')('N'|'n')('D'|'d');
 
 Bag : ('B'|'b')('A'|'a')('G'|'g');
 
+Bus : ('B'|'b')('U'|'u')('S'|'s');
+
 Def : ('D'|'d')('E'|'e')('F'|'f');
+
+Div : ('D'|'d')('I'|'i')('V'|'v');
 
 Int : ('I'|'i')('N'|'n')('T'|'t');
 
 Map : ('M'|'m')('A'|'a')('P'|'p');
+
+Mod : ('M'|'m')('O'|'o')('D'|'d');
+
+Not : ('N'|'n')('O'|'o')('T'|'t');
 
 Set : ('S'|'s')('E'|'e')('T'|'t');
 
@@ -92,9 +116,37 @@ Val : ('V'|'v')('A'|'a')('L'|'l');
 
 Var : ('V'|'v')('A'|'a')('R'|'r');
 
+ExclamationMarkEqualsSign : '!''=';
+
+AmpersandAmpersand : '&''&';
+
 HyphenMinusGreaterThanSign : '-''>';
 
+FullStopFullStop : '.''.';
+
 ColonColon : ':'':';
+
+LessThanSignEqualsSign : '<''=';
+
+EqualsSignEqualsSign : '=''=';
+
+GreaterThanSignLessThanSign : '>''<';
+
+GreaterThanSignEqualsSign : '>''=';
+
+If : ('I'|'i')('F'|'f');
+
+In : ('I'|'i')('N'|'n');
+
+Of : ('O'|'o')('F'|'f');
+
+Or : ('O'|'o')('R'|'r');
+
+VerticalLineVerticalLine : '|''|';
+
+NumberSign : '#';
+
+PercentSign : '%';
 
 LeftParenthesis : '(';
 
@@ -102,13 +154,29 @@ RightParenthesis : ')';
 
 Asterisk : '*';
 
+PlusSign : '+';
+
+Comma : ',';
+
+HyphenMinus : '-';
+
 FullStop : '.';
+
+Solidus : '/';
 
 Colon : ':';
 
 Semicolon : ';';
 
+LessThanSign : '<';
+
 EqualsSign : '=';
+
+GreaterThanSign : '>';
+
+LeftSquareBracket : '[';
+
+RightSquareBracket : ']';
 
 LeftCurlyBracket : '{';
 

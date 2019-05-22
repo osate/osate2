@@ -114,6 +114,15 @@ public interface ExprFactory extends EFactory
   MetaClass createMetaClass();
 
   /**
+   * Returns a new object of class '<em>Classifier Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Type</em>'.
+   * @generated
+   */
+  ClassifierType createClassifierType();
+
+  /**
    * Returns a new object of class '<em>Record Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -204,6 +213,51 @@ public interface ExprFactory extends EFactory
   TypeRef createTypeRef();
 
   /**
+   * Returns a new object of class '<em>Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Expression</em>'.
+   * @generated
+   */
+  Expression createExpression();
+
+  /**
+   * Returns a new object of class '<em>Var Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var Ref</em>'.
+   * @generated
+   */
+  VarRef createVarRef();
+
+  /**
+   * Returns a new object of class '<em>Model Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Model Reference</em>'.
+   * @generated
+   */
+  ModelReference createModelReference();
+
+  /**
+   * Returns a new object of class '<em>Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Reference</em>'.
+   * @generated
+   */
+  PropertyReference createPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Comma Separated Expressions</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Comma Separated Expressions</em>'.
+   * @generated
+   */
+  CommaSeparatedExpressions createCommaSeparatedExpressions();
+
+  /**
    * Returns a new object of class '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -256,6 +310,159 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   String createString();
+
+  /**
+   * Returns a new object of class '<em>Binary Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Binary Operation</em>'.
+   * @generated
+   */
+  BinaryOperation createBinaryOperation();
+
+  /**
+   * Returns a new object of class '<em>Unary Operation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Unary Operation</em>'.
+   * @generated
+   */
+  UnaryOperation createUnaryOperation();
+
+  /**
+   * Returns a new object of class '<em>Unit Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Unit Expression</em>'.
+   * @generated
+   */
+  UnitExpression createUnitExpression();
+
+  /**
+   * Returns a new object of class '<em>Function Call</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Function Call</em>'.
+   * @generated
+   */
+  FunctionCall createFunctionCall();
+
+  /**
+   * Returns a new object of class '<em>Range</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Range</em>'.
+   * @generated
+   */
+  Range createRange();
+
+  /**
+   * Returns a new object of class '<em>Conditional</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Conditional</em>'.
+   * @generated
+   */
+  Conditional createConditional();
+
+  /**
+   * Returns a new object of class '<em>Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Boolean Literal</em>'.
+   * @generated
+   */
+  BooleanLiteral createBooleanLiteral();
+
+  /**
+   * Returns a new object of class '<em>Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Integer Literal</em>'.
+   * @generated
+   */
+  IntegerLiteral createIntegerLiteral();
+
+  /**
+   * Returns a new object of class '<em>Real Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Real Literal</em>'.
+   * @generated
+   */
+  RealLiteral createRealLiteral();
+
+  /**
+   * Returns a new object of class '<em>String Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String Literal</em>'.
+   * @generated
+   */
+  StringLiteral createStringLiteral();
+
+  /**
+   * Returns a new object of class '<em>List Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Literal</em>'.
+   * @generated
+   */
+  ListLiteral createListLiteral();
+
+  /**
+   * Returns a new object of class '<em>Set Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Set Literal</em>'.
+   * @generated
+   */
+  SetLiteral createSetLiteral();
+
+  /**
+   * Returns a new object of class '<em>Record Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Record Literal</em>'.
+   * @generated
+   */
+  RecordLiteral createRecordLiteral();
+
+  /**
+   * Returns a new object of class '<em>Union Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Union Literal</em>'.
+   * @generated
+   */
+  UnionLiteral createUnionLiteral();
+
+  /**
+   * Returns a new object of class '<em>Tuple Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Tuple Literal</em>'.
+   * @generated
+   */
+  TupleLiteral createTupleLiteral();
+
+  /**
+   * Returns a new object of class '<em>Bag Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Bag Literal</em>'.
+   * @generated
+   */
+  BagLiteral createBagLiteral();
+
+  /**
+   * Returns a new object of class '<em>Map Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Map Literal</em>'.
+   * @generated
+   */
+  MapLiteral createMapLiteral();
 
   /**
    * Returns the package supported by this factory.

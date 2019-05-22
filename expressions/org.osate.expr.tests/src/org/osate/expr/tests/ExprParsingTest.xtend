@@ -22,12 +22,16 @@ class ExprParsingTest {
 	def void loadModel() {
 		val result = parseHelper.parse('''
 			library
-				val x: int;
+				val x: int = 12;
 				var y: int;
 				def f();
-				type L: list{int};
+				type L: list of int;
 				type R: real;
 		''')
+		val resourceSet = result.eResource.resourceSet
+		parseHelper.parse('''
+		    
+		''', resourceSet)
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')

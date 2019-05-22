@@ -3,17 +3,35 @@
  */
 package org.osate.expr.scoping
 
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.xtext.naming.IQualifiedNameConverter
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.EObjectDescription
+import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.FilteringScope
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.Subcomponent
 import org.osate.expr.expr.ExprLibrary
 import org.osate.expr.expr.ExprPackage
 import org.osate.expr.expr.ExprSubclause
+import org.osate.expr.expr.ModelReference
 import org.osate.expr.expr.TypeDecl
-import org.osate.expr.expr.TypeRef
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 /**
  * This class contains custom scoping description.
@@ -23,29 +41,85 @@ import org.osate.expr.expr.TypeRef
  */
 class ExprScopeProvider extends AbstractDeclarativeScopeProvider {
 
+	@Inject
+	IQualifiedNameConverter qualifiedNameConverter
+
 	override getScope(EObject context, EReference reference) {
-		if (context instanceof TypeRef && reference == ExprPackage.Literals.TYPE_REF__REF) {
+		if (reference == ExprPackage.Literals.TYPE_REF__REF) {
 			val rootElement = getExprAnnexRoot(context)
 			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeDecl)
 			val existingScope = Scopes.scopeFor(candidates, delegateGetScope(context, reference))
-			val thisTypeDecl = EcoreUtil2.getContainerOfType(context, TypeDecl)
+			val thisTypeDecl = context.getContainerOfType(TypeDecl)
 
 			if (thisTypeDecl === null)
 				existingScope
 			else
 				// Scope that filters out the context element from the candidates list
 				new FilteringScope(existingScope, [getEObjectOrProxy != thisTypeDecl])
+		} else if (reference == ExprPackage.Literals.MODEL_REFERENCE__MODEL_ELEMENT) {
+			if (context instanceof ModelReference) {
+				getModelElementScope(context, reference)
+			} else {
+				getThisScope(context)
+			}
 		} else {
 			super.getScope(context, reference)
 		}
 	}
 
-	static def getExprAnnexRoot(EObject ele) {
+	def getThisScope(EObject context) {
+		val classifier = context.getContainerOfType(Classifier)
+		if (classifier === null)
+			IScope.NULLSCOPE
+		else
+			new SimpleScope(
+				#[EObjectDescription.create(qualifiedNameConverter.toQualifiedName('this'), classifier)]
+			)
+	}
+
+	def getModelElementScope(ModelReference context, EReference reference) {
+		if (context.prev === null) {
+			getThisScope(context)
+		} else {
+			val prev = context.prev
+			val prevElement = prev.modelElement
+			val classifier = switch prevElement {
+				Classifier:
+					prevElement
+				AbstractFeature:
+					switch featureClassifier : prevElement.abstractFeatureClassifier {
+						ComponentClassifier: featureClassifier
+						ComponentPrototype: featureClassifier.constrainingClassifier
+						default: prevElement.featurePrototype.constrainingClassifier
+					}
+				FeatureGroup:
+					switch featureType : prevElement.featureType {
+						FeatureGroupType: featureType
+						FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+					}
+				Feature:
+					switch featureClassifier : prevElement.featureClassifier {
+						ComponentClassifier: featureClassifier
+						ComponentPrototype: featureClassifier.constrainingClassifier
+					}
+				Subcomponent:
+					switch subcomponentType : prevElement.subcomponentType {
+						ComponentClassifier: subcomponentType
+						ComponentPrototype: subcomponentType.constrainingClassifier
+					}
+			}
+			if (classifier === null)
+				IScope.NULLSCOPE
+			else
+				classifier.members.scopeFor
+		}
+	}
+
+	def getExprAnnexRoot(EObject ele) {
 		getContainerOfTypes(ele, ExprLibrary, ExprSubclause)
 	}
 
-	static def EObject getContainerOfTypes(EObject ele, Class<? extends EObject> type1,
-		Class<? extends EObject> type2) {
+	def EObject getContainerOfTypes(EObject ele, Class<? extends EObject> type1, Class<? extends EObject> type2) {
 		for (var e = ele; e !== null; e = e.eContainer())
 			if (type1.isInstance(e))
 				return type1.cast(e)
@@ -55,4 +129,8 @@ class ExprScopeProvider extends AbstractDeclarativeScopeProvider {
 		null
 	}
 
+	def scopeFor(Iterable<? extends EObject> elements) {
+		new SimpleScope(IScope.NULLSCOPE,
+			Scopes.scopedElementsFor(elements, QualifiedName.wrapper(SimpleAttributeResolver.NAME_RESOLVER)), false)
+	}
 }

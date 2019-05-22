@@ -36,7 +36,7 @@ public class MetaClassImpl extends TypeImpl implements MetaClass
    * @generated
    * @ordered
    */
-  protected static final MetaClassEnum CLASS_EDEFAULT = MetaClassEnum.CLASSIFIER;
+  protected static final MetaClassEnum CLASS_EDEFAULT = MetaClassEnum.COMPONENT;
 
   /**
    * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute.

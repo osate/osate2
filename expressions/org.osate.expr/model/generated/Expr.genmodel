@@ -6,6 +6,44 @@
     copyrightFields="false" runtimeVersion="2.17" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Expr" basePackage="org.osate.expr" disposableProviderFactory="true"
       fileExtensions="expr" ecorePackage="Expr.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//MetaClassEnum">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/COMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/SUBCOMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CLASSIFIER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//TargetType">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/COMPONENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/FEATURE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/CONNECTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/ELEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//TargetType/ROOT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//Operation">
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/ALT_OR"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/ALT_AND"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/EQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/NEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/GEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/LEQ"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/GT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/LT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/IN"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/PLUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/MINUS"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/MULT"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/DIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/INTDIV"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/MOD"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//Operation/NOT"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//CategoryEnum">
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/ABSTRACT"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/BUS"/>
@@ -15,20 +53,13 @@
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/PROCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/PROCESSOR"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAM"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAMGROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAMG_ROUP"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SYSTEM"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/THREAD_GROUP"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/THREAD"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/VIRTUAL_BUS"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/VIRTUAL_PROCESSOR"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//MetaClassEnum">
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CLASSIFIER"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/SUBCOMPONENT"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FEATURE"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CONNECTION"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FLOW"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//CategoryEnum/SUBPROGRAMGROUP"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//ExprComponentCategory">
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//ExprComponentCategory/ABSTRACT"/>
@@ -59,6 +90,7 @@
     <genClasses ecoreClass="Expr.ecore#//VarDecl">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//VarDecl/const"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/value"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//FunDecl"/>
     <genClasses ecoreClass="Expr.ecore#//Type"/>
@@ -68,6 +100,9 @@
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//MetaClass">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//MetaClass/class"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ClassifierType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ClassifierType/base"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//RecordType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RecordType/field"/>
@@ -97,6 +132,21 @@
     <genClasses ecoreClass="Expr.ecore#//TypeRef">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//TypeRef/ref"/>
     </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Expression"/>
+    <genClasses ecoreClass="Expr.ecore#//VarRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//VarRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ModelReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/prev"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//PropertyReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/modelElementReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//CommaSeparatedExpressions">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//CommaSeparatedExpressions/elements"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ExprLibrary">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprLibrary/decls"/>
     </genClasses>
@@ -107,6 +157,84 @@
     <genClasses ecoreClass="Expr.ecore#//Integer"/>
     <genClasses ecoreClass="Expr.ecore#//Real"/>
     <genClasses ecoreClass="Expr.ecore#//String"/>
+    <genClasses ecoreClass="Expr.ecore#//BinaryOperation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BinaryOperation/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//BinaryOperation/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BinaryOperation/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//UnaryOperation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//UnaryOperation/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//UnaryOperation/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//UnitExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//UnitExpression/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//UnitExpression/convert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//UnitExpression/drop"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//UnitExpression/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//FunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunctionCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Range">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Range/minimum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Range/maximum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Range/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Conditional">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Conditional/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Conditional/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Conditional/else"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//BooleanLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//IntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//IntegerLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//RealLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//RealLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ListLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//SetLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//RecordLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//UnionLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//TupleLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//BagLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//MapLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//AModelReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//AModelReference/prev"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//AFunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//AFunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//AFunctionCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ARange">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ARange/minimum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ARange/maximum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ARange/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//AConditional">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//AConditional/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//AConditional/then"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//AConditional/else"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//IntLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//NumberLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//NumberLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//VariableRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//VariableRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Literal"/>
+    <genClasses ecoreClass="Expr.ecore#//ClassifierRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ClassifierRef/ref"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ComponentCategory"/>
   </genPackages>
 </genmodel:GenModel>

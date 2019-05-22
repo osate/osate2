@@ -3,11 +3,43 @@
  */
 package org.osate.expr.ui.outline;
 
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.expr.expr.ExprLibrary;
+import org.osate.expr.expr.ExprSubclause;
+
 /**
  * Customization of the default outline structure.
  *
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#outline
  */
 public class ExprOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider {
-	
+
+	protected void _createChildren(IOutlineNode parentNode, DefaultAnnexLibrary defaultAnnexLibrary) {
+		if (defaultAnnexLibrary.getParsedAnnexLibrary() instanceof ExprLibrary) {
+			_createChildren(parentNode, (ExprLibrary) defaultAnnexLibrary.getParsedAnnexLibrary());
+		}
+	}
+
+	protected void _createChildren(IOutlineNode parentNode, DefaultAnnexSubclause defaultAnnexSubclause) {
+		if (defaultAnnexSubclause.getParsedAnnexSubclause() instanceof ExprSubclause) {
+			_createChildren(parentNode, (ExprSubclause) defaultAnnexSubclause.getParsedAnnexSubclause());
+		}
+	}
+
+	protected void _createChildren(IOutlineNode parentNode, ExprLibrary exoprLibrary) {
+	}
+
+	protected void _createChildren(IOutlineNode parentNode, ExprSubclause exprSubclause) {
+	}
+
+	protected boolean _isLeaf(ExprLibrary lib) {
+		return true;
+	}
+
+	protected boolean _isLeaf(ExprSubclause sub) {
+		return true;
+	}
+
 }

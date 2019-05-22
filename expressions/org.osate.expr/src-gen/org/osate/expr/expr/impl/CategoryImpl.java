@@ -9,8 +9,9 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.ComponentCategory;
+
 import org.osate.expr.expr.Category;
-import org.osate.expr.expr.CategoryEnum;
 import org.osate.expr.expr.ExprPackage;
 
 /**
@@ -36,7 +37,7 @@ public class CategoryImpl extends TypeImpl implements Category
    * @generated
    * @ordered
    */
-  protected static final CategoryEnum CATEGORY_EDEFAULT = CategoryEnum.ABSTRACT;
+  protected static final ComponentCategory CATEGORY_EDEFAULT = ComponentCategory.ABSTRACT;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
@@ -46,7 +47,7 @@ public class CategoryImpl extends TypeImpl implements Category
    * @generated
    * @ordered
    */
-  protected CategoryEnum category = CATEGORY_EDEFAULT;
+  protected ComponentCategory category = CATEGORY_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -75,7 +76,7 @@ public class CategoryImpl extends TypeImpl implements Category
    * @generated
    */
   @Override
-  public CategoryEnum getCategory()
+  public ComponentCategory getCategory()
   {
     return category;
   }
@@ -86,9 +87,9 @@ public class CategoryImpl extends TypeImpl implements Category
    * @generated
    */
   @Override
-  public void setCategory(CategoryEnum newCategory)
+  public void setCategory(ComponentCategory newCategory)
   {
-    CategoryEnum oldCategory = category;
+    ComponentCategory oldCategory = category;
     category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.CATEGORY__CATEGORY, oldCategory, category));
@@ -121,7 +122,7 @@ public class CategoryImpl extends TypeImpl implements Category
     switch (featureID)
     {
       case ExprPackage.CATEGORY__CATEGORY:
-        setCategory((CategoryEnum)newValue);
+        setCategory((ComponentCategory)newValue);
         return;
     }
     super.eSet(featureID, newValue);

@@ -23,14 +23,14 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum MetaClassEnum implements Enumerator
 {
   /**
-   * The '<em><b>CLASSIFIER</b></em>' literal object.
+   * The '<em><b>COMPONENT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #CLASSIFIER_VALUE
+   * @see #COMPONENT_VALUE
    * @generated
    * @ordered
    */
-  CLASSIFIER(0, "CLASSIFIER", "CLASSIFIER"),
+  COMPONENT(0, "COMPONENT", "component"),
 
   /**
    * The '<em><b>SUBCOMPONENT</b></em>' literal object.
@@ -40,7 +40,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  SUBCOMPONENT(1, "SUBCOMPONENT", "SUBCOMPONENT"),
+  SUBCOMPONENT(1, "SUBCOMPONENT", "subcomponent"),
 
   /**
    * The '<em><b>FEATURE</b></em>' literal object.
@@ -50,7 +50,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  FEATURE(2, "FEATURE", "FEATURE"),
+  FEATURE(2, "FEATURE", "feature"),
 
   /**
    * The '<em><b>CONNECTION</b></em>' literal object.
@@ -60,7 +60,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  CONNECTION(3, "CONNECTION", "CONNECTION"),
+  CONNECTION(3, "CONNECTION", "connection"),
 
   /**
    * The '<em><b>FLOW</b></em>' literal object.
@@ -70,7 +70,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  FLOW(4, "FLOW", "FLOW"),
+  FLOW(4, "FLOW", "flow"),
 
   /**
    * The '<em><b>MODE</b></em>' literal object.
@@ -80,25 +80,25 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  MODE(5, "MODE", "MODE");
+  MODE(5, "MODE", "mode");
 
   /**
-   * The '<em><b>CLASSIFIER</b></em>' literal value.
+   * The '<em><b>COMPONENT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #CLASSIFIER
-   * @model
+   * @see #COMPONENT
+   * @model literal="component"
    * @generated
    * @ordered
    */
-  public static final int CLASSIFIER_VALUE = 0;
+  public static final int COMPONENT_VALUE = 0;
 
   /**
    * The '<em><b>SUBCOMPONENT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #SUBCOMPONENT
-   * @model
+   * @model literal="subcomponent"
    * @generated
    * @ordered
    */
@@ -109,7 +109,7 @@ public enum MetaClassEnum implements Enumerator
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #FEATURE
-   * @model
+   * @model literal="feature"
    * @generated
    * @ordered
    */
@@ -120,7 +120,7 @@ public enum MetaClassEnum implements Enumerator
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #CONNECTION
-   * @model
+   * @model literal="connection"
    * @generated
    * @ordered
    */
@@ -131,7 +131,7 @@ public enum MetaClassEnum implements Enumerator
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #FLOW
-   * @model
+   * @model literal="flow"
    * @generated
    * @ordered
    */
@@ -142,7 +142,7 @@ public enum MetaClassEnum implements Enumerator
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #MODE
-   * @model
+   * @model literal="mode"
    * @generated
    * @ordered
    */
@@ -157,7 +157,7 @@ public enum MetaClassEnum implements Enumerator
   private static final MetaClassEnum[] VALUES_ARRAY =
     new MetaClassEnum[]
     {
-      CLASSIFIER,
+      COMPONENT,
       SUBCOMPONENT,
       FEATURE,
       CONNECTION,
@@ -227,7 +227,7 @@ public enum MetaClassEnum implements Enumerator
   {
     switch (value)
     {
-      case CLASSIFIER_VALUE: return CLASSIFIER;
+      case COMPONENT_VALUE: return COMPONENT;
       case SUBCOMPONENT_VALUE: return SUBCOMPONENT;
       case FEATURE_VALUE: return FEATURE;
       case CONNECTION_VALUE: return CONNECTION;

@@ -3,6 +3,7 @@
  */
 package org.osate.expr;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
@@ -11,6 +12,7 @@ import org.osate.expr.naming.ExprQualifiedNameConverter;
 import org.osate.expr.naming.ExprQualifiedNameProvider;
 import org.osate.expr.scoping.ExprScopeProvider;
 import org.osate.expr.serializer.ExprCrossReferenceSerializer;
+import org.osate.expr.services.ExprValueConverters;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -34,6 +36,11 @@ public class ExprRuntimeModule extends org.osate.expr.AbstractExprRuntimeModule 
 	@Override
 	public Class<? extends IScopeProvider> bindIScopeProvider() {
 		return ExprScopeProvider.class;
+	}
+
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return ExprValueConverters.class;
 	}
 
 }
