@@ -85,8 +85,9 @@ public class PropagationGraphBackwardTraversal {
 		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		if (found != null) {
 			// used to return cached object
-			return found;
+			return null;// found;
 		}
+		EObject myEvent = processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		HashMultimap<ErrorFlow, String> handledFlows = HashMultimap.create();
 		Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(component);
 
@@ -227,7 +228,7 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
+		return myEvent;
 	}
 
 	private boolean containsFlow(Collection<ErrorFlow> flows, ErrorPropagation eprop, ErrorTypes type) {
@@ -802,8 +803,9 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 		if (preResult != null) {
-			return preResult;
+			return null;
 		}
+		EObject myEvent = processIncomingErrorPropagation(component, errorPropagation, type, scale);
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
@@ -893,7 +895,7 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return processIncomingErrorPropagation(component, errorPropagation, type, scale);
+		return myEvent;
 	}
 
 	/**
