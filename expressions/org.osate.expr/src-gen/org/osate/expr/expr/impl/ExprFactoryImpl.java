@@ -18,7 +18,6 @@ import org.osate.expr.expr.BinaryOperation;
 import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
-import org.osate.expr.expr.CommaSeparatedExpressions;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprFactory;
@@ -119,9 +118,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.EXPR_MODEL: return createExprModel();
       case ExprPackage.NAMED_ELEMENT: return createNamedElement();
       case ExprPackage.DECLARATION: return createDeclaration();
-      case ExprPackage.TYPE_DECL: return createTypeDecl();
-      case ExprPackage.VAR_DECL: return createVarDecl();
-      case ExprPackage.FUN_DECL: return createFunDecl();
       case ExprPackage.TYPE: return createType();
       case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
       case ExprPackage.CATEGORY: return createCategory();
@@ -141,9 +137,11 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.VAR_REF: return createVarRef();
       case ExprPackage.MODEL_REFERENCE: return createModelReference();
       case ExprPackage.PROPERTY_REFERENCE: return createPropertyReference();
-      case ExprPackage.COMMA_SEPARATED_EXPRESSIONS: return createCommaSeparatedExpressions();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
+      case ExprPackage.TYPE_DECL: return createTypeDecl();
+      case ExprPackage.VAR_DECL: return createVarDecl();
+      case ExprPackage.FUN_DECL: return createFunDecl();
       case ExprPackage.BOOLEAN: return createBoolean();
       case ExprPackage.INTEGER: return createInteger();
       case ExprPackage.REAL: return createReal();
@@ -246,42 +244,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     DeclarationImpl declaration = new DeclarationImpl();
     return declaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public TypeDecl createTypeDecl()
-  {
-    TypeDeclImpl typeDecl = new TypeDeclImpl();
-    return typeDecl;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public VarDecl createVarDecl()
-  {
-    VarDeclImpl varDecl = new VarDeclImpl();
-    return varDecl;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public FunDecl createFunDecl()
-  {
-    FunDeclImpl funDecl = new FunDeclImpl();
-    return funDecl;
   }
 
   /**
@@ -518,18 +480,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public CommaSeparatedExpressions createCommaSeparatedExpressions()
-  {
-    CommaSeparatedExpressionsImpl commaSeparatedExpressions = new CommaSeparatedExpressionsImpl();
-    return commaSeparatedExpressions;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public ExprLibrary createExprLibrary()
   {
     ExprLibraryImpl exprLibrary = new ExprLibraryImpl();
@@ -546,6 +496,42 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     ExprSubclauseImpl exprSubclause = new ExprSubclauseImpl();
     return exprSubclause;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TypeDecl createTypeDecl()
+  {
+    TypeDeclImpl typeDecl = new TypeDeclImpl();
+    return typeDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public VarDecl createVarDecl()
+  {
+    VarDeclImpl varDecl = new VarDeclImpl();
+    return varDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FunDecl createFunDecl()
+  {
+    FunDeclImpl funDecl = new FunDeclImpl();
+    return funDecl;
   }
 
   /**

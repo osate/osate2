@@ -51,33 +51,6 @@ public interface ExprFactory extends EFactory
   Declaration createDeclaration();
 
   /**
-   * Returns a new object of class '<em>Type Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type Decl</em>'.
-   * @generated
-   */
-  TypeDecl createTypeDecl();
-
-  /**
-   * Returns a new object of class '<em>Var Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Var Decl</em>'.
-   * @generated
-   */
-  VarDecl createVarDecl();
-
-  /**
-   * Returns a new object of class '<em>Fun Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fun Decl</em>'.
-   * @generated
-   */
-  FunDecl createFunDecl();
-
-  /**
    * Returns a new object of class '<em>Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -249,15 +222,6 @@ public interface ExprFactory extends EFactory
   PropertyReference createPropertyReference();
 
   /**
-   * Returns a new object of class '<em>Comma Separated Expressions</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Comma Separated Expressions</em>'.
-   * @generated
-   */
-  CommaSeparatedExpressions createCommaSeparatedExpressions();
-
-  /**
    * Returns a new object of class '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -274,6 +238,33 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   ExprSubclause createExprSubclause();
+
+  /**
+   * Returns a new object of class '<em>Type Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Decl</em>'.
+   * @generated
+   */
+  TypeDecl createTypeDecl();
+
+  /**
+   * Returns a new object of class '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var Decl</em>'.
+   * @generated
+   */
+  VarDecl createVarDecl();
+
+  /**
+   * Returns a new object of class '<em>Fun Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fun Decl</em>'.
+   * @generated
+   */
+  FunDecl createFunDecl();
 
   /**
    * Returns a new object of class '<em>Boolean</em>'.

@@ -20,12 +20,14 @@ import org.osate.expr.services.ExprGrammarAccess;
 public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ExprGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_Declarations_SemicolonKeyword_2_q;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_6_0_a;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_6_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ExprGrammarAccess) access;
+		match_Declarations_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getDeclarationsAccess().getSemicolonKeyword_2());
 		match_PrimaryExpression_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_6_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_6_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_6_0());
 	}
@@ -42,7 +44,9 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_PrimaryExpression_LeftParenthesisKeyword_6_0_a.equals(syntax))
+			if (match_Declarations_SemicolonKeyword_2_q.equals(syntax))
+				emit_Declarations_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PrimaryExpression_LeftParenthesisKeyword_6_0_a.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_6_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_PrimaryExpression_LeftParenthesisKeyword_6_0_p.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_6_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -50,6 +54,17 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     decls+=Declaration (ambiguity) (rule end)
+	 */
+	protected void emit_Declarations_SemicolonKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     '('*

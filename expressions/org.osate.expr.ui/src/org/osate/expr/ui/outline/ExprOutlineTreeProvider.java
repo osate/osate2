@@ -18,28 +18,14 @@ public class ExprOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline
 
 	protected void _createChildren(IOutlineNode parentNode, DefaultAnnexLibrary defaultAnnexLibrary) {
 		if (defaultAnnexLibrary.getParsedAnnexLibrary() instanceof ExprLibrary) {
-			_createChildren(parentNode, (ExprLibrary) defaultAnnexLibrary.getParsedAnnexLibrary());
+			_createChildren(parentNode, defaultAnnexLibrary.getParsedAnnexLibrary());
 		}
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, DefaultAnnexSubclause defaultAnnexSubclause) {
 		if (defaultAnnexSubclause.getParsedAnnexSubclause() instanceof ExprSubclause) {
-			_createChildren(parentNode, (ExprSubclause) defaultAnnexSubclause.getParsedAnnexSubclause());
+			_createChildren(parentNode, defaultAnnexSubclause.getParsedAnnexSubclause());
 		}
-	}
-
-	protected void _createChildren(IOutlineNode parentNode, ExprLibrary exoprLibrary) {
-	}
-
-	protected void _createChildren(IOutlineNode parentNode, ExprSubclause exprSubclause) {
-	}
-
-	protected boolean _isLeaf(ExprLibrary lib) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ExprSubclause sub) {
-		return true;
 	}
 
 }

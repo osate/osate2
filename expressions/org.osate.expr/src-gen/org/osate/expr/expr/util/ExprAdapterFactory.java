@@ -21,7 +21,6 @@ import org.osate.expr.expr.BinaryOperation;
 import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
-import org.osate.expr.expr.CommaSeparatedExpressions;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprLibrary;
@@ -142,21 +141,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createDeclarationAdapter();
       }
       @Override
-      public Adapter caseTypeDecl(TypeDecl object)
-      {
-        return createTypeDeclAdapter();
-      }
-      @Override
-      public Adapter caseVarDecl(VarDecl object)
-      {
-        return createVarDeclAdapter();
-      }
-      @Override
-      public Adapter caseFunDecl(FunDecl object)
-      {
-        return createFunDeclAdapter();
-      }
-      @Override
       public Adapter caseType(Type object)
       {
         return createTypeAdapter();
@@ -252,11 +236,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createPropertyReferenceAdapter();
       }
       @Override
-      public Adapter caseCommaSeparatedExpressions(CommaSeparatedExpressions object)
-      {
-        return createCommaSeparatedExpressionsAdapter();
-      }
-      @Override
       public Adapter caseExprLibrary(ExprLibrary object)
       {
         return createExprLibraryAdapter();
@@ -265,6 +244,21 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
       public Adapter caseExprSubclause(ExprSubclause object)
       {
         return createExprSubclauseAdapter();
+      }
+      @Override
+      public Adapter caseTypeDecl(TypeDecl object)
+      {
+        return createTypeDeclAdapter();
+      }
+      @Override
+      public Adapter caseVarDecl(VarDecl object)
+      {
+        return createVarDeclAdapter();
+      }
+      @Override
+      public Adapter caseFunDecl(FunDecl object)
+      {
+        return createFunDeclAdapter();
       }
       @Override
       public Adapter caseBoolean(org.osate.expr.expr.Boolean object)
@@ -459,51 +453,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclarationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TypeDecl <em>Type Decl</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.TypeDecl
-   * @generated
-   */
-  public Adapter createTypeDeclAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.VarDecl <em>Var Decl</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.VarDecl
-   * @generated
-   */
-  public Adapter createVarDeclAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.FunDecl <em>Fun Decl</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.FunDecl
-   * @generated
-   */
-  public Adapter createFunDeclAdapter()
   {
     return null;
   }
@@ -794,21 +743,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.CommaSeparatedExpressions <em>Comma Separated Expressions</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.CommaSeparatedExpressions
-   * @generated
-   */
-  public Adapter createCommaSeparatedExpressionsAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.expr.expr.ExprLibrary <em>Library</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -834,6 +768,51 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExprSubclauseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.TypeDecl <em>Type Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.TypeDecl
+   * @generated
+   */
+  public Adapter createTypeDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.VarDecl
+   * @generated
+   */
+  public Adapter createVarDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.FunDecl <em>Fun Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.FunDecl
+   * @generated
+   */
+  public Adapter createFunDeclAdapter()
   {
     return null;
   }

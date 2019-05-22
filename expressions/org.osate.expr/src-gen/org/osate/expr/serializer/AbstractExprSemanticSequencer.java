@@ -95,13 +95,13 @@ public abstract class AbstractExprSemanticSequencer extends AbstractDelegatingSe
 				sequence_IfExpression(context, (Conditional) semanticObject); 
 				return; 
 			case ExprPackage.EXPR_LIBRARY:
-				sequence_ExprLibrary(context, (ExprLibrary) semanticObject); 
+				sequence_Declarations_ExprLibrary(context, (ExprLibrary) semanticObject); 
 				return; 
 			case ExprPackage.EXPR_MODEL:
 				sequence_ExprModel(context, (ExprModel) semanticObject); 
 				return; 
 			case ExprPackage.EXPR_SUBCLAUSE:
-				sequence_ExprSubclause(context, (ExprSubclause) semanticObject); 
+				sequence_Declarations_ExprSubclause(context, (ExprSubclause) semanticObject); 
 				return; 
 			case ExprPackage.FIELD:
 				if (rule == grammarAccess.getFieldRule()) {
@@ -473,9 +473,21 @@ public abstract class AbstractExprSemanticSequencer extends AbstractDelegatingSe
 	 *     ExprLibrary returns ExprLibrary
 	 *
 	 * Constraint:
-	 *     decls+=Declaration*
+	 *     (decls+=Declaration decls+=Declaration*)?
 	 */
-	protected void sequence_ExprLibrary(ISerializationContext context, ExprLibrary semanticObject) {
+	protected void sequence_Declarations_ExprLibrary(ISerializationContext context, ExprLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ExprSubclause returns ExprSubclause
+	 *
+	 * Constraint:
+	 *     (decls+=Declaration decls+=Declaration*)?
+	 */
+	protected void sequence_Declarations_ExprSubclause(ISerializationContext context, ExprSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -488,18 +500,6 @@ public abstract class AbstractExprSemanticSequencer extends AbstractDelegatingSe
 	 *     (annex=ExprLibrary | annex=ExprSubclause)
 	 */
 	protected void sequence_ExprModel(ISerializationContext context, ExprModel semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ExprSubclause returns ExprSubclause
-	 *
-	 * Constraint:
-	 *     decls+=Declaration*
-	 */
-	protected void sequence_ExprSubclause(ISerializationContext context, ExprSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -540,7 +540,7 @@ public abstract class AbstractExprSemanticSequencer extends AbstractDelegatingSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.DECLARATION__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFunDeclAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFunDeclAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -1074,8 +1074,8 @@ public abstract class AbstractExprSemanticSequencer extends AbstractDelegatingSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.TYPE_DECL__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTypeDeclAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getTypeDeclAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getTypeDeclAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getTypeDeclAccess().getTypeTypeParserRuleCall_4_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	

@@ -25,11 +25,12 @@ import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.Subcomponent
+import org.osate.expr.expr.Declaration
 import org.osate.expr.expr.ExprLibrary
 import org.osate.expr.expr.ExprPackage
 import org.osate.expr.expr.ExprSubclause
 import org.osate.expr.expr.ModelReference
-import org.osate.expr.expr.TypeDecl
+import org.osate.expr.expr.NamedElement
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
@@ -45,17 +46,8 @@ class ExprScopeProvider extends AbstractDeclarativeScopeProvider {
 	IQualifiedNameConverter qualifiedNameConverter
 
 	override getScope(EObject context, EReference reference) {
-		if (reference == ExprPackage.Literals.TYPE_REF__REF) {
-			val rootElement = getExprAnnexRoot(context)
-			val candidates = EcoreUtil2.getAllContentsOfType(rootElement, TypeDecl)
-			val existingScope = Scopes.scopeFor(candidates, delegateGetScope(context, reference))
-			val thisTypeDecl = context.getContainerOfType(TypeDecl)
-
-			if (thisTypeDecl === null)
-				existingScope
-			else
-				// Scope that filters out the context element from the candidates list
-				new FilteringScope(existingScope, [getEObjectOrProxy != thisTypeDecl])
+		if (reference == ExprPackage.Literals.VAR_REF__REF) {
+			getAnnexScope(context, reference)
 		} else if (reference == ExprPackage.Literals.MODEL_REFERENCE__MODEL_ELEMENT) {
 			if (context instanceof ModelReference) {
 				getModelElementScope(context, reference)
@@ -65,6 +57,19 @@ class ExprScopeProvider extends AbstractDeclarativeScopeProvider {
 		} else {
 			super.getScope(context, reference)
 		}
+	}
+
+	def getAnnexScope(EObject context, EReference reference) {
+		val rootElement = getExprAnnexRoot(context)
+		val candidates = EcoreUtil2.getAllContentsOfType(rootElement, NamedElement)
+		val existingScope = Scopes.scopeFor(candidates, delegateGetScope(context, reference))
+		val thisDecl = context.getContainerOfType(Declaration)
+
+		if (thisDecl === null)
+			existingScope
+		else
+			// Scope that filters out the context element from the candidates list
+			new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
 	}
 
 	def getThisScope(EObject context) {

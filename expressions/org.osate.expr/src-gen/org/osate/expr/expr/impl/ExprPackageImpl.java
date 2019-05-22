@@ -20,7 +20,6 @@ import org.osate.expr.expr.BinaryOperation;
 import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
-import org.osate.expr.expr.CommaSeparatedExpressions;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprFactory;
@@ -94,27 +93,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass declarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass typeDeclEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass varDeclEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass funDeclEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -254,13 +232,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass commaSeparatedExpressionsEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass exprLibraryEClass = null;
 
   /**
@@ -269,6 +240,27 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass exprSubclauseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass varDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass funDeclEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -558,83 +550,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EAttribute getDeclaration_Name()
   {
     return (EAttribute)declarationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getTypeDecl()
-  {
-    return typeDeclEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getTypeDecl_Type()
-  {
-    return (EReference)typeDeclEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getVarDecl()
-  {
-    return varDeclEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EAttribute getVarDecl_Const()
-  {
-    return (EAttribute)varDeclEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getVarDecl_Type()
-  {
-    return (EReference)varDeclEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getVarDecl_Value()
-  {
-    return (EReference)varDeclEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getFunDecl()
-  {
-    return funDeclEClass;
   }
 
   /**
@@ -1050,28 +965,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EClass getCommaSeparatedExpressions()
-  {
-    return commaSeparatedExpressionsEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getCommaSeparatedExpressions_Elements()
-  {
-    return (EReference)commaSeparatedExpressionsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getExprLibrary()
   {
     return exprLibraryEClass;
@@ -1108,6 +1001,83 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EReference getExprSubclause_Decls()
   {
     return (EReference)exprSubclauseEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getTypeDecl()
+  {
+    return typeDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getTypeDecl_Type()
+  {
+    return (EReference)typeDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getVarDecl()
+  {
+    return varDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getVarDecl_Const()
+  {
+    return (EAttribute)varDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getVarDecl_Type()
+  {
+    return (EReference)varDeclEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getVarDecl_Value()
+  {
+    return (EReference)varDeclEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getFunDecl()
+  {
+    return funDeclEClass;
   }
 
   /**
@@ -1512,9 +1482,31 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getListLiteral_Elements()
+  {
+    return (EReference)listLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getSetLiteral()
   {
     return setLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getSetLiteral_Elements()
+  {
+    return (EReference)setLiteralEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1556,9 +1548,31 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getTupleLiteral_Elements()
+  {
+    return (EReference)tupleLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getBagLiteral()
   {
     return bagLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getBagLiteral_Elements()
+  {
+    return (EReference)bagLiteralEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1644,16 +1658,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     declarationEClass = createEClass(DECLARATION);
     createEAttribute(declarationEClass, DECLARATION__NAME);
 
-    typeDeclEClass = createEClass(TYPE_DECL);
-    createEReference(typeDeclEClass, TYPE_DECL__TYPE);
-
-    varDeclEClass = createEClass(VAR_DECL);
-    createEAttribute(varDeclEClass, VAR_DECL__CONST);
-    createEReference(varDeclEClass, VAR_DECL__TYPE);
-    createEReference(varDeclEClass, VAR_DECL__VALUE);
-
-    funDeclEClass = createEClass(FUN_DECL);
-
     typeEClass = createEClass(TYPE);
 
     primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
@@ -1710,14 +1714,21 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__MODEL_ELEMENT_REFERENCE);
     createEReference(propertyReferenceEClass, PROPERTY_REFERENCE__PROPERTY);
 
-    commaSeparatedExpressionsEClass = createEClass(COMMA_SEPARATED_EXPRESSIONS);
-    createEReference(commaSeparatedExpressionsEClass, COMMA_SEPARATED_EXPRESSIONS__ELEMENTS);
-
     exprLibraryEClass = createEClass(EXPR_LIBRARY);
     createEReference(exprLibraryEClass, EXPR_LIBRARY__DECLS);
 
     exprSubclauseEClass = createEClass(EXPR_SUBCLAUSE);
     createEReference(exprSubclauseEClass, EXPR_SUBCLAUSE__DECLS);
+
+    typeDeclEClass = createEClass(TYPE_DECL);
+    createEReference(typeDeclEClass, TYPE_DECL__TYPE);
+
+    varDeclEClass = createEClass(VAR_DECL);
+    createEAttribute(varDeclEClass, VAR_DECL__CONST);
+    createEReference(varDeclEClass, VAR_DECL__TYPE);
+    createEReference(varDeclEClass, VAR_DECL__VALUE);
+
+    funDeclEClass = createEClass(FUN_DECL);
 
     booleanEClass = createEClass(BOOLEAN);
 
@@ -1769,16 +1780,20 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
 
     listLiteralEClass = createEClass(LIST_LITERAL);
+    createEReference(listLiteralEClass, LIST_LITERAL__ELEMENTS);
 
     setLiteralEClass = createEClass(SET_LITERAL);
+    createEReference(setLiteralEClass, SET_LITERAL__ELEMENTS);
 
     recordLiteralEClass = createEClass(RECORD_LITERAL);
 
     unionLiteralEClass = createEClass(UNION_LITERAL);
 
     tupleLiteralEClass = createEClass(TUPLE_LITERAL);
+    createEReference(tupleLiteralEClass, TUPLE_LITERAL__ELEMENTS);
 
     bagLiteralEClass = createEClass(BAG_LITERAL);
+    createEReference(bagLiteralEClass, BAG_LITERAL__ELEMENTS);
 
     mapLiteralEClass = createEClass(MAP_LITERAL);
 
@@ -1822,9 +1837,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     // Add supertypes to classes
     declarationEClass.getESuperTypes().add(this.getNamedElement());
-    typeDeclEClass.getESuperTypes().add(this.getDeclaration());
-    varDeclEClass.getESuperTypes().add(this.getDeclaration());
-    funDeclEClass.getESuperTypes().add(this.getDeclaration());
     primitiveTypeEClass.getESuperTypes().add(this.getType());
     categoryEClass.getESuperTypes().add(this.getType());
     metaClassEClass.getESuperTypes().add(this.getType());
@@ -1838,12 +1850,14 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     bagTypeEClass.getESuperTypes().add(this.getType());
     mapTypeEClass.getESuperTypes().add(this.getType());
     typeRefEClass.getESuperTypes().add(this.getType());
-    expressionEClass.getESuperTypes().add(this.getCommaSeparatedExpressions());
     varRefEClass.getESuperTypes().add(this.getExpression());
     modelReferenceEClass.getESuperTypes().add(this.getExpression());
     propertyReferenceEClass.getESuperTypes().add(this.getExpression());
     exprLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     exprSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
+    typeDeclEClass.getESuperTypes().add(this.getDeclaration());
+    varDeclEClass.getESuperTypes().add(this.getDeclaration());
+    funDeclEClass.getESuperTypes().add(this.getDeclaration());
     booleanEClass.getESuperTypes().add(this.getPrimitiveType());
     integerEClass.getESuperTypes().add(this.getPrimitiveType());
     realEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -1874,16 +1888,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(typeDeclEClass, TypeDecl.class, "TypeDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTypeDecl_Type(), this.getType(), null, "type", null, 0, 1, TypeDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(varDeclEClass, VarDecl.class, "VarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVarDecl_Const(), theEcorePackage.getEBoolean(), "const", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVarDecl_Type(), this.getType(), null, "type", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVarDecl_Value(), this.getExpression(), null, "value", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(funDeclEClass, FunDecl.class, "FunDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1941,14 +1945,21 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getPropertyReference_ModelElementReference(), this.getModelReference(), null, "modelElementReference", null, 0, 1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPropertyReference_Property(), theAadl2Package.getAbstractNamedValue(), null, "property", null, 0, 1, PropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(commaSeparatedExpressionsEClass, CommaSeparatedExpressions.class, "CommaSeparatedExpressions", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCommaSeparatedExpressions_Elements(), this.getExpression(), null, "elements", null, 0, -1, CommaSeparatedExpressions.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(exprLibraryEClass, ExprLibrary.class, "ExprLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExprLibrary_Decls(), this.getDeclaration(), null, "decls", null, 0, -1, ExprLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprSubclauseEClass, ExprSubclause.class, "ExprSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExprSubclause_Decls(), this.getDeclaration(), null, "decls", null, 0, -1, ExprSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeDeclEClass, TypeDecl.class, "TypeDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeDecl_Type(), this.getType(), null, "type", null, 0, 1, TypeDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(varDeclEClass, VarDecl.class, "VarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVarDecl_Const(), theEcorePackage.getEBoolean(), "const", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVarDecl_Type(), this.getType(), null, "type", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVarDecl_Value(), this.getExpression(), null, "value", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(funDeclEClass, FunDecl.class, "FunDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(booleanEClass, org.osate.expr.expr.Boolean.class, "Boolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2000,16 +2011,20 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEAttribute(getStringLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(listLiteralEClass, ListLiteral.class, "ListLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getListLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, ListLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(setLiteralEClass, SetLiteral.class, "SetLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSetLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, SetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(recordLiteralEClass, RecordLiteral.class, "RecordLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(unionLiteralEClass, UnionLiteral.class, "UnionLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(tupleLiteralEClass, TupleLiteral.class, "TupleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTupleLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, TupleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(bagLiteralEClass, BagLiteral.class, "BagLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBagLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, BagLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mapLiteralEClass, MapLiteral.class, "MapLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

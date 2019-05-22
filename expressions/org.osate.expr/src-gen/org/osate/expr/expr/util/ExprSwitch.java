@@ -19,7 +19,6 @@ import org.osate.expr.expr.BinaryOperation;
 import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
-import org.osate.expr.expr.CommaSeparatedExpressions;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.Declaration;
 import org.osate.expr.expr.ExprLibrary;
@@ -146,33 +145,6 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.TYPE_DECL:
-      {
-        TypeDecl typeDecl = (TypeDecl)theEObject;
-        T result = caseTypeDecl(typeDecl);
-        if (result == null) result = caseDeclaration(typeDecl);
-        if (result == null) result = caseNamedElement(typeDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.VAR_DECL:
-      {
-        VarDecl varDecl = (VarDecl)theEObject;
-        T result = caseVarDecl(varDecl);
-        if (result == null) result = caseDeclaration(varDecl);
-        if (result == null) result = caseNamedElement(varDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.FUN_DECL:
-      {
-        FunDecl funDecl = (FunDecl)theEObject;
-        T result = caseFunDecl(funDecl);
-        if (result == null) result = caseDeclaration(funDecl);
-        if (result == null) result = caseNamedElement(funDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ExprPackage.TYPE:
       {
         Type type = (Type)theEObject;
@@ -295,7 +267,6 @@ public class ExprSwitch<T> extends Switch<T>
       {
         Expression expression = (Expression)theEObject;
         T result = caseExpression(expression);
-        if (result == null) result = caseCommaSeparatedExpressions(expression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -304,7 +275,6 @@ public class ExprSwitch<T> extends Switch<T>
         VarRef varRef = (VarRef)theEObject;
         T result = caseVarRef(varRef);
         if (result == null) result = caseExpression(varRef);
-        if (result == null) result = caseCommaSeparatedExpressions(varRef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -313,7 +283,6 @@ public class ExprSwitch<T> extends Switch<T>
         ModelReference modelReference = (ModelReference)theEObject;
         T result = caseModelReference(modelReference);
         if (result == null) result = caseExpression(modelReference);
-        if (result == null) result = caseCommaSeparatedExpressions(modelReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -322,14 +291,6 @@ public class ExprSwitch<T> extends Switch<T>
         PropertyReference propertyReference = (PropertyReference)theEObject;
         T result = casePropertyReference(propertyReference);
         if (result == null) result = caseExpression(propertyReference);
-        if (result == null) result = caseCommaSeparatedExpressions(propertyReference);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.COMMA_SEPARATED_EXPRESSIONS:
-      {
-        CommaSeparatedExpressions commaSeparatedExpressions = (CommaSeparatedExpressions)theEObject;
-        T result = caseCommaSeparatedExpressions(commaSeparatedExpressions);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -351,6 +312,33 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = caseModalElement(exprSubclause);
         if (result == null) result = caseAadl2_NamedElement(exprSubclause);
         if (result == null) result = caseElement(exprSubclause);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.TYPE_DECL:
+      {
+        TypeDecl typeDecl = (TypeDecl)theEObject;
+        T result = caseTypeDecl(typeDecl);
+        if (result == null) result = caseDeclaration(typeDecl);
+        if (result == null) result = caseNamedElement(typeDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.VAR_DECL:
+      {
+        VarDecl varDecl = (VarDecl)theEObject;
+        T result = caseVarDecl(varDecl);
+        if (result == null) result = caseDeclaration(varDecl);
+        if (result == null) result = caseNamedElement(varDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.FUN_DECL:
+      {
+        FunDecl funDecl = (FunDecl)theEObject;
+        T result = caseFunDecl(funDecl);
+        if (result == null) result = caseDeclaration(funDecl);
+        if (result == null) result = caseNamedElement(funDecl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -395,7 +383,6 @@ public class ExprSwitch<T> extends Switch<T>
         BinaryOperation binaryOperation = (BinaryOperation)theEObject;
         T result = caseBinaryOperation(binaryOperation);
         if (result == null) result = caseExpression(binaryOperation);
-        if (result == null) result = caseCommaSeparatedExpressions(binaryOperation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -404,7 +391,6 @@ public class ExprSwitch<T> extends Switch<T>
         UnaryOperation unaryOperation = (UnaryOperation)theEObject;
         T result = caseUnaryOperation(unaryOperation);
         if (result == null) result = caseExpression(unaryOperation);
-        if (result == null) result = caseCommaSeparatedExpressions(unaryOperation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -413,7 +399,6 @@ public class ExprSwitch<T> extends Switch<T>
         UnitExpression unitExpression = (UnitExpression)theEObject;
         T result = caseUnitExpression(unitExpression);
         if (result == null) result = caseExpression(unitExpression);
-        if (result == null) result = caseCommaSeparatedExpressions(unitExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -422,7 +407,6 @@ public class ExprSwitch<T> extends Switch<T>
         FunctionCall functionCall = (FunctionCall)theEObject;
         T result = caseFunctionCall(functionCall);
         if (result == null) result = caseExpression(functionCall);
-        if (result == null) result = caseCommaSeparatedExpressions(functionCall);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -431,7 +415,6 @@ public class ExprSwitch<T> extends Switch<T>
         Range range = (Range)theEObject;
         T result = caseRange(range);
         if (result == null) result = caseExpression(range);
-        if (result == null) result = caseCommaSeparatedExpressions(range);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -440,7 +423,6 @@ public class ExprSwitch<T> extends Switch<T>
         Conditional conditional = (Conditional)theEObject;
         T result = caseConditional(conditional);
         if (result == null) result = caseExpression(conditional);
-        if (result == null) result = caseCommaSeparatedExpressions(conditional);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -449,7 +431,6 @@ public class ExprSwitch<T> extends Switch<T>
         BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
         T result = caseBooleanLiteral(booleanLiteral);
         if (result == null) result = caseExpression(booleanLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(booleanLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -458,7 +439,6 @@ public class ExprSwitch<T> extends Switch<T>
         IntegerLiteral integerLiteral = (IntegerLiteral)theEObject;
         T result = caseIntegerLiteral(integerLiteral);
         if (result == null) result = caseExpression(integerLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(integerLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -467,7 +447,6 @@ public class ExprSwitch<T> extends Switch<T>
         RealLiteral realLiteral = (RealLiteral)theEObject;
         T result = caseRealLiteral(realLiteral);
         if (result == null) result = caseExpression(realLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(realLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -476,7 +455,6 @@ public class ExprSwitch<T> extends Switch<T>
         StringLiteral stringLiteral = (StringLiteral)theEObject;
         T result = caseStringLiteral(stringLiteral);
         if (result == null) result = caseExpression(stringLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(stringLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -485,7 +463,6 @@ public class ExprSwitch<T> extends Switch<T>
         ListLiteral listLiteral = (ListLiteral)theEObject;
         T result = caseListLiteral(listLiteral);
         if (result == null) result = caseExpression(listLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(listLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -494,7 +471,6 @@ public class ExprSwitch<T> extends Switch<T>
         SetLiteral setLiteral = (SetLiteral)theEObject;
         T result = caseSetLiteral(setLiteral);
         if (result == null) result = caseExpression(setLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(setLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -503,7 +479,6 @@ public class ExprSwitch<T> extends Switch<T>
         RecordLiteral recordLiteral = (RecordLiteral)theEObject;
         T result = caseRecordLiteral(recordLiteral);
         if (result == null) result = caseExpression(recordLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(recordLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -512,7 +487,6 @@ public class ExprSwitch<T> extends Switch<T>
         UnionLiteral unionLiteral = (UnionLiteral)theEObject;
         T result = caseUnionLiteral(unionLiteral);
         if (result == null) result = caseExpression(unionLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(unionLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -521,7 +495,6 @@ public class ExprSwitch<T> extends Switch<T>
         TupleLiteral tupleLiteral = (TupleLiteral)theEObject;
         T result = caseTupleLiteral(tupleLiteral);
         if (result == null) result = caseExpression(tupleLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(tupleLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -530,7 +503,6 @@ public class ExprSwitch<T> extends Switch<T>
         BagLiteral bagLiteral = (BagLiteral)theEObject;
         T result = caseBagLiteral(bagLiteral);
         if (result == null) result = caseExpression(bagLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(bagLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -539,7 +511,6 @@ public class ExprSwitch<T> extends Switch<T>
         MapLiteral mapLiteral = (MapLiteral)theEObject;
         T result = caseMapLiteral(mapLiteral);
         if (result == null) result = caseExpression(mapLiteral);
-        if (result == null) result = caseCommaSeparatedExpressions(mapLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -591,54 +562,6 @@ public class ExprSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDeclaration(Declaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Type Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTypeDecl(TypeDecl object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Var Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Var Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVarDecl(VarDecl object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFunDecl(FunDecl object)
   {
     return null;
   }
@@ -948,22 +871,6 @@ public class ExprSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Comma Separated Expressions</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Comma Separated Expressions</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCommaSeparatedExpressions(CommaSeparatedExpressions object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -991,6 +898,54 @@ public class ExprSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExprSubclause(ExprSubclause object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeDecl(TypeDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVarDecl(VarDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFunDecl(FunDecl object)
   {
     return null;
   }

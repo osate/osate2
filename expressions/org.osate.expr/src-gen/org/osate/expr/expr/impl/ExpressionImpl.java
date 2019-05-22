@@ -5,6 +5,8 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.Expression;
 
@@ -15,7 +17,7 @@ import org.osate.expr.expr.Expression;
  *
  * @generated
  */
-public class ExpressionImpl extends CommaSeparatedExpressionsImpl implements Expression
+public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression
 {
   /**
    * <!-- begin-user-doc -->

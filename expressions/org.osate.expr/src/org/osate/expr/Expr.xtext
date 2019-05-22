@@ -11,34 +11,36 @@ ExprModel:
 	| 'subclause' annex=ExprSubclause
 ;
 
-@Exported
+fragment Declarations*:
+	decls+=Declaration (';' decls+=Declaration)* ';'?
+;
+
 ExprLibrary returns aadl2::AnnexLibrary:
-	{ExprLibrary} decls+=Declaration*
+	{ExprLibrary} Declarations?
 ;
 
 ExprSubclause returns aadl2::AnnexSubclause:
-	{ExprSubclause} decls+=Declaration*
+	{ExprSubclause} Declarations?
 ;
 
 NamedElement:
 	Declaration
 ;
 
-@Exported
 Declaration:
 	TypeDecl | VarDecl | FunDecl
 ;
 
-TypeDecl:
-	'type' name=ID ':' type=Type ';'
+TypeDecl returns Declaration:
+	{TypeDecl} 'type' name=ID ':' type=Type
 ;
 
-VarDecl:
-	((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)? ';'
+VarDecl returns Declaration:
+	{VarDecl} ((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)?
 ;
 
-FunDecl:
-	'def' name=ID '(' ')' ';'
+FunDecl returns Declaration:
+	{FunDecl} 'def' name=ID '(' ')'
 ;
 
 // Types
@@ -295,8 +297,8 @@ StringLiteral returns Expression:
 	{StringLiteral} value=NoQuoteString
 ;
 
-fragment CommaSeparatedExpressions:
-	elements+=Expression ( ',' elements+=Expression)*
+fragment CommaSeparatedExpressions*:
+	elements+=Expression (',' elements+=Expression)*
 ;
 
 ListLiteral returns Expression:

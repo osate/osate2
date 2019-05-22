@@ -3,6 +3,7 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +15,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface Expression extends CommaSeparatedExpressions
+public interface Expression extends EObject
 {
 } // Expression
