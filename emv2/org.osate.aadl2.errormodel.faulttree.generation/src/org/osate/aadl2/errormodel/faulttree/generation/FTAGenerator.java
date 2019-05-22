@@ -841,6 +841,22 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
+	protected EObject preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+			ErrorTypes targetType, BigDecimal scale) {
+		String name = FaultTreeUtils.buildName(component, errorPropagation, targetType);
+		Event result = FaultTreeUtils.findEvent(ftaModel, name);
+		return result;
+	}
+
+//	@Override
+//	protected EObject preProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
+//			ErrorTypes targetType, BigDecimal scale) {
+//		String name = FaultTreeUtils.buildName(component, errorPropagation, targetType);
+//		Event result = FaultTreeUtils.findEvent(ftaModel, name);
+//		return result;
+//	}
+
+	@Override
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, ErrorTypes type,
 			BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, errorSource, type);
