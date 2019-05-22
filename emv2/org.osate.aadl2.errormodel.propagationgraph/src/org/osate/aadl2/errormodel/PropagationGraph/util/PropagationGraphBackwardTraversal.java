@@ -87,6 +87,9 @@ public class PropagationGraphBackwardTraversal {
 			// used to return cached object
 			return null;// found;
 		}
+		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
+		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
+		// Originally we were creating the events bottom up thus the loop did not find the event.
 		EObject myEvent = processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		HashMultimap<ErrorFlow, String> handledFlows = HashMultimap.create();
 		Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(component);
@@ -805,6 +808,9 @@ public class PropagationGraphBackwardTraversal {
 		if (preResult != null) {
 			return null;
 		}
+		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
+		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
+		// Originally we were creating the events bottom up thus the loop did not find the event.
 		EObject myEvent = processIncomingErrorPropagation(component, errorPropagation, type, scale);
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
