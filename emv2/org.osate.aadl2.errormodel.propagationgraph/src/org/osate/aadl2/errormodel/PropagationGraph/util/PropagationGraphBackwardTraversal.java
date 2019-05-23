@@ -84,8 +84,7 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		if (found != null) {
-			// used to return cached object
-			return null;// found;
+			return null;// found cycle;
 		}
 		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
 		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
@@ -806,12 +805,11 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 		if (preResult != null) {
-			return null;
+			// in case of outgoing we detect cycle here and return null
+			return preResult;
 		}
-		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
-		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
-		// Originally we were creating the events bottom up thus the loop did not find the event.
-		EObject myEvent = processIncomingErrorPropagation(component, errorPropagation, type, scale);
+
+		boolean isCycle = false;
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
@@ -850,6 +848,8 @@ public class PropagationGraphBackwardTraversal {
 									ntype, scale);
 							if (result != null) {
 								subResults.add(result);
+							} else {
+								isCycle = true;
 							}
 						}
 					}
@@ -872,6 +872,8 @@ public class PropagationGraphBackwardTraversal {
 							scale);
 					if (result != null) {
 						subResults.add(result);
+					} else {
+						isCycle = true;
 					}
 				}
 			} else {
@@ -893,6 +895,8 @@ public class PropagationGraphBackwardTraversal {
 								scale);
 						if (result != null) {
 							subResults.add(result);
+						} else {
+							isCycle = true;
 						}
 					}
 				}
@@ -901,7 +905,11 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return myEvent;
+		if (isCycle) {
+			return null;
+		} else {
+			return processIncomingErrorPropagation(component, errorPropagation, type, scale);
+		}
 	}
 
 	/**
