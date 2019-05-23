@@ -974,9 +974,9 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject processTypesetElements(ComponentInstance component, Element condition, ErrorTypes type,
+	protected EObject processTypesetElements(ComponentInstance component, Element state, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
-		return finalizeAsOrEvents(component, condition, type, subResults);
+		return finalizeAsOrEvents(component, state, type, subResults);
 	}
 
 }

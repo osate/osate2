@@ -960,12 +960,12 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * post process results from back traversal
-	 * called with non-empty subResults list
+	 * called with non-empty subResults list.
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
-	 * @param subResults
-	 * @return EObject (can be null)
+	 * @param subResults (EObjects created as part of traversing out propagation, e.g., FTA events).
+	 * @return EObject The result of post processing the subresults list (can be null)
 	 */
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
@@ -974,8 +974,8 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * pre process outgoing propagation
-	 * Non-null result will use it as result of traversal
-	 * This allows handling of previously produced subtrees
+	 * Non-null result will result in stopping the backward propagation and return null.
+	 * Useful for handling cycles in the backward trace.
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
@@ -988,6 +988,7 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * process error source as leaf of traversal
+	 * For FTA we would create a BASIC event.
 	 * @param component
 	 * @param errorSource
 	 * @param typeTokenConstraint
@@ -1012,8 +1013,8 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * pre process incoming propagation
-	 * Non-null result will use it as result of traversal
-	 * This allows handling of previously produced subtrees
+	 * Non-null result will result in stopping the backward propagation and return null.
+	 * Useful for handling cycles in the backward trace.
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
@@ -1025,8 +1026,8 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * process incoming propagation as leaf of traversal
-	 * @param component ComponnetInstance
+	 * process incoming propagation as leaf of traversal, i.e., there was no propagation path/connection to the incoming port.
+	 * @param component ComponentInstance
 	 * @param incoming ErrorPropagation
 	 * @param type Error Type
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
@@ -1042,8 +1043,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
-	 * @param subResults
-	 * @return EObject (can be null)
+	 * @param subResults (EObjects created as part of traversing out propagation, e.g., FTA events).
+	 * @return EObject The result of post processing the subresults list (can be null)
 	 */
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
@@ -1051,7 +1052,7 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * process outgoing propagation as leaf of traversal
+	 * process outgoing propagation as leaf of traversal, i.e., when there is no error internal error or path to incoming features.
 	 * @param component ComponnetInstance
 	 * @param outgoing ErrorPropagation
 	 * @param type Error Type
@@ -1097,8 +1098,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param component
 	 * @param state
 	 * @param targetType
-	 * @param subResults
-	 * @return EObject (can be null )
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<EObject> subResults, BigDecimal scale) {
@@ -1108,7 +1109,7 @@ public class PropagationGraphBackwardTraversal {
 	/**
 	 * pre process error behavior state
 	 * Non-null result will use it as result of traversal
-	 * This allows handling of previously produced subtrees
+	 * This allows handling of previously produced state related traversal subtrees
 	 * @param component
 	 * @param state
 	 * @param type
@@ -1125,8 +1126,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param component
 	 * @param state
 	 * @param targetType
-	 * @param subResults
-	 * @return EObject (can be null )
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type, List<EObject> subResults, BigDecimal scale) {
@@ -1201,29 +1202,12 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * post process results XOR expression
-	 * called with non-empty subResults list
-	 * @param component
-	 * @param condition XOR expression
-	 * @param type Error Type
-	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
-	 */
-	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale,
-			List<EObject> subResults) {
-		return null;
-	}
-
-	/**
 	 * pre process results Priority AND expression
 	 * called with non-empty subResults list
 	 * @param component
 	 * @param condition XOR expression
 	 * @param type Error Type
 	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
 	 */
 	protected EObject preProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			BigDecimal scale) {
@@ -1237,8 +1221,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param condition XOR expression
 	 * @param type Error Type
 	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
 	protected EObject postProcessPriorityAnd(ComponentInstance component, Element condition, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
@@ -1252,10 +1236,36 @@ public class PropagationGraphBackwardTraversal {
 	 * @param condition XOR expression
 	 * @param type Error Type
 	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
 	 */
 	protected EObject preProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
+		return null;
+	}
+
+	/**
+	 * post process results XOR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition XOR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
+	 */
+	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale,
+			List<EObject> subResults) {
+		return null;
+	}
+
+
+	/**
+	 * pre process results OR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition OR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 */
+	protected EObject preProcessOr(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
 		return null;
 	}
 
@@ -1266,8 +1276,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param condition OR expression
 	 * @param type Error Type
 	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
@@ -1275,29 +1285,16 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * pre process results OR expression
+	 * process elements of a type set in conjunction with an error state
 	 * called with non-empty subResults list
 	 * @param component
-	 * @param condition OR expression
+	 * @param state error state
 	 * @param type Error Type
 	 * @param scale scaling factor for probability
-	 * @param subResults
-	 * @return EObject (can be null )
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
-	protected EObject preProcessOr(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale) {
-		return null;
-	}
-
-	/**
-	 * pre process results OR expression
-	 * called with non-empty subResults list
-	 * @param component
-	 * @param condition OR expression
-	 * @param type Error Type
-	 * @param subResults
-	 * @return EObject (can be null )
-	 */
-	protected EObject processTypesetElements(ComponentInstance component, Element condition, ErrorTypes type,
+	protected EObject processTypesetElements(ComponentInstance component, Element state, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
