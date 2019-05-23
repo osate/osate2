@@ -805,8 +805,7 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 		if (preResult != null) {
-			// in case of outgoing we detect cycle here and return null
-			return preResult;
+			return null;// found cycle;
 		}
 
 		boolean isCycle = false;
