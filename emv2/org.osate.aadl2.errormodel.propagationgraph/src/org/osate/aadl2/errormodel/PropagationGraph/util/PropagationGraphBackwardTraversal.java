@@ -18,6 +18,7 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
@@ -30,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
@@ -48,6 +50,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
+import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
 
 import com.google.common.collect.HashMultimap;
 
@@ -62,6 +66,8 @@ public class PropagationGraphBackwardTraversal {
 	public PropagationGraphBackwardTraversal(PropagationGraph m) {
 		currentAnalysisModel = m;
 	}
+
+	public static EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
 
 	/**
 	 * process an Outgoing Error Propagation by going backwards in the propagation graph
@@ -84,12 +90,31 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type, scale);
 		if (found != null) {
-			return null;// found cycle;
+			return found;// found common event
 		}
+		// we want to track cycles.
+		// we do that by tagging the feature instance of the error propagation with the error type (as token)
+		ErrorModelState st = null;
+		FeatureInstance fi = EMV2Util.findFeatureInstance(errorPropagation, component);
+		if (fi != null) {
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
+		} else {
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(component, ErrorModelState.class);
+		}
+		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+		tt.getType().add(type);
+		if (st.visited(tt)) {
+			// we were there before.
+			return foundCycle;
+		} else {
+			st.setVisitToken(tt);
+		}
+
 		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
 		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
 		// Originally we were creating the events bottom up thus the loop did not find the event.
-		EObject myEvent = processOutgoingErrorPropagation(component, errorPropagation, type, scale);
+//		EObject myEvent = processOutgoingErrorPropagation(component, errorPropagation, type, scale);
+
 		HashMultimap<ErrorFlow, String> handledFlows = HashMultimap.create();
 		Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(component);
 
@@ -116,6 +141,9 @@ public class PropagationGraphBackwardTraversal {
 				Set<ErrorFlow> flows = handledFlows.keySet();
 				if (!containsFlow(flows, propagationSource, type)) {
 					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
+					if (res == foundCycle) {
+						return null;
+					}
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -163,6 +191,9 @@ public class PropagationGraphBackwardTraversal {
 										for (ErrorPropagation eprop : inprops) {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
 													newtype, newscale);
+											if (newEvent == foundCycle) {
+												return null;
+											}
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -171,6 +202,9 @@ public class PropagationGraphBackwardTraversal {
 									} else {
 										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
 												newtype, newscale);
+										if (newEvent == foundCycle) {
+											return null;
+										}
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
@@ -189,6 +223,9 @@ public class PropagationGraphBackwardTraversal {
 										if (EMV2TypeSetUtil.contains(matchtype, type)) {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
 													newscale);
+											if (newEvent == foundCycle) {
+												return null;
+											}
 											if (newEvent != null) {
 												subResults.add(newEvent);
 											}
@@ -204,6 +241,9 @@ public class PropagationGraphBackwardTraversal {
 									if (EMV2TypeSetUtil.contains(matchtype, type)) {
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
 												newscale);
+										if (newEvent == foundCycle) {
+											return null;
+										}
 										if (newEvent != null) {
 											subResults.add(newEvent);
 										}
@@ -227,10 +267,11 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
+		st.removeVisitedToken(tt);
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		return myEvent;
+		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
 	private boolean containsFlow(Collection<ErrorFlow> flows, ErrorPropagation eprop, ErrorTypes type) {
@@ -805,10 +846,25 @@ public class PropagationGraphBackwardTraversal {
 		}
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 		if (preResult != null) {
-			return null;// found cycle;
+			return preResult;// found common event
 		}
-
-		boolean isCycle = false;
+		// we want to track cycles.
+		// we do that by tagging the feature instance of the error propagation with the error type (as token)
+		ErrorModelState st = null;
+		FeatureInstance fi = EMV2Util.findFeatureInstance(errorPropagation, component);
+		if (fi != null) {
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
+		} else {
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(component, ErrorModelState.class);
+		}
+		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+		tt.getType().add(type);
+		if (st.visited(tt)) {
+			// we were there before.
+			return foundCycle;
+		} else {
+			st.setVisitToken(tt);
+		}
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
@@ -833,6 +889,9 @@ public class PropagationGraphBackwardTraversal {
 					if (newtype instanceof ErrorType) {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype,
 								scale);
+						if (result == foundCycle) {
+							return null;
+						}
 						if (result != null) {
 							subResults.add(result);
 						}
@@ -843,12 +902,13 @@ public class PropagationGraphBackwardTraversal {
 							EList<ErrorTypes> tl = typeToken.getType();
 							// TODO deal with type product
 							ErrorTypes ntype = tl.get(0);
-							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
-									ntype, scale);
-							if (result != null) {
-								subResults.add(result);
-							} else {
-								isCycle = true;
+								EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
+										ntype, scale);
+							if (result == foundCycle) {
+								return null;
+							}
+								if (result != null) {
+									subResults.add(result);
 							}
 						}
 					}
@@ -867,13 +927,14 @@ public class PropagationGraphBackwardTraversal {
 						subResults.add(result);
 					}
 				} else {
-					EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
-							scale);
-					if (result != null) {
-						subResults.add(result);
-					} else {
-						isCycle = true;
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
+								scale);
+					if (result == foundCycle) {
+						return null;
 					}
+						if (result != null) {
+							subResults.add(result);
+						}
 				}
 			} else {
 				EList<TypeToken> ttlist = EMV2TypeSetUtil.flattenTypesetElements((TypeSet) srctype,
@@ -890,25 +951,23 @@ public class PropagationGraphBackwardTraversal {
 							subResults.add(result);
 						}
 					} else {
-						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
-								scale);
-						if (result != null) {
-							subResults.add(result);
-						} else {
-							isCycle = true;
+							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
+									scale);
+						if (result == foundCycle) {
+							return null;
 						}
+							if (result != null) {
+								subResults.add(result);
+							}
 					}
 				}
 			}
 		}
+		st.removeVisitedToken(tt);
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		if (isCycle) {
-			return null;
-		} else {
-			return processIncomingErrorPropagation(component, errorPropagation, type, scale);
-		}
+		return processIncomingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
 	/**
@@ -974,8 +1033,7 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * pre process outgoing propagation
-	 * Non-null result will result in stopping the backward propagation and return null.
-	 * Useful for handling cycles in the backward trace.
+	 * Non-null result will result in returning the result instead of sub traversal.
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
@@ -1013,8 +1071,7 @@ public class PropagationGraphBackwardTraversal {
 
 	/**
 	 * pre process incoming propagation
-	 * Non-null result will result in stopping the backward propagation and return null.
-	 * Useful for handling cycles in the backward trace.
+	 * Non-null result will result in returning the result instead of sub traversal.
 	 * @param component
 	 * @param errorPropagation
 	 * @param targetType
