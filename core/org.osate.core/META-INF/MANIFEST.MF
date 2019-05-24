@@ -3,11 +3,18 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ etc/antlr.jar
 Bundle-Activator: org.osate.core.OsateCorePlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
-Export-Package: org.osate.core,
+Export-Package:  antlr,
+ antlr.actions.java,
+ antlr.build,
+ antlr.collections,
+ antlr.collections.impl,
+ antlr.preprocessor,
+ org.osate.core,
  org.osate.core.preferences
 Require-Bundle: org.eclipse.ui,
  org.osate.workspace,
