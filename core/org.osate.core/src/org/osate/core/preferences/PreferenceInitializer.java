@@ -31,11 +31,11 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.internal.workspace;
+package org.osate.core.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.core.OsateCorePlugin;
 
 /**
  * @author lwrage
@@ -55,13 +55,13 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		/**
 		 * Sets the default values of the preferences.
 		 */
-		IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
-		store.setDefault(WorkspacePlugin.EXPAND_DEFAULT_FLAG, false);
-		store.setDefault(WorkspacePlugin.MAX_SOM, WorkspacePlugin.MAX_SOM_DEFAULT);
-		store.setDefault(WorkspacePlugin.AUTO_REINSTANTIATE, true);
-		store.setDefault(WorkspacePlugin.AUTO_INDENT, true);
-		store.setDefault(WorkspacePlugin.AUTO_COMPLETE, true);
-		store.setDefault(WorkspacePlugin.CAPITALIZE, false);
-		store.setDefault(WorkspacePlugin.INDENT_SECTIONS, true);
+		IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setDefault(OsateCorePlugin.EXPAND_DEFAULT_FLAG, false);
+		store.setDefault(OsateCorePlugin.MAX_SOM, OsateCorePlugin.MAX_SOM_DEFAULT);
+		store.setDefault(OsateCorePlugin.AUTO_REINSTANTIATE, true);
+		store.setDefault(OsateCorePlugin.AUTO_INDENT, true);
+		store.setDefault(OsateCorePlugin.AUTO_COMPLETE, true);
+		store.setDefault(OsateCorePlugin.CAPITALIZE, false);
+		store.setDefault(OsateCorePlugin.INDENT_SECTIONS, true);
 	}
 }
