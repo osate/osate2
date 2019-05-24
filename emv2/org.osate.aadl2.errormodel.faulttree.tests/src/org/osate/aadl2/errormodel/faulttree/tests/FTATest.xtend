@@ -849,7 +849,7 @@ class FTATest  {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1819, "outgoing propagation on effect{ServiceOmission}")
 		assertEquals(ft.events.size, 3)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "fails")
+		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "heaterfails")
 		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "heater")
 	}
 	
