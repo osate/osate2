@@ -19,6 +19,10 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.osgi.framework.Bundle;
 
+/**
+ * @deprecated Will be removed in 2.6.0.
+ */
+@Deprecated
 public class CoreUtility {
 
 	/**

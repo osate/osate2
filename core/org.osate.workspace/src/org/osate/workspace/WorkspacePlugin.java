@@ -69,27 +69,37 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 
 	/**
 	 * Name of preference for standard AADL property set file
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PROPERTIES_FILE = "aadlPropertiesFilePreference";
 
 	/**
 	 * Name of preference for standard AADL property set file
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PROJECT_FILE = "aadlProjectFilePreference";
 
 	/**
 	 * Aadl packages directory.
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PACKAGES_DIR = "packages";
 
 	/**
 	 * Default model directory.
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String PROPERTY_SETS_DIR = "propertysets";
 
 	/**
 	 * Name of preference for standard AADL property set file
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
 
 	/**
