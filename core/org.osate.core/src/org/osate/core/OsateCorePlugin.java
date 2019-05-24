@@ -62,6 +62,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -76,6 +77,20 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 * ID of the AADL core plugin (value <code>"org.osate.core"</code>)
 	 */
 	public static final String PLUGIN_ID = "org.osate.core";
+
+	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
+
+	/**
+	 * Name of preference for the maximum number of system operation modes to generate.
+	 */
+	public static final String MAX_SOM = "maxSOM";
+	public static final int MAX_SOM_DEFAULT = 1000;
+
+	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
+	public static final String AUTO_INDENT = "AUTO_INDENT";
+	public static final String AUTO_COMPLETE = "AUTO_COMPLETE";
+	public static final String CAPITALIZE = "CAPITALIZE";
+	public static final String INDENT_SECTIONS = "INDENT_SECTIONS";
 
 	// The shared instance.
 	private static OsateCorePlugin plugin;
@@ -329,5 +344,10 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			return Status.OK_STATUS;
 		}
 
+	}
+
+	public final int getSOMLimit() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getInt(MAX_SOM);
 	}
 }
