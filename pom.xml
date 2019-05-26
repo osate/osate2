@@ -18,7 +18,6 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>core/org.osate.build.main</module>
 		<module>core</module>
 		<module>analyses</module>
 		<module>emv2</module>
