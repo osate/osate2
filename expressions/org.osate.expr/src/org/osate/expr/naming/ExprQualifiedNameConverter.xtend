@@ -8,5 +8,5 @@ class ExprQualifiedNameConverter extends DefaultImpl {
 	override getDelimiter() {
 		'::'
 	}
-	
+
 }

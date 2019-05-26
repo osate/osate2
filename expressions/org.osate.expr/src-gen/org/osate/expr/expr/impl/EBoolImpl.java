@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.expr.expr.BooleanLiteral;
+import org.osate.expr.expr.EBool;
 import org.osate.expr.expr.ExprPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Boolean Literal</b></em>'.
+ * An implementation of the model object '<em><b>EBool</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.BooleanLiteralImpl#isValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.EBoolImpl#isValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
+public class EBoolImpl extends ExpressionImpl implements EBool
 {
   /**
    * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
@@ -54,7 +54,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
    * <!-- end-user-doc -->
    * @generated
    */
-  protected BooleanLiteralImpl()
+  protected EBoolImpl()
   {
     super();
   }
@@ -67,7 +67,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.BOOLEAN_LITERAL;
+    return ExprPackage.Literals.EBOOL;
   }
 
   /**
@@ -92,7 +92,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
     boolean oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.BOOLEAN_LITERAL__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.EBOOL__VALUE, oldValue, value));
   }
 
   /**
@@ -105,7 +105,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.BOOLEAN_LITERAL__VALUE:
+      case ExprPackage.EBOOL__VALUE:
         return isValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -121,7 +121,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.BOOLEAN_LITERAL__VALUE:
+      case ExprPackage.EBOOL__VALUE:
         setValue((Boolean)newValue);
         return;
     }
@@ -138,7 +138,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.BOOLEAN_LITERAL__VALUE:
+      case ExprPackage.EBOOL__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
     }
@@ -155,7 +155,7 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.BOOLEAN_LITERAL__VALUE:
+      case ExprPackage.EBOOL__VALUE:
         return value != VALUE_EDEFAULT;
     }
     return super.eIsSet(featureID);
@@ -178,4 +178,4 @@ public class BooleanLiteralImpl extends ExpressionImpl implements BooleanLiteral
     return result.toString();
   }
 
-} //BooleanLiteralImpl
+} //EBoolImpl

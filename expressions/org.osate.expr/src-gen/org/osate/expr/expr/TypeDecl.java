@@ -20,7 +20,7 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface TypeDecl extends Declaration
+public interface TypeDecl extends EDeclaration
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' containment reference.

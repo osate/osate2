@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.util.IAcceptor;
-import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.EDeclaration;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprSubclause;
 
@@ -20,7 +20,7 @@ public class ExprResourceDescriptionStrategy extends DefaultResourceDescriptionS
 		if (eObject instanceof ExprSubclause) {
 			return false;
 		}
-		if (eObject instanceof Declaration) {
+		if (eObject instanceof EDeclaration) {
 			createEObjectDescriptionsForExprLibrary(eObject, acceptor);
 			return false;
 		}

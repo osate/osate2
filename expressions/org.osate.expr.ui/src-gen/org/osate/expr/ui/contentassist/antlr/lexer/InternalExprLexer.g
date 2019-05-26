@@ -28,9 +28,19 @@ Component : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|
 
 Processor : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
 
+Reference : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+
 Subclause : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('L'|'l')('A'|'a')('U'|'u')('S'|'s')('E'|'e');
 
 Abstract : ('A'|'a')('B'|'b')('S'|'s')('T'|'t')('R'|'r')('A'|'a')('C'|'c')('T'|'t');
+
+Constant : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+
+Applies : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+
+Binding : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
+
+Compute : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
 
 Element : ('E'|'e')('L'|'l')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
 
@@ -41,6 +51,8 @@ Library : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
 Process : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
 
 Virtual : ('V'|'v')('I'|'i')('R'|'r')('T'|'t')('U'|'u')('A'|'a')('L'|'l');
+
+Assert : ('A'|'a')('S'|'s')('S'|'s')('E'|'e')('R'|'r')('T'|'t');
 
 Device : ('D'|'d')('E'|'e')('V'|'v')('I'|'i')('C'|'c')('E'|'e');
 
@@ -61,6 +73,8 @@ Endif : ('E'|'e')('N'|'n')('D'|'d')('I'|'i')('F'|'f');
 False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
 Group : ('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
+
+Modes : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
 Tuple : ('T'|'t')('U'|'u')('P'|'p')('L'|'l')('E'|'e');
 
@@ -89,6 +103,8 @@ This : ('T'|'t')('H'|'h')('I'|'i')('S'|'s');
 True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
 Type : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
+
+PlusSignEqualsSignGreaterThanSign : '+''=''>';
 
 QuestionMarkQuestionMarkQuestionMark : '?''?''?';
 
@@ -130,6 +146,8 @@ LessThanSignEqualsSign : '<''=';
 
 EqualsSignEqualsSign : '=''=';
 
+EqualsSignGreaterThanSign : '=''>';
+
 GreaterThanSignLessThanSign : '>''<';
 
 GreaterThanSignEqualsSign : '>''=';
@@ -141,6 +159,8 @@ In : ('I'|'i')('N'|'n');
 Of : ('O'|'o')('F'|'f');
 
 Or : ('O'|'o')('R'|'r');
+
+To : ('T'|'t')('O'|'o');
 
 VerticalLineVerticalLine : '|''|';
 

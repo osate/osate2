@@ -5,26 +5,26 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.osate.aadl2.impl.NamedElementImpl;
 
+import org.osate.expr.expr.EDeclaration;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Named Element</b></em>'.
+ * An implementation of the model object '<em><b>EDeclaration</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class NamedElementImpl extends MinimalEObjectImpl.Container implements NamedElement
+public class EDeclarationImpl extends NamedElementImpl implements EDeclaration
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected NamedElementImpl()
+  protected EDeclarationImpl()
   {
     super();
   }
@@ -37,7 +37,7 @@ public class NamedElementImpl extends MinimalEObjectImpl.Container implements Na
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.NAMED_ELEMENT;
+    return ExprPackage.Literals.EDECLARATION;
   }
 
-} //NamedElementImpl
+} //EDeclarationImpl

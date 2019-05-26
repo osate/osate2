@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.expr.expr.EInt;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.StringLiteral;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>String Literal</b></em>'.
+ * An implementation of the model object '<em><b>EInt</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.StringLiteralImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.EIntImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
+public class EIntImpl extends ExpressionImpl implements EInt
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -54,7 +54,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
    * <!-- end-user-doc -->
    * @generated
    */
-  protected StringLiteralImpl()
+  protected EIntImpl()
   {
     super();
   }
@@ -67,7 +67,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.STRING_LITERAL;
+    return ExprPackage.Literals.EINT;
   }
 
   /**
@@ -92,7 +92,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
     String oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.STRING_LITERAL__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.EINT__VALUE, oldValue, value));
   }
 
   /**
@@ -105,7 +105,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.STRING_LITERAL__VALUE:
+      case ExprPackage.EINT__VALUE:
         return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -121,7 +121,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.STRING_LITERAL__VALUE:
+      case ExprPackage.EINT__VALUE:
         setValue((String)newValue);
         return;
     }
@@ -138,7 +138,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.STRING_LITERAL__VALUE:
+      case ExprPackage.EINT__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
     }
@@ -155,7 +155,7 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.STRING_LITERAL__VALUE:
+      case ExprPackage.EINT__VALUE:
         return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
     }
     return super.eIsSet(featureID);
@@ -178,4 +178,4 @@ public class StringLiteralImpl extends ExpressionImpl implements StringLiteral
     return result.toString();
   }
 
-} //StringLiteralImpl
+} //EIntImpl

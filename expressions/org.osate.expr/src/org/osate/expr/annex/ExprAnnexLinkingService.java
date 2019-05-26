@@ -6,7 +6,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.linking.impl.DefaultLinkingService;
+import org.eclipse.xtext.linking.ILinkingService;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
@@ -18,10 +19,10 @@ import com.google.inject.Injector;
 public class ExprAnnexLinkingService implements AnnexLinkingService {
 
 	@Inject
-	private DefaultLinkingService linkingService;
+	private ILinkingService linkingService;
 
 	@Inject
-	private org.osate.expr.naming.ExprQualifiedNameProvider nameProvider;
+	private IQualifiedNameProvider nameProvider;
 
 	public ExprAnnexLinkingService() {
 		Injector injector = IResourceServiceProvider.Registry.INSTANCE

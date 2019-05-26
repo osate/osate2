@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.impl.AnnexLibraryImpl;
 
-import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.EDeclaration;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprPackage;
 
@@ -44,7 +44,7 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
    * @generated
    * @ordered
    */
-  protected EList<Declaration> decls;
+  protected EList<EDeclaration> decls;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,11 +73,11 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
    * @generated
    */
   @Override
-  public EList<Declaration> getDecls()
+  public EList<EDeclaration> getDecls()
   {
     if (decls == null)
     {
-      decls = new EObjectContainmentEList<Declaration>(Declaration.class, this, ExprPackage.EXPR_LIBRARY__DECLS);
+      decls = new EObjectContainmentEList<EDeclaration>(EDeclaration.class, this, ExprPackage.EXPR_LIBRARY__DECLS);
     }
     return decls;
   }
@@ -127,7 +127,7 @@ public class ExprLibraryImpl extends AnnexLibraryImpl implements ExprLibrary
     {
       case ExprPackage.EXPR_LIBRARY__DECLS:
         getDecls().clear();
-        getDecls().addAll((Collection<? extends Declaration>)newValue);
+        getDecls().addAll((Collection<? extends EDeclaration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

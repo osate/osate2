@@ -1,4 +1,4 @@
-grammar org.osate.expr.Expr /*with org.eclipse.xtext.common.Terminals*/ hidden(WS, SL_COMMENT)
+grammar org.osate.expr.Expr with org.osate.xtext.aadl2.properties.Properties
 
 generate expr "http://www.osate.org/expr/Expr"
 
@@ -11,10 +11,6 @@ ExprModel:
 	| 'subclause' annex=ExprSubclause
 ;
 
-fragment Declarations*:
-	decls+=Declaration (';' decls+=Declaration)* ';'?
-;
-
 ExprLibrary returns aadl2::AnnexLibrary:
 	{ExprLibrary} Declarations?
 ;
@@ -23,24 +19,32 @@ ExprSubclause returns aadl2::AnnexSubclause:
 	{ExprSubclause} Declarations?
 ;
 
-NamedElement:
-	Declaration
+NamedElement returns aadl2::NamedElement:
+	ExprLibrary | ExprSubclause | EDeclaration
 ;
 
-Declaration:
-	TypeDecl | VarDecl | FunDecl
+fragment Declarations*:
+	decls+=EDeclaration (';' decls+=EDeclaration)* ';'?
 ;
 
-TypeDecl returns Declaration:
-	{TypeDecl} 'type' name=ID ':' type=Type
+EDeclaration:
+	TypeDecl | VarDecl | FunDecl | Assertion
 ;
 
-VarDecl returns Declaration:
-	{VarDecl} ((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)?
+TypeDecl:
+	'type' name=ID ':' type=Type
 ;
 
-FunDecl returns Declaration:
-	{FunDecl} 'def' name=ID '(' ')'
+VarDecl:
+	((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)?
+;
+
+FunDecl:
+	'def' name=ID '(' ')'
+;
+
+Assertion:
+	'assert' name=ID ':' assert=Expression
 ;
 
 // Types
@@ -276,25 +280,25 @@ IfExpression returns Expression:
 ;
 
 Literal returns Expression:
-	BooleanLiteral | IntegerLiteral | RealLiteral | StringLiteral
+	EBooleanLiteral | EIntegerLiteral | ERealLiteral | EStringLiteral
 	| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral 
 	| BagLiteral | MapLiteral 
 ;
 
-BooleanLiteral returns Expression :
-	{BooleanLiteral} (value?='true'|'false')
+EBooleanLiteral returns Expression :
+	{EBool} (value?='true'|'false')
 ;
 
-IntegerLiteral returns Expression:
-	{IntegerLiteral} value=INTEGER_LIT
+EIntegerLiteral returns Expression:
+	{EInt} value=INTEGER_LIT
 ;
 
-RealLiteral returns Expression:
-	{RealLiteral} value=REAL_LIT
+ERealLiteral returns Expression:
+	{EReal} value=REAL_LIT
 ;
 
-StringLiteral returns Expression:
-	{StringLiteral} value=NoQuoteString
+EStringLiteral returns Expression:
+	{EString} value=NoQuoteString
 ;
 
 fragment CommaSeparatedExpressions*:
@@ -328,82 +332,3 @@ BagLiteral returns Expression:
 MapLiteral returns Expression:
 	{MapLiteral} 'map'
 ;
-
-NoQuoteString:
-	// remove quotes from string in ValueConverter
-	STRING
-;
-
-// TERMINALS copied from properties language
-
-terminal SL_COMMENT:
-	'--' !('\n' | '\r')* ('\r'? '\n')?;
-
-//INTVALUE returns aadl2::Integer:
-//	INTEGER_LIT //NUMERAL 	
-//;
-
-
-//terminal NUMERAL:
-//	(DIGIT)+('_' (DIGIT)+)*
-//;
-//terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
-
-terminal fragment EXPONENT:
-	('e'|'E') ('+'|'-')? ( DIGIT )+
-;
-
-terminal fragment INT_EXPONENT:
-	('e'|'E') ('+')? ( DIGIT )+
-;
-
-
-terminal REAL_LIT : 	
-	(DIGIT)+('_' (DIGIT)+)* ( '.' (DIGIT)+('_' (DIGIT)+)* ( EXPONENT )?)
-;
-
-terminal INTEGER_LIT : 
-	(DIGIT)+('_' (DIGIT)+)*
-	(( '#' BASED_INTEGER  '#' ( INT_EXPONENT )? )
-		| (INT_EXPONENT)?
-	)
-;
-
-terminal fragment DIGIT:
-	( '0'..'9' )
-;
-
-terminal fragment EXTENDED_DIGIT:
-	( '0'..'9' | 'a'..'f' | 'A'..'F')
-;
-
-terminal fragment BASED_INTEGER:
-	( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )*
-;
-
-QCLREF:
-	ID '::' ID;
-
-QPREF:
-	ID ('::' ID)?;
-
-QCREF:
-	(ID '::')* ID ('.' ID)?;
-	
-STAR : '*';
-
-terminal STRING	: 
-	'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
-	"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-; 
-
-terminal ID:
-	('a'..'z'|'A'..'Z') 
-	( ('_')? ('a'..'z'|'A'..'Z'|'0'..'9'))*
-;
-
-terminal WS:
-	(' '|'\t'|'\r'|'\n')+
-;
-
-	

@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.expr.expr.EReal;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.IntegerLiteral;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Integer Literal</b></em>'.
+ * An implementation of the model object '<em><b>EReal</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.IntegerLiteralImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.ERealImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
+public class ERealImpl extends ExpressionImpl implements EReal
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -54,7 +54,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
    * <!-- end-user-doc -->
    * @generated
    */
-  protected IntegerLiteralImpl()
+  protected ERealImpl()
   {
     super();
   }
@@ -67,7 +67,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.INTEGER_LITERAL;
+    return ExprPackage.Literals.EREAL;
   }
 
   /**
@@ -92,7 +92,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
     String oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.INTEGER_LITERAL__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.EREAL__VALUE, oldValue, value));
   }
 
   /**
@@ -105,7 +105,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.INTEGER_LITERAL__VALUE:
+      case ExprPackage.EREAL__VALUE:
         return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -121,7 +121,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.INTEGER_LITERAL__VALUE:
+      case ExprPackage.EREAL__VALUE:
         setValue((String)newValue);
         return;
     }
@@ -138,7 +138,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.INTEGER_LITERAL__VALUE:
+      case ExprPackage.EREAL__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
     }
@@ -155,7 +155,7 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.INTEGER_LITERAL__VALUE:
+      case ExprPackage.EREAL__VALUE:
         return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
     }
     return super.eIsSet(featureID);
@@ -178,4 +178,4 @@ public class IntegerLiteralImpl extends ExpressionImpl implements IntegerLiteral
     return result.toString();
   }
 
-} //IntegerLiteralImpl
+} //ERealImpl

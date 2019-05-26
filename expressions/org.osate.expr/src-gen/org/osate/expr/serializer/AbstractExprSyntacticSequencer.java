@@ -34,9 +34,47 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (ruleCall.getRule() == grammarAccess.getAppliesToKeywordsRule())
+			return getAppliesToKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInBindingKeywordsRule())
+			return getInBindingKeywordsToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getInModesKeywordsRule())
+			return getInModesKeywordsToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
+	/**
+	 * AppliesToKeywords:
+	 * 	'applies' 'to'
+	 * ;
+	 */
+	protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "appliesto";
+	}
+	
+	/**
+	 * InBindingKeywords:
+	 * 	'in' 'binding'
+	 * ;
+	 */
+	protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inbinding";
+	}
+	
+	/**
+	 * InModesKeywords:
+	 * 	'in' 'modes'
+	 * ;
+	 */
+	protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "inmodes";
+	}
 	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
@@ -59,7 +97,7 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     ';'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     decls+=Declaration (ambiguity) (rule end)
+	 *     decls+=EDeclaration (ambiguity) (rule end)
 	 */
 	protected void emit_Declarations_SemicolonKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

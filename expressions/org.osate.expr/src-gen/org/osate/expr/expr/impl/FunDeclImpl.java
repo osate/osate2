@@ -15,7 +15,7 @@ import org.osate.expr.expr.FunDecl;
  *
  * @generated
  */
-public class FunDeclImpl extends DeclarationImpl implements FunDecl
+public class FunDeclImpl extends EDeclarationImpl implements FunDecl
 {
   /**
    * <!-- begin-user-doc -->

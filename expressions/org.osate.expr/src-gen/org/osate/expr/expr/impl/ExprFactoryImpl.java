@@ -12,14 +12,18 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
+import org.osate.expr.expr.Assertion;
 import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.BinaryOperation;
-import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
 import org.osate.expr.expr.Conditional;
-import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.EBool;
+import org.osate.expr.expr.EDeclaration;
+import org.osate.expr.expr.EInt;
+import org.osate.expr.expr.EReal;
+import org.osate.expr.expr.EString;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
@@ -29,7 +33,6 @@ import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.Field;
 import org.osate.expr.expr.FunDecl;
 import org.osate.expr.expr.FunctionCall;
-import org.osate.expr.expr.IntegerLiteral;
 import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.ListType;
 import org.osate.expr.expr.MapLiteral;
@@ -37,18 +40,15 @@ import org.osate.expr.expr.MapType;
 import org.osate.expr.expr.MetaClass;
 import org.osate.expr.expr.MetaClassEnum;
 import org.osate.expr.expr.ModelReference;
-import org.osate.expr.expr.NamedElement;
 import org.osate.expr.expr.Operation;
 import org.osate.expr.expr.PrimitiveType;
 import org.osate.expr.expr.PropertyReference;
 import org.osate.expr.expr.Range;
 import org.osate.expr.expr.Real;
-import org.osate.expr.expr.RealLiteral;
 import org.osate.expr.expr.RecordLiteral;
 import org.osate.expr.expr.RecordType;
 import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
-import org.osate.expr.expr.StringLiteral;
 import org.osate.expr.expr.TargetType;
 import org.osate.expr.expr.TupleField;
 import org.osate.expr.expr.TupleLiteral;
@@ -116,8 +116,11 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
     switch (eClass.getClassifierID())
     {
       case ExprPackage.EXPR_MODEL: return createExprModel();
-      case ExprPackage.NAMED_ELEMENT: return createNamedElement();
-      case ExprPackage.DECLARATION: return createDeclaration();
+      case ExprPackage.EDECLARATION: return createEDeclaration();
+      case ExprPackage.TYPE_DECL: return createTypeDecl();
+      case ExprPackage.VAR_DECL: return createVarDecl();
+      case ExprPackage.FUN_DECL: return createFunDecl();
+      case ExprPackage.ASSERTION: return createAssertion();
       case ExprPackage.TYPE: return createType();
       case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
       case ExprPackage.CATEGORY: return createCategory();
@@ -139,9 +142,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.PROPERTY_REFERENCE: return createPropertyReference();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
-      case ExprPackage.TYPE_DECL: return createTypeDecl();
-      case ExprPackage.VAR_DECL: return createVarDecl();
-      case ExprPackage.FUN_DECL: return createFunDecl();
       case ExprPackage.BOOLEAN: return createBoolean();
       case ExprPackage.INTEGER: return createInteger();
       case ExprPackage.REAL: return createReal();
@@ -152,10 +152,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.FUNCTION_CALL: return createFunctionCall();
       case ExprPackage.RANGE: return createRange();
       case ExprPackage.CONDITIONAL: return createConditional();
-      case ExprPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
-      case ExprPackage.INTEGER_LITERAL: return createIntegerLiteral();
-      case ExprPackage.REAL_LITERAL: return createRealLiteral();
-      case ExprPackage.STRING_LITERAL: return createStringLiteral();
+      case ExprPackage.EBOOL: return createEBool();
+      case ExprPackage.EINT: return createEInt();
+      case ExprPackage.EREAL: return createEReal();
+      case ExprPackage.ESTRING: return createEString();
       case ExprPackage.LIST_LITERAL: return createListLiteral();
       case ExprPackage.SET_LITERAL: return createSetLiteral();
       case ExprPackage.RECORD_LITERAL: return createRecordLiteral();
@@ -228,10 +228,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public NamedElement createNamedElement()
+  public EDeclaration createEDeclaration()
   {
-    NamedElementImpl namedElement = new NamedElementImpl();
-    return namedElement;
+    EDeclarationImpl eDeclaration = new EDeclarationImpl();
+    return eDeclaration;
   }
 
   /**
@@ -240,10 +240,46 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public Declaration createDeclaration()
+  public TypeDecl createTypeDecl()
   {
-    DeclarationImpl declaration = new DeclarationImpl();
-    return declaration;
+    TypeDeclImpl typeDecl = new TypeDeclImpl();
+    return typeDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public VarDecl createVarDecl()
+  {
+    VarDeclImpl varDecl = new VarDeclImpl();
+    return varDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FunDecl createFunDecl()
+  {
+    FunDeclImpl funDecl = new FunDeclImpl();
+    return funDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Assertion createAssertion()
+  {
+    AssertionImpl assertion = new AssertionImpl();
+    return assertion;
   }
 
   /**
@@ -504,42 +540,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public TypeDecl createTypeDecl()
-  {
-    TypeDeclImpl typeDecl = new TypeDeclImpl();
-    return typeDecl;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public VarDecl createVarDecl()
-  {
-    VarDeclImpl varDecl = new VarDeclImpl();
-    return varDecl;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public FunDecl createFunDecl()
-  {
-    FunDeclImpl funDecl = new FunDeclImpl();
-    return funDecl;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public org.osate.expr.expr.Boolean createBoolean()
   {
     BooleanImpl boolean_ = new BooleanImpl();
@@ -660,10 +660,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public BooleanLiteral createBooleanLiteral()
+  public EBool createEBool()
   {
-    BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
-    return booleanLiteral;
+    EBoolImpl eBool = new EBoolImpl();
+    return eBool;
   }
 
   /**
@@ -672,10 +672,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public IntegerLiteral createIntegerLiteral()
+  public EInt createEInt()
   {
-    IntegerLiteralImpl integerLiteral = new IntegerLiteralImpl();
-    return integerLiteral;
+    EIntImpl eInt = new EIntImpl();
+    return eInt;
   }
 
   /**
@@ -684,10 +684,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public RealLiteral createRealLiteral()
+  public EReal createEReal()
   {
-    RealLiteralImpl realLiteral = new RealLiteralImpl();
-    return realLiteral;
+    ERealImpl eReal = new ERealImpl();
+    return eReal;
   }
 
   /**
@@ -696,10 +696,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public StringLiteral createStringLiteral()
+  public EString createEString()
   {
-    StringLiteralImpl stringLiteral = new StringLiteralImpl();
-    return stringLiteral;
+    EStringImpl eString = new EStringImpl();
+    return eString;
   }
 
   /**

@@ -33,7 +33,7 @@ import org.osate.expr.expr.VarDecl;
  *
  * @generated
  */
-public class VarDeclImpl extends DeclarationImpl implements VarDecl
+public class VarDeclImpl extends EDeclarationImpl implements VarDecl
 {
   /**
    * The default value of the '{@link #isConst() <em>Const</em>}' attribute.

@@ -22,7 +22,7 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface VarDecl extends Declaration
+public interface VarDecl extends EDeclaration
 {
   /**
    * Returns the value of the '<em><b>Const</b></em>' attribute.

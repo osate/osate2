@@ -33,22 +33,49 @@ public interface ExprFactory extends EFactory
   ExprModel createExprModel();
 
   /**
-   * Returns a new object of class '<em>Named Element</em>'.
+   * Returns a new object of class '<em>EDeclaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Named Element</em>'.
+   * @return a new object of class '<em>EDeclaration</em>'.
    * @generated
    */
-  NamedElement createNamedElement();
+  EDeclaration createEDeclaration();
 
   /**
-   * Returns a new object of class '<em>Declaration</em>'.
+   * Returns a new object of class '<em>Type Decl</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Declaration</em>'.
+   * @return a new object of class '<em>Type Decl</em>'.
    * @generated
    */
-  Declaration createDeclaration();
+  TypeDecl createTypeDecl();
+
+  /**
+   * Returns a new object of class '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Var Decl</em>'.
+   * @generated
+   */
+  VarDecl createVarDecl();
+
+  /**
+   * Returns a new object of class '<em>Fun Decl</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fun Decl</em>'.
+   * @generated
+   */
+  FunDecl createFunDecl();
+
+  /**
+   * Returns a new object of class '<em>Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assertion</em>'.
+   * @generated
+   */
+  Assertion createAssertion();
 
   /**
    * Returns a new object of class '<em>Type</em>'.
@@ -240,33 +267,6 @@ public interface ExprFactory extends EFactory
   ExprSubclause createExprSubclause();
 
   /**
-   * Returns a new object of class '<em>Type Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type Decl</em>'.
-   * @generated
-   */
-  TypeDecl createTypeDecl();
-
-  /**
-   * Returns a new object of class '<em>Var Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Var Decl</em>'.
-   * @generated
-   */
-  VarDecl createVarDecl();
-
-  /**
-   * Returns a new object of class '<em>Fun Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fun Decl</em>'.
-   * @generated
-   */
-  FunDecl createFunDecl();
-
-  /**
    * Returns a new object of class '<em>Boolean</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -357,40 +357,40 @@ public interface ExprFactory extends EFactory
   Conditional createConditional();
 
   /**
-   * Returns a new object of class '<em>Boolean Literal</em>'.
+   * Returns a new object of class '<em>EBool</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Boolean Literal</em>'.
+   * @return a new object of class '<em>EBool</em>'.
    * @generated
    */
-  BooleanLiteral createBooleanLiteral();
+  EBool createEBool();
 
   /**
-   * Returns a new object of class '<em>Integer Literal</em>'.
+   * Returns a new object of class '<em>EInt</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Integer Literal</em>'.
+   * @return a new object of class '<em>EInt</em>'.
    * @generated
    */
-  IntegerLiteral createIntegerLiteral();
+  EInt createEInt();
 
   /**
-   * Returns a new object of class '<em>Real Literal</em>'.
+   * Returns a new object of class '<em>EReal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Real Literal</em>'.
+   * @return a new object of class '<em>EReal</em>'.
    * @generated
    */
-  RealLiteral createRealLiteral();
+  EReal createEReal();
 
   /**
-   * Returns a new object of class '<em>String Literal</em>'.
+   * Returns a new object of class '<em>EString</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>String Literal</em>'.
+   * @return a new object of class '<em>EString</em>'.
    * @generated
    */
-  StringLiteral createStringLiteral();
+  EString createEString();
 
   /**
    * Returns a new object of class '<em>List Literal</em>'.

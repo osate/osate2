@@ -6,21 +6,21 @@ package org.osate.expr.expr;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Boolean Literal</b></em>'.
+ * A representation of the model object '<em><b>EBool</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.BooleanLiteral#isValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.EBool#isValue <em>Value</em>}</li>
  * </ul>
  *
- * @see org.osate.expr.expr.ExprPackage#getBooleanLiteral()
+ * @see org.osate.expr.expr.ExprPackage#getEBool()
  * @model
  * @generated
  */
-public interface BooleanLiteral extends Expression
+public interface EBool extends Expression
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
@@ -28,14 +28,14 @@ public interface BooleanLiteral extends Expression
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
    * @see #setValue(boolean)
-   * @see org.osate.expr.expr.ExprPackage#getBooleanLiteral_Value()
+   * @see org.osate.expr.expr.ExprPackage#getEBool_Value()
    * @model
    * @generated
    */
   boolean isValue();
 
   /**
-   * Sets the value of the '{@link org.osate.expr.expr.BooleanLiteral#isValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link org.osate.expr.expr.EBool#isValue <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' attribute.
@@ -44,4 +44,4 @@ public interface BooleanLiteral extends Expression
    */
   void setValue(boolean value);
 
-} // BooleanLiteral
+} // EBool

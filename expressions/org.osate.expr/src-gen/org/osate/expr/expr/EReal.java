@@ -7,21 +7,21 @@ import java.lang.String;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>String Literal</b></em>'.
+ * A representation of the model object '<em><b>EReal</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.StringLiteral#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.EReal#getValue <em>Value</em>}</li>
  * </ul>
  *
- * @see org.osate.expr.expr.ExprPackage#getStringLiteral()
+ * @see org.osate.expr.expr.ExprPackage#getEReal()
  * @model
  * @generated
  */
-public interface StringLiteral extends Expression
+public interface EReal extends Expression
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
@@ -29,14 +29,14 @@ public interface StringLiteral extends Expression
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
    * @see #setValue(String)
-   * @see org.osate.expr.expr.ExprPackage#getStringLiteral_Value()
+   * @see org.osate.expr.expr.ExprPackage#getEReal_Value()
    * @model
    * @generated
    */
   String getValue();
 
   /**
-   * Sets the value of the '{@link org.osate.expr.expr.StringLiteral#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link org.osate.expr.expr.EReal#getValue <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' attribute.
@@ -45,4 +45,4 @@ public interface StringLiteral extends Expression
    */
   void setValue(String value);
 
-} // StringLiteral
+} // EReal

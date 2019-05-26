@@ -29,7 +29,7 @@ public interface ExprLibrary extends EObject, AnnexLibrary
 {
   /**
    * Returns the value of the '<em><b>Decls</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.expr.expr.Declaration}.
+   * The list contents are of type {@link org.osate.expr.expr.EDeclaration}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Decls</em>' containment reference list.
@@ -37,6 +37,6 @@ public interface ExprLibrary extends EObject, AnnexLibrary
    * @model containment="true"
    * @generated
    */
-  EList<Declaration> getDecls();
+  EList<EDeclaration> getDecls();
 
 } // ExprLibrary

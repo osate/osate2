@@ -14,6 +14,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface FunDecl extends Declaration
+public interface FunDecl extends EDeclaration
 {
 } // FunDecl

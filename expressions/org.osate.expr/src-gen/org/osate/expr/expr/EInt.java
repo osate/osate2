@@ -7,21 +7,21 @@ import java.lang.String;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Integer Literal</b></em>'.
+ * A representation of the model object '<em><b>EInt</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.IntegerLiteral#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.EInt#getValue <em>Value</em>}</li>
  * </ul>
  *
- * @see org.osate.expr.expr.ExprPackage#getIntegerLiteral()
+ * @see org.osate.expr.expr.ExprPackage#getEInt()
  * @model
  * @generated
  */
-public interface IntegerLiteral extends Expression
+public interface EInt extends Expression
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
@@ -29,14 +29,14 @@ public interface IntegerLiteral extends Expression
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
    * @see #setValue(String)
-   * @see org.osate.expr.expr.ExprPackage#getIntegerLiteral_Value()
+   * @see org.osate.expr.expr.ExprPackage#getEInt_Value()
    * @model
    * @generated
    */
   String getValue();
 
   /**
-   * Sets the value of the '{@link org.osate.expr.expr.IntegerLiteral#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link org.osate.expr.expr.EInt#getValue <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' attribute.
@@ -45,4 +45,4 @@ public interface IntegerLiteral extends Expression
    */
   void setValue(String value);
 
-} // IntegerLiteral
+} // EInt

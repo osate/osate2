@@ -12,15 +12,20 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.NamedElement;
 
+import org.osate.expr.expr.Assertion;
 import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.BinaryOperation;
-import org.osate.expr.expr.BooleanLiteral;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ClassifierType;
 import org.osate.expr.expr.Conditional;
-import org.osate.expr.expr.Declaration;
+import org.osate.expr.expr.EBool;
+import org.osate.expr.expr.EDeclaration;
+import org.osate.expr.expr.EInt;
+import org.osate.expr.expr.EReal;
+import org.osate.expr.expr.EString;
 import org.osate.expr.expr.ExprLibrary;
 import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
@@ -29,24 +34,20 @@ import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.Field;
 import org.osate.expr.expr.FunDecl;
 import org.osate.expr.expr.FunctionCall;
-import org.osate.expr.expr.IntegerLiteral;
 import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.ListType;
 import org.osate.expr.expr.MapLiteral;
 import org.osate.expr.expr.MapType;
 import org.osate.expr.expr.MetaClass;
 import org.osate.expr.expr.ModelReference;
-import org.osate.expr.expr.NamedElement;
 import org.osate.expr.expr.PrimitiveType;
 import org.osate.expr.expr.PropertyReference;
 import org.osate.expr.expr.Range;
 import org.osate.expr.expr.Real;
-import org.osate.expr.expr.RealLiteral;
 import org.osate.expr.expr.RecordLiteral;
 import org.osate.expr.expr.RecordType;
 import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
-import org.osate.expr.expr.StringLiteral;
 import org.osate.expr.expr.TupleField;
 import org.osate.expr.expr.TupleLiteral;
 import org.osate.expr.expr.TupleType;
@@ -130,18 +131,52 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.NAMED_ELEMENT:
+      case ExprPackage.EDECLARATION:
       {
-        NamedElement namedElement = (NamedElement)theEObject;
-        T result = caseNamedElement(namedElement);
+        EDeclaration eDeclaration = (EDeclaration)theEObject;
+        T result = caseEDeclaration(eDeclaration);
+        if (result == null) result = caseNamedElement(eDeclaration);
+        if (result == null) result = caseElement(eDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.DECLARATION:
+      case ExprPackage.TYPE_DECL:
       {
-        Declaration declaration = (Declaration)theEObject;
-        T result = caseDeclaration(declaration);
-        if (result == null) result = caseNamedElement(declaration);
+        TypeDecl typeDecl = (TypeDecl)theEObject;
+        T result = caseTypeDecl(typeDecl);
+        if (result == null) result = caseEDeclaration(typeDecl);
+        if (result == null) result = caseNamedElement(typeDecl);
+        if (result == null) result = caseElement(typeDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.VAR_DECL:
+      {
+        VarDecl varDecl = (VarDecl)theEObject;
+        T result = caseVarDecl(varDecl);
+        if (result == null) result = caseEDeclaration(varDecl);
+        if (result == null) result = caseNamedElement(varDecl);
+        if (result == null) result = caseElement(varDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.FUN_DECL:
+      {
+        FunDecl funDecl = (FunDecl)theEObject;
+        T result = caseFunDecl(funDecl);
+        if (result == null) result = caseEDeclaration(funDecl);
+        if (result == null) result = caseNamedElement(funDecl);
+        if (result == null) result = caseElement(funDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.ASSERTION:
+      {
+        Assertion assertion = (Assertion)theEObject;
+        T result = caseAssertion(assertion);
+        if (result == null) result = caseEDeclaration(assertion);
+        if (result == null) result = caseNamedElement(assertion);
+        if (result == null) result = caseElement(assertion);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -299,7 +334,7 @@ public class ExprSwitch<T> extends Switch<T>
         ExprLibrary exprLibrary = (ExprLibrary)theEObject;
         T result = caseExprLibrary(exprLibrary);
         if (result == null) result = caseAnnexLibrary(exprLibrary);
-        if (result == null) result = caseAadl2_NamedElement(exprLibrary);
+        if (result == null) result = caseNamedElement(exprLibrary);
         if (result == null) result = caseElement(exprLibrary);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -310,35 +345,8 @@ public class ExprSwitch<T> extends Switch<T>
         T result = caseExprSubclause(exprSubclause);
         if (result == null) result = caseAnnexSubclause(exprSubclause);
         if (result == null) result = caseModalElement(exprSubclause);
-        if (result == null) result = caseAadl2_NamedElement(exprSubclause);
+        if (result == null) result = caseNamedElement(exprSubclause);
         if (result == null) result = caseElement(exprSubclause);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.TYPE_DECL:
-      {
-        TypeDecl typeDecl = (TypeDecl)theEObject;
-        T result = caseTypeDecl(typeDecl);
-        if (result == null) result = caseDeclaration(typeDecl);
-        if (result == null) result = caseNamedElement(typeDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.VAR_DECL:
-      {
-        VarDecl varDecl = (VarDecl)theEObject;
-        T result = caseVarDecl(varDecl);
-        if (result == null) result = caseDeclaration(varDecl);
-        if (result == null) result = caseNamedElement(varDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ExprPackage.FUN_DECL:
-      {
-        FunDecl funDecl = (FunDecl)theEObject;
-        T result = caseFunDecl(funDecl);
-        if (result == null) result = caseDeclaration(funDecl);
-        if (result == null) result = caseNamedElement(funDecl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -426,35 +434,35 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.BOOLEAN_LITERAL:
+      case ExprPackage.EBOOL:
       {
-        BooleanLiteral booleanLiteral = (BooleanLiteral)theEObject;
-        T result = caseBooleanLiteral(booleanLiteral);
-        if (result == null) result = caseExpression(booleanLiteral);
+        EBool eBool = (EBool)theEObject;
+        T result = caseEBool(eBool);
+        if (result == null) result = caseExpression(eBool);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.INTEGER_LITERAL:
+      case ExprPackage.EINT:
       {
-        IntegerLiteral integerLiteral = (IntegerLiteral)theEObject;
-        T result = caseIntegerLiteral(integerLiteral);
-        if (result == null) result = caseExpression(integerLiteral);
+        EInt eInt = (EInt)theEObject;
+        T result = caseEInt(eInt);
+        if (result == null) result = caseExpression(eInt);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.REAL_LITERAL:
+      case ExprPackage.EREAL:
       {
-        RealLiteral realLiteral = (RealLiteral)theEObject;
-        T result = caseRealLiteral(realLiteral);
-        if (result == null) result = caseExpression(realLiteral);
+        EReal eReal = (EReal)theEObject;
+        T result = caseEReal(eReal);
+        if (result == null) result = caseExpression(eReal);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ExprPackage.STRING_LITERAL:
+      case ExprPackage.ESTRING:
       {
-        StringLiteral stringLiteral = (StringLiteral)theEObject;
-        T result = caseStringLiteral(stringLiteral);
-        if (result == null) result = caseExpression(stringLiteral);
+        EString eString = (EString)theEObject;
+        T result = caseEString(eString);
+        if (result == null) result = caseExpression(eString);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -535,33 +543,81 @@ public class ExprSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>EDeclaration</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EDeclaration</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNamedElement(NamedElement object)
+  public T caseEDeclaration(EDeclaration object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Type Decl</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Type Decl</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseDeclaration(Declaration object)
+  public T caseTypeDecl(TypeDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Var Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVarDecl(VarDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFunDecl(FunDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Assertion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAssertion(Assertion object)
   {
     return null;
   }
@@ -903,54 +959,6 @@ public class ExprSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Type Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Type Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTypeDecl(TypeDecl object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Var Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Var Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVarDecl(VarDecl object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fun Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFunDecl(FunDecl object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Boolean</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1111,65 +1119,65 @@ public class ExprSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>EBool</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EBool</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseBooleanLiteral(BooleanLiteral object)
+  public T caseEBool(EBool object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>EInt</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EInt</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseIntegerLiteral(IntegerLiteral object)
+  public T caseEInt(EInt object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Real Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>EReal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Real Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EReal</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRealLiteral(RealLiteral object)
+  public T caseEReal(EReal object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>String Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>EString</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>String Literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>EString</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseStringLiteral(StringLiteral object)
+  public T caseEString(EString object)
   {
     return null;
   }
@@ -1313,7 +1321,7 @@ public class ExprSwitch<T> extends Switch<T>
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAadl2_NamedElement(org.osate.aadl2.NamedElement object)
+  public T caseNamedElement(NamedElement object)
   {
     return null;
   }

@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.expr.expr.EString;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.RealLiteral;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Real Literal</b></em>'.
+ * An implementation of the model object '<em><b>EString</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.RealLiteralImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.EStringImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
+public class EStringImpl extends ExpressionImpl implements EString
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -54,7 +54,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
    * <!-- end-user-doc -->
    * @generated
    */
-  protected RealLiteralImpl()
+  protected EStringImpl()
   {
     super();
   }
@@ -67,7 +67,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.REAL_LITERAL;
+    return ExprPackage.Literals.ESTRING;
   }
 
   /**
@@ -92,7 +92,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
     String oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.REAL_LITERAL__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.ESTRING__VALUE, oldValue, value));
   }
 
   /**
@@ -105,7 +105,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.REAL_LITERAL__VALUE:
+      case ExprPackage.ESTRING__VALUE:
         return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -121,7 +121,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.REAL_LITERAL__VALUE:
+      case ExprPackage.ESTRING__VALUE:
         setValue((String)newValue);
         return;
     }
@@ -138,7 +138,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.REAL_LITERAL__VALUE:
+      case ExprPackage.ESTRING__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
     }
@@ -155,7 +155,7 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
   {
     switch (featureID)
     {
-      case ExprPackage.REAL_LITERAL__VALUE:
+      case ExprPackage.ESTRING__VALUE:
         return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
     }
     return super.eIsSet(featureID);
@@ -178,4 +178,4 @@ public class RealLiteralImpl extends ExpressionImpl implements RealLiteral
     return result.toString();
   }
 
-} //RealLiteralImpl
+} //EStringImpl

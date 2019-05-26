@@ -3,24 +3,24 @@
  */
 package org.osate.expr.formatting2;
 
-import com.google.inject.Inject;
-import org.eclipse.xtext.formatting2.AbstractFormatter2;
-import org.eclipse.xtext.formatting2.IFormattableDocument;
-import org.osate.expr.expr.BagType;
-import org.osate.expr.expr.Declaration;
-import org.osate.expr.expr.ExprLibrary;
-import org.osate.expr.expr.ExprModel;
-import org.osate.expr.expr.ExprSubclause;
-import org.osate.expr.expr.Field;
-import org.osate.expr.expr.ListType;
-import org.osate.expr.expr.MapType;
-import org.osate.expr.expr.RecordType;
-import org.osate.expr.expr.SetType;
-import org.osate.expr.expr.TupleField;
-import org.osate.expr.expr.TupleType;
-import org.osate.expr.expr.TypeDecl;
-import org.osate.expr.expr.VarDecl;
-import org.osate.expr.services.ExprGrammarAccess;
+import com.google.inject.Inject
+import org.eclipse.xtext.formatting2.AbstractFormatter2
+import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.osate.expr.expr.BagType
+import org.osate.expr.expr.EDeclaration
+import org.osate.expr.expr.ExprLibrary
+import org.osate.expr.expr.ExprModel
+import org.osate.expr.expr.ExprSubclause
+import org.osate.expr.expr.Field
+import org.osate.expr.expr.ListType
+import org.osate.expr.expr.MapType
+import org.osate.expr.expr.RecordType
+import org.osate.expr.expr.SetType
+import org.osate.expr.expr.TupleField
+import org.osate.expr.expr.TupleType
+import org.osate.expr.expr.TypeDecl
+import org.osate.expr.expr.VarDecl
+import org.osate.expr.services.ExprGrammarAccess
 
 class ExprFormatter extends AbstractFormatter2 {
 	
@@ -33,14 +33,14 @@ class ExprFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(ExprLibrary exprlibrary, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (Declaration decls : exprlibrary.getDecls()) {
+		for (EDeclaration decls : exprlibrary.getDecls()) {
 			format(decls, document);
 		}
 	}
 
 	def dispatch void format(ExprSubclause exprsubclause, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (Declaration decls : exprsubclause.getDecls()) {
+		for (EDeclaration decls : exprsubclause.getDecls()) {
 			format(decls, document);
 		}
 	}

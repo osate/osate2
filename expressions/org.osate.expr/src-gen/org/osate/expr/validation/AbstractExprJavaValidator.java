@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.xtext.validation.ComposedChecks;
 
-@ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractExprJavaValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
+public class AbstractExprJavaValidator extends org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {

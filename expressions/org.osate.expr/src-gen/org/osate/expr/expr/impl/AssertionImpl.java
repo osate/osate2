@@ -11,41 +11,41 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.expr.expr.Assertion;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.Type;
-import org.osate.expr.expr.TypeDecl;
+import org.osate.expr.expr.Expression;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type Decl</b></em>'.
+ * An implementation of the model object '<em><b>Assertion</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.TypeDeclImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.AssertionImpl#getAssert <em>Assert</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
+public class AssertionImpl extends EDeclarationImpl implements Assertion
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getAssert()
    * @generated
    * @ordered
    */
-  protected Type type;
+  protected Expression assert_;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected TypeDeclImpl()
+  protected AssertionImpl()
   {
     super();
   }
@@ -58,7 +58,7 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.TYPE_DECL;
+    return ExprPackage.Literals.ASSERTION;
   }
 
   /**
@@ -67,9 +67,9 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * @generated
    */
   @Override
-  public Type getType()
+  public Expression getAssert()
   {
-    return type;
+    return assert_;
   }
 
   /**
@@ -77,13 +77,13 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetType(Type newType, NotificationChain msgs)
+  public NotificationChain basicSetAssert(Expression newAssert, NotificationChain msgs)
   {
-    Type oldType = type;
-    type = newType;
+    Expression oldAssert = assert_;
+    assert_ = newAssert;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.TYPE_DECL__TYPE, oldType, newType);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.ASSERTION__ASSERT, oldAssert, newAssert);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -95,20 +95,20 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * @generated
    */
   @Override
-  public void setType(Type newType)
+  public void setAssert(Expression newAssert)
   {
-    if (newType != type)
+    if (newAssert != assert_)
     {
       NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.TYPE_DECL__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.TYPE_DECL__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
+      if (assert_ != null)
+        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.ASSERTION__ASSERT, null, msgs);
+      if (newAssert != null)
+        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.ASSERTION__ASSERT, null, msgs);
+      msgs = basicSetAssert(newAssert, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.TYPE_DECL__TYPE, newType, newType));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.ASSERTION__ASSERT, newAssert, newAssert));
   }
 
   /**
@@ -121,8 +121,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   {
     switch (featureID)
     {
-      case ExprPackage.TYPE_DECL__TYPE:
-        return basicSetType(null, msgs);
+      case ExprPackage.ASSERTION__ASSERT:
+        return basicSetAssert(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -137,8 +137,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   {
     switch (featureID)
     {
-      case ExprPackage.TYPE_DECL__TYPE:
-        return getType();
+      case ExprPackage.ASSERTION__ASSERT:
+        return getAssert();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -153,8 +153,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   {
     switch (featureID)
     {
-      case ExprPackage.TYPE_DECL__TYPE:
-        setType((Type)newValue);
+      case ExprPackage.ASSERTION__ASSERT:
+        setAssert((Expression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -170,8 +170,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   {
     switch (featureID)
     {
-      case ExprPackage.TYPE_DECL__TYPE:
-        setType((Type)null);
+      case ExprPackage.ASSERTION__ASSERT:
+        setAssert((Expression)null);
         return;
     }
     super.eUnset(featureID);
@@ -187,10 +187,10 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
   {
     switch (featureID)
     {
-      case ExprPackage.TYPE_DECL__TYPE:
-        return type != null;
+      case ExprPackage.ASSERTION__ASSERT:
+        return assert_ != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //TypeDeclImpl
+} //AssertionImpl
