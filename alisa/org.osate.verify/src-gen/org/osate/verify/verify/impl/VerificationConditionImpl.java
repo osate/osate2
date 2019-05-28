@@ -96,6 +96,7 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VerificationMethod getMethod()
   {
     if (method != null && method.eIsProxy())
@@ -126,6 +127,7 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethod(VerificationMethod newMethod)
   {
     VerificationMethod oldMethod = method;
@@ -139,6 +141,7 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<FormalParameter> getParameters()
   {
     if (parameters == null)

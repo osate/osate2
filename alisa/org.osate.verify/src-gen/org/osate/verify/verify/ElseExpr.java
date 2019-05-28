@@ -40,10 +40,6 @@ public interface ElseExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Left</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
    * @see #setLeft(ArgumentExpr)
@@ -66,10 +62,6 @@ public interface ElseExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Error</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Error</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Error</em>' containment reference.
    * @see #setError(ArgumentExpr)
@@ -92,10 +84,6 @@ public interface ElseExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Fail</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fail</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Fail</em>' containment reference.
    * @see #setFail(ArgumentExpr)
@@ -118,10 +106,6 @@ public interface ElseExpr extends ArgumentExpr
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Timeout</em>' containment reference.
    * @see #setTimeout(ArgumentExpr)

@@ -178,6 +178,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -188,6 +189,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -201,6 +203,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -211,6 +214,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -224,6 +228,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public RequirementSet getRequirementSet()
   {
     if (requirementSet != null && requirementSet.eIsProxy())
@@ -254,6 +259,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRequirementSet(RequirementSet newRequirementSet)
   {
     RequirementSet oldRequirementSet = requirementSet;
@@ -267,6 +273,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -294,6 +301,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -315,6 +323,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Claim> getClaim()
   {
     if (claim == null)
@@ -329,6 +338,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Rationale getRationale()
   {
     return rationale;
@@ -356,6 +366,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRationale(Rationale newRationale)
   {
     if (newRationale != rationale)
@@ -377,6 +388,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)

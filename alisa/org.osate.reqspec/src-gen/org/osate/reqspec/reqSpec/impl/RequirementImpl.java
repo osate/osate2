@@ -225,6 +225,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReqPredicate getPredicate()
   {
     return predicate;
@@ -252,6 +253,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPredicate(ReqPredicate newPredicate)
   {
     if (newPredicate != predicate)
@@ -273,6 +275,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getException()
   {
     if (exception != null && exception.eIsProxy())
@@ -303,6 +306,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setException(EObject newException)
   {
     EObject oldException = exception;
@@ -316,6 +320,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getExceptionText()
   {
     return exceptionText;
@@ -326,6 +331,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setExceptionText(String newExceptionText)
   {
     String oldExceptionText = exceptionText;
@@ -339,6 +345,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Requirement getInheritsReference()
   {
     if (inheritsReference != null && inheritsReference.eIsProxy())
@@ -369,6 +376,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInheritsReference(Requirement newInheritsReference)
   {
     Requirement oldInheritsReference = inheritsReference;
@@ -382,6 +390,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<AVariableDeclaration> getComputes()
   {
     if (computes == null)
@@ -396,6 +405,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Requirement> getRefinesReference()
   {
     if (refinesReference == null)
@@ -410,6 +420,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Requirement> getDecomposesReference()
   {
     if (decomposesReference == null)
@@ -424,6 +435,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Stakeholder> getDevelopmentStakeholder()
   {
     if (developmentStakeholder == null)
@@ -438,6 +450,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Requirement> getRequirementReference()
   {
     if (requirementReference == null)
@@ -452,6 +465,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ComponentCategory> getComponentCategory()
   {
     if (componentCategory == null)
@@ -466,6 +480,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TargetType getTargetType()
   {
     return targetType;
@@ -476,6 +491,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetType(TargetType newTargetType)
   {
     TargetType oldTargetType = targetType;
