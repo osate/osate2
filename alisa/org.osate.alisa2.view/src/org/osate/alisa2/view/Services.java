@@ -3,11 +3,9 @@ package org.osate.alisa2.view;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -24,17 +22,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.sireum.aadl.ir.Aadl;
-import org.sireum.aadl.osate.util.Util;
-import org.sireum.awas.AADLBridge.AadlHandler;
-import org.sireum.awas.ast.Model;
-import org.sireum.awas.fptc.FlowEdge;
-import org.sireum.awas.fptc.FlowGraph;
-import org.sireum.awas.fptc.FlowNode;
-import org.sireum.awas.symbol.SymbolTable;
-import org.sireum.awas.symbol.SymbolTableHelper;
-import org.sireum.awas.util.JavaConverters;
-import org.sireum.util.ConsoleTagReporter;
 
 /**
  * Services / supporting utility methods used by the SAFE2.0 view. Note this
@@ -59,9 +46,9 @@ public class Services {
 	 * @return The set of neighbors for the given component.
 	 */
 	public static Collection<EObject> getAllNeighbors(EObject self) {
-//		return getNeighborsHari((ComponentInstance) self);
-		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
-				.collect(Collectors.toSet());
+		return getNeighborsHari((ComponentInstance) self);
+//		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
+//				.collect(Collectors.toSet());
 	}
 
 	/**
@@ -131,43 +118,8 @@ public class Services {
 		return ret;
 	}
 
-	@SuppressWarnings("restriction")
 	private static Collection<EObject> getNeighborsHari(ComponentInstance self) {
-		Set<EObject> ret = new HashSet<>();
-
-// this should reference the containing system, rather than the component itself
-//		org.sireum.aadl.osate.util.Util.getAir(self.getSystemInstance(), false);
-
-		Aadl airModel = Util.getAir(self.getContainingComponentInstance(), false);
-//		Aadl airModel = Util.getAir(self, false);
-
-		Model awasModel = AadlHandler.buildAwasModel(airModel); // building Awas model from Air model
-
-		SymbolTable st = SymbolTable.apply(awasModel, new ConsoleTagReporter()); // building symbol table
-
-		FlowGraph<FlowNode, FlowEdge<FlowNode>> graph = FlowGraph.apply(awasModel, st); // building all the graphs and returning only the top level graph
-
-		Optional<FlowNode> flowNode = JavaConverters.toJavaOptional( // canonicalComponentName should be something like UAS_Impl_Instance
-				FlowNode.getNode(
-						SymbolTableHelper
-								.getUriFromString(st, self.getName())
-								.get())); // getting a component node using its dot
-																													// separated
-																											// canonical name.
-
-		Set<FlowNode> neighbourNodes = new HashSet<FlowNode>();
-
-		if(flowNode.isPresent()) {
-		    FlowGraph<FlowNode, FlowEdge<FlowNode>> nodeGraph = flowNode.get().getOwner(); //getting the graph that contains the input component
-			neighbourNodes.addAll(JavaConverters.toJavaSet(nodeGraph.getPredecessorNodes(flowNode.get()))); // adding predecessor nodes
-			neighbourNodes.addAll(JavaConverters.toJavaSet(nodeGraph.getSuccessorNodes(flowNode.get()))); // adding successor nodes
-		}
-
-		neighbourNodes.stream().forEach(node -> {
-			SymbolTableHelper.uri2CanonicalName(node.getUri());
-		});
-
-		return ret;
+		return AWASManager.getInstance().getNeighbors(self);
 	}
 
 	/**
@@ -320,6 +272,10 @@ public class Services {
 		return ((ErrorType) self).getName();
 	}
 
+	public static String getControlActionRowHeader(EObject self) {
+		return ((ConnectionInstance) self).getName();
+	}
+
 	/**
 	 * Gets incoming features for the supplied component instance. More
 	 * specifically, the features whose DirectionType is IN
@@ -366,6 +322,7 @@ public class Services {
 	public static boolean isFocused(EObject self) {
 //		return FocusManager.getInstance().isFocused(self);
 		return new Random().nextBoolean();
+//		return false;
 	}
 
 	public static Collection<EObject> debug(EObject self) {

@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.sirius.table,
  org.sireum.aadl.osate.awas,
  org.sireum.aadl.osate,
- org.osate.xtext.aadl2.errormodel
+ org.osate.xtext.aadl2.errormodel,
+ org.osate.xtext.aadl2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName

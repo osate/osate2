@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.alisa2.model.safe2.Accident;
 import org.osate.alisa2.model.safe2.AccidentLevel;
 import org.osate.alisa2.model.safe2.Constraint;
@@ -13,8 +14,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * Singleton that provides access to focus related functionality. We use a
- * singleton because a) Java services can't hold state, and b) we never want
- * multiple things focused at the same time.
+ * singleton because a) Sirius's java services can't hold state, and b) we
+ * never want multiple things focused at the same time.
  *
  * See Wikipedia for the code the lazy initialization is adapted from:
  * https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom
@@ -61,9 +62,13 @@ public class FocusManager {
 		focus = newFocus;
 		clearFocus();
 
-		if(newFocus instanceof Fundamental) {
+		if (newFocus instanceof Fundamental) {
 			handleFocusedFundamental((Fundamental) newFocus);
+		} else if (newFocus instanceof ComponentInstance) {
+			handleFocusedComponent((ComponentInstance) newFocus);
 		}
+
+
 		// components need to add themselves, as well as connections between themselves
 
 		/*-
@@ -81,6 +86,18 @@ public class FocusManager {
 			 * Component -> Error Type set -> For each, forward and backward slice -> Fundamentals (based on constraint-Error Type links)
 
 		 */
+	}
+
+	private void handleFocusedComponent(ComponentInstance newFocus) {
+		// Grab the error types propagated from this component (forward? backward? both?) and go~
+		// ...
+		// by 'go~' I mean:
+		// * add each connection
+		// * and each component
+		// ... on the propagation path
+
+		focusSet.addAll(AWASManager.getInstance().backwardReach(newFocus));
+		focusSet.addAll(AWASManager.getInstance().forwardReach(newFocus));
 	}
 
 	private void handleFocusedFundamental(Fundamental newFocus) {
@@ -106,6 +123,7 @@ public class FocusManager {
 	}
 
 	private void handleFocusedErrorType(ErrorType et) {
+		// Need to also have component in constraint (+ error type), then the calls are ez
 		// slicing stuff -- add components from forward and backward slice
 	}
 
