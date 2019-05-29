@@ -89,15 +89,9 @@ public class FocusManager {
 	}
 
 	private void handleFocusedComponent(ComponentInstance newFocus) {
-		// Grab the error types propagated from this component (forward? backward? both?) and go~
-		// ...
-		// by 'go~' I mean:
-		// * add each connection
-		// * and each component
-		// ... on the propagation path
-
 		focusSet.addAll(AWASManager.getInstance().backwardReach(newFocus));
 		focusSet.addAll(AWASManager.getInstance().forwardReach(newFocus));
+		focusSet.size();
 	}
 
 	private void handleFocusedFundamental(Fundamental newFocus) {
