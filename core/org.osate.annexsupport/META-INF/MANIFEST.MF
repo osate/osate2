@@ -9,7 +9,6 @@ Bundle-Vendor: CMU-SEI
 Export-Package: org.osate.annexsupport
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.osate.workspace,
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties
 Bundle-ActivationPolicy: lazy
