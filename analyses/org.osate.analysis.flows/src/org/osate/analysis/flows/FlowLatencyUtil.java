@@ -1,11 +1,16 @@
 package org.osate.analysis.flows;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -23,7 +28,6 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
@@ -540,8 +544,13 @@ public class FlowLatencyUtil {
 
 	public static void saveAnalysisResult(AnalysisResult results) {
 		URI latencyURI = getLantencyAnalysisResultURI(results);
-		OsateResourceUtil.saveEMFModel(results, latencyURI, results.getModelElement());
-
+		Resource res = results.getModelElement().eResource().getResourceSet().createResource(latencyURI);
+		res.getContents().add(results);
+		try {
+			res.save(null);
+		} catch (IOException e) {
+			StatusManager.getManager().handle(new Status(IStatus.ERROR, "org.osate.analysis.flows", e.getMessage(), e));
+		}
 	}
 
 	public static String getParametersAsLabels(AnalysisResult results) {
