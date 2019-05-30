@@ -15,7 +15,7 @@ import org.osate.expr.expr.VarDecl;
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-public class ExprJavaValidator extends org.osate.expr.validation.AbstractExprJavaValidator {
+public class ExprJavaValidator extends ExprTypeSystemValidator {
 
 	@Override
 	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
@@ -26,7 +26,7 @@ public class ExprJavaValidator extends org.osate.expr.validation.AbstractExprJav
 	@Check
 	public void checkVarDeclHasTypeOrAssignment(VarDecl varDecl) {
 		if (!varDecl.isConst()) {
-			if (varDecl.getType() == null && varDecl.getValue() == null) {
+			if (varDecl.getDeclType() == null && varDecl.getValue() == null) {
 				error("Variable declaration must have a type or a value");
 			}
 		} else {

@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.ComponentCategory;
 
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.ExprPackage;
 

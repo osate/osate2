@@ -23,7 +23,7 @@ class ExprQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider 
 				converter.toQualifiedName('expr$' + pkg.name + '::' + obj.name)
 			}
 			default:
-				Aadl2QualifiedNameHelper.getFullyQualifiedName(obj)
+				null
 		}
 	}
 

@@ -36,7 +36,7 @@ TypeDecl:
 ;
 
 VarDecl:
-	((const?='val') | 'var') name=ID (':' type=Type)? ('=' value=Expression)?
+	((const?='val') | 'var') name=ID (':' declType=Type)? ('=' value=Expression)?
 ;
 
 FunDecl:
@@ -49,15 +49,19 @@ Assertion:
 
 // Types
 
-Type:
-	PrimitiveType | Category | MetaClass | ClassifierType
-	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType | TypeRef
+Type returns aadl2::Type:
+	PrimitiveType | RangeType | Category | MetaClass
+	| RecordType | UnionType | TupleType | ListType | SetType | BagType | MapType 
+	| EnumType | TypeRef
 ;
 
 PrimitiveType:
-	{Boolean} 'bool' | {Integer} 'int' | {Real} 'real' | {String} 'string'
+	{EBoolean} 'bool' | {EInteger} 'int' | {EReal} 'real' | {EString} 'string'
 ;
 
+RangeType:
+	'range' 'of' type=Type
+;
 
 Category:
 	category=ComponentCategory
@@ -69,58 +73,47 @@ ComponentCategory returns aadl2::ComponentCategory:
 	| 'virtual' 'bus' | 'virtual' 'processor'
 ;
 
+// TODO: should support real meta class references
 MetaClass:
 	class=MetaClassEnum
 ;
 
 enum MetaClassEnum:
-	COMPONENT='component' | SUBCOMPONENT='subcomponent' | FEATURE='feature'
-	|CONNECTION='connection' | FLOW='flow' | MODE='mode'
+	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode'
+	| PROPERTY='property'
 ;
 
 
 enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'|FLOW='flow'|MODE='mode'|ELEMENT='element'|ROOT='root';
 
 
-ClassifierType:
-	{ClassifierType}
-	'classifier' ( 
-		'(' base=[aadl2::Classifier|QCREF] ')'
-	)?
-;
-
 RecordType:
-	{RecordType}
-	'record' '{'
-		field+=Field*
+	{RecordType} 'record' '{'
+		(fields+=Field (',' fields+=Field)*)?
 	'}'
 ;
 
 Field:
-	name=ID ':' type=Type ';'
+	name=ID ':' type=Type
 ;
 
 UnionType:
-	{UnionType}
-	'union' '{'
+	{UnionType} 'union' '{'
 		'???'
 	'}'
 ;
 
 TupleType:
-	{TupleType}
-	'tuple' '{'
-		field+=TupleField*
+	{TupleType} 'tuple' '{'
+		(fields+=TupleField (',' fields+=TupleField)*)?
 	'}'
 ;
 
-TupleField:
-	{Field}
+TupleField returns Field:
 	type=Type
 ;
 
 ListType:
-	{ListType}
 	'list' 'of' type=Type
 ;
 
@@ -133,11 +126,21 @@ BagType:
 ;
 
 MapType:
-	'map' dom=Type '->' img=Type 
+	'map' domain=Type '->' image=Type 
+;
+
+EnumType:
+	{EnumType} 'enum' '{'
+		(literals+=EnumLiteral (',' literals+=EnumLiteral)*)?
+	'}'
+;
+
+EnumLiteral:
+	name=ID
 ;
 
 TypeRef:
-	ref=[TypeDecl|QCREF]
+	ref=[aadl2::NamedElement|QCREF]
 ;
 
 // Expressions
@@ -231,44 +234,36 @@ OpUnary returns Operation:
 ;
 
 UnitExpression returns Expression:
-	PrimaryExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
+	PropertyExpression ({UnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral|ID])?
 ;
 
+@Override 
+PropertyExpression returns Expression:
+	PrimaryExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?	
+;
+
+// TODO: UFC and record field access are a bit complicated because it intertwines scoping and typing
+//SelectExpression returns Expression:
+//	PrimaryExpression
+//	=>(
+//		{Selection.receiver=current} '.' 
+//		(core?='^')? ref=[aadl2::NamedElement|QCREF]
+//		('(' (args+=Expression (',' args+=Expression)*)? ')')?
+//	)*
+//;
+
 PrimaryExpression returns Expression:
-	VarRef | ModelOrPropertyReference 
-	| FunctionCall | RangeExpression | IfExpression
+	NamedElementRef
+	| RangeExpression | IfExpression
 	| Literal | '(' Expression ')'
 ;
 
-VarRef:
-	ref=[VarDecl|QCREF]
-;
-
-// Reference to property, property constant, or model element.
-ModelOrPropertyReference returns Expression:
-	ModelReference (
-		=>({PropertyReference.modelElementReference=current} '#') property=[aadl2::AbstractNamedValue|QPREF]
-	)? 
-	| PropertyReference
-;
-
-ModelReference:
-	modelElement=[aadl2::NamedElement|This] (
-		{ModelReference.prev=current} '.' modelElement=[aadl2::NamedElement|ID]
+// TODO: will be handled by selection
+NamedElementRef:
+	(core?='^')?
+	ref=[aadl2::NamedElement|QCREF] (
+		=>({NamedElementRef.prev=current} '.') ref=[aadl2::NamedElement|ID]
 	)*
-;
-
-// must be a rule, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=318482 
-This:
-	'this'
-;
-
-PropertyReference returns PropertyReference:
-	{PropertyReference}'#' property=[aadl2::AbstractNamedValue|QPREF]
-;
-
-FunctionCall returns Expression:
-	{FunctionCall} function=QCREF '(' (arguments+=Expression (',' arguments+=Expression)*)? ')'
 ;
 
 RangeExpression returns Expression:
@@ -286,31 +281,31 @@ Literal returns Expression:
 ;
 
 EBooleanLiteral returns Expression :
-	{EBool} (value?='true'|'false')
+	{EBooleanLiteral} (value?='true'|'false')
 ;
 
 EIntegerLiteral returns Expression:
-	{EInt} value=INTEGER_LIT
+	{EIntegerLiteral} value=INTEGER_LIT
 ;
 
 ERealLiteral returns Expression:
-	{EReal} value=REAL_LIT
+	{ERealLiteral} value=REAL_LIT
 ;
 
 EStringLiteral returns Expression:
-	{EString} value=NoQuoteString
+	{EStringLiteral} value=NoQuoteString
 ;
 
-fragment CommaSeparatedExpressions*:
-	elements+=Expression (',' elements+=Expression)*
+fragment ExpressionList*:
+	'(' (elements+=Expression (',' elements+=Expression)*)? ')'
 ;
 
 ListLiteral returns Expression:
-	{ListLiteral} 'list' '(' CommaSeparatedExpressions? ')'
+	{ListLiteral} 'list' ExpressionList
 ;
 
 SetLiteral returns Expression:
-	{SetLiteral} 'set' '(' CommaSeparatedExpressions? ')'
+	{SetLiteral} 'set' ExpressionList
 ;
 
 RecordLiteral returns Expression:
@@ -322,13 +317,22 @@ UnionLiteral returns Expression:
 ;
 
 TupleLiteral returns Expression:
-	{TupleLiteral} 'tuple' '(' CommaSeparatedExpressions? ')'
+	{TupleLiteral} 'tuple' ExpressionList
 ;
 
 BagLiteral returns Expression:
-	{BagLiteral} 'bag' '(' CommaSeparatedExpressions? ')'
+	{BagLiteral} 'bag' ExpressionList
 ;
 
 MapLiteral returns Expression:
 	{MapLiteral} 'map'
+;
+
+QPKGREF:
+	ID ('::' ID)*
+;
+
+@Override 
+QCREF:
+	(ID '::')* ID (=>'.' ID)?
 ;

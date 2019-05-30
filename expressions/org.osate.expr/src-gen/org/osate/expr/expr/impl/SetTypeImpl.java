@@ -11,9 +11,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.Type;
+
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.SetType;
-import org.osate.expr.expr.Type;
 
 /**
  * <!-- begin-user-doc -->

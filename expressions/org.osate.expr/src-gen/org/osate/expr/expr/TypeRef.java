@@ -3,6 +3,10 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,19 +24,19 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface TypeRef extends Type
+public interface TypeRef extends EObject, Type
 {
   /**
    * Returns the value of the '<em><b>Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Ref</em>' reference.
-   * @see #setRef(TypeDecl)
+   * @see #setRef(NamedElement)
    * @see org.osate.expr.expr.ExprPackage#getTypeRef_Ref()
    * @model
    * @generated
    */
-  TypeDecl getRef();
+  NamedElement getRef();
 
   /**
    * Sets the value of the '{@link org.osate.expr.expr.TypeRef#getRef <em>Ref</em>}' reference.
@@ -42,6 +46,6 @@ public interface TypeRef extends Type
    * @see #getRef()
    * @generated
    */
-  void setRef(TypeDecl value);
+  void setRef(NamedElement value);
 
 } // TypeRef

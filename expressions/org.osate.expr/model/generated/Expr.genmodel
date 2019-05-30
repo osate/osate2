@@ -8,11 +8,12 @@
       fileExtensions="expr" ecorePackage="Expr.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//MetaClassEnum">
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/COMPONENT"/>
-      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/SUBCOMPONENT"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FEATURE"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CONNECTION"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FLOW"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/PROPERTY"/>
+      <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/SUBCOMPONENT"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/CLASSIFIER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//TargetType">
@@ -86,25 +87,27 @@
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//VarDecl">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//VarDecl/const"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/declType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/dType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/type"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//FunDecl"/>
     <genClasses ecoreClass="Expr.ecore#//Assertion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Assertion/assert"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//Type"/>
     <genClasses ecoreClass="Expr.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="Expr.ecore#//RangeType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RangeType/type"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Category">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Category/category"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//MetaClass">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//MetaClass/class"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//ClassifierType">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ClassifierType/base"/>
-    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//RecordType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RecordType/fields"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//RecordType/field"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Field">
@@ -113,9 +116,9 @@
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//UnionType"/>
     <genClasses ecoreClass="Expr.ecore#//TupleType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//TupleType/fields"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//TupleType/field"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//TupleField"/>
     <genClasses ecoreClass="Expr.ecore#//ListType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ListType/type"/>
     </genClasses>
@@ -126,8 +129,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BagType/type"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//MapType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/domain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/image"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/dom"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//MapType/img"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//EnumType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference Expr.ecore#//EnumType/literals"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//EnumLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EnumLiteral/name"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//TypeRef">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//TypeRef/ref"/>
@@ -135,17 +146,11 @@
     <genClasses ecoreClass="Expr.ecore#//Expression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//Expression/modelElement"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//VarRef">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//VarRef/ref"/>
-    </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//ModelReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/modelElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/prev"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//Expression/modelElement"/>
-    </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//PropertyReference">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/modelElementReference"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/property"/>
+    <genClasses ecoreClass="Expr.ecore#//NamedElementRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//NamedElementRef/core"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//NamedElementRef/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//NamedElementRef/prev"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//NamedElementRef/property"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ExprLibrary">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprLibrary/decls"/>
@@ -153,10 +158,14 @@
     <genClasses ecoreClass="Expr.ecore#//ExprSubclause">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ExprSubclause/decls"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//Boolean"/>
-    <genClasses ecoreClass="Expr.ecore#//Integer"/>
-    <genClasses ecoreClass="Expr.ecore#//Real"/>
-    <genClasses ecoreClass="Expr.ecore#//String"/>
+    <genClasses ecoreClass="Expr.ecore#//EBoolean"/>
+    <genClasses ecoreClass="Expr.ecore#//EInteger"/>
+    <genClasses ecoreClass="Expr.ecore#//EReal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EReal/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//EString">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EString/value"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//BinaryOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BinaryOperation/left"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//BinaryOperation/operator"/>
@@ -172,9 +181,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//UnitExpression/drop"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//UnitExpression/unit"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//FunctionCall">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunctionCall/function"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunctionCall/arguments"/>
+    <genClasses ecoreClass="Expr.ecore#//PropertyExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyExpression/modelElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyExpression/property"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Range">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Range/minimum"/>
@@ -186,17 +195,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Conditional/then"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Conditional/else"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//EBool">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EBool/value"/>
+    <genClasses ecoreClass="Expr.ecore#//EBooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EBooleanLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//EInt">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EInt/value"/>
+    <genClasses ecoreClass="Expr.ecore#//EIntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EIntegerLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//EReal">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EReal/value"/>
+    <genClasses ecoreClass="Expr.ecore#//ERealLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//ERealLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//EString">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EString/value"/>
+    <genClasses ecoreClass="Expr.ecore#//EStringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EStringLiteral/value"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//ListLiteral">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ListLiteral/elements"/>
@@ -213,6 +222,63 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BagLiteral/elements"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//MapLiteral"/>
+    <genClasses ecoreClass="Expr.ecore#//TupleField"/>
+    <genClasses ecoreClass="Expr.ecore#//Type"/>
+    <genClasses ecoreClass="Expr.ecore#//Selection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Selection/receiver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Selection/core"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//Selection/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Selection/args"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//Selection/message"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//SelectExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//SelectExpression/modelElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//SelectExpression/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//PropertyValueRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyValueRef/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//VarRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarRef/prev"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//NamedElementRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//FunctionCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunctionCall/function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunctionCall/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//DeclRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//DeclRef/core"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//DeclRef/aadlDecl"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ModelElementRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelElementRef/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelElementRef/prev"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//AadlDeclRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//AadlDeclRef/aadlDecl"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ModelReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//ModelReference/prev"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//Expression/modelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//PropertyReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/modelElementReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//PropertyReference/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//ClassifierType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//ClassifierType/base"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//EBool">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EBool/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//EInt">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//EInt/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Boolean"/>
+    <genClasses ecoreClass="Expr.ecore#//Integer"/>
+    <genClasses ecoreClass="Expr.ecore#//Real"/>
+    <genClasses ecoreClass="Expr.ecore#//String"/>
     <genClasses ecoreClass="Expr.ecore#//Declaration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//Declaration/name"/>
     </genClasses>

@@ -16,8 +16,6 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-Subcomponent : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
-
 Classifier : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
 Connection : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
@@ -35,6 +33,8 @@ Subclause : ('S'|'s')('U'|'u')('B'|'b')('C'|'c')('L'|'l')('A'|'a')('U'|'u')('S'|
 Abstract : ('A'|'a')('B'|'b')('S'|'s')('T'|'t')('R'|'r')('A'|'a')('C'|'c')('T'|'t');
 
 Constant : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+
+Property : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('E'|'e')('R'|'r')('T'|'t')('Y'|'y');
 
 Applies : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
@@ -76,6 +76,8 @@ Group : ('G'|'g')('R'|'r')('O'|'o')('U'|'u')('P'|'p');
 
 Modes : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
+Range : ('R'|'r')('A'|'a')('N'|'n')('G'|'g')('E'|'e');
+
 Tuple : ('T'|'t')('U'|'u')('P'|'p')('L'|'l')('E'|'e');
 
 Union : ('U'|'u')('N'|'n')('I'|'i')('O'|'o')('N'|'n');
@@ -85,6 +87,8 @@ Bool : ('B'|'b')('O'|'o')('O'|'o')('L'|'l');
 Data : ('D'|'d')('A'|'a')('T'|'t')('A'|'a');
 
 Else : ('E'|'e')('L'|'l')('S'|'s')('E'|'e');
+
+Enum : ('E'|'e')('N'|'n')('U'|'u')('M'|'m');
 
 Flow : ('F'|'f')('L'|'l')('O'|'o')('W'|'w');
 
@@ -97,8 +101,6 @@ Real : ('R'|'r')('E'|'e')('A'|'a')('L'|'l');
 Root : ('R'|'r')('O'|'o')('O'|'o')('T'|'t');
 
 Then : ('T'|'t')('H'|'h')('E'|'e')('N'|'n');
-
-This : ('T'|'t')('H'|'h')('I'|'i')('S'|'s');
 
 True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
@@ -197,6 +199,8 @@ GreaterThanSign : '>';
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
+
+CircumflexAccent : '^';
 
 LeftCurlyBracket : '{';
 

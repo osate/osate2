@@ -6,12 +6,16 @@ package org.osate.expr.expr.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.NamedElement;
+
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.TypeDecl;
 import org.osate.expr.expr.TypeRef;
 
 /**
@@ -37,7 +41,7 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
    * @generated
    * @ordered
    */
-  protected TypeDecl ref;
+  protected NamedElement ref;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,12 +70,12 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
    * @generated
    */
   @Override
-  public TypeDecl getRef()
+  public NamedElement getRef()
   {
-    if (ref != null && ref.eIsProxy())
+    if (ref != null && ((EObject)ref).eIsProxy())
     {
       InternalEObject oldRef = (InternalEObject)ref;
-      ref = (TypeDecl)eResolveProxy(oldRef);
+      ref = (NamedElement)eResolveProxy(oldRef);
       if (ref != oldRef)
       {
         if (eNotificationRequired())
@@ -86,7 +90,7 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeDecl basicGetRef()
+  public NamedElement basicGetRef()
   {
     return ref;
   }
@@ -97,9 +101,9 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
    * @generated
    */
   @Override
-  public void setRef(TypeDecl newRef)
+  public void setRef(NamedElement newRef)
   {
-    TypeDecl oldRef = ref;
+    NamedElement oldRef = ref;
     ref = newRef;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.TYPE_REF__REF, oldRef, ref));
@@ -133,7 +137,7 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
     switch (featureID)
     {
       case ExprPackage.TYPE_REF__REF:
-        setRef((TypeDecl)newValue);
+        setRef((NamedElement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -150,7 +154,7 @@ public class TypeRefImpl extends TypeImpl implements TypeRef
     switch (featureID)
     {
       case ExprPackage.TYPE_REF__REF:
-        setRef((TypeDecl)null);
+        setRef((NamedElement)null);
         return;
     }
     super.eUnset(featureID);

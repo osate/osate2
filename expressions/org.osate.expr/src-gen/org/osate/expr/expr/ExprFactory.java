@@ -78,15 +78,6 @@ public interface ExprFactory extends EFactory
   Assertion createAssertion();
 
   /**
-   * Returns a new object of class '<em>Type</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Type</em>'.
-   * @generated
-   */
-  Type createType();
-
-  /**
    * Returns a new object of class '<em>Primitive Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -94,6 +85,15 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   PrimitiveType createPrimitiveType();
+
+  /**
+   * Returns a new object of class '<em>Range Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Range Type</em>'.
+   * @generated
+   */
+  RangeType createRangeType();
 
   /**
    * Returns a new object of class '<em>Category</em>'.
@@ -112,15 +112,6 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   MetaClass createMetaClass();
-
-  /**
-   * Returns a new object of class '<em>Classifier Type</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Classifier Type</em>'.
-   * @generated
-   */
-  ClassifierType createClassifierType();
 
   /**
    * Returns a new object of class '<em>Record Type</em>'.
@@ -159,15 +150,6 @@ public interface ExprFactory extends EFactory
   TupleType createTupleType();
 
   /**
-   * Returns a new object of class '<em>Tuple Field</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Tuple Field</em>'.
-   * @generated
-   */
-  TupleField createTupleField();
-
-  /**
    * Returns a new object of class '<em>List Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -204,6 +186,24 @@ public interface ExprFactory extends EFactory
   MapType createMapType();
 
   /**
+   * Returns a new object of class '<em>Enum Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Type</em>'.
+   * @generated
+   */
+  EnumType createEnumType();
+
+  /**
+   * Returns a new object of class '<em>Enum Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Literal</em>'.
+   * @generated
+   */
+  EnumLiteral createEnumLiteral();
+
+  /**
    * Returns a new object of class '<em>Type Ref</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -222,31 +222,13 @@ public interface ExprFactory extends EFactory
   Expression createExpression();
 
   /**
-   * Returns a new object of class '<em>Var Ref</em>'.
+   * Returns a new object of class '<em>Named Element Ref</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Var Ref</em>'.
+   * @return a new object of class '<em>Named Element Ref</em>'.
    * @generated
    */
-  VarRef createVarRef();
-
-  /**
-   * Returns a new object of class '<em>Model Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model Reference</em>'.
-   * @generated
-   */
-  ModelReference createModelReference();
-
-  /**
-   * Returns a new object of class '<em>Property Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Reference</em>'.
-   * @generated
-   */
-  PropertyReference createPropertyReference();
+  NamedElementRef createNamedElementRef();
 
   /**
    * Returns a new object of class '<em>Library</em>'.
@@ -267,40 +249,40 @@ public interface ExprFactory extends EFactory
   ExprSubclause createExprSubclause();
 
   /**
-   * Returns a new object of class '<em>Boolean</em>'.
+   * Returns a new object of class '<em>EBoolean</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Boolean</em>'.
+   * @return a new object of class '<em>EBoolean</em>'.
    * @generated
    */
-  Boolean createBoolean();
+  EBoolean createEBoolean();
 
   /**
-   * Returns a new object of class '<em>Integer</em>'.
+   * Returns a new object of class '<em>EInteger</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Integer</em>'.
+   * @return a new object of class '<em>EInteger</em>'.
    * @generated
    */
-  Integer createInteger();
+  EInteger createEInteger();
 
   /**
-   * Returns a new object of class '<em>Real</em>'.
+   * Returns a new object of class '<em>EReal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Real</em>'.
+   * @return a new object of class '<em>EReal</em>'.
    * @generated
    */
-  Real createReal();
+  EReal createEReal();
 
   /**
-   * Returns a new object of class '<em>String</em>'.
+   * Returns a new object of class '<em>EString</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>String</em>'.
+   * @return a new object of class '<em>EString</em>'.
    * @generated
    */
-  String createString();
+  EString createEString();
 
   /**
    * Returns a new object of class '<em>Binary Operation</em>'.
@@ -330,13 +312,13 @@ public interface ExprFactory extends EFactory
   UnitExpression createUnitExpression();
 
   /**
-   * Returns a new object of class '<em>Function Call</em>'.
+   * Returns a new object of class '<em>Property Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Function Call</em>'.
+   * @return a new object of class '<em>Property Expression</em>'.
    * @generated
    */
-  FunctionCall createFunctionCall();
+  PropertyExpression createPropertyExpression();
 
   /**
    * Returns a new object of class '<em>Range</em>'.
@@ -357,40 +339,40 @@ public interface ExprFactory extends EFactory
   Conditional createConditional();
 
   /**
-   * Returns a new object of class '<em>EBool</em>'.
+   * Returns a new object of class '<em>EBoolean Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>EBool</em>'.
+   * @return a new object of class '<em>EBoolean Literal</em>'.
    * @generated
    */
-  EBool createEBool();
+  EBooleanLiteral createEBooleanLiteral();
 
   /**
-   * Returns a new object of class '<em>EInt</em>'.
+   * Returns a new object of class '<em>EInteger Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>EInt</em>'.
+   * @return a new object of class '<em>EInteger Literal</em>'.
    * @generated
    */
-  EInt createEInt();
+  EIntegerLiteral createEIntegerLiteral();
 
   /**
-   * Returns a new object of class '<em>EReal</em>'.
+   * Returns a new object of class '<em>EReal Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>EReal</em>'.
+   * @return a new object of class '<em>EReal Literal</em>'.
    * @generated
    */
-  EReal createEReal();
+  ERealLiteral createERealLiteral();
 
   /**
-   * Returns a new object of class '<em>EString</em>'.
+   * Returns a new object of class '<em>EString Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>EString</em>'.
+   * @return a new object of class '<em>EString Literal</em>'.
    * @generated
    */
-  EString createEString();
+  EStringLiteral createEStringLiteral();
 
   /**
    * Returns a new object of class '<em>List Literal</em>'.

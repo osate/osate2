@@ -3,7 +3,9 @@
  */
 package org.osate.expr.expr;
 
-import java.lang.String;
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +24,7 @@ import java.lang.String;
  * @model
  * @generated
  */
-public interface Field extends TupleField
+public interface Field extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

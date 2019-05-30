@@ -3,8 +3,6 @@
  */
 package org.osate.expr.expr.impl;
 
-import java.lang.Boolean;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 

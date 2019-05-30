@@ -6,7 +6,6 @@ package org.osate.expr.scoping
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
@@ -26,13 +25,14 @@ import org.osate.aadl2.Subcomponent
 import org.osate.expr.expr.EDeclaration
 import org.osate.expr.expr.ExprLibrary
 import org.osate.expr.expr.ExprSubclause
-import org.osate.expr.expr.ModelReference
+import org.osate.expr.expr.NamedElementRef
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static org.osate.expr.expr.ExprPackage.Literals.*
 
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
+//import static extension org.eclipse.xtext.EcoreUtil2.*
 /**
  * This class contains custom scoping description.
  * 
@@ -46,33 +46,21 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 
 	override getScope(EObject context, EReference reference) {
 		switch reference {
-			case VAR_REF__REF,
+			case NAMED_ELEMENT_REF__REF:
+				if (context instanceof NamedElementRef)
+					getNamedElementScope(context, reference)
+				else
+					getAnnexScope(context, reference)
 			case TYPE_REF__REF:
 				getAnnexScope(context, reference)
-			case MODEL_REFERENCE__MODEL_ELEMENT:
-				if (context instanceof ModelReference) {
-					getModelElementScope(context, reference)
-				} else {
-					getThisScope(context)
-				}
 			default:
 				getAnnexScope(context, reference)
 		}
 	}
 
 	def getAnnexScope(EObject context, EReference reference) {
-		val rootElement = getExprAnnexRoot(context)
-		val candidates = EcoreUtil2.getAllContentsOfType(rootElement, NamedElement)
-		val delegateScope = delegateGetScope(context, reference)
-		val newDelegateScope = new SimpleScope(delegateScope.allElements.map [
-			val name = qualifiedNameConverter.toString(it.name)
-			val qname = if (name.startsWith('expr$'))
-					qualifiedNameConverter.toQualifiedName(name.substring(5))
-				else
-					it.name
-			EObjectDescription.create(qname, getEObjectOrProxy)
-		], true)
-		val existingScope = Scopes.scopeFor(candidates, newDelegateScope)
+		val annexCandidates = getExprAnnexRoot(context).getAllContentsOfType(NamedElement)
+		val existingScope = Scopes.scopeFor(annexCandidates, getCoreScope(context, reference))
 		val thisDecl = context.getContainerOfType(EDeclaration)
 
 		if (thisDecl === null)
@@ -82,25 +70,34 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 			new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
 	}
 
-	def getThisScope(EObject context) {
+	def getCoreScope(EObject context, EReference reference) {
 		val classifier = context.getContainerOfType(Classifier)
+		val delegateScope = delegateGetScope(context, reference)
+		val newDelegateScope = new SimpleScope(delegateScope.allElements.map [
+			val name = qualifiedNameConverter.toString(it.name)
+			val qname = if (name.startsWith('expr$'))
+					qualifiedNameConverter.toQualifiedName(name.substring(5))
+				else
+					it.name
+			EObjectDescription.create(qname, getEObjectOrProxy)
+		], true)
 		if (classifier === null)
-			IScope.NULLSCOPE
+			newDelegateScope
 		else
-			new SimpleScope(
-				#[EObjectDescription.create(qualifiedNameConverter.toQualifiedName('this'), classifier)]
-			)
+			Scopes.scopeFor(classifier.members, newDelegateScope)
 	}
 
-	def getModelElementScope(ModelReference context, EReference reference) {
+	def getNamedElementScope(NamedElementRef context, EReference reference) {
 		if (context.prev === null) {
-			getThisScope(context)
+			if (context.core) {
+				getCoreScope(context, reference)
+			} else {
+				getAnnexScope(context, reference)
+			}
 		} else {
 			val prev = context.prev
-			val prevElement = prev.modelElement
-			val classifier = switch prevElement {
-				Classifier:
-					prevElement
+			val prevElement = prev.ref
+			val namespace = switch prevElement {
 				AbstractFeature:
 					switch featureClassifier : prevElement.abstractFeatureClassifier {
 						ComponentClassifier: featureClassifier
@@ -122,12 +119,24 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 						ComponentClassifier: subcomponentType
 						ComponentPrototype: subcomponentType.constrainingClassifier
 					}
+				default:
+					prevElement
 			}
-			if (classifier === null)
+			if (namespace === null)
 				IScope.NULLSCOPE
 			else
-				classifier.members.scopeFor
+				namespace.getAllContentsOfType(NamedElement).scopeFor
 		}
+	}
+
+	def getThisScope(EObject context) {
+		val classifier = context.getContainerOfType(Classifier)
+		if (classifier === null)
+			IScope.NULLSCOPE
+		else
+			new SimpleScope(
+				#[EObjectDescription.create(qualifiedNameConverter.toQualifiedName('this'), classifier)]
+			)
 	}
 
 	def getExprAnnexRoot(EObject ele) {

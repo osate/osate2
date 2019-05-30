@@ -11,9 +11,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.Type;
+
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.MapType;
-import org.osate.expr.expr.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,8 +26,8 @@ import org.osate.expr.expr.Type;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.MapTypeImpl#getDom <em>Dom</em>}</li>
- *   <li>{@link org.osate.expr.expr.impl.MapTypeImpl#getImg <em>Img</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.MapTypeImpl#getDomain <em>Domain</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.MapTypeImpl#getImage <em>Image</em>}</li>
  * </ul>
  *
  * @generated
@@ -32,24 +35,24 @@ import org.osate.expr.expr.Type;
 public class MapTypeImpl extends TypeImpl implements MapType
 {
   /**
-   * The cached value of the '{@link #getDom() <em>Dom</em>}' containment reference.
+   * The cached value of the '{@link #getDomain() <em>Domain</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDom()
+   * @see #getDomain()
    * @generated
    * @ordered
    */
-  protected Type dom;
+  protected Type domain;
 
   /**
-   * The cached value of the '{@link #getImg() <em>Img</em>}' containment reference.
+   * The cached value of the '{@link #getImage() <em>Image</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getImg()
+   * @see #getImage()
    * @generated
    * @ordered
    */
-  protected Type img;
+  protected Type image;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,9 +81,9 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * @generated
    */
   @Override
-  public Type getDom()
+  public Type getDomain()
   {
-    return dom;
+    return domain;
   }
 
   /**
@@ -88,13 +91,13 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDom(Type newDom, NotificationChain msgs)
+  public NotificationChain basicSetDomain(Type newDomain, NotificationChain msgs)
   {
-    Type oldDom = dom;
-    dom = newDom;
+    Type oldDomain = domain;
+    domain = newDomain;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__DOM, oldDom, newDom);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__DOMAIN, oldDomain, newDomain);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -106,20 +109,20 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * @generated
    */
   @Override
-  public void setDom(Type newDom)
+  public void setDomain(Type newDomain)
   {
-    if (newDom != dom)
+    if (newDomain != domain)
     {
       NotificationChain msgs = null;
-      if (dom != null)
-        msgs = ((InternalEObject)dom).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__DOM, null, msgs);
-      if (newDom != null)
-        msgs = ((InternalEObject)newDom).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__DOM, null, msgs);
-      msgs = basicSetDom(newDom, msgs);
+      if (domain != null)
+        msgs = ((InternalEObject)domain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__DOMAIN, null, msgs);
+      if (newDomain != null)
+        msgs = ((InternalEObject)newDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__DOMAIN, null, msgs);
+      msgs = basicSetDomain(newDomain, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__DOM, newDom, newDom));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__DOMAIN, newDomain, newDomain));
   }
 
   /**
@@ -128,9 +131,9 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * @generated
    */
   @Override
-  public Type getImg()
+  public Type getImage()
   {
-    return img;
+    return image;
   }
 
   /**
@@ -138,13 +141,13 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetImg(Type newImg, NotificationChain msgs)
+  public NotificationChain basicSetImage(Type newImage, NotificationChain msgs)
   {
-    Type oldImg = img;
-    img = newImg;
+    Type oldImage = image;
+    image = newImage;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__IMG, oldImg, newImg);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__IMAGE, oldImage, newImage);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -156,20 +159,20 @@ public class MapTypeImpl extends TypeImpl implements MapType
    * @generated
    */
   @Override
-  public void setImg(Type newImg)
+  public void setImage(Type newImage)
   {
-    if (newImg != img)
+    if (newImage != image)
     {
       NotificationChain msgs = null;
-      if (img != null)
-        msgs = ((InternalEObject)img).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__IMG, null, msgs);
-      if (newImg != null)
-        msgs = ((InternalEObject)newImg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__IMG, null, msgs);
-      msgs = basicSetImg(newImg, msgs);
+      if (image != null)
+        msgs = ((InternalEObject)image).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__IMAGE, null, msgs);
+      if (newImage != null)
+        msgs = ((InternalEObject)newImage).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.MAP_TYPE__IMAGE, null, msgs);
+      msgs = basicSetImage(newImage, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__IMG, newImg, newImg));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.MAP_TYPE__IMAGE, newImage, newImage));
   }
 
   /**
@@ -182,10 +185,10 @@ public class MapTypeImpl extends TypeImpl implements MapType
   {
     switch (featureID)
     {
-      case ExprPackage.MAP_TYPE__DOM:
-        return basicSetDom(null, msgs);
-      case ExprPackage.MAP_TYPE__IMG:
-        return basicSetImg(null, msgs);
+      case ExprPackage.MAP_TYPE__DOMAIN:
+        return basicSetDomain(null, msgs);
+      case ExprPackage.MAP_TYPE__IMAGE:
+        return basicSetImage(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -200,10 +203,10 @@ public class MapTypeImpl extends TypeImpl implements MapType
   {
     switch (featureID)
     {
-      case ExprPackage.MAP_TYPE__DOM:
-        return getDom();
-      case ExprPackage.MAP_TYPE__IMG:
-        return getImg();
+      case ExprPackage.MAP_TYPE__DOMAIN:
+        return getDomain();
+      case ExprPackage.MAP_TYPE__IMAGE:
+        return getImage();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -218,11 +221,11 @@ public class MapTypeImpl extends TypeImpl implements MapType
   {
     switch (featureID)
     {
-      case ExprPackage.MAP_TYPE__DOM:
-        setDom((Type)newValue);
+      case ExprPackage.MAP_TYPE__DOMAIN:
+        setDomain((Type)newValue);
         return;
-      case ExprPackage.MAP_TYPE__IMG:
-        setImg((Type)newValue);
+      case ExprPackage.MAP_TYPE__IMAGE:
+        setImage((Type)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -238,11 +241,11 @@ public class MapTypeImpl extends TypeImpl implements MapType
   {
     switch (featureID)
     {
-      case ExprPackage.MAP_TYPE__DOM:
-        setDom((Type)null);
+      case ExprPackage.MAP_TYPE__DOMAIN:
+        setDomain((Type)null);
         return;
-      case ExprPackage.MAP_TYPE__IMG:
-        setImg((Type)null);
+      case ExprPackage.MAP_TYPE__IMAGE:
+        setImage((Type)null);
         return;
     }
     super.eUnset(featureID);
@@ -258,10 +261,10 @@ public class MapTypeImpl extends TypeImpl implements MapType
   {
     switch (featureID)
     {
-      case ExprPackage.MAP_TYPE__DOM:
-        return dom != null;
-      case ExprPackage.MAP_TYPE__IMG:
-        return img != null;
+      case ExprPackage.MAP_TYPE__DOMAIN:
+        return domain != null;
+      case ExprPackage.MAP_TYPE__IMAGE:
+        return image != null;
     }
     return super.eIsSet(featureID);
   }

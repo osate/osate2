@@ -3,6 +3,9 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +17,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface UnionType extends Type
+public interface UnionType extends EObject, Type
 {
 } // UnionType

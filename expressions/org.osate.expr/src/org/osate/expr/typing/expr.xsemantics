@@ -1,0 +1,929 @@
+import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.Connection
+import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.Feature
+import org.osate.aadl2.Flow
+import org.osate.aadl2.ListType
+import org.osate.aadl2.Mode
+import org.osate.aadl2.Property
+import org.osate.aadl2.RecordType
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.Type
+import org.osate.expr.expr.BagLiteral
+import org.osate.expr.expr.EBoolean
+import org.osate.expr.expr.EBooleanLiteral
+import org.osate.expr.expr.EInteger
+import org.osate.expr.expr.EIntegerLiteral
+import org.osate.expr.expr.EReal
+import org.osate.expr.expr.ERealLiteral
+import org.osate.expr.expr.EString
+import org.osate.expr.expr.EStringLiteral
+import org.osate.expr.expr.EnumLiteral
+import org.osate.expr.expr.EnumType
+import org.osate.expr.expr.ExprFactory
+import org.osate.expr.expr.Expression
+import org.osate.expr.expr.ListLiteral
+import org.osate.expr.expr.MapLiteral
+import org.osate.expr.expr.MetaClassEnum
+import org.osate.expr.expr.NamedElementRef
+import org.osate.expr.expr.PropertyExpression
+import org.osate.expr.expr.RecordLiteral
+import org.osate.expr.expr.SetLiteral
+import org.osate.expr.expr.TupleLiteral
+import org.osate.expr.expr.UnionLiteral
+import org.osate.expr.expr.VarDecl
+import org.osate.expr.validation.AbstractExprJavaValidator
+
+system org.osate.expr.ExprTypeSystem validatorExtends AbstractExprJavaValidator
+
+
+//auxiliary {
+//	combineNumeric(NumberType left, NumberType right): NumberType
+//}
+
+
+judgments {
+	type |- EObject o : output Type
+		error 'cannot type ' + stringRep(o)
+		source o
+
+//	assignable |- Expression exp |> Type target
+//		error stringRep(exp) + ' cannot be assigned to ' + stringRep(target)
+//		source exp
+//
+	compatible |- Type left <| Type right
+//	sameType |- Type left ~~ Type right
+//	sameTypes |= EList<Field> left ~~ EList<Field> right
+}
+
+
+//auxiliary combineNumeric(NumberType left, NumberType right) {
+//	val result =
+//			if (left instanceof AadlInteger && right instanceof AadlInteger)
+//				Aadl2Factory.eINSTANCE.createAadlInteger
+//			else
+//				Aadl2Factory.eINSTANCE.createAadlReal
+//	result.referencedUnitsType =
+//			if (left.unitsType !== null)
+//				left.unitsType
+//			else
+//				right.unitsType
+//	result
+//}
+//
+//
+// type inference rules
+
+rule VarDecl
+  G |- VarDecl varDecl : Type type
+from {
+	val declared = varDecl.declType
+	{
+		declared !== null //&& !varDecl.range
+		G |- declared : type
+	}
+//	or
+//	{
+//		declared !== null && varDecl.range
+//		var Type numeric
+//		G |- declared : numeric
+//		if (numeric instanceof NumberType) {
+//			val rt = Aadl2Factory.eINSTANCE.createRangeType
+//			rt.ownedNumberType = numeric
+//			type = rt
+//		} else {
+//			fail
+//				error 'typing: ranges must be numeric'
+//				source declared
+//		}
+//	}
+	or
+	{
+		declared === null
+		G |- varDecl.value : type
+	}
+}
+
+
+// type of property
+
+//axiom PropertyRef
+//	G |- PropertyRef propRef : propRef.ref.propertyType
+//
+//axiom TypeRef
+//	G |- TypeRef typeRef : typeRef.ref
+
+axiom Type
+	G |- Type t : t
+
+
+// expressions
+
+rule Expression
+	G |- Expression param : Type type
+	error 'typing: unhandled case ' + stringRep(param)
+	source param
+from {
+	fail
+}
+ 
+//rule BinaryExpression
+//	G |- BinaryOperation binary : Type type
+//from {
+//	G |- binary.left : var Type leftType
+//	G |- binary.right : var Type rightType
+//	val op = binary.operator
+//	switch op {
+//		case OR, case ALT_OR, case AND, case ALT_AND: {
+//			if (!(leftType instanceof AadlBoolean)) {
+//				fail
+//					error 'typing: operand must be boolean'
+//					source binary.left
+//			}
+//			if (!(rightType instanceof AadlBoolean)) {
+//				fail
+//					error 'typing: operand must be boolean'
+//					source binary.right
+//			}
+//			type = Aadl2Factory.eINSTANCE.createAadlBoolean
+//		}
+//		case EQ, case NEQ: {
+//			G |- leftType ~~ rightType
+//			or {
+//				fail
+//					error 'typing: cannot compare ' + stringRep(leftType) + ' and ' + stringRep(rightType)
+//					source binary
+//			}
+//			type = Aadl2Factory.eINSTANCE.createAadlBoolean
+//		}
+//		case LT, case LEQ, case GT, case GEQ, case IN,
+//		case PLUS, case MINUS, case MULT, case DIV: {
+//			if (!(leftType instanceof NumberType || leftType instanceof RangeType)) {
+//				fail	
+//					error 'typing: operand must be numeric or a range'
+//					source binary.left
+//			}
+//			if (!(rightType instanceof NumberType || rightType instanceof RangeType)) {
+//				fail	
+//					error 'typing: operand must be numeric or a range'
+//					source binary.right
+//			}
+//			// Check where ranges are allowed
+//			switch (op) {
+//				case PLUS, case MULT:
+//					if (!(leftType instanceof RangeType && rightType instanceof RangeType
+//						|| leftType instanceof NumberType && rightType instanceof NumberType
+//					)) {
+//						fail
+//							error 'typing: operands must be both numeric or both ranges'
+//							source binary
+//					}
+//				case IN:
+//					if (!(rightType instanceof RangeType)) {
+//						fail
+//							error 'typing: operand must be a range'
+//							source binary.right
+//					}
+//				case DIV, case MINUS:
+//					if (!(leftType instanceof NumberType)) {
+//						fail
+//							error 'typing: operand must be numeric'
+//							source binary.left
+//					} else if (!(rightType instanceof NumberType)) {
+//						fail
+//							error 'typing: operand must be numeric'
+//							source binary.right
+//					}
+//				default: {
+//					//nothing
+//				}
+//			}
+//			// check for correct units types
+//			val leftNum = if (leftType instanceof RangeType) leftType.numberType else leftType as NumberType
+//			val rightNum = if (rightType instanceof RangeType) rightType.numberType else rightType as NumberType
+//			switch (op) {
+//				case LT, case LEQ, case GT, case GEQ, case IN: {
+//					G |- leftNum ~~ rightNum
+//					or {
+//						fail
+//							error 'typing: arguments have different unit types'
+//							source binary
+//					}
+//					type = Aadl2Factory.eINSTANCE.createAadlBoolean
+//				}
+//				case PLUS, case MINUS: {
+//					G |- leftNum ~~ rightNum
+//					or {
+//						fail
+//							error 'typing: arguments have different unit types'
+//							source binary
+//					}
+//					type = combineNumeric(leftNum, rightNum)
+//				}
+//				case MULT: {
+//					if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
+//						fail
+//							error 'typing: only one operand may have a unit'
+//							source binary
+//					}
+//					type = combineNumeric(leftNum, rightNum)
+//				}
+//				case DIV: {
+//					val t = Aadl2Factory.eINSTANCE.createAadlReal
+//					if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
+//						G |- leftNum ~~ rightNum
+//						or {
+//							fail
+//								error 'typing: arguments have different unit types'
+//								source binary
+//						}
+//					} else if (rightNum.unitsType !== null) {
+//						fail
+//							error 'typing: argument must have a unit when dividing by a number with unit'
+//							source binary.left
+//					} else {
+//						t.referencedUnitsType = leftNum.unitsType
+//					}
+//					type = t
+//				}
+//				default: {
+//					// should not happen
+//					fail
+//						error 'typing: unhandled binary operator encountered'
+//						source binary
+//				}
+//			}
+//		}
+//		case INTDIV, case MOD: {
+//			if (!(leftType instanceof AadlInteger)) {
+//				fail
+//					error 'typing: argument must be an integer'
+//					source binary.left
+//			}
+//			if (!(rightType instanceof AadlInteger)) {
+//				fail
+//					error 'typing: argument must be an integer'
+//					source binary.right
+//			}
+//			val leftNum = leftType as NumberType
+//			val rightNum = rightType as NumberType
+//			val t = Aadl2Factory.eINSTANCE.createAadlInteger
+//
+//			if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
+//				G |- leftNum ~~ rightNum
+//				or {
+//					fail
+//						error 'typing: arguments have different unit types'
+//						source binary
+//				}
+//			} else if (rightNum.unitsType !== null) {
+//				fail
+//					error 'typing: argument must have a unit when dividing by a number with unit'
+//					source binary.left
+//			} else {
+//				t.referencedUnitsType = leftNum.unitsType
+//			}
+//			type = t
+//		}
+//		default: {
+//			// should not happen
+//			fail
+//				error 'typing: unhandled binary operator encountered'
+//				source binary
+//		}
+//	}
+//}
+//
+//rule UnaryExpression
+//	G |- UnaryOperation unary : Type type
+//from {
+//	G |- unary.operand : var Type opType
+//	switch (unary.operator) {
+//		case PLUS, case MINUS:
+//			if (opType instanceof NumberType) {
+//				type = opType
+//			} else {
+//				fail	
+//					error 'typing: operand is not numeric'
+//					source unary
+//			}
+//		case NOT:
+//			type = ExprFactory.eINSTANCE.createBoolean
+//		default: {
+//			// should not happen
+//			fail
+//				error 'typing: unhandled unary operator encountered'
+//				source unary		
+//		}
+//	}
+//}
+//
+//
+//// simple types
+//
+//rule AVariableReference
+//	G |- VariableReference vRef : Type type
+//from {
+//	G |- vRef.variable : type
+//}
+//
+// types for primary expressions
+
+//rule RangeExpression
+//	G |- Range rangeExp : Type type
+//from {
+//	G |- rangeExp.minimum : var Type minType
+//	G |- rangeExp.maximum : var Type maxType
+//	
+//	if (!(minType instanceof NumberType)) {
+//		fail
+//			error 'typing: lower bound must be numeric'
+//			source rangeExp.minimum
+//	}
+//	if (!(maxType instanceof NumberType)) {
+//		fail
+//			error 'typing: upper bound must be numeric'
+//			source rangeExp.maximum
+//	}
+//	
+//	G |- minType ~~ maxType
+//	or {
+//		fail
+//			error "typing: lower and upper bound have different units"
+//			source rangeExp
+//	}
+//	
+//	val range = Aadl2Factory.eINSTANCE.createRangeType
+//	if (minType instanceof AadlReal || maxType instanceof AadlReal) {
+//		range.createOwnedNumberType(Aadl2Package.eINSTANCE.aadlReal)
+//	} else {
+//		range.createOwnedNumberType(Aadl2Package.eINSTANCE.aadlInteger)
+//	}
+//	range.numberType.referencedUnitsType = (minType as NumberType).unitsType
+//	type = range
+//}
+//
+//rule IfExpression
+//	G |- Conditional ifExp : Type type
+//from {
+//	G |- ifExp.^if : var Type ifType
+//	G |- ifExp.^then : var Type thenType
+//	G |- ifExp.^else : var Type elseType
+//	
+//	if (!(ifType instanceof AadlBoolean)) {
+//		fail
+//			error 'typing: condition must be boolean'
+//			source ifExp.^if
+//	}
+//	
+//	G |- thenType ~~ elseType
+//	or {
+//		fail
+//			error 'typing: then and else part must have the same type'
+//			source ifExp
+//	}
+//	
+//	if (thenType instanceof NumberType) {
+//		type = combineNumeric(thenType, elseType as NumberType)
+//	} else {
+//		type = thenType
+//	}
+//}
+//
+//rule FunctionCall
+//	G |- FunctionCall call : Type type
+//from {
+//	switch (call.function) {
+//		case 'min', case 'max': {
+//			call.arguments.size >= 1 
+//			or {
+//				fail
+//					error call.function + ' must have at least one argument'
+//					source call
+//			}
+//			val unitsType = {
+//					G |- call.arguments.get(0) : var Type t
+//					if (t instanceof NumberType) {
+//						t.unitsType
+//					} else if (t instanceof RangeType) {
+//						t.numberType.unitsType
+//					}
+//			} 
+//			call.arguments.forEach [arg |
+//				G |- arg : var Type argType
+//				switch (argType) {
+//					AadlReal: {
+//						if (argType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					AadlInteger: {
+//						if (argType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					RangeType: {
+//						if (argType.numberType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					default: {
+//						fail
+//					  	error 'typing: argument must be numeric or a range'
+//					  	source arg
+//					}
+//				}
+//			]
+//			val allInt =
+//					call.arguments.forall [arg |
+//						G |- arg : var Type argType
+//						switch (argType) {
+//							AadlReal: false
+//							AadlInteger: true
+//							RangeType: argType.numberType instanceof AadlInteger
+//							default: false
+//						}
+//					]
+//			type = if (allInt) Aadl2Factory.eINSTANCE.createAadlInteger else Aadl2Factory.eINSTANCE.createAadlReal;
+//			(type as NumberType).referencedUnitsType = unitsType
+//		}
+//		case 'abs': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var Type argType
+//			if (!(argType instanceof NumberType)) {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//			type = argType				
+//		}
+//		case 'floor', case 'ceil', case 'round': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var Type argType
+//			if (argType instanceof NumberType) {
+//				type = Aadl2Factory.eINSTANCE.createAadlInteger;				
+//				(type as NumberType).referencedUnitsType = argType.unitsType
+//			} else {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//		}
+//		case 'prev': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var Type argType
+//			if (argType instanceof NumberType) {
+//				type = argType
+//			} else {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//		}
+//		case 'atTime': {
+//			call.arguments.size === 2 
+//			or {
+//				fail
+//					error 'abs must have two arguments'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var Type argType
+//			val time = call.arguments.get(1)
+//			G |- time : var Type timeType
+//			if (argType instanceof NumberType) {
+//				type = argType
+//			} else {
+//				fail
+//			  	error 'typing: first argument must be numeric'
+//			  	source arg
+//			}
+//			if (timeType instanceof NumberType) {
+//				if ( timeType.unitsType.name !== 'Time_Units') {
+//				fail
+//			  	error 'typing: second argument must have Time units'
+//			  	source arg
+//			}
+//			} else {
+//				fail
+//			  	error 'typing: second argument must be numeric'
+//			  	source arg
+//			}
+//			
+//		}
+//		default: {
+//			if (InterpreterUtil.instance.methodExists(call.function) !== null) {
+//			fail
+//				error 'unsupported function: ' + call.function
+//				source call
+//			}
+//		}
+//	}
+//}
+//
+//rule UnitExpression
+//	G |- UnitExpression unitExp : Type type
+//from {
+//	G |- unitExp.expression : var Type expType
+//	
+//	if (unitExp.unit === null) {
+//		type = expType
+//	} else if (unitExp.convert || unitExp.drop) {
+//		val targetType = unitExp.unit.eContainer as UnitsType
+//		if (expType instanceof NumberType) {
+//			if (expType.unitsType === null) {
+//				fail
+//					error 'typing: expression has no unit'
+//					source unitExp.expression
+//			}
+//			G |- expType.unitsType ~~ targetType
+//			or
+//			{
+//				fail
+//					error 'typing: cannot convert ' + stringRep(expType) + ' to ' + stringRep(targetType)
+//					source CommonPackage.eINSTANCE.AUnitExpression_Convert
+//			}
+//			val result = 
+//					if (expType instanceof AadlInteger) 
+//						Aadl2Factory.eINSTANCE.createAadlInteger
+//					else
+//						Aadl2Factory.eINSTANCE.createAadlReal
+//			if (unitExp.convert) {
+//				result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+//			}
+//			type = result
+//		} else {
+//			fail
+//				error 'typing: can only convert unit of a numeric type'
+//				source unitExp
+//				feature CommonPackage.eINSTANCE.AUnitExpression_Convert
+//		}
+//	} else {
+//		if (expType instanceof NumberType) {
+//			if (expType.unitsType !== null) {
+//				fail
+//					error 'typing: expression already has a unit'
+//					source unitExp.expression
+//			}
+//			val result = 
+//					if (expType instanceof AadlInteger) 
+//						Aadl2Factory.eINSTANCE.createAadlInteger
+//					else
+//						Aadl2Factory.eINSTANCE.createAadlReal
+//			result.referencedUnitsType = unitExp.unit.eContainer as UnitsType
+//			type = result
+//		} else {
+//			fail
+//				error 'typing: can only assign unit to a numeric type'
+//				source unitExp
+//				feature CommonPackage.eINSTANCE.AUnitExpression_Unit
+//		}
+//	}
+//}
+//
+//
+//axiom PropertyReference
+//	G |- PropertyReference ref : {
+//		val namedValue = ref.property
+//		switch (namedValue) {
+//			PropertyConstant: namedValue.propertyType
+//			Property: namedValue.propertyType
+//			default: {fail} // enumeration literal 
+//		}
+//	}
+//
+rule PropertyExpression
+	G |- PropertyExpression pe : Type type
+from {
+	{
+		pe.property instanceof Property
+		G |- (pe.property as Property).propertyType : type
+	}
+	or 
+	{
+		fail
+	}
+}
+
+rule NamedElementRef
+	G |- NamedElementRef ner : Type type
+from {
+	G |- ner.ref : type
+}
+
+// Core AADL types
+
+axiom Classifier
+	G |- Classifier c : c
+	
+axiom Subcomponent
+	G |- Subcomponent s : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.COMPONENT
+		type
+	}
+	
+axiom Feature
+	G |- Feature f : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.FEATURE
+		type
+	}
+	
+axiom Connection
+	G |- Connection c : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.CONNECTION
+		type
+	}
+
+axiom Flow
+	G |- Flow f : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.FLOW
+		type
+	}
+
+axiom Mode
+	G |- Mode m : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.MODE
+		type
+	}
+
+axiom Property
+	G |- Property p : {
+		val type = ExprFactory.eINSTANCE.createMetaClass
+		type.class = MetaClassEnum.PROPERTY
+		type
+	}
+
+axiom AadlBoolean
+	G |- AadlBoolean t : ExprFactory.eINSTANCE.createEBoolean
+
+axiom AadlInteger
+	G |- AadlInteger t : ExprFactory.eINSTANCE.createEInteger
+
+axiom AadlReal
+	G |- AadlReal t : ExprFactory.eINSTANCE.createEReal
+
+axiom AadlString
+	G |- AadlString t : ExprFactory.eINSTANCE.createEString
+
+rule AadlListType
+	G |- ListType t : Type type
+from {
+	val lt = ExprFactory.eINSTANCE.createListType
+	lt.name = t.name
+	G |- t.elementType : var Type elementType
+	lt.type = elementType
+	type = lt
+}
+	
+rule AadlRecordType
+	G |- RecordType t : Type type
+from {
+	val rt = ExprFactory.eINSTANCE.createRecordType
+	rt.name = t.name
+	t.ownedFields.forEach[
+		val f = ExprFactory.eINSTANCE.createField
+		f.name = name
+		G |- propertyType : var Type fieldType
+		f.type = fieldType
+	]
+	type = rt
+}
+	
+rule AadlEnumerationType
+	G |- EnumerationType t : Type type
+from {
+	val et = ExprFactory.eINSTANCE.createEnumType
+	et.name = t.name
+	t.ownedLiterals.forEach[
+		val l = ExprFactory.eINSTANCE.createEnumLiteral
+		l.name = name
+	]
+	type = et
+}
+
+// TODO
+//axiom AadlClassifierType
+//axiom AadlReferenceType
+//axiom AadlUnitsType
+//axiom AadlRangeType
+//
+	
+// literal types
+
+axiom EBooleanLiteral
+	G |- EBooleanLiteral e : ExprFactory.eINSTANCE.createEBoolean
+
+axiom EIntegerLiteral
+	G |- EIntegerLiteral e : ExprFactory.eINSTANCE.createEInteger
+
+axiom ERealLiteral
+	G |- ERealLiteral e : ExprFactory.eINSTANCE.createEReal
+
+axiom EStringLiteral
+	G |- EStringLiteral e : ExprFactory.eINSTANCE.createEString
+
+axiom ListLiteral
+	G |- ListLiteral e : ExprFactory.eINSTANCE.createListType
+
+axiom SetLiteral
+	G |- SetLiteral e : ExprFactory.eINSTANCE.createSetType
+
+axiom RecordLiteral
+	G |- RecordLiteral e : ExprFactory.eINSTANCE.createRecordType
+
+axiom UnionLiteral
+	G |- UnionLiteral e : ExprFactory.eINSTANCE.createUnionType
+
+axiom TupleLiteral
+	G |- TupleLiteral e : ExprFactory.eINSTANCE.createTupleType
+
+axiom BagLiteral
+	G |- BagLiteral e : ExprFactory.eINSTANCE.createBagType
+
+axiom MapLiteral
+	G |- MapLiteral e : ExprFactory.eINSTANCE.createMapType
+
+axiom EnumLiteral
+	G |- EnumLiteral l : l.eContainer as EnumType
+		
+//
+//// type equality
+//
+//axiom sameBoolean
+//	G |- Boolean l ~~ Boolean r
+//
+//axiom sameString
+//	G |- String l ~~ String r
+//
+//axiom sameModelRef
+//	G |- ModelRef l ~~ ModelRef r
+//
+//rule sameEnumeration
+//	G |- EnumerationType left ~~ EnumerationType right
+//from {
+//	left.qualifiedName().equals(right.qualifiedName())
+//}
+//
+//rule sameNumber
+//	G |- NumberType left ~~ NumberType right
+//from {
+//	{
+//		left.unitsType === null && right.unitsType === null
+//	}
+//	or
+//	{
+//		left.unitsType !== null && right.unitsType !== null
+//		G |- left.unitsType ~~ right.unitsType
+//	}
+//}
+//
+//rule sameRange
+//	G |- RangeType left ~~ RangeType right
+//from {
+//	G |- left.numberType ~~ right.numberType
+//}
+//
+//rule sameList
+//	G |- ListType left ~~ ListType right
+//from {
+//	G |- left.elementType ~~ right.elementType
+//}
+//
+//rule sameRecord
+//	G |- RecordType left ~~ RecordType right
+//from {
+//	G |= left.ownedFields ~~ right.ownedFields
+//}
+//
+//rule sameTypeList
+//	G |= EList<BasicProperty> left ~~ EList<BasicProperty> right
+//from {
+//	(left.length !== right.length)
+//	for (var i = 0 ; i < left.length; i++) {		
+//		val l = left.get(i)
+//		val r = right.get(i)
+//		l.name.equals(r.name)
+//		l.isList() === r.isList()
+//		G |- l.propertyType ~~ r.propertyType
+//	}
+//}	
+//
+//
+//// type compatibility
+//
+//rule ExpressionAssignableToType
+//	G |- AExpression exp|> Type type
+//from {
+//	var Type expType
+//	G |- exp : expType
+//	G |- expType <: type
+//	or {
+//		fail
+//			error previousFailure.issue
+//			source exp
+//	}
+//}
+//
+axiom PrimitiveString
+	G |- EString left <| EString right
+
+axiom PrimitiveBoolean
+	G |- EBoolean left <| EBoolean right
+
+axiom PrimitiveInteger
+	G |- EInteger left <| EInteger right
+
+axiom PrimitiveReal
+	G |- EReal left <| EReal right
+
+//rule PrimitiveNumber
+//	G |- NumberType left <| NumberType right
+//from {
+//	left.unitsType === right.unitsType
+//	left instanceof AadlInteger ||	right instanceof AadlReal
+//}
+
+//axiom ModelRef
+//	G |- ModelRef left <: ModelRef right
+//
+//axiom ModelRef1
+//	G |- ModelRef left <: ReferenceType right
+//
+//rule Range
+//	G |- RangeType left <: RangeType right
+//from {
+//	G |- left ~~ right
+//}
+//
+//rule NotCompatible
+//	G |- Type left <: Type right
+//from {
+//	fail
+//}
+
+// validation rules
+
+checkrule CheckVarDecls for 
+	VarDecl varDecl
+from {
+	print('typing ' + stringRep(varDecl) + ' => ')
+	if (varDecl.value !== null) {
+	 	empty |- varDecl.value : var Type assignedType
+		print(varDecl.name + ': ' + stringRep(assignedType) + ' (assigned)')
+	 	if (varDecl.declType !== null) {
+			empty |- varDecl : var Type declaredType
+			print(' || ' + stringRep(declaredType) + ' (declared)')
+			empty |- assignedType <| declaredType
+//	  	or 
+//  		{
+//  			fail
+//  				error 'types not compatible: cannot assign ' + stringRep(valueType) + ' to ' + stringRep(valType)
+//  				source valDecl
+//  				feature ExprPackage.eINSTANCE.
+	  	}
+	} else {
+		print(varDecl.name + ': ' + stringRep(varDecl.declType) + ' (declared)')
+	}
+	println
+}
+
+checkrule CheckExpressions for
+	Expression exp
+from {
+	empty |- exp : var Type type
+}
+

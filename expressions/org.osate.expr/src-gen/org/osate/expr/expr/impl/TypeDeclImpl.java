@@ -11,8 +11,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.Type;
+
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.Type;
 import org.osate.expr.expr.TypeDecl;
 
 /**

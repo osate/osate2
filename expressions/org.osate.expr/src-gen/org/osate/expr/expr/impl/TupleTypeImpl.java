@@ -15,8 +15,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.TupleField;
+import org.osate.expr.expr.Field;
 import org.osate.expr.expr.TupleType;
 
 /**
@@ -27,7 +29,7 @@ import org.osate.expr.expr.TupleType;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.TupleTypeImpl#getField <em>Field</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.TupleTypeImpl#getFields <em>Fields</em>}</li>
  * </ul>
  *
  * @generated
@@ -35,14 +37,14 @@ import org.osate.expr.expr.TupleType;
 public class TupleTypeImpl extends TypeImpl implements TupleType
 {
   /**
-   * The cached value of the '{@link #getField() <em>Field</em>}' containment reference list.
+   * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getField()
+   * @see #getFields()
    * @generated
    * @ordered
    */
-  protected EList<TupleField> field;
+  protected EList<Field> fields;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,13 +73,13 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
    * @generated
    */
   @Override
-  public EList<TupleField> getField()
+  public EList<Field> getFields()
   {
-    if (field == null)
+    if (fields == null)
     {
-      field = new EObjectContainmentEList<TupleField>(TupleField.class, this, ExprPackage.TUPLE_TYPE__FIELD);
+      fields = new EObjectContainmentEList<Field>(Field.class, this, ExprPackage.TUPLE_TYPE__FIELDS);
     }
-    return field;
+    return fields;
   }
 
   /**
@@ -90,8 +92,8 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
   {
     switch (featureID)
     {
-      case ExprPackage.TUPLE_TYPE__FIELD:
-        return ((InternalEList<?>)getField()).basicRemove(otherEnd, msgs);
+      case ExprPackage.TUPLE_TYPE__FIELDS:
+        return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -106,8 +108,8 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
   {
     switch (featureID)
     {
-      case ExprPackage.TUPLE_TYPE__FIELD:
-        return getField();
+      case ExprPackage.TUPLE_TYPE__FIELDS:
+        return getFields();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +125,9 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
   {
     switch (featureID)
     {
-      case ExprPackage.TUPLE_TYPE__FIELD:
-        getField().clear();
-        getField().addAll((Collection<? extends TupleField>)newValue);
+      case ExprPackage.TUPLE_TYPE__FIELDS:
+        getFields().clear();
+        getFields().addAll((Collection<? extends Field>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +143,8 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
   {
     switch (featureID)
     {
-      case ExprPackage.TUPLE_TYPE__FIELD:
-        getField().clear();
+      case ExprPackage.TUPLE_TYPE__FIELDS:
+        getFields().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,8 +160,8 @@ public class TupleTypeImpl extends TypeImpl implements TupleType
   {
     switch (featureID)
     {
-      case ExprPackage.TUPLE_TYPE__FIELD:
-        return field != null && !field.isEmpty();
+      case ExprPackage.TUPLE_TYPE__FIELDS:
+        return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
   }

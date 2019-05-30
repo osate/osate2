@@ -3,8 +3,6 @@
  */
 package org.osate.expr.expr.impl;
 
-import java.lang.String;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -12,10 +10,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.Type;
 
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.Field;
-import org.osate.expr.expr.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,7 @@ import org.osate.expr.expr.Type;
  *
  * @generated
  */
-public class FieldImpl extends TupleFieldImpl implements Field
+public class FieldImpl extends MinimalEObjectImpl.Container implements Field
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

@@ -16,7 +16,6 @@ import org.osate.expr.expr.ListType
 import org.osate.expr.expr.MapType
 import org.osate.expr.expr.RecordType
 import org.osate.expr.expr.SetType
-import org.osate.expr.expr.TupleField
 import org.osate.expr.expr.TupleType
 import org.osate.expr.expr.TypeDecl
 import org.osate.expr.expr.VarDecl
@@ -52,12 +51,12 @@ class ExprFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(VarDecl vardecl, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		format(vardecl.getType(), document);
+		format(vardecl.getDeclType(), document);
 	}
 
 	def dispatch void format(RecordType recordtype, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (Field field : recordtype.getField()) {
+		for (Field field : recordtype.getFields()) {
 			format(field, document);
 		}
 	}
@@ -69,7 +68,7 @@ class ExprFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(TupleType tupletype, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		for (TupleField field : tupletype.getField()) {
+		for (Field field : tupletype.getFields()) {
 			format(field, document);
 		}
 	}
@@ -91,7 +90,7 @@ class ExprFormatter extends AbstractFormatter2 {
 
 	def dispatch void format(MapType maptype, extension IFormattableDocument document) {
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-		format(maptype.getDom(), document);
-		format(maptype.getImg(), document);
+		format(maptype.getDomain(), document);
+		format(maptype.getImage(), document);
 	}
 }

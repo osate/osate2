@@ -21,15 +21,15 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 
 	protected ExprGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Declarations_SemicolonKeyword_2_q;
-	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_6_0_a;
-	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_6_0_p;
+	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_a;
+	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ExprGrammarAccess) access;
 		match_Declarations_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getDeclarationsAccess().getSemicolonKeyword_2());
-		match_PrimaryExpression_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_6_0());
-		match_PrimaryExpression_LeftParenthesisKeyword_6_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_6_0());
+		match_PrimaryExpression_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
+		match_PrimaryExpression_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
 	}
 	
 	@Override
@@ -84,10 +84,10 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_Declarations_SemicolonKeyword_2_q.equals(syntax))
 				emit_Declarations_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_PrimaryExpression_LeftParenthesisKeyword_6_0_a.equals(syntax))
-				emit_PrimaryExpression_LeftParenthesisKeyword_6_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_PrimaryExpression_LeftParenthesisKeyword_6_0_p.equals(syntax))
-				emit_PrimaryExpression_LeftParenthesisKeyword_6_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PrimaryExpression_LeftParenthesisKeyword_4_0_a.equals(syntax))
+				emit_PrimaryExpression_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PrimaryExpression_LeftParenthesisKeyword_4_0_p.equals(syntax))
+				emit_PrimaryExpression_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -108,7 +108,6 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '#' property=[AbstractNamedValue|QPREF]
 	 *     (rule start) (ambiguity) '[' minimum=Expression
 	 *     (rule start) (ambiguity) 'bag' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'bag' '(' elements+=Expression
@@ -123,20 +122,19 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     (rule start) (ambiguity) 'tuple' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'tuple' '(' elements+=Expression
 	 *     (rule start) (ambiguity) 'union' (rule start)
-	 *     (rule start) (ambiguity) function=QCREF
-	 *     (rule start) (ambiguity) modelElement=[NamedElement|This]
+	 *     (rule start) (ambiguity) core?='^'
 	 *     (rule start) (ambiguity) operator=OpUnary
-	 *     (rule start) (ambiguity) ref=[VarDecl|QCREF]
+	 *     (rule start) (ambiguity) ref=[NamedElement|QCREF]
 	 *     (rule start) (ambiguity) value=INTEGER_LIT
 	 *     (rule start) (ambiguity) value=NoQuoteString
 	 *     (rule start) (ambiguity) value=REAL_LIT
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
-	 *     (rule start) (ambiguity) {ModelReference.prev=}
-	 *     (rule start) (ambiguity) {PropertyReference.modelElementReference=}
+	 *     (rule start) (ambiguity) {NamedElementRef.prev=}
+	 *     (rule start) (ambiguity) {PropertyExpression.modelElement=}
 	 *     (rule start) (ambiguity) {UnitExpression.expression=}
 	 */
-	protected void emit_PrimaryExpression_LeftParenthesisKeyword_6_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_PrimaryExpression_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -147,9 +145,10 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
+	 *     (rule start) (ambiguity) {PropertyExpression.modelElement=}
 	 *     (rule start) (ambiguity) {UnitExpression.expression=}
 	 */
-	protected void emit_PrimaryExpression_LeftParenthesisKeyword_6_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_PrimaryExpression_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

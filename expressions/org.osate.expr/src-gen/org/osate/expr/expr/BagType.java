@@ -3,6 +3,9 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.aadl2.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +23,7 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface BagType extends Type
+public interface BagType extends EObject, Type
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' containment reference.

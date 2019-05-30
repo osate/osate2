@@ -3,8 +3,6 @@
  */
 package org.osate.expr.expr.impl;
 
-import java.lang.Boolean;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -13,9 +11,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.Type;
+
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.Expression;
-import org.osate.expr.expr.Type;
 import org.osate.expr.expr.VarDecl;
 
 /**
@@ -27,7 +26,7 @@ import org.osate.expr.expr.VarDecl;
  * </p>
  * <ul>
  *   <li>{@link org.osate.expr.expr.impl.VarDeclImpl#isConst <em>Const</em>}</li>
- *   <li>{@link org.osate.expr.expr.impl.VarDeclImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.VarDeclImpl#getDeclType <em>Decl Type</em>}</li>
  *   <li>{@link org.osate.expr.expr.impl.VarDeclImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -56,14 +55,14 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
   protected boolean const_ = CONST_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * The cached value of the '{@link #getDeclType() <em>Decl Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getDeclType()
    * @generated
    * @ordered
    */
-  protected Type type;
+  protected Type declType;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -127,9 +126,9 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
    * @generated
    */
   @Override
-  public Type getType()
+  public Type getDeclType()
   {
-    return type;
+    return declType;
   }
 
   /**
@@ -137,13 +136,13 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetType(Type newType, NotificationChain msgs)
+  public NotificationChain basicSetDeclType(Type newDeclType, NotificationChain msgs)
   {
-    Type oldType = type;
-    type = newType;
+    Type oldDeclType = declType;
+    declType = newDeclType;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.VAR_DECL__TYPE, oldType, newType);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExprPackage.VAR_DECL__DECL_TYPE, oldDeclType, newDeclType);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -155,20 +154,20 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
    * @generated
    */
   @Override
-  public void setType(Type newType)
+  public void setDeclType(Type newDeclType)
   {
-    if (newType != type)
+    if (newDeclType != declType)
     {
       NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.VAR_DECL__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.VAR_DECL__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
+      if (declType != null)
+        msgs = ((InternalEObject)declType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExprPackage.VAR_DECL__DECL_TYPE, null, msgs);
+      if (newDeclType != null)
+        msgs = ((InternalEObject)newDeclType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExprPackage.VAR_DECL__DECL_TYPE, null, msgs);
+      msgs = basicSetDeclType(newDeclType, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.VAR_DECL__TYPE, newType, newType));
+      eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.VAR_DECL__DECL_TYPE, newDeclType, newDeclType));
   }
 
   /**
@@ -231,8 +230,8 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
   {
     switch (featureID)
     {
-      case ExprPackage.VAR_DECL__TYPE:
-        return basicSetType(null, msgs);
+      case ExprPackage.VAR_DECL__DECL_TYPE:
+        return basicSetDeclType(null, msgs);
       case ExprPackage.VAR_DECL__VALUE:
         return basicSetValue(null, msgs);
     }
@@ -251,8 +250,8 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
     {
       case ExprPackage.VAR_DECL__CONST:
         return isConst();
-      case ExprPackage.VAR_DECL__TYPE:
-        return getType();
+      case ExprPackage.VAR_DECL__DECL_TYPE:
+        return getDeclType();
       case ExprPackage.VAR_DECL__VALUE:
         return getValue();
     }
@@ -272,8 +271,8 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
       case ExprPackage.VAR_DECL__CONST:
         setConst((Boolean)newValue);
         return;
-      case ExprPackage.VAR_DECL__TYPE:
-        setType((Type)newValue);
+      case ExprPackage.VAR_DECL__DECL_TYPE:
+        setDeclType((Type)newValue);
         return;
       case ExprPackage.VAR_DECL__VALUE:
         setValue((Expression)newValue);
@@ -295,8 +294,8 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
       case ExprPackage.VAR_DECL__CONST:
         setConst(CONST_EDEFAULT);
         return;
-      case ExprPackage.VAR_DECL__TYPE:
-        setType((Type)null);
+      case ExprPackage.VAR_DECL__DECL_TYPE:
+        setDeclType((Type)null);
         return;
       case ExprPackage.VAR_DECL__VALUE:
         setValue((Expression)null);
@@ -317,8 +316,8 @@ public class VarDeclImpl extends EDeclarationImpl implements VarDecl
     {
       case ExprPackage.VAR_DECL__CONST:
         return const_ != CONST_EDEFAULT;
-      case ExprPackage.VAR_DECL__TYPE:
-        return type != null;
+      case ExprPackage.VAR_DECL__DECL_TYPE:
+        return declType != null;
       case ExprPackage.VAR_DECL__VALUE:
         return value != null;
     }

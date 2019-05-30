@@ -12,56 +12,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.osate.expr.expr.Assertion;
-import org.osate.expr.expr.BagLiteral;
-import org.osate.expr.expr.BagType;
-import org.osate.expr.expr.BinaryOperation;
-import org.osate.expr.expr.Category;
-import org.osate.expr.expr.ClassifierType;
-import org.osate.expr.expr.Conditional;
-import org.osate.expr.expr.EBool;
-import org.osate.expr.expr.EDeclaration;
-import org.osate.expr.expr.EInt;
-import org.osate.expr.expr.EReal;
-import org.osate.expr.expr.EString;
-import org.osate.expr.expr.ExprFactory;
-import org.osate.expr.expr.ExprLibrary;
-import org.osate.expr.expr.ExprModel;
-import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.ExprSubclause;
-import org.osate.expr.expr.Expression;
-import org.osate.expr.expr.Field;
-import org.osate.expr.expr.FunDecl;
-import org.osate.expr.expr.FunctionCall;
-import org.osate.expr.expr.ListLiteral;
-import org.osate.expr.expr.ListType;
-import org.osate.expr.expr.MapLiteral;
-import org.osate.expr.expr.MapType;
-import org.osate.expr.expr.MetaClass;
-import org.osate.expr.expr.MetaClassEnum;
-import org.osate.expr.expr.ModelReference;
-import org.osate.expr.expr.Operation;
-import org.osate.expr.expr.PrimitiveType;
-import org.osate.expr.expr.PropertyReference;
-import org.osate.expr.expr.Range;
-import org.osate.expr.expr.Real;
-import org.osate.expr.expr.RecordLiteral;
-import org.osate.expr.expr.RecordType;
-import org.osate.expr.expr.SetLiteral;
-import org.osate.expr.expr.SetType;
-import org.osate.expr.expr.TargetType;
-import org.osate.expr.expr.TupleField;
-import org.osate.expr.expr.TupleLiteral;
-import org.osate.expr.expr.TupleType;
-import org.osate.expr.expr.Type;
-import org.osate.expr.expr.TypeDecl;
-import org.osate.expr.expr.TypeRef;
-import org.osate.expr.expr.UnaryOperation;
-import org.osate.expr.expr.UnionLiteral;
-import org.osate.expr.expr.UnionType;
-import org.osate.expr.expr.UnitExpression;
-import org.osate.expr.expr.VarDecl;
-import org.osate.expr.expr.VarRef;
+import org.osate.expr.expr.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -121,41 +72,39 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.VAR_DECL: return createVarDecl();
       case ExprPackage.FUN_DECL: return createFunDecl();
       case ExprPackage.ASSERTION: return createAssertion();
-      case ExprPackage.TYPE: return createType();
       case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
+      case ExprPackage.RANGE_TYPE: return createRangeType();
       case ExprPackage.CATEGORY: return createCategory();
       case ExprPackage.META_CLASS: return createMetaClass();
-      case ExprPackage.CLASSIFIER_TYPE: return createClassifierType();
       case ExprPackage.RECORD_TYPE: return createRecordType();
       case ExprPackage.FIELD: return createField();
       case ExprPackage.UNION_TYPE: return createUnionType();
       case ExprPackage.TUPLE_TYPE: return createTupleType();
-      case ExprPackage.TUPLE_FIELD: return createTupleField();
       case ExprPackage.LIST_TYPE: return createListType();
       case ExprPackage.SET_TYPE: return createSetType();
       case ExprPackage.BAG_TYPE: return createBagType();
       case ExprPackage.MAP_TYPE: return createMapType();
+      case ExprPackage.ENUM_TYPE: return createEnumType();
+      case ExprPackage.ENUM_LITERAL: return createEnumLiteral();
       case ExprPackage.TYPE_REF: return createTypeRef();
       case ExprPackage.EXPRESSION: return createExpression();
-      case ExprPackage.VAR_REF: return createVarRef();
-      case ExprPackage.MODEL_REFERENCE: return createModelReference();
-      case ExprPackage.PROPERTY_REFERENCE: return createPropertyReference();
+      case ExprPackage.NAMED_ELEMENT_REF: return createNamedElementRef();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
-      case ExprPackage.BOOLEAN: return createBoolean();
-      case ExprPackage.INTEGER: return createInteger();
-      case ExprPackage.REAL: return createReal();
-      case ExprPackage.STRING: return createString();
+      case ExprPackage.EBOOLEAN: return createEBoolean();
+      case ExprPackage.EINTEGER: return createEInteger();
+      case ExprPackage.EREAL: return createEReal();
+      case ExprPackage.ESTRING: return createEString();
       case ExprPackage.BINARY_OPERATION: return createBinaryOperation();
       case ExprPackage.UNARY_OPERATION: return createUnaryOperation();
       case ExprPackage.UNIT_EXPRESSION: return createUnitExpression();
-      case ExprPackage.FUNCTION_CALL: return createFunctionCall();
+      case ExprPackage.PROPERTY_EXPRESSION: return createPropertyExpression();
       case ExprPackage.RANGE: return createRange();
       case ExprPackage.CONDITIONAL: return createConditional();
-      case ExprPackage.EBOOL: return createEBool();
-      case ExprPackage.EINT: return createEInt();
-      case ExprPackage.EREAL: return createEReal();
-      case ExprPackage.ESTRING: return createEString();
+      case ExprPackage.EBOOLEAN_LITERAL: return createEBooleanLiteral();
+      case ExprPackage.EINTEGER_LITERAL: return createEIntegerLiteral();
+      case ExprPackage.EREAL_LITERAL: return createERealLiteral();
+      case ExprPackage.ESTRING_LITERAL: return createEStringLiteral();
       case ExprPackage.LIST_LITERAL: return createListLiteral();
       case ExprPackage.SET_LITERAL: return createSetLiteral();
       case ExprPackage.RECORD_LITERAL: return createRecordLiteral();
@@ -288,10 +237,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public Type createType()
+  public PrimitiveType createPrimitiveType()
   {
-    TypeImpl type = new TypeImpl();
-    return type;
+    PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
+    return primitiveType;
   }
 
   /**
@@ -300,10 +249,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public PrimitiveType createPrimitiveType()
+  public RangeType createRangeType()
   {
-    PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
-    return primitiveType;
+    RangeTypeImpl rangeType = new RangeTypeImpl();
+    return rangeType;
   }
 
   /**
@@ -328,18 +277,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     MetaClassImpl metaClass = new MetaClassImpl();
     return metaClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ClassifierType createClassifierType()
-  {
-    ClassifierTypeImpl classifierType = new ClassifierTypeImpl();
-    return classifierType;
   }
 
   /**
@@ -396,18 +333,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public TupleField createTupleField()
-  {
-    TupleFieldImpl tupleField = new TupleFieldImpl();
-    return tupleField;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public ListType createListType()
   {
     ListTypeImpl listType = new ListTypeImpl();
@@ -456,6 +381,30 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
+  public EnumType createEnumType()
+  {
+    EnumTypeImpl enumType = new EnumTypeImpl();
+    return enumType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EnumLiteral createEnumLiteral()
+  {
+    EnumLiteralImpl enumLiteral = new EnumLiteralImpl();
+    return enumLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public TypeRef createTypeRef()
   {
     TypeRefImpl typeRef = new TypeRefImpl();
@@ -480,34 +429,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public VarRef createVarRef()
+  public NamedElementRef createNamedElementRef()
   {
-    VarRefImpl varRef = new VarRefImpl();
-    return varRef;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ModelReference createModelReference()
-  {
-    ModelReferenceImpl modelReference = new ModelReferenceImpl();
-    return modelReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public PropertyReference createPropertyReference()
-  {
-    PropertyReferenceImpl propertyReference = new PropertyReferenceImpl();
-    return propertyReference;
+    NamedElementRefImpl namedElementRef = new NamedElementRefImpl();
+    return namedElementRef;
   }
 
   /**
@@ -540,10 +465,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public org.osate.expr.expr.Boolean createBoolean()
+  public EBoolean createEBoolean()
   {
-    BooleanImpl boolean_ = new BooleanImpl();
-    return boolean_;
+    EBooleanImpl eBoolean = new EBooleanImpl();
+    return eBoolean;
   }
 
   /**
@@ -552,10 +477,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public org.osate.expr.expr.Integer createInteger()
+  public EInteger createEInteger()
   {
-    IntegerImpl integer = new IntegerImpl();
-    return integer;
+    EIntegerImpl eInteger = new EIntegerImpl();
+    return eInteger;
   }
 
   /**
@@ -564,10 +489,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public Real createReal()
+  public EReal createEReal()
   {
-    RealImpl real = new RealImpl();
-    return real;
+    ERealImpl eReal = new ERealImpl();
+    return eReal;
   }
 
   /**
@@ -576,10 +501,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public org.osate.expr.expr.String createString()
+  public EString createEString()
   {
-    StringImpl string = new StringImpl();
-    return string;
+    EStringImpl eString = new EStringImpl();
+    return eString;
   }
 
   /**
@@ -624,10 +549,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public FunctionCall createFunctionCall()
+  public PropertyExpression createPropertyExpression()
   {
-    FunctionCallImpl functionCall = new FunctionCallImpl();
-    return functionCall;
+    PropertyExpressionImpl propertyExpression = new PropertyExpressionImpl();
+    return propertyExpression;
   }
 
   /**
@@ -660,10 +585,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public EBool createEBool()
+  public EBooleanLiteral createEBooleanLiteral()
   {
-    EBoolImpl eBool = new EBoolImpl();
-    return eBool;
+    EBooleanLiteralImpl eBooleanLiteral = new EBooleanLiteralImpl();
+    return eBooleanLiteral;
   }
 
   /**
@@ -672,10 +597,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public EInt createEInt()
+  public EIntegerLiteral createEIntegerLiteral()
   {
-    EIntImpl eInt = new EIntImpl();
-    return eInt;
+    EIntegerLiteralImpl eIntegerLiteral = new EIntegerLiteralImpl();
+    return eIntegerLiteral;
   }
 
   /**
@@ -684,10 +609,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public EReal createEReal()
+  public ERealLiteral createERealLiteral()
   {
-    ERealImpl eReal = new ERealImpl();
-    return eReal;
+    ERealLiteralImpl eRealLiteral = new ERealLiteralImpl();
+    return eRealLiteral;
   }
 
   /**
@@ -696,10 +621,10 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public EString createEString()
+  public EStringLiteral createEStringLiteral()
   {
-    EStringImpl eString = new EStringImpl();
-    return eString;
+    EStringLiteralImpl eStringLiteral = new EStringLiteralImpl();
+    return eStringLiteral;
   }
 
   /**

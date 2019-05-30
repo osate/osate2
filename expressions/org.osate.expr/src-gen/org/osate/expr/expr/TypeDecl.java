@@ -3,6 +3,7 @@
  */
 package org.osate.expr.expr;
 
+import org.osate.aadl2.Type;
 
 /**
  * <!-- begin-user-doc -->

@@ -3,8 +3,6 @@
  */
 package org.osate.expr.expr;
 
-import java.lang.String;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,16 +31,6 @@ public enum MetaClassEnum implements Enumerator
   COMPONENT(0, "COMPONENT", "component"),
 
   /**
-   * The '<em><b>SUBCOMPONENT</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #SUBCOMPONENT_VALUE
-   * @generated
-   * @ordered
-   */
-  SUBCOMPONENT(1, "SUBCOMPONENT", "subcomponent"),
-
-  /**
    * The '<em><b>FEATURE</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -50,7 +38,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  FEATURE(2, "FEATURE", "feature"),
+  FEATURE(1, "FEATURE", "feature"),
 
   /**
    * The '<em><b>CONNECTION</b></em>' literal object.
@@ -60,7 +48,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  CONNECTION(3, "CONNECTION", "connection"),
+  CONNECTION(2, "CONNECTION", "connection"),
 
   /**
    * The '<em><b>FLOW</b></em>' literal object.
@@ -70,7 +58,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  FLOW(4, "FLOW", "flow"),
+  FLOW(3, "FLOW", "flow"),
 
   /**
    * The '<em><b>MODE</b></em>' literal object.
@@ -80,7 +68,17 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  MODE(5, "MODE", "mode");
+  MODE(4, "MODE", "mode"),
+
+  /**
+   * The '<em><b>PROPERTY</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #PROPERTY_VALUE
+   * @generated
+   * @ordered
+   */
+  PROPERTY(5, "PROPERTY", "property");
 
   /**
    * The '<em><b>COMPONENT</b></em>' literal value.
@@ -94,17 +92,6 @@ public enum MetaClassEnum implements Enumerator
   public static final int COMPONENT_VALUE = 0;
 
   /**
-   * The '<em><b>SUBCOMPONENT</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #SUBCOMPONENT
-   * @model literal="subcomponent"
-   * @generated
-   * @ordered
-   */
-  public static final int SUBCOMPONENT_VALUE = 1;
-
-  /**
    * The '<em><b>FEATURE</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -113,7 +100,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int FEATURE_VALUE = 2;
+  public static final int FEATURE_VALUE = 1;
 
   /**
    * The '<em><b>CONNECTION</b></em>' literal value.
@@ -124,7 +111,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int CONNECTION_VALUE = 3;
+  public static final int CONNECTION_VALUE = 2;
 
   /**
    * The '<em><b>FLOW</b></em>' literal value.
@@ -135,7 +122,7 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int FLOW_VALUE = 4;
+  public static final int FLOW_VALUE = 3;
 
   /**
    * The '<em><b>MODE</b></em>' literal value.
@@ -146,7 +133,18 @@ public enum MetaClassEnum implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MODE_VALUE = 5;
+  public static final int MODE_VALUE = 4;
+
+  /**
+   * The '<em><b>PROPERTY</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #PROPERTY
+   * @model literal="property"
+   * @generated
+   * @ordered
+   */
+  public static final int PROPERTY_VALUE = 5;
 
   /**
    * An array of all the '<em><b>Meta Class Enum</b></em>' enumerators.
@@ -158,11 +156,11 @@ public enum MetaClassEnum implements Enumerator
     new MetaClassEnum[]
     {
       COMPONENT,
-      SUBCOMPONENT,
       FEATURE,
       CONNECTION,
       FLOW,
       MODE,
+      PROPERTY,
     };
 
   /**
@@ -228,11 +226,11 @@ public enum MetaClassEnum implements Enumerator
     switch (value)
     {
       case COMPONENT_VALUE: return COMPONENT;
-      case SUBCOMPONENT_VALUE: return SUBCOMPONENT;
       case FEATURE_VALUE: return FEATURE;
       case CONNECTION_VALUE: return CONNECTION;
       case FLOW_VALUE: return FLOW;
       case MODE_VALUE: return MODE;
+      case PROPERTY_VALUE: return PROPERTY;
     }
     return null;
   }

@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.Field;
 import org.osate.expr.expr.RecordType;
@@ -27,7 +29,7 @@ import org.osate.expr.expr.RecordType;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.expr.expr.impl.RecordTypeImpl#getField <em>Field</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.RecordTypeImpl#getFields <em>Fields</em>}</li>
  * </ul>
  *
  * @generated
@@ -35,14 +37,14 @@ import org.osate.expr.expr.RecordType;
 public class RecordTypeImpl extends TypeImpl implements RecordType
 {
   /**
-   * The cached value of the '{@link #getField() <em>Field</em>}' containment reference list.
+   * The cached value of the '{@link #getFields() <em>Fields</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getField()
+   * @see #getFields()
    * @generated
    * @ordered
    */
-  protected EList<Field> field;
+  protected EList<Field> fields;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,13 +73,13 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
    * @generated
    */
   @Override
-  public EList<Field> getField()
+  public EList<Field> getFields()
   {
-    if (field == null)
+    if (fields == null)
     {
-      field = new EObjectContainmentEList<Field>(Field.class, this, ExprPackage.RECORD_TYPE__FIELD);
+      fields = new EObjectContainmentEList<Field>(Field.class, this, ExprPackage.RECORD_TYPE__FIELDS);
     }
-    return field;
+    return fields;
   }
 
   /**
@@ -90,8 +92,8 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
   {
     switch (featureID)
     {
-      case ExprPackage.RECORD_TYPE__FIELD:
-        return ((InternalEList<?>)getField()).basicRemove(otherEnd, msgs);
+      case ExprPackage.RECORD_TYPE__FIELDS:
+        return ((InternalEList<?>)getFields()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -106,8 +108,8 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
   {
     switch (featureID)
     {
-      case ExprPackage.RECORD_TYPE__FIELD:
-        return getField();
+      case ExprPackage.RECORD_TYPE__FIELDS:
+        return getFields();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +125,9 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
   {
     switch (featureID)
     {
-      case ExprPackage.RECORD_TYPE__FIELD:
-        getField().clear();
-        getField().addAll((Collection<? extends Field>)newValue);
+      case ExprPackage.RECORD_TYPE__FIELDS:
+        getFields().clear();
+        getFields().addAll((Collection<? extends Field>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +143,8 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
   {
     switch (featureID)
     {
-      case ExprPackage.RECORD_TYPE__FIELD:
-        getField().clear();
+      case ExprPackage.RECORD_TYPE__FIELDS:
+        getFields().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,8 +160,8 @@ public class RecordTypeImpl extends TypeImpl implements RecordType
   {
     switch (featureID)
     {
-      case ExprPackage.RECORD_TYPE__FIELD:
-        return field != null && !field.isEmpty();
+      case ExprPackage.RECORD_TYPE__FIELDS:
+        return fields != null && !fields.isEmpty();
     }
     return super.eIsSet(featureID);
   }

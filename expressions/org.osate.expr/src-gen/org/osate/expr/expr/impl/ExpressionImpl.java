@@ -5,7 +5,7 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.osate.aadl2.impl.PropertyExpressionImpl;
 
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.Expression;
@@ -17,7 +17,7 @@ import org.osate.expr.expr.Expression;
  *
  * @generated
  */
-public class ExpressionImpl extends MinimalEObjectImpl.Container implements Expression
+public class ExpressionImpl extends PropertyExpressionImpl implements Expression
 {
   /**
    * <!-- begin-user-doc -->

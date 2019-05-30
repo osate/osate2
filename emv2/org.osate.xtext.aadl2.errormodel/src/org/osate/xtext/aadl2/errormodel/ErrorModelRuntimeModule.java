@@ -31,8 +31,8 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-import org.osate.aadl2.modelsupport.scoping.EClassGlobalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameConverter;
+import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelGlobalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
@@ -87,6 +87,6 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return EClassGlobalScopeProvider.class;
+		return ErrorModelGlobalScopeProvider.class;
 	}
 }

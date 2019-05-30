@@ -3,6 +3,7 @@
  */
 package org.osate.expr;
 
+import org.eclipse.xsemantics.runtime.StringRepresentation;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
@@ -12,15 +13,16 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
-import org.osate.aadl2.modelsupport.scoping.EClassGlobalScopeProvider;
 import org.osate.expr.naming.ExprQualifiedNameConverter;
 import org.osate.expr.naming.ExprQualifiedNameProvider;
 import org.osate.expr.resource.ExprResourceDescriptionStrategy;
+import org.osate.expr.scoping.ExprGlobalScopeProvider;
 import org.osate.expr.scoping.ExprImportedNamespaceAwareLocalScopeProvider;
 import org.osate.expr.scoping.ExprScopeProvider;
 import org.osate.expr.serializer.ExprCrossReferenceSerializer;
 import org.osate.expr.serializer.ExprSerializer;
 import org.osate.expr.services.ExprValueConverters;
+import org.osate.expr.typing.ExprStringRepresentation;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
@@ -66,7 +68,7 @@ public class ExprRuntimeModule extends org.osate.expr.AbstractExprRuntimeModule 
 
 	@Override
 	public Class<? extends IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return EClassGlobalScopeProvider.class;
+		return ExprGlobalScopeProvider.class;
 	}
 
 	@Override
@@ -74,4 +76,7 @@ public class ExprRuntimeModule extends org.osate.expr.AbstractExprRuntimeModule 
 		return ExprSerializer.class;
 	}
 
+	public Class<? extends StringRepresentation> bindStringRepresentation() {
+		return ExprStringRepresentation.class;
+	}
 }
