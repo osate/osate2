@@ -286,9 +286,14 @@ class AssureProcessor implements IAssureProcessor {
 		val targetElement = verificationResult.caseTargetModelElement
 		var InstanceObject target = targetComponent
 		if (targetElement !== null && targetElement.name !== null) {
-				target = targetComponent.findElementInstance(targetElement)
-				if (target === null) { target =  targetComponent }
+			target = targetComponent.findElementInstance(targetElement)
+			if (target === null) {
+				setToError(verificationResult, "Unresolved target model element in instance for claim", targetElement)
+				saveAssureResult(verificationResult)
+				updateProgress(verificationResult)
+				return
 			}
+		}
 		env.add("component", targetComponent)
 		env.add("element", target)
 
