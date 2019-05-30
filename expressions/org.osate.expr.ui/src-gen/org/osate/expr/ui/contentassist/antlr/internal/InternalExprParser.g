@@ -5482,7 +5482,6 @@ rule__Field__Group__2
     }
 :
 	rule__Field__Group__2__Impl
-	rule__Field__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -5503,38 +5502,6 @@ rule__Field__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-rule__Field__Group__3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Field__Group__3__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Field__Group__3__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getFieldAccess().getSemicolonKeyword_3()); }
-
-	Semicolon 
-
-{ after(grammarAccess.getFieldAccess().getSemicolonKeyword_3()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
 
 
 

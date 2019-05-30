@@ -725,13 +725,12 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTypeTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Field:
-		//	name=ID ':' type=Type ';';
+		//	name=ID ':' type=Type;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ':' type=Type ';'
+		//name=ID ':' type=Type
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -748,9 +747,6 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Type
 		public RuleCall getTypeTypeParserRuleCall_2_0() { return cTypeTypeParserRuleCall_2_0; }
-
-		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
 	public class UnionTypeElements extends AbstractParserRuleElementFinder {
@@ -3048,7 +3044,7 @@ public class ExprGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Field:
-	//	name=ID ':' type=Type ';';
+	//	name=ID ':' type=Type;
 	public FieldElements getFieldAccess() {
 		return pField;
 	}

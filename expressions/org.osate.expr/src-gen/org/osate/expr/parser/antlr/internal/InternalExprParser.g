@@ -1246,12 +1246,7 @@ ruleField returns [EObject current=null]
 	    }
 
 )
-)
-	otherlv_3=Semicolon
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getFieldAccess().getSemicolonKeyword_3());
-    }
-)
+))
 ;
 
 
