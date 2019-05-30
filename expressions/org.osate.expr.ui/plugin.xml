@@ -431,4 +431,57 @@
 			type="text">
 		</fileTypes>
 	</extension>
+	
+	<!-- Extensions for Evaluate Assertions -->
+	<extension
+	      point="org.eclipse.ui.commands">
+	   <command
+             id="org.osate.expr.ui.evaluateAssertions"
+             name="Evaluate Assertions">
+	   </command>
+	</extension>
+	<extension
+	      point="org.eclipse.ui.handlers">
+	   <handler
+	         class="org.osate.expr.ui.handlers.EvaluateAssertionsHandler"
+             commandId="org.osate.expr.ui.evaluateAssertions">
+          <enabledWhen>
+             <or>
+                <reference
+                      definitionId="org.osate.core.isInstanceFileSelected">
+                </reference>
+                <with
+                      variable="selection">
+                   <and>
+                      <count
+                            value="1">
+                      </count>
+                      <iterate>
+                         <adapt
+                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                            <test
+                                  property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                  value="ComponentInstance"
+                                  forcePluginActivation="true">
+                            </test>
+                         </adapt>
+                      </iterate>
+                   </and>
+                </with>
+             </or>
+          </enabledWhen>
+	   </handler>
+	</extension>
+	<extension
+	      point="org.eclipse.ui.menus">
+	   <menuContribution
+             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=osate_begin">
+          <command
+                commandId="org.osate.expr.ui.evaluateAssertions">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+	   </menuContribution>
+	</extension>
 </plugin>
