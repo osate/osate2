@@ -39,15 +39,20 @@
  */
 package org.osate.ui.actions;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.OsateUiPlugin;
 
 /**
  * AaxlModifyAction defines an action framework for processing Aadl object model with modifications
@@ -79,7 +84,12 @@ public abstract class AaxlModifyActionAsJob extends AaxlReadOnlyActionAsJob {
 				protected void doExecute() {
 					doAaxlAction(monitor, root);
 					if (resource.isModified()) {
-						OsateResourceUtil.save(resource);
+						try {
+							resource.save(null);
+						} catch (IOException e) {
+							IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
+							StatusManager.getManager().handle(status);
+						}
 					}
 				}
 
