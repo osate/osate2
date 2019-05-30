@@ -167,8 +167,8 @@ public final class UiUtil {
 			return;
 		}
 		Resource res = target.eResource();
-		final IResource ires = OsateResourceUtil.convertToIResource(res);
-		if (ires != null && ires.exists()) {
+		final IFile ires = OsateResourceUtil.toIFile(res.getURI());
+		if (ires.exists()) {
 			try {
 				ICompositeNode node = NodeModelUtils.findActualNodeFor(target);
 				int offset = node.getTotalEndOffset();
@@ -204,8 +204,8 @@ public final class UiUtil {
 			return;
 		}
 		Resource res = target.eResource();
-		final IResource ires = OsateResourceUtil.convertToIResource(res);
-		if (ires != null && ires.exists()) {
+		final IFile ires = OsateResourceUtil.toIFile(res.getURI());
+		if (ires.exists()) {
 			try {
 				final IMarker marker_p = ires.createMarker(AadlConstants.AADLGOTOMARKER);
 				marker_p.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
@@ -361,15 +361,10 @@ public final class UiUtil {
 	 *         <code>null</code> if the editor was not able to be opened.
 	 */
 	public static final EditingDomain openEditorFor(final Element obj) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
-		if (file != null) {
-			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
-				return AdapterFactoryEditingDomain.getEditingDomainFor(obj);
-			} else {
-				return null;
-			}
+		final IFile file = OsateResourceUtil.toIFile(obj.eResource().getURI());
+		if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
+			return AdapterFactoryEditingDomain.getEditingDomainFor(obj);
 		} else {
-			OsateUiPlugin.logErrorMessage("Couldn't find IResource for " + obj.eResource());
 			return null;
 		}
 	}
@@ -391,21 +386,17 @@ public final class UiUtil {
 	 *            The editor command to execute.
 	 */
 	public static final void executeCommand(final Element obj, final Command command) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
-		if (file != null) {
-			final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
-			if (editingDomain != null) {
-				final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-				try {
-					workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
-				} catch (final CoreException e) {
-					OsateUiPlugin.log(e);
-				}
-			} else {
-				OsateUiPlugin.logErrorMessage("Couldn't get editing domain for " + obj);
+		final IFile file = OsateResourceUtil.toIFile(obj.eResource().getURI());
+		final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
+		if (editingDomain != null) {
+			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			try {
+				workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
+			} catch (final CoreException e) {
+				OsateUiPlugin.log(e);
 			}
 		} else {
-			OsateUiPlugin.logErrorMessage("Couldn't find IResource for " + obj.eResource());
+			OsateUiPlugin.logErrorMessage("Couldn't get editing domain for " + obj);
 		}
 	}
 
@@ -424,23 +415,19 @@ public final class UiUtil {
 	 *            The editor command to execute.
 	 */
 	public static final void openEditorAndExecute(final Element obj, final Command command) {
-		final IFile file = (IFile) OsateResourceUtil.convertToIResource(obj.eResource());
-		if (file != null) {
-			if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
-				final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
-				if (editingDomain != null) {
-					final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-					try {
-						workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
-					} catch (final CoreException e) {
-						OsateUiPlugin.log(e);
-					}
-				} else {
-					OsateUiPlugin.logErrorMessage("Couldn't get editing domain for " + obj);
+		final IFile file = OsateResourceUtil.toIFile(obj.eResource().getURI());
+		if (openEditor(OsateUiPlugin.getActiveWorkbenchPage(), file, true)) {
+			final EditingDomain editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(obj);
+			if (editingDomain != null) {
+				final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				try {
+					workspace.run((IWorkspaceRunnable) monitor -> editingDomain.getCommandStack().execute(command), file, IWorkspace.AVOID_UPDATE, null);
+				} catch (final CoreException e) {
+					OsateUiPlugin.log(e);
 				}
+			} else {
+				OsateUiPlugin.logErrorMessage("Couldn't get editing domain for " + obj);
 			}
-		} else {
-			OsateUiPlugin.logErrorMessage("Couldn't find IResource for " + obj.eResource());
 		}
 	}
 

@@ -121,7 +121,8 @@ public class SelectionUtil {
 			final String ext = ((IFile) selectedObject).getFileExtension();
 			if (WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
 					|| WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
-				final EList<EObject> contents = OsateResourceUtil.getResource((IFile) selectedObject).getContents();
+				URI uri = OsateResourceUtil.toResourceURI((IFile) selectedObject);
+				final EList<EObject> contents = new ResourceSetImpl().getResource(uri, true).getContents();
 				if (contents != null && !contents.isEmpty()) {
 					final EObject root = contents.get(0);
 					if (root instanceof AadlPackage) {
