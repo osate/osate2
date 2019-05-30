@@ -328,10 +328,6 @@ MapLiteral returns Expression:
 	{MapLiteral} 'map'
 ;
 
-QPKGREF:
-	ID ('::' ID)*
-;
-
 @Override 
 QCREF:
 	(ID '::')* ID (=>'.' ID)?
