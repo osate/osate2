@@ -25,7 +25,7 @@ public class EvaluateAssertionsHandler extends AbstractHandler {
 		final ComponentInstance component;
 		if (selection instanceof IFile) {
 			IFile file = (IFile) selection;
-			URI uri = OsateResourceUtil.getResourceURI(file);
+			URI uri = OsateResourceUtil.toResourceURI(file);
 			component = (ComponentInstance) resourceSet.getResource(uri, true).getContents().get(0);
 		} else if (selection instanceof EObjectURIWrapper) {
 			EObjectURIWrapper wrapper = (EObjectURIWrapper) selection;
