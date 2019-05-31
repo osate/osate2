@@ -133,6 +133,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 import org.osgi.service.prefs.Preferences;
 
@@ -453,7 +454,7 @@ public class InstantiateModel {
 		if (resourceURI.isPlatformResource()) {
 			somLimit = getSOMLimit(OsateResourceUtil.toIFile(resourceURI).getProject());
 		} else {
-			somLimit = WorkspacePlugin.MAX_SOM_DEFAULT;
+			somLimit = OsateCorePlugin.MAX_SOM_DEFAULT;
 		}
 		createSystemOperationModes(root, somLimit);
 
@@ -2338,7 +2339,7 @@ public class InstantiateModel {
 		}
 		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
 		if (somLimit == -1) {
-			somLimit = WorkspacePlugin.getDefault().getSOMLimit();
+			somLimit = OsateCorePlugin.getDefault().getSOMLimit();
 		}
 		return somLimit;
 	}

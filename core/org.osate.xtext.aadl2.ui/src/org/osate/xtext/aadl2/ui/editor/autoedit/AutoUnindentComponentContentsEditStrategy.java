@@ -9,14 +9,12 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractTerminalsEditStrategy;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.MembersInjector;
@@ -27,7 +25,7 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 	private final static Logger log = Logger.getLogger(AutoUnindentComponentContentsEditStrategy.class);
 
 	private String indentationString;
-	private IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
+	private IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 
 	private String[] contentCategories = { "prototypes", "features", "flows", "modes", "properties", "subcomponents",
 			"connections", "calls" }; // , "annex" };
@@ -96,18 +94,15 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 		Classifier containingClassifier = null;
 		if (document instanceof IXtextDocument) {
 			IXtextDocument xDoc = (IXtextDocument) document;
-			containingClassifier = xDoc.readOnly(new IUnitOfWork<Classifier, XtextResource>() {
-				@Override
-				public Classifier exec(XtextResource resource) throws Exception {
-					EObjectAtOffsetHelper helper = new EObjectAtOffsetHelper();
-					EObject eobj = helper.resolveElementAt(resource, command.offset);
-					if (eobj == null) {
-						return null;
-					} else if (eobj instanceof Classifier) {
-						return (Classifier) eobj;
-					}
+			containingClassifier = xDoc.readOnly(resource -> {
+				EObjectAtOffsetHelper helper = new EObjectAtOffsetHelper();
+				EObject eobj = helper.resolveElementAt(resource, command.offset);
+				if (eobj == null) {
 					return null;
+				} else if (eobj instanceof Classifier) {
+					return (Classifier) eobj;
 				}
+				return null;
 			});
 		}
 		if (containingClassifier == null) {
@@ -175,19 +170,19 @@ public class AutoUnindentComponentContentsEditStrategy extends AbstractTerminals
 	}
 
 	protected boolean isAutoComplete() {
-		return store.getBoolean(WorkspacePlugin.AUTO_COMPLETE);
+		return store.getBoolean(OsateCorePlugin.AUTO_COMPLETE);
 	}
 
 	protected boolean isAutoIndent() {
-		return store.getBoolean(WorkspacePlugin.AUTO_INDENT);
+		return store.getBoolean(OsateCorePlugin.AUTO_INDENT);
 	}
 
 	protected boolean isUseCapitalization() {
-		return store.getBoolean(WorkspacePlugin.CAPITALIZE);
+		return store.getBoolean(OsateCorePlugin.CAPITALIZE);
 	}
 
 	protected boolean isAutoIndentSections() {
-		return store.getBoolean(WorkspacePlugin.INDENT_SECTIONS);
+		return store.getBoolean(OsateCorePlugin.INDENT_SECTIONS);
 	}
 
 }
