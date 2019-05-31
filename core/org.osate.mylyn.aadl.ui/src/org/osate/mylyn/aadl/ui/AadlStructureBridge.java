@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
@@ -31,7 +33,7 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 
 	public final static String CONTENT_TYPE = "AADL";
 
-	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+	private final ResourceSet resourceSet = new ResourceSetImpl();
 	private final ILabelProvider modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 
 	public AadlStructureBridge() {
@@ -75,7 +77,7 @@ public final class AadlStructureBridge extends AbstractContextStructureBridge {
 				final AbstractContextStructureBridge parentBridge = ContextCore.getStructureBridge(parentContentType);
 				if (parentBridge != null && ContextCore.CONTENT_TYPE_RESOURCE.equals(parentBridge.getContentType())) {
 					final Resource eRsrc = aadlElement.eResource();
-					final IResource iRsrc = OsateResourceUtil.convertToIResource(eRsrc);
+					final IFile iRsrc = OsateResourceUtil.toIFile(eRsrc.getURI());
 					return parentBridge.getHandleIdentifier(iRsrc);
 				}
 			}

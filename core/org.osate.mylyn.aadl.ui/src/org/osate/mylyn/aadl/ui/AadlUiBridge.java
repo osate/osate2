@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -25,13 +26,12 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.UiUtil;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 
 public final class AadlUiBridge extends AbstractContextUiBridge {
 	private static final String AADL_EXTENSION = "AADL";
-	private final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+	private final ResourceSet resourceSet = new ResourceSetImpl();
 
 	public AadlUiBridge() {
 		super();

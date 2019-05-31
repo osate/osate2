@@ -44,6 +44,16 @@ import org.eclipse.core.runtime.Platform;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
+ * For headlesx (non-eclipse) applications, there are two options:
+ *
+ * <ol>
+ * <li>Force the environment to read the <code>plugin.xml</code> files and initialize the Eclipse extension registry.  This is done
+ * by calling {@link #initializeExtensionRegistry}.  This can be slow because all the plug-ins need to be searched.
+ *
+ * <li>Register the annex extensions that you care about using method calls.  This is most easily done using the {@link #registerAnnex}
+ * method.
+ * </ol>
+ *
  * @author lwrage
  * @version $Id: AnnexRegistry.java,v 1.4 2007-07-10 20:41:44 jseibel Exp $
  */
@@ -76,9 +86,11 @@ public abstract class AnnexRegistry {
 	private static final String ATT_ANNEXNAME = "annexName";
 	private static final String ATT_ANNEXNSURI = "annexNSURI";
 
+	@SuppressWarnings("rawtypes")
 	private static final Map registries = new HashMap();
 
 	/** The extensions in this registry */
+	@SuppressWarnings("rawtypes")
 	protected Map extensions;
 
 	/**
@@ -86,6 +98,7 @@ public abstract class AnnexRegistry {
 	 *
 	 * @return the single instance of this class.
 	 */
+	@SuppressWarnings("unchecked")
 	public static AnnexRegistry getRegistry(String extensionId) {
 		AnnexRegistry registry = (AnnexRegistry) registries.get(extensionId);
 
@@ -118,32 +131,123 @@ public abstract class AnnexRegistry {
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void initialize(String extensionId) {
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
-		IExtension[] exts = extensionPoint.getExtensions();
-
 		extensions = new HashMap();
-		for (int i = 0; i < exts.length; i++) {
-			IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-			for (int j = 0; j < configElems.length; j++) {
-				String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
-				String annexNSURI = configElems[j].getAttribute(ATT_ANNEXNSURI);
+		boolean hasExtensionPoints = false;
+		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		if (extensionRegistry != null) {
+			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID, extensionId);
+			if (extensionPoint != null) {
+				hasExtensionPoints = true;
+				IExtension[] exts = extensionPoint.getExtensions();
 
-				if (extensions.get(annexName) != null) {
-					AnnexPlugin.logError("Duplicate extension: " + extensionId + ", annex " + annexName, null);
-				} else {
-					ParseUtil.setAnnexNS(annexName, annexNSURI);
+				for (int i = 0; i < exts.length; i++) {
+					IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-					extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
+					for (int j = 0; j < configElems.length; j++) {
+						String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
+						String annexNSURI = configElems[j].getAttribute(ATT_ANNEXNSURI);
+
+						if (extensions.get(annexName) != null) {
+							AnnexPlugin.logError("Duplicate extension: " + extensionId + ", annex " + annexName, null);
+						} else {
+							ParseUtil.setAnnexNS(annexName, annexNSURI);
+
+							extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
+						}
+					}
 				}
+			}
+		}
+
+		if (!hasExtensionPoints) {
+			/* Running outside of eclipse and the extension registry is missing: just use the default support */
+			final Object defaultHandler = getDefault();
+			if (defaultHandler != null) {
+				extensions.put("*", defaultHandler);
 			}
 		}
 	}
 
+	protected Object getDefault() {
+		// By default, there is no default thing to do
+		return null;
+	}
+
 	/**
-	 * Factory method for annex proxies.
+	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
+	 */
+	@SuppressWarnings("unchecked")
+	private final void registerExtension(final String annexName, final Object handler) {
+		extensions.put(annexName.toLowerCase(), handler);
+	}
+
+	/**
+	 * Used by programs running outside of eclipse to register annex extensions.  Checks if <code>handler</code>
+	 * is <code>null</code>, and doesn't register anything if it is.  This is a convenience method and
+	 * is equivalent to
+	 *
+	 * <code>getRegistry(extensionId).registerProxy(id, name, annexName, className)</code>.
+	 */
+	private static void registerExtension(final String extensionId, final String annexName, Object handler) {
+		if (handler != null) {
+			getRegistry(extensionId).registerExtension(annexName, handler);
+		}
+	}
+
+	public static void registerContentAssist(final String annexName, final AnnexContentAssist extension) {
+		registerExtension(ANNEX_CONTENT_ASSIST_EXT_ID, annexName, extension);
+	}
+
+	public static void registerHighlighter(final String annexName, final AnnexHighlighter extension) {
+		registerExtension(ANNEX_HIGHLIGHTER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerInstantiator(final String annexName, final AnnexInstantiator extension) {
+		registerExtension(ANNEX_INSTANTIATOR_EXT_ID, annexName, extension);
+	}
+
+	public static void registerLinkingService(final String annexName, final AnnexLinkingService extension) {
+		registerExtension(ANNEX_LINKINGSERVICE_EXT_ID, annexName, extension);
+	}
+
+	public static void registerParser(final String annexName, final AnnexParser extension) {
+		registerExtension(ANNEX_PARSER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerResolver(final String annexName, final AnnexResolver extension) {
+		registerExtension(ANNEX_RESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerTextPositionResolver(final String annexName, final AnnexTextPositionResolver extension) {
+		registerExtension(ANNEX_TEXTPOSITIONRESOLVER_EXT_ID, annexName, extension);
+	}
+
+	public static void registerUnparser(final String annexName, final AnnexUnparser extension) {
+		registerExtension(ANNEX_UNPARSER_EXT_ID, annexName, extension);
+	}
+
+	/**
+	 * Single method to register an annex from a stand-alone application.
+	 */
+	public static void registerAnnex(final String annexName, final AnnexParser parser, final AnnexUnparser unparser,
+			final AnnexLinkingService linkingService, final AnnexContentAssist contextAssist,
+			final AnnexHighlighter highlighter, final AnnexInstantiator instantiator, final AnnexResolver resolver,
+			final AnnexTextPositionResolver textPositionResolver) {
+		registerParser(annexName, parser);
+		registerUnparser(annexName, unparser);
+		registerLinkingService(annexName, linkingService);
+		registerContentAssist(annexName, contextAssist);
+		registerHighlighter(annexName, highlighter);
+		registerInstantiator(annexName, instantiator);
+		registerResolver(annexName, resolver);
+		registerTextPositionResolver(annexName, textPositionResolver);
+	}
+
+	/**
+	 * Factory method for annex proxies that are created from reading the extension registry.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
 }
