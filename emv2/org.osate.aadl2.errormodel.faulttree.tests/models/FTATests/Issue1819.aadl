@@ -1,0 +1,67 @@
+package Issue1819
+public
+		device Sensor
+		features
+			heaterEffect: in feature ;
+			current_temp: out data port ;
+		flows
+			temp_reading: flow source current_temp;
+			air_temp_reading: flow path heaterEffect -> current_temp ;
+		annex EMV2 {**
+			use types  ErrorLibrary;
+			error propagations
+				current_temp: out propagation { ServiceOmission};
+				heaterEffect: in propagation {ServiceOmission};
+				flows
+					sensorfails: error source current_temp{ServiceOmission};
+					overheat: error path heaterEffect{ServiceOmission} -> current_temp{ServiceOmission};
+			end propagations;
+		**};
+	end Sensor;
+
+
+		device Heater
+		features
+			current_temp: in feature ;
+			heaterEffect: out feature ;
+		flows
+			air_temp_reading: flow path  current_temp->heaterEffect  ;
+		annex EMV2 {**
+			use types  ErrorLibrary;
+			error propagations
+				current_temp: in propagation { ServiceOmission};
+				heaterEffect: out propagation {ServiceOmission};
+				flows
+					heaterfails: error source heaterEffect{ServiceOmission};
+					badtemp: error path current_temp{ServiceOmission} -> heaterEffect{ServiceOmission};
+			end propagations;
+		**};
+	end Heater;
+	
+	system ThermoHeater 
+		features
+			effect: out feature;
+		annex EMV2 {**
+			use types  ErrorLibrary;
+			error propagations
+				effect: out propagation {ServiceOmission};
+			end propagations;
+		**};
+	end ThermoHeater;
+	
+	system implementation Thermoheater.impl
+		subcomponents
+			sensor: device Sensor;
+			heater: device Heater;
+		connections
+			s2h: feature sensor.current_temp -> heater.current_temp;
+			h2s: feature heater.heaterEffect -> sensor.heaterEffect;
+		annex EMV2 {**
+			component error behavior
+			propagations
+			outprop: all -[ 1 ormore(heater.heaterEffect{ServiceOmission})]-> effect{ServiceOmission};
+			end component;
+			**};
+	end Thermoheater.impl;
+	
+end Issue1819;

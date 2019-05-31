@@ -98,7 +98,7 @@ public class WriteToFile {
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.getOsatePath(uri);
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
 		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
 			filename = path.lastSegment() + "__" + reporttype;
@@ -123,16 +123,12 @@ public class WriteToFile {
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.getOsatePath(uri);
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
 		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
 			filename = path.lastSegment() + "__" + reporttype;
-
-			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		} else {
 			filename = path.lastSegment() + reporttype;
-
-			path = path.removeLastSegments(1).append("/reports/" + reporttype + "/" + filename);
 		}
 
 		return filename;

@@ -230,7 +230,7 @@ public class FaultTreeUtils {
 		if (element instanceof NamedElement && !unique) {
 			name = buildName(component, (NamedElement) element, type);
 			Event result = findEvent(ftaModel, name);
-			if (result != null) {
+			if (result != null && result.getType() == EventType.INTERMEDIATE) {
 				return result;
 			}
 		} else {
