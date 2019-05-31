@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.alisa2.model/src-gen" modelPluginID="org.osate.alisa2.model"
     modelName="Safe2" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel"
+    usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel ../../org.osate.aadl2/model/instance.genmodel#//instance"
     operationReflection="true" importOrganizing="true">
   <foreignModel>safe2.ecore</foreignModel>
   <genPackages prefix="Safe2" basePackage="org.osate.alisa2.model" disposableProviderFactory="true"
@@ -22,13 +22,14 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/environmentElement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/systemElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Hazard/hazardousFactor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/errorType"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//AccidentLevel">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevel/accident"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//Constraint">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/errorType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/hazard"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Constraint/port"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//ControlAction"/>
     <genClasses image="false" ecoreClass="safe2.ecore#//Node">

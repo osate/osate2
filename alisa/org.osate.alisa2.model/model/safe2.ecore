@@ -18,18 +18,19 @@
         eType="#//Accident" eOpposite="#//Accident/hazard"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" lowerBound="1"
         upperBound="-1" eType="#//Constraint" containment="true" eOpposite="#//Constraint/hazard"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="environmentElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//AbstractSubcomponent"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="systemElement" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="environmentElement" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemElement" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hazardousFactor" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccidentLevel" eSuperTypes="#//Fundamental">
     <eStructuralFeatures xsi:type="ecore:EReference" name="accident" lowerBound="1"
         upperBound="-1" eType="#//Accident" containment="true" eOpposite="#//Accident/accidentlevel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//Fundamental">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorType" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
         eType="#//Hazard" eOpposite="#//Hazard/constraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ControlAction" eSuperTypes="#//Node"/>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" interface="true">

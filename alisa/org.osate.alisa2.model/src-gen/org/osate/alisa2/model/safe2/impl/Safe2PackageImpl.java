@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.aadl2.instance.InstancePackage;
 import org.osate.alisa2.model.safe2.Accident;
 import org.osate.alisa2.model.safe2.AccidentLevel;
 import org.osate.alisa2.model.safe2.Constraint;
@@ -139,6 +139,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		Aadl2Package.eINSTANCE.eClass();
 		EcorePackage.eINSTANCE.eClass();
 		ErrorModelPackage.eINSTANCE.eClass();
+		InstancePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSafe2Package.createPackageContents();
@@ -280,6 +281,16 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getHazard_ErrorType() {
+		return (EReference)hazardEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAccidentLevel() {
 		return accidentLevelEClass;
 	}
@@ -310,7 +321,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * @generated
 	 */
 	@Override
-	public EReference getConstraint_ErrorType() {
+	public EReference getConstraint_Hazard() {
 		return (EReference)constraintEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -320,7 +331,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * @generated
 	 */
 	@Override
-	public EReference getConstraint_Hazard() {
+	public EReference getConstraint_Port() {
 		return (EReference)constraintEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -427,13 +438,14 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		createEReference(hazardEClass, HAZARD__ENVIRONMENT_ELEMENT);
 		createEReference(hazardEClass, HAZARD__SYSTEM_ELEMENT);
 		createEAttribute(hazardEClass, HAZARD__HAZARDOUS_FACTOR);
+		createEReference(hazardEClass, HAZARD__ERROR_TYPE);
 
 		accidentLevelEClass = createEClass(ACCIDENT_LEVEL);
 		createEReference(accidentLevelEClass, ACCIDENT_LEVEL__ACCIDENT);
 
 		constraintEClass = createEClass(CONSTRAINT);
-		createEReference(constraintEClass, CONSTRAINT__ERROR_TYPE);
 		createEReference(constraintEClass, CONSTRAINT__HAZARD);
+		createEReference(constraintEClass, CONSTRAINT__PORT);
 
 		controlActionEClass = createEClass(CONTROL_ACTION);
 
@@ -470,8 +482,9 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 
 		// Obtain other dependent packages
 		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-		Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
+		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage)EPackage.Registry.INSTANCE.getEPackage(ErrorModelPackage.eNS_URI);
+		Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
 		// Create type parameters
 
@@ -498,16 +511,17 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEClass(hazardEClass, Hazard.class, "Hazard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHazard_Accident(), this.getAccident(), this.getAccident_Hazard(), "accident", null, 1, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHazard_Constraint(), this.getConstraint(), this.getConstraint_Hazard(), "constraint", null, 1, -1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getHazard_EnvironmentElement(), theAadl2Package.getAbstractSubcomponent(), null, "environmentElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getHazard_SystemElement(), theAadl2Package.getSubcomponent(), null, "systemElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_EnvironmentElement(), theInstancePackage.getComponentInstance(), null, "environmentElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_SystemElement(), theInstancePackage.getFeatureInstance(), null, "systemElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHazard_HazardousFactor(), theEcorePackage.getEString(), "hazardousFactor", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_ErrorType(), theErrorModelPackage.getErrorType(), null, "errorType", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(accidentLevelEClass, AccidentLevel.class, "AccidentLevel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAccidentLevel_Accident(), this.getAccident(), this.getAccident_Accidentlevel(), "accident", null, 1, -1, AccidentLevel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConstraint_ErrorType(), theErrorModelPackage.getErrorType(), null, "errorType", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstraint_Hazard(), this.getHazard(), this.getHazard_Constraint(), "hazard", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConstraint_Port(), theInstancePackage.getFeatureInstance(), null, "port", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(controlActionEClass, ControlAction.class, "ControlAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

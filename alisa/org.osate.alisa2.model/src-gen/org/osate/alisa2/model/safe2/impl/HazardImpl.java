@@ -10,7 +10,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -19,12 +18,13 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.alisa2.model.safe2.Accident;
 import org.osate.alisa2.model.safe2.Constraint;
 import org.osate.alisa2.model.safe2.Hazard;
 import org.osate.alisa2.model.safe2.Safe2Package;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,6 +42,7 @@ import org.osate.alisa2.model.safe2.Safe2Package;
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getEnvironmentElement <em>Environment Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getSystemElement <em>System Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getHazardousFactor <em>Hazardous Factor</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getErrorType <em>Error Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -115,7 +116,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractSubcomponent environmentElement;
+	protected ComponentInstance environmentElement;
 
 	/**
 	 * The cached value of the '{@link #getSystemElement() <em>System Element</em>}' reference.
@@ -125,7 +126,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 * @ordered
 	 */
-	protected Subcomponent systemElement;
+	protected FeatureInstance systemElement;
 
 	/**
 	 * The default value of the '{@link #getHazardousFactor() <em>Hazardous Factor</em>}' attribute.
@@ -146,6 +147,16 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @ordered
 	 */
 	protected String hazardousFactor = HAZARDOUS_FACTOR_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getErrorType() <em>Error Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getErrorType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorType errorType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -287,10 +298,10 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	@Override
-	public AbstractSubcomponent getEnvironmentElement() {
-		if (environmentElement != null && ((EObject)environmentElement).eIsProxy()) {
+	public ComponentInstance getEnvironmentElement() {
+		if (environmentElement != null && environmentElement.eIsProxy()) {
 			InternalEObject oldEnvironmentElement = (InternalEObject)environmentElement;
-			environmentElement = (AbstractSubcomponent)eResolveProxy(oldEnvironmentElement);
+			environmentElement = (ComponentInstance)eResolveProxy(oldEnvironmentElement);
 			if (environmentElement != oldEnvironmentElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__ENVIRONMENT_ELEMENT, oldEnvironmentElement, environmentElement));
@@ -304,7 +315,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AbstractSubcomponent basicGetEnvironmentElement() {
+	public ComponentInstance basicGetEnvironmentElement() {
 		return environmentElement;
 	}
 
@@ -314,8 +325,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	@Override
-	public void setEnvironmentElement(AbstractSubcomponent newEnvironmentElement) {
-		AbstractSubcomponent oldEnvironmentElement = environmentElement;
+	public void setEnvironmentElement(ComponentInstance newEnvironmentElement) {
+		ComponentInstance oldEnvironmentElement = environmentElement;
 		environmentElement = newEnvironmentElement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__ENVIRONMENT_ELEMENT, oldEnvironmentElement, environmentElement));
@@ -327,10 +338,10 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	@Override
-	public Subcomponent getSystemElement() {
-		if (systemElement != null && ((EObject)systemElement).eIsProxy()) {
+	public FeatureInstance getSystemElement() {
+		if (systemElement != null && systemElement.eIsProxy()) {
 			InternalEObject oldSystemElement = (InternalEObject)systemElement;
-			systemElement = (Subcomponent)eResolveProxy(oldSystemElement);
+			systemElement = (FeatureInstance)eResolveProxy(oldSystemElement);
 			if (systemElement != oldSystemElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__SYSTEM_ELEMENT, oldSystemElement, systemElement));
@@ -344,7 +355,7 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Subcomponent basicGetSystemElement() {
+	public FeatureInstance basicGetSystemElement() {
 		return systemElement;
 	}
 
@@ -354,8 +365,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @generated
 	 */
 	@Override
-	public void setSystemElement(Subcomponent newSystemElement) {
-		Subcomponent oldSystemElement = systemElement;
+	public void setSystemElement(FeatureInstance newSystemElement) {
+		FeatureInstance oldSystemElement = systemElement;
 		systemElement = newSystemElement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__SYSTEM_ELEMENT, oldSystemElement, systemElement));
@@ -382,6 +393,46 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 		hazardousFactor = newHazardousFactor;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__HAZARDOUS_FACTOR, oldHazardousFactor, hazardousFactor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorType getErrorType() {
+		if (errorType != null && errorType.eIsProxy()) {
+			InternalEObject oldErrorType = (InternalEObject)errorType;
+			errorType = (ErrorType)eResolveProxy(oldErrorType);
+			if (errorType != oldErrorType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__ERROR_TYPE, oldErrorType, errorType));
+			}
+		}
+		return errorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorType basicGetErrorType() {
+		return errorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setErrorType(ErrorType newErrorType) {
+		ErrorType oldErrorType = errorType;
+		errorType = newErrorType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__ERROR_TYPE, oldErrorType, errorType));
 	}
 
 	/**
@@ -459,6 +510,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				return basicGetSystemElement();
 			case Safe2Package.HAZARD__HAZARDOUS_FACTOR:
 				return getHazardousFactor();
+			case Safe2Package.HAZARD__ERROR_TYPE:
+				if (resolve) return getErrorType();
+				return basicGetErrorType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -490,13 +544,16 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				getConstraint().addAll((Collection<? extends Constraint>)newValue);
 				return;
 			case Safe2Package.HAZARD__ENVIRONMENT_ELEMENT:
-				setEnvironmentElement((AbstractSubcomponent)newValue);
+				setEnvironmentElement((ComponentInstance)newValue);
 				return;
 			case Safe2Package.HAZARD__SYSTEM_ELEMENT:
-				setSystemElement((Subcomponent)newValue);
+				setSystemElement((FeatureInstance)newValue);
 				return;
 			case Safe2Package.HAZARD__HAZARDOUS_FACTOR:
 				setHazardousFactor((String)newValue);
+				return;
+			case Safe2Package.HAZARD__ERROR_TYPE:
+				setErrorType((ErrorType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -526,13 +583,16 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				getConstraint().clear();
 				return;
 			case Safe2Package.HAZARD__ENVIRONMENT_ELEMENT:
-				setEnvironmentElement((AbstractSubcomponent)null);
+				setEnvironmentElement((ComponentInstance)null);
 				return;
 			case Safe2Package.HAZARD__SYSTEM_ELEMENT:
-				setSystemElement((Subcomponent)null);
+				setSystemElement((FeatureInstance)null);
 				return;
 			case Safe2Package.HAZARD__HAZARDOUS_FACTOR:
 				setHazardousFactor(HAZARDOUS_FACTOR_EDEFAULT);
+				return;
+			case Safe2Package.HAZARD__ERROR_TYPE:
+				setErrorType((ErrorType)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -562,6 +622,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				return systemElement != null;
 			case Safe2Package.HAZARD__HAZARDOUS_FACTOR:
 				return HAZARDOUS_FACTOR_EDEFAULT == null ? hazardousFactor != null : !HAZARDOUS_FACTOR_EDEFAULT.equals(hazardousFactor);
+			case Safe2Package.HAZARD__ERROR_TYPE:
+				return errorType != null;
 		}
 		return super.eIsSet(featureID);
 	}

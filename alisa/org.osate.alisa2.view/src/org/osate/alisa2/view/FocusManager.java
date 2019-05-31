@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.alisa2.model.safe2.Accident;
 import org.osate.alisa2.model.safe2.AccidentLevel;
 import org.osate.alisa2.model.safe2.Constraint;
@@ -91,7 +92,6 @@ public class FocusManager {
 	private void handleFocusedComponent(ComponentInstance newFocus) {
 		focusSet.addAll(AWASManager.getInstance().backwardReach(newFocus));
 		focusSet.addAll(AWASManager.getInstance().forwardReach(newFocus));
-		focusSet.size();
 	}
 
 	private void handleFocusedFundamental(Fundamental newFocus) {
@@ -107,18 +107,22 @@ public class FocusManager {
 			}
 		}
 		if (newFocus instanceof Hazard) {
+			handleFocusedErrorType(((Hazard) newFocus).getErrorType(), ((Hazard) newFocus).getSystemElement());
 			for (Constraint c : ((Hazard) newFocus).getConstraint()) {
 				handleFocusedFundamental(c);
 			}
 		}
 		if (newFocus instanceof Constraint) {
-			handleFocusedErrorType(((Constraint) newFocus).getErrorType());
+			handleFocusedErrorType(((Constraint) newFocus).getHazard().getErrorType(),
+					((Constraint) newFocus).getPort());
 		}
 	}
 
-	private void handleFocusedErrorType(ErrorType et) {
-		// Need to also have component in constraint (+ error type), then the calls are ez
+	private void handleFocusedErrorType(ErrorType et, FeatureInstance feature) {
 		// slicing stuff -- add components from forward and backward slice
+		focusSet.addAll(AWASManager.getInstance().backwardReach(et, feature));
+//		focusSet.addAll(AWASManager.getInstance().forwardReach(et, componentInstance));
+		focusSet.size();
 	}
 
 	public void clearFocus() {

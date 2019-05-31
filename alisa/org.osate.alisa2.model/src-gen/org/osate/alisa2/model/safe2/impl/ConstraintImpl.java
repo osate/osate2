@@ -13,11 +13,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.alisa2.model.safe2.Constraint;
 import org.osate.alisa2.model.safe2.Hazard;
 import org.osate.alisa2.model.safe2.Safe2Package;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,8 +29,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getExplanations <em>Explanations</em>}</li>
- *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getErrorType <em>Error Type</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getHazard <em>Hazard</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getPort <em>Port</em>}</li>
  * </ul>
  *
  * @generated
@@ -88,14 +87,14 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	protected EList<String> explanations;
 
 	/**
-	 * The cached value of the '{@link #getErrorType() <em>Error Type</em>}' reference.
+	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorType()
+	 * @see #getPort()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorType errorType;
+	protected FeatureInstance port;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -181,46 +180,6 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	@Override
-	public ErrorType getErrorType() {
-		if (errorType != null && errorType.eIsProxy()) {
-			InternalEObject oldErrorType = (InternalEObject)errorType;
-			errorType = (ErrorType)eResolveProxy(oldErrorType);
-			if (errorType != oldErrorType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.CONSTRAINT__ERROR_TYPE, oldErrorType, errorType));
-			}
-		}
-		return errorType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ErrorType basicGetErrorType() {
-		return errorType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setErrorType(ErrorType newErrorType) {
-		ErrorType oldErrorType = errorType;
-		errorType = newErrorType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__ERROR_TYPE, oldErrorType, errorType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Hazard getHazard() {
 		if (eContainerFeatureID() != Safe2Package.CONSTRAINT__HAZARD) return null;
 		return (Hazard)eInternalContainer();
@@ -256,6 +215,46 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__HAZARD, newHazard, newHazard));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public FeatureInstance getPort() {
+		if (port != null && port.eIsProxy()) {
+			InternalEObject oldPort = (InternalEObject)port;
+			port = (FeatureInstance)eResolveProxy(oldPort);
+			if (port != oldPort) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.CONSTRAINT__PORT, oldPort, port));
+			}
+		}
+		return port;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureInstance basicGetPort() {
+		return port;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPort(FeatureInstance newPort) {
+		FeatureInstance oldPort = port;
+		port = newPort;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__PORT, oldPort, port));
 	}
 
 	/**
@@ -316,11 +315,11 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				return getDescription();
 			case Safe2Package.CONSTRAINT__EXPLANATIONS:
 				return getExplanations();
-			case Safe2Package.CONSTRAINT__ERROR_TYPE:
-				if (resolve) return getErrorType();
-				return basicGetErrorType();
 			case Safe2Package.CONSTRAINT__HAZARD:
 				return getHazard();
+			case Safe2Package.CONSTRAINT__PORT:
+				if (resolve) return getPort();
+				return basicGetPort();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -344,11 +343,11 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				getExplanations().clear();
 				getExplanations().addAll((Collection<? extends String>)newValue);
 				return;
-			case Safe2Package.CONSTRAINT__ERROR_TYPE:
-				setErrorType((ErrorType)newValue);
-				return;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				setHazard((Hazard)newValue);
+				return;
+			case Safe2Package.CONSTRAINT__PORT:
+				setPort((FeatureInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -371,11 +370,11 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__EXPLANATIONS:
 				getExplanations().clear();
 				return;
-			case Safe2Package.CONSTRAINT__ERROR_TYPE:
-				setErrorType((ErrorType)null);
-				return;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				setHazard((Hazard)null);
+				return;
+			case Safe2Package.CONSTRAINT__PORT:
+				setPort((FeatureInstance)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -395,10 +394,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case Safe2Package.CONSTRAINT__EXPLANATIONS:
 				return explanations != null && !explanations.isEmpty();
-			case Safe2Package.CONSTRAINT__ERROR_TYPE:
-				return errorType != null;
 			case Safe2Package.CONSTRAINT__HAZARD:
 				return getHazard() != null;
+			case Safe2Package.CONSTRAINT__PORT:
+				return port != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -11,8 +11,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.impl.AadlPackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.sireum.aadl.ir.Aadl;
 import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
@@ -77,11 +81,31 @@ public class AWASManager {
 		graphTableCache.put(component, new AWASCacheTriple(graph, st));
 	}
 
+	public Collection<EObject> backwardReach(ErrorType et, FeatureInstance feature) {
+		ComponentInstance parent = feature.getContainingComponentInstance().getContainingComponentInstance();
+		initTableAndGraph(parent);
+		AWASCacheTriple gtc = graphTableCache.get(parent);
+
+		String port = feature.getComponentInstancePath();
+		String error = EcoreUtil2.getContainerOfType(et, AadlPackageImpl.class).getName() + "." + et.getName();
+
+		SymbolTableHelper.getUriFromString(gtc.table, port);
+		SymbolTableHelper.getErrorUri(gtc.table, error);
+
+//		gtc.agi.forwardErrorReachUsingNames(port, error);
+		gtc.agi.backwardErrorReachUsingNames(port, error);
+
+		return urisToInstEObjs(parent,
+				gtc.agi.backwardErrorReachUsingNames(port, error)
+						.get(SymbolTableHelper.getUriFromString(gtc.table, feature.getComponentInstancePath()).get()));
+	}
+
 	public Collection<EObject> backwardReach(ComponentInstance component) {
 		ComponentInstance parent = component.getContainingComponentInstance();
 		initTableAndGraph(parent);
 		return urisToInstEObjs(parent, graphTableCache.get(parent).agi.backwardReachUsingNames(component.getName()));
 	}
+
 
 	public Collection<EObject> forwardReach(ComponentInstance component) {
 		ComponentInstance parent = component.getContainingComponentInstance();

@@ -304,13 +304,22 @@ public interface Safe2Package extends EPackage {
 	int HAZARD__HAZARDOUS_FACTOR = FUNDAMENTAL_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Error Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HAZARD__ERROR_TYPE = FUNDAMENTAL_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Hazard</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HAZARD_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 5;
+	int HAZARD_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Hazard</em>' class.
@@ -423,22 +432,22 @@ public interface Safe2Package extends EPackage {
 	int CONSTRAINT__EXPLANATIONS = FUNDAMENTAL__EXPLANATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Error Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRAINT__ERROR_TYPE = FUNDAMENTAL_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Hazard</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRAINT__HAZARD = FUNDAMENTAL_FEATURE_COUNT + 1;
+	int CONSTRAINT__HAZARD = FUNDAMENTAL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__PORT = FUNDAMENTAL_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Constraint</em>' class.
@@ -681,6 +690,17 @@ public interface Safe2Package extends EPackage {
 	EAttribute getHazard_HazardousFactor();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Hazard#getErrorType <em>Error Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Error Type</em>'.
+	 * @see org.osate.alisa2.model.safe2.Hazard#getErrorType()
+	 * @see #getHazard()
+	 * @generated
+	 */
+	EReference getHazard_ErrorType();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.AccidentLevel <em>Accident Level</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -712,17 +732,6 @@ public interface Safe2Package extends EPackage {
 	EClass getConstraint();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Constraint#getErrorType <em>Error Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Error Type</em>'.
-	 * @see org.osate.alisa2.model.safe2.Constraint#getErrorType()
-	 * @see #getConstraint()
-	 * @generated
-	 */
-	EReference getConstraint_ErrorType();
-
-	/**
 	 * Returns the meta object for the container reference '{@link org.osate.alisa2.model.safe2.Constraint#getHazard <em>Hazard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -732,6 +741,17 @@ public interface Safe2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getConstraint_Hazard();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Constraint#getPort <em>Port</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Port</em>'.
+	 * @see org.osate.alisa2.model.safe2.Constraint#getPort()
+	 * @see #getConstraint()
+	 * @generated
+	 */
+	EReference getConstraint_Port();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.ControlAction <em>Control Action</em>}'.
@@ -922,6 +942,14 @@ public interface Safe2Package extends EPackage {
 		EAttribute HAZARD__HAZARDOUS_FACTOR = eINSTANCE.getHazard_HazardousFactor();
 
 		/**
+		 * The meta object literal for the '<em><b>Error Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HAZARD__ERROR_TYPE = eINSTANCE.getHazard_ErrorType();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl <em>Accident Level</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -950,20 +978,20 @@ public interface Safe2Package extends EPackage {
 		EClass CONSTRAINT = eINSTANCE.getConstraint();
 
 		/**
-		 * The meta object literal for the '<em><b>Error Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONSTRAINT__ERROR_TYPE = eINSTANCE.getConstraint_ErrorType();
-
-		/**
 		 * The meta object literal for the '<em><b>Hazard</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CONSTRAINT__HAZARD = eINSTANCE.getConstraint_Hazard();
+
+		/**
+		 * The meta object literal for the '<em><b>Port</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONSTRAINT__PORT = eINSTANCE.getConstraint_Port();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.alisa2.model.safe2.impl.ControlActionImpl <em>Control Action</em>}' class.

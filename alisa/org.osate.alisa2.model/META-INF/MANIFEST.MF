@@ -13,6 +13,8 @@ Export-Package: org.osate.alisa2.model.safe2,
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.osate.aadl2;visibility:=reexport,
  org.osate.xtext.aadl2.errormodel;visibility:=reexport,
+ org.eclipse.uml2.uml;visibility:=reexport,
+ org.eclipse.uml2.types;visibility:=reexport,
  org.eclipse.core.runtime,
  org.osate.aadl2.modelsupport
 Bundle-ActivationPolicy: lazy

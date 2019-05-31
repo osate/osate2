@@ -3,8 +3,9 @@
 package org.osate.alisa2.model.safe2;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +21,7 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentElement <em>Environment Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getSystemElement <em>System Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getHazardousFactor <em>Hazardous Factor</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getErrorType <em>Error Type</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard()
@@ -82,12 +84,12 @@ public interface Hazard extends Fundamental {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Environment Element</em>' reference.
-	 * @see #setEnvironmentElement(AbstractSubcomponent)
+	 * @see #setEnvironmentElement(ComponentInstance)
 	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_EnvironmentElement()
 	 * @model
 	 * @generated
 	 */
-	AbstractSubcomponent getEnvironmentElement();
+	ComponentInstance getEnvironmentElement();
 
 	/**
 	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentElement <em>Environment Element</em>}' reference.
@@ -97,7 +99,7 @@ public interface Hazard extends Fundamental {
 	 * @see #getEnvironmentElement()
 	 * @generated
 	 */
-	void setEnvironmentElement(AbstractSubcomponent value);
+	void setEnvironmentElement(ComponentInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>System Element</b></em>' reference.
@@ -108,12 +110,12 @@ public interface Hazard extends Fundamental {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System Element</em>' reference.
-	 * @see #setSystemElement(Subcomponent)
+	 * @see #setSystemElement(FeatureInstance)
 	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_SystemElement()
 	 * @model
 	 * @generated
 	 */
-	Subcomponent getSystemElement();
+	FeatureInstance getSystemElement();
 
 	/**
 	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getSystemElement <em>System Element</em>}' reference.
@@ -123,7 +125,7 @@ public interface Hazard extends Fundamental {
 	 * @see #getSystemElement()
 	 * @generated
 	 */
-	void setSystemElement(Subcomponent value);
+	void setSystemElement(FeatureInstance value);
 
 	/**
 	 * Returns the value of the '<em><b>Hazardous Factor</b></em>' attribute.
@@ -150,5 +152,27 @@ public interface Hazard extends Fundamental {
 	 * @generated
 	 */
 	void setHazardousFactor(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Error Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Type</em>' reference.
+	 * @see #setErrorType(ErrorType)
+	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_ErrorType()
+	 * @model
+	 * @generated
+	 */
+	ErrorType getErrorType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getErrorType <em>Error Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Error Type</em>' reference.
+	 * @see #getErrorType()
+	 * @generated
+	 */
+	void setErrorType(ErrorType value);
 
 } // Hazard
