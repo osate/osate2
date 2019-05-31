@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.findReferences.IReferenceFinder;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
@@ -38,7 +39,7 @@ public final class AadlFinder {
 			final URI[] temp = new URI[resources.size()];
 			int i = 0;
 			for (final IResource resource : resources) {
-				temp[i++] = OsateResourceUtil.getResourceURI(resource);
+				temp[i++] = OsateResourceUtil.toResourceURI(resource);
 			}
 			this.uris = temp;
 		}
@@ -148,7 +149,7 @@ public final class AadlFinder {
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
 	 */
 	public void processAllAadlFilesInScope(final Scope scope, final ResourceConsumer<IResourceDescription> consumer) {
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 
@@ -194,12 +195,12 @@ public final class AadlFinder {
 
 	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
 			final FinderConsumer<IEObjectDescription> consumer) {
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IFile file : fileSet) {
 			final IResourceDescription rsrcDesc = resourceDescriptions
-					.getResourceDescription(OsateResourceUtil.getResourceURI(file));
+					.getResourceDescription(OsateResourceUtil.toResourceURI(file));
 			getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
 		}
 	}

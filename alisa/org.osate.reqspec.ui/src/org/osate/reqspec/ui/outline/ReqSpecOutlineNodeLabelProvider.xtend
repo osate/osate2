@@ -17,10 +17,10 @@
 package org.osate.reqspec.ui.outline;
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.jface.viewers.StyledString
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.ui.editor.outline.impl.OutlineNodeLabelProvider
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.reqspec.reqSpec.Goal
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.reqSpec.Requirement
@@ -41,7 +41,7 @@ class ReqSpecOutlineNodeLabelProvider extends OutlineNodeLabelProvider {
 		switch element{
 			EObjectNode : {
 				val elementText = "" + element.text
-				val obj = OsateResourceUtil.resourceSet.getEObject(element.EObjectURI, true)
+				val obj = new ResourceSetImpl().getEObject(element.EObjectURI, true)
 				switch obj{
 					ReqSpec :{
 						elementText
