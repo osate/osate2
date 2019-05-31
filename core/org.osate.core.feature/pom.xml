@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>core.parent</artifactId>
-		<version>2.5.0-SNAPSHOT</version>
+		<version>2.5.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.core.feature</artifactId>
-	<version>2.5.0-SNAPSHOT</version>
+	<version>2.5.1-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 
 	<build>
