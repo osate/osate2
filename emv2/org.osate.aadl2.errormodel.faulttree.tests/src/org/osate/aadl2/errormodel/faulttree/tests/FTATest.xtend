@@ -55,6 +55,7 @@ class FTATest  {
 	var static SystemInstance instanceTransitionBranch
 	var static SystemInstance instanceOR1OFProbability
 	var static SystemInstance instancePathProbability
+	var static SystemInstance instanceIssue1819
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -82,6 +83,7 @@ class FTATest  {
 			val SysErrorLibFile = "Sys_Error_Lib.aadl"
 			val OR1OFProbabilityfile = "OR1OFProbability.aadl"
 			val PathProbabilityfile = "PathProbability.aadl"
+			val Issue1819file = "Issue1819.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -106,7 +108,8 @@ class FTATest  {
 				modelroot + FTerrorlibFile,
 				modelroot + SysErrorLibFile,
 				modelroot + OR1OFProbabilityfile,
-				modelroot + PathProbabilityfile
+				modelroot + PathProbabilityfile,
+				modelroot + Issue1819file
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -129,6 +132,7 @@ class FTATest  {
 			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
 			instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
 			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
+			instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -838,6 +842,15 @@ class FTATest  {
 		assertEquals(ft.root.computedProbability.doubleValue, 9.79e-7, 1.0e-10)
 		assertEquals(sube3.scale.doubleValue, 0.7, 0.001)
 		assertEquals(sube4.scale.doubleValue, 0.6, 0.001)
+	}
+
+	@Test
+	def void issue1819Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1819, "outgoing propagation on effect{ServiceOmission}")
+		assertEquals(ft.events.size, 3)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "heaterfails")
+		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "heater")
 	}
 	
 }
