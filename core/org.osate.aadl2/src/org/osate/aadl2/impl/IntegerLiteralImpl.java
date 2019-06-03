@@ -249,8 +249,8 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 		StringBuffer result = new StringBuffer();
 		result.append(value);
-		result.append(' ');
 		if (unit != null) {
+			result.append(' ');
 			result.append(unit.getName());
 		}
 		return result.toString();

@@ -90,6 +90,7 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessorFeature;
@@ -111,6 +112,8 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
+import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
@@ -863,14 +866,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof IntegerLiteral) {
 			if (!(pt instanceof AadlInteger)) {
 				error(holder, prefix + "Assigning Integer value" + msg);
-			} else {
-				checkUnits((AadlInteger) pt, (IntegerLiteral) pv, holder);
+			} else if (checkUnits((AadlInteger) pt, (IntegerLiteral) pv, holder)) {
+				checkInRange((AadlInteger) pt, (IntegerLiteral) pv);
 			}
 		} else if (pv instanceof RealLiteral) {
 			if (!(pt instanceof AadlReal)) {
 				error(holder, prefix + "Assigning Real value" + msg);
-			} else {
-				checkUnits((AadlReal) pt, (RealLiteral) pv, holder);
+			} else if (checkUnits((AadlReal) pt, (RealLiteral) pv, holder)) {
+				checkInRange((AadlReal) pt, (RealLiteral) pv);
 			}
 		} else if (pv instanceof RangeValue) {
 			if (!(pt instanceof RangeType)) {
@@ -956,11 +959,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	protected void checkUnits(NumberType nt, NumberValue nv, Element holder) {
+	/**
+	 * Returns true if the units are valid. Returns false if an error was reported.
+	 */
+	protected boolean checkUnits(NumberType nt, NumberValue nv, Element holder) {
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
 		if (Aadl2Util.isNull(ut) && Aadl2Util.isNull(ul)) {
-			return;
+			return true;
 		}
 		if (ul == null) {
 			boolean doQuickFix = false;
@@ -984,12 +990,44 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					i++;
 				}
 				error("Number value is missing a unit", holder, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
-
+				return false;
 			} else {
 				error(holder, "Number value is missing a unit");
+				return false;
 			}
 		} else if (!ut.getOwnedLiterals().contains(ul)) {
 			error(holder, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private void checkInRange(NumberType type, NumberValue value) {
+		NumericRange range = type.getRange();
+		if (range != null) {
+			PropertyExpression lowerExpression;
+			try {
+				MpvProxy modalProxy = range.getLowerBound().evaluate(null, 0).first();
+				lowerExpression = modalProxy == null ? null : modalProxy.getValue();
+			} catch (InvalidModelException e) {
+				lowerExpression = null;
+			}
+			PropertyExpression upperExpression;
+			try {
+				MpvProxy modalProxy = range.getUpperBound().evaluate(null, 0).first();
+				upperExpression = modalProxy == null ? null : modalProxy.getValue();
+			} catch (InvalidModelException e) {
+				upperExpression = null;
+			}
+			if (lowerExpression instanceof NumberValue && upperExpression instanceof NumberValue) {
+				NumberValue lower = (NumberValue) lowerExpression;
+				NumberValue upper = (NumberValue) upperExpression;
+				double valueScaled = value.getScaledValue();
+				if (valueScaled < lower.getScaledValue() || valueScaled > upper.getScaledValue()) {
+					error(value, "Value must be between " + lower + " and " + upper);
+				}
+			}
 		}
 	}
 
