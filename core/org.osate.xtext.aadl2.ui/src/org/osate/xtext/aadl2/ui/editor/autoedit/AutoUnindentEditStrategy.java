@@ -42,15 +42,13 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractTerminalsEditStrategy;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.MembersInjector;
@@ -85,7 +83,7 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	private final static Logger log = Logger.getLogger(AutoUnindentEditStrategy.class);
 
 	private String indentationString;
-	private IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
+	private IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 
 	public AutoUnindentEditStrategy(String terminal) {
 		this(terminal, null);
@@ -194,18 +192,15 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 			namedElement = null;
 			if (document instanceof IXtextDocument) {
 				IXtextDocument xDoc = (IXtextDocument) document;
-				namedElement = xDoc.readOnly(new IUnitOfWork<NamedElement, XtextResource>() {
-					@Override
-					public NamedElement exec(XtextResource resource) throws Exception {
-						EObjectAtOffsetHelper helper = new EObjectAtOffsetHelper();
-						EObject eobj = helper.resolveElementAt(resource, command.offset);
-						if (eobj == null) {
-							return null;
-						} else if (eobj instanceof Classifier || eobj instanceof AadlPackage) {
-							return (NamedElement) eobj;
-						}
+				namedElement = xDoc.readOnly(resource -> {
+					EObjectAtOffsetHelper helper = new EObjectAtOffsetHelper();
+					EObject eobj = helper.resolveElementAt(resource, command.offset);
+					if (eobj == null) {
 						return null;
+					} else if (eobj instanceof Classifier || eobj instanceof AadlPackage) {
+						return (NamedElement) eobj;
 					}
+					return null;
 				});
 			}
 		}
@@ -297,15 +292,15 @@ public class AutoUnindentEditStrategy extends AbstractTerminalsEditStrategy {
 	}
 
 	protected boolean isAutoComplete() {
-		return store.getBoolean(WorkspacePlugin.AUTO_COMPLETE);
+		return store.getBoolean(OsateCorePlugin.AUTO_COMPLETE);
 	}
 
 	protected boolean isAutoIndent() {
-		return store.getBoolean(WorkspacePlugin.AUTO_INDENT);
+		return store.getBoolean(OsateCorePlugin.AUTO_INDENT);
 	}
 
 	protected boolean isUseCapitalization() {
-		return store.getBoolean(WorkspacePlugin.CAPITALIZE);
+		return store.getBoolean(OsateCorePlugin.CAPITALIZE);
 	}
 
 }

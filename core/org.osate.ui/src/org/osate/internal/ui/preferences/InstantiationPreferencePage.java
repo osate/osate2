@@ -52,8 +52,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.osate.core.AadlNature;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.ProjectSelectionDialog;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
@@ -71,7 +71,7 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 
 	public InstantiationPreferencePage() {
 		super(GRID);
-		setPreferenceStore(WorkspacePlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
 		setDescription("AADL model instantiation preferences");
 	}
 
@@ -105,7 +105,7 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 	 */
 	@Override
 	public void createFieldEditors() {
-		IntegerFieldEditor f = new IntegerFieldEditor(WorkspacePlugin.MAX_SOM,
+		IntegerFieldEditor f = new IntegerFieldEditor(OsateCorePlugin.MAX_SOM,
 				"Maximum number of system operation modes to generate",
 				getFieldEditorParent());
 		f.setValidRange(1, Integer.MAX_VALUE);

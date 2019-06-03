@@ -30,51 +30,38 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * @version $Id: IAadlElement.java,v 1.2 2009-10-07 16:46:48 lwrage Exp $
  */
-package org.osate.workspace;
+package org.osate.core.preferences;
+
+import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.osate.core.OsateCorePlugin;
 
 /**
- * Common protocol for all elements provided by the Aadl model. Aadl model
- * elements are exposed to clients as handles to the actual underlying element.
- * The Aadl model may hand out any number of handles for each element. Handles
- * that refer to the same element are guaranteed to be equal, but not
- * necessarily identical.
- * <p>
- * Methods annotated as "handle-only" do not require underlying elements to
- * exist. Methods that require underlying elements to exist throw a
- * <code>AadlModelException</code> when an underlying element is missing.
- * <code>AadlModelException.isDoesNotExist</code> can be used to recognize this
- * common special case.
- * </p>
- * <p>
- * This interface is not intended to be implemented by clients.
- * </p>
+ * @author lwrage
+ * @version $Id: PreferenceInitializer.java,v 1.9 2007-06-18 18:47:25 jseibel
+ *          Exp $
  */
-public interface IAadlElement {
+public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
-	public static final int AADL_SPECIFICATION = 1;
-	public static final int AADL_PACKAGE = 2;
-	public static final int AADL_PROPERTYSET = 3;
-
-	/**
-	 * Returns the Aadl project this element is contained in, or
-	 * <code>null</code> if this element is not contained in any Aadl project
-	 * This is a handle-only method.
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @return the containing Aadl project, or <code>null</code> if this element
-	 *         is not contained in an Aadl project
+	 * @seeorg.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
+	 * initializeDefaultPreferences()
 	 */
-	IAadlProject getAadlProject();
-
-	/**
-	 * Returns the element directly containing this element, or
-	 * <code>null</code> if this element has no parent. This is a handle-only
-	 * method.
-	 *
-	 * @return the parent element, or <code>null</code> if this element has no
-	 *         parent
-	 */
-	IAadlElement getParent();
+	@Override
+	public void initializeDefaultPreferences() {
+		/**
+		 * Sets the default values of the preferences.
+		 */
+		IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setDefault(OsateCorePlugin.EXPAND_DEFAULT_FLAG, false);
+		store.setDefault(OsateCorePlugin.MAX_SOM, OsateCorePlugin.MAX_SOM_DEFAULT);
+		store.setDefault(OsateCorePlugin.AUTO_REINSTANTIATE, true);
+		store.setDefault(OsateCorePlugin.AUTO_INDENT, true);
+		store.setDefault(OsateCorePlugin.AUTO_COMPLETE, true);
+		store.setDefault(OsateCorePlugin.CAPITALIZE, false);
+		store.setDefault(OsateCorePlugin.INDENT_SECTIONS, true);
+	}
 }
