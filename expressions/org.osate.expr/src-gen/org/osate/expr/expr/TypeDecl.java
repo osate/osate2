@@ -3,6 +3,9 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Type;
 
 /**
@@ -15,6 +18,7 @@ import org.osate.aadl2.Type;
  * </p>
  * <ul>
  *   <li>{@link org.osate.expr.expr.TypeDecl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.expr.expr.TypeDecl#getOwnedPropertyAssociations <em>Owned Property Associations</em>}</li>
  * </ul>
  *
  * @see org.osate.expr.expr.ExprPackage#getTypeDecl()
@@ -44,5 +48,17 @@ public interface TypeDecl extends EDeclaration
    * @generated
    */
   void setType(Type value);
+
+  /**
+   * Returns the value of the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Owned Property Associations</em>' containment reference list.
+   * @see org.osate.expr.expr.ExprPackage#getTypeDecl_OwnedPropertyAssociations()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PropertyAssociation> getOwnedPropertyAssociations();
 
 } // TypeDecl

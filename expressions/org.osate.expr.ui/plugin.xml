@@ -443,7 +443,7 @@
 	<extension
 	      point="org.eclipse.ui.handlers">
 	   <handler
-	         class="org.osate.expr.ui.handlers.EvaluateAssertionsHandler"
+	         class="org.osate.expr.ui.ExprExecutableExtensionFactory:org.osate.expr.ui.handlers.EvaluateAssertionsHandler"
              commandId="org.osate.expr.ui.evaluateAssertions">
           <enabledWhen>
              <or>

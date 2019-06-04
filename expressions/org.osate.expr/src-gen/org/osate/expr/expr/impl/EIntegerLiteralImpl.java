@@ -25,7 +25,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiteral
+public class EIntegerLiteralImpl extends NumberLiteralImpl implements EIntegerLiteral
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -35,7 +35,7 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
+  protected static final long VALUE_EDEFAULT = 0L;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -45,7 +45,7 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
    * @generated
    * @ordered
    */
-  protected String value = VALUE_EDEFAULT;
+  protected long value = VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
    * @generated
    */
   @Override
-  public String getValue()
+  public long getValue()
   {
     return value;
   }
@@ -85,9 +85,9 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
    * @generated
    */
   @Override
-  public void setValue(String newValue)
+  public void setValue(long newValue)
   {
-    String oldValue = value;
+    long oldValue = value;
     value = newValue;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ExprPackage.EINTEGER_LITERAL__VALUE, oldValue, value));
@@ -120,7 +120,7 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
     switch (featureID)
     {
       case ExprPackage.EINTEGER_LITERAL__VALUE:
-        setValue((String)newValue);
+        setValue((Long)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -154,7 +154,7 @@ public class EIntegerLiteralImpl extends ExpressionImpl implements EIntegerLiter
     switch (featureID)
     {
       case ExprPackage.EINTEGER_LITERAL__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+        return value != VALUE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }

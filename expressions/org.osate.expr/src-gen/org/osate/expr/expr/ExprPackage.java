@@ -217,13 +217,22 @@ public interface ExprPackage extends EPackage
   int TYPE_DECL__TYPE = EDECLARATION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS = EDECLARATION_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Type Decl</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_DECL_FEATURE_COUNT = EDECLARATION_FEATURE_COUNT + 1;
+  int TYPE_DECL_FEATURE_COUNT = EDECLARATION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.VarDeclImpl <em>Var Decl</em>}' class.
@@ -454,14 +463,14 @@ public interface ExprPackage extends EPackage
   int ASSERTION_FEATURE_COUNT = EDECLARATION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.expr.expr.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ENumberTypeImpl <em>ENumber Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.expr.expr.impl.PrimitiveTypeImpl
-   * @see org.osate.expr.expr.impl.ExprPackageImpl#getPrimitiveType()
+   * @see org.osate.expr.expr.impl.ENumberTypeImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getENumberType()
    * @generated
    */
-  int PRIMITIVE_TYPE = 6;
+  int ENUMBER_TYPE = 6;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -470,7 +479,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE__OWNED_ELEMENT = Aadl2Package.TYPE__OWNED_ELEMENT;
+  int ENUMBER_TYPE__OWNED_ELEMENT = Aadl2Package.TYPE__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -479,7 +488,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE__OWNED_COMMENT = Aadl2Package.TYPE__OWNED_COMMENT;
+  int ENUMBER_TYPE__OWNED_COMMENT = Aadl2Package.TYPE__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -488,7 +497,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE__NAME = Aadl2Package.TYPE__NAME;
+  int ENUMBER_TYPE__NAME = Aadl2Package.TYPE__NAME;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -497,7 +506,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE__QUALIFIED_NAME = Aadl2Package.TYPE__QUALIFIED_NAME;
+  int ENUMBER_TYPE__QUALIFIED_NAME = Aadl2Package.TYPE__QUALIFIED_NAME;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -506,16 +515,144 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.TYPE__OWNED_PROPERTY_ASSOCIATION;
+  int ENUMBER_TYPE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.TYPE__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-   * The number of structural features of the '<em>Primitive Type</em>' class.
+   * The number of structural features of the '<em>ENumber Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRIMITIVE_TYPE_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 0;
+  int ENUMBER_TYPE_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.EIntegerImpl <em>EInteger</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.EIntegerImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getEInteger()
+   * @generated
+   */
+  int EINTEGER = 7;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER__OWNED_ELEMENT = ENUMBER_TYPE__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER__OWNED_COMMENT = ENUMBER_TYPE__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER__NAME = ENUMBER_TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER__QUALIFIED_NAME = ENUMBER_TYPE__QUALIFIED_NAME;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER__OWNED_PROPERTY_ASSOCIATION = ENUMBER_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+  /**
+   * The number of structural features of the '<em>EInteger</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EINTEGER_FEATURE_COUNT = ENUMBER_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ERealImpl <em>EReal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.ERealImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getEReal()
+   * @generated
+   */
+  int EREAL = 8;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL__OWNED_ELEMENT = ENUMBER_TYPE__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL__OWNED_COMMENT = ENUMBER_TYPE__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL__NAME = ENUMBER_TYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL__QUALIFIED_NAME = ENUMBER_TYPE__QUALIFIED_NAME;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL__OWNED_PROPERTY_ASSOCIATION = ENUMBER_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+  /**
+   * The number of structural features of the '<em>EReal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREAL_FEATURE_COUNT = ENUMBER_TYPE_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.RangeTypeImpl <em>Range Type</em>}' class.
@@ -525,7 +662,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getRangeType()
    * @generated
    */
-  int RANGE_TYPE = 7;
+  int RANGE_TYPE = 9;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -598,7 +735,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getCategory()
    * @generated
    */
-  int CATEGORY = 8;
+  int CATEGORY = 10;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -671,7 +808,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClass()
    * @generated
    */
-  int META_CLASS = 9;
+  int META_CLASS = 11;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -744,7 +881,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getRecordType()
    * @generated
    */
-  int RECORD_TYPE = 10;
+  int RECORD_TYPE = 12;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -817,7 +954,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getField()
    * @generated
    */
-  int FIELD = 11;
+  int FIELD = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -854,7 +991,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnionType()
    * @generated
    */
-  int UNION_TYPE = 12;
+  int UNION_TYPE = 14;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -902,13 +1039,22 @@ public interface ExprPackage extends EPackage
   int UNION_TYPE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.TYPE__OWNED_PROPERTY_ASSOCIATION;
 
   /**
+   * The feature id for the '<em><b>Fields</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNION_TYPE__FIELDS = Aadl2Package.TYPE_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>Union Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNION_TYPE_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 0;
+  int UNION_TYPE_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.TupleTypeImpl <em>Tuple Type</em>}' class.
@@ -918,7 +1064,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleType()
    * @generated
    */
-  int TUPLE_TYPE = 13;
+  int TUPLE_TYPE = 15;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -991,7 +1137,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getListType()
    * @generated
    */
-  int LIST_TYPE = 14;
+  int LIST_TYPE = 16;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1064,7 +1210,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getSetType()
    * @generated
    */
-  int SET_TYPE = 15;
+  int SET_TYPE = 17;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1137,7 +1283,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getBagType()
    * @generated
    */
-  int BAG_TYPE = 16;
+  int BAG_TYPE = 18;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1210,7 +1356,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getMapType()
    * @generated
    */
-  int MAP_TYPE = 17;
+  int MAP_TYPE = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1292,7 +1438,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEnumType()
    * @generated
    */
-  int ENUM_TYPE = 18;
+  int ENUM_TYPE = 20;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1365,7 +1511,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEnumLiteral()
    * @generated
    */
-  int ENUM_LITERAL = 19;
+  int ENUM_LITERAL = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1393,7 +1539,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getTypeRef()
    * @generated
    */
-  int TYPE_REF = 20;
+  int TYPE_REF = 22;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1466,7 +1612,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getExpression()
    * @generated
    */
-  int EXPRESSION = 21;
+  int EXPRESSION = 23;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1503,7 +1649,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getNamedElementRef()
    * @generated
    */
-  int NAMED_ELEMENT_REF = 22;
+  int NAMED_ELEMENT_REF = 24;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1560,6 +1706,164 @@ public interface ExprPackage extends EPackage
   int NAMED_ELEMENT_REF_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.LiteralImpl <em>Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.LiteralImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getLiteral()
+   * @generated
+   */
+  int LITERAL = 25;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+
+  /**
+   * The number of structural features of the '<em>Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.ValueImpl <em>Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.ValueImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getValue()
+   * @generated
+   */
+  int VALUE = 26;
+
+  /**
+   * The number of structural features of the '<em>Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.WrappedNamedElementImpl <em>Wrapped Named Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.WrappedNamedElementImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getWrappedNamedElement()
+   * @generated
+   */
+  int WRAPPED_NAMED_ELEMENT = 27;
+
+  /**
+   * The feature id for the '<em><b>Elem</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WRAPPED_NAMED_ELEMENT__ELEM = VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Wrapped Named Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WRAPPED_NAMED_ELEMENT_FEATURE_COUNT = VALUE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.NumberLiteralImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getNumberLiteral()
+   * @generated
+   */
+  int NUMBER_LITERAL = 28;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+  /**
+   * The number of structural features of the '<em>Number Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.expr.expr.impl.FieldValueImpl <em>Field Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.expr.expr.impl.FieldValueImpl
+   * @see org.osate.expr.expr.impl.ExprPackageImpl#getFieldValue()
+   * @generated
+   */
+  int FIELD_VALUE = 29;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_VALUE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_VALUE__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>Field Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD_VALUE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1567,7 +1871,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprLibrary()
    * @generated
    */
-  int EXPR_LIBRARY = 23;
+  int EXPR_LIBRARY = 30;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1640,7 +1944,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getExprSubclause()
    * @generated
    */
-  int EXPR_SUBCLAUSE = 24;
+  int EXPR_SUBCLAUSE = 31;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1722,7 +2026,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEBoolean()
    * @generated
    */
-  int EBOOLEAN = 25;
+  int EBOOLEAN = 32;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1731,7 +2035,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN__OWNED_ELEMENT = PRIMITIVE_TYPE__OWNED_ELEMENT;
+  int EBOOLEAN__OWNED_ELEMENT = Aadl2Package.TYPE__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1740,7 +2044,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN__OWNED_COMMENT = PRIMITIVE_TYPE__OWNED_COMMENT;
+  int EBOOLEAN__OWNED_COMMENT = Aadl2Package.TYPE__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1749,7 +2053,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN__NAME = PRIMITIVE_TYPE__NAME;
+  int EBOOLEAN__NAME = Aadl2Package.TYPE__NAME;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1758,7 +2062,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN__QUALIFIED_NAME = PRIMITIVE_TYPE__QUALIFIED_NAME;
+  int EBOOLEAN__QUALIFIED_NAME = Aadl2Package.TYPE__QUALIFIED_NAME;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1767,7 +2071,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN__OWNED_PROPERTY_ASSOCIATION = PRIMITIVE_TYPE__OWNED_PROPERTY_ASSOCIATION;
+  int EBOOLEAN__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.TYPE__OWNED_PROPERTY_ASSOCIATION;
 
   /**
    * The number of structural features of the '<em>EBoolean</em>' class.
@@ -1776,135 +2080,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.expr.expr.impl.EIntegerImpl <em>EInteger</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.expr.expr.impl.EIntegerImpl
-   * @see org.osate.expr.expr.impl.ExprPackageImpl#getEInteger()
-   * @generated
-   */
-  int EINTEGER = 26;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER__OWNED_ELEMENT = PRIMITIVE_TYPE__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER__OWNED_COMMENT = PRIMITIVE_TYPE__OWNED_COMMENT;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER__NAME = PRIMITIVE_TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER__QUALIFIED_NAME = PRIMITIVE_TYPE__QUALIFIED_NAME;
-
-  /**
-   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER__OWNED_PROPERTY_ASSOCIATION = PRIMITIVE_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-  /**
-   * The number of structural features of the '<em>EInteger</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EINTEGER_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link org.osate.expr.expr.impl.ERealImpl <em>EReal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.expr.expr.impl.ERealImpl
-   * @see org.osate.expr.expr.impl.ExprPackageImpl#getEReal()
-   * @generated
-   */
-  int EREAL = 27;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL__OWNED_ELEMENT = PRIMITIVE_TYPE__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL__OWNED_COMMENT = PRIMITIVE_TYPE__OWNED_COMMENT;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL__NAME = PRIMITIVE_TYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL__QUALIFIED_NAME = PRIMITIVE_TYPE__QUALIFIED_NAME;
-
-  /**
-   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL__OWNED_PROPERTY_ASSOCIATION = PRIMITIVE_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-  /**
-   * The number of structural features of the '<em>EReal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EREAL_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+  int EBOOLEAN_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.EStringImpl <em>EString</em>}' class.
@@ -1914,7 +2090,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEString()
    * @generated
    */
-  int ESTRING = 28;
+  int ESTRING = 33;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1923,7 +2099,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING__OWNED_ELEMENT = PRIMITIVE_TYPE__OWNED_ELEMENT;
+  int ESTRING__OWNED_ELEMENT = Aadl2Package.TYPE__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1932,7 +2108,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING__OWNED_COMMENT = PRIMITIVE_TYPE__OWNED_COMMENT;
+  int ESTRING__OWNED_COMMENT = Aadl2Package.TYPE__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1941,7 +2117,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING__NAME = PRIMITIVE_TYPE__NAME;
+  int ESTRING__NAME = Aadl2Package.TYPE__NAME;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1950,7 +2126,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING__QUALIFIED_NAME = PRIMITIVE_TYPE__QUALIFIED_NAME;
+  int ESTRING__QUALIFIED_NAME = Aadl2Package.TYPE__QUALIFIED_NAME;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1959,7 +2135,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING__OWNED_PROPERTY_ASSOCIATION = PRIMITIVE_TYPE__OWNED_PROPERTY_ASSOCIATION;
+  int ESTRING__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.TYPE__OWNED_PROPERTY_ASSOCIATION;
 
   /**
    * The number of structural features of the '<em>EString</em>' class.
@@ -1968,7 +2144,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING_FEATURE_COUNT = PRIMITIVE_TYPE_FEATURE_COUNT + 0;
+  int ESTRING_FEATURE_COUNT = Aadl2Package.TYPE_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.BinaryOperationImpl <em>Binary Operation</em>}' class.
@@ -1978,7 +2154,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getBinaryOperation()
    * @generated
    */
-  int BINARY_OPERATION = 29;
+  int BINARY_OPERATION = 34;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2042,7 +2218,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnaryOperation()
    * @generated
    */
-  int UNARY_OPERATION = 30;
+  int UNARY_OPERATION = 35;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2097,7 +2273,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnitExpression()
    * @generated
    */
-  int UNIT_EXPRESSION = 31;
+  int UNIT_EXPRESSION = 36;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2170,7 +2346,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getPropertyExpression()
    * @generated
    */
-  int PROPERTY_EXPRESSION = 32;
+  int PROPERTY_EXPRESSION = 37;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2225,7 +2401,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getRange()
    * @generated
    */
-  int RANGE = 33;
+  int RANGE = 38;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2289,7 +2465,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getConditional()
    * @generated
    */
-  int CONDITIONAL = 34;
+  int CONDITIONAL = 39;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2353,7 +2529,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEBooleanLiteral()
    * @generated
    */
-  int EBOOLEAN_LITERAL = 35;
+  int EBOOLEAN_LITERAL = 40;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2362,7 +2538,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int EBOOLEAN_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2371,7 +2547,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int EBOOLEAN_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2380,7 +2556,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+  int EBOOLEAN_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>EBoolean Literal</em>' class.
@@ -2389,7 +2565,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EBOOLEAN_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int EBOOLEAN_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.EIntegerLiteralImpl <em>EInteger Literal</em>}' class.
@@ -2399,7 +2575,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEIntegerLiteral()
    * @generated
    */
-  int EINTEGER_LITERAL = 36;
+  int EINTEGER_LITERAL = 41;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2408,7 +2584,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EINTEGER_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int EINTEGER_LITERAL__OWNED_ELEMENT = NUMBER_LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2417,7 +2593,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EINTEGER_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int EINTEGER_LITERAL__OWNED_COMMENT = NUMBER_LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2426,7 +2602,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EINTEGER_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+  int EINTEGER_LITERAL__VALUE = NUMBER_LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>EInteger Literal</em>' class.
@@ -2435,7 +2611,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EINTEGER_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int EINTEGER_LITERAL_FEATURE_COUNT = NUMBER_LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.ERealLiteralImpl <em>EReal Literal</em>}' class.
@@ -2445,7 +2621,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getERealLiteral()
    * @generated
    */
-  int EREAL_LITERAL = 37;
+  int EREAL_LITERAL = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2454,7 +2630,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EREAL_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int EREAL_LITERAL__OWNED_ELEMENT = NUMBER_LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2463,7 +2639,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EREAL_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int EREAL_LITERAL__OWNED_COMMENT = NUMBER_LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2472,7 +2648,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EREAL_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+  int EREAL_LITERAL__VALUE = NUMBER_LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>EReal Literal</em>' class.
@@ -2481,7 +2657,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EREAL_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int EREAL_LITERAL_FEATURE_COUNT = NUMBER_LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.EStringLiteralImpl <em>EString Literal</em>}' class.
@@ -2491,7 +2667,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getEStringLiteral()
    * @generated
    */
-  int ESTRING_LITERAL = 38;
+  int ESTRING_LITERAL = 43;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2500,7 +2676,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int ESTRING_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2509,7 +2685,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int ESTRING_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2518,7 +2694,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
+  int ESTRING_LITERAL__VALUE = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>EString Literal</em>' class.
@@ -2527,7 +2703,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ESTRING_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int ESTRING_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.ListLiteralImpl <em>List Literal</em>}' class.
@@ -2537,7 +2713,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getListLiteral()
    * @generated
    */
-  int LIST_LITERAL = 39;
+  int LIST_LITERAL = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2546,7 +2722,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LIST_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int LIST_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2555,7 +2731,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LIST_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int LIST_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2564,7 +2740,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LIST_LITERAL__ELEMENTS = EXPRESSION_FEATURE_COUNT + 0;
+  int LIST_LITERAL__ELEMENTS = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>List Literal</em>' class.
@@ -2573,7 +2749,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LIST_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int LIST_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.SetLiteralImpl <em>Set Literal</em>}' class.
@@ -2583,7 +2759,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getSetLiteral()
    * @generated
    */
-  int SET_LITERAL = 40;
+  int SET_LITERAL = 45;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2592,7 +2768,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SET_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int SET_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2601,7 +2777,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SET_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int SET_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2610,7 +2786,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SET_LITERAL__ELEMENTS = EXPRESSION_FEATURE_COUNT + 0;
+  int SET_LITERAL__ELEMENTS = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Set Literal</em>' class.
@@ -2619,7 +2795,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SET_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int SET_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.RecordLiteralImpl <em>Record Literal</em>}' class.
@@ -2629,7 +2805,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getRecordLiteral()
    * @generated
    */
-  int RECORD_LITERAL = 41;
+  int RECORD_LITERAL = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2638,7 +2814,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RECORD_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int RECORD_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2647,7 +2823,16 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RECORD_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int RECORD_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Field Values</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RECORD_LITERAL__FIELD_VALUES = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Record Literal</em>' class.
@@ -2656,7 +2841,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RECORD_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+  int RECORD_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.UnionLiteralImpl <em>Union Literal</em>}' class.
@@ -2666,7 +2851,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getUnionLiteral()
    * @generated
    */
-  int UNION_LITERAL = 42;
+  int UNION_LITERAL = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2675,7 +2860,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNION_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int UNION_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2684,7 +2869,16 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNION_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int UNION_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Field Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNION_LITERAL__FIELD_VALUE = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Union Literal</em>' class.
@@ -2693,7 +2887,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNION_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+  int UNION_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.TupleLiteralImpl <em>Tuple Literal</em>}' class.
@@ -2703,7 +2897,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getTupleLiteral()
    * @generated
    */
-  int TUPLE_LITERAL = 43;
+  int TUPLE_LITERAL = 48;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2712,7 +2906,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TUPLE_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int TUPLE_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2721,7 +2915,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TUPLE_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int TUPLE_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2730,7 +2924,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TUPLE_LITERAL__ELEMENTS = EXPRESSION_FEATURE_COUNT + 0;
+  int TUPLE_LITERAL__ELEMENTS = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Tuple Literal</em>' class.
@@ -2739,7 +2933,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TUPLE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int TUPLE_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.BagLiteralImpl <em>Bag Literal</em>}' class.
@@ -2749,7 +2943,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getBagLiteral()
    * @generated
    */
-  int BAG_LITERAL = 44;
+  int BAG_LITERAL = 49;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2758,7 +2952,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BAG_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int BAG_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2767,7 +2961,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BAG_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int BAG_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -2776,7 +2970,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BAG_LITERAL__ELEMENTS = EXPRESSION_FEATURE_COUNT + 0;
+  int BAG_LITERAL__ELEMENTS = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Bag Literal</em>' class.
@@ -2785,7 +2979,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BAG_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+  int BAG_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.impl.MapLiteralImpl <em>Map Literal</em>}' class.
@@ -2795,7 +2989,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getMapLiteral()
    * @generated
    */
-  int MAP_LITERAL = 45;
+  int MAP_LITERAL = 50;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2804,7 +2998,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAP_LITERAL__OWNED_ELEMENT = EXPRESSION__OWNED_ELEMENT;
+  int MAP_LITERAL__OWNED_ELEMENT = LITERAL__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2813,7 +3007,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAP_LITERAL__OWNED_COMMENT = EXPRESSION__OWNED_COMMENT;
+  int MAP_LITERAL__OWNED_COMMENT = LITERAL__OWNED_COMMENT;
 
   /**
    * The number of structural features of the '<em>Map Literal</em>' class.
@@ -2822,7 +3016,7 @@ public interface ExprPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAP_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+  int MAP_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.MetaClassEnum <em>Meta Class Enum</em>}' enum.
@@ -2832,7 +3026,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getMetaClassEnum()
    * @generated
    */
-  int META_CLASS_ENUM = 46;
+  int META_CLASS_ENUM = 51;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.TargetType <em>Target Type</em>}' enum.
@@ -2842,7 +3036,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getTargetType()
    * @generated
    */
-  int TARGET_TYPE = 47;
+  int TARGET_TYPE = 52;
 
   /**
    * The meta object id for the '{@link org.osate.expr.expr.Operation <em>Operation</em>}' enum.
@@ -2852,7 +3046,7 @@ public interface ExprPackage extends EPackage
    * @see org.osate.expr.expr.impl.ExprPackageImpl#getOperation()
    * @generated
    */
-  int OPERATION = 48;
+  int OPERATION = 53;
 
 
   /**
@@ -2906,6 +3100,17 @@ public interface ExprPackage extends EPackage
    * @generated
    */
   EReference getTypeDecl_Type();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.TypeDecl#getOwnedPropertyAssociations <em>Owned Property Associations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Property Associations</em>'.
+   * @see org.osate.expr.expr.TypeDecl#getOwnedPropertyAssociations()
+   * @see #getTypeDecl()
+   * @generated
+   */
+  EReference getTypeDecl_OwnedPropertyAssociations();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.VarDecl <em>Var Decl</em>}'.
@@ -2982,14 +3187,34 @@ public interface ExprPackage extends EPackage
   EReference getAssertion_Assert();
 
   /**
-   * Returns the meta object for class '{@link org.osate.expr.expr.PrimitiveType <em>Primitive Type</em>}'.
+   * Returns the meta object for class '{@link org.osate.expr.expr.ENumberType <em>ENumber Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Primitive Type</em>'.
-   * @see org.osate.expr.expr.PrimitiveType
+   * @return the meta object for class '<em>ENumber Type</em>'.
+   * @see org.osate.expr.expr.ENumberType
    * @generated
    */
-  EClass getPrimitiveType();
+  EClass getENumberType();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.EInteger <em>EInteger</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EInteger</em>'.
+   * @see org.osate.expr.expr.EInteger
+   * @generated
+   */
+  EClass getEInteger();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.EReal <em>EReal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EReal</em>'.
+   * @see org.osate.expr.expr.EReal
+   * @generated
+   */
+  EClass getEReal();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.RangeType <em>Range Type</em>}'.
@@ -3116,6 +3341,17 @@ public interface ExprPackage extends EPackage
    * @generated
    */
   EClass getUnionType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.UnionType#getFields <em>Fields</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Fields</em>'.
+   * @see org.osate.expr.expr.UnionType#getFields()
+   * @see #getUnionType()
+   * @generated
+   */
+  EReference getUnionType_Fields();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.TupleType <em>Tuple Type</em>}'.
@@ -3350,6 +3586,89 @@ public interface ExprPackage extends EPackage
   EReference getNamedElementRef_Prev();
 
   /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Literal <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Literal</em>'.
+   * @see org.osate.expr.expr.Literal
+   * @generated
+   */
+  EClass getLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Value</em>'.
+   * @see org.osate.expr.expr.Value
+   * @generated
+   */
+  EClass getValue();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.WrappedNamedElement <em>Wrapped Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Wrapped Named Element</em>'.
+   * @see org.osate.expr.expr.WrappedNamedElement
+   * @generated
+   */
+  EClass getWrappedNamedElement();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.expr.expr.WrappedNamedElement#getElem <em>Elem</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Elem</em>'.
+   * @see org.osate.expr.expr.WrappedNamedElement#getElem()
+   * @see #getWrappedNamedElement()
+   * @generated
+   */
+  EReference getWrappedNamedElement_Elem();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.NumberLiteral <em>Number Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Number Literal</em>'.
+   * @see org.osate.expr.expr.NumberLiteral
+   * @generated
+   */
+  EClass getNumberLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.expr.expr.FieldValue <em>Field Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Field Value</em>'.
+   * @see org.osate.expr.expr.FieldValue
+   * @generated
+   */
+  EClass getFieldValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.expr.expr.FieldValue#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.expr.expr.FieldValue#getName()
+   * @see #getFieldValue()
+   * @generated
+   */
+  EAttribute getFieldValue_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.FieldValue#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see org.osate.expr.expr.FieldValue#getValue()
+   * @see #getFieldValue()
+   * @generated
+   */
+  EReference getFieldValue_Value();
+
+  /**
    * Returns the meta object for class '{@link org.osate.expr.expr.ExprLibrary <em>Library</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3400,26 +3719,6 @@ public interface ExprPackage extends EPackage
    * @generated
    */
   EClass getEBoolean();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.expr.expr.EInteger <em>EInteger</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EInteger</em>'.
-   * @see org.osate.expr.expr.EInteger
-   * @generated
-   */
-  EClass getEInteger();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.expr.expr.EReal <em>EReal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EReal</em>'.
-   * @see org.osate.expr.expr.EReal
-   * @generated
-   */
-  EClass getEReal();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.EString <em>EString</em>}'.
@@ -3815,6 +4114,17 @@ public interface ExprPackage extends EPackage
   EClass getRecordLiteral();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.expr.expr.RecordLiteral#getFieldValues <em>Field Values</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Field Values</em>'.
+   * @see org.osate.expr.expr.RecordLiteral#getFieldValues()
+   * @see #getRecordLiteral()
+   * @generated
+   */
+  EReference getRecordLiteral_FieldValues();
+
+  /**
    * Returns the meta object for class '{@link org.osate.expr.expr.UnionLiteral <em>Union Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3823,6 +4133,17 @@ public interface ExprPackage extends EPackage
    * @generated
    */
   EClass getUnionLiteral();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.expr.expr.UnionLiteral#getFieldValue <em>Field Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Field Value</em>'.
+   * @see org.osate.expr.expr.UnionLiteral#getFieldValue()
+   * @see #getUnionLiteral()
+   * @generated
+   */
+  EReference getUnionLiteral_FieldValue();
 
   /**
    * Returns the meta object for class '{@link org.osate.expr.expr.TupleLiteral <em>Tuple Literal</em>}'.
@@ -3976,6 +4297,14 @@ public interface ExprPackage extends EPackage
     EReference TYPE_DECL__TYPE = eINSTANCE.getTypeDecl_Type();
 
     /**
+     * The meta object literal for the '<em><b>Owned Property Associations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS = eINSTANCE.getTypeDecl_OwnedPropertyAssociations();
+
+    /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.VarDeclImpl <em>Var Decl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4038,14 +4367,34 @@ public interface ExprPackage extends EPackage
     EReference ASSERTION__ASSERT = eINSTANCE.getAssertion_Assert();
 
     /**
-     * The meta object literal for the '{@link org.osate.expr.expr.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ENumberTypeImpl <em>ENumber Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.expr.expr.impl.PrimitiveTypeImpl
-     * @see org.osate.expr.expr.impl.ExprPackageImpl#getPrimitiveType()
+     * @see org.osate.expr.expr.impl.ENumberTypeImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getENumberType()
      * @generated
      */
-    EClass PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
+    EClass ENUMBER_TYPE = eINSTANCE.getENumberType();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.EIntegerImpl <em>EInteger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.EIntegerImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getEInteger()
+     * @generated
+     */
+    EClass EINTEGER = eINSTANCE.getEInteger();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ERealImpl <em>EReal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.ERealImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getEReal()
+     * @generated
+     */
+    EClass EREAL = eINSTANCE.getEReal();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.RangeTypeImpl <em>Range Type</em>}' class.
@@ -4154,6 +4503,14 @@ public interface ExprPackage extends EPackage
      * @generated
      */
     EClass UNION_TYPE = eINSTANCE.getUnionType();
+
+    /**
+     * The meta object literal for the '<em><b>Fields</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UNION_TYPE__FIELDS = eINSTANCE.getUnionType_Fields();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.TupleTypeImpl <em>Tuple Type</em>}' class.
@@ -4352,6 +4709,80 @@ public interface ExprPackage extends EPackage
     EReference NAMED_ELEMENT_REF__PREV = eINSTANCE.getNamedElementRef_Prev();
 
     /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.LiteralImpl <em>Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.LiteralImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getLiteral()
+     * @generated
+     */
+    EClass LITERAL = eINSTANCE.getLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.ValueImpl <em>Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.ValueImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getValue()
+     * @generated
+     */
+    EClass VALUE = eINSTANCE.getValue();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.WrappedNamedElementImpl <em>Wrapped Named Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.WrappedNamedElementImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getWrappedNamedElement()
+     * @generated
+     */
+    EClass WRAPPED_NAMED_ELEMENT = eINSTANCE.getWrappedNamedElement();
+
+    /**
+     * The meta object literal for the '<em><b>Elem</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WRAPPED_NAMED_ELEMENT__ELEM = eINSTANCE.getWrappedNamedElement_Elem();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.NumberLiteralImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getNumberLiteral()
+     * @generated
+     */
+    EClass NUMBER_LITERAL = eINSTANCE.getNumberLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.osate.expr.expr.impl.FieldValueImpl <em>Field Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.expr.expr.impl.FieldValueImpl
+     * @see org.osate.expr.expr.impl.ExprPackageImpl#getFieldValue()
+     * @generated
+     */
+    EClass FIELD_VALUE = eINSTANCE.getFieldValue();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FIELD_VALUE__NAME = eINSTANCE.getFieldValue_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FIELD_VALUE__VALUE = eINSTANCE.getFieldValue_Value();
+
+    /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.ExprLibraryImpl <em>Library</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4396,26 +4827,6 @@ public interface ExprPackage extends EPackage
      * @generated
      */
     EClass EBOOLEAN = eINSTANCE.getEBoolean();
-
-    /**
-     * The meta object literal for the '{@link org.osate.expr.expr.impl.EIntegerImpl <em>EInteger</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.expr.expr.impl.EIntegerImpl
-     * @see org.osate.expr.expr.impl.ExprPackageImpl#getEInteger()
-     * @generated
-     */
-    EClass EINTEGER = eINSTANCE.getEInteger();
-
-    /**
-     * The meta object literal for the '{@link org.osate.expr.expr.impl.ERealImpl <em>EReal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.expr.expr.impl.ERealImpl
-     * @see org.osate.expr.expr.impl.ExprPackageImpl#getEReal()
-     * @generated
-     */
-    EClass EREAL = eINSTANCE.getEReal();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.EStringImpl <em>EString</em>}' class.
@@ -4742,6 +5153,14 @@ public interface ExprPackage extends EPackage
     EClass RECORD_LITERAL = eINSTANCE.getRecordLiteral();
 
     /**
+     * The meta object literal for the '<em><b>Field Values</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RECORD_LITERAL__FIELD_VALUES = eINSTANCE.getRecordLiteral_FieldValues();
+
+    /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.UnionLiteralImpl <em>Union Literal</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4750,6 +5169,14 @@ public interface ExprPackage extends EPackage
      * @generated
      */
     EClass UNION_LITERAL = eINSTANCE.getUnionLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Field Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UNION_LITERAL__FIELD_VALUE = eINSTANCE.getUnionLiteral_FieldValue();
 
     /**
      * The meta object literal for the '{@link org.osate.expr.expr.impl.TupleLiteralImpl <em>Tuple Literal</em>}' class.

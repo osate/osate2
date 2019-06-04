@@ -15,7 +15,7 @@ import org.osate.expr.expr.MapLiteral;
  *
  * @generated
  */
-public class MapLiteralImpl extends ExpressionImpl implements MapLiteral
+public class MapLiteralImpl extends LiteralImpl implements MapLiteral
 {
   /**
    * <!-- begin-user-doc -->

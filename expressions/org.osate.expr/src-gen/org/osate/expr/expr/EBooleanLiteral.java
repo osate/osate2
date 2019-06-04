@@ -20,7 +20,7 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface EBooleanLiteral extends Expression
+public interface EBooleanLiteral extends Literal
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

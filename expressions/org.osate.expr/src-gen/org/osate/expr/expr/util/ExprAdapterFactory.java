@@ -113,9 +113,19 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createAssertionAdapter();
       }
       @Override
-      public Adapter casePrimitiveType(PrimitiveType object)
+      public Adapter caseENumberType(ENumberType object)
       {
-        return createPrimitiveTypeAdapter();
+        return createENumberTypeAdapter();
+      }
+      @Override
+      public Adapter caseEInteger(EInteger object)
+      {
+        return createEIntegerAdapter();
+      }
+      @Override
+      public Adapter caseEReal(EReal object)
+      {
+        return createERealAdapter();
       }
       @Override
       public Adapter caseRangeType(RangeType object)
@@ -198,6 +208,31 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createNamedElementRefAdapter();
       }
       @Override
+      public Adapter caseLiteral(Literal object)
+      {
+        return createLiteralAdapter();
+      }
+      @Override
+      public Adapter caseValue(Value object)
+      {
+        return createValueAdapter();
+      }
+      @Override
+      public Adapter caseWrappedNamedElement(WrappedNamedElement object)
+      {
+        return createWrappedNamedElementAdapter();
+      }
+      @Override
+      public Adapter caseNumberLiteral(NumberLiteral object)
+      {
+        return createNumberLiteralAdapter();
+      }
+      @Override
+      public Adapter caseFieldValue(FieldValue object)
+      {
+        return createFieldValueAdapter();
+      }
+      @Override
       public Adapter caseExprLibrary(ExprLibrary object)
       {
         return createExprLibraryAdapter();
@@ -211,16 +246,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEBoolean(EBoolean object)
       {
         return createEBooleanAdapter();
-      }
-      @Override
-      public Adapter caseEInteger(EInteger object)
-      {
-        return createEIntegerAdapter();
-      }
-      @Override
-      public Adapter caseEReal(EReal object)
-      {
-        return createERealAdapter();
       }
       @Override
       public Adapter caseEString(EString object)
@@ -460,16 +485,46 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.PrimitiveType <em>Primitive Type</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.ENumberType <em>ENumber Type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.expr.expr.PrimitiveType
+   * @see org.osate.expr.expr.ENumberType
    * @generated
    */
-  public Adapter createPrimitiveTypeAdapter()
+  public Adapter createENumberTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.EInteger <em>EInteger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.EInteger
+   * @generated
+   */
+  public Adapter createEIntegerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.EReal <em>EReal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.EReal
+   * @generated
+   */
+  public Adapter createERealAdapter()
   {
     return null;
   }
@@ -715,6 +770,81 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Literal <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Literal
+   * @generated
+   */
+  public Adapter createLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Value
+   * @generated
+   */
+  public Adapter createValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.WrappedNamedElement <em>Wrapped Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.WrappedNamedElement
+   * @generated
+   */
+  public Adapter createWrappedNamedElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.NumberLiteral <em>Number Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.NumberLiteral
+   * @generated
+   */
+  public Adapter createNumberLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.FieldValue <em>Field Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.FieldValue
+   * @generated
+   */
+  public Adapter createFieldValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.expr.expr.ExprLibrary <em>Library</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -755,36 +885,6 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEBooleanAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.EInteger <em>EInteger</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.EInteger
-   * @generated
-   */
-  public Adapter createEIntegerAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.EReal <em>EReal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.expr.expr.EReal
-   * @generated
-   */
-  public Adapter createERealAdapter()
   {
     return null;
   }

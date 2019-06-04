@@ -1,4 +1,5 @@
 import org.eclipse.emf.ecore.EObject
+import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
@@ -10,15 +11,19 @@ import org.osate.aadl2.Feature
 import org.osate.aadl2.Flow
 import org.osate.aadl2.ListType
 import org.osate.aadl2.Mode
+import org.osate.aadl2.NumberType
 import org.osate.aadl2.Property
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.Type
 import org.osate.expr.expr.BagLiteral
+import org.osate.expr.expr.BinaryOperation
+import org.osate.expr.expr.Conditional
 import org.osate.expr.expr.EBoolean
 import org.osate.expr.expr.EBooleanLiteral
 import org.osate.expr.expr.EInteger
 import org.osate.expr.expr.EIntegerLiteral
+import org.osate.expr.expr.ENumberType
 import org.osate.expr.expr.EReal
 import org.osate.expr.expr.ERealLiteral
 import org.osate.expr.expr.EString
@@ -32,6 +37,7 @@ import org.osate.expr.expr.MapLiteral
 import org.osate.expr.expr.MetaClassEnum
 import org.osate.expr.expr.NamedElementRef
 import org.osate.expr.expr.PropertyExpression
+import org.osate.expr.expr.RangeType
 import org.osate.expr.expr.RecordLiteral
 import org.osate.expr.expr.SetLiteral
 import org.osate.expr.expr.TupleLiteral
@@ -42,9 +48,9 @@ import org.osate.expr.validation.AbstractExprJavaValidator
 system org.osate.expr.ExprTypeSystem validatorExtends AbstractExprJavaValidator
 
 
-//auxiliary {
-//	combineNumeric(NumberType left, NumberType right): NumberType
-//}
+auxiliary {
+	combineNumeric(ENumberType left, ENumberType right): ENumberType
+}
 
 
 judgments {
@@ -57,26 +63,27 @@ judgments {
 //		source exp
 //
 	compatible |- Type left <| Type right
-//	sameType |- Type left ~~ Type right
+	
+	sameType |- Type left ~~ Type right
 //	sameTypes |= EList<Field> left ~~ EList<Field> right
 }
 
 
-//auxiliary combineNumeric(NumberType left, NumberType right) {
-//	val result =
-//			if (left instanceof AadlInteger && right instanceof AadlInteger)
-//				Aadl2Factory.eINSTANCE.createAadlInteger
-//			else
-//				Aadl2Factory.eINSTANCE.createAadlReal
+auxiliary combineNumeric(ENumberType left, ENumberType right) {
+	val result =
+			if (left instanceof EInteger && right instanceof EInteger)
+				ExprFactory.eINSTANCE.createEInteger
+			else
+				ExprFactory.eINSTANCE.createEReal
 //	result.referencedUnitsType =
 //			if (left.unitsType !== null)
 //				left.unitsType
 //			else
 //				right.unitsType
-//	result
-//}
-//
-//
+	result
+}
+
+
 // type inference rules
 
 rule VarDecl
@@ -132,77 +139,77 @@ from {
 	fail
 }
  
-//rule BinaryExpression
-//	G |- BinaryOperation binary : Type type
-//from {
-//	G |- binary.left : var Type leftType
-//	G |- binary.right : var Type rightType
-//	val op = binary.operator
-//	switch op {
-//		case OR, case ALT_OR, case AND, case ALT_AND: {
-//			if (!(leftType instanceof AadlBoolean)) {
-//				fail
-//					error 'typing: operand must be boolean'
-//					source binary.left
-//			}
-//			if (!(rightType instanceof AadlBoolean)) {
-//				fail
-//					error 'typing: operand must be boolean'
-//					source binary.right
-//			}
-//			type = Aadl2Factory.eINSTANCE.createAadlBoolean
-//		}
-//		case EQ, case NEQ: {
-//			G |- leftType ~~ rightType
-//			or {
-//				fail
-//					error 'typing: cannot compare ' + stringRep(leftType) + ' and ' + stringRep(rightType)
-//					source binary
-//			}
-//			type = Aadl2Factory.eINSTANCE.createAadlBoolean
-//		}
-//		case LT, case LEQ, case GT, case GEQ, case IN,
-//		case PLUS, case MINUS, case MULT, case DIV: {
-//			if (!(leftType instanceof NumberType || leftType instanceof RangeType)) {
-//				fail	
-//					error 'typing: operand must be numeric or a range'
-//					source binary.left
-//			}
-//			if (!(rightType instanceof NumberType || rightType instanceof RangeType)) {
-//				fail	
-//					error 'typing: operand must be numeric or a range'
-//					source binary.right
-//			}
-//			// Check where ranges are allowed
-//			switch (op) {
-//				case PLUS, case MULT:
-//					if (!(leftType instanceof RangeType && rightType instanceof RangeType
-//						|| leftType instanceof NumberType && rightType instanceof NumberType
-//					)) {
-//						fail
-//							error 'typing: operands must be both numeric or both ranges'
-//							source binary
-//					}
-//				case IN:
-//					if (!(rightType instanceof RangeType)) {
-//						fail
-//							error 'typing: operand must be a range'
-//							source binary.right
-//					}
-//				case DIV, case MINUS:
-//					if (!(leftType instanceof NumberType)) {
-//						fail
-//							error 'typing: operand must be numeric'
-//							source binary.left
-//					} else if (!(rightType instanceof NumberType)) {
-//						fail
-//							error 'typing: operand must be numeric'
-//							source binary.right
-//					}
-//				default: {
-//					//nothing
-//				}
-//			}
+rule BinaryExpression
+	G |- BinaryOperation binary : Type type
+from {
+	G |- binary.left : var Type leftType
+	G |- binary.right : var Type rightType
+	val op = binary.operator
+	switch op {
+		case OR, case ALT_OR, case AND, case ALT_AND: {
+			if (!(leftType instanceof AadlBoolean)) {
+				fail
+					error 'typing: operand must be boolean'
+					source binary.left
+			}
+			if (!(rightType instanceof AadlBoolean)) {
+				fail
+					error 'typing: operand must be boolean'
+					source binary.right
+			}
+			type = Aadl2Factory.eINSTANCE.createAadlBoolean
+		}
+		case EQ, case NEQ: {
+			G |- leftType ~~ rightType
+			or {
+				fail
+					error 'typing: cannot compare ' + stringRep(leftType) + ' and ' + stringRep(rightType)
+					source binary
+			}
+			type = Aadl2Factory.eINSTANCE.createAadlBoolean
+		}
+		case LT, case LEQ, case GT, case GEQ, case IN,
+		case PLUS, case MINUS, case MULT, case DIV: {
+			if (!(leftType instanceof NumberType || leftType instanceof RangeType)) {
+				fail	
+					error 'typing: operand must be numeric or a range'
+					source binary.left
+			}
+			if (!(rightType instanceof NumberType || rightType instanceof RangeType)) {
+				fail	
+					error 'typing: operand must be numeric or a range'
+					source binary.right
+			}
+			// Check where ranges are allowed
+			switch (op) {
+				case PLUS, case MULT:
+					if (!(leftType instanceof RangeType && rightType instanceof RangeType
+						|| leftType instanceof NumberType && rightType instanceof NumberType
+					)) {
+						fail
+							error 'typing: operands must be both numeric or both ranges'
+							source binary
+					}
+				case IN:
+					if (!(rightType instanceof RangeType)) {
+						fail
+							error 'typing: operand must be a range'
+							source binary.right
+					}
+				case DIV, case MINUS:
+					if (!(leftType instanceof NumberType)) {
+						fail
+							error 'typing: operand must be numeric'
+							source binary.left
+					} else if (!(rightType instanceof NumberType)) {
+						fail
+							error 'typing: operand must be numeric'
+							source binary.right
+					}
+				default: {
+					//nothing
+				}
+			}
 //			// check for correct units types
 //			val leftNum = if (leftType instanceof RangeType) leftType.numberType else leftType as NumberType
 //			val rightNum = if (rightType instanceof RangeType) rightType.numberType else rightType as NumberType
@@ -258,47 +265,47 @@ from {
 //						source binary
 //				}
 //			}
-//		}
-//		case INTDIV, case MOD: {
-//			if (!(leftType instanceof AadlInteger)) {
-//				fail
-//					error 'typing: argument must be an integer'
-//					source binary.left
-//			}
-//			if (!(rightType instanceof AadlInteger)) {
-//				fail
-//					error 'typing: argument must be an integer'
-//					source binary.right
-//			}
-//			val leftNum = leftType as NumberType
-//			val rightNum = rightType as NumberType
-//			val t = Aadl2Factory.eINSTANCE.createAadlInteger
-//
-//			if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
-//				G |- leftNum ~~ rightNum
-//				or {
-//					fail
-//						error 'typing: arguments have different unit types'
-//						source binary
-//				}
-//			} else if (rightNum.unitsType !== null) {
-//				fail
-//					error 'typing: argument must have a unit when dividing by a number with unit'
-//					source binary.left
-//			} else {
-//				t.referencedUnitsType = leftNum.unitsType
-//			}
-//			type = t
-//		}
-//		default: {
-//			// should not happen
-//			fail
-//				error 'typing: unhandled binary operator encountered'
-//				source binary
-//		}
-//	}
-//}
-//
+		}
+		case INTDIV, case MOD: {
+			if (!(leftType instanceof AadlInteger)) {
+				fail
+					error 'typing: argument must be an integer'
+					source binary.left
+			}
+			if (!(rightType instanceof AadlInteger)) {
+				fail
+					error 'typing: argument must be an integer'
+					source binary.right
+			}
+			val leftNum = leftType as NumberType
+			val rightNum = rightType as NumberType
+			val t = Aadl2Factory.eINSTANCE.createAadlInteger
+
+			if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
+				G |- leftNum ~~ rightNum
+				or {
+					fail
+						error 'typing: arguments have different unit types'
+						source binary
+				}
+			} else if (rightNum.unitsType !== null) {
+				fail
+					error 'typing: argument must have a unit when dividing by a number with unit'
+					source binary.left
+			} else {
+				t.referencedUnitsType = leftNum.unitsType
+			}
+			type = t
+		}
+		default: {
+			// should not happen
+			fail
+				error 'typing: unhandled binary operator encountered'
+				source binary
+		}
+	}
+}
+
 //rule UnaryExpression
 //	G |- UnaryOperation unary : Type type
 //from {
@@ -368,33 +375,33 @@ from {
 //	type = range
 //}
 //
-//rule IfExpression
-//	G |- Conditional ifExp : Type type
-//from {
-//	G |- ifExp.^if : var Type ifType
-//	G |- ifExp.^then : var Type thenType
-//	G |- ifExp.^else : var Type elseType
-//	
-//	if (!(ifType instanceof AadlBoolean)) {
-//		fail
-//			error 'typing: condition must be boolean'
-//			source ifExp.^if
-//	}
-//	
-//	G |- thenType ~~ elseType
-//	or {
-//		fail
-//			error 'typing: then and else part must have the same type'
-//			source ifExp
-//	}
-//	
-//	if (thenType instanceof NumberType) {
-//		type = combineNumeric(thenType, elseType as NumberType)
-//	} else {
-//		type = thenType
-//	}
-//}
-//
+rule IfExpression
+	G |- Conditional ifExp : Type type
+from {
+	G |- ifExp.^if : var Type ifType
+	G |- ifExp.^then : var Type thenType
+	G |- ifExp.^else : var Type elseType
+	
+	if (!(ifType instanceof EBoolean)) {
+		fail
+			error 'typing: condition must be boolean'
+			source ifExp.^if
+	}
+	
+	G |- thenType ~~ elseType
+	or {
+		fail
+			error 'typing: then and else part must have the same type'
+			source ifExp
+	}
+	
+	if (thenType instanceof ENumberType) {
+		type = combineNumeric(thenType, elseType as ENumberType)
+	} else {
+		type = thenType
+	}
+}
+
 //rule FunctionCall
 //	G |- FunctionCall call : Type type
 //from {
@@ -780,15 +787,20 @@ axiom MapLiteral
 axiom EnumLiteral
 	G |- EnumLiteral l : l.eContainer as EnumType
 		
-//
-//// type equality
-//
-//axiom sameBoolean
-//	G |- Boolean l ~~ Boolean r
-//
-//axiom sameString
-//	G |- String l ~~ String r
-//
+// type equality
+
+axiom SameEBoolean
+	G |- EBoolean t1 ~~ EBoolean t2
+
+axiom SameEInteger
+	G |- EInteger t1 ~~ EInteger t2
+
+axiom SameEReal
+	G |- EReal t1 ~~ EReal t2
+
+axiom SameEString
+	G |- EString t1 ~~ EString t2
+
 //axiom sameModelRef
 //	G |- ModelRef l ~~ ModelRef r
 //
@@ -817,18 +829,18 @@ axiom EnumLiteral
 //	G |- left.numberType ~~ right.numberType
 //}
 //
-//rule sameList
-//	G |- ListType left ~~ ListType right
-//from {
-//	G |- left.elementType ~~ right.elementType
-//}
-//
-//rule sameRecord
+rule SameList
+	G |- ListType left ~~ ListType right
+from {
+	G |- left.elementType ~~ right.elementType
+}
+
+//rule SameRecord
 //	G |- RecordType left ~~ RecordType right
 //from {
 //	G |= left.ownedFields ~~ right.ownedFields
 //}
-//
+
 //rule sameTypeList
 //	G |= EList<BasicProperty> left ~~ EList<BasicProperty> right
 //from {

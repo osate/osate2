@@ -25,6 +25,7 @@ import org.osate.expr.expr.EBooleanLiteral;
 import org.osate.expr.expr.EDeclaration;
 import org.osate.expr.expr.EInteger;
 import org.osate.expr.expr.EIntegerLiteral;
+import org.osate.expr.expr.ENumberType;
 import org.osate.expr.expr.EReal;
 import org.osate.expr.expr.ERealLiteral;
 import org.osate.expr.expr.EString;
@@ -38,16 +39,18 @@ import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.ExprSubclause;
 import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FieldValue;
 import org.osate.expr.expr.FunDecl;
 import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.ListType;
+import org.osate.expr.expr.Literal;
 import org.osate.expr.expr.MapLiteral;
 import org.osate.expr.expr.MapType;
 import org.osate.expr.expr.MetaClass;
 import org.osate.expr.expr.MetaClassEnum;
 import org.osate.expr.expr.NamedElementRef;
+import org.osate.expr.expr.NumberLiteral;
 import org.osate.expr.expr.Operation;
-import org.osate.expr.expr.PrimitiveType;
 import org.osate.expr.expr.PropertyExpression;
 import org.osate.expr.expr.Range;
 import org.osate.expr.expr.RangeType;
@@ -64,7 +67,9 @@ import org.osate.expr.expr.UnaryOperation;
 import org.osate.expr.expr.UnionLiteral;
 import org.osate.expr.expr.UnionType;
 import org.osate.expr.expr.UnitExpression;
+import org.osate.expr.expr.Value;
 import org.osate.expr.expr.VarDecl;
+import org.osate.expr.expr.WrappedNamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -121,7 +126,21 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass primitiveTypeEClass = null;
+  private EClass eNumberTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eIntegerEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eRealEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -240,6 +259,41 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass literalEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass valueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass wrappedNamedElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass numberLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass fieldValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass exprLibraryEClass = null;
 
   /**
@@ -255,20 +309,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass eBooleanEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eIntegerEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eRealEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -545,6 +585,17 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getTypeDecl_OwnedPropertyAssociations()
+  {
+    return (EReference)typeDeclEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getVarDecl()
   {
     return varDeclEClass;
@@ -622,9 +673,31 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
-  public EClass getPrimitiveType()
+  public EClass getENumberType()
   {
-    return primitiveTypeEClass;
+    return eNumberTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getEInteger()
+  {
+    return eIntegerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getEReal()
+  {
+    return eRealEClass;
   }
 
   /**
@@ -757,6 +830,17 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EClass getUnionType()
   {
     return unionTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getUnionType_Fields()
+  {
+    return (EReference)unionTypeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1007,6 +1091,94 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EClass getLiteral()
+  {
+    return literalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getValue()
+  {
+    return valueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getWrappedNamedElement()
+  {
+    return wrappedNamedElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getWrappedNamedElement_Elem()
+  {
+    return (EReference)wrappedNamedElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getNumberLiteral()
+  {
+    return numberLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getFieldValue()
+  {
+    return fieldValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getFieldValue_Name()
+  {
+    return (EAttribute)fieldValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFieldValue_Value()
+  {
+    return (EReference)fieldValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getExprLibrary()
   {
     return exprLibraryEClass;
@@ -1054,28 +1226,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EClass getEBoolean()
   {
     return eBooleanEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getEInteger()
-  {
-    return eIntegerEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EClass getEReal()
-  {
-    return eRealEClass;
   }
 
   /**
@@ -1491,9 +1641,31 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getRecordLiteral_FieldValues()
+  {
+    return (EReference)recordLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getUnionLiteral()
   {
     return unionLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getUnionLiteral_FieldValue()
+  {
+    return (EReference)unionLiteralEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1622,6 +1794,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     typeDeclEClass = createEClass(TYPE_DECL);
     createEReference(typeDeclEClass, TYPE_DECL__TYPE);
+    createEReference(typeDeclEClass, TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS);
 
     varDeclEClass = createEClass(VAR_DECL);
     createEAttribute(varDeclEClass, VAR_DECL__CONST);
@@ -1633,7 +1806,11 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     assertionEClass = createEClass(ASSERTION);
     createEReference(assertionEClass, ASSERTION__ASSERT);
 
-    primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
+    eNumberTypeEClass = createEClass(ENUMBER_TYPE);
+
+    eIntegerEClass = createEClass(EINTEGER);
+
+    eRealEClass = createEClass(EREAL);
 
     rangeTypeEClass = createEClass(RANGE_TYPE);
     createEReference(rangeTypeEClass, RANGE_TYPE__TYPE);
@@ -1652,6 +1829,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(fieldEClass, FIELD__TYPE);
 
     unionTypeEClass = createEClass(UNION_TYPE);
+    createEReference(unionTypeEClass, UNION_TYPE__FIELDS);
 
     tupleTypeEClass = createEClass(TUPLE_TYPE);
     createEReference(tupleTypeEClass, TUPLE_TYPE__FIELDS);
@@ -1685,6 +1863,19 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(namedElementRefEClass, NAMED_ELEMENT_REF__REF);
     createEReference(namedElementRefEClass, NAMED_ELEMENT_REF__PREV);
 
+    literalEClass = createEClass(LITERAL);
+
+    valueEClass = createEClass(VALUE);
+
+    wrappedNamedElementEClass = createEClass(WRAPPED_NAMED_ELEMENT);
+    createEReference(wrappedNamedElementEClass, WRAPPED_NAMED_ELEMENT__ELEM);
+
+    numberLiteralEClass = createEClass(NUMBER_LITERAL);
+
+    fieldValueEClass = createEClass(FIELD_VALUE);
+    createEAttribute(fieldValueEClass, FIELD_VALUE__NAME);
+    createEReference(fieldValueEClass, FIELD_VALUE__VALUE);
+
     exprLibraryEClass = createEClass(EXPR_LIBRARY);
     createEReference(exprLibraryEClass, EXPR_LIBRARY__DECLS);
 
@@ -1692,10 +1883,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(exprSubclauseEClass, EXPR_SUBCLAUSE__DECLS);
 
     eBooleanEClass = createEClass(EBOOLEAN);
-
-    eIntegerEClass = createEClass(EINTEGER);
-
-    eRealEClass = createEClass(EREAL);
 
     eStringEClass = createEClass(ESTRING);
 
@@ -1747,8 +1934,10 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(setLiteralEClass, SET_LITERAL__ELEMENTS);
 
     recordLiteralEClass = createEClass(RECORD_LITERAL);
+    createEReference(recordLiteralEClass, RECORD_LITERAL__FIELD_VALUES);
 
     unionLiteralEClass = createEClass(UNION_LITERAL);
+    createEReference(unionLiteralEClass, UNION_LITERAL__FIELD_VALUE);
 
     tupleLiteralEClass = createEClass(TUPLE_LITERAL);
     createEReference(tupleLiteralEClass, TUPLE_LITERAL__ELEMENTS);
@@ -1802,7 +1991,9 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     varDeclEClass.getESuperTypes().add(this.getEDeclaration());
     funDeclEClass.getESuperTypes().add(this.getEDeclaration());
     assertionEClass.getESuperTypes().add(this.getEDeclaration());
-    primitiveTypeEClass.getESuperTypes().add(theAadl2Package.getType());
+    eNumberTypeEClass.getESuperTypes().add(theAadl2Package.getType());
+    eIntegerEClass.getESuperTypes().add(this.getENumberType());
+    eRealEClass.getESuperTypes().add(this.getENumberType());
     rangeTypeEClass.getESuperTypes().add(theAadl2Package.getType());
     categoryEClass.getESuperTypes().add(theAadl2Package.getType());
     metaClassEClass.getESuperTypes().add(theAadl2Package.getType());
@@ -1817,29 +2008,31 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     typeRefEClass.getESuperTypes().add(theAadl2Package.getType());
     expressionEClass.getESuperTypes().add(theAadl2Package.getPropertyExpression());
     namedElementRefEClass.getESuperTypes().add(this.getExpression());
+    literalEClass.getESuperTypes().add(this.getExpression());
+    literalEClass.getESuperTypes().add(this.getValue());
+    wrappedNamedElementEClass.getESuperTypes().add(this.getValue());
+    numberLiteralEClass.getESuperTypes().add(this.getLiteral());
     exprLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     exprSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
-    eBooleanEClass.getESuperTypes().add(this.getPrimitiveType());
-    eIntegerEClass.getESuperTypes().add(this.getPrimitiveType());
-    eRealEClass.getESuperTypes().add(this.getPrimitiveType());
-    eStringEClass.getESuperTypes().add(this.getPrimitiveType());
+    eBooleanEClass.getESuperTypes().add(theAadl2Package.getType());
+    eStringEClass.getESuperTypes().add(theAadl2Package.getType());
     binaryOperationEClass.getESuperTypes().add(this.getExpression());
     unaryOperationEClass.getESuperTypes().add(this.getExpression());
     unitExpressionEClass.getESuperTypes().add(this.getExpression());
     propertyExpressionEClass.getESuperTypes().add(this.getExpression());
     rangeEClass.getESuperTypes().add(this.getExpression());
     conditionalEClass.getESuperTypes().add(this.getExpression());
-    eBooleanLiteralEClass.getESuperTypes().add(this.getExpression());
-    eIntegerLiteralEClass.getESuperTypes().add(this.getExpression());
-    eRealLiteralEClass.getESuperTypes().add(this.getExpression());
-    eStringLiteralEClass.getESuperTypes().add(this.getExpression());
-    listLiteralEClass.getESuperTypes().add(this.getExpression());
-    setLiteralEClass.getESuperTypes().add(this.getExpression());
-    recordLiteralEClass.getESuperTypes().add(this.getExpression());
-    unionLiteralEClass.getESuperTypes().add(this.getExpression());
-    tupleLiteralEClass.getESuperTypes().add(this.getExpression());
-    bagLiteralEClass.getESuperTypes().add(this.getExpression());
-    mapLiteralEClass.getESuperTypes().add(this.getExpression());
+    eBooleanLiteralEClass.getESuperTypes().add(this.getLiteral());
+    eIntegerLiteralEClass.getESuperTypes().add(this.getNumberLiteral());
+    eRealLiteralEClass.getESuperTypes().add(this.getNumberLiteral());
+    eStringLiteralEClass.getESuperTypes().add(this.getLiteral());
+    listLiteralEClass.getESuperTypes().add(this.getLiteral());
+    setLiteralEClass.getESuperTypes().add(this.getLiteral());
+    recordLiteralEClass.getESuperTypes().add(this.getLiteral());
+    unionLiteralEClass.getESuperTypes().add(this.getLiteral());
+    tupleLiteralEClass.getESuperTypes().add(this.getLiteral());
+    bagLiteralEClass.getESuperTypes().add(this.getLiteral());
+    mapLiteralEClass.getESuperTypes().add(this.getLiteral());
 
     // Initialize classes and features; add operations and parameters
     initEClass(exprModelEClass, ExprModel.class, "ExprModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1849,6 +2042,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
 
     initEClass(typeDeclEClass, TypeDecl.class, "TypeDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTypeDecl_Type(), theAadl2Package.getType(), null, "type", null, 0, 1, TypeDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTypeDecl_OwnedPropertyAssociations(), theAadl2Package.getPropertyAssociation(), null, "ownedPropertyAssociations", null, 0, -1, TypeDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(varDeclEClass, VarDecl.class, "VarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVarDecl_Const(), theEcorePackage.getEBoolean(), "const", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1860,7 +2054,11 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAssertion_Assert(), this.getExpression(), null, "assert", null, 0, 1, Assertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(eNumberTypeEClass, ENumberType.class, "ENumberType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(eIntegerEClass, EInteger.class, "EInteger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(eRealEClass, EReal.class, "EReal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(rangeTypeEClass, RangeType.class, "RangeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRangeType_Type(), theAadl2Package.getType(), null, "type", null, 0, 1, RangeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1879,6 +2077,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getField_Type(), theAadl2Package.getType(), null, "type", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unionTypeEClass, UnionType.class, "UnionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUnionType_Fields(), this.getField(), null, "fields", null, 0, -1, UnionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tupleTypeEClass, TupleType.class, "TupleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTupleType_Fields(), this.getField(), null, "fields", null, 0, -1, TupleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1912,6 +2111,19 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getNamedElementRef_Ref(), theAadl2Package.getNamedElement(), null, "ref", null, 0, 1, NamedElementRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getNamedElementRef_Prev(), this.getNamedElementRef(), null, "prev", null, 0, 1, NamedElementRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(literalEClass, Literal.class, "Literal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(valueEClass, Value.class, "Value", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(wrappedNamedElementEClass, WrappedNamedElement.class, "WrappedNamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getWrappedNamedElement_Elem(), theAadl2Package.getNamedElement(), null, "elem", null, 0, 1, WrappedNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(fieldValueEClass, FieldValue.class, "FieldValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getFieldValue_Name(), theEcorePackage.getEString(), "name", null, 0, 1, FieldValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFieldValue_Value(), this.getExpression(), null, "value", null, 0, 1, FieldValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(exprLibraryEClass, ExprLibrary.class, "ExprLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExprLibrary_Decls(), this.getEDeclaration(), null, "decls", null, 0, -1, ExprLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1919,10 +2131,6 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getExprSubclause_Decls(), this.getEDeclaration(), null, "decls", null, 0, -1, ExprSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eBooleanEClass, EBoolean.class, "EBoolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(eIntegerEClass, EInteger.class, "EInteger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(eRealEClass, EReal.class, "EReal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(eStringEClass, EString.class, "EString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1959,10 +2167,10 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEAttribute(getEBooleanLiteral_Value(), theEcorePackage.getEBoolean(), "value", null, 0, 1, EBooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eIntegerLiteralEClass, EIntegerLiteral.class, "EIntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getEIntegerLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, EIntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEIntegerLiteral_Value(), theAadl2Package.getInteger(), "value", null, 0, 1, EIntegerLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eRealLiteralEClass, ERealLiteral.class, "ERealLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getERealLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ERealLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getERealLiteral_Value(), theAadl2Package.getReal(), "value", null, 0, 1, ERealLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eStringLiteralEClass, EStringLiteral.class, "EStringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEStringLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, EStringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1974,8 +2182,10 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getSetLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, SetLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(recordLiteralEClass, RecordLiteral.class, "RecordLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getRecordLiteral_FieldValues(), this.getFieldValue(), null, "fieldValues", null, 0, -1, RecordLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(unionLiteralEClass, UnionLiteral.class, "UnionLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUnionLiteral_FieldValue(), this.getFieldValue(), null, "fieldValue", null, 0, 1, UnionLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(tupleLiteralEClass, TupleLiteral.class, "TupleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTupleLiteral_Elements(), this.getExpression(), null, "elements", null, 0, -1, TupleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

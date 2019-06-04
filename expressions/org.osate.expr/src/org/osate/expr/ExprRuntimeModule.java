@@ -79,4 +79,5 @@ public class ExprRuntimeModule extends org.osate.expr.AbstractExprRuntimeModule 
 	public Class<? extends StringRepresentation> bindStringRepresentation() {
 		return ExprStringRepresentation.class;
 	}
+
 }

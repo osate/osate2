@@ -108,8 +108,6 @@ Type : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
 
 PlusSignEqualsSignGreaterThanSign : '+''=''>';
 
-QuestionMarkQuestionMarkQuestionMark : '?''?''?';
-
 And : ('A'|'a')('N'|'n')('D'|'d');
 
 Bag : ('B'|'b')('A'|'a')('G'|'g');

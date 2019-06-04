@@ -116,18 +116,19 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     (rule start) (ambiguity) 'list' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'list' '(' elements+=Expression
 	 *     (rule start) (ambiguity) 'map' (rule start)
-	 *     (rule start) (ambiguity) 'record' (rule start)
+	 *     (rule start) (ambiguity) 'record' '(' ')' (rule start)
+	 *     (rule start) (ambiguity) 'record' '(' fieldValues+=FieldValue
 	 *     (rule start) (ambiguity) 'set' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'set' '(' elements+=Expression
 	 *     (rule start) (ambiguity) 'tuple' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'tuple' '(' elements+=Expression
-	 *     (rule start) (ambiguity) 'union' (rule start)
+	 *     (rule start) (ambiguity) 'union' '(' fieldValue=FieldValue
 	 *     (rule start) (ambiguity) core?='^'
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) ref=[NamedElement|QCREF]
-	 *     (rule start) (ambiguity) value=INTEGER_LIT
+	 *     (rule start) (ambiguity) value=INTVALUE
 	 *     (rule start) (ambiguity) value=NoQuoteString
-	 *     (rule start) (ambiguity) value=REAL_LIT
+	 *     (rule start) (ambiguity) value=SignedReal
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
 	 *     (rule start) (ambiguity) {NamedElementRef.prev=}

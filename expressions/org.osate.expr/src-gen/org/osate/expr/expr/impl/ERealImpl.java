@@ -15,7 +15,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class ERealImpl extends PrimitiveTypeImpl implements EReal
+public class ERealImpl extends ENumberTypeImpl implements EReal
 {
   /**
    * <!-- begin-user-doc -->

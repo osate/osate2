@@ -25,7 +25,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EBooleanLiteralImpl extends ExpressionImpl implements EBooleanLiteral
+public class EBooleanLiteralImpl extends LiteralImpl implements EBooleanLiteral
 {
   /**
    * The default value of the '{@link #isValue() <em>Value</em>}' attribute.

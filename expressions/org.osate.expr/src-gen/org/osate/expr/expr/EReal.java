@@ -14,6 +14,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface EReal extends PrimitiveType
+public interface EReal extends ENumberType
 {
 } // EReal

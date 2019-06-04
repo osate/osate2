@@ -72,7 +72,9 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.VAR_DECL: return createVarDecl();
       case ExprPackage.FUN_DECL: return createFunDecl();
       case ExprPackage.ASSERTION: return createAssertion();
-      case ExprPackage.PRIMITIVE_TYPE: return createPrimitiveType();
+      case ExprPackage.ENUMBER_TYPE: return createENumberType();
+      case ExprPackage.EINTEGER: return createEInteger();
+      case ExprPackage.EREAL: return createEReal();
       case ExprPackage.RANGE_TYPE: return createRangeType();
       case ExprPackage.CATEGORY: return createCategory();
       case ExprPackage.META_CLASS: return createMetaClass();
@@ -89,11 +91,14 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.TYPE_REF: return createTypeRef();
       case ExprPackage.EXPRESSION: return createExpression();
       case ExprPackage.NAMED_ELEMENT_REF: return createNamedElementRef();
+      case ExprPackage.LITERAL: return createLiteral();
+      case ExprPackage.VALUE: return createValue();
+      case ExprPackage.WRAPPED_NAMED_ELEMENT: return createWrappedNamedElement();
+      case ExprPackage.NUMBER_LITERAL: return createNumberLiteral();
+      case ExprPackage.FIELD_VALUE: return createFieldValue();
       case ExprPackage.EXPR_LIBRARY: return createExprLibrary();
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
       case ExprPackage.EBOOLEAN: return createEBoolean();
-      case ExprPackage.EINTEGER: return createEInteger();
-      case ExprPackage.EREAL: return createEReal();
       case ExprPackage.ESTRING: return createEString();
       case ExprPackage.BINARY_OPERATION: return createBinaryOperation();
       case ExprPackage.UNARY_OPERATION: return createUnaryOperation();
@@ -237,10 +242,34 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
-  public PrimitiveType createPrimitiveType()
+  public ENumberType createENumberType()
   {
-    PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
-    return primitiveType;
+    ENumberTypeImpl eNumberType = new ENumberTypeImpl();
+    return eNumberType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EInteger createEInteger()
+  {
+    EIntegerImpl eInteger = new EIntegerImpl();
+    return eInteger;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReal createEReal()
+  {
+    ERealImpl eReal = new ERealImpl();
+    return eReal;
   }
 
   /**
@@ -441,6 +470,66 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
    * @generated
    */
   @Override
+  public Literal createLiteral()
+  {
+    LiteralImpl literal = new LiteralImpl();
+    return literal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Value createValue()
+  {
+    ValueImpl value = new ValueImpl();
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public WrappedNamedElement createWrappedNamedElement()
+  {
+    WrappedNamedElementImpl wrappedNamedElement = new WrappedNamedElementImpl();
+    return wrappedNamedElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NumberLiteral createNumberLiteral()
+  {
+    NumberLiteralImpl numberLiteral = new NumberLiteralImpl();
+    return numberLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public FieldValue createFieldValue()
+  {
+    FieldValueImpl fieldValue = new FieldValueImpl();
+    return fieldValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public ExprLibrary createExprLibrary()
   {
     ExprLibraryImpl exprLibrary = new ExprLibraryImpl();
@@ -469,30 +558,6 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     EBooleanImpl eBoolean = new EBooleanImpl();
     return eBoolean;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EInteger createEInteger()
-  {
-    EIntegerImpl eInteger = new EIntegerImpl();
-    return eInteger;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReal createEReal()
-  {
-    ERealImpl eReal = new ERealImpl();
-    return eReal;
   }
 
   /**

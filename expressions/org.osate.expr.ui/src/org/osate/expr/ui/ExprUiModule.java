@@ -4,7 +4,9 @@
 package org.osate.expr.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xsemantics.runtime.StringRepresentation;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+import org.osate.expr.typing.ExprStringRepresentation;
 import org.osate.expr.ui.editor.hover.html.ExprEObjectHoverProvider;
 
 /**
@@ -18,6 +20,10 @@ public class ExprUiModule extends org.osate.expr.ui.AbstractExprUiModule {
 
 	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return ExprEObjectHoverProvider.class;
+	}
+
+	public Class<? extends StringRepresentation> bindStringRepresentation() {
+		return ExprStringRepresentation.class;
 	}
 
 }

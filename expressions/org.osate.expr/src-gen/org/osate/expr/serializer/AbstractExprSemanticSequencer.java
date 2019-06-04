@@ -53,6 +53,7 @@ import org.osate.expr.expr.ExprModel;
 import org.osate.expr.expr.ExprPackage;
 import org.osate.expr.expr.ExprSubclause;
 import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FieldValue;
 import org.osate.expr.expr.FunDecl;
 import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.ListType;
@@ -76,6 +77,7 @@ import org.osate.expr.expr.UnionLiteral;
 import org.osate.expr.expr.UnionType;
 import org.osate.expr.expr.UnitExpression;
 import org.osate.expr.expr.VarDecl;
+import org.osate.expr.expr.WrappedNamedElement;
 import org.osate.expr.services.ExprGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 
@@ -213,13 +215,13 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				sequence_EBooleanLiteral(context, (EBooleanLiteral) semanticObject); 
 				return; 
 			case ExprPackage.EINTEGER:
-				sequence_PrimitiveType(context, (EInteger) semanticObject); 
+				sequence_EInteger(context, (EInteger) semanticObject); 
 				return; 
 			case ExprPackage.EINTEGER_LITERAL:
 				sequence_EIntegerLiteral(context, (EIntegerLiteral) semanticObject); 
 				return; 
 			case ExprPackage.EREAL:
-				sequence_PrimitiveType(context, (EReal) semanticObject); 
+				sequence_EReal(context, (EReal) semanticObject); 
 				return; 
 			case ExprPackage.EREAL_LITERAL:
 				sequence_ERealLiteral(context, (ERealLiteral) semanticObject); 
@@ -255,6 +257,9 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 					return; 
 				}
 				else break;
+			case ExprPackage.FIELD_VALUE:
+				sequence_FieldValue(context, (FieldValue) semanticObject); 
+				return; 
 			case ExprPackage.FUN_DECL:
 				sequence_FunDecl(context, (FunDecl) semanticObject); 
 				return; 
@@ -323,6 +328,9 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				return; 
 			case ExprPackage.VAR_DECL:
 				sequence_VarDecl(context, (VarDecl) semanticObject); 
+				return; 
+			case ExprPackage.WRAPPED_NAMED_ELEMENT:
+				sequence_WrappedNamedElement(context, (WrappedNamedElement) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -411,6 +419,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns BagLiteral
 	 *     PrimaryExpression returns BagLiteral
 	 *     Literal returns BagLiteral
+	 *     Value returns BagLiteral
 	 *     BagLiteral returns BagLiteral
 	 *
 	 * Constraint:
@@ -507,6 +516,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EBooleanLiteral
 	 *     PrimaryExpression returns EBooleanLiteral
 	 *     Literal returns EBooleanLiteral
+	 *     Value returns EBooleanLiteral
 	 *     EBooleanLiteral returns EBooleanLiteral
 	 *
 	 * Constraint:
@@ -539,10 +549,12 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EIntegerLiteral
 	 *     PrimaryExpression returns EIntegerLiteral
 	 *     Literal returns EIntegerLiteral
+	 *     Value returns EIntegerLiteral
+	 *     NumberLiteral returns EIntegerLiteral
 	 *     EIntegerLiteral returns EIntegerLiteral
 	 *
 	 * Constraint:
-	 *     value=INTEGER_LIT
+	 *     value=INTVALUE
 	 */
 	protected void sequence_EIntegerLiteral(ISerializationContext context, EIntegerLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -550,8 +562,23 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.EINTEGER_LITERAL__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getEIntegerLiteralAccess().getValueINTEGER_LITTerminalRuleCall_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getEIntegerLiteralAccess().getValueINTVALUEParserRuleCall_1_0(), semanticObject.getValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Type returns EInteger
+	 *     PrimitiveType returns EInteger
+	 *     ENumberType returns EInteger
+	 *     EInteger returns EInteger
+	 *
+	 * Constraint:
+	 *     {EInteger}
+	 */
+	protected void sequence_EInteger(ISerializationContext context, EInteger semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -577,10 +604,12 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns ERealLiteral
 	 *     PrimaryExpression returns ERealLiteral
 	 *     Literal returns ERealLiteral
+	 *     Value returns ERealLiteral
+	 *     NumberLiteral returns ERealLiteral
 	 *     ERealLiteral returns ERealLiteral
 	 *
 	 * Constraint:
-	 *     value=REAL_LIT
+	 *     value=SignedReal
 	 */
 	protected void sequence_ERealLiteral(ISerializationContext context, ERealLiteral semanticObject) {
 		if (errorAcceptor != null) {
@@ -588,8 +617,23 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.EREAL_LITERAL__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getERealLiteralAccess().getValueREAL_LITTerminalRuleCall_1_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getERealLiteralAccess().getValueSignedRealParserRuleCall_1_0(), semanticObject.getValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Type returns EReal
+	 *     PrimitiveType returns EReal
+	 *     ENumberType returns EReal
+	 *     EReal returns EReal
+	 *
+	 * Constraint:
+	 *     {EReal}
+	 */
+	protected void sequence_EReal(ISerializationContext context, EReal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -615,6 +659,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EStringLiteral
 	 *     PrimaryExpression returns EStringLiteral
 	 *     Literal returns EStringLiteral
+	 *     Value returns EStringLiteral
 	 *     EStringLiteral returns EStringLiteral
 	 *
 	 * Constraint:
@@ -696,6 +741,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns ListLiteral
 	 *     PrimaryExpression returns ListLiteral
 	 *     Literal returns ListLiteral
+	 *     Value returns ListLiteral
 	 *     ListLiteral returns ListLiteral
 	 *
 	 * Constraint:
@@ -728,6 +774,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns SetLiteral
 	 *     PrimaryExpression returns SetLiteral
 	 *     Literal returns SetLiteral
+	 *     Value returns SetLiteral
 	 *     SetLiteral returns SetLiteral
 	 *
 	 * Constraint:
@@ -760,6 +807,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns TupleLiteral
 	 *     PrimaryExpression returns TupleLiteral
 	 *     Literal returns TupleLiteral
+	 *     Value returns TupleLiteral
 	 *     TupleLiteral returns TupleLiteral
 	 *
 	 * Constraint:
@@ -767,6 +815,27 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 */
 	protected void sequence_ExpressionList_TupleLiteral(ISerializationContext context, TupleLiteral semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FieldValue returns FieldValue
+	 *
+	 * Constraint:
+	 *     (name=ID value=Expression)
+	 */
+	protected void sequence_FieldValue(ISerializationContext context, FieldValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.FIELD_VALUE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.FIELD_VALUE__NAME));
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.FIELD_VALUE__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.FIELD_VALUE__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFieldValueAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFieldValueAccess().getValueExpressionParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	
@@ -883,6 +952,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns MapLiteral
 	 *     PrimaryExpression returns MapLiteral
 	 *     Literal returns MapLiteral
+	 *     Value returns MapLiteral
 	 *     MapLiteral returns MapLiteral
 	 *
 	 * Constraint:
@@ -975,32 +1045,6 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     {EBoolean}
 	 */
 	protected void sequence_PrimitiveType(ISerializationContext context, EBoolean semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Type returns EInteger
-	 *     PrimitiveType returns EInteger
-	 *
-	 * Constraint:
-	 *     {EInteger}
-	 */
-	protected void sequence_PrimitiveType(ISerializationContext context, EInteger semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Type returns EReal
-	 *     PrimitiveType returns EReal
-	 *
-	 * Constraint:
-	 *     {EReal}
-	 */
-	protected void sequence_PrimitiveType(ISerializationContext context, EReal semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1129,10 +1173,11 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns RecordLiteral
 	 *     PrimaryExpression returns RecordLiteral
 	 *     Literal returns RecordLiteral
+	 *     Value returns RecordLiteral
 	 *     RecordLiteral returns RecordLiteral
 	 *
 	 * Constraint:
-	 *     {RecordLiteral}
+	 *     (fieldValues+=FieldValue fieldValues+=FieldValue*)?
 	 */
 	protected void sequence_RecordLiteral(ISerializationContext context, RecordLiteral semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1209,19 +1254,10 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     TypeDecl returns TypeDecl
 	 *
 	 * Constraint:
-	 *     (name=ID type=Type)
+	 *     (name=ID type=Type (ownedPropertyAssociations+=PropertyAssociation ownedPropertyAssociations+=PropertyAssociation*)?)
 	 */
 	protected void sequence_TypeDecl(ISerializationContext context, TypeDecl semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
-			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.TYPE_DECL__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.TYPE_DECL__TYPE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTypeDeclAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getTypeDeclAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1305,13 +1341,20 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns UnionLiteral
 	 *     PrimaryExpression returns UnionLiteral
 	 *     Literal returns UnionLiteral
+	 *     Value returns UnionLiteral
 	 *     UnionLiteral returns UnionLiteral
 	 *
 	 * Constraint:
-	 *     {UnionLiteral}
+	 *     fieldValue=FieldValue
 	 */
 	protected void sequence_UnionLiteral(ISerializationContext context, UnionLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.UNION_LITERAL__FIELD_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.UNION_LITERAL__FIELD_VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getUnionLiteralAccess().getFieldValueFieldValueParserRuleCall_3_0(), semanticObject.getFieldValue());
+		feeder.finish();
 	}
 	
 	
@@ -1321,7 +1364,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnionType returns UnionType
 	 *
 	 * Constraint:
-	 *     {UnionType}
+	 *     (fields+=Field fields+=Field*)?
 	 */
 	protected void sequence_UnionType(ISerializationContext context, UnionType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1369,6 +1412,25 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 */
 	protected void sequence_VarDecl(ISerializationContext context, VarDecl semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Value returns WrappedNamedElement
+	 *     WrappedNamedElement returns WrappedNamedElement
+	 *
+	 * Constraint:
+	 *     elem=[NamedElement|ID]
+	 */
+	protected void sequence_WrappedNamedElement(ISerializationContext context, WrappedNamedElement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.WRAPPED_NAMED_ELEMENT__ELEM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.WRAPPED_NAMED_ELEMENT__ELEM));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getWrappedNamedElementAccess().getElemNamedElementIDTerminalRuleCall_1_0_1(), semanticObject.eGet(ExprPackage.Literals.WRAPPED_NAMED_ELEMENT__ELEM, false));
+		feeder.finish();
 	}
 	
 	

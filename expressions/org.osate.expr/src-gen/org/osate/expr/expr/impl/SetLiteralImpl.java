@@ -32,7 +32,7 @@ import org.osate.expr.expr.SetLiteral;
  *
  * @generated
  */
-public class SetLiteralImpl extends ExpressionImpl implements SetLiteral
+public class SetLiteralImpl extends LiteralImpl implements SetLiteral
 {
   /**
    * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.

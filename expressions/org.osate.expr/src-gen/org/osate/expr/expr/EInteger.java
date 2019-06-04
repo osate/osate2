@@ -14,6 +14,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface EInteger extends PrimitiveType
+public interface EInteger extends ENumberType
 {
 } // EInteger

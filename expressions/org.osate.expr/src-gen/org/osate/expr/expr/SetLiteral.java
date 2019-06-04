@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SetLiteral extends Expression
+public interface SetLiteral extends Literal
 {
   /**
    * Returns the value of the '<em><b>Elements</b></em>' containment reference list.

@@ -20,7 +20,7 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface EStringLiteral extends Expression
+public interface EStringLiteral extends Literal
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

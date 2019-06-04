@@ -5,6 +5,8 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.EBoolean;
 import org.osate.expr.expr.ExprPackage;
 
@@ -15,7 +17,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EBooleanImpl extends PrimitiveTypeImpl implements EBoolean
+public class EBooleanImpl extends TypeImpl implements EBoolean
 {
   /**
    * <!-- begin-user-doc -->

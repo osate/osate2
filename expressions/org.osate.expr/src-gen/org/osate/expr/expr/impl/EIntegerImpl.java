@@ -15,7 +15,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EIntegerImpl extends PrimitiveTypeImpl implements EInteger
+public class EIntegerImpl extends ENumberTypeImpl implements EInteger
 {
   /**
    * <!-- begin-user-doc -->

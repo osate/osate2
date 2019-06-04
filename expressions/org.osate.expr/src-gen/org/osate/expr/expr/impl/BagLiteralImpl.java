@@ -32,7 +32,7 @@ import org.osate.expr.expr.Expression;
  *
  * @generated
  */
-public class BagLiteralImpl extends ExpressionImpl implements BagLiteral
+public class BagLiteralImpl extends LiteralImpl implements BagLiteral
 {
   /**
    * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.

@@ -14,6 +14,6 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface MapLiteral extends Expression
+public interface MapLiteral extends Literal
 {
 } // MapLiteral

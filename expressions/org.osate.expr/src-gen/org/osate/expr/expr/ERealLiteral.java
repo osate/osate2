@@ -20,19 +20,19 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface ERealLiteral extends Expression
+public interface ERealLiteral extends NumberLiteral
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
+   * @see #setValue(double)
    * @see org.osate.expr.expr.ExprPackage#getERealLiteral_Value()
-   * @model
+   * @model dataType="org.osate.aadl2.Real"
    * @generated
    */
-  String getValue();
+  double getValue();
 
   /**
    * Sets the value of the '{@link org.osate.expr.expr.ERealLiteral#getValue <em>Value</em>}' attribute.
@@ -42,6 +42,6 @@ public interface ERealLiteral extends Expression
    * @see #getValue()
    * @generated
    */
-  void setValue(String value);
+  void setValue(double value);
 
 } // ERealLiteral

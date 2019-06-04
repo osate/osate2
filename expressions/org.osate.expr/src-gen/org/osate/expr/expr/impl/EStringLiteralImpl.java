@@ -25,7 +25,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EStringLiteralImpl extends ExpressionImpl implements EStringLiteral
+public class EStringLiteralImpl extends LiteralImpl implements EStringLiteral
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.

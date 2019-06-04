@@ -32,7 +32,12 @@ EDeclaration:
 ;
 
 TypeDecl:
-	'type' name=ID ':' type=Type
+	'type' name=ID /*('extends' baseType=Type)?*/ ':' type=Type
+	(
+		'{'
+		ownedPropertyAssociations+=PropertyAssociation (';' ownedPropertyAssociations+=PropertyAssociation)*
+		'}'
+	)?
 ;
 
 VarDecl:
@@ -55,8 +60,20 @@ Type returns aadl2::Type:
 	| EnumType | TypeRef
 ;
 
-PrimitiveType:
-	{EBoolean} 'bool' | {EInteger} 'int' | {EReal} 'real' | {EString} 'string'
+PrimitiveType returns aadl2::Type:
+	{EBoolean} 'bool' | ENumberType | {EString} 'string'
+;
+
+ENumberType:
+	EInteger | EReal	
+;
+
+EInteger:
+	{EInteger} 'int'	
+;
+
+EReal:
+	{EReal} 'real'	
 ;
 
 RangeType:
@@ -99,7 +116,7 @@ Field:
 
 UnionType:
 	{UnionType} 'union' '{'
-		'???'
+		(fields+=Field (',' fields+=Field)*)?
 	'}'
 ;
 
@@ -274,25 +291,48 @@ IfExpression returns Expression:
 	{Conditional} 'if' if=Expression 'then' then=Expression ('else' else=Expression)? 'endif'
 ;
 
-Literal returns Expression:
-	EBooleanLiteral | EIntegerLiteral | ERealLiteral | EStringLiteral
+// literal values
+
+Literal:
+	EBooleanLiteral | NumberLiteral | EStringLiteral
 	| ListLiteral | SetLiteral | RecordLiteral | UnionLiteral | TupleLiteral 
-	| BagLiteral | MapLiteral 
+	| BagLiteral | MapLiteral
 ;
 
-EBooleanLiteral returns Expression :
+Value:
+	Literal | WrappedNamedElement	
+;
+
+// dummy rule
+WrappedNamedElement:
+	{WrappedNamedElement} elem=[aadl2::NamedElement|ID]
+;
+
+EBooleanLiteral returns Literal :
 	{EBooleanLiteral} (value?='true'|'false')
 ;
 
-EIntegerLiteral returns Expression:
-	{EIntegerLiteral} value=INTEGER_LIT
+NumberLiteral returns Literal:
+	EIntegerLiteral | ERealLiteral
 ;
 
-ERealLiteral returns Expression:
-	{ERealLiteral} value=REAL_LIT
+EIntegerLiteral returns NumberLiteral:
+	{EIntegerLiteral} value=INTVALUE
+//	('<'unit=UnitTerm'>')?
 ;
 
-EStringLiteral returns Expression:
+ERealLiteral returns NumberLiteral:
+	{ERealLiteral} value=SignedReal
+//	('<'unit=UnitTerm'>')?
+;
+
+// use this for value conversion
+@Override
+SignedReal returns aadl2::Real:
+	REAL_LIT
+;
+
+EStringLiteral returns Literal:
 	{EStringLiteral} value=NoQuoteString
 ;
 
@@ -300,33 +340,52 @@ fragment ExpressionList*:
 	'(' (elements+=Expression (',' elements+=Expression)*)? ')'
 ;
 
-ListLiteral returns Expression:
+ListLiteral returns Literal:
 	{ListLiteral} 'list' ExpressionList
 ;
 
-SetLiteral returns Expression:
+SetLiteral returns Literal:
 	{SetLiteral} 'set' ExpressionList
 ;
 
-RecordLiteral returns Expression:
-	{RecordLiteral} 'record'
+RecordLiteral returns Literal:
+	{RecordLiteral} 'record' '('
+		(fieldValues+=FieldValue (',' fieldValues+=FieldValue)*)?
+	')'
 ;
 
-UnionLiteral returns Expression:
-	{UnionLiteral} 'union'
+FieldValue:
+	name=ID ':' value=Expression
 ;
 
-TupleLiteral returns Expression:
+UnionLiteral returns Literal:
+	{UnionLiteral} 'union' '('
+		fieldValue=FieldValue
+	')'
+;
+
+TupleLiteral returns Literal:
 	{TupleLiteral} 'tuple' ExpressionList
 ;
 
-BagLiteral returns Expression:
+BagLiteral returns Literal:
 	{BagLiteral} 'bag' ExpressionList
 ;
 
-MapLiteral returns Expression:
+MapLiteral returns Literal:
 	{MapLiteral} 'map'
 ;
+
+// units and unit terms
+
+//UnitTerm:
+//	Unit (=>({UnitTerm.left=current} operator=OpMulti) right=Unit)*
+//;
+//
+//Unit returns UnitTerm:
+//	{Unit} unit=ID 
+//	| '(' UnitTerm ')'
+//;
 
 @Override 
 QCREF:

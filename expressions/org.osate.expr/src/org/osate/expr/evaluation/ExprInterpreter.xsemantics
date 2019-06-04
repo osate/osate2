@@ -1,0 +1,502 @@
+import java.util.HashMap
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.osate.aadl2.BooleanLiteral
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.PropertyValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.expr.expr.BinaryOperation
+import org.osate.expr.expr.Conditional
+import org.osate.expr.expr.EBooleanLiteral
+import org.osate.expr.expr.EInteger
+import org.osate.expr.expr.EIntegerLiteral
+import org.osate.expr.expr.ENumberType
+import org.osate.expr.expr.EStringLiteral
+import org.osate.expr.expr.ExprFactory
+import org.osate.expr.expr.Expression
+import org.osate.expr.expr.Field
+import org.osate.expr.expr.Literal
+import org.osate.expr.expr.NamedElementRef
+import org.osate.expr.expr.NumberLiteral
+import org.osate.expr.expr.Operation
+import org.osate.expr.expr.PropertyExpression
+import org.osate.expr.expr.RecordLiteral
+import org.osate.expr.expr.UnaryOperation
+import org.osate.expr.expr.Value
+import org.osate.expr.expr.VarDecl
+
+import static extension org.osate.expr.evaluation.ExprInterpreterUtil.*
+
+//import static extension org.osate.expr.evaluation.InterpreterUtil.*
+
+system org.osate.expr.evaluation.ExprInterpreter
+
+auxiliary {
+	combineNumeric(ENumberType left, ENumberType right): ENumberType
+	chooseRoot(EObject io, RuleEnvironment G): InstanceObject
+	errorPosition(EObject o): String
+}
+
+
+judgments {
+	// environment contains values for computed variables
+	interpretExpression |- Expression expression ~> output Value
+	interpretVariable ||- VarDecl decl ~> output Value
+	equal |= Value left : Value right
+	compare |> Value left : Value right
+	cmpNum |> Value left : Value right ~> output Integer
+}
+
+
+auxiliary combineNumeric(ENumberType left, ENumberType right) {
+	val result =
+			if (left instanceof EInteger && right instanceof EInteger)
+				ExprFactory.eINSTANCE.createEInteger
+			else
+				ExprFactory.eINSTANCE.createEReal
+//	result.referencedUnitsType =
+//			if (left.unitsType !== null)
+//				left.unitsType
+//			else
+//				right.unitsType
+	result
+}
+
+
+auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
+	val component = env(G, 'component', InstanceObject)
+	val element = env(G, 'element', NamedElement)
+	if (element instanceof InstanceObject)
+		element
+	else 
+		component
+}
+
+
+auxiliary	errorPosition(EObject o) {
+	val fileName = o.eResource.URI.path
+	val line = NodeModelUtils.findActualNodeFor(o).startLine
+	' (' + fileName + ':' + line + ')'
+}
+
+// expression interpreter
+
+rule InterpretBinaryExpression
+	G |- BinaryOperation binary ~> Value value
+from {
+	G |- binary.left ~> var Value leftVal
+	G |- binary.right ~> var Value rightVal
+	
+	value = 
+	switch (binary.operator) {
+		case AND, case OR, case ALT_AND, case ALT_OR: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			val left = leftVal as EBooleanLiteral
+			val right = rightVal as EBooleanLiteral
+			boolVal.value = if (binary.operator == Operation.AND) {
+						// without if an exception is thrown!
+						if (left.isValue && right.isValue) true else false
+					} else {
+						if (left.isValue || right.isValue) true else false
+					}
+			boolVal
+		}
+		case EQ, case NEQ: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			boolVal.value = { G |= leftVal : rightVal }
+			if (binary.operator == Operation.NEQ) {
+				boolVal.value = !boolVal.isValue
+			}
+			boolVal			
+		}
+		case LT: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			boolVal.value = { G, 'op' <- binary.operator |> leftVal : rightVal }
+			boolVal
+		}
+		case LEQ: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			boolVal.value = { G, 'op' <- binary.operator |> leftVal : rightVal }
+			boolVal
+		}
+		case GT: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			boolVal.value = { G, 'op' <- binary.operator |> leftVal : rightVal }
+			boolVal
+		}
+		case GEQ: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			boolVal.value = { G, 'op' <- binary.operator |> leftVal : rightVal }
+			boolVal
+		}
+		case IN: {
+			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
+			switch (leftVal) {
+				NumberLiteral: {
+					val lessThan = { G, 'op' <- Operation.LT |> leftVal : rightVal }
+					val greaterThan = { G, 'op' <- Operation.GT |> leftVal : rightVal }
+					boolVal.value = !(lessThan || greaterThan)
+				}
+//				RangeLiteral: {
+//					G |- leftVal.minimum ~> var ENumberValue min
+//					G |- leftVal.maximum ~> var ENumberValue max
+//					val minLessThan = { G, 'op' <- Operation.LT |> min : rightVal }
+//					val minGreaterThan = { G, 'op' <- Operation.GT |> min : rightVal }
+//					val maxLessThan = { G, 'op' <- Operation.LT |> max : rightVal }
+//					val maxGreaterThan = { G, 'op' <- Operation.GT |> max : rightVal }
+//					boolVal.value = !(minLessThan || minGreaterThan) && !(maxLessThan || maxGreaterThan)
+//				}
+			}
+			boolVal
+		}
+		case PLUS:
+			(leftVal as NumberLiteral).add(rightVal as NumberLiteral)
+		case MINUS:
+			(leftVal as NumberLiteral).subtract(rightVal as NumberLiteral)
+		case MULT:
+			(leftVal as NumberLiteral).multiply(rightVal as NumberLiteral)
+		case DIV:
+			(leftVal as NumberLiteral).divide(rightVal as NumberLiteral)
+		case INTDIV:
+			(leftVal as EIntegerLiteral).divideInt(rightVal as EIntegerLiteral)
+		case MOD:
+			(leftVal as EIntegerLiteral).mod(rightVal as EIntegerLiteral)
+		default: {
+			// nothing
+		}
+	}
+}
+
+rule InterpretUnaryExpression
+	G |- UnaryOperation unary ~> Literal propVal
+from {
+	G |- unary.operand ~> propVal
+	
+	switch (unary.operator) {
+		case MINUS:
+			switch (propVal) {
+				RealLiteral: propVal.value = -propVal.value
+				IntegerLiteral: propVal.value = -propVal.value
+			}
+		case NOT:
+			switch (propVal) {
+				BooleanLiteral: propVal.value = !propVal.getValue
+			}
+		default: {
+			// nothing
+		}
+	}
+}
+
+//rule InterpretUnitExpression
+//	G |- UnitExpression unit ~> NumberLiteral number
+//from {
+//	G |- unit.expression ~> var PropertyValue propval
+//	number = EcoreUtil.copy((propval as NumberValue))
+//	val unit_add = !unit.drop && !unit.convert && unit.unit !== null
+//	if (unit.drop || unit.convert) {
+//		switch (number) {
+//			IntegerLiteral:
+//				number.value = Math.round(number.getScaledValue(unit.unit))
+//			RealLiteral:
+//				number.value = number.getScaledValue(unit.unit)
+//			default: {
+//				// nothing
+//			}
+//		}
+//	}	
+//	if (unit.drop) {
+//		number.unit = null
+//	} else if (unit.convert || unit_add) {
+//		number.unit = unit.unit
+//	}
+//}
+
+//rule InterpretPropertyExpression
+//	G |- PropertyExpression pe ~> Literal number
+//from {
+//	G |- pe.modelElement ~> var Value modelElement
+//	number = EcoreUtil.copy((propval as NumberValue))
+//	val unit_add = !unit.drop && !unit.convert && unit.unit !== null
+//	if (unit.drop || unit.convert) {
+//		switch (number) {
+//			IntegerLiteral:
+//				number.value = Math.round(number.getScaledValue(unit.unit))
+//			RealLiteral:
+//				number.value = number.getScaledValue(unit.unit)
+//			default: {
+//				// nothing
+//			}
+//		}
+//	}	
+//	if (unit.drop) {
+//		number.unit = null
+//	} else if (unit.convert || unit_add) {
+//		number.unit = unit.unit
+//	}
+//}
+
+// primary expressions
+
+rule InterpretVarDecl
+	G ||- VarDecl varDecl ~> Literal propVal
+from {
+	val map = env(G, 'vals', Object) as HashMap<VarDecl, Literal>
+	if (map.containsKey(varDecl)) {
+		propVal = map.get(varDecl)
+	} else {
+		G |- varDecl.value ~> propVal
+		map.put(varDecl, propVal)
+	}
+}
+
+rule InterpretNamedElementRef
+  G |- NamedElementRef ner ~> Value value
+from {
+	val ref = ner.ref
+	switch ref {
+		VarDecl: {
+			G |- ref.value ~> value
+		}
+		Field: {
+			fail
+				error 'not implemented'
+				source ner
+		}
+		default: {
+			// otherwise it should be a model element
+			val resolved = {
+				val root = env(G, 'component', InstanceObject)
+				ner.resolve(root)
+			}
+			val wne = ExprFactory.eINSTANCE.createWrappedNamedElement
+			wne.elem = resolved
+			value = wne
+		}
+	}
+}
+
+rule InterpetITE
+	G |- Conditional ite ~> Literal propVal
+from {
+	G |- ite.^if ~> var EBooleanLiteral cond
+	if (cond.isValue) {
+		G |- ite.then ~> propVal
+	} else {
+		G |- ite.^else ~> propVal
+	}
+}
+
+// access the AADL model
+
+//rule InterpretModelReference
+//	G |- WrappedNamedElement ref ~> Value value
+//from {
+//	// access the instance model
+//	val resolved = {
+//			val root = chooseRoot(ref, G)
+//			ref.resolve(root)
+//		}
+//	{
+//		resolved !== null
+//		propVal = InstanceFactory.eINSTANCE.createInstanceReferenceValue
+//		propVal.referencedInstanceObject = resolved
+//	} or {
+//		fail
+//			error 'cannot resolve reference to model element ' + 
+//					NodeModelUtils.findActualNodeFor(ref).text + errorPosition(ref)
+//	}
+//}
+//
+//rule InterpretPropertyReference
+//	G |- APropertyReference prop ~> PropertyValue propVal
+//from {
+//	// access property on instance object
+//	var InstanceObject io
+//	{
+//		prop.modelElementReference !== null
+//		G |- prop.modelElementReference ~> var InstanceReferenceValue element
+//		io = element.referencedInstanceObject
+//	} or {
+//		io = chooseRoot(prop, G)
+//	}
+//	val namedVal = prop.property // property or constant
+//	val pexp = switch (namedVal) {
+//			Property:
+//				try {
+//					io.getSimplePropertyValue(namedVal)
+//				} catch (Exception e) {
+//					null
+//				}
+//				PropertyConstant:
+//					namedVal.constantValue
+//			default: 
+//				null
+//	}
+//	propVal = if (pexp instanceof PropertyValue) pexp else null
+//
+//	propVal !== null
+//  or {
+//		fail
+//			error 'cannot retrieve property value ' + 
+//					NodeModelUtils.findActualNodeFor(prop).text + errorPosition(prop)
+//	}
+//}
+
+// literals evaluate to themselves
+
+axiom InterpretLiteral
+	G |- Literal l ~> l
+	
+
+rule NotImplemented
+	G |- Expression e ~> Literal l
+from {
+	fail
+		error 'not implemented'
+		source e
+}
+
+// comparison 
+
+rule EqualBoolean
+	G |= EBooleanLiteral left : EBooleanLiteral right
+from {
+	left.value == right.value
+}
+
+rule EqualString
+	G |= EStringLiteral left : EStringLiteral right
+from {
+	left.value.equals(right.value)
+}
+
+rule EqualNumber
+	G |= NumberLiteral left : NumberLiteral right
+from {
+	left.compareTo(right) == 0
+}
+
+//rule EqualRange
+//	G |= RangeValue left : RangeValue right
+//from {
+//	G |- left.minimum ~> var NumberValue leftMin
+//	G |- right.minimum ~> var NumberValue rightMin
+//	G |- left.maximum ~> var NumberValue leftMax
+//	G |- right.maximum ~> var NumberValue rightMax
+//	leftMin.compareTo(rightMin) == 0 && leftMax.compareTo(rightMax) == 0
+//}
+
+rule EqualRecord
+	G |= RecordLiteral left : RecordLiteral right
+from {
+	val leftVals = left.fieldValues.map[ G |- it.value ~> var Literal value; value ]
+	val rightVals = right.fieldValues.map[ G |- it.value ~> var Literal value; value ]
+	val rightIter = rightVals.iterator()
+	leftVals.forall[ l | val r = rightIter.next; G |= l : r ]
+}
+
+//rule EqualModelElement
+//	G |= InstanceReferenceValue left : InstanceReferenceValue right
+//from {
+//	left.referencedInstanceObject == right.referencedInstanceObject
+//}
+//
+//rule Equal
+//	G |= PropertyValue left : PropertyValue right
+//from {
+//	left.sameAs(right)
+//	or
+//		fail
+//			error 'interpreter: values are not equal'
+//			source left
+//}
+
+rule CompareNumbers
+	G |> NumberLiteral left : NumberLiteral right
+from {
+	G |> left : right ~> var Integer cmp
+	val op = env(G, 'op', Operation)
+	// need b: can't return result of switch
+	val b =
+		switch (op) {
+			case LT: cmp < 0		
+			case LEQ: cmp <= 0
+			case GT: cmp > 0
+			case GEQ: cmp >= 0
+			default: false // to eliminate warning
+		}
+	b
+}
+
+//rule CompareNumberRange
+//	G |> NumberValue left : RangeValue right
+//from {
+//	var NumberValue rightNum
+//	var op = env(G, 'op', Operation)
+//	switch (op) {
+//		case LT, case LEQ: { 
+//			G |- right.minimum ~> rightNum
+//		}
+//		case GT, case GEQ: {
+//			G |- right.maximum ~> rightNum
+//		}
+//		default: {
+//			// nothing
+//		}
+//	}
+//	G |> left : rightNum 
+//}
+
+//rule CompareRangeNumber
+//	G |>  RangeValue left : NumberValue right
+//from {
+//	var NumberValue leftNum
+//	val op = env(G, 'op', Operation)
+//	switch (op) {
+//		case LT, case LEQ: { 
+//			G |- left.maximum ~> leftNum
+//		}
+//		case GT, case GEQ: {
+//			G |- left.minimum ~> leftNum
+//		}
+//		default: {
+//			// to eliminate warning
+//		}
+//	}
+//	G |> leftNum : right
+//}
+
+//rule CompareRanges
+//	G |> RangeValue left : RangeValue right
+//from {
+//	var NumberValue leftNum
+//	var NumberValue rightNum
+//	val op = env(G, 'op', Operation)
+//	switch (op) {
+//		case LT, case LEQ: { 
+//			G |- left.maximum ~> leftNum
+//			G |- right.minimum ~> rightNum
+//		}
+//		case GT, case GEQ: {
+//			G |- left.minimum ~> leftNum
+//			G |- right.maximum ~> rightNum
+//		}
+//		default: {
+//			// nothing
+//		}
+//	}
+//	G |> leftNum : rightNum
+//}
+
+rule CompareToNumber
+	G |> NumberLiteral left : NumberLiteral right ~> Integer cmp
+from {
+	cmp = left.compareTo(right)
+}
+	

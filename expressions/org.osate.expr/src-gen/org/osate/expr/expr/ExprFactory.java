@@ -78,13 +78,31 @@ public interface ExprFactory extends EFactory
   Assertion createAssertion();
 
   /**
-   * Returns a new object of class '<em>Primitive Type</em>'.
+   * Returns a new object of class '<em>ENumber Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Primitive Type</em>'.
+   * @return a new object of class '<em>ENumber Type</em>'.
    * @generated
    */
-  PrimitiveType createPrimitiveType();
+  ENumberType createENumberType();
+
+  /**
+   * Returns a new object of class '<em>EInteger</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EInteger</em>'.
+   * @generated
+   */
+  EInteger createEInteger();
+
+  /**
+   * Returns a new object of class '<em>EReal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EReal</em>'.
+   * @generated
+   */
+  EReal createEReal();
 
   /**
    * Returns a new object of class '<em>Range Type</em>'.
@@ -231,6 +249,51 @@ public interface ExprFactory extends EFactory
   NamedElementRef createNamedElementRef();
 
   /**
+   * Returns a new object of class '<em>Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Literal</em>'.
+   * @generated
+   */
+  Literal createLiteral();
+
+  /**
+   * Returns a new object of class '<em>Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Value</em>'.
+   * @generated
+   */
+  Value createValue();
+
+  /**
+   * Returns a new object of class '<em>Wrapped Named Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Wrapped Named Element</em>'.
+   * @generated
+   */
+  WrappedNamedElement createWrappedNamedElement();
+
+  /**
+   * Returns a new object of class '<em>Number Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Number Literal</em>'.
+   * @generated
+   */
+  NumberLiteral createNumberLiteral();
+
+  /**
+   * Returns a new object of class '<em>Field Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Field Value</em>'.
+   * @generated
+   */
+  FieldValue createFieldValue();
+
+  /**
    * Returns a new object of class '<em>Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -256,24 +319,6 @@ public interface ExprFactory extends EFactory
    * @generated
    */
   EBoolean createEBoolean();
-
-  /**
-   * Returns a new object of class '<em>EInteger</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>EInteger</em>'.
-   * @generated
-   */
-  EInteger createEInteger();
-
-  /**
-   * Returns a new object of class '<em>EReal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>EReal</em>'.
-   * @generated
-   */
-  EReal createEReal();
 
   /**
    * Returns a new object of class '<em>EString</em>'.

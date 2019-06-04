@@ -5,6 +5,8 @@ package org.osate.expr.expr.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.osate.aadl2.impl.TypeImpl;
+
 import org.osate.expr.expr.EString;
 import org.osate.expr.expr.ExprPackage;
 
@@ -15,7 +17,7 @@ import org.osate.expr.expr.ExprPackage;
  *
  * @generated
  */
-public class EStringImpl extends PrimitiveTypeImpl implements EString
+public class EStringImpl extends TypeImpl implements EString
 {
   /**
    * <!-- begin-user-doc -->

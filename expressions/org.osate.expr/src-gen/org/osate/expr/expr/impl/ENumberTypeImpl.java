@@ -7,24 +7,24 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.osate.aadl2.impl.TypeImpl;
 
+import org.osate.expr.expr.ENumberType;
 import org.osate.expr.expr.ExprPackage;
-import org.osate.expr.expr.PrimitiveType;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Primitive Type</b></em>'.
+ * An implementation of the model object '<em><b>ENumber Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class PrimitiveTypeImpl extends TypeImpl implements PrimitiveType
+public class ENumberTypeImpl extends TypeImpl implements ENumberType
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PrimitiveTypeImpl()
+  protected ENumberTypeImpl()
   {
     super();
   }
@@ -37,7 +37,7 @@ public class PrimitiveTypeImpl extends TypeImpl implements PrimitiveType
   @Override
   protected EClass eStaticClass()
   {
-    return ExprPackage.Literals.PRIMITIVE_TYPE;
+    return ExprPackage.Literals.ENUMBER_TYPE;
   }
 
-} //PrimitiveTypeImpl
+} //ENumberTypeImpl

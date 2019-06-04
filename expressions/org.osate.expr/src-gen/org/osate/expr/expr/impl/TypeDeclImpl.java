@@ -3,14 +3,22 @@
  */
 package org.osate.expr.expr.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Type;
 
 import org.osate.expr.expr.ExprPackage;
@@ -25,6 +33,7 @@ import org.osate.expr.expr.TypeDecl;
  * </p>
  * <ul>
  *   <li>{@link org.osate.expr.expr.impl.TypeDeclImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.TypeDeclImpl#getOwnedPropertyAssociations <em>Owned Property Associations</em>}</li>
  * </ul>
  *
  * @generated
@@ -40,6 +49,16 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * @ordered
    */
   protected Type type;
+
+  /**
+   * The cached value of the '{@link #getOwnedPropertyAssociations() <em>Owned Property Associations</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOwnedPropertyAssociations()
+   * @generated
+   * @ordered
+   */
+  protected EList<PropertyAssociation> ownedPropertyAssociations;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,12 +137,29 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * @generated
    */
   @Override
+  public EList<PropertyAssociation> getOwnedPropertyAssociations()
+  {
+    if (ownedPropertyAssociations == null)
+    {
+      ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS);
+    }
+    return ownedPropertyAssociations;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
       case ExprPackage.TYPE_DECL__TYPE:
         return basicSetType(null, msgs);
+      case ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS:
+        return ((InternalEList<?>)getOwnedPropertyAssociations()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -140,6 +176,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
     {
       case ExprPackage.TYPE_DECL__TYPE:
         return getType();
+      case ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS:
+        return getOwnedPropertyAssociations();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -149,6 +187,7 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -156,6 +195,10 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
     {
       case ExprPackage.TYPE_DECL__TYPE:
         setType((Type)newValue);
+        return;
+      case ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS:
+        getOwnedPropertyAssociations().clear();
+        getOwnedPropertyAssociations().addAll((Collection<? extends PropertyAssociation>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -174,6 +217,9 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
       case ExprPackage.TYPE_DECL__TYPE:
         setType((Type)null);
         return;
+      case ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS:
+        getOwnedPropertyAssociations().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -190,6 +236,8 @@ public class TypeDeclImpl extends EDeclarationImpl implements TypeDecl
     {
       case ExprPackage.TYPE_DECL__TYPE:
         return type != null;
+      case ExprPackage.TYPE_DECL__OWNED_PROPERTY_ASSOCIATIONS:
+        return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
     }
     return super.eIsSet(featureID);
   }

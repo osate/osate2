@@ -20,19 +20,19 @@ package org.osate.expr.expr;
  * @model
  * @generated
  */
-public interface EIntegerLiteral extends Expression
+public interface EIntegerLiteral extends NumberLiteral
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
+   * @see #setValue(long)
    * @see org.osate.expr.expr.ExprPackage#getEIntegerLiteral_Value()
-   * @model
+   * @model dataType="org.osate.aadl2.Integer"
    * @generated
    */
-  String getValue();
+  long getValue();
 
   /**
    * Sets the value of the '{@link org.osate.expr.expr.EIntegerLiteral#getValue <em>Value</em>}' attribute.
@@ -42,6 +42,6 @@ public interface EIntegerLiteral extends Expression
    * @see #getValue()
    * @generated
    */
-  void setValue(String value);
+  void setValue(long value);
 
 } // EIntegerLiteral

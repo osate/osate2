@@ -32,7 +32,7 @@ import org.osate.expr.expr.TupleLiteral;
  *
  * @generated
  */
-public class TupleLiteralImpl extends ExpressionImpl implements TupleLiteral
+public class TupleLiteralImpl extends LiteralImpl implements TupleLiteral
 {
   /**
    * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
