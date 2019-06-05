@@ -40,6 +40,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -197,9 +198,9 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	@Override
 	public Collection<?> getChildren(Object object) {
 		EndToEndFlowInstance etef = (EndToEndFlowInstance) object;
-		return etef.getFlowElements().stream()
-				.map(flowElement -> new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement))
-				.collect(Collectors.toList());
+		Stream<EndToEndFlowInstanceFlowElementItemProvider> flowElements = etef.getFlowElements().stream()
+				.map(flowElement -> new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement));
+		return Stream.concat(flowElements, super.getChildren(object).stream()).collect(Collectors.toList());
 	}
 
 	public static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter
