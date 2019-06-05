@@ -27,6 +27,8 @@ public class Aadl2ResourceServiceProvider extends IGlobalServiceProvider.Resourc
 			annex = EcoreUtil2.getContainerOfType(eObject, DefaultAnnexSubclause.class);
 		}
 		if (annex != null) {
+			// assumes that the annex file extension is the same as
+			// the annex name in the AADL sources
 			URI uri = URI.createURI("dummy." + annex.getName().toLowerCase());
 			return findService(uri, serviceClazz);
 		} else {
