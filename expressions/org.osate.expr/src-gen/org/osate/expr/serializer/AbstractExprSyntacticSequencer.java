@@ -10,6 +10,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -23,6 +24,7 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	protected AbstractElementAlias match_Declarations_SemicolonKeyword_2_q;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_a;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_p;
+	protected AbstractElementAlias match_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -30,6 +32,7 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 		match_Declarations_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getDeclarationsAccess().getSemicolonKeyword_2());
 		match_PrimaryExpression_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
+		match_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSelectExpressionAccess().getLeftParenthesisKeyword_1_0_3_0()), new TokenAlias(false, false, grammarAccess.getSelectExpressionAccess().getRightParenthesisKeyword_1_0_3_2()));
 	}
 	
 	@Override
@@ -88,6 +91,8 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 				emit_PrimaryExpression_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_PrimaryExpression_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q.equals(syntax))
+				emit_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -131,8 +136,8 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     (rule start) (ambiguity) value=SignedReal
 	 *     (rule start) (ambiguity) value?='true'
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
-	 *     (rule start) (ambiguity) {NamedElementRef.prev=}
 	 *     (rule start) (ambiguity) {PropertyExpression.modelElement=}
+	 *     (rule start) (ambiguity) {Selection.receiver=}
 	 *     (rule start) (ambiguity) {UnitExpression.expression=}
 	 */
 	protected void emit_PrimaryExpression_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -147,9 +152,21 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
 	 *     (rule start) (ambiguity) {PropertyExpression.modelElement=}
+	 *     (rule start) (ambiguity) {Selection.receiver=}
 	 *     (rule start) (ambiguity) {UnitExpression.expression=}
 	 */
 	protected void emit_PrimaryExpression_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('(' ')')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     ref=[NamedElement|QCREF] (ambiguity) ')' (rule end)
+	 */
+	protected void emit_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

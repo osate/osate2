@@ -1,11 +1,8 @@
 package org.osate.expr.evaluation;
 
-import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.expr.expr.EIntegerLiteral;
 import org.osate.expr.expr.ERealLiteral;
 import org.osate.expr.expr.ExprFactory;
-import org.osate.expr.expr.NamedElementRef;
 import org.osate.expr.expr.NumberLiteral;
 
 class ExprInterpreterUtil {
@@ -101,19 +98,19 @@ class ExprInterpreterUtil {
 	/**
 	 * Resolve a model element reference relative to an instance object
 	 */
-	static InstanceObject resolve(NamedElementRef ner, InstanceObject root) {
-		if (ner.getPrev() == null) {
-			return root;
-		} else {
-			InstanceObject io = resolve(ner.getPrev(), root);
-			EObject result = io.eContents().stream()
-					.filter(it -> (it instanceof InstanceObject)
-							? ((InstanceObject) it).getName().equalsIgnoreCase(ner.getRef().getName())
-							: false)
-					.findFirst().get();
-			return (InstanceObject) result;
-		}
-	}
+//	static InstanceObject resolve(NamedElementRef ner, InstanceObject root) {
+//		if (ner.getPrev() == null) {
+//			return root;
+//		} else {
+//			InstanceObject io = resolve(ner.getPrev(), root);
+//			EObject result = io.eContents().stream()
+//					.filter(it -> (it instanceof InstanceObject)
+//							? ((InstanceObject) it).getName().equalsIgnoreCase(ner.getRef().getName())
+//							: false)
+//					.findFirst().get();
+//			return (InstanceObject) result;
+//		}
+//	}
 
 //	public static InterpreterUtil instance = new InterpreterUtil();
 

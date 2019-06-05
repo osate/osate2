@@ -77,4 +77,33 @@ public class ExprValueConverters extends DefaultTerminalConverters {
 		};
 	}
 
+	@ValueConverter(rule = "QCREF")
+	public IValueConverter<String> QCREF() {
+
+		final char implSeparator = ':';
+
+		return new IValueConverter<String>() {
+			@Override
+			public String toValue(String string, INode node) {
+				if (string == null) {
+					return null;
+				}
+				int i = string.lastIndexOf(implSeparator);
+				if (i < 0 || string.charAt(i - 1) == ':') {
+					return string;
+				}
+				return string.substring(0, i) + "." + string.substring(i + 1);
+			}
+
+			@Override
+			public String toString(String value) {
+				int i = value.indexOf(".");
+				if (i < 0) {
+					return value;
+				}
+				return value.substring(0, i) + implSeparator + value.substring(i + 1);
+			}
+		};
+	}
+
 }

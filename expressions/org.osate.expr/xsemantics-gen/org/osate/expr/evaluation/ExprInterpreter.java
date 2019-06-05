@@ -32,17 +32,14 @@ import org.osate.expr.expr.ENumberType;
 import org.osate.expr.expr.EStringLiteral;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.Expression;
-import org.osate.expr.expr.Field;
 import org.osate.expr.expr.FieldValue;
 import org.osate.expr.expr.Literal;
-import org.osate.expr.expr.NamedElementRef;
 import org.osate.expr.expr.NumberLiteral;
 import org.osate.expr.expr.Operation;
 import org.osate.expr.expr.RecordLiteral;
 import org.osate.expr.expr.UnaryOperation;
 import org.osate.expr.expr.Value;
 import org.osate.expr.expr.VarDecl;
-import org.osate.expr.expr.WrappedNamedElement;
 
 @SuppressWarnings("all")
 public class ExprInterpreter extends XsemanticsRuntimeSystem {
@@ -57,8 +54,6 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
   public static final String INTERPRETUNARYEXPRESSION = "org.osate.expr.evaluation.InterpretUnaryExpression";
   
   public static final String INTERPRETVARDECL = "org.osate.expr.evaluation.InterpretVarDecl";
-  
-  public static final String INTERPRETNAMEDELEMENTREF = "org.osate.expr.evaluation.InterpretNamedElementRef";
   
   public static final String INTERPETITE = "org.osate.expr.evaluation.InterpetITE";
   
@@ -777,61 +772,6 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
       map.put(varDecl, propVal);
     }
     return new Result<Value>(propVal);
-  }
-  
-  protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NamedElementRef ner) throws RuleFailedException {
-    try {
-    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
-    	final Result<Value> _result_ = applyRuleInterpretNamedElementRef(G, _subtrace_, ner);
-    	addToTrace(_trace_, new Provider<Object>() {
-    		public Object get() {
-    			return ruleName("InterpretNamedElementRef") + stringRepForEnv(G) + " |- " + stringRep(ner) + " ~> " + stringRep(_result_.getFirst());
-    		}
-    	});
-    	addAsSubtrace(_trace_, _subtrace_);
-    	return _result_;
-    } catch (Exception e_applyRuleInterpretNamedElementRef) {
-    	interpretExpressionThrowException(ruleName("InterpretNamedElementRef") + stringRepForEnv(G) + " |- " + stringRep(ner) + " ~> " + "Value",
-    		INTERPRETNAMEDELEMENTREF,
-    		e_applyRuleInterpretNamedElementRef, ner, new ErrorInformation[] {new ErrorInformation(ner)});
-    	return null;
-    }
-  }
-  
-  protected Result<Value> applyRuleInterpretNamedElementRef(final RuleEnvironment G, final RuleApplicationTrace _trace_, final NamedElementRef ner) throws RuleFailedException {
-    Value value = null; // output parameter
-    final NamedElement ref = ner.getRef();
-    boolean _matched = false;
-    if (ref instanceof VarDecl) {
-      _matched=true;
-      /* G |- ref.value ~> value */
-      Expression _value = ((VarDecl)ref).getValue();
-      Result<Value> result = interpretExpressionInternal(G, _trace_, _value);
-      checkAssignableTo(result.getFirst(), Value.class);
-      value = (Value) result.getFirst();
-      
-    }
-    if (!_matched) {
-      if (ref instanceof Field) {
-        _matched=true;
-        /* fail error 'not implemented' source ner */
-        String error = "not implemented";
-        EObject source = ner;
-        throwForExplicitFail(error, new ErrorInformation(source, null));
-      }
-    }
-    if (!_matched) {
-      InstanceObject _xblockexpression = null;
-      {
-        final InstanceObject root = this.<InstanceObject>env(G, "component", InstanceObject.class);
-        _xblockexpression = (ExprInterpreterUtil.resolve(ner, root));
-      }
-      final InstanceObject resolved = _xblockexpression;
-      final WrappedNamedElement wne = ExprFactory.eINSTANCE.createWrappedNamedElement();
-      wne.setElem(resolved);
-      value = wne;
-    }
-    return new Result<Value>(value);
   }
   
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Conditional ite) throws RuleFailedException {

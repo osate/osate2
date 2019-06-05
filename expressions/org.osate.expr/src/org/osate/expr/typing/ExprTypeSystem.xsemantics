@@ -32,6 +32,7 @@ import org.osate.expr.expr.EnumLiteral
 import org.osate.expr.expr.EnumType
 import org.osate.expr.expr.ExprFactory
 import org.osate.expr.expr.Expression
+import org.osate.expr.expr.Field
 import org.osate.expr.expr.ListLiteral
 import org.osate.expr.expr.MapLiteral
 import org.osate.expr.expr.MetaClassEnum
@@ -39,6 +40,7 @@ import org.osate.expr.expr.NamedElementRef
 import org.osate.expr.expr.PropertyExpression
 import org.osate.expr.expr.RangeType
 import org.osate.expr.expr.RecordLiteral
+import org.osate.expr.expr.Selection
 import org.osate.expr.expr.SetLiteral
 import org.osate.expr.expr.TupleLiteral
 import org.osate.expr.expr.UnionLiteral
@@ -304,6 +306,12 @@ from {
 				source binary
 		}
 	}
+}
+
+rule SelectExpression
+	G |- Selection selection : Type type
+from {
+	G |- selection.ref : type
 }
 
 //rule UnaryExpression
@@ -641,6 +649,8 @@ from {
 	}
 }
 
+// primary expressions
+
 rule NamedElementRef
 	G |- NamedElementRef ner : Type type
 from {
@@ -786,7 +796,13 @@ axiom MapLiteral
 
 axiom EnumLiteral
 	G |- EnumLiteral l : l.eContainer as EnumType
-		
+
+rule Field
+	G |- Field f : Type type
+from {
+	G |- f.type : type
+} 
+	
 // type equality
 
 axiom SameEBoolean

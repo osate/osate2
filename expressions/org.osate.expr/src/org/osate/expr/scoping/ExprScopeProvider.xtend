@@ -6,6 +6,7 @@ package org.osate.expr.scoping
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xsemantics.runtime.RuleEnvironment
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
@@ -22,10 +23,15 @@ import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
+import org.osate.expr.ExprTypeSystem
 import org.osate.expr.expr.EDeclaration
 import org.osate.expr.expr.ExprLibrary
 import org.osate.expr.expr.ExprSubclause
+import org.osate.expr.expr.Expression
 import org.osate.expr.expr.NamedElementRef
+import org.osate.expr.expr.Selection
+import org.osate.expr.expr.TypeDecl
+import org.osate.expr.expr.TypeRef
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static org.osate.expr.expr.ExprPackage.Literals.*
@@ -42,15 +48,19 @@ import static extension org.eclipse.xtext.EcoreUtil2.*
 class ExprScopeProvider extends PropertiesScopeProvider {
 
 	@Inject
+	ExprTypeSystem typeSystem
+
+	@Inject
 	IQualifiedNameConverter qualifiedNameConverter
 
 	override getScope(EObject context, EReference reference) {
 		switch reference {
+			case SELECTION__REF: {
+				val selection = context as Selection
+				getSelectionScope(selection.receiver, selection, reference)
+			}
 			case NAMED_ELEMENT_REF__REF:
-				if (context instanceof NamedElementRef)
-					getNamedElementScope(context, reference)
-				else
-					getAnnexScope(context, reference)
+				getNamedElementScope(context as NamedElementRef, reference)
 			case TYPE_REF__REF:
 				getAnnexScope(context, reference)
 			default:
@@ -88,45 +98,57 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def getNamedElementScope(NamedElementRef context, EReference reference) {
-		if (context.prev === null) {
-			if (context.core) {
-				getCoreScope(context, reference)
-			} else {
-				getAnnexScope(context, reference)
-			}
-		} else {
-			val prev = context.prev
-			val prevElement = prev.ref
-			val namespace = switch prevElement {
-				AbstractFeature:
-					switch featureClassifier : prevElement.abstractFeatureClassifier {
-						ComponentClassifier: featureClassifier
-						ComponentPrototype: featureClassifier.constrainingClassifier
-						default: prevElement.featurePrototype.constrainingClassifier
-					}
-				FeatureGroup:
-					switch featureType : prevElement.featureType {
-						FeatureGroupType: featureType
-						FeatureGroupPrototype: featureType.constrainingFeatureGroupType
-					}
-				Feature:
-					switch featureClassifier : prevElement.featureClassifier {
-						ComponentClassifier: featureClassifier
-						ComponentPrototype: featureClassifier.constrainingClassifier
-					}
-				Subcomponent:
-					switch subcomponentType : prevElement.subcomponentType {
-						ComponentClassifier: subcomponentType
-						ComponentPrototype: subcomponentType.constrainingClassifier
-					}
-				default:
-					prevElement
-			}
-			if (namespace === null)
-				IScope.NULLSCOPE
-			else
-				namespace.getAllContentsOfType(NamedElement).scopeFor
+		if (context.core)
+			getCoreScope(context, reference)
+		else
+			getAnnexScope(context, reference)
+	}
+
+	def getSelectionScope(Expression receiver, Selection context, EReference reference) {
+		val prevType = receiver.expressionType
+		val namespace = switch prevType {
+			// AADL Types
+			AbstractFeature:
+				switch featureClassifier : prevType.abstractFeatureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
+					default: prevType.featurePrototype.constrainingClassifier
+				}
+			FeatureGroup:
+				switch featureType : prevType.featureType {
+					FeatureGroupType: featureType
+					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+				}
+			Feature:
+				switch featureClassifier : prevType.featureClassifier {
+					ComponentClassifier: featureClassifier
+					ComponentPrototype: featureClassifier.constrainingClassifier
+				}
+			Subcomponent:
+				switch subcomponentType : prevType.subcomponentType {
+					ComponentClassifier: subcomponentType
+					ComponentPrototype: subcomponentType.constrainingClassifier
+				}
+			TypeRef:
+				switch ref : prevType.ref {
+					TypeDecl: ref.type
+					default: ref
+				}
+			default:
+				prevType
 		}
+		if (namespace === null)
+			IScope.NULLSCOPE
+		else
+			namespace.getAllContentsOfType(NamedElement).scopeFor
+	}
+
+	protected def getExpressionType(Expression receiver) {
+		typeSystem.type(environmentForExpression(receiver), receiver).getValue()
+	}
+
+	private def environmentForExpression(Expression expression) {
+		new RuleEnvironment
 	}
 
 	def getThisScope(EObject context) {
@@ -153,8 +175,4 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 		null
 	}
 
-//	def scopeFor(Iterable<? extends EObject> elements) {
-//		new SimpleScope(IScope.NULLSCOPE,
-//			Scopes.scopedElementsFor(elements, QualifiedName.wrapper(SimpleAttributeResolver.NAME_RESOLVER)), false)
-//	}
 }

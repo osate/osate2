@@ -255,31 +255,31 @@ from {
 	}
 }
 
-rule InterpretNamedElementRef
-  G |- NamedElementRef ner ~> Value value
-from {
-	val ref = ner.ref
-	switch ref {
-		VarDecl: {
-			G |- ref.value ~> value
-		}
-		Field: {
-			fail
-				error 'not implemented'
-				source ner
-		}
-		default: {
-			// otherwise it should be a model element
-			val resolved = {
-				val root = env(G, 'component', InstanceObject)
-				ner.resolve(root)
-			}
-			val wne = ExprFactory.eINSTANCE.createWrappedNamedElement
-			wne.elem = resolved
-			value = wne
-		}
-	}
-}
+//rule InterpretNamedElementRef
+//  G |- NamedElementRef ner ~> Value value
+//from {
+//	val ref = ner.ref
+//	switch ref {
+//		VarDecl: {
+//			G |- ref.value ~> value
+//		}
+//		Field: {
+//			fail
+//				error 'not implemented'
+//				source ner
+//		}
+//		default: {
+//			// otherwise it should be a model element
+//			val resolved = {
+//				val root = env(G, 'component', InstanceObject)
+//				ner.resolve(root)
+//			}
+//			val wne = ExprFactory.eINSTANCE.createWrappedNamedElement
+//			wne.elem = resolved
+//			value = wne
+//		}
+//	}
+//}
 
 rule InterpetITE
 	G |- Conditional ite ~> Literal propVal

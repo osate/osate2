@@ -19,8 +19,9 @@ ExprSubclause returns aadl2::AnnexSubclause:
 	{ExprSubclause} Declarations?
 ;
 
+
 NamedElement returns aadl2::NamedElement:
-	ExprLibrary | ExprSubclause | EDeclaration
+	ExprLibrary | ExprSubclause | EDeclaration | Field
 ;
 
 fragment Declarations*:
@@ -111,7 +112,7 @@ RecordType:
 ;
 
 Field:
-	name=ID ':' type=Type
+	{Field} name=ID ':' type=Type
 ;
 
 UnionType:
@@ -256,18 +257,17 @@ UnitExpression returns Expression:
 
 @Override 
 PropertyExpression returns Expression:
-	PrimaryExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?	
+	SelectExpression (=>({PropertyExpression.modelElement=current} '#') property=[aadl2::AbstractNamedValue|QPREF])?	
 ;
 
-// TODO: UFC and record field access are a bit complicated because it intertwines scoping and typing
-//SelectExpression returns Expression:
-//	PrimaryExpression
-//	=>(
-//		{Selection.receiver=current} '.' 
-//		(core?='^')? ref=[aadl2::NamedElement|QCREF]
-//		('(' (args+=Expression (',' args+=Expression)*)? ')')?
-//	)*
-//;
+SelectExpression returns Expression:
+	PrimaryExpression
+	=>(
+		{Selection.receiver=current} '.' 
+		ref=[aadl2::NamedElement|QCREF]
+		('(' (args+=Expression (',' args+=Expression)*)? ')')?
+	)*
+;
 
 PrimaryExpression returns Expression:
 	NamedElementRef
@@ -275,12 +275,9 @@ PrimaryExpression returns Expression:
 	| Literal | '(' Expression ')'
 ;
 
-// TODO: will be handled by selection
 NamedElementRef:
 	(core?='^')?
-	ref=[aadl2::NamedElement|QCREF] (
-		=>({NamedElementRef.prev=current} '.') ref=[aadl2::NamedElement|ID]
-	)*
+	ref=[aadl2::NamedElement|QCREF]
 ;
 
 RangeExpression returns Expression:
@@ -389,5 +386,5 @@ MapLiteral returns Literal:
 
 @Override 
 QCREF:
-	(ID '::')* ID (=>'.' ID)?
+	(ID '::')* ID (':' ID)?
 ;

@@ -62,6 +62,7 @@ import org.osate.expr.expr.Operation;
 import org.osate.expr.expr.PropertyExpression;
 import org.osate.expr.expr.RangeType;
 import org.osate.expr.expr.RecordLiteral;
+import org.osate.expr.expr.Selection;
 import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
 import org.osate.expr.expr.TupleLiteral;
@@ -81,6 +82,8 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   public static final String EXPRESSION = "org.osate.expr.Expression";
   
   public static final String BINARYEXPRESSION = "org.osate.expr.BinaryExpression";
+  
+  public static final String SELECTEXPRESSION = "org.osate.expr.SelectExpression";
   
   public static final String IFEXPRESSION = "org.osate.expr.IfExpression";
   
@@ -139,6 +142,8 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   public static final String MAPLITERAL = "org.osate.expr.MapLiteral";
   
   public static final String ENUMLITERAL = "org.osate.expr.EnumLiteral";
+  
+  public static final String FIELD = "org.osate.expr.Field";
   
   public static final String SAMEEBOOLEAN = "org.osate.expr.SameEBoolean";
   
@@ -776,6 +781,36 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
       EObject source_13 = binary;
       throwForExplicitFail(error_13, new ErrorInformation(source_13, null));
     }
+    return new Result<Type>(type);
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Selection selection) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleSelectExpression(G, _subtrace_, selection);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("SelectExpression") + stringRepForEnv(G) + " |- " + stringRep(selection) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleSelectExpression) {
+    	typeThrowException(ruleName("SelectExpression") + stringRepForEnv(G) + " |- " + stringRep(selection) + " : " + "Type",
+    		SELECTEXPRESSION,
+    		e_applyRuleSelectExpression, selection, new ErrorInformation[] {new ErrorInformation(selection)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleSelectExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Selection selection) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- selection.ref : type */
+    NamedElement _ref = selection.getRef();
+    Result<Type> result = typeInternal(G, _trace_, _ref);
+    checkAssignableTo(result.getFirst(), Type.class);
+    type = (Type) result.getFirst();
+    
     return new Result<Type>(type);
   }
   
@@ -1727,6 +1762,36 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   private EnumType _applyRuleEnumLiteral_1(final RuleEnvironment G, final EnumLiteral l) throws RuleFailedException {
     EObject _eContainer = l.eContainer();
     return ((EnumType) _eContainer);
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Field f) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleField(G, _subtrace_, f);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("Field") + stringRepForEnv(G) + " |- " + stringRep(f) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleField) {
+    	typeThrowException(ruleName("Field") + stringRepForEnv(G) + " |- " + stringRep(f) + " : " + "Type",
+    		FIELD,
+    		e_applyRuleField, f, new ErrorInformation[] {new ErrorInformation(f)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleField(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Field f) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- f.type : type */
+    Type _type = f.getType();
+    Result<Type> result = typeInternal(G, _trace_, _type);
+    checkAssignableTo(result.getFirst(), Type.class);
+    type = (Type) result.getFirst();
+    
+    return new Result<Type>(type);
   }
   
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean t1, final EBoolean t2) throws RuleFailedException {

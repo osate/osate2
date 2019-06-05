@@ -66,6 +66,7 @@ import org.osate.expr.expr.Range;
 import org.osate.expr.expr.RangeType;
 import org.osate.expr.expr.RecordLiteral;
 import org.osate.expr.expr.RecordType;
+import org.osate.expr.expr.Selection;
 import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
 import org.osate.expr.expr.TupleLiteral;
@@ -248,7 +249,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				sequence_Declarations_ExprSubclause(context, (ExprSubclause) semanticObject); 
 				return; 
 			case ExprPackage.FIELD:
-				if (rule == grammarAccess.getFieldRule()) {
+				if (rule == grammarAccess.getNamedElementRule()
+						|| rule == grammarAccess.getFieldRule()) {
 					sequence_Field(context, (Field) semanticObject); 
 					return; 
 				}
@@ -295,6 +297,9 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				return; 
 			case ExprPackage.RECORD_TYPE:
 				sequence_RecordType(context, (RecordType) semanticObject); 
+				return; 
+			case ExprPackage.SELECTION:
+				sequence_SelectExpression(context, (Selection) semanticObject); 
 				return; 
 			case ExprPackage.SET_LITERAL:
 				sequence_ExpressionList_SetLiteral(context, (SetLiteral) semanticObject); 
@@ -357,6 +362,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns BinaryOperation
 	 *     PropertyExpression returns BinaryOperation
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns BinaryOperation
+	 *     SelectExpression returns BinaryOperation
+	 *     SelectExpression.Selection_1_0_0 returns BinaryOperation
 	 *     PrimaryExpression returns BinaryOperation
 	 *
 	 * Constraint:
@@ -417,6 +424,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns BagLiteral
 	 *     PropertyExpression returns BagLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns BagLiteral
+	 *     SelectExpression returns BagLiteral
+	 *     SelectExpression.Selection_1_0_0 returns BagLiteral
 	 *     PrimaryExpression returns BagLiteral
 	 *     Literal returns BagLiteral
 	 *     Value returns BagLiteral
@@ -514,6 +523,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns EBooleanLiteral
 	 *     PropertyExpression returns EBooleanLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EBooleanLiteral
+	 *     SelectExpression returns EBooleanLiteral
+	 *     SelectExpression.Selection_1_0_0 returns EBooleanLiteral
 	 *     PrimaryExpression returns EBooleanLiteral
 	 *     Literal returns EBooleanLiteral
 	 *     Value returns EBooleanLiteral
@@ -547,6 +558,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns EIntegerLiteral
 	 *     PropertyExpression returns EIntegerLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EIntegerLiteral
+	 *     SelectExpression returns EIntegerLiteral
+	 *     SelectExpression.Selection_1_0_0 returns EIntegerLiteral
 	 *     PrimaryExpression returns EIntegerLiteral
 	 *     Literal returns EIntegerLiteral
 	 *     Value returns EIntegerLiteral
@@ -602,6 +615,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns ERealLiteral
 	 *     PropertyExpression returns ERealLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns ERealLiteral
+	 *     SelectExpression returns ERealLiteral
+	 *     SelectExpression.Selection_1_0_0 returns ERealLiteral
 	 *     PrimaryExpression returns ERealLiteral
 	 *     Literal returns ERealLiteral
 	 *     Value returns ERealLiteral
@@ -657,6 +672,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns EStringLiteral
 	 *     PropertyExpression returns EStringLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns EStringLiteral
+	 *     SelectExpression returns EStringLiteral
+	 *     SelectExpression.Selection_1_0_0 returns EStringLiteral
 	 *     PrimaryExpression returns EStringLiteral
 	 *     Literal returns EStringLiteral
 	 *     Value returns EStringLiteral
@@ -739,6 +756,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns ListLiteral
 	 *     PropertyExpression returns ListLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns ListLiteral
+	 *     SelectExpression returns ListLiteral
+	 *     SelectExpression.Selection_1_0_0 returns ListLiteral
 	 *     PrimaryExpression returns ListLiteral
 	 *     Literal returns ListLiteral
 	 *     Value returns ListLiteral
@@ -772,6 +791,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns SetLiteral
 	 *     PropertyExpression returns SetLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns SetLiteral
+	 *     SelectExpression returns SetLiteral
+	 *     SelectExpression.Selection_1_0_0 returns SetLiteral
 	 *     PrimaryExpression returns SetLiteral
 	 *     Literal returns SetLiteral
 	 *     Value returns SetLiteral
@@ -805,6 +826,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns TupleLiteral
 	 *     PropertyExpression returns TupleLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns TupleLiteral
+	 *     SelectExpression returns TupleLiteral
+	 *     SelectExpression.Selection_1_0_0 returns TupleLiteral
 	 *     PrimaryExpression returns TupleLiteral
 	 *     Literal returns TupleLiteral
 	 *     Value returns TupleLiteral
@@ -841,6 +864,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	
 	/**
 	 * Contexts:
+	 *     NamedElement returns Field
 	 *     Field returns Field
 	 *
 	 * Constraint:
@@ -848,14 +872,14 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 */
 	protected void sequence_Field(ISerializationContext context, Field semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.FIELD__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.FIELD__NAME));
+			if (transientValues.isValueTransient(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
 			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.FIELD__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.FIELD__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFieldAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getFieldAccess().getTypeTypeParserRuleCall_2_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getFieldAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFieldAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	
@@ -900,6 +924,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns Conditional
 	 *     PropertyExpression returns Conditional
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns Conditional
+	 *     SelectExpression returns Conditional
+	 *     SelectExpression.Selection_1_0_0 returns Conditional
 	 *     PrimaryExpression returns Conditional
 	 *     IfExpression returns Conditional
 	 *
@@ -950,6 +976,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns MapLiteral
 	 *     PropertyExpression returns MapLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns MapLiteral
+	 *     SelectExpression returns MapLiteral
+	 *     SelectExpression.Selection_1_0_0 returns MapLiteral
 	 *     PrimaryExpression returns MapLiteral
 	 *     Literal returns MapLiteral
 	 *     Value returns MapLiteral
@@ -1024,12 +1052,13 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns NamedElementRef
 	 *     PropertyExpression returns NamedElementRef
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns NamedElementRef
+	 *     SelectExpression returns NamedElementRef
+	 *     SelectExpression.Selection_1_0_0 returns NamedElementRef
 	 *     PrimaryExpression returns NamedElementRef
 	 *     NamedElementRef returns NamedElementRef
-	 *     NamedElementRef.NamedElementRef_2_0_0_0 returns NamedElementRef
 	 *
 	 * Constraint:
-	 *     ((core?='^'? ref=[NamedElement|QCREF]) | (prev=NamedElementRef_NamedElementRef_2_0_0_0 ref=[NamedElement|ID]))
+	 *     (core?='^'? ref=[NamedElement|QCREF])
 	 */
 	protected void sequence_NamedElementRef(ISerializationContext context, NamedElementRef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1082,6 +1111,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns PropertyExpression
 	 *     PropertyExpression returns PropertyExpression
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns PropertyExpression
+	 *     SelectExpression returns PropertyExpression
+	 *     SelectExpression.Selection_1_0_0 returns PropertyExpression
 	 *     PrimaryExpression returns PropertyExpression
 	 *
 	 * Constraint:
@@ -1121,6 +1152,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns Range
 	 *     PropertyExpression returns Range
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns Range
+	 *     SelectExpression returns Range
+	 *     SelectExpression.Selection_1_0_0 returns Range
 	 *     PrimaryExpression returns Range
 	 *     RangeExpression returns Range
 	 *
@@ -1171,6 +1204,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns RecordLiteral
 	 *     PropertyExpression returns RecordLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns RecordLiteral
+	 *     SelectExpression returns RecordLiteral
+	 *     SelectExpression.Selection_1_0_0 returns RecordLiteral
 	 *     PrimaryExpression returns RecordLiteral
 	 *     Literal returns RecordLiteral
 	 *     Value returns RecordLiteral
@@ -1193,6 +1228,38 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     (fields+=Field fields+=Field*)?
 	 */
 	protected void sequence_RecordType(ISerializationContext context, RecordType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns Selection
+	 *     OrExpression returns Selection
+	 *     OrExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     AndExpression returns Selection
+	 *     AndExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     EqualityExpression returns Selection
+	 *     EqualityExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     RelationalExpression returns Selection
+	 *     RelationalExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     AdditiveExpression returns Selection
+	 *     AdditiveExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     MultiplicativeExpression returns Selection
+	 *     MultiplicativeExpression.BinaryOperation_1_0_0_0 returns Selection
+	 *     UnaryOperation returns Selection
+	 *     UnitExpression returns Selection
+	 *     UnitExpression.UnitExpression_1_0 returns Selection
+	 *     PropertyExpression returns Selection
+	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns Selection
+	 *     SelectExpression returns Selection
+	 *     SelectExpression.Selection_1_0_0 returns Selection
+	 *     PrimaryExpression returns Selection
+	 *
+	 * Constraint:
+	 *     (receiver=SelectExpression_Selection_1_0_0 ref=[NamedElement|QCREF] (args+=Expression args+=Expression*)?)
+	 */
+	protected void sequence_SelectExpression(ISerializationContext context, Selection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1300,6 +1367,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns UnaryOperation
 	 *     PropertyExpression returns UnaryOperation
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns UnaryOperation
+	 *     SelectExpression returns UnaryOperation
+	 *     SelectExpression.Selection_1_0_0 returns UnaryOperation
 	 *     PrimaryExpression returns UnaryOperation
 	 *
 	 * Constraint:
@@ -1339,6 +1408,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns UnionLiteral
 	 *     PropertyExpression returns UnionLiteral
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns UnionLiteral
+	 *     SelectExpression returns UnionLiteral
+	 *     SelectExpression.Selection_1_0_0 returns UnionLiteral
 	 *     PrimaryExpression returns UnionLiteral
 	 *     Literal returns UnionLiteral
 	 *     Value returns UnionLiteral
@@ -1391,6 +1462,8 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     UnitExpression.UnitExpression_1_0 returns UnitExpression
 	 *     PropertyExpression returns UnitExpression
 	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns UnitExpression
+	 *     SelectExpression returns UnitExpression
+	 *     SelectExpression.Selection_1_0_0 returns UnitExpression
 	 *     PrimaryExpression returns UnitExpression
 	 *
 	 * Constraint:
