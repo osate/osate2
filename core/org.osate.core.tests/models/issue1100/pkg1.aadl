@@ -1,0 +1,12 @@
+package pkg1
+public
+	with ps1;
+	
+	thread t
+		properties
+			ps1::int_no_units => -5;
+			ps1::int_with_units => 15 ms;
+			ps1::real_no_units => 50.5;
+			ps1::real_with_units => 35.789 ms;
+	end t;
+end pkg1;
