@@ -38,10 +38,6 @@ public interface AgreeMethod extends MethodKind
   /**
    * Returns the value of the '<em><b>Single Layer</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Single Layer</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Single Layer</em>' attribute.
    * @see #setSingleLayer(boolean)
@@ -64,10 +60,6 @@ public interface AgreeMethod extends MethodKind
   /**
    * Returns the value of the '<em><b>All</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>All</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>All</em>' attribute.
    * @see #setAll(boolean)

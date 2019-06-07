@@ -16,9 +16,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.custom.BusyIndicator;
 import org.osgi.framework.Bundle;
 
+/**
+ * @deprecated Will be removed in 2.6.0.
+ */
+@Deprecated
 public class CoreUtility {
 
 	/**
@@ -56,16 +59,16 @@ public class CoreUtility {
 		} else {
 			final Object[] ret = new Object[1];
 			final CoreException[] exc = new CoreException[1];
-			BusyIndicator.showWhile(null, new Runnable() {
-				@Override
-				public void run() {
+//			BusyIndicator.showWhile(null, new Runnable() {
+//				@Override
+//				public void run() {
 					try {
 						ret[0] = element.createExecutableExtension(classAttribute);
 					} catch (CoreException e) {
 						exc[0] = e;
 					}
-				}
-			});
+//				}
+//			});
 			if (exc[0] != null) {
 				throw exc[0];
 			} else {

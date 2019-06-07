@@ -3,22 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Workspace Plug-in
 Bundle-SymbolicName: org.osate.workspace;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .,
- etc/antlr.jar
+Bundle-ClassPath: .
 Bundle-Activator: org.osate.workspace.WorkspacePlugin
 Bundle-Vendor: CMU-SEI
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.emf.common
 Bundle-ActivationPolicy: lazy
-Export-Package: antlr,
- antlr.actions.java,
- antlr.build,
- antlr.collections,
- antlr.collections.impl,
- antlr.preprocessor,
- org.osate.internal.workspace;
+Export-Package: org.osate.internal.workspace;
   uses:="org.eclipse.core.runtime,
    edu.cmu.sei.osate.workspace,
    org.eclipse.emf.common.util,

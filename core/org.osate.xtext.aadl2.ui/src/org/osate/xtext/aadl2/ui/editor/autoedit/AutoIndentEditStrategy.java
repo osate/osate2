@@ -43,7 +43,7 @@ import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractTerminalsEditStrategy;
 import org.eclipse.xtext.ui.editor.autoedit.CommandInfo;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.core.OsateCorePlugin;
 
 import com.google.inject.Inject;
 import com.google.inject.MembersInjector;
@@ -78,7 +78,7 @@ public class AutoIndentEditStrategy extends AbstractTerminalsEditStrategy {
 	private final static Logger log = Logger.getLogger(AutoIndentEditStrategy.class);
 
 	private String indentationString;
-	private IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
+	private IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 
 	public AutoIndentEditStrategy(String terminal) {
 		this(terminal, null);
@@ -133,7 +133,7 @@ public class AutoIndentEditStrategy extends AbstractTerminalsEditStrategy {
 	}
 
 	protected String getAutoIndentString() {
-		if (store.getBoolean(WorkspacePlugin.AUTO_INDENT)) {
+		if (store.getBoolean(OsateCorePlugin.AUTO_INDENT)) {
 			return indentationString;
 		}
 		return "";

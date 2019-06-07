@@ -16301,57 +16301,87 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRationale"
-    // InternalReqSpecParser.g:5830:1: ruleRationale returns [EObject current=null] : (otherlv_0= Rationale ( (lv_text_1_0= RULE_STRING ) ) ) ;
+    // InternalReqSpecParser.g:5830:1: ruleRationale returns [EObject current=null] : (otherlv_0= Rationale ( (lv_description_1_0= ruleDescriptionElement ) )+ ) ;
     public final EObject ruleRationale() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        Token lv_text_1_0=null;
+        EObject lv_description_1_0 = null;
+
 
          enterRule(); 
             
         try {
-            // InternalReqSpecParser.g:5833:28: ( (otherlv_0= Rationale ( (lv_text_1_0= RULE_STRING ) ) ) )
-            // InternalReqSpecParser.g:5834:1: (otherlv_0= Rationale ( (lv_text_1_0= RULE_STRING ) ) )
+            // InternalReqSpecParser.g:5833:28: ( (otherlv_0= Rationale ( (lv_description_1_0= ruleDescriptionElement ) )+ ) )
+            // InternalReqSpecParser.g:5834:1: (otherlv_0= Rationale ( (lv_description_1_0= ruleDescriptionElement ) )+ )
             {
-            // InternalReqSpecParser.g:5834:1: (otherlv_0= Rationale ( (lv_text_1_0= RULE_STRING ) ) )
-            // InternalReqSpecParser.g:5835:2: otherlv_0= Rationale ( (lv_text_1_0= RULE_STRING ) )
+            // InternalReqSpecParser.g:5834:1: (otherlv_0= Rationale ( (lv_description_1_0= ruleDescriptionElement ) )+ )
+            // InternalReqSpecParser.g:5835:2: otherlv_0= Rationale ( (lv_description_1_0= ruleDescriptionElement ) )+
             {
-            otherlv_0=(Token)match(input,Rationale,FollowSets000.FOLLOW_9); if (state.failed) return current;
+            otherlv_0=(Token)match(input,Rationale,FollowSets000.FOLLOW_76); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getRationaleAccess().getRationaleKeyword_0());
                   
             }
-            // InternalReqSpecParser.g:5839:1: ( (lv_text_1_0= RULE_STRING ) )
-            // InternalReqSpecParser.g:5840:1: (lv_text_1_0= RULE_STRING )
-            {
-            // InternalReqSpecParser.g:5840:1: (lv_text_1_0= RULE_STRING )
-            // InternalReqSpecParser.g:5841:3: lv_text_1_0= RULE_STRING
-            {
-            lv_text_1_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
+            // InternalReqSpecParser.g:5839:1: ( (lv_description_1_0= ruleDescriptionElement ) )+
+            int cnt133=0;
+            loop133:
+            do {
+                int alt133=2;
+                int LA133_0 = input.LA(1);
 
-              			newLeafNode(lv_text_1_0, grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); 
-              		
-            }
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getRationaleRule());
-              	        }
-                     		setWithLastConsumed(
-                     			current, 
-                     			"text",
-                      		lv_text_1_0, 
-                      		"org.eclipse.xtext.common.Terminals.STRING");
-              	    
-            }
-
-            }
+                if ( (LA133_0==This||LA133_0==Img||LA133_0==RULE_ID||LA133_0==RULE_STRING) ) {
+                    alt133=1;
+                }
 
 
-            }
+                switch (alt133) {
+            	case 1 :
+            	    // InternalReqSpecParser.g:5840:1: (lv_description_1_0= ruleDescriptionElement )
+            	    {
+            	    // InternalReqSpecParser.g:5840:1: (lv_description_1_0= ruleDescriptionElement )
+            	    // InternalReqSpecParser.g:5841:3: lv_description_1_0= ruleDescriptionElement
+            	    {
+            	    if ( state.backtracking==0 ) {
+            	       
+            	      	        newCompositeNode(grammarAccess.getRationaleAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); 
+            	      	    
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_77);
+            	    lv_description_1_0=ruleDescriptionElement();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      	        if (current==null) {
+            	      	            current = createModelElementForParent(grammarAccess.getRationaleRule());
+            	      	        }
+            	             		add(
+            	             			current, 
+            	             			"description",
+            	              		lv_description_1_0, 
+            	              		"org.osate.alisa.common.Common.DescriptionElement");
+            	      	        afterParserOrEnumRuleCall();
+            	      	    
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt133 >= 1 ) break loop133;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(133, input);
+                        throw eee;
+                }
+                cnt133++;
+            } while (true);
 
 
             }
@@ -16475,23 +16505,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:5901:3: ( ({...}? => ( ({...}? => (otherlv_4= Volatility ( (lv_volatility_5_0= RULE_INT ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= Precedence ( (lv_precedence_7_0= RULE_INT ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Impact ( (lv_impact_9_0= RULE_INT ) ) ) ) ) ) )*
             {
             // InternalReqSpecParser.g:5901:3: ( ({...}? => ( ({...}? => (otherlv_4= Volatility ( (lv_volatility_5_0= RULE_INT ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_6= Precedence ( (lv_precedence_7_0= RULE_INT ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Impact ( (lv_impact_9_0= RULE_INT ) ) ) ) ) ) )*
-            loop133:
+            loop134:
             do {
-                int alt133=4;
-                int LA133_0 = input.LA(1);
+                int alt134=4;
+                int LA134_0 = input.LA(1);
 
-                if ( LA133_0 == Volatility && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0) ) {
-                    alt133=1;
+                if ( LA134_0 == Volatility && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0) ) {
+                    alt134=1;
                 }
-                else if ( LA133_0 == Precedence && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1) ) {
-                    alt133=2;
+                else if ( LA134_0 == Precedence && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1) ) {
+                    alt134=2;
                 }
-                else if ( LA133_0 == Impact && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2) ) {
-                    alt133=3;
+                else if ( LA134_0 == Impact && getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2) ) {
+                    alt134=3;
                 }
 
 
-                switch (alt133) {
+                switch (alt134) {
             	case 1 :
             	    // InternalReqSpecParser.g:5903:4: ({...}? => ( ({...}? => (otherlv_4= Volatility ( (lv_volatility_5_0= RULE_INT ) ) ) ) ) )
             	    {
@@ -16722,7 +16752,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop133;
+            	    break loop134;
                 }
             } while (true);
 
@@ -16825,47 +16855,47 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:6041:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
             {
             // InternalReqSpecParser.g:6041:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            int alt136=6;
+            int alt137=6;
             switch ( input.LA(1) ) {
             case Boolean:
                 {
-                alt136=1;
+                alt137=1;
                 }
                 break;
             case Integer:
                 {
-                alt136=2;
+                alt137=2;
                 }
                 break;
             case Real:
                 {
-                alt136=3;
+                alt137=3;
                 }
                 break;
             case String:
                 {
-                alt136=4;
+                alt137=4;
                 }
                 break;
             case Model:
                 {
-                alt136=5;
+                alt137=5;
                 }
                 break;
             case RULE_ID:
                 {
-                alt136=6;
+                alt137=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 136, 0, input);
+                    new NoViableAltException("", 137, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt136) {
+            switch (alt137) {
                 case 1 :
                     // InternalReqSpecParser.g:6041:2: ( () otherlv_1= Boolean )
                     {
@@ -16923,13 +16953,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalReqSpecParser.g:6064:1: (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt134=2;
-                    int LA134_0 = input.LA(1);
+                    int alt135=2;
+                    int LA135_0 = input.LA(1);
 
-                    if ( (LA134_0==Units) ) {
-                        alt134=1;
+                    if ( (LA135_0==Units) ) {
+                        alt135=1;
                     }
-                    switch (alt134) {
+                    switch (alt135) {
                         case 1 :
                             // InternalReqSpecParser.g:6065:2: otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -17011,13 +17041,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalReqSpecParser.g:6097:1: (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt135=2;
-                    int LA135_0 = input.LA(1);
+                    int alt136=2;
+                    int LA136_0 = input.LA(1);
 
-                    if ( (LA135_0==Units) ) {
-                        alt135=1;
+                    if ( (LA136_0==Units) ) {
+                        alt136=1;
                     }
-                    switch (alt135) {
+                    switch (alt136) {
                         case 1 :
                             // InternalReqSpecParser.g:6098:2: otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -17471,7 +17501,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:6268:1: ( ( (lv_type_4_0= ruleTypeRef ) ) | (otherlv_5= Typeof ( (lv_type_6_0= rulePropertyRef ) ) ) | ( ( (lv_range_7_0= LeftSquareBracket ) ) ( ( (lv_type_8_0= ruleTypeRef ) ) | (otherlv_9= Typeof ( (lv_type_10_0= rulePropertyRef ) ) ) ) otherlv_11= RightSquareBracket ) )
-            int alt138=3;
+            int alt139=3;
             switch ( input.LA(1) ) {
             case Boolean:
             case Integer:
@@ -17480,28 +17510,28 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             case Real:
             case RULE_ID:
                 {
-                alt138=1;
+                alt139=1;
                 }
                 break;
             case Typeof:
                 {
-                alt138=2;
+                alt139=2;
                 }
                 break;
             case LeftSquareBracket:
                 {
-                alt138=3;
+                alt139=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 138, 0, input);
+                    new NoViableAltException("", 139, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt138) {
+            switch (alt139) {
                 case 1 :
                     // InternalReqSpecParser.g:6268:2: ( (lv_type_4_0= ruleTypeRef ) )
                     {
@@ -17629,23 +17659,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalReqSpecParser.g:6327:2: ( ( (lv_type_8_0= ruleTypeRef ) ) | (otherlv_9= Typeof ( (lv_type_10_0= rulePropertyRef ) ) ) )
-                    int alt137=2;
-                    int LA137_0 = input.LA(1);
+                    int alt138=2;
+                    int LA138_0 = input.LA(1);
 
-                    if ( (LA137_0==Boolean||LA137_0==Integer||LA137_0==String||LA137_0==Model||LA137_0==Real||LA137_0==RULE_ID) ) {
-                        alt137=1;
+                    if ( (LA138_0==Boolean||LA138_0==Integer||LA138_0==String||LA138_0==Model||LA138_0==Real||LA138_0==RULE_ID) ) {
+                        alt138=1;
                     }
-                    else if ( (LA137_0==Typeof) ) {
-                        alt137=2;
+                    else if ( (LA138_0==Typeof) ) {
+                        alt138=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 137, 0, input);
+                            new NoViableAltException("", 138, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt137) {
+                    switch (alt138) {
                         case 1 :
                             // InternalReqSpecParser.g:6327:3: ( (lv_type_8_0= ruleTypeRef ) )
                             {
@@ -17838,23 +17868,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:6395:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () NumberSign ) )=> ( () otherlv_2= NumberSign ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
             {
             // InternalReqSpecParser.g:6395:1: ( (this_AModelReference_0= ruleAModelReference ( ( ( ( () NumberSign ) )=> ( () otherlv_2= NumberSign ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | this_APropertyReference_4= ruleAPropertyReference )
-            int alt140=2;
-            int LA140_0 = input.LA(1);
+            int alt141=2;
+            int LA141_0 = input.LA(1);
 
-            if ( (LA140_0==This) ) {
-                alt140=1;
+            if ( (LA141_0==This) ) {
+                alt141=1;
             }
-            else if ( (LA140_0==NumberSign) ) {
-                alt140=2;
+            else if ( (LA141_0==NumberSign) ) {
+                alt141=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 140, 0, input);
+                    new NoViableAltException("", 141, 0, input);
 
                 throw nvae;
             }
-            switch (alt140) {
+            switch (alt141) {
                 case 1 :
                     // InternalReqSpecParser.g:6395:2: (this_AModelReference_0= ruleAModelReference ( ( ( ( () NumberSign ) )=> ( () otherlv_2= NumberSign ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
@@ -17878,13 +17908,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           
                     }
                     // InternalReqSpecParser.g:6404:1: ( ( ( ( () NumberSign ) )=> ( () otherlv_2= NumberSign ) ) ( ( ruleAADLPROPERTYREFERENCE ) ) )?
-                    int alt139=2;
-                    int LA139_0 = input.LA(1);
+                    int alt140=2;
+                    int LA140_0 = input.LA(1);
 
-                    if ( (LA139_0==NumberSign) && (synpred3_InternalReqSpecParser())) {
-                        alt139=1;
+                    if ( (LA140_0==NumberSign) && (synpred3_InternalReqSpecParser())) {
+                        alt140=1;
                     }
-                    switch (alt139) {
+                    switch (alt140) {
                         case 1 :
                             // InternalReqSpecParser.g:6404:2: ( ( ( () NumberSign ) )=> ( () otherlv_2= NumberSign ) ) ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
@@ -18101,17 +18131,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // InternalReqSpecParser.g:6481:2: ( () otherlv_2= FullStop ( (otherlv_3= RULE_ID ) ) )*
-            loop141:
+            loop142:
             do {
-                int alt141=2;
-                int LA141_0 = input.LA(1);
+                int alt142=2;
+                int LA142_0 = input.LA(1);
 
-                if ( (LA141_0==FullStop) ) {
-                    alt141=1;
+                if ( (LA142_0==FullStop) ) {
+                    alt142=1;
                 }
 
 
-                switch (alt141) {
+                switch (alt142) {
             	case 1 :
             	    // InternalReqSpecParser.g:6481:3: () otherlv_2= FullStop ( (otherlv_3= RULE_ID ) )
             	    {
@@ -18164,7 +18194,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop141;
+            	    break loop142;
                 }
             } while (true);
 
@@ -18533,34 +18563,34 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // InternalReqSpecParser.g:6632:2: ( ( ( (lv_convert_1_0= PercentSign ) ) | ( (lv_drop_2_0= In ) ) ) ( (otherlv_3= RULE_ID ) ) )?
-            int alt143=2;
-            int LA143_0 = input.LA(1);
+            int alt144=2;
+            int LA144_0 = input.LA(1);
 
-            if ( (LA143_0==In||LA143_0==PercentSign) ) {
-                alt143=1;
+            if ( (LA144_0==In||LA144_0==PercentSign) ) {
+                alt144=1;
             }
-            switch (alt143) {
+            switch (alt144) {
                 case 1 :
                     // InternalReqSpecParser.g:6632:3: ( ( (lv_convert_1_0= PercentSign ) ) | ( (lv_drop_2_0= In ) ) ) ( (otherlv_3= RULE_ID ) )
                     {
                     // InternalReqSpecParser.g:6632:3: ( ( (lv_convert_1_0= PercentSign ) ) | ( (lv_drop_2_0= In ) ) )
-                    int alt142=2;
-                    int LA142_0 = input.LA(1);
+                    int alt143=2;
+                    int LA143_0 = input.LA(1);
 
-                    if ( (LA142_0==PercentSign) ) {
-                        alt142=1;
+                    if ( (LA143_0==PercentSign) ) {
+                        alt143=1;
                     }
-                    else if ( (LA142_0==In) ) {
-                        alt142=2;
+                    else if ( (LA143_0==In) ) {
+                        alt143=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 142, 0, input);
+                            new NoViableAltException("", 143, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt142) {
+                    switch (alt143) {
                         case 1 :
                             // InternalReqSpecParser.g:6632:4: ( (lv_convert_1_0= PercentSign ) )
                             {
@@ -18862,23 +18892,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:6744:2: (this_ID_0= RULE_ID kw= Solidus )* this_ID_2= RULE_ID kw= FullStop this_ID_4= RULE_ID
             {
             // InternalReqSpecParser.g:6744:2: (this_ID_0= RULE_ID kw= Solidus )*
-            loop144:
+            loop145:
             do {
-                int alt144=2;
-                int LA144_0 = input.LA(1);
+                int alt145=2;
+                int LA145_0 = input.LA(1);
 
-                if ( (LA144_0==RULE_ID) ) {
-                    int LA144_1 = input.LA(2);
+                if ( (LA145_0==RULE_ID) ) {
+                    int LA145_1 = input.LA(2);
 
-                    if ( (LA144_1==Solidus) ) {
-                        alt144=1;
+                    if ( (LA145_1==Solidus) ) {
+                        alt145=1;
                     }
 
 
                 }
 
 
-                switch (alt144) {
+                switch (alt145) {
             	case 1 :
             	    // InternalReqSpecParser.g:6744:7: this_ID_0= RULE_ID kw= Solidus
             	    {
@@ -18905,7 +18935,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop144;
+            	    break loop145;
                 }
             } while (true);
 
@@ -19128,20 +19158,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:6837:1: ( ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpOr ) ) ) ) ( (lv_right_3_0= ruleAAndExpression ) ) )*
-            loop145:
+            loop146:
             do {
-                int alt145=2;
-                int LA145_0 = input.LA(1);
+                int alt146=2;
+                int LA146_0 = input.LA(1);
 
-                if ( (LA145_0==Or) && (synpred4_InternalReqSpecParser())) {
-                    alt145=1;
+                if ( (LA146_0==Or) && (synpred4_InternalReqSpecParser())) {
+                    alt146=1;
                 }
-                else if ( (LA145_0==VerticalLineVerticalLine) && (synpred4_InternalReqSpecParser())) {
-                    alt145=1;
+                else if ( (LA146_0==VerticalLineVerticalLine) && (synpred4_InternalReqSpecParser())) {
+                    alt146=1;
                 }
 
 
-                switch (alt145) {
+                switch (alt146) {
             	case 1 :
             	    // InternalReqSpecParser.g:6837:2: ( ( ( () ( ( ruleOpOr ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpOr ) ) ) ) ( (lv_right_3_0= ruleAAndExpression ) )
             	    {
@@ -19245,7 +19275,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop145;
+            	    break loop146;
                 }
             } while (true);
 
@@ -19325,23 +19355,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:6906:1: (kw= Or | kw= VerticalLineVerticalLine )
             {
             // InternalReqSpecParser.g:6906:1: (kw= Or | kw= VerticalLineVerticalLine )
-            int alt146=2;
-            int LA146_0 = input.LA(1);
+            int alt147=2;
+            int LA147_0 = input.LA(1);
 
-            if ( (LA146_0==Or) ) {
-                alt146=1;
+            if ( (LA147_0==Or) ) {
+                alt147=1;
             }
-            else if ( (LA146_0==VerticalLineVerticalLine) ) {
-                alt146=2;
+            else if ( (LA147_0==VerticalLineVerticalLine) ) {
+                alt147=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 146, 0, input);
+                    new NoViableAltException("", 147, 0, input);
 
                 throw nvae;
             }
-            switch (alt146) {
+            switch (alt147) {
                 case 1 :
                     // InternalReqSpecParser.g:6907:2: kw= Or
                     {
@@ -19469,20 +19499,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:6949:1: ( ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAnd ) ) ) ) ( (lv_right_3_0= ruleAEqualityExpression ) ) )*
-            loop147:
+            loop148:
             do {
-                int alt147=2;
-                int LA147_0 = input.LA(1);
+                int alt148=2;
+                int LA148_0 = input.LA(1);
 
-                if ( (LA147_0==And) && (synpred5_InternalReqSpecParser())) {
-                    alt147=1;
+                if ( (LA148_0==And) && (synpred5_InternalReqSpecParser())) {
+                    alt148=1;
                 }
-                else if ( (LA147_0==AmpersandAmpersand) && (synpred5_InternalReqSpecParser())) {
-                    alt147=1;
+                else if ( (LA148_0==AmpersandAmpersand) && (synpred5_InternalReqSpecParser())) {
+                    alt148=1;
                 }
 
 
-                switch (alt147) {
+                switch (alt148) {
             	case 1 :
             	    // InternalReqSpecParser.g:6949:2: ( ( ( () ( ( ruleOpAnd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAnd ) ) ) ) ( (lv_right_3_0= ruleAEqualityExpression ) )
             	    {
@@ -19586,7 +19616,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop147;
+            	    break loop148;
                 }
             } while (true);
 
@@ -19666,23 +19696,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7018:1: (kw= And | kw= AmpersandAmpersand )
             {
             // InternalReqSpecParser.g:7018:1: (kw= And | kw= AmpersandAmpersand )
-            int alt148=2;
-            int LA148_0 = input.LA(1);
+            int alt149=2;
+            int LA149_0 = input.LA(1);
 
-            if ( (LA148_0==And) ) {
-                alt148=1;
+            if ( (LA149_0==And) ) {
+                alt149=1;
             }
-            else if ( (LA148_0==AmpersandAmpersand) ) {
-                alt148=2;
+            else if ( (LA149_0==AmpersandAmpersand) ) {
+                alt149=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 148, 0, input);
+                    new NoViableAltException("", 149, 0, input);
 
                 throw nvae;
             }
-            switch (alt148) {
+            switch (alt149) {
                 case 1 :
                     // InternalReqSpecParser.g:7019:2: kw= And
                     {
@@ -19810,20 +19840,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7061:1: ( ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpEquality ) ) ) ) ( (lv_right_3_0= ruleARelationalExpression ) ) )*
-            loop149:
+            loop150:
             do {
-                int alt149=2;
-                int LA149_0 = input.LA(1);
+                int alt150=2;
+                int LA150_0 = input.LA(1);
 
-                if ( (LA149_0==EqualsSignEqualsSign) && (synpred6_InternalReqSpecParser())) {
-                    alt149=1;
+                if ( (LA150_0==EqualsSignEqualsSign) && (synpred6_InternalReqSpecParser())) {
+                    alt150=1;
                 }
-                else if ( (LA149_0==ExclamationMarkEqualsSign) && (synpred6_InternalReqSpecParser())) {
-                    alt149=1;
+                else if ( (LA150_0==ExclamationMarkEqualsSign) && (synpred6_InternalReqSpecParser())) {
+                    alt150=1;
                 }
 
 
-                switch (alt149) {
+                switch (alt150) {
             	case 1 :
             	    // InternalReqSpecParser.g:7061:2: ( ( ( () ( ( ruleOpEquality ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpEquality ) ) ) ) ( (lv_right_3_0= ruleARelationalExpression ) )
             	    {
@@ -19927,7 +19957,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop149;
+            	    break loop150;
                 }
             } while (true);
 
@@ -20007,23 +20037,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7130:1: (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign )
             {
             // InternalReqSpecParser.g:7130:1: (kw= EqualsSignEqualsSign | kw= ExclamationMarkEqualsSign )
-            int alt150=2;
-            int LA150_0 = input.LA(1);
+            int alt151=2;
+            int LA151_0 = input.LA(1);
 
-            if ( (LA150_0==EqualsSignEqualsSign) ) {
-                alt150=1;
+            if ( (LA151_0==EqualsSignEqualsSign) ) {
+                alt151=1;
             }
-            else if ( (LA150_0==ExclamationMarkEqualsSign) ) {
-                alt150=2;
+            else if ( (LA151_0==ExclamationMarkEqualsSign) ) {
+                alt151=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 150, 0, input);
+                    new NoViableAltException("", 151, 0, input);
 
                 throw nvae;
             }
-            switch (alt150) {
+            switch (alt151) {
                 case 1 :
                     // InternalReqSpecParser.g:7131:2: kw= EqualsSignEqualsSign
                     {
@@ -20151,29 +20181,29 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7173:1: ( ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpCompare ) ) ) ) ( (lv_right_3_0= ruleAAdditiveExpression ) ) )*
-            loop151:
+            loop152:
             do {
-                int alt151=2;
-                int LA151_0 = input.LA(1);
+                int alt152=2;
+                int LA152_0 = input.LA(1);
 
-                if ( (LA151_0==GreaterThanSignEqualsSign) && (synpred7_InternalReqSpecParser())) {
-                    alt151=1;
+                if ( (LA152_0==GreaterThanSignEqualsSign) && (synpred7_InternalReqSpecParser())) {
+                    alt152=1;
                 }
-                else if ( (LA151_0==LessThanSignEqualsSign) && (synpred7_InternalReqSpecParser())) {
-                    alt151=1;
+                else if ( (LA152_0==LessThanSignEqualsSign) && (synpred7_InternalReqSpecParser())) {
+                    alt152=1;
                 }
-                else if ( (LA151_0==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {
-                    alt151=1;
+                else if ( (LA152_0==GreaterThanSign) && (synpred7_InternalReqSpecParser())) {
+                    alt152=1;
                 }
-                else if ( (LA151_0==LessThanSign) && (synpred7_InternalReqSpecParser())) {
-                    alt151=1;
+                else if ( (LA152_0==LessThanSign) && (synpred7_InternalReqSpecParser())) {
+                    alt152=1;
                 }
-                else if ( (LA151_0==GreaterThanSignLessThanSign) && (synpred7_InternalReqSpecParser())) {
-                    alt151=1;
+                else if ( (LA152_0==GreaterThanSignLessThanSign) && (synpred7_InternalReqSpecParser())) {
+                    alt152=1;
                 }
 
 
-                switch (alt151) {
+                switch (alt152) {
             	case 1 :
             	    // InternalReqSpecParser.g:7173:2: ( ( ( () ( ( ruleOpCompare ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpCompare ) ) ) ) ( (lv_right_3_0= ruleAAdditiveExpression ) )
             	    {
@@ -20277,7 +20307,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop151;
+            	    break loop152;
                 }
             } while (true);
 
@@ -20357,42 +20387,42 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7242:1: (kw= GreaterThanSignEqualsSign | kw= LessThanSignEqualsSign | kw= GreaterThanSign | kw= LessThanSign | kw= GreaterThanSignLessThanSign )
             {
             // InternalReqSpecParser.g:7242:1: (kw= GreaterThanSignEqualsSign | kw= LessThanSignEqualsSign | kw= GreaterThanSign | kw= LessThanSign | kw= GreaterThanSignLessThanSign )
-            int alt152=5;
+            int alt153=5;
             switch ( input.LA(1) ) {
             case GreaterThanSignEqualsSign:
                 {
-                alt152=1;
+                alt153=1;
                 }
                 break;
             case LessThanSignEqualsSign:
                 {
-                alt152=2;
+                alt153=2;
                 }
                 break;
             case GreaterThanSign:
                 {
-                alt152=3;
+                alt153=3;
                 }
                 break;
             case LessThanSign:
                 {
-                alt152=4;
+                alt153=4;
                 }
                 break;
             case GreaterThanSignLessThanSign:
                 {
-                alt152=5;
+                alt153=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 152, 0, input);
+                    new NoViableAltException("", 153, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt152) {
+            switch (alt153) {
                 case 1 :
                     // InternalReqSpecParser.g:7243:2: kw= GreaterThanSignEqualsSign
                     {
@@ -20559,20 +20589,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7306:1: ( ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAdd ) ) ) ) ( (lv_right_3_0= ruleAMultiplicativeExpression ) ) )*
-            loop153:
+            loop154:
             do {
-                int alt153=2;
-                int LA153_0 = input.LA(1);
+                int alt154=2;
+                int LA154_0 = input.LA(1);
 
-                if ( (LA153_0==PlusSign) && (synpred8_InternalReqSpecParser())) {
-                    alt153=1;
+                if ( (LA154_0==PlusSign) && (synpred8_InternalReqSpecParser())) {
+                    alt154=1;
                 }
-                else if ( (LA153_0==HyphenMinus) && (synpred8_InternalReqSpecParser())) {
-                    alt153=1;
+                else if ( (LA154_0==HyphenMinus) && (synpred8_InternalReqSpecParser())) {
+                    alt154=1;
                 }
 
 
-                switch (alt153) {
+                switch (alt154) {
             	case 1 :
             	    // InternalReqSpecParser.g:7306:2: ( ( ( () ( ( ruleOpAdd ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpAdd ) ) ) ) ( (lv_right_3_0= ruleAMultiplicativeExpression ) )
             	    {
@@ -20676,7 +20706,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop153;
+            	    break loop154;
                 }
             } while (true);
 
@@ -20756,23 +20786,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7375:1: (kw= PlusSign | kw= HyphenMinus )
             {
             // InternalReqSpecParser.g:7375:1: (kw= PlusSign | kw= HyphenMinus )
-            int alt154=2;
-            int LA154_0 = input.LA(1);
+            int alt155=2;
+            int LA155_0 = input.LA(1);
 
-            if ( (LA154_0==PlusSign) ) {
-                alt154=1;
+            if ( (LA155_0==PlusSign) ) {
+                alt155=1;
             }
-            else if ( (LA154_0==HyphenMinus) ) {
-                alt154=2;
+            else if ( (LA155_0==HyphenMinus) ) {
+                alt155=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 154, 0, input);
+                    new NoViableAltException("", 155, 0, input);
 
                 throw nvae;
             }
-            switch (alt154) {
+            switch (alt155) {
                 case 1 :
                     // InternalReqSpecParser.g:7376:2: kw= PlusSign
                     {
@@ -20900,26 +20930,26 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7418:1: ( ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpMulti ) ) ) ) ( (lv_right_3_0= ruleAUnaryOperation ) ) )*
-            loop155:
+            loop156:
             do {
-                int alt155=2;
-                int LA155_0 = input.LA(1);
+                int alt156=2;
+                int LA156_0 = input.LA(1);
 
-                if ( (LA155_0==Asterisk) && (synpred9_InternalReqSpecParser())) {
-                    alt155=1;
+                if ( (LA156_0==Asterisk) && (synpred9_InternalReqSpecParser())) {
+                    alt156=1;
                 }
-                else if ( (LA155_0==Solidus) && (synpred9_InternalReqSpecParser())) {
-                    alt155=1;
+                else if ( (LA156_0==Solidus) && (synpred9_InternalReqSpecParser())) {
+                    alt156=1;
                 }
-                else if ( (LA155_0==Div) && (synpred9_InternalReqSpecParser())) {
-                    alt155=1;
+                else if ( (LA156_0==Div) && (synpred9_InternalReqSpecParser())) {
+                    alt156=1;
                 }
-                else if ( (LA155_0==Mod) && (synpred9_InternalReqSpecParser())) {
-                    alt155=1;
+                else if ( (LA156_0==Mod) && (synpred9_InternalReqSpecParser())) {
+                    alt156=1;
                 }
 
 
-                switch (alt155) {
+                switch (alt156) {
             	case 1 :
             	    // InternalReqSpecParser.g:7418:2: ( ( ( () ( ( ruleOpMulti ) ) ) )=> ( () ( (lv_operator_2_0= ruleOpMulti ) ) ) ) ( (lv_right_3_0= ruleAUnaryOperation ) )
             	    {
@@ -21023,7 +21053,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop155;
+            	    break loop156;
                 }
             } while (true);
 
@@ -21103,37 +21133,37 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7487:1: (kw= Asterisk | kw= Solidus | kw= Div | kw= Mod )
             {
             // InternalReqSpecParser.g:7487:1: (kw= Asterisk | kw= Solidus | kw= Div | kw= Mod )
-            int alt156=4;
+            int alt157=4;
             switch ( input.LA(1) ) {
             case Asterisk:
                 {
-                alt156=1;
+                alt157=1;
                 }
                 break;
             case Solidus:
                 {
-                alt156=2;
+                alt157=2;
                 }
                 break;
             case Div:
                 {
-                alt156=3;
+                alt157=3;
                 }
                 break;
             case Mod:
                 {
-                alt156=4;
+                alt157=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 156, 0, input);
+                    new NoViableAltException("", 157, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt156) {
+            switch (alt157) {
                 case 1 :
                     // InternalReqSpecParser.g:7488:2: kw= Asterisk
                     {
@@ -21268,23 +21298,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7535:1: ( ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_AUnitExpression_3= ruleAUnitExpression )
             {
             // InternalReqSpecParser.g:7535:1: ( ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) ) | this_AUnitExpression_3= ruleAUnitExpression )
-            int alt157=2;
-            int LA157_0 = input.LA(1);
+            int alt158=2;
+            int LA158_0 = input.LA(1);
 
-            if ( (LA157_0==Not||LA157_0==PlusSign||LA157_0==HyphenMinus) ) {
-                alt157=1;
+            if ( (LA158_0==Not||LA158_0==PlusSign||LA158_0==HyphenMinus) ) {
+                alt158=1;
             }
-            else if ( (LA157_0==False||(LA157_0>=This && LA157_0<=True)||LA157_0==If||LA157_0==NumberSign||LA157_0==LeftParenthesis||LA157_0==LeftSquareBracket||LA157_0==RULE_REAL_LIT||(LA157_0>=RULE_ID && LA157_0<=RULE_STRING)) ) {
-                alt157=2;
+            else if ( (LA158_0==False||(LA158_0>=This && LA158_0<=True)||LA158_0==If||LA158_0==NumberSign||LA158_0==LeftParenthesis||LA158_0==LeftSquareBracket||LA158_0==RULE_REAL_LIT||(LA158_0>=RULE_ID && LA158_0<=RULE_STRING)) ) {
+                alt158=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 157, 0, input);
+                    new NoViableAltException("", 158, 0, input);
 
                 throw nvae;
             }
-            switch (alt157) {
+            switch (alt158) {
                 case 1 :
                     // InternalReqSpecParser.g:7535:2: ( () ( ( ( ruleOpUnary ) )=> (lv_operator_1_0= ruleOpUnary ) ) ( (lv_operand_2_0= ruleAUnaryOperation ) ) )
                     {
@@ -21478,32 +21508,32 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7613:1: (kw= Not | kw= HyphenMinus | kw= PlusSign )
             {
             // InternalReqSpecParser.g:7613:1: (kw= Not | kw= HyphenMinus | kw= PlusSign )
-            int alt158=3;
+            int alt159=3;
             switch ( input.LA(1) ) {
             case Not:
                 {
-                alt158=1;
+                alt159=1;
                 }
                 break;
             case HyphenMinus:
                 {
-                alt158=2;
+                alt159=2;
                 }
                 break;
             case PlusSign:
                 {
-                alt158=3;
+                alt159=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 158, 0, input);
+                    new NoViableAltException("", 159, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt158) {
+            switch (alt159) {
                 case 1 :
                     // InternalReqSpecParser.g:7614:2: kw= Not
                     {
@@ -21643,20 +21673,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7663:1: ( () ( ( (lv_convert_2_0= PercentSign ) ) | ( (lv_drop_3_0= In ) ) )? ( (otherlv_4= RULE_ID ) ) )?
-            int alt160=2;
-            int LA160_0 = input.LA(1);
+            int alt161=2;
+            int LA161_0 = input.LA(1);
 
-            if ( (LA160_0==In||LA160_0==PercentSign) ) {
-                alt160=1;
+            if ( (LA161_0==In||LA161_0==PercentSign) ) {
+                alt161=1;
             }
-            else if ( (LA160_0==RULE_ID) ) {
-                int LA160_2 = input.LA(2);
+            else if ( (LA161_0==RULE_ID) ) {
+                int LA161_2 = input.LA(2);
 
-                if ( (LA160_2==EOF||(LA160_2>=Description && LA160_2<=Uncertainty)||LA160_2==Decomposes||LA160_2==Conflicts||LA160_2==Mitigates||LA160_2==Rationale||LA160_2==Category||(LA160_2>=Informal && LA160_2<=Inherits)||(LA160_2>=Compute && LA160_2<=Dropped)||LA160_2==Evolves||LA160_2==Include||LA160_2==Refines||LA160_2==Issues||(LA160_2>=Delta && LA160_2<=Endif)||LA160_2==Value||LA160_2==Else||LA160_2==Goal||LA160_2==Then||(LA160_2>=When && LA160_2<=And)||LA160_2==Div||LA160_2==Mod||LA160_2==See||(LA160_2>=Val && LA160_2<=FullStopFullStop)||(LA160_2>=LessThanSignEqualsSign && LA160_2<=As)||(LA160_2>=Or && LA160_2<=VerticalLineVerticalLine)||(LA160_2>=RightParenthesis && LA160_2<=HyphenMinus)||LA160_2==Solidus||LA160_2==LessThanSign||LA160_2==GreaterThanSign||LA160_2==RightSquareBracket||LA160_2==RULE_ID) ) {
-                    alt160=1;
+                if ( (LA161_2==EOF||(LA161_2>=Description && LA161_2<=Uncertainty)||LA161_2==Decomposes||LA161_2==Conflicts||LA161_2==Mitigates||LA161_2==Rationale||LA161_2==Category||(LA161_2>=Informal && LA161_2<=Inherits)||(LA161_2>=Compute && LA161_2<=Dropped)||LA161_2==Evolves||LA161_2==Include||LA161_2==Refines||LA161_2==Issues||(LA161_2>=Delta && LA161_2<=Endif)||LA161_2==Value||LA161_2==Else||LA161_2==Goal||LA161_2==Then||(LA161_2>=When && LA161_2<=And)||LA161_2==Div||LA161_2==Mod||LA161_2==See||(LA161_2>=Val && LA161_2<=FullStopFullStop)||(LA161_2>=LessThanSignEqualsSign && LA161_2<=As)||(LA161_2>=Or && LA161_2<=VerticalLineVerticalLine)||(LA161_2>=RightParenthesis && LA161_2<=HyphenMinus)||LA161_2==Solidus||LA161_2==LessThanSign||LA161_2==GreaterThanSign||LA161_2==RightSquareBracket||LA161_2==RULE_ID) ) {
+                    alt161=1;
                 }
             }
-            switch (alt160) {
+            switch (alt161) {
                 case 1 :
                     // InternalReqSpecParser.g:7663:2: () ( ( (lv_convert_2_0= PercentSign ) ) | ( (lv_drop_3_0= In ) ) )? ( (otherlv_4= RULE_ID ) )
                     {
@@ -21674,16 +21704,16 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalReqSpecParser.g:7669:2: ( ( (lv_convert_2_0= PercentSign ) ) | ( (lv_drop_3_0= In ) ) )?
-                    int alt159=3;
-                    int LA159_0 = input.LA(1);
+                    int alt160=3;
+                    int LA160_0 = input.LA(1);
 
-                    if ( (LA159_0==PercentSign) ) {
-                        alt159=1;
+                    if ( (LA160_0==PercentSign) ) {
+                        alt160=1;
                     }
-                    else if ( (LA159_0==In) ) {
-                        alt159=2;
+                    else if ( (LA160_0==In) ) {
+                        alt160=2;
                     }
-                    switch (alt159) {
+                    switch (alt160) {
                         case 1 :
                             // InternalReqSpecParser.g:7669:3: ( (lv_convert_2_0= PercentSign ) )
                             {
@@ -21871,7 +21901,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:7736:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_AModelOrPropertyReference_2= ruleAModelOrPropertyReference | this_AFunctionCall_3= ruleAFunctionCall | this_ARangeExpression_4= ruleARangeExpression | this_AIfExpression_5= ruleAIfExpression | this_AParenthesizedExpression_6= ruleAParenthesizedExpression )
             {
             // InternalReqSpecParser.g:7736:1: (this_ALiteral_0= ruleALiteral | this_AVariableReference_1= ruleAVariableReference | this_AModelOrPropertyReference_2= ruleAModelOrPropertyReference | this_AFunctionCall_3= ruleAFunctionCall | this_ARangeExpression_4= ruleARangeExpression | this_AIfExpression_5= ruleAIfExpression | this_AParenthesizedExpression_6= ruleAParenthesizedExpression )
-            int alt161=7;
+            int alt162=7;
             switch ( input.LA(1) ) {
             case False:
             case True:
@@ -21879,23 +21909,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             case RULE_INT:
             case RULE_STRING:
                 {
-                alt161=1;
+                alt162=1;
                 }
                 break;
             case RULE_ID:
                 {
-                int LA161_2 = input.LA(2);
+                int LA162_2 = input.LA(2);
 
-                if ( (LA161_2==LeftParenthesis||LA161_2==FullStop) ) {
-                    alt161=4;
+                if ( (LA162_2==LeftParenthesis||LA162_2==FullStop) ) {
+                    alt162=4;
                 }
-                else if ( (LA161_2==EOF||(LA161_2>=Description && LA161_2<=Uncertainty)||LA161_2==Decomposes||LA161_2==Conflicts||LA161_2==Mitigates||LA161_2==Rationale||LA161_2==Category||(LA161_2>=Informal && LA161_2<=Inherits)||(LA161_2>=Compute && LA161_2<=Dropped)||LA161_2==Evolves||LA161_2==Include||LA161_2==Refines||LA161_2==Issues||(LA161_2>=Delta && LA161_2<=Endif)||LA161_2==Value||LA161_2==Else||LA161_2==Goal||LA161_2==Then||(LA161_2>=When && LA161_2<=And)||LA161_2==Div||LA161_2==Mod||LA161_2==See||(LA161_2>=Val && LA161_2<=FullStopFullStop)||(LA161_2>=LessThanSignEqualsSign && LA161_2<=As)||(LA161_2>=In && LA161_2<=VerticalLineVerticalLine)||LA161_2==PercentSign||(LA161_2>=RightParenthesis && LA161_2<=HyphenMinus)||LA161_2==Solidus||LA161_2==LessThanSign||LA161_2==GreaterThanSign||LA161_2==RightSquareBracket||LA161_2==RULE_ID) ) {
-                    alt161=2;
+                else if ( (LA162_2==EOF||(LA162_2>=Description && LA162_2<=Uncertainty)||LA162_2==Decomposes||LA162_2==Conflicts||LA162_2==Mitigates||LA162_2==Rationale||LA162_2==Category||(LA162_2>=Informal && LA162_2<=Inherits)||(LA162_2>=Compute && LA162_2<=Dropped)||LA162_2==Evolves||LA162_2==Include||LA162_2==Refines||LA162_2==Issues||(LA162_2>=Delta && LA162_2<=Endif)||LA162_2==Value||LA162_2==Else||LA162_2==Goal||LA162_2==Then||(LA162_2>=When && LA162_2<=And)||LA162_2==Div||LA162_2==Mod||LA162_2==See||(LA162_2>=Val && LA162_2<=FullStopFullStop)||(LA162_2>=LessThanSignEqualsSign && LA162_2<=As)||(LA162_2>=In && LA162_2<=VerticalLineVerticalLine)||LA162_2==PercentSign||(LA162_2>=RightParenthesis && LA162_2<=HyphenMinus)||LA162_2==Solidus||LA162_2==LessThanSign||LA162_2==GreaterThanSign||LA162_2==RightSquareBracket||LA162_2==RULE_ID) ) {
+                    alt162=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 161, 2, input);
+                        new NoViableAltException("", 162, 2, input);
 
                     throw nvae;
                 }
@@ -21904,33 +21934,33 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             case This:
             case NumberSign:
                 {
-                alt161=3;
+                alt162=3;
                 }
                 break;
             case LeftSquareBracket:
                 {
-                alt161=5;
+                alt162=5;
                 }
                 break;
             case If:
                 {
-                alt161=6;
+                alt162=6;
                 }
                 break;
             case LeftParenthesis:
                 {
-                alt161=7;
+                alt162=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 161, 0, input);
+                    new NoViableAltException("", 162, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt161) {
+            switch (alt162) {
                 case 1 :
                     // InternalReqSpecParser.g:7737:5: this_ALiteral_0= ruleALiteral
                     {
@@ -22226,13 +22256,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:7855:1: ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )?
-            int alt163=2;
-            int LA163_0 = input.LA(1);
+            int alt164=2;
+            int LA164_0 = input.LA(1);
 
-            if ( (LA163_0==False||(LA163_0>=This && LA163_0<=True)||LA163_0==Not||LA163_0==If||LA163_0==NumberSign||LA163_0==LeftParenthesis||LA163_0==PlusSign||LA163_0==HyphenMinus||LA163_0==LeftSquareBracket||LA163_0==RULE_REAL_LIT||(LA163_0>=RULE_ID && LA163_0<=RULE_STRING)) ) {
-                alt163=1;
+            if ( (LA164_0==False||(LA164_0>=This && LA164_0<=True)||LA164_0==Not||LA164_0==If||LA164_0==NumberSign||LA164_0==LeftParenthesis||LA164_0==PlusSign||LA164_0==HyphenMinus||LA164_0==LeftSquareBracket||LA164_0==RULE_REAL_LIT||(LA164_0>=RULE_ID && LA164_0<=RULE_STRING)) ) {
+                alt164=1;
             }
-            switch (alt163) {
+            switch (alt164) {
                 case 1 :
                     // InternalReqSpecParser.g:7855:2: ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )*
                     {
@@ -22272,17 +22302,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
 
                     // InternalReqSpecParser.g:7873:2: (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )*
-                    loop162:
+                    loop163:
                     do {
-                        int alt162=2;
-                        int LA162_0 = input.LA(1);
+                        int alt163=2;
+                        int LA163_0 = input.LA(1);
 
-                        if ( (LA162_0==Comma) ) {
-                            alt162=1;
+                        if ( (LA163_0==Comma) ) {
+                            alt163=1;
                         }
 
 
-                        switch (alt162) {
+                        switch (alt163) {
                     	case 1 :
                     	    // InternalReqSpecParser.g:7874:2: otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) )
                     	    {
@@ -22332,7 +22362,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop162;
+                    	    break loop163;
                         }
                     } while (true);
 
@@ -22531,13 +22561,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // InternalReqSpecParser.g:7974:2: ( ( ( Delta )=>otherlv_5= Delta ) ( (lv_delta_6_0= ruleAExpression ) ) )?
-            int alt164=2;
-            int LA164_0 = input.LA(1);
+            int alt165=2;
+            int LA165_0 = input.LA(1);
 
-            if ( (LA164_0==Delta) && (synpred11_InternalReqSpecParser())) {
-                alt164=1;
+            if ( (LA165_0==Delta) && (synpred11_InternalReqSpecParser())) {
+                alt165=1;
             }
-            switch (alt164) {
+            switch (alt165) {
                 case 1 :
                     // InternalReqSpecParser.g:7974:3: ( ( Delta )=>otherlv_5= Delta ) ( (lv_delta_6_0= ruleAExpression ) )
                     {
@@ -22783,13 +22813,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // InternalReqSpecParser.g:8077:2: (otherlv_5= Else ( (lv_else_6_0= ruleAExpression ) ) )?
-            int alt165=2;
-            int LA165_0 = input.LA(1);
+            int alt166=2;
+            int LA166_0 = input.LA(1);
 
-            if ( (LA165_0==Else) ) {
-                alt165=1;
+            if ( (LA166_0==Else) ) {
+                alt166=1;
             }
-            switch (alt165) {
+            switch (alt166) {
                 case 1 :
                     // InternalReqSpecParser.g:8078:2: otherlv_5= Else ( (lv_else_6_0= ruleAExpression ) )
                     {
@@ -22929,38 +22959,38 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:8126:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
             {
             // InternalReqSpecParser.g:8126:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
-            int alt166=4;
+            int alt167=4;
             switch ( input.LA(1) ) {
             case False:
             case True:
                 {
-                alt166=1;
+                alt167=1;
                 }
                 break;
             case RULE_REAL_LIT:
                 {
-                alt166=2;
+                alt167=2;
                 }
                 break;
             case RULE_INT:
                 {
-                alt166=3;
+                alt167=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt166=4;
+                alt167=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 166, 0, input);
+                    new NoViableAltException("", 167, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt166) {
+            switch (alt167) {
                 case 1 :
                     // InternalReqSpecParser.g:8127:5: this_ABooleanLiteral_0= ruleABooleanLiteral
                     {
@@ -23526,23 +23556,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // InternalReqSpecParser.g:8328:2: ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
-            int alt167=2;
-            int LA167_0 = input.LA(1);
+            int alt168=2;
+            int LA168_0 = input.LA(1);
 
-            if ( (LA167_0==True) ) {
-                alt167=1;
+            if ( (LA168_0==True) ) {
+                alt168=1;
             }
-            else if ( (LA167_0==False) ) {
-                alt167=2;
+            else if ( (LA168_0==False) ) {
+                alt168=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 167, 0, input);
+                    new NoViableAltException("", 168, 0, input);
 
                 throw nvae;
             }
-            switch (alt167) {
+            switch (alt168) {
                 case 1 :
                     // InternalReqSpecParser.g:8328:3: ( (lv_value_1_0= True ) )
                     {
@@ -23967,9 +23997,9 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:8480:1: (kw= Abstract | kw= Bus | kw= Data | kw= Device | kw= Memory | kw= Process | kw= Processor | kw= Subprogram | (kw= Subprogram kw= Group ) | kw= KW_System | (kw= Thread kw= Group ) | kw= Thread | (kw= Virtual kw= Bus ) | (kw= Virtual kw= Processor ) )
             {
             // InternalReqSpecParser.g:8480:1: (kw= Abstract | kw= Bus | kw= Data | kw= Device | kw= Memory | kw= Process | kw= Processor | kw= Subprogram | (kw= Subprogram kw= Group ) | kw= KW_System | (kw= Thread kw= Group ) | kw= Thread | (kw= Virtual kw= Bus ) | (kw= Virtual kw= Processor ) )
-            int alt168=14;
-            alt168 = dfa168.predict(input);
-            switch (alt168) {
+            int alt169=14;
+            alt169 = dfa169.predict(input);
+            switch (alt169) {
                 case 1 :
                     // InternalReqSpecParser.g:8481:2: kw= Abstract
                     {
@@ -24298,18 +24328,18 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:8630:1: (kw= ColonColon this_ID_2= RULE_ID )+
-            int cnt169=0;
-            loop169:
+            int cnt170=0;
+            loop170:
             do {
-                int alt169=2;
-                int LA169_0 = input.LA(1);
+                int alt170=2;
+                int LA170_0 = input.LA(1);
 
-                if ( (LA169_0==ColonColon) ) {
-                    alt169=1;
+                if ( (LA170_0==ColonColon) ) {
+                    alt170=1;
                 }
 
 
-                switch (alt169) {
+                switch (alt170) {
             	case 1 :
             	    // InternalReqSpecParser.g:8631:2: kw= ColonColon this_ID_2= RULE_ID
             	    {
@@ -24336,23 +24366,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt169 >= 1 ) break loop169;
+            	    if ( cnt170 >= 1 ) break loop170;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(169, input);
+                            new EarlyExitException(170, input);
                         throw eee;
                 }
-                cnt169++;
+                cnt170++;
             } while (true);
 
             // InternalReqSpecParser.g:8643:3: (kw= FullStop this_ID_4= RULE_ID )?
-            int alt170=2;
-            int LA170_0 = input.LA(1);
+            int alt171=2;
+            int LA171_0 = input.LA(1);
 
-            if ( (LA170_0==FullStop) ) {
-                alt170=1;
+            if ( (LA171_0==FullStop) ) {
+                alt171=1;
             }
-            switch (alt170) {
+            switch (alt171) {
                 case 1 :
                     // InternalReqSpecParser.g:8644:2: kw= FullStop this_ID_4= RULE_ID
                     {
@@ -24473,13 +24503,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:8685:1: (kw= ColonColon this_ID_2= RULE_ID )?
-            int alt171=2;
-            int LA171_0 = input.LA(1);
+            int alt172=2;
+            int LA172_0 = input.LA(1);
 
-            if ( (LA171_0==ColonColon) ) {
-                alt171=1;
+            if ( (LA172_0==ColonColon) ) {
+                alt172=1;
             }
-            switch (alt171) {
+            switch (alt172) {
                 case 1 :
                     // InternalReqSpecParser.g:8686:2: kw= ColonColon this_ID_2= RULE_ID
                     {
@@ -24600,17 +24630,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // InternalReqSpecParser.g:8729:1: (kw= FullStop this_ID_2= RULE_ID )*
-            loop172:
+            loop173:
             do {
-                int alt172=2;
-                int LA172_0 = input.LA(1);
+                int alt173=2;
+                int LA173_0 = input.LA(1);
 
-                if ( (LA172_0==FullStop) ) {
-                    alt172=1;
+                if ( (LA173_0==FullStop) ) {
+                    alt173=1;
                 }
 
 
-                switch (alt172) {
+                switch (alt173) {
             	case 1 :
             	    // InternalReqSpecParser.g:8730:2: kw= FullStop this_ID_2= RULE_ID
             	    {
@@ -24637,7 +24667,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop172;
+            	    break loop173;
                 }
             } while (true);
 
@@ -24763,52 +24793,52 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // InternalReqSpecParser.g:8783:1: ( (enumLiteral_0= Component ) | (enumLiteral_1= Feature ) | (enumLiteral_2= Connection ) | (enumLiteral_3= Flow ) | (enumLiteral_4= Mode ) | (enumLiteral_5= Element ) | (enumLiteral_6= Root ) )
             {
             // InternalReqSpecParser.g:8783:1: ( (enumLiteral_0= Component ) | (enumLiteral_1= Feature ) | (enumLiteral_2= Connection ) | (enumLiteral_3= Flow ) | (enumLiteral_4= Mode ) | (enumLiteral_5= Element ) | (enumLiteral_6= Root ) )
-            int alt173=7;
+            int alt174=7;
             switch ( input.LA(1) ) {
             case Component:
                 {
-                alt173=1;
+                alt174=1;
                 }
                 break;
             case Feature:
                 {
-                alt173=2;
+                alt174=2;
                 }
                 break;
             case Connection:
                 {
-                alt173=3;
+                alt174=3;
                 }
                 break;
             case Flow:
                 {
-                alt173=4;
+                alt174=4;
                 }
                 break;
             case Mode:
                 {
-                alt173=5;
+                alt174=5;
                 }
                 break;
             case Element:
                 {
-                alt173=6;
+                alt174=6;
                 }
                 break;
             case Root:
                 {
-                alt173=7;
+                alt174=7;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 173, 0, input);
+                    new NoViableAltException("", 174, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt173) {
+            switch (alt174) {
                 case 1 :
                     // InternalReqSpecParser.g:8783:2: (enumLiteral_0= Component )
                     {
@@ -25413,7 +25443,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     protected DFA79 dfa79 = new DFA79(this);
     protected DFA97 dfa97 = new DFA97(this);
     protected DFA115 dfa115 = new DFA115(this);
-    protected DFA168 dfa168 = new DFA168(this);
+    protected DFA169 dfa169 = new DFA169(this);
     static final String dfa_1s = "\13\uffff";
     static final String dfa_2s = "\1\5\6\uffff\1\30\3\uffff";
     static final String dfa_3s = "\1\157\6\uffff\1\65\3\uffff";
@@ -25893,7 +25923,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String dfa_37s = "\1\5\20\uffff\1\30\3\uffff";
     static final String dfa_38s = "\1\157\20\uffff\1\76\3\uffff";
     static final String dfa_39s = "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\uffff\1\22\1\20\1\21";
-    static final String dfa_40s = "\1\0\20\uffff\1\1\3\uffff}>";
+    static final String dfa_40s = "\1\1\20\uffff\1\0\3\uffff}>";
     static final String[] dfa_41s = {
             "\1\3\1\20\2\uffff\1\11\1\uffff\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\4\uffff\1\13\6\uffff\1\22\16\uffff\1\7\14\uffff\1\6\10\uffff\1\21\1\uffff\1\4\34\uffff\1\1",
             "",
@@ -25944,6 +25974,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA115_17 = input.LA(1);
+
+                         
+                        int index115_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA115_17 == Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 15) ) {s = 19;}
+
+                        else if ( LA115_17 == Document && getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 16) ) {s = 20;}
+
+                         
+                        input.seek(index115_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA115_0 = input.LA(1);
 
                          
@@ -25990,21 +26035,6 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                         input.seek(index115_0);
                         if ( s>=0 ) return s;
                         break;
-                    case 1 : 
-                        int LA115_17 = input.LA(1);
-
-                         
-                        int index115_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( LA115_17 == Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 15) ) {s = 19;}
-
-                        else if ( LA115_17 == Document && getUnorderedGroupHelper().canSelect(grammarAccess.getDocRequirementAccess().getUnorderedGroup_5(), 16) ) {s = 20;}
-
-                         
-                        input.seek(index115_17);
-                        if ( s>=0 ) return s;
-                        break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
@@ -26017,7 +26047,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String dfa_43s = "\10\uffff\1\15\1\uffff\1\17\7\uffff";
     static final String dfa_44s = "\1\15\7\uffff\1\15\1\uffff\1\15\1\24\6\uffff";
     static final String dfa_45s = "\1\112\7\uffff\1\156\1\uffff\1\156\1\112\6\uffff";
-    static final String dfa_46s = "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\11\1\10\1\13\1\14\1\16\1\15";
+    static final String dfa_46s = "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\11\1\10\1\13\1\14\1\15\1\16";
     static final String dfa_47s = "\22\uffff}>";
     static final String[] dfa_48s = {
             "\1\10\6\uffff\1\7\1\uffff\1\1\14\uffff\1\6\2\uffff\1\13\1\4\4\uffff\1\5\1\uffff\1\11\1\12\13\uffff\1\3\16\uffff\1\2",
@@ -26031,7 +26061,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "\1\15\6\uffff\1\15\1\uffff\1\15\14\uffff\1\15\2\uffff\2\15\4\uffff\1\15\1\uffff\2\15\6\uffff\1\14\4\uffff\1\15\16\uffff\1\15\6\uffff\1\15\34\uffff\1\15",
             "",
             "\1\17\6\uffff\1\17\1\uffff\1\17\14\uffff\1\17\2\uffff\2\17\4\uffff\1\17\1\uffff\2\17\6\uffff\1\16\4\uffff\1\17\16\uffff\1\17\6\uffff\1\17\34\uffff\1\17",
-            "\1\20\65\uffff\1\21",
+            "\1\21\65\uffff\1\20",
             "",
             "",
             "",
@@ -26048,11 +26078,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final short[] dfa_47 = DFA.unpackEncodedString(dfa_47s);
     static final short[][] dfa_48 = unpackEncodedStringArray(dfa_48s);
 
-    class DFA168 extends DFA {
+    class DFA169 extends DFA {
 
-        public DFA168(BaseRecognizer recognizer) {
+        public DFA169(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 168;
+            this.decisionNumber = 169;
             this.eot = dfa_42;
             this.eof = dfa_43;
             this.min = dfa_44;

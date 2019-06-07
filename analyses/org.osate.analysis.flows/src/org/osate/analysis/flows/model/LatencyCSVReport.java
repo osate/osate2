@@ -4,9 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -79,29 +77,23 @@ public class LatencyCSVReport {
 		StringBuffer reportContent;
 
 		reportContent = getReportContent(latres);
-		IPath csvPath = getCSVPath(latres);
-		if (csvPath != null) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(csvPath);
-			if (file != null) {
-				input = new ByteArrayInputStream(reportContent.toString().getBytes());
-				try {
-					if (file.exists()) {
-						file.setContents(input, true, true, null);
-					} else {
-						AadlUtil.makeSureFoldersExist(csvPath);
-						file.create(input, true, null);
-					}
-				} catch (final CoreException e) {
-				}
+		file = getCSVFile(latres);
+		input = new ByteArrayInputStream(reportContent.toString().getBytes());
+		try {
+			if (file.exists()) {
+				file.setContents(input, true, true, null);
+			} else {
+				AadlUtil.makeSureFoldersExist(file.getFullPath());
+				file.create(input, true, null);
 			}
+		} catch (final CoreException e) {
 		}
 	}
 
-	public static IPath getCSVPath(AnalysisResult ar) {
+	public static IFile getCSVFile(AnalysisResult ar) {
 		URI arURI = ar.eResource().getURI();
 		URI csvURI = arURI.trimFileExtension().appendFileExtension("csv");
-		IPath path = OsateResourceUtil.getOsatePath(csvURI);
-		return path;
+		return OsateResourceUtil.toIFile(csvURI);
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.osate.analysis.architecture.unusedclassifiers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +14,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
@@ -53,7 +56,7 @@ public final class UnusedClassifierMarkerResolution extends WorkbenchMarkerResol
 		public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
 			monitor.beginTask("Remove unused classifier", 1);
 			final IResource iRsrc = marker.getResource();
-			final Resource rsrc = OsateResourceUtil.getResource(iRsrc);
+			final Resource rsrc = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI(iRsrc), true);
 			// should never get 'null' here
 			final URI uri = URI.createURI(marker.getAttribute(AadlConstants.AADLURI, null));
 
@@ -69,7 +72,12 @@ public final class UnusedClassifierMarkerResolution extends WorkbenchMarkerResol
 						monitor.worked(1);
 					}
 				});
-				OsateResourceUtil.save(rsrc);
+				try {
+					rsrc.save(null);
+				} catch (IOException e) {
+					IStatus status = new Status(IStatus.ERROR, "org.osate.analysis.architecture", e.getMessage(), e);
+					StatusManager.getManager().handle(status);
+				}
 				marker.delete();
 			} finally {
 				monitor.done();
