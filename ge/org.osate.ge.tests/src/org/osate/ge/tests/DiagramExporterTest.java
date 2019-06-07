@@ -2,9 +2,12 @@ package org.osate.ge.tests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -50,6 +53,19 @@ public class DiagramExporterTest {
 				tmpFile.deleteOnExit();
 				DiagramExporter.exportDiagramAsPng(diagramFile, tmpFile);
 				assertTrue(tmpFile.exists());
+				
+				ByteArrayOutputStream baos = new ByteArrayOutputStream(48000);
+				DiagramExporter.exportDiagramAsPng(diagramFile, baos);
+				baos.flush();
+				assertTrue(baos.size() > 0);
+				
+				baos.reset();
+				
+				MemoryCacheImageOutputStream mcios = new MemoryCacheImageOutputStream(baos);
+				DiagramExporter.exportDiagramAsPng(diagramFile, mcios);
+				mcios.flush();
+				assertTrue(baos.size() > 0);
+				
 			} catch (final IOException e) {
 				exception.set(new RuntimeException(e));
 			} catch (final RuntimeException e) {
