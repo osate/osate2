@@ -3144,23 +3144,23 @@ ruleRationale returns [EObject current=null]
     }
 (
 (
-		lv_text_1_0=RULE_STRING
-		{
-			newLeafNode(lv_text_1_0, grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getRationaleAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); 
+	    }
+		lv_description_1_0=ruleDescriptionElement		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getRationaleRule());
+	            $current = createModelElementForParent(grammarAccess.getRationaleRule());
 	        }
-       		setWithLastConsumed(
+       		add(
        			$current, 
-       			"text",
-        		lv_text_1_0, 
-        		"org.eclipse.xtext.common.Terminals.STRING");
+       			"description",
+        		lv_description_1_0, 
+        		"org.osate.alisa.common.Common.DescriptionElement");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))
+)+)
 ;
 
 

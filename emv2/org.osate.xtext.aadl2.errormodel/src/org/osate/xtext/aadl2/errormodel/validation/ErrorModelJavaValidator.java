@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.errormodel.validation;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -577,17 +578,31 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkTypeTokenUniqueTypes(TypeToken ts) {
-		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
+		if (ts.getType().size() < 2) {
+			return;
+		}
+		Collection<ErrorType> matchTypes = new ArrayList<ErrorType>();
 		for (ErrorTypes et : ts.getType()) {
 			if (et instanceof ErrorType) {
-				ErrorType root = EMV2TypeSetUtil.rootType((ErrorType) et);
-				if (sourceTypes.contains(root)) {
-					error(et, "Another element type has same root type " + root.getName() + " as " + et.getName());
+				ErrorType match = sameRoot(matchTypes, (ErrorType) et);
+				if (match != null) {
+					error(ts, "Element type " + match.getName() + " and " + et.getName() + " have same root type");
 				} else {
-					sourceTypes.add((ErrorType) et);
+					matchTypes.add((ErrorType) et);
 				}
 			}
 		}
+	}
+
+	private ErrorType sameRoot(Collection<ErrorType> matchTypes, ErrorType et) {
+		ErrorType etroot = EMV2TypeSetUtil.rootType(et);
+		for (ErrorType match : matchTypes) {
+			if (etroot == EMV2TypeSetUtil.rootType(match)) {
+				return match;
+			}
+
+		}
+		return null;
 	}
 
 	private void checkTypeTokenSingleTypeSet(TypeToken ts) {

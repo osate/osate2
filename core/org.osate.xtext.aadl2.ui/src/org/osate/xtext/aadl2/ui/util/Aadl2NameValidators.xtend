@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.ui.util;
 import java.io.StringReader
 import org.eclipse.core.resources.IContainer
 import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.xtext.ParserRule
 import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.parser.IParser
@@ -13,13 +14,13 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
-public final class Aadl2NameValidators {
-	private static val parser = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IParser)
+final class Aadl2NameValidators {
+	static val parser = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IParser)
 	// Not used locally, but clients of the class use it to reference grammar rules
 	public static val grammarAccess = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(Aadl2GrammarAccess)
 
-	private static val globalScopeProvider = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IGlobalScopeProvider)
-	private static val qNameConverter = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IQualifiedNameConverter)
+	static val globalScopeProvider = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IGlobalScopeProvider)
+	static val qNameConverter = MyAadl2Activator.instance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(IQualifiedNameConverter)
 
 	// Common validators
 	
@@ -42,7 +43,7 @@ public final class Aadl2NameValidators {
 	 * @param checkWhiteSpace <code>true</code> to require that the text not contain any whitespace
 	 * @param rule The non-terminal parse rule to use for checking
 	 */
-	public static def (String) => boolean getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
+	static def (String) => boolean getFieldValidator(boolean checkWhiteSpace, ParserRule rule) {
 		if (checkWhiteSpace) {
 			[fieldValue | fieldValue.matches("\\S+") && 
 				!parser.parse(rule, new StringReader(fieldValue)).hasSyntaxErrors
@@ -58,7 +59,9 @@ public final class Aadl2NameValidators {
 		 * a bogus folder to it.
 		 */
 		val fakeFolder = parent.getFolder(Path.forPosix(".fake"));
-		val rsrc = OsateResourceUtil.getResource(fakeFolder);
+		val rsrc = new ResourceSetImpl().createResource(OsateResourceUtil.toResourceURI(fakeFolder))
+		// Clear the contents even though the resource is empty so that it will be marked as loaded.
+		rsrc.contents.clear
 		val scope = new OnChangeEvictingCache().execWithTemporaryCaching(rsrc, [resource |
 			globalScopeProvider.getScope(resource, Aadl2Package.eINSTANCE.packageSection_ImportedUnit, null)
 		])
@@ -70,7 +73,7 @@ public final class Aadl2NameValidators {
 	 * Check if the given model unit exists in the scope of the given parent container.  Returns
 	 * <code>null</code> if it is does not, or an error message it it does.
 	 */
-	public static def validateFileNameInScope(IContainer parent, String modelUnitName) {
+	static def validateFileNameInScope(IContainer parent, String modelUnitName) {
 		/*
 		 * This method checks for 4 different error conditions.  Consider three projects:
 		 * A, B, and C.  Assume project C depends on both A and B, and the neither A nor B
@@ -101,7 +104,7 @@ public final class Aadl2NameValidators {
 		var String errorMsg = null
 		val foundInScope = findModelUnitInScope(parent, modelUnitName)
 		if (foundInScope !== null) {
-			val foundFile = OsateResourceUtil.getOsateIFile(foundInScope.getEObjectURI())
+			val foundFile = OsateResourceUtil.toIFile(foundInScope.EObjectURI)
 			val foundProject = foundFile.getProject()
 			val label = if (foundInScope.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage()))  "Package '" else "Property set '"
 			if (foundProject === parent.getProject()) {
@@ -119,7 +122,7 @@ public final class Aadl2NameValidators {
 				val foundInScopeOfReferencer = findModelUnitInScope(referencer, modelUnitName);
 				if (foundInScopeOfReferencer !== null) {
 					val label = if (foundInScopeOfReferencer.getEClass().equals(Aadl2Package.eINSTANCE.getAadlPackage())) "Package '" else "Property set '"
-					val foundFile = OsateResourceUtil.getOsateIFile(foundInScopeOfReferencer.getEObjectURI())
+					val foundFile = OsateResourceUtil.toIFile(foundInScopeOfReferencer.EObjectURI)
 					val foundProject = foundFile.getProject()
 					if (foundProject === referencer) {
 						// Case (3)

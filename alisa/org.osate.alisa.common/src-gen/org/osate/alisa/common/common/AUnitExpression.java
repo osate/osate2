@@ -44,10 +44,6 @@ public interface AUnitExpression extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Expression</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Expression</em>' containment reference.
    * @see #setExpression(PropertyExpression)
@@ -70,10 +66,6 @@ public interface AUnitExpression extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Convert</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Convert</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Convert</em>' attribute.
    * @see #setConvert(boolean)
@@ -96,10 +88,6 @@ public interface AUnitExpression extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Drop</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Drop</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Drop</em>' attribute.
    * @see #setDrop(boolean)
@@ -122,10 +110,6 @@ public interface AUnitExpression extends EObject, PropertyExpression
   /**
    * Returns the value of the '<em><b>Unit</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Unit</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Unit</em>' reference.
    * @see #setUnit(UnitLiteral)

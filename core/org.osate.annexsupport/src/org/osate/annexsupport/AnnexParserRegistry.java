@@ -54,6 +54,11 @@ public class AnnexParserRegistry extends AnnexRegistry {
 		return parser;
 	}
 
+	@Override
+	protected final Object getDefault() {
+		return new DefaultAnnexParser();
+	}
+
 	/**
 	 * Factory method for annex parser proxies.
 	 * @param configElem

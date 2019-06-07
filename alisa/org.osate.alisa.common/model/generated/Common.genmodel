@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.alisa.common.editor/src" modelPluginID="org.osate.alisa.common"
     forceOverwrite="true" modelName="Common" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.common.edit"
-    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.14" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.17" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
       fileExtensions="___common___" ecorePackage="Common.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//Operation">
@@ -47,7 +47,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/showValue"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Rationale">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Rationale/text"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Rationale/description"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Uncertainty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/volatility"/>

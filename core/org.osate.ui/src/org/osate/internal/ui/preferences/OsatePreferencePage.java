@@ -38,7 +38,7 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.core.OsateCorePlugin;
 
 /**
  * This class represents the OSATE workspace preferences.
@@ -51,7 +51,7 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 
 	public OsatePreferencePage() {
 		super(GRID);
-		setPreferenceStore(WorkspacePlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
 		setDescription("OSATE workspace preferences\n");
 	}
 
@@ -60,7 +60,7 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 	 */
 	@Override
 	public void createFieldEditors() {
-		BooleanFieldEditor be = new BooleanFieldEditor(WorkspacePlugin.EXPAND_DEFAULT_FLAG,
+		BooleanFieldEditor be = new BooleanFieldEditor(OsateCorePlugin.EXPAND_DEFAULT_FLAG,
 				"Store Default Attribute Values in XML File (Normally defaults recorded in the schema are not stored)",
 				getFieldEditorParent());
 		addField(be);

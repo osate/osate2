@@ -84,6 +84,7 @@ public class DescriptionImpl extends MinimalEObjectImpl.Container implements Des
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DescriptionElement> getDescription()
   {
     if (description == null)

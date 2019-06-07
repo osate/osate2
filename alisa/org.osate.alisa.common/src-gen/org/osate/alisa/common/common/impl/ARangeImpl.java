@@ -103,6 +103,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getMinimum()
   {
     return minimum;
@@ -130,6 +131,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMinimum(PropertyExpression newMinimum)
   {
     if (newMinimum != minimum)
@@ -151,6 +153,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getMaximum()
   {
     return maximum;
@@ -178,6 +181,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMaximum(PropertyExpression newMaximum)
   {
     if (newMaximum != maximum)
@@ -199,6 +203,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getDelta()
   {
     return delta;
@@ -226,6 +231,7 @@ public class ARangeImpl extends PropertyExpressionImpl implements ARange
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDelta(PropertyExpression newDelta)
   {
     if (newDelta != delta)

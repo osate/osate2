@@ -1,0 +1,22 @@
+package testing
+public
+    annex EMV2 {**
+        error types
+            flintstone : type;
+            fred : type extends flintstone;
+            wilma : type extends flintstone;
+            pebbles: type extends flintstone;
+            
+            rubble : type;
+            barney : type extends rubble;
+            betty : type extends rubble;
+            bambam : type extends rubble;
+            
+            s1 : type set { fred, wilma };
+            s2 : type set { barney, s1 };
+            s3 : type set { flintstone * rubble };
+            s4 : type set { fred * barney, fred * barney }; -- bad 
+            s5 : type set { fred * wilma }; -- bad 
+        end types ;
+    **};
+end testing;

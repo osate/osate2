@@ -153,6 +153,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -163,6 +164,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -176,6 +178,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -186,6 +189,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -199,6 +203,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Description getDescription()
   {
     return description;
@@ -226,6 +231,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(Description newDescription)
   {
     if (newDescription != description)
@@ -247,6 +253,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ExternalDocument> getDocReference()
   {
     if (docReference == null)
@@ -261,6 +268,7 @@ public class ReqRootImpl extends MinimalEObjectImpl.Container implements ReqRoot
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)

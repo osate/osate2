@@ -44,10 +44,6 @@ public interface AssuranceTask extends CategoryFilter
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
@@ -70,10 +66,6 @@ public interface AssuranceTask extends CategoryFilter
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
@@ -97,10 +89,6 @@ public interface AssuranceTask extends CategoryFilter
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issues</em>' attribute list.
    * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceTask_Issues()

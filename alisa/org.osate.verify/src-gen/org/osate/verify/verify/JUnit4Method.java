@@ -37,10 +37,6 @@ public interface JUnit4Method extends MethodKind
   /**
    * Returns the value of the '<em><b>Class Path</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Class Path</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Class Path</em>' attribute.
    * @see #setClassPath(String)

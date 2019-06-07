@@ -189,6 +189,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Requirement getRequirement()
   {
     if (requirement != null && requirement.eIsProxy())
@@ -219,6 +220,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRequirement(Requirement newRequirement)
   {
     Requirement oldRequirement = requirement;
@@ -232,6 +234,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTitle()
   {
     return title;
@@ -242,6 +245,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTitle(String newTitle)
   {
     String oldTitle = title;
@@ -255,6 +259,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VerificationActivity> getActivities()
   {
     if (activities == null)
@@ -269,6 +274,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getAssert()
   {
     return assert_;
@@ -296,6 +302,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAssert(ArgumentExpr newAssert)
   {
     if (newAssert != assert_)
@@ -317,6 +324,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Rationale getRationale()
   {
     return rationale;
@@ -344,6 +352,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRationale(Rationale newRationale)
   {
     if (newRationale != rationale)
@@ -365,6 +374,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getWeight()
   {
     return weight;
@@ -375,6 +385,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setWeight(int newWeight)
   {
     int oldWeight = weight;
@@ -388,6 +399,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Claim> getSubclaim()
   {
     if (subclaim == null)
@@ -402,6 +414,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getIssues()
   {
     if (issues == null)

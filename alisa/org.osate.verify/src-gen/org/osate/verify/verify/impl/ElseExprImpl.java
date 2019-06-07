@@ -111,6 +111,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getLeft()
   {
     return left;
@@ -138,6 +139,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLeft(ArgumentExpr newLeft)
   {
     if (newLeft != left)
@@ -159,6 +161,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getError()
   {
     return error;
@@ -186,6 +189,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setError(ArgumentExpr newError)
   {
     if (newError != error)
@@ -207,6 +211,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getFail()
   {
     return fail;
@@ -234,6 +239,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFail(ArgumentExpr newFail)
   {
     if (newFail != fail)
@@ -255,6 +261,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArgumentExpr getTimeout()
   {
     return timeout;
@@ -282,6 +289,7 @@ public class ElseExprImpl extends ArgumentExprImpl implements ElseExpr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTimeout(ArgumentExpr newTimeout)
   {
     if (newTimeout != timeout)

@@ -229,7 +229,7 @@ class AssureUtilExtension {
 	def static void addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm) {
 		val res = instance.eResource
-		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
+		val irsrc = OsateResourceUtil.toIFile(res.URI)
 
 		var  IMarker[] markers
 		try {
