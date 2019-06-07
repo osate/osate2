@@ -1,0 +1,6 @@
+property set ps1 is
+	int_no_units: aadlinteger 1 .. 10 applies to (all);
+	int_with_units: aadlinteger 11 sec .. 20 sec units Time_Units applies to (all);
+	real_no_units: aadlreal 21.1 .. 30.0 applies to (all);
+	real_with_units: aadlreal 31.1 sec .. 40.0 sec units Time_Units applies to (all);
+end ps1;
