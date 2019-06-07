@@ -19,17 +19,15 @@ public class ExecuteJavaUtil {
 	// One set of methods assumes as single parameter - model target model element. The Java method is assumed to expect an EObject
 	// The second set of methods gets both the method parameter classes and actual objects to be passed.
 
-	public static ExecuteJavaUtil eInstance = new ExecuteJavaUtil();
-
 	final private static String EXTENTION_ID = "org.osate.pluginsupport.registeredjavaclasses";
 	private static Map<String, Object> analysisMap;
 
-	public void init(IExtensionRegistry registry) {
+	private static void init(IExtensionRegistry registry) {
 		analysisMap = new HashMap<String, Object>();
 		evaluate(registry);
 	}
 
-	private void evaluate(IExtensionRegistry registry) {
+	private static void evaluate(IExtensionRegistry registry) {
 		try {
 			for (IConfigurationElement e : registry.getConfigurationElementsFor(EXTENTION_ID)) {
 				String name = e.getAttribute("path");
@@ -43,7 +41,7 @@ public class ExecuteJavaUtil {
 
 	// invoke method in workspace project
 	// The method is assumed to have a single parameter of type EObject
-	public Object invokeJavaMethod(String javaMethod, EObject target) {
+	public static Object invokeJavaMethod(String javaMethod, EObject target) {
 		ArrayList<Class<?>> newClasses = new ArrayList<Class<?>>();
 		newClasses.add(EObject.class);
 		ArrayList<Object> objects = new ArrayList<Object>();
@@ -52,7 +50,7 @@ public class ExecuteJavaUtil {
 	}
 
 	// invoke method in workspace project
-	public Object invokeJavaMethod(String javaMethod, List<Class<?>> paramClasses, List<Object> paramActuals) {
+	public static Object invokeJavaMethod(String javaMethod, List<Class<?>> paramClasses, List<Object> paramActuals) {
 		int i = javaMethod.lastIndexOf('.');
 		if (i == -1) {
 			return null;
@@ -71,7 +69,7 @@ public class ExecuteJavaUtil {
 	}
 
 	// returns the Java method or null.
-	public Method getJavaMethod(String javaMethod, Collection<Class<?>> paramClasses) {
+	public static Method getJavaMethod(String javaMethod, Collection<Class<?>> paramClasses) {
 		int i = javaMethod.lastIndexOf('.');
 		if (i == -1) {
 			return null;
@@ -93,14 +91,14 @@ public class ExecuteJavaUtil {
 	}
 
 	// use in validation of when condition method
-	public Method getJavaMethod(String javaMethod) {
+	public static Method getJavaMethod(String javaMethod) {
 		ArrayList<Class<?>> newClasses = new ArrayList<Class<?>>();
 		newClasses.add(EObject.class);
 		return getJavaMethod(javaMethod, newClasses);
 	}
 
 	// get Java Class from extension point registry or from searching workspace
-	public Class<?> getJavaClass(String className) throws Exception {
+	public static Class<?> getJavaClass(String className) throws Exception {
 		if (analysisMap == null) {
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 			init(extensionRegistry);
@@ -112,6 +110,4 @@ public class ExecuteJavaUtil {
 
 		return null;
 	}
-
-
 }
