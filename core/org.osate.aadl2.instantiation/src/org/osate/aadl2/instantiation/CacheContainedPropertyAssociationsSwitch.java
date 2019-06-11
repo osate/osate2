@@ -50,6 +50,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -255,8 +256,25 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 								}
 							}
 
-							io.removePropertyAssociations(prop);
-							io.getOwnedPropertyAssociations().add(newPA);
+							final PropertyAssociation existingPA = io.getPropertyValue(prop, false).first();
+							if (existingPA != null && isConstant(existingPA)) {
+								/*
+								 * Cannot put the error on the property association that is affected because it might
+								 * be a declarative model element at this point. Need to report the error on the
+								 * instance object itself.
+								 */
+								final String classifierName = pa.getContainingClassifier().getQualifiedName();
+								final Element owner = pa.getOwner();
+								final String featureName = (owner instanceof Feature)
+										? ("." + ((Feature) owner).getName())
+										: "";
+								getErrorManager().error(io, "Property association for \"" + prop.getQualifiedName()
+										+ "\" is constant.  A contained property association in classifier \""
+										+ classifierName + featureName + "\" tries to replace it.");
+							} else {
+								io.removePropertyAssociations(prop);
+								io.getOwnedPropertyAssociations().add(newPA);
+							}
 						}
 					}
 				}
@@ -366,21 +384,5 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 			}
 		}
 		return false;
-	}
-
-	private static PropertyAssociation findPropertyAssociationFor(final InstanceObject io, final Property property) {
-		final EList<PropertyAssociation> pal = io.getOwnedPropertyAssociations();
-		for (final Iterator<PropertyAssociation> it = pal.iterator(); it.hasNext();) {
-			final PropertyAssociation pa = it.next();
-			if (pa.getProperty() == property) {
-				/* Ignore contained property associations. Shouldn't be present on InstanceModels any way. */
-				final EList<ContainedNamedElement> appliesTo = pa.getAppliesTos();
-				if (appliesTo == null || appliesTo.isEmpty()) {
-					// Should only be one property association for each property name
-					return pa;
-				}
-			}
-		}
-		return null;
 	}
 }
