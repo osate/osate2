@@ -32,8 +32,11 @@ class Issue1447Test {
 	val static SUBCOMPONENTS6 = "subcomponents6.aadl"
 
 	val static FEATURES = "features";
-
-	val static ERROR_TEMPLATE = "Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"features{0}::{1}\" tries to replace it."
+	val static FEATURE_GROUP = "fg";
+	val static EXTENSION = ".aadl"
+	
+	val static FEATURE_ERROR_TEMPLATE = "Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"features{0}::{1}\" tries to replace it."
+	val static FEATURE_GROUP_ERROR_TEMPLATE = "Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"fg{0}::{1}\" tries to replace it."
 
 	val static A_I = "A.i"
 
@@ -345,8 +348,83 @@ class Issue1447Test {
 		testFeatures(11, 90L)
 	}
 	
+	@Test
+	def void testFeatureGroups1() {
+		testFeatureGroups(1, 90L)
+	}
+	
+	@Test
+	def void testFeatureGroups2() {
+		testFeatureGroups(2, 0L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups3() {
+		testFeatureGroups(3, 10L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups4() {
+		testFeatureGroups(4, 20L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups5() {
+		testFeatureGroups(5, 30L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups6() {
+		testFeatureGroups(6, 32L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups7() {
+		testFeatureGroups(7, 35L,  "D2.fg1", "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups8() {
+		testFeatureGroups(8, 90L)
+	}
+	
+	@Test
+	def void testFeatureGroups9() {
+		testFeatureGroups(9, 45L, "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups10() {
+		testFeatureGroups(10, 50L, "D", "D2", "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups11() {
+		testFeatureGroups(11, 55L, "D2.i", "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups12() {
+		testFeatureGroups(12, 60L, "C.i", "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups13() {
+		testFeatureGroups(13, 70L, "B.i", "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups14() {
+		testFeatureGroups(14, 80L, "A.i")
+	}
+	
+	@Test
+	def void testFeatureGroups15() {
+		testFeatureGroups(15, 90L)
+	}
+
 	private def void testFeatures(int idx, long propValue, String... errors) {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + FEATURES + idx + ".aadl", PROJECT_LOCATION + TEST_PS)
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FEATURES + idx + EXTENSION, PROJECT_LOCATION + TEST_PS)
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == A_I] as SystemImplementation
 		
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
@@ -368,7 +446,45 @@ class Issue1447Test {
 			messages.get(i) => [
 				assertEquals(f1, where)
 				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
-				assertEquals(MessageFormat.format(ERROR_TEMPLATE, idx, err), message)
+				assertEquals(MessageFormat.format(FEATURE_ERROR_TEMPLATE, idx, err), message)
+			]
+		}
+
+		val propAssocs = f1.ownedPropertyAssociations
+		assertEquals(1, propAssocs.size)
+		val values = propAssocs.get(0).ownedValues
+		assertEquals(1, values.size)
+		val value = values.get(0).ownedValue
+		assertTrue(value instanceof IntegerLiteral)
+		assertEquals(propValue, (value as IntegerLiteral).value)
+	}	
+
+	private def void testFeatureGroups(int idx, long propValue, String... errors) {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FEATURE_GROUP + idx + EXTENSION, PROJECT_LOCATION + TEST_PS)
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == A_I] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		assertEquals(INSTANCE_NAME, instance.name)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// Find s1.s2.s3
+		val s1 = instance.componentInstances.get(0)
+		val s2 = s1.componentInstances.get(0)
+		val s3 = s2.componentInstances.get(0)
+		val fg1 = s3.featureInstances.get(0)
+		assertEquals("fg1", fg1.name)
+		val f1 = fg1.featureInstances.get(0)
+		assertEquals("f1", f1.name)
+		
+		assertEquals(errors.size, messages.size)
+		for (var i = 0; i < errors.size; i++) {
+			val err = errors.get(i)
+			messages.get(i) => [
+				assertEquals(f1, where)
+				assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+				assertEquals(MessageFormat.format(FEATURE_GROUP_ERROR_TEMPLATE, idx, err), message)
 			]
 		}
 
