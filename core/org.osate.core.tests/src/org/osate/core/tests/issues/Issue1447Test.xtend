@@ -496,5 +496,95 @@ class Issue1447Test {
 		assertTrue(value instanceof IntegerLiteral)
 		assertEquals(propValue, (value as IntegerLiteral).value)
 	}	
+	
+	@Test
+	def void testSemanticConnection1() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "sc1" + EXTENSION, PROJECT_LOCATION + TEST_PS)
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "whole.i"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		assertEquals("whole_i_Instance", instance.name)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// Find the semantic connection
+		val sc = instance.connectionInstances.get(0)
+		
+		assertEquals(1, messages.size)
+		messages.get(0) => [
+			assertEquals(sc, where)
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Property association for \"TestPS::myProp\" is constant.  A contained property association in classifier \"sc1::whole.i\" tries to replace it.", message)
+		]
+
+		val propAssocs = sc.ownedPropertyAssociations
+		assertEquals(1, propAssocs.size)
+		val values = propAssocs.get(0).ownedValues
+		assertEquals(1, values.size)
+		val value = values.get(0).ownedValue
+		assertTrue(value instanceof IntegerLiteral)
+		assertEquals(10L, (value as IntegerLiteral).value)
+	}	
+	
+	@Test
+	def void testSemanticConnection2() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "sc2" + EXTENSION, PROJECT_LOCATION + TEST_PS)
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "whole.i"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		assertEquals("whole_i_Instance", instance.name)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// Find the semantic connection
+		val sc = instance.connectionInstances.get(0)
+		
+		assertEquals(1, messages.size)
+		messages.get(0) => [
+			assertEquals(sc, where)
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
+		]
+
+		val propAssocs = sc.ownedPropertyAssociations
+		assertEquals(1, propAssocs.size)
+		val values = propAssocs.get(0).ownedValues
+		assertEquals(1, values.size)
+		val value = values.get(0).ownedValue
+		assertTrue(value instanceof IntegerLiteral)
+		assertEquals(10L, (value as IntegerLiteral).value)
+	}	
+		
+	@Test
+	def void testSemanticConnection3() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "sc3" + EXTENSION, PROJECT_LOCATION + TEST_PS)
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "whole.i"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		assertEquals("whole_i_Instance", instance.name)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// Find the semantic connection
+		val sc = instance.connectionInstances.get(0)
+		
+		assertEquals(1, messages.size)
+		messages.get(0) => [
+			assertEquals(sc, where)
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Value for property TestPS::myProp not consistent along connection", message)
+		]
+
+		val propAssocs = sc.ownedPropertyAssociations
+		assertEquals(1, propAssocs.size)
+		val values = propAssocs.get(0).ownedValues
+		assertEquals(1, values.size)
+		val value = values.get(0).ownedValue
+		assertTrue(value instanceof IntegerLiteral)
+		assertEquals(10L, (value as IntegerLiteral).value)
+	}	
 }
 
