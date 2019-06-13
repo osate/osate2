@@ -46,12 +46,15 @@ import java.util.Set;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ISelection;
@@ -59,7 +62,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.core.AadlNature;
-import org.osate.workspace.IResourceUtility;
+import org.osate.workspace.WorkspacePlugin;
 
 /**
  * Scans the workspace for AADL system instances and rebuilds them, or
@@ -74,7 +77,7 @@ public class ReinstantiateAadl extends AbstractHandler {
 		job.schedule();
 		return null;
 	}
-	
+
 	private final class ReinstantiateJob extends WorkspaceJob {
 		private final Set<IResource> selection;
 
@@ -103,7 +106,7 @@ public class ReinstantiateAadl extends AbstractHandler {
 			return Status.OK_STATUS;
 		}
 	}
-	
+
 	/** Set of currently selected instance models as IResources.
 	 *   If the set is empty then the action will run on
 	 * all instance models in open AADL projects in the workspace.
@@ -121,12 +124,36 @@ public class ReinstantiateAadl extends AbstractHandler {
 					} else if (object instanceof IAdaptable) {
 						p = ((IAdaptable) object).getAdapter(IResource.class);
 					}
-					if (p != null && IResourceUtility.isInstanceFile(p) && AadlNature.hasNature(p.getProject())) {
+					if (p != null && isInstanceFile(p) && AadlNature.hasNature(p.getProject())) {
 						currentSelection.add(p);
 					}
 				}
 			}
 		}
 		return currentSelection;
+	}
+
+	// This was originally in org.osate.workspace.IResourceUtility, but that class is being removed soon.
+	private static final QualifiedName IsInstanceModel = new QualifiedName("org.osate.IsInstanceModel",
+			"IsInstanceModel");
+
+	// This was originally in org.osate.workspace.IResourceUtility, but that class is being removed soon.
+	/**
+	 * is file an AADL instance model
+	 */
+	private static boolean isInstanceFile(IResource file) {
+		if (file instanceof IFile) {
+			return (file.getName()
+					.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.MODEL_FILE_EXT)
+					|| file.getName().endsWith(WorkspacePlugin.INSTANCE_FILE_EXT));
+		}
+		if (file != null && file.exists()) {
+			try {
+				return file.getPersistentProperty(IsInstanceModel) != null;
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		return false;
 	}
 }

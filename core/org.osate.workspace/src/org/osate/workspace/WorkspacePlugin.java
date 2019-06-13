@@ -6,15 +6,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
  */
-public class WorkspacePlugin extends AbstractUIPlugin {
+public class WorkspacePlugin extends Plugin {
 	/**
 	 * ID of the AADL core plugin (value
 	 * <code>"org.osate.workspace"</code>)
@@ -69,40 +68,32 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 
 	/**
 	 * Name of preference for standard AADL property set file
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PROPERTIES_FILE = "aadlPropertiesFilePreference";
 
 	/**
 	 * Name of preference for standard AADL property set file
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PROJECT_FILE = "aadlProjectFilePreference";
 
 	/**
 	 * Aadl packages directory.
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String AADL_PACKAGES_DIR = "packages";
 
 	/**
 	 * Default model directory.
+	 * @deprecated Will be removed in 2.6.0.
 	 */
+	@Deprecated
 	public static final String PROPERTY_SETS_DIR = "propertysets";
 
-	/**
-	 * Name of preference for standard AADL property set file
-	 */
-	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
-
-	/**
-	 * Name of preference for the maximum number of system operation modes to generate.
-	 */
-	public static final String MAX_SOM = "maxSOM";
-	public static final int MAX_SOM_DEFAULT = 1000;
-
-	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
-	public static final String AUTO_INDENT = "AUTO_INDENT";
-	public static final String AUTO_COMPLETE = "AUTO_COMPLETE";
-	public static final String CAPITALIZE = "CAPITALIZE";
-	public static final String INDENT_SECTIONS = "INDENT_SECTIONS";
 
 	// The shared instance.
 	private static WorkspacePlugin plugin;
@@ -186,16 +177,15 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 		return plugin.getBundle().getSymbolicName();
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.6.0.
+	 */
+	@Deprecated
 //	Creates directory if it doesn't exist.
 	public static void ensureDirectoryExistance(File toCheck) {
 		if (!toCheck.exists()) {
 			ensureDirectoryExistance(toCheck.getParentFile());
 			toCheck.mkdir();
 		}
-	}
-
-	public final int getSOMLimit() {
-		final IPreferenceStore store = getPreferenceStore();
-		return store.getInt(MAX_SOM);
 	}
 }
