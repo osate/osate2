@@ -4,10 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -46,13 +48,8 @@ import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.FrameworkUtil;
 
 public class DiagramExporter {
-	/**
-	 * Converts an AADL diagram file to a PNG image.
-	 *
-	 * @param  diagramFile the diagram file to be exported
-	 * @param  outputFile  the file the image will be written to
-	 */
-	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
+
+	private static org.eclipse.graphiti.mm.pictograms.Diagram readDiagram(final IFile diagramFile) throws IOException {
 		// Image container bounds
 		final ContainerBounds containerBounds = new ContainerBounds();
 		final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
@@ -132,9 +129,48 @@ public class DiagramExporter {
 				}
 			});
 
-			// Export to image
-			exportDiagramToImage(diagram, outputFile);
+			return diagram;
 		}
+	}
+
+	/**
+	 * Converts an AADL diagram file to a PNG image.
+	 *
+	 * @param diagramFile the diagram file to be exported
+	 * @param outputFile  the file the image will be written to
+	 */
+	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
+
+		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = readDiagram(diagramFile);
+		// Export to image
+		exportDiagramToImage(diagram, outputFile);
+	}
+
+	/**
+	 * Converts an AADL diagram file to a PNG image.
+	 *
+	 * @param diagramFile  the diagram file to be exported
+	 * @param outputStream the stream the image will be written to
+	 */
+	public static void exportDiagramAsPng(final IFile diagramFile, final ImageOutputStream outputStream)
+			throws IOException {
+
+		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = readDiagram(diagramFile);
+		// Export to image
+		exportDiagramToImage(diagram, outputStream);
+	}
+
+	/**
+	 * Converts an AADL diagram file to a PNG image.
+	 *
+	 * @param diagramFile  the diagram file to be exported
+	 * @param outputStream the stream the image will be written to
+	 */
+	public static void exportDiagramAsPng(final IFile diagramFile, final OutputStream outputStream) throws IOException {
+
+		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = readDiagram(diagramFile);
+		// Export to image
+		exportDiagramToImage(diagram, outputStream);
 	}
 
 	private static ExtensionRegistryService getExtensionRegistryService(final Class<?> clazz) {
@@ -148,6 +184,20 @@ public class DiagramExporter {
 		final byte[] bytes = GraphitiUi.getImageService().convertDiagramToBytes(diagram, SWT.IMAGE_PNG);
 		final BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
 		ImageIO.write(img, "png", outputFile);
+	}
+
+	private static void exportDiagramToImage(final Diagram diagram, final ImageOutputStream outputStream)
+			throws IOException {
+		final byte[] bytes = GraphitiUi.getImageService().convertDiagramToBytes(diagram, SWT.IMAGE_PNG);
+		final BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
+		ImageIO.write(img, "png", outputStream);
+	}
+
+	private static void exportDiagramToImage(final Diagram diagram, final OutputStream outputStream)
+			throws IOException {
+		final byte[] bytes = GraphitiUi.getImageService().convertDiagramToBytes(diagram, SWT.IMAGE_PNG);
+		final BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
+		ImageIO.write(img, "png", outputStream);
 	}
 
 	private static GraphitiAgeDiagram layoutAndCreateGraphitiAgeDiagram(
