@@ -121,7 +121,7 @@ public class FocusManager {
 	private void handleFocusedErrorType(ErrorType et, FeatureInstance feature) {
 		// slicing stuff -- add components from forward and backward slice
 		focusSet.addAll(AWASManager.getInstance().backwardReach(et, feature));
-//		focusSet.addAll(AWASManager.getInstance().forwardReach(et, componentInstance));
+		focusSet.addAll(AWASManager.getInstance().forwardReach(et, feature));
 		focusSet.size();
 	}
 

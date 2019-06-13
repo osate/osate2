@@ -56,16 +56,38 @@ public class AWASManager {
 		return LazyHolder.INSTANCE;
 	}
 
-	public Collection<EObject> getNeighbors(ComponentInstance component) throws NoSuchElementException {
+	public Collection<EObject> getSuccessorNeighbors(ComponentInstance component) {
+		return getNeighbors(component, true);
+	}
+
+	public Collection<EObject> getPredecessorNeighbors(ComponentInstance component) {
+		return getNeighbors(component, false);
+	}
+
+	private Collection<EObject> getNeighbors(ComponentInstance component, boolean getSuccessors)
+			throws NoSuchElementException {
 		ComponentInstance parent = component.getContainingComponentInstance();
 		initTableAndGraph(parent);
 		FlowNode flowNode = JavaConverters.toJavaOptional(FlowNode.getNode(
 				SymbolTableHelper.getUriFromString(graphTableCache.get(parent).table, component.getName()).get()))
 				.get();
 		FlowGraph<FlowNode, FlowEdge<FlowNode>> nodeGraph = flowNode.getOwner();
+
+		Set<FlowNode> neighborConns = new HashSet<>();
 		Set<FlowNode> neighbors = new HashSet<>();
-		neighbors.addAll(JavaConverters.toJavaSet(nodeGraph.getPredecessorNodes(flowNode)));
-		neighbors.addAll(JavaConverters.toJavaSet(nodeGraph.getSuccessorNodes(flowNode)));
+
+		if (getSuccessors) {
+			neighborConns.addAll(JavaConverters.toJavaSet(nodeGraph.getSuccessorNodes(flowNode)));
+			for (FlowNode n : neighborConns) {
+				neighbors.addAll(JavaConverters.toJavaSet(nodeGraph.getSuccessorNodes(n)));
+			}
+		} else {
+			neighborConns.addAll(JavaConverters.toJavaSet(nodeGraph.getPredecessorNodes(flowNode)));
+			for (FlowNode n : neighborConns) {
+				neighbors.addAll(JavaConverters.toJavaSet(nodeGraph.getPredecessorNodes(n)));
+			}
+		}
+
 		Set<String> uris = neighbors.stream().map(n -> n.getUri()).collect(Collectors.toSet());
 		return urisToInstEObjs(parent, uris);
 	}
@@ -81,7 +103,15 @@ public class AWASManager {
 		graphTableCache.put(component, new AWASCacheTriple(graph, st));
 	}
 
+	public Collection<EObject> forwardReach(ErrorType et, FeatureInstance feature) {
+		return reach(et, feature, true);
+	}
+
 	public Collection<EObject> backwardReach(ErrorType et, FeatureInstance feature) {
+		return reach(et, feature, false);
+	}
+
+	private Collection<EObject> reach(ErrorType et, FeatureInstance feature, boolean isForward) {
 		ComponentInstance parent = feature.getContainingComponentInstance().getContainingComponentInstance();
 		initTableAndGraph(parent);
 		AWASCacheTriple gtc = graphTableCache.get(parent);
@@ -92,12 +122,13 @@ public class AWASManager {
 		SymbolTableHelper.getUriFromString(gtc.table, port);
 		SymbolTableHelper.getErrorUri(gtc.table, error);
 
-//		gtc.agi.forwardErrorReachUsingNames(port, error);
-		gtc.agi.backwardErrorReachUsingNames(port, error);
-
-		return urisToInstEObjs(parent,
-				gtc.agi.backwardErrorReachUsingNames(port, error)
-						.get(SymbolTableHelper.getUriFromString(gtc.table, feature.getComponentInstancePath()).get()));
+		if (isForward) {
+			return urisToInstEObjs(parent, gtc.agi.forwardErrorReachUsingNames(port, error)
+					.get(SymbolTableHelper.getUriFromString(gtc.table, feature.getComponentInstancePath()).get()));
+		} else {
+			return urisToInstEObjs(parent, gtc.agi.backwardErrorReachUsingNames(port, error)
+					.get(SymbolTableHelper.getUriFromString(gtc.table, feature.getComponentInstancePath()).get()));
+		}
 	}
 
 	public Collection<EObject> backwardReach(ComponentInstance component) {
@@ -117,20 +148,33 @@ public class AWASManager {
 		// Rather than iterate through the list of children each time, we cache them temporarily
 		Map<String, EObject> children = parent.getChildren().stream().filter(e -> e instanceof NamedElement)
 				.collect(Collectors.toMap(e -> ((NamedElement) e).getName(), Function.identity()));
+
 		// The null filter shouldn't be necessary here -- it hides problems in the uriToInstEObj method
-		return uris.stream().map(u -> uriToInstEObj(children, u)).filter(Objects::nonNull).collect(Collectors.toSet());
+		return uris.stream().map(u -> uriToInstEObj(children, u, graphTableCache.get(parent).table))
+				.filter(Objects::nonNull).collect(Collectors.toSet());
 	}
 
-	private EObject uriToInstEObj(Map<String, EObject> children, String uri) {
-		String canonicalName = SymbolTableHelper.uri2CanonicalName(uri);
-		String componentName = canonicalName;
-		if (canonicalName.contains(".")) {
-			componentName = canonicalName.substring(0, canonicalName.indexOf('.'));
+	private EObject uriToInstEObj(Map<String, EObject> children, String uri, SymbolTable st) {
+//		String canonicalName = SymbolTableHelper.uri2CanonicalName(uri);
+//		String componentName = canonicalName;
+//		if (canonicalName.contains(".")) {
+//			componentName = canonicalName.substring(0, canonicalName.indexOf('.'));
+//		}
+
+		if(SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_OUT_VIRTUAL_TYPE()) ||
+				SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_IN_VIRTUAL_TYPE())) {
+			uri = JavaConverters.toJavaList(SymbolTableHelper.getAllAncestors(uri, st)).get(1);
+		} else if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_OUT_TYPE())
+				|| SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_IN_TYPE())) {
+			uri = JavaConverters.toJavaList(SymbolTableHelper.getAllAncestors(uri, st)).get(1);
 		}
+		String componentName = SymbolTableHelper.uri2IdString(uri);
 
 		if (!children.containsKey(componentName)) {
 			// I feel like this shouldn't happen... talk to Hari about this
-			System.err.println("AWASManager.java: unknown component name derived from: " + canonicalName);
+			System.err.println("AWASManager.java: unknown component name derived from: " + uri);
+		} else {
+			System.out.println("AWASManager.java: good component name: " + uri);
 		}
 		return children.get(componentName);
 	}
