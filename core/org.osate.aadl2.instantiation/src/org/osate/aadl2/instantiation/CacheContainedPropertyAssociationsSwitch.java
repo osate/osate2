@@ -344,7 +344,20 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 						}
 
 						if (last instanceof Connection) {
-							scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
+							final PropertyAssociation existingPA = scProps.retrieveSCProperty((ConnectionInstance) io,
+									prop, (Connection) last);
+							if (existingPA != null && isConstant(existingPA)) {
+								/*
+								 * Cannot put the error on the property association that is affected because it might
+								 * be a declarative model element at this point. Need to report the error on the
+								 * instance object itself.
+								 */
+								getErrorManager().error(io, "Property association for \"" + prop.getQualifiedName()
+										+ "\" is constant.  A contained property association in classifier \""
+										+ pa.getContainingClassifier().getQualifiedName() + "\" tries to replace it.");
+							} else {
+								scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
+							}
 						} else {
 							final PropertyAssociation existingPA = io.getPropertyValue(prop, false).first();
 							if (existingPA != null && isConstant(existingPA)) {
