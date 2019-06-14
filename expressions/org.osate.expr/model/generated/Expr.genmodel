@@ -57,7 +57,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/declType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//VarDecl/value"/>
     </genClasses>
-    <genClasses ecoreClass="Expr.ecore#//FunDecl"/>
+    <genClasses ecoreClass="Expr.ecore#//FunDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/args"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/resultType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunDecl/java"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunDecl/fqn"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/exp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Expr.ecore#//Argument">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Argument/type"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Assertion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Assertion/assert"/>
     </genClasses>
@@ -111,6 +121,7 @@
     <genClasses ecoreClass="Expr.ecore#//NamedElementRef">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//NamedElementRef/core"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Expr.ecore#//NamedElementRef/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//NamedElementRef/args"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Literal"/>
     <genClasses ecoreClass="Expr.ecore#//Value"/>
@@ -130,6 +141,10 @@
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//EBoolean"/>
     <genClasses ecoreClass="Expr.ecore#//EString"/>
+    <genClasses ecoreClass="Expr.ecore#//Block">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Block/decls"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Block/result"/>
+    </genClasses>
     <genClasses ecoreClass="Expr.ecore#//BinaryOperation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//BinaryOperation/left"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//BinaryOperation/operator"/>

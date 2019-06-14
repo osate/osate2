@@ -3,7 +3,9 @@
  */
 package org.osate.expr.scoping
 
+import com.google.common.collect.Iterables
 import com.google.inject.Inject
+import java.util.Iterator
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xsemantics.runtime.RuleEnvironment
@@ -24,10 +26,12 @@ import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.expr.ExprTypeSystem
+import org.osate.expr.expr.Block
 import org.osate.expr.expr.EDeclaration
 import org.osate.expr.expr.ExprLibrary
 import org.osate.expr.expr.ExprSubclause
 import org.osate.expr.expr.Expression
+import org.osate.expr.expr.FunDecl
 import org.osate.expr.expr.NamedElementRef
 import org.osate.expr.expr.Selection
 import org.osate.expr.expr.TypeDecl
@@ -68,19 +72,54 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 
-	def getAnnexScope(EObject context, EReference reference) {
-		val annexCandidates = getExprAnnexRoot(context).getAllContentsOfType(NamedElement)
-		val existingScope = Scopes.scopeFor(annexCandidates, getCoreScope(context, reference))
-		val thisDecl = context.getContainerOfType(EDeclaration)
+	def IScope getAnnexScope(EObject context, EReference reference) {
+		switch context {
+			FunDecl: {
+				val existingScope = Scopes.scopeFor(context.args, getAnnexScope(context.eContainer, reference))
+				val thisDecl = context.getContainerOfType(EDeclaration)
 
-		if (thisDecl === null)
-			existingScope
-		else
-			// Scope that filters out the context element from the candidates list
-			new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
+				if (thisDecl === null)
+					existingScope
+				else
+					// Scope that filters out the context element from the candidates list
+					new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
+			}
+			default: {
+				val block = context.getContainerOfType(Block)
+				if (block !== null) {
+					val annexCandidates = Iterables.filter(block.eContents, NamedElement)
+					val existingScope = Scopes.scopeFor(annexCandidates, getAnnexScope(block.eContainer, reference))
+					val thisDecl = context.getContainerOfType(EDeclaration)
+
+					if (thisDecl === null)
+						existingScope
+					else
+						// Scope that filters out the context element from the candidates list
+						new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
+				} else {
+					val annexCandidates = Iterables.filter(getExprAnnexRoot(context).eContents, NamedElement)
+					val existingScope = Scopes.scopeFor(annexCandidates, getClassifierScope(context, reference))
+					val thisDecl = context.getContainerOfType(EDeclaration)
+
+					if (thisDecl === null)
+						existingScope
+					else
+						// Scope that filters out the context element from the candidates list
+						new FilteringScope(existingScope, [getEObjectOrProxy != thisDecl])
+				}
+			}
+		}
 	}
 
-	def getCoreScope(EObject context, EReference reference) {
+	def <T> iterable(Iterator<T> iter) {
+		new Iterable<T>() {
+			override iterator() {
+				iterator
+			}
+		}
+	}
+
+	def getClassifierScope(EObject context, EReference reference) {
 		val classifier = context.getContainerOfType(Classifier)
 		val delegateScope = delegateGetScope(context, reference)
 		val newDelegateScope = new SimpleScope(delegateScope.allElements.map [
@@ -99,7 +138,7 @@ class ExprScopeProvider extends PropertiesScopeProvider {
 
 	def getNamedElementScope(NamedElementRef context, EReference reference) {
 		if (context.core)
-			getCoreScope(context, reference)
+			getClassifierScope(context, reference)
 		else
 			getAnnexScope(context, reference)
 	}

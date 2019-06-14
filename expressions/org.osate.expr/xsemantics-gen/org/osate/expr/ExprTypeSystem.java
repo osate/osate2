@@ -11,7 +11,6 @@ import org.eclipse.xsemantics.runtime.RuleFailedException;
 import org.eclipse.xsemantics.runtime.XsemanticsRuntimeSystem;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlReal;
@@ -33,10 +32,11 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RecordType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.Type;
-import org.osate.aadl2.UnitsType;
+import org.osate.expr.expr.Argument;
 import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.BinaryOperation;
+import org.osate.expr.expr.Block;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.EBoolean;
 import org.osate.expr.expr.EBooleanLiteral;
@@ -52,6 +52,8 @@ import org.osate.expr.expr.EnumType;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.Field;
+import org.osate.expr.expr.FieldValue;
+import org.osate.expr.expr.FunDecl;
 import org.osate.expr.expr.ListLiteral;
 import org.osate.expr.expr.MapLiteral;
 import org.osate.expr.expr.MapType;
@@ -67,6 +69,7 @@ import org.osate.expr.expr.SetLiteral;
 import org.osate.expr.expr.SetType;
 import org.osate.expr.expr.TupleLiteral;
 import org.osate.expr.expr.TupleType;
+import org.osate.expr.expr.UnaryOperation;
 import org.osate.expr.expr.UnionLiteral;
 import org.osate.expr.expr.UnionType;
 import org.osate.expr.expr.VarDecl;
@@ -77,13 +80,21 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   
   public static final String VARDECL = "org.osate.expr.VarDecl";
   
+  public static final String FUNDECL = "org.osate.expr.FunDecl";
+  
   public static final String TYPE = "org.osate.expr.Type";
   
   public static final String EXPRESSION = "org.osate.expr.Expression";
   
+  public static final String BLOCKEXPRESSION = "org.osate.expr.BlockExpression";
+  
+  public static final String ARGUMENT = "org.osate.expr.Argument";
+  
   public static final String BINARYEXPRESSION = "org.osate.expr.BinaryExpression";
   
   public static final String SELECTEXPRESSION = "org.osate.expr.SelectExpression";
+  
+  public static final String UNARYEXPRESSION = "org.osate.expr.UnaryExpression";
   
   public static final String IFEXPRESSION = "org.osate.expr.IfExpression";
   
@@ -145,11 +156,11 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
   
   public static final String FIELD = "org.osate.expr.Field";
   
+  public static final String FIELDVALUE = "org.osate.expr.FieldValue";
+  
   public static final String SAMEEBOOLEAN = "org.osate.expr.SameEBoolean";
   
-  public static final String SAMEEINTEGER = "org.osate.expr.SameEInteger";
-  
-  public static final String SAMEEREAL = "org.osate.expr.SameEReal";
+  public static final String SAMEENUMBER = "org.osate.expr.SameENumber";
   
   public static final String SAMEESTRING = "org.osate.expr.SameEString";
   
@@ -510,6 +521,45 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     return new Result<Type>(type);
   }
   
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FunDecl fun) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleFunDecl(G, _subtrace_, fun);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("FunDecl") + stringRepForEnv(G) + " |- " + stringRep(fun) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleFunDecl) {
+    	typeThrowException(ruleName("FunDecl") + stringRepForEnv(G) + " |- " + stringRep(fun) + " : " + "Type",
+    		FUNDECL,
+    		e_applyRuleFunDecl, fun, new ErrorInformation[] {new ErrorInformation(fun)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleFunDecl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FunDecl fun) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* { fun.java type = fun.resultType } or { type = fun.resultType } */
+    {
+      RuleFailedException previousFailure = null;
+      try {
+        boolean _isJava = fun.isJava();
+        /* fun.java */
+        if (!_isJava) {
+          sneakyThrowRuleFailedException("fun.java");
+        }
+        type = fun.getResultType();
+      } catch (Exception e) {
+        previousFailure = extractRuleFailedException(e);
+        type = fun.getResultType();
+      }
+    }
+    return new Result<Type>(type);
+  }
+  
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Type t) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -538,37 +588,97 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     return t;
   }
   
-  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression param) throws RuleFailedException {
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
-    	final Result<Type> _result_ = applyRuleExpression(G, _subtrace_, param);
+    	final Result<Type> _result_ = applyRuleExpression(G, _subtrace_, e);
     	addToTrace(_trace_, new Provider<Object>() {
     		public Object get() {
-    			return ruleName("Expression") + stringRepForEnv(G) + " |- " + stringRep(param) + " : " + stringRep(_result_.getFirst());
+    			return ruleName("Expression") + stringRepForEnv(G) + " |- " + stringRep(e) + " : " + stringRep(_result_.getFirst());
     		}
     	});
     	addAsSubtrace(_trace_, _subtrace_);
     	return _result_;
     } catch (Exception e_applyRuleExpression) {
-    	expressionThrowException(e_applyRuleExpression, param);
+    	expressionThrowException(e_applyRuleExpression, e);
     	return null;
     }
   }
   
-  protected Result<Type> applyRuleExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression param) throws RuleFailedException {
+  protected Result<Type> applyRuleExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Expression e) throws RuleFailedException {
     Type type = null; // output parameter
     /* fail */
     throwForExplicitFail();
     return new Result<Type>(type);
   }
   
-  private void expressionThrowException(final Exception e_applyRuleExpression, final Expression param) throws RuleFailedException {
-    String _stringRep = this.stringRep(param);
+  private void expressionThrowException(final Exception e_applyRuleExpression, final Expression e) throws RuleFailedException {
+    String _stringRep = this.stringRep(e);
     String _plus = ("typing: unhandled case " + _stringRep);
     String error = _plus;
-    EObject source = param;
+    EObject source = e;
     throwRuleFailedException(error,
     	EXPRESSION, e_applyRuleExpression, new ErrorInformation(source, null));
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Block block) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleBlockExpression(G, _subtrace_, block);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("BlockExpression") + stringRepForEnv(G) + " |- " + stringRep(block) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleBlockExpression) {
+    	typeThrowException(ruleName("BlockExpression") + stringRepForEnv(G) + " |- " + stringRep(block) + " : " + "Type",
+    		BLOCKEXPRESSION,
+    		e_applyRuleBlockExpression, block, new ErrorInformation[] {new ErrorInformation(block)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleBlockExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Block block) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- block.result : type */
+    Expression _result = block.getResult();
+    Result<Type> result = typeInternal(G, _trace_, _result);
+    checkAssignableTo(result.getFirst(), Type.class);
+    type = (Type) result.getFirst();
+    
+    return new Result<Type>(type);
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Argument a) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleArgument(G, _subtrace_, a);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("Argument") + stringRepForEnv(G) + " |- " + stringRep(a) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleArgument) {
+    	typeThrowException(ruleName("Argument") + stringRepForEnv(G) + " |- " + stringRep(a) + " : " + "Type",
+    		ARGUMENT,
+    		e_applyRuleArgument, a, new ErrorInformation[] {new ErrorInformation(a)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleArgument(final RuleEnvironment G, final RuleApplicationTrace _trace_, final Argument a) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- a.type : type */
+    Type _type = a.getType();
+    Result<Type> result = typeInternal(G, _trace_, _type);
+    checkAssignableTo(result.getFirst(), Type.class);
+    type = (Type) result.getFirst();
+    
+    return new Result<Type>(type);
   }
   
   protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
@@ -613,21 +723,21 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
         case ALT_OR:
         case AND:
         case ALT_AND:
-          if ((!(leftType instanceof AadlBoolean))) {
+          if ((!(leftType instanceof EBoolean))) {
             /* fail error 'typing: operand must be boolean' source binary.left */
             String error = "typing: operand must be boolean";
             Expression _left_1 = binary.getLeft();
             EObject source = _left_1;
             throwForExplicitFail(error, new ErrorInformation(source, null));
           }
-          if ((!(rightType instanceof AadlBoolean))) {
+          if ((!(rightType instanceof EBoolean))) {
             /* fail error 'typing: operand must be boolean' source binary.right */
             String error_1 = "typing: operand must be boolean";
             Expression _right_1 = binary.getRight();
             EObject source_1 = _right_1;
             throwForExplicitFail(error_1, new ErrorInformation(source_1, null));
           }
-          type = Aadl2Factory.eINSTANCE.createAadlBoolean();
+          type = ExprFactory.eINSTANCE.createEBoolean();
           break;
         case EQ:
         case NEQ:
@@ -650,7 +760,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
               throwForExplicitFail(error_2, new ErrorInformation(source_2, null));
             }
           }
-          type = Aadl2Factory.eINSTANCE.createAadlBoolean();
+          type = ExprFactory.eINSTANCE.createEBoolean();
           break;
         case LT:
         case LEQ:
@@ -661,14 +771,14 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
         case MINUS:
         case MULT:
         case DIV:
-          if ((!((leftType instanceof NumberType) || (leftType instanceof RangeType)))) {
+          if ((!((leftType instanceof ENumberType) || (leftType instanceof RangeType)))) {
             /* fail error 'typing: operand must be numeric or a range' source binary.left */
             String error_3 = "typing: operand must be numeric or a range";
             Expression _left_2 = binary.getLeft();
             EObject source_3 = _left_2;
             throwForExplicitFail(error_3, new ErrorInformation(source_3, null));
           }
-          if ((!((rightType instanceof NumberType) || (rightType instanceof RangeType)))) {
+          if ((!((rightType instanceof ENumberType) || (rightType instanceof RangeType)))) {
             /* fail error 'typing: operand must be numeric or a range' source binary.right */
             String error_4 = "typing: operand must be numeric or a range";
             Expression _right_2 = binary.getRight();
@@ -679,7 +789,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
             switch (op) {
               case PLUS:
               case MULT:
-                if ((!(((leftType instanceof RangeType) && (rightType instanceof RangeType)) || ((leftType instanceof NumberType) && (rightType instanceof NumberType))))) {
+                if ((!(((leftType instanceof RangeType) && (rightType instanceof RangeType)) || ((leftType instanceof ENumberType) && (rightType instanceof ENumberType))))) {
                   /* fail error 'typing: operands must be both numeric or both ranges' source binary */
                   String error_5 = "typing: operands must be both numeric or both ranges";
                   EObject source_5 = binary;
@@ -697,14 +807,14 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
                 break;
               case DIV:
               case MINUS:
-                if ((!(leftType instanceof NumberType))) {
+                if ((!(leftType instanceof ENumberType))) {
                   /* fail error 'typing: operand must be numeric' source binary.left */
                   String error_7 = "typing: operand must be numeric";
                   Expression _left_3 = binary.getLeft();
                   EObject source_7 = _left_3;
                   throwForExplicitFail(error_7, new ErrorInformation(source_7, null));
                 } else {
-                  if ((!(rightType instanceof NumberType))) {
+                  if ((!(rightType instanceof ENumberType))) {
                     /* fail error 'typing: operand must be numeric' source binary.right */
                     String error_8 = "typing: operand must be numeric";
                     Expression _right_4 = binary.getRight();
@@ -718,68 +828,115 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
             }
           } else {
           }
+          Type _xifexpression = null;
+          if ((leftType instanceof RangeType)) {
+            _xifexpression = ((RangeType)leftType).getType();
+          } else {
+            _xifexpression = leftType;
+          }
+          final ENumberType leftNum = ((ENumberType) _xifexpression);
+          Type _xifexpression_1 = null;
+          if ((rightType instanceof RangeType)) {
+            _xifexpression_1 = ((RangeType)rightType).getType();
+          } else {
+            _xifexpression_1 = rightType;
+          }
+          final ENumberType rightNum = ((ENumberType) _xifexpression_1);
+          if (op != null) {
+            switch (op) {
+              case LT:
+              case LEQ:
+              case GT:
+              case GEQ:
+              case IN:
+                /* G |- leftNum ~~ rightNum or { fail error 'typing: arguments have different unit types' source binary } */
+                {
+                  RuleFailedException previousFailure = null;
+                  try {
+                    /* G |- leftNum ~~ rightNum */
+                    sameTypeInternal(G, _trace_, leftNum, rightNum);
+                  } catch (Exception e_1) {
+                    previousFailure = extractRuleFailedException(e_1);
+                    /* fail error 'typing: arguments have different unit types' source binary */
+                    String error_9 = "typing: arguments have different unit types";
+                    EObject source_9 = binary;
+                    throwForExplicitFail(error_9, new ErrorInformation(source_9, null));
+                  }
+                }
+                type = ExprFactory.eINSTANCE.createEBoolean();
+                break;
+              case PLUS:
+              case MINUS:
+                /* G |- leftNum ~~ rightNum or { fail error 'typing: arguments have different unit types' source binary } */
+                {
+                  RuleFailedException previousFailure = null;
+                  try {
+                    /* G |- leftNum ~~ rightNum */
+                    sameTypeInternal(G, _trace_, leftNum, rightNum);
+                  } catch (Exception e_2) {
+                    previousFailure = extractRuleFailedException(e_2);
+                    /* fail error 'typing: arguments have different unit types' source binary */
+                    String error_10 = "typing: arguments have different unit types";
+                    EObject source_10 = binary;
+                    throwForExplicitFail(error_10, new ErrorInformation(source_10, null));
+                  }
+                }
+                type = this.combineNumericInternal(_trace_, leftNum, rightNum);
+                break;
+              case MULT:
+                type = this.combineNumericInternal(_trace_, leftNum, rightNum);
+                break;
+              case DIV:
+                final EReal t = ExprFactory.eINSTANCE.createEReal();
+                type = t;
+                break;
+              default:
+                /* fail error 'typing: unhandled binary operator encountered' source binary */
+                String error_11 = "typing: unhandled binary operator encountered";
+                EObject source_11 = binary;
+                throwForExplicitFail(error_11, new ErrorInformation(source_11, null));
+                break;
+            }
+          } else {
+            /* fail error 'typing: unhandled binary operator encountered' source binary */
+            String error_11 = "typing: unhandled binary operator encountered";
+            EObject source_11 = binary;
+            throwForExplicitFail(error_11, new ErrorInformation(source_11, null));
+          }
           break;
         case INTDIV:
         case MOD:
-          if ((!(leftType instanceof AadlInteger))) {
+          if ((!(leftType instanceof EInteger))) {
             /* fail error 'typing: argument must be an integer' source binary.left */
-            String error_9 = "typing: argument must be an integer";
+            String error_12 = "typing: argument must be an integer";
             Expression _left_4 = binary.getLeft();
-            EObject source_9 = _left_4;
-            throwForExplicitFail(error_9, new ErrorInformation(source_9, null));
+            EObject source_12 = _left_4;
+            throwForExplicitFail(error_12, new ErrorInformation(source_12, null));
           }
-          if ((!(rightType instanceof AadlInteger))) {
+          if ((!(rightType instanceof EInteger))) {
             /* fail error 'typing: argument must be an integer' source binary.right */
-            String error_10 = "typing: argument must be an integer";
+            String error_13 = "typing: argument must be an integer";
             Expression _right_5 = binary.getRight();
-            EObject source_10 = _right_5;
-            throwForExplicitFail(error_10, new ErrorInformation(source_10, null));
+            EObject source_13 = _right_5;
+            throwForExplicitFail(error_13, new ErrorInformation(source_13, null));
           }
-          final NumberType leftNum = ((NumberType) leftType);
-          final NumberType rightNum = ((NumberType) rightType);
-          final AadlInteger t = Aadl2Factory.eINSTANCE.createAadlInteger();
-          if (((leftNum.getUnitsType() != null) && (rightNum.getUnitsType() != null))) {
-            /* G |- leftNum ~~ rightNum or { fail error 'typing: arguments have different unit types' source binary } */
-            {
-              RuleFailedException previousFailure = null;
-              try {
-                /* G |- leftNum ~~ rightNum */
-                sameTypeInternal(G, _trace_, leftNum, rightNum);
-              } catch (Exception e_1) {
-                previousFailure = extractRuleFailedException(e_1);
-                /* fail error 'typing: arguments have different unit types' source binary */
-                String error_11 = "typing: arguments have different unit types";
-                EObject source_11 = binary;
-                throwForExplicitFail(error_11, new ErrorInformation(source_11, null));
-              }
-            }
-          } else {
-            UnitsType _unitsType = rightNum.getUnitsType();
-            boolean _tripleNotEquals = (_unitsType != null);
-            if (_tripleNotEquals) {
-              /* fail error 'typing: argument must have a unit when dividing by a number with unit' source binary.left */
-              String error_12 = "typing: argument must have a unit when dividing by a number with unit";
-              Expression _left_5 = binary.getLeft();
-              EObject source_12 = _left_5;
-              throwForExplicitFail(error_12, new ErrorInformation(source_12, null));
-            } else {
-              t.setReferencedUnitsType(leftNum.getUnitsType());
-            }
-          }
-          type = t;
+          final ENumberType leftNum_1 = ((ENumberType) leftType);
+          final ENumberType rightNum_1 = ((ENumberType) rightType);
+          final EInteger t_1 = ExprFactory.eINSTANCE.createEInteger();
+          type = t_1;
           break;
         default:
           /* fail error 'typing: unhandled binary operator encountered' source binary */
-          String error_13 = "typing: unhandled binary operator encountered";
-          EObject source_13 = binary;
-          throwForExplicitFail(error_13, new ErrorInformation(source_13, null));
+          String error_14 = "typing: unhandled binary operator encountered";
+          EObject source_14 = binary;
+          throwForExplicitFail(error_14, new ErrorInformation(source_14, null));
           break;
       }
     } else {
       /* fail error 'typing: unhandled binary operator encountered' source binary */
-      String error_13 = "typing: unhandled binary operator encountered";
-      EObject source_13 = binary;
-      throwForExplicitFail(error_13, new ErrorInformation(source_13, null));
+      String error_14 = "typing: unhandled binary operator encountered";
+      EObject source_14 = binary;
+      throwForExplicitFail(error_14, new ErrorInformation(source_14, null));
     }
     return new Result<Type>(type);
   }
@@ -811,6 +968,74 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     checkAssignableTo(result.getFirst(), Type.class);
     type = (Type) result.getFirst();
     
+    return new Result<Type>(type);
+  }
+  
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleUnaryExpression(G, _subtrace_, unary);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("UnaryExpression") + stringRepForEnv(G) + " |- " + stringRep(unary) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleUnaryExpression) {
+    	typeThrowException(ruleName("UnaryExpression") + stringRepForEnv(G) + " |- " + stringRep(unary) + " : " + "Type",
+    		UNARYEXPRESSION,
+    		e_applyRuleUnaryExpression, unary, new ErrorInformation[] {new ErrorInformation(unary)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleUnaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- unary.operand : var Type opType */
+    Expression _operand = unary.getOperand();
+    Type opType = null;
+    Result<Type> result = typeInternal(G, _trace_, _operand);
+    checkAssignableTo(result.getFirst(), Type.class);
+    opType = (Type) result.getFirst();
+    
+    Operation _operator = unary.getOperator();
+    if (_operator != null) {
+      switch (_operator) {
+        case PLUS:
+        case MINUS:
+          if ((opType instanceof NumberType)) {
+            type = opType;
+          } else {
+            /* fail error 'typing: operand is not numeric' source unary */
+            String error = "typing: operand is not numeric";
+            EObject source = unary;
+            throwForExplicitFail(error, new ErrorInformation(source, null));
+          }
+          break;
+        case NOT:
+          if ((opType instanceof EBoolean)) {
+            type = ExprFactory.eINSTANCE.createEBoolean();
+          } else {
+            /* fail error 'typing: operand is not a boolean' source unary */
+            String error_1 = "typing: operand is not a boolean";
+            EObject source_1 = unary;
+            throwForExplicitFail(error_1, new ErrorInformation(source_1, null));
+          }
+          break;
+        default:
+          /* fail error 'typing: unhandled unary operator encountered' source unary */
+          String error_2 = "typing: unhandled unary operator encountered";
+          EObject source_2 = unary;
+          throwForExplicitFail(error_2, new ErrorInformation(source_2, null));
+          break;
+      }
+    } else {
+      /* fail error 'typing: unhandled unary operator encountered' source unary */
+      String error_2 = "typing: unhandled unary operator encountered";
+      EObject source_2 = unary;
+      throwForExplicitFail(error_2, new ErrorInformation(source_2, null));
+    }
     return new Result<Type>(type);
   }
   
@@ -1794,6 +2019,36 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     return new Result<Type>(type);
   }
   
+  protected Result<Type> typeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FieldValue v) throws RuleFailedException {
+    try {
+    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
+    	final Result<Type> _result_ = applyRuleFieldValue(G, _subtrace_, v);
+    	addToTrace(_trace_, new Provider<Object>() {
+    		public Object get() {
+    			return ruleName("FieldValue") + stringRepForEnv(G) + " |- " + stringRep(v) + " : " + stringRep(_result_.getFirst());
+    		}
+    	});
+    	addAsSubtrace(_trace_, _subtrace_);
+    	return _result_;
+    } catch (Exception e_applyRuleFieldValue) {
+    	typeThrowException(ruleName("FieldValue") + stringRepForEnv(G) + " |- " + stringRep(v) + " : " + "Type",
+    		FIELDVALUE,
+    		e_applyRuleFieldValue, v, new ErrorInformation[] {new ErrorInformation(v)});
+    	return null;
+    }
+  }
+  
+  protected Result<Type> applyRuleFieldValue(final RuleEnvironment G, final RuleApplicationTrace _trace_, final FieldValue v) throws RuleFailedException {
+    Type type = null; // output parameter
+    /* G |- v.value : type */
+    Expression _value = v.getValue();
+    Result<Type> result = typeInternal(G, _trace_, _value);
+    checkAssignableTo(result.getFirst(), Type.class);
+    type = (Type) result.getFirst();
+    
+    return new Result<Type>(type);
+  }
+  
   protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EBoolean t1, final EBoolean t2) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
@@ -1818,50 +2073,26 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
     return new Result<Boolean>(true);
   }
   
-  protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EInteger t1, final EInteger t2) throws RuleFailedException {
+  protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ENumberType t1, final ENumberType t2) throws RuleFailedException {
     try {
     	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
-    	final Result<Boolean> _result_ = applyRuleSameEInteger(G, _subtrace_, t1, t2);
+    	final Result<Boolean> _result_ = applyRuleSameENumber(G, _subtrace_, t1, t2);
     	addToTrace(_trace_, new Provider<Object>() {
     		public Object get() {
-    			return ruleName("SameEInteger") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2);
+    			return ruleName("SameENumber") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2);
     		}
     	});
     	addAsSubtrace(_trace_, _subtrace_);
     	return _result_;
-    } catch (Exception e_applyRuleSameEInteger) {
-    	sameTypeThrowException(ruleName("SameEInteger") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2),
-    		SAMEEINTEGER,
-    		e_applyRuleSameEInteger, t1, t2, new ErrorInformation[] {new ErrorInformation(t1), new ErrorInformation(t2)});
+    } catch (Exception e_applyRuleSameENumber) {
+    	sameTypeThrowException(ruleName("SameENumber") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2),
+    		SAMEENUMBER,
+    		e_applyRuleSameENumber, t1, t2, new ErrorInformation[] {new ErrorInformation(t1), new ErrorInformation(t2)});
     	return null;
     }
   }
   
-  protected Result<Boolean> applyRuleSameEInteger(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EInteger t1, final EInteger t2) throws RuleFailedException {
-    
-    return new Result<Boolean>(true);
-  }
-  
-  protected Result<Boolean> sameTypeImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EReal t1, final EReal t2) throws RuleFailedException {
-    try {
-    	final RuleApplicationTrace _subtrace_ = newTrace(_trace_);
-    	final Result<Boolean> _result_ = applyRuleSameEReal(G, _subtrace_, t1, t2);
-    	addToTrace(_trace_, new Provider<Object>() {
-    		public Object get() {
-    			return ruleName("SameEReal") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2);
-    		}
-    	});
-    	addAsSubtrace(_trace_, _subtrace_);
-    	return _result_;
-    } catch (Exception e_applyRuleSameEReal) {
-    	sameTypeThrowException(ruleName("SameEReal") + stringRepForEnv(G) + " |- " + stringRep(t1) + " ~~ " + stringRep(t2),
-    		SAMEEREAL,
-    		e_applyRuleSameEReal, t1, t2, new ErrorInformation[] {new ErrorInformation(t1), new ErrorInformation(t2)});
-    	return null;
-    }
-  }
-  
-  protected Result<Boolean> applyRuleSameEReal(final RuleEnvironment G, final RuleApplicationTrace _trace_, final EReal t1, final EReal t2) throws RuleFailedException {
+  protected Result<Boolean> applyRuleSameENumber(final RuleEnvironment G, final RuleApplicationTrace _trace_, final ENumberType t1, final ENumberType t2) throws RuleFailedException {
     
     return new Result<Boolean>(true);
   }

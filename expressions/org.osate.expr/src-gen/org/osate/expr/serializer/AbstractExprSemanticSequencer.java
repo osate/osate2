@@ -32,10 +32,12 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.expr.expr.Argument;
 import org.osate.expr.expr.Assertion;
 import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.BinaryOperation;
+import org.osate.expr.expr.Block;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.EBoolean;
@@ -191,6 +193,9 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 			}
 		else if (epackage == ExprPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case ExprPackage.ARGUMENT:
+				sequence_Argument(context, (Argument) semanticObject); 
+				return; 
 			case ExprPackage.ASSERTION:
 				sequence_Assertion(context, (Assertion) semanticObject); 
 				return; 
@@ -202,6 +207,9 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				return; 
 			case ExprPackage.BINARY_OPERATION:
 				sequence_AdditiveExpression_AndExpression_EqualityExpression_MultiplicativeExpression_OrExpression_RelationalExpression(context, (BinaryOperation) semanticObject); 
+				return; 
+			case ExprPackage.BLOCK:
+				sequence_BlockExpression(context, (Block) semanticObject); 
 				return; 
 			case ExprPackage.CATEGORY:
 				sequence_Category(context, (Category) semanticObject); 
@@ -263,7 +271,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 				sequence_FieldValue(context, (FieldValue) semanticObject); 
 				return; 
 			case ExprPackage.FUN_DECL:
-				sequence_FunDecl(context, (FunDecl) semanticObject); 
+				sequence_Args_FunDecl(context, (FunDecl) semanticObject); 
 				return; 
 			case ExprPackage.LIST_LITERAL:
 				sequence_ExpressionList_ListLiteral(context, (ListLiteral) semanticObject); 
@@ -383,6 +391,42 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	
 	/**
 	 * Contexts:
+	 *     NamedElement returns FunDecl
+	 *     EDeclaration returns FunDecl
+	 *     FunDecl returns FunDecl
+	 *
+	 * Constraint:
+	 *     (name=ID (args+=Argument args+=Argument*)? resultType=Type ((java?='java' fqn=JavaFQN) | exp=Expression)?)
+	 */
+	protected void sequence_Args_FunDecl(ISerializationContext context, FunDecl semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     NamedElement returns Argument
+	 *     Argument returns Argument
+	 *
+	 * Constraint:
+	 *     (name=ID type=Type)
+	 */
+	protected void sequence_Argument(ISerializationContext context, Argument semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
+			if (transientValues.isValueTransient(semanticObject, ExprPackage.Literals.ARGUMENT__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExprPackage.Literals.ARGUMENT__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getArgumentAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getArgumentAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     NamedElement returns Assertion
 	 *     EDeclaration returns Assertion
 	 *     Assertion returns Assertion
@@ -455,6 +499,39 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getBagTypeAccess().getTypeTypeParserRuleCall_2_0(), semanticObject.getType());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns Block
+	 *     BlockExpression returns Block
+	 *     OrExpression returns Block
+	 *     OrExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     AndExpression returns Block
+	 *     AndExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     EqualityExpression returns Block
+	 *     EqualityExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     RelationalExpression returns Block
+	 *     RelationalExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     AdditiveExpression returns Block
+	 *     AdditiveExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     MultiplicativeExpression returns Block
+	 *     MultiplicativeExpression.BinaryOperation_1_0_0_0 returns Block
+	 *     UnaryOperation returns Block
+	 *     UnitExpression returns Block
+	 *     UnitExpression.UnitExpression_1_0 returns Block
+	 *     PropertyExpression returns Block
+	 *     PropertyExpression.PropertyExpression_1_0_0_0 returns Block
+	 *     SelectExpression returns Block
+	 *     SelectExpression.Selection_1_0_0 returns Block
+	 *     PrimaryExpression returns Block
+	 *
+	 * Constraint:
+	 *     (decls+=VarDecl* result=Expression)
+	 */
+	protected void sequence_BlockExpression(ISerializationContext context, Block semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -886,26 +963,6 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	
 	/**
 	 * Contexts:
-	 *     NamedElement returns FunDecl
-	 *     EDeclaration returns FunDecl
-	 *     FunDecl returns FunDecl
-	 *
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_FunDecl(ISerializationContext context, FunDecl semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFunDeclAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Expression returns Conditional
 	 *     OrExpression returns Conditional
 	 *     OrExpression.BinaryOperation_1_0_0_0 returns Conditional
@@ -1058,7 +1115,7 @@ public abstract class AbstractExprSemanticSequencer extends PropertiesSemanticSe
 	 *     NamedElementRef returns NamedElementRef
 	 *
 	 * Constraint:
-	 *     (core?='^'? ref=[NamedElement|QCREF])
+	 *     (core?='^'? ref=[NamedElement|QCREF] (args+=Expression args+=Expression*)?)
 	 */
 	protected void sequence_NamedElementRef(ISerializationContext context, NamedElementRef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

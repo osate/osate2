@@ -13,10 +13,12 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.expr.expr.Argument;
 import org.osate.expr.expr.Assertion;
 import org.osate.expr.expr.BagLiteral;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.BinaryOperation;
+import org.osate.expr.expr.Block;
 import org.osate.expr.expr.Category;
 import org.osate.expr.expr.Conditional;
 import org.osate.expr.expr.EBoolean;
@@ -113,6 +115,13 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass funDeclEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass argumentEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -316,6 +325,13 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   private EClass eStringEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass blockEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -650,6 +666,83 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EClass getFunDecl()
   {
     return funDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFunDecl_Args()
+  {
+    return (EReference)funDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFunDecl_ResultType()
+  {
+    return (EReference)funDeclEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getFunDecl_Java()
+  {
+    return (EAttribute)funDeclEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getFunDecl_Fqn()
+  {
+    return (EAttribute)funDeclEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getFunDecl_Exp()
+  {
+    return (EReference)funDeclEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getArgument()
+  {
+    return argumentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getArgument_Type()
+  {
+    return (EReference)argumentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1076,6 +1169,17 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
    * @generated
    */
   @Override
+  public EReference getNamedElementRef_Args()
+  {
+    return (EReference)namedElementRefEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getLiteral()
   {
     return literalEClass;
@@ -1222,6 +1326,39 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
   public EClass getEString()
   {
     return eStringEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getBlock()
+  {
+    return blockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getBlock_Decls()
+  {
+    return (EReference)blockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getBlock_Result()
+  {
+    return (EReference)blockEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1831,6 +1968,14 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     createEReference(varDeclEClass, VAR_DECL__VALUE);
 
     funDeclEClass = createEClass(FUN_DECL);
+    createEReference(funDeclEClass, FUN_DECL__ARGS);
+    createEReference(funDeclEClass, FUN_DECL__RESULT_TYPE);
+    createEAttribute(funDeclEClass, FUN_DECL__JAVA);
+    createEAttribute(funDeclEClass, FUN_DECL__FQN);
+    createEReference(funDeclEClass, FUN_DECL__EXP);
+
+    argumentEClass = createEClass(ARGUMENT);
+    createEReference(argumentEClass, ARGUMENT__TYPE);
 
     assertionEClass = createEClass(ASSERTION);
     createEReference(assertionEClass, ASSERTION__ASSERT);
@@ -1889,6 +2034,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     namedElementRefEClass = createEClass(NAMED_ELEMENT_REF);
     createEAttribute(namedElementRefEClass, NAMED_ELEMENT_REF__CORE);
     createEReference(namedElementRefEClass, NAMED_ELEMENT_REF__REF);
+    createEReference(namedElementRefEClass, NAMED_ELEMENT_REF__ARGS);
 
     literalEClass = createEClass(LITERAL);
 
@@ -1912,6 +2058,10 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     eBooleanEClass = createEClass(EBOOLEAN);
 
     eStringEClass = createEClass(ESTRING);
+
+    blockEClass = createEClass(BLOCK);
+    createEReference(blockEClass, BLOCK__DECLS);
+    createEReference(blockEClass, BLOCK__RESULT);
 
     binaryOperationEClass = createEClass(BINARY_OPERATION);
     createEReference(binaryOperationEClass, BINARY_OPERATION__LEFT);
@@ -2022,6 +2172,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     typeDeclEClass.getESuperTypes().add(this.getEDeclaration());
     varDeclEClass.getESuperTypes().add(this.getEDeclaration());
     funDeclEClass.getESuperTypes().add(this.getEDeclaration());
+    argumentEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     assertionEClass.getESuperTypes().add(this.getEDeclaration());
     eNumberTypeEClass.getESuperTypes().add(theAadl2Package.getType());
     eIntegerEClass.getESuperTypes().add(this.getENumberType());
@@ -2049,6 +2200,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     exprSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
     eBooleanEClass.getESuperTypes().add(theAadl2Package.getType());
     eStringEClass.getESuperTypes().add(theAadl2Package.getType());
+    blockEClass.getESuperTypes().add(this.getExpression());
     binaryOperationEClass.getESuperTypes().add(this.getExpression());
     unaryOperationEClass.getESuperTypes().add(this.getExpression());
     unitExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -2084,6 +2236,14 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEReference(getVarDecl_Value(), this.getExpression(), null, "value", null, 0, 1, VarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(funDeclEClass, FunDecl.class, "FunDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFunDecl_Args(), this.getArgument(), null, "args", null, 0, -1, FunDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunDecl_ResultType(), theAadl2Package.getType(), null, "resultType", null, 0, 1, FunDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFunDecl_Java(), theEcorePackage.getEBoolean(), "java", null, 0, 1, FunDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFunDecl_Fqn(), theEcorePackage.getEString(), "fqn", null, 0, 1, FunDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFunDecl_Exp(), this.getExpression(), null, "exp", null, 0, 1, FunDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(argumentEClass, Argument.class, "Argument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getArgument_Type(), theAadl2Package.getType(), null, "type", null, 0, 1, Argument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAssertion_Assert(), this.getExpression(), null, "assert", null, 0, 1, Assertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2142,6 +2302,7 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEClass(namedElementRefEClass, NamedElementRef.class, "NamedElementRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNamedElementRef_Core(), theEcorePackage.getEBoolean(), "core", null, 0, 1, NamedElementRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getNamedElementRef_Ref(), theAadl2Package.getNamedElement(), null, "ref", null, 0, 1, NamedElementRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getNamedElementRef_Args(), this.getExpression(), null, "args", null, 0, -1, NamedElementRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(literalEClass, Literal.class, "Literal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2165,6 +2326,10 @@ public class ExprPackageImpl extends EPackageImpl implements ExprPackage
     initEClass(eBooleanEClass, EBoolean.class, "EBoolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(eStringEClass, EString.class, "EString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBlock_Decls(), this.getVarDecl(), null, "decls", null, 0, -1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBlock_Result(), this.getExpression(), null, "result", null, 0, 1, Block.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(binaryOperationEClass, BinaryOperation.class, "BinaryOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBinaryOperation_Left(), this.getExpression(), null, "left", null, 0, 1, BinaryOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

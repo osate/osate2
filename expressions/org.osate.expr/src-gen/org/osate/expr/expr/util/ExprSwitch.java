@@ -125,6 +125,15 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ExprPackage.ARGUMENT:
+      {
+        Argument argument = (Argument)theEObject;
+        T result = caseArgument(argument);
+        if (result == null) result = caseNamedElement(argument);
+        if (result == null) result = caseElement(argument);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ExprPackage.ASSERTION:
       {
         Assertion assertion = (Assertion)theEObject;
@@ -405,6 +414,16 @@ public class ExprSwitch<T> extends Switch<T>
         if (result == null) result = caseType(eString);
         if (result == null) result = caseNamedElement(eString);
         if (result == null) result = caseElement(eString);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ExprPackage.BLOCK:
+      {
+        Block block = (Block)theEObject;
+        T result = caseBlock(block);
+        if (result == null) result = caseExpression(block);
+        if (result == null) result = caseAadl2_PropertyExpression(block);
+        if (result == null) result = caseElement(block);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -692,6 +711,22 @@ public class ExprSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFunDecl(FunDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArgument(Argument object)
   {
     return null;
   }
@@ -1156,6 +1191,22 @@ public class ExprSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEString(EString object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Block</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Block</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBlock(Block object)
   {
     return null;
   }

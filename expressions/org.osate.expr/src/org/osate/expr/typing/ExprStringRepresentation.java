@@ -7,9 +7,13 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Type;
 import org.osate.expr.expr.BagType;
 import org.osate.expr.expr.EBoolean;
+import org.osate.expr.expr.EBooleanLiteral;
 import org.osate.expr.expr.EInteger;
+import org.osate.expr.expr.EIntegerLiteral;
 import org.osate.expr.expr.EReal;
+import org.osate.expr.expr.ERealLiteral;
 import org.osate.expr.expr.EString;
+import org.osate.expr.expr.EStringLiteral;
 import org.osate.expr.expr.EnumType;
 import org.osate.expr.expr.ListType;
 import org.osate.expr.expr.MapType;
@@ -78,6 +82,22 @@ public class ExprStringRepresentation extends StringRepresentation {
 	protected String stringRep(EnumType t) {
 		return t.getLiterals().stream().map(l -> l.getName())
 				.collect(Collectors.joining("enum (", ", ", ")"));
+	}
+
+	protected String stringRep(EBooleanLiteral l) {
+		return Boolean.toString(l.isValue());
+	}
+
+	protected String stringRep(EIntegerLiteral l) {
+		return Long.toString(l.getValue());
+	}
+
+	protected String stringRep(ERealLiteral l) {
+		return Double.toString(l.getValue());
+	}
+
+	protected String stringRep(EStringLiteral l) {
+		return l.getValue();
 	}
 
 	private String rep(Type t) {

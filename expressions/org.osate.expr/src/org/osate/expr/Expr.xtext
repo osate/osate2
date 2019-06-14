@@ -21,7 +21,7 @@ ExprSubclause returns aadl2::AnnexSubclause:
 
 
 NamedElement returns aadl2::NamedElement:
-	ExprLibrary | ExprSubclause | EDeclaration | Field
+	ExprLibrary | ExprSubclause | EDeclaration | Argument | Field
 ;
 
 fragment Declarations*:
@@ -46,7 +46,19 @@ VarDecl:
 ;
 
 FunDecl:
-	'def' name=ID '(' ')'
+	'def' name=ID '(' Args ')' ':' resultType=Type ('=' (java?='java' ':' fqn=JavaFQN | exp=Expression))?
+;
+
+JavaFQN:
+	ID ('.' ID)*
+;
+
+fragment Args*:
+	(args+=Argument (',' args+=Argument)*)?
+;
+
+Argument:
+	{Argument} name=ID ':' type=Type
 ;
 
 Assertion:
@@ -173,8 +185,16 @@ enum Operation:
 	| NOT='not'
 ;
 
-Expression returns Expression: 
+Expression returns Expression:
 	OrExpression
+	| BlockExpression
+;
+
+BlockExpression returns Expression:
+	{Block} '{'
+		(decls+=VarDecl ';')*
+		result=Expression  
+	'}'
 ;
 
 OrExpression returns Expression:
@@ -278,6 +298,7 @@ PrimaryExpression returns Expression:
 NamedElementRef:
 	(core?='^')?
 	ref=[aadl2::NamedElement|QCREF]
+	('(' (args+=Expression (',' args+=Expression)*)? ')')?
 ;
 
 RangeExpression returns Expression:

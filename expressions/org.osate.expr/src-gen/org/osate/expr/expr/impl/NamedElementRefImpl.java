@@ -2,7 +2,12 @@
  */
 package org.osate.expr.expr.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -10,9 +15,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.aadl2.NamedElement;
 
 import org.osate.expr.expr.ExprPackage;
+import org.osate.expr.expr.Expression;
 import org.osate.expr.expr.NamedElementRef;
 
 /**
@@ -25,6 +34,7 @@ import org.osate.expr.expr.NamedElementRef;
  * <ul>
  *   <li>{@link org.osate.expr.expr.impl.NamedElementRefImpl#isCore <em>Core</em>}</li>
  *   <li>{@link org.osate.expr.expr.impl.NamedElementRefImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.osate.expr.expr.impl.NamedElementRefImpl#getArgs <em>Args</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,6 +70,16 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
    * @ordered
    */
   protected NamedElement ref;
+
+  /**
+   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArgs()
+   * @generated
+   * @ordered
+   */
+  protected EList<Expression> args;
 
   /**
    * <!-- begin-user-doc -->
@@ -158,6 +178,37 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
    * @generated
    */
   @Override
+  public EList<Expression> getArgs()
+  {
+    if (args == null)
+    {
+      args = new EObjectContainmentEList<Expression>(Expression.class, this, ExprPackage.NAMED_ELEMENT_REF__ARGS);
+    }
+    return args;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ExprPackage.NAMED_ELEMENT_REF__ARGS:
+        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -167,6 +218,8 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
       case ExprPackage.NAMED_ELEMENT_REF__REF:
         if (resolve) return getRef();
         return basicGetRef();
+      case ExprPackage.NAMED_ELEMENT_REF__ARGS:
+        return getArgs();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -176,6 +229,7 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -186,6 +240,10 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
         return;
       case ExprPackage.NAMED_ELEMENT_REF__REF:
         setRef((NamedElement)newValue);
+        return;
+      case ExprPackage.NAMED_ELEMENT_REF__ARGS:
+        getArgs().clear();
+        getArgs().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -207,6 +265,9 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
       case ExprPackage.NAMED_ELEMENT_REF__REF:
         setRef((NamedElement)null);
         return;
+      case ExprPackage.NAMED_ELEMENT_REF__ARGS:
+        getArgs().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -225,6 +286,8 @@ public class NamedElementRefImpl extends ExpressionImpl implements NamedElementR
         return core != CORE_EDEFAULT;
       case ExprPackage.NAMED_ELEMENT_REF__REF:
         return ref != null;
+      case ExprPackage.NAMED_ELEMENT_REF__ARGS:
+        return args != null && !args.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -41,10 +41,12 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getNamedElementAccess().getAlternatives(), "rule__NamedElement__Alternatives");
 					put(grammarAccess.getEDeclarationAccess().getAlternatives(), "rule__EDeclaration__Alternatives");
 					put(grammarAccess.getVarDeclAccess().getAlternatives_0(), "rule__VarDecl__Alternatives_0");
+					put(grammarAccess.getFunDeclAccess().getAlternatives_7_1(), "rule__FunDecl__Alternatives_7_1");
 					put(grammarAccess.getTypeAccess().getAlternatives(), "rule__Type__Alternatives");
 					put(grammarAccess.getPrimitiveTypeAccess().getAlternatives(), "rule__PrimitiveType__Alternatives");
 					put(grammarAccess.getENumberTypeAccess().getAlternatives(), "rule__ENumberType__Alternatives");
 					put(grammarAccess.getComponentCategoryAccess().getAlternatives(), "rule__ComponentCategory__Alternatives");
+					put(grammarAccess.getExpressionAccess().getAlternatives(), "rule__Expression__Alternatives");
 					put(grammarAccess.getOpOrAccess().getAlternatives(), "rule__OpOr__Alternatives");
 					put(grammarAccess.getOpAndAccess().getAlternatives(), "rule__OpAnd__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -81,6 +83,13 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getVarDeclAccess().getGroup_2(), "rule__VarDecl__Group_2__0");
 					put(grammarAccess.getVarDeclAccess().getGroup_3(), "rule__VarDecl__Group_3__0");
 					put(grammarAccess.getFunDeclAccess().getGroup(), "rule__FunDecl__Group__0");
+					put(grammarAccess.getFunDeclAccess().getGroup_7(), "rule__FunDecl__Group_7__0");
+					put(grammarAccess.getFunDeclAccess().getGroup_7_1_0(), "rule__FunDecl__Group_7_1_0__0");
+					put(grammarAccess.getJavaFQNAccess().getGroup(), "rule__JavaFQN__Group__0");
+					put(grammarAccess.getJavaFQNAccess().getGroup_1(), "rule__JavaFQN__Group_1__0");
+					put(grammarAccess.getArgsAccess().getGroup(), "rule__Args__Group__0");
+					put(grammarAccess.getArgsAccess().getGroup_1(), "rule__Args__Group_1__0");
+					put(grammarAccess.getArgumentAccess().getGroup(), "rule__Argument__Group__0");
 					put(grammarAccess.getAssertionAccess().getGroup(), "rule__Assertion__Group__0");
 					put(grammarAccess.getPrimitiveTypeAccess().getGroup_0(), "rule__PrimitiveType__Group_0__0");
 					put(grammarAccess.getPrimitiveTypeAccess().getGroup_2(), "rule__PrimitiveType__Group_2__0");
@@ -108,6 +117,8 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getEnumTypeAccess().getGroup(), "rule__EnumType__Group__0");
 					put(grammarAccess.getEnumTypeAccess().getGroup_3(), "rule__EnumType__Group_3__0");
 					put(grammarAccess.getEnumTypeAccess().getGroup_3_1(), "rule__EnumType__Group_3_1__0");
+					put(grammarAccess.getBlockExpressionAccess().getGroup(), "rule__BlockExpression__Group__0");
+					put(grammarAccess.getBlockExpressionAccess().getGroup_2(), "rule__BlockExpression__Group_2__0");
 					put(grammarAccess.getOrExpressionAccess().getGroup(), "rule__OrExpression__Group__0");
 					put(grammarAccess.getOrExpressionAccess().getGroup_1(), "rule__OrExpression__Group_1__0");
 					put(grammarAccess.getOrExpressionAccess().getGroup_1_0(), "rule__OrExpression__Group_1_0__0");
@@ -147,6 +158,9 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSelectExpressionAccess().getGroup_1_0_3_1_1(), "rule__SelectExpression__Group_1_0_3_1_1__0");
 					put(grammarAccess.getPrimaryExpressionAccess().getGroup_4(), "rule__PrimaryExpression__Group_4__0");
 					put(grammarAccess.getNamedElementRefAccess().getGroup(), "rule__NamedElementRef__Group__0");
+					put(grammarAccess.getNamedElementRefAccess().getGroup_2(), "rule__NamedElementRef__Group_2__0");
+					put(grammarAccess.getNamedElementRefAccess().getGroup_2_1(), "rule__NamedElementRef__Group_2_1__0");
+					put(grammarAccess.getNamedElementRefAccess().getGroup_2_1_1(), "rule__NamedElementRef__Group_2_1_1__0");
 					put(grammarAccess.getRangeExpressionAccess().getGroup(), "rule__RangeExpression__Group__0");
 					put(grammarAccess.getRangeExpressionAccess().getGroup_5(), "rule__RangeExpression__Group_5__0");
 					put(grammarAccess.getIfExpressionAccess().getGroup(), "rule__IfExpression__Group__0");
@@ -229,6 +243,14 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getVarDeclAccess().getDeclTypeAssignment_2_1(), "rule__VarDecl__DeclTypeAssignment_2_1");
 					put(grammarAccess.getVarDeclAccess().getValueAssignment_3_1(), "rule__VarDecl__ValueAssignment_3_1");
 					put(grammarAccess.getFunDeclAccess().getNameAssignment_1(), "rule__FunDecl__NameAssignment_1");
+					put(grammarAccess.getFunDeclAccess().getResultTypeAssignment_6(), "rule__FunDecl__ResultTypeAssignment_6");
+					put(grammarAccess.getFunDeclAccess().getJavaAssignment_7_1_0_0(), "rule__FunDecl__JavaAssignment_7_1_0_0");
+					put(grammarAccess.getFunDeclAccess().getFqnAssignment_7_1_0_2(), "rule__FunDecl__FqnAssignment_7_1_0_2");
+					put(grammarAccess.getFunDeclAccess().getExpAssignment_7_1_1(), "rule__FunDecl__ExpAssignment_7_1_1");
+					put(grammarAccess.getArgsAccess().getArgsAssignment_0(), "rule__Args__ArgsAssignment_0");
+					put(grammarAccess.getArgsAccess().getArgsAssignment_1_1(), "rule__Args__ArgsAssignment_1_1");
+					put(grammarAccess.getArgumentAccess().getNameAssignment_1(), "rule__Argument__NameAssignment_1");
+					put(grammarAccess.getArgumentAccess().getTypeAssignment_3(), "rule__Argument__TypeAssignment_3");
 					put(grammarAccess.getAssertionAccess().getNameAssignment_1(), "rule__Assertion__NameAssignment_1");
 					put(grammarAccess.getAssertionAccess().getAssertAssignment_3(), "rule__Assertion__AssertAssignment_3");
 					put(grammarAccess.getRangeTypeAccess().getTypeAssignment_2(), "rule__RangeType__TypeAssignment_2");
@@ -252,6 +274,8 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getEnumTypeAccess().getLiteralsAssignment_3_1_1(), "rule__EnumType__LiteralsAssignment_3_1_1");
 					put(grammarAccess.getEnumLiteralAccess().getNameAssignment(), "rule__EnumLiteral__NameAssignment");
 					put(grammarAccess.getTypeRefAccess().getRefAssignment(), "rule__TypeRef__RefAssignment");
+					put(grammarAccess.getBlockExpressionAccess().getDeclsAssignment_2_0(), "rule__BlockExpression__DeclsAssignment_2_0");
+					put(grammarAccess.getBlockExpressionAccess().getResultAssignment_3(), "rule__BlockExpression__ResultAssignment_3");
 					put(grammarAccess.getOrExpressionAccess().getOperatorAssignment_1_0_0_1(), "rule__OrExpression__OperatorAssignment_1_0_0_1");
 					put(grammarAccess.getOrExpressionAccess().getRightAssignment_1_1(), "rule__OrExpression__RightAssignment_1_1");
 					put(grammarAccess.getAndExpressionAccess().getOperatorAssignment_1_0_0_1(), "rule__AndExpression__OperatorAssignment_1_0_0_1");
@@ -275,6 +299,8 @@ public class ExprParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getSelectExpressionAccess().getArgsAssignment_1_0_3_1_1_1(), "rule__SelectExpression__ArgsAssignment_1_0_3_1_1_1");
 					put(grammarAccess.getNamedElementRefAccess().getCoreAssignment_0(), "rule__NamedElementRef__CoreAssignment_0");
 					put(grammarAccess.getNamedElementRefAccess().getRefAssignment_1(), "rule__NamedElementRef__RefAssignment_1");
+					put(grammarAccess.getNamedElementRefAccess().getArgsAssignment_2_1_0(), "rule__NamedElementRef__ArgsAssignment_2_1_0");
+					put(grammarAccess.getNamedElementRefAccess().getArgsAssignment_2_1_1_1(), "rule__NamedElementRef__ArgsAssignment_2_1_1_1");
 					put(grammarAccess.getRangeExpressionAccess().getMinimumAssignment_2(), "rule__RangeExpression__MinimumAssignment_2");
 					put(grammarAccess.getRangeExpressionAccess().getMaximumAssignment_4(), "rule__RangeExpression__MaximumAssignment_4");
 					put(grammarAccess.getRangeExpressionAccess().getDeltaAssignment_5_1(), "rule__RangeExpression__DeltaAssignment_5_1");

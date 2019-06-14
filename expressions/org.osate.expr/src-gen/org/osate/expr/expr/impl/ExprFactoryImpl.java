@@ -70,6 +70,7 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.TYPE_DECL: return createTypeDecl();
       case ExprPackage.VAR_DECL: return createVarDecl();
       case ExprPackage.FUN_DECL: return createFunDecl();
+      case ExprPackage.ARGUMENT: return createArgument();
       case ExprPackage.ASSERTION: return createAssertion();
       case ExprPackage.ENUMBER_TYPE: return createENumberType();
       case ExprPackage.EINTEGER: return createEInteger();
@@ -99,6 +100,7 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
       case ExprPackage.EXPR_SUBCLAUSE: return createExprSubclause();
       case ExprPackage.EBOOLEAN: return createEBoolean();
       case ExprPackage.ESTRING: return createEString();
+      case ExprPackage.BLOCK: return createBlock();
       case ExprPackage.BINARY_OPERATION: return createBinaryOperation();
       case ExprPackage.UNARY_OPERATION: return createUnaryOperation();
       case ExprPackage.UNIT_EXPRESSION: return createUnitExpression();
@@ -222,6 +224,18 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     FunDeclImpl funDecl = new FunDeclImpl();
     return funDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Argument createArgument()
+  {
+    ArgumentImpl argument = new ArgumentImpl();
+    return argument;
   }
 
   /**
@@ -570,6 +584,18 @@ public class ExprFactoryImpl extends EFactoryImpl implements ExprFactory
   {
     EStringImpl eString = new EStringImpl();
     return eString;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Block createBlock()
+  {
+    BlockImpl block = new BlockImpl();
+    return block;
   }
 
   /**

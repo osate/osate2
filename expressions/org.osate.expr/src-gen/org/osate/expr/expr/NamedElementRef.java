@@ -2,6 +2,8 @@
  */
 package org.osate.expr.expr;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -15,6 +17,7 @@ import org.osate.aadl2.NamedElement;
  * <ul>
  *   <li>{@link org.osate.expr.expr.NamedElementRef#isCore <em>Core</em>}</li>
  *   <li>{@link org.osate.expr.expr.NamedElementRef#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.osate.expr.expr.NamedElementRef#getArgs <em>Args</em>}</li>
  * </ul>
  *
  * @see org.osate.expr.expr.ExprPackage#getNamedElementRef()
@@ -66,5 +69,17 @@ public interface NamedElementRef extends Expression
    * @generated
    */
   void setRef(NamedElement value);
+
+  /**
+   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.expr.expr.Expression}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Args</em>' containment reference list.
+   * @see org.osate.expr.expr.ExprPackage#getNamedElementRef_Args()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Expression> getArgs();
 
 } // NamedElementRef

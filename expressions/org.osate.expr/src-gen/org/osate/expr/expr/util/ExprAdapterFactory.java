@@ -107,6 +107,11 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
         return createFunDeclAdapter();
       }
       @Override
+      public Adapter caseArgument(Argument object)
+      {
+        return createArgumentAdapter();
+      }
+      @Override
       public Adapter caseAssertion(Assertion object)
       {
         return createAssertionAdapter();
@@ -250,6 +255,11 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEString(EString object)
       {
         return createEStringAdapter();
+      }
+      @Override
+      public Adapter caseBlock(Block object)
+      {
+        return createBlockAdapter();
       }
       @Override
       public Adapter caseBinaryOperation(BinaryOperation object)
@@ -469,6 +479,21 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFunDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Argument <em>Argument</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Argument
+   * @generated
+   */
+  public Adapter createArgumentAdapter()
   {
     return null;
   }
@@ -904,6 +929,21 @@ public class ExprAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEStringAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.expr.expr.Block <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.expr.expr.Block
+   * @generated
+   */
+  public Adapter createBlockAdapter()
   {
     return null;
   }

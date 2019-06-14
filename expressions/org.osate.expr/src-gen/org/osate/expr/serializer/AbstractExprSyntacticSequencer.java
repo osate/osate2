@@ -22,6 +22,7 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 
 	protected ExprGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Declarations_SemicolonKeyword_2_q;
+	protected AbstractElementAlias match_NamedElementRef___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_a;
 	protected AbstractElementAlias match_PrimaryExpression_LeftParenthesisKeyword_4_0_p;
 	protected AbstractElementAlias match_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q;
@@ -30,6 +31,7 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ExprGrammarAccess) access;
 		match_Declarations_SemicolonKeyword_2_q = new TokenAlias(false, true, grammarAccess.getDeclarationsAccess().getSemicolonKeyword_2());
+		match_NamedElementRef___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getNamedElementRefAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getNamedElementRefAccess().getRightParenthesisKeyword_2_2()));
 		match_PrimaryExpression_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
 		match_PrimaryExpression_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryExpressionAccess().getLeftParenthesisKeyword_4_0());
 		match_SelectExpression___LeftParenthesisKeyword_1_0_3_0_RightParenthesisKeyword_1_0_3_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSelectExpressionAccess().getLeftParenthesisKeyword_1_0_3_0()), new TokenAlias(false, false, grammarAccess.getSelectExpressionAccess().getRightParenthesisKeyword_1_0_3_2()));
@@ -87,6 +89,8 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_Declarations_SemicolonKeyword_2_q.equals(syntax))
 				emit_Declarations_SemicolonKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_NamedElementRef___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
+				emit_NamedElementRef___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_PrimaryExpression_LeftParenthesisKeyword_4_0_a.equals(syntax))
 				emit_PrimaryExpression_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_PrimaryExpression_LeftParenthesisKeyword_4_0_p.equals(syntax))
@@ -110,6 +114,17 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	
 	/**
 	 * Ambiguous syntax:
+	 *     ('(' ')')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     ref=[NamedElement|QCREF] (ambiguity) (rule end)
+	 */
+	protected void emit_NamedElementRef___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
@@ -128,6 +143,8 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     (rule start) (ambiguity) 'tuple' '(' ')' (rule start)
 	 *     (rule start) (ambiguity) 'tuple' '(' elements+=Expression
 	 *     (rule start) (ambiguity) 'union' '(' fieldValue=FieldValue
+	 *     (rule start) (ambiguity) '{' decls+=VarDecl
+	 *     (rule start) (ambiguity) '{' result=Expression
 	 *     (rule start) (ambiguity) core?='^'
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) ref=[NamedElement|QCREF]
@@ -149,6 +166,8 @@ public abstract class AbstractExprSyntacticSequencer extends AbstractSyntacticSe
 	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '{' decls+=VarDecl
+	 *     (rule start) (ambiguity) '{' result=Expression
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) {BinaryOperation.left=}
 	 *     (rule start) (ambiguity) {PropertyExpression.modelElement=}
