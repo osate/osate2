@@ -1,0 +1,79 @@
+package sc1
+public
+	with TestPS;
+	
+	system src1
+		features
+			f1: out event port;
+	end src1;
+	
+	system implementation src1.i
+		-- 
+	end src1.i;
+	
+	system src2
+		features 
+			f2: out event port;
+	end src2;
+	
+	system implementation src2.i
+		subcomponents
+			sub1: system src1.i;
+		connections
+			c1: feature sub1.f1 -> f2 {
+				TestPS::myProp => 10 sec;
+			};
+	end src2.i;
+	
+	system src3
+		features
+			f3: out event port;
+	end src3;
+	
+	system implementation src3.i
+		subcomponents
+			sub2: system src2.i;
+		connections
+			c2: feature sub2.f2 -> f3 {
+				TestPS::myProp2 => 3.5 hr;
+			};
+	end src3.i;
+	
+	system snk1
+		features
+			g1: in event port;
+	end snk1;
+	
+	system implementation snk1.i
+		--
+	end snk1.i;
+	
+	system snk2
+		features
+			g2: in event port;
+	end snk2;
+	
+	system implementation snk2.i
+		subcomponents
+			sub1: system snk1.i;
+		connections
+			k1: feature g2 -> sub1.g1  {
+				TestPS::myProp2 => 3.5 hr;
+				TestPS::myProp => 10 sec;
+			};
+	end snk2.i;
+	
+	system whole
+		--
+	end whole;
+	
+	system implementation whole.i
+		subcomponents
+			x1: system src3.i;
+			x2: system snk2.i;
+		connections
+			kk: feature x1.f3 -> x2.g2 {
+				TestPS::myProp => 10 sec;
+			};
+	end whole.i;
+end sc1;
