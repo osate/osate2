@@ -24,10 +24,10 @@ public class ExecuteJavaUtil {
 
 	// The method is assumed to have a single parameter of type EObject
 	public static Object invokeJavaMethod(String qualifiedMethodName, EObject argument) {
-		return invokeJavaMethod(qualifiedMethodName, new Class[] { EObject.class }, argument);
+		return invokeJavaMethod(qualifiedMethodName, new Class[] { EObject.class }, new Object[] { argument });
 	}
 
-	public static Object invokeJavaMethod(String qualifiedMethodName, Class<?>[] parameterTypes, Object... arguments) {
+	public static Object invokeJavaMethod(String qualifiedMethodName, Class<?>[] parameterTypes, Object[] arguments) {
 		Pair<String, String> names = splitClassAndMethodName(qualifiedMethodName);
 		String className = names.getKey();
 		String methodName = names.getValue();
@@ -48,7 +48,7 @@ public class ExecuteJavaUtil {
 	}
 
 	// returns the Java method or null.
-	public static Method getJavaMethod(String qualifiedMethodName, Class<?>... parameterTypes) {
+	public static Method getJavaMethod(String qualifiedMethodName, Class<?>[] parameterTypes) {
 		Pair<String, String> names = splitClassAndMethodName(qualifiedMethodName);
 		String className = names.getKey();
 		String methodName = names.getValue();
@@ -69,7 +69,7 @@ public class ExecuteJavaUtil {
 
 	// use in validation of when condition method
 	public static Method getJavaMethod(String qualifiedMethodName) {
-		return getJavaMethod(qualifiedMethodName, EObject.class);
+		return getJavaMethod(qualifiedMethodName, new Class[] { EObject.class });
 	}
 
 	// get Java Class from extension point registry
