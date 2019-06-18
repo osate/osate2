@@ -1,0 +1,27 @@
+package NoFlowProps
+public
+    abstract Air
+        features
+            outp: out data port ;
+            outp1: out data port ;
+        flows
+            fs: flow source outp ;  -- property in instance
+            fs1: flow source outp1 {Latency => 10 ms .. 15 ms;} ; -- property in instance
+        properties
+            Latency => 10 ms .. 15 ms applies to fs;
+    end Air;
+    system Top
+        features
+            outp: out data port ;
+            outp1: out data port ;
+        flows
+            fs: flow source outp ;  -- LOOK HERE: no property in instance
+            fs1: flow source outp1 {Latency => 10 ms .. 15 ms;} ; -- property in instance
+        properties
+            Latency => 10 ms .. 15 ms applies to fs;
+    end Top;
+    system implementation Top.impl
+        subcomponents
+            a1: abstract air; 
+    end Top.impl;
+end NoFlowProps;
