@@ -503,7 +503,7 @@ public class InstantiateModel {
 //		}
 		return;
 	}
-	
+
 	/*
 	 * returns the instance model URI for a given system implementation
 	 *
@@ -511,7 +511,7 @@ public class InstantiateModel {
 	 *
 	 * @return URI for instance model file
 	 */
-	private static URI getInstanceModelURI(ComponentImplementation ci) {
+	public static URI getInstanceModelURI(ComponentImplementation ci) {
 		Resource res = ci.eResource();
 		URI modeluri = res.getURI();
 		String last = modeluri.lastSegment();
