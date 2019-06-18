@@ -46,6 +46,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -108,7 +109,10 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 				return DONE;
 			}
 			monitor.subTask("Caching system instance contained property associations");
-			processContainedPropertyAssociations(si, si, si.getComponentImplementation().getAllPropertyAssociations());
+			// N.B. System instance must be associated with a system implementation, so this will never be null
+			final ComponentImplementation ci = si.getComponentImplementation();
+			processContainedPropertyAssociations(si, si, ci.getType().getAllPropertyAssociations());
+			processContainedPropertyAssociations(si, si, ci.getAllPropertyAssociations());
 			// TODO: Insert hooks here
 			return DONE;
 		}
@@ -142,13 +146,13 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 		}
 
 		/*
-		 * 
+		 *
 		 * FIXME: old code by JD to try to handle reference instance
 		 * public String caseConnectionInstance(final ConnectionInstance conn)
 		 * {
 		 * ComponentInstance ci;
 		 * EList<PropertyAssociation> pas = new BasicEList<PropertyAssociation> ();
-		 * 
+		 *
 		 * ci = conn.getContainingComponentInstance();
 		 * OsateDebug.osateDebug("connection instance" + conn + "on" + ci);
 		 * for (ConnectionReference ref : conn.getConnectionReferences())
@@ -159,11 +163,11 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 		 * OsateDebug.osateDebug("connection pa" + pa);
 		 * Property prop = pa.getProperty();
 		 * PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-		 * 
+		 *
 		 * newPA.setProperty(prop);
 		 * newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
-		 * 
-		 * 
+		 *
+		 *
 		 * for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
 		 * .hasNext();) {
 		 * Element elem = content.next();
@@ -187,18 +191,18 @@ public class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwit
 		 * if (elem instanceof ReferenceValue) {
 		 * PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
 		 * EcoreUtil.replace(elem, irv);
-		 * 
+		 *
 		 * ref.removePropertyAssociations(prop);
 		 * ref.getOwnedPropertyAssociations().add(newPA);
 		 * }
 		 * }
-		 * 
-		 * 
-		 * 
+		 *
+		 *
+		 *
 		 * }
 		 * }
 		 * processContainedPropertyAssociations((ComponentInstance) ci.eContainer(), ci, pas);
-		 * 
+		 *
 		 * return DONE;
 		 * }
 		 */
