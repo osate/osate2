@@ -20,7 +20,6 @@ import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.ui.handlers.ToggleContentFilterHandler;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osgi.framework.Bundle;
@@ -29,8 +28,19 @@ import org.osgi.framework.FrameworkUtil;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-public class ToggleFiltersContributionItem extends CompoundContributionItem {
+/**
+ * Contribution item that contributes a menu items based on applicable content filters.
+ *
+ */
+class ShowHideFiltersContributionItem extends CompoundContributionItem {
 	private final IContributionItem[] EMPTY = new IContributionItem[0];
+	private final String commandId;
+	private final String filterParameterId;
+
+	public ShowHideFiltersContributionItem(final String commandId, final String filterParameterId) {
+		this.commandId = Objects.requireNonNull(commandId, "commandId must not be null");
+		this.filterParameterId = Objects.requireNonNull(filterParameterId, "filterParameterId must not be null");
+	}
 
 	@Override
 	protected IContributionItem[] getContributionItems() {
@@ -95,11 +105,11 @@ public class ToggleFiltersContributionItem extends CompoundContributionItem {
 			final Collection<ContentFilter> childFilters = parentToApplicableFiltersMap.get(filter.getId());
 			if (childFilters.size() == 0) {
 				final CommandContributionItem commandItem = new CommandContributionItem(
-						new CommandContributionItemParameter(window, null, "org.osate.ge.toggleContentFilter",
-								Collections.singletonMap(ToggleContentFilterHandler.PARAM_CONTENTS_FILTER_ID,
+						new CommandContributionItemParameter(window, null, commandId,
+										Collections.singletonMap(filterParameterId,
 										filter.getId()),
 								null, null, null, filter.getName(), null, null,
-								CommandContributionItem.STYLE_CHECK, null, true));
+								CommandContributionItem.STYLE_PUSH, null, true));
 				contributions.add(commandItem);
 			} else {
 				final MenuManager submenu = new MenuManager(filter.getName());
@@ -111,12 +121,12 @@ public class ToggleFiltersContributionItem extends CompoundContributionItem {
 						// All
 						final CommandContributionItem commandItem = new CommandContributionItem(
 								new CommandContributionItemParameter(window, null,
-										"org.osate.ge.toggleContentFilter",
+										commandId,
 										Collections.singletonMap(
-												ToggleContentFilterHandler.PARAM_CONTENTS_FILTER_ID,
+														filterParameterId,
 												filter.getId()),
-										null, null, null, "All", null, null,
-										CommandContributionItem.STYLE_CHECK, null, true));
+										null, null, null, "All", null, null, CommandContributionItem.STYLE_PUSH,
+										null, true));
 						submenuContributions.add(commandItem);
 
 						submenuContributions.add(new Separator());

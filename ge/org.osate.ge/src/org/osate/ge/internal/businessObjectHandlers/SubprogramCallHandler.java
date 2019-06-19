@@ -17,10 +17,10 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.BuildCreateOperation;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
-import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -31,16 +31,18 @@ import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.services.QueryService;
 
 public class SubprogramCallHandler {
-	private static final StandaloneQuery behavioredImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehavioredImplementation).first());
 	private Graphic graphic = EllipseBuilder.create().build();
 	private Style style = StyleBuilder.create().dashed().labelsCenter().build();
 
@@ -75,10 +77,6 @@ public class SubprogramCallHandler {
 		return call.getName();
 	}
 
-	private BehavioredImplementation getBehavioredImplementation(final BusinessObjectContext callBoc, final QueryService queryService) {
-		return (BehavioredImplementation)queryService.getFirstBusinessObject(behavioredImplementationQuery, callBoc);
-	}
-
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(Names.NAME) String value, final NamingService namingService) {
 		return namingService.checkNameValidity(call, value);
@@ -87,40 +85,56 @@ public class SubprogramCallHandler {
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService) {
-		return cs.getContainingClassifier() == getBehavioredImplementation(targetBoc, queryService);
+		return cs.getContainingClassifier() instanceof BehavioredImplementation;
 	}
 
-	@Create
-	public SubprogramCall createBusinessObject(@Named(Names.MODIFY_BO) SubprogramCallSequence cs,
+	@BuildCreateOperation
+	public Operation buildCreateOperation(
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final NamingService namingService,
 			final QueryService queryService) {
-		final BehavioredImplementation bi = getBehavioredImplementation(targetBoc, queryService);
-		if(bi == null) {
-			throw new RuntimeException("Unexpected case. Unable to find BehavioredImplementation");
-		}
+		return Operation.create(createOp -> {
+			createOp.supply(() -> StepResult.forValue((SubprogramCallSequence)targetBoc.getBusinessObject())).modifyPreviousResult(cs -> {
+				if (!(cs.getContainingClassifier() instanceof BehavioredImplementation)) {
+					throw new RuntimeException("Unexpected case. Unable to find BehavioredImplementation");
+				}
 
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(bi);
-		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
-		if(dlg.open() == Window.CANCEL) {
-			return null;
-		}
+				final BehavioredImplementation bi = (BehavioredImplementation) cs.getContainingClassifier();
 
-		// Get the CallContext and Called Subprogram
-		final CallContext callContext = subprogramSelectionModel.getCallContext(dlg.getSelectedContext());
-		final CalledSubprogram calledSubprogram = subprogramSelectionModel.getCalledSubprogram(dlg.getSelectedSubprogram());
-		final String newSubprogramCallName = namingService.buildUniqueIdentifier(bi, "new_call");
+				final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(bi);
+				final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
+				if(dlg.open() == Window.CANCEL) {
+					return null;
+				}
 
-		// Create an initial call. Needed because call sequences must have at least one call
-		final SubprogramCall newSubprogramCall = cs.createOwnedSubprogramCall();
-		newSubprogramCall.setName(newSubprogramCallName);
-		newSubprogramCall.setContext(callContext);
-		newSubprogramCall.setCalledSubprogram(calledSubprogram);
+				// Get the CallContext and Called Subprogram
+				final CallContext callContext = subprogramSelectionModel.getCallContext(dlg.getSelectedContext());
+				final CalledSubprogram calledSubprogram = subprogramSelectionModel.getCalledSubprogram(dlg.getSelectedSubprogram());
+				final String newSubprogramCallName = namingService.buildUniqueIdentifier(bi, "new_call");
 
-		AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, callContext);
-		AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, calledSubprogram);
+				// Create the call.
+				final SubprogramCall newSubprogramCall = cs.createOwnedSubprogramCall();
+				newSubprogramCall.setName(newSubprogramCallName);
+				newSubprogramCall.setContext(callContext);
+				newSubprogramCall.setCalledSubprogram(calledSubprogram);
 
-		return newSubprogramCall;
+				AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, callContext);
+				AadlImportsUtil.ensurePackageIsImportedForClassifier(bi, calledSubprogram);
+
+						// Build Result
+						StepResultBuilder<?> resultBuilder = StepResultBuilder.create().showNewBusinessObject(targetBoc,
+								newSubprogramCall);
+
+						if (cs.getOwnedSubprogramCalls().size() >= 2) {
+							final SubprogramCallOrder newSubprogramCallOrder = new SubprogramCallOrder(
+									cs.getOwnedSubprogramCalls().get(cs.getOwnedSubprogramCalls().size() - 2),
+									newSubprogramCall);
+							resultBuilder = resultBuilder.showNewBusinessObject(targetBoc, newSubprogramCallOrder);
+						}
+
+				return resultBuilder.build();
+			});
+		});
 	}
 
 	@CanDelete

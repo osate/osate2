@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}</li>
- *   <li>{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getPosition <em>Position</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getSize <em>Size</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getDockArea <em>Dock Area</em>}</li>
@@ -37,7 +36,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelVisible <em>Primary Label Visible</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getImage <em>Image</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getShowAsImage <em>Show As Image</em>}</li>
- *   <li>{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}</li>
  *   <li>{@link org.osate.ge.diagram.DiagramElement#getBoData <em>Bo Data</em>}</li>
  * </ul>
  *
@@ -115,26 +113,6 @@ public class DiagramElement extends DiagramNode {
 	 * @ordered
 	 */
 	protected boolean manual = MANUAL_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getAutoContentsFilter() <em>Auto Contents Filter</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAutoContentsFilter()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String AUTO_CONTENTS_FILTER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAutoContentsFilter() <em>Auto Contents Filter</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAutoContentsFilter()
-	 * @generated
-	 * @ordered
-	 */
-	protected String autoContentsFilter = AUTO_CONTENTS_FILTER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getPosition() <em>Position</em>}' containment reference.
@@ -357,16 +335,6 @@ public class DiagramElement extends DiagramNode {
 	protected Boolean showAsImage = SHOW_AS_IMAGE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getContentFilters() <em>Content Filters</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContentFilters()
-	 * @generated
-	 * @ordered
-	 */
-	protected ContentFilters contentFilters;
-
-	/**
 	 * The default value of the '{@link #getBoData() <em>Bo Data</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -519,9 +487,9 @@ public class DiagramElement extends DiagramNode {
 		if (newBo != bo) {
 			NotificationChain msgs = null;
 			if (bo != null)
-				msgs = ((InternalEObject)bo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
+				msgs = bo.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
 			if (newBo != null)
-				msgs = ((InternalEObject)newBo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
+				msgs = newBo.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
 			msgs = basicSetBo(newBo, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -533,11 +501,10 @@ public class DiagramElement extends DiagramNode {
 	 * Returns the value of the '<em><b>Manual</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Manual</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Deprecated. Should be set to true for all newly saved elements. Retained for compatibility with versions of OSATE <= 2.5.0
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Manual</em>' attribute.
 	 * @see #setManual(boolean)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Manual()
@@ -561,38 +528,6 @@ public class DiagramElement extends DiagramNode {
 		manual = newManual;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__MANUAL, oldManual, manual));
-	}
-
-	/**
-	 * Returns the value of the '<em><b>Auto Contents Filter</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Deprecated
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Auto Contents Filter</em>' attribute.
-	 * @see #setAutoContentsFilter(String)
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_AutoContentsFilter()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
-	public String getAutoContentsFilter() {
-		return autoContentsFilter;
-	}
-
-	/**
-	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Auto Contents Filter</em>' attribute.
-	 * @see #getAutoContentsFilter()
-	 * @generated
-	 */
-	public void setAutoContentsFilter(String newAutoContentsFilter) {
-		String oldAutoContentsFilter = autoContentsFilter;
-		autoContentsFilter = newAutoContentsFilter;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER, oldAutoContentsFilter, autoContentsFilter));
 	}
 
 	/**
@@ -640,9 +575,9 @@ public class DiagramElement extends DiagramNode {
 		if (newPosition != position) {
 			NotificationChain msgs = null;
 			if (position != null)
-				msgs = ((InternalEObject)position).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
+				msgs = position.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
 			if (newPosition != null)
-				msgs = ((InternalEObject)newPosition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
+				msgs = newPosition.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
 			msgs = basicSetPosition(newPosition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -695,9 +630,9 @@ public class DiagramElement extends DiagramNode {
 		if (newSize != size) {
 			NotificationChain msgs = null;
 			if (size != null)
-				msgs = ((InternalEObject)size).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
+				msgs = size.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
 			if (newSize != null)
-				msgs = ((InternalEObject)newSize).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
+				msgs = newSize.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
 			msgs = basicSetSize(newSize, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -783,9 +718,9 @@ public class DiagramElement extends DiagramNode {
 		if (newBendpoints != bendpoints) {
 			NotificationChain msgs = null;
 			if (bendpoints != null)
-				msgs = ((InternalEObject)bendpoints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
+				msgs = bendpoints.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
 			if (newBendpoints != null)
-				msgs = ((InternalEObject)newBendpoints).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
+				msgs = newBendpoints.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
 			msgs = basicSetBendpoints(newBendpoints, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -837,9 +772,9 @@ public class DiagramElement extends DiagramNode {
 		if (newPrimaryLabelPosition != primaryLabelPosition) {
 			NotificationChain msgs = null;
 			if (primaryLabelPosition != null)
-				msgs = ((InternalEObject)primaryLabelPosition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
+				msgs = primaryLabelPosition.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
 			if (newPrimaryLabelPosition != null)
-				msgs = ((InternalEObject)newPrimaryLabelPosition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
+				msgs = newPrimaryLabelPosition.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
 			msgs = basicSetPrimaryLabelPosition(newPrimaryLabelPosition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -1112,61 +1047,6 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Returns the value of the '<em><b>Content Filters</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Content Filters</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Content Filters</em>' containment reference.
-	 * @see #setContentFilters(ContentFilters)
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_ContentFilters()
-	 * @model containment="true"
-	 * @generated
-	 */
-	public ContentFilters getContentFilters() {
-		return contentFilters;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetContentFilters(ContentFilters newContentFilters, NotificationChain msgs) {
-		ContentFilters oldContentFilters = contentFilters;
-		contentFilters = newContentFilters;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, oldContentFilters, newContentFilters);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getContentFilters <em>Content Filters</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Content Filters</em>' containment reference.
-	 * @see #getContentFilters()
-	 * @generated
-	 */
-	public void setContentFilters(ContentFilters newContentFilters) {
-		if (newContentFilters != contentFilters) {
-			NotificationChain msgs = null;
-			if (contentFilters != null)
-				msgs = ((InternalEObject)contentFilters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
-			if (newContentFilters != null)
-				msgs = ((InternalEObject)newContentFilters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
-			msgs = basicSetContentFilters(newContentFilters, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, newContentFilters, newContentFilters));
-	}
-
-	/**
 	 * Returns the value of the '<em><b>Bo Data</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1216,8 +1096,6 @@ public class DiagramElement extends DiagramNode {
 				return basicSetBendpoints(null, msgs);
 			case DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION:
 				return basicSetPrimaryLabelPosition(null, msgs);
-			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
-				return basicSetContentFilters(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1238,8 +1116,6 @@ public class DiagramElement extends DiagramNode {
 				return getBo();
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
 				return isManual();
-			case DiagramPackage.DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER:
-				return getAutoContentsFilter();
 			case DiagramPackage.DIAGRAM_ELEMENT__POSITION:
 				return getPosition();
 			case DiagramPackage.DIAGRAM_ELEMENT__SIZE:
@@ -1266,8 +1142,6 @@ public class DiagramElement extends DiagramNode {
 				return getImage();
 			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
 				return getShowAsImage();
-			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
-				return getContentFilters();
 			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
 				return getBoData();
 		}
@@ -1293,9 +1167,6 @@ public class DiagramElement extends DiagramNode {
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
 				setManual((Boolean)newValue);
-				return;
-			case DiagramPackage.DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER:
-				setAutoContentsFilter((String)newValue);
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__POSITION:
 				setPosition((Point)newValue);
@@ -1336,9 +1207,6 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
 				setShowAsImage((Boolean)newValue);
 				return;
-			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
-				setContentFilters((ContentFilters)newValue);
-				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
 				setBoData((String)newValue);
 				return;
@@ -1365,9 +1233,6 @@ public class DiagramElement extends DiagramNode {
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
 				setManual(MANUAL_EDEFAULT);
-				return;
-			case DiagramPackage.DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER:
-				setAutoContentsFilter(AUTO_CONTENTS_FILTER_EDEFAULT);
 				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__POSITION:
 				setPosition((Point)null);
@@ -1408,9 +1273,6 @@ public class DiagramElement extends DiagramNode {
 			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
 				setShowAsImage(SHOW_AS_IMAGE_EDEFAULT);
 				return;
-			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
-				setContentFilters((ContentFilters)null);
-				return;
 			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
 				setBoData(BO_DATA_EDEFAULT);
 				return;
@@ -1434,8 +1296,6 @@ public class DiagramElement extends DiagramNode {
 				return bo != null;
 			case DiagramPackage.DIAGRAM_ELEMENT__MANUAL:
 				return manual != MANUAL_EDEFAULT;
-			case DiagramPackage.DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER:
-				return AUTO_CONTENTS_FILTER_EDEFAULT == null ? autoContentsFilter != null : !AUTO_CONTENTS_FILTER_EDEFAULT.equals(autoContentsFilter);
 			case DiagramPackage.DIAGRAM_ELEMENT__POSITION:
 				return position != null;
 			case DiagramPackage.DIAGRAM_ELEMENT__SIZE:
@@ -1462,8 +1322,6 @@ public class DiagramElement extends DiagramNode {
 				return IMAGE_EDEFAULT == null ? image != null : !IMAGE_EDEFAULT.equals(image);
 			case DiagramPackage.DIAGRAM_ELEMENT__SHOW_AS_IMAGE:
 				return SHOW_AS_IMAGE_EDEFAULT == null ? showAsImage != null : !SHOW_AS_IMAGE_EDEFAULT.equals(showAsImage);
-			case DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS:
-				return contentFilters != null;
 			case DiagramPackage.DIAGRAM_ELEMENT__BO_DATA:
 				return BO_DATA_EDEFAULT == null ? boData != null : !BO_DATA_EDEFAULT.equals(boData);
 		}
@@ -1479,15 +1337,13 @@ public class DiagramElement extends DiagramNode {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (uuid: ");
 		result.append(uuid);
 		result.append(", id: ");
 		result.append(id);
 		result.append(", manual: ");
 		result.append(manual);
-		result.append(", autoContentsFilter: ");
-		result.append(autoContentsFilter);
 		result.append(", dockArea: ");
 		result.append(dockArea);
 		result.append(", background: ");

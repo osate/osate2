@@ -24,7 +24,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="manual" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Deprecated. Should be set to true for all newly saved elements. Retained for compatibility with versions of OSATE &lt;= 2.5.0"/>
+        <details key="documentation" value="Deprecated. True for all new diagrams. Retained for compatibility with versions of OSATE &lt;= 2.5.0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//Point"
@@ -48,6 +48,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primaryLabelVisible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showAsImage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contentFilters" eType="#//ContentFilters"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="boData" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Data which is associated with the element's business objects. Used for embedded business objects."/>
@@ -85,4 +87,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seg" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Color" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContentFilters">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="filter" ordered="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
 </ecore:EPackage>

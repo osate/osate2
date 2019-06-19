@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -253,17 +254,22 @@ public class SelectionUtil {
 				});
 	}
 
-	public static IProject getProject(final Resource resource) {
-		return getProject(resource.getURI());
+	public static IProject getProjectOrThrow(final Resource resource) {
+		return getProjectOrThrow(resource.getURI());
 	}
 
-	public static IProject getProject(final URI resourceUri) {
+	public static IProject getProjectOrThrow(final URI resourceUri) {
+		return getProject(resourceUri).orElseThrow(() -> new RuntimeException(
+				"Unable to receive project. URI: " + resourceUri));
+	}
+
+	public static Optional<IProject> getProject(final URI resourceUri) {
 		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
 		if(projectResource instanceof IProject) {
-			return (IProject)projectResource;
+			return Optional.of((IProject) projectResource);
 		}
 
-		throw new RuntimeException("Unable to receive project. Resource is of type " + projectResource.getClass().getName());
+		return Optional.empty();
 	}
 }
