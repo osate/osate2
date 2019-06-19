@@ -1,14 +1,19 @@
 package org.osate.aadl2.errormodel.PropagationGraph.util;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.VirtualBus;
@@ -24,7 +29,6 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -75,7 +79,15 @@ public class Util {
 		URI pgURI = EcoreUtil.getURI(root).trimFragment().trimFileExtension().trimSegments(1).appendSegment("reports")
 				.appendSegment("propagationgraph").appendSegment(pgname).appendFileExtension("propagationgraph");
 		AadlUtil.makeSureFoldersExist(new Path(pgURI.toPlatformString(true)));
-		OsateResourceUtil.saveEMFModel(pg, pgURI, root);
+		Resource res = root.eResource().getResourceSet().createResource(pgURI);
+		res.getContents().add(pg);
+		try {
+			res.save(null);
+		} catch (IOException e) {
+			IStatus status = new Status(IStatus.ERROR, "org.osate.aadl2.errormodel.propagationgraph", e.getMessage(),
+					e);
+			StatusManager.getManager().handle(status);
+		}
 	}
 
 	/**

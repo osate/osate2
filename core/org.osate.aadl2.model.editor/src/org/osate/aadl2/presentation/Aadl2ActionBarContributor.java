@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -632,7 +633,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	}
 
 	private void gotoInstanceObject(InstanceObject io) {
-		IResource instanceFile = OsateResourceUtil.convertToIResource(io.eResource());
+		IFile instanceFile = OsateResourceUtil.toIFile(io.eResource().getURI());
 		try {
 			IMarker gotoMarker = instanceFile.createMarker(AadlConstants.AADLGOTOMARKER);
 			gotoMarker.setAttribute(EValidator.URI_ATTRIBUTE, EcoreUtil.getURI(io).toString());

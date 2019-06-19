@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
@@ -21,7 +23,6 @@ import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
@@ -176,13 +177,14 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	}
 
 	private Set<Property> getPropertiesByLowercasePropertyNames(final Set<String> lcPropertyNames) {
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		final Set<Property> properties = new HashSet<>();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(),
 				Aadl2Package.eINSTANCE.getProperty())) {
 			final String lowercasePropertyName = desc.getName().toString("::").toLowerCase();
 			if (lcPropertyNames.contains(lowercasePropertyName)) {
 				EObject property = desc.getEObjectOrProxy();
-				property = EcoreUtil.resolve(property, OsateResourceUtil.getResourceSet());
+				property = EcoreUtil.resolve(property, resourceSet);
 				if (!Aadl2Util.isNull(property)) {
 					properties.add((Property) property);
 				}
