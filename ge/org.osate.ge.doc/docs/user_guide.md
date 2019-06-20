@@ -458,7 +458,7 @@ Portions of a diagram can by copied and pasted using the menu items described in
  
 Table: Copy and Paste Menu Items {#tbl:copy_and_paste_menu_items}
 
-# Diagram Configuration{sec:diagram_configuration}
+# Diagram Configuration{#sec:diagram_configuration}
 Configuring a diagram allows customizing the contents of the diagram (See @sec:hidden_children). To configure a diagram, right-click in the diagram or an element in the *Outline* view and select *Configure Diagram…*. The diagram configuration dialog allows selecting which elements should appear in the diagram.
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The communication_properties::timing property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
