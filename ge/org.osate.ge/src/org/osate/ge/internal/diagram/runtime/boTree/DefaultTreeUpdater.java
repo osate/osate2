@@ -45,6 +45,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
+import org.osate.ge.internal.util.ContentFilterUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.QueryService;
 
@@ -376,7 +377,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 					.getRelativeReference(potentialBusinessObject);
 			if (relativeReference != null) {
 				if (forcedRefs.contains(relativeReference) || extService.isFundamental(potentialBusinessObject)
-						|| passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
+						|| ContentFilterUtil.passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
 					// Special handling of proxies. Only resolve them if they are needed
 					Object resolvedBo = potentialBusinessObject;
 					if (potentialBusinessObject instanceof BusinessObjectProxy) {
@@ -390,14 +391,5 @@ public class DefaultTreeUpdater implements TreeUpdater {
 		}
 
 		return results;
-	}
-
-	private boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		for (final ContentFilter filter : contentFilters) {
-			if (filter.test(bo)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

@@ -70,7 +70,7 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 				"Unable to retrieve extension registry");
 
 		final List<DiagramElement> diagramElements = SelectionUtil
-				.getSelectedDiagramElements(window.getActivePage().getSelection());
+				.getSelectedDiagramElements(window.getActivePage().getSelection(), true);
 		final AgeDiagram diagram = UiUtil.getDiagram(diagramElements);
 		if (diagram == null) {
 			return EMPTY;
@@ -106,7 +106,7 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 			if (childFilters.size() == 0) {
 				final CommandContributionItem commandItem = new CommandContributionItem(
 						new CommandContributionItemParameter(window, null, commandId,
-										Collections.singletonMap(filterParameterId,
+								Collections.singletonMap(filterParameterId,
 										filter.getId()),
 								null, null, null, filter.getName(), null, null,
 								CommandContributionItem.STYLE_PUSH, null, true));
@@ -123,7 +123,7 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 								new CommandContributionItemParameter(window, null,
 										commandId,
 										Collections.singletonMap(
-														filterParameterId,
+												filterParameterId,
 												filter.getId()),
 										null, null, null, "All", null, null, CommandContributionItem.STYLE_PUSH,
 										null, true));
