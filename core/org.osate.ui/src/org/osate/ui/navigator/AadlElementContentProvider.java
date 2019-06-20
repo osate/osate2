@@ -3,11 +3,19 @@ package org.osate.ui.navigator;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.ui.progress.UIJob;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.Classifier;
@@ -19,7 +27,34 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
-public class AadlElementContentProvider implements ITreeContentProvider {
+public class AadlElementContentProvider implements ITreeContentProvider, IResourceChangeListener {
+	private Viewer viewer;
+
+	@Override
+	public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
+		this.viewer = viewer;
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
+	}
+
+	@Override
+	public void dispose() {
+		viewer = null;
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+	}
+
+	@Override
+	public void resourceChanged(final IResourceChangeEvent event) {
+		new UIJob("Refresh") {
+			@Override
+			public IStatus runInUIThread(final IProgressMonitor monitor) {
+				if (viewer != null) {
+					viewer.refresh();
+				}
+				return Status.OK_STATUS;
+			}
+		}.schedule();
+	}
+
 	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
