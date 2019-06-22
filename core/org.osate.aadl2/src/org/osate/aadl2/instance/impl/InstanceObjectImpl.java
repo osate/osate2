@@ -524,7 +524,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 					if (decls != null && !decls.isEmpty()) {
 						NamedElement decl = decls.get(0);
 
-						if (decl.getName().equalsIgnoreCase(ne.getName())) {
+						if (decl.getName() != null && decl.getName().equalsIgnoreCase(ne.getName())) {
 							EList<ArrayRange> ranges = cpe.getArrayRanges();
 
 							if (next.matchesIndex(ranges)) {

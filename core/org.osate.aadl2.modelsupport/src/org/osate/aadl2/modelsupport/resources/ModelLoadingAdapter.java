@@ -4,9 +4,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
@@ -50,7 +51,7 @@ public class ModelLoadingAdapter implements IAdapterFactory {
 				}
 				if (ext.toLowerCase().equals("aadl") || ext.toLowerCase().equals("aadl2")) {
 					ModelUnit model;
-					XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+					ResourceSet resourceSet = new ResourceSetImpl();
 					String sp = file.getFullPath().toString();
 					Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp, false), true);
 					if (!resource.getContents().isEmpty()) {
@@ -61,7 +62,7 @@ public class ModelLoadingAdapter implements IAdapterFactory {
 					return model;
 				} else if (ext.toLowerCase().equals("aaxl2")) {
 					SystemInstance model;
-					XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+					ResourceSet resourceSet = new ResourceSetImpl();
 					String sp = file.getFullPath().toString();
 					Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp, false), true);
 

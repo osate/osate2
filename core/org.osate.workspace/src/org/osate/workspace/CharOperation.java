@@ -15,7 +15,10 @@ package org.osate.workspace;
  * This class is a collection of helper methods to manipulate char arrays.
  *
  * @since 2.1
+ *
+ * @deprecated Will be removed in 2.6.0.
  */
+@Deprecated
 public final class CharOperation {
 
 	/**

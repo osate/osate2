@@ -1,0 +1,23 @@
+package Issue1839
+public
+	
+	system T
+	end T;
+	
+	system implementation T.i
+		subcomponents
+			a: abstract A;
+		properties
+			Source_Name => "f" applies to a.f;
+	end T.i;
+	
+	abstract A
+		features
+			f: in data port;
+		modes
+			m1: initial mode;
+			m2: mode;
+			m1 -[f]-> m2;
+	end A;
+	
+end Issue1839;

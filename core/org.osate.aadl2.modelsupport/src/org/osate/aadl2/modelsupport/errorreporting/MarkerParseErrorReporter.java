@@ -33,6 +33,7 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -146,8 +147,8 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 
 		@Override
 		public ParseErrorReporter getReporterFor(final Resource resource) {
-			IResource aadlRsrc = OsateResourceUtil.convertToIResource(resource);
-			if (aadlRsrc != null && aadlRsrc.exists()) {
+			IFile aadlRsrc = OsateResourceUtil.toIFile(resource.getURI());
+			if (aadlRsrc.exists()) {
 				return new MarkerParseErrorReporter(aadlRsrc, markerType);
 			} else {
 				// Try the secondary factory
