@@ -22,7 +22,7 @@ public class ReportUtils {
 		subDirectory = subDirectory.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.getOsatePath(uri);
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
 		if (root instanceof InstanceObject) {
 			path = path.removeFileExtension();
 			filename = path.lastSegment() + "__" + reportPostfix;
