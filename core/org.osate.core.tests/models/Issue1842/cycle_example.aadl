@@ -1,0 +1,21 @@
+package cycle_example
+public
+    system A extends B
+    end A;
+    
+    system B extends C
+    end B;
+    
+    system C extends B
+    end C;  
+    
+    
+    system implementation C.i extends C.j
+    end C.i;
+    
+    system implementation C.j extends C.k
+    end C.j;  
+      
+    system implementation C.k extends C.j
+    end C.K;
+end cycle_example;
