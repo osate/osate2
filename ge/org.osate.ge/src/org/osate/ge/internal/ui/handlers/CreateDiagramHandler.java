@@ -53,7 +53,6 @@ public class CreateDiagramHandler extends AbstractHandler {
 		final Object contextBo = SelectionUtil.getDiagramContext(
 				AgeHandlerUtil.getCurrentSelection(),
 				AgeHandlerUtil.getActiveEditorFromContext(evaluationContext));
-
 		setBaseEnabled(contextBo != null);
 	}
 }

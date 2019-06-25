@@ -251,7 +251,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			 */
 			private Stream<BusinessObjectContext> getChildContextsFromProvider(final BusinessObjectContext parent,
 					final BusinessObjectContext parentForRetrieval,
-					Predicate<RelativeBusinessObjectReference> filterPredicate) {
+					final Predicate<RelativeBusinessObjectReference> filterPredicate) {
 				return bopHelper.getChildBusinessObjects(parentForRetrieval).stream().map(childBo -> {
 					if (childBo instanceof BusinessObjectProxy) {
 						return ((BusinessObjectProxy) childBo).resolve(referenceService);

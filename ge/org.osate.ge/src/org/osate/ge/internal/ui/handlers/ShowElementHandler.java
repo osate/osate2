@@ -63,7 +63,7 @@ public class ShowElementHandler extends AbstractHandler {
 		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
 				"Unable to retrieve action service");
 
-		BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
+		final BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
 
 		// Add the selected elements to the business object tree
 		for (final BusinessObjectContext bocToAdd : bocsToAdd) {

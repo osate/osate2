@@ -25,9 +25,7 @@ public class GoToPackageDiagramHandler extends AbstractHandler {
 				.getSelectedBusinessObjectContexts();
 		if (selectedBusinessObjectContexts.size() == 1) {
 			final Object selectedBo = selectedBusinessObjectContexts.get(0).getBusinessObject();
-			if(selectedBo instanceof AadlPackage) {
-				enabled = false;
-			} else {
+			if (!(selectedBo instanceof AadlPackage)) {
 				final AadlPackage pkg = getPackage(selectedBo);
 				enabled = pkg != null && ProjectUtil.getProjectForBo(pkg).isPresent();
 			}

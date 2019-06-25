@@ -27,8 +27,8 @@ class ShowContentsUtil {
 	 * @param event is the ExecutionEvent of the handler which provides the active editor.
 	 * @param filter is passed the parent diagram element and the business object of the potential child. If the filter returns true, then an element will be added for the business object.
 	 */
-	public static void addContentsToSelectedElements(ExecutionEvent event,
-			BiFunction<DiagramElement, Object, Boolean> filter) {
+	public static void addContentsToSelectedElements(final ExecutionEvent event,
+			final BiFunction<DiagramElement, Object, Boolean> filter) {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
 		if (!(activeEditor instanceof AgeDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
@@ -70,7 +70,7 @@ class ShowContentsUtil {
 	 */
 	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements, final DiagramUpdater diagramUpdater,
 			final ExtensionService extService, final ReferenceBuilderService referenceBuilder,
-			BiFunction<DiagramElement, Object, Boolean> filter) {
+			final BiFunction<DiagramElement, Object, Boolean> filter) {
 		boolean childrenAdded = false;
 		try (BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
 			for (final DiagramElement selectedElement : diagramElements) {

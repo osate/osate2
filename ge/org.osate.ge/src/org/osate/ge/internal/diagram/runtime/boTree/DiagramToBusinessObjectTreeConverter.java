@@ -31,7 +31,8 @@ public class DiagramToBusinessObjectTreeConverter {
 	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap) {
-		BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null, Completeness.UNKNOWN,
+		final BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
+				Completeness.UNKNOWN,
 				true);
 		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementInfoMap,
 				containerToRelativeReferenceToGhostMap);

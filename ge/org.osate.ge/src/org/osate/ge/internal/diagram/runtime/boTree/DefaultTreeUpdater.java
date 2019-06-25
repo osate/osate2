@@ -326,8 +326,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 
 		// Create the node
 		final ImmutableSet<ContentFilter> contentFilters = oldNode == null
-				|| !oldNode.defaultChildrenHaveBeenPopulated()
-				? getDefaultContentFilters(diagramType, bo)
+				|| !oldNode.defaultChildrenHaveBeenPopulated() ? getDefaultContentFilters(diagramType, bo)
 						: ImmutableSet.of();
 				final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
 				final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo, Completeness.UNKNOWN);

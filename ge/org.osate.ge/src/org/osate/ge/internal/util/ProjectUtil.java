@@ -61,7 +61,7 @@ public class ProjectUtil {
 		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(SelectionUtil::getProject);
 	}
 
-	private static Optional<Resource> getResource(Object bo) {
+	private static Optional<Resource> getResource(final Object bo) {
 		final EObject eObject;
 
 		// Handle EObject instances without delegating to specialized handlers
