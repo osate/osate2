@@ -124,8 +124,8 @@
             name="Restore Missing Diagram Elements...">
       </command>
       <command
-            id="org.osate.ge.toggleContentFilter"
-            name="Toggle Content Filter">
+            id="org.osate.ge.showContentFilter"
+            name="Show Content Filter">
          <commandParameter
                id="contentsFilterId"
                name="Contents Filter ID"
@@ -133,8 +133,29 @@
          </commandParameter>
       </command>
       <command
-            id="org.osate.ge.toggleAllFilters"
-            name="Toggle All Filters">
+            id="org.osate.ge.hideContentFilter"
+            name="Hide Content Filter">
+         <commandParameter
+               id="contentsFilterId"
+               name="Contents Filter ID"
+               optional="false">
+         </commandParameter>
+      </command>
+      <command
+            id="org.osate.ge.showAllContents"
+            name="Show All">
+      </command>
+      <command
+            id="org.osate.ge.showDefaultContents"
+            name="Show Default">
+      </command>
+      <command
+            id="org.osate.ge.showElement"
+            name="Show">
+      </command>
+      <command
+            id="org.osate.ge.hideElement"
+            name="Hide">
       </command>
       <command
             id="org.osate.ge.hideAllContents"
@@ -397,12 +418,28 @@
           commandId="org.osate.ge.restoreMissingDiagramElements">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.ToggleContentFilterHandler"
-          commandId="org.osate.ge.toggleContentFilter">
+          class="org.osate.ge.internal.ui.handlers.ShowContentFilterHandler"
+          commandId="org.osate.ge.showContentFilter">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.ToggleAllFiltersHandler"
-          commandId="org.osate.ge.toggleAllFilters">
+          class="org.osate.ge.internal.ui.handlers.HideContentFilterHandler"
+          commandId="org.osate.ge.hideContentFilter">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ShowAllContentsHandler"
+          commandId="org.osate.ge.showAllContents">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ShowDefaultContentsHandler"
+          commandId="org.osate.ge.showDefaultContents">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ShowElementHandler"
+          commandId="org.osate.ge.showElement">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.HideElementHandler"
+          commandId="org.osate.ge.hideElement">
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.HideAllContentsHandler"
@@ -451,10 +488,6 @@
     <handler
           class="org.osate.ge.internal.ui.handlers.SaveImageHandler"
           commandId="org.osate.ge.saveImage">
-    </handler>
-    <handler
-          class="org.osate.ge.internal.ui.handlers.SetDescendantsToAutomaticHandler"
-          commandId="org.osate.ge.setDescendantsToAutomatic">
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.GoToImplementationDiagramHandler"
@@ -736,45 +769,103 @@
  <menuContribution
        allPopups="false"
        locationURI="popup:org.osate.ge.editor.AgeDiagramEditor">
+    <separator
+         name="org.osate.ge.sepConfigure"
+         visible="true">
+    </separator>
     <command
           commandId="org.osate.ge.configureDiagram"
           label="Configure Diagram..."
           style="push">
     </command>
+	<command
+	     commandId="org.osate.ge.showElement"
+	     style="push">
+    <visibleWhen
+          checkEnabled="true">
+    </visibleWhen>
+	</command>
     <menu
-          id="org.osate.ge.showMenu"
-          label="Show">
+          id="org.osate.ge.showContentsMenu"
+          label="Show Contents">
        <command
-             commandId="org.osate.ge.toggleAllFilters"
-             label="All Filters"
-             style="toggle">
+             commandId="org.osate.ge.showAllContents"
+             label="All"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
+       </command>
+       <command
+             commandId="org.osate.ge.showDefaultContents"
+             label="Default"
+             style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
        </command>
        <separator
              name="org.osate.ge.separator1"
              visible="true">
        </separator>
        <dynamic
-             class="org.osate.ge.internal.ui.editor.ToggleFiltersContributionItem"
-             id="org.osate.ge.toggleFilters">
+             class="org.osate.ge.internal.ui.editor.ShowFiltersContributionItem"
+             id="org.osate.ge.showFilters">
        </dynamic>
        <command
-             commandId="org.osate.ge.hideAllContents"
+             commandId="org.osate.ge.configureDiagram"
+             label="Other..."
              style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
        </command>
-       <command
-             commandId="org.osate.ge.setDescendantsToAutomatic"
-             style="push">
-       </command>
+       <visibleWhen
+             checkEnabled="true">
+       </visibleWhen>
+    </menu>
+	<command
+	     commandId="org.osate.ge.hideElement"
+	     style="push">
+    <visibleWhen
+          checkEnabled="true">
+    </visibleWhen>
+	</command>
+	<menu
+          id="org.osate.ge.hideContentsMenu"
+          label="Hide Contents">
+		<command
+	     commandId="org.osate.ge.hideAllContents"
+	     label="All"
+	     style="push">
+     <visibleWhen
+           checkEnabled="true">
+     </visibleWhen>
+	   </command>
        <separator
-             name="org.osate.ge.separator10"
+             name="org.osate.ge.hc.separator1"
              visible="true">
        </separator>
+       <dynamic
+             class="org.osate.ge.internal.ui.editor.HideFiltersContributionItem"
+             id="org.osate.ge.hideFilters">
+       </dynamic>
        <command
              commandId="org.osate.ge.configureDiagram"
-             label="Custom..."
+             label="Other..."
              style="push">
+          <visibleWhen
+                checkEnabled="true">
+          </visibleWhen>
        </command>
+       <visibleWhen
+             checkEnabled="true">
+       </visibleWhen>
     </menu>
+   <separator
+         name="org.osate.ge.sepLayout"
+         visible="true">
+   </separator>
     <menu
           id="org.osate.ge.layoutMenu"
           label="Layout">
@@ -1392,6 +1483,12 @@
           contextId="org.osate.ge.context"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="DEL">
+    </key>
+	<key
+          commandId="org.osate.ge.hideElement"
+          contextId="org.osate.ge.context"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="H">
     </key>
   </extension>
   

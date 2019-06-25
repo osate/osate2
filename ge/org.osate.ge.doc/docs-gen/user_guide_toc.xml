@@ -68,8 +68,12 @@
 	</topic>
 	<topic label="Copying and Pasting" href="docs-gen/user_guide.html#copying-and-pasting">
 	</topic>
-	<topic label="Diagram Configuration" href="docs-gen/user_guide.html#diagram-configuration">
-		<topic label="Diagram Types(#sec:diagram_types)" href="docs-gen/user_guide.html#diagram-typessecdiagram_types">
+	<topic label="Diagram Configuration" href="docs-gen/user_guide.html#sec:diagram_configuration">
+		<topic label="Diagram Types" href="docs-gen/user_guide.html#sec:diagram_types">
+		</topic>
+		<topic label="Showing and Hiding Diagram Elements" href="docs-gen/user_guide.html#showing-and-hiding-diagram-elements">
+		</topic>
+		<topic label="Displaying Hidden Elements in Outline" href="docs-gen/user_guide.html#displaying-hidden-elements-in-outline">
 		</topic>
 	</topic>
 	<topic label="Visualization" href="docs-gen/user_guide.html#visualization">
