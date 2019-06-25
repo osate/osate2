@@ -3,7 +3,6 @@ package org.osate.ge.internal.ui.dialogs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,15 +15,13 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateProvider;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerComparator;
@@ -40,8 +37,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -57,8 +52,6 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
-import org.osate.ge.internal.util.ContentFilterUtil;
-import org.osate.ge.internal.util.ManualBranchCache;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -73,8 +66,6 @@ public class DiagramConfigurationDialog {
 		RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo);
 
 		String getName(BusinessObjectContext boc);
-
-		ImmutableSet<ContentFilter> getApplicableContentFilters(Object bo);
 
 		ImmutableSet<ContentFilter> getDefaultContentFilters(Object bo);
 
@@ -115,7 +106,6 @@ public class DiagramConfigurationDialog {
 
 	private class InnerDialog extends Dialog {
 		private CheckboxTreeViewer boTreeViewer;
-		private CheckboxTreeViewer contentFiltersViewer;
 
 		public InnerDialog(final Shell parentShell) {
 			super(parentShell);
@@ -160,37 +150,30 @@ public class DiagramConfigurationDialog {
 			contextBoLabel.setText("Context: " + contextBoDesc);
 			contextBoLabel.setLayoutData(GridDataFactory.swtDefaults().span(2, 1).create());
 
-			final Group modelElementSelectionGroup = new Group(container, SWT.NONE);
-			modelElementSelectionGroup.setText("Model Elements:");
-			modelElementSelectionGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-			modelElementSelectionGroup
-			.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).create());
+			final Label modelElementLabel = new Label(container, SWT.NONE);
+			modelElementLabel.setText("Model Elements:");
+			modelElementLabel.setLayoutData(GridDataFactory.swtDefaults().span(2, 1).create());
 
-			boTreeViewer = new CheckboxTreeViewer(modelElementSelectionGroup,
+			boTreeViewer = new CheckboxTreeViewer(container,
 					SWT.MULTI | SWT.FULL_SELECTION | SWT.BORDER);
 			boTreeViewer.setUseHashlookup(true);
 
 			// Update item when checked
 			boTreeViewer.addCheckStateListener(event -> {
-				// Set is manual
 				final BusinessObjectNode node = (BusinessObjectNode) event.getElement();
 
-				if (event.getChecked()) {
-					// Set the node and all ancestors as being manual
-					BusinessObjectNode tmp;
-					for (tmp = node; tmp.getParent() != null; tmp = tmp.getParent()) {
-						tmp.setManual(true);
+				// Don't allow disabling the root node.
+				if (isDisableable(node)) {
+					if (event.getChecked()) {
+						enableNode(node);
+					} else {
+						// Disable node and descendants
+						disableNode(node);
 					}
-				} else {
-					// Set the node and all descendants as being automatic
-					setBranchIsManual(node, false);
+
+					// Update the selection
+					boTreeViewer.setSelection(new StructuredSelection(node));
 				}
-
-				// Reset the descendant checker cache
-				manualBranchCache.reset();
-
-				// Update the selection
-				boTreeViewer.setSelection(new StructuredSelection(node));
 
 				updateTree();
 			});
@@ -198,22 +181,22 @@ public class DiagramConfigurationDialog {
 			boTreeViewer.setCheckStateProvider(new ICheckStateProvider() {
 				@Override
 				public boolean isGrayed(final Object element) {
-					return false;
+					final BusinessObjectNode node = (BusinessObjectNode) element;
+					return !isDisableable(node);
 				}
 
 				@Override
 				public boolean isChecked(final Object element) {
 					final BusinessObjectNode node = (BusinessObjectNode) element;
-					return getEnabledState(node) == EnabledState.MANUALLY_ENABLED;
+					return enabledNodes.contains(node);
 				}
 			});
 
-			boTreeViewer.setLabelProvider(new StyledCellLabelProvider(StyledCellLabelProvider.COLORS_ON_SELECTION) {
+			boTreeViewer.setLabelProvider(new CellLabelProvider() {
 				@Override
 				public void update(final ViewerCell cell) {
 					final BusinessObjectNode node = (BusinessObjectNode) cell.getElement();
 					cell.setText(model.getName(node));
-					cell.setForeground(isEnabled(node) ? null : Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
 					cell.setImage(model.getImage(node.getBusinessObject()));
 				}
 			});
@@ -234,150 +217,6 @@ public class DiagramConfigurationDialog {
 					final BusinessObjectNode n2 = (BusinessObjectNode) e2;
 					return model.getName(n1).compareToIgnoreCase(model.getName(n2));
 				}
-			});
-
-			//
-			// Content Filters Group
-			//
-			final Group contentFiltersGroup = new Group(modelElementSelectionGroup, SWT.NONE);
-			contentFiltersGroup.setText("Filters:");
-			contentFiltersGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-			contentFiltersGroup.setLayoutData(GridDataFactory.fillDefaults().grab(false, true).create());
-
-			//
-			// List for configuring the content filters
-			//
-			contentFiltersViewer = new CheckboxTreeViewer(contentFiltersGroup, SWT.BORDER);
-			contentFiltersViewer.getTree().setLayoutData(GridDataFactory.fillDefaults().grab(false, true).span(1, 1)
-					.minSize(SWT.DEFAULT, 100).hint(300, SWT.DEFAULT).create());
-			contentFiltersViewer.setComparator(new ViewerComparator());
-			contentFiltersViewer.setContentProvider(new ContentFilterTreeContentProvider());
-
-			contentFiltersViewer.setCheckStateProvider(new ICheckStateProvider() {
-				@Override
-				public boolean isGrayed(final Object element) {
-					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-					final ContentFilter filter = (ContentFilter) element;
-
-					// Should be grayed if any of descendants are in content filter set for any of the bo nodes
-					for (final BusinessObjectNode boNode : selectedBoNodes) {
-						if (ContentFilterUtil.anyDescendantsEnabled(filter, boNode.getContentFilters(),
-								getCurrentApplicableContentFilters(boNode.getBusinessObject()))) {
-							return true;
-						}
-					}
-
-					// The filter should be grayed if there are enabled and disabled states for different business objects for which the filter is applicable.
-					boolean applicableFilterIsEnabled = false;
-					boolean applicableFilterIsDisabled = false;
-					for (final BusinessObjectNode boNode : selectedBoNodes) {
-						if (filter.isApplicable(boNode.getBusinessObject())) {
-							if (isFilterEnabled(filter, boNode)) {
-								applicableFilterIsEnabled = true;
-							} else {
-								applicableFilterIsDisabled = true;
-							}
-
-							if (applicableFilterIsEnabled && applicableFilterIsDisabled) {
-								return true;
-							}
-						}
-					}
-
-					return false;
-				}
-
-				private boolean isFilterEnabled(final ContentFilter filter, final BusinessObjectNode boNode) {
-					return boNode.getContentFilters().contains(filter) || ContentFilterUtil.anyAncestorsEnabled(filter,
-							boNode.getContentFilters(), getCurrentApplicableContentFilters(boNode.getBusinessObject()));
-				}
-
-				@Override
-				public boolean isChecked(final Object element) {
-					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-
-					final ContentFilter filter = (ContentFilter) element;
-
-					// Should be checked if in content filter set, any of it's children are in the set, or if it's parent is in the set.
-					if (isGrayed(element)) {
-						return true;
-					}
-
-					return selectedBoNodes.stream().anyMatch(boNode -> isFilterEnabled(filter, boNode));
-				}
-			});
-
-			contentFiltersViewer.addCheckStateListener(event -> {
-				final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-				final ContentFilter updatedFilter = (ContentFilter) event.getElement();
-
-				// Update the content filters
-				for (final BusinessObjectNode boNode : selectedBoNodes) {
-					final ImmutableSet<ContentFilter> newContentFilters = ContentFilterUtil.updateContentFilterSet(
-							boNode.getContentFilters(), getCurrentApplicableContentFilters(boNode.getBusinessObject()),
-							updatedFilter, event.getChecked());
-					boNode.setContentFilters(newContentFilters);
-				}
-
-				updateTree();
-			});
-
-			contentFiltersViewer.setLabelProvider(new LabelProvider() {
-				@Override
-				public String getText(final Object element) {
-					return ((ContentFilter) element).getName();
-				}
-			});
-
-			final Composite contentFiltersButtons = new Composite(contentFiltersGroup, SWT.NONE);
-			contentFiltersButtons.setLayoutData(GridDataFactory.fillDefaults().grab(false, true).create());
-			contentFiltersButtons.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
-
-			final Button selectAllContentFiltersBtn = new Button(contentFiltersButtons, SWT.PUSH);
-			selectAllContentFiltersBtn.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
-			selectAllContentFiltersBtn.setText("Select All");
-			selectAllContentFiltersBtn.setEnabled(false);
-			selectAllContentFiltersBtn.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-					selectedBoNodes.forEach(selectedNode -> {
-						final ImmutableSet<ContentFilter> newContentFilters = getCurrentApplicableContentFilters(
-								selectedNode.getBusinessObject()).stream().filter(cf -> cf.getParentId() == null)
-								.collect(ImmutableSet.toImmutableSet());
-						selectedNode.setContentFilters(newContentFilters);
-					});
-
-					updateTree();
-				}
-			});
-
-			final Button deselectAllContentFiltersBtn = new Button(contentFiltersButtons, SWT.PUSH);
-			deselectAllContentFiltersBtn.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
-			deselectAllContentFiltersBtn.setText("Deselect All");
-			deselectAllContentFiltersBtn.setEnabled(false);
-			deselectAllContentFiltersBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-					selectedBoNodes.forEach(selectedNode -> selectedNode.setContentFilters(ImmutableSet.of()));
-
-					updateTree();
-				}
-			});
-
-			boTreeViewer.addSelectionChangedListener(event -> {
-				final List<BusinessObjectNode> selectedBoNodes = getSelectedBusinessObjectNodes();
-				final Set<ContentFilter> applicableContentFilters = new HashSet<>();
-				selectedBoNodes.forEach(boNode -> {
-					resolveIfProxy(boNode);
-					applicableContentFilters.addAll(model.getApplicableContentFilters(boNode.getBusinessObject()));
-				});
-				contentFiltersViewer.setInput(ImmutableSet.copyOf(applicableContentFilters));
-				contentFiltersViewer.getTree().setEnabled(!selectedBoNodes.isEmpty());
-				selectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
-				deselectAllContentFiltersBtn.setEnabled(!applicableContentFilters.isEmpty());
 			});
 
 			// AADL Properties Widgets
@@ -534,29 +373,47 @@ public class DiagramConfigurationDialog {
 			return area;
 		}
 
-		@SuppressWarnings("unchecked")
-		private final ImmutableSet<ContentFilter> getCurrentApplicableContentFilters(final Object bo) {
-			return ((ImmutableSet<ContentFilter>) contentFiltersViewer.getInput()).stream()
-					.filter(cf -> cf.isApplicable(bo)).collect(ImmutableSet.toImmutableSet());
+		private boolean isDisableable(final BusinessObjectNode node) {
+			return diagramConfigBuilder.getContextBoReference() == null || node.getParent() != businessObjectTree;
 		}
 
-		@SuppressWarnings("unchecked")
-		private final List<BusinessObjectNode> getSelectedBusinessObjectNodes() {
-			final ISelection boNodeSelection = boTreeViewer.getSelection();
-			final List<BusinessObjectNode> selectedBoNodes;
-			if (boNodeSelection instanceof StructuredSelection && !boNodeSelection.isEmpty()) {
-				selectedBoNodes = ((StructuredSelection) boNodeSelection).toList();
-			} else {
-				selectedBoNodes = Collections.emptyList();
+		private void enableNode(final BusinessObjectNode node) {
+			// Enable the node and all ancestors
+			BusinessObjectNode tmp;
+			for (tmp = node; tmp.getParent() != null; tmp = tmp.getParent()) {
+				if (enabledNodes.add(tmp)) {
+					enableDefaultChildren(tmp);
+				} else {
+					break;
+				}
 			}
-
-			return selectedBoNodes;
 		}
 
-		private void setBranchIsManual(final BusinessObjectNode node, final boolean value) {
-			node.setManual(value);
-			for (final BusinessObjectNode child : node.getChildren()) {
-				setBranchIsManual(child, value);
+		/**
+		 * Enables children based on the default content filters of the node.
+		 * @param node
+		 */
+		private void enableDefaultChildren(final BusinessObjectNode node) {
+			// Create children as needed
+			ensureChildrenPopulated(node);
+
+			// Enable children based on the defualt content filters
+			for (BusinessObjectNode child : node.getChildren()) {
+				if (!enabledNodes.contains(child)) {
+					for (final ContentFilter contentFilter : model.getDefaultContentFilters(node.getBusinessObject())) {
+						if (contentFilter.test(child.getBusinessObject())) {
+							enableNode(child);
+						}
+					}
+				}
+			}
+		}
+
+		private void disableNode(final BusinessObjectNode node) {
+			if (enabledNodes.remove(node)) {
+				for (final BusinessObjectNode child : node.getChildren()) {
+					disableNode(child);
+				}
 			}
 		}
 
@@ -565,7 +422,6 @@ public class DiagramConfigurationDialog {
 		 */
 		private void updateTree() {
 			boTreeViewer.update(getVisibleElements(), null);
-			contentFiltersViewer.refresh();
 		}
 
 		private void setSelection(final Object[] boPath) {
@@ -605,16 +461,7 @@ public class DiagramConfigurationDialog {
 		}
 	}
 
-	private enum EnabledState {
-		NOT_ENABLED, // Not enabled. Will not be in the final diagram.
-		IMPLICITLY_ENABLED, // Enabled because of other rules. For example if one of its descendants is enabled.
-		MANUALLY_ENABLED
-	}
-
 	private class BusinessObjectTreeContentProvider implements ITreeContentProvider {
-		private final Set<BusinessObjectNode> populatedNodes = new HashSet<>(); // Set of nodes which have had their children populated with nodes for potential
-		// business objects
-
 		@Override
 		public void dispose() {
 		}
@@ -636,22 +483,7 @@ public class DiagramConfigurationDialog {
 		@Override
 		public Object[] getChildren(final Object parentElement) {
 			final BusinessObjectNode node = (BusinessObjectNode) parentElement;
-
-			if (!populatedNodes.contains(node)) {
-				resolveIfProxy(node);
-
-				// Create new business object nodes as needed
-				for (final Object childBo : model.getChildBusinessObjects(node)) {
-					final RelativeBusinessObjectReference childRef = model.getRelativeBusinessObjectReference(childBo);
-					// Create a child node if it doesn't exist
-					if (node.getChild(childRef) == null) {
-						new BusinessObjectNode(node, UUID.randomUUID(), childRef, childBo, false,
-								model.getDefaultContentFilters(childBo), Completeness.UNKNOWN);
-					}
-				}
-				populatedNodes.add(node);
-			}
-
+			ensureChildrenPopulated(node);
 			return node.getChildren().stream().filter(n -> model.shouldShowBusinessObject(n.getBusinessObject()))
 					.toArray();
 		}
@@ -675,51 +507,14 @@ public class DiagramConfigurationDialog {
 		}
 	}
 
-	private class ContentFilterTreeContentProvider implements ITreeContentProvider {
-		private ImmutableSet<ContentFilter> input;
-
-		@Override
-		public void dispose() {
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
-			this.input = (ImmutableSet<ContentFilter>) newInput;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public Object[] getElements(final Object inputElement) {
-			return ((ImmutableSet<ContentFilter>) inputElement).stream().filter(cf -> cf.getParentId() == null)
-					.toArray();
-		}
-
-		@Override
-		public Object[] getChildren(final Object parentElement) {
-			final ContentFilter parent = (ContentFilter) parentElement;
-			return input.stream().filter(cf -> cf.getParentId() == parent.getId()).toArray();
-		}
-
-		@Override
-		public Object getParent(final Object element) {
-			final ContentFilter child = (ContentFilter) element;
-			return input.stream().filter(cf -> cf.getId() == child.getParentId()).findFirst().orElse(null);
-		}
-
-		@Override
-		public boolean hasChildren(final Object element) {
-			final ContentFilter parent = (ContentFilter) element;
-			return input.stream().anyMatch(cf -> cf.getParentId() == parent.getId());
-		}
-	}
-
 	private final Model model;
 	private final InnerDialog dlg;
 	private final DiagramConfigurationBuilder diagramConfigBuilder;
 	private final BusinessObjectNode businessObjectTree;
 	private final Object[] initialSelectionBoPath;
-	private final ManualBranchCache manualBranchCache = new ManualBranchCache();
+	private final Set<BusinessObjectNode> enabledNodes = new HashSet<>();
+	private final Set<BusinessObjectNode> populatedNodes = new HashSet<>(); // Set of nodes which have had their children populated with nodes for potential
+	// business objects
 
 	protected DiagramConfigurationDialog(final Shell parentShell, final Model model,
 			final DiagramConfiguration diagramConfig, final BusinessObjectNode businessObjectTree,
@@ -731,6 +526,10 @@ public class DiagramConfigurationDialog {
 		this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null")
 				.copy();
 		this.initialSelectionBoPath = initialSelectionBoPath;
+
+		// Add all nodes in specfified tree to the enabled nodes set
+		enabledNodes.add(this.businessObjectTree);
+		this.businessObjectTree.getAllDescendants().forEachOrdered(n -> enabledNodes.add((BusinessObjectNode) n));
 	}
 
 	/**
@@ -738,48 +537,58 @@ public class DiagramConfigurationDialog {
 	 * @return
 	 */
 	private Result open() {
-		return dlg.open() == Window.OK ? new Result(diagramConfigBuilder.build(), businessObjectTree) : null;
-	}
-
-	// Returns whether the node is either manually or automatically enabled
-	private boolean isEnabled(final BusinessObjectNode node) {
-		return getEnabledState(node) != EnabledState.NOT_ENABLED;
-	}
-
-	private EnabledState getEnabledState(final BusinessObjectNode node) {
-		if (node.isManual()) {
-			return EnabledState.MANUALLY_ENABLED;
-		} else if (node.getParent() != null && isEnabled(node.getParent())) {
-			final BusinessObjectNode parentNode = node.getParent();
-
-			// Check Parent Content Filters
-			for (final ContentFilter contentFilter : parentNode.getContentFilters()) {
-				if (contentFilter.test(node.getBusinessObject())) {
-					return EnabledState.IMPLICITLY_ENABLED;
-				}
-			}
-
-			if (manualBranchCache.isManualBranch(node)) {
-				return EnabledState.IMPLICITLY_ENABLED;
-			}
+		if (dlg.open() != Window.OK) {
+			return null;
 		}
 
-		// Implicitly enabled because it is a top level node in a diagram with a context. In such diagrams, the root nodes are automatically added.
-		if (diagramConfigBuilder.getContextBoReference() != null && node.getParent() != null
-				&& node.getParent().getParent() == null) {
-			return EnabledState.IMPLICITLY_ENABLED;
-		}
+		// Remove disabled nodes
+		final List<BusinessObjectNode> nodesToRemove = new ArrayList<>();
+		determineNodesToRemove(businessObjectTree, nodesToRemove);
+		nodesToRemove.forEach(BusinessObjectNode::remove);
 
-		return EnabledState.NOT_ENABLED;
+		return new Result(diagramConfigBuilder.build(), businessObjectTree);
+	}
+
+	/**
+	 * Adds the specified node to the nodes to remove if it is disabled. If it is enabled, it checks children.
+	 * @param node
+	 * @param nodesToRemove
+	 */
+	private void determineNodesToRemove(final BusinessObjectNode node,
+			final List<BusinessObjectNode> nodesToRemove) {
+		if (enabledNodes.contains(node)) {
+			for (final BusinessObjectNode child : node.getChildren()) {
+				determineNodesToRemove(child, nodesToRemove);
+			}
+		} else {
+			nodesToRemove.add(node);
+		}
 	}
 
 	private void resolveIfProxy(final BusinessObjectNode node) {
 		if (model.isProxy(node.getBusinessObject())) {
 			final Object resolvedObject = model.resolve(node.getBusinessObject());
 			node.setBusinessObject(resolvedObject);
+		}
+	}
 
-			// Because the object was a proxy, it will not have had the appropriate default content filters assigned.
-			node.setContentFilters(model.getDefaultContentFilters(resolvedObject));
+	/**
+	 * Populate children of the specified node if they have not been populated.
+	 * @param node
+	 */
+	private void ensureChildrenPopulated(final BusinessObjectNode node) {
+		if (!populatedNodes.contains(node)) {
+			resolveIfProxy(node);
+
+			// Create new business object nodes as needed
+			for (final Object childBo : model.getChildBusinessObjects(node)) {
+				final RelativeBusinessObjectReference childRef = model.getRelativeBusinessObjectReference(childBo);
+				// Create a child node if it doesn't exist
+				if (node.getChild(childRef) == null) {
+					new BusinessObjectNode(node, UUID.randomUUID(), childRef, childBo, Completeness.UNKNOWN, true);
+				}
+			}
+			populatedNodes.add(node);
 		}
 	}
 
@@ -855,11 +664,6 @@ public class DiagramConfigurationDialog {
 			}
 
 			@Override
-			public ImmutableSet<ContentFilter> getApplicableContentFilters(final Object bo) {
-				return ImmutableSet.copyOf(TestContentsFilter.values());
-			}
-
-			@Override
 			public ImmutableSet<ContentFilter> getDefaultContentFilters(final Object bo) {
 				return ImmutableSet.of(TestContentsFilter.FILTER1);
 			}
@@ -909,17 +713,16 @@ public class DiagramConfigurationDialog {
 				.addAadlProperty("test_ps2::b").connectionPrimaryLabelsVisible(true).build();
 
 		// Create a test business object tree
-		final BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null, false,
-				ImmutableSet.of(),
-				Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("A"), "A", false,
-				ImmutableSet.of(), Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("B"), "B", true,
-				ImmutableSet.of(), Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("C"), "C", true,
-				ImmutableSet.of(), Completeness.UNKNOWN);
-		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("D"), "D", true,
-				ImmutableSet.of(), Completeness.UNKNOWN);
+		final BusinessObjectNode rootNode = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
+				Completeness.UNKNOWN, true);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("A"), "A",
+				Completeness.UNKNOWN, true);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("B"), "B",
+				Completeness.UNKNOWN, true);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("C"), "C",
+				Completeness.UNKNOWN, true);
+		new BusinessObjectNode(rootNode, UUID.randomUUID(), new RelativeBusinessObjectReference("D"), "D",
+				Completeness.UNKNOWN, true);
 
 		// Show the dialog
 		final Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode,

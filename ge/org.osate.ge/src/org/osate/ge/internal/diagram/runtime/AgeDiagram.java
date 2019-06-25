@@ -10,7 +10,6 @@ import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
@@ -24,7 +23,6 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
 /**
@@ -280,24 +278,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
-		}
-
-		@Override
-		public void setManual(final DiagramElement e, final boolean value) {
-			if (value != e.isManual()) {
-				storeFieldChange(e, ModifiableField.MANUAL, e.isManual(), value);
-				e.setManual(value);
-				afterUpdate(e, ModifiableField.MANUAL);
-			}
-		}
-
-		@Override
-		public void setContentFilters(final DiagramElement e, final ImmutableSet<ContentFilter> value) {
-			if (!value.equals(e.getContentFilters())) {
-				storeFieldChange(e, ModifiableField.CONTENT_FILTERS, e.getContentFilters(), value);
-				e.setContentFilters(value);
-				afterUpdate(e, ModifiableField.CONTENT_FILTERS);
-			}
 		}
 
 		@Override
@@ -654,14 +634,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@SuppressWarnings("unchecked")
 		private void setValue(final DiagramModification m, final Object value) {
 			switch (field) {
-			case MANUAL:
-				m.setManual(element, (boolean) value);
-				break;
-
-			case CONTENT_FILTERS:
-				m.setContentFilters(element, (ImmutableSet<ContentFilter>) value);
-				break;
-
 			case COMPLETENESS:
 				m.setCompleteness(element, (Completeness) value);
 				break;
@@ -787,6 +759,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			AgeDiagram.runModification(modifier, mod);
 			if (mod.changes.size() > 0) {
 				if (affectsChangeNumber(mod.changes)) {
+
+					for (final DiagramChange c : mod.changes) {
+						if (c.affectsChangeNumber()) {
+							break;
+						}
+					}
+
 					originalVersionNumber = ageDiagram.changeNumber;
 					ageDiagram.changeNumber++;
 					newVersionNumber = ageDiagram.changeNumber;

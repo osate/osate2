@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -40,7 +38,6 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.osate.ge.DiagramType;
-import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
@@ -61,10 +58,10 @@ import org.osate.ge.internal.ui.dialogs.DefaultCreateDiagramModel;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
+import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -170,10 +167,7 @@ public class DefaultDiagramService implements DiagramService {
 			throw new RuntimeException("Unable to get canonical reference for business object : " + bo);
 		}
 
-		final IProject project = getProject(bo);
-		if (project == null) {
-			throw new RuntimeException("Unable to get project for business object: " + bo);
-		}
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(bo);
 
 		// Build a set containing the project containing the business object and all projects which reference that project.
 		final HashSet<IProject> relevantProjects = new HashSet<>();
@@ -267,8 +261,7 @@ public class DefaultDiagramService implements DiagramService {
 
 	@Override
 	public IFile createDiagram(final Object contextBo) {
-		final IProject project = Objects.requireNonNull(getProject(contextBo),
-				"Unable to get project for business object: " + contextBo);
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(contextBo);
 
 		// Prompt to determine the filepath and diagram type.
 		final CreateDiagramDialog.Model<DiagramType> createDiagramModel = new DefaultCreateDiagramModel(extRegistry,
@@ -297,22 +290,6 @@ public class DefaultDiagramService implements DiagramService {
 					.setContextBoReference(contextBoCanonicalRef).connectionPrimaryLabelsVisible(false).build());
 
 		});
-
-		if (contextBo != null) {
-			// Create a root diagram element for the context which will be set to manual.
-			// This has the benefit that the root element will be checked when the user configures the diagram.
-			final RelativeBusinessObjectReference contextBoRelRef = Objects.requireNonNull(
-					referenceService.getRelativeReference(contextBo),
-					"Unable to build relative reference for business object: " + contextBo);
-			diagram.modify("Set Context as Manual", m -> {
-				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef,
-						UUID.randomUUID());
-				m.setManual(contextElement, true);
-				m.addElement(contextElement);
-				m.setContentFilters(contextElement,
-						diagramType.getApplicableDefaultContentFilters(contextBo, extRegistry));
-			});
-		}
 
 		final URI newDiagramUri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		DiagramSerialization.write(diagramFile.getProject(), diagram, newDiagramUri);
@@ -429,38 +406,6 @@ public class DefaultDiagramService implements DiagramService {
 		} catch (final CoreException e) {
 			// Ignore exceptions
 		}
-	}
-
-	private IProject getProject(Object bo) {
-		final Resource resource = getResource(bo);
-		if (resource != null) {
-			final URI uri = resource.getURI();
-			if (uri != null) {
-				return SelectionUtil.getProject(uri);
-			}
-		}
-
-		return null;
-	}
-
-	private Resource getResource(Object bo) {
-		final EObject eObject;
-
-		// Handle EObject instances without delegating to specialized handlers
-		if (bo instanceof EObject) {
-			eObject = (EObject) bo;
-		} else if (bo instanceof EmfContainerProvider) { // Use the EMF Object container if the business object is not an EMF Object
-			final EObject container = ((EmfContainerProvider) bo).getEmfContainer();
-			if (container == null) {
-				return null;
-			}
-
-			eObject = container;
-		} else {
-			return null;
-		}
-
-		return eObject.eResource();
 	}
 
 	class InternalReferencesToUpdate implements ReferenceCollection {

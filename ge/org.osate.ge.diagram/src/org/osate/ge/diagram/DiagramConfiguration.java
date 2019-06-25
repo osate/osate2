@@ -189,9 +189,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 		if (newEnabledAadlProperties != enabledAadlProperties) {
 			NotificationChain msgs = null;
 			if (enabledAadlProperties != null)
-				msgs = ((InternalEObject)enabledAadlProperties).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
+				msgs = enabledAadlProperties.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
 			if (newEnabledAadlProperties != null)
-				msgs = ((InternalEObject)newEnabledAadlProperties).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
+				msgs = newEnabledAadlProperties.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__ENABLED_AADL_PROPERTIES, null, msgs);
 			msgs = basicSetEnabledAadlProperties(newEnabledAadlProperties, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -244,9 +244,9 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 		if (newContext != context) {
 			NotificationChain msgs = null;
 			if (context != null)
-				msgs = ((InternalEObject)context).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
+				msgs = context.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
 			if (newContext != null)
-				msgs = ((InternalEObject)newContext).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
+				msgs = newContext.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_CONFIGURATION__CONTEXT, null, msgs);
 			msgs = basicSetContext(newContext, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -400,7 +400,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (type: ");
 		result.append(type);
 		result.append(", connectionPrimaryLabelsVisible: ");
