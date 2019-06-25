@@ -495,12 +495,11 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private PictogramElement[] getCurrentlySelectedPictogramElements() {
-		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
 		final List<PictogramElement> pes = new ArrayList<>();
 		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for(final Object selectedDiagramNode : outlineSelection) {
-			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement((DiagramNode)selectedDiagramNode);
-			if(pe != null) {
+		for (final DiagramNode selectedDiagramNode : getCurrentlySelectedDiagramNodes()) {
+			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement(selectedDiagramNode);
+			if (pe != null) {
 				pes.add(pe);
 			}
 		}
