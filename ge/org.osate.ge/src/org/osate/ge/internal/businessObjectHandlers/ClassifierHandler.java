@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
@@ -317,11 +318,19 @@ public class ClassifierHandler {
 		} else {
 			final ComponentPaletteEntryContext componentPaletteEntryCtx = (ComponentPaletteEntryContext) paletteEntryContext;
 
-			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(project,
-					namingService, rs, "Configure component implementation.") {
+			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
+					rs, "Configure component implementation.") {
 				@Override
 				public String getTitle() {
 					return "Create Component Implementation";
+				}
+
+				@Override
+				public Collection<?> getPackageOptions() {
+					return ScopedEMFIndexRetrieval
+							.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())
+							.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
+							.collect(Collectors.toList());
 				}
 
 				@Override

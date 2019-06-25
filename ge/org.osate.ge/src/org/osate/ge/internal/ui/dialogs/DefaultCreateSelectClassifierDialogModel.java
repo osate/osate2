@@ -3,30 +3,23 @@ package org.osate.ge.internal.ui.dialogs;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 
 public class DefaultCreateSelectClassifierDialogModel implements ClassifierOperationDialog.Model {
-	private final IProject project;
 	private final NamingService namingService;
 	private final ClassifierCreationHelper classifierCreationHelper;
 	private final String defaultMessage;
 
-	public DefaultCreateSelectClassifierDialogModel(final IProject project,
-			final NamingService namingService, final ResourceSet resourceSet,
+	public DefaultCreateSelectClassifierDialogModel(final NamingService namingService, final ResourceSet resourceSet,
 			final String defaultMessage) {
-		this.project = Objects.requireNonNull(project, "project must not be null");
 		this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
 		this.classifierCreationHelper = new ClassifierCreationHelper(namingService, resourceSet);
 		this.defaultMessage = Objects.requireNonNull(defaultMessage, "defaultMessage must not be null");
@@ -72,10 +65,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 
 	@Override
 	public Collection<?> getPackageOptions() {
-		return ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage()).stream()
-				.filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
-				.collect(Collectors.toList());
+		return Collections.emptyList();
 	}
 
 	@Override
