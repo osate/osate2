@@ -13,22 +13,25 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 
 public class OpenAssociatedDiagramHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() == 1) {
-			final DiagramElement selectedElement = selectedDiagramElements.get(0);
-			final Object bo = selectedElement.getBusinessObject();
-			enabled = bo instanceof AadlPackage || bo instanceof Classifier || (bo instanceof Subcomponent
-					&& AadlSubcomponentUtil.getComponentClassifier(selectedElement, (Subcomponent) bo) != null);
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 1) {
+			final BusinessObjectContext selectedBusinessObjectContext = selectedBusinessObjectContexts.get(0);
+			final Object bo = selectedBusinessObjectContext.getBusinessObject();
+			enabled = (bo instanceof AadlPackage || bo instanceof Classifier || (bo instanceof Subcomponent
+					&& AadlSubcomponentUtil.getComponentClassifier(selectedBusinessObjectContext,
+							(Subcomponent) bo) != null))
+					&& ProjectUtil.getProjectForBo(bo).isPresent();
 		}
 
 		setBaseEnabled(enabled);
@@ -41,14 +44,15 @@ public class OpenAssociatedDiagramHandler extends AbstractHandler {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() == 0) {
+		// Get diagram and selected BOCs
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}
 
-		final DiagramElement selectedElement = selectedDiagramElements.get(0);
-		final Object bo = selectedElement.getBusinessObject();
+		final BusinessObjectContext selectedBusinessObjectContext = selectedBusinessObjectContexts.get(0);
+		final Object bo = selectedBusinessObjectContext.getBusinessObject();
 
 		final DiagramService diagramService = Objects.requireNonNull(Adapters.adapt(activeEditor, DiagramService.class),
 				"Unable to retrieve diagram service");
@@ -56,7 +60,7 @@ public class OpenAssociatedDiagramHandler extends AbstractHandler {
 		if (bo instanceof AadlPackage || bo instanceof Classifier) {
 			diagramService.openOrCreateDiagramForBusinessObject(bo);
 		} else if (bo instanceof Subcomponent) {
-			final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(selectedElement,
+			final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(selectedBusinessObjectContext,
 					(Subcomponent) bo);
 			if (cc != null) {
 				diagramService.openOrCreateDiagramForBusinessObject(cc);

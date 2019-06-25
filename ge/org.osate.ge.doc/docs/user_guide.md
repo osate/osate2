@@ -458,8 +458,8 @@ Portions of a diagram can by copied and pasted using the menu items described in
  
 Table: Copy and Paste Menu Items {#tbl:copy_and_paste_menu_items}
 
-# Diagram Configuration
-Configuring a diagram allows customizing the contents of the diagram (See @sec:hidden_children). To configure a diagram, right-click in the diagram or an element in the *Outline* view and select *Configure Diagram…*. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.
+# Diagram Configuration{#sec:diagram_configuration}
+Configuring a diagram allows customizing the contents of the diagram (See @sec:hidden_children). To configure a diagram, right-click in the diagram or an element in the *Outline* view and select *Configure Diagram…*. The diagram configuration dialog allows selecting which elements should appear in the diagram.
 
 The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The communication_properties::timing property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.
 
@@ -467,11 +467,11 @@ Connections which are manually enabled will be removed if the connection ends ar
 
 The Hide Connection Labels option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section 3.1.16.
 
-## Diagram Types(#sec:diagram_types)
-When creating a diagram, a type must be specified. A diagram's type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element's filters determines the child elements that are shown on the diagram.
+## Diagram Types{#sec:diagram_types}
+When creating a diagram, a type must be specified. A diagram's type determines the default contents of elements added to a diagram. The contents of elements are not updated as new elements are added to the model. The diagram type also determines which AADL properties are enabled by default. All diagram types are equally customizable. 
 
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Diagram Type      | Availability                                             | Default Filters                                                         | Properties                                       |
+| Diagram Type      | Availability                                             | Default Contents                                                        | Properties                                       |
 +===================+==========================================================+=========================================================================+==================================================+
 | Custom            | Packages, Classifiers, System Instances, and Contextless | None                                                                    | None                                             |
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
@@ -489,8 +489,29 @@ When creating a diagram, a type must be specified. A diagram's type determines t
 
 Table: Diagram Types {#tbl:diagram_types}
 
+## Showing and Hiding Diagram Elements
+Menu options available in a diagram element's context menu can be used to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element in the diagram or in the outline.
+
+|Menu Option                   | Description                                                                                    |
+|------------------------------|------------------------------------------------------------------------------------------------|
+| *Configure Diagram...*       | Opens the *Configure Diagram* dialog to allow customizing the contents of the current diagram. |
+| *Show* (Outline Only)        | Adds the selected elements to the diagram.                                                     |
+| *Show Contents -> All*       | Adds all available children to the selected elements.                                          |
+| *Show Contents -> Default*   | Adds default set of children to the selected elements based on the diagram type.               |
+| *Show Contents -> `<Subset>`*  | Adds a subset of children to the selected elements.                                          |
+| *Hide*                       | Removes the selected element from the diagram.                                                 |
+| *Hide Contents -> All*       | Removes all children from the selected elements.                                               |
+| *Hide Contents -> `<Subset>`*  | Removes a subset of children from the selected elements.                                     |
+ 
+
+Table: Menu Items for Showing and Hiding Elements {#tbl:show_hide_menu_items}
+
+## Displaying Hidden Elements in Outline
+By default, the *Outline* view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the *Outline* view can be toggled using the *Show Hidden Elements* menu item in the view menu (![View Menu](../images/ui_view_menu_icon.png)). When displayed, hidden elements can be added to the diagram using the *Show* menu item which is available in the context menu.
+
+
 # Visualization
-The following sections describe the diagram visual capabilities of the graphical editor.
+The following sections describe the diagram visualization capabilities of the graphical editor.
 
 ## Inherited Elements{#sec:inherited_elements}
 Elements which are inherited from another model element have a gray color. This indicates that any changes made to the 
