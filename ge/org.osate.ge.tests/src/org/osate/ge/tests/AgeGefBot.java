@@ -917,6 +917,51 @@ public class AgeGefBot {
 		bot.mouseLeftClick(renameLocation.x, renameLocation.y);
 	}
 
+	/**
+	 * Use robot mouse to drag a connection midpoint
+	 * @param editor
+	 * @param connection
+	 */
+	public void dragConnectionMidpoint(final SWTBotGefEditor editor, final Connection connection,
+			final Point dragOffset) {
+		editor.setFocus();
+		final org.eclipse.draw2d.geometry.Point midPoint = connection.getPoints().getMidpoint();
+		final java.awt.Point midpointLocation = new java.awt.Point();
+		final Display display = editor.getWidget().getDisplay();
+		display.syncExec(() -> {
+			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+			final Point point = PlatformUI.getWorkbench().getDisplay().map(canvas, null, midPoint.x, midPoint.y);
+			midpointLocation.x = point.x - canvas.getHorizontalBar().getSelection();
+			midpointLocation.y = point.y - canvas.getVerticalBar().getSelection();
+		});
+
+		// Click connection
+		bot.setAutoDelay(700);
+		bot.mouseMove(midpointLocation.x, midpointLocation.y);
+		bot.mouseLeftClickPress();
+		bot.mouseMove(midpointLocation.x + dragOffset.x, midpointLocation.y + dragOffset.y);
+		bot.mouseLeftClickRelease();
+	}
+
+	public void dragElements(final SWTBotGefEditor editor, final String editPartPath, final Point dragOffset) {
+		final SWTBotGefEditPart editPart = findEditPart(editor, editPartPath);
+		final GraphitiShapeEditPart gsep = (GraphitiShapeEditPart) editPart.part();
+
+		final Display display = editor.getWidget().getDisplay();
+		display.syncExec(() -> {
+			final FigureCanvas canvas = (FigureCanvas) display.getFocusControl();
+			final Rectangle bounds = gsep.getFigure().getBounds();
+			final Point point = PlatformUI.getWorkbench().getDisplay().map(display.getFocusControl(), null, bounds.x,
+					bounds.y);
+			final int xOffset = point.x - canvas.getHorizontalBar().getSelection();
+			final int yOffset = point.y - canvas.getVerticalBar().getSelection();
+			bot.mouseMove(xOffset + 3, yOffset + 3);
+			bot.mouseLeftClickPress();
+			bot.mouseMove(xOffset + dragOffset.x, yOffset + dragOffset.y);
+			bot.mouseLeftClickRelease();
+		});
+	}
+
 	public void clickButtonWithId(final String id) {
 		bot.buttonWithId(id).click();
 	}

@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
@@ -343,26 +345,40 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 						}
 					}
 
-					updateBendpointsForContainedConnections(e, delta.x, delta.y);
+					// updateBendpointsForContainedConnections(e, delta.x, delta.y);
 				}
 			}
 		}
 
-		private void updateBendpointsForContainedConnections(final DiagramElement shapeDiagramElement, final double dx,
-				final double dy) {
-			for (final DiagramElement child : shapeDiagramElement.getDiagramElements()) {
-				if (child.getGraphic() instanceof AgeConnection) {
-					final List<Point> bendpoints = child.getBendpoints();
-					if (bendpoints.size() > 0) {
-						final List<Point> newBendpoints = bendpoints.stream().map((p) -> new Point(p.x + dx, p.y + dy))
-								.collect(Collectors.toList());
-						setBendpoints(child, newBendpoints);
+		@Override
+		public void setPositionAndUpdateBendpoints(final DiagramElement e, final Point value,
+				final boolean updateDockArea) {
+			if (!Objects.equals(e.getPosition(), value)) {
+				// Determine the different between X and Y
+				final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
+
+				storeFieldChange(e, ModifiableField.POSITION, e.getPosition(), value);
+				e.setPosition(value);
+				afterUpdate(e, ModifiableField.POSITION);
+
+				// Don't perform settings triggered by setting the position during undo or redo. Such changes occur in an order that will result in erroneous
+				// values. If a value was changed during the original action, it will have its own entry in the change list.
+				if (!inUndoOrRedo && delta != null) {
+					if (updateDockArea) {
+						// Update the dock area based on the position
+						final DockArea currentDockArea = e.getDockArea();
+						if (currentDockArea != null) {
+							if (currentDockArea != DockArea.GROUP) {
+								setDockArea(e, calculateDockArea(e));
+							}
+						}
 					}
-				}
 
-				updateBendpointsForContainedConnections(child, dx, dy);
+					setRelatedConnectionBendpoints(AgeDiagram.this, Stream.of(e), new Point(delta.x, delta.y), this);
+				}
 			}
 		}
+
 
 		@Override
 		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
@@ -463,6 +479,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		private void completeModification() {
+
 			// Send any pending events
 			notifyListeners();
 
@@ -551,6 +568,47 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				final Object currentValue, final Object newValue) {
 			changes.add(new FieldChange(element, field, currentValue, newValue));
 		}
+	}
+
+	/**
+	 * Updates the bendpoints of connections based on the movement of the specified elements.
+	 * @param ageDiagram the diagram that contains the connections
+	 * @param movedElements the elements that have been moved
+	 * @param point the amount of change in the position of the moved elements
+	 * @param m the modification that will be used to update the bendpoints
+	 */
+	public static void setRelatedConnectionBendpoints(final AgeDiagram ageDiagram,
+			final Stream<DiagramElement> movedElements, final org.osate.ge.graphics.Point point,
+			final DiagramModification m) {
+		// Build a set containing the moved elements and all of their descendant which are represented as shapes
+		final Set<Queryable> diagramElements = movedElements
+				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
+
+		final Stream<DiagramElement> connections = ageDiagram.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement
+						&& ((DiagramElement) q).getGraphic() instanceof AgeConnection/* use isConnection */)
+				.map(DiagramElement.class::cast);
+
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		connections.forEachOrdered(connection -> {
+			final DiagramElement startElement = connection.getStartElement();
+			final DiagramElement endElement = connection.getEndElement();
+			if (diagramElements.contains(startElement) && diagramElements.contains(endElement)) {
+				setBendpoints(connection, point, m);
+			}
+		});
+	}
+
+	private static void setBendpoints(final DiagramElement connection, final org.osate.ge.graphics.Point delta,
+			final DiagramModification m) {
+		// Set new bendpoint locations
+		final List<org.osate.ge.graphics.Point> bendpoints = Lists.newArrayList(connection.getBendpoints());
+		for (int i = 0; i < bendpoints.size(); i++) {
+			final org.osate.ge.graphics.Point bendpoint = bendpoints.get(i);
+			bendpoints.set(i, new org.osate.ge.graphics.Point(bendpoint.x + delta.x, bendpoint.y + delta.y));
+		}
+
+		m.setBendpoints(connection, bendpoints);
 	}
 
 	private static interface DiagramChange {

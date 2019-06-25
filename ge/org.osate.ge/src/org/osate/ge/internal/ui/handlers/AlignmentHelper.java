@@ -69,8 +69,12 @@ class AlignmentHelper {
 			}
 		}
 
+
 		// Set the element new location
-		m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false);
+		// TODO: Create a helper function that will setPositionAndUpdateBendpoints.. Could be added to AgeDiagramModification.
+		// TODO: Update bendpoints setRelatedConnectionBendpoints(diagram, Collections.singleton(de), newLocation - oldLocation, m)
+		// m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false);
+		m.setPositionAndUpdateBendpoints(de, axis.getNewPortLocation(de, newLocation), false);
 	}
 
 	private void shiftCollidingPorts(final DiagramModification m, final DiagramElement de, final double newLocation) {
@@ -82,6 +86,10 @@ class AlignmentHelper {
 				if (axis.isPortCollision(dockedChild, newLocation)) {
 					// Adjust colliding port
 					m.setPosition(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1), false);
+					/*
+					 * m.setPositionAndUpdateBendpoints(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1),
+					 * false);
+					 */
 					break;
 				}
 			}
