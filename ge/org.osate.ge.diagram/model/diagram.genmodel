@@ -23,6 +23,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/manual"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/autoContentsFilter"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/position"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/size"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/dockArea"/>
@@ -36,6 +37,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/primaryLabelVisible"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/image"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/showAsImage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/contentFilters"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/boData"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Point">
@@ -62,6 +64,9 @@
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//Reference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Reference/seg"/>
+    </genClasses>
+    <genClasses ecoreClass="diagram.ecore#//ContentFilters">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//ContentFilters/filter"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
