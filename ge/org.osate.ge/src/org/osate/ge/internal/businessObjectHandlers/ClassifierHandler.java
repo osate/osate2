@@ -189,8 +189,8 @@ public class ClassifierHandler {
 	 * Assumes classifier type is a type of component implementation.
 	 * @return
 	 */
-	private List<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
-			final EClass classifierType, final boolean includeAbstractTypes) {
+	private static List<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
+			final EClass classifierType) {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
 		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
@@ -335,8 +335,7 @@ public class ClassifierHandler {
 
 				@Override
 				public Collection<?> getBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
-					return getValidBaseClassifierDescriptions(project, classifierType,
-							primaryOperation == ClassifierOperationPartType.NEW_COMPONENT_TYPE);
+					return getValidBaseClassifierDescriptions(project, classifierType);
 				}
 
 				@Override

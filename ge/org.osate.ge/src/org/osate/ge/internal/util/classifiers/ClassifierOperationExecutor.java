@@ -41,10 +41,11 @@ public class ClassifierOperationExecutor {
 		this.classifierCreationHelper = new ClassifierCreationHelper(namingService, resourceSet);
 	}
 
-	public void execute(final OperationBuilder<?> operation, final ClassifierOperation classifierOp,
+	public OperationBuilder<Classifier> execute(final OperationBuilder<?> operation,
+			final ClassifierOperation classifierOp,
 			final BusinessObjectContext primaryPkgBoc) {
 		final OperationBuilder<Classifier> baseOp = addStep(operation, classifierOp.getBasePart(), null, null);
-		addStep(baseOp, classifierOp.getPrimaryPart(), classifierOp.getBasePart(), primaryPkgBoc);
+		return addStep(baseOp, classifierOp.getPrimaryPart(), classifierOp.getBasePart(), primaryPkgBoc);
 	}
 
 	/**

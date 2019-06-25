@@ -95,7 +95,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 
 	@Override
 	public Collection<?> getUnfilteredBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
-		return Collections.emptyList();
+		return null;
 	}
 
 	@Override
