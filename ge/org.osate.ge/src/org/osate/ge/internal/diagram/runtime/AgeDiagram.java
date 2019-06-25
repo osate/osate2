@@ -223,7 +223,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(bo, "bo must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			e.setBusinessObject(bo);
+			setBusinessObject(e, bo);
 			setRelativeReference(e, relativeReference);
 		}
 
@@ -248,8 +248,32 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
-			e.setBusinessObject(bo);
-			// Do not notify listeners
+			setBusinessObject(e, bo);
+		}
+
+		private void setBusinessObject(final DiagramElement e, final Object bo) {
+			Objects.requireNonNull(e, "e must not be null");
+
+			// Special handling for embedded business objects.
+			if (bo instanceof EmbeddedBusinessObject) {
+				// Conversion from non-embedded to an embedded object is not supported.
+				if (!(e.getBusinessObject() instanceof EmbeddedBusinessObject)) {
+					throw new RuntimeException(
+							"Invalid case. Conversion from non-embeedded to embedded business object");
+				}
+
+				final String oldData = ((EmbeddedBusinessObject) e.getBusinessObject()).getData();
+				final String newData = ((EmbeddedBusinessObject) bo).getData();
+
+				// This does not consider the UUID of the embedded object. That should be handled by updating the relative reference
+				if (!Objects.equals(oldData, newData)) {
+					storeFieldChange(e, ModifiableField.EMBEDDED_BUSINESS_OBJECT, e.getBusinessObject(), bo);
+					e.setBusinessObject(bo);
+					afterUpdate(e, ModifiableField.EMBEDDED_BUSINESS_OBJECT);
+				}
+			} else {
+				e.setBusinessObject(bo);
+			}
 		}
 
 		@Override
@@ -685,6 +709,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			case RELATIVE_REFERENCE:
 				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
 
+			case EMBEDDED_BUSINESS_OBJECT:
+				m.updateBusinessObjectWithSameRelativeReference(element, value);
+
 			default:
 				break;
 			}
@@ -693,8 +720,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public boolean affectsChangeNumber() {
 			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.USER_INTERFACE_NAME
-					|| ((field == ModifiableField.LABEL_NAME)
-							&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
+					|| field == ModifiableField.LABEL_NAME
 					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}
