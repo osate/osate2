@@ -190,11 +190,11 @@ public class ClassifierHandler {
 	 * @return
 	 */
 	private static List<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
-			final EClass classifierType) {
+			final EClass implementationClass) {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
 		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
-			for (final EClass superType : classifierType.getESuperTypes()) {
+			for (final EClass superType : implementationClass.getESuperTypes()) {
 				if (!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
 					if (superType.isSuperTypeOf(desc.getEClass())) {
 						objectDescriptions.add(desc);

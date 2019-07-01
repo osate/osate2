@@ -221,12 +221,6 @@ class ClassifierOperationPartEditor extends Composite {
 			// Update the current operation to reflect the UI
 			setCurrentOperationPartType(newType);
 
-			// Update button selection to reflect the new type
-			for (final Button typeBtn : operationPartTypeBtns) {
-				final boolean isSelectedType = typeBtn.getData() == currentValue.type;
-				typeBtn.setSelection(isSelectedType);
-			}
-
 			operationGroup.requestLayout();
 		} else {
 			setCurrentOperationPartType(allowedOperations.iterator().next());
@@ -251,6 +245,12 @@ class ClassifierOperationPartEditor extends Composite {
 		currentValue.type = value;
 		if (opIsChanging) {
 			notifySelectionListeners();
+		}
+
+		// Update button selection to reflect the new type
+		for (final Button typeBtn : operationPartTypeBtns) {
+			final boolean isSelectedType = typeBtn.getData() == currentValue.type;
+			typeBtn.setSelection(isSelectedType);
 		}
 	}
 

@@ -20,6 +20,7 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -298,16 +299,32 @@ public class ClassifierOperationDialog {
 				case NEW_COMPONENT_TYPE:
 					baseValueWidget
 					.setAllowedOperations(EnumSet.of(ClassifierOperationPartType.NONE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NONE);
+					}
 					break;
 
 				case NEW_COMPONENT_IMPLEMENTATION:
 					baseValueWidget.setAllowedOperations(
 							EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NEW_COMPONENT_TYPE);
+					}
+
 					break;
 
 				case NEW_FEATURE_GROUP_TYPE:
 					baseValueWidget
 					.setAllowedOperations(EnumSet.of(ClassifierOperationPartType.NONE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NONE);
+					}
 					break;
 
 				default:
@@ -317,11 +334,15 @@ public class ClassifierOperationDialog {
 		}
 
 		private void validate() {
-			final String errorMsg = args.model.validate(createResult());
-			setErrorMessage(errorMsg);
-			getButton(IDialogConstants.OK_ID).setEnabled(errorMsg == null);
+			final Button okBtn = getButton(IDialogConstants.OK_ID);
 
-			updateMessage();
+			// TODO: Review error message and message generation... Behavior has changed. Show prop message on initial state.
+			if(okBtn != null) {
+				final String errorMsg = args.model.validate(createResult());
+				setErrorMessage(errorMsg);
+				okBtn.setEnabled(errorMsg == null);
+				updateMessage();
+			}
 		}
 
 		private void updateMessage() {

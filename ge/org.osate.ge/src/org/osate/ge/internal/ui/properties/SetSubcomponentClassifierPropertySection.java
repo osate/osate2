@@ -1,13 +1,23 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -35,6 +45,7 @@ import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.AbstractSubcomponentType;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.BusSubcomponentType;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataSubcomponent;
@@ -67,11 +78,27 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.operations.OperationExecutor;
+import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
+import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.internal.util.classifiers.ClassifierOperation;
+import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
+import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilder;
+import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
+
+import com.google.common.collect.Sets;
 
 public class SetSubcomponentClassifierPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
@@ -84,6 +111,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	private BusinessObjectSelection selectedBos;
 	private Label curScClassifier;
 	private Button chooseBtn;
+	private Button createBtn;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -107,6 +135,14 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		fd.left = new FormAttachment(curScClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curScClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
+
+		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
+				createClassifierListener, "Create...", SWT.PUSH);
+
+		fd = new FormData();
+		fd.left = new FormAttachment(chooseBtn, ITabbedPropertyConstants.HSPACE);
+		fd.top = new FormAttachment(chooseBtn, 0, SWT.CENTER);
+		createBtn.setLayoutData(fd);
 	}
 
 	final SelectionListener setClassifierListener = new SelectionAdapter() {
@@ -143,67 +179,139 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 				});
 			}
 		}
+	};
 
-		private void setClassifier(final Subcomponent sc, final SubcomponentType selectedSubcomponentType) {
-			// Import as necessary
-			if (selectedSubcomponentType != null) {
-				// Import its package if necessary
-				final AadlPackage pkg = (AadlPackage) sc.getElementRoot();
-				if (selectedSubcomponentType instanceof ComponentClassifier
-						&& selectedSubcomponentType.getNamespace() != null && pkg != null) {
-					final PackageSection section = pkg.getPublicSection();
-					final AadlPackage selectedClassifierPkg = (AadlPackage) selectedSubcomponentType.getNamespace()
-							.getOwner();
-					if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
-						AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
-					}
+	final SelectionListener createClassifierListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			// Get a list of all subcomponents
+			final List<Subcomponent> scs = selectedBos.boStream(Subcomponent.class).collect(Collectors.toList());
+
+			// It should be safe to assume that the category of all selected subcomponents match because the button would be disabled otherwise.
+			final ComponentCategory componentCategory = scs.get(0).getCategory();
+			final EClass classifierType = componentCategoryToClassifierEClass(componentCategory);
+
+			// TODO: Cleanup
+			final Bundle bundle = FrameworkUtil.getBundle(getClass());
+			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
+			final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
+					"Unable to retrieve naming service");
+
+			final AadlModificationService aadlModService = Objects.requireNonNull(
+					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
+
+			// TODO: Decide what resource set to use.
+
+			final ResourceSet rs = scs.get(0).eResource().getResourceSet(); // TODO: Consider and rework
+			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
+					rs, "Configure component implementation.") {
+				@Override
+				public String getTitle() {
+					return "Select Component Classifier";
 				}
-			}
 
-			if (sc instanceof SystemSubcomponent) {
-				((SystemSubcomponent) sc).setSystemSubcomponentType((SystemSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof AbstractSubcomponent) {
-				((AbstractSubcomponent) sc)
-				.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof ThreadGroupSubcomponent) {
-				((ThreadGroupSubcomponent) sc)
-				.setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof ThreadSubcomponent) {
-				((ThreadSubcomponent) sc).setThreadSubcomponentType((ThreadSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof SubprogramSubcomponent) {
-				((SubprogramSubcomponent) sc)
-				.setSubprogramSubcomponentType((SubprogramSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof SubprogramGroupSubcomponent) {
-				((SubprogramGroupSubcomponent) sc)
-				.setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof DataSubcomponent) {
-				((DataSubcomponent) sc).setDataSubcomponentType((DataSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof AbstractSubcomponent) {
-				((AbstractSubcomponent) sc)
-				.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof VirtualBusSubcomponent) {
-				((VirtualBusSubcomponent) sc)
-				.setVirtualBusSubcomponentType((VirtualBusSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof VirtualProcessorSubcomponent) {
-				((VirtualProcessorSubcomponent) sc).setVirtualProcessorSubcomponentType(
-						(VirtualProcessorSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof BusSubcomponent) {
-				((BusSubcomponent) sc).setBusSubcomponentType((BusSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof ProcessSubcomponent) {
-				((ProcessSubcomponent) sc)
-				.setProcessSubcomponentType((ProcessSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof ProcessorSubcomponent) {
-				((ProcessorSubcomponent) sc)
-				.setProcessorSubcomponentType((ProcessorSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof DeviceSubcomponent) {
-				((DeviceSubcomponent) sc).setDeviceSubcomponentType((DeviceSubcomponentType) selectedSubcomponentType);
-			} else if (sc instanceof MemorySubcomponent) {
-				((MemorySubcomponent) sc).setMemorySubcomponentType((MemorySubcomponentType) selectedSubcomponentType);
-			} else {
-				throw new RuntimeException("Unexpected type: " + sc.getClass().getName());
+				@Override
+				public Collection<?> getPackageOptions() {
+					// Get list of projects which are accessible from all the subcomponent declarations
+					return scs.stream()
+							.map(SetSubcomponentClassifierPropertySection::getEditablePackages).reduce(Sets::intersection)
+							.map(s -> (List<IEObjectDescription>) new ArrayList<>(s)).orElse(Collections.emptyList());
+				}
+
+				@Override
+				public Collection<?> getBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
+					return scs.stream()
+							.map(sc -> getValidBaseClassifierDescriptions(sc, classifierType,
+									primaryOperation == ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
+							.reduce(Sets::intersection).orElse(Collections.emptySet());
+				}
+			};
+
+			// TODO: Ergonomics:
+			// - Initial default package
+			// - If package is set and base package is empty.. Set both of them?
+
+			// Show the dialog to determine the operation
+			final ClassifierOperation args = ClassifierOperationDialog.show(Display.getCurrent().getActiveShell(),
+					new ClassifierOperationDialog.ArgumentBuilder(model,
+							EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE,
+									ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))// .defaultPackage(pkg) // TODO: Default package
+					.componentCategory(componentCategory).create());
+
+			if (args != null) {
+				// TODO: Cleanup
+				// SelectionUtil.getProject(dim.eResource())
+
+				// TODO: project
+				final Subcomponent tmpBo = selectedBos.boStream(Subcomponent.class).collect(Collectors.toList()).get(0); // TODO: Rework
+				final IProject project = SelectionUtil.getProject(tmpBo.eResource()); // TODO
+
+				// TODO: How to select project?
+				// TODO: Should this take a live resource set?
+				final Operation op = Operation.create(opBuilder -> {
+					// TODO: Review and rename
+
+					// TODO: This executor really just builds? Consider renaming
+					final ClassifierOperationExecutor opExec = new ClassifierOperationExecutor(namingService, rs,
+							project);
+					final OperationBuilder<Classifier> classifierOpBuilder = opExec.execute(opBuilder, args,
+							null);
+
+					// TODO: The subcomponent retireved from the BOS should not be modified based on the documentation... Need an API for doi ng that.
+					scs.forEach(sc -> {
+						classifierOpBuilder.modifyModel(null, (t, c) -> sc, (tag, scToModify, classifier) -> {
+							// TODO: Should be safe but should check.
+							setClassifier(scToModify, (SubcomponentType) classifier);
+							return StepResultBuilder.create().build();
+						});
+					});
+				});
+
+				// Perform modification
+				final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
+				opExecutor.execute(op, results -> {
+				});
 			}
 		}
 	};
+
+	// TODO: Share? Move?
+	private static Set<IEObjectDescription> getEditablePackages(final EObject bo) {
+		return ScopedEMFIndexRetrieval
+				.getAllEObjectsByType(bo.eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())
+				.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
+				.collect(Collectors.toSet());
+	}
+
+	// TODO: Consider not accepting sc but resource or something else that may make more sense.
+	private static Set<IEObjectDescription> getValidBaseClassifierDescriptions(final EObject sc,
+			final EClass classifierType, boolean includeImplementations) {
+		final IProject project = SelectionUtil.getProject(sc.eResource());
+		// TODO: Should the helper function return a Set instead of list that needs to be converted?
+		return new HashSet<>(getValidBaseClassifierDescriptions(project, classifierType, includeImplementations));
+	}
+
+	// TODO: May be shareable with ClassifierHandler?
+	private static Set<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
+			final EClass classifierType, boolean includeImplementations) {
+		System.err.println(includeImplementations);
+		// TODO: Need to test using base Implementation. Is there a reason why it isn't supportedin ClassifierHandler?
+		// The implementation check in classifier handler is flawed... Share this implementation with it? May not undersatnd it properly..
+		// May be related to usage of classifierType argument?
+
+		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
+		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+				Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+			// Add objects that have are either types or implementations of the same category as the classifier type
+			System.err.println(classifierType + " : " + desc.getEClass());
+			if (classifierType.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !Aadl2Factory.eINSTANCE
+					.getAadl2Package().getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
+				objectDescriptions.add(desc);
+			}
+		}
+
+		return objectDescriptions;
+	}
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
@@ -216,9 +324,12 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		final List<Subcomponent> scs = selectedBos.boStream(Subcomponent.class).collect(Collectors.toList());
 		final String scLbl = getSubcomponentClassifierLabel(scs);
 		curScClassifier.setText(scLbl);
+
+		createBtn.setEnabled(
+				!scs.isEmpty() && scs.stream().allMatch(sc -> sc.getCategory() == scs.get(0).getCategory()));
 	}
 
-	private EClass componentCategoryToEClass(final ComponentCategory category) {
+	private EClass componentCategoryToSubcomponentTypeEClass(final ComponentCategory category) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 
 		switch (category) {
@@ -253,7 +364,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 			return p.getVirtualProcessorSubcomponentType();
 
 		case BUS:
-			return p.getBus();
+			return p.getBusSubcomponentType();
 
 		case PROCESSOR:
 			return p.getProcessorSubcomponentType();
@@ -269,6 +380,116 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		}
 	}
 
+	private EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+
+		switch (category) {
+		case SYSTEM:
+			return p.getSystemClassifier();
+
+		case PROCESS:
+			return p.getProcessClassifier();
+
+		case THREAD_GROUP:
+			return p.getThreadGroupClassifier();
+
+		case THREAD:
+			return p.getThreadClassifier();
+
+		case SUBPROGRAM:
+			return p.getSubprogramClassifier();
+
+		case SUBPROGRAM_GROUP:
+			return p.getSubprogramGroupClassifier();
+
+		case DATA:
+			return p.getDataClassifier();
+
+		case ABSTRACT:
+			return p.getAbstractClassifier();
+
+		case VIRTUAL_BUS:
+			return p.getVirtualBusClassifier();
+
+		case VIRTUAL_PROCESSOR:
+			return p.getVirtualProcessorClassifier();
+
+		case BUS:
+			return p.getBusClassifier();
+
+		case PROCESSOR:
+			return p.getProcessorClassifier();
+
+		case DEVICE:
+			return p.getDeviceClassifier();
+
+		case MEMORY:
+			return p.getMemoryClassifier();
+
+		default:
+			throw new RuntimeException("Unexpected category: " + category);
+		}
+	}
+
+	private void setClassifier(final Subcomponent sc, final SubcomponentType selectedSubcomponentType) {
+		// Import as necessary
+		if (selectedSubcomponentType != null) {
+			// Import its package if necessary
+			final AadlPackage pkg = (AadlPackage) sc.getElementRoot();
+			if (selectedSubcomponentType instanceof ComponentClassifier
+					&& selectedSubcomponentType.getNamespace() != null && pkg != null) {
+				final PackageSection section = pkg.getPublicSection();
+				final AadlPackage selectedClassifierPkg = (AadlPackage) selectedSubcomponentType.getNamespace()
+						.getOwner();
+				if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
+					AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
+				}
+			}
+		}
+
+		if (sc instanceof SystemSubcomponent) {
+			((SystemSubcomponent) sc).setSystemSubcomponentType((SystemSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof AbstractSubcomponent) {
+			((AbstractSubcomponent) sc)
+			.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof ThreadGroupSubcomponent) {
+			((ThreadGroupSubcomponent) sc)
+			.setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof ThreadSubcomponent) {
+			((ThreadSubcomponent) sc).setThreadSubcomponentType((ThreadSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof SubprogramSubcomponent) {
+			((SubprogramSubcomponent) sc)
+			.setSubprogramSubcomponentType((SubprogramSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof SubprogramGroupSubcomponent) {
+			((SubprogramGroupSubcomponent) sc)
+			.setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof DataSubcomponent) {
+			((DataSubcomponent) sc).setDataSubcomponentType((DataSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof AbstractSubcomponent) {
+			((AbstractSubcomponent) sc)
+			.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof VirtualBusSubcomponent) {
+			((VirtualBusSubcomponent) sc)
+			.setVirtualBusSubcomponentType((VirtualBusSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof VirtualProcessorSubcomponent) {
+			((VirtualProcessorSubcomponent) sc)
+			.setVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof BusSubcomponent) {
+			((BusSubcomponent) sc).setBusSubcomponentType((BusSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof ProcessSubcomponent) {
+			((ProcessSubcomponent) sc).setProcessSubcomponentType((ProcessSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof ProcessorSubcomponent) {
+			((ProcessorSubcomponent) sc)
+			.setProcessorSubcomponentType((ProcessorSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof DeviceSubcomponent) {
+			((DeviceSubcomponent) sc).setDeviceSubcomponentType((DeviceSubcomponentType) selectedSubcomponentType);
+		} else if (sc instanceof MemorySubcomponent) {
+			((MemorySubcomponent) sc).setMemorySubcomponentType((MemorySubcomponentType) selectedSubcomponentType);
+		} else {
+			throw new RuntimeException("Unexpected type: " + sc.getClass().getName());
+		}
+	}
+
 	/**
 	 * Return a list of EObjectDescriptions and NamedElements for potential classifiers for the specified subcomponent
 	 * @return
@@ -278,7 +499,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		subcomponentTypes.add(null);
 
 		// Populate the list with valid classifier descriptions
-		final EClass subcomponentTypeClass = componentCategoryToEClass(sc.getCategory());
+		final EClass subcomponentTypeClass = componentCategoryToSubcomponentTypeEClass(sc.getCategory());
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(sc.eResource(),
 				subcomponentTypeClass)) {
 			subcomponentTypes.add(desc);
