@@ -8,6 +8,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.DiagramType;
+import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.DiagramTypeProvider;
 import org.osate.ge.internal.diagram.runtime.types.PackageDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.StructureDiagramType;
@@ -53,7 +54,7 @@ public class DefaultCreateDiagramModel implements CreateDiagramDialog.Model<Diag
 	@Override
 	public DiagramType getDefaultDiagramType() {
 		if (contextBo == null) {
-			return diagramTypeProvider.getDiagramTypeById(PackageDiagramType.ID).orElse(null);
+			return diagramTypeProvider.getDiagramTypeById(CustomDiagramType.ID).orElse(null);
 		} else if (contextBo instanceof AadlPackage) {
 			return diagramTypeProvider.getDiagramTypeById(PackageDiagramType.ID).orElse(null);
 		} else if (contextBo instanceof Classifier || contextBo instanceof SystemInstance) {

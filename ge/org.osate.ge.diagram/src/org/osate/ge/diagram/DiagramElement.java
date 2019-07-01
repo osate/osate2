@@ -519,9 +519,9 @@ public class DiagramElement extends DiagramNode {
 		if (newBo != bo) {
 			NotificationChain msgs = null;
 			if (bo != null)
-				msgs = ((InternalEObject)bo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
+				msgs = bo.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
 			if (newBo != null)
-				msgs = ((InternalEObject)newBo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
+				msgs = newBo.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BO, null, msgs);
 			msgs = basicSetBo(newBo, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -533,11 +533,10 @@ public class DiagramElement extends DiagramNode {
 	 * Returns the value of the '<em><b>Manual</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Manual</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Deprecated. Should be set to true for all newly saved elements. Retained for compatibility with versions of OSATE <= 2.5.0
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Manual</em>' attribute.
 	 * @see #setManual(boolean)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Manual()
@@ -640,9 +639,9 @@ public class DiagramElement extends DiagramNode {
 		if (newPosition != position) {
 			NotificationChain msgs = null;
 			if (position != null)
-				msgs = ((InternalEObject)position).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
+				msgs = position.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
 			if (newPosition != null)
-				msgs = ((InternalEObject)newPosition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
+				msgs = newPosition.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__POSITION, null, msgs);
 			msgs = basicSetPosition(newPosition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -695,9 +694,9 @@ public class DiagramElement extends DiagramNode {
 		if (newSize != size) {
 			NotificationChain msgs = null;
 			if (size != null)
-				msgs = ((InternalEObject)size).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
+				msgs = size.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
 			if (newSize != null)
-				msgs = ((InternalEObject)newSize).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
+				msgs = newSize.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__SIZE, null, msgs);
 			msgs = basicSetSize(newSize, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -783,9 +782,9 @@ public class DiagramElement extends DiagramNode {
 		if (newBendpoints != bendpoints) {
 			NotificationChain msgs = null;
 			if (bendpoints != null)
-				msgs = ((InternalEObject)bendpoints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
+				msgs = bendpoints.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
 			if (newBendpoints != null)
-				msgs = ((InternalEObject)newBendpoints).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
+				msgs = newBendpoints.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__BENDPOINTS, null, msgs);
 			msgs = basicSetBendpoints(newBendpoints, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -837,9 +836,9 @@ public class DiagramElement extends DiagramNode {
 		if (newPrimaryLabelPosition != primaryLabelPosition) {
 			NotificationChain msgs = null;
 			if (primaryLabelPosition != null)
-				msgs = ((InternalEObject)primaryLabelPosition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
+				msgs = primaryLabelPosition.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
 			if (newPrimaryLabelPosition != null)
-				msgs = ((InternalEObject)newPrimaryLabelPosition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
+				msgs = newPrimaryLabelPosition.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION, null, msgs);
 			msgs = basicSetPrimaryLabelPosition(newPrimaryLabelPosition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -1114,11 +1113,10 @@ public class DiagramElement extends DiagramNode {
 	/**
 	 * Returns the value of the '<em><b>Content Filters</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Content Filters</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Value	Deprecated
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Content Filters</em>' containment reference.
 	 * @see #setContentFilters(ContentFilters)
 	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_ContentFilters()
@@ -1156,9 +1154,9 @@ public class DiagramElement extends DiagramNode {
 		if (newContentFilters != contentFilters) {
 			NotificationChain msgs = null;
 			if (contentFilters != null)
-				msgs = ((InternalEObject)contentFilters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
+				msgs = contentFilters.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
 			if (newContentFilters != null)
-				msgs = ((InternalEObject)newContentFilters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
+				msgs = newContentFilters.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM_ELEMENT__CONTENT_FILTERS, null, msgs);
 			msgs = basicSetContentFilters(newContentFilters, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -1479,7 +1477,7 @@ public class DiagramElement extends DiagramNode {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (uuid: ");
 		result.append(uuid);
 		result.append(", id: ");
