@@ -15,15 +15,13 @@ import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 
-import com.google.common.collect.ImmutableSet;
-
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
 	public TestBusinessObject model;
 
 	@Override
 	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
-		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null, false,
-				ImmutableSet.of(), Completeness.UNKNOWN);
+		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
+				Completeness.UNKNOWN, true);
 		createNodes(newTree, model.children);
 		return newTree;
 	}
@@ -32,7 +30,7 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 		for(final TestBusinessObject bo : bos) {
 			final BusinessObjectNode newNode = new BusinessObjectNode(parent, UUID.randomUUID(),
 					bo.getRelativeReference(),
-					bo, true, ImmutableSet.of(), Completeness.UNKNOWN);
+					bo, Completeness.UNKNOWN, true);
 			createNodes(newNode, bo.children);
 		}
 	}

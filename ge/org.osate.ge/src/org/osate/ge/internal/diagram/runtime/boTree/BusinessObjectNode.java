@@ -10,35 +10,34 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-
-import com.google.common.collect.ImmutableSet;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
 	private final UUID id;
 	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
-	private boolean manual = false; // Species whether the object was manually specified(true) or if it was created automatically based on the auto contents filter or other mechanism.
-	private ImmutableSet<ContentFilter> contentFilters;
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
 	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
+
+	/**
+	 * Returns whether the node has not had its default children populated. This is usually true for new nodes to allow the tree updater to add children based on the content filters
+	 * provided by the diagram type.
+	 */
+	private boolean defaultChildrenHaveBeenPopulated;
 
 	public BusinessObjectNode(final BusinessObjectNode parent,
 			final UUID id,
 			final RelativeBusinessObjectReference relativeReference,
 			final Object bo,
-			final boolean manual,
-			final ImmutableSet<ContentFilter> contentFilters,
-			final Completeness completeness) {
+			final Completeness completeness, final boolean defaultChildrenHaveBeenPopulated) {
 		this.parent = parent;
 		this.id = Objects.requireNonNull(id, "id must not be null");
 		this.relativeReference = relativeReference;
 		this.bo = bo;
-		this.manual = manual;
-		this.contentFilters = contentFilters;
 		this.completeness = Objects.requireNonNull(completeness, "completeness must not be null");
+		this.defaultChildrenHaveBeenPopulated = defaultChildrenHaveBeenPopulated;
+
 
 		if(parent != null) {
 			parent.addChild(this);
@@ -65,22 +64,6 @@ public class BusinessObjectNode implements BusinessObjectContext {
 
 	public final UUID getId() {
 		return id;
-	}
-
-	public final boolean isManual() {
-		return manual;
-	}
-
-	public final void setManual(final boolean value) {
-		this.manual = value;
-	}
-
-	public final ImmutableSet<ContentFilter> getContentFilters() {
-		return contentFilters;
-	}
-
-	public final void setContentFilters(final ImmutableSet<ContentFilter> value) {
-		this.contentFilters = Objects.requireNonNull(value, "value must not be null");
 	}
 
 	public final Completeness getCompleteness() {
@@ -130,6 +113,19 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		children.put(node.relativeReference, node);
 	}
 
+	public void remove() {
+		Objects.requireNonNull(relativeReference, "relativeReference must not be null");
+
+		if (parent != null) {
+			parent.children.remove(relativeReference);
+			parent = null;
+		}
+	}
+
+	public final boolean defaultChildrenHaveBeenPopulated() {
+		return defaultChildrenHaveBeenPopulated;
+	}
+
 	/**
 	 * Copies the node. The new node will be the root of a new tree
 	 * @return
@@ -145,8 +141,8 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * @return
 	 */
 	private BusinessObjectNode copy(final BusinessObjectNode newParent) {
-		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, manual,
-				contentFilters, completeness);
+		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, completeness,
+				defaultChildrenHaveBeenPopulated);
 		for(final BusinessObjectNode child : getChildren()) {
 			child.copy(newNode);
 		}
