@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.alisa.common.common.AVariableReference;
+import org.osate.alisa.common.common.AExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,26 +42,26 @@ import org.osate.alisa.common.common.AVariableReference;
 public interface DesiredValue extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Desired</b></em>' reference.
+   * Returns the value of the '<em><b>Desired</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Desired</em>' reference.
-   * @see #setDesired(AVariableReference)
+   * @return the value of the '<em>Desired</em>' containment reference.
+   * @see #setDesired(AExpression)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getDesiredValue_Desired()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  AVariableReference getDesired();
+  AExpression getDesired();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}' reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Desired</em>' reference.
+   * @param value the new value of the '<em>Desired</em>' containment reference.
    * @see #getDesired()
    * @generated
    */
-  void setDesired(AVariableReference value);
+  void setDesired(AExpression value);
 
   /**
    * Returns the value of the '<em><b>Upto</b></em>' attribute.
