@@ -121,4 +121,19 @@ public class ContentFilterUtil {
 		// Update the content filters
 		return ImmutableSet.copyOf(contentFilters);
 	}
+
+	/**
+	 * Returns true if the specified BO passes any of the specified content filters
+	 * @param bo the bo to test
+	 * @param contentFilters the content filters to test with
+	 */
+	public static boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
+		for (final ContentFilter filter : contentFilters) {
+			if (filter.test(bo)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

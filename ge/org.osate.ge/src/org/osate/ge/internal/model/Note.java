@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Note implements EmbeddedBusinessObject {
 	private final UUID id;
-	private String text;
+	private final String text;
 
 	public Note(UUID id) {
 		this(id, "");
@@ -24,10 +24,6 @@ public class Note implements EmbeddedBusinessObject {
 		return text;
 	}
 
-	public void setText(final String value) {
-		this.text = Objects.requireNonNull(value, "value must not be null");
-	}
-
 	@Override
 	public Note copy() {
 		return new Note(UUID.randomUUID(), text);
@@ -37,5 +33,4 @@ public class Note implements EmbeddedBusinessObject {
 	public String getData() {
 		return getText();
 	}
-
 }

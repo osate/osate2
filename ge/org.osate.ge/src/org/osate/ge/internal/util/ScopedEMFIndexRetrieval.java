@@ -45,7 +45,7 @@ public class ScopedEMFIndexRetrieval {
 	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
 	 */
 	public static Collection<IEObjectDescription> getAllEObjectsByType(final Resource resource, final EClass type) {
-		return getAllEObjectsByType(SelectionUtil.getProject(resource), type);
+		return getAllEObjectsByType(SelectionUtil.getProjectOrThrow(resource), type);
 	}
 
 	/**
