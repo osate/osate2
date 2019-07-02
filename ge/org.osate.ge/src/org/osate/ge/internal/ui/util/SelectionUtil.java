@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -15,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -33,6 +35,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -45,15 +48,20 @@ public class SelectionUtil {
 
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
-	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection) {
-		return getAdaptedSelection(selection, DiagramElement.class);
+	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection, final boolean ignoreInvalidType) {
+		return getAdaptedSelection(selection, DiagramElement.class, ignoreInvalidType);
 	}
 
-	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection) {
-		return getAdaptedSelection(selection, DiagramNode.class);
+	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection, final boolean ignoreInvalidType) {
+		return getAdaptedSelection(selection, DiagramNode.class, ignoreInvalidType);
 	}
 
-	private static <T> List<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter) {
+	/**
+	 *
+	 * @param ignoreInvalidType if true then the selection will skip over instances that cannot be adapted. If false, an empty list will be returned in such cases.
+	 */
+	private static <T> List<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter,
+			final boolean ignoreInvalidType) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return Collections.emptyList();
 		}
@@ -63,10 +71,12 @@ public class SelectionUtil {
 		for (final Object sel : ss.toList()) {
 			final T o = Adapters.adapt(sel, adapter);
 			if (o == null) {
-				return Collections.emptyList();
+				if (!ignoreInvalidType) {
+					return Collections.emptyList();
+				}
+			} else {
+				results.add(o);
 			}
-
-			results.add(o);
 		}
 
 		return results;
@@ -119,7 +129,8 @@ public class SelectionUtil {
 			final String ext = ((IFile) selectedObject).getFileExtension();
 			if (WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
 					|| WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
-				final EList<EObject> contents = OsateResourceUtil.getResource((IFile) selectedObject).getContents();
+				URI uri = OsateResourceUtil.toResourceURI((IFile) selectedObject);
+				final EList<EObject> contents = new ResourceSetImpl().getResource(uri, true).getContents();
 				if (contents != null && !contents.isEmpty()) {
 					final EObject root = contents.get(0);
 					if (root instanceof AadlPackage) {
@@ -132,8 +143,8 @@ public class SelectionUtil {
 		} else if (selectedObject instanceof DiagramGroup) {
 			final DiagramGroup dg = (DiagramGroup) selectedObject;
 			if (dg.isContextReferenceValid()) {
-				final ReferenceService referenceService = (ReferenceService) PlatformUI.getWorkbench()
-						.getActiveWorkbenchWindow().getService(ReferenceService.class);
+				final ReferenceService referenceService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+						.getService(ReferenceService.class);
 				if (referenceService == null) {
 					return null;
 				}
@@ -155,6 +166,19 @@ public class SelectionUtil {
 			}
 
 			final AadlPackage pkg = findPackage((Element) selectedObject);
+			if (pkg != null) {
+				return pkg;
+			}
+		} else if (selectedObject instanceof EObjectURIWrapper) {
+			final EObjectURIWrapper wrapper = (EObjectURIWrapper) selectedObject;
+			final EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+
+			final Classifier classifier = findClassifier(eObject);
+			if (classifier != null) {
+				return classifier;
+			}
+
+			final AadlPackage pkg = findPackage(eObject);
 			if (pkg != null) {
 				return pkg;
 			}
@@ -238,17 +262,22 @@ public class SelectionUtil {
 				});
 	}
 
-	public static IProject getProject(final Resource resource) {
-		return getProject(resource.getURI());
+	public static IProject getProjectOrThrow(final Resource resource) {
+		return getProjectOrThrow(resource.getURI());
 	}
 
-	public static IProject getProject(final URI resourceUri) {
+	public static IProject getProjectOrThrow(final URI resourceUri) {
+		return getProject(resourceUri).orElseThrow(() -> new RuntimeException(
+				"Unable to receive project. URI: " + resourceUri));
+	}
+
+	public static Optional<IProject> getProject(final URI resourceUri) {
 		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
 		if(projectResource instanceof IProject) {
-			return (IProject)projectResource;
+			return Optional.of((IProject) projectResource);
 		}
 
-		throw new RuntimeException("Unable to receive project. Resource is of type " + projectResource.getClass().getName());
+		return Optional.empty();
 	}
 }

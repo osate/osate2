@@ -42,10 +42,6 @@ public interface IncludeGlobalRequirement extends EObject
   /**
    * Returns the value of the '<em><b>Include</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Include</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Include</em>' reference.
    * @see #setInclude(EObject)
@@ -68,10 +64,6 @@ public interface IncludeGlobalRequirement extends EObject
   /**
    * Returns the value of the '<em><b>Local</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Local</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Local</em>' attribute.
    * @see #setLocal(boolean)
@@ -94,10 +86,6 @@ public interface IncludeGlobalRequirement extends EObject
   /**
    * Returns the value of the '<em><b>Target Element</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target Element</em>' reference.
    * @see #setTargetElement(NamedElement)

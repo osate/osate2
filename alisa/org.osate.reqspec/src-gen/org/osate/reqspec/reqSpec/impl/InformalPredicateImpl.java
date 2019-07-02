@@ -85,6 +85,7 @@ public class InformalPredicateImpl extends ReqPredicateImpl implements InformalP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDescription()
   {
     return description;
@@ -95,6 +96,7 @@ public class InformalPredicateImpl extends ReqPredicateImpl implements InformalP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(String newDescription)
   {
     String oldDescription = description;

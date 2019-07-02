@@ -2,7 +2,7 @@
 
 [TOC levels=2-4 bullet hierarchy]
 
-The *Verify* notation lets users specify *verification plans* for each *system requirement set* of system components as well as for *global requirment sets*. Verify also lets users specify a *method registry* that identfies verification methods implemented in different languages and apply to AADL models, detailed design models, and source code. 
+The *Verify* notation lets users specify *verification plans* for each *system requirement set* of system components as well as for *global requirment sets*. Verify also lets users specify a *method registry* that identifies verification methods implemented in different languages and apply to AADL models, detailed design models, and source code. 
 
 A verification plan specifies how every requirement of a system or
 global requirement set is verified. This is achieved by specifying a set
@@ -386,10 +386,8 @@ TargetType ::=
 <pre>
 MethodKind ::=
   java MethodPath  |
-  python ScriptPath |
   plugin MethodID |
   resolute QualifiedMethodName |
-  agree ( single | all ) |
   junit ClassPath |
   manual DialogIdentifier
 </pre>
@@ -460,10 +458,6 @@ The following method types are supported:
  Java methods can return a single value as object. These values will be assigned to the specified computed variables.
  The actual Java method may expect Java types that are not part of the ALISA Types. For example, the Java method may expect a long numeric. We automatically map StringLiteral -> String, BooleanLiteral -> Boolean, RealLiteral -> double, IntegerLiteral -> long. For model element references we map InstanceReferenceValue into an InstanceObject reference.
 
-* *Python*: a Python script identified by a <dot> separated path to a Python script. The path includes the project name in the workspace, any folders, and the file name of the Python script without the *py* extension. 
-The actual parameters are passed to Python in the same Java format as described for the Java method. The Python script can return the same objects as resutrn values as described for Java.
-
-
 * *Plugin*: an OSATE analysis plugin method identified by an identifier. Plugin methods are defined in a predeclared method registry (see [Predefined Method Registry](VerifyDoc.html#predefined-method-registry)). OSATE analysis plugins report their results via the Eclipse Marker mechanism. These results are mapped into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)) for inclusion in the assurance case result instance.
 
 
@@ -473,10 +467,6 @@ The actual parameters are passed to Python in the same Java format as described 
 
 > Note that the use the function name by itself is considered deprecated and will not be supported in the near future.
 
-
-* *Agree*: Agree verification is invoked on the target component for a single layer verification or for verifying all layers. This is equivalent to invoking Agree on a component through the user interface. Note that for execution of Agree the Jkind verifier must be installed (see Agree documentation).
-
-
 * *JUnit*: The specified JUnit test class is invoked. Results of a JUnit run are mapped back into the Diagnostic format (see [Analysis Result](AnalysisResultFormat.html)).
 
 
@@ -485,7 +475,7 @@ The actual parameters are passed to Python in the same Java format as described 
 
 ### Built-in and User-defined Registries
 
-ALISA comes with a built-in registry of verification methods. This registry is available as a project called *AlisaPredefined* in the Github repository https://github.com/osate/alisa-examples. The registry contains OSATE analysis plugin method declarations.
+ALISA comes with two built-in registries of verification methods. These registries are available in a project called *AlisaPredefined* in the Github repository https://github.com/osate/alisa-examples. One registry called *Plugins* contains OSATE analysis plugin method declarations. The second registry called *Alisa_Consistency* contains method declarations for a set of Java-based verification methods that check certain physical system properties in the model.
 
 The *AlisaPredefined* Project also contains a set of predefined category types and labels. See the ReqSpec documentation for details.
 
@@ -504,14 +494,8 @@ Second, users can write or make use of verification
 methods written in Java or Xtend. Users may even write Java wrapper
 methods to interface with existing tools or external tools, such as
 Simulink or the execution of source code via JUnit
-tests. Since Java methods are
-called reflectively, a Java method once added to a registry can be used
-in a verification activity. When writing methods in Java or Xtend, users
-have available a large collection of methods from OSATE to process AADL
-models and retrieve AADL property values. These are the same methods
-users would use when writing a plugin for OSATE. You create verification
-method implementations in Java or Xtend in a Plugin project, which
-allows you to easily get access to OSATE plugins. 
+tests. 
+Java methods must reside in a plug-in project that is installed as part of the OSATE installation in the *plugins* or *dropins* folder. The Java class that provides the Java methods must be recorded through the extension point *org.osate.pluginsupport.registeredjavaclasses*. See *org.osate.alisa.contribution* for an example.
 
 Third, users can write JUnit tests and register test classes. Those
 tests can operate on an AADL model or they may execute source code.

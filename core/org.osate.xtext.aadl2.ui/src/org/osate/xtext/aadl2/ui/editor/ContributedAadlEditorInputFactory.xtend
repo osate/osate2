@@ -14,7 +14,7 @@ class ContributedAadlEditorInputFactory implements IElementFactory {
 	override createElement(IMemento memento) {
 		val uri = memento.getString(TAG_URI)?.createURI
 		if (PluginSupportUtil.contributedAadl.contains(uri)) {
-			new ContributedAadlEditorInput(new ContributedAadlStorage(uri))
+			new ContributedAadlEditorInput(new ContributedAadlStorage(null,uri))
 		}
 	}
 }

@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
@@ -19,7 +18,6 @@ import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.query.RelativeReferenceProvider;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 public class DiagramElement
 implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext, RelativeReferenceProvider {
@@ -29,8 +27,6 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	private Object bo;
 	private Object boHandler;
 	private RelativeBusinessObjectReference boRelReference;
-	private boolean manual = false; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
-	private ImmutableSet<ContentFilter> contentFilters = ImmutableSet.of();
 	private Completeness completeness = Completeness.UNKNOWN;
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String labelName;
@@ -103,25 +99,6 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	@Override
 	public final Object getBusinessObject() {
 		return bo;
-	}
-
-	public final boolean isManual() {
-		return manual;
-	}
-
-	final void setManual(final boolean value) {
-		this.manual = value;
-	}
-
-	/**
-	 * @return will never be null.
-	 */
-	public final ImmutableSet<ContentFilter> getContentFilters() {
-		return contentFilters;
-	}
-
-	final void setContentFilters(final ImmutableSet<ContentFilter> value) {
-		this.contentFilters = Objects.requireNonNull(value, "value must not be null");
 	}
 
 	public final Completeness getCompleteness() {

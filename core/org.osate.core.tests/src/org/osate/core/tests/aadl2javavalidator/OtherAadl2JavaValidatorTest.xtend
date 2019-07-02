@@ -50,6 +50,7 @@ import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.SystemType
 import org.osate.aadl2.UnitsType
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
@@ -1242,7 +1243,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 							flows
 								fsource1: flow source af1;
 							modes
-								m1 : mode;
+								m1: initial mode;
 						end s1;
 						system s2 extends s1
 							prototypes
@@ -1461,7 +1462,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 								end ab0;
 								abstract implementation ab0.i1
 									modes
-										m1: mode;
+										m1: initial mode;
 								end ab0.i1;
 								abstract implementation ab1.i1 extends ab0.i1
 									prototypes
@@ -1782,4 +1783,191 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 		assertConstraints(issueCollection)
 	}
 	
+	//Tests checkComponentTypeModes(ComponentType)
+	@Test
+	def void testCheckComponentTypeModes() {
+		val aadlText = '''
+			package check_component_type_modes_test
+			public
+				system s1
+					--Error: no initial modes.
+					modes
+						m1: mode;
+				end s1;
+				
+				system s2
+					--Error: too many initial modes.
+					modes
+						m2: initial mode;
+						m3: initial mode;
+				end s2;
+				
+				system s3
+					requires modes
+						m4: mode;
+				end s3;
+				
+				system s4 extends s3
+					--Error: inherits requires modes.
+					modes
+						m5: mode;
+				end s4;
+				
+				system s5
+					modes
+						m6: initial mode;
+				end s5;
+				
+				system s6 extends s5
+					modes
+						--Error: inherits initial mode.
+						m7: initial mode;
+				end s6;
+				
+				system s7 extends s5
+					--Error: inherits modes.
+					requires modes
+						m8: mode;
+				end s7;
+				
+				system s8
+					requires modes
+						--Error: initial requires mode.
+						m9: initial mode;
+				end s8;
+			end check_component_type_modes_test;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"check_component_type_modes_test".assertEquals(name)
+			publicSection => [
+				ownedClassifiers.get(0) => [
+					"s1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "One mode must be initial.")
+				]
+				ownedClassifiers.get(1) => [
+					"s2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Only one mode can be initial.")
+				]
+				ownedClassifiers.get(3) => [
+					"s4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Must be requires modes because requires modes are inherited.")
+				]
+				ownedClassifiers.get(5) as SystemType => [
+					"s6".assertEquals(name)
+					ownedModes.head => [
+						"m7".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Initial mode not allowed because the initial mode is inherited.")
+					]
+				]
+				ownedClassifiers.get(6) => [
+					"s7".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Must be modes because modes are inherited.")
+				]
+				ownedClassifiers.get(7) as SystemType => [
+					"s8".assertEquals(name)
+					ownedModes.head => [
+						"m9".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Initial mode not allowed for requires modes.")
+					]
+				]
+			]
+		]
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests checkComponentImplementationModes(ComponentImplementation)
+	@Test
+	def void testCheckComponentImplementationModes() {
+		val aadlText = '''
+			package check_component_implementation_modes_test
+			public
+				system s1
+					requires modes
+						m1: mode;
+				end s1;
+				
+				system implementation s1.i1
+					--Error: type has requires modes.
+					modes
+						m2: mode;
+				end s1.i1;
+				
+				system s2
+					modes
+						m3: initial mode;
+				end s2;
+				
+				system implementation s2.i1
+					modes
+						--Error: type has modes.
+						m4: mode;
+				end s2.i1;
+				
+				system s3
+				end s3;
+				
+				system implementation s3.i1
+					modes
+						m5: initial mode;
+				end s3.i1;
+				
+				system implementation s3.i2 extends s3.i1
+					modes
+						--Error: inherited initial mode.
+						m6: initial mode;
+				end s3.i2;
+				
+				system implementation s3.i3
+					--Error: no initial modes.
+					modes
+						m7: mode;
+				end s3.i3;
+				
+				system implementation s3.i4
+					--Error: too many initial modes.
+					modes
+						m8: initial mode;
+						m9: initial mode;
+				end s3.i4;
+			end check_component_implementation_modes_test;
+		'''
+		val testFileResult = issues = testHelper.testString(aadlText)
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"check_component_implementation_modes_test".assertEquals(name)
+			publicSection => [
+				ownedClassifiers.get(1) => [
+					"s1.i1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Modes subclause not allowed because type has requires modes.")
+				]
+				ownedClassifiers.get(3) as SystemImplementation => [
+					"s2.i1".assertEquals(name)
+					ownedModes.head => [
+						"m4".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Mode not allowed because type has modes.")
+					]
+				]
+				ownedClassifiers.get(6) as SystemImplementation => [
+					"s3.i2".assertEquals(name)
+					ownedModes.head => [
+						"m6".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Initial mode not allowed because the initial mode is inherited.")
+					]
+				]
+				ownedClassifiers.get(7) => [
+					"s3.i3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "One mode must be initial.")
+				]
+				ownedClassifiers.get(8) => [
+					"s3.i4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Only one mode can be initial.")
+				]
+			]
+		]
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
 }

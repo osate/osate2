@@ -1,0 +1,25 @@
+package aaron_example
+public
+	feature group FG1
+		features
+			f1: out event port;
+	end FG1;
+
+	feature group IG1
+		features
+			g1: in event port;
+		inverse of FG1
+	end IG1;
+
+	feature group FG2 extends FG1
+		features
+			f1: refined to out event port;
+			f2: out event port;
+	end FG2;
+	
+	feature group IG2 extends IG1
+		features
+			g2: in event port;
+		inverse of FG2
+	end IG2;
+end aaron_example;

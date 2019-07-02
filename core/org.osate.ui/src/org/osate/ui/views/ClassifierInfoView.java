@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
@@ -23,9 +24,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.osate.aadl2.BehavioredImplementation;
@@ -46,9 +47,10 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
-public final class ClassifierInfoView extends ViewPart implements ISelectionListener {
-	private static final String SYNC_ICON = "icons/synced.png";
-	private static final String DONT_SYNC_ICON = "icons/sync_broken.png";
+public final class ClassifierInfoView extends ViewPart {
+	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
+
+	private static final String LINK_ICON = "icons/link_to_editor.png";
 
 	/**
 	 * The most recently selected element in the view, or <code>null</code> is there is no
@@ -56,8 +58,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	 * jump to.
 	 */
 	private Element lastSelectedElement = null;
-
-	private ISelection currentSelection;
 
 	private TreeViewer ancestorTree;
 	private TreeViewer memberTree;
@@ -72,6 +72,26 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	// ======================================================================
+	// == Static helper methods
+	// ======================================================================
+
+	/**
+	 * Make the view is open and in front.
+	 */
+	public static ClassifierInfoView open(final IWorkbenchWindow window) {
+		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
+		final IWorkbenchPage page = window.getActivePage();
+		try {
+//			ClassifierInfoView result = (ClassifierInfoView) page.findView(VIEW_ID);
+			final ClassifierInfoView result = (ClassifierInfoView) page.showView(VIEW_ID);
+			return result;
+		} catch (CoreException e) {
+			OsateUiPlugin.log(e);
+		}
+		return null;
+	}
+
+	// ======================================================================
 	// == Creation and clean up of all the UI stuff
 	// ======================================================================
 
@@ -82,27 +102,19 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 		ancestorTree = createAncestorTree(sash);
 		memberTree = createMemberTree(sash);
 
-		final IAction syncWithEditorAction = new Action("Sync with Editor", SWT.TOGGLE) {
+		final IAction syncWithEditorAction = new Action("Link with Editor", SWT.TOGGLE) {
 			{
+				setToolTipText("Link with Editor");
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(LINK_ICON));
 				setChecked(syncWithEditor);
-				updateImage(syncWithEditor);
-				setToolTipText(
-						"Synchronizes the view's selection with the editor.  Selecting items in the view "
-								+
-								"immediately highlights the source text in an editor.");
 			}
 
 			@Override
 			public void run() {
 				syncWithEditor = !syncWithEditor;
-				updateImage(syncWithEditor);
 				if (syncWithEditor) {
 					gotoElement(lastSelectedElement);
 				}
-			}
-
-			private void updateImage(final boolean link) {
-				setImageDescriptor(OsateUiPlugin.getImageDescriptor(link ? SYNC_ICON : DONT_SYNC_ICON));
 			}
 		};
 		getViewSite().getActionBars().getToolBarManager().add(syncWithEditorAction);
@@ -110,7 +122,6 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
-		site.getPage().addPostSelectionListener(this);
 		aadlImage = new Image(site.getShell().getDisplay(),
 				ClassifierInfoView.class.getResourceAsStream("/icons/aadl.gif"));
 		super.init(site);
@@ -118,15 +129,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 
 	@Override
 	public void dispose() {
-		getSite().getPage().removePostSelectionListener(this);
 		aadlImage.dispose();
 		aadlImage = null;
-		currentSelection = null;
 	}
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
+		memberTree.getControl().setFocus();
 	}
 
 	private TreeViewer createAncestorTree(final Composite parent) {
@@ -290,27 +299,13 @@ public final class ClassifierInfoView extends ViewPart implements ISelectionList
 	}
 
 	// ======================================================================
-	// == Listeners
+	// == Set the view input
 	// ======================================================================
 
-	@Override
-	public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-		if (part == null || selection == null | selection.equals(currentSelection)) {
-			return;
-		}
-
-		currentSelection = selection;
-
-		Classifier input = null;
-		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
-			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
-			if (selectedObject != null && selectedObject instanceof Classifier) {
-				input = (Classifier) selectedObject;
-			}
-		}
-
+	public void setInput(final Classifier input) {
 		if (input != null) {
-			ancestorTree.setInput(createAncestorTree(input));
+			final AncestorTree tree = createAncestorTree(input);
+			ancestorTree.setInput(tree);
 			ancestorTree.expandToLevel(2);
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));

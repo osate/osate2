@@ -20,15 +20,15 @@ public class SelectionPropertyTester extends PropertyTester {
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
 		final ISelection selection = (ISelection) receiver;
 		if (property.equals("allAreDiagramElementsWithSameParent")) {
-			return DiagramElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection));
+			return DiagramElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection, false));
 		} else if (property.equals("singleNamedElementInComponentImplementation")) { // Returns false if there is more than one element or if the element is not
 			// a descendant of a component implementation or if the diagram element's BO is not a named element.
-			final List<DiagramElement> diagramElements = SelectionUtil.getSelectedDiagramElements(selection);
+			final List<DiagramElement> diagramElements = SelectionUtil.getSelectedDiagramElements(selection, false);
 			return diagramElements.size() == 1
 					&& ToolUtil.findComponentImplementationBoc(diagramElements.get(0)) != null;
 		} else if (property.contentEquals("namedElementsInSameComponentImplementation")) { // Returns false if all selected elements are not descendants of the
 			// same component implementation or if any diagram element's BO is not a named element.
-			final List<DiagramElement> diagramElements = SelectionUtil.getSelectedDiagramElements(selection);
+			final List<DiagramElement> diagramElements = SelectionUtil.getSelectedDiagramElements(selection, false);
 
 			// Get component implementation ancestor for each named element
 			final List<BusinessObjectContext> ciBocs = diagramElements

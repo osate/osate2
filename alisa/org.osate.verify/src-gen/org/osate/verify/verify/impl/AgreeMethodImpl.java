@@ -106,6 +106,7 @@ public class AgreeMethodImpl extends MethodKindImpl implements AgreeMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSingleLayer()
   {
     return singleLayer;
@@ -116,6 +117,7 @@ public class AgreeMethodImpl extends MethodKindImpl implements AgreeMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSingleLayer(boolean newSingleLayer)
   {
     boolean oldSingleLayer = singleLayer;
@@ -129,6 +131,7 @@ public class AgreeMethodImpl extends MethodKindImpl implements AgreeMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAll()
   {
     return all;
@@ -139,6 +142,7 @@ public class AgreeMethodImpl extends MethodKindImpl implements AgreeMethod
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAll(boolean newAll)
   {
     boolean oldAll = all;

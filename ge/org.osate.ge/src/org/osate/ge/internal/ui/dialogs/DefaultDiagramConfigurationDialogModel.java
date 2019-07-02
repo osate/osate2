@@ -91,11 +91,6 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	}
 
 	@Override
-	public ImmutableSet<ContentFilter> getApplicableContentFilters(final Object bo) {
-		return extService.getApplicableContentFilters(bo);
-	}
-
-	@Override
 	public ImmutableSet<ContentFilter> getDefaultContentFilters(final Object bo) {
 		return diagramType.getApplicableDefaultContentFilters(bo, extService);
 	}

@@ -103,9 +103,14 @@
                         ifEmpty="false"
                         operator="or">
                      <or>
-                     	<instanceof
-                              value="org.osate.aadl2.ComponentClassifier">
-                        </instanceof>
+                        <adapt
+                              type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                           <test
+                                 property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                 value="ComponentClassifier"
+                                 forcePluginActivation="true">
+                           </test>
+                        </adapt>
                         <adapt
                               type="org.eclipse.core.resources.IFile">
                            <or>

@@ -72,6 +72,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
@@ -147,6 +148,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -167,11 +169,6 @@ public final class AadlUtil {
 	private AadlUtil() {
 		// empty!
 	}
-
-	// Constants for namespace resolution
-	private static final int PUBLIC = 0;
-
-	private static final int PRIVATE = 1;
 
 	private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
 
@@ -1358,7 +1355,7 @@ public final class AadlUtil {
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
-			Resource res = OsateResourceUtil.getResource((IResource) object);
+			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 			if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 				return (Element) rl.get(0);
@@ -1366,7 +1363,7 @@ public final class AadlUtil {
 		}
 		if (object instanceof IFile
 				&& WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
-			Resource res = OsateResourceUtil.getResource((IResource) object);
+			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 
 			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource) {
@@ -1387,10 +1384,11 @@ public final class AadlUtil {
 			}
 		}
 		if (object instanceof TreeSelection) {
-			for (Iterator iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
+			for (Iterator<?> iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
 				Object f = iterator.next();
 				if (f instanceof IResource) {
-					Resource res = OsateResourceUtil.getResource((IResource) f);
+					URI uri = OsateResourceUtil.toResourceURI((IResource) f);
+					Resource res = new ResourceSetImpl().getResource(uri, true);
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 						return (Element) rl.get(0);
@@ -1398,6 +1396,13 @@ public final class AadlUtil {
 				}
 			}
 			return null;
+		}
+		if (object instanceof EObjectURIWrapper) {
+			EObjectURIWrapper wrapper = (EObjectURIWrapper) object;
+			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+			if (eObject instanceof Element) {
+				return (Element) eObject;
+			}
 		}
 		return null;
 	}
@@ -1611,7 +1616,7 @@ public final class AadlUtil {
 	 * @return The number of model elements in the given subtree that are
 	 *         instances of the given class or one of its subclasses.
 	 */
-	public static int countElementsBySubclass(final Element root, final Class clazz) {
+	public static int countElementsBySubclass(final Element root, final Class<?> clazz) {
 		final SimpleSubclassCounter counter = new SimpleSubclassCounter(clazz);
 		counter.defaultTraversal(root);
 		return counter.getCount();
@@ -2231,7 +2236,7 @@ public final class AadlUtil {
 	public static IPath getResourcePath(NamedElement component) {
 		Resource res = component.eResource();
 		URI uri = res.getURI();
-		IPath path = OsateResourceUtil.getOsatePath(uri);
+		IPath path = OsateResourceUtil.toIFile(uri).getFullPath();
 		return path.removeLastSegments(1);
 	}
 

@@ -65,7 +65,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
 
-public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
+class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for adding a required with statement for a referenced package or property set.
 	 * The issue data array is expected to have three elements:
@@ -75,10 +75,10 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[2]: The URI String of the Namespace where the with statement should be inserted.
 	 */
 	@Fix(PropertiesJavaValidator.MISSING_WITH)
-	def public void fixMissingWith(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMissingWith(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add '" + issue.getData.get(0) + "' to the with clauses", null, null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val ResourceSet resourceSet = element.eResource().getResourceSet();
 					val ModelUnit requiredModelUnit = resourceSet.getEObject(
 						URI.createURI(issue.getData.get(1)), true) as ModelUnit;
@@ -99,9 +99,9 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for swapping Upper and Lower bounds in a range value when the upper is less than the lower
 	 */
 	@Fix(PropertiesJavaValidator.UPPER_LESS_THAN_LOWER)
-	def public void fixUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new ISemanticModification() {
-			override public void apply(EObject element, IModificationContext context) throws Exception {
+			override void apply(EObject element, IModificationContext context) throws Exception {
 				var oldMin = (element as RangeValue).minimum
 				var oldMax = (element as RangeValue).maximum;
 				(element as RangeValue).minimum = oldMax;
@@ -114,9 +114,9 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for swapping Upper and Lower bounds in an array index range value when the upper is less than the lower
 	 */
 	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_LESS_THAN_LOWER)
-	def public void fixArrayRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixArrayRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new ISemanticModification() {
-			override public void apply(EObject element, IModificationContext context) throws Exception {
+			override void apply(EObject element, IModificationContext context) throws Exception {
 				var oldMin = (element as ArrayRange).lowerBound
 				var oldMax = (element as ArrayRange).upperBound;
 				(element as ArrayRange).lowerBound = oldMax;
@@ -131,12 +131,12 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData(0) = maximum dimension value;
 	 */
 	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM)
-	def public void fixArrayRangeUpperGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixArrayRangeUpperGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
 		val maxAllowed = Long.valueOf(issue.data.head);
 		acceptor.accept(issue,
 			"Change upper bound of the range to maximum defined by type's dimension (" + maxAllowed + ")", null, null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					(element as ArrayRange).upperBound = maxAllowed
 				}
 			});
@@ -148,11 +148,11 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData(0) = maximum dimension value;
 	 */
 	@Fix(PropertiesJavaValidator.ARRAY_INDEX_GREATER_THAN_MAXIMUM)
-	def public void fixArrayIndexGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixArrayIndexGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
 		val maxAllowed = Long.valueOf(issue.data.head);
 		acceptor.accept(issue, "Change index of array to maximum defined by type's dimension (" + maxAllowed + ")",
 			null, null, new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					(element as ArrayRange).lowerBound = maxAllowed
 				}
 			});
@@ -162,9 +162,9 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing Lower bound in an array index range from 1 to 0
 	 */
 	@Fix(PropertiesJavaValidator.ARRAY_LOWER_BOUND_IS_ZERO)
-	def public void fixArrayRangeLowerBoundIsZero(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixArrayRangeLowerBoundIsZero(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Change '0' to '1'", null, null, new ISemanticModification() {
-			override public void apply(EObject element, IModificationContext context) throws Exception {
+			override void apply(EObject element, IModificationContext context) throws Exception {
 				(element as ArrayRange).lowerBound = 1
 			}
 		});
@@ -174,9 +174,9 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for making a negative delta positive
 	 */
 	@Fix(PropertiesJavaValidator.DELTA_NEGATIVE)
-	def public void fixNegativeDelta(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixNegativeDelta(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Make delta value positive", null, null, new ISemanticModification() {
-			override public void apply(EObject element, IModificationContext context) throws Exception {
+			override void apply(EObject element, IModificationContext context) throws Exception {
 				switch element {
 					IntegerLiteral: element.value = -(element.value)
 					RealLiteral: element.value = -(element.value)
@@ -191,7 +191,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * 	 * issue.getData() unitTypeNames
 	 */
 	@Fix(PropertiesJavaValidator.MISSING_NUMBERVALUE_UNITS)
-	def public void fixMissingUnits(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMissingUnits(Issue issue, IssueResolutionAcceptor acceptor) {
 
 		val iter = issue.data.iterator
 		while (iter.hasNext) {
@@ -203,7 +203,7 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				null,
 				null,
 				new ISemanticModification() {
-					override public void apply(EObject element, IModificationContext context) throws Exception {
+					override void apply(EObject element, IModificationContext context) throws Exception {
 						val ResourceSet resourceSet = element.eResource().getResourceSet();
 						val UnitLiteral unitLiteral = resourceSet.getEObject(URI.createURI(nextUri),
 							true) as UnitLiteral;
@@ -218,14 +218,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Byte_Count to Memory_Size
 	 */
 	@Fix(PropertiesJavaValidator.BYTE_COUNT_DEPRECATED)
-	def public void fixDeprecatedByteCount(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedByteCount(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Byte_Count values with Memory_Size",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.MEMORY_SIZE)
@@ -246,14 +246,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Data_Volume to Data_Rate
 	 */
 	@Fix(PropertiesJavaValidator.DATA_VOLUME_DEPRECATED)
-	def public void fixDeprecatedDataVolume(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedDataVolume(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Data_Volume values with Data_Rate",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), CommunicationProperties.DATA_RATE)
@@ -274,14 +274,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate SEI::Data_Rate to Data_Rate
 	 */
 	@Fix(PropertiesJavaValidator.SEI_DATA_RATE_DEPRECATED)
-	def public void fixDeprecatedSEIDataRate(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedSEIDataRate(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace SEI::Data_Rate with SEI::Message_Rate",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), "SEI::Message_Rate")
@@ -300,14 +300,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Source_Code_Size to Code_Size
 	 */
 	@Fix(PropertiesJavaValidator.SOURCE_CODE_SIZE_DEPRECATED)
-	def public void fixDeprecatedSourceCodeSize(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedSourceCodeSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Source_Code_Size with Code_Size",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.CODE_SIZE)
 				}
@@ -319,14 +319,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Source_Data_Size to Data_Size
 	 */
 	@Fix(PropertiesJavaValidator.SOURCE_DATA_SIZE_DEPRECATED)
-	def public void fixDeprecatedSourceDataSize(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedSourceDataSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Source_Data_Size with Data_Size",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.DATA_SIZE)
 				}
@@ -338,14 +338,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Source_Heap_Size to Heap_Size
 	 */
 	@Fix(PropertiesJavaValidator.SOURCE_HEAP_SIZE_DEPRECATED)
-	def public void fixDeprecatedSourceHeapSize(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedSourceHeapSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Source_Heap_Size with Heap_Size",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.HEAP_SIZE)
 				}
@@ -357,14 +357,14 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * QuickFix for changing deprecate Source_Stack_Size to Stack_Size
 	 */
 	@Fix(PropertiesJavaValidator.SOURCE_STACK_SIZE_DEPRECATED)
-	def public void fixDeprecatedSourceStackSize(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDeprecatedSourceStackSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
 			"Replace Source_Stack_Size with Stack_Size",
 			null,
 			null,
 			new ISemanticModification() {
-				override public void apply(EObject element, IModificationContext context) throws Exception {
+				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.STACK_SIZE)
 				}

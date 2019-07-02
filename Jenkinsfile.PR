@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+		stage('Build Pull Request') {
+			steps {
+				withMaven(
+					maven: 'M3',
+					mavenLocalRepo: '.repository',
+                    publisherStrategy: 'EXPLICIT'
+                ) {
+                    sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
+                }
+            }
+        }
+    }
+}

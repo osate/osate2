@@ -17,8 +17,6 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
-import org.eclipse.xsemantics.runtime.RuleEnvironment
-import org.eclipse.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -28,12 +26,13 @@ import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xsemantics.runtime.RuleEnvironment
+import org.eclipse.xsemantics.runtime.RuleFailedException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyValue
@@ -58,10 +57,8 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
-import org.osate.assure.util.ExecuteResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
-import org.osate.pluginsupport.ExecutePythonUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
@@ -91,6 +88,14 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.assure.util.ResoluteUtil
+import org.osate.assure.util.ResoluteInterface
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
+import org.osate.alisa.common.common.TypeRef
+import org.osate.aadl2.PropertyType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -281,9 +286,14 @@ class AssureProcessor implements IAssureProcessor {
 		val targetElement = verificationResult.caseTargetModelElement
 		var InstanceObject target = targetComponent
 		if (targetElement !== null && targetElement.name !== null) {
-				target = targetComponent.findElementInstance(targetElement)
-				if (target === null) { target =  targetComponent }
+			target = targetComponent.findElementInstance(targetElement)
+			if (target === null) {
+				setToError(verificationResult, "Unresolved target model element in instance for claim", targetElement)
+				saveAssureResult(verificationResult)
+				updateProgress(verificationResult)
+				return
 			}
+		}
 		env.add("component", targetComponent)
 		env.add("element", target)
 
@@ -497,7 +507,25 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def PropertyExpression toLiteral(Object data, UnitLiteral unit) {
+	def Object getType (FormalParameter fp){
+		val pt = fp.type
+		return getType(pt)
+		}
+		
+	def Object getType (PropertyType pt){
+		switch pt {
+			AadlBoolean: return Boolean
+			AadlInteger: return Integer
+			AadlReal: return Double
+			AadlString: return String
+			TypeRef: return getType(pt.ref)
+		}
+		return null
+	}
+
+	def PropertyExpression toLiteral(Object data, FormalParameter fp) {
+		val unit = fp?.unit
+		val expectedType = getType(fp)
 		switch data {
 			Boolean: {
 				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
@@ -505,16 +533,30 @@ class AssureProcessor implements IAssureProcessor {
 				b
 			}
 			Integer: {
-				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				i.value = data
-				if(unit !== null) i.unit = unit
-				i
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			Double: {
-				val r = Aadl2Factory.eINSTANCE.createRealLiteral
-				r.value = data
-				if(unit !== null) r.unit = unit
-				r
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			String: {
 				val str = Aadl2Factory.eINSTANCE.createStringLiteral
@@ -527,16 +569,30 @@ class AssureProcessor implements IAssureProcessor {
 				b
 			}
 			IntegerValue: {
-				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
-				i.value = data.value
-				if(unit !== null) i.unit = unit
-				i
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data.value
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data.value
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			RealValue: {
-				val r = Aadl2Factory.eINSTANCE.createRealLiteral
-				r.value = data.value
-				if(unit !== null) r.unit = unit
-				r
+				if (expectedType === Integer){
+					val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+					i.value = data.value
+					if(unit !== null) i.unit = unit
+					i
+				} else {
+					val r = Aadl2Factory.eINSTANCE.createRealLiteral
+					r.value = data.value
+					if(unit !== null) r.unit = unit
+					r
+				}
 			}
 			StringValue: {
 				val str = Aadl2Factory.eINSTANCE.createStringLiteral
@@ -673,34 +729,18 @@ class AssureProcessor implements IAssureProcessor {
 				executeResoluteMethodOnce(verificationResult, method, targetComponent, target, parameters);
 			}
 			PythonMethod: {
-				executePythonOnce(verificationResult, method, target, parameters);
+				setToError(verificationResult,"Python script execution not supported", null);
 			}
 		}
-	}
-	
-	def void executePythonOnce(VerificationResult verificationResult, VerificationMethod method,
-	InstanceObject target, List<PropertyExpression> parameters) {
-		val engine = new ExecutePythonUtil
-		val methodtype = method.methodKind as PythonMethod
-		val scriptURL = "platform:/resource/"+ methodtype.methodPath; //"platform:/plugin/org.osate.assure/modelstatistics2.py";
-		val objects = VerifyJavaUtil.getActualJavaObjects(method.formals, target, parameters)
-		var returned = engine.runPythonScript(scriptURL,objects);
-		if (returned instanceof Result){
-			if (returned.isResultError){
-				objects.remove(0)
-				returned = engine.runPythonScript(scriptURL,objects);
-			}
-		}
-		processExecutionResult(verificationResult, method, target, returned)
 	}
 	
 
 	def void executeResoluteMethodOnce(VerificationResult verificationResult, VerificationMethod method,
 		ComponentInstance targetComponent, InstanceObject target, List<PropertyExpression> parameters) {
-		if (ExecuteResoluteUtil.eInstance.isResoluteInstalled()) {
+		if (ResoluteUtil.isResoluteInstalled()) {
 			val methodtype = method.methodKind as ResoluteMethod
 			val fundef = methodtype.methodReference
-			val returned = ExecuteResoluteUtil.eInstance.executeResoluteFunctionOnce(fundef, targetComponent, target,
+			val returned = (new ResoluteInterface).executeResoluteFunctionOnce(fundef, targetComponent, target,
 				parameters)
 			processExecutionResult(verificationResult, method, target, returned)
 		} else {
@@ -793,8 +833,7 @@ class AssureProcessor implements IAssureProcessor {
 							val computevars = verificationResult.targetReference.verificationActivity.computes
 							if (computevars.size == 1) {
 								val computeRef = computevars.head
-								val tunit = method.results.head?.unit
-								val rval = toLiteral(returned, tunit)
+								val rval = toLiteral(returned, method.results.head)
 								// reset computes variables for interpreter
 								computes.clear
 								computes.put(computeRef.compute.name, rval)
@@ -853,8 +892,7 @@ class AssureProcessor implements IAssureProcessor {
 			computevars.forEach [ computeRef |
 				val value = valsIter.next
 				val formalReturn = formalIter.next
-				val tunit = formalReturn?.unit
-				computes.put(computeRef.compute.name, toLiteral(value, tunit))
+				computes.put(computeRef.compute.name, toLiteral(value, formalReturn))
 			]
 			evaluateComputePredicate(returned, valuePredicate)
 		} else {

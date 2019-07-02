@@ -8,7 +8,6 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.SystemType
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper

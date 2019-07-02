@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
@@ -59,7 +60,7 @@ public final class FindUnusedClassifiersAnalysis {
 	}
 
 	public void doIt(final Collection<IFile> packages) {
-		final Job job = new FindUnusedClassifiersJob(OsateResourceUtil.getResourceSet(), packages);
+		final Job job = new FindUnusedClassifiersJob(new ResourceSetImpl(), packages);
 		// TODO Make the rule based on the contents of the resource set
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
@@ -133,18 +134,18 @@ public final class FindUnusedClassifiersAnalysis {
 
 				if (!referencedThings.contains(classifierDecl)) {
 					final Classifier classifier = (Classifier) resourceSet.getEObject(classifierDecl, true);
-					final IResource iRsrc = OsateResourceUtil.convertToIResource(classifier.eResource());
+					final IFile iRsrc = OsateResourceUtil.toIFile(classifier.eResource().getURI());
 					try {
 						final IMarker marker = iRsrc.createMarker(MARKER_TYPE);
 						marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
 						marker.setAttribute(IMarker.MESSAGE,
 								"Classifier " + classifier.getQualifiedName() + " is never referenced");
 
-						final String urIString = classifierDecl.toString();
-						marker.setAttribute(AadlConstants.AADLURI, urIString);
-						marker.setAttribute(EValidator.URI_ATTRIBUTE, urIString);
+						final String uriString = classifierDecl.toString();
+						marker.setAttribute(AadlConstants.AADLURI, uriString);
+						marker.setAttribute(EValidator.URI_ATTRIBUTE, uriString);
 
-						final ITextRegion where = locationProvider.getFullTextRegion(classifier);
+						final ITextRegion where = locationProvider.getSignificantTextRegion(classifier);
 						final int start = where.getOffset();
 						final int end = start + where.getLength();
 						marker.setAttribute(IMarker.CHAR_START, start);
