@@ -217,8 +217,10 @@ public class AnnexParserAgent extends LazyLinker {
 				AnnexParser ap = registry.getAnnexParser(annexName);
 				try {
 					int errs = errReporter.getNumErrors();
+					AnnexUtil.setCurrentAnnexSubclause(defaultAnnexSubclause);
 					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
 							errReporter);
+					AnnexUtil.setCurrentAnnexSubclause(null);
 					if (asc != null)// && errReporter.getNumErrors() == errs)
 					{
 						asc.setName(annexName);

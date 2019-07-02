@@ -376,4 +376,20 @@ public class AnnexUtil {
 		}
 		return null;
 	}
+	
+	/**
+	 * get/set currently parsed annex subclause
+	 */
+	private static AnnexSubclause _currentAnnexSubclause;
+	
+	public static AnnexSubclause getCurrentAnnexSubclause()
+	{
+		return _currentAnnexSubclause;
+	}
+	
+	public static void setCurrentAnnexSubclause(AnnexSubclause subclause)
+	{
+		_currentAnnexSubclause = subclause;
+	}
+	
 }
