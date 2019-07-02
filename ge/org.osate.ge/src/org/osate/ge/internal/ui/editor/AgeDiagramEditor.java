@@ -31,6 +31,7 @@ package org.osate.ge.internal.ui.editor;
 
 import java.util.Objects;
 
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
@@ -44,6 +45,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.services.ProjectReferenceService;
 
 import com.google.common.collect.ImmutableList;
 
@@ -121,7 +125,9 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 		if(IContentOutlinePage.class.equals(required)) {
 			if(outlinePage == null) {
-				outlinePage = new AgeContentOutlinePage(this);
+				outlinePage = new AgeContentOutlinePage(this, Adapters.adapt(this, ProjectProvider.class),
+						Adapters.adapt(this, ExtensionService.class),
+						Adapters.adapt(this, ProjectReferenceService.class));
 			}
 			return outlinePage;
 		} else if(required == org.eclipse.ui.views.properties.IPropertySheetPage.class) {

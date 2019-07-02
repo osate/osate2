@@ -121,9 +121,9 @@ public class Diagram extends DiagramNode {
 		if (newConfig != config) {
 			NotificationChain msgs = null;
 			if (config != null)
-				msgs = ((InternalEObject)config).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM__CONFIG, null, msgs);
+				msgs = config.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM__CONFIG, null, msgs);
 			if (newConfig != null)
-				msgs = ((InternalEObject)newConfig).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM__CONFIG, null, msgs);
+				msgs = newConfig.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DiagramPackage.DIAGRAM__CONFIG, null, msgs);
 			msgs = basicSetConfig(newConfig, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -256,7 +256,7 @@ public class Diagram extends DiagramNode {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (formatVersion: ");
 		result.append(formatVersion);
 		result.append(')');
