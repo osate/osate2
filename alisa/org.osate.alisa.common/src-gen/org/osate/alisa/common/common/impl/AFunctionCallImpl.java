@@ -109,6 +109,7 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getFunction()
   {
     return function;
@@ -119,6 +120,7 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFunction(String newFunction)
   {
     String oldFunction = function;
@@ -132,6 +134,7 @@ public class AFunctionCallImpl extends PropertyExpressionImpl implements AFuncti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<PropertyExpression> getArguments()
   {
     if (arguments == null)

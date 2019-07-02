@@ -363,11 +363,11 @@ class Serializer2Test extends AbstractSerializerTest {
 					in eventPort p1 : pkg1::s:p1
 					initial mode m1 : pkg1::s:m1
 					mode m2 : pkg1::s:m2
-					mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
+					mode transition m1_p1_m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
 				}
 				initial mode m1 : pkg1::s:m1
 				mode m2 : pkg1::s:m2
-				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
+				mode transition m1_p1_m2 m1 -[ p1 ]-> m2 : pkg1::s:mt1
 				som "som_1" m1 , sub1[0].m1
 				som "som_2" m1 , sub1[0].m2
 				som "som_3" m2 , sub1[0].m1
@@ -618,16 +618,16 @@ class Serializer2Test extends AbstractSerializerTest {
 				mode m2 : pkg1::s1.i:m2
 				mode m3 : pkg1::s1.i:m3
 				mode m4 : pkg1::s1.i:m4
-				mode transition m1.port1.m2 m1 -[ port1 ]-> m2 : pkg1::s1.i:transition#0
-				mode transition m2.arrayPort1.m1 m2 -[ arrayPort1[1] ]-> m1 : pkg1::s1.i:transition#1
-				mode transition m1.es1.m3 m1 -[ ]-> m3 : pkg1::s1.i:transition#2
-				mode transition m2.pp1.m3 m2 -[ ]-> m3 : pkg1::s1.i:transition#3
-				mode transition m3.port4.m1 m3 -[ fg1.port4 ]-> m1 : pkg1::s1.i:transition#4
-				mode transition m3.port4.m2 m3 -[ arrayFg1[1].port4 ]-> m2 : pkg1::s1.i:transition#5
-				mode transition m1.sub1.port1.m4 m1 -[ sub1[0].port1 ]-> m4 : pkg1::s1.i:transition#6
-				mode transition m2.arraySub1.arrayPort1.m4 m2 -[ arraySub1[1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#7
-				mode transition m3.multiArraySub1.arrayPort1.m4 m3 -[ multiArraySub1[1][1][1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#8
-				mode transition m4.port1.m1 m4 -[ port1 , port2 , port3 ]-> m1 : pkg1::s1.i:transition#9
+				mode transition m1_port1_m2 m1 -[ port1 ]-> m2 : pkg1::s1.i:transition#0
+				mode transition m2_arrayPort1_m1 m2 -[ arrayPort1[1] ]-> m1 : pkg1::s1.i:transition#1
+				mode transition m1_es1_m3 m1 -[ ]-> m3 : pkg1::s1.i:transition#2
+				mode transition m2_pp1_m3 m2 -[ ]-> m3 : pkg1::s1.i:transition#3
+				mode transition m3_port4_m1 m3 -[ fg1.port4 ]-> m1 : pkg1::s1.i:transition#4
+				mode transition m3_port4_m2 m3 -[ arrayFg1[1].port4 ]-> m2 : pkg1::s1.i:transition#5
+				mode transition m1_sub1_port1_m4 m1 -[ sub1[0].port1 ]-> m4 : pkg1::s1.i:transition#6
+				mode transition m2_arraySub1_arrayPort1_m4 m2 -[ arraySub1[1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#7
+				mode transition m3_multiArraySub1_arrayPort1_m4 m3 -[ multiArraySub1[1][1][1].arrayPort1[1] ]-> m4 : pkg1::s1.i:transition#8
+				mode transition m4_port1_m1 m4 -[ port1 , port2 , port3 ]-> m1 : pkg1::s1.i:transition#9
 				som "som_1" m1
 				som "som_2" m2
 				som "som_3" m3
@@ -685,7 +685,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				flow f1 ( p3 -> ) in transitions ( transition#0 ) : pkg1::s3:f1
 				initial mode m1 : pkg1::s3:m1
 				mode m2 : pkg1::s3:m2
-				mode transition m1.p3.m2 m1 -[ p3 ]-> m2 : pkg1::s3:mt1
+				mode transition m1_p3_m2 m1 -[ p3 ]-> m2 : pkg1::s3:mt1
 				som "som_1" m1
 				som "som_2" m2
 			}''')
@@ -761,10 +761,10 @@ class Serializer2Test extends AbstractSerializerTest {
 						ps1::bool1 => true : pkg1::s1:m1:property#0
 					}
 					mode m2 : pkg1::s1:m2
-					mode transition m1.p2.m2 m1 -[ p2 ]-> m2 : pkg1::s1:mt1 {
+					mode transition m1_p2_m2 m1 -[ p2 ]-> m2 : pkg1::s1:mt1 {
 						ps1::bool1 => true : pkg1::s1:mt1:property#0
 					}
-					mode transition m2.p2.m1 m2 -[ p2 ]-> m1 : pkg1::s1:transition#1 {
+					mode transition m2_p2_m1 m2 -[ p2 ]-> m1 : pkg1::s1:transition#1 {
 						ps1::bool1 => true : pkg1::s1:transition#1:property#0
 					}
 					ps1::bool1 => true : pkg1::s3.i:sub1:property#0
@@ -1021,7 +1021,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1
 				initial mode m1 : pkg1::s1:m1
 				mode m2 : pkg1::s1:m2
-				mode transition m1.p1.m2 m1 -[ p1 ]-> m2 : pkg1::s1:mt1
+				mode transition m1_p1_m2 m1 -[ p1 ]-> m2 : pkg1::s1:mt1
 				som "som_1" m1
 				som "som_2" m2
 				ps1::reference1 => reference ( pkg1::s1:proto1 ) : pkg1::s1.i:property#0
@@ -1033,7 +1033,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				ps1::reference7 => reference ( pkg1::s1.i:pp1 ) : pkg1::s1.i:property#6
 				ps1::reference8 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:sequence1 ) : pkg1::s1.i:property#7
 				ps1::reference9 => reference ( pkg1::s1.i:sub2 / pkg1::a1.i:call1 ) : pkg1::s1.i:property#8
-				ps1::reference10 => reference ( pkg1::s1:mt1 ) : pkg1::s1.i:property#9
+				ps1::reference10 => reference ( m1_p1_m2 ) : pkg1::s1.i:property#9
 			}''')
 	}
 	

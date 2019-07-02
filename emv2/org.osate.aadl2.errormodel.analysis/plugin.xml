@@ -80,9 +80,19 @@
                            value="1">
                      </count>
                      <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.ComponentInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                              <test
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                    value="ComponentInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
                      </iterate>
                   </and>
                </with>
@@ -104,9 +114,19 @@
                            value="1">
                      </count>
                      <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.ComponentInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                              <test
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                    value="ComponentInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
                      </iterate>
                   </and>
                </with>
@@ -128,9 +148,19 @@
                            value="1">
                      </count>
                      <iterate>
-                        <instanceof
-                              value="org.osate.aadl2.instance.ComponentInstance">
-                        </instanceof>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.ComponentInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                              <test
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                    value="ComponentInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
                      </iterate>
                   </and>
                </with>

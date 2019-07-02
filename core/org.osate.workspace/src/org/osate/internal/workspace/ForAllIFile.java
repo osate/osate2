@@ -49,7 +49,10 @@ import org.eclipse.emf.common.util.EList;
  * ForAllIFile operates on all files in a container hierarchy
  *
  * @author phf
+ *
+ * @deprecated Will be removed in 2.6.0.
  */
+@Deprecated
 public class ForAllIFile {
 	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
 

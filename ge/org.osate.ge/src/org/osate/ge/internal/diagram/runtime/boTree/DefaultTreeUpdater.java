@@ -12,9 +12,10 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
@@ -22,7 +23,6 @@ import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
@@ -45,7 +45,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
-import org.osate.ge.internal.util.ManualBranchCache;
+import org.osate.ge.internal.util.ContentFilterUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.QueryService;
 
@@ -55,7 +55,8 @@ import com.google.common.collect.Multimap;
 
 /**
  * A TreeUpdater which create a tree which contains which contains contains nodes based all
- * provided by registered business object providers. Nodes are removed or created based on is manual fields and the content filters.
+ * provided by registered business object providers. Nodes are removed or created based on the input tree,
+ * the business objects provided by the providers, diagram type, and whether a node has previously had its default children populated.
  *
  * Diagrams which have a context business object specified will only contain the specified business object as a root. Diagrams which do not have a context
  * may include any business objects which are returned by the business object providers when using the current IProject as the root business object context.
@@ -87,10 +88,8 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
 		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, true,
-					ImmutableSet.of(), Completeness.UNKNOWN);
+			final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, Completeness.UNKNOWN);
 
-			final ManualBranchCache manualBranchCache = new ManualBranchCache();
 			final Map<RelativeBusinessObjectReference, Object> boMap;
 
 			// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context
@@ -121,13 +120,12 @@ public class DefaultTreeUpdater implements TreeUpdater {
 						.getChildBusinessObjects(contextlessRootBoc);
 
 				// Determine the root business objects
-				final Set<RelativeBusinessObjectReference> manualRootBranches = getRefsForManualBranches(
-						tree.getChildrenMap(), manualBranchCache);
+				final Set<RelativeBusinessObjectReference> existingRootBranches = tree.getChildrenMap().keySet();
 
 				// Content filters are not supported for the root of diagrams.
 				final ImmutableSet<ContentFilter> rootContentFilters = ImmutableSet.of();
 
-				boMap = getChildBusinessObjects(potentialRootBusinessObjects, manualRootBranches, rootContentFilters);
+				boMap = getChildBusinessObjects(potentialRootBusinessObjects, existingRootBranches, rootContentFilters);
 
 				// Contextless diagrams are always considered complete
 				newRoot.setCompleteness(Completeness.COMPLETE);
@@ -162,7 +160,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 
 			// Populate the new tree
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();
-			createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot, manualBranchCache);
+			createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot);
 
 			// Build set of the names of all properties which are enabled
 			final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
@@ -180,13 +178,14 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	}
 
 	private Set<Property> getPropertiesByLowercasePropertyNames(final Set<String> lcPropertyNames) {
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		final Set<Property> properties = new HashSet<>();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(),
 				Aadl2Package.eINSTANCE.getProperty())) {
 			final String lowercasePropertyName = desc.getName().toString("::").toLowerCase();
 			if (lcPropertyNames.contains(lowercasePropertyName)) {
 				EObject property = desc.getEObjectOrProxy();
-				property = EcoreUtil.resolve(property, OsateResourceUtil.getResourceSet());
+				property = EcoreUtil.resolve(property, resourceSet);
 				if (!Aadl2Util.isNull(property)) {
 					properties.add((Property) property);
 				}
@@ -249,8 +248,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 						.requireNonNull(refService.getRelativeReference(pvg), "unable to get relative reference");
 				final BusinessObjectNode oldPropNode = oldNode == null ? null : oldNode.getChild(propRelRef);
 				final UUID propNodeId = oldPropNode == null ? UUID.randomUUID() : oldPropNode.getId();
-				new BusinessObjectNode(node, propNodeId, propRelRef, pvg, false, ImmutableSet.of(),
-						Completeness.COMPLETE);
+				new BusinessObjectNode(node, propNodeId, propRelRef, pvg, Completeness.COMPLETE, true);
 			}
 
 			dstToValues.clear(); // Clear map for the next use.
@@ -311,29 +309,27 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	private void createNodes(final DiagramType diagramType, final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, Object> newBoMap,
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
-			final BusinessObjectNode parentNode, final ManualBranchCache manualBranchCache) {
+			final BusinessObjectNode parentNode) {
 		for (final Entry<RelativeBusinessObjectReference, Object> childEntry : newBoMap.entrySet()) {
 			// Create node
 			final Object childBo = childEntry.getValue();
 			final RelativeBusinessObjectReference childRelReference = childEntry.getKey();
-			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference, manualBranchCache);
+			createNode(diagramType, bopHelper, oldNodeMap, parentNode, childBo, childRelReference);
 		}
 	}
 
 	private void createNode(final DiagramType diagramType, final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
-			final BusinessObjectNode parentNode, final Object bo, final RelativeBusinessObjectReference relReference,
-			final ManualBranchCache manualBranchCache) {
+			final BusinessObjectNode parentNode, final Object bo, final RelativeBusinessObjectReference relReference) {
 		// Get the node which is in the input tree from the old node map
 		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 
 		// Create the node
-		final ImmutableSet<ContentFilter> contentFilters = oldNode == null || oldNode.getContentFilters() == null
-				? getDefaultContentFilters(diagramType, bo)
-						: oldNode.getContentFilters();
+		final ImmutableSet<ContentFilter> contentFilters = oldNode == null
+				|| !oldNode.defaultChildrenHaveBeenPopulated() ? getDefaultContentFilters(diagramType, bo)
+						: ImmutableSet.of();
 				final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
-				final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo,
-						oldNode == null ? false : oldNode.isManual(), contentFilters, Completeness.UNKNOWN);
+				final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo, Completeness.UNKNOWN);
 
 				// Determine the business objects for which nodes in the tree should be created.
 				final Map<RelativeBusinessObjectReference, BusinessObjectNode> childOldNodes = oldNode == null
@@ -342,8 +338,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 						final Collection<Object> childBusinessObjectsFromProviders = bopHelper.getChildBusinessObjects(newNode);
 
 						final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(
-								childBusinessObjectsFromProviders, getRefsForManualBranches(childOldNodes, manualBranchCache),
-								contentFilters);
+								childBusinessObjectsFromProviders, childOldNodes.keySet(), contentFilters);
 
 						// Update the business objects before considering embedded business objects
 						newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE
@@ -351,7 +346,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 
 						addEmbeddedBusinessObjectsToBoMap(childOldNodes.values(), childBoMap);
 
-						createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode, manualBranchCache);
+						createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode);
 	}
 
 	private static void addEmbeddedBusinessObjectsToBoMap(final Collection<BusinessObjectNode> childOldNodes,
@@ -368,23 +363,6 @@ public class DefaultTreeUpdater implements TreeUpdater {
 		return diagramType.getApplicableDefaultContentFilters(bo, extService);
 	}
 
-	/**
-	 * Returns a set of relative references for all nodes in the specified nodes map which belong to a manual branch.
-	 * @param nodes
-	 * @param manualBranchCache
-	 * @return
-	 */
-	private Set<RelativeBusinessObjectReference> getRefsForManualBranches(
-			final Map<RelativeBusinessObjectReference, BusinessObjectNode> nodes,
-			final ManualBranchCache manualBranchCache) {
-		if (nodes.size() == 0) {
-			return Collections.emptySet();
-		}
-
-		return nodes.entrySet().stream().filter(e -> manualBranchCache.isManualBranch(e.getValue()))
-				.map(e -> e.getKey()).collect(Collectors.toCollection(HashSet::new));
-	}
-
 	// Create a map between relative references and business objects for every business object which should be used as a child BO
 	// Create entries for all potential business objects which pass the filter or are in the forcedRefs set.
 	// Do not include objects unless relative reference exists
@@ -398,7 +376,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 					.getRelativeReference(potentialBusinessObject);
 			if (relativeReference != null) {
 				if (forcedRefs.contains(relativeReference) || extService.isFundamental(potentialBusinessObject)
-						|| passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
+						|| ContentFilterUtil.passesAnyContentFilter(potentialBusinessObject, contentFilters)) {
 					// Special handling of proxies. Only resolve them if they are needed
 					Object resolvedBo = potentialBusinessObject;
 					if (potentialBusinessObject instanceof BusinessObjectProxy) {
@@ -412,14 +390,5 @@ public class DefaultTreeUpdater implements TreeUpdater {
 		}
 
 		return results;
-	}
-
-	private boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		for (final ContentFilter filter : contentFilters) {
-			if (filter.test(bo)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

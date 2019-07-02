@@ -40,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.OptionalLong;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -61,6 +62,7 @@ import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
@@ -88,6 +90,7 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessorFeature;
@@ -109,6 +112,8 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
+import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
@@ -160,7 +165,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkModalAppliesTo(pa);
 		checkContainedProperties(pa);
 		checkForAppendsInContainedPropertyAssociation(pa);
-		checkPropertyAssociationAppliesToArrayIndex(pa);
 	}
 
 	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
@@ -192,61 +196,99 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkDuplicateFieldAssignment(recordValue);
 	}
 
-	// checking methods
-	public void checkPropertyAssociationAppliesToArrayIndex(PropertyAssociation propertyAssociation) {
-		List<ContainedNamedElement> appliesTos = propertyAssociation.getAppliesTos();
-		if (null == appliesTos || appliesTos.isEmpty()) {
+	@Check(CheckType.FAST)
+	public void checkArrayReference(ContainmentPathElement pathElement) {
+		NamedElement element = pathElement.getNamedElement();
+		List<ArrayRange> providedRanges = pathElement.getArrayRanges();
+		if (element.eIsProxy() || providedRanges.isEmpty()) {
+			// Only validate if the name is resolvable and there really are array indicies.
 			return;
 		}
-		for (ContainedNamedElement appliesTo : appliesTos) {
-			List<ContainmentPathElement> cpes = appliesTo.getContainmentPathElements();
-			for (ContainmentPathElement cpe : cpes) {
-
-				NamedElement ne = cpe.getNamedElement();
-				if (!(ne instanceof ArrayableElement)) {
-					continue;
-				}
-
-				List<ArrayDimension> dimensions = ((ArrayableElement) ne).getArrayDimensions();
-				List<ArrayRange> ranges = cpe.getArrayRanges();
-				if (ranges.size() > dimensions.size()) {
-					error(cpe, "Applies to property array has more dimensions than defined type.");
-					continue;
-				}
-
-				for (int i = 0; i < ranges.size(); i++) {
-					ArrayRange range = ranges.get(i);
-					long rangeUpperbound = range.getUpperBound();
-					long rangeLowerbound = range.getLowerBound();
-					ArrayDimension dimension = dimensions.get(i);
-					long dimensionSize = -1;
-					if (dimension != null && dimension.getSize() != null) {
-						if (dimension.getSize().getSizeProperty() != null
-								&& dimension.getSize().getSizeProperty() instanceof PropertyConstant) {
-							PropertyConstant propertyConstant = (PropertyConstant) dimension.getSize()
-									.getSizeProperty();
-							if (propertyConstant.getConstantValue() instanceof IntegerLiteral) {
-								dimensionSize = ((IntegerLiteral) propertyConstant.getConstantValue()).getValue();
-							}
-						} else {
-							dimensionSize = dimension.getSize().getSize();
-						}
+		String name = element.getName();
+		if (element instanceof ArrayableElement) {
+			List<ArrayDimension> requiredDimensions = ((ArrayableElement) element).getArrayDimensions();
+			if (requiredDimensions.isEmpty()) {
+				error(providedRanges.get(0), "'" + name + "' is not an array");
+			} else if (providedRanges.size() < requiredDimensions.size()) {
+				error(providedRanges.get(providedRanges.size() - 1),
+						"Too few array dimensions: '" + name + "' has " + requiredDimensions.size());
+			} else if (providedRanges.size() > requiredDimensions.size()) {
+				error(providedRanges.get(requiredDimensions.size()),
+						"Too many array dimensions: '" + name + "' has " + requiredDimensions.size());
+			} else {
+				for (int i = 0; i < providedRanges.size(); i++) {
+					ArrayRange providedRange = providedRanges.get(i);
+					if (providedRange.getLowerBound() == 0) {
+						error("Array indices start at 1", providedRange,
+								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
-
-					if (rangeUpperbound != 0 && rangeUpperbound < rangeLowerbound) {
-						error("Range lower bound is greater than upper bound.", range, null,
+					// If the upper is zero, then we have an index. Otherwise, we have a range.
+					if (providedRange.getUpperBound() != 0
+							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
+						error("Range lower bound is greater than upper bound", providedRange, null,
 								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
 					}
-					if (rangeLowerbound == 0) {
-						error("0 is out of bounds. Array indices start with 1.", range, null,
-								ARRAY_LOWER_BOUND_IS_ZERO);
-					} else if (rangeUpperbound == 0 && dimensionSize > 0 && rangeLowerbound > dimensionSize) {
-						error(range, "Array index is greater than allowed in type definition.");
-						error("Array index is greater than allowed in type definition.", range, null,
-								ARRAY_INDEX_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
-					} else if (dimensionSize > 0 && rangeUpperbound > dimensionSize) {
-						error("Array range is greater than allowed in type definition.", range, null,
-								ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
+					ArrayDimension requiredDimension = requiredDimensions.get(i);
+					if (requiredDimension.getSize() != null) {
+						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
+						OptionalLong size = OptionalLong.empty();
+						/*
+						 * If the size property is null, then an integer literal was specified for the size.
+						 * If the size property is not null, but is a proxy, then the property could not be resolved.
+						 */
+						if (sizeProperty == null) {
+							size = OptionalLong.of(requiredDimension.getSize().getSize());
+						} else if (!sizeProperty.eIsProxy()) {
+							PropertyExpression constantValue = ((PropertyConstant) sizeProperty).getConstantValue();
+							if (constantValue instanceof IntegerLiteral) {
+								size = OptionalLong.of(((IntegerLiteral) constantValue).getValue());
+							}
+						}
+						size.ifPresent(requiredSize -> {
+							// If the upper is zero, then we have an index. Otherwise, we have a range.
+							if (providedRange.getUpperBound() == 0) {
+								long index = providedRange.getLowerBound();
+								if (index > requiredSize) {
+									error("Index is greater than array size " + requiredSize, providedRange,
+											Aadl2Package.eINSTANCE.getArrayRange_LowerBound(),
+											ARRAY_INDEX_GREATER_THAN_MAXIMUM, Long.toString(requiredSize));
+								}
+							} else if (providedRange.getUpperBound() > requiredSize) {
+								error("Upper bound is greater than array size " + requiredSize, providedRange,
+										Aadl2Package.eINSTANCE.getArrayRange_UpperBound(),
+										ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM, Long.toString(requiredSize));
+							}
+						});
+					}
+				}
+			}
+		} else {
+			error(providedRanges.get(0), "'" + name + "' is not an array");
+		}
+	}
+
+	@Check
+	public void checkPropertyReferenceAppliesTo(NamedValue namedValue) {
+		AbstractNamedValue anv = namedValue.getNamedValue();
+		PropertyAssociation association = EcoreUtil2.getContainerOfType(namedValue, PropertyAssociation.class);
+		if (!anv.eIsProxy() && anv instanceof Property && association != null) {
+			Property referencedProperty = (Property) anv;
+			List<ContainedNamedElement> appliesTo = association.getAppliesTos();
+			if (appliesTo.isEmpty()) {
+				NamedElement holder = EcoreUtil2.getContainerOfType(association, NamedElement.class);
+				if (holder != null && !holder.acceptsProperty(referencedProperty)) {
+					error("Property " + referencedProperty.getQualifiedName() + " does not apply to "
+							+ holder.getName());
+				}
+			} else {
+				for (ContainedNamedElement cna : appliesTo) {
+					List<ContainmentPathElement> path = cna.getContainmentPathElements();
+					if (!path.isEmpty()) {
+						NamedElement holder = path.get(path.size() - 1).getNamedElement();
+						if (!holder.eIsProxy() && !holder.acceptsProperty(referencedProperty)) {
+							error("Property " + referencedProperty.getQualifiedName() + " does not apply to "
+									+ unparseAppliesTo(cna));
+						}
 					}
 				}
 			}
@@ -652,17 +694,23 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	protected void checkConstantProperty(PropertyAssociation assoc) {
-		EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
+		Property property = assoc.getProperty();
+		if (!property.eIsProxy()) {
+			EList<ContainedNamedElement> appliesTos = assoc.getAppliesTos();
 
-		if (appliesTos == null || appliesTos.isEmpty()) {
-			checkOverridingConstant((NamedElement) assoc.getOwner(), assoc);
-		} else {
-			for (ContainedNamedElement cne : assoc.getAppliesTos()) {
-				if (cne.getContainmentPathElements().size() == 1) {
-					ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
-					NamedElement ne = cpe.getNamedElement();
-					if (!ne.eIsProxy()) {
-						checkOverridingConstant(ne, assoc);
+			if (appliesTos == null || appliesTos.isEmpty()) {
+				NamedElement holder = (NamedElement) assoc.getOwner();
+				if (holder.acceptsProperty(property)) {
+					checkOverridingConstant(holder, assoc);
+				}
+			} else {
+				for (ContainedNamedElement cne : assoc.getAppliesTos()) {
+					if (cne.getContainmentPathElements().size() == 1) {
+						ContainmentPathElement cpe = cne.getContainmentPathElements().get(0);
+						NamedElement ne = cpe.getNamedElement();
+						if (!ne.eIsProxy() && ne.acceptsProperty(property)) {
+							checkOverridingConstant(ne, assoc);
+						}
 					}
 				}
 			}
@@ -670,7 +718,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	protected void checkOverridingConstant(NamedElement holder, PropertyAssociation assoc) {
-		boolean isContained = !assoc.getAppliesTos().isEmpty();
 		Property prop = assoc.getProperty();
 		PropertyAcc acc = holder.getPropertyValue(prop, true);
 		List<PropertyAssociation> pas = acc.getAssociations();
@@ -758,74 +805,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	/**
-	 * Make sure that a NamedValue object pointing to a property or property
-	 * constant referenced as a subclause of a boolean expression actually
-	 * refers to a boolean-valued property. Also make sure that if the property
-	 * reference is to a property definition, then the property holder or
-	 * property definition that it is a part of should have a compatible applies
-	 * to clause.
-	 */
-	protected void checkPropertyReference(final NamedValue pr) {
-		final EObject parent = pr.eContainer();
-		final AbstractNamedValue anv = pr.getNamedValue();
-		if (anv instanceof Property) {
-			Property rp = (Property) anv;
-			if (parent instanceof Operation) {
-				final PropertyType pt = rp.getPropertyType();
-				if (!(pt instanceof AadlBoolean) || rp.isList()) {
-					error(pr, "Not a reference to a boolean-valued property");
-				}
-			}
-			final Property refPD = rp;
-			/*
-			 * Find the property making reference to us. It is either the PD
-			 * from a property association, or the enclosing PD if our use is as
-			 * a default value.
-			 */
-			Property pd = null;
-			EObject current = parent;
-			while (current != null) {
-				if (current instanceof PropertyAssociation) {
-					pd = ((PropertyAssociation) current).getProperty();
-					break;
-				}
-				if (current instanceof Property) {
-					pd = (Property) current;
-					break;
-				}
-				current = current.eContainer();
-			}
-
-			if (current == null) {
-				error("Couldn't find enclosing property association or property definition for property reference");
-			} else {
-				final List refAppliesTo = refPD.getAppliesTos();
-				final List appliesTo = pd.getAppliesTos();
-				if (!refAppliesTo.containsAll(appliesTo)) {
-					error(pr,
-							"Referenced property definition does not apply to all the categories that the referring property applies to");
-				}
-
-				final List refAppliesToClass = new ArrayList();
-				for (final Iterator i = refPD.getAppliesToClassifiers().iterator(); i.hasNext();) {
-					final ClassifierValue cv = (ClassifierValue) i.next();
-					refAppliesToClass.add(cv.getClassifier());
-				}
-				final List appliesToClass = new ArrayList();
-				for (final Iterator i = pd.getAppliesToClassifiers().iterator(); i.hasNext();) {
-					final ClassifierValue cv = (ClassifierValue) i.next();
-					appliesToClass.add(cv.getClassifier());
-				}
-				if (!refAppliesToClass.containsAll(appliesToClass)) {
-					error(pr,
-							"Referenced property definition does not apply to all the classifiers that the referring property applies to");
-				}
-
-			}
-		}
-	}
-
-	/**
 	 * checks and report mismatch in type of value and type
 	 *
 	 * @param pt:
@@ -887,14 +866,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof IntegerLiteral) {
 			if (!(pt instanceof AadlInteger)) {
 				error(holder, prefix + "Assigning Integer value" + msg);
-			} else {
-				checkUnits((AadlInteger) pt, (IntegerLiteral) pv, holder);
+			} else if (checkUnits((AadlInteger) pt, (IntegerLiteral) pv, holder)) {
+				checkInRange((AadlInteger) pt, (IntegerLiteral) pv);
 			}
 		} else if (pv instanceof RealLiteral) {
 			if (!(pt instanceof AadlReal)) {
 				error(holder, prefix + "Assigning Real value" + msg);
-			} else {
-				checkUnits((AadlReal) pt, (RealLiteral) pv, holder);
+			} else if (checkUnits((AadlReal) pt, (RealLiteral) pv, holder)) {
+				checkInRange((AadlReal) pt, (RealLiteral) pv);
 			}
 		} else if (pv instanceof RangeValue) {
 			if (!(pt instanceof RangeType)) {
@@ -980,11 +959,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	protected void checkUnits(NumberType nt, NumberValue nv, Element holder) {
+	/**
+	 * Returns true if the units are valid. Returns false if an error was reported.
+	 */
+	protected boolean checkUnits(NumberType nt, NumberValue nv, Element holder) {
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
 		if (Aadl2Util.isNull(ut) && Aadl2Util.isNull(ul)) {
-			return;
+			return true;
 		}
 		if (ul == null) {
 			boolean doQuickFix = false;
@@ -1008,12 +990,44 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					i++;
 				}
 				error("Number value is missing a unit", holder, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
-
+				return false;
 			} else {
 				error(holder, "Number value is missing a unit");
+				return false;
 			}
 		} else if (!ut.getOwnedLiterals().contains(ul)) {
 			error(holder, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private void checkInRange(NumberType type, NumberValue value) {
+		NumericRange range = type.getRange();
+		if (range != null) {
+			PropertyExpression lowerExpression;
+			try {
+				MpvProxy modalProxy = range.getLowerBound().evaluate(null, 0).first();
+				lowerExpression = modalProxy == null ? null : modalProxy.getValue();
+			} catch (InvalidModelException e) {
+				lowerExpression = null;
+			}
+			PropertyExpression upperExpression;
+			try {
+				MpvProxy modalProxy = range.getUpperBound().evaluate(null, 0).first();
+				upperExpression = modalProxy == null ? null : modalProxy.getValue();
+			} catch (InvalidModelException e) {
+				upperExpression = null;
+			}
+			if (lowerExpression instanceof NumberValue && upperExpression instanceof NumberValue) {
+				NumberValue lower = (NumberValue) lowerExpression;
+				NumberValue upper = (NumberValue) upperExpression;
+				double valueScaled = value.getScaledValue();
+				if (valueScaled < lower.getScaledValue() || valueScaled > upper.getScaledValue()) {
+					error(value, "Value must be between " + lower + " and " + upper);
+				}
+			}
 		}
 	}
 

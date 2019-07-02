@@ -49,7 +49,9 @@ import org.osate.workspace.WorkspacePlugin;
  * @author phf
  * @version $Id: OsateResourceManager.java,v 1.17 2009-07-09 19:23:11 jseibel
  *          Exp $
+ * @deprecated Unused, will be removed in 2.5.0
  */
+@Deprecated
 public class ResourceConversionUtil {
 
 	/**

@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2.ui.propertyview
 
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.SWT
@@ -62,15 +63,12 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.findNodesForFeature
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
-import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
-import org.eclipse.emf.ecore.resource.ResourceSet
+import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.toIFile
 
 package class ValueColumnEditingSupport extends EditingSupport {
 	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
 	
 	val AadlPropertyView propertyView
-	
-	val delim = System.getProperty("line.separator")
 	
 	var creatingNewLocalInEdit = false
 	var newContained = false
@@ -113,9 +111,9 @@ package class ValueColumnEditingSupport extends EditingSupport {
 		if(propertyView.xtextDocument === null) {
 			val NamedElement curSelection = propertyView.resourceFromSelection.resourceSet.getEObject(propertyView.input,
 				true) as NamedElement
-			curSelection.eResource.convertToIResource.project
+			curSelection.eResource.URI.toIFile.project
 		} else {
-			propertyView.xtextDocument.readOnly[convertToIResource.project]
+			propertyView.xtextDocument.readOnly[URI.toIFile.project]
 		}
 	}
 	
@@ -178,30 +176,41 @@ package class ValueColumnEditingSupport extends EditingSupport {
 					offsetElement.ownedPropertyAssociations.last.node.endOffset
 				}
 				updateLength = 0
-				val inPropertiesSection = newContained || inputElement instanceof AadlPackage || inputElement instanceof Classifier
-				updatePrefix = ''
-				if (firstPA) {
-					updatePrefix += if (inPropertiesSection) {
-						'''properties«delim»'''
+				
+				if (offsetElement instanceof AadlPackage) {
+					if (firstPA) {
+						updatePrefix = "properties" + System.lineSeparator + "\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator 
 					} else {
-						''' {'''
+						updatePrefix = System.lineSeparator + "\t" + propertyName + " => "
+						updateSuffix = ";"
+					}
+				} else if (newContained) {
+					if (firstPA) {
+						updatePrefix = "\tproperties" + System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = " applies to " + inputElement.name + ";" + System.lineSeparator + "\t"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = " applies to " + inputElement.name + ";"
+					}
+				} else if (offsetElement instanceof Classifier) {
+					if (firstPA) {
+						updatePrefix = "\tproperties" + System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator + "\t"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t" + propertyName + " => "
+						updateSuffix = ";"
 					}
 				} else {
-					updatePrefix += delim
+					if (firstPA) {
+						updatePrefix = " {" + System.lineSeparator + "\t\t\t\t" + propertyName + " => "
+						updateSuffix = ";" + System.lineSeparator + "\t\t\t}"
+					} else {
+						updatePrefix = System.lineSeparator + "\t\t\t\t" + propertyName + " => "
+						updateSuffix = ";"
+					}
 				}
-				updatePrefix += '''«propertyName» => '''
-				updateSuffix = ''
-				if (newContained) {
-					updateSuffix += ''' applies to «inputElement.name»'''
-				}
-				updateSuffix += ';'
-				updateSuffix += if (inPropertiesSection) {
-					''
-				} else if (firstPA) {
-					'}'
-				} else {
-					delim
-				}
+
 				val prefix = getText.apply(0, updateOffset)
 				val suffix = getText.apply(updateOffset, -updateOffset)
 				new CellEditorPartialValue('''«new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»«updatePrefix»''',

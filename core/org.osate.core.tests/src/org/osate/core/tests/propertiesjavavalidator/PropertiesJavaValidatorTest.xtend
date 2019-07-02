@@ -660,9 +660,9 @@ class PropertiesJavaValidatorTest extends XtextTest {
 				ownedPropertyAssociations.head => [
 					"deadline".assertEquals(property.name.toLowerCase)
 					appliesTos.head => [
-						containmentPathElements.head => [
+						containmentPathElements.head.arrayRanges.head => [
 							assertError(testFileResult.issues, issueCollection,
-								"Applies to property array has more dimensions than defined type.")
+								"'nodes3' is not an array")
 						]
 					]
 				]
@@ -671,7 +671,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Range lower bound is greater than upper bound.")
+									"Range lower bound is greater than upper bound")
 							]
 						]
 					]
@@ -681,7 +681,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"0 is out of bounds. Array indices start with 1.")
+									"Array indices start at 1")
 							]
 						]
 					]
@@ -691,7 +691,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 4")
 							]
 						]
 					]
@@ -701,7 +701,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.get(1) => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 3")
 							]
 						]
 					]
@@ -711,13 +711,13 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 4")
 							]
 						]
 						containmentPathElements.get(1) => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 3")
 							]
 						]
 					]
@@ -727,7 +727,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 12")
 							]
 						]
 					]
@@ -737,7 +737,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array index is greater than allowed in type definition.")
+									"Index is greater than array size 4")
 							]
 						]
 					]
@@ -747,7 +747,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						containmentPathElements.head => [
 							arrayRanges.head => [
 								assertError(testFileResult.issues, issueCollection,
-									"Array range is greater than allowed in type definition.")
+									"Upper bound is greater than array size 2")
 							]
 						]
 					]

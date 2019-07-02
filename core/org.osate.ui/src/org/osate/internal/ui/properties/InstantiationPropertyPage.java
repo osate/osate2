@@ -24,9 +24,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.core.OsateCorePlugin;
 import org.osate.internal.ui.preferences.InstantiationPreferencePage;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.workspace.WorkspacePlugin;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
@@ -149,7 +149,7 @@ public class InstantiationPropertyPage extends PropertyPage {
 	}
 
 	private int getSOMLimit() {
-		return preferences.getInt(InstantiateModel.PREF_SOM_LIMIT, WorkspacePlugin.getDefault().getSOMLimit());
+		return preferences.getInt(InstantiateModel.PREF_SOM_LIMIT, OsateCorePlugin.getDefault().getSOMLimit());
 	}
 
 	private boolean useWorkspacePreferences() {
@@ -185,7 +185,7 @@ public class InstantiationPropertyPage extends PropertyPage {
 
 	@Override
 	protected void performDefaults() {
-		maxSOMText.setText(Integer.toString(WorkspacePlugin.getDefault().getSOMLimit()));
+		maxSOMText.setText(Integer.toString(OsateCorePlugin.getDefault().getSOMLimit()));
 
 		useWorkspaceSettingsButton.setSelection(true);
 		useProjectSettingsButton.setSelection(false);

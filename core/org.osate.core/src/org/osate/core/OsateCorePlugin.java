@@ -62,10 +62,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.workspace.IAadlProject;
-import org.osate.workspace.IAadlWorkspace;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -79,6 +77,20 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 * ID of the AADL core plugin (value <code>"org.osate.core"</code>)
 	 */
 	public static final String PLUGIN_ID = "org.osate.core";
+
+	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
+
+	/**
+	 * Name of preference for the maximum number of system operation modes to generate.
+	 */
+	public static final String MAX_SOM = "maxSOM";
+	public static final int MAX_SOM_DEFAULT = 1000;
+
+	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
+	public static final String AUTO_INDENT = "AUTO_INDENT";
+	public static final String AUTO_COMPLETE = "AUTO_COMPLETE";
+	public static final String CAPITALIZE = "CAPITALIZE";
+	public static final String INDENT_SECTIONS = "INDENT_SECTIONS";
 
 	// The shared instance.
 	private static OsateCorePlugin plugin;
@@ -121,21 +133,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			projectRenameHandler = null;
 		}
 		super.stop(context);
-	}
-
-	/**
-	 * Returns the AADL project corresponding to the given project.
-	 * <p>
-	 * Note that no check is done at this time on the existence or the AADL nature of this project.
-	 * @param project the given project
-	 * @return the AADL project corresponding to the given project, null if the given project is null
-	 */
-	public static IAadlProject create(IProject project) {
-		if (project == null) {
-			return null;
-		}
-		IAadlWorkspace aadlWs = AadlWorkspace.getAadlWorkspace();
-		return aadlWs.getAadlProject(project);
 	}
 
 	/**
@@ -347,5 +344,10 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			return Status.OK_STATUS;
 		}
 
+	}
+
+	public final int getSOMLimit() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getInt(MAX_SOM);
 	}
 }
