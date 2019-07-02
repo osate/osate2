@@ -1,5 +1,6 @@
 package org.osate.ge.internal.util;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -9,6 +10,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.osate.ge.EmfContainerProvider;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 
 public class ProjectUtil {
 	/**
@@ -46,5 +51,33 @@ public class ProjectUtil {
 			return null;
 		}
 		return (IProject) projectResource;
+	}
+
+	public static IProject getProjectForBoOrThrow(final Object bo) {
+		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(SelectionUtil::getProject).orElseThrow(() -> new RuntimeException("Unable to get project for business object: " + bo));
+	}
+
+	public static Optional<IProject> getProjectForBo(final Object bo) {
+		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(SelectionUtil::getProject);
+	}
+
+	private static Optional<Resource> getResource(final Object bo) {
+		final EObject eObject;
+
+		// Handle EObject instances without delegating to specialized handlers
+		if (bo instanceof EObject) {
+			eObject = (EObject) bo;
+		} else if (bo instanceof EmfContainerProvider) { // Use the EMF Object container if the business object is not an EMF Object
+			final EObject container = ((EmfContainerProvider) bo).getEmfContainer();
+			if (container == null) {
+				return Optional.empty();
+			}
+
+			eObject = container;
+		} else {
+			return Optional.empty();
+		}
+
+		return Optional.ofNullable(eObject.eResource());
 	}
 }
