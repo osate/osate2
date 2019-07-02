@@ -174,7 +174,7 @@ public class Aadl2Util {
 				members = members + ", " + mode.getComponentInstancePath();
 			}
 		}
-		return members;
+		return "(" + members + ")";
 	}
 
 	public static boolean isPrintableSOMName(SystemOperationMode som) {
