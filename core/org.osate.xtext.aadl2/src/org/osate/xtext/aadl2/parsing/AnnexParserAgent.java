@@ -229,6 +229,7 @@ public class AnnexParserAgent extends LazyLinker {
 					{
 						asc.setName(annexName);
 						defaultAnnexSubclause.setParsedAnnexSubclause(asc);
+						boolean resetToNull = (errReporter.getNumErrors() != errs);
 						// copy in modes list
 						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
 						for (Mode mode : inmodelist) {
@@ -241,9 +242,7 @@ public class AnnexParserAgent extends LazyLinker {
 						if (resolver != null && hasToResolveAnnex && errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
 							errs = resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
-							if (errs != resolveErrManager.getNumErrors()) {
-								defaultAnnexSubclause.setParsedAnnexSubclause(null);
-							}
+							resetToNull |= (errs != resolveErrManager.getNumErrors());
 						} else if (linkingservice != null) {
 							try {
 								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
@@ -256,6 +255,8 @@ public class AnnexParserAgent extends LazyLinker {
 								errReporter.error(filename, line, "Linking Service error");
 							}
 						}
+						if(resetToNull)
+							defaultAnnexSubclause.setParsedAnnexSubclause(null);
 					}
 				} catch (RecognitionException e) {
 					errReporter.error(filename, line, "Major uncaught parsing error");
