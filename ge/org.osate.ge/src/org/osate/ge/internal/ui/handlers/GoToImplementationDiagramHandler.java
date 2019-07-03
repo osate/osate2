@@ -12,18 +12,20 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.util.ProjectUtil;
 
 public class GoToImplementationDiagramHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() == 1) {
-			enabled = getComponentImplementation(selectedDiagramElements.get(0).getBusinessObject()) != null;
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 1) {
+			final Object bo = getComponentImplementation(selectedBusinessObjectContexts.get(0).getBusinessObject());
+			enabled = bo != null && ProjectUtil.getProjectForBo(bo).isPresent();
 		}
 
 		setBaseEnabled(enabled);
@@ -36,14 +38,14 @@ public class GoToImplementationDiagramHandler extends AbstractHandler {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() == 0) {
+		// Get diagram and selected BOCs
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}
 
-		final DiagramElement selectedElement = selectedDiagramElements.get(0);
-		final Object bo = selectedElement.getBusinessObject();
+		final Object bo = selectedBusinessObjectContexts.get(0).getBusinessObject();
 
 		final DiagramService diagramService = Objects.requireNonNull(Adapters.adapt(activeEditor, DiagramService.class),
 				"Unable to retrieve diagram service");

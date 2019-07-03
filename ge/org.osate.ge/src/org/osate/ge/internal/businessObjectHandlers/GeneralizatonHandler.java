@@ -29,6 +29,7 @@ import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
+import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
@@ -129,6 +130,29 @@ public class GeneralizatonHandler {
 			return null;
 		}
 
+		final Classifier general = generalization.getGeneral();
+		if(general == null) {
+			return null;
+		}
+
+		final Classifier specific = generalization.getSpecific();
+		if (specific == null) {
+			return null;
+		}
+
+		// Only show the name of the general element if both elements are in the same package.
+		final String generalName;
+		if (general.getElementRoot() == specific.getElementRoot()) {
+			generalName = general.getName();
+		} else {
+			generalName = general.getQualifiedName();
+		}
+
+		return (generalization instanceof Realization ? "Implements " : "Extends ") + generalName;
+	}
+
+	@GetNameForUserInterface
+	public String getNameForUi(final @Named(Names.BUSINESS_OBJECT) Generalization generalization) {
 		final Classifier general = generalization.getGeneral();
 		if(general == null) {
 			return null;

@@ -41,7 +41,7 @@ public class RemoveBendpointsHandler extends AbstractHandler {
 		if (window == null) {
 			enabled = false;
 		} else {
-			enabled = SelectionUtil.getSelectedDiagramElements(window.getActivePage().getSelection()).stream()
+			enabled = SelectionUtil.getSelectedDiagramElements(window.getActivePage().getSelection(), true).stream()
 					.anyMatch(DiagramElementPredicates::isConnection);
 		}
 
