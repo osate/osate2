@@ -127,7 +127,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	@Check
 	def checkMethodPath(JavaMethod method) {
 		val params = VerifyJavaUtil.getParameterClasses(method)
-		val result = ExecuteJavaUtil.eInstance.getJavaMethod(method.methodPath, params)
+		val result = ExecuteJavaUtil.getJavaMethod(method.methodPath, params)
 		if (result === null) {
 			warning("Could not find method: " + method.methodPath, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
@@ -136,7 +136,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkClassPath(JUnit4Method method) {
-		val result = ExecuteJavaUtil.eInstance.getJavaClass(method.classPath)
+		val result = ExecuteJavaUtil.getJavaClass(method.classPath)
 		if (result === null) {
 			warning("Could not find JUnit4 test class: " + method.classPath,
 				VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH, INCORRECT_CLASS_PATH)
