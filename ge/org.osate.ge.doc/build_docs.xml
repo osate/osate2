@@ -19,7 +19,7 @@
   	<delete dir="api" />
   </target>
 
-  <target name="build-help" depends="clean, build_docs_eclipse, build_api_docs">
+  <target name="build-help" depends="clean, build_docs_eclipse">
   </target>
 		
 	<target name="build_docs_eclipse" description="Build Eclipse Help Documentation">
@@ -78,8 +78,10 @@
 		</exec>
 	</target>
 	
+	<!--
+	Currently disabled. Must be built manually by adding classpath and then building. Newer versions of javadoc require access to dependencies in order to generate documentation.
     <target name="build_api_docs">
-        <javadoc access="public" additionalparam="-notimestamp -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true" 
+        <javadoc access="public" additionalparam="-notimestamp -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true"
         	destdir="api" 
         	doctitle="OSATE Graphical Editor API Reference" 
         	nodeprecated="false" 
@@ -92,7 +94,8 @@
         	sourcepath="..\org.osate.ge\src;..\org.osate.ge.diagram\src" 
         	splitindex="true" 
         	use="true" 
-        	version="true"
-        	stylesheetfile="css/api.css"/>
+        	version="true"                
+        />
     </target>
+    -->
 </project> 

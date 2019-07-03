@@ -261,7 +261,7 @@ public class AgeGefBot {
 	private final AgeSWTGefBot bot = new AgeSWTGefBot(this);
 	// Context menu options
 	final public static String associatedDiagram = "Associated Diagram";
-	final public static String allFilters = "All Filters";
+	final public static String all = "All";
 
 	public void createNewProject(final String projectName) {
 		ensureReadyToTest();

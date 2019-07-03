@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>OSATE Graphical Editor User Guide</title>
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -17,10 +17,10 @@
   <![endif]-->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">OSATE Graphical Editor User Guide</h1>
 </header>
-<nav id="TOC">
+<nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#sec:getting_started"><span class="toc-section-number">1</span> Tutorial: Getting Started</a></li>
 <li><a href="#tutorial-advanced"><span class="toc-section-number">2</span> Tutorial: Advanced</a><ul>
@@ -61,8 +61,10 @@
 </ul></li>
 <li><a href="#sec:instantiating"><span class="toc-section-number">5</span> Instantiating</a></li>
 <li><a href="#copying-and-pasting"><span class="toc-section-number">6</span> Copying and Pasting</a></li>
-<li><a href="#diagram-configuration"><span class="toc-section-number">7</span> Diagram Configuration</a><ul>
-<li><a href="#diagram-typessecdiagram_types"><span class="toc-section-number">7.1</span> Diagram Types(#sec:diagram_types)</a></li>
+<li><a href="#sec:diagram_configuration"><span class="toc-section-number">7</span> Diagram Configuration</a><ul>
+<li><a href="#sec:diagram_types"><span class="toc-section-number">7.1</span> Diagram Types</a></li>
+<li><a href="#showing-and-hiding-diagram-elements"><span class="toc-section-number">7.2</span> Showing and Hiding Diagram Elements</a></li>
+<li><a href="#displaying-hidden-elements-in-outline"><span class="toc-section-number">7.3</span> Displaying Hidden Elements in Outline</a></li>
 </ul></li>
 <li><a href="#visualization"><span class="toc-section-number">8</span> Visualization</a><ul>
 <li><a href="#sec:inherited_elements"><span class="toc-section-number">8.1</span> Inherited Elements</a></li>
@@ -232,7 +234,7 @@ Add AADL types to the model by editing the AlarmModel package diagram:
 <ol type="1">
 <li><p><strong>Create a new AADL Package</strong><br />
 Start by creating a new package named “Hardware” and open with diagram editor.</p></li>
-<li><strong>Create Classifiers</strong>
+<li><p><strong>Create Classifiers</strong></p>
 <ol type="1">
 <li>Create a bus type named “Ethernet”.<br />
 </li>
@@ -274,7 +276,7 @@ Start by creating a new package named “Hardware” and open with diagram edito
 <img src="../images/HardwarePackage.png" /></li>
 </ol></li>
 </ol></li>
-<li><strong>Set AADL Properties</strong> AADL properties can be assigned to model elements using the <em>AADL Property Values</em> view while editing a diagram in the same way it can be used when using the textual editor.
+<li><p><strong>Set AADL Properties</strong> AADL properties can be assigned to model elements using the <em>AADL Property Values</em> view while editing a diagram in the same way it can be used when using the textual editor.</p>
 <ol type="1">
 <li>Select <em>Window-&gt;Show View-&gt; AADL Property Values</em>.</li>
 <li>Select <em>Show undefined properties</em> in the view menu. <img src="../images/ShowUndefinedProperties.png" /><br />
@@ -285,7 +287,7 @@ Start by creating a new package named “Hardware” and open with diagram edito
 <li>Enter “100.0 MBytesps”.<br />
 <img src="../images/AADLPropertyValues.png" /></li>
 </ol></li>
-<li><strong>Show AADL Properties on Diagrams</strong> AADL properties can be shown on the diagram.
+<li><p><strong>Show AADL Properties on Diagrams</strong> AADL properties can be shown on the diagram.</p>
 <ol type="1">
 <li>Right-click <em>Ethernet</em> diagram element.</li>
 <li>Select <em>Configure Diagram…</em>, the dialog will appear.</li>
@@ -295,7 +297,7 @@ Start by creating a new package named “Hardware” and open with diagram edito
 </ol></li>
 <li><p><strong>Open Implementation Diagram</strong><br />
 Open the <em>ExecutionPlatform.Impl</em> implementation diagram.</p></li>
-<li><strong>Create Subcomponents</strong>
+<li><p><strong>Create Subcomponents</strong></p>
 <ol type="1">
 <li>Create a processor named “CPU” with classifier set to <em>Hardware::CPU</em>.</li>
 <li>Create a device named “TempSensor1” with classifier set to <em>Hardware::Sensor</em>.</li>
@@ -305,7 +307,7 @@ Open the <em>ExecutionPlatform.Impl</em> implementation diagram.</p></li>
 <li>Create a device named “EthernetSwitch” with classifier set to <em>Hardware::EthernetSwitch</em>.<br />
 <img src="../images/ExecutionPlatformImplSubcomponents.png" /></li>
 </ol></li>
-<li><strong>Create Connections</strong>
+<li><p><strong>Create Connections</strong></p>
 <ol type="1">
 <li>Create access connections:
 <ol type="1">
@@ -335,7 +337,7 @@ Open the <em>ExecutionPlatform.Impl</em> implementation diagram.</p></li>
 <ol type="1">
 <li><p><strong>Create Package</strong><br />
 Create a package named “Software” and open with diagram editor.</p></li>
-<li><strong>Create Classifiers</strong>
+<li><p><strong>Create Classifiers</strong></p>
 <ol type="1">
 <li>Create a thread type named “ProcessData” that contains:
 <ol type="1">
@@ -354,7 +356,7 @@ Create a package named “Software” and open with diagram editor.</p></li>
 <li>Create a process type and implementation named “Controller” and “Controller.Impl”, respectively, that contains:
 <ol type="1">
 <li>Input data port named “ControllerIn”.</li>
-<li>Output data port named &quot;“ControllerOut”.</li>
+<li>Output data port named "“ControllerOut”.</li>
 <li>Thread named “ProduceCommand” with classifier set to <em>Software::ProcessData</em>.</li>
 <li>Right-click <em>Controller.Impl.ProduceCommand</em> and select <em>Show-&gt;Features-&gt;All</em>.</li>
 <li>Port connection: <em>Controller.Impl.Controller</em> -&gt; <em>ProduceCommand.DataIn</em>.</li>
@@ -379,7 +381,7 @@ Create a package named “Software” and open with diagram editor.</p></li>
 <img src="../images/ApplicationImpl.png" /></li>
 </ol></li>
 </ol></li>
-<li><strong>Create Subcomponents and Connections</strong>
+<li><p><strong>Create Subcomponents and Connections</strong></p>
 <ol type="1">
 <li>Start by opening the implementation diagram for <em>Application.Impl</em>. Although we can continue editing classifiers from the package diagram, editing classifiers using a structure diagram results in simpler diagrams.</li>
 <li>Create a process named “Fuser” with classifier set to <em>Software::Fuser.Impl</em>.</li>
@@ -398,8 +400,8 @@ Create a package named “Software” and open with diagram editor.</p></li>
 <ol type="1">
 <li><p><strong>Create Package</strong><br />
 Create a package named “Integration” and open with diagram editor.</p></li>
-<li><strong>Create System Classifiers</strong><br />
-Create a system type and implementation named “ControlSystem” and “ControlSystem.Impl”, respectively, that contains:
+<li><p><strong>Create System Classifiers</strong><br />
+Create a system type and implementation named “ControlSystem” and “ControlSystem.Impl”, respectively, that contains:</p>
 <ol type="1">
 <li>System named “ExecutionPlatform” with classifier set to <em>Hardware::ExecutionPlatform.Impl</em>.</li>
 <li>System named “Application” with classifier set to <em>Software::Application.Impl</em>.</li>
@@ -407,7 +409,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 <li>Port connection: <em>ExecutionPlatform.Sensor1</em> -&gt; <em>Application.Sensor1</em>.</li>
 <li>Port connection: <em>ExecutionPlatform.Sensor2</em> -&gt; <em>Application.Sensor2</em>. <img src="../images/ControlSystemImpl.png" /></li>
 </ol></li>
-<li><strong>Create Processor Binding</strong> (See section <a href="#sec:bindings">4.7</a>)
+<li><p><strong>Create Processor Binding</strong> (See section <a href="#sec:bindings">4.7</a>)</p>
 <ol type="1">
 <li>Right-click <em>ExecutionPlaform</em> diagram element.</li>
 <li>Select <em>Show-&gt;Subcomponents-&gt;Processors</em>.</li>
@@ -417,7 +419,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 <li>Select <em>CPU</em>.</li>
 <li>Select <em>OK</em>.</li>
 </ol></li>
-<li><strong>Create a Processor Binding Diagram</strong> A <em>Processor Binding Diagram</em> is a type of diagram which is preconfigured to visualize the bindings. For more information about diagram types, see section section <strong>¿sec:diagram_types?</strong>. Create the diagram using the following steps.
+<li><p><strong>Create a Processor Binding Diagram</strong> A <em>Processor Binding Diagram</em> is a type of diagram which is preconfigured to visualize the bindings. For more information about diagram types, see section section <a href="#sec:diagram_types">7.1</a>. Create the diagram using the following steps.</p>
 <ol type="1">
 <li>Right-click <em>ControlSystem.Impl</em>.</li>
 <li>Select <em>Open-&gt;New Diagram…</em>.</li>
@@ -628,13 +630,13 @@ Create a system type and implementation named “ControlSystem” and “Control
 </tbody>
 </table>
 </div>
-<h1 id="diagram-configuration"><span class="header-section-number">7</span> Diagram Configuration</h1>
-<p>Configuring a diagram allows customizing the contents of the diagram (See section <a href="#sec:hidden_children">8.3</a>). To configure a diagram, right-click in the diagram or an element in the <em>Outline</em> view and select <em>Configure Diagram…</em>. The diagram configuration dialog allows enabling specific diagram elements. A diagram element may be enabled manually or by configuring the content filters for the containing element.</p>
+<h1 id="sec:diagram_configuration"><span class="header-section-number">7</span> Diagram Configuration</h1>
+<p>Configuring a diagram allows customizing the contents of the diagram (See section <a href="#sec:hidden_children">8.3</a>). To configure a diagram, right-click in the diagram or an element in the <em>Outline</em> view and select <em>Configure Diagram…</em>. The diagram configuration dialog allows selecting which elements should appear in the diagram.</p>
 <p>The diagram configuration dialog also allows selecting which AADL properties will be included in the diagram. The communication_properties::timing property is implicitly enabled and is represented by specialized graphical indicators. Delayed connections have a double bar indicator in the middle. Immediate connections have a double arrow in the middle.</p>
 <p>Connections which are manually enabled will be removed if the connection ends are not also included in the diagram. Connections that have one connection end visible on the diagram are represented as abstracted connections. (See section <a href="#sec:abstracted_connections">8.4</a>)</p>
 <p>The Hide Connection Labels option can be used to set the default visibility of labels for connections between diagram elements. Label visibility for individual elements can be controlled using the properties view described in section 3.1.16.</p>
-<h2 id="diagram-typessecdiagram_types"><span class="header-section-number">7.1</span> Diagram Types(#sec:diagram_types)</h2>
-<p>When creating a diagram, a type must be specified. A diagram’s type determines the default filters used by the contents of the diagram. It also determines which AADL properties are enabled by default. All diagram types are equally customizable. A diagram element’s filters determines the child elements that are shown on the diagram.</p>
+<h2 id="sec:diagram_types"><span class="header-section-number">7.1</span> Diagram Types</h2>
+<p>When creating a diagram, a type must be specified. A diagram’s type determines the default contents of elements added to a diagram. The contents of elements are not updated as new elements are added to the model. The diagram type also determines which AADL properties are enabled by default. All diagram types are equally customizable.</p>
 <div id="tbl:diagram_types">
 <table>
 <caption>Table 2: Diagram Types</caption>
@@ -648,7 +650,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 <tr class="header">
 <th>Diagram Type</th>
 <th>Availability</th>
-<th>Default Filters</th>
+<th>Default Contents</th>
 <th>Properties</th>
 </tr>
 </thead>
@@ -697,8 +699,61 @@ Create a system type and implementation named “ControlSystem” and “Control
 </tbody>
 </table>
 </div>
+<h2 id="showing-and-hiding-diagram-elements"><span class="header-section-number">7.2</span> Showing and Hiding Diagram Elements</h2>
+<p>Menu options available in a diagram element’s context menu can be used to show and hide contents of a selected element. Access the context menu by right-clicking on a diagram element in the diagram or in the outline.</p>
+<div id="tbl:show_hide_menu_items">
+<table>
+<caption>Table 3: Menu Items for Showing and Hiding Elements</caption>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Menu Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Configure Diagram…</em></td>
+<td>Opens the <em>Configure Diagram</em> dialog to allow customizing the contents of the current diagram.</td>
+</tr>
+<tr class="even">
+<td><em>Show</em> (Outline Only)</td>
+<td>Adds the selected elements to the diagram.</td>
+</tr>
+<tr class="odd">
+<td><em>Show Contents -&gt; All</em></td>
+<td>Adds all available children to the selected elements.</td>
+</tr>
+<tr class="even">
+<td><em>Show Contents -&gt; Default</em></td>
+<td>Adds default set of children to the selected elements based on the diagram type.</td>
+</tr>
+<tr class="odd">
+<td><em>Show Contents -&gt; <code>&lt;Subset&gt;</code></em></td>
+<td>Adds a subset of children to the selected elements.</td>
+</tr>
+<tr class="even">
+<td><em>Hide</em></td>
+<td>Removes the selected element from the diagram.</td>
+</tr>
+<tr class="odd">
+<td><em>Hide Contents -&gt; All</em></td>
+<td>Removes all children from the selected elements.</td>
+</tr>
+<tr class="even">
+<td><em>Hide Contents -&gt; <code>&lt;Subset&gt;</code></em></td>
+<td>Removes a subset of children from the selected elements.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="displaying-hidden-elements-in-outline"><span class="header-section-number">7.3</span> Displaying Hidden Elements in Outline</h2>
+<p>By default, the <em>Outline</em> view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the <em>Outline</em> view can be toggled using the <em>Show Hidden Elements</em> menu item in the view menu (<img src="../images/ui_view_menu_icon.png" alt="View Menu" />). When displayed, hidden elements can be added to the diagram using the <em>Show</em> menu item which is available in the context menu.</p>
 <h1 id="visualization"><span class="header-section-number">8</span> Visualization</h1>
-<p>The following sections describe the diagram visual capabilities of the graphical editor.</p>
+<p>The following sections describe the diagram visualization capabilities of the graphical editor.</p>
 <h2 id="sec:inherited_elements"><span class="header-section-number">8.1</span> Inherited Elements</h2>
 <p>Elements which are inherited from another model element have a gray color. This indicates that any changes made to the model element will result in a change to model element other than the one in which it is contained in graphically.</p>
 <h2 id="sec:de_apperance"><span class="header-section-number">8.2</span> Customizing an Element’s Appearance</h2>
@@ -753,11 +808,11 @@ Create a system type and implementation named “ControlSystem” and “Control
 <h1 id="sec:diagram_layout"><span class="header-section-number">10</span> Diagram Layout</h1>
 <p>The following sections describe the diagram layout capabilities of the graphical editor.</p>
 <h2 id="layout-commands"><span class="header-section-number">10.1</span> Layout Commands</h2>
-<p>Layout menu items are available from the <em>Edit-&gt;Layout</em> menu or by right clicking on the diagram or diagram element and using the <em>Layout</em> sub-menu. The behavior of the layout menu items are described in table <a href="#tbl:layout_menu_items">3</a>.</p>
+<p>Layout menu items are available from the <em>Edit-&gt;Layout</em> menu or by right clicking on the diagram or diagram element and using the <em>Layout</em> sub-menu. The behavior of the layout menu items are described in table <a href="#tbl:layout_menu_items">4</a>.</p>
 <p><img src="../images/layout_menu.png" /></p>
 <div id="tbl:layout_menu_items">
 <table>
-<caption>Table 3: Layout Menu Items</caption>
+<caption>Table 4: Layout Menu Items</caption>
 <colgroup>
 <col style="width: 28%" />
 <col style="width: 71%" />
@@ -845,10 +900,10 @@ Create a system type and implementation named “ControlSystem” and “Control
 </ol>
 <p><img src="../images/Preferences.png" /></p>
 <h2 id="incremental-layout"><span class="header-section-number">10.3</span> Incremental Layout</h2>
-<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">4</a>.</p>
+<p>When an element has been added to the diagram and needs to be positioned or sized, an incremental layout is performed. The behavior of the incremental layout can be configured by selecting a mode from the preferences dialog. From the preferences dialog select the desired <em>Incremental Layout Mode</em>. The modes are described in table <a href="#tbl:incremental_layout_modes">5</a>.</p>
 <div id="tbl:incremental_layout_modes">
 <table>
-<caption>Table 4: Incremental Layout Modes</caption>
+<caption>Table 5: Incremental Layout Modes</caption>
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 87%" />

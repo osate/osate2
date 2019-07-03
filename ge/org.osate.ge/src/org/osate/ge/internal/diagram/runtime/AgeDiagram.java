@@ -12,7 +12,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
@@ -26,7 +25,6 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
 /**
@@ -225,7 +223,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(bo, "bo must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			e.setBusinessObject(bo);
+			setBusinessObject(e, bo);
 			setRelativeReference(e, relativeReference);
 		}
 
@@ -250,32 +248,38 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
-			e.setBusinessObject(bo);
-			// Do not notify listeners
+			setBusinessObject(e, bo);
+		}
+
+		private void setBusinessObject(final DiagramElement e, final Object bo) {
+			Objects.requireNonNull(e, "e must not be null");
+
+			// Special handling for embedded business objects.
+			if (bo instanceof EmbeddedBusinessObject) {
+				// Conversion from non-embedded to an embedded object is not supported.
+				if (!(e.getBusinessObject() instanceof EmbeddedBusinessObject)) {
+					throw new RuntimeException(
+							"Invalid case. Conversion from non-embeedded to embedded business object");
+				}
+
+				final String oldData = ((EmbeddedBusinessObject) e.getBusinessObject()).getData();
+				final String newData = ((EmbeddedBusinessObject) bo).getData();
+
+				// This does not consider the UUID of the embedded object. That should be handled by updating the relative reference
+				if (!Objects.equals(oldData, newData)) {
+					storeFieldChange(e, ModifiableField.EMBEDDED_BUSINESS_OBJECT, e.getBusinessObject(), bo);
+					e.setBusinessObject(bo);
+					afterUpdate(e, ModifiableField.EMBEDDED_BUSINESS_OBJECT);
+				}
+			} else {
+				e.setBusinessObject(bo);
+			}
 		}
 
 		@Override
 		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
-		}
-
-		@Override
-		public void setManual(final DiagramElement e, final boolean value) {
-			if (value != e.isManual()) {
-				storeFieldChange(e, ModifiableField.MANUAL, e.isManual(), value);
-				e.setManual(value);
-				afterUpdate(e, ModifiableField.MANUAL);
-			}
-		}
-
-		@Override
-		public void setContentFilters(final DiagramElement e, final ImmutableSet<ContentFilter> value) {
-			if (!value.equals(e.getContentFilters())) {
-				storeFieldChange(e, ModifiableField.CONTENT_FILTERS, e.getContentFilters(), value);
-				e.setContentFilters(value);
-				afterUpdate(e, ModifiableField.CONTENT_FILTERS);
-			}
 		}
 
 		@Override
@@ -688,14 +692,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@SuppressWarnings("unchecked")
 		private void setValue(final DiagramModification m, final Object value) {
 			switch (field) {
-			case MANUAL:
-				m.setManual(element, (boolean) value);
-				break;
-
-			case CONTENT_FILTERS:
-				m.setContentFilters(element, (ImmutableSet<ContentFilter>) value);
-				break;
-
 			case COMPLETENESS:
 				m.setCompleteness(element, (Completeness) value);
 				break;
@@ -743,6 +739,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			case RELATIVE_REFERENCE:
 				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
 
+			case EMBEDDED_BUSINESS_OBJECT:
+				m.updateBusinessObjectWithSameRelativeReference(element, value);
+
 			default:
 				break;
 			}
@@ -751,8 +750,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public boolean affectsChangeNumber() {
 			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.USER_INTERFACE_NAME
-					|| ((field == ModifiableField.LABEL_NAME)
-							&& !(element.getBusinessObject() instanceof EmbeddedBusinessObject))
+					|| field == ModifiableField.LABEL_NAME
 					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}
@@ -819,6 +817,13 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			AgeDiagram.runModification(modifier, mod);
 			if (mod.changes.size() > 0) {
 				if (affectsChangeNumber(mod.changes)) {
+
+					for (final DiagramChange c : mod.changes) {
+						if (c.affectsChangeNumber()) {
+							break;
+						}
+					}
+
 					originalVersionNumber = ageDiagram.changeNumber;
 					ageDiagram.changeNumber++;
 					newVersionNumber = ageDiagram.changeNumber;
