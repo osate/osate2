@@ -105,7 +105,7 @@ public class AnnexParserAgent extends LazyLinker {
 		      
 		      @Override
 		      public ParseErrorReporter getReporterFor(Resource aadlRsrc) {
-		        final IResource inpIRes = OsateResourceUtil.convertToIResource( aadlRsrc );
+		        final IResource inpIRes = OsateResourceUtil.toIFile(aadlRsrc.getURI());
 		        return new MarkerParseErrorReporter(inpIRes, AadlConstants.AADLOBJECTMARKER);
 		      }
 		    };
