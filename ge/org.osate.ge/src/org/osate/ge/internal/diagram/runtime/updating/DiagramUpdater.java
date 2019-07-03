@@ -70,7 +70,6 @@ public class DiagramUpdater {
 	}
 
 	// Updates the diagram.
-	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
 		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementInfoMap, containerToRelativeReferenceToGhostMap);
@@ -197,8 +196,6 @@ public class DiagramUpdater {
 			}
 
 			// Set fields
-			m.setContentFilters(element, n.getContentFilters());
-			m.setManual(element, n.isManual());
 			m.setCompleteness(element, n.getCompleteness());
 
 			// Set name fields
