@@ -252,7 +252,7 @@ class AssureConstructor implements IAssureConstructor {
 			val function = when.condition
 			if (function !== null) {
 				val ne = req.targetElement ?: cc
-				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(function, ne)
+				val res = ExecuteJavaUtil.invokeJavaMethod(function, ne)
 				if (res instanceof Boolean) {
 					return res;
 				}
