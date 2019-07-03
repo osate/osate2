@@ -174,7 +174,7 @@ public class InterpreterUtil {
 	// Method returns null if Java class was found.
 	// Otherwise it returns an error message
 	public String methodExists(final String javaMethod) {
-		Method m = ExecuteJavaUtil.eInstance.getJavaMethod(javaMethod);
+		Method m = ExecuteJavaUtil.getJavaMethod(javaMethod);
 		if (m != null) {
 			return null;
 		} else {
