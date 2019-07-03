@@ -877,7 +877,7 @@ public class DiagramPackage extends EPackageImpl {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link DiagramPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -891,7 +891,8 @@ public class DiagramPackage extends EPackageImpl {
 		if (isInited) return (DiagramPackage)EPackage.Registry.INSTANCE.getEPackage(DiagramPackage.eNS_URI);
 
 		// Obtain or create and register package
-		DiagramPackage theDiagramPackage = (DiagramPackage)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DiagramPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new DiagramPackage());
+		Object registeredDiagramPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		DiagramPackage theDiagramPackage = registeredDiagramPackage instanceof DiagramPackage ? (DiagramPackage)registeredDiagramPackage : new DiagramPackage();
 
 		isInited = true;
 
@@ -907,7 +908,6 @@ public class DiagramPackage extends EPackageImpl {
 		// Mark meta-data to indicate it can't be changed
 		theDiagramPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(DiagramPackage.eNS_URI, theDiagramPackage);
 		return theDiagramPackage;
@@ -1042,6 +1042,7 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(3);
 	}
 
+
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}'.
 	 * <!-- begin-user-doc -->
@@ -1054,6 +1055,7 @@ public class DiagramPackage extends EPackageImpl {
 	public EAttribute getDiagramElement_AutoContentsFilter() {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(4);
 	}
+
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getPosition <em>Position</em>}'.

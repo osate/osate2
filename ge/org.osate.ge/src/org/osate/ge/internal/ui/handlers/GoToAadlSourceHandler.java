@@ -13,18 +13,18 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.EmfContainerProvider;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class GoToAadlSourceHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		boolean enabled = false;
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil
-				.getSelectedDiagramElements();
-		if (selectedDiagramElements.size() == 1) {
-			final Object selectedBo = selectedDiagramElements.get(0).getBusinessObject();
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 1) {
+			final Object selectedBo = selectedBusinessObjectContexts.get(0).getBusinessObject();
 			final EObject boEObj = getEObject(selectedBo);
 			if (boEObj != null) {
 				final URI uri = EcoreUtil.getURI(boEObj);
@@ -47,13 +47,14 @@ public class GoToAadlSourceHandler extends AbstractHandler {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		// Get diagram and selected elements
-		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		if(selectedDiagramElements.size() == 0) {
+		// Get diagram and selected BOCs
+		final List<BusinessObjectContext> selectedBusinessObjectContexts = AgeHandlerUtil
+				.getSelectedBusinessObjectContexts();
+		if (selectedBusinessObjectContexts.size() == 0) {
 			throw new RuntimeException("No element selected");
 		}
 
-		final Object selectedBo = selectedDiagramElements.get(0).getBusinessObject();
+		final Object selectedBo = selectedBusinessObjectContexts.get(0).getBusinessObject();
 		final EObject boEObj = getEObject(selectedBo);
 		if (boEObj == null) {
 			throw new RuntimeException("Unsupported type: " + selectedBo);

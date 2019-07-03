@@ -43,7 +43,7 @@ public class InModesTest {
 		final String abstractImplName = ElementNames.abstractTypeName + ".impl";
 		bot.resizeEditPart(editor, new Point(400, 400), abstractImplName);
 		bot.openPropertiesView();
-		bot.executeContextMenuCommand(editor, abstractImplName, AgeGefBot.allFilters);
+		bot.executeContextMenuCommand(editor, abstractImplName, AgeGefBot.all);
 
 		// Create modes
 		bot.createToolItemAndRename(editor, Mode.class, new Point(5, 10), ElementNames.mode,
@@ -79,6 +79,7 @@ public class InModesTest {
 		final Subcomponent sc = (Subcomponent) AgeGefBot.getBusinessObject(editor, gsep.getPictogramElement());
 
 		// Get mode
+		bot.executeContextMenuCommand(editor, abstractImplName, AgeGefBot.all);
 		final SWTBotGefEditPart modeEditPart = bot.findEditPart(editor, abstractImplName,
 				ElementNames.mode);
 		final Mode mode = (Mode) AgeGefBot.getBusinessObject(editor,

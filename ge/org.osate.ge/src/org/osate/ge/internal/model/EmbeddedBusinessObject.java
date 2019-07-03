@@ -1,7 +1,7 @@
 package org.osate.ge.internal.model;
 
 /**
- * Interface for model objects which are embedded into the diagram. Such objects are required to by copyable.
+ * Interface for model objects which are embedded into the diagram. Such objects are required to by copyable. EmbeddedBusinessObject implementations must be immutable.
  */
 public interface EmbeddedBusinessObject {
 	/**
