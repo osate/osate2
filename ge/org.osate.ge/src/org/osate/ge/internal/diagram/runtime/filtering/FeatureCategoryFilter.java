@@ -14,6 +14,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -69,8 +70,8 @@ public class FeatureCategoryFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return bo instanceof Classifier || bo instanceof Subcomponent || bo instanceof FeatureGroup
-				|| bo instanceof ComponentInstance || (bo instanceof FeatureInstance
+		return bo instanceof Classifier || bo instanceof Subcomponent || bo instanceof SubprogramCall
+				|| bo instanceof FeatureGroup || bo instanceof ComponentInstance || (bo instanceof FeatureInstance
 						&& ((FeatureInstance) bo).getCategory() == FeatureCategory.FEATURE_GROUP);
 	}
 
