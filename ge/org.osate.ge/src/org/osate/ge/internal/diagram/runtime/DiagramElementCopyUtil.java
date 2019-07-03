@@ -28,8 +28,6 @@ public class DiagramElementCopyUtil {
 		final DiagramElement newElement = new DiagramElement(newContainer, newBo,
 				elementToCopy.getBusinessObjectHandler(), relativeBoRef, UUID.randomUUID());
 
-		newElement.setManual(elementToCopy.isManual());
-		newElement.setContentFilters(elementToCopy.getContentFilters());
 		newElement.setCompleteness(elementToCopy.getCompleteness());
 		newElement.setLabelName(elementToCopy.getLabelName());
 		newElement.setUserInterfaceName(elementToCopy.getUserInterfaceName());

@@ -189,24 +189,17 @@ public class PasteAction extends ActionStackAction {
 					: new Point(cp.x - minCoordinates.x + 50, cp.y - minCoordinates.y + 50);
 			m.setPosition(newDiagramElement, newPosition);
 
-			// Set the new element as manual to true if and only if it is required to ensure the element appears
-			final boolean manual = dstDiagramNode instanceof DiagramElement
-					? !((DiagramElement) dstDiagramNode).getContentFilters().stream()
-							.anyMatch(cf -> cf.test(copiedDiagramElement.getOriginalBo()))
-							: true;
-							m.setManual(newDiagramElement, manual);
+			// Remove existing element
+			final DiagramElement existingDiagramElement = dstDiagramNode
+					.getByRelativeReference(newDiagramElement.getRelativeReference());
+			if (existingDiagramElement != null) {
+				m.removeElement(existingDiagramElement);
+			}
 
-							// Remove existing element
-							final DiagramElement existingDiagramElement = dstDiagramNode
-									.getByRelativeReference(newDiagramElement.getRelativeReference());
-							if (existingDiagramElement != null) {
-								m.removeElement(existingDiagramElement);
-							}
+			// Add the new diagram element to the diagram.
+			m.addElement(newDiagramElement);
 
-							// Add the new diagram element to the diagram.
-							m.addElement(newDiagramElement);
-
-							newDiagramElements.add(newDiagramElement);
+			newDiagramElements.add(newDiagramElement);
 		}
 
 		return newDiagramElements;

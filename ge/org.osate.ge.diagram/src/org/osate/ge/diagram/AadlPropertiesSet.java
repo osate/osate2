@@ -149,7 +149,7 @@ public class AadlPropertiesSet extends MinimalEObjectImpl.Container implements E
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (property: ");
 		result.append(property);
 		result.append(')');

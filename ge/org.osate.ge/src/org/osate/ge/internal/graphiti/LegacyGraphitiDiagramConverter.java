@@ -38,7 +38,6 @@ import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -46,7 +45,6 @@ import org.osate.ge.diagram.AadlPropertiesSet;
 import org.osate.ge.diagram.DiagramConfiguration;
 import org.osate.ge.diagram.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
-import org.osate.ge.internal.diagram.runtime.filtering.LegacyContentFilterMapping;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -99,7 +97,7 @@ public class LegacyGraphitiDiagramConverter {
 			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
 
-		final IProject project = SelectionUtil.getProject(legacyDiagram.eResource());
+		final IProject project = SelectionUtil.getProjectOrThrow(legacyDiagram.eResource());
 
 		// Create objects for the context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
@@ -125,8 +123,6 @@ public class LegacyGraphitiDiagramConverter {
 				final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 				diagram.getElement().add(newElement);
 				newElement.setBo(contextRelRef.toMetamodel());
-				newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
-				newElement.setManual(true);
 				diagramElementToBoMap.put(newElement, contextBo);
 				container = newElement;
 			}
@@ -383,21 +379,7 @@ public class LegacyGraphitiDiagramConverter {
 			final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 			convertedContainer.getElement().add(newElement);
 			newElement.setBo(relRef.toMetamodel());
-			newElement.setManual(true);
 			diagramElementToBoMap.put(newElement, bo);
-
-			// For top level classifiers, show all contents. Will be true for classifier diagrams
-			if (convertedContainer instanceof org.osate.ge.diagram.Diagram) {
-				newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
-			} else {
-				// Special handling of certain elements
-				if (bo instanceof Subcomponent) {
-					newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_TYPE.getId());
-				} else if (bo instanceof SubprogramCallSequence || bo instanceof SubprogramCall
-						|| bo instanceof ComponentInstance) {
-					newElement.setAutoContentsFilter(LegacyContentFilterMapping.ALLOW_ALL.getId());
-				}
-			}
 
 			// Position
 			final org.osate.ge.diagram.Point position = new org.osate.ge.diagram.Point();
