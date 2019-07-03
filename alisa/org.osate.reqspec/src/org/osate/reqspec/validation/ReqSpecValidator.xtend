@@ -559,7 +559,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 
 				@Check(CheckType.FAST)
 				def void checkWhenCondition(WhenCondition wc) {
-					if (ExecuteJavaUtil.eInstance.getJavaMethod(wc.condition) === null) {
+					if (ExecuteJavaUtil.getJavaMethod(wc.condition) === null) {
 						error("Could not find Java method " + wc.condition + " with single EObject parameter",
 							ReqSpecPackage.Literals.WHEN_CONDITION__CONDITION, CONDITION_METHOD_NOT_FOUND)
 					}
