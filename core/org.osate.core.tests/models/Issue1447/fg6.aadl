@@ -1,0 +1,91 @@
+package fg6
+public
+	with TestPS;
+
+	data X
+		properties
+			TestPS::myProp => 0;
+	end X;
+	
+	data Y extends X
+		properties
+			TestPS::myProp => 10;
+	end Y;
+
+	data implementation Y.i
+		properties
+			TestPS::myProp => 20;
+	end Y.i;
+
+	data implementation Y.j extends Y.i
+		properties
+			TestPS::myProp => 30;
+	end Y.j;
+
+	feature group FG1 
+		features
+			f1: out data port Y.j {
+				TestPS::myProp => constant 32;
+			};
+	end FG1;
+
+	feature group FG2 extends FG1
+		features
+			f1: refined to out data port Y.j; -- {
+--				TestPS::myProp => 35;
+--			};
+	end FG2;
+	
+	system A
+	end A;
+
+	system B
+	end B;
+
+	system C
+	end C;
+
+	system D 
+		features
+			fg1: feature group FG2 {
+				TestPS::myProp => 40 applies to f1;
+			};
+		properties
+			TestPS::myProp => 45 applies to fg1.f1;
+	end D;
+	
+	system D2 extends D
+		features
+			fg1: refined to feature group FG2 {
+				TestPS::myProp => 50 applies to f1;
+			};
+		properties
+			TestPS::myProp => 55 applies to fg1.f1;
+	end D2;
+
+	system implementation A.i
+		subcomponents
+			s1: system B.i;
+		properties
+			TestPS::myProp => 90 applies to s1.s2.s3.fg1.f1;
+	end A.i;
+
+	system implementation B.i
+		subcomponents
+			s2: system C.i;
+		properties
+			TestPS::myProp => 80 applies to s2.s3.fg1.f1;
+	end B.i;
+
+	system implementation C.i
+		subcomponents
+			s3: system D2.i;
+		properties
+			TestPS::myProp => 70 applies to s3.fg1.f1;
+	end C.i;
+
+	system implementation D2.i
+		properties
+			TestPS::myProp => 60 applies to fg1.f1;
+	end D2.i;
+end fg6;
