@@ -1,0 +1,50 @@
+package subcomponents5
+public
+	with TestPS;
+
+	system A
+	end A;
+
+	system B
+	end B;
+
+	system C
+	end C;
+	
+	system Foo
+		properties 
+			TestPS::myProp => -200;
+	end Foo;
+	
+
+	system D extends Foo
+		properties 
+			TestPS::myProp => -100;
+	end D;
+
+	system implementation A.i
+		subcomponents
+			s1: system B.i;
+		properties
+			TestPS::myProp => 400 applies to s1.s2.s3;
+	end A.i;
+
+	system implementation B.i
+		subcomponents
+			s2: system C.i;
+		properties
+			TestPS::myProp => 300 applies to s2.s3;
+	end B.i;
+
+	system implementation C.i
+		subcomponents
+			s3: system D.i;
+		properties
+			TestPS::myProp => constant 200 applies to s3;
+	end C.i;
+
+	system implementation D.i
+		properties
+			TestPS::myProp => 0;
+	end D.i;
+end subcomponents5;
