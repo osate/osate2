@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.alisa.common.common.AVariableReference;
+import org.osate.alisa.common.common.AExpression;
 
 import org.osate.reqspec.reqSpec.DesiredValue;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -49,14 +49,14 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 public class DesiredValueImpl extends MinimalEObjectImpl.Container implements DesiredValue
 {
   /**
-   * The cached value of the '{@link #getDesired() <em>Desired</em>}' reference.
+   * The cached value of the '{@link #getDesired() <em>Desired</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDesired()
    * @generated
    * @ordered
    */
-  protected AVariableReference desired;
+  protected AExpression desired;
 
   /**
    * The default value of the '{@link #isUpto() <em>Upto</em>}' attribute.
@@ -115,18 +115,8 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * @generated
    */
   @Override
-  public AVariableReference getDesired()
+  public AExpression getDesired()
   {
-    if (desired != null && desired.eIsProxy())
-    {
-      InternalEObject oldDesired = (InternalEObject)desired;
-      desired = (AVariableReference)eResolveProxy(oldDesired);
-      if (desired != oldDesired)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.DESIRED_VALUE__DESIRED, oldDesired, desired));
-      }
-    }
     return desired;
   }
 
@@ -135,9 +125,16 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * <!-- end-user-doc -->
    * @generated
    */
-  public AVariableReference basicGetDesired()
+  public NotificationChain basicSetDesired(AExpression newDesired, NotificationChain msgs)
   {
-    return desired;
+    AExpression oldDesired = desired;
+    desired = newDesired;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.DESIRED_VALUE__DESIRED, oldDesired, newDesired);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -146,12 +143,20 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
    * @generated
    */
   @Override
-  public void setDesired(AVariableReference newDesired)
+  public void setDesired(AExpression newDesired)
   {
-    AVariableReference oldDesired = desired;
-    desired = newDesired;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.DESIRED_VALUE__DESIRED, oldDesired, desired));
+    if (newDesired != desired)
+    {
+      NotificationChain msgs = null;
+      if (desired != null)
+        msgs = ((InternalEObject)desired).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.DESIRED_VALUE__DESIRED, null, msgs);
+      if (newDesired != null)
+        msgs = ((InternalEObject)newDesired).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.DESIRED_VALUE__DESIRED, null, msgs);
+      msgs = basicSetDesired(newDesired, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.DESIRED_VALUE__DESIRED, newDesired, newDesired));
   }
 
   /**
@@ -239,6 +244,8 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
   {
     switch (featureID)
     {
+      case ReqSpecPackage.DESIRED_VALUE__DESIRED:
+        return basicSetDesired(null, msgs);
       case ReqSpecPackage.DESIRED_VALUE__VALUE:
         return basicSetValue(null, msgs);
     }
@@ -256,8 +263,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
     switch (featureID)
     {
       case ReqSpecPackage.DESIRED_VALUE__DESIRED:
-        if (resolve) return getDesired();
-        return basicGetDesired();
+        return getDesired();
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         return isUpto();
       case ReqSpecPackage.DESIRED_VALUE__VALUE:
@@ -277,7 +283,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
     switch (featureID)
     {
       case ReqSpecPackage.DESIRED_VALUE__DESIRED:
-        setDesired((AVariableReference)newValue);
+        setDesired((AExpression)newValue);
         return;
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         setUpto((Boolean)newValue);
@@ -300,7 +306,7 @@ public class DesiredValueImpl extends MinimalEObjectImpl.Container implements De
     switch (featureID)
     {
       case ReqSpecPackage.DESIRED_VALUE__DESIRED:
-        setDesired((AVariableReference)null);
+        setDesired((AExpression)null);
         return;
       case ReqSpecPackage.DESIRED_VALUE__UPTO:
         setUpto(UPTO_EDEFAULT);
