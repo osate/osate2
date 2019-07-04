@@ -241,7 +241,7 @@ ValuePredicate: 'value' 'predicate' xpression=AAndExpression
 	('with' desiredValue+=DesiredValue+)?
 ;	// intended to be restricted to deal with value limits
 
-DesiredValue: desired=[common::AVariableReference|ID] (upto?='upto' | 'downto') value=AExpression ;
+DesiredValue: desired=AVariableReference (upto?='upto' | 'downto') value=AExpression ;
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=QualifiedName)?
