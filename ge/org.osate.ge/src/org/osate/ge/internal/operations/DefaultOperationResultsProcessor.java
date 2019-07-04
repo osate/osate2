@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Point;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
@@ -80,15 +79,6 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 
 			final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
 			if (newRef != null) {
-				// Set the new element as manual if and only if it does not match any of the container's filters
-				final boolean manual;
-				if (containerNode instanceof DiagramElement) {
-					manual = !((DiagramElement) containerNode).getContentFilters().stream()
-							.anyMatch(cf -> cf.test(newBo));
-				} else {
-					manual = false;
-				}
-
 				// Don't set the position if multiple items are being added.
 				// Don't set the position if the incremental layout mode is set to diagram.
 				// This will ensure the shape is layed out even if it is a docked shape.
@@ -107,7 +97,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 								: null;
 
 						diagramUpdater.addToNextUpdate(containerNode, newRef,
-								new FutureElementInfo(manual, position, embeddedBo));
+						new FutureElementInfo(position, embeddedBo));
 			}
 		}
 	}

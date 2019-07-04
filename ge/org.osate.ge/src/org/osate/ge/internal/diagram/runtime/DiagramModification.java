@@ -2,14 +2,11 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.List;
 
-import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-
-import com.google.common.collect.ImmutableSet;
 
 /**
  * Interface provided to Modifier objects to allow making changes to an AgeDiagram.
@@ -39,9 +36,6 @@ public interface DiagramModification {
 	 */
 	void setBusinessObjectHandler(final DiagramElement e, final Object boh);
 
-	void setManual(final DiagramElement e, final boolean value);
-
-	void setContentFilters(final DiagramElement e, final ImmutableSet<ContentFilter> value);
 	void setCompleteness(final DiagramElement e, final Completeness value);
 	void setLabelName(final DiagramElement e, final String value);
 
