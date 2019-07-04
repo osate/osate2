@@ -101,7 +101,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValuePredicate/desiredValue"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//DesiredValue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//DesiredValue/desired"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//DesiredValue/desired"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//DesiredValue/upto"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//DesiredValue/value"/>
     </genClasses>

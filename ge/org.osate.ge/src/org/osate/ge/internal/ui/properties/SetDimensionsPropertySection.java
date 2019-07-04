@@ -214,7 +214,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 				public void widgetSelected(final SelectionEvent e) {
 					selectedIndex = tableViewer.getTable().getSelectionIndex();
 					final ArrayDimension dim = getSelectedDimension();
-					if (dim != null && modifiedArrayDimension(dim, SelectionUtil.getProject(dim.eResource()))) {
+					if (dim != null && modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(dim.eResource()))) {
 						final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 						selectedBos.modify(ArrayableElement.class, ae -> {
 							ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
@@ -229,7 +229,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 					final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 					final ArrayDimension dim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
 					selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
-						if (modifiedArrayDimension(dim, SelectionUtil.getProject(ele.eResource()))) {
+						if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {
 							selectedBos.modify(ArrayableElement.class, ae -> {
 								ae.getArrayDimensions().add(createArrayDimensionDuplicate(pkg, dim));
 							});

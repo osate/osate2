@@ -1,10 +1,14 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
@@ -17,18 +21,22 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
@@ -37,29 +45,53 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.model.BusinessObjectProxy;
+import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.internal.util.BusinessObjectContextHelper;
+import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_OUTLINE_LINK_WITH_EDITOR = "outline.linkWithEditor";
+	private static final String PREFERENCE_SHOW_HIDDEN_ELEMENTS = "outline.showHiddenElements";
 	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
-	private AgeDiagramEditor editor;
+	private final AgeDiagramEditor editor;
+	private final ProjectProvider projectProvider;
+	private final ProjectReferenceService referenceService;
+	private final ExtensionService extService;
+	private final BusinessObjectProviderHelper bopHelper;
+	private final BusinessObjectContextHelper bocHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
+	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
 
 	// Flag for indicating the the outline and editor selection is being synchronized.
 	// Used to avoid adjusting either selection in response to a change to itself.
 	// This is important to allow selecting items in the editor which aren't contained in the outline.
 	private boolean synchronizingSelection = false;
 
-	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
+	public AgeContentOutlinePage(final AgeDiagramEditor editor, final ProjectProvider projectProvider,
+			final ExtensionService extService,
+			final ProjectReferenceService referenceService) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		preferences.addPreferenceChangeListener(preferenceChangeListener);
+
+		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
+		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
+		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		this.bopHelper = new BusinessObjectProviderHelper(extService);
+		this.bocHelper = new BusinessObjectContextHelper(extService);
 	}
 
 	@Override
@@ -83,6 +115,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
+		bocHelper.close();
+		bopHelper.close();
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}
@@ -94,6 +128,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			if(event.getNewValue() != null) {
 				linkWithEditorAction.setChecked(Boolean.parseBoolean(event.getNewValue().toString()));
 			}
+		} else if (Objects.equals(event.getKey(), PREFERENCE_SHOW_HIDDEN_ELEMENTS)) {
+			Display.getDefault().asyncExec(() -> showHiddenElementsAction.setChecked(isShowHiddenElementsEnabled()));
 		}
 	};
 
@@ -102,6 +138,23 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		super.createControl(parent);
 
 		final TreeViewer viewer =  getTreeViewer();
+
+		// A comparator is set to allow comparing tree elements of different types in a way where they will be equal if the relative reference is equal.
+		// This is needed so that tree node will be preserved when elements are hidden and shown and the underlying object type changes.
+		viewer.setComparer(new IElementComparer() {
+			@Override
+			public int hashCode(final Object element) {
+				return Objects.hashCode(getRelativeReferenceForElement(element));
+			}
+
+			@Override
+			public boolean equals(final Object element1, final Object element2) {
+				final Object ref1 = getRelativeReferenceForElement(element1);
+				final Object ref2 = getRelativeReferenceForElement(element2);
+				return Objects.equals(ref1, ref2);
+			}
+		});
+
 		viewer.setContentProvider(new ITreeContentProvider() {
 			@Override
 			public void dispose() {
@@ -119,25 +172,118 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					return getChildren(graphitiAgeDiagram.getAgeDiagram());
 				}
 
-				return new Object[0];
+				return new BusinessObjectContext[0];
 			}
 
 			@Override
 			public Object[] getChildren(final Object parentElement) {
-				if(parentElement instanceof DiagramNode) {
-					// Show all diagram elements for which the label provider can generate a label.
-					return ((DiagramNode) parentElement).getDiagramElements().stream().filter(
-							(de) -> de.getUserInterfaceName() != null || de.getBusinessObject() instanceof EObject)
-							.toArray();
+				if (parentElement instanceof BusinessObjectContext) {
+					final BusinessObjectContext parent = ((BusinessObjectContext) parentElement);
+
+					final List<BusinessObjectContext> children = new ArrayList<>();
+
+					// DiagramNodes represent elements which are part of the diagram
+					if (parent instanceof DiagramNode) {
+						final DiagramNode parentNode = (DiagramNode) parent;
+
+						// Add child diagram nodes
+						parentNode.getDiagramElements().stream().filter(
+								(de) -> de.getUserInterfaceName() != null || de.getBusinessObject() instanceof EObject)
+						.forEach(children::add);
+
+						// Add children which are hidden based on user preference
+						if (showHiddenElementsAction.isChecked()) {
+							// If the diagram is a contextless diagram, create a business object context which uses the current project as the business object
+							final BusinessObjectContext parentForRetrieval;
+							if (parentElement instanceof AgeDiagram && ((AgeDiagram) parentElement).getConfiguration()
+									.getContextBoReference() == null) {
+								parentForRetrieval = new BusinessObjectContext() {
+									@Override
+									public Collection<? extends Queryable> getChildren() {
+										return parentNode.getChildren();
+									}
+
+									@Override
+									public BusinessObjectContext getParent() {
+										return parent.getParent();
+									}
+
+									@Override
+									public Object getBusinessObject() {
+										return projectProvider.getProject();
+									}
+								};
+							} else {
+								parentForRetrieval = parent;
+							}
+
+							// Add children based on the objects returns by the business object provider for business objects which are not currently in the diagram.
+							getChildContextsFromProvider(parent, parentForRetrieval, childRef -> {
+								return !children.stream()
+										.map(AgeContentOutlinePage.this::getRelativeReferenceForElement)
+										.anyMatch(childRef::equals);
+							})
+							.forEachOrdered(children::add);
+						}
+					} else if (parent instanceof BusinessObjectContext) {
+						// The parent is another type of business object context which is not included in the diagram
+
+						// Add children which are hidden based on user preference
+						if (showHiddenElementsAction.isChecked()) {
+							getChildContextsFromProvider(parent, parent, childRef -> true)
+							.forEachOrdered(children::add);
+						}
+					}
+
+					return children.toArray();
 				}
 
-				return new Object[0];
+				return new BusinessObjectContext[0];
+			}
+
+			/**
+			 * Creates a stream of business object contexts representing the children returned by the business object provider.
+			 * Such contexts do not have a valid isChildren() method.
+			 * @param parent is the context to use as the parent of returned contexts. This should be the DiagramNode if one exists.
+			 * @param parentForRetrieval is the context to use when requesting children from the business object provider
+			 * @param filterPredicate is a filter that can be used to filter results by the relative reference before the context is created
+			 * @return A stream of child business object contexts
+			 */
+			private Stream<BusinessObjectContext> getChildContextsFromProvider(final BusinessObjectContext parent,
+					final BusinessObjectContext parentForRetrieval,
+					final Predicate<RelativeBusinessObjectReference> filterPredicate) {
+				return bopHelper.getChildBusinessObjects(parentForRetrieval).stream().map(childBo -> {
+					if (childBo instanceof BusinessObjectProxy) {
+						return ((BusinessObjectProxy) childBo).resolve(referenceService);
+					} else {
+						return childBo;
+					}
+				}).filter(Objects::nonNull).filter(childBo -> {
+					final RelativeBusinessObjectReference childRef = referenceService.getRelativeReference(childBo);
+					return childRef != null && filterPredicate.test(childRef);
+				}).map(childBo -> new BusinessObjectContext() {
+					@Override
+					public Collection<? extends Queryable> getChildren() {
+						// Returns an empty list. Shouldn't be needed. All children are hidden and such children will be provided by the content provider.
+						return Collections.emptyList();
+					}
+
+					@Override
+					public BusinessObjectContext getParent() {
+						return parent;
+					}
+
+					@Override
+					public Object getBusinessObject() {
+						return childBo;
+					}
+				});
 			}
 
 			@Override
 			public Object getParent(final Object element) {
-				if(element instanceof DiagramElement) {
-					return ((DiagramElement) element).getContainer();
+				if (element instanceof BusinessObjectContext) {
+					return ((BusinessObjectContext) element).getParent();
 				}
 
 				return null;
@@ -145,7 +291,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public boolean hasChildren(final Object element) {
-				if(element instanceof DiagramNode) {
+				if (element instanceof BusinessObjectContext) {
 					return getChildren(element).length > 0;
 				}
 
@@ -153,24 +299,14 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			}
 		});
 
-		viewer.setComparator(new ViewerComparator());
-
-		viewer.setLabelProvider(new LabelProvider() {
+		// Create a label provider that will be used by the tree's actual label provider which will be a StyledCellLabelProvider.
+		// This label provider is also used by the custom comparator because the default one does not support text provided by the styled cell label provider.
+		final LabelProvider innerLabelProvider = new LabelProvider() {
 			@Override
 			public String getText(final Object element) {
-				if(element instanceof DiagramElement) {
-					final DiagramElement de = (DiagramElement)element;
-					final Object bo = de.getBusinessObject();
-					String lblTxt = "";
-					if(bo instanceof EObject) {
-						lblTxt += StringUtil.camelCaseToUser(((EObject)bo).eClass().getName()) + " ";
-					}
-
-					if (de.getUserInterfaceName() != null) {
-						lblTxt += de.getUserInterfaceName();
-					}
-
-					return lblTxt;
+				if (element instanceof BusinessObjectContext) {
+					final BusinessObjectContext boc = (BusinessObjectContext) element;
+					return UiUtil.getDescription(boc, extService, bocHelper);
 				}
 
 				return super.getText(element);
@@ -178,13 +314,33 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Image getImage(final Object element) {
-				if(element instanceof DiagramElement) {
-					final DiagramElement de = (DiagramElement)element;
-					final Object bo = de.getBusinessObject();
+				if (element instanceof BusinessObjectContext) {
+					final BusinessObjectContext boc = (BusinessObjectContext) element;
+					final Object bo = boc.getBusinessObject();
 					return ImageUiHelper.getImage(bo);
 				}
 
 				return null;
+			}
+		};
+
+		viewer.setLabelProvider(new StyledCellLabelProvider(StyledCellLabelProvider.COLORS_ON_SELECTION) {
+			@Override
+			public void update(final ViewerCell cell) {
+				final Object element = cell.getElement();
+				cell.setText(innerLabelProvider.getText(element));
+				cell.setForeground(
+						element instanceof DiagramNode ? null : Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+				cell.setImage(innerLabelProvider.getImage(element));
+			}
+		});
+
+		viewer.setComparator(new ViewerComparator() {
+			@Override
+			public int compare(final Viewer viewer, final Object e1, final Object e2) {
+				final String t1 = innerLabelProvider.getText(e1);
+				final String t2 = innerLabelProvider.getText(e2);
+				return getComparator().compare(t1, t2);
 			}
 		});
 
@@ -212,11 +368,26 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 	}
 
+	/**
+	 * Gets the relative reference for a tree element. If the specified value is not of the expected types or is null, then null is returned.
+	 */
+	private RelativeBusinessObjectReference getRelativeReferenceForElement(final Object element) {
+		if (element instanceof DiagramElement) {
+			return ((DiagramElement) element).getRelativeReference();
+		} else if (element instanceof BusinessObjectContext) {
+			final Object bo = ((BusinessObjectContext) element).getBusinessObject();
+			return bo == null ? null : referenceService.getRelativeReference(bo);
+		} else {
+			return null;
+		}
+	}
+
 // Link With Editor action added to Outline menu
 	@Override
 	public void makeContributions(final IMenuManager menuManager, final IToolBarManager toolBarManager,
 			final IStatusLineManager statusLineManager) {
 		toolBarManager.add(linkWithEditorAction);
+		menuManager.add(showHiddenElementsAction);
 	}
 
 	private void updateOutlineSelectionIfLinked() {
@@ -260,7 +431,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	private void selectEditorPictogramElements() {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
-		final Set<DiagramNode>  outlineNodes = getCurrentlySelectedDiagramNodes();
+		final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();
 		final Set<DiagramNode> editorNodes = getSelectedDiagramNodesFromEditor();
 		if(getTreeViewer() != null &&
 				getTreeViewer().getContentProvider() != null &&
@@ -296,13 +467,39 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 	};
 
+	private class ToggleShowHiddenElementsAction extends Action {
+		public ToggleShowHiddenElementsAction() {
+			super("Show Hidden Elements", SWT.TOGGLE);
+
+			// Default Link With Editor enabled
+			setChecked(isShowHiddenElementsEnabled());
+		}
+
+		@Override
+		public void setChecked(final boolean checked) {
+			boolean wasChecked = isChecked();
+			super.setChecked(checked);
+			if (wasChecked != checked) {
+				preferences.putBoolean(PREFERENCE_SHOW_HIDDEN_ELEMENTS, isChecked());
+
+				final TreeViewer treeViewer = getTreeViewer();
+				if (treeViewer != null) {
+					treeViewer.refresh();
+				}
+			}
+		}
+	};
+
+	private boolean isShowHiddenElementsEnabled() {
+		return preferences.getBoolean(PREFERENCE_SHOW_HIDDEN_ELEMENTS, true);
+	}
+
 	private PictogramElement[] getCurrentlySelectedPictogramElements() {
-		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
 		final List<PictogramElement> pes = new ArrayList<>();
 		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for(final Object selectedDiagramNode : outlineSelection) {
-			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement((DiagramNode)selectedDiagramNode);
-			if(pe != null) {
+		for (final DiagramNode selectedDiagramNode : getCurrentlySelectedDiagramNodes()) {
+			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement(selectedDiagramNode);
+			if (pe != null) {
 				pes.add(pe);
 			}
 		}
@@ -310,17 +507,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		return pes.toArray(new PictogramElement[pes.size()]);
 	}
 
-// Sets are used in the following methods to allow correct comparison between editor and outline selection. The editor may have multiple pictogram
-// elements for the same diagram node.
+
+	// Sets are used in the following methods to allow correct comparison between editor and outline selection. The editor may have multiple pictogram
+	// elements for the same diagram node.
+
 	/**
-	 * Will never return null.
+	 * Will never return null. Will remove anything selected in the tree that isn't a DiagramNode
 	 * @return
 	 */
 	private Set<DiagramNode> getCurrentlySelectedDiagramNodes() {
 		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
 		final Set<DiagramNode> diagramNodes = new HashSet<>();
-		for(final Object diagramNode : outlineSelection) {
-			diagramNodes.add((DiagramNode)diagramNode);
+		for (final Object selectedBusinessObjectContext : outlineSelection) {
+			if (selectedBusinessObjectContext instanceof DiagramNode) {
+				diagramNodes.add((DiagramNode) selectedBusinessObjectContext);
+			}
 		}
 
 		return diagramNodes;

@@ -144,7 +144,8 @@
         eType="#//DesiredValue" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DesiredValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="desired" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AVariableReference"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="desired" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upto" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>
