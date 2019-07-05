@@ -1,0 +1,27 @@
+package cycle_example
+public
+	with test_ps;
+
+	system x
+		properties
+			test_ps::dummy => 0;
+	end x;
+
+	system A extends B
+	end A;
+
+	system B extends C
+	end B;
+
+	system C extends B
+	end C;
+
+	system implementation C.i extends C.j
+	end C.i;
+
+	system implementation C.j extends C.k
+	end C.j;
+
+	system implementation C.k extends C.j
+	end C.k;
+end cycle_example;
