@@ -36,9 +36,11 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -2044,13 +2046,15 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 		// extended implementations
 		// avoid loops
+		final Set<ComponentImplementation> seen = new HashSet<>();
 		ComponentImplementation currentImpl = getExtended();
-		while (currentImpl != null && currentImpl != this) {
+		while (currentImpl != null && !seen.contains(currentImpl)) {
 			if (pas.addLocal(currentImpl)) {
 				if (!all) {
 					return;
 				}
 			}
+			seen.add(currentImpl);
 			currentImpl = currentImpl.getExtended();
 		}
 

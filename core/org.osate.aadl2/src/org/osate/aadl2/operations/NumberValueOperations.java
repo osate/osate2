@@ -34,6 +34,7 @@
  */
 package org.osate.aadl2.operations;
 
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
@@ -116,6 +117,29 @@ public class NumberValueOperations extends ElementOperations {
 		}
 
 		return getScaledValue(numberValue, targetUnit);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	// copied from org.osate.alisa.common.typing.InterpreterUtil
+	public static UnitLiteral smallerUnit(UnitLiteral unit1, UnitLiteral unit2) {
+		if (unit1 == null || unit2 == null) {
+			return null;
+		} else if (unit1 == unit2) {
+			return unit1;
+		} else {
+			RealLiteral tester = Aadl2Factory.eINSTANCE.createRealLiteral();
+			tester.setValue(1.0);
+			tester.setUnit(unit1);
+			if (tester.getScaledValue(unit2) < 1.0) {
+				return unit1;
+			} else {
+				return unit2;
+			}
+		}
 	}
 
 } // NumberValueOperations

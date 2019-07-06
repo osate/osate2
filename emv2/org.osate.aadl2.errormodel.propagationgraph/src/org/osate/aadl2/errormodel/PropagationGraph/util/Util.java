@@ -711,7 +711,7 @@ public class Util {
 		}
 		if (ifCondition.getJavaMethod() != null) {
 			// Java class reference
-			Object res = ExecuteJavaUtil.eInstance.invokeJavaMethod(ifCondition.getJavaMethod(), targetElement);
+			Object res = ExecuteJavaUtil.invokeJavaMethod(ifCondition.getJavaMethod(), targetElement);
 			if (res instanceof Boolean) {
 				return (Boolean) res;
 			} else {

@@ -1,10 +1,8 @@
 package org.osate.pluginsupport;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
@@ -12,106 +10,115 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Pair;
 
 public class ExecuteJavaUtil {
 	// generic reflective invocation of Java methods.
 	// One set of methods assumes as single parameter - model target model element. The Java method is assumed to expect an EObject
 	// The second set of methods gets both the method parameter classes and actual objects to be passed.
 
-	public static ExecuteJavaUtil eInstance = new ExecuteJavaUtil();
+	private final static String EXTENSION_POINT_ID = "org.osate.pluginsupport.registeredjavaclasses";
+	private final static String PATH_ATTRIBUTE_NAME = "path";
 
-	final private static String EXTENTION_ID = "org.osate.pluginsupport.registeredjavaclasses";
-	private static Map<String, Object> analysisMap;
+	private static Map<String, IConfigurationElement> configElementCache;
 
-	public void init(IExtensionRegistry registry) {
-		analysisMap = new HashMap<String, Object>();
-		evaluate(registry);
-	}
-
-	private void evaluate(IExtensionRegistry registry) {
-		try {
-			for (IConfigurationElement e : registry.getConfigurationElementsFor(EXTENTION_ID)) {
-				String name = e.getAttribute("path");
-				Object o = e.createExecutableExtension("path");
-				analysisMap.put(name, o);
-			}
-		} catch (CoreException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	// invoke method in workspace project
 	// The method is assumed to have a single parameter of type EObject
-	public Object invokeJavaMethod(String javaMethod, EObject target) {
-		ArrayList<Class<?>> newClasses = new ArrayList<Class<?>>();
-		newClasses.add(EObject.class);
-		ArrayList<Object> objects = new ArrayList<Object>();
-		objects.add(target);
-		return invokeJavaMethod(javaMethod, newClasses, objects);
+	public static Object invokeJavaMethod(String qualifiedMethodName, EObject argument) {
+		return invokeJavaMethod(qualifiedMethodName, new Class[] { EObject.class }, new Object[] { argument });
 	}
 
-	// invoke method in workspace project
-	public Object invokeJavaMethod(String javaMethod, List<Class<?>> paramClasses, List<Object> paramActuals) {
-		int i = javaMethod.lastIndexOf('.');
-		if (i == -1) {
+	public static Object invokeJavaMethod(String qualifiedMethodName, Class<?>[] parameterTypes, Object[] arguments) {
+		Pair<String, String> names = splitClassAndMethodName(qualifiedMethodName);
+		String className = names.getKey();
+		String methodName = names.getValue();
+		if (methodName == null) {
 			return null;
 		}
-		String className = javaMethod.substring(0, i);
-		String methodName = javaMethod.substring(i + 1);
 		try {
-			Class<?> clazz = getJavaClass(className);
-			Object instance = clazz.newInstance();
-			final Method method = clazz.getMethod(methodName,
-					((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
-			return method.invoke(instance, paramActuals.toArray());
-		} catch (Exception e) {
+			Object instance = getInstance(className);
+			if (instance == null) {
+				return null;
+			} else {
+				return instance.getClass().getMethod(methodName, parameterTypes).invoke(instance, arguments);
+			}
+		} catch (CoreException | NoSuchMethodException | SecurityException | IllegalAccessException
+				| InvocationTargetException e) {
 			return e;
 		}
 	}
 
 	// returns the Java method or null.
-	public Method getJavaMethod(String javaMethod, Collection<Class<?>> paramClasses) {
-		int i = javaMethod.lastIndexOf('.');
-		if (i == -1) {
+	public static Method getJavaMethod(String qualifiedMethodName, Class<?>[] parameterTypes) {
+		Pair<String, String> names = splitClassAndMethodName(qualifiedMethodName);
+		String className = names.getKey();
+		String methodName = names.getValue();
+		if (methodName == null) {
 			return null;
 		}
-		String className = javaMethod.substring(0, i);
-		String methodName = javaMethod.substring(i + 1);
-
 		try {
-			Class<?> clazz = getJavaClass(className);
-			if (clazz == null) {
+			Object instance = getInstance(className);
+			if (instance == null) {
 				return null;
+			} else {
+				return instance.getClass().getMethod(methodName, parameterTypes);
 			}
-			Method method = clazz.getMethod(methodName,
-					((Class<?>[]) Conversions.unwrapArray(paramClasses, Class.class)));
-			return method;
-		} catch (Exception e) {
+		} catch (CoreException | NoSuchMethodException | SecurityException e) {
 			return null;
 		}
 	}
 
 	// use in validation of when condition method
-	public Method getJavaMethod(String javaMethod) {
-		ArrayList<Class<?>> newClasses = new ArrayList<Class<?>>();
-		newClasses.add(EObject.class);
-		return getJavaMethod(javaMethod, newClasses);
+	public static Method getJavaMethod(String qualifiedMethodName) {
+		return getJavaMethod(qualifiedMethodName, new Class[] { EObject.class });
 	}
 
-	// get Java Class from extension point registry or from searching workspace
-	public Class<?> getJavaClass(String className) throws Exception {
-		if (analysisMap == null) {
-			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-			init(extensionRegistry);
+	// get Java Class from extension point registry
+	public static Class<?> getJavaClass(String className) {
+		try {
+			Object instance = getInstance(className);
+			if (instance == null) {
+				return null;
+			} else {
+				return instance.getClass();
+			}
+		} catch (CoreException e) {
+			return null;
 		}
-		Object obj = analysisMap.get(className);
-		if (obj != null) {
-			return obj.getClass();
-		}
-
-		return null;
 	}
 
+	/*
+	 * Key is the class name and value is the method name. If qualifiedMethodName does not contain a dot, then the key
+	 * is the same as qualifiedMethodName and the value is null.
+	 */
+	private static Pair<String, String> splitClassAndMethodName(String qualifiedMethodName) {
+		int i = qualifiedMethodName.lastIndexOf('.');
+		if (i == -1) {
+			return new Pair<>(qualifiedMethodName, null);
+		} else {
+			return new Pair<>(qualifiedMethodName.substring(0, i), qualifiedMethodName.substring(i + 1));
+		}
+	}
 
+	/*
+	 * Returns an instance of the class specified by className. Returns null if the className could not be found in the
+	 * extension registry. Throws a CoreException if the className was found, but an instance could not be created.
+	 */
+	private static Object getInstance(String className) throws CoreException {
+		if (configElementCache == null) {
+			configElementCache = new HashMap<>();
+			IExtensionRegistry registry = Platform.getExtensionRegistry();
+			for (IConfigurationElement element : registry.getConfigurationElementsFor(EXTENSION_POINT_ID)) {
+				String path = element.getAttribute(PATH_ATTRIBUTE_NAME);
+				if (path != null) {
+					configElementCache.put(path, element);
+				}
+			}
+		}
+		IConfigurationElement element = configElementCache.get(className);
+		if (element == null) {
+			return null;
+		} else {
+			return element.createExecutableExtension(PATH_ATTRIBUTE_NAME);
+		}
+	}
 }
