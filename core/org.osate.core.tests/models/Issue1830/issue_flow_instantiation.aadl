@@ -1,0 +1,98 @@
+package issue_flow_instantiation
+public
+    system Test
+    end Test;
+    system implementation Test.basic
+        subcomponents
+            source_comp: device Source_Device;
+            test_comp: system Test_System.basic;
+            sink_comp: device Sink_Device;
+        connections
+            conn_1: port source_comp.out_feature -> test_comp.in_feature;
+            conn_2: port test_comp.out_feature -> sink_comp.in_feature;
+        flows
+            processing_flow: end to end flow source_comp.flow_source -> conn_1 -> test_comp.process_flow -> conn_2 -> sink_comp.flow_sink;
+        properties
+            Classifier_Substitution_Rule => Type_Extension;
+    end Test.basic;
+
+    abstract Source_Component
+        features
+            out_feature: out feature;
+        flows
+            flow_source: flow source out_feature;
+    end Source_Component;
+
+    abstract Sink_Component
+        features
+            in_feature: in feature;
+        flows
+            flow_sink: flow sink in_feature;
+    end Sink_Component;
+
+    device Source_Device extends Source_Component
+        features
+            out_feature: refined to out data port;
+    end Source_Device;
+
+    device Sink_Device extends Sink_Component
+        features
+            in_feature: refined to in data port;
+    end Sink_Device;
+
+    abstract Test_Component
+        features
+            in_feature: in feature;
+            out_feature: out feature;
+        flows
+            process_flow: flow path in_feature -> out_feature;
+        properties
+            Classifier_Substitution_Rule => Type_Extension;
+    end Test_Component;
+
+    abstract Test_Subcompo
+        features
+            in_feature: in feature;
+            out_feature: out feature;
+        flows
+            process_flow: flow path in_feature -> out_feature;
+    end Test_Subcompo;
+
+    abstract implementation Test_Component.basic
+        subcomponents
+            subcompo_1: abstract Test_Subcompo;
+            subcompo_2: abstract Test_Subcompo;
+        connections
+            conn_1: feature in_feature -> subcompo_1.in_feature;
+            conn_2: feature subcompo_1.out_feature -> subcompo_2.in_feature;
+            conn_3: feature subcompo_2.out_feature -> out_feature;
+        flows
+            process_flow: flow path in_feature -> conn_1 -> subcompo_1.process_flow -> conn_2 -> subcompo_2.process_flow -> conn_3 -> out_feature;
+    end Test_Component.basic;
+
+    system Test_System extends Test_Component
+        features
+            in_feature: refined to in data port;
+            out_feature: refined to out data port;
+        flows
+            problem_flow: flow path in_feature -> out_feature;
+    end Test_System;
+
+    system Test_Subcompo_System extends Test_Subcompo
+        features
+            in_feature: refined to in data port;
+            out_feature: refined to out data port;
+    end Test_Subcompo_System;
+
+    system implementation Test_System.basic extends Test_Component.basic
+        subcomponents
+            subcompo_1: refined to system Test_Subcompo_System;
+            subcompo_2: refined to system Test_Subcompo_System;
+--        connections
+--            conn_1: refined to port;
+--            conn_2: refined to port;
+--            conn_3: refined to port;
+        flows
+            problem_flow: flow path in_feature -> conn_1 -> subcompo_1.process_flow -> conn_2 -> subcompo_2.process_flow -> conn_3 -> out_feature;
+    end Test_System.basic;
+end issue_flow_instantiation;

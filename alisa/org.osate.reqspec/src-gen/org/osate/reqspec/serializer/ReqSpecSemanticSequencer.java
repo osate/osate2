@@ -298,7 +298,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     DesiredValue returns DesiredValue
 	 *
 	 * Constraint:
-	 *     (desired=[AVariableReference|ID] upto?='upto'? value=AExpression)
+	 *     (desired=AVariableReference upto?='upto'? value=AExpression)
 	 */
 	protected void sequence_DesiredValue(ISerializationContext context, DesiredValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

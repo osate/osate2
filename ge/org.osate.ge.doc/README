@@ -1,6 +1,6 @@
 Building the OSATE Graphical Editor documentation requires the following tools:
 
 ant - ant is included with Eclipse.
-pandoc - https://pandoc.org/
-pandoc-crossref - https://github.com/lierdakil/pandoc-crossref
+pandoc - 2.7.2 - https://pandoc.org/
+pandoc-crossref - 0.3.4.1 - https://github.com/lierdakil/pandoc-crossref
 javadoc

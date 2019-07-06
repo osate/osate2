@@ -25827,12 +25827,8 @@ rule__DesiredValue__DesiredAssignment_0
     }
 :
 (
-{ before(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceCrossReference_0_0()); }
-(
-{ before(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceIDTerminalRuleCall_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceIDTerminalRuleCall_0_0_1()); }
-)
-{ after(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceCrossReference_0_0()); }
+{ before(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceParserRuleCall_0_0()); }
+	ruleAVariableReference{ after(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceParserRuleCall_0_0()); }
 )
 
 ;

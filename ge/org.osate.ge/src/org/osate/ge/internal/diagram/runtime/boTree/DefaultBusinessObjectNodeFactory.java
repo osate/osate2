@@ -3,11 +3,8 @@ package org.osate.ge.internal.diagram.runtime.boTree;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.osate.ge.ContentFilter;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
-
-import com.google.common.collect.ImmutableSet;
 
 public class DefaultBusinessObjectNodeFactory {
 	private final ProjectReferenceService referenceService;
@@ -19,8 +16,6 @@ public class DefaultBusinessObjectNodeFactory {
 	public BusinessObjectNode create(final BusinessObjectNode parent,
 			final UUID id,
 			final Object bo,
-			final boolean manual,
-			final ImmutableSet<ContentFilter> contentFilters,
 			final Completeness completeness) {
 		final RelativeBusinessObjectReference relativeReference = bo == null ? null : Objects.requireNonNull(referenceService.getRelativeReference(bo), "unable to get relative reference");
 
@@ -37,7 +32,6 @@ public class DefaultBusinessObjectNodeFactory {
 			Objects.requireNonNull(bo, "bo must not be null");
 		}
 
-		return new BusinessObjectNode(parent, id, relativeReference, bo, manual, contentFilters,
-				completeness);
+		return new BusinessObjectNode(parent, id, relativeReference, bo, completeness, true);
 	}
 }

@@ -5286,15 +5286,20 @@ ruleDesiredValue returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDesiredValueRule());
+		{ 
+	        newCompositeNode(grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceParserRuleCall_0_0()); 
+	    }
+		lv_desired_0_0=ruleAVariableReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDesiredValueRule());
 	        }
-        }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getDesiredValueAccess().getDesiredAVariableReferenceCrossReference_0_0()); 
-	}
+       		set(
+       			$current, 
+       			"desired",
+        		lv_desired_0_0, 
+        		"org.osate.alisa.common.Common.AVariableReference");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )((
