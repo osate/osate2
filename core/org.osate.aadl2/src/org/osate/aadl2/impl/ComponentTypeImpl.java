@@ -36,8 +36,10 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -955,13 +957,15 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 
 		// Next walk the component type hierarchy
 		// Avoid loops by stopping if we extend ourself
+		final Set<ComponentType> seen = new HashSet<>();
 		ComponentType currentType = getExtended();
-		while (currentType != this && currentType != null) {
+		while (currentType != null && !seen.contains(currentType)) {
 			if (paa.addLocal(currentType)) {
 				if (!all) {
 					return;
 				}
 			}
+			seen.add(currentType);
 			currentType = currentType.getExtended();
 		}
 	}
