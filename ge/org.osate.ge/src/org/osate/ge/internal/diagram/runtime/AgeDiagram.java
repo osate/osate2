@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
@@ -348,15 +347,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 							}
 						}
 					}
-
-					// updateBendpointsForContainedConnections(e, delta.x, delta.y);
 				}
 			}
 		}
 
 		@Override
-		public void setPositionAndUpdateBendpoints(final DiagramElement e, final Point value,
-				final boolean updateDockArea) {
+		public void setPositionAndUpdateBendpoints(final DiagramElement e, final Point value) {
 			if (!Objects.equals(e.getPosition(), value)) {
 				// Determine the different between X and Y
 				final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
@@ -368,21 +364,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				// Don't perform settings triggered by setting the position during undo or redo. Such changes occur in an order that will result in erroneous
 				// values. If a value was changed during the original action, it will have its own entry in the change list.
 				if (!inUndoOrRedo && delta != null) {
-					if (updateDockArea) {
-						// Update the dock area based on the position
-						final DockArea currentDockArea = e.getDockArea();
-						if (currentDockArea != null) {
-							if (currentDockArea != DockArea.GROUP) {
-								setDockArea(e, calculateDockArea(e));
-							}
-						}
-					}
-
 					setRelatedConnectionBendpoints(AgeDiagram.this, Stream.of(e), new Point(delta.x, delta.y), this);
 				}
 			}
 		}
-
 
 		@Override
 		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
@@ -587,10 +572,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
 		final Set<Queryable> diagramElements = movedElements
 				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
-
 		final Stream<DiagramElement> connections = ageDiagram.getAllDiagramNodes()
 				.filter(q -> q instanceof DiagramElement
-						&& ((DiagramElement) q).getGraphic() instanceof AgeConnection/* use isConnection */)
+						&& DiagramElementPredicates.isConnection((DiagramElement) q))
 				.map(DiagramElement.class::cast);
 
 		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.

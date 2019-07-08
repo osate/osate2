@@ -74,7 +74,6 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature {
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
 		graphitiAgeDiagram.modify("Move Shape", m -> {
 			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
-			// m.setPositionAndUpdateBendpoints(diagramElement, new Point(context.getX(), context.getY()), false);
 		});
 	}
 }

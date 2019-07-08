@@ -47,14 +47,19 @@ public interface DiagramModification {
 	}
 
 	/**
-	 *
-	 * @param e
-	 * @param value
+	 * Sets the position of a diagram element
+	 * @param e the element to set position
+	 * @param value the new position of the element
 	 * @param updateDockArea whether the dock area should be updated based on the set position.
 	 */
 	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea);
 
-	void setPositionAndUpdateBendpoints(final DiagramElement e, final Point value, final boolean updateDockArea);
+	/**
+	 * Sets the position of a diagram element and updates the contained bend points
+	 * @param e the element to set position
+	 * @param value the new position of the element
+	 */
+	void setPositionAndUpdateBendpoints(final DiagramElement e, final Point value);
 	void setSize(final DiagramElement e, final Dimension value);
 	void setDockArea(final DiagramElement e, final DockArea value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);
