@@ -342,7 +342,15 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		// be overly cautious
 		List<ModeInstance> inModes = getInModes();
 		if (inModes == null || inModes.isEmpty()) {
-			return null;
+			// did not have an in modes
+			// let us check whether InSystemOperationModes was set.
+			// It reflects whether the etef should be active because all flow steps are active
+			if (getInSystemOperationModes().isEmpty()) {
+				return null;
+			} else {
+				return getInSystemOperationModes();
+			}
+
 		} else {
 			// TODO this code can be used to determine the SOM
 			// /* inModes is a list of ModeInstances. We want all the SOMs that contain
