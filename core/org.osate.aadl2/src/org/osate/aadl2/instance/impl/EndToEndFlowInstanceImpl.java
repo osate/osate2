@@ -35,7 +35,6 @@
  */
 package org.osate.aadl2.instance.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -335,39 +334,6 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			modesList = new BasicEList<>();
 		}
 		return modesList;
-	}
-
-	@Override
-	public List<SystemOperationMode> getExistsInModes() {
-		// be overly cautious
-		List<ModeInstance> inModes = getInModes();
-		if (inModes == null || inModes.isEmpty()) {
-			// did not have an in modes
-			// let us check whether InSystemOperationModes was set.
-			// It reflects whether the etef should be active because all flow steps are active
-			if (getInSystemOperationModes().isEmpty()) {
-				return null;
-			} else {
-				return getInSystemOperationModes();
-			}
-
-		} else {
-			// TODO this code can be used to determine the SOM
-			// /* inModes is a list of ModeInstances. We want all the SOMs that contain
-			// * these mode instances.
-			// */
-			List<SystemOperationMode> processedModes = new ArrayList<>();
-			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
-				for (ModeInstance mi : som.getCurrentModes()) {
-					if (inModes.contains(mi)) {
-						processedModes.add(som);
-						break;
-					}
-				}
-			}
-			return processedModes;
-			// return inModes;
-		}
 	}
 
 	@Override
