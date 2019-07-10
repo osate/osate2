@@ -1,0 +1,6 @@
+property set TestPS is
+	time_units: type units (ps, ns => ps * 1000, us => ns * 1000, ms => us * 1000, sec => ms * 1000, min => sec * 60, hr => min * 60);
+
+	myProp: aadlinteger units time_units applies to (all);
+	myProp2: aadlreal units time_units applies to (all);
+end TestPS;

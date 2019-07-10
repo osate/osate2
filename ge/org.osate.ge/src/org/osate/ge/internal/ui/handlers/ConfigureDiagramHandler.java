@@ -30,6 +30,11 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 	public static String COMMAND_ID = "org.osate.ge.configureDiagram";
 
 	@Override
+	public void setEnabled(final Object evaluationContext) {
+		setBaseEnabled(!AgeHandlerUtil.getSelectedDiagramNodes().isEmpty());
+	}
+
+	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
 		if (!(activeEditor instanceof AgeDiagramEditor)) {
@@ -101,5 +106,4 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 
 		return null;
 	}
-
 }

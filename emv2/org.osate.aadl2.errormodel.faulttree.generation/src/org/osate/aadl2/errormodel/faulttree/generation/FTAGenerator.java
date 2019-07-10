@@ -344,7 +344,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				alternative.setSubEventLogic(LogicOperation.AND);
 				toAdd.add(alternative);
 				// normalize each of the subevents
-				normalizeEvent(alt, toAdd);
+				normalizeEvent(alt, toAdd, alternatives);
 				for (Event addMe : toAdd) {
 					addAsMinimalAndSet(alternatives, addMe);
 				}
@@ -358,7 +358,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					(ErrorTypes) rootevent.getRelatedErrorType());
 			alternative.setSubEventLogic(LogicOperation.AND);
 			toAdd.add(alternative);
-			normalizeEvent(rootevent, toAdd);
+			normalizeEvent(rootevent, toAdd, alternatives);
 			for (Event addMe : toAdd) {
 				addAsMinimalAndSet(alternatives, addMe);
 			}
@@ -376,7 +376,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * @param event
 	 * @param alternatives
 	 */
-	private void normalizeEvent(Event event, List<Event> alternatives) {
+	private void normalizeEvent(Event event, List<Event> alternatives, Event existingAlternatives) {
 		for (Event alternative : alternatives) {
 			if (event.getScale().compareTo(FaultTreeUtils.BigOne) < 0) {
 				alternative.setScale(alternative.getScale().multiply(event.getScale()));
@@ -392,23 +392,62 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (event.getSubEventLogic() == LogicOperation.AND || event.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
 			// in case of AND normalize each sub-event (adding it or its normalized collection)
 			for (Event subevent : event.getSubEvents()) {
-				normalizeEvent(subevent, alternatives);
+				normalizeEvent(subevent, alternatives, existingAlternatives);
 			}
 		} else if (event.getSubEventLogic() == LogicOperation.OR || event.getSubEventLogic() == LogicOperation.XOR
 				|| event.getSubEventLogic() == LogicOperation.KORMORE) {
+			// alternatives could grow huge and copying them could easily lead to OOM error,
+			// so by eager cleanup here we avoid exponential memory consumption
+			minimizeAlternativesSize(alternatives, existingAlternatives);
 			// for each sub-event of OR etc create a separate alternative
 			List<Event> origalts = FaultTreeUtils.copy(ftaModel, alternatives);
 			boolean first = true;
 			for (Event subevent : event.getSubEvents()) {
 				if (first) {
-					normalizeEvent(subevent, alternatives);
+					normalizeEvent(subevent, alternatives, existingAlternatives);
 					first = false;
 				} else {
 					List<Event> morealts = FaultTreeUtils.copy(ftaModel, origalts);
-					normalizeEvent(subevent, morealts);
+					normalizeEvent(subevent, morealts, existingAlternatives);
 					alternatives.addAll(morealts);
 				}
 			}
+		}
+	}
+
+	/**
+	 * In some cases it's very likely that a lot of newly generated alternatives doesn't make sense in broader context of
+	 * previously calculated alternatives as they will be minimized anyway,
+	 * so it makes no sense to keep them as they will only slow down any further calculations
+	 * @param alternatives - list of alternatives to cleanup
+	 * @param existingAlternatives - global, previously minimized set of alternatives
+	 */
+	private void minimizeAlternativesSize(List<Event> alternatives, Event existingAlternatives) {
+		List<Event> toRemove = new LinkedList<Event>();
+		for (Event altEvent : alternatives) {
+			for (Event matchEvent : existingAlternatives.getSubEvents()) {
+				if (!matchEvent.getSubEvents().isEmpty() && !altEvent.getSubEvents().isEmpty()
+						&& matchEvent.getSubEventLogic() == LogicOperation.AND
+						&& altEvent.getSubEventLogic() == LogicOperation.AND) {
+					if (altEvent.getSubEvents().containsAll(matchEvent.getSubEvents())) {
+						toRemove.add(altEvent);
+					}
+				} else {
+					if (matchEvent.getSubEvents().isEmpty() && !altEvent.getSubEvents().isEmpty()
+							&& altEvent.getSubEventLogic() == LogicOperation.AND) {
+						if (altEvent.getSubEvents().contains(matchEvent)) {
+							toRemove.add(altEvent);
+						}
+					} else if (altEvent.getSubEvents().isEmpty() && matchEvent.getSubEvents().isEmpty()) {
+						if (matchEvent == altEvent) {// matchEvent.equals(altEvent)) {
+							toRemove.add(altEvent);
+						}
+					}
+				}
+			}
+		}
+		if (!toRemove.isEmpty()) {
+			alternatives.removeAll(toRemove);
 		}
 	}
 

@@ -3185,8 +3185,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.reqspec.ReqSpec.DesiredValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cDesiredAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cDesiredAVariableReferenceCrossReference_0_0 = (CrossReference)cDesiredAssignment_0.eContents().get(0);
-		private final RuleCall cDesiredAVariableReferenceIDTerminalRuleCall_0_0_1 = (RuleCall)cDesiredAVariableReferenceCrossReference_0_0.eContents().get(1);
+		private final RuleCall cDesiredAVariableReferenceParserRuleCall_0_0 = (RuleCall)cDesiredAssignment_0.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cUptoAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final Keyword cUptoUptoKeyword_1_0_0 = (Keyword)cUptoAssignment_1_0.eContents().get(0);
@@ -3196,20 +3195,17 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// intended to be restricted to deal with value limits
 		//DesiredValue:
-		//	desired=[common::AVariableReference] (upto?='upto' | 'downto') value=AExpression;
+		//	desired=AVariableReference (upto?='upto' | 'downto') value=AExpression;
 		@Override public ParserRule getRule() { return rule; }
 
-		//desired=[common::AVariableReference] (upto?='upto' | 'downto') value=AExpression
+		//desired=AVariableReference (upto?='upto' | 'downto') value=AExpression
 		public Group getGroup() { return cGroup; }
 
-		//desired=[common::AVariableReference]
+		//desired=AVariableReference
 		public Assignment getDesiredAssignment_0() { return cDesiredAssignment_0; }
 
-		//[common::AVariableReference]
-		public CrossReference getDesiredAVariableReferenceCrossReference_0_0() { return cDesiredAVariableReferenceCrossReference_0_0; }
-
-		//ID
-		public RuleCall getDesiredAVariableReferenceIDTerminalRuleCall_0_0_1() { return cDesiredAVariableReferenceIDTerminalRuleCall_0_0_1; }
+		//AVariableReference
+		public RuleCall getDesiredAVariableReferenceParserRuleCall_0_0() { return cDesiredAVariableReferenceParserRuleCall_0_0; }
 
 		//upto?='upto' | 'downto'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
@@ -3841,7 +3837,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// intended to be restricted to deal with value limits
 	//DesiredValue:
-	//	desired=[common::AVariableReference] (upto?='upto' | 'downto') value=AExpression;
+	//	desired=AVariableReference (upto?='upto' | 'downto') value=AExpression;
 	public DesiredValueElements getDesiredValueAccess() {
 		return pDesiredValue;
 	}
