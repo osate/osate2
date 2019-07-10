@@ -28,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 
 public class FTAGenerator extends PropagationGraphBackwardTraversal {
@@ -68,8 +69,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					return ftaModel;
 				} else {
 					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
-							(ErrorPropagation) rootStateOrPropagation,
-							rootComponentTypes, BigOne);
+							(ErrorPropagation) rootStateOrPropagation, rootComponentTypes, BigOne);
 				}
 			}
 			if (ftaRootEvent == null) {
@@ -118,7 +118,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return ftaModel;
 	}
 
-
 	/**
 	 * turn list of subevents into an specified gate.
 	 * In the process flatten any sub gates of the same type (one level is sufficient since we flatten at each step
@@ -163,7 +162,33 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			combined.getSubEvents().add((Event) seobj);
 		}
 		return combined;
+	}
 
+	private Event finalizeAsOrMoreEvents(ComponentInstance component, Element ne, ErrorTypes type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
+			return null;
+		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.KORMORE, component, ne,
+				type);
+		if (combined != null) {
+			return combined;
+		}
+
+		combined = FaultTreeUtils.createIntermediateEvent(ftaModel, component, ne, type);
+		combined.setSubEventLogic(LogicOperation.KORMORE);
+
+		// Propagate the K value from the original element
+		OrmoreExpression omCondition = (OrmoreExpression) ne;
+		combined.setK((int) omCondition.getCount()); // XXX this cast indicates discrepancy between two meta models
+
+		for (Object seobj : subEvents) {
+			combined.getSubEvents().add((Event) seobj);
+		}
+		return combined;
 	}
 
 	private Event finalizeAsAndEvents(ComponentInstance component, Element ne, ErrorTypes type,
@@ -300,8 +325,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		List<Event> toAdd = new LinkedList<Event>();
 		// alternatives : collection of minimal cutsets
 		Event alternatives = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
-				(ComponentInstance) rootevent.getRelatedInstanceObject(),
-				rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+				(ComponentInstance) rootevent.getRelatedInstanceObject(), rootevent.getRelatedEMV2Object(),
+				(ErrorTypes) rootevent.getRelatedErrorType());
 		alternatives.setName("Alternatives");
 		if (rootevent.getSubEventLogic() == LogicOperation.XOR) {
 			alternatives.setSubEventLogic(LogicOperation.XOR);
@@ -314,8 +339,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			for (Event alt : rootevent.getSubEvents()) {
 				// if top-level is OR, XOR, KORMORE each of the sub-events become the starting point of a cutset
 				Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
-						(ComponentInstance) rootevent.getRelatedInstanceObject(),
-						rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+						(ComponentInstance) rootevent.getRelatedInstanceObject(), rootevent.getRelatedEMV2Object(),
+						(ErrorTypes) rootevent.getRelatedErrorType());
 				alternative.setSubEventLogic(LogicOperation.AND);
 				toAdd.add(alternative);
 				// normalize each of the subevents
@@ -329,8 +354,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				|| rootevent.getSubEventLogic() == LogicOperation.PRIORITY_AND) {
 			// in case of AND or P-AND we take the root as starting point
 			Event alternative = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
-					(ComponentInstance) rootevent.getRelatedInstanceObject(),
-					rootevent.getRelatedEMV2Object(), (ErrorTypes) rootevent.getRelatedErrorType());
+					(ComponentInstance) rootevent.getRelatedInstanceObject(), rootevent.getRelatedEMV2Object(),
+					(ErrorTypes) rootevent.getRelatedErrorType());
 			alternative.setSubEventLogic(LogicOperation.AND);
 			toAdd.add(alternative);
 			normalizeEvent(rootevent, toAdd);
@@ -422,7 +447,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		}
 		existingAlternatives.add(altEvent);
 	}
-
 
 	/**
 	 * recursively remove common events from subgates of XOR gates
@@ -543,7 +567,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				removeZeroOneEventSubGates(res);
 			}
 		}
-		if (res.getSubEventLogic() == LogicOperation.AND ) {
+		if (res.getSubEventLogic() == LogicOperation.AND) {
 			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.AND, LogicOperation.OR);
 		}
 		if (res.getSubEventLogic() == LogicOperation.OR) {
@@ -561,7 +585,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * find common events in subgates and move them to an enclosing gate
 	 * Currently does it if all of the gates of a given type have something in common.
 	 * It also does it for various subsets of events with the matching gate type.
-	 * Distributive Law 3a and 3b (se NRC Fault Tree Handbook page 80.
+	 * Distributive Law 3a and 3b (see NRC Fault Tree Handbook page 80).
 	 * @param topevent
 	 * @param gt
 	 * @return Event
@@ -596,8 +620,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					// all subgates are involved
 					// remove from lower OR and create an OR above top gate
 					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
-							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							topevent.getRelatedEMV2Object(),
+							(ComponentInstance) topevent.getRelatedInstanceObject(), topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
 					newtopevent.setSubEventLogic(gt);
 					newtopevent.getSubEvents().add(topevent);
@@ -616,8 +639,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				} else {
 					// transformed subtree to top gate replacing subset of events involved in transformation
 					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
-							(ComponentInstance) topevent.getRelatedInstanceObject(),
-							topevent.getRelatedEMV2Object(),
+							(ComponentInstance) topevent.getRelatedInstanceObject(), topevent.getRelatedEMV2Object(),
 							(ErrorTypes) topevent.getRelatedErrorType());
 					newtopevent.setSubEventLogic(gt);
 					topevent.getSubEvents().add(newtopevent);
@@ -895,8 +917,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult,
 			BigDecimal scale) {
-		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
-				component, opc, type);
+		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult, component, opc,
+				type);
 		return consolidated;
 	}
 
@@ -919,8 +941,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, BigDecimal scale) {
+	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
+			BigDecimal scale) {
 		Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, state, type);
 		newEvent.setScale(scale);
 		return newEvent;
@@ -939,8 +961,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
 			ErrorTypes type, EObject conditionResult, EObject stateResult, BigDecimal scale) {
-		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
-				component, source, type);
+		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult, component, source,
+				type);
 		return consolidated;
 	}
 
@@ -960,8 +982,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type,
-			BigDecimal scale, List<EObject> subResults) {
+	protected EObject postProcessXor(ComponentInstance component, Element condition, ErrorTypes type, BigDecimal scale,
+			List<EObject> subResults) {
 		Event ftaEvent = finalizeAsXOrEvents(component, condition, type, subResults);
 		return ftaEvent;
 	}
@@ -973,6 +995,13 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return ftaEvent;
 	}
 
+	@Override
+	protected EObject postProcessOrMore(ComponentInstance component, Element condition, ErrorTypes type,
+			List<EObject> subResults, BigDecimal scale) {
+
+		Event ftaEvent = finalizeAsOrMoreEvents(component, condition, type, subResults);
+		return ftaEvent;
+	}
 	@Override
 	protected EObject processTypesetElements(ComponentInstance component, Element state, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
