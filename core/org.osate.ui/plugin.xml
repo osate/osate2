@@ -322,6 +322,18 @@
 		     </or>
          </enablement>
       </actionProvider>
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.osate.ui.navigator.ViewerRefresher"
+            id="org.osate.ui.navigator.viewerRefresher"
+            labelProvider="org.osate.ui.navigator.NullLabelProvider"
+            name="Viewer Refresher">
+         <enablement>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enablement>
+      </navigatorContent>
    </extension>
    
    <extension 
