@@ -36,7 +36,6 @@ package org.osate.xtext.aadl2.parsing;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -54,16 +53,13 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
-import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
@@ -100,17 +96,7 @@ public class AnnexParserAgent extends LazyLinker {
 			// we're running without osgi
 			standalone = true;
 		}
-		
-		final ParseErrorReporterFactory fact = new ParseErrorReporterFactory() {
-		      
-		      @Override
-		      public ParseErrorReporter getReporterFor(Resource aadlRsrc) {
-		        final IResource inpIRes = OsateResourceUtil.convertToIResource( aadlRsrc );
-		        return new MarkerParseErrorReporter(inpIRes, AadlConstants.AADLOBJECTMARKER);
-		      }
-		    };
-		
-		factory = new MarkerParseErrorReporter.Factory(AadlConstants.AADLOBJECTMARKER, fact);
+		factory = QueuingParseErrorReporter.factory;
 		parseErrManager = new ParseErrorReporterManager(factory);
 	}
 
