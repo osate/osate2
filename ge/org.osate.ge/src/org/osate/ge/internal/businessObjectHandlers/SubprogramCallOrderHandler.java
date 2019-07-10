@@ -2,10 +2,12 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 
+import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -27,6 +29,12 @@ public class SubprogramCallOrderHandler {
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {
 		return true;
+	}
+
+	@GetNameForUserInterface
+	public String getNameForUi(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {
+		return "Subprogram Call Order " + Strings.emptyIfNull(bo.previousSubprogramCall.getName()) + " -> "
+				+ Strings.emptyIfNull(bo.subprogramCall.getName());
 	}
 
 	@GetGraphicalConfiguration

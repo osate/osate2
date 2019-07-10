@@ -1375,7 +1375,7 @@ public interface ReqSpecPackage extends EPackage
   int DESIRED_VALUE = 15;
 
   /**
-   * The feature id for the '<em><b>Desired</b></em>' reference.
+   * The feature id for the '<em><b>Desired</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -2602,10 +2602,10 @@ public interface ReqSpecPackage extends EPackage
   EClass getDesiredValue();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.DesiredValue#getDesired <em>Desired</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Desired</em>'.
+   * @return the meta object for the containment reference '<em>Desired</em>'.
    * @see org.osate.reqspec.reqSpec.DesiredValue#getDesired()
    * @see #getDesiredValue()
    * @generated
@@ -3417,7 +3417,7 @@ public interface ReqSpecPackage extends EPackage
     EClass DESIRED_VALUE = eINSTANCE.getDesiredValue();
 
     /**
-     * The meta object literal for the '<em><b>Desired</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Desired</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
