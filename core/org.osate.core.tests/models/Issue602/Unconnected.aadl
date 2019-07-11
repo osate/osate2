@@ -1,0 +1,49 @@
+-- The latest version of OSATE issues an error message rather than
+-- a warning for unconnected ports. The Required_Connection property
+-- should turn these error messages off, but it does not seem to.
+
+package Unconnected
+public
+data Message
+properties
+Data_Size => 32 bytes;
+end Message;
+
+thread AThread
+features
+    msgIn: in data port Message;    
+    msgOutA: out data port Message;
+    msgOutB: out data port Message; 
+    msgOutC: out data port Message;
+end AThread;
+
+process AProcess
+features
+    msgIn: in data port Message;    
+    msgOutA: out data port Message {Required_Connection => false;};
+    msgOutB: out data port Message {Required_Connection => false;};                     
+    msgOutC: out data port Message {Required_Connection => true;};                     
+end AProcess;
+
+process implementation AProcess.Imp
+subcomponents
+    t: thread AThread;
+connections
+    cin: port msgIn -> t.msgIn;
+    coutA: port t.msgOutA -> msgOutA;
+    coutB: port t.msgOutB -> msgOutB;  
+    coutC: port t.msgOutC -> msgOutC;     
+end AProcess.Imp;
+
+system Unconnected
+end Unconnected;
+
+system implementation Unconnected.Imp
+subcomponents
+    p1: process AProcess.Imp;
+    p2: process AProcess.Imp;
+connections
+    c12: port p1.msgOutA -> p2.msgIn;
+    c21: port p2.msgOutA -> p1.msgIn;
+end Unconnected.Imp;
+end Unconnected;
