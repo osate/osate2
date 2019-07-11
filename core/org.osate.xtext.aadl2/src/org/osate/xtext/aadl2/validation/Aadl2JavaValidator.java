@@ -1419,7 +1419,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
-				connectedElement = connection.getSource();
+				connectedElement = connection.getRootConnection().getSource();
 				boolean didReverse = false;
 				if (i == 0) {
 					FlowEnd inEnd = flow.getInEnd();
@@ -1432,7 +1432,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							didReverse = true;
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
-							connectedElement = connection.getDestination();
+							connectedElement = connection.getRootConnection().getDestination();
 							if (!isMatchingConnectionPoint(null, inEnd.getFeature(), inEnd.getContext(),
 									connectedElement)) {
 								noMatch = true;
@@ -1464,7 +1464,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								didReverse = true;
 								ce = connection.getAllLastDestination();
 								cxt = connection.getAllDestinationContext();
-								connectedElement = connection.getDestination();
+								connectedElement = connection.getRootConnection().getDestination();
 								if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
 										outEnd.getContext(), connectedElement)) {
 									noMatch = true;
@@ -1493,11 +1493,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (didReverse) {
 					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
-					connectedElement = connection.getSource();
+					connectedElement = connection.getRootConnection().getSource();
 				} else {
 					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
-					connectedElement = connection.getDestination();
+					connectedElement = connection.getRootConnection().getDestination();
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getOutEnd();
@@ -2269,7 +2269,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
-				connectedElement = connection.getSource();
+				connectedElement = connection.getRootConnection().getSource();
 				boolean didReverse = false;
 				if (i > 0 && flow.getOwnedEndToEndFlowSegments().get(i - 1)
 						.getFlowElement() instanceof FlowSpecification) {
@@ -2293,7 +2293,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (connection.isAllBidirectional()) {
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
-							connectedElement = connection.getDestination();
+							connectedElement = connection.getRootConnection().getDestination();
 							if (isMatchingConnectionPoint(previousFlowCxt, outEnd.getFeature(), outEnd.getContext(),
 									connectedElement)) {
 								if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
@@ -2333,7 +2333,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							if (connection.isAllBidirectional()) {
 								ce = connection.getAllLastSource();
 								cxt = connection.getAllSourceContext();
-								connectedElement = connection.getSource();
+								connectedElement = connection.getRootConnection().getSource();
 								if (cxt instanceof Subcomponent) {
 									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
 											|| AadlUtil.isSameOrRefines(previousFlowSegment, (Subcomponent) cxt))) {
@@ -2361,11 +2361,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (didReverse) {
 					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
-					connectedElement = connection.getSource();
+					connectedElement = connection.getRootConnection().getSource();
 				} else {
 					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
-					connectedElement = connection.getDestination();
+					connectedElement = connection.getRootConnection().getDestination();
 				}
 				if (i + 1 < size) {
 					EndToEndFlowElement felem = flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
