@@ -63,6 +63,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
@@ -93,7 +94,9 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
@@ -581,10 +584,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								if (ci instanceof SystemInstance) {
 									finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
 								} else {
-									warning(toFi,
-											"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
-													+ "  through " + toFi.getInstanceObjectPath()
-													+ ". No connection instance created.");
+									if (isConnectionRequired(toFi)) {
+										warning(toFi, "Could not continue connection from "
+												+ connInfo.src.getInstanceObjectPath() + "  through "
+												+ toFi.getInstanceObjectPath() + ". No connection instance created.");
+									}
 								}
 							}
 						} else {
@@ -1716,4 +1720,22 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return isSubset;
 	}
 
+	private static boolean isConnectionRequired(final ConnectionInstanceEnd instanceEnd) {
+		if (instanceEnd instanceof FeatureInstance) {
+			for (final PropertyAssociation pa : ((FeatureInstance) instanceEnd).getFeature()
+					.getOwnedPropertyAssociations()) {
+				if (pa.getProperty().getName().equalsIgnoreCase("Required_Connection")
+						&& ((PropertySet) pa.getProperty().getOwner()).getName()
+								.equalsIgnoreCase("Communication_Properties")) {
+					final PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
+					return ((BooleanLiteral) pe).getValue();
+				}
+			}
+
+			// No explicit property association, the default value is TRUE
+			return true;
+		}
+		// Property only applies to features, so connection required for non-feature cases
+		return true;
+	}
 }
