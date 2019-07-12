@@ -486,7 +486,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 	@Override
 	public boolean isActive(SystemOperationMode som) {
-		return ((ConnectionInstance) getOwner()).isActive(som);
+		return ((ConnectionInstance) getOwner()).isActive(som) && getSource().isActive(som)
+				&& getDestination().isActive(som);
 	}
 
 	/*
