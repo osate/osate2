@@ -179,6 +179,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		getEditDomain().setCommandStack(commandStack);
 	}
 
+	// Custom command stack which handles moving connection bendpoints when moving multiple shapes.
+	// Handle adjusting bendpoints when multiple shapes are moved. The default bendpoint shifting behavior is not suitable because there are bendpoints that
+	// should be adjusted but would not be adjusted if each shape is handled separately.
 	private class AgeGFCommandStack extends GFCommandStack {
 		public AgeGFCommandStack(IConfigurationProvider configurationProvider,
 				TransactionalEditingDomain editingDomain) {
@@ -205,7 +208,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 						graphitiAgeDiagram.modify(gefCommand.getLabel(), m -> {
 							super.execute(gefCommand);
-							AgeDiagram.setRelatedConnectionBendpoints(getAgeDiagram(), movedElements,
+							DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(getAgeDiagram(), movedElements,
 									new org.osate.ge.graphics.Point(delta.x, delta.y), m);
 						});
 
