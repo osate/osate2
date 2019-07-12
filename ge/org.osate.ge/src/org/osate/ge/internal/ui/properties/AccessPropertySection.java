@@ -14,11 +14,13 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -49,6 +51,11 @@ public class AccessPropertySection extends AbstractPropertySection {
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		composite.addHelpListener(e -> {
+			PlatformUI.getWorkbench().getHelpSystem()
+					.displayHelp(Activator.PLUGIN_ID + ".doc." + "mycontexthelpid");
+		});
+
 		final Composite directionContainer = InternalPropertySectionUtil.createRowLayoutComposite(getWidgetFactory(),
 				composite,
 				STANDARD_LABEL_WIDTH);
