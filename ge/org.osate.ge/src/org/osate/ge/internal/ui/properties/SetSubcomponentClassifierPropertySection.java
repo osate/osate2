@@ -203,11 +203,12 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 			// TODO: Decide what resource set to use.
 
 			final ResourceSet rs = scs.get(0).eResource().getResourceSet(); // TODO: Consider and rework
+			// TODO: Adjust label
 			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
-					rs, "Configure component implementation.") {
+					rs, "Configure classifier.") {
 				@Override
 				public String getTitle() {
-					return "Select Component Classifier";
+					return "Create Component Classifier";
 				}
 
 				@Override
@@ -244,7 +245,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 
 				// TODO: project
 				final Subcomponent tmpBo = selectedBos.boStream(Subcomponent.class).collect(Collectors.toList()).get(0); // TODO: Rework
-				final IProject project = SelectionUtil.getProject(tmpBo.eResource()); // TODO
+				final IProject project = SelectionUtil.getProjectOrThrow(tmpBo.eResource()); // TODO
 
 				// TODO: How to select project?
 				// TODO: Should this take a live resource set?
@@ -286,7 +287,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	// TODO: Consider not accepting sc but resource or something else that may make more sense.
 	private static Set<IEObjectDescription> getValidBaseClassifierDescriptions(final EObject sc,
 			final EClass classifierType, boolean includeImplementations) {
-		final IProject project = SelectionUtil.getProject(sc.eResource());
+		final IProject project = SelectionUtil.getProjectOrThrow(sc.eResource());
 		// TODO: Should the helper function return a Set instead of list that needs to be converted?
 		return new HashSet<>(getValidBaseClassifierDescriptions(project, classifierType, includeImplementations));
 	}

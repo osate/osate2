@@ -252,6 +252,8 @@ class ClassifierOperationPartEditor extends Composite {
 			final boolean isSelectedType = typeBtn.getData() == currentValue.type;
 			typeBtn.setSelection(isSelectedType);
 		}
+
+		updateOperationDetailsVisibility();
 	}
 
 	void setSelectedElement(final Object element) {
