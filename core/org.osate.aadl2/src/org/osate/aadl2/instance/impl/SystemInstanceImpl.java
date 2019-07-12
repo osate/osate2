@@ -423,12 +423,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return false;
 	}
 
-	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// System always exists
-		return null;
-	}
-
 	/**
 	 * get all SOMs that contain the mode instance
 	 *
@@ -478,50 +472,43 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	public Iterable<ConnectionInstance> allConnectionInstances() {
 		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
 
-		return new Iterable<ConnectionInstance>() {
+		return () -> new Iterator<ConnectionInstance>() {
+			ConnectionInstance next;
 
-			@Override
-			public Iterator<ConnectionInstance> iterator() {
-				return new Iterator<ConnectionInstance>() {
-					ConnectionInstance next;
+			private boolean advance() {
+				boolean found = false;
 
-					private boolean advance() {
-						boolean found = false;
-
-						next = null;
-						while (iter.hasNext()) {
-							Object obj = iter.next();
-							if (found = obj instanceof ConnectionInstance) {
-								next = (ConnectionInstance) obj;
-								iter.prune();
-								break;
-							}
-						}
-						return found;
+				next = null;
+				while (iter.hasNext()) {
+					Object obj = iter.next();
+					if (found = obj instanceof ConnectionInstance) {
+						next = (ConnectionInstance) obj;
+						iter.prune();
+						break;
 					}
-
-					@Override
-					public boolean hasNext() {
-						return next != null || advance();
-					}
-
-					@Override
-					public ConnectionInstance next() {
-						if (next == null && !advance()) {
-							throw new NoSuchElementException();
-						}
-						ConnectionInstance result = next;
-						next = null;
-						return result;
-					}
-
-					@Override
-					public void remove() {
-						throw new UnsupportedOperationException();
-					}
-				};
+				}
+				return found;
 			}
 
+			@Override
+			public boolean hasNext() {
+				return next != null || advance();
+			}
+
+			@Override
+			public ConnectionInstance next() {
+				if (next == null && !advance()) {
+					throw new NoSuchElementException();
+				}
+				ConnectionInstance result = next;
+				next = null;
+				return result;
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
 		};
 	}
 

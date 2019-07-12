@@ -189,7 +189,7 @@ public class AnalysisModel {
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance,
 			PropagationPathLevel level) {
 		SystemOperationMode som = connectionInstance.getSystemInstance().getCurrentSystemOperationMode();
-		if (!isActive(connectionInstance, som)) {
+		if (!connectionInstance.isActive(som)) {
 			return;
 		}
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
@@ -215,7 +215,7 @@ public class AnalysisModel {
 		List<ComponentInstance> addlDstCI = new ArrayList<ComponentInstance>();
 		List<ErrorPropagation> addlDstEP = new ArrayList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
-			if (!isActive(connectionReference, som)) {
+			if (!connectionReference.isActive(som)) {
 				continue;
 			}
 			ConnectionInstanceEnd src = connectionReference.getSource();
@@ -337,7 +337,7 @@ public class AnalysisModel {
 			addlDstEP.clear();
 			for (int i = connrefs.size() - 1; i >= 0; i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
-				if (!isActive(connectionReference, som)) {
+				if (!connectionReference.isActive(som)) {
 					continue;
 				}
 				ConnectionInstanceEnd dst = connectionReference.getSource();
@@ -444,47 +444,6 @@ public class AnalysisModel {
 				break;
 			}
 		}
-	}
-
-	private boolean isActive(ConnectionInstance ci, SystemOperationMode som) {
-		if (som != null) {
-			List<SystemOperationMode> inSOMs = ci.getExistsInModes();
-			if (inSOMs != null && !inSOMs.contains(som)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean isActive(ConnectionReference cr, SystemOperationMode som) {
-		if (som != null) {
-			ComponentInstance ci = cr.getContext();
-			ConnectionInstanceEnd src = cr.getSource();
-			ConnectionInstanceEnd dst = cr.getDestination();
-			return isActive(ci, som) && isActive(src, som) && isActive(dst, som);
-		}
-		return true;
-	}
-
-	private boolean isActive(ConnectionInstanceEnd end, SystemOperationMode som) {
-		if (som != null) {
-			ComponentInstance ci;
-			if (end instanceof ComponentInstance) {
-				ci = (ComponentInstance) end;
-			} else if (end instanceof FeatureInstance) {
-				FeatureInstance fi = (FeatureInstance) end;
-				ci = fi.getComponentInstance();
-			} else {
-				return false;
-			}
-			return isActive(ci, som);
-		}
-		return true;
-	}
-
-	private boolean isActive(ComponentInstance ci, SystemOperationMode som) {
-		List<SystemOperationMode> inSOMs = ci.getExistsInModes();
-		return inSOMs == null || inSOMs.contains(som);
 	}
 
 	/**
