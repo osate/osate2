@@ -8,12 +8,12 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.parent</artifactId>
-		<version>2.5.1-SNAPSHOT</version>
+		<version>2.5.1.vfinal</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>alisa.parent</artifactId>
-	<version>2.5.1-SNAPSHOT</version>
+	<version>2.5.1.vfinal</version>
 	<packaging>pom</packaging>
 
 	<modules>
