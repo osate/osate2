@@ -56,6 +56,8 @@ import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
+import com.google.common.collect.Lists;
+
 public class DiagramElementLayoutUtil {
 	private static final String incrementalLayoutLabel = "Incremental Layout";
 	private static final String layoutAlgorithm = "org.eclipse.elk.layered";
@@ -750,5 +752,44 @@ public class DiagramElementLayoutUtil {
 		}
 
 		return new Point(x, y);
+	}
+
+	/**
+	 * Shifts the bendpoints of all connections for which both endpoints are contained within the specified elements.
+	 * @param ageDiagram the diagram that contains the connections
+	 * @param elements in which to look for the endpoints
+	 * @param delta the amount to shift the bendpoints
+	 * @param m the modification that will be used to update the bendpoints
+	 */
+	public static void shiftRelatedConnectionBendpoints(final AgeDiagram ageDiagram,
+			final Stream<DiagramElement> elements, final org.osate.ge.graphics.Point delta,
+			final DiagramModification m) {
+		// Build a set containing the moved elements and all of their descendant which are represented as shapes
+		final Set<Queryable> diagramElements = elements
+				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
+		final Stream<DiagramElement> connections = ageDiagram.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+				.map(DiagramElement.class::cast);
+
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		connections.forEachOrdered(connection -> {
+			final DiagramElement startElement = connection.getStartElement();
+			final DiagramElement endElement = connection.getEndElement();
+			if (diagramElements.contains(startElement) && diagramElements.contains(endElement)) {
+				shiftBendpoints(connection, delta, m);
+			}
+		});
+	}
+
+	private static void shiftBendpoints(final DiagramElement connection, final org.osate.ge.graphics.Point delta,
+			final DiagramModification m) {
+		// Set new bendpoint locations
+		final List<org.osate.ge.graphics.Point> bendpoints = Lists.newArrayList(connection.getBendpoints());
+		for (int i = 0; i < bendpoints.size(); i++) {
+			final org.osate.ge.graphics.Point bendpoint = bendpoints.get(i);
+			bendpoints.set(i, new org.osate.ge.graphics.Point(bendpoint.x + delta.x, bendpoint.y + delta.y));
+		}
+
+		m.setBendpoints(connection, bendpoints);
 	}
 }
