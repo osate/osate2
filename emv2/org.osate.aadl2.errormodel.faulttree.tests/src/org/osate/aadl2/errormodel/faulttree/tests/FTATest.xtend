@@ -56,6 +56,7 @@ class FTATest {
 	var static SystemInstance instanceOR1OFProbability
 	var static SystemInstance instancePathProbability
 	var static SystemInstance instanceIssue1819
+	var static SystemInstance instanceIssue1837
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -84,6 +85,7 @@ class FTATest {
 	val OR1OFProbabilityfile = "OR1OFProbability.aadl"
 	val PathProbabilityfile = "PathProbability.aadl"
 	val Issue1819file = "Issue1819.aadl"
+	val Issue1837file = "Issue1837.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -109,8 +111,10 @@ class FTATest {
 			modelroot + SysErrorLibFile,
 			modelroot + OR1OFProbabilityfile,
 			modelroot + PathProbabilityfile,
-			modelroot + Issue1819file
+			modelroot + Issue1819file,
+			modelroot + Issue1837file
 		)
+
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
 		instance3 = instanceGenerator(modelroot + fta3File, "main.i")
@@ -133,6 +137,7 @@ class FTATest {
 		instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
 		instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
 		instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
+		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -854,6 +859,15 @@ class FTATest {
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "heaterfails")
 		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "heater")
+	}
+
+	@Test
+	def void issue1837Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1837, "state FailStop")
+		assertEquals(ft.events.size, 12)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.computedProbability.doubleValue, 3.8e-1, 0.01)
+		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
 	}
 
 }
