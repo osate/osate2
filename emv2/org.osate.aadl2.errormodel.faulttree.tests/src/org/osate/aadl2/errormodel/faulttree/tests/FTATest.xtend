@@ -57,6 +57,7 @@ class FTATest {
 	var static SystemInstance instancePathProbability
 	var static SystemInstance instanceIssue1819
 	var static SystemInstance instanceIssue1837
+	var static SystemInstance instanceIssue1882
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -112,32 +113,86 @@ class FTATest {
 			modelroot + OR1OFProbabilityfile,
 			modelroot + PathProbabilityfile,
 			modelroot + Issue1819file,
-			modelroot + Issue1837file
+			modelroot + Issue1837file,
+      modelroot + Issue1882file
 		)
 
-		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
-		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
-		instance3 = instanceGenerator(modelroot + fta3File, "main.i")
-		instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
-		instancecommon2 = instanceGenerator(modelroot + common2File, "main.commonevents")
-		instancecommon3 = instanceGenerator(modelroot + common3File, "main.commoneventssingleport")
-		instancecomposite = instanceGenerator(modelroot + nestedcompositeFile, "main.nestedstate")
-		instanceredundant = instanceGenerator(modelroot + redundantFile, "main.compositestate")
+      val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
+			val fta1File = "fta1Test.aadl"
+			val fta2File = "fta2Test.aadl"
+			val fta3File = "fta3Test.aadl"
+			val common1File = "common-error.aadl"
+			val common2File = "common-error2.aadl"
+			val common3File = "common-error3.aadl"
+			val nestedcompositeFile = "nestedcomposite.aadl"
+			val redundantFile = "redundant.aadl"
+			val redundant2File = "redundant2.aadl"
+			val voterFile = "voter.aadl"
+			val errorlibFile = "ErrorModellibrary.aadl"
+			val FTerrorlibFile = "FTerrorlibrary.aadl"
+			val dualfgsFile = "DualFGS.aadl"
+			val fgselibFile = "FGSErrorModelLibrary.aadl"
+			val filteredflowsFile = "FilteredFlows.aadl"
+			val allflowsFile = "AllFlows.aadl"
+			val optimizeFile = "OptimizeTree.aadl"
+			val transitionbranchFile = "branchtransitions.aadl"
+			val SysErrorLibFile = "Sys_Error_Lib.aadl"
+			val OR1OFProbabilityfile = "OR1OFProbability.aadl"
+			val PathProbabilityfile = "PathProbability.aadl"
+			val Issue1819file = "Issue1819.aadl"
+			val Issue1882file = "Issue1882.aadl"
 
-		instanceredundant21 = instanceGenerator(modelroot + redundant2File, "main2.connection")
-		instanceredundant22 = instanceGenerator(modelroot + redundant2File, "main2.compositesametype")
-		instanceredundant23 = instanceGenerator(modelroot + redundant2File, "main2.transition")
+	@Before
+	def void initWorkspace() {
+			primaryroot = testHelper.parseFile(
+				modelroot + fta1File,
+				modelroot + fta2File,
+				modelroot + fta3File,
+				modelroot + common1File,
+				modelroot + common2File,
+				modelroot + common3File,
+				modelroot + nestedcompositeFile,
+				modelroot + redundantFile,
+				modelroot + redundant2File,
+				modelroot + voterFile,
+				modelroot + dualfgsFile,
+				modelroot + filteredflowsFile,
+				modelroot + allflowsFile,
+				modelroot + optimizeFile,
+				modelroot + transitionbranchFile,
+				modelroot + fgselibFile,
+				modelroot + errorlibFile,
+				modelroot + FTerrorlibFile,
+				modelroot + SysErrorLibFile,
+				modelroot + OR1OFProbabilityfile,
+				modelroot + PathProbabilityfile,
+				modelroot + Issue1819file,
+				modelroot + Issue1882file
+			)
+			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
+			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
+			instance3 = instanceGenerator(modelroot + fta3File, "main.i")
+			instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
+			instancecommon2 = instanceGenerator(modelroot + common2File, "main.commonevents")
+			instancecommon3 = instanceGenerator(modelroot + common3File, "main.commoneventssingleport")
+			instancecomposite = instanceGenerator(modelroot + nestedcompositeFile, "main.nestedstate")
+			instanceredundant = instanceGenerator(modelroot + redundantFile, "main.compositestate")
 
-		instancevoter = instanceGenerator(modelroot + voterFile, "voter.i")
-		instanceDualFGS = instanceGenerator(modelroot + dualfgsFile, "FGS.impl")
-		instanceFilteredFlow = instanceGenerator(modelroot + filteredflowsFile, "FGS.impl")
-		instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
-		instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
-		instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
-		instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
-		instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
-		instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
-		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
+			instanceredundant21 = instanceGenerator(modelroot + redundant2File, "main2.connection")
+			instanceredundant22 = instanceGenerator(modelroot + redundant2File, "main2.compositesametype")
+			instanceredundant23 = instanceGenerator(modelroot + redundant2File, "main2.transition")
+			
+			instancevoter = instanceGenerator(modelroot + voterFile, "voter.i")
+			instanceDualFGS = instanceGenerator(modelroot + dualfgsFile, "FGS.impl")
+			instanceFilteredFlow = instanceGenerator(modelroot + filteredflowsFile, "FGS.impl")
+			instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
+			instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
+			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
+			instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
+			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
+			instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
+      instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
+			instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -870,4 +925,13 @@ class FTATest {
 		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
 	}
 
+	@Test
+	def void issue1882Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1882, "outgoing propagation on aceffect{ServiceOmission}")
+		assertEquals(ft.events.size, 3)
+		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
+		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "engineFailure")
+		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "engine1")
+	}
+	
 }
