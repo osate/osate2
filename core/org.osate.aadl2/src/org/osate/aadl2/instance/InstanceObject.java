@@ -112,13 +112,6 @@ public interface InstanceObject extends EObject, NamedElement {
 	 */
 	String getComponentInstancePath();
 
-	/**
-	 * Returns the System Operation Modes in which the element exists, or
-	 * <code>null</code> if the element always exists.
-	 *
-	 * @return
-	 */
-	List<SystemOperationMode> getExistsInModes();
 
 	/**
 	 * Return the declarative objects that define this instance. Most of the

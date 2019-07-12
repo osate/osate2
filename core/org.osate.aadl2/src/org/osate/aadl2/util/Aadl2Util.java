@@ -14,6 +14,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 
@@ -159,6 +160,21 @@ public class Aadl2Util {
 			return "";
 		}
 		return "In SystemMode " + som.getName();
+	}
+
+	public static String getPrintableSOMMembers(SystemOperationMode som) {
+		String members = "";
+		if (som == null || InstanceUtil.isNoMode(som)) {
+			return "";
+		}
+		for (ModeInstance mode : som.getCurrentModes()) {
+			if (members.isEmpty()) {
+				members = mode.getComponentInstancePath();
+			} else {
+				members = members + ", " + mode.getComponentInstancePath();
+			}
+		}
+		return "(" + members + ")";
 	}
 
 	public static boolean isPrintableSOMName(SystemOperationMode som) {

@@ -115,16 +115,16 @@ public class PropagationGraphBackwardTraversal {
 		// Originally we were creating the events bottom up thus the loop did not find the event.
 //		EObject myEvent = processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 
-		HashMultimap<ErrorFlow, String> handledFlows = HashMultimap.create();
+		HashMultimap<ErrorPropagation, String> handledEOPs = HashMultimap.create();
 		Collection<ErrorFlow> errorFlows = EMV2Util.getAllErrorFlows(component);
-
-		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
+		Collection<OutgoingPropagationCondition> opcs = EMV2Util.getAllOutgoingPropagationConditions(component);
+		for (OutgoingPropagationCondition opc : opcs) {
 			if ((opc.getTypeToken() != null && !EMV2TypeSetUtil.isNoError(opc.getTypeToken()))
 					|| opc.getTypeToken() == null) {
 				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), errorPropagation))
 						&& EMV2TypeSetUtil.contains(opc.getTypeToken(), type)) {
-					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledFlows,
-							errorFlows, scale);
+					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledEOPs,
+							scale);
 					if (res != null) {
 						subResults.add(res);
 					}
@@ -138,8 +138,9 @@ public class PropagationGraphBackwardTraversal {
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
 			if (propagationSource.getDirection() == DirectionType.OUT) {
-				Set<ErrorFlow> flows = handledFlows.keySet();
-				if (!containsFlow(flows, propagationSource, type)) {
+				Set<ErrorPropagation> eops = handledEOPs.keySet();
+				if (!containsEOP(eops, propagationSource)) {
+					// if not already handled by a opc
 					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
 					if (res == foundCycle) {
 						return null;
@@ -151,11 +152,12 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		for (ErrorFlow ef : errorFlows) {
-			if (handledFlows.containsEntry(ef, EMV2Util.getPrintName(type))) {
-				continue;
-			}
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
+				if (handledEOPs.containsEntry(ep.getIncoming(), EMV2Util.getPrintName(type))) {
+					// already handled by a opc
+					continue;
+				}
 				if (Util.conditionHolds(ef, component)) {
 					/**
 					 * Make sure that the error type we are looking for is contained
@@ -255,6 +257,15 @@ public class PropagationGraphBackwardTraversal {
 				}
 			} else if (ef instanceof ErrorSource) {
 				ErrorSource errorSource = (ErrorSource) ef;
+				NamedElement src = errorSource.getSourceModelElement();
+				if (src instanceof ErrorPropagation) {
+					// check if error source was already handled by opc
+					ErrorPropagation srcep = (ErrorPropagation) src;
+					if (targetsEOP(opcs, srcep, type)) {
+						// already handled by a opc with the same target
+						continue;
+					}
+				}
 				if (Util.conditionHolds(ef, component)) {
 					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 						if (EMV2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
@@ -274,14 +285,23 @@ public class PropagationGraphBackwardTraversal {
 		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
-	private boolean containsFlow(Collection<ErrorFlow> flows, ErrorPropagation eprop, ErrorTypes type) {
-		for (ErrorFlow errorFlow : flows) {
-			if (errorFlow instanceof ErrorPath) {
-				ErrorPath ep = (ErrorPath) errorFlow;
-				if ((ep.isAllOutgoing() || EMV2Util.isSame(ep.getOutgoing(), eprop))
-						&& EMV2TypeSetUtil.isSame(ep.getTargetToken(), type)) {
+	private boolean containsEOP(Collection<ErrorPropagation> eops, ErrorPropagation eprop) {
+		for (ErrorPropagation eop : eops) {
+			if (EMV2Util.isSame(eop, eprop)) {
 					return true;
 
+				}
+		}
+		return false;
+	}
+
+	private boolean targetsEOP(Collection<OutgoingPropagationCondition> opcs, ErrorPropagation srcep, ErrorTypes type) {
+		for (OutgoingPropagationCondition opc : opcs) {
+			if ((opc.getTypeToken() != null && !EMV2TypeSetUtil.isNoError(opc.getTypeToken()))
+					|| opc.getTypeToken() == null) {
+				if (opc.isAllPropagations() || (EMV2Util.isSame(opc.getOutgoing(), srcep))
+						&& EMV2TypeSetUtil.contains(opc.getTypeToken(), type)) {
+					return true;
 				}
 			}
 		}
@@ -327,8 +347,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @return Event (can be null)
 	 */
 	private EObject handleOutgoingErrorPropagationCondition(ComponentInstance component,
-			OutgoingPropagationCondition opc, ErrorTypes type, HashMultimap<ErrorFlow, String> handledFlows,
-			Collection<ErrorFlow> errorFlows, BigDecimal scale) {
+			OutgoingPropagationCondition opc, ErrorTypes type, HashMultimap<ErrorPropagation, String> handledEOPs,
+			BigDecimal scale) {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
@@ -374,19 +394,10 @@ public class PropagationGraphBackwardTraversal {
 					for (ConditionElement conditionElement : conde) {
 						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 						if (eop instanceof ErrorPropagation) {
-							EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
-									conditionElement.getConstraint(), opc.getOutgoing(), type);
-							for (ErrorFlow errorFlow : flows) {
-								handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
-							}
+							handledEOPs.put((ErrorPropagation) eop, EMV2Util.getPrintName(type));
 						}
 					}
 				}
-			}
-			// error source
-			EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, null, null, opc.getOutgoing(), type);
-			for (ErrorFlow errorFlow : flows) {
-				handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
 			}
 		} else {
 			// error paths
@@ -395,11 +406,7 @@ public class PropagationGraphBackwardTraversal {
 			for (ConditionElement conditionElement : conde) {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(conditionElement);
 				if (eop instanceof ErrorPropagation) {
-					EList<ErrorFlow> flows = EMV2Util.findErrorFlow(errorFlows, (ErrorPropagation) eop,
-							conditionElement.getConstraint(), opc.getOutgoing(), type);
-					for (ErrorFlow errorFlow : flows) {
-						handledFlows.put(errorFlow, EMV2Util.getPrintName(type));
-					}
+					handledEOPs.put((ErrorPropagation) eop, EMV2Util.getPrintName(type));
 				}
 			}
 		}

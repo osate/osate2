@@ -495,12 +495,12 @@ public class LatencyReportEntry {
 		issues = new ArrayList<Diagnostic>();
 
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? som.getName() : "";
-
+		String SOMMembers = Aadl2Util.getPrintableSOMMembers(som);
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(relatedEndToEndFlow);
 		result.setMessage("Latency results for " + relatedEndToEndFlow.getName());
 
-		addStringValue(result, inMode);
+		addStringValue(result, inMode + SOMMembers);
 
 		addRealValue(result, minValue);
 		addRealValue(result,maxValue);
@@ -601,11 +601,13 @@ public class LatencyReportEntry {
 		SystemInstance si = (SystemInstance) relatedEndToEndFlow.getElementRoot();
 		String systemName = si.getComponentClassifier().getName();
 		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
+		String SOMMembers = Aadl2Util.getPrintableSOMMembers(som);
 
 		section = new Section(sectionName + inMode);
 		line = new Line();
 		line.addHeaderContent(
-				"Latency results for end-to-end flow '" + sectionName + "' of system '" + systemName + "'" + inMode);
+				"Latency results for end-to-end flow '" + sectionName + "' of system '" + systemName + "'" + inMode
+						+ SOMMembers);
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
