@@ -79,8 +79,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
@@ -600,13 +600,13 @@ public class PropagateErrorSources {
 		} else {
 			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(ci, ErrorModelState.class);
 		}
-		if (st.visited(tt)) {
+		if (st.visited(ep, tt)) {
 			// we were there before.
 			String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 			reportEntry(entryText + effectText + " -> [Propagation Cycle],,", depth);
 			return;
 		} else {
-			st.setVisitToken(tt);
+			st.setVisitToken(ep, tt);
 		}
 		EList<PropagationGraphPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
@@ -716,7 +716,7 @@ public class PropagateErrorSources {
 				}
 			}
 		}
-		st.removeVisitedToken(tt);
+		st.removeVisitedToken(ep, tt);
 
 	}
 
