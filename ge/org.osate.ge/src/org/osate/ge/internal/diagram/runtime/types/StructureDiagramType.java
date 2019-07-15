@@ -2,6 +2,8 @@ package org.osate.ge.internal.diagram.runtime.types;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.DiagramType;
@@ -11,6 +13,8 @@ import org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationFilter;
 import org.osate.ge.internal.diagram.runtime.filtering.InternalFeatureFilter;
 import org.osate.ge.internal.diagram.runtime.filtering.ProcessorFeatureFilter;
 import org.osate.ge.internal.diagram.runtime.filtering.SubcomponentFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
@@ -23,6 +27,10 @@ public class StructureDiagramType implements DiagramType {
 			SubcomponentFilter.ID);
 	private final ImmutableSet<String> defaultSubcomponentFilters = ImmutableSet.of(FeatureFilter.ID,
 			InternalFeatureFilter.ID, ProcessorFeatureFilter.ID, ConnectionFilter.ID, FlowSpecificationFilter.ID);
+	private final ImmutableSet<String> defaultSubprogramCallSequenceFilters = ImmutableSet
+			.of(SubprogramCallOrderFilter.ID, SubprogramCallFilter.ID);
+	private final ImmutableSet<String> defaultSubprogramCallFilters = ImmutableSet.of(FeatureFilter.ID,
+			FlowSpecificationFilter.ID);
 
 	@Override
 	public String getId() {
@@ -46,6 +54,10 @@ public class StructureDiagramType implements DiagramType {
 			return defaultClassifierFilters;
 		} else if (bo instanceof Subcomponent || bo instanceof ComponentInstance) {
 			return defaultSubcomponentFilters;
+		} else if (bo instanceof SubprogramCallSequence) {
+			return defaultSubprogramCallSequenceFilters;
+		} else if (bo instanceof SubprogramCall) {
+			return defaultSubprogramCallFilters;
 		}
 
 		return DiagramTypeUtil.getDefaultContentFilters(bo);

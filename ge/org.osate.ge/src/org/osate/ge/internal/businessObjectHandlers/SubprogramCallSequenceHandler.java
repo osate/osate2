@@ -57,7 +57,7 @@ public class SubprogramCallSequenceHandler {
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
 		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage
-				|| diagramBo instanceof BehavioredImplementation;
+				|| diagramBo instanceof ComponentImplementation;
 		if (!applicable) {
 			return null;
 		}
