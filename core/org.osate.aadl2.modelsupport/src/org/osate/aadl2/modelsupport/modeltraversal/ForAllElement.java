@@ -55,7 +55,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -291,8 +290,7 @@ public class ForAllElement implements IProcessingMethod {
 			InstanceObject io = (InstanceObject) theElement;
 			SystemInstance root = io.getSystemInstance();
 			SystemOperationMode som = root.getCurrentSystemOperationMode();
-			if (som == null || InstanceUtil.isNoMode(som)
-					|| io.isActive(som)) {
+			if (som == null || io.isActive(som)) {
 				process(io);
 			}
 		} else {
