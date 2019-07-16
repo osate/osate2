@@ -9,6 +9,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
@@ -55,7 +56,7 @@ public class SubprogramCallHandler {
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
 		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage
-				|| diagramBo instanceof BehavioredImplementation;
+				|| diagramBo instanceof ComponentImplementation;
 		if (!applicable) {
 			return null;
 		}
