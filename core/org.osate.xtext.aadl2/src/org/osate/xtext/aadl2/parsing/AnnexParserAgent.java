@@ -132,8 +132,9 @@ public class AnnexParserAgent extends LazyLinker {
 		if (errReporter instanceof AbstractParseErrorReporter) {
 			((AbstractParseErrorReporter) errReporter).setContextResource(model.eResource());
 		}
+		QueuingParseErrorReporter resolveErrReporter = new QueuingParseErrorReporter();
 		final AnalysisErrorReporterManager resolveErrManager = new AnalysisErrorReporterManager(
-				new AnalysisToParseErrorReporterAdapter.Factory(factory));
+				new AnalysisToParseErrorReporterAdapter.Factory(aadlRsrc -> resolveErrReporter));
 
 		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
@@ -165,7 +166,7 @@ public class AnnexParserAgent extends LazyLinker {
 						AnnexLibrary al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset,
 								errReporter);
 						AnnexParseUtil.saveParseResult(defaultAnnexLibrary);
-						consumeParseErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
+						consumeErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
 						if (al != null)// && errReporter.getNumErrors() == errs)
 						{
 							al.setName(annexName);
@@ -177,6 +178,7 @@ public class AnnexParserAgent extends LazyLinker {
 							if (resolver != null && hasToResolveAnnex && errReporter.getNumErrors() == errs) {
 								errs = resolveErrManager.getNumErrors();
 								resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+								consumeErrors(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 								if (errs != resolveErrManager.getNumErrors()) {
 									defaultAnnexLibrary.setParsedAnnexLibrary(null);
 								}
@@ -226,7 +228,7 @@ public class AnnexParserAgent extends LazyLinker {
 					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
 							errReporter);
 					AnnexParseUtil.saveParseResult(defaultAnnexSubclause);
-					consumeParseErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
+					consumeErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
 					if (asc != null)// && errReporter.getNumErrors() == errs)
 					{
 						asc.setName(annexName);
@@ -243,6 +245,7 @@ public class AnnexParserAgent extends LazyLinker {
 						if (resolver != null && hasToResolveAnnex && errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
 							errs = resolveErrManager.getNumErrors();
 							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
+							consumeErrors(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 							if (errs != resolveErrManager.getNumErrors()) {
 								defaultAnnexSubclause.setParsedAnnexSubclause(null);
 							}
@@ -304,8 +307,8 @@ public class AnnexParserAgent extends LazyLinker {
 		return result;
 	}
 
-	private static void consumeParseErrors(QueuingParseErrorReporter errReporter,
-			IDiagnosticConsumer diagnosticsConsumer, String annexText, int annexLine, int annexOffset) {
+	private static void consumeErrors(QueuingParseErrorReporter errReporter, IDiagnosticConsumer diagnosticsConsumer,
+			String annexText, int annexLine, int annexOffset) {
 		for (Message message : errReporter.getErrors()) {
 			int lineOffset = StringUtils.ordinalIndexOf(annexText, "\n", message.line - annexLine) + 1;
 			int endOfLine = annexText.indexOf('\n', lineOffset);
