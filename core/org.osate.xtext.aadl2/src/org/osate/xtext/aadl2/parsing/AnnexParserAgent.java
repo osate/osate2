@@ -50,7 +50,6 @@ import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -153,12 +152,9 @@ public class AnnexParserAgent extends LazyLinker {
 								}
 							} else if (linkingservice != null) {
 								try {
-									final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
 									Resource res = model.eResource();
 									ILinker linker = ((XtextResource) res).getLinker();
-									linker.linkModel(al, consumer);
-									res.getErrors().addAll(consumer.getResult(Severity.ERROR));
-									res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
+									linker.linkModel(al, diagnosticsConsumer);
 								} catch (Exception e) {
 									String message = "Linking Service error in " + filename + " at line " + line;
 									IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
@@ -228,12 +224,9 @@ public class AnnexParserAgent extends LazyLinker {
 							}
 						} else if (linkingservice != null) {
 							try {
-								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
 								Resource res = model.eResource();
 								ILinker linker = ((XtextResource) res).getLinker();
-								linker.linkModel(asc, consumer);
-								res.getErrors().addAll(consumer.getResult(Severity.ERROR));
-								res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
+								linker.linkModel(asc, diagnosticsConsumer);
 							} catch (Exception e) {
 								String message = "Linking Service error in " + filename + " at line " + line;
 								IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
