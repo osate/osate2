@@ -59,8 +59,6 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
-import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
-import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
 import org.osate.aadl2.util.OsateDebug;
@@ -78,19 +76,6 @@ import org.osate.xtext.aadl2.Activator;
 import antlr.RecognitionException;
 
 public class AnnexParserAgent extends LazyLinker {
-
-	private ParseErrorReporterFactory factory;
-
-	// Instantiating parseErrManager when afterModelLinked is recursively called
-	// (see l244) deletes the error markers (see ParseErrorReporterManager at l120)
-	// of the annexes not built with xtext(for example BA).
-	// That why parseErrManager is an class attribute.
-	private final ParseErrorReporterManager parseErrManager;
-
-	// Control flag for cleaning the error markers from the previous stack of recursive
-	// calls of afterModelLinked.
-	private boolean hasToClean = true;
-
 	private boolean standalone = false;
 
 	AnnexParserAgent() {
@@ -100,8 +85,6 @@ public class AnnexParserAgent extends LazyLinker {
 			// we're running without osgi
 			standalone = true;
 		}
-		factory = QueuingParseErrorReporter.factory;
-		parseErrManager = new ParseErrorReporterManager(factory);
 	}
 
 	/*
@@ -118,16 +101,6 @@ public class AnnexParserAgent extends LazyLinker {
 		}
 
 		String filename = model.eResource().getURI().lastSegment();
-		// set up reporter for ParseErrors
-
-		boolean hasToRestoreCleanFlag = false;
-
-		if (hasToClean) // Don't clean the error markers after the first recursive call of this method.
-		{
-			parseErrManager.clean();
-			hasToRestoreCleanFlag = true;
-			hasToClean = false;
-		}
 
 		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
@@ -274,13 +247,6 @@ public class AnnexParserAgent extends LazyLinker {
 					Activator.getDefault().getLog().log(status);
 				}
 			}
-		}
-
-		// The first recursive call of this method reset the flag for others
-		// stacks of recursive calls of this method.
-		if (hasToRestoreCleanFlag) {
-			hasToClean = true;
-			hasToRestoreCleanFlag = false;
 		}
 	}
 
