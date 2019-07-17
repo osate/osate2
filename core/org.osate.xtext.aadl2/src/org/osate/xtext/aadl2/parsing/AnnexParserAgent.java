@@ -36,9 +36,11 @@ package org.osate.xtext.aadl2.parsing;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.ILinker;
@@ -56,10 +58,10 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.modelsupport.errorreporting.AbstractParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
-import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
@@ -125,7 +127,8 @@ public class AnnexParserAgent extends LazyLinker {
 			hasToClean = false;
 		}
 
-		final ParseErrorReporter errReporter = parseErrManager.getReporter(model.eResource());
+		final QueuingParseErrorReporter errReporter = (QueuingParseErrorReporter) parseErrManager
+				.getReporter(model.eResource());
 		if (errReporter instanceof AbstractParseErrorReporter) {
 			((AbstractParseErrorReporter) errReporter).setContextResource(model.eResource());
 		}
@@ -162,6 +165,7 @@ public class AnnexParserAgent extends LazyLinker {
 						AnnexLibrary al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset,
 								errReporter);
 						AnnexParseUtil.saveParseResult(defaultAnnexLibrary);
+						consumeParseErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
 						if (al != null)// && errReporter.getNumErrors() == errs)
 						{
 							al.setName(annexName);
@@ -222,6 +226,7 @@ public class AnnexParserAgent extends LazyLinker {
 					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
 							errReporter);
 					AnnexParseUtil.saveParseResult(defaultAnnexSubclause);
+					consumeParseErrors(errReporter, diagnosticsConsumer, annexText, line, offset);
 					if (asc != null)// && errReporter.getNumErrors() == errs)
 					{
 						asc.setName(annexName);
@@ -297,5 +302,66 @@ public class AnnexParserAgent extends LazyLinker {
 		}
 
 		return result;
+	}
+
+	private static void consumeParseErrors(QueuingParseErrorReporter errReporter,
+			IDiagnosticConsumer diagnosticsConsumer, String annexText, int annexLine, int annexOffset) {
+		for (Message message : errReporter.getErrors()) {
+			int lineOffset = StringUtils.ordinalIndexOf(annexText, "\n", message.line - annexLine) + 1;
+			int endOfLine = annexText.indexOf('\n', lineOffset);
+			if (endOfLine == -1) {
+				endOfLine = annexText.length();
+			} else if (annexText.charAt(endOfLine - 1) == '\r') {
+				endOfLine--;
+			}
+
+			int diagnosticOffset = annexOffset + lineOffset;
+			int diagnosticLength = endOfLine - lineOffset;
+
+			Diagnostic diagnostic = new Diagnostic() {
+				@Override
+				public String getMessage() {
+					return message.message;
+				}
+
+				@Override
+				public String getLocation() {
+					return null;
+				}
+
+				@Override
+				public int getLine() {
+					return message.line;
+				}
+
+				@Override
+				public int getColumn() {
+					return 1;
+				}
+
+				@Override
+				public int getOffset() {
+					return diagnosticOffset;
+				}
+
+				@Override
+				public int getLength() {
+					return diagnosticLength;
+				}
+			};
+
+			Severity severity;
+			if (QueuingParseErrorReporter.ERROR.equals(message.kind)) {
+				severity = Severity.ERROR;
+			} else if (QueuingParseErrorReporter.WARNING.equals(message.kind)) {
+				severity = Severity.WARNING;
+			} else if (QueuingParseErrorReporter.INFO.equals(message.kind)) {
+				severity = Severity.INFO;
+			} else {
+				severity = null;
+			}
+
+			diagnosticsConsumer.consume(diagnostic, severity);
+		}
 	}
 }
