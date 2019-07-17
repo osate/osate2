@@ -44,7 +44,7 @@ class AlignmentHelper {
 
 				// Move shape to top or left edge of parent depending on axis alignment
 				final DiagramElement de = alignmentElement.getDiagramElement();
-				m.setPosition(de, axis.getEdgeLocation(de), false);
+				m.setPosition(de, axis.getEdgeLocation(de), false, true);
 
 				// Set parent size to accommodate for the new alignment element location
 				m.setSize(parentDe, axis.getParentSize(parentDe, childOffset));
@@ -69,8 +69,8 @@ class AlignmentHelper {
 			}
 		}
 
-		// Set the element new location
-		m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false);
+		// Set the element new location and update bendpoints
+		m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false, true);
 	}
 
 	private void shiftCollidingPorts(final DiagramModification m, final DiagramElement de, final double newLocation) {
@@ -81,7 +81,7 @@ class AlignmentHelper {
 
 				if (axis.isPortCollision(dockedChild, newLocation)) {
 					// Adjust colliding port
-					m.setPosition(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1), false);
+					m.setPosition(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1), false, true);
 					break;
 				}
 			}
@@ -93,7 +93,7 @@ class AlignmentHelper {
 		for (final Queryable q : parentDe.getChildren()) {
 			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
-				m.setPosition(childDe, axis.getShiftPostion(childDe, childOffset), false);
+				m.setPosition(childDe, axis.getShiftPostion(childDe, childOffset), false, true);
 			}
 		}
 	}
