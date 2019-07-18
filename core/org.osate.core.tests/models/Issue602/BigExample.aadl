@@ -1,0 +1,86 @@
+package BigExample
+public
+	data Message
+		properties
+			Data_Size => 32 bytes;
+	end Message;
+
+	thread T1
+		features
+   		 	msgOut: out data port Message;
+	end T1;
+
+	thread implementation T1.i
+	end T1.i;
+
+	thread T2
+		features
+			msgIn: in data port Message;
+    		msgOut: out data port Message;
+	end T2;
+
+	thread implementation T2.i
+	end T2.i;
+	
+	process P1
+		features
+			msgOut: out data Port Message;
+	end P1;
+	
+	process implementation P1.i
+		subcomponents
+			t1: thread T1.i;
+			t2: thread T2.i;
+		connections
+			peer2peer: port t1.msgOut -> t2.msgIn;
+			goingUp: port t2.msgOut -> msgOut;
+	end P1.i;
+
+	thread T3
+		features
+			msgIn: in data port Message;
+    		msgOut: out data port Message;
+	end T3;
+
+	thread implementation T3.i
+	end T3.i;
+
+	thread T4
+		features
+   		 	msgIn: in data port Message;
+	end T4;
+	
+	thread implementation T4.i
+	end T4.i;
+
+	
+	process P2
+		features
+			msgIn: in data Port Message {
+				Required_connection => false;
+			};
+	end P2;
+	
+	process implementation P2.i
+		subcomponents
+			t3: thread T3.i;
+			t4: thread T4.i;
+		connections
+			goingDown: port msgIn -> t3.msgIn;
+			peer2peer: port t3.msgOut -> t4.msgIn;
+	end P2.i;
+	
+	System X
+		modes
+			m1: initial mode;
+			m2: mode;
+	end X;
+	
+	system implementation X.i
+		subcomponents
+			p1: process P1.i;
+			p2: process P2.i;
+		connections
+			peer2peer: port p1.msgOut -> p2.msgIn in modes (m1);
+	end X.i;
+end BigExample;
