@@ -43,16 +43,19 @@ public interface DiagramModification {
 	void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value);
 
 	default void setPosition(final DiagramElement e, final Point value) {
-		setPosition(e, value, true);
+		setPosition(e, value, true, true);
 	}
 
 	/**
-	 *
-	 * @param e
-	 * @param value
+	 * Sets the position of a diagram element
+	 * @param e the element to set position
+	 * @param value the new position of the element
 	 * @param updateDockArea whether the dock area should be updated based on the set position.
+	 * @param updateBendpoints whether to update contained bendpoints
 	 */
-	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea);
+	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea,
+			final boolean updateBendpoints);
+
 	void setSize(final DiagramElement e, final Dimension value);
 	void setDockArea(final DiagramElement e, final DockArea value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);

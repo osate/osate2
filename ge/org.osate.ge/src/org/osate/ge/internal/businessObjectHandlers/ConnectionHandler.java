@@ -233,13 +233,13 @@ public class ConnectionHandler {
 			return false;
 		}
 
-		// Can't connect two features that belong to the same classifier
+		// Don't allow connecting two features owned by the same classifier
 		if (!(srcConnectedElement.getContext() instanceof Subcomponent
 				|| srcConnectedElement.getContext() instanceof SubprogramCall)
 				&& srcConnectedElement.getConnectionEnd() instanceof Feature
 				&& !(dstConnectedElement.getContext() instanceof Subcomponent
-						|| srcConnectedElement.getContext() instanceof SubprogramCall)
-				&& srcConnectedElement.getConnectionEnd() instanceof Feature) {
+						|| dstConnectedElement.getContext() instanceof SubprogramCall)
+				&& dstConnectedElement.getConnectionEnd() instanceof Feature) {
 			return false;
 		}
 

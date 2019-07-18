@@ -92,8 +92,8 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type enumeration (literal1, literal2, literal3, literal4, literal5, literal6, literal7, literal8, literal9,
-								literal10, literal11, literal12, literal13, literal14, literal15, literal16, literal17, literal18,
-								literal19, literal20);
+						literal10, literal11, literal12, literal13, literal14, literal15, literal16, literal17, literal18, literal19,
+						literal20);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type enumeration(literal1,literal2,literal3,literal4,literal5,literal6," +
 					"literal7,literal8,literal9,literal10,literal11,literal12,literal13,literal14,literal15,literal16,literal17," +
@@ -105,15 +105,15 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type enumeration (
-								literal1, literal2,
-								literal3,
-								literal4, literal5, literal6, literal7, literal8, literal9, literal10, literal11, literal12, literal13,
-								literal14, literal15, literal16, literal17
-							);
+						literal1, literal2,
+						literal3,
+						literal4, literal5, literal6, literal7, literal8, literal9, literal10, literal11, literal12, literal13,
+						literal14, literal15, literal16, literal17
+					);
 					type2: type enumeration (literal1, literal2,
-								literal3,
-								literal4, literal5, literal6, literal7, literal8, literal9, literal10, literal11, literal12, literal13,
-								literal14, literal15, literal16, literal17);
+						literal3,
+						literal4, literal5, literal6, literal7, literal8, literal9, literal10, literal11, literal12, literal13,
+						literal14, literal15, literal16, literal17);
 				end ps1;'''
 			toBeFormatted = '''
 				property set ps1 is type1:type enumeration(
@@ -143,7 +143,7 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type units (unit1, unit2 => unit1 * 10, unit3 => unit2 * +10, unit4 => unit3 * -10, unit5 => unit4 * 10.5,
-								unit6 => unit5 * +10.5, unit7 => unit6 * -10.5);
+						unit6 => unit5 * +10.5, unit7 => unit6 * -10.5);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type units(unit1,unit2=>unit1*10,unit3=>unit2*+10,unit4=>unit3*-10," +
 					"unit5=>unit4*10.5,unit6=>unit5*+10.5,unit7=>unit6*-10.5);end ps1;"
@@ -154,15 +154,15 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type units (
-								unit1, unit2 => unit1 * 10,
-								unit3 => unit2 * 10,
-								unit4 => unit3 * 10, unit5 => unit4 * 10, unit6 => unit5 * 10, unit7 => unit6 * 10, unit8 => unit7 * 10,
-								unit9 => unit8 * 10, unit10 => unit9 * 10
-							);
+						unit1, unit2 => unit1 * 10,
+						unit3 => unit2 * 10,
+						unit4 => unit3 * 10, unit5 => unit4 * 10, unit6 => unit5 * 10, unit7 => unit6 * 10, unit8 => unit7 * 10,
+						unit9 => unit8 * 10, unit10 => unit9 * 10
+					);
 					type2: type units (unit1, unit2 => unit1 * 10,
-								unit3 => unit2 * 10,
-								unit4 => unit3 * 10, unit5 => unit4 * 10, unit6 => unit5 * 10, unit7 => unit6 * 10, unit8 => unit7 * 10,
-								unit9 => unit8 * 10, unit10 => unit9 * 10);
+						unit3 => unit2 * 10,
+						unit4 => unit3 * 10, unit5 => unit4 * 10, unit6 => unit5 * 10, unit7 => unit6 * 10, unit8 => unit7 * 10,
+						unit9 => unit8 * 10, unit10 => unit9 * 10);
 				end ps1;'''
 			toBeFormatted = '''
 				property set ps1 is type1:type units(
@@ -200,7 +200,7 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type aadlreal units (unit1, unit2 => unit1 * 10, unit3 => unit2 * 10, unit4 => unit3 * 10,
-								unit5 => unit4 * 10);
+						unit5 => unit4 * 10);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type aadlreal units(unit1,unit2=>unit1*10,unit3=>unit2*10,unit4=>unit3*10,unit5=>unit4*10);end ps1;"
 		]
@@ -267,7 +267,7 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type aadlinteger units (unit1, unit2 => unit1 * 10, unit3 => unit2 * 10, unit4 => unit3 * 10,
-								unit5 => unit4 * 10);
+						unit5 => unit4 * 10);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type aadlinteger units(unit1,unit2=>unit1*10,unit3=>unit2*10,unit4=>unit3*10,unit5=>unit4*10);end ps1;"
 		]
@@ -500,7 +500,7 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type record (field1: ps1::type2; field2: ps1::type2; field3: ps1::type2; field4: ps1::type2;
-								field5: ps1::type2;);
+						field5: ps1::type2;);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type record(field1:ps1::type2;field2:ps1::type2;field3:ps1::type2;" +
 					"field4:ps1::type2;field5:ps1::type2;);end ps1;"
@@ -520,7 +520,7 @@ class FormatterTest extends XtextTest {
 			expectation = '''
 				property set ps1 is
 					type1: type record (field1: aadlinteger; field2: aadlinteger; field3: aadlinteger; field4: aadlinteger;
-								field5: aadlinteger;);
+						field5: aadlinteger;);
 				end ps1;'''
 			toBeFormatted = "property set ps1 is type1:type record(field1:aadlinteger;field2:aadlinteger;field3:aadlinteger;" +
 					"field4:aadlinteger;field5:aadlinteger;);end ps1;"
