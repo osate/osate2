@@ -61,6 +61,7 @@ public class AnnexParseUtil {
 			}
 			return parseResult.getRootASTElement();
 		} catch (Exception exc) {
+			AnnexPlugin.logError(exc);
 			return null;
 		}
 	}
