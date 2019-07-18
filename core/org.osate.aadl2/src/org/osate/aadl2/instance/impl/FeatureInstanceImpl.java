@@ -672,13 +672,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// Features always exist
-		return null;
-	}
-
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public List<Feature> getInstantiatedObjects() {
 		return Collections.singletonList(getFeature());
 	}

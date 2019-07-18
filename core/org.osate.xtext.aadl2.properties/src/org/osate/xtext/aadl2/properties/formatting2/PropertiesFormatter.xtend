@@ -32,13 +32,13 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
 			modalPropertyValue.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
-			interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
+			interior(leftParenthesis, rightParenthesis, [indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
 			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_3_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+				rightParenthesis.prepend[newLines = 1]
 			} else {
 				rightParenthesis.prepend[noSpace]
 			}
@@ -54,13 +54,13 @@ class PropertiesFormatter extends AbstractFormatter2 {
 	def dispatch void format(RecordValue recordValue, extension IFormattableDocument document) {
 		val leftBracket = recordValue.regionFor.keyword(recordTermAccess.leftSquareBracketKeyword_0)
 		val rightBracket = recordValue.regionFor.keyword(recordTermAccess.rightSquareBracketKeyword_2)
-		interior(leftBracket, rightBracket, [indent; indent; indent])
+		interior(leftBracket, rightBracket, [indent])
 		leftBracket.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		recordValue.ownedFieldValues.tail.forEach[prepend[oneSpace; setNewLines(0, 0, 1); autowrap]]
 		recordValue.ownedFieldValues.forEach[it.format(document)]
 		if (rightBracket !== null) {
 			if (rightBracket.previousHiddenRegion.multiline) {
-				rightBracket.prepend[newLines = 1].surround[indent; indent]
+				rightBracket.prepend[newLines = 1]
 			} else {
 				rightBracket.prepend[noSpace]
 			}
@@ -80,7 +80,7 @@ class PropertiesFormatter extends AbstractFormatter2 {
 	def dispatch void format(ListValue listValue, extension IFormattableDocument document) {
 		val leftParenthesis = listValue.regionFor.keyword(listTermAccess.leftParenthesisKeyword_1)
 		val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
-		interior(leftParenthesis, rightParenthesis, [indent; indent; indent])
+		interior(leftParenthesis, rightParenthesis, [indent])
 		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
 		listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
@@ -88,7 +88,7 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		listValue.ownedListElements.forEach[it.format(document)]
 		if (rightParenthesis !== null) {
 			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+				rightParenthesis.prepend[newLines = 1]
 			} else {
 				rightParenthesis.prepend[noSpace]
 			}

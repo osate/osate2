@@ -667,18 +667,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return result.toString();
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// be overly cautious
-		final List<SystemOperationMode> inModes = getInSystemOperationModes();
-		if (inModes == null || inModes.isEmpty()) {
-			return null;
-		} else {
-			return inModes;
-		}
-	}
-
 	/**
 	 * Get the property value from the declarative model elements associated
 	 * with the instance object. This implementation works for Semantic

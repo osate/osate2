@@ -482,13 +482,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// Modes always exist
-		return null;
-	}
-
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public List<Mode> getInstantiatedObjects() {
 		return Collections.singletonList(getMode());
 	}
