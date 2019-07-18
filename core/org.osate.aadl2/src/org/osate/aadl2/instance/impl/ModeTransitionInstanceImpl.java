@@ -436,12 +436,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	}
 
 	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// Always exist
-		return null;
-	}
-
-	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getModeTransition());
 	}
