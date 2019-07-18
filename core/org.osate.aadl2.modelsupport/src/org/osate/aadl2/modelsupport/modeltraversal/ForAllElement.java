@@ -288,17 +288,10 @@ public class ForAllElement implements IProcessingMethod {
 	public final void processObject(final Element theElement) {
 		if (theElement instanceof InstanceObject) {
 			InstanceObject io = (InstanceObject) theElement;
-			List<SystemOperationMode> modes = io.getExistsInModes();
-
-			if (modes == null) {
+			SystemInstance root = io.getSystemInstance();
+			SystemOperationMode som = root.getCurrentSystemOperationMode();
+			if (som == null || io.isActive(som)) {
 				process(io);
-			} else {
-				SystemInstance root = io.getSystemInstance();
-				SystemOperationMode som = root.getCurrentSystemOperationMode();
-
-				if (som == null || modes.contains(som)) {
-					process(io);
-				}
 			}
 		} else {
 			process(theElement);
