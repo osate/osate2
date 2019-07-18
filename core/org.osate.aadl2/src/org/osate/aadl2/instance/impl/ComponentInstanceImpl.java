@@ -35,7 +35,6 @@
  */
 package org.osate.aadl2.instance.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -977,28 +976,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public List<SystemOperationMode> getExistsInModes() {
-		final List<ModeInstance> inModes = getInModes();
-
-		if (inModes == null || inModes.isEmpty()) {
-			return null;
-		} else {
-			// Get all SOMs that contain one of the mode instances in inModes
-			final List<SystemOperationMode> processedModes = new ArrayList<>();
-
-			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
-				for (ModeInstance mi : som.getCurrentModes()) {
-					if (inModes.contains(mi)) {
-						processedModes.add(som);
-						break;
-					}
-				}
-			}
-			return processedModes;
-		}
 	}
 
 	/**

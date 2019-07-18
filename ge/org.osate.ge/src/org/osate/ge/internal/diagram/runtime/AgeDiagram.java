@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.query.Queryable;
@@ -195,7 +195,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private EnumSet<ModifiableField> updates = EnumSet.noneOf(ModifiableField.class);
 		private DiagramElement removedElement;
 		private ArrayList<DiagramChange> changes = new ArrayList<>(); // Used for undoing the modification
-		private boolean inUndoOrRedo = false;
 
 		@Override
 		public void setDiagramConfiguration(final DiagramConfiguration config) {
@@ -325,7 +324,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea) {
+		public void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea,
+				final boolean updatedBendpoints) {
 			if (!Objects.equals(e.getPosition(), value)) {
 				// Determine the different between X and Y
 				final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
@@ -334,9 +334,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				e.setPosition(value);
 				afterUpdate(e, ModifiableField.POSITION);
 
-				// Don't perform settings triggered by setting the position during undo or redo. Such changes occur in an order that will result in erroneous
-				// values. If a value was changed during the original action, it will have its own entry in the change list.
-				if (!inUndoOrRedo && delta != null) {
+				// Only update dock area and bendpoints if position is being set to an actual value
+				if (delta != null) {
 					if (updateDockArea) {
 						// Update the dock area based on the position
 						final DockArea currentDockArea = e.getDockArea();
@@ -347,24 +346,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 						}
 					}
 
-					updateBendpointsForContainedConnections(e, delta.x, delta.y);
-				}
-			}
-		}
-
-		private void updateBendpointsForContainedConnections(final DiagramElement shapeDiagramElement, final double dx,
-				final double dy) {
-			for (final DiagramElement child : shapeDiagramElement.getDiagramElements()) {
-				if (child.getGraphic() instanceof AgeConnection) {
-					final List<Point> bendpoints = child.getBendpoints();
-					if (bendpoints.size() > 0) {
-						final List<Point> newBendpoints = bendpoints.stream().map((p) -> new Point(p.x + dx, p.y + dy))
-								.collect(Collectors.toList());
-						setBendpoints(child, newBendpoints);
+					if (updatedBendpoints) {
+						DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(AgeDiagram.this, Stream.of(e),
+								new Point(delta.x, delta.y),
+								this);
 					}
 				}
-
-				updateBendpointsForContainedConnections(child, dx, dy);
 			}
 		}
 
@@ -467,6 +454,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		private void completeModification() {
+
 			// Send any pending events
 			notifyListeners();
 
@@ -521,14 +509,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public void undoModification(final DiagramModification modification) {
 			if (modification instanceof AgeDiagramModification) {
-				try {
-					inUndoOrRedo = true;
-					final AgeDiagramModification modificationToUndo = ((AgeDiagramModification) modification);
-					for (final DiagramChange change : Lists.reverse(modificationToUndo.changes)) {
-						change.undo(this);
-					}
-				} finally {
-					inUndoOrRedo = false;
+				final AgeDiagramModification modificationToUndo = ((AgeDiagramModification) modification);
+				for (final DiagramChange change : Lists.reverse(modificationToUndo.changes)) {
+					change.undo(this);
 				}
 			}
 		}
@@ -536,14 +519,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public void redoModification(final DiagramModification modification) {
 			if (modification instanceof AgeDiagramModification) {
-				try {
-					inUndoOrRedo = true;
-					final AgeDiagramModification modificationToRedo = ((AgeDiagramModification) modification);
-					for (final DiagramChange change : modificationToRedo.changes) {
-						change.redo(this);
-					}
-				} finally {
-					inUndoOrRedo = false;
+				final AgeDiagramModification modificationToRedo = ((AgeDiagramModification) modification);
+				for (final DiagramChange change : modificationToRedo.changes) {
+					change.redo(this);
 				}
 			}
 		}
@@ -659,7 +637,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				break;
 
 			case POSITION:
-				m.setPosition(element, (Point) value);
+				// Don't update dock area or bendpoints during undo or redo. Such changes occur in an order that will result in erroneous
+				// values. If a value was changed during the original action, it will have its own entry in the change list.
+				m.setPosition(element, (Point) value, false, false);
 				break;
 
 			case SIZE:
