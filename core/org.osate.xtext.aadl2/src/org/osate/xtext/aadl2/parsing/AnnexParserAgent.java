@@ -35,13 +35,12 @@ package org.osate.xtext.aadl2.parsing;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -55,12 +54,12 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Mode;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexParseUtil;
@@ -75,15 +74,29 @@ import org.osate.xtext.aadl2.Activator;
 import antlr.RecognitionException;
 
 public class AnnexParserAgent extends LazyLinker {
-	private boolean standalone = false;
+	private static final boolean STANDALONE;
+	private static final AnnexParserRegistry PARSER_REGISTRY;
+	private static final AnnexResolverRegistry RESOLVER_REGISTRY;
+	private static final AnnexLinkingServiceRegistry LINKING_SERVICE_REGISTRY;
 
-	AnnexParserAgent() {
+	static {
+		boolean standalone = false;
+		AnnexParserRegistry parserRegistry = null;
+		AnnexResolverRegistry resolverRegistry = null;
+		AnnexLinkingServiceRegistry linkingServiceRegistry = null;
 		try {
-			AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+			parserRegistry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+			resolverRegistry = (AnnexResolverRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_RESOLVER_EXT_ID);
+			linkingServiceRegistry = (AnnexLinkingServiceRegistry) AnnexRegistry
+					.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
 		} catch (NoClassDefFoundError e) {
 			// we're running without osgi
 			standalone = true;
 		}
+		STANDALONE = standalone;
+		PARSER_REGISTRY = parserRegistry;
+		RESOLVER_REGISTRY = resolverRegistry;
+		LINKING_SERVICE_REGISTRY = linkingServiceRegistry;
 	}
 
 	/*
@@ -95,150 +108,138 @@ public class AnnexParserAgent extends LazyLinker {
 	@Override
 	protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 		// we can't process annexes in standalone mode yet
-		if (standalone) {
+		if (STANDALONE) {
 			return;
 		}
 
 		String filename = model.eResource().getURI().lastSegment();
 
-		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry
-				.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-		AnnexResolverRegistry resolverregistry = (AnnexResolverRegistry) AnnexRegistry
-				.getRegistry(AnnexRegistry.ANNEX_RESOLVER_EXT_ID);
-		AnnexLinkingServiceRegistry linkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
-				.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
-
 		if (model instanceof AadlPackage) {
 			// do this only for packages
 			List<DefaultAnnexLibrary> all = AnnexUtil.getAllDefaultAnnexLibraries((AadlPackage) model);
 			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
-				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
-				int line = node.getStartLine() + computeLineOffset(node);
-				int offset = AnnexUtil.getAnnexOffset(defaultAnnexLibrary);
-				// look for plug-in parser
-				String annexText = defaultAnnexLibrary.getSourceText();
-				String annexName = defaultAnnexLibrary.getName();
-				if (annexText != null && annexText.length() > 6 && annexName != null) {
-					// strip {** **}
-					if (annexText.startsWith("{**")) {
-						annexText = annexText.substring(3, annexText.length() - 3);
-					}
-					AnnexParser ap = registry.getAnnexParser(annexName);
-					try {
-						QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
-						parseErrReporter.setContextResource(model.eResource());
-						AnnexLibrary al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset,
-								parseErrReporter);
-						if (AnnexParseUtil.saveParseResult(defaultAnnexLibrary) == null) {
-							// Only consume messages for non-Xtext annexes
-							consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
-						}
-						if (al != null) {
-							al.setName(annexName);
-							defaultAnnexLibrary.setParsedAnnexLibrary(al);
+				ParserFunction<AnnexLibrary> parserFunction = AnnexParser::parseAnnexLibrary;
+				Consumer<AnnexLibrary> setParsedAnnexLibrary = defaultAnnexLibrary::setParsedAnnexLibrary;
+				Consumer<AnnexLibrary> copyModes = annexLibrary -> {
+				};
 
-							AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-							AnnexLinkingService linkingservice = linkingserviceregistry
-									.getAnnexLinkingService(annexName);
-							if (resolver != null && parseErrReporter.getNumErrors() == 0) {
-								QueuingParseErrorReporter resolveErrReporter = new QueuingParseErrorReporter();
-								AnalysisErrorReporterManager resolveErrManager = new AnalysisErrorReporterManager(
-										new AnalysisToParseErrorReporterAdapter.Factory(
-												aadlRsrc -> resolveErrReporter));
-								resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
-								consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
-								if (resolveErrReporter.getNumErrors() != 0) {
-									defaultAnnexLibrary.setParsedAnnexLibrary(null);
-								}
-							} else if (linkingservice != null) {
-								try {
-									Resource res = model.eResource();
-									ILinker linker = ((XtextResource) res).getLinker();
-									linker.linkModel(al, diagnosticsConsumer);
-								} catch (Exception e) {
-									String message = "Linking Service error in " + filename + " at line " + line;
-									IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
-									Activator.getDefault().getLog().log(status);
-								}
-							}
-						}
-					} catch (RecognitionException e) {
-						String message = "Major parsing error in " + filename + " at line " + line;
-						IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
-						Activator.getDefault().getLog().log(status);
-					}
-				}
+				processAnnexSection(defaultAnnexLibrary, defaultAnnexLibrary.getSourceText(), filename,
+						diagnosticsConsumer, parserFunction, setParsedAnnexLibrary, copyModes);
 			}
 		}
 		// do this for both packages and property sets
 		List<DefaultAnnexSubclause> asl = AnnexUtil.getAllDefaultAnnexSubclauses(model);
 		for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
+			ParserFunction<AnnexSubclause> parserFunction = AnnexParser::parseAnnexSubclause;
+			Consumer<AnnexSubclause> setParsedAnnexSubclause = defaultAnnexSubclause::setParsedAnnexSubclause;
+			Consumer<AnnexSubclause> copyModes = annexSubclause -> annexSubclause.getInModes()
+					.addAll(defaultAnnexSubclause.getInModes());
 
-			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
+			processAnnexSection(defaultAnnexSubclause, defaultAnnexSubclause.getSourceText(), filename,
+					diagnosticsConsumer, parserFunction, setParsedAnnexSubclause, copyModes);
+		}
+	}
 
-			if (node == null) {
-				OsateDebug.osateDebug("Annex not found for code: " + defaultAnnexSubclause.getSourceText());
-				continue;
+	/**
+	 * Used to indicate to
+	 * {@link AnnexParserAgent#processAnnexSection(NamedElement, String, String, IDiagnosticConsumer, ParserFunction, Consumer, Consumer)}
+	 * which of {@code parser}'s methods to call. Expected to be either
+	 * {@link AnnexParser#parseAnnexLibrary(String, String, String, int, int, ParseErrorReporter)} or
+	 * {@link AnnexParser#parseAnnexSubclause(String, String, String, int, int, ParseErrorReporter)}.
+	 * 
+	 * @param <A> The annex section type, either {@link AnnexLibrary} or {@link AnnexSubclause}.
+	 */
+	@FunctionalInterface
+	private interface ParserFunction<A extends NamedElement> {
+		A parse(AnnexParser parser, String annexName, String source, String filename, int line, int offset,
+				ParseErrorReporter errReporter) throws RecognitionException;
+	}
+
+	/**
+	 * Common functionality for processing either a {@link DefaultAnnexLibrary} or a {@link DefaultAnnexSubclause}.
+	 * Processing involves parsing the text, attaching the resulting {@link AnnexLibrary} or {@link AnnexSubclause} to
+	 * the {@link DefaultAnnexLibrary} or {@link DefaultAnnexSubclause}, setting the modes for the resulting
+	 * {@link AnnexSubclause}, and either running the resolver or the linking service, depending upon which one if
+	 * available. If the resolver produces errors, then the {@link AnnexLibrary} or {@link AnnexSubclause} will be
+	 * detached from the {@link DefaultAnnexLibrary} or {@link DefaultAnnexSubclause}. All error, warning, and info
+	 * messages that are produced from the parser, resolver, or linker will be passed along to
+	 * {@code diagnosticsConsumer}.
+	 * 
+	 * @param <A> Type of the resulting annex section. Expected to be {@link AnnexLibrary} or {@link AnnexSubclause}.
+	 * @param <D> Type of the default annex section. Expected to be {@link DefaultAnnexLibrary} or
+	 *            {@link DefaultAnnexSubclause}.
+	 * @param defaultAnnexSection Either the {@link DefaultAnnexLibrary} or {@link DefaultAnnexSubclause}.
+	 * @param annexText Either the value of {@link DefaultAnnexLibrary#getSourceText()} or
+	 *                  {@link DefaultAnnexSubclause#getSourceText()}.
+	 * @param filename Name of the AADL file containing the annex section.
+	 * @param diagnosticsConsumer Used for handling error, warning, and info messages.
+	 * @param parserFunction Either
+	 *                       {@link AnnexParser#parseAnnexLibrary(String, String, String, int, int, ParseErrorReporter)}
+	 *                       or
+	 *                       {@link AnnexParser#parseAnnexSubclause(String, String, String, int, int, ParseErrorReporter)}.
+	 * @param setParsedAnnexSection Either {@link DefaultAnnexLibrary#setSourceText(String)} or
+	 *                              {@link DefaultAnnexSubclause#setSourceText(String)}.
+	 * @param copyModes Function for copying modes from the {@link DefaultAnnexSubclause} into the newly created
+	 *                  {@link AnnexSubclause}. When processing an annex library, {@code copyModes} is expected to be a
+	 *                  no-op {@link Consumer}.
+	 */
+	private <A extends NamedElement, D extends A> void processAnnexSection(D defaultAnnexSection, String annexText,
+			String filename, IDiagnosticConsumer diagnosticsConsumer, ParserFunction<A> parserFunction,
+			Consumer<A> setParsedAnnexSection, Consumer<A> copyModes) {
+		INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSection);
+		int line = node.getStartLine() + computeLineOffset(node);
+		int offset = AnnexUtil.getAnnexOffset(defaultAnnexSection);
+		// look for plug-in parser
+		String annexName = defaultAnnexSection.getName();
+		if (annexText != null && annexText.length() > 6 && annexName != null) {
+			// strip {** **}
+			if (annexText.startsWith("{**")) {
+				annexText = annexText.substring(3, annexText.length() - 3);
 			}
-			int offset = node.getOffset();
-			int line = node.getStartLine() + computeLineOffset(node);
-			offset = AnnexUtil.getAnnexOffset(defaultAnnexSubclause);
-			// look for plug-in parser
-			String annexText = defaultAnnexSubclause.getSourceText();
-			String annexName = defaultAnnexSubclause.getName();
-			if (annexText != null && annexText.length() > 6 && annexName != null) {
-				// strip {** **}
-				if (annexText.startsWith("{**")) {
-					annexText = annexText.substring(3, annexText.length() - 3);
+			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
+			try {
+				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
+				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
+				A annexSection = parserFunction.parse(ap, annexName, annexText, filename, line, offset,
+						parseErrReporter);
+				if (AnnexParseUtil.saveParseResult(defaultAnnexSection) == null) {
+					// Only consume messages for non-Xtext annexes
+					consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
 				}
-				AnnexParser ap = registry.getAnnexParser(annexName);
-				try {
-					QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
-					parseErrReporter.setContextResource(model.eResource());
-					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
-							parseErrReporter);
-					if (AnnexParseUtil.saveParseResult(defaultAnnexSubclause) == null) {
-						// Only consume messages for non-Xtext annexes
-						consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
-					}
-					if (asc != null) {
-						asc.setName(annexName);
-						defaultAnnexSubclause.setParsedAnnexSubclause(asc);
-						// copy in modes list
-						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
-						for (Mode mode : inmodelist) {
-							asc.getInModes().add(mode);
-						}
+				if (annexSection != null) {
+					annexSection.setName(annexName);
+					setParsedAnnexSection.accept(annexSection);
+					// copy in modes list
+					copyModes.accept(annexSection);
 
-						// now resolve reference so we get messages if we have references to undefined items
-						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-						if (resolver != null && parseErrReporter.getNumErrors() == 0) {// Don't resolve any annex with parsing error.)
-							QueuingParseErrorReporter resolveErrReporter = new QueuingParseErrorReporter();
-							AnalysisErrorReporterManager resolveErrManager = new AnalysisErrorReporterManager(
-									new AnalysisToParseErrorReporterAdapter.Factory(aadlRsrc -> resolveErrReporter));
-							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
-							consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
-							if (resolveErrReporter.getNumErrors() != 0) {
-								defaultAnnexSubclause.setParsedAnnexSubclause(null);
-							}
-						} else if (linkingservice != null) {
-							try {
-								Resource res = model.eResource();
-								ILinker linker = ((XtextResource) res).getLinker();
-								linker.linkModel(asc, diagnosticsConsumer);
-							} catch (Exception e) {
-								String message = "Linking Service error in " + filename + " at line " + line;
-								IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
-								Activator.getDefault().getLog().log(status);
-							}
+					// now resolve reference so we get messages if we have references to undefined items
+					AnnexResolver resolver = RESOLVER_REGISTRY.getAnnexResolver(annexName);
+					AnnexLinkingService linkingService = LINKING_SERVICE_REGISTRY.getAnnexLinkingService(annexName);
+					if (resolver != null && parseErrReporter.getNumErrors() == 0) {// Don't resolve any annex with parsing errors.
+						QueuingParseErrorReporter resolveErrReporter = new QueuingParseErrorReporter();
+						AnalysisErrorReporterManager resolveErrManager = new AnalysisErrorReporterManager(
+								new AnalysisToParseErrorReporterAdapter.Factory(aadlRsrc -> resolveErrReporter));
+						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
+						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
+						if (resolveErrReporter.getNumErrors() != 0) {
+							setParsedAnnexSection.accept(null);
+						}
+					} else if (linkingService != null) {
+						try {
+							XtextResource res = (XtextResource) defaultAnnexSection.eResource();
+							ILinker linker = res.getLinker();
+							linker.linkModel(annexSection, diagnosticsConsumer);
+						} catch (Exception e) {
+							String message = "Linking Service error in " + filename + " at line " + line;
+							IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
+							Activator.getDefault().getLog().log(status);
 						}
 					}
-				} catch (RecognitionException e) {
-					String message = "Major parsing error in " + filename + " at line " + line;
-					IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
-					Activator.getDefault().getLog().log(status);
 				}
+			} catch (RecognitionException e) {
+				String message = "Major parsing error in " + filename + " at line " + line;
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
+				Activator.getDefault().getLog().log(status);
 			}
 		}
 	}
