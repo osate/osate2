@@ -1715,7 +1715,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		EList<Mode> flowModes = flow.getAllInModes();
 		if (flowModes.isEmpty()) {
-			flowModes = flow.getContainingComponentImpl().getAllModes();
+			flowModes = flow.getSpecification().getAllInModes();
+		}
+		if (flowModes.isEmpty()) {
+			return;
 		}
 		for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
 			if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
@@ -2011,7 +2014,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (subcomponentRefinement != null) {
 						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
 						if (subcomponentModes.isEmpty()) {
-							subcomponentModes = componentImplementation.getAllModes();
+							continue;
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
