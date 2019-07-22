@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?NLS TYPE="org.eclipse.help.contexts"?>
 <contexts>
-   <context id="mycontexthelpid">
+   <context id="end_to_end_fs_tool_id">
        <description>Creating End-To-End Flow Specifications</description>
        <topic label="Creating End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-end-to-end-flow-specifications"/>
+   </context>
+   <context id="properties_view_id">
+       <description>Properties View</description>
+       <topic label="Properties View" href="docs-gen/user_guide.html#sec:properties_view"/>
    </context>
 </contexts>

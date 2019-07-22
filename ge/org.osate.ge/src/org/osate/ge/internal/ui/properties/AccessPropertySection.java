@@ -14,7 +14,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Access;
@@ -51,9 +50,15 @@ public class AccessPropertySection extends AbstractPropertySection {
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
-		composite.addHelpListener(e -> {
-			PlatformUI.getWorkbench().getHelpSystem()
-					.displayHelp(Activator.PLUGIN_ID + ".doc." + "mycontexthelpid");
+		aTabbedPropertySheetPage.getControl().addHelpListener(e -> {
+			System.err.println(this.getClass().getSimpleName() + " getSimpleNameAA");
+			Activator.showHelp(Activator.getHelpContext(this.getClass().getSimpleName()));
+		});
+		System.err.println(parent + " parent");
+		System.err.println(parent.getParent() + " getparent");
+		parent.getParent().addHelpListener(e -> {
+			System.err.println(this.getClass().getSimpleName() + " getSimpleNameBB");
+			Activator.showHelp(Activator.getHelpContext(this.getClass().getSimpleName()));
 		});
 
 		final Composite directionContainer = InternalPropertySectionUtil.createRowLayoutComposite(getWidgetFactory(),

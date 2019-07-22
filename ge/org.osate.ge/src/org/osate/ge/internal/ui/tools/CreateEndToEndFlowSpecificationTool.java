@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
@@ -68,6 +67,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService, final NamingService namingService) {
+
 		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
@@ -434,10 +434,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		final HelpListener helpListener = e -> {
-			// PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(
-			// "/org.osate.ge.doc/docs-gen/user_guide.html#creating-end-to-end-flow-specifications");
-			// showHelp("user_guide.html#creating-end-to-end-flow-specifications");
-			showHelp("mycontexthelpid");
+			Activator.showHelp(Activator.getHelpContext(this.getClass().getDeclaringClass().getSimpleName()));
 		};
 
 		@Override
@@ -445,23 +442,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			super.create();
 			setTitle("Select Elements");
 			setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
-			/*
-			 * PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(),
-			 * Activator.PLUGIN_ID + ".doc." + "mycontexthelpid");
-			 */
-			// PlatformUI.getWorkbench().getHelpSystem().setHelp(action, helpContextId);
 			getShell().addHelpListener(helpListener);
-		}
-
-
-		// MOVE TO UTIL
-		public void showHelp(final String mycontexthelpid) {
-			// PlatformUI.getWorkbench().getHelpSystem().setHelp(shell, Activator.PLUGIN_ID + ".doc." + mycontexthelpid);
-			// PlatformUI.getWorkbench().getHelpSystem()
-			// .displayHelpResource("/" + Activator.PLUGIN_ID + ".doc/docs-gen/" + mycontexthelpid);
-			// System.err.println(Activator.PLUGIN_ID + ".doc." + mycontexthelpid);
-			PlatformUI.getWorkbench().getHelpSystem()
-			.displayHelp(Activator.PLUGIN_ID + ".doc." + mycontexthelpid);
 		}
 
 		@Override
