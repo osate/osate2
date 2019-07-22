@@ -622,18 +622,18 @@ class ElkGraphBuilder {
 					final ElkConnectableShape start = edgeStart;
 					final ElkConnectableShape end = edgeEnd;
 
-					final ElkEdge newEdge = ElkGraphUtil.createSimpleEdge(start, end);
-					// Ensure the edge has at least one section. Fixes NPE that can occur when laying out connections
-					// with the same source and destination port.
-					ElkGraphUtil.createEdgeSection(newEdge);
-
 					// As of ELK 0.3.0 and 2018-02-26, an exception will be thrown when using a self loop with fixed ports which are on the same side.
 					// See https://github.com/eclipse/elk/issues/297
 					// As of ELK 0.3.0 and 2018-02-26, an exception will be thrown in certain cases where a self loop references a south/north port.
 					// See https://github.com/eclipse/elk/issues/298
 					boolean insideSelfLoopsYo = true;
+
+					boolean isSelfLoop = false;
+
 					if (start instanceof ElkPort && end instanceof ElkPort) {
 						if (start.eContainer() == end.eContainer()) {
+							isSelfLoop = true;
+
 							final PortSide startSide = start.getProperty(CoreOptions.PORT_SIDE);
 							final PortSide endSide = end.getProperty(CoreOptions.PORT_SIDE);
 							if (startSide == endSide || startSide == PortSide.NORTH || startSide == PortSide.SOUTH
@@ -648,6 +648,19 @@ class ElkGraphBuilder {
 					if (start == end) {
 						insideSelfLoopsYo = false;
 					}
+
+					// ELK 0.5.0 includes a bug that can cause an exception when laying out self loops. To work around this issue, we disable routing of such
+					// connections
+					// See https://github.com/osate/osate2/issues/1911
+					// Disable layout of edges that are a self loop
+					if (isSelfLoop) {
+						continue;
+					}
+
+					final ElkEdge newEdge = ElkGraphUtil.createSimpleEdge(start, end);
+					// Ensure the edge has at least one section. Fixes NPE that can occur when laying out connections
+					// with the same source and destination port.
+					ElkGraphUtil.createEdgeSection(newEdge);
 
 					newEdge.setProperty(CoreOptions.INSIDE_SELF_LOOPS_YO, insideSelfLoopsYo);
 					mapping.getGraphMap().put(newEdge, de);
