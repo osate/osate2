@@ -24,7 +24,7 @@ public class DistributeVerticallyHandler extends AbstractHandler {
 			throw new RuntimeException("Unable to get diagram");
 		}
 
-		diagram.modify("Distribute Horizontally", m -> {
+		diagram.modify("Distribute Vertically", m -> {
 			selectedDiagramElements.sort(YValueComparator);
 
 			// Distribute the shapes horizontally
