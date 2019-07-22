@@ -10,11 +10,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
@@ -23,7 +20,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -53,8 +49,8 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
@@ -183,30 +179,6 @@ public class ClassifierHandler {
 		return containerIsValidBaseClassifier;
 	}
 
-	/**
-	 * Return a list of EObjectDescriptions for classifiers that would be valid "base" classifiers for the current classifierType.
-	 * A "base" classifier is one that will be implemented or extended.
-	 * Assumes classifier type is a type of component implementation.
-	 * @return
-	 */
-	private static List<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
-			final EClass implementationClass) {
-		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
-			// Add objects that have are either types or implementations of the same category as the classifier type
-			for (final EClass superType : implementationClass.getESuperTypes()) {
-				if (!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
-					if (superType.isSuperTypeOf(desc.getEClass())) {
-						objectDescriptions.add(desc);
-						break;
-					}
-				}
-			}
-		}
-
-		return objectDescriptions;
-	}
-
 	@BuildCreateOperation
 	public Operation buildCreateOperation(@Named(Names.TARGET_BO) final EObject targetBo,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) PaletteEntryContext paletteEntryContext,
@@ -280,16 +252,16 @@ public class ClassifierHandler {
 			// Create the primary operation part
 			//
 			final ClassifierOperationPartType primaryType;
-			final ComponentCategory primaryCompoinentCategory;
+			final ComponentCategory primaryComponentCategory;
 			if (paletteEntryContext instanceof FeatureGroupPaletteEntryContext) {
 				primaryType = ClassifierOperationPartType.NEW_FEATURE_GROUP_TYPE;
-				primaryCompoinentCategory = null;
+				primaryComponentCategory = null;
 			} else if (paletteEntryContext instanceof ComponentPaletteEntryContext) {
 				final ComponentPaletteEntryContext componentPaletteEntryContext = (ComponentPaletteEntryContext) paletteEntryContext;
 				primaryType = componentPaletteEntryContext.isComponentImplementation()
 						? ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION
 								: ClassifierOperationPartType.NEW_COMPONENT_TYPE;
-				primaryCompoinentCategory = componentPaletteEntryContext.componentCategory;
+				primaryComponentCategory = componentPaletteEntryContext.componentCategory;
 			} else {
 				throw new RuntimeException("Unsupported palette entry context: " + paletteEntryContext);
 			}
@@ -312,7 +284,7 @@ public class ClassifierHandler {
 			final String primaryIdentifier = nameSegments[nameSegments.length - 1];
 
 			final ClassifierOperationPart configuredPrimaryOperation = ClassifierOperationPart
-					.createCreation(primaryType, pkg, primaryIdentifier, primaryCompoinentCategory);
+					.createCreation(primaryType, pkg, primaryIdentifier, primaryComponentCategory);
 
 			return new ClassifierOperation(configuredPrimaryOperation, basePart);
 		} else {
@@ -327,15 +299,13 @@ public class ClassifierHandler {
 
 				@Override
 				public Collection<?> getPackageOptions() {
-					return ScopedEMFIndexRetrieval
-							.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())
-							.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
-							.collect(Collectors.toList());
+					return AadlHelper.getEditablePackages(project);
 				}
 
 				@Override
 				public Collection<?> getBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
-					return getValidBaseClassifierDescriptions(project, classifierType);
+					return AadlClassifierUtil.getValidBaseClassifierDescriptions(project,
+							componentPaletteEntryCtx.componentCategory, true);
 				}
 
 				@Override

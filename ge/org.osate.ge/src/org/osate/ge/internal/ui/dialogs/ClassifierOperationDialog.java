@@ -336,7 +336,6 @@ public class ClassifierOperationDialog {
 		private void validate() {
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
 
-			// TODO: Review error message and message generation... Behavior has changed. Show prop message on initial state.
 			if(okBtn != null) {
 				final String errorMsg = args.model.validate(createResult());
 				setErrorMessage(errorMsg);
