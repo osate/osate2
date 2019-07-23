@@ -46,10 +46,10 @@ public
 					flows
 						dw: error path txt{ClPass} -> cleantxt{ClPass};
 --						vc: error path txt{VCSet} -> cleantxt{VCSet}; --maps fail to fail,pass
---						vcnpp: error path txt -> cleantxt {VCSet};
+						vcnpp: error path txt{ClPass,VCSet}-> cleantxt;
 --						vcnff: error path txt -> cleantxt {VCFail};
-						vcp: error path txt{VCPass} -> cleantxt{VCPass};
-						vcf: error path txt{VCFail} -> cleantxt{VCFail};
+--						vcp: error path txt{VCPass} -> cleantxt{VCPass};
+--						vcf: error path txt{VCFail} -> cleantxt{VCFail};
 						dwsink: error sink txt{ClFail};
 				end propagations;
 			**};
@@ -66,7 +66,6 @@ public
 					vcedtxt: out propagation {VCPass,ClSet};
 					flows
 						vc: error path txt{VCPass} -> vcedtxt{VCPass};
---						cl: error path txt{ClSet} -> vcedtxt{ClSet};
 						clp: error path txt{ClPass} -> vcedtxt{ClPass};
 						clf: error path txt{ClFail} -> vcedtxt{ClFail};
 						vcsink: error sink txt{VCFail};
