@@ -59,6 +59,7 @@ class FTATest  {
 	var static SystemInstance instanceIssue1882
 	var static SystemInstance instanceIssue1893
 	var static SystemInstance instanceIssue1913
+	var static SystemInstance instanceIssue1915
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -94,6 +95,7 @@ class FTATest  {
 			val HardwarePartsFile = "HardwareParts.aadl"
 			val EMTypesFile = "EMTypes.aadl"
 			val ScrubbedTSFile = "ScrubbedTS.aadl"
+			val ScrubbedClFile = "ScrubbedCl.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -126,7 +128,8 @@ class FTATest  {
 				modelroot + GPSPartsFile,
 				modelroot + GPSSystemFile,
 				modelroot + EMTypesFile,
-				modelroot + ScrubbedTSFile
+				modelroot + ScrubbedTSFile,
+				modelroot + ScrubbedClFile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -153,6 +156,7 @@ class FTATest  {
 			instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
 			instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
 			instanceIssue1913 = instanceGenerator(modelroot + ScrubbedTSFile, "top.vccl")
+			instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -897,6 +901,16 @@ class FTATest  {
 	def void issue1913Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1913, "outgoing propagation on effect{Bad}")
 		assertEquals(ft.events.size, 1)
+	}
+
+	@Test
+	def void issue1915Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1915, "outgoing propagation on effect{Bad}")
+		assertEquals(ft.events.size, 2)
+		val faultsource = ft.root.subEvents.get(0)
+		assertEquals((faultsource.relatedEMV2Object as NamedElement).name, "d")
+		val et = faultsource.relatedErrorType
+		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
 	}
 	
 }
