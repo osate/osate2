@@ -110,7 +110,7 @@ public class PropagationGraphBackwardTraversal {
 			st.setVisitToken(tt);
 		}
 
-		boolean encounteredCycle = false;
+		boolean pruneGraph = false;
 
 		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
 		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
@@ -127,8 +127,12 @@ public class PropagationGraphBackwardTraversal {
 						&& EMV2TypeSetUtil.contains(opc.getTypeToken(), type)) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, type, handledEOPs,
 							scale);
-					if (res != null) {
+					if (res == foundCycle) {
+						pruneGraph = true;
+					} else if (res != null) {
 						subResults.add(res);
+					} else {
+						pruneGraph = true;
 					}
 				}
 			}
@@ -145,9 +149,11 @@ public class PropagationGraphBackwardTraversal {
 					// if not already handled by a opc
 					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
 					if (res == foundCycle) {
-						encounteredCycle = true;
+						pruneGraph = true;
 					} else if (res != null) {
 						subResults.add(res);
+					} else {
+						pruneGraph = true;
 					}
 				}
 			}
@@ -195,9 +201,11 @@ public class PropagationGraphBackwardTraversal {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
 													newtype, newscale);
 											if (newEvent == foundCycle) {
-												encounteredCycle = true;
+												pruneGraph = true;
 											} else if (newEvent != null) {
 												subResults.add(newEvent);
+											} else {
+												pruneGraph = true;
 											}
 										}
 
@@ -205,9 +213,11 @@ public class PropagationGraphBackwardTraversal {
 										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
 												newtype, newscale);
 										if (newEvent == foundCycle) {
-											encounteredCycle = true;
+											pruneGraph = true;
 										} else if (newEvent != null) {
 											subResults.add(newEvent);
+										} else {
+											pruneGraph = true;
 										}
 									}
 								}
@@ -225,9 +235,11 @@ public class PropagationGraphBackwardTraversal {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
 													newscale);
 											if (newEvent == foundCycle) {
-												encounteredCycle = true;
+												pruneGraph = true;
 											} else if (newEvent != null) {
 												subResults.add(newEvent);
+											} else {
+												pruneGraph = true;
 											}
 										}
 									}
@@ -242,9 +254,11 @@ public class PropagationGraphBackwardTraversal {
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
 												newscale);
 										if (newEvent == foundCycle) {
-											encounteredCycle = true;
+											pruneGraph = true;
 										} else if (newEvent != null) {
 											subResults.add(newEvent);
+										} else {
+											pruneGraph = true;
 										}
 									}
 								}
@@ -267,8 +281,12 @@ public class PropagationGraphBackwardTraversal {
 					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
 						if (EMV2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
 							EObject newEvent = processErrorSource(component, errorSource, type, scale);
-							if (newEvent != null) {
+							if (newEvent == foundCycle) {
+								pruneGraph = true;
+							} else if (newEvent != null) {
 								subResults.add(newEvent);
+							} else {
+								pruneGraph = true;
 							}
 						}
 					}
@@ -279,7 +297,7 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		if (encounteredCycle) {
+		if (pruneGraph) {
 			return null;
 		}
 		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
@@ -872,7 +890,7 @@ public class PropagationGraphBackwardTraversal {
 		} else {
 			st.setVisitToken(tt);
 		}
-		boolean encounteredCycle = false;
+		boolean pruneGraph = false;
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
@@ -882,8 +900,13 @@ public class PropagationGraphBackwardTraversal {
 				// the type constraint has to come from the error source as the connection does not have one
 				if (ces != null && EMV2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
 					EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type, scale);
-					if (result != null) {
+					if (result == foundCycle) {
+						pruneGraph = true;
+					} else if (result != null) {
 						subResults.add(result);
+					} else {
+						// error source exists but type is not propagated
+						pruneGraph = true;
 					}
 				}
 				ComponentInstance contextCI = ppr.getConnection().getComponentInstance();
@@ -898,9 +921,12 @@ public class PropagationGraphBackwardTraversal {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype,
 								scale);
 						if (result == foundCycle) {
-							encounteredCycle = true;
+							pruneGraph = true;
 						} else if (result != null) {
 							subResults.add(result);
+						} else {
+							// propagation path exists but type is not propagated
+							pruneGraph = true;
 						}
 					} else {
 						EList<TypeToken> ttlist = EMV2TypeSetUtil.flattenTypesetElements((TypeSet) newtype,
@@ -912,9 +938,12 @@ public class PropagationGraphBackwardTraversal {
 								EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
 										ntype, scale);
 							if (result == foundCycle) {
-								encounteredCycle = true;
+								pruneGraph = true;
 							} else if (result != null) {
 								subResults.add(result);
+							} else {
+								// propagation path exists but type is not propagated
+								pruneGraph = true;
 							}
 						}
 					}
@@ -929,16 +958,24 @@ public class PropagationGraphBackwardTraversal {
 					// we have an external incoming propagation
 					EObject result = processIncomingErrorPropagation(componentSource, propagationSource, srctype,
 							scale);
-					if (result != null) {
+					if (result == foundCycle) {
+						pruneGraph = true;
+					} else if (result != null) {
 						subResults.add(result);
+					} else {
+						// propagation path exists but type is not propagated
+						pruneGraph = true;
 					}
 				} else {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
 								scale);
 					if (result == foundCycle) {
-						encounteredCycle = true;
+						pruneGraph = true;
 					} else if (result != null) {
 						subResults.add(result);
+					} else {
+						// propagation path exists but type is not propagated
+						pruneGraph = true;
 					}
 				}
 			} else {
@@ -954,14 +991,20 @@ public class PropagationGraphBackwardTraversal {
 								scale);
 						if (result != null) {
 							subResults.add(result);
+						} else {
+							// propagation path exists but type is not propagated
+							pruneGraph = true;
 						}
 					} else {
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
 						if (result == foundCycle) {
-							encounteredCycle = true;
+							pruneGraph = true;
 						} else if (result != null) {
 							subResults.add(result);
+						} else {
+							// propagation path exists but type is not propagated
+							pruneGraph = true;
 						}
 					}
 				}
@@ -971,9 +1014,10 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
-		if (encounteredCycle) {
+		if (pruneGraph) {
 			return null;
 		}
+		// we have no subresults and did not prune. Allow handling of incoming propagation as endpoint of traversal
 		return processIncomingErrorPropagation(component, errorPropagation, type, scale);
 	}
 
