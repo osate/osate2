@@ -250,6 +250,7 @@ public class PropagationGraphBackwardTraversal {
 								TypeSet matchtype = ep.getTypeTokenConstraint();
 								if (matchtype == null) {
 									matchtype = inep.getTypeSet();
+								}
 									if (EMV2TypeSetUtil.contains(matchtype, type)) {
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
 												newscale);
@@ -261,7 +262,6 @@ public class PropagationGraphBackwardTraversal {
 											pruneGraph = true;
 										}
 									}
-								}
 							}
 						}
 					}
