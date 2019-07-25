@@ -119,17 +119,4 @@ users can assign an Integer value (numeric value without decimal point)
 to a *constant* of type Real. Similarly, addition of an Integer value
 and a Real value results in a Real value.
 
-Built-in functions: the
-following built-in functions are supported
 
-* *min*, *max*: minimum or maximum value of a range
-
-* *abs*: absolute value
-
-* *floor*, *ceil*, *round*: next lower, higher, closest Integer value
-for a given Real value
-
-Two functions have been provided experimentally: *prev* for referring to
-the previous value, and *atTime* for
-referring to a value at time *x* (second
-parameter).

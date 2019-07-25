@@ -427,147 +427,147 @@ rule FunctionCall
 	G |- AFunctionCall call : PropertyType type
 from {
 	switch (call.function) {
-		case 'min', case 'max': {
-			call.arguments.size >= 1 
-			or {
-				fail
-					error call.function + ' must have at least one argument'
-					source call
-			}
-			val unitsType = {
-					G |- call.arguments.get(0) : var PropertyType t
-					if (t instanceof NumberType) {
-						t.unitsType
-					} else if (t instanceof RangeType) {
-						t.numberType.unitsType
-					}
-			} 
-			call.arguments.forEach [arg |
-				G |- arg : var PropertyType argType
-				switch (argType) {
-					AadlReal: {
-						if (argType.unitsType !== unitsType) {
-							fail
-								error 'typing: all arguments must have the same units type'
-								source arg
-						}
-					}
-					AadlInteger: {
-						if (argType.unitsType !== unitsType) {
-							fail
-								error 'typing: all arguments must have the same units type'
-								source arg
-						}
-					}
-					RangeType: {
-						if (argType.numberType.unitsType !== unitsType) {
-							fail
-								error 'typing: all arguments must have the same units type'
-								source arg
-						}
-					}
-					default: {
-						fail
-					  	error 'typing: argument must be numeric or a range'
-					  	source arg
-					}
-				}
-			]
-			val allInt =
-					call.arguments.forall [arg |
-						G |- arg : var PropertyType argType
-						switch (argType) {
-							AadlReal: false
-							AadlInteger: true
-							RangeType: argType.numberType instanceof AadlInteger
-							default: false
-						}
-					]
-			type = if (allInt) Aadl2Factory.eINSTANCE.createAadlInteger else Aadl2Factory.eINSTANCE.createAadlReal;
-			(type as NumberType).referencedUnitsType = unitsType
-		}
-		case 'abs': {
-			call.arguments.size === 1 
-			or {
-				fail
-					error 'abs must have one argument'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			if (!(argType instanceof NumberType)) {
-				fail
-			  	error 'typing: argument must be numeric'
-			  	source arg
-			}
-			type = argType				
-		}
-		case 'floor', case 'ceil', case 'round': {
-			call.arguments.size === 1 
-			or {
-				fail
-					error 'abs must have one argument'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			if (argType instanceof NumberType) {
-				type = Aadl2Factory.eINSTANCE.createAadlInteger;				
-				(type as NumberType).referencedUnitsType = argType.unitsType
-			} else {
-				fail
-			  	error 'typing: argument must be numeric'
-			  	source arg
-			}
-		}
-		case 'prev': {
-			call.arguments.size === 1 
-			or {
-				fail
-					error 'abs must have one argument'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			if (argType instanceof NumberType) {
-				type = argType
-			} else {
-				fail
-			  	error 'typing: argument must be numeric'
-			  	source arg
-			}
-		}
-		case 'atTime': {
-			call.arguments.size === 2 
-			or {
-				fail
-					error 'abs must have two arguments'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			val time = call.arguments.get(1)
-			G |- time : var PropertyType timeType
-			if (argType instanceof NumberType) {
-				type = argType
-			} else {
-				fail
-			  	error 'typing: first argument must be numeric'
-			  	source arg
-			}
-			if (timeType instanceof NumberType) {
-				if ( timeType.unitsType.name !== 'Time_Units') {
-				fail
-			  	error 'typing: second argument must have Time units'
-			  	source arg
-			}
-			} else {
-				fail
-			  	error 'typing: second argument must be numeric'
-			  	source arg
-			}
-			
-		}
+//		case 'min', case 'max': {
+//			call.arguments.size >= 1 
+//			or {
+//				fail
+//					error call.function + ' must have at least one argument'
+//					source call
+//			}
+//			val unitsType = {
+//					G |- call.arguments.get(0) : var PropertyType t
+//					if (t instanceof NumberType) {
+//						t.unitsType
+//					} else if (t instanceof RangeType) {
+//						t.numberType.unitsType
+//					}
+//			} 
+//			call.arguments.forEach [arg |
+//				G |- arg : var PropertyType argType
+//				switch (argType) {
+//					AadlReal: {
+//						if (argType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					AadlInteger: {
+//						if (argType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					RangeType: {
+//						if (argType.numberType.unitsType !== unitsType) {
+//							fail
+//								error 'typing: all arguments must have the same units type'
+//								source arg
+//						}
+//					}
+//					default: {
+//						fail
+//					  	error 'typing: argument must be numeric or a range'
+//					  	source arg
+//					}
+//				}
+//			]
+//			val allInt =
+//					call.arguments.forall [arg |
+//						G |- arg : var PropertyType argType
+//						switch (argType) {
+//							AadlReal: false
+//							AadlInteger: true
+//							RangeType: argType.numberType instanceof AadlInteger
+//							default: false
+//						}
+//					]
+//			type = if (allInt) Aadl2Factory.eINSTANCE.createAadlInteger else Aadl2Factory.eINSTANCE.createAadlReal;
+//			(type as NumberType).referencedUnitsType = unitsType
+//		}
+//		case 'abs': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var PropertyType argType
+//			if (!(argType instanceof NumberType)) {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//			type = argType				
+//		}
+//		case 'floor', case 'ceil', case 'round': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var PropertyType argType
+//			if (argType instanceof NumberType) {
+//				type = Aadl2Factory.eINSTANCE.createAadlInteger;				
+//				(type as NumberType).referencedUnitsType = argType.unitsType
+//			} else {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//		}
+//		case 'prev': {
+//			call.arguments.size === 1 
+//			or {
+//				fail
+//					error 'abs must have one argument'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var PropertyType argType
+//			if (argType instanceof NumberType) {
+//				type = argType
+//			} else {
+//				fail
+//			  	error 'typing: argument must be numeric'
+//			  	source arg
+//			}
+//		}
+//		case 'atTime': {
+//			call.arguments.size === 2 
+//			or {
+//				fail
+//					error 'abs must have two arguments'
+//					source call
+//			}
+//			val arg = call.arguments.get(0)
+//			G |- arg : var PropertyType argType
+//			val time = call.arguments.get(1)
+//			G |- time : var PropertyType timeType
+//			if (argType instanceof NumberType) {
+//				type = argType
+//			} else {
+//				fail
+//			  	error 'typing: first argument must be numeric'
+//			  	source arg
+//			}
+//			if (timeType instanceof NumberType) {
+//				if ( timeType.unitsType.name !== 'Time_Units') {
+//				fail
+//			  	error 'typing: second argument must have Time units'
+//			  	source arg
+//			}
+//			} else {
+//				fail
+//			  	error 'typing: second argument must be numeric'
+//			  	source arg
+//			}
+//			
+//		}
 		default: {
 			if (InterpreterUtil.instance.methodExists(call.function) !== null) {
 			fail
