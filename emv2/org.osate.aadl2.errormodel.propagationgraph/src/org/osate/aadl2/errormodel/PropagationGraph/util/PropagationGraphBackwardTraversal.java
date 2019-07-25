@@ -103,11 +103,11 @@ public class PropagationGraphBackwardTraversal {
 		}
 		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
 		tt.getType().add(type);
-		if (st.visited(tt)) {
+		if (st.visited(errorPropagation, tt)) {
 			// we were there before.
 			return foundCycle;
 		} else {
-			st.setVisitToken(tt);
+			st.setVisitToken(errorPropagation, tt);
 		}
 
 		boolean encounteredCycle = false;
@@ -275,7 +275,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		st.removeVisitedToken(tt);
+		st.removeVisitedToken(errorPropagation, tt);
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
@@ -866,11 +866,11 @@ public class PropagationGraphBackwardTraversal {
 		}
 		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
 		tt.getType().add(type);
-		if (st.visited(tt)) {
+		if (st.visited(errorPropagation, tt)) {
 			// we were there before.
 			return foundCycle;
 		} else {
-			st.setVisitToken(tt);
+			st.setVisitToken(errorPropagation, tt);
 		}
 		boolean encounteredCycle = false;
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
@@ -967,7 +967,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		st.removeVisitedToken(tt);
+		st.removeVisitedToken(errorPropagation, tt);
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
 		}
