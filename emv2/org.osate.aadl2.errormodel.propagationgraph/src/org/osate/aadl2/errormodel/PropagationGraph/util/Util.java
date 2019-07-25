@@ -99,9 +99,6 @@ public class Util {
 	protected static void populateConnectionPropagationPaths(PropagationGraph pg,
 			ConnectionInstance connectionInstance) {
 		SystemOperationMode som = connectionInstance.getSystemInstance().getCurrentSystemOperationMode();
-		if (!connectionInstance.isActive(som)) {
-			return;
-		}
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) {
 			return;
@@ -119,9 +116,6 @@ public class Util {
 		// i.e., we only have outgoing propagations.
 		boolean outonly = (last.getDestination().getComponentInstance() == last.getContext());
 		for (ConnectionReference connectionReference : connrefs) {
-			if (!connectionReference.isActive(som)) {
-				continue;
-			}
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
 			// remember the first (lowest in the hierarchy) src component
@@ -188,9 +182,6 @@ public class Util {
 			dstCI = null;
 			for (int i = connrefs.size() - 1; i >= 0; i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
-				if (!connectionReference.isActive(som)) {
-					continue;
-				}
 				ConnectionInstanceEnd dst = connectionReference.getSource();
 				ConnectionInstanceEnd src = connectionReference.getDestination();
 				if (srcprop == null) {
