@@ -47,7 +47,7 @@ Operators in increasing precedence order in ReqSpec expressions
 
 * *Equality*: **==** **!=** 
 
-* *Relational*: **&lt;** **&lt;=**, **&gt;**, **&gt;=** for &lt;numeric&gt;, &lt;range&gt;
+* *Relational*: **&lt;** **&lt;=**, **&gt;**, **&gt;=** for &lt;numeric&gt; **in** for &lt;range&gt;
 
 * *Additive*: &lt;numeric&gt; **+**  **-** for &lt;numeric&gt; &lt;range1&gt; 
 
