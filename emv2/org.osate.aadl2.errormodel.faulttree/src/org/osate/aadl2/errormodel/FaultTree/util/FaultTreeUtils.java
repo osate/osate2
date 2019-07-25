@@ -61,10 +61,10 @@ public class FaultTreeUtils {
 	}
 
 	public static String buildName(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
-		return buildIdentifier(component, namedElement, type);
-	}
-
-	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
+//		return buildIdentifier(component, namedElement, type);
+//	}
+//
+//	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
 		String identifier;
 		if (component == null) {
 			return "Null Component Reference";
@@ -79,7 +79,7 @@ public class FaultTreeUtils {
 					identifier += "unidentified";
 
 				} else {
-					identifier += EMV2Util.getPrintName(namedElement);
+			identifier += EMV2Util.getDirectionName(namedElement);
 				}
 
 				if (type == null) {
