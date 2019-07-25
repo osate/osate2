@@ -103,12 +103,14 @@ public class PropagationGraphBackwardTraversal {
 		}
 		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
 		tt.getType().add(type);
-		if (st.visited(tt)) {
+		if (st.visited(errorPropagation, tt)) {
 			// we were there before.
 			return foundCycle;
 		} else {
-			st.setVisitToken(tt);
+			st.setVisitToken(errorPropagation, tt);
 		}
+
+		boolean encounteredCycle = false;
 
 		// processing call has to be after the preproccessing call so it is not found and we proceed in processing.
 		// On the other hand it needs to be called here so the event exists in ftamodel and is found the next time around.
@@ -143,9 +145,8 @@ public class PropagationGraphBackwardTraversal {
 					// if not already handled by a opc
 					EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
 					if (res == foundCycle) {
-						return null;
-					}
-					if (res != null) {
+						encounteredCycle = true;
+					} else if (res != null) {
 						subResults.add(res);
 					}
 				}
@@ -194,9 +195,8 @@ public class PropagationGraphBackwardTraversal {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
 													newtype, newscale);
 											if (newEvent == foundCycle) {
-												return null;
-											}
-											if (newEvent != null) {
+												encounteredCycle = true;
+											} else if (newEvent != null) {
 												subResults.add(newEvent);
 											}
 										}
@@ -205,9 +205,8 @@ public class PropagationGraphBackwardTraversal {
 										EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
 												newtype, newscale);
 										if (newEvent == foundCycle) {
-											return null;
-										}
-										if (newEvent != null) {
+											encounteredCycle = true;
+										} else if (newEvent != null) {
 											subResults.add(newEvent);
 										}
 									}
@@ -226,9 +225,8 @@ public class PropagationGraphBackwardTraversal {
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
 													newscale);
 											if (newEvent == foundCycle) {
-												return null;
-											}
-											if (newEvent != null) {
+												encounteredCycle = true;
+											} else if (newEvent != null) {
 												subResults.add(newEvent);
 											}
 										}
@@ -244,9 +242,8 @@ public class PropagationGraphBackwardTraversal {
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
 												newscale);
 										if (newEvent == foundCycle) {
-											return null;
-										}
-										if (newEvent != null) {
+											encounteredCycle = true;
+										} else if (newEvent != null) {
 											subResults.add(newEvent);
 										}
 									}
@@ -278,9 +275,12 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		st.removeVisitedToken(tt);
+		st.removeVisitedToken(errorPropagation, tt);
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults, scale);
+		}
+		if (encounteredCycle) {
+			return null;
 		}
 		return processOutgoingErrorPropagation(component, errorPropagation, type, scale);
 	}
@@ -866,12 +866,13 @@ public class PropagationGraphBackwardTraversal {
 		}
 		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
 		tt.getType().add(type);
-		if (st.visited(tt)) {
+		if (st.visited(errorPropagation, tt)) {
 			// we were there before.
 			return foundCycle;
 		} else {
-			st.setVisitToken(tt);
+			st.setVisitToken(errorPropagation, tt);
 		}
+		boolean encounteredCycle = false;
 		for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel,
 				component, errorPropagation)) {
 			// traverse incoming
@@ -897,9 +898,8 @@ public class PropagationGraphBackwardTraversal {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype,
 								scale);
 						if (result == foundCycle) {
-							return null;
-						}
-						if (result != null) {
+							encounteredCycle = true;
+						} else if (result != null) {
 							subResults.add(result);
 						}
 					} else {
@@ -912,10 +912,9 @@ public class PropagationGraphBackwardTraversal {
 								EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
 										ntype, scale);
 							if (result == foundCycle) {
-								return null;
-							}
-								if (result != null) {
-									subResults.add(result);
+								encounteredCycle = true;
+							} else if (result != null) {
+								subResults.add(result);
 							}
 						}
 					}
@@ -937,11 +936,10 @@ public class PropagationGraphBackwardTraversal {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
 								scale);
 					if (result == foundCycle) {
-						return null;
+						encounteredCycle = true;
+					} else if (result != null) {
+						subResults.add(result);
 					}
-						if (result != null) {
-							subResults.add(result);
-						}
 				}
 			} else {
 				EList<TypeToken> ttlist = EMV2TypeSetUtil.flattenTypesetElements((TypeSet) srctype,
@@ -961,18 +959,20 @@ public class PropagationGraphBackwardTraversal {
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
 						if (result == foundCycle) {
-							return null;
+							encounteredCycle = true;
+						} else if (result != null) {
+							subResults.add(result);
 						}
-							if (result != null) {
-								subResults.add(result);
-							}
 					}
 				}
 			}
 		}
-		st.removeVisitedToken(tt);
+		st.removeVisitedToken(errorPropagation, tt);
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, type, subResults, scale);
+		}
+		if (encounteredCycle) {
+			return null;
 		}
 		return processIncomingErrorPropagation(component, errorPropagation, type, scale);
 	}
