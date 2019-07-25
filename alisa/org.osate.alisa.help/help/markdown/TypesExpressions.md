@@ -49,6 +49,8 @@ Operators in increasing precedence order in ReqSpec expressions
 
 * *Relational*: **&lt;** **&lt;=**, **&gt;**, **&gt;=** for &lt;numeric&gt; **in** for &lt;range&gt;
 
+* *Containment*:  &lt;numeric&gt; **in** &lt;range&gt; and  &lt;range&gt; **in** &lt;range&gt;
+
 * *Additive*: &lt;numeric&gt; **+**  **-** for &lt;numeric&gt; &lt;range1&gt; 
 
 * *Multiplicative*: *****  for &lt;numeric&gt; &lt;range&gt; (range intersection) **/** for lt;real&gt;  **div** **mod** &lt;integer&gt;  For multiplication at most one argument may have a units type. For division, if theright hand side argument has a unit it must be of the same type as the unit the left hand side.         
