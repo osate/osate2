@@ -35,8 +35,8 @@
 package org.osate.pluginsupport;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -45,7 +45,7 @@ import org.osgi.framework.BundleContext;
  * @author lwrage
  * @version $Id: PluginSupportPlugin.java,v 1.4 2007-06-04 17:03:01 lwrage Exp $
  */
-public class PluginSupportPlugin extends Plugin {
+public class PluginSupportPlugin extends AbstractUIPlugin {
 
 	public static final String PLUGIN_ID = "org.osate.pluginsupport";
 

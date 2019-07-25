@@ -3,6 +3,12 @@
 <plugin>
      <extension-point id="aadlcontribution" name="AADL Package / Property Set Contributor" schema="schema/aadlcontribution.exsd"/>
    	<extension-point id="registeredjavaclasses" name="Register Java Class" schema="schema/registeredjavaclasses.exsd"/>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.pluginsupport.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
    	<extension
    	      point="org.eclipse.help.toc">
    	   <toc
