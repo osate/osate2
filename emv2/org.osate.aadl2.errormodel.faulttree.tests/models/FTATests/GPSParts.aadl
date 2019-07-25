@@ -1,0 +1,95 @@
+package GPSParts
+public
+	with HardwareParts, emv2;
+		
+-- Has occurrence probability on error source for flow based FTA
+-- and on state for composite state FTA 
+-- The two values should be consistent 
+Device sensor
+features
+	satelliteSignal: in feature;
+	sensedData: out data port;
+	networkaccess: requires bus access HardwareParts::Network;
+	powersource: in feature;
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                           
+		use types ErrorLibrary, GPSErrorLibrary;
+		use behavior ErrorLibrary::FailStop;
+		error propagations
+			satelliteSignal: in propagation {NoSignal,LowSignal};
+			sensedData: out propagation {ServiceOmission} ;
+			powersource: in propagation {ServiceOmission};
+			networkaccess: in propagation {ServiceOmission};
+		flows
+			-- in this abstraction we have the sensor as error source due to internal failure
+			-- The error paths represent the effect of incoming error proapgations on its output
+			sensorfailsrc: error source sensedData {ServiceOmission} when {SensorFailure};
+			satelliteimpact: error path satelliteSignal{NoSignal} -> sensedData{ServiceOmission};
+			networkimpact: error path networkaccess{ServiceOmission} -> sensedData{ServiceOmission};
+			powerimpact: error path powersource{ServiceOmission} -> sensedData{ServiceOmission};
+		end propagations;
+--		component error behavior 
+--		propagations
+--		FailStop -[]-> sensedData{ServiceOmission};
+--		end component;
+		properties
+			emv2::OccurrenceDistribution => [ ProbabilityValue => 2.5e-4 ; Distribution => Poisson;] applies to sensorfailsrc.ServiceOmission;
+			emv2::OccurrenceDistribution => [ ProbabilityValue => 2.5e-4 ; Distribution => Poisson;] applies to FailStop;
+			emv2::OccurrenceDistribution => [ ProbabilityValue => 2.5e-4 ; Distribution => Poisson;] applies to Failure;
+-- these incoming occurence values are documented assumptions
+-- they are used if no connection or binding existing with this as destination. Otherwise, the values from the origin are used. 
+			emv2::OccurrenceDistribution => [ ProbabilityValue => 3.5e-5 ; Distribution => Poisson;] applies to networkaccess.ServiceOmission;
+			emv2::OccurrenceDistribution => [ ProbabilityValue => 4.5e-5 ; Distribution => Poisson;] applies to powersource.ServiceOmission;**};
+	end sensor;
+	 
+	-- This processing unit takes input from two sensors.
+	-- This original specification has flows  only.
+	-- Therefore, the flow-based FTA generation does not understand the relation of the two sensor inputs.
+	-- The redundancy of the sensor input is specified in the extension below.
+abstract GPSProcessing
+features
+  inSensor1: in data port;
+  inSensor2: in data port;
+  location: out data port;
+annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+use types ErrorLibrary, GPSErrorLibrary;
+error propagations
+ inSensor1 : in propagation {ServiceOmission};
+ inSensor2 : in propagation {ServiceOmission};
+ location : out propagation {ServiceOmission};
+ processor: in propagation {ServiceOmission};
+flows 
+ s1toloc: error path inSensor1{ServiceOmission} -> location{ServiceOmission};
+end propagations;
+  properties
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 2.8e-5 ; 
+		Distribution => Poisson;
+	] applies to processor.ServiceOmission;
+**};
+end GPSProcessing;
+	
+	-- This is a voter if the flight system is designed to use two instances of a GPS in order to achieve the desired reliability.
+	abstract GPSVoter 
+		features
+			inLocation1: in data port;
+			inLocation2: in data port;
+			outLocation: out data port;
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+		use types ErrorLibrary, GPSErrorLibrary;
+		use behavior GPSErrorLibrary::FailStopState;
+		error propagations
+		inLocation1 : in propagation {ServiceOmission};
+		inLocation2 : in propagation {ServiceOmission};
+		outLocation : out propagation {ServiceOmission};
+        processor: in propagation {ServiceOmission};
+		end propagations;
+		component error behavior
+		events
+			compareError: error Event;
+		propagations
+			outcond2: all-[inLocation1{ServiceOmission} and inLocation2{ServiceOmission}]-> outLocation{ServiceOmission};
+		end component;
+	properties
+		emv2::OccurrenceDistribution => [ ProbabilityValue => 1.0e-7 ; Distribution => Poisson;] applies to FailStop, compareError;**};
+	end GPSVoter;
+	
+end GPSParts;
