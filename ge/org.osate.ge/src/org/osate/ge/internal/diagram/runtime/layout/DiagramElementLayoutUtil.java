@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.elk.core.IGraphLayoutEngine;
 import org.eclipse.elk.core.RecursiveGraphLayoutEngine;
 import org.eclipse.elk.core.math.KVector;
@@ -36,6 +38,8 @@ import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
@@ -58,6 +62,10 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.Lists;
 
+/**
+ * NOTE: The methods in this class will catch error exceptions, display and error, and suppress them.
+ *
+ */
 public class DiagramElementLayoutUtil {
 	private static final String incrementalLayoutLabel = "Incremental Layout";
 	private static final String layoutAlgorithm = "org.eclipse.elk.layered";
@@ -111,69 +119,82 @@ public class DiagramElementLayoutUtil {
 			final LayoutOptions options) {
 		Objects.requireNonNull(nodesToLayout, "nodesToLayout must not be null");
 
-		// Layout the nodes
-		final IGraphLayoutEngine layoutEngine = new RecursiveGraphLayoutEngine();
-		for (final DiagramNode dn : nodesToLayout) {
-			LayoutMapping mapping;
-			ElkNode layoutGraph;
+		try {
+			// Layout the nodes
+			final IGraphLayoutEngine layoutEngine = new RecursiveGraphLayoutEngine();
+			for (final DiagramNode dn : nodesToLayout) {
+				LayoutMapping mapping;
+				ElkNode layoutGraph;
 
-			// Perform the first layout. This layout will not include nested ports. This will allow ELK additional flexibility when determining port placement.
-			mapping = ElkGraphBuilder.buildLayoutGraph(dn, styleProvider, layoutInfoProvider, options,
-					!options.layoutPortsOnDefaultSides,
-					ElkGraphBuilder.FixedPortPositionProvider.NO_OP);
-			layoutGraph = mapping.getLayoutGraph();
-			layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
-			applyProperties(dn, mapping, layoutInfoProvider, options);
-			LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass1");
-			layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
-
-			// If the layout omitted any nested ports, then perform a second layout which will include nested ports. Since nested ports are not supported by
-			// ELK, fixed port positions will be used for nodes which contain nested ports. Provide the results from the previous layout to the graph builder so
-			// that it can assign the position of the top level ports of such nodes based on the results of the previous layout.
-			//
-			// Doing a second layout is usually better than assigning all port positions. Ideally, the second pass would just include assigning positions to the
-			// nested ports and performing edge routing.
-			if (layoutGraph.getProperty(AgeLayoutOptions.NESTED_PORTS_WERE_OMITTED)) {
-				final LayoutMapping initialLayoutMapping = mapping;
-				mapping = ElkGraphBuilder.buildLayoutGraph(dn, styleProvider, layoutInfoProvider, options, false,
-						new ElkGraphBuilder.FixedPortPositionProvider() {
-
-					@Override
-					public PortSide getPortSide(final DiagramElement de) {
-						final ElkGraphElement ge = initialLayoutMapping.getGraphMap().inverse().get(de);
-						if (ge instanceof ElkPort) {
-							return ge.getProperty(CoreOptions.PORT_SIDE);
-						}
-						return null;
-					}
-
-					@Override
-					public Double getPortPosition(final DiagramElement de) {
-						final ElkGraphElement ge = initialLayoutMapping.getGraphMap().inverse().get(de);
-						if (ge instanceof ElkPort) {
-							final ElkPort port = (ElkPort) ge;
-							final PortSide ps = port.getProperty(CoreOptions.PORT_SIDE);
-							if (PortSide.SIDES_EAST_WEST.contains(ps)) {
-								return port.getY();
-							} else {
-								return port.getX();
-							}
-						}
-
-						return null;
-					}
-				});
+				// Perform the first layout. This layout will not include nested ports. This will allow ELK additional flexibility when determining port
+				// placement.
+				mapping = ElkGraphBuilder.buildLayoutGraph(dn, styleProvider, layoutInfoProvider, options,
+						!options.layoutPortsOnDefaultSides, ElkGraphBuilder.FixedPortPositionProvider.NO_OP);
 				layoutGraph = mapping.getLayoutGraph();
 				layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
 				applyProperties(dn, mapping, layoutInfoProvider, options);
-				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass2");
+				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass1");
 				layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
+
+				// If the layout omitted any nested ports, then perform a second layout which will include nested ports. Since nested ports are not supported by
+				// ELK, fixed port positions will be used for nodes which contain nested ports. Provide the results from the previous layout to the graph
+				// builder so
+				// that it can assign the position of the top level ports of such nodes based on the results of the previous layout.
+				//
+				// Doing a second layout is usually better than assigning all port positions. Ideally, the second pass would just include assigning positions to
+				// the
+				// nested ports and performing edge routing.
+				if (layoutGraph.getProperty(AgeLayoutOptions.NESTED_PORTS_WERE_OMITTED)) {
+					final LayoutMapping initialLayoutMapping = mapping;
+					mapping = ElkGraphBuilder.buildLayoutGraph(dn, styleProvider, layoutInfoProvider, options, false,
+							new ElkGraphBuilder.FixedPortPositionProvider() {
+
+						@Override
+						public PortSide getPortSide(final DiagramElement de) {
+							final ElkGraphElement ge = initialLayoutMapping.getGraphMap().inverse().get(de);
+							if (ge instanceof ElkPort) {
+								return ge.getProperty(CoreOptions.PORT_SIDE);
+							}
+							return null;
+						}
+
+						@Override
+						public Double getPortPosition(final DiagramElement de) {
+							final ElkGraphElement ge = initialLayoutMapping.getGraphMap().inverse().get(de);
+							if (ge instanceof ElkPort) {
+								final ElkPort port = (ElkPort) ge;
+								final PortSide ps = port.getProperty(CoreOptions.PORT_SIDE);
+								if (PortSide.SIDES_EAST_WEST.contains(ps)) {
+									return port.getY();
+								} else {
+									return port.getX();
+								}
+							}
+
+							return null;
+						}
+					});
+					layoutGraph = mapping.getLayoutGraph();
+					layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
+					applyProperties(dn, mapping, layoutInfoProvider, options);
+					LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass2");
+					layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
+				}
+
+				applyShapeLayout(mapping, m);
+				applyConnectionLayout(mapping, m);
+
+				LayoutDebugUtil.showGraphInLayoutGraphView(layoutGraph);
 			}
-
-			applyShapeLayout(mapping, m);
-			applyConnectionLayout(mapping, m);
-
-			LayoutDebugUtil.showGraphInLayoutGraphView(layoutGraph);
+		} catch (final RuntimeException ex) {
+			// If a layout error occurs, display the exception but do not rethrow. This is so that the operation that attempted to do the layout will continue.
+			// This is important because otherwise simple operations such a adding elements to the diagram will completely fail. Suppressing the error will
+			// degrade performance but allow the user to keep working and should ensure things stay in a valid state.
+			// It would be best for other parts of the code to handle exceptions properly to avoid entering into an invalid state but this is the best
+			// workaround.
+			final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
+					"A layout error occured.", ex);
+			StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 		}
 	}
 
