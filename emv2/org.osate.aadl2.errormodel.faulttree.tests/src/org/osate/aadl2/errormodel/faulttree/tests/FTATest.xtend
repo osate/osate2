@@ -57,6 +57,7 @@ class FTATest  {
 	var static SystemInstance instancePathProbability
 	var static SystemInstance instanceIssue1819
 	var static SystemInstance instanceIssue1882
+	var static SystemInstance instanceIssue1893
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -86,6 +87,10 @@ class FTATest  {
 			val PathProbabilityfile = "PathProbability.aadl"
 			val Issue1819file = "Issue1819.aadl"
 			val Issue1882file = "Issue1882.aadl"
+			val GPSErrorLibraryFile = "GPSErrorLibrary.aadl"
+			val GPSPartsFile = "GPSParts.aadl"
+			val GPSSystemFile = "GPSSystem.aadl"
+			val HardwarePartsFile = "HardwareParts.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -112,7 +117,11 @@ class FTATest  {
 				modelroot + OR1OFProbabilityfile,
 				modelroot + PathProbabilityfile,
 				modelroot + Issue1819file,
-				modelroot + Issue1882file
+				modelroot + Issue1882file,
+				modelroot + GPSErrorLibraryFile,
+				modelroot + HardwarePartsFile,
+				modelroot + GPSPartsFile,
+				modelroot + GPSSystemFile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -137,6 +146,7 @@ class FTATest  {
 			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
 			instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
 			instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
+			instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -864,6 +874,17 @@ class FTATest  {
 		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
 		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "engineFailure")
 		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "engine1")
+	}
+
+	@Test
+	def void issue1893Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1893, "outgoing propagation on location{ServiceOmission}")
+		assertEquals(ft.events.size, 9)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.subEvents.size, 6)
+		val andnode = ft.root.subEvents.get(1)
+		assertEquals(andnode.subEventLogic, LogicOperation.AND)
+		assertEquals(andnode.subEvents.size, 2)
 	}
 	
 }
