@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -80,5 +81,11 @@ public class PredeclaredProperties {
 
 	public static String getAADLProjectPreference() {
 		return InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID).get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
+	}
+
+	private static final String PREFERENCE_NAME_PREFIX = "contributed.resource.isVisible.";
+
+	public static final String getPreferenceNameForURI(final URI resourceURI) {
+		return PREFERENCE_NAME_PREFIX + resourceURI.toString();
 	}
 }

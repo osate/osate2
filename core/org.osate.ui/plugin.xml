@@ -22,6 +22,12 @@
       		name="Instantiation"
       		class="org.osate.internal.ui.preferences.InstantiationPreferencePage">
       </page>
+      <page
+      		id="org.osate.ui.preferences.OsateContributedResourcesPage"
+      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Contributed Resources"
+      		class="org.osate.internal.ui.preferences.ContributedResourcesPreferencePage">
+      </page>
    </extension>
    
    <extension
