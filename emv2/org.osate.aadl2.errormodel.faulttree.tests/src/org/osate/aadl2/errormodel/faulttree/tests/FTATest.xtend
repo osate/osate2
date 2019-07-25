@@ -57,6 +57,8 @@ class FTATest  {
 	var static SystemInstance instancePathProbability
 	var static SystemInstance instanceIssue1819
 	var static SystemInstance instanceIssue1882
+	var static SystemInstance instanceIssue1893
+	var static SystemInstance instanceIssue1899
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -86,6 +88,11 @@ class FTATest  {
 			val PathProbabilityfile = "PathProbability.aadl"
 			val Issue1819file = "Issue1819.aadl"
 			val Issue1882file = "Issue1882.aadl"
+			val GPSErrorLibraryFile = "GPSErrorLibrary.aadl"
+			val GPSPartsFile = "GPSParts.aadl"
+			val GPSSystemFile = "GPSSystem.aadl"
+			val HardwarePartsFile = "HardwareParts.aadl"
+			val accessfeaturesFile = "accessfeatures.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -112,7 +119,12 @@ class FTATest  {
 				modelroot + OR1OFProbabilityfile,
 				modelroot + PathProbabilityfile,
 				modelroot + Issue1819file,
-				modelroot + Issue1882file
+				modelroot + Issue1882file,
+				modelroot + GPSErrorLibraryFile,
+				modelroot + HardwarePartsFile,
+				modelroot + GPSPartsFile,
+				modelroot + GPSSystemFile,
+				modelroot + accessfeaturesFile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -137,6 +149,8 @@ class FTATest  {
 			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
 			instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
 			instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
+			instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
+			instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -864,6 +878,25 @@ class FTATest  {
 		assertEquals(ft.root.subEventLogic, LogicOperation.AND)
 		assertEquals((ft.root.subEvents.head.relatedEMV2Object as NamedElement).name, "engineFailure")
 		assertEquals((ft.root.subEvents.head.relatedInstanceObject as NamedElement).name, "engine1")
+	}
+
+	@Test
+	def void issue1893Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1893, "outgoing propagation on location{ServiceOmission}")
+		assertEquals(ft.events.size, 11)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.subEvents.size, 8)
+		val andnode = ft.root.subEvents.get(1)
+		assertEquals(andnode.subEventLogic, LogicOperation.AND)
+		assertEquals(andnode.subEvents.size, 2)
+	}
+
+	@Test
+	def void issue1899Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1899, "outgoing propagation on msg{ServiceOmission}")
+		assertEquals(ft.events.size, 7)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.subEvents.size, 6)
 	}
 	
 }
