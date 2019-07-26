@@ -1,0 +1,19 @@
+package EMTypes
+public
+	annex emv2 {**
+		error types
+		Virus: type;
+		VCResult: type;
+		VCSet: type set {VCPass, VCFail};
+		VCPass: type extends VCResult;
+		VCFail: type extends VCResult;
+		ClResult: type;
+		ClSet: type set {ClPass, ClFail};
+		Dirty: type;
+		ClPass: type extends ClResult;
+		ClFail: type extends ClResult;
+		Bad: type;
+		Good: type;
+		end types;
+	**};
+end EMTypes;
