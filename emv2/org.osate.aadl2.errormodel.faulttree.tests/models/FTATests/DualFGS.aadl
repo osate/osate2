@@ -87,9 +87,9 @@ end FGS;
 
 system implementation FGS.impl
 subcomponents
-AP1: system AP;
+AP1: system AP in modes (Critical);
 AP2: system AP;
-FG1: system FG;
+FG1: system FG in modes (Critical);
 FG2: system FG;
 AC: system AC;
 network: bus EtherSwitch;
