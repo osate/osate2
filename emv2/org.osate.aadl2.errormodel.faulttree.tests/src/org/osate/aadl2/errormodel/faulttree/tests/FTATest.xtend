@@ -919,9 +919,9 @@ class FTATest  {
 		@Test
 	def void issue1899Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1899, "outgoing propagation on msg{ServiceOmission}")
-		assertEquals(ft.events.size, 7)
+		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.subEvents.size, 6)
+		assertEquals(ft.root.subEvents.size, 5)
 	}
 	
 }
