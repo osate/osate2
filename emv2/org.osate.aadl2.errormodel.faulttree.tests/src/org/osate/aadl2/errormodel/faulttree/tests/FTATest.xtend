@@ -60,6 +60,7 @@ class FTATest  {
 	var static SystemInstance instanceIssue1893
 	var static SystemInstance instanceIssue1913
 	var static SystemInstance instanceIssue1915
+	var static SystemInstance instanceIssue1899
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -96,6 +97,7 @@ class FTATest  {
 			val EMTypesFile = "EMTypes.aadl"
 			val ScrubbedTSFile = "ScrubbedTS.aadl"
 			val ScrubbedClFile = "ScrubbedCl.aadl"
+			val accessfeaturesFile = "accessfeatures.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -129,7 +131,8 @@ class FTATest  {
 				modelroot + GPSSystemFile,
 				modelroot + EMTypesFile,
 				modelroot + ScrubbedTSFile,
-				modelroot + ScrubbedClFile
+				modelroot + ScrubbedClFile,
+				modelroot + accessfeaturesFile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -157,6 +160,7 @@ class FTATest  {
 			instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
 			instanceIssue1913 = instanceGenerator(modelroot + ScrubbedTSFile, "top.vccl")
 			instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
+			instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -889,9 +893,9 @@ class FTATest  {
 	@Test
 	def void issue1893Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1893, "outgoing propagation on location{ServiceOmission}")
-		assertEquals(ft.events.size, 9)
+		assertEquals(ft.events.size, 11)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.subEvents.size, 6)
+		assertEquals(ft.root.subEvents.size, 8)
 		val andnode = ft.root.subEvents.get(1)
 		assertEquals(andnode.subEventLogic, LogicOperation.AND)
 		assertEquals(andnode.subEvents.size, 2)
@@ -909,8 +913,15 @@ class FTATest  {
 		assertEquals(ft.events.size, 2)
 		val faultsource = ft.root.subEvents.get(0)
 		assertEquals((faultsource.relatedEMV2Object as NamedElement).name, "d")
-		val et = faultsource.relatedErrorType
 		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
+		}
+
+		@Test
+	def void issue1899Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1899, "outgoing propagation on msg{ServiceOmission}")
+		assertEquals(ft.events.size, 7)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.subEvents.size, 6)
 	}
 	
 }

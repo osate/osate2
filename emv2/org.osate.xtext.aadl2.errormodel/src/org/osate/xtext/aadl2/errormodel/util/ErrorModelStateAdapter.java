@@ -5,41 +5,42 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.BasicEList;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelState {
+	private class EMNode {
+		protected TypeToken token;
+		protected ErrorPropagation ep;
 
-	protected TypeToken token;
+	}
+
+	protected EMNode emnode;
 
 	protected ErrorBehaviorState currentErrorState;
 
-	protected Collection<TypeToken> visited = new BasicEList<TypeToken>();
+	protected Collection<EMNode> visited = new BasicEList<EMNode>();
 
-	public TypeToken getToken() {
-		return token;
+	@Override
+	public void setVisitToken(ErrorPropagation ep, TypeToken token) {
+		this.emnode = new EMNode();
+		emnode.ep = ep;
+		emnode.token = token;
+		visited.add(this.emnode);
 	}
 
-	public void setToken(TypeToken token) {
-		this.token = token;
+	@Override
+	public void removeVisitedToken(ErrorPropagation ep,TypeToken token) {
+		EMNode found = findEMNode(ep, token);
+		visited.remove(found);
 	}
 
-	public void setVisitToken(TypeToken token) {
-		this.token = token;
-		visited.add(token);
-	}
-
-	public void removeVisitedToken(TypeToken token) {
-		visited.remove(token);
-	}
-
-	public void unsetToken() {
-		token = null;
-	}
-
+	@Override
 	public ErrorBehaviorState getErrorState() {
 		return currentErrorState;
 	}
 
+	@Override
 	public void setErrorState(ErrorBehaviorState errorBehaviorState) {
 		currentErrorState = errorBehaviorState;
 	}
@@ -49,23 +50,25 @@ public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelSta
 		return type == ErrorModelState.class;
 	}
 
+	@Override
 	public void unsetAll() {
-		token = null;
+		emnode = null;
 		currentErrorState = null;
 		visited.clear();
 	}
 
-	public Collection<TypeToken> getVisitedTokens() {
-		return visited;
+	@Override
+	public boolean visited(ErrorPropagation ep, TypeToken tt) {
+		return findEMNode(ep, tt) != null;
 	}
 
-	public boolean visited(TypeToken tt) {
-		for (TypeToken tok : visited) {
-			if (EMV2TypeSetUtil.contains(tok, tt)) {
-				return true;
+	private EMNode findEMNode(ErrorPropagation ep, TypeToken tt) {
+		for (EMNode emn : visited) {
+			if (emn.ep == ep && EMV2TypeSetUtil.contains(emn.token, tt)) {
+				return emn;
 			}
 		}
-		return false;
+		return null;
 	}
 
 }
