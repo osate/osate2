@@ -193,7 +193,7 @@ public class PropagationGraphBackwardTraversal {
 								for (TypeToken typeToken : result) {
 									EList<ErrorTypes> tl = typeToken.getType();
 									// TODO deal with type product
-									ErrorTypes newtype = tl.get(0);
+									ErrorTypes newtype = mapTargetType(tl.get(0), type);
 									if (ep.isAllIncoming()) {
 										Collection<ErrorPropagation> inprops = EMV2Util
 												.getAllIncomingErrorPropagations(component);
@@ -547,6 +547,7 @@ public class PropagationGraphBackwardTraversal {
 							for (TypeToken typeToken : leaftypes) {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
+								// already dealt with mapTargetType
 								ErrorTypes ntype = tl.get(0);
 								EObject newEvent = traverseErrorBehaviorState(component, state, ntype, combinedscale);
 								if (newEvent != null) {
@@ -706,7 +707,7 @@ public class PropagationGraphBackwardTraversal {
 							for (TypeToken typeToken : leaftypes) {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
-								ErrorTypes newtype = tl.get(0);
+								ErrorTypes newtype = mapTargetType(tl.get(0), type);
 								EObject newEvent = traverseCompositeErrorState(component, state, newtype, stateOnly,
 										scale);
 								if (newEvent != null) {
@@ -751,7 +752,7 @@ public class PropagationGraphBackwardTraversal {
 							for (TypeToken typeToken : leaftypes) {
 								EList<ErrorTypes> tl = typeToken.getType();
 								// TODO deal with type product
-								ErrorTypes newtype = tl.get(0);
+								ErrorTypes newtype = mapTargetType(tl.get(0), type);
 								EObject newEvent = traverseIncomingErrorPropagation(component, ep, newtype, scale);
 								if (newEvent != null) {
 									subResults.add(newEvent);
@@ -918,6 +919,7 @@ public class PropagationGraphBackwardTraversal {
 					ErrorPropagation propagationSource = ppe.getErrorPropagation();
 					ErrorTypes newtype = EMV2TypeSetUtil.reverseMapTypeTokenToContributor(type, tts);
 					if (newtype instanceof ErrorType) {
+						newtype = mapTargetType(newtype, type);
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, newtype,
 								scale);
 						if (result == foundCycle) {
@@ -934,7 +936,7 @@ public class PropagationGraphBackwardTraversal {
 						for (TypeToken typeToken : ttlist) {
 							EList<ErrorTypes> tl = typeToken.getType();
 							// TODO deal with type product
-							ErrorTypes ntype = tl.get(0);
+							ErrorTypes ntype = mapTargetType(tl.get(0), type);
 								EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
 										ntype, scale);
 							if (result == foundCycle) {
