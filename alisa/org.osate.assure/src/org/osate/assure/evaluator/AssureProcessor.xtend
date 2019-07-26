@@ -676,10 +676,10 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def String getFailedMsg(RuleFailedException e) {
+	def String getFailedMsg(Throwable e) {
 		var tmp = e;
-		while (tmp.cause !== null) {
-			tmp = tmp.cause as RuleFailedException;
+		while (tmp.cause !== null && tmp.cause != tmp) {
+			tmp = tmp.cause ;
 		}
 		return tmp.message
 	}
