@@ -20,6 +20,7 @@
 		<module>org.osate.ba.contrib</module>
 		<module>org.osate.ba.feature</module>
 		<module>org.osate.ba.edit</module>
+		<module>org.osate.ba.tests</module>
 		<module>org.osate.utils</module>
 		<module>org.osate.utils.feature</module>
 	</modules>
