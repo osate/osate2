@@ -916,7 +916,7 @@ class FTATest  {
 		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
 		}
 
-		@Test
+	@Test
 	def void issue1899Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1899, "outgoing propagation on msg{ServiceOmission}")
 		assertEquals(ft.events.size, 6)
