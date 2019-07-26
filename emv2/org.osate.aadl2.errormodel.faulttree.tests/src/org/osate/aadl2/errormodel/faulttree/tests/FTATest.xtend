@@ -128,7 +128,7 @@ class FTATest  {
 				modelroot + GPSPartsFile,
 				modelroot + GPSSystemFile,
 				modelroot + EMTypesFile,
-				modelroot + ScrubbedTSFile
+				modelroot + ScrubbedTSFile,
 				modelroot + accessfeaturesFile
 			)
 			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
@@ -889,9 +889,6 @@ class FTATest  {
 	@Test
 	def void issue1893Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1893, "outgoing propagation on location{ServiceOmission}")
-//		assertEquals(ft.events.size, 9)
-//		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-//		assertEquals(ft.root.subEvents.size, 6)
 		assertEquals(ft.events.size, 11)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.subEvents.size, 8)
@@ -904,12 +901,14 @@ class FTATest  {
 	def void issue1913Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1913, "outgoing propagation on effect{Bad}")
 		assertEquals(ft.events.size, 1)
+		}
 
-def void issue1899Test() {
+	@Test
+	def void issue1899Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1899, "outgoing propagation on msg{ServiceOmission}")
-		assertEquals(ft.events.size, 7)
+		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.subEvents.size, 6)
+		assertEquals(ft.root.subEvents.size, 5)
 	}
 	
 }
