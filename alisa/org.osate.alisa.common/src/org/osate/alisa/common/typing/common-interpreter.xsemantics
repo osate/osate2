@@ -217,7 +217,7 @@ from {
 			].max()
 		}
 		case 'abs': {
-		G |- call.arguments.get(0) ~> var NumberValue pVal
+			G |- call.arguments.get(0) ~> var NumberValue pVal
 			switch (pVal) {
 				RealLiteral: pVal.value = -pVal.value
 				IntegerLiteral: pVal.value = -pVal.value
@@ -225,15 +225,15 @@ from {
 			pVal
 			}
 		case 'round': {
-		G |- call.arguments.get(0) ~> var NumberValue pVal
+			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.round
 			}
 		case 'ceil': {
-		G |- call.arguments.get(0) ~> var NumberValue pVal
+			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.ceil
 			}
 		case 'floor': {
-		G |- call.arguments.get(0) ~> var NumberValue pVal
+			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.floor
 			}
 	}
