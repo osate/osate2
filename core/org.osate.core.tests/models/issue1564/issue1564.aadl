@@ -1,0 +1,90 @@
+package issue1564
+public
+	subprogram sp
+	end sp;
+	
+	thread not_modal
+	end not_modal;
+	
+	thread implementation not_modal.i1
+		calls
+			--Pass
+			sequence1: {
+				call1: subprogram sp;
+			};
+	end not_modal.i1;
+	
+	thread implementation not_modal.i2
+		calls
+			--Fail
+			sequence2: {
+				call2: subprogram sp;
+			};
+			--Fail
+			sequence3: {
+				call3: subprogram sp;
+			};
+	end not_modal.i2;
+	
+	thread modal
+		modes
+			m1: initial mode;
+			m2: mode;
+	end modal;
+	
+	thread implementation modal.i3
+		calls
+			--Pass
+			sequence4: {
+				call4: subprogram sp;
+			};
+	end modal.i3;
+	
+	thread implementation modal.i4
+		calls
+			--Pass
+			sequence5: {
+				call5: subprogram sp;
+			} in modes (m1);
+			--Pass
+			sequence6: {
+				call6: subprogram sp;
+			} in modes (m2);
+	end modal.i4;
+	
+	thread implementation modal.i5
+		calls
+			--Fail
+			sequence7: {
+				call7: subprogram sp;
+			} in modes (m1);
+			--Fail
+			sequence8: {
+				call8: subprogram sp;
+			} in modes (m1);
+	end modal.i5;
+	
+	thread implementation modal.i6
+		calls
+			--Fail
+			sequence9: {
+				call9: subprogram sp;
+			} in modes (m1);
+			--Fail
+			sequence10: {
+				call10: subprogram sp;
+			};
+	end modal.i6;
+	
+	thread implementation modal.i7
+		calls
+			--Fail
+			sequence11: {
+				call11: subprogram sp;
+			};
+			--Fail
+			sequence12: {
+				call12: subprogram sp;
+			};
+	end modal.i7;
+end issue1564;
