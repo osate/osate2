@@ -223,19 +223,19 @@ from {
 				IntegerLiteral: pVal.value = -pVal.value
 			}
 			pVal
-			}
+		}
 		case 'round': {
 			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.round
-			}
+		}
 		case 'ceil': {
 			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.ceil
-			}
+		}
 		case 'floor': {
 			G |- call.arguments.get(0) ~> var NumberValue pVal
 			pVal.floor
-			}
+		}
 	}
 }
 
