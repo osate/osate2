@@ -34,6 +34,13 @@
  */
 package org.osate.internal.ui.preferences;
 
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -42,9 +49,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.PredeclaredProperties;
+import org.osate.ui.OsateUiPlugin;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
@@ -76,5 +84,25 @@ public class ContributedResourcesPreferencePage extends FieldEditorPreferencePag
 
 	@Override
 	public void init(final IWorkbench workbench) {
+	}
+
+	@Override
+	public boolean performOk() {
+		final boolean ok = super.performOk();
+
+		// build the workspace
+		new Job("Contributed Resources Rebuild") {
+			@Override
+			public IStatus run(final IProgressMonitor monitor) {
+				try {
+					ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+					return Status.OK_STATUS;
+				} catch (final CoreException e) {
+					return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, "Error building workspace");
+				}
+			}
+		}.schedule();
+
+		return ok;
 	}
 }

@@ -8,15 +8,17 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
 import org.osate.pluginsupport.PluginSupportUtil
+import org.osate.pluginsupport.PredeclaredProperties
 
 class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
-	val CONTRIBUTED = PluginSupportUtil.contributedAadl
+//	val CONTRIBUTED = PluginSupportUtil.contributedAadl
 	
 	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
 	}
 	
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
-		toBeBuilt.toBeUpdated += CONTRIBUTED
+//		toBeBuilt.toBeUpdated += CONTRIBUTED
+		toBeBuilt.toBeUpdated += PredeclaredProperties.visibleContributedResources
 	}
 	
 	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
