@@ -713,6 +713,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void casePackageSection(PackageSection packageSection) {
 		checkWithsAreUsed(packageSection);
 	}
+	
+	@Check
+	public void checkOneSequencePerMode(SubprogramCallSequence sequence) {
+		BehavioredImplementation classifier = EcoreUtil2.getContainerOfType(sequence, BehavioredImplementation.class);
+		List<SubprogramCallSequence> otherSequences = classifier.getAllSubprogramCallSequences().stream()
+				.filter(other -> other != sequence).collect(Collectors.toList());
+		if (!classifier.getAllModes().isEmpty()) {
+			final List<Mode> modes;
+			if (sequence.getInModes().isEmpty()) {
+				modes = classifier.getAllModes();
+			} else {
+				modes = sequence.getInModes();
+			}
+			Stream<Mode> withMultiple = modes.stream().filter(mode -> {
+				return otherSequences.stream()
+						.anyMatch(other -> other.getInModes().isEmpty() || other.getInModes().contains(mode));
+			});
+			String modeMessage = withMultiple.map(mode -> mode.getName()).collect(Collectors.joining(", "));
+			if (!modeMessage.isEmpty()) {
+				error("Multiple sequences declared for modes: " + modeMessage,
+						Aadl2Package.eINSTANCE.getNamedElement_Name());
+			}
+		} else if (!otherSequences.isEmpty()) {
+			error("Multiple sequences declared for non-modal implementation",
+					Aadl2Package.eINSTANCE.getNamedElement_Name());
+		}
+	}
 
 	@Override
 	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
@@ -1715,7 +1742,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		EList<Mode> flowModes = flow.getAllInModes();
 		if (flowModes.isEmpty()) {
-			flowModes = flow.getContainingComponentImpl().getAllModes();
+			flowModes = flow.getSpecification().getAllInModes();
+		}
+		if (flowModes.isEmpty()) {
+			return;
 		}
 		for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
 			if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
@@ -2011,7 +2041,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (subcomponentRefinement != null) {
 						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
 						if (subcomponentModes.isEmpty()) {
-							subcomponentModes = componentImplementation.getAllModes();
+							continue;
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {

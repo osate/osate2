@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
@@ -350,7 +349,7 @@ public class SiriusUtil {
 		IProgressMonitor monitor = new NullProgressMonitor();
 		URI viewpointURI = URI.createURI(viewPoint);
 
-		URI semanticResourceURI = EcoreUtil.getURI(targetroot);
+		URI semanticResourceURI = targetroot.eResource().getURI();
 		// enable Modeling Nature
 		if (!ModelingProject.hasModelingProjectNature(project)) {
 			try {
@@ -372,6 +371,7 @@ public class SiriusUtil {
 			String modelRootName = getPrintName(model);
 			String representationName = modelRootName + " " + representation;
 			DRepresentation rep = findRepresentation(existingSession, vPoint, description, representationName);
+
 			if (rep == null) {
 				try {
 					createAndOpenRepresentation(existingSession, vPoint, description, representationName, model,
