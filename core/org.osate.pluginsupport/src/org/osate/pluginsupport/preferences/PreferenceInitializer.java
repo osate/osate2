@@ -36,9 +36,9 @@ package org.osate.pluginsupport.preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.PredeclaredProperties;
 
 /**
  * @author lwrage

@@ -45,6 +45,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.core.AadlNature;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlContributionContentProvider extends WorkbenchContentProvider {
@@ -80,7 +81,8 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
-			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
+//			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
+			return PredeclaredProperties.getVisibleContributedResources().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage(element, uri);
@@ -91,7 +93,8 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}).distinct().toArray();
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
-			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
+//			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
+			Stream<URI> inDirectory = PredeclaredProperties.getVisibleContributedResources().stream().filter(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
 					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(),

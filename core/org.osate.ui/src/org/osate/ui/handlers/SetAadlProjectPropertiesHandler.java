@@ -36,32 +36,24 @@ package org.osate.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class SetAadlProjectPropertiesHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IWorkbenchPage page = win.getActivePage();
-		ISelection selection = page.getSelection();
-		if (selection instanceof TreeSelection) {
-			TreeSelection tree = (TreeSelection) selection;
-			if (tree.size() == 1) {
-				if (tree.getFirstElement() instanceof IResource) {
-					IResource newAadlProject = (IResource) tree.getFirstElement();
-					PredeclaredProperties.setAadlProject(newAadlProject);
-				} else if (tree.getFirstElement() instanceof ContributedAadlStorage) {
-					PredeclaredProperties.resetAadlProject();
-				}
-			}
-		}
+//		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+//		IWorkbenchPage page = win.getActivePage();
+//		ISelection selection = page.getSelection();
+//		if (selection instanceof TreeSelection) {
+//			TreeSelection tree = (TreeSelection) selection;
+//			if (tree.size() == 1) {
+//				if (tree.getFirstElement() instanceof IResource) {
+//					IResource newAadlProject = (IResource) tree.getFirstElement();
+//					PredeclaredProperties.setAadlProject(newAadlProject);
+//				} else if (tree.getFirstElement() instanceof ContributedAadlStorage) {
+//					PredeclaredProperties.resetAadlProject();
+//				}
+//			}
+//		}
 		return null;
 	}
 }

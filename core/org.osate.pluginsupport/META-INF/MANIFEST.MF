@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.jface,
- org.osate.aadl2.modelsupport
+ org.apache.log4j;bundle-version="1.2.15"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.pluginsupport
 Bundle-Vendor: CMU-SEI

@@ -35,32 +35,31 @@ package org.osate.xtext.aadl2.ui.containers;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.PredeclaredProperties;
 
 import com.google.inject.Singleton;
 
 @Singleton
 public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
-	private final static String AADL_PROJECT_HANDLE = "$aadl_project$";
+//	private final static String AADL_PROJECT_HANDLE = "$aadl_project$";
 	private final static String CONTRIBUTED_HANDLE = "$contributed_aadl_handle$";
 	private final static List<URI> CONTRIBUTED_AADL = PluginSupportUtil.getContributedAadl();
 
 	@Override
 	public String initHandle(URI uri) {
-		if (uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT)) {
-			if (uri.toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
-				return AADL_PROJECT_HANDLE;
-			} else {
-				return null;
-			}
-		} else if (CONTRIBUTED_AADL.contains(uri)) {
+//		if (uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT)) {
+//			if (uri.toString().contentEquals(PredeclaredProperties.getAADLProjectPreference())) {
+//				return AADL_PROJECT_HANDLE;
+//			} else {
+//				return null;
+//			}
+//		} else
+		if (CONTRIBUTED_AADL.contains(uri)) {
 			return CONTRIBUTED_HANDLE;
 		} else {
 			return super.initHandle(uri);
@@ -69,18 +68,20 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 
 	@Override
 	public Collection<URI> initContainedURIs(String containerHandle) {
-		if (containerHandle.contentEquals(AADL_PROJECT_HANDLE)) {
-			return Collections
-					.singleton(URI.createPlatformResourceURI(PredeclaredProperties.getAADLProjectPreference(), true));
-		} else if (containerHandle.equals(CONTRIBUTED_HANDLE)) {
-			if (!PredeclaredProperties.getAADLProjectPreference()
-					.contentEquals(PredeclaredProperties.AADL_PROJECT_DEFAULT)) {
-				return CONTRIBUTED_AADL.stream()
-						.filter(uri -> !uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT))
-						.collect(Collectors.toList());
-			} else {
-				return CONTRIBUTED_AADL;
-			}
+//		if (containerHandle.contentEquals(AADL_PROJECT_HANDLE)) {
+//			return Collections
+//					.singleton(URI.createPlatformResourceURI(PredeclaredProperties.getAADLProjectPreference(), true));
+//		} else
+		if (containerHandle.equals(CONTRIBUTED_HANDLE)) {
+//			if (!PredeclaredProperties.getAADLProjectPreference()
+//					.contentEquals(PredeclaredProperties.AADL_PROJECT_DEFAULT)) {
+//				return CONTRIBUTED_AADL.stream()
+//						.filter(uri -> !uri.lastSegment().contentEquals(PredeclaredProperties.AADL_PROJECT))
+//						.collect(Collectors.toList());
+//			} else {
+//				return CONTRIBUTED_AADL;
+			return PredeclaredProperties.getVisibleContributedResources();
+//			}
 		} else {
 			return super.initContainedURIs(containerHandle);
 		}
@@ -90,7 +91,7 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 	public List<String> initVisibleHandles(String handle) {
 		List<String> result = new ArrayList<>(super.initVisibleHandles(handle));
 		result.add(CONTRIBUTED_HANDLE);
-		result.add(AADL_PROJECT_HANDLE);
+//		result.add(AADL_PROJECT_HANDLE);
 		return result;
 	}
 }
