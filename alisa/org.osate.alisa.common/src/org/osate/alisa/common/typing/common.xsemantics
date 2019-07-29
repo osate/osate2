@@ -520,54 +520,6 @@ from {
 			  	source arg
 			}
 		}
-		case 'prev': {
-			call.arguments.size === 1 
-			or {
-				fail
-					error 'abs must have one argument'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			if (argType instanceof NumberType) {
-				type = argType
-			} else {
-				fail
-			  	error 'typing: argument must be numeric'
-			  	source arg
-			}
-		}
-		case 'atTime': {
-			call.arguments.size === 2 
-			or {
-				fail
-					error 'abs must have two arguments'
-					source call
-			}
-			val arg = call.arguments.get(0)
-			G |- arg : var PropertyType argType
-			val time = call.arguments.get(1)
-			G |- time : var PropertyType timeType
-			if (argType instanceof NumberType) {
-				type = argType
-			} else {
-				fail
-			  	error 'typing: first argument must be numeric'
-			  	source arg
-			}
-			if (timeType instanceof NumberType) {
-				if ( timeType.unitsType.name !== 'Time_Units') {
-				fail
-			  	error 'typing: second argument must have Time units'
-			  	source arg
-			}
-			} else {
-				fail
-			  	error 'typing: second argument must be numeric'
-			  	source arg
-			}
-			
-		}
 		default: {
 			if (InterpreterUtil.instance.methodExists(call.function) !== null) {
 			fail
