@@ -1,6 +1,8 @@
 package org.osate.alisa.common.typing;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Factory;
@@ -151,6 +153,66 @@ public class InterpreterUtil {
 		result.setValue(s1 % s2);
 		result.setUnit(twoUnits ? minUnit : unit);
 		return result;
+	}
+
+	public static NumberValue min(Collection<NumberValue> nvals) {
+		Iterator<NumberValue> it = nvals.iterator();
+		NumberValue result = it.next();
+		while (it.hasNext()) {
+			NumberValue nv = it.next();
+			if (compareTo(nv, result) < 0) {
+				result = nv;
+			}
+		}
+		return result;
+	}
+
+	public static NumberValue max(Collection<NumberValue> nvals) {
+		Iterator<NumberValue> it = nvals.iterator();
+		NumberValue result = it.next();
+		while (it.hasNext()) {
+			NumberValue nv = it.next();
+			if (compareTo(nv, result) > 0) {
+				result = nv;
+			}
+		}
+		return result;
+	}
+
+	public static IntegerLiteral round(NumberValue nv) {
+		if (nv instanceof RealLiteral) {
+			long iv = Math.round(((RealLiteral) nv).getValue());
+			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			result.setValue(iv);
+			result.setUnit(nv.getUnit());
+			return result;
+		} else {
+			return (IntegerLiteral) nv;
+		}
+	}
+
+	public static IntegerLiteral floor(NumberValue nv) {
+		if (nv instanceof RealLiteral) {
+			long iv = new Double(Math.floor(((RealLiteral) nv).getValue())).longValue(); // (new Double(d)).longValue()
+			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			result.setValue(iv);
+			result.setUnit(nv.getUnit());
+			return result;
+		} else {
+			return (IntegerLiteral) nv;
+		}
+	}
+
+	public static IntegerLiteral ceil(NumberValue nv) {
+		if (nv instanceof RealLiteral) {
+			long iv = new Double(Math.ceil(((RealLiteral) nv).getValue())).longValue();
+			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+			result.setValue(iv);
+			result.setUnit(nv.getUnit());
+			return result;
+		} else {
+			return (IntegerLiteral) nv;
+		}
 	}
 
 	/**
