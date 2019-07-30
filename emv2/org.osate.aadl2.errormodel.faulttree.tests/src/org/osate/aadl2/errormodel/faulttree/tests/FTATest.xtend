@@ -640,7 +640,7 @@ class FTATest  {
 	
 		@Test
 	def void allFlowFaultTreeTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTree(instanceAllFlows, start)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -652,7 +652,7 @@ class FTATest  {
 	
 		@Test
 	def void allFlowFaultTraceTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
 		assertEquals(10,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
