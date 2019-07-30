@@ -180,6 +180,7 @@ public class PropagationGraphBackwardTraversal {
 						if (ep.getTargetToken() != null) {
 							if (EMV2TypeSetUtil.contains(type, ep.getTargetToken())) {
 								// incoming super type
+								// use subtype
 								type = ep.getTargetToken();
 							}
 							if (EMV2TypeSetUtil.contains(ep.getTargetToken(), type)) {
@@ -234,8 +235,10 @@ public class PropagationGraphBackwardTraversal {
 									if (matchtype == null) {
 										matchtype = eprop.getTypeSet();
 									}
-									if (EMV2TypeSetUtil.contains(matchtype, type)) {
-										EObject newEvent = traverseIncomingErrorPropagation(component, eprop, type,
+									Collection<ErrorType> mappedtypes = EMV2TypeSetUtil.matchingSubtypes(matchtype,
+											type);
+									for (ErrorType subtype : mappedtypes) {
+										EObject newEvent = traverseIncomingErrorPropagation(component, eprop, subtype,
 												newscale);
 										if (newEvent == foundCycle) {
 											pruneGraph = true;
@@ -252,8 +255,9 @@ public class PropagationGraphBackwardTraversal {
 								if (matchtype == null) {
 									matchtype = inep.getTypeSet();
 								}
-								if (EMV2TypeSetUtil.contains(matchtype, type)) {
-									EObject newEvent = traverseIncomingErrorPropagation(component, inep, type,
+								Collection<ErrorType> mappedtypes = EMV2TypeSetUtil.matchingSubtypes(matchtype, type);
+								for (ErrorType subtype : mappedtypes) {
+									EObject newEvent = traverseIncomingErrorPropagation(component, inep, subtype,
 											newscale);
 									if (newEvent == foundCycle) {
 										pruneGraph = true;

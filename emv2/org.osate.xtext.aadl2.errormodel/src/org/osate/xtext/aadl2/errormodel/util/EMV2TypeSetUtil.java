@@ -833,7 +833,7 @@ public class EMV2TypeSetUtil {
 	 * @param supertype
 	 * @return collection of error type
 	 */
-	public static Collection<ErrorType> matchingSubtypes(TypeSet constraint, ErrorType supertype) {
+	public static Collection<ErrorType> matchingSubtypes(TypeSet constraint, ErrorTypes supertype) {
 		EList<ErrorType> result = new BasicEList<ErrorType>();
 		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		for (TypeToken token : tokens) {
