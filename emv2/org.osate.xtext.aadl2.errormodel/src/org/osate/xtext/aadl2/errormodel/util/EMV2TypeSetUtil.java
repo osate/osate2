@@ -827,6 +827,12 @@ public class EMV2TypeSetUtil {
 		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
 
+	/**
+	 * return all subtypes (or the super type itself) contained in the type set 'constraint'
+	 * @param constraint
+	 * @param supertype
+	 * @return collection of error type
+	 */
 	public static Collection<ErrorType> matchingSubtypes(TypeSet constraint, ErrorType supertype) {
 		EList<ErrorType> result = new BasicEList<ErrorType>();
 		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
