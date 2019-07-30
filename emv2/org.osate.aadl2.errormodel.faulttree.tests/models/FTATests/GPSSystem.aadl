@@ -1,0 +1,90 @@
+package GPSSystem
+public
+	with GPSParts, HardwareParts, EMV2;
+	
+	
+	system GPS
+	features
+		satelliteSignal: in feature;	
+		location: out data port;
+	annex EMV2 {**
+		use types ErrorLibrary, GPSErrorLibrary;
+		use behavior GPSErrorLibrary::FailStopState;
+		error propagations
+		satelliteSignal: in propagation {NoSignal, LowSignal};
+		location: out propagation {ServiceOmission, LowPrecisionData,IncorrectData};
+		flows
+			GPSAsErrorSource: error source location {ServiceOmission, LowPrecisionData,IncorrectData};
+			SatelliteError: error path satelliteSignal{NoSignal} -> location{ServiceOmission}; 
+			SatelliteError1: error path satelliteSignal{LowSignal} -> location{LowPrecisionData}; 
+		end propagations;
+	properties
+	EMV2::hazards => 
+	([	crossreference => "1.1.1";
+		failure => "Loss of GPS locations";
+		phases => ("all");
+		severity => ARP4761::Hazardous;
+		likelihood => ARP4761::Remote;
+		description => "No position readings due to GPS failure";
+		comment => "Becomes critical hazard, if no redundant GPS";
+			])
+		applies to GPSAsErrorSource.ServiceOmission;
+	-- requirement of probability that GPS should not fail to provide service
+	-- This should be met by the FTA based probability analysis.
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.8e-7 ; Distribution => Poisson;] 
+	applies to GPSAsErrorSource.ServiceOmission, FailStop;
+	-- failure contribution by the lack of stallite signal
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 0.9e-7 ; Distribution => Poisson;] 
+	applies to satelliteSignal.NoSignal;
+	-- Total outgoing probability of occurrence associated with the error propagation, i.e., incoming plus error source
+	emv2::OccurrenceDistribution => [ ProbabilityValue => 1.7e-7 ; Distribution => Poisson;] 
+	applies to location.ServiceOmission; 
+	**};
+	end GPS;
+	
+	system implementation GPS.Dual 
+		subcomponents
+			SatelliteSignalReceiver1: device GPSParts::sensor;
+			SatelliteSignalReceiver2: device GPSParts::sensor;
+			processing1: abstract GPSParts::GPSProcessing;
+			processing2: abstract GPSParts::GPSProcessing;
+			voter: abstract GPSParts::GPSVoter;
+			cpu1: processor HardwareParts::CPU;
+			network: bus HardwareParts::Network;
+			powersupply1: device HardwareParts::PowerSupply;
+			cpu2: processor HardwareParts::CPU;
+		connections
+			-- logical connections
+			sattoSatelliteSignalReceiver1: feature satelliteSignal -> SatelliteSignalReceiver1.satelliteSignal ;
+			sattoSatelliteSignalReceiver2: feature satelliteSignal -> SatelliteSignalReceiver2.satelliteSignal ;
+			s2toproc2: port SatelliteSignalReceiver2.sensedData -> processing2.inSensor1;
+			proc2tovoter: port processing2.location -> voter.inLocation2;
+			s1toproc1: port SatelliteSignalReceiver1.sensedData -> processing1.inSensor1;
+			proc1tovoter: port processing1.location -> voter.inLocation1;
+ 			votertoext: port voter.outLocation -> location;
+			-- physical network connections
+			s1tonetwork: bus access SatelliteSignalReceiver1.networkaccess <-> network;
+			s2tonetwork: bus access SatelliteSignalReceiver2.networkaccess <-> network;
+			cpu1tonetwork: bus access cpu1.networkaccess <-> network;
+			cpu2tonetwork: bus access cpu2.networkaccess <-> network;
+			-- power connections
+			powertos1: feature powersupply1.power -> SatelliteSignalReceiver1.powersource ;
+			powertos2: feature powersupply1.power -> SatelliteSignalReceiver2.powersource ;
+			powertocpu1: feature powersupply1.power -> cpu1.powersource ;
+			powertocpu2: feature powersupply1.power -> cpu2.powersource ;
+		properties
+			-- note that the voter is on the same processor as one of the processing units.
+			-- The failure of CPU1 will take out the GPS. Thus, limited value in replicating CPUs and processing.
+			Actual_Processor_Binding => (reference (cpu1)) applies to processing1;
+			Actual_Processor_Binding => (reference (cpu2)) applies to processing2;
+		annex EMV2 {**
+			use types ErrorLibrary, GPSErrorLibrary;
+			use behavior GPSErrorLibrary::FailStopState;
+		component error behavior
+		propagations
+			FTAPropagationStart: all -[voter.outLocation{ServiceOmission}]-> location{ServiceOmission};
+		end component;
+		**};
+	end GPS.Dual;
+
+end GPSSystem;

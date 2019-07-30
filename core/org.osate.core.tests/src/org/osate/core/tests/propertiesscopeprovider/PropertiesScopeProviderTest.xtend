@@ -2745,7 +2745,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					calls
 						sequence1: {
 							call1: subprogram subp1;
-						};
+						} in modes (m1);
 					connections
 						fconn1: feature asub1.af3 -> asub1.af3;
 					flows
@@ -2797,7 +2797,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					calls
 						sequence2: {
 							call2: subprogram subp1.i1;
-						};
+						} in modes (m3);
 					connections
 						fconn1: refined to feature;
 					modes

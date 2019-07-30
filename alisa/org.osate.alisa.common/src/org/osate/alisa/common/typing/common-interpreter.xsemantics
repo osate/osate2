@@ -51,6 +51,7 @@ import org.osate.alisa.common.common.ValDeclaration
 import static extension org.osate.alisa.common.typing.InterpreterUtil.*
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.osate.aadl2.PropertyConstant
+import org.osate.alisa.common.common.AFunctionCall
 
 system org.osate.alisa.common.typing.CommonInterpreter
 
@@ -189,6 +190,57 @@ from {
 		}
 	}
 }
+
+
+rule InterpretFunctionCall
+	G |- AFunctionCall call ~> PropertyValue propVal
+from {
+	propVal = switch (call.function) {
+		case 'min': {
+		   	call.arguments.map [arg |
+				G |- arg ~> var PropertyValue pval
+				if (pval instanceof RangeValue){
+					pval.minimumValue
+				} else {
+					pval as NumberValue
+				}
+			].min()
+		}
+		case 'max': {
+			call.arguments.map [arg |
+				G |- arg ~> var PropertyValue pval
+				if (pval instanceof RangeValue){
+					pval.maximumValue
+				} else {
+					pval as NumberValue
+				}
+			].max()
+		}
+		case 'abs': {
+			G |- call.arguments.get(0) ~> var NumberValue pVal
+			switch (pVal) {
+				RealLiteral: pVal.value = -pVal.value
+				IntegerLiteral: pVal.value = -pVal.value
+			}
+			pVal
+		}
+		case 'round': {
+			G |- call.arguments.get(0) ~> var NumberValue pVal
+			pVal.round
+		}
+		case 'ceil': {
+			G |- call.arguments.get(0) ~> var NumberValue pVal
+			pVal.ceil
+		}
+		case 'floor': {
+			G |- call.arguments.get(0) ~> var NumberValue pVal
+			pVal.floor
+		}
+	}
+}
+
+
+
 
 rule InterpretUnaryExpression
 	G |- AUnaryOperation unary ~> PropertyValue propVal
