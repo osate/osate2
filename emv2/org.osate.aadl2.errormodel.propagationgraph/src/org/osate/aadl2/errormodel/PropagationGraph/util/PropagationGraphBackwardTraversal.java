@@ -284,8 +284,10 @@ public class PropagationGraphBackwardTraversal {
 				}
 				if (Util.conditionHolds(ef, component)) {
 					if (errorSource.isAll() || EMV2Util.isSame(errorSource.getSourceModelElement(), errorPropagation)) {
-						if (EMV2TypeSetUtil.contains(errorSource.getTypeTokenConstraint(), type)) {
-							EObject newEvent = processErrorSource(component, errorSource, type, scale);
+						Collection<ErrorType> mappedtypes = EMV2TypeSetUtil
+								.matchingSubtypes(errorSource.getTypeTokenConstraint(), type);
+						for (ErrorType subtype : mappedtypes) {
+							EObject newEvent = processErrorSource(component, errorSource, subtype, scale);
 							if (newEvent == foundCycle) {
 								pruneGraph = true;
 							} else if (newEvent != null) {
