@@ -284,7 +284,7 @@ public class EM2TypeSetUtil {
 	 * @return list of type tokens
 	 */
 	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
-		return EMV2TypeSetUtil.flattenTypesetElements(typeSet, usetypes);
+		return EMV2TypeSetUtil.flattenTypesetElements(typeSet);
 	}
 
 	/**
