@@ -64,8 +64,7 @@ public class CreateFTAModel {
 		if (startingPoint.startsWith(prefixOutgoingPropagation)) {
 			String toProcess = startingPoint.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
-				EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(opc.getTypeSet(),
-						EMV2Util.getUseTypes(opc));
+				EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(opc.getTypeSet());
 				for (TypeToken tt : result) {
 					String longName = EMV2Util.getPrintName(opc) + EMV2Util.getPrintName(tt);
 					if (longName.equalsIgnoreCase(toProcess) && !tt.getType().isEmpty()) {

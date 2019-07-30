@@ -585,7 +585,7 @@ public class EMV2TypeSetUtil {
 	 * @param typeSet
 	 * @return list of type tokens
 	 */
-	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
+	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
 		if (typeSet == null) {
 			return result;
@@ -602,7 +602,7 @@ public class EMV2TypeSetUtil {
 						result.add(typeSetElement);
 					}
 				} else { // we have a type set that needs to be flattened
-					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first, usetypes);
+					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first);
 					for (TypeToken typeToken : etlist) {
 						if (!EMV2TypeSetUtil.contains(result, typeToken)) {
 							result.add(typeToken);
@@ -825,5 +825,11 @@ public class EMV2TypeSetUtil {
 			return false;
 		}
 		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
+	}
+
+	public static Collection<TypeToken> matchingSubtypes(TypeSet constraint, ErrorType supertype) {
+		EList<TypeToken> result = new BasicEList<TypeToken>();
+		EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		return result;
 	}
 }
