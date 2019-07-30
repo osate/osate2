@@ -580,10 +580,10 @@ public class EMV2TypeSetUtil {
 	}
 
 	/**
-	 * generate all type tokens for a given typeset.
-	 * Do so for each leaf subtype.
+	 * generate all error types for a given typeset.
+	 * Do so recursively for contained type sets.
 	 * @param typeSet
-	 * @return list of type tokens
+	 * @return list of type tokens that are error types
 	 */
 	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
@@ -827,9 +827,16 @@ public class EMV2TypeSetUtil {
 		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
 
-	public static Collection<TypeToken> matchingSubtypes(TypeSet constraint, ErrorType supertype) {
-		EList<TypeToken> result = new BasicEList<TypeToken>();
-		EMV2TypeSetUtil.flattenTypesetElements(constraint);
+	public static Collection<ErrorType> matchingSubtypes(TypeSet constraint, ErrorType supertype) {
+		EList<ErrorType> result = new BasicEList<ErrorType>();
+		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		for (TypeToken token : tokens) {
+			if (EMV2TypeSetUtil.contains(supertype, token)) {
+				if (!token.getType().isEmpty()) {
+					result.add((ErrorType) token.getType().get(0));
+				}
+			}
+		}
 		return result;
 	}
 }
