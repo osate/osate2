@@ -47,7 +47,9 @@ Operators in increasing precedence order in ReqSpec expressions
 
 * *Equality*: **==** **!=** 
 
-* *Relational*: **&lt;** **&lt;=**, **&gt;**, **&gt;=** for &lt;numeric&gt;, &lt;range&gt;
+* *Relational*: **&lt;** **&lt;=**, **&gt;**, **&gt;=** for &lt;numeric&gt; 
+
+* *Containment*:  &lt;numeric&gt; **in** &lt;range&gt; and  &lt;range&gt; **in** &lt;range&gt;
 
 * *Additive*: &lt;numeric&gt; **+**  **-** for &lt;numeric&gt; &lt;range1&gt; 
 
@@ -122,14 +124,10 @@ and a Real value results in a Real value.
 Built-in functions: the
 following built-in functions are supported
 
-* *min*, *max*: minimum or maximum value of a range
+* *min*, *max*: minimum or maximum value of one or more range or numeric values. Takes into account units.
 
-* *abs*: absolute value
+* *abs*: absolute value for integer and real values
 
 * *floor*, *ceil*, *round*: next lower, higher, closest Integer value
-for a given Real value
+for a given Real value. Any unit is carried over to the new value.
 
-Two functions have been provided experimentally: *prev* for referring to
-the previous value, and *atTime* for
-referring to a value at time *x* (second
-parameter).
