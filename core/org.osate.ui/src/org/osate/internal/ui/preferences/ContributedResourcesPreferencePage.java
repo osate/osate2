@@ -34,6 +34,9 @@
  */
 package org.osate.internal.ui.preferences;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -44,6 +47,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -59,9 +63,10 @@ import org.osate.ui.OsateUiPlugin;
  */
 
 public class ContributedResourcesPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+	private final Map<String, Boolean> originalValues = new HashMap<>();
+
 	public ContributedResourcesPreferencePage() {
 		super(GRID);
-		setPreferenceStore(PluginSupportPlugin.getDefault().getPreferenceStore());
 //		setDescription("Contributed resources preferences");
 	}
 
@@ -71,37 +76,53 @@ public class ContributedResourcesPreferencePage extends FieldEditorPreferencePag
 	@Override
 	public void createFieldEditors() {
 		final Composite parent = getFieldEditorParent();
+		final IPreferenceStore prefs = getPreferenceStore();
 
 		final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Select Plug-in Contributed Resources to Use");
 
 		for (final URI uri : PluginSupportUtil.getContributedAadl()) {
+			final String preferenceNameForURI = PredeclaredProperties.getPreferenceNameForURI(uri);
+			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
-					PredeclaredProperties.getPreferenceNameForURI(uri), uri.toString(), group);
+					preferenceNameForURI, uri.toString(), group);
 			addField(booleanEditor);
 		}
 	}
 
 	@Override
 	public void init(final IWorkbench workbench) {
+		setPreferenceStore(PluginSupportPlugin.getDefault().getPreferenceStore());
 	}
 
 	@Override
 	public boolean performOk() {
 		final boolean ok = super.performOk();
 
-		// build the workspace
-		new Job("Contributed Resources Rebuild") {
-			@Override
-			public IStatus run(final IProgressMonitor monitor) {
-				try {
-					ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, monitor);
-					return Status.OK_STATUS;
-				} catch (final CoreException e) {
-					return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, "Error building workspace");
-				}
+		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
+		final IPreferenceStore prefs = getPreferenceStore();
+		boolean changed = false;
+		for (final Map.Entry<String, Boolean> elt : originalValues.entrySet()) {
+			if (prefs.getBoolean(elt.getKey()) != elt.getValue()) {
+				changed = true;
+				break;
 			}
-		}.schedule();
+		}
+
+		// build the workspace
+		if (changed) {
+			new Job("Contributed Resources Rebuild") {
+				@Override
+				public IStatus run(final IProgressMonitor monitor) {
+					try {
+						ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+						return Status.OK_STATUS;
+					} catch (final CoreException e) {
+						return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, "Error building workspace");
+					}
+				}
+			}.schedule();
+		}
 
 		return ok;
 	}
