@@ -1,0 +1,42 @@
+package issue1909
+public
+
+	process Regulate_Temperature_Pr
+		features
+			current_temp: in data port ;
+			
+			heat_control: out data port ;
+		flows
+			regulate: flow path current_temp -> heat_control;
+		modes
+			normal : initial mode;
+			standby: mode;
+	end Regulate_Temperature_Pr;
+
+--@description process implementation that holds threads that regulate air temperature
+	process implementation Regulate_Temperature_Pr.impl
+		subcomponents
+			self_check_regulator: thread Self_Check_Regulator in modes (normal);
+			manage_heat_source: thread Manage_Heat_Source in modes (normal);
+		connections
+			ctmhs: port current_temp -> manage_heat_source.current_temp;
+					-- output regulator subsystem status to operator interface  
+			rhc: port manage_heat_source.heat_control -> heat_control;
+		flows
+			regulate: flow path current_temp -> ctmhs -> manage_heat_source.regulate -> rhc -> heat_control;
+	end Regulate_Temperature_Pr.impl;
+
+	thread Self_Check_Regulator
+		features
+			regulator_status: out data port ;
+	end Self_Check_Regulator;
+
+	thread Manage_Heat_Source
+		features
+			current_temp: in data port ;
+			heat_control: out data port ;
+		flows
+			regulate: flow path current_temp -> heat_control;
+	end Manage_Heat_Source;
+
+end issue1909;

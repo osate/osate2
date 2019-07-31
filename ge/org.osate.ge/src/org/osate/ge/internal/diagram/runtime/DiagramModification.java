@@ -2,14 +2,11 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.List;
 
-import org.osate.ge.ContentFilter;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-
-import com.google.common.collect.ImmutableSet;
 
 /**
  * Interface provided to Modifier objects to allow making changes to an AgeDiagram.
@@ -39,9 +36,6 @@ public interface DiagramModification {
 	 */
 	void setBusinessObjectHandler(final DiagramElement e, final Object boh);
 
-	void setManual(final DiagramElement e, final boolean value);
-
-	void setContentFilters(final DiagramElement e, final ImmutableSet<ContentFilter> value);
 	void setCompleteness(final DiagramElement e, final Completeness value);
 	void setLabelName(final DiagramElement e, final String value);
 
@@ -49,16 +43,19 @@ public interface DiagramModification {
 	void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value);
 
 	default void setPosition(final DiagramElement e, final Point value) {
-		setPosition(e, value, true);
+		setPosition(e, value, true, true);
 	}
 
 	/**
-	 *
-	 * @param e
-	 * @param value
+	 * Sets the position of a diagram element
+	 * @param e the element to set position
+	 * @param value the new position of the element
 	 * @param updateDockArea whether the dock area should be updated based on the set position.
+	 * @param updateBendpoints whether to update contained bendpoints
 	 */
-	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea);
+	void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea,
+			final boolean updateBendpoints);
+
 	void setSize(final DiagramElement e, final Dimension value);
 	void setDockArea(final DiagramElement e, final DockArea value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);

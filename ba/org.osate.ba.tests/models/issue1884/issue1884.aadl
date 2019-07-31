@@ -1,0 +1,30 @@
+package issue1884
+public
+	abstract parser_error
+		annex behavior_specification {**
+			states
+				s0: initial complete final state;
+				s1: state
+		**};
+	end parser_error;
+	
+	abstract resolver_error
+		annex behavior_specification {**
+			states
+				s0: initial complete final state;
+				s1: state;
+			transitions
+				s0 -[ on dispatch ]-> bad_reference;
+		**};
+	end resolver_error;
+	
+	abstract legality_error
+		annex behavior_specification {**
+			states
+				s0: initial complete final state;
+				s1: state;
+			transitions
+				s0 -[ on dispatch timeout ]-> s1;
+		**};
+	end legality_error;
+end issue1884;

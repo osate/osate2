@@ -29,7 +29,9 @@ import org.osate.aadl2.PortConnectionEnd;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
@@ -218,6 +220,7 @@ public class ConnectionHandler {
 		// Get the connection elements for the source and destination
 		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
 				false, ownerBoc);
+
 		if (srcConnectedElement == null) {
 			return false;
 		}
@@ -230,11 +233,13 @@ public class ConnectionHandler {
 			return false;
 		}
 
-		// Can't connect two features that belong to the same classifier
-		if (!(srcConnectedElement.getContext() instanceof Subcomponent)
+		// Don't allow connecting two features owned by the same classifier
+		if (!(srcConnectedElement.getContext() instanceof Subcomponent
+				|| srcConnectedElement.getContext() instanceof SubprogramCall)
 				&& srcConnectedElement.getConnectionEnd() instanceof Feature
-				&& !(dstConnectedElement.getContext() instanceof Subcomponent)
-				&& srcConnectedElement.getConnectionEnd() instanceof Feature) {
+				&& !(dstConnectedElement.getContext() instanceof Subcomponent
+						|| dstConnectedElement.getContext() instanceof SubprogramCall)
+				&& dstConnectedElement.getConnectionEnd() instanceof Feature) {
 			return false;
 		}
 
@@ -360,7 +365,7 @@ public class ConnectionHandler {
 	}
 
 	/**
-	 * Builds a ConnectedElement for hte specific business object.
+	 * Builds a ConnectedElement for the specific business object.
 	 * @param boc
 	 * @param connectionType
 	 * @param disableNesting
@@ -379,7 +384,8 @@ public class ConnectionHandler {
 		final LinkedList<Object> path = new LinkedList<>();
 		for (BusinessObjectContext tmp = boc; tmp != null && tmp != limitBoc
 				&& tmp.getBusinessObject() != null; tmp = tmp.getParent()) {
-			if (tmp.getBusinessObject() instanceof ComponentImplementation) {
+			if (tmp.getBusinessObject() instanceof ComponentImplementation
+					|| tmp.getBusinessObject() instanceof SubprogramCallSequence) {
 				break;
 			} else if (tmp.getBusinessObject() instanceof Subcomponent) {
 				if (pathIncludesSubcomponent) {
@@ -437,6 +443,11 @@ public class ConnectionHandler {
 			}
 
 			tmp.setConnectionEnd((ConnectionEnd) pathObjects[i]);
+		}
+
+		// SubprogramSubcomponent elements are never a valid context
+		if (ce.getContext() instanceof SubprogramSubcomponent) {
+			return null;
 		}
 
 		return ce;

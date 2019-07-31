@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.core.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
      <extension
          id="aadlnature"
          name="%aadlNature"
@@ -34,6 +39,23 @@
          </run>
       </builder>
    </extension-->
+   <extension
+         point="org.eclipse.core.resources.markers"
+         id="cyclicreferencemarker"
+         name="Cyclic Project Reference Marker">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.xtext.builder.participant">
+      <participant
+            class="org.osate.core.AadlProjectBuilderParticipant">
+      </participant>
+   </extension>
    <extension
          point="org.eclipse.team.core.fileTypes">
       <fileTypes

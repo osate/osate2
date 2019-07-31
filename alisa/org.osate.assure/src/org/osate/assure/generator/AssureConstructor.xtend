@@ -72,6 +72,7 @@ import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.result.ResultType
+import org.osate.aadl2.ComponentType
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -251,7 +252,7 @@ class AssureConstructor implements IAssureConstructor {
 			val function = when.condition
 			if (function !== null) {
 				val ne = req.targetElement ?: cc
-				val res = ExecuteJavaUtil.eInstance.invokeJavaMethod(function, ne)
+				val res = ExecuteJavaUtil.invokeJavaMethod(function, ne)
 				if (res instanceof Boolean) {
 					return res;
 				}
@@ -367,13 +368,16 @@ class AssureConstructor implements IAssureConstructor {
 		isRoot = false
 		if (globalOnly || subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
+		} else if (cc instanceof ComponentType) {
+			// plans for type
+			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
 		} else {
+			// do cases for subsystem 
 			val subacs = arefFinder.getAssuranceCases(cc)
 			if (subacs.empty) {
 				subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
 			} else {
 				for (subac : subacs) {
-
 					subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
 				}
 			}

@@ -12,15 +12,12 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
-
-import com.google.common.collect.ImmutableSet;
 
 public class HideAllContentsHandler extends AbstractHandler {
 	@Override
@@ -49,10 +46,11 @@ public class HideAllContentsHandler extends AbstractHandler {
 		}
 
 		diagram.modify("Hide All Contents", m -> {
-			// Update the content filters of each element
+			// Remove children of selected elements
 			for (final DiagramElement e : selectedDiagramElements) {
-				m.setContentFilters(e, ImmutableSet.of());
-				setDescendantsAsAutomatic(m, e);
+				for (final DiagramElement child : e.getDiagramElements()) {
+					m.removeElement(child);
+				}
 			}
 		});
 
@@ -66,15 +64,5 @@ public class HideAllContentsHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		setBaseEnabled(AgeHandlerUtil.getSelectedDiagramElements().size() > 0);
-	}
-
-	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {
-		// Set all descendants of the specified element as automatic/not manual
-		for (final DiagramElement child : e.getDiagramElements()) {
-			if (child.isManual()) {
-				m.setManual(child, false);
-			}
-			setDescendantsAsAutomatic(m, child);
-		}
 	}
 }

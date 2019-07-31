@@ -52,25 +52,29 @@ public class AadlElementLabelProvider extends AdapterFactoryLabelProvider implem
 			final ResourceSet resourceSet = new ResourceSetImpl();
 			final EObject eObject = resourceSet.getEObject(wrapper.getUri(), true);
 			int severity = -1;
-			try {
-				final IFile file = OsateResourceUtil.getOsateIFile(wrapper.getUri().trimFragment());
-				if (file.isAccessible()) {
-					final IMarker[] markers = file.findMarkers(null, true, IResource.DEPTH_INFINITE);
-					for (final IMarker marker : markers) {
-						final String markerURIString = getMarkerURIString(marker);
-						if (markerURIString != null) {
-							final EObject markedObject = resourceSet.getEObject(URI.createURI(markerURIString), true);
-							if (markedObject != null && EcoreUtil.isAncestor(eObject, markedObject)) {
-								final int markerSeverity = (Integer) marker.getAttribute(IMarker.SEVERITY);
-								if (markerSeverity > severity) {
-									severity = markerSeverity;
+			final URI resourceURI = eObject.eResource().getURI();
+			if (resourceURI.isPlatformResource()) {
+				try {
+					final IFile file = OsateResourceUtil.toIFile(eObject.eResource().getURI());
+					if (file.isAccessible()) {
+						final IMarker[] markers = file.findMarkers(null, true, IResource.DEPTH_INFINITE);
+						for (final IMarker marker : markers) {
+							final String markerURIString = getMarkerURIString(marker);
+							if (markerURIString != null) {
+								final EObject markedObject = resourceSet.getEObject(URI.createURI(markerURIString),
+										true);
+								if (markedObject != null && EcoreUtil.isAncestor(eObject, markedObject)) {
+									final int markerSeverity = (Integer) marker.getAttribute(IMarker.SEVERITY);
+									if (markerSeverity > severity) {
+										severity = markerSeverity;
+									}
 								}
 							}
 						}
 					}
+				} catch (final CoreException e) {
+					OsateCorePlugin.log(e);
 				}
-			} catch (final CoreException e) {
-				OsateCorePlugin.log(e);
 			}
 
 			final Image image = super.getImage(eObject);

@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.graphics.Color;
@@ -29,7 +28,6 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
-import org.osate.ge.internal.diagram.runtime.filtering.LegacyContentFilterMapping;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.PackageDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.StructureDiagramType;
@@ -38,8 +36,6 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder;
-
-import com.google.common.collect.ImmutableSet;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
@@ -232,49 +228,6 @@ public class DiagramSerialization {
 		final UUID uuid = UUID.fromString(mmChild.getUuid());
 		final DiagramElement newElement = new DiagramElement(container, bo, null, relReference, uuid);
 
-		ImmutableSet.Builder<ContentFilter> contentFilterSetBuilder = ImmutableSet.builder();
-		if (mmChild.getContentFilters() != null) {
-			for (final String contentFilterId : mmChild.getContentFilters().getFilter()) {
-				contentFilterProvider.getContentFilterById(contentFilterId).ifPresent(contentFilter -> {
-					contentFilterSetBuilder.add(contentFilter);
-				});
-			}
-		}
-
-		final String legacyFilterId = mmChild.getAutoContentsFilter();
-		if (legacyFilterId != null) {
-			usingLegacyContentFilters = true;
-
-			// Get legacy content filters
-			LegacyContentFilterMapping.getById(legacyFilterId).ifPresent(legacyMapping -> {
-				// Add the equivalent content filters to the content filter set.
-				for (final String contentFilterId : legacyMapping.getContentFilterIds()) {
-					contentFilterProvider.getContentFilterById(contentFilterId).ifPresent(contentFilter -> {
-						contentFilterSetBuilder.add(contentFilter);
-					});
-				}
-			});
-		}
-		newElement.setContentFilters(contentFilterSetBuilder.build());
-		newElement.setManual(mmChild.isManual());
-
-		// Need to set default mode transition trigger connections, default annex library, and default annex subclauses as manual if loading diagrams which use
-		// the legacy content filter.
-		// Current filters do not include those objects because of issues with layout(mode transition trigger connections) or questionable usefulness(annex
-		// elements)
-		if (usingLegacyContentFilters) {
-			final String firstSegment = newElement.getRelativeReference().getSegments().get(0);
-			if (DeclarativeReferenceType.ANNEX_LIBRARY.getId().equals(firstSegment)
-					|| DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId().equals(firstSegment)
-					|| DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId().equals(firstSegment)) {
-				// Set the element and its parents as manual
-				for (DiagramElement tmp = newElement; tmp
-						.getParent() instanceof DiagramElement; tmp = (DiagramElement) tmp.getParent()) {
-					tmp.setManual(true);
-				}
-			}
-		}
-
 		// Size and Position
 		newElement.setPosition(convertPoint(mmChild.getPosition()));
 		newElement.setSize(convertDimension(mmChild.getSize()));
@@ -407,15 +360,7 @@ public class DiagramSerialization {
 			newElement.setBoData(bo.getData());
 		}
 
-		final org.osate.ge.diagram.ContentFilters contentFilters = new org.osate.ge.diagram.ContentFilters();
-		newElement.setContentFilters(contentFilters);
-		for (final ContentFilter contentFilter : e.getContentFilters()) {
-			contentFilters.getFilter().add(contentFilter.getId());
-		}
-
-		if (e.isManual()) {
-			newElement.setManual(true);
-		}
+		newElement.setManual(true);
 
 		// Shape Specific
 		if (e.hasPosition()) {

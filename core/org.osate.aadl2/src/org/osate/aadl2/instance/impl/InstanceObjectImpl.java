@@ -64,7 +64,6 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -341,17 +340,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	}
 
 	/**
-	 * Returns the System Operation Modes in which the element exists, or
-	 * <code>null</code> if the element always exists.
-	 *
-	 * @return
-	 */
-	@Override
-	public List<SystemOperationMode> getExistsInModes() {
-		return null;
-	}
-
-	/**
 	 * Get the property value from the declarative model elements associated
 	 * with the instance object. This implementation works for everything but
 	 * ConnectionInstances; this method is overridden in ConnectionInstance to
@@ -524,7 +512,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 					if (decls != null && !decls.isEmpty()) {
 						NamedElement decl = decls.get(0);
 
-						if (decl.getName().equalsIgnoreCase(ne.getName())) {
+						if (decl.getName() != null && decl.getName().equalsIgnoreCase(ne.getName())) {
 							EList<ArrayRange> ranges = cpe.getArrayRanges();
 
 							if (next.matchesIndex(ranges)) {

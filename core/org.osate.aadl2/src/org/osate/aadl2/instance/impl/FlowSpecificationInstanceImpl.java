@@ -475,12 +475,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	}
 
 	@Override
-	public final List<SystemOperationMode> getExistsInModes() {
-		// Modes always exist
-		return null;
-	}
-
-	@Override
 	public List<FlowSpecification> getInstantiatedObjects() {
 		return Collections.singletonList(getFlowSpecification());
 	}

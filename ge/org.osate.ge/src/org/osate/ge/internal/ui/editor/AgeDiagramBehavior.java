@@ -1,9 +1,13 @@
 package org.osate.ge.internal.ui.editor;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -40,16 +44,22 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.graphiti.IExecutionInfo;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeatureAndContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
@@ -58,6 +68,8 @@ import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.action.DeleteAction;
+import org.eclipse.graphiti.ui.internal.editor.GFCommandStack;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.platform.IConfigurationProvider;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -107,6 +119,7 @@ import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.AgeActionCustomFeature;
+import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
@@ -155,8 +168,70 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	};
 
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection));
+		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection, false));
 	};
+
+	@Override
+	protected void initConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
+		super.initConfigurationProvider(diagramTypeProvider);
+
+		CommandStack commandStack = new AgeGFCommandStack(getConfigurationProvider(), getEditingDomain());
+		getEditDomain().setCommandStack(commandStack);
+	}
+
+	// Custom command stack which handles moving connection bendpoints when moving multiple shapes.
+	// Handle adjusting bendpoints when multiple shapes are moved. The default bendpoint shifting behavior is not suitable because there are bendpoints that
+	// should be adjusted but would not be adjusted if each shape is handled separately.
+	private class AgeGFCommandStack extends GFCommandStack {
+		public AgeGFCommandStack(IConfigurationProvider configurationProvider,
+				TransactionalEditingDomain editingDomain) {
+			super(configurationProvider, editingDomain);
+		}
+
+		@Override
+		public void execute(org.eclipse.gef.commands.Command gefCommand) {
+			if (gefCommand != null) {
+				final DefaultExecutionInfo executionInfo = new DefaultExecutionInfo();
+				GraphitiUiInternal.getCommandService().completeExecutionInfo(executionInfo, gefCommand);
+
+				final List<IMoveShapeContext> ctxs = getMoveShapeContexts(executionInfo);
+				if (ctxs.size() > 0) {
+					final Point delta = ctxs.stream().map(ctx -> new Point(ctx.getDeltaX(), ctx.getDeltaY())).findAny()
+							.orElse(null);
+					if (delta != null) {
+						final List<Shape> shapes = ctxs.stream().map(ctx -> ctx.getShape())
+								.collect(Collectors.toList());
+
+						// Selected elements and their descendants
+						final Stream<DiagramElement> movedElements = shapes.stream()
+								.map(shape -> graphitiAgeDiagram.getDiagramElement(shape));
+
+						graphitiAgeDiagram.modify(gefCommand.getLabel(), m -> {
+							super.execute(gefCommand);
+							DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(getAgeDiagram(), movedElements,
+									new org.osate.ge.graphics.Point(delta.x, delta.y), m);
+						});
+
+						return;
+					}
+				}
+			}
+
+			super.execute(gefCommand);
+		}
+	}
+
+	private static List<IMoveShapeContext> getMoveShapeContexts(final IExecutionInfo executionInfo) {
+		final List<IMoveShapeContext> ctxs = new ArrayList<>();
+		for (final IFeatureAndContext feature : executionInfo.getExecutionList()) {
+			if (feature.getFeature() instanceof AgeMoveShapeFeature) {
+				final IMoveShapeContext ctx = (IMoveShapeContext) feature.getContext();
+				ctxs.add(ctx);
+			}
+		}
+
+		return ctxs;
+	}
 
 	private final IPartListener toolPartListener = new IPartListener() {
 		@Override
@@ -430,7 +505,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			editor.getSite().getWorkbenchWindow().getSelectionService()
 			.addPostSelectionListener(toolPostSelectionListener);
 			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
-					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection()));
+					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection(), false));
 
 			// Deactivate the tool when the part is deactivated or closed
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);

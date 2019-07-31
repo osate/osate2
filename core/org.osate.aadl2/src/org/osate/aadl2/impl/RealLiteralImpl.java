@@ -43,6 +43,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.operations.NumberValueOperations;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -193,8 +195,8 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 		StringBuffer result = new StringBuffer();
 		result.append(value);
-		result.append(' ');
 		if (unit != null) {
+			result.append(' ');
 			result.append(unit.getName());
 		}
 		return result.toString();
@@ -252,7 +254,20 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 			return false;
 		}
 		RealLiteralImpl other = (RealLiteralImpl) pe;
-		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
+
+		final UnitLiteral myUnit = getUnit();
+		final UnitLiteral otherUnit = other.getUnit();
+		final UnitLiteral smallerUnit = NumberValueOperations.smallerUnit(myUnit, otherUnit);
+		if (smallerUnit == null) { // no units at all
+			return value == other.value;
+		} else {
+			/*
+			 * Concerned about having problems due to floating point loosing precision, but so far
+			 * things are okay.
+			 */
+			return NumberValueOperations.getScaledValue(this, smallerUnit) == NumberValueOperations
+					.getScaledValue(other, smallerUnit);
+		}
 	}
 
 } // RealLiteralImpl

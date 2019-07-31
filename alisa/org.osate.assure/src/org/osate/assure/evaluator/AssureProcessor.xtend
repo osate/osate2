@@ -32,17 +32,22 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyType
 import org.osate.aadl2.PropertyValue
-import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.common.CommonFactory
+import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.AssureResult
@@ -57,6 +62,8 @@ import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
+import org.osate.assure.util.ResoluteInterface
+import org.osate.assure.util.ResoluteUtil
 import org.osate.categories.categories.CategoryFilter
 import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
@@ -88,14 +95,6 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.assure.util.ResoluteUtil
-import org.osate.assure.util.ResoluteInterface
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlString
-import org.osate.alisa.common.common.TypeRef
-import org.osate.aadl2.PropertyType
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -286,9 +285,14 @@ class AssureProcessor implements IAssureProcessor {
 		val targetElement = verificationResult.caseTargetModelElement
 		var InstanceObject target = targetComponent
 		if (targetElement !== null && targetElement.name !== null) {
-				target = targetComponent.findElementInstance(targetElement)
-				if (target === null) { target =  targetComponent }
+			target = targetComponent.findElementInstance(targetElement)
+			if (target === null) {
+				setToError(verificationResult, "Unresolved target model element in instance for claim", targetElement)
+				saveAssureResult(verificationResult)
+				updateProgress(verificationResult)
+				return
 			}
+		}
 		env.add("component", targetComponent)
 		env.add("element", target)
 
@@ -459,7 +463,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToError(verificationResult, "Execution of AGREE methods is not supported")
 				}
 				JUnit4Method: {
-					val test = ExecuteJavaUtil.eInstance.getJavaClass(methodtype.classPath);
+					val test = ExecuteJavaUtil.getJavaClass(methodtype.classPath);
 					val junit = new JUnitCore();
 					val result = junit.run(test);
 					if (result.failureCount == 0) {
@@ -672,10 +676,10 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def String getFailedMsg(RuleFailedException e) {
+	def String getFailedMsg(Throwable e) {
 		var tmp = e;
-		while (tmp.cause !== null) {
-			tmp = tmp.cause as RuleFailedException;
+		while (tmp.cause !== null && tmp.cause != tmp) {
+			tmp = tmp.cause ;
 		}
 		return tmp.message
 	}
@@ -748,13 +752,13 @@ class AssureProcessor implements IAssureProcessor {
 		val methodtype = method.methodKind as JavaMethod
 		val newClasses = VerifyJavaUtil.getParameterClasses(methodtype)
 		val objects = VerifyJavaUtil.getActualJavaObjects(methodtype, target, parameters)
-		var returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+		var returned = ExecuteJavaUtil.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
 		if (returned === null || returned instanceof Exception){
 			// try without first parameter if targetType not specified
 			if (method.targetType === null){
 				newClasses.remove(0);
 				objects.remove(0);
-				returned = ExecuteJavaUtil.eInstance.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
+				returned = ExecuteJavaUtil.invokeJavaMethod(methodtype.methodPath, newClasses, objects)
 			}
 		}
 		processExecutionResult(verificationResult, method, target, returned)

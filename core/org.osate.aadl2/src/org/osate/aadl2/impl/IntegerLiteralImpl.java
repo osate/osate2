@@ -43,6 +43,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.operations.NumberValueOperations;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -249,8 +251,8 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 		StringBuffer result = new StringBuffer();
 		result.append(value);
-		result.append(' ');
 		if (unit != null) {
+			result.append(' ');
 			result.append(unit.getName());
 		}
 		return result.toString();
@@ -361,7 +363,17 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 			return false;
 		}
 		IntegerLiteralImpl other = (IntegerLiteralImpl) pe;
-		return base == other.base && value == other.value;
+
+		// N.B. the `base` attribute of IntegerLiteral doesn't seem to be used
+		final UnitLiteral myUnit = getUnit();
+		final UnitLiteral otherUnit = other.getUnit();
+		final UnitLiteral smallerUnit = NumberValueOperations.smallerUnit(myUnit, otherUnit);
+		if (smallerUnit == null) { // no units at all
+			return value == other.value;
+		} else {
+			return NumberValueOperations.getScaledValue(this, smallerUnit) == NumberValueOperations
+					.getScaledValue(other, smallerUnit);
+		}
 	}
 
 } // IntegerLiteralImpl

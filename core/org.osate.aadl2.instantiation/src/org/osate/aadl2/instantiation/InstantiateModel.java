@@ -57,7 +57,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -134,6 +133,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 import org.osgi.service.prefs.Preferences;
 
@@ -236,13 +236,12 @@ public class InstantiateModel {
 			throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
-		IFile file = OsateResourceUtil.getOsateIFile(instanceURI);
+		URI instanceURI = getInstanceModelURI(ci);
+		IFile file = OsateResourceUtil.toIFile(instanceURI);
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = OsateResourceUtil.getResource(instanceURI, OsateResourceUtil.getResourceSet());
-		aadlResource.getContents().clear();
+		Resource aadlResource = new ResourceSetImpl().createResource(instanceURI);
 		aadlResource.save(null);
 		aadlResource.unload();
 
@@ -258,7 +257,7 @@ public class InstantiateModel {
 
 	public static SystemInstance instantiate(ComponentImplementation ci, AnalysisErrorReporterManager errorManager,
 			IProgressMonitor monitor) throws Exception {
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
+		URI instanceURI = getInstanceModelURI(ci);
 		ResourceSet resourceSet = ci.eResource().getResourceSet();
 		Resource aadlResource = resourceSet.createResource(instanceURI);
 
@@ -307,7 +306,7 @@ public class InstantiateModel {
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		ResourceSet rset = new ResourceSetImpl();
-		Resource res = OsateResourceUtil.getResource(ires, rset);
+		Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
@@ -334,7 +333,7 @@ public class InstantiateModel {
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-			Resource res = OsateResourceUtil.getResource(ires, rset);
+			Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			ComponentImplementation ci = target.getComponentImplementation();
 			URI uri = EcoreUtil.getURI(ci);
@@ -350,7 +349,7 @@ public class InstantiateModel {
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i), rset);
+			Resource res = rset.getResource(OsateResourceUtil.toResourceURI(instanceIResources.get(i)), true);
 			instantiateModel.createSystemInstance(ci, res);
 		}
 	}
@@ -450,11 +449,12 @@ public class InstantiateModel {
 		populateComponentInstance(root, 0);
 
 		monitor.subTask("Creating system operation modes");
+		URI resourceURI = root.eResource().getURI();
 		final int somLimit;
-		if (Platform.isRunning()) {
-			somLimit = getSOMLimit(OsateResourceUtil.convertToIResource(root.eResource()).getProject());
+		if (resourceURI.isPlatformResource()) {
+			somLimit = getSOMLimit(OsateResourceUtil.toIFile(resourceURI).getProject());
 		} else {
-			somLimit = WorkspacePlugin.MAX_SOM_DEFAULT;
+			somLimit = OsateCorePlugin.MAX_SOM_DEFAULT;
 		}
 		createSystemOperationModes(root, somLimit);
 
@@ -502,6 +502,28 @@ public class InstantiateModel {
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
 		return;
+	}
+
+	/*
+	 * returns the instance model URI for a given system implementation
+	 *
+	 * @param si
+	 *
+	 * @return URI for instance model file
+	 */
+	public static URI getInstanceModelURI(ComponentImplementation ci) {
+		Resource res = ci.eResource();
+		URI modeluri = res.getURI();
+		String last = modeluri.lastSegment();
+		String filename = last.substring(0, last.indexOf('.'));
+		URI path = modeluri.trimSegments(1);
+		if (!path.isEmpty() && path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+			path = path.trimSegments(1);
+		}
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
+				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		return instanceURI;
 	}
 
 	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
@@ -2317,7 +2339,7 @@ public class InstantiateModel {
 		}
 		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
 		if (somLimit == -1) {
-			somLimit = WorkspacePlugin.getDefault().getSOMLimit();
+			somLimit = OsateCorePlugin.getDefault().getSOMLimit();
 		}
 		return somLimit;
 	}
