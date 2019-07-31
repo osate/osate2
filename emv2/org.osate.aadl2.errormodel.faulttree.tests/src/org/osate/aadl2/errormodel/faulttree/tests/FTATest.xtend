@@ -654,6 +654,7 @@ class FTATest  {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
+		// Visualization shows more events but we have shared subtrees, thus, only 10.
 		assertEquals(10,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
