@@ -451,16 +451,20 @@ public class PropagationGraphBackwardTraversal {
 			boolean sameState = false;
 			ErrorType newtype = type;
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())) {
-				Collection<ErrorType> filteredtypes = filterFromIncomingPropagation(ebt.getTargetToken(), type);
-				for (ErrorType filteredtype : filteredtypes) {
-					if (contains(ebt.getTargetToken(), filteredtype)) {
-						conditionExpression = ebt.getCondition();
-						if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())
-								&& isSame(type, ebt.getTypeTokenConstraint())) {
-							sameState = true;
-							newtype = filteredtype;
+				if (ebt.getTargetToken() != null) {
+					Collection<ErrorType> filteredtypes = filterFromIncomingPropagation(ebt.getTargetToken(), type);
+					for (ErrorType filteredtype : filteredtypes) {
+						if (contains(ebt.getTargetToken(), filteredtype)) {
+							conditionExpression = ebt.getCondition();
+							if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())
+									&& isSame(type, ebt.getTypeTokenConstraint())) {
+								sameState = true;
+								newtype = filteredtype;
+							}
 						}
 					}
+				} else {
+					// nothing stay with newtype = type
 				}
 			} else if (!ebt.getDestinationBranches().isEmpty()) {
 				// deal with transition branches
@@ -922,7 +926,7 @@ public class PropagationGraphBackwardTraversal {
 			for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
 					errorPropagation)) {
 				// traverse incoming
-				ErrorType srctype = type;
+				ErrorTypes srctype = type;
 				if (ppr.getConnection() != null) {
 					ErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
 					// the type constraint has to come from the error source as the connection does not have one
@@ -975,7 +979,8 @@ public class PropagationGraphBackwardTraversal {
 							pruneGraph = true;
 						}
 					} else {
-						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
+						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
+								(ErrorType) srctype,
 									scale);
 						if (!addSubresult(subResults, result)) {
 							pruneGraph = true;
@@ -991,16 +996,12 @@ public class PropagationGraphBackwardTraversal {
 							// we have an external incoming propagation
 							EObject result = processIncomingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
-							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
-									srctype, scale);
 							if (!addSubresult(subResults, result)) {
 								pruneGraph = true;
 							}
 						} else {
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
-							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
-									srctype, scale);
 							if (!addSubresult(subResults, result)) {
 								pruneGraph = true;
 							}
