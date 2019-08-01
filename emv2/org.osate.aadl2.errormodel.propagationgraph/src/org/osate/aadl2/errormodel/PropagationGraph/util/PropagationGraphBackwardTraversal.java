@@ -139,11 +139,7 @@ public class PropagationGraphBackwardTraversal {
 							if (contains(opc.getTypeToken(), mappedtype)) {
 								EObject res = handleOutgoingErrorPropagationCondition(component, opc, mappedtype,
 										handledEOPs, scale);
-								if (res == foundCycle) {
-									pruneGraph = true;
-								} else if (res != null) {
-									subResults.add(res);
-								} else {
+								if (!addSubresult(subResults, res)) {
 									pruneGraph = true;
 								}
 							}
@@ -162,11 +158,7 @@ public class PropagationGraphBackwardTraversal {
 					if (!containsEOP(eops, propagationSource)) {
 						// if not already handled by a opc
 						EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type, scale);
-						if (res == foundCycle) {
-							pruneGraph = true;
-						} else if (res != null) {
-							subResults.add(res);
-						} else {
+						if (!addSubresult(subResults, res)) {
 							pruneGraph = true;
 						}
 					}
@@ -216,11 +208,7 @@ public class PropagationGraphBackwardTraversal {
 													handledEOPs.put(eprop, EMV2Util.getPrintName(newtype));
 													EObject newEvent = traverseIncomingErrorPropagation(component,
 															eprop, newtype, newscale);
-													if (newEvent == foundCycle) {
-														pruneGraph = true;
-													} else if (newEvent != null) {
-														subResults.add(newEvent);
-													} else {
+													if (!addSubresult(subResults, newEvent)) {
 														pruneGraph = true;
 													}
 												}
@@ -229,11 +217,7 @@ public class PropagationGraphBackwardTraversal {
 												handledEOPs.put(ep.getIncoming(), EMV2Util.getPrintName(newtype));
 												EObject newEvent = traverseIncomingErrorPropagation(component,
 														ep.getIncoming(), newtype, newscale);
-												if (newEvent == foundCycle) {
-													pruneGraph = true;
-												} else if (newEvent != null) {
-													subResults.add(newEvent);
-												} else {
+												if (!addSubresult(subResults, newEvent)) {
 													pruneGraph = true;
 												}
 											}
@@ -256,11 +240,7 @@ public class PropagationGraphBackwardTraversal {
 											handledEOPs.put(eprop, EMV2Util.getPrintName(subtype));
 											EObject newEvent = traverseIncomingErrorPropagation(component, eprop,
 													subtype, newscale);
-											if (newEvent == foundCycle) {
-												pruneGraph = true;
-											} else if (newEvent != null) {
-												subResults.add(newEvent);
-											} else {
+											if (!addSubresult(subResults, newEvent)) {
 												pruneGraph = true;
 											}
 										}
@@ -276,11 +256,7 @@ public class PropagationGraphBackwardTraversal {
 										handledEOPs.put(inep, EMV2Util.getPrintName(subtype));
 										EObject newEvent = traverseIncomingErrorPropagation(component, inep, subtype,
 												newscale);
-										if (newEvent == foundCycle) {
-											pruneGraph = true;
-										} else if (newEvent != null) {
-											subResults.add(newEvent);
-										} else {
+										if (!addSubresult(subResults, newEvent)) {
 											pruneGraph = true;
 										}
 									}
@@ -309,11 +285,7 @@ public class PropagationGraphBackwardTraversal {
 									handledEOPs.put((ErrorPropagation) src, EMV2Util.getPrintName(mappedType));
 								}
 								EObject newEvent = processErrorSource(component, errorSource, mappedType, scale);
-								if (newEvent == foundCycle) {
-									pruneGraph = true;
-								} else if (newEvent != null) {
-									subResults.add(newEvent);
-								} else {
+								if (!addSubresult(subResults, newEvent)) {
 									pruneGraph = true;
 								}
 							}
@@ -355,6 +327,19 @@ public class PropagationGraphBackwardTraversal {
 		return false;
 	}
 
+
+	private boolean addSubresult(List<EObject> subResults, EObject result) {
+		if (result == foundCycle) {
+			return false;
+		} else if (result != null) {
+			subResults.add(result);
+			return true;
+		} else {
+			// propagation path exists but type is not propagated
+			return false;
+		}
+
+	}
 
 	/**
 	 * Process all OutgoingPropagationConditions that match the propagation and type of interest
@@ -943,12 +928,7 @@ public class PropagationGraphBackwardTraversal {
 					// the type constraint has to come from the error source as the connection does not have one
 					if (ces != null && contains(ces.getTypeTokenConstraint(), type)) { // XXX filter type
 						EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type, scale);
-						if (result == foundCycle) {
-							pruneGraph = true;
-						} else if (result != null) {
-							subResults.add(result);
-						} else {
-							// error source exists but type is not propagated
+						if (!addSubresult(subResults, result)) {
 							pruneGraph = true;
 						}
 					}
@@ -964,12 +944,7 @@ public class PropagationGraphBackwardTraversal {
 							ErrorType mappedtype = mapTargetType((ErrorType) newtype, type);
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
 									mappedtype, scale);
-							if (result == foundCycle) {
-								pruneGraph = true;
-							} else if (result != null) {
-								subResults.add(result);
-							} else {
-								// propagation path exists but type is not propagated
+							if (!addSubresult(subResults, result)) {
 								pruneGraph = true;
 							}
 						} else {
@@ -980,12 +955,7 @@ public class PropagationGraphBackwardTraversal {
 								ErrorType ntype = mapTargetType((ErrorType) tl.get(0), type);
 								EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
 										ntype, scale);
-								if (result == foundCycle) {
-									pruneGraph = true;
-								} else if (result != null) {
-									subResults.add(result);
-								} else {
-									// propagation path exists but type is not propagated
+								if (!addSubresult(subResults, result)) {
 									pruneGraph = true;
 								}
 							}
@@ -1001,23 +971,13 @@ public class PropagationGraphBackwardTraversal {
 						// we have an external incoming propagation
 						EObject result = processIncomingErrorPropagation(componentSource, propagationSource, srctype,
 								scale);
-						if (result == foundCycle) {
-							pruneGraph = true;
-						} else if (result != null) {
-							subResults.add(result);
-						} else {
-							// propagation path exists but type is not propagated
+						if (!addSubresult(subResults, result)) {
 							pruneGraph = true;
 						}
 					} else {
 						EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, srctype,
 									scale);
-						if (result == foundCycle) {
-							pruneGraph = true;
-						} else if (result != null) {
-							subResults.add(result);
-						} else {
-							// propagation path exists but type is not propagated
+						if (!addSubresult(subResults, result)) {
 							pruneGraph = true;
 						}
 					}
@@ -1031,21 +991,17 @@ public class PropagationGraphBackwardTraversal {
 							// we have an external incoming propagation
 							EObject result = processIncomingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
-							if (result != null) {
-								subResults.add(result);
-							} else {
-								// propagation path exists but type is not propagated
+							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
+									srctype, scale);
+							if (!addSubresult(subResults, result)) {
 								pruneGraph = true;
 							}
 						} else {
 							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource, ntype,
 									scale);
-							if (result == foundCycle) {
-								pruneGraph = true;
-							} else if (result != null) {
-								subResults.add(result);
-							} else {
-								// propagation path exists but type is not propagated
+							EObject result = traverseOutgoingErrorPropagation(componentSource, propagationSource,
+									srctype, scale);
+							if (!addSubresult(subResults, result)) {
 								pruneGraph = true;
 							}
 						}
