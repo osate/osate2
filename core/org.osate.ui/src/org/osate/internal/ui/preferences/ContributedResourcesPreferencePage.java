@@ -36,7 +36,6 @@ package org.osate.internal.ui.preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +80,8 @@ import org.osate.workspace.WorkspacePlugin;
 public final class ContributedResourcesPreferencePage extends FieldEditorPreferencePage
 		implements IWorkbenchPreferencePage {
 	private final Map<String, Boolean> originalValues = new HashMap<>();
-	private final List<URI> workspaceContributions = new LinkedList<>();
+	private List<URI> originalWorkspaceContributions;
+	private List<URI> workspaceContributions;
 
 	private ListViewer workspaceList;
 
@@ -106,12 +106,16 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		contributedResourcesGroup.setText("Select Plug-in Contributed Resources to Use");
 
 		for (final URI uri : PluginSupportUtil.getContributedAadl()) {
-			final String preferenceNameForURI = PredeclaredProperties.getPreferenceNameForURI(uri);
+			final String preferenceNameForURI = PredeclaredProperties.getIsVisiblePreferenceNameForURI(uri);
 			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
 					preferenceNameForURI, uri.toString(), contributedResourcesGroup);
 			addField(booleanEditor);
 		}
+
+		final List<URI> wc = PredeclaredProperties.getWorkspaceContributions();
+		originalWorkspaceContributions = wc;
+		workspaceContributions = new ArrayList<>(wc); // needs to be mutable
 
 		final Group workpaceContributionsGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
 		workpaceContributionsGroup.setLayout(new GridLayout(2, true));
@@ -143,7 +147,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			}
 		});
 
-		workspaceList = new ListViewer(workpaceContributionsGroup, SWT.BORDER | SWT.MULTI);
+		workspaceList = new ListViewer(workpaceContributionsGroup); // , SWT.BORDER | SWT.MULTI);
 		workspaceList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		workspaceList.getList().setToolTipText("Hello");
 		workspaceList.addSelectionChangedListener(event -> removeButton.setEnabled(!event.getSelection().isEmpty()));
@@ -177,6 +181,10 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 	public boolean performOk() {
 		final boolean ok = super.performOk();
 
+		/*
+		 * TODO: Store the preferences for the workspace contributions
+		 */
+
 		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
 		final IPreferenceStore prefs = getPreferenceStore();
 		boolean changed = false;
@@ -185,6 +193,10 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 				changed = true;
 				break;
 			}
+		}
+		if (!originalWorkspaceContributions.equals(workspaceContributions)) {
+			PredeclaredProperties.setWorkspaceContributions(workspaceContributions);
+			changed = true;
 		}
 
 		// build the workspace

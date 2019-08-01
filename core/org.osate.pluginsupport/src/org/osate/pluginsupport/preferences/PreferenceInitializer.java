@@ -61,7 +61,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		IPreferenceStore store = PluginSupportPlugin.getDefault().getPreferenceStore();
 
 		for (final URI resourceURI : PluginSupportUtil.getContributedAadl()) {
-			store.setDefault(PredeclaredProperties.getPreferenceNameForURI(resourceURI), true);
+			store.setDefault(PredeclaredProperties.getIsVisiblePreferenceNameForURI(resourceURI), true);
 		}
 	}
 }
