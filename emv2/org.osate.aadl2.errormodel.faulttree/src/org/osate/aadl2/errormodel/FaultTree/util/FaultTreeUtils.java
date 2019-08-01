@@ -324,6 +324,10 @@ public class FaultTreeUtils {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
 			description += " source '" + EMV2Util.getName(errorSource) + "'";
 		}
+		if (errorModelArtifact instanceof ErrorEvent) {
+			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
+			description += " event '" + EMV2Util.getName(errorSource) + "'";
+		}
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
 			String directionLabel = ep.getDirection() == DirectionType.IN ? " incoming " : " outgoing ";
