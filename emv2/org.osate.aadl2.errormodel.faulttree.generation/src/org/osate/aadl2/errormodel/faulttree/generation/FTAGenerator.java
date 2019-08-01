@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 
@@ -40,46 +41,46 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	public FaultTree getftaModel(ComponentInstance rootComponent, NamedElement rootStateOrPropagation,
-			ErrorTypes rootComponentTypes, FaultTreeType faultTreeType) {
+			ErrorType rootComponentType, FaultTreeType faultTreeType) {
 		if (ftaModel == null) {
 			Event ftaRootEvent = null;
 			String errorMsg = "";
 			ftaModel = FaultTreeFactory.eINSTANCE.createFaultTree();
-			ftaModel.setName(FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentTypes));
+			ftaModel.setName(FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentType));
 			ftaModel.setInstanceRoot(rootComponent);
 			ftaModel.setFaultTreeType(faultTreeType);
 
 			if (rootStateOrPropagation instanceof ErrorBehaviorState) {
 				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
 					ftaRootEvent = (Event) traverseCompositeErrorStateOnly(rootComponent,
-							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, BigOne);
+							(ErrorBehaviorState) rootStateOrPropagation, rootComponentType, BigOne);
 
 				} else {
 					ftaRootEvent = (Event) traverseCompositeErrorState(rootComponent,
-							(ErrorBehaviorState) rootStateOrPropagation, rootComponentTypes, BigOne);
+							(ErrorBehaviorState) rootStateOrPropagation, rootComponentType, BigOne);
 				}
 			} else {
 				if (faultTreeType.equals(FaultTreeType.COMPOSITE_PARTS)) {
 					errorMsg = "Select error state for composite parts fault tree";
 					ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent,
-							rootStateOrPropagation, rootComponentTypes);
+							rootStateOrPropagation, rootComponentType);
 					ftaModel.setMessage(errorMsg);
 					ftaModel.setRoot(ftaRootEvent);
 					return ftaModel;
 				} else {
 					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
 							(ErrorPropagation) rootStateOrPropagation,
-							rootComponentTypes, BigOne);
+							rootComponentType, BigOne);
 				}
 			}
 			if (ftaRootEvent == null) {
 				ftaRootEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
-						rootComponentTypes);
+						rootComponentType);
 			}
-			String longName = FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentTypes);
+			String longName = FaultTreeUtils.buildName(rootComponent, rootStateOrPropagation, rootComponentType);
 			if (ftaRootEvent.getSubEvents().isEmpty() && !ftaRootEvent.getName().equals(longName)) {
 				Event topEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, rootComponent, rootStateOrPropagation,
-						rootComponentTypes);
+						rootComponentType);
 				topEvent.getSubEvents().add(ftaRootEvent);
 				ftaRootEvent = topEvent;
 			}

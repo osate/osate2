@@ -828,23 +828,26 @@ public class EMV2TypeSetUtil {
 	}
 
 	/**
-	 * return all subtypes (or the super type itself) contained in the type set 'constraint'
+	 * return all subtypes or prop type (or the prop type itself) contained in the type set 'constraint'
+	 * empty list if constraint includes unhandled type, i.e., type not covered (at all or is super type) by propagated
+	 * Use for matching type back propagated from incoming to outgoing
 	 * @param constraint
-	 * @param supertype
+	 * @param proptype
 	 * @return collection of error type
 	 */
-	public static Collection<ErrorTypes> matchingSubtypes(TypeSet constraint, ErrorTypes supertype) {
-		EList<ErrorTypes> result = new BasicEList<ErrorTypes>();
+	public static Collection<ErrorType> filterFromIncomingPropagation(TypeSet constraint, ErrorType proptype) {
+		EList<ErrorType> result = new BasicEList<ErrorType>();
+		if (constraint == null || proptype == null) {
+			return result;
+		}
 		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		for (TypeToken token : tokens) {
-			if (EMV2TypeSetUtil.contains(supertype, token)) {
+			if (EMV2TypeSetUtil.contains(proptype, token)) {
+				// include types that are the same or subtypes of propagated type
 				if (!token.getType().isEmpty()) {
-					result.add(token.getType().get(0));
+					result.add((ErrorType) token.getType().get(0));
 				}
 			}
-		}
-		if (result.isEmpty()) {
-			result.add(supertype);
 		}
 		return result;
 	}
@@ -856,7 +859,7 @@ public class EMV2TypeSetUtil {
 		if (original == null) {
 			return constraint;
 		}
-		if (constraint instanceof ErrorType && EMV2TypeSetUtil.contains(original, constraint)) {
+		if (EMV2TypeSetUtil.contains(original, constraint)) {
 			// incoming super type
 			// use subtype
 			return constraint;
@@ -874,7 +877,7 @@ public class EMV2TypeSetUtil {
 	 * @param original ErrroTypes that is the actual origin of the backward proapagation
 	 * @return ErrorTypes
 	 */
-	public static ErrorTypes mapTargetType(ErrorTypes constraint, ErrorTypes original) {
+	public static ErrorType mapTargetType(ErrorType constraint, ErrorType original) {
 		if (constraint == null) {
 			return original;
 		}
@@ -887,21 +890,6 @@ public class EMV2TypeSetUtil {
 			return constraint;
 		}
 		return EMV2TypeSetUtil.contains(constraint, original) ? original : constraint;
-	}
-
-	public static ErrorTypes matchTargetType(ErrorTypes constraint, ErrorTypes original) {
-		if (constraint == null) {
-			return original;
-		}
-		if (original == null) {
-			return constraint;
-		}
-		if (constraint instanceof ErrorType && EMV2TypeSetUtil.contains(original, constraint)) {
-			// incoming super type
-			// use subtype
-			return constraint;
-		}
-		return EMV2TypeSetUtil.contains(constraint, original) ? original : null;
 	}
 
 }
