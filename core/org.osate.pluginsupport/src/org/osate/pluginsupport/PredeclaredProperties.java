@@ -1,5 +1,7 @@
 package org.osate.pluginsupport;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,20 +68,53 @@ public final class PredeclaredProperties {
 //		return InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID).get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
 //	}
 
-	private static String PREFERENCE_NAME_PREFIX = "contributed.resource.isVisible.";
+	private static String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
+
+	private static String NUMBER_OF_WORKSPACE_CONTRIBUTIONS = "contributed.resource.numWorkspace";
+
+	private static String WORKSPACE_CONTRIBUTION_PREFIX = "contributed.resource.workspaceURI.";
 
 	public static IPreferenceStore getPreferenceStore() {
 		return PluginSupportPlugin.getDefault().getPreferenceStore();
 	}
 
-	public static String getPreferenceNameForURI(final URI resourceURI) {
-		return PREFERENCE_NAME_PREFIX + resourceURI.toString();
+	public static String getIsVisiblePreferenceNameForURI(final URI resourceURI) {
+		return IS_VISIBLE_PREFIX + resourceURI.toString();
 	}
 
-	public static final List<URI> getVisibleContributedResources() {
+	public static List<URI> getVisibleContributedResources() {
 		final IPreferenceStore prefStore = getPreferenceStore();
 		final List<URI> collect = PluginSupportUtil.getContributedAadl().stream()
-				.filter(uri -> prefStore.getBoolean(getPreferenceNameForURI(uri))).collect(Collectors.toList());
+				.filter(uri -> prefStore.getBoolean(getIsVisiblePreferenceNameForURI(uri)))
+				.collect(Collectors.toList());
 		return collect;
+	}
+
+	public static void setWorkspaceContributions(final List<URI> workspaceContributions) {
+		final IPreferenceStore prefStore = getPreferenceStore();
+		final int size = workspaceContributions.size();
+		prefStore.setValue(NUMBER_OF_WORKSPACE_CONTRIBUTIONS, size);
+		for (int i = 0; i < size; i++) {
+			String name = WORKSPACE_CONTRIBUTION_PREFIX + (i + 1);
+			String string = workspaceContributions.get(i).toString();
+			prefStore.setValue(name, string);
+		}
+	}
+
+	public static List<URI> getWorkspaceContributions() {
+		final IPreferenceStore prefStore = getPreferenceStore();
+		final int size = prefStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS);
+		if (size > 0) {
+			final List<URI> workspaceContributions = new ArrayList<>(size);
+			for (int i = 1; i <= size; i++) {
+				String uri = prefStore.getString(WORKSPACE_CONTRIBUTION_PREFIX + i);
+				URI createURI = URI.createURI(uri);
+				workspaceContributions.add(
+						createURI);
+			}
+			return workspaceContributions;
+		} else {
+			return Collections.emptyList();
+		}
 	}
 }
