@@ -322,8 +322,7 @@ public class FaultTreeUtils {
 		EObject errorModelArtifact = event.getRelatedEMV2Object();
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			NamedElement ep = errorSource.getSourceModelElement();
-			description += " outgoing '" + EMV2Util.getName(ep) + "'";
+			description += " source '" + EMV2Util.getName(errorSource) + "'";
 		}
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;
