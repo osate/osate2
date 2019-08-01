@@ -34,9 +34,13 @@
  */
 package org.osate.internal.ui.preferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -45,25 +49,41 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.workspace.WorkspacePlugin;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
  */
-
-public class ContributedResourcesPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+public final class ContributedResourcesPreferencePage extends FieldEditorPreferencePage
+		implements IWorkbenchPreferencePage {
 	private final Map<String, Boolean> originalValues = new HashMap<>();
+	private final List<URI> workspaceContributions = new LinkedList<>();
+
+	private ListViewer workspaceList;
 
 	public ContributedResourcesPreferencePage() {
 		super(GRID);
@@ -74,20 +94,78 @@ public class ContributedResourcesPreferencePage extends FieldEditorPreferencePag
 	 * Create the field editors.
 	 */
 	@Override
-	public void createFieldEditors() {
-		final Composite parent = getFieldEditorParent();
+	public Control createContents(final Composite parent) {
 		final IPreferenceStore prefs = getPreferenceStore();
 
-		final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-		group.setText("Select Plug-in Contributed Resources to Use");
+		final Composite composite = new Composite(parent, SWT.NULL);
+		final RowLayout topLayout = new RowLayout(SWT.VERTICAL);
+		topLayout.fill = true;
+		composite.setLayout(topLayout);
+
+		final Group contributedResourcesGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		contributedResourcesGroup.setText("Select Plug-in Contributed Resources to Use");
 
 		for (final URI uri : PluginSupportUtil.getContributedAadl()) {
 			final String preferenceNameForURI = PredeclaredProperties.getPreferenceNameForURI(uri);
 			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
-					preferenceNameForURI, uri.toString(), group);
+					preferenceNameForURI, uri.toString(), contributedResourcesGroup);
 			addField(booleanEditor);
 		}
+
+		final Group workpaceContributionsGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		workpaceContributionsGroup.setLayout(new GridLayout(2, true));
+		workpaceContributionsGroup.setText("Select Resources in the Workspace to Contribute");
+
+		final Button addButton = new Button(workpaceContributionsGroup, SWT.PUSH);
+		addButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
+		addButton.setText("Add");
+		addButton.setToolTipText("Add 1 or more workspace resources to the global list of" + System.lineSeparator()
+				+ "contributed resources.");
+		addButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				addWorkspaceContributedResources();
+			}
+		});
+
+		final Button removeButton = new Button(workpaceContributionsGroup, SWT.PUSH);
+		removeButton.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
+		removeButton.setText("Remove");
+		removeButton.setEnabled(false);
+		removeButton.setToolTipText("Remove the selected resources from the global" + System.lineSeparator()
+				+ "list of contributed resources.");
+		removeButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				workspaceContributions.removeAll(((IStructuredSelection) workspaceList.getSelection()).toList());
+				workspaceList.refresh();
+			}
+		});
+
+		workspaceList = new ListViewer(workpaceContributionsGroup, SWT.BORDER | SWT.MULTI);
+		workspaceList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		workspaceList.getList().setToolTipText("Hello");
+		workspaceList.addSelectionChangedListener(event -> removeButton.setEnabled(!event.getSelection().isEmpty()));
+		workspaceList.setContentProvider((IStructuredContentProvider) inputElement -> {
+			if (inputElement == null) {
+				return new String[0];
+			} else {
+				return ((List<?>) inputElement).toArray();
+			}
+		});
+		workspaceList.setInput(workspaceContributions);
+
+		// Set up the field editors
+		initialize();
+		checkState();
+
+		return composite;
+	}
+
+	@Override
+	public void createFieldEditors() {
+		// do nothing, we aren't used here
 	}
 
 	@Override
@@ -125,5 +203,37 @@ public class ContributedResourcesPreferencePage extends FieldEditorPreferencePag
 		}
 
 		return ok;
+	}
+
+	private void addWorkspaceContributedResources() {
+		final ResourceSelectionDialog dialog = new ResourceSelectionDialog(getShell(),
+				ResourcesPlugin.getWorkspace().getRoot(),
+				"Select AADL property sets to be treated as contributed resources.");
+		dialog.open();
+		final Object[] selectedResources = dialog.getResult();
+		final List<URI> selectedAadl = new ArrayList<>();
+		boolean invalid = false;
+		for (final Object o : selectedResources) {
+			if (o instanceof IFile) {
+				final IFile f = (IFile) o;
+				if (f.getFileExtension().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
+					selectedAadl.add(URI.createPlatformResourceURI(f.getFullPath().toString(), false));
+				} else {
+					invalid = true;
+				}
+			} else {
+				invalid = true;
+			}
+		}
+
+		if (!selectedAadl.isEmpty()) {
+			workspaceContributions.addAll(selectedAadl);
+			workspaceList.refresh();
+		};
+
+		if (invalid) {
+			MessageDialog.openInformation(getShell(), "Invalid Resources Ignored",
+					"Selected resources that are not AADL files have been ignored.");
+		}
 	}
 }
