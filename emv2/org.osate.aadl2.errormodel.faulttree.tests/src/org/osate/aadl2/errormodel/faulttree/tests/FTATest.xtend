@@ -26,6 +26,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(ErrorModelInjectorProvider)
@@ -914,7 +915,7 @@ class FTATest  {
 		assertEquals(ft.events.size, 2)
 		val faultsource = ft.root.subEvents.get(0)
 		assertEquals((faultsource.relatedEMV2Object as NamedElement).name, "d")
-		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
+		assertEquals(EMV2Util.getName(faultsource.relatedErrorType as TypeToken), "ClFail")
 		}
 
 	@Test
