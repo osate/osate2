@@ -3,6 +3,7 @@ package org.osate.pluginsupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
@@ -68,11 +69,11 @@ public final class PredeclaredProperties {
 //		return InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID).get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
 //	}
 
-	private static String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
+	private static final String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
 
-	private static String NUMBER_OF_WORKSPACE_CONTRIBUTIONS = "contributed.resource.numWorkspace";
+	public static final String NUMBER_OF_WORKSPACE_CONTRIBUTIONS = "contributed.resource.numWorkspace";
 
-	private static String WORKSPACE_CONTRIBUTION_PREFIX = "contributed.resource.workspaceURI.";
+	private static final String WORKSPACE_CONTRIBUTION_PREFIX = "contributed.resource.workspaceURI.";
 
 	public static IPreferenceStore getPreferenceStore() {
 		return PluginSupportPlugin.getDefault().getPreferenceStore();
@@ -101,20 +102,27 @@ public final class PredeclaredProperties {
 		}
 	}
 
-	public static List<URI> getWorkspaceContributions() {
-		final IPreferenceStore prefStore = getPreferenceStore();
-		final int size = prefStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS);
+	private static List<URI> getWorkspaceContributions(final Function<String, Integer> getSize,
+			final Function<String, String> getURIString) {
+		final int size = getSize.apply(NUMBER_OF_WORKSPACE_CONTRIBUTIONS);
 		if (size > 0) {
 			final List<URI> workspaceContributions = new ArrayList<>(size);
 			for (int i = 1; i <= size; i++) {
-				String uri = prefStore.getString(WORKSPACE_CONTRIBUTION_PREFIX + i);
-				URI createURI = URI.createURI(uri);
-				workspaceContributions.add(
-						createURI);
+				workspaceContributions.add(URI.createURI(getURIString.apply(WORKSPACE_CONTRIBUTION_PREFIX + i)));
 			}
 			return workspaceContributions;
 		} else {
 			return Collections.emptyList();
 		}
+	}
+
+	public static List<URI> getWorkspaceContributions() {
+		final IPreferenceStore prefStore = getPreferenceStore();
+		return getWorkspaceContributions(prefStore::getInt, prefStore::getString);
+	}
+
+	public static List<URI> getDefaultWorkspaceContributions() {
+		final IPreferenceStore prefStore = getPreferenceStore();
+		return getWorkspaceContributions(prefStore::getDefaultInt, prefStore::getDefaultString);
 	}
 }

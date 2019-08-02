@@ -36,8 +36,10 @@ package org.osate.internal.ui.preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -50,8 +52,10 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
@@ -81,6 +85,8 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		implements IWorkbenchPreferencePage {
 	private final Map<String, Boolean> originalValues = new HashMap<>();
 	private List<URI> originalWorkspaceContributions;
+
+	private Map<URI, BooleanFieldEditor> fields = new HashMap<>();
 	private List<URI> workspaceContributions;
 
 	private ListViewer workspaceList;
@@ -110,6 +116,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
 					preferenceNameForURI, uri.toString(), contributedResourcesGroup);
+			fields.put(uri, booleanEditor);
 			addField(booleanEditor);
 		}
 
@@ -130,6 +137,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				addWorkspaceContributedResources();
+				checkState();
 			}
 		});
 
@@ -144,6 +152,8 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			public void widgetSelected(final SelectionEvent e) {
 				workspaceContributions.removeAll(((IStructuredSelection) workspaceList.getSelection()).toList());
 				workspaceList.refresh();
+				// Update the error state by checking if duplicates were removed
+				checkState();
 			}
 		});
 
@@ -180,10 +190,6 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 	@Override
 	public boolean performOk() {
 		final boolean ok = super.performOk();
-
-		/*
-		 * TODO: Store the preferences for the workspace contributions
-		 */
 
 		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
 		final IPreferenceStore prefs = getPreferenceStore();
@@ -223,29 +229,97 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 				"Select AADL property sets to be treated as contributed resources.");
 		dialog.open();
 		final Object[] selectedResources = dialog.getResult();
+
+		/* Filter out non-AADL files */
 		final List<URI> selectedAadl = new ArrayList<>();
-		boolean invalid = false;
+		boolean filteredOut = false;
 		for (final Object o : selectedResources) {
 			if (o instanceof IFile) {
 				final IFile f = (IFile) o;
 				if (f.getFileExtension().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
-					selectedAadl.add(URI.createPlatformResourceURI(f.getFullPath().toString(), false));
+					final URI newURI = URI.createPlatformResourceURI(f.getFullPath().toString(), false);
+					selectedAadl.add(newURI);
 				} else {
-					invalid = true;
+					filteredOut = true;
 				}
 			} else {
-				invalid = true;
+				filteredOut = true;
 			}
 		}
-
 		if (!selectedAadl.isEmpty()) {
 			workspaceContributions.addAll(selectedAadl);
 			workspaceList.refresh();
 		};
 
-		if (invalid) {
+		if (filteredOut) {
 			MessageDialog.openInformation(getShell(), "Invalid Resources Ignored",
 					"Selected resources that are not AADL files have been ignored.");
 		}
 	}
+
+	@Override
+	protected void checkState() {
+		super.checkState();
+		boolean isValid = isValid();
+
+		/*
+		 * Check for duplicate package/property set names among the VISIBLE contributions.
+		 * This is important because we want to be able to make a plug-in contribution invisible,
+		 * and replace it with a workspace contribution.
+		 */
+		final Set<String> names = new HashSet<>();
+		String duplicateName = null;
+		for (final Map.Entry<URI, BooleanFieldEditor> elt : fields.entrySet()) {
+			if (elt.getValue().getBooleanValue()) {
+				final String currentName = elt.getKey().lastSegment();
+				if (!names.add(currentName)) {
+					duplicateName = currentName;
+					break;
+				}
+			}
+		}
+		for (final URI currentURI : workspaceContributions) {
+			final String currentName = currentURI.lastSegment();
+			if (!names.add(currentName)) {
+				duplicateName = currentName;
+				break;
+			}
+		}
+
+		if (duplicateName != null) {
+			setErrorMessage("Resource \"" + duplicateName + "\" contributed more than once.");
+			// State is definitely invalid no matter what the super call says
+			isValid = false;
+		} else {
+			/*
+			 * We didn't add any new errors, but may be invalid due to the super call, so leave isInvalid alone.
+			 * But we may need to clear out the error message.
+			 */
+			if (isValid) {
+				setErrorMessage(null);
+			}
+		}
+
+		setValid(isValid);
+	}
+
+	@Override
+	public void performDefaults() {
+		// Set workspace contributions to default
+		workspaceContributions.clear();
+		workspaceContributions.addAll(PredeclaredProperties.getDefaultWorkspaceContributions());
+		workspaceList.refresh();
+
+		// Super call handles the boolean preferences and calls checkState()
+		super.performDefaults();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+        if (event.getProperty().equals(FieldEditor.VALUE)) {
+			checkState();
+        }
+
+		super.propertyChange(event);
+    }
 }

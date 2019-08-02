@@ -63,5 +63,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		for (final URI resourceURI : PluginSupportUtil.getContributedAadl()) {
 			store.setDefault(PredeclaredProperties.getIsVisiblePreferenceNameForURI(resourceURI), true);
 		}
+		store.setDefault(PredeclaredProperties.NUMBER_OF_WORKSPACE_CONTRIBUTIONS, 0);
 	}
 }
