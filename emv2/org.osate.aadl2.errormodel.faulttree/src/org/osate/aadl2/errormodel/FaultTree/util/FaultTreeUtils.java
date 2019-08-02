@@ -31,12 +31,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class FaultTreeUtils {
 
-	private static String buildName(ConnectionInstance conni, NamedElement namedElement, ErrorTypes type) {
+	private static String buildName(ConnectionInstance conni, NamedElement namedElement, TypeToken type) {
 		String identifier;
 
 		identifier = conni.getName();
@@ -49,22 +50,14 @@ public class FaultTreeUtils {
 			identifier += EMV2Util.getPrintName(namedElement);
 		}
 
-		if (type == null) {
-//			identifier+="-notypes";
-		} else if (type.getName() != null) {
-			identifier += "-" + type.getName();
-		} else {
-			identifier += "-" + EMV2Util.getPrintName(type);
+		if (type != null) {
+			identifier += "-" + EMV2Util.getName(type);
 		}
 		identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
 		return identifier;
 	}
 
-	public static String buildName(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
-//		return buildIdentifier(component, namedElement, type);
-//	}
-//
-//	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
+	public static String buildName(ComponentInstance component, NamedElement namedElement, TypeToken type) {
 		String identifier;
 		if (component == null) {
 			return "Null Component Reference";
@@ -82,12 +75,8 @@ public class FaultTreeUtils {
 			identifier += EMV2Util.getDirectionName(namedElement);
 				}
 
-				if (type == null) {
-//			identifier+="-notypes";
-				} else if (type.getName() != null) {
-					identifier += "-" + type.getName();
-				} else {
-					identifier += "-" + EMV2Util.getPrintName(type);
+		if (type != null) {
+			identifier += "-" + EMV2Util.getName(type);
 				}
 				identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
 				return identifier;
@@ -139,7 +128,7 @@ public class FaultTreeUtils {
 	 * @return Event
 	 */
 	public static Event createBasicEvent(FaultTree ftaModel, ComponentInstance component, NamedElement namedElement,
-			ErrorTypes type) {
+			TypeToken type) {
 		String name = buildName(component, namedElement, type);
 		Event result = findEvent(ftaModel, name);
 		if (result != null) {
@@ -156,13 +145,13 @@ public class FaultTreeUtils {
 	}
 
 	public static void addBasicEvent(Event parent, ComponentInstance component, NamedElement namedElement,
-			ErrorTypes type) {
+			TypeToken type) {
 		Event newEvent = createBasicEvent((FaultTree) parent.eContainer(), component, namedElement, type);
 		parent.getSubEvents().add(newEvent);
 	}
 
 	public static Event createBasicEvent(FaultTree ftaModel, ConnectionInstance conni, NamedElement namedElement,
-			ErrorTypes type) {
+			TypeToken type) {
 		String name = buildName(conni, namedElement, type);
 		Event result = findEvent(ftaModel, name);
 		if (result != null) {
@@ -179,7 +168,7 @@ public class FaultTreeUtils {
 	}
 
 	public static void addBasicEvent(Event parent, ConnectionInstance conni, NamedElement namedElement,
-			ErrorTypes type) {
+			TypeToken type) {
 		Event newEvent = createBasicEvent((FaultTree) parent.eContainer(), conni, namedElement, type);
 		parent.getSubEvents().add(newEvent);
 	}
@@ -192,7 +181,7 @@ public class FaultTreeUtils {
 	 * @return Event
 	 */
 	public static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
-			ErrorTypes type) {
+			TypeToken type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
 //
@@ -203,7 +192,7 @@ public class FaultTreeUtils {
 //	}
 
 	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
-			ErrorTypes type) {
+			TypeToken type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
 
@@ -224,7 +213,7 @@ public class FaultTreeUtils {
 	}
 
 	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
-			ErrorTypes type,
+			TypeToken type,
 			boolean unique) {
 		String name;
 		if (element instanceof NamedElement && !unique) {
@@ -256,7 +245,7 @@ public class FaultTreeUtils {
 	}
 
 	public static Event findSharedSubtree(FaultTree ftaModel, List<EObject> subEvents, LogicOperation optype,
-			ComponentInstance component, Element ne, ErrorTypes type) {
+			ComponentInstance component, Element ne, TypeToken type) {
 		for (Event event : ftaModel.getEvents()) {
 			if (event.getRelatedInstanceObject() == component && event.getRelatedEMV2Object() == ne
 					&& event.getRelatedErrorType() == type) {
@@ -289,7 +278,7 @@ public class FaultTreeUtils {
 		}
 		InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
 		NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
-		ErrorTypes type = (ErrorTypes) event.getRelatedErrorType();
+		TypeToken type = (TypeToken) event.getRelatedErrorType();
 		event.setAssignedProbability(
 				new BigDecimal(EMV2Properties.getProbability(io, ne, type), MathContext.UNLIMITED));
 	}
@@ -298,6 +287,7 @@ public class FaultTreeUtils {
 		return (component instanceof SystemInstance ? component.getComponentClassifier().getName()
 				: component.getComponentInstancePath());
 	}
+
 
 	public static String getDescription(Event event) {
 		return getInstanceDescription(event) + " " + getEMV2ElementDescription(event);
@@ -335,7 +325,7 @@ public class FaultTreeUtils {
 
 	public static String getEMV2ElementDescription(Event event) {
 		EObject errorModelArtifact = event.getRelatedEMV2Object();
-		NamedElement type = (NamedElement) event.getRelatedErrorType();
+		TypeToken type = (TypeToken) event.getRelatedErrorType();
 		String description;
 		description = "";
 		if (errorModelArtifact instanceof ErrorSource) {
