@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(ErrorModelInjectorProvider)
@@ -378,15 +379,14 @@ class FTATest  {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
-		val sube8 = ft.root.subEvents.get(7)
-		assertTrue(sube8.relatedInstanceObject instanceof ConnectionInstance)
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
+		assertTrue(ft.root.subEvents.exists[ev|ev.relatedInstanceObject instanceof ConnectionInstance])
 	}
 
 	@Test
@@ -414,13 +414,13 @@ class FTATest  {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 	}
 	
 	
@@ -438,10 +438,10 @@ class FTATest  {
 		val subsube2 = sube1.subEvents.get(1)
 		assertTrue(subsube1.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "valuein1")
-		assertEquals((subsube1.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "valuein2")
-		assertEquals((subsube2.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.relatedErrorType as TypeToken)), "OutOfRange")
 	}
 	@Test
 	def void redundant2VoterFaultTreeInconsistentValueTest(){
