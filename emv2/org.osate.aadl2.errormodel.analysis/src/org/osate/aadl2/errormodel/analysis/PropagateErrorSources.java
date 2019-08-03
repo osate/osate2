@@ -858,24 +858,6 @@ public class PropagateErrorSources {
 		boolean handled = false;
 
 		for (FeatureInstance fi : filist) {
-//			/**
-//			 * JD
-//			 * The toAnalyze boolean indicate if we have to analyze the current feature or not
-//			 * This is made to try to detect cycle in the error path.
-//			 *
-//			 */
-//			boolean toAnalyze = true;
-//
-//			Feature f = EMV2Util.getFeature(ep);
-//			if (f != null && f.getName().equalsIgnoreCase(fi.getFeature().getName())) {
-//				toAnalyze = false;
-//			}
-//
-//			if (toAnalyze)
-//
-//			{
-//				continue;
-//			}
 
 			if (fi.getDirection().outgoing())
 
