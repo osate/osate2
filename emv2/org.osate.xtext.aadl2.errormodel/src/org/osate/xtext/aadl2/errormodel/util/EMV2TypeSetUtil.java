@@ -845,8 +845,11 @@ public class EMV2TypeSetUtil {
 	 */
 	public static Collection<TypeToken> filterFromIncomingPropagation(TypeSet constraint, TypeToken proptype) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
-		if (constraint == null || proptype == null) {
+		if (constraint == null && proptype == null) {
 			return result;
+		}
+		if (proptype == null) {
+			return EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		}
 		if (EMV2TypeSetUtil.contains(constraint, proptype)) {
 			result.add(proptype);
