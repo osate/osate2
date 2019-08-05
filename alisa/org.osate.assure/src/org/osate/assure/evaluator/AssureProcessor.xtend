@@ -293,8 +293,7 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 		}
-		env.add("component", targetComponent)
-		env.add("element", target)
+		env.add("target", target)
 
 		if (verificationResult instanceof PredicateResult) {
 			evaluatePredicate(verificationResult)
