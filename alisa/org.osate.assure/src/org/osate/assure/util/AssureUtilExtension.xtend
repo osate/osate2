@@ -194,7 +194,7 @@ class AssureUtilExtension {
 		req?.targetElement //?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
-	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject, boolean save) {
+	def static SystemInstance getAssuranceCaseInstanceModel(AssureResult assureObject, boolean save) {
 		val rac = assureObject.modelResult?.target
 		if(rac === null) return null
 		rac.getInstanceModel(save)
@@ -1131,9 +1131,20 @@ class AssureUtilExtension {
 	def static String constructDescription(ClaimResult cr) {
 		val r = cr.target
 		if (r === null) return ""
-		if(r.description !== null) return r.description.toText(cr.caseTargetModelElement)
+		var instanceroot = cr.getAssuranceCaseInstanceModel(true)
+		if (instanceroot !== null){
+			val targetComponent = findTargetSystemComponentInstance(instanceroot, cr.enclosingSubsystemResult)
+			if (targetComponent !== null) {
+				val targetElement = cr.caseTargetModelElement
+				var InstanceObject target = targetComponent
+				if (targetElement !== null && targetElement.name !== null) {
+					target = targetComponent.findElementInstance(targetElement)
+				}
+				if(r.description !== null && target !== null) return r.description.toText(target)
+			}
+		}
 		if(r.title !== null) return r.title
-		""
+		r.name
 	}
 
 	def static String constructMessage(ClaimResult cr) {

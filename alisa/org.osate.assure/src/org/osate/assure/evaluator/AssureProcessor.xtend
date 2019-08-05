@@ -365,7 +365,7 @@ class AssureProcessor implements IAssureProcessor {
 				var formalParam = method.formals.get(i)
 				setToError(verificationResult,
 					"Could not evaluate expression for " + formalParam.name + " of method " + method.name + ": " +
-						result.ruleFailedException, null)
+						getFailedMsg(result.ruleFailedException), null)
 				saveAssureResult(verificationResult)
 				updateProgress(verificationResult)
 				return
@@ -676,14 +676,6 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def String getFailedMsg(Throwable e) {
-		var tmp = e;
-		while (tmp.cause !== null && tmp.cause != tmp) {
-			tmp = tmp.cause ;
-		}
-		return tmp.message
-	}
-
 	// ----------------------------
 	// Execution of Verification methods
 	// ----------------------------
@@ -920,7 +912,7 @@ class AssureProcessor implements IAssureProcessor {
 					val expResult = interpreter.interpretExpression(env, exp)
 					if (expResult.failed) {
 						setToError(verificationResult, "Could not evaluate expression for " + property.name + ": " +
-							expResult.ruleFailedException, null)
+							getFailedMsg(expResult.ruleFailedException), null)
 						success = false
 					} else {
 						var PropertyValue modelPropValue = null
