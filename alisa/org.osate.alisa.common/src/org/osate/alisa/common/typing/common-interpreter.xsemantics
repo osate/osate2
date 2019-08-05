@@ -57,7 +57,7 @@ system org.osate.alisa.common.typing.CommonInterpreter
 
 auxiliary {
 	combineNumeric(NumberType left, NumberType right): NumberType
-	chooseRoot(EObject io, RuleEnvironment G): InstanceObject
+	chooseRoot(EObject io, RuleEnvironment G): NamedElement
 	errorPosition(EObject o): String
 }
 
@@ -88,12 +88,8 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 
 
 auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
-	val component = env(G, 'component', InstanceObject)
-	val element = env(G, 'element', NamedElement)
-	if (element instanceof InstanceObject)
-		element
-	else 
-		component
+	val element = env(G, 'target', NamedElement)
+	element
 }
 
 
@@ -361,7 +357,7 @@ rule InterpretPropertyReference
 	G |- APropertyReference prop ~> PropertyValue propVal
 from {
 	// access property on instance object
-	var InstanceObject io
+	var NamedElement io
 	{
 		prop.modelElementReference !== null
 		G |- prop.modelElementReference ~> var InstanceReferenceValue element

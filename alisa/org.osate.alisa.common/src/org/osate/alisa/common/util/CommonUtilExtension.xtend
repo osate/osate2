@@ -87,8 +87,7 @@ class CommonUtilExtension {
 							val RuleEnvironment env = new RuleEnvironment
 							env.add('vals', new HashMap<String, PropertyExpression>)
 							env.add('computes', new HashMap<String, Object>)
-							env.add("component", target)
-							env.add("element", target)
+							env.add('target', target)
 							val result = interpreter.interpretExpression(env, decl)
 
 							if (result.failed) {
