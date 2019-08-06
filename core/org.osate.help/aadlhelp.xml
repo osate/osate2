@@ -23,6 +23,7 @@
     	<anchor id="_latency"/>
 		<anchor id="_codegen_checker"/>
 		<anchor id="_check_binding_constraints"/>
+		<anchor id="_check_connection_binding_consistency"/>
 		<anchor id="_model_maintenance"/>
     	<topic href="html/plugins/index.html" label="Other Analyses">
     	</topic>
