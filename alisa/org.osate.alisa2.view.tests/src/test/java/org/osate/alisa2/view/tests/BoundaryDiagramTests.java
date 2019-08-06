@@ -30,6 +30,8 @@ public class BoundaryDiagramTests extends TestBase {
 		SWTBotEditor treeEditor = openRepresentation(localSession.getOpenedSession(),
 				ORIG_REPRESENTATION_NAME, ORIG_REPRESENTATION_INSTANCE_NAME, DTree.class);
 
+//		EclipseTestsSupportHelper.
+
 		SWTBot treeBot = treeEditor.bot();
 		treeBot.tree().getTreeItem("appLogic").contextMenu().contextMenu("New")
 				.contextMenu("NewConnectedNeighbors").click();
