@@ -53,7 +53,7 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 			if (PredeclaredProperties.getVisibleContributedResources().contains(uri)) {
 				return CONTRIBUTED_HANDLE;
 			} else {
-				// Don't include files that
+				// Don't include files whose name duplicates that of a contributed resource with a different URI
 				return null;
 			}
 		} else {
