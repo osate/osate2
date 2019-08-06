@@ -229,31 +229,33 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 				"Select AADL property sets to be treated as contributed resources.");
 		dialog.open();
 		final Object[] selectedResources = dialog.getResult();
-
-		/* Filter out non-AADL files */
-		final List<URI> selectedAadl = new ArrayList<>();
-		boolean filteredOut = false;
-		for (final Object o : selectedResources) {
-			if (o instanceof IFile) {
-				final IFile f = (IFile) o;
-				if (f.getFileExtension().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
-					final URI newURI = URI.createPlatformResourceURI(f.getFullPath().toString(), false);
-					selectedAadl.add(newURI);
+		if (selectedResources != null) {
+			/* Filter out non-AADL files */
+			final List<URI> selectedAadl = new ArrayList<>();
+			boolean filteredOut = false;
+			for (final Object o : selectedResources) {
+				if (o instanceof IFile) {
+					final IFile f = (IFile) o;
+					if (f.getFileExtension().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
+						final URI newURI = URI.createPlatformResourceURI(f.getFullPath().toString(), false);
+						selectedAadl.add(newURI);
+					} else {
+						filteredOut = true;
+					}
 				} else {
 					filteredOut = true;
 				}
-			} else {
-				filteredOut = true;
 			}
-		}
-		if (!selectedAadl.isEmpty()) {
-			workspaceContributions.addAll(selectedAadl);
-			workspaceList.refresh();
-		};
+			if (!selectedAadl.isEmpty()) {
+				workspaceContributions.addAll(selectedAadl);
+				workspaceList.refresh();
+			}
+			;
 
-		if (filteredOut) {
-			MessageDialog.openInformation(getShell(), "Invalid Resources Ignored",
-					"Selected resources that are not AADL files have been ignored.");
+			if (filteredOut) {
+				MessageDialog.openInformation(getShell(), "Invalid Resources Ignored",
+						"Selected resources that are not AADL files have been ignored.");
+			}
 		}
 	}
 
