@@ -48,9 +48,14 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 	private final static String CONTRIBUTED_HANDLE = "$contributed_aadl_handle$";
 
 	@Override
-	public String initHandle(URI uri) {
-		if (PredeclaredProperties.getVisibleContributedResources().contains(uri)) {
-			return CONTRIBUTED_HANDLE;
+	public String initHandle(final URI uri) {
+		if (PredeclaredProperties.hasSameNameAsVisibleContributedResource(uri)) {
+			if (PredeclaredProperties.getVisibleContributedResources().contains(uri)) {
+				return CONTRIBUTED_HANDLE;
+			} else {
+				// Don't include files that
+				return null;
+			}
 		} else {
 			return super.initHandle(uri);
 		}

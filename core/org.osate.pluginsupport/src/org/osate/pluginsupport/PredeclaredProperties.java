@@ -95,4 +95,14 @@ public final class PredeclaredProperties {
 	public static List<URI> getDefaultWorkspaceContributions() {
 		return getWorkspaceContributions(preferenceStore::getDefaultInt, preferenceStore::getDefaultString);
 	}
+
+	public static boolean hasSameNameAsVisibleContributedResource(final URI testMe) {
+		final String fileName = testMe.lastSegment();
+		for (final URI uri : getVisibleContributedResources()) {
+			if (uri.lastSegment().equalsIgnoreCase(fileName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
