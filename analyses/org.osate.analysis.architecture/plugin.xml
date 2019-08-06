@@ -69,6 +69,13 @@
             primary="true">
       </toc>
    </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_check_connection_binding_consistency.xml"
+            primary="true">
+      </toc>
+   </extension>
 
    <extension
          point="org.eclipse.help.toc">
