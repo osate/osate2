@@ -11,13 +11,10 @@ import org.osate.pluginsupport.PluginSupportUtil
 import org.osate.pluginsupport.PredeclaredProperties
 
 class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
-//	val CONTRIBUTED = PluginSupportUtil.contributedAadl
-	
 	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
 	}
 	
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
-//		toBeBuilt.toBeUpdated += CONTRIBUTED
 		toBeBuilt.toBeUpdated += PredeclaredProperties.visibleContributedResources
 	}
 	
