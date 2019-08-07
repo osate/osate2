@@ -42,13 +42,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -207,17 +207,39 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 
 		// build the workspace
 		if (changed) {
-			new Job("Contributed Resources Rebuild") {
+			/*
+			 * Rebuilding or cleaning the workspace doesn't seem to get the job done. It leaves
+			 * dangling links and other strangeness in the workspace. The most effectively thing
+			 * to do seems to be closing and reopening projects. Have no idea why.
+			 */
+			final WorkspaceJob workspaceJob = new WorkspaceJob("Contributed Resources Rebuild") {
 				@Override
-				public IStatus run(final IProgressMonitor monitor) {
+				public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
 					try {
-						ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+						final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+						final List<IProject> projectsToOpenAndClose = new ArrayList<>(projects.length);
+
+						// (1) close all the open projects
+						for (final IProject project : projects) {
+							if (project.isOpen()) {
+								projectsToOpenAndClose.add(project);
+								project.close(monitor);
+							}
+						}
+
+						// (2) Reopen all the projects we closed
+						for (final IProject project : projectsToOpenAndClose) {
+							project.open(monitor);
+						}
+
 						return Status.OK_STATUS;
 					} catch (final CoreException e) {
 						return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, "Error building workspace");
 					}
 				}
-			}.schedule();
+			};
+			workspaceJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
+			workspaceJob.schedule();
 		}
 
 		return ok;
