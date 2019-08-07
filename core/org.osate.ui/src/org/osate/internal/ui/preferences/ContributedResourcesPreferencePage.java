@@ -93,7 +93,6 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 
 	public ContributedResourcesPreferencePage() {
 		super(GRID);
-//		setDescription("Contributed resources preferences");
 	}
 
 	/**
@@ -226,17 +225,13 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 						for (final IProject project : projects) {
 							if (project.isOpen()) {
 								projectsToOpenAndClose.add(project);
-								System.out.println("closing " + project + "...");
 								project.close(monitor);
-								System.out.println("...closed");
 							}
 						}
 
 						// (2) Reopen all the projects we closed
 						for (final IProject project : projectsToOpenAndClose) {
-							System.out.println("OPening " + project + "...");
 							project.open(monitor);
-							System.out.println("...open");
 						}
 
 						return Status.OK_STATUS;
