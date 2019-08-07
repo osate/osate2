@@ -51,7 +51,7 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 	public String getText(Object element) {
 		String text = null;
 		if (element instanceof VirtualPluginResources) {
-			text = "Plug-in Contributions";
+			text = ((VirtualPluginResources) element).getLabel();
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
 			text = directoryPath.get(directoryPath.size() - 1);

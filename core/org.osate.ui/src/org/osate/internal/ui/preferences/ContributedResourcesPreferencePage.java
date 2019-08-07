@@ -44,11 +44,11 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -120,7 +120,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			addField(booleanEditor);
 		}
 
-		final List<URI> wc = PredeclaredProperties.getWorkspaceContributions();
+		final List<URI> wc = PredeclaredProperties.getVisibleWorkspaceContributedResources();
 		originalWorkspaceContributions = wc;
 		workspaceContributions = new ArrayList<>(wc); // needs to be mutable
 
@@ -211,10 +211,13 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			 * Rebuilding or cleaning the workspace doesn't seem to get the job done. It leaves
 			 * dangling links and other strangeness in the workspace. The most effectively thing
 			 * to do seems to be closing and reopening projects. Have no idea why.
+			 *
+			 * NB. THis CANNOT be a WorkspaceJob because that will cause various events to be suppressed or
+			 * optimized away, and then the build won't happen correctly.
 			 */
-			final WorkspaceJob workspaceJob = new WorkspaceJob("Contributed Resources Rebuild") {
+			final Job job = new Job("Contributed Resources Rebuild") {
 				@Override
-				public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
+				public IStatus run(final IProgressMonitor monitor) {
 					try {
 						final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 						final List<IProject> projectsToOpenAndClose = new ArrayList<>(projects.length);
@@ -223,13 +226,17 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 						for (final IProject project : projects) {
 							if (project.isOpen()) {
 								projectsToOpenAndClose.add(project);
+								System.out.println("closing " + project + "...");
 								project.close(monitor);
+								System.out.println("...closed");
 							}
 						}
 
 						// (2) Reopen all the projects we closed
 						for (final IProject project : projectsToOpenAndClose) {
+							System.out.println("OPening " + project + "...");
 							project.open(monitor);
+							System.out.println("...open");
 						}
 
 						return Status.OK_STATUS;
@@ -238,8 +245,8 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 					}
 				}
 			};
-			workspaceJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
-			workspaceJob.schedule();
+			job.setRule(ResourcesPlugin.getWorkspace().getRoot()); // Lock the workspace?
+			job.schedule();
 		}
 
 		return ok;
