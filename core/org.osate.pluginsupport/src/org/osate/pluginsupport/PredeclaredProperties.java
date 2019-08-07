@@ -21,11 +21,15 @@ public final class PredeclaredProperties {
 	 * running???
 	 */
 	private static volatile boolean isChanged = false;
+	private static volatile List<URI> visiblePluginResources;
+	private static volatile List<URI> visibleWorkspaceResources;
 	private static volatile List<URI> visibleContributedResources;
+	private static volatile boolean hasWorkspaceContributions;
 
 	static {
 		// Init the cached list of contributions
 		buildVisibleContributedResources();
+		hasWorkspaceContributions = preferenceStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS) > 0;
 
 		// Add a listener so we know when to update the cached list of contributions
 		preferenceStore.addPropertyChangeListener(e -> {
@@ -46,22 +50,49 @@ public final class PredeclaredProperties {
 	}
 
 	private static void buildVisibleContributedResources() {
-		final List<URI> list = new ArrayList<>();
+		final List<URI> plugin = new ArrayList<>();
+		final List<URI> workspace;
+		final List<URI> allVisible = new ArrayList<>();
 		for (final URI pluginURI : PluginSupportUtil.getContributedAadl()) {
 			if (preferenceStore.getBoolean(getIsVisiblePreferenceNameForURI(pluginURI))) {
-				list.add(pluginURI);
+				plugin.add(pluginURI);
+				allVisible.add(pluginURI);
 			}
 		}
-		list.addAll(getWorkspaceContributions());
-		visibleContributedResources = Collections.unmodifiableList(list);
+		workspace = getWorkspaceContributions();
+		allVisible.addAll(workspace);
+
+		visiblePluginResources = Collections.unmodifiableList(plugin);
+		visibleWorkspaceResources = Collections.unmodifiableList(workspace);
+		visibleContributedResources = Collections.unmodifiableList(allVisible);
+	}
+
+	private static void updateCachedState() {
+		if (isChanged) {
+			buildVisibleContributedResources();
+			hasWorkspaceContributions = preferenceStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS) > 0;
+			isChanged = false;
+		}
+	}
+
+	public static List<URI> getVisiblePluginContributedResources() {
+		updateCachedState();
+		return visiblePluginResources;
+	}
+
+	public static List<URI> getVisibleWorkspaceContributedResources() {
+		updateCachedState();
+		return visibleWorkspaceResources;
 	}
 
 	public static List<URI> getVisibleContributedResources() {
-		if (isChanged) {
-			buildVisibleContributedResources();
-			isChanged = false;
-		}
+		updateCachedState();
 		return visibleContributedResources;
+	}
+
+	public static boolean hasWorkspaceContributions() {
+		updateCachedState();
+		return hasWorkspaceContributions;
 	}
 
 	public static void setWorkspaceContributions(final List<URI> workspaceContributions) {
@@ -88,7 +119,7 @@ public final class PredeclaredProperties {
 		}
 	}
 
-	public static List<URI> getWorkspaceContributions() {
+	private static List<URI> getWorkspaceContributions() {
 		return getWorkspaceContributions(preferenceStore::getInt, preferenceStore::getString);
 	}
 
