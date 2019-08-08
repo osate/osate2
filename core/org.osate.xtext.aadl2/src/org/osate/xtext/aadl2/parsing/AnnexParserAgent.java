@@ -200,52 +200,16 @@ public class AnnexParserAgent extends LazyLinker {
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
 				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
+				if(defaultAnnexSection instanceof AnnexSubclause)
+					AnnexUtil.setCurrentAnnexSubclause((AnnexSubclause) defaultAnnexSection);
 				A annexSection = parserFunction.parse(ap, annexName, annexText, filename, line, offset,
 						parseErrReporter);
+				if(defaultAnnexSection instanceof AnnexSubclause)
+					AnnexUtil.setCurrentAnnexSubclause(null);
 				if (AnnexParseUtil.saveParseResult(defaultAnnexSection) == null) {
 					// Only consume messages for non-Xtext annexes
 					consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
 				}
-				/*<<<<<<< HEAD
-				AnnexParser ap = registry.getAnnexParser(annexName);
-				try {
-					int errs = errReporter.getNumErrors();
-					AnnexUtil.setCurrentAnnexSubclause(defaultAnnexSubclause);
-					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset,
-							errReporter);
-					AnnexUtil.setCurrentAnnexSubclause(null);
-					AnnexParseUtil.saveParseResult(defaultAnnexSubclause);
-
-					if (asc != null)// && errReporter.getNumErrors() == errs)
-					{
-						asc.setName(annexName);
-						defaultAnnexSubclause.setParsedAnnexSubclause(asc);
-						boolean resetToNull = (errReporter.getNumErrors() != errs);
-						// copy in modes list
-						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
-						for (Mode mode : inmodelist) {
-							asc.getInModes().add(mode);
-						}
-
-						// now resolve reference so we messages if we have references to undefined items
-						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-						if (resolver != null && hasToResolveAnnex && errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
-							errs = resolveErrManager.getNumErrors();
-							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
-							resetToNull |= (errs != resolveErrManager.getNumErrors());
-						} else if (linkingservice != null) {
-							try {
-								final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
-								Resource res = model.eResource();
-								ILinker linker = ((XtextResource) res).getLinker();
-								linker.linkModel(asc, consumer);
-								res.getErrors().addAll(consumer.getResult(Severity.ERROR));
-								res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
-							} catch (Exception e) {
-								errReporter.error(filename, line, "Linking Service error");
-							}
-							=======*/
 				if (annexSection != null) {
 					annexSection.setName(annexName);
 					setParsedAnnexSection.accept(annexSection);
@@ -273,12 +237,11 @@ public class AnnexParserAgent extends LazyLinker {
 							String message = "Linking Service error in " + filename + " at line " + line;
 							IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
 							Activator.getDefault().getLog().log(status);
-							//>>>>>>> upstream/master
 						}
-						if(resetToNull)
-							defaultAnnexSubclause.setParsedAnnexSubclause(null);
 					}
 				}
+				if(parseErrReporter.getNumErrors()>0)
+					setParsedAnnexSection.accept(null);
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
