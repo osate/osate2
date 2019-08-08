@@ -78,6 +78,7 @@ public interface SystemSubcomponent extends Subcomponent, org.osate.aadl2.System
 	 * @see #setSystemSubcomponentType(SystemSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSystemSubcomponent_SystemSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	SystemSubcomponentType getSystemSubcomponentType();

@@ -66,7 +66,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface AbstractImplementation extends BehavioredImplementation, AbstractClassifier {
@@ -91,6 +91,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -126,6 +127,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -161,6 +163,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Device Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedDeviceSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DeviceSubcomponent> getOwnedDeviceSubcomponents();
@@ -196,6 +199,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();
@@ -231,6 +235,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Process Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ProcessSubcomponent> getOwnedProcessSubcomponents();
@@ -266,6 +271,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents();
@@ -301,6 +307,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned System Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSystemSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SystemSubcomponent> getOwnedSystemSubcomponents();
@@ -336,6 +343,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
@@ -371,6 +379,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents();
@@ -406,6 +415,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Thread Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ThreadSubcomponent> getOwnedThreadSubcomponents();
@@ -441,6 +451,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Thread Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedThreadGroupSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents();
@@ -476,6 +487,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
@@ -511,6 +523,7 @@ public interface AbstractImplementation extends BehavioredImplementation, Abstra
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractImplementation_OwnedVirtualProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents();

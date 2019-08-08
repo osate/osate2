@@ -77,6 +77,7 @@ public interface DataPort extends Port, Context, ParameterConnectionEnd {
 	 * @see #setDataFeatureClassifier(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDataPort_DataFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	DataSubcomponentType getDataFeatureClassifier();
