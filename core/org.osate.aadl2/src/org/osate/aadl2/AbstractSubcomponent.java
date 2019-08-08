@@ -78,6 +78,7 @@ public interface AbstractSubcomponent extends Subcomponent, Abstract {
 	 * @see #setAbstractSubcomponentType(AbstractSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractSubcomponent_AbstractSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	AbstractSubcomponentType getAbstractSubcomponentType();

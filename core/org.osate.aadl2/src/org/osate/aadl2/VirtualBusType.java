@@ -83,6 +83,7 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -118,6 +119,7 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -153,6 +155,7 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -184,6 +187,7 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();

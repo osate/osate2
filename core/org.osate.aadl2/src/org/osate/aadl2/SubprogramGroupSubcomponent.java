@@ -78,6 +78,7 @@ public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnect
 	 * @see #setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	SubprogramGroupSubcomponentType getSubprogramGroupSubcomponentType();

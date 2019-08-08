@@ -80,6 +80,7 @@ public interface ListType extends PropertyType {
 	 * @see #setOwnedElementType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getListType_OwnedElementType()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PropertyType getOwnedElementType();
@@ -122,6 +123,7 @@ public interface ListType extends PropertyType {
 	 * @see #setReferencedElementType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getListType_ReferencedElementType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PropertyType getReferencedElementType();

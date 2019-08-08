@@ -10280,6 +10280,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		parameterEClass.getESuperTypes().add(getParameterConnectionEnd());
 		subprogramAccessEClass.getESuperTypes().add(getAccess());
 		subprogramAccessEClass.getESuperTypes().add(getCalledSubprogram());
+		subprogramAccessEClass.getESuperTypes().add(getContext());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
 		subprogramGroupAccessEClass.getESuperTypes().add(getAccess());

@@ -76,6 +76,8 @@ public interface Generalization extends DirectedRelationship {
 	 * @return the value of the '<em>General</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getGeneralization_General()
 	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Classifier getGeneral();
@@ -100,6 +102,7 @@ public interface Generalization extends DirectedRelationship {
 	 * @see org.osate.aadl2.Aadl2Package#getGeneralization_Specific()
 	 * @see org.osate.aadl2.Classifier#getGeneralizations
 	 * @model opposite="generalization" required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Classifier getSpecific();

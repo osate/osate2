@@ -79,6 +79,8 @@ public interface DirectedRelationship extends Relationship {
 	 * @return the value of the '<em>Source</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDirectedRelationship_Source()
 	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Element> getSources();
@@ -102,6 +104,8 @@ public interface DirectedRelationship extends Relationship {
 	 * @return the value of the '<em>Target</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDirectedRelationship_Target()
 	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Element> getTargets();
