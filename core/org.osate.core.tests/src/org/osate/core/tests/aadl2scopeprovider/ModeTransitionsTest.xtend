@@ -238,7 +238,7 @@ class ModeTransitionsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.modeTransition_Source, #["m1", "m2"])
 					//Tests scope_ModeTransitionTrigger_context
 					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-						"call4", "call5", "call6", "call7", "call8", "dp1", "dp2", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+						"call4", "call5", "call6", "call7", "call8", "dp1", "dp2", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ModeTransitionTrigger_triggerPort(ModeTransition, EReference)
 					assertScope(Aadl2Package::eINSTANCE.modeTransitionTrigger_TriggerPort, #["af1", "dp1", "dp2", "ep1", "es1", "pp1"])
