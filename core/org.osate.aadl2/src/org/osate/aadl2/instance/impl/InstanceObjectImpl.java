@@ -64,7 +64,6 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -338,17 +337,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 				ph.getPropertyValueInternal(property, pas, false, all);
 			}
 		}
-	}
-
-	/**
-	 * Returns the System Operation Modes in which the element exists, or
-	 * <code>null</code> if the element always exists.
-	 *
-	 * @return
-	 */
-	@Override
-	public List<SystemOperationMode> getExistsInModes() {
-		return null;
 	}
 
 	/**

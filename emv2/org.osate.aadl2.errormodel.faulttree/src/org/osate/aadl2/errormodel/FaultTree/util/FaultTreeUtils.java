@@ -61,10 +61,10 @@ public class FaultTreeUtils {
 	}
 
 	public static String buildName(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
-		return buildIdentifier(component, namedElement, type);
-	}
-
-	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
+//		return buildIdentifier(component, namedElement, type);
+//	}
+//
+//	public static String buildIdentifier(ComponentInstance component, NamedElement namedElement, ErrorTypes type) {
 		String identifier;
 		if (component == null) {
 			return "Null Component Reference";
@@ -79,7 +79,7 @@ public class FaultTreeUtils {
 					identifier += "unidentified";
 
 				} else {
-					identifier += EMV2Util.getPrintName(namedElement);
+			identifier += EMV2Util.getDirectionName(namedElement);
 				}
 
 				if (type == null) {
@@ -322,8 +322,11 @@ public class FaultTreeUtils {
 		EObject errorModelArtifact = event.getRelatedEMV2Object();
 		if (errorModelArtifact instanceof ErrorSource) {
 			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
-			NamedElement ep = errorSource.getSourceModelElement();
-			description += " outgoing '" + EMV2Util.getName(ep) + "'";
+			description += " source '" + EMV2Util.getName(errorSource) + "'";
+		}
+		if (errorModelArtifact instanceof ErrorEvent) {
+			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
+			description += " event '" + EMV2Util.getName(errorSource) + "'";
 		}
 		if (errorModelArtifact instanceof ErrorPropagation) {
 			ErrorPropagation ep = (ErrorPropagation) errorModelArtifact;

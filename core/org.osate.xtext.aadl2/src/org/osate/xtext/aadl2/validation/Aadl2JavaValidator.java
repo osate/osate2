@@ -713,6 +713,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void casePackageSection(PackageSection packageSection) {
 		checkWithsAreUsed(packageSection);
 	}
+	
+	@Check
+	public void checkOneSequencePerMode(SubprogramCallSequence sequence) {
+		BehavioredImplementation classifier = EcoreUtil2.getContainerOfType(sequence, BehavioredImplementation.class);
+		List<SubprogramCallSequence> otherSequences = classifier.getAllSubprogramCallSequences().stream()
+				.filter(other -> other != sequence).collect(Collectors.toList());
+		if (!classifier.getAllModes().isEmpty()) {
+			final List<Mode> modes;
+			if (sequence.getInModes().isEmpty()) {
+				modes = classifier.getAllModes();
+			} else {
+				modes = sequence.getInModes();
+			}
+			Stream<Mode> withMultiple = modes.stream().filter(mode -> {
+				return otherSequences.stream()
+						.anyMatch(other -> other.getInModes().isEmpty() || other.getInModes().contains(mode));
+			});
+			String modeMessage = withMultiple.map(mode -> mode.getName()).collect(Collectors.joining(", "));
+			if (!modeMessage.isEmpty()) {
+				error("Multiple sequences declared for modes: " + modeMessage,
+						Aadl2Package.eINSTANCE.getNamedElement_Name());
+			}
+		} else if (!otherSequences.isEmpty()) {
+			error("Multiple sequences declared for non-modal implementation",
+					Aadl2Package.eINSTANCE.getNamedElement_Name());
+		}
+	}
 
 	@Override
 	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
@@ -1419,7 +1446,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
-				connectedElement = connection.getSource();
+				connectedElement = connection.getRootConnection().getSource();
 				boolean didReverse = false;
 				if (i == 0) {
 					FlowEnd inEnd = flow.getInEnd();
@@ -1432,7 +1459,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							didReverse = true;
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
-							connectedElement = connection.getDestination();
+							connectedElement = connection.getRootConnection().getDestination();
 							if (!isMatchingConnectionPoint(null, inEnd.getFeature(), inEnd.getContext(),
 									connectedElement)) {
 								noMatch = true;
@@ -1464,7 +1491,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								didReverse = true;
 								ce = connection.getAllLastDestination();
 								cxt = connection.getAllDestinationContext();
-								connectedElement = connection.getDestination();
+								connectedElement = connection.getRootConnection().getDestination();
 								if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
 										outEnd.getContext(), connectedElement)) {
 									noMatch = true;
@@ -1493,11 +1520,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (didReverse) {
 					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
-					connectedElement = connection.getSource();
+					connectedElement = connection.getRootConnection().getSource();
 				} else {
 					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
-					connectedElement = connection.getDestination();
+					connectedElement = connection.getRootConnection().getDestination();
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getOutEnd();
@@ -1715,7 +1742,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		EList<Mode> flowModes = flow.getAllInModes();
 		if (flowModes.isEmpty()) {
-			flowModes = flow.getContainingComponentImpl().getAllModes();
+			flowModes = flow.getSpecification().getAllInModes();
+		}
+		if (flowModes.isEmpty()) {
+			return;
 		}
 		for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
 			if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
@@ -2011,7 +2041,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (subcomponentRefinement != null) {
 						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
 						if (subcomponentModes.isEmpty()) {
-							subcomponentModes = componentImplementation.getAllModes();
+							continue;
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
@@ -2269,7 +2299,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
-				connectedElement = connection.getSource();
+				connectedElement = connection.getRootConnection().getSource();
 				boolean didReverse = false;
 				if (i > 0 && flow.getOwnedEndToEndFlowSegments().get(i - 1)
 						.getFlowElement() instanceof FlowSpecification) {
@@ -2293,7 +2323,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (connection.isAllBidirectional()) {
 							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
-							connectedElement = connection.getDestination();
+							connectedElement = connection.getRootConnection().getDestination();
 							if (isMatchingConnectionPoint(previousFlowCxt, outEnd.getFeature(), outEnd.getContext(),
 									connectedElement)) {
 								if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
@@ -2333,7 +2363,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							if (connection.isAllBidirectional()) {
 								ce = connection.getAllLastSource();
 								cxt = connection.getAllSourceContext();
-								connectedElement = connection.getSource();
+								connectedElement = connection.getRootConnection().getSource();
 								if (cxt instanceof Subcomponent) {
 									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
 											|| AadlUtil.isSameOrRefines(previousFlowSegment, (Subcomponent) cxt))) {
@@ -2361,11 +2391,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (didReverse) {
 					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
-					connectedElement = connection.getSource();
+					connectedElement = connection.getRootConnection().getSource();
 				} else {
 					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
-					connectedElement = connection.getDestination();
+					connectedElement = connection.getRootConnection().getDestination();
 				}
 				if (i + 1 < size) {
 					EndToEndFlowElement felem = flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
