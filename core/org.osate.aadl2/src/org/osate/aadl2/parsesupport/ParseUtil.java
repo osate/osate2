@@ -54,7 +54,7 @@ public class ParseUtil {
 		 * at least one digit in it and have no '.' in it; otherwise the
 		 * parser/lexer failed us).
 		 */
-		final char[] valueAsChars = normalizeValue(stringValue);
+		final char[] valueAsChars = normalizeValue(stringValue).toCharArray();
 
 		// Get the sign
 		int currentIdx = 0;
@@ -171,7 +171,7 @@ public class ParseUtil {
 	 */
 	public static double parseAadlReal(final String stringValue) {
 		try {
-			return Double.parseDouble(stringValue);
+			return Double.parseDouble(normalizeValue(stringValue));
 		} catch (final NumberFormatException e) {
 			throw new IllegalArgumentException("Couldn't resolve literal: " + e.getMessage());
 		}
@@ -183,13 +183,12 @@ public class ParseUtil {
 	 *
 	 * @param value
 	 *            The string to process
-	 * @return The provided string with all the underlines removed, returned as
-	 *         a character array.
+	 * @return The provided string with all the underlines removed.
 	 */
-	private static char[] normalizeValue(final String value) {
+	private static String normalizeValue(final String value) {
 		int nextUnderlineLoc = value.indexOf(UNDERLINE);
 		if (nextUnderlineLoc == -1) {
-			return value.toUpperCase().toCharArray();
+			return value.toUpperCase();
 		} else {
 			// size of the new string <= size of value
 			final StringBuffer working = new StringBuffer(value.length());
@@ -202,7 +201,7 @@ public class ParseUtil {
 			} while (nextUnderlineLoc != -1);
 			// append the last portion of the string
 			working.append(value.substring(lastUnderlineLoc));
-			return working.toString().toCharArray();
+			return working.toString();
 		}
 	}
 

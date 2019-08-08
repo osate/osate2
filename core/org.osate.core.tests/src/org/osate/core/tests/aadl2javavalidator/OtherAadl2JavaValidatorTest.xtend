@@ -1712,7 +1712,8 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 			publicSection.ownedClassifiers.get(11) as SubprogramImplementation => [
 				"subprog1.spi1".assertEquals(name)
 				ownedSubprogramCallSequences.head => [
-					"callseq1".assertEquals(name);
+					"callseq1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
 					ownedSubprogramCalls.head => [
 						"callspi2".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi2' in subprog1.spi1")
@@ -1727,26 +1728,38 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 					]
 				]
 				ownedSubprogramCallSequences.get(1) => [
-					"callseq2".assertEquals(name);
+					"callseq2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
 					ownedSubprogramCalls.head => [
 						"callspi3".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi3' in subprog1.spi1")
 					]
 				]
 				ownedSubprogramCallSequences.get(2) => [
-					"callseq3".assertEquals(name);
-						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+					"callseq3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection,
+						"Duplicate identifiers 'callseq3' in subprog1.spi1",
+						"Multiple sequences declared for non-modal implementation"
+					)
 				]
 				ownedSubprogramCallSequences.get(3) => [
-					"callseq3".assertEquals(name);
-						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+					"callseq3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection,
+						"Duplicate identifiers 'callseq3' in subprog1.spi1",
+						"Multiple sequences declared for non-modal implementation"
+					)
+				]
+				ownedSubprogramCallSequences.get(4) => [
+					"callseq4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
 				]
 			]
 
 			publicSection.ownedClassifiers.get(12) as SubprogramImplementation => [
 				"subprog1.spi3".assertEquals(name)
 				ownedSubprogramCallSequences.head => [
-					"callseq5".assertEquals(name);
+					"callseq5".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Multiple sequences declared for non-modal implementation")
 					ownedSubprogramCalls.head => [
 						"callspi6".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, "Identifier 'callspi6' has previously been defined in 'componentimpluniquenames::subprog1.spi1'")
