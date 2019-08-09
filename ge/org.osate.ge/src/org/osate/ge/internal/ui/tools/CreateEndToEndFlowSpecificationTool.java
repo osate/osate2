@@ -14,7 +14,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.HelpListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -44,8 +43,8 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
+import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.graphics.Color;
-import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
@@ -433,16 +432,12 @@ public class CreateEndToEndFlowSpecificationTool {
 			newShell.setMinimumSize(460, 215);
 		}
 
-		final HelpListener helpListener = e -> {
-			Activator.showHelp(Activator.getHelpContext(this.getClass().getDeclaringClass().getSimpleName()));
-		};
-
 		@Override
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
 			setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
-			getShell().addHelpListener(helpListener);
+			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.END_TO_END_TOOL);
 		}
 
 		@Override

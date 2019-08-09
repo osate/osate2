@@ -39,6 +39,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
+import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
@@ -131,7 +132,7 @@ public class CreateFlowImplementationTool {
 			super(parentShell);
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
 			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
-			this.setHelpAvailable(false);
+			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
@@ -538,7 +539,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-
+			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
 			update();
 		}
 

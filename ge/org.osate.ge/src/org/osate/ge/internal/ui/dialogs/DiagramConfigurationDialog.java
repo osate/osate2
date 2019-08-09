@@ -45,6 +45,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
+import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
@@ -118,6 +119,7 @@ public class DiagramConfigurationDialog {
 			newShell.setText("Configure Diagram");
 			newShell.setMinimumSize(250, 400);
 			newShell.setSize(1300, 1000);
+			ContextHelpUtil.setHelp(newShell, ContextHelpUtil.DIAGRAM_CONFIG);
 		}
 
 		@Override

@@ -32,12 +32,14 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.di.ContextHelpUtil;
 
 public class InternalPropertySectionUtil {
 	public static ComboViewer createComboViewer(final Composite container, final int lblWidth,
@@ -54,6 +56,10 @@ public class InternalPropertySectionUtil {
 		// Disable scroll so selection listeners are not constantly called resulting in a burst of AADL modifications.
 		combo.addListener(SWT.MouseVerticalWheel, event -> event.doit = false);
 		return comboViewer;
+	}
+
+	public static void setPropertiesHelp(final Control control) {
+		ContextHelpUtil.setHelp(control, ContextHelpUtil.PROPERTIES_VIEW);
 	}
 
 	// Create property section label

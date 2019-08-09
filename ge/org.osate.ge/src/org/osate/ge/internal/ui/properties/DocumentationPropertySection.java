@@ -17,6 +17,7 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.EObjectDocumentationUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -48,6 +49,8 @@ public class DocumentationPropertySection extends AbstractPropertySection {
 		documentationField.setEnabled(false);
 		documentationField.setLayoutData(
 				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(100, 100).create());
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

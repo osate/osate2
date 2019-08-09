@@ -59,7 +59,7 @@
 		</topic>
 		<topic label="Extending" href="docs-gen/user_guide.html#extending">
 		</topic>
-		<topic label="Selecting a Diagram Element’s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
+		<topic label="Selecting a Diagram Element&#39;s Container" href="docs-gen/user_guide.html#selecting-a-diagram-elements-container">
 		</topic>
 		<topic label="Selecting All Connections" href="docs-gen/user_guide.html#selecting-all-connections">
 		</topic>
@@ -79,7 +79,7 @@
 	<topic label="Visualization" href="docs-gen/user_guide.html#visualization">
 		<topic label="Inherited Elements" href="docs-gen/user_guide.html#sec:inherited_elements">
 		</topic>
-		<topic label="Customizing an Element’s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
+		<topic label="Customizing an Element&#39;s Appearance" href="docs-gen/user_guide.html#sec:de_apperance">
 		</topic>
 		<topic label="Hidden Children" href="docs-gen/user_guide.html#sec:hidden_children">
 		</topic>
@@ -139,4 +139,3 @@
 	<topic label="Notices" href="docs-gen/user_guide.html#notices">
 	</topic>
 </toc>
-

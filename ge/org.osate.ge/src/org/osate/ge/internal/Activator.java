@@ -8,13 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.internal;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
-import java.util.Properties;
-
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -22,20 +16,6 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends AbstractUIPlugin {
-	final static Properties properties = createProperties();
-
-	private static Properties createProperties() {
-		final Properties prop = new Properties();
-		try {
-			final InputStream input = Activator.class.getClassLoader()
-					.getResourceAsStream("../org.osate.ge.doc/help_ctx_constants.properties");
-			prop.load(input);
-		} catch (final IOException e) {
-			throw new RuntimeException("Contextual help cannot be loaded.");
-		}
-
-		return prop;
-	}
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.osate.ge"; //$NON-NLS-1$
@@ -82,15 +62,4 @@ public class Activator extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
-
-	public static Object getHelpContext(final String key) {
-		System.err.println(properties.get(key) + " key");
-		return Objects.requireNonNull(properties.get(key), "Cannot find help context: " + key);
-	}
-
-	// MOVE TO UTIL
-	public static void showHelp(final Object contextHelpId) {
-		PlatformUI.getWorkbench().getHelpSystem().displayHelp(Activator.PLUGIN_ID + ".doc." + contextHelpId);
-	}
-
 }

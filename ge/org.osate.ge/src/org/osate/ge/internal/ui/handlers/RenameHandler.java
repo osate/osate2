@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
@@ -133,6 +134,7 @@ public class RenameHandler extends AbstractHandler {
 		protected void configureShell(final Shell shell) {
 			super.configureShell(shell);
 			shell.setMinimumSize(225, 185);
+			ContextHelpUtil.setHelp(shell, ContextHelpUtil.RENAMING_ELEMENTS);
 		}
 	}
 }
