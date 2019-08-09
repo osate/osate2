@@ -1,0 +1,74 @@
+package ScrubbedCl
+public
+	device sensor
+		features
+			src: out data port;
+			annex EMV2 {**
+				use types EMTypes;
+				error propagations
+					src: out propagation { ClResult};
+					flows
+					d: error source src{ClResult};
+				end propagations;
+			**};
+	end sensor;
+	device actuator
+		features
+			cmd: in data port;
+			effect: out feature;
+			annex EMV2 {**
+				use types EMTypes;
+				error propagations
+				cmd: in propagation { ClResult};
+					effect: out propagation {Bad,Good};
+					flows
+						badone: error path cmd{ ClFail} -> effect{Bad};
+				end propagations;
+			**};
+	end actuator;
+	
+	abstract DirtyWords
+		features
+			txt: in data port;
+			vcedtxt: out data port;
+			annex EMV2 {**
+				use types EMTypes;
+				error propagations
+				txt: in propagation {ClResult};
+					vcedtxt: out propagation {ClResult};
+					flows
+						cl: error path txt{ClResult} -> vcedtxt{ClResult};
+				end propagations;
+			**};
+	end DirtyWords;
+	
+	system top
+		features
+			effect: out feature;
+			annex EMV2 {**
+				use types EMTypes;
+				error propagations
+					effect: out propagation {Bad,Good};
+				end propagations;
+			**};
+	end top;
+	system implementation top.vc
+		subcomponents
+			s: device sensor;
+			a: device actuator;
+			clean: abstract DirtyWords;
+		connections
+			sense: port s.src -> clean.txt;
+			vced: port clean.vcedtxt -> a.cmd;
+			impact: feature a.effect -> effect;
+			annex EMV2 {**
+				use types EMTypes;
+				component error behavior
+				propagations
+				eff: all-[a.effect{Bad}]-> effect{Bad};
+				effg: all-[a.effect{Good}]-> effect{Good};
+				end component;
+			**};
+	end top.vc;
+	
+end ScrubbedCl;

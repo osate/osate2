@@ -1,0 +1,133 @@
+package accessfeatures
+public
+	data d
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                           
+		use types ErrorLibrary;
+		error propagations
+			access: in propagation {ServiceOmission};
+			access: out propagation {ServiceOmission};
+			flows
+				dsrc: error source access{ServiceOmission};
+				ddpath: error path access{ServiceOmission} -> access{ServiceOmission};
+			end propagations;
+**};	
+	end d;
+	thread read
+		features
+			readme: requires data access d;
+			msg: out feature;
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                           
+		use types ErrorLibrary;
+		error propagations
+			readme: in propagation {ServiceOmission};
+			processor: in propagation {ServiceOmission};
+			msg: out propagation {ServiceOmission};
+			flows
+				resrc: error source msg{ServiceOmission};
+				remsg: error path readme{ServiceOmission} -> msg{ServiceOmission};
+				reb: error path processor{ServiceOmission} -> msg{ServiceOmission};
+			end propagations;
+**};	
+end read;
+	thread write
+		features
+			writeme: requires data access d;
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                           
+		use types ErrorLibrary;
+		error propagations
+			writeme: out propagation {ServiceOmission};
+			flows
+				wrsrc: error source writeme{ServiceOmission};
+			end propagations;
+**};	
+	end write;
+	
+	abstract top
+		features
+			msg:out feature;
+	annex EMV2 {**                                                                                                                                                                                                                                                                                                                                                                                                           
+		use types ErrorLibrary;
+		error propagations
+			msg: out propagation {ServiceOmission};
+			end propagations;
+**};	
+	end top;
+	abstract implementation top.i
+		subcomponents
+			r: thread read;
+			w: thread write;
+			dd: data d;
+		connections
+			ra: data access dd-> r.readme ;
+			wa: data access w.writeme -> dd;
+		annex EMV2 {**
+			use types ErrorLibrary;
+		component error behavior
+		propagations
+			FTAPropagationStart: all -[r.msg{ServiceOmission}]-> msg{ServiceOmission};
+		end component;
+		**};
+	end top.i;
+	
+	
+		processor CPU
+		features
+			networkaccess: requires bus access Network;
+	annex EMV2 {**
+		use types ErrorLibrary;
+		error propagations
+			bindings: out propagation {ServiceOmission};
+			networkaccess: in propagation {ServiceOmission};
+			networkaccess: out propagation {ServiceOmission};
+		flows
+			cpu_es1: error source bindings {ServiceOmission} ;
+			ntob: error path networkaccess{ServiceOmission} -> bindings{ServiceOmission};
+			nton: error path networkaccess{ServiceOmission} -> networkaccess{ServiceOmission};
+		end propagations;
+	**};
+	end CPU;
+	
+	-- Here we specify the occurrence probability on the error source for flow based analysis
+	-- and on the state for composite state analysis.
+	-- We should be able to specify when FailStop as the error source condition and 
+	-- the analysis should pick up the probability from this identified state.
+	bus Network
+	annex EMV2 {**
+		use types ErrorLibrary;
+		error propagations
+		bindings: out propagation {ServiceOmission};
+		access: in propagation {ServiceOmission};
+		access: out propagation {ServiceOmission};
+		flows
+			acctob: error path access{ServiceOmission} -> bindings {ServiceOmission} ;
+			acctoacc: error path access{ServiceOmission} -> access {ServiceOmission} ;
+			network_binding_es: error source bindings {ServiceOmission};
+			network_access_es: error source access {ServiceOmission};
+		end propagations;
+	**};
+	end Network;
+	abstract implementation top.ii
+		subcomponents
+			r: thread read;
+			w: thread write;
+			dd: data d;
+			cpu1: processor cpu;
+			cpu2: processor cpu;
+			n1: bus network;
+		connections
+			ra: data access dd->r.readme ;
+			wa: data access w.writeme -> dd;
+			c1: bus access cpu1.networkaccess <-> n1;
+			c2: bus access cpu2.networkaccess <-> n1;
+		properties
+			Actual_Processor_Binding => (reference (cpu1)) applies to r;
+		annex EMV2 {**
+			use types ErrorLibrary;
+		component error behavior
+		propagations
+			FTAPropagationStart: all -[r.msg{ServiceOmission}]-> msg{ServiceOmission};
+		end component;
+		**};
+	end top.ii;
+	
+end accessfeatures;

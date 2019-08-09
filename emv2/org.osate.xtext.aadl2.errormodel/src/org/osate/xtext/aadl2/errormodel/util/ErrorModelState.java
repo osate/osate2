@@ -1,8 +1,7 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
-import java.util.Collection;
-
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
@@ -17,13 +16,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 public interface ErrorModelState {
 
 	/**
-	 * the type token associated with a given model object
-	 * For model objects that also have an error state the typetoken applies to the state
-	 * @return
-	 */
-	public TypeToken getToken();
-
-	/**
 	 * set the current state to the token.
 	 * Also record it in the visited history.
 	 * return true if previously visited.
@@ -31,20 +23,13 @@ public interface ErrorModelState {
 	 * @param token
 	 * @return
 	 */
-	public void setVisitToken(TypeToken token);
+	public void setVisitToken(ErrorPropagation ep, TypeToken token);
 
 	/**
 	 * remove the token from the visited list
 	 * @param token
 	 */
-	public void removeVisitedToken(TypeToken token);
-
-	/**
-	 * the visited type tokens associated with a given model object
-	 * For model objects that also have an error state the typetoken applies to the state
-	 * @return
-	 */
-	public Collection<TypeToken> getVisitedTokens();
+	public void removeVisitedToken(ErrorPropagation ep, TypeToken token);
 
 	/**
 	 * returns true if type token is already in the list of visited tokens.
@@ -52,19 +37,7 @@ public interface ErrorModelState {
 	 * @param tt
 	 * @return
 	 */
-	public boolean visited(TypeToken tt);
-
-	/**
-	 * set the type token for model object
-	 * @param token
-	 */
-	public void setToken(TypeToken token);
-
-	/**
-	 * set the type token for model object to null
-	 * @param token
-	 */
-	public void unsetToken();
+	public boolean visited(ErrorPropagation ep, TypeToken tt);
 
 	/**
 	 * current error behavior state of a component
