@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Expression Annex Help
+Bundle-SymbolicName: org.osate.expr.help
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CMU/SEI
+Automatic-Module-Name: org.osate.expr.help

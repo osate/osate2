@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="org.osate.expr.feature"
-	label="Expr Feature "
-	version="1.0.0.qualifier">
-	<plugin
-			id="org.osate.expr"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="org.osate.expr.ide"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="org.osate.expr.ui"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
+<feature
+      id="org.osate.expr.feature"
+      label="Expr Feature "
+      version="1.0.0.qualifier">
+
+   <plugin
+         id="org.osate.expr"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.expr.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
