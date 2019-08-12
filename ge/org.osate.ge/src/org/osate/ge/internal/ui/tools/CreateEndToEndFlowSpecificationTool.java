@@ -43,7 +43,6 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
@@ -53,6 +52,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowSpecificationTool {

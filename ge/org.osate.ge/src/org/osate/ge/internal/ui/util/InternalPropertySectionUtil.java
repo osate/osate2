@@ -39,7 +39,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.di.ContextHelpUtil;
 
 public class InternalPropertySectionUtil {
 	public static ComboViewer createComboViewer(final Composite container, final int lblWidth,

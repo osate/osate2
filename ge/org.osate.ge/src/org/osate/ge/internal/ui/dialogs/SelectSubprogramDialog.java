@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.di.ContextHelpUtil;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 /**
  * This dialog is used to select the subprogram in order to configure a subprogram call.

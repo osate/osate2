@@ -45,7 +45,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
-import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
@@ -53,6 +52,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableSet;
 

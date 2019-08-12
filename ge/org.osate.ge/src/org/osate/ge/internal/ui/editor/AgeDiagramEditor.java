@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
-import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -50,6 +49,7 @@ import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableList;
 

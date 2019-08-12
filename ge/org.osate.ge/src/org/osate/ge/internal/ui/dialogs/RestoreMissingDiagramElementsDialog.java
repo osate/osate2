@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.osate.ge.di.ContextHelpUtil;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableMap;
 

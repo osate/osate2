@@ -1,4 +1,4 @@
-package org.osate.ge.di;
+package org.osate.ge.internal.ui.util;
 
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.PlatformUI;

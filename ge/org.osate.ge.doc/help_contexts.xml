@@ -28,7 +28,7 @@
    </context>
    <context id="diagram_editor" title="AADL Diagram Editor">
    	   <description>The editor allows for viewing models, customizing the contents of diagrams, and making AADL modifications.</description>
-   	   <topic label="Editing Models" href="docs-gen/user_guide.html#editing_model_elements"/>
+   	   <topic label="Editing Models" href="docs-gen/user_guide.html#editing-model-elements"/>
    	   <topic label="Creating Model Elements" href="docs-gen/user_guide.html#creating-model-elements"/>
    	   <topic label="Instantiating" href="docs-gen/user_guide.html#sec:instantiating"/>
    	   <topic label="Visualization" href="docs-gen/user_guide.html#visualization"/>

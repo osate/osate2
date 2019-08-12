@@ -48,7 +48,6 @@ import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
-import org.osate.ge.di.ContextHelpUtil;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
@@ -60,6 +59,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -164,7 +164,7 @@ public class SetBindingTool {
 					.stream(elementsToBind).map(e -> Strings.emptyIfNull(e.getName())).collect(Collectors.joining(","))
 					+ ".");
 			validate();
-			
+
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.BINDING_TOOL);
 		}
 

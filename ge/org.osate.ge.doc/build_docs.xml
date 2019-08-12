@@ -16,7 +16,9 @@
   <!-- - target: clean -->
   <target name="clean" description="Cleans up generated files.">
   <delete dir="${docs_output.dir}" />
+  	<!-- Currently disabled.  Enable when building api docs.
   	<delete dir="api" />
+  	-->
   </target>
 
   <target name="build-help" depends="clean, build_docs_eclipse">
