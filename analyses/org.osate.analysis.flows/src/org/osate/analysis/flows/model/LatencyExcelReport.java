@@ -24,6 +24,7 @@ import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.CellFormat;
 import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
@@ -32,15 +33,16 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 public class LatencyExcelReport {
-	private static final WritableCellFormat BOLD_FORMAT;
+	private static final WritableCellFormat BOLD_FORMAT = new WritableCellFormat(
+			new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD));
 	private static final WritableCellFormat ERROR_FORMAT;
 	private static final WritableCellFormat WARNING_FORMAT;
 
 	static {
-		WritableFont boldFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
-		BOLD_FORMAT = new WritableCellFormat(boldFont);
-		ERROR_FORMAT = new WritableCellFormat(boldFont);
-		WARNING_FORMAT = new WritableCellFormat(boldFont);
+		WritableFont boldWhiteFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD, false,
+				UnderlineStyle.NO_UNDERLINE, Colour.WHITE);
+		ERROR_FORMAT = new WritableCellFormat(boldWhiteFont);
+		WARNING_FORMAT = new WritableCellFormat(boldWhiteFont);
 		try {
 			ERROR_FORMAT.setBackground(Colour.RED);
 			WARNING_FORMAT.setBackground(Colour.LIGHT_ORANGE);
@@ -82,9 +84,9 @@ public class LatencyExcelReport {
 					sheetName = flowName + " in mode " + inMode;
 				}
 				WritableSheet sheet = workbook.createSheet(sheetName, sheetNumber);
-				sheet.addCell(new Label(0, 0, reportHeader));
+				sheet.addCell(new Label(0, 0, reportHeader, BOLD_FORMAT));
 				sheet.addCell(new Label(0, 2, "Latency results for end-to-end flow '" + flowName + "' of system '"
-						+ systemName + "'" + inMode));
+						+ systemName + "'" + inMode, BOLD_FORMAT));
 				sheet.addCell(new Label(0, 4, "Result", BOLD_FORMAT));
 				sheet.addCell(new Label(1, 4, "Min Specified", BOLD_FORMAT));
 				sheet.addCell(new Label(2, 4, "Min Actual", BOLD_FORMAT));
@@ -111,8 +113,8 @@ public class LatencyExcelReport {
 				sheet.addCell(new Label(0, row, "Specified End To End Latency"));
 				sheet.addCell(new Label(2, row, ResultUtil.getReal(result, 5) + "ms"));
 				sheet.addCell(new Label(5, row, ResultUtil.getReal(result, 6) + "ms"));
-				row += 2;
-				sheet.addCell(new Label(0, row, "End To End Latency Summary"));
+				row++;
+				sheet.addCell(new Label(0, row, "End To End Latency Summary", BOLD_FORMAT));
 				row++;
 				for (Diagnostic dia : result.getDiagnostics()) {
 					sheet.addCell(new Label(0, row, dia.getDiagnosticType().toString(), getCellFormat(dia)));
