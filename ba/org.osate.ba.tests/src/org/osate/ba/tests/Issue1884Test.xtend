@@ -34,7 +34,7 @@ class Issue1884Test {
 				]
 			]
 		]
-		5.assertEquals(result.issues.size)
+		3.assertEquals(result.issues.size)
 		result.issues.get(0) => [
 			"unterminated behavior state (missing ending ';')".assertEquals(message)
 			7.assertEquals(lineNumber)
