@@ -47,13 +47,5 @@ class Issue1884Test {
 			"The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.".assertEquals(message)
 			27.assertEquals(lineNumber)
 		]
-		result.issues.get(3) => [
-			message.startsWith("The required feature 'initialState'").assertTrue
-			4.assertEquals(lineNumber)
-		]
-		result.issues.get(4) => [
-			message.startsWith("The required feature 'initialState'").assertTrue
-			4.assertEquals(lineNumber)
-		]
 	}
 }
