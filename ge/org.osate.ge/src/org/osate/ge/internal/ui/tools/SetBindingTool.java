@@ -287,8 +287,8 @@ public class SetBindingTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Bind");
-			newShell.setSize(400, 225);
-			newShell.setMinimumSize(250, 220);
+			newShell.setSize(400, 285);
+			newShell.setMinimumSize(400, 280);
 		}
 
 		public void cancel() {

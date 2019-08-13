@@ -15,7 +15,7 @@ body {
   line-height: 1.7;
   padding: 1em;
   margin: auto;
-  width: 70em;
+  max-width: 70em;
   background: #fefefe;
 }
 
