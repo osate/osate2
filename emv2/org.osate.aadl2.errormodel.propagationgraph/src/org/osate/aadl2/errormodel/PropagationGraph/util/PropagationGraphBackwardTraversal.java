@@ -57,7 +57,6 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
-
 	public static BigDecimal BigZero = new BigDecimal(0.0);
 	public static BigDecimal BigOne = new BigDecimal(1.0);
 
@@ -332,7 +331,7 @@ public class PropagationGraphBackwardTraversal {
 	 * If the original is contained in the constraint use the original.
 	 * If not use the constraint as it may represent a mapping, e.g., for an error path
 	 * @param constraint ErrorTypes that is expected on the left hand side
-	 * @param original ErrroTypes that is the actual origin of the backward proapagation
+	 * @param original ErrroTypes that is the actual origin of the backward propagation
 	 * @return ErrorTypes
 	 */
 	private ErrorTypes mapTargetType(ErrorTypes constraint, ErrorTypes original) {
@@ -501,9 +500,8 @@ public class PropagationGraphBackwardTraversal {
 							for (TransitionBranch tb : tbs) {
 								BranchValue valcount = tb.getValue();
 								if (valcount.getRealvalue() != null) {
-									branchscale = branchscale
-											.subtract(
-													new BigDecimal(EMV2Util.stripUnderScore(valcount.getRealvalue())));
+									branchscale = branchscale.subtract(
+											new BigDecimal(EMV2Util.stripUnderScore(valcount.getRealvalue())));
 								} else if (valcount.getSymboliclabel() != null) {
 									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
@@ -605,9 +603,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	public EObject processCondition(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			BigDecimal scale, boolean stateOnly) {
-		/**
-		 * We have an AND expression, so, we create an EVENT to AND' sub events.
-		 */
+
+		// Mapping of AND expression
 		if (condition instanceof AndExpression) {
 			preProcessAnd(component, condition, type, scale);
 			AndExpression expression = (AndExpression) condition;
@@ -622,6 +619,8 @@ public class PropagationGraphBackwardTraversal {
 
 			return postProcessAnd(component, condition, type, subResults, scale);
 		}
+
+		// Mapping of All expression
 		if (condition instanceof AllExpression) {
 			List<EObject> subResults = new LinkedList<EObject>();
 
@@ -638,8 +637,9 @@ public class PropagationGraphBackwardTraversal {
 			return postProcessAnd(component, condition, type, subResults, scale);
 		}
 
+		// Mapping of OR expression
 		if (condition instanceof OrExpression) {
-			preProcessXor(component, condition, type, scale);
+			preProcessXor(component, condition, type, scale); // XXX preProcessOr ?
 			OrExpression expression = (OrExpression) condition;
 			List<EObject> subResults = new LinkedList<EObject>();
 
@@ -652,11 +652,13 @@ public class PropagationGraphBackwardTraversal {
 			return postProcessXor(component, condition, type, scale, subResults);
 		}
 
+		// Mapping of ORMORE expression
 		if (condition instanceof OrmoreExpression) {
 			OrmoreExpression omCondition = (OrmoreExpression) condition;
 			List<EObject> subResults = new LinkedList<EObject>();
 
 			if (omCondition.getCount() == 1) {
+				/* 1 ormore is mapped to a OR gate */
 				preProcessOr(component, condition, type, scale);
 				for (ConditionExpression ce : omCondition.getOperands()) {
 					EObject res = processCondition(component, ce, type, scale, stateOnly);
@@ -664,13 +666,22 @@ public class PropagationGraphBackwardTraversal {
 						subResults.add(res);
 					}
 				}
+				return postProcessOr(component, condition, type, subResults, scale);
+
+			} else {
+				/* x ormore with x > 1 is mapped to a ORMORE gate */
+				preProcessOrMore(component, condition, type, scale);
+				for (ConditionExpression ce : omCondition.getOperands()) {
+					EObject res = processCondition(component, ce, type, scale, stateOnly);
+					if (res != null) {
+						subResults.add(res);
+					}
+				}
+				return postProcessOrMore(component, condition, type, subResults, scale);
 			}
-			return postProcessOr(component, condition, type, subResults, scale);
 		}
 
-		/**
-		 * Here, we have a single condition element.
-		 */
+		// Mapping of single condition element
 		if (condition instanceof ConditionElement) {
 			ConditionElement conditionElement = (ConditionElement) condition;
 
@@ -840,15 +851,14 @@ public class PropagationGraphBackwardTraversal {
 							}
 						}
 					} else {
-						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation,
-								referencedErrorType, scale);
+						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation, referencedErrorType,
+								scale);
 					}
 				}
 
 			}
 		}
 		return null;
-
 	}
 
 	/**
@@ -1067,7 +1077,6 @@ public class PropagationGraphBackwardTraversal {
 		return traverseCompositeErrorState(component, state, type, true, scale);
 	}
 
-
 //	methods to be overwritten by applications
 
 	/**
@@ -1168,8 +1177,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param type Error Type
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
-	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation ep,
-			ErrorTypes type, BigDecimal scale) {
+	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation ep, ErrorTypes type,
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -1251,8 +1260,8 @@ public class PropagationGraphBackwardTraversal {
 	 * @param type Error Type
 	 * @return EObject (can be null but is expected to return object representing traversal leaf)
 	 */
-	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, BigDecimal scale) {
+	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state, ErrorTypes type,
+			BigDecimal scale) {
 		return null;
 	}
 
@@ -1366,7 +1375,6 @@ public class PropagationGraphBackwardTraversal {
 		return null;
 	}
 
-
 	/**
 	 * pre process results OR expression
 	 * called with non-empty subResults list
@@ -1390,6 +1398,34 @@ public class PropagationGraphBackwardTraversal {
 	 * @return EObject result representing the processing of the subresults list (can be null )
 	 */
 	protected EObject postProcessOr(ComponentInstance component, Element condition, ErrorTypes type,
+			List<EObject> subResults, BigDecimal scale) {
+		return null;
+	}
+
+	/**
+	 * pre process results ORRMORE expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition OR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 */
+	protected EObject preProcessOrMore(ComponentInstance component, Element condition, ErrorTypes type,
+			BigDecimal scale) {
+		return null;
+	}
+
+	/**
+	 * post process results ORMORE expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition OR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults Entities encountered as part of the sub-traversal
+	 * @return EObject result representing the processing of the subresults list (can be null )
+	 */
+	protected EObject postProcessOrMore(ComponentInstance component, Element condition, ErrorTypes type,
 			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
