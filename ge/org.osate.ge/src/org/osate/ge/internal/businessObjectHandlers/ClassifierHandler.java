@@ -61,6 +61,8 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
+import com.google.common.collect.ImmutableList;
+
 public class ClassifierHandler {
 	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 
@@ -319,7 +321,8 @@ public class ClassifierHandler {
 					new ClassifierOperationDialog.ArgumentBuilder(model,
 							EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION)).defaultPackage(pkg)
 					.showPrimaryPackageSelector(false)
-					.componentCategory(componentPaletteEntryCtx.componentCategory).create());
+					.componentCategories(ImmutableList.of(componentPaletteEntryCtx.componentCategory))
+									.create());
 		}
 	}
 

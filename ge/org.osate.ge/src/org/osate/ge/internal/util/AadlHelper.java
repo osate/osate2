@@ -138,9 +138,19 @@ public class AadlHelper {
 				.collect(Collectors.toSet());
 	}
 
-	public static <T extends Element> Optional<IProject> getCommonProject(final Collection<T> elements) {
-		return Optional.ofNullable(elements.stream().map(e -> ProjectUtil.getProjectForBo(e).orElse(null))
-				.reduce(null, (p1, p2) -> p1 == p2 ? p1 : null));
+	public static <T extends Element> Optional<IProject> getCommonProject(final List<T> elements) {
+		if (elements.isEmpty()) {
+			return Optional.empty();
+		}
+
+		final IProject firstProject = ProjectUtil.getProjectForBo(elements.get(0)).orElse(null);
+		for (int i = 1; i < elements.size(); i++) {
+			if (firstProject != ProjectUtil.getProjectForBo(elements.get(i)).orElse(null)) {
+				return Optional.empty();
+			}
+		}
+
+		return Optional.ofNullable(firstProject);
 	}
 
 	public static <T extends Element> Optional<AadlPackage> getCommonPackage(final Collection<T> elements) {

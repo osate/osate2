@@ -6,8 +6,12 @@ import java.util.Objects;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
@@ -116,6 +120,32 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 			// Check identifier validity
 			if (!namingService.isValidIdentifier(op.getIdentifier())) {
 				return "The specified identifier is not a valid AADL identifier";
+			}
+
+			// Check component category
+			if (ClassifierOperationPartType.isComponentClassifierCreate(op.getType())) {
+				if (op.getComponentCategory() == null) {
+					return "Select a component category.";
+				}
+
+				// TODO: Null check?
+				if (baseOperation != null && baseOperation.getType() == ClassifierOperationPartType.EXISTING) {
+					// Check for a compatible component category when selecting an existing base classifier
+					final Classifier baseClassifier = classifierCreationHelper
+							.getResolvedClassifier(baseOperation.getSelectedClassifier());
+					if (baseClassifier instanceof ComponentClassifier) {
+						final ComponentClassifier baseCategory = (ComponentClassifier) baseClassifier;
+						if (baseCategory.getCategory() != op.getComponentCategory()
+								&& (op.getType() != ClassifierOperationPartType.NEW_COMPONENT_TYPE
+								|| baseCategory.getCategory() != ComponentCategory.ABSTRACT)) {
+
+							return "Base: category(" + baseCategory.getCategory()
+							+ ") of the selected classifier is not compatible with category type of the "
+							+ StringUtil.upperUnderscoreToLowercaseUser(op.getType().name())
+							+ "(" + op.getComponentCategory() + ").";
+						}
+					}
+				}
 			}
 
 			// Check package.

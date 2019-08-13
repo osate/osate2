@@ -76,6 +76,10 @@ public class ClassifierOperationExecutor {
 				// Create the new classifier
 				final Classifier newClassifier = section.createOwnedClassifier(creationEClass);
 
+				// TODO: Remove
+				System.err.println("SECTION: " + section.getElementRoot());
+				System.err.println("NEW CLASSIFIER: " + newClassifier.getElementRoot());
+
 				// Set name
 				newClassifier.setName(classifierCreationHelper.getName(part, basePart));
 
