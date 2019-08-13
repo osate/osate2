@@ -4,12 +4,12 @@ package org.osate.aadl2.errormodel.PropagationGraph.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.osate.aadl2.errormodel.PropagationGraph.*;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
+			return ((EObject) object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
@@ -65,25 +65,27 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropagationGraphSwitch<Adapter> modelSwitch =
-		new PropagationGraphSwitch<Adapter>() {
-			@Override
-			public Adapter casePropagationGraph(PropagationGraph object) {
-				return createPropagationGraphAdapter();
-			}
-			@Override
-			public Adapter casePropagationGraphPath(PropagationGraphPath object) {
-				return createPropagationGraphPathAdapter();
-			}
-			@Override
-			public Adapter casePropagationPathEnd(PropagationPathEnd object) {
-				return createPropagationPathEndAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
+	protected PropagationGraphSwitch<Adapter> modelSwitch = new PropagationGraphSwitch<Adapter>() {
+		@Override
+		public Adapter casePropagationGraph(PropagationGraph object) {
+			return createPropagationGraphAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationGraphPath(PropagationGraphPath object) {
+			return createPropagationGraphPathAdapter();
+		}
+
+		@Override
+		public Adapter casePropagationPathEnd(PropagationPathEnd object) {
+			return createPropagationPathEndAdapter();
+		}
+
+		@Override
+		public Adapter defaultCase(EObject object) {
+			return createEObjectAdapter();
+		}
+	};
 
 	/**
 	 * Creates an adapter for the <code>target</code>.
@@ -95,9 +97,8 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
-
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph <em>Propagation Graph</em>}'.
@@ -153,4 +154,4 @@ public class PropagationGraphAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //PropagationGraphAdapterFactory
+} // PropagationGraphAdapterFactory
