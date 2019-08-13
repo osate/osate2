@@ -15,6 +15,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.impl.AadlPackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.sireum.aadl.ir.Aadl;
@@ -25,6 +26,7 @@ import org.sireum.awas.awasfacade.AwasGraphImpl;
 import org.sireum.awas.fptc.FlowEdge;
 import org.sireum.awas.fptc.FlowGraph;
 import org.sireum.awas.fptc.FlowNode;
+import org.sireum.awas.symbol.Resource;
 import org.sireum.awas.symbol.SymbolTable;
 import org.sireum.awas.symbol.SymbolTableHelper;
 import org.sireum.awas.util.JavaConverters;
@@ -40,7 +42,7 @@ import org.sireum.util.ConsoleTagReporter;
  * @author Sam Procter
  *
  */
-public class AWASManager {
+public class AwasManager {
 
 	/**
 	 * Some of AWAS's work is time intensive, so we maintain a cache here
@@ -50,7 +52,7 @@ public class AWASManager {
 	/**
 	 * Private constructor to enforce usage of singleton pattern
 	 */
-	private AWASManager() {
+	private AwasManager() {
 		graphTableCache = new HashMap<>();
 	}
 
@@ -59,10 +61,10 @@ public class AWASManager {
 	 * a singleton
 	 */
 	private static class LazyHolder {
-		static final AWASManager INSTANCE = new AWASManager();
+		static final AwasManager INSTANCE = new AwasManager();
 	}
 
-	public static AWASManager getInstance() {
+	public static AwasManager getInstance() {
 		return LazyHolder.INSTANCE;
 	}
 
@@ -213,6 +215,20 @@ public class AWASManager {
 		ComponentInstance parent = component.getContainingComponentInstance();
 		initTableAndGraph(parent);
 		return urisToInstEObjs(parent, graphTableCache.get(parent).agi.forwardReachUsingNames(component.getName()));
+	}
+
+	public Collection<EObject> getRootErrorTypesByConnection(ConnectionInstance self) {
+		ComponentInstance parent = self.getContainingComponentInstance();
+		initTableAndGraph(parent);
+//		String parentURI = SymbolTableHelper
+//				.getUriFromString(graphTableCache.get(parent).table, parent.getInstanceObjectPath()).get();
+		String portURI = SymbolTableHelper.getPortUri(graphTableCache.get(parent).table, self.getSource().getComponentInstancePath()).get();
+		FlowNode flowNode = FlowNode.getNode(Resource.getParentUri(portURI).get()).get();
+		Set<String> propSet = JavaConverters.toJavaSet(flowNode.getFptcPropagation(portURI));
+		// Check the symbol table -- first entry (compSymbolTableMap) should have everything in the component
+		Collection<EObject> ret = urisToInstEObjs(parent, propSet);
+
+		return ret;
 	}
 
 	/**

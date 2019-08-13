@@ -74,7 +74,7 @@ public class Services {
 	 * @return The set of successors to the given component.
 	 */
 	public static Collection<EObject> getSuccessorNeighbors(EObject self) {
-		return AWASManager.getInstance().getSuccessorNeighbors((ComponentInstance) self);
+		return AwasManager.getInstance().getSuccessorNeighbors((ComponentInstance) self);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class Services {
 	 * @return The set of predecessors to the given component.
 	 */
 	public static Collection<EObject> getPredecessorNeighbors(EObject self) {
-		return AWASManager.getInstance().getPredecessorNeighbors((ComponentInstance) self);
+		return AwasManager.getInstance().getPredecessorNeighbors((ComponentInstance) self);
 	}
 
 	public static EList<ComponentInstance> getAllComponents(EObject self) {
@@ -149,14 +149,16 @@ public class Services {
 		return ret;
 	}
 
-	public static Set<Object> getRootErrorTypesByConnection(EObject self) {
+	public static Collection<EObject> getRootErrorTypesByConnection(EObject self) {
 		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
 		// It's hard because you have error models at different levels of the hierarchy, and
 		// so I don't think it's appropes to calculate that myself
-		return (new Random()).nextBoolean() ? Collections.emptySet()
-				: Collections
-						.singleton(getRootErrorTypes(self).toArray()[new Random()
-								.nextInt(getRootErrorTypes(self).size())]);
+//		return (new Random()).nextBoolean() ? Collections.emptySet()
+//				: Collections
+//						.singleton(getRootErrorTypes(self).toArray()[new Random()
+//								.nextInt(getRootErrorTypes(self).size())]);
+		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self);
+		
 	}
 
 	/**

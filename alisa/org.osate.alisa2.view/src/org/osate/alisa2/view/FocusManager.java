@@ -90,8 +90,8 @@ public class FocusManager {
 	}
 
 	private void handleFocusedComponent(ComponentInstance newFocus) {
-		focusSet.addAll(AWASManager.getInstance().backwardReach(newFocus));
-		focusSet.addAll(AWASManager.getInstance().forwardReach(newFocus));
+		focusSet.addAll(AwasManager.getInstance().backwardReach(newFocus));
+		focusSet.addAll(AwasManager.getInstance().forwardReach(newFocus));
 	}
 
 	private void handleFocusedFundamental(Fundamental newFocus) {
@@ -120,8 +120,8 @@ public class FocusManager {
 
 	private void handleFocusedErrorType(ErrorType et, FeatureInstance feature) {
 		// slicing stuff -- add components from forward and backward slice
-		focusSet.addAll(AWASManager.getInstance().backwardReach(et, feature));
-		focusSet.addAll(AWASManager.getInstance().forwardReach(et, feature));
+		focusSet.addAll(AwasManager.getInstance().backwardReach(et, feature));
+		focusSet.addAll(AwasManager.getInstance().forwardReach(et, feature));
 		focusSet.size();
 	}
 
