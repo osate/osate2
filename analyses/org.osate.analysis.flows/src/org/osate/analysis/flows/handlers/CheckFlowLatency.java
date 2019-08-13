@@ -58,6 +58,7 @@ import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
 import org.osate.analysis.flows.model.LatencyCSVReport;
+import org.osate.analysis.flows.model.LatencyExcelReport;
 import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -128,6 +129,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 	protected boolean finalizeAnalysis() {
 		FlowLatencyUtil.saveAnalysisResult(latResult);
 		LatencyCSVReport.generateCSVReport(latResult);
+		LatencyExcelReport.generateExcelReport(latResult);
 		generateMarkers(latResult, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
 		return true;
 	};
