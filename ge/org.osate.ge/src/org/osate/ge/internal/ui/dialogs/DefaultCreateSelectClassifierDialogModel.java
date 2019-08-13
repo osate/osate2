@@ -128,7 +128,6 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 					return "Select a component category.";
 				}
 
-				// TODO: Null check?
 				if (baseOperation != null && baseOperation.getType() == ClassifierOperationPartType.EXISTING) {
 					// Check for a compatible component category when selecting an existing base classifier
 					final Classifier baseClassifier = classifierCreationHelper

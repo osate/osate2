@@ -51,8 +51,6 @@ public class OperationExecutor {
 		if (executionState.modifications.isEmpty()) {
 			finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.allResults);
 		} else {
-			// TODO: Remove
-			System.err.println("Z: " + executionState.modifications.size());
 			modificationService.modify(executionState.modifications, allSuccessful -> {
 				if (allSuccessful) {
 					finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.allResults);

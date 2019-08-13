@@ -71,6 +71,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
@@ -242,13 +243,10 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 	final SelectionListener createClassifierListener = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
-			// TODO: Implement. Support various types of features and feature groups
-
 			final List<Feature> features = selectedBos.boStream(Feature.class).collect(Collectors.toList());
 
-			// TODO: Rename
 			// It should be safe to assume that the EClass of all selected feature match because the button would be disabled otherwise.
-			final FeatureClassifierMetadata info = featureTypeToMetadataMap.get(features.get(0).eClass());
+			final FeatureClassifierMetadata metadata = featureTypeToMetadataMap.get(features.get(0).eClass());
 
 			// Get required services
 			final IEclipseContext context = EclipseContextFactory
@@ -262,10 +260,9 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 			final IProject project = AadlHelper.getCommonProject(features)
 					.orElseThrow(() -> new RuntimeException("Unable to determine project"));
 
-			// Retrieve a live resource set
-			// TODO: need to require/check that resource set is same for all elements.
-			final ResourceSet rs = features.get(0).eResource().getResourceSet(); // TODO: Cleanup. See comment in subcomponent classifier PS.
-			// ProjectUtil.getLiveResourceSet(project);
+			// Get the resource set to use. Use the resource set from the selected model elements to ensure the proper model elements are modified.
+			// If the resource set did not match for all model elements, the create button would be disabled
+			final ResourceSet rs = features.get(0).eResource().getResourceSet();
 
 			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
 					rs, "Configure classifier.") {
@@ -281,7 +278,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 				@Override
 				public Collection<?> getBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
-					return info.createComponentCategories.stream()
+					return metadata.createComponentCategories.stream()
 							.map(cc -> AadlClassifierUtil.getValidBaseClassifierDescriptions(project, cc,
 									primaryOperation == ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
 							.reduce(Sets::union).orElse(Collections.emptySet());
@@ -289,10 +286,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 			};
 
 			// Show the dialog to determine the operation
-			// TODO: Determine what to create
-			// TODO: Cleanup
-			// TODO: classifierEClass and Class for featuregrouptyie is incorrect?
-			final boolean isFeatureGroup = info.classifierEClass == Aadl2Factory.eINSTANCE.getAadl2Package()
+			final boolean isFeatureGroup = metadata.classifierEClass == Aadl2Factory.eINSTANCE.getAadl2Package()
 					.getFeatureType();
 
 			final ClassifierOperationDialog.ArgumentBuilder argBuilder = new ClassifierOperationDialog.ArgumentBuilder(
@@ -301,7 +295,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 							: EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE,
 									ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
 					.defaultPackage(AadlHelper.getCommonPackage(features).orElse(null))
-					.componentCategories(info.createComponentCategories);
+					.componentCategories(metadata.createComponentCategories);
 
 			final ClassifierOperation classifierOp = ClassifierOperationDialog
 					.show(Display.getCurrent().getActiveShell(), argBuilder.create());
@@ -315,9 +309,10 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 					// Modify the subcomponents based on the result of the classifier operation
 					selectedBos.modifyWithOperation(opBuilder, Feature.class, (featureToModify, classifier) -> {
-						// TODO: check classifier?
-						System.err.println("TEST: " + classifier + " : " + featureToModify);
-						setFeatureClassifier(featureToModify, classifier);
+						final EObject resolvedClassifier = EditingUtil
+								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
+
+						setFeatureClassifier(featureToModify, resolvedClassifier);
 					});
 				});
 
@@ -340,6 +335,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		createBtn.setEnabled(
 				!features.isEmpty() && features.stream().allMatch(f -> f.eClass() == features.get(0).eClass())
+				&& EditingUtil.allHaveSameValidResourceSet(features)
 				&& AadlHelper.getCommonProject(features).isPresent());
 	}
 

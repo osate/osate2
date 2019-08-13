@@ -85,6 +85,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
@@ -197,12 +198,9 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 			final IProject project = AadlHelper.getCommonProject(scs)
 					.orElseThrow(() -> new RuntimeException("Unable to determine project"));
 
-			// Retrieve a live resource set
-			// TODO: Incorrect! Need to get the resource set of the selected BOS... Should be the same one? Need to verify they are the same one.
-			// TODO: Consider how to document in APIs or somewhere the importance of using the appropriate resource set.
-			// TODO: If the wrong resource set is used then the modification service will modify two separate resources and the classifier wno't be created.
-			// TODO: This is because the modification service assumes tht the resource is the appropriate one if it can't get an xtext document.
-			final ResourceSet rs = scs.get(0).eResource().getResourceSet();// ProjectUtil.getLiveResourceSet(project);
+			// Get the resource set to use. Use the resource set from the selected model elements to ensure the proper model elements are modified.
+			// If the resource set did not match for all model elements, the create button would be disabled
+			final ResourceSet rs = scs.get(0).eResource().getResourceSet();
 
 			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
 					rs, "Configure classifier.") {
@@ -244,13 +242,15 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					opBuilder = classifierOperationHandler.execute(opBuilder, classifierOp, null);
 
 					// Modify the subcomponents based on the result of the classifier operation
-					// TODO: With this enabled, the classifier is not created properly with the xtext editor open
 					selectedBos.modifyWithOperation(opBuilder, Subcomponent.class, (scToModify, classifier) -> {
 						if (!(classifier instanceof ComponentClassifier)) {
 							throw new RuntimeException("Expected ComponentClassifier.");
 						}
-						System.err.println("SC ROOT: " + scToModify.getElementRoot());
-						setClassifier(scToModify, (ComponentClassifier) classifier);
+
+						final EObject resolvedClassifier = EditingUtil
+								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
+
+						setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
 					});
 				});
 
@@ -273,6 +273,8 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		curScClassifier.setText(scLbl);
 
 		createBtn.setEnabled(!scs.isEmpty() && scs.stream().allMatch(sc -> sc.getCategory() == scs.get(0).getCategory())
+				&& scs.stream().allMatch(sc -> sc.eResource() != null)
+				&& EditingUtil.allHaveSameValidResourceSet(scs)
 				&& AadlHelper.getCommonProject(scs).isPresent());
 	}
 

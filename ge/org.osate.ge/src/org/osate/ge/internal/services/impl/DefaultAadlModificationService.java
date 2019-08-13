@@ -568,8 +568,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE
 				.getEditingDomain(resourceSet);
 
-		// TOOD: Remove
-		System.err.println("MODIFY: " + resource + " : " + resource.getContents().get(0));
 		boolean modificationSuccessful = false;
 
 		final Command undoCommand;
