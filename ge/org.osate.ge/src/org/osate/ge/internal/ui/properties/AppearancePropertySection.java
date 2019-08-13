@@ -70,6 +70,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -91,6 +92,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		createComboViewerSection(containerComposite);
 		createImageSection(containerComposite);
 		createButtonSection(containerComposite);
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

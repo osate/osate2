@@ -78,6 +78,8 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		inverseBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

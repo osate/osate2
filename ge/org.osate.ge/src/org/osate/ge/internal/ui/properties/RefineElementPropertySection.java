@@ -89,6 +89,8 @@ public class RefineElementPropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		refineBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private SelectionAdapter refineSelectionListener = new SelectionAdapter() {

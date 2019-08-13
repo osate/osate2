@@ -26,6 +26,7 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class DirectionalFeaturePropertySection extends AbstractPropertySection {
@@ -95,6 +96,8 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 		ld.right = new FormAttachment(directionContainer, -ITabbedPropertyConstants.HSPACE);
 		ld.top = new FormAttachment(directionContainer, 0, SWT.CENTER);
 		label.setLayoutData(ld);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

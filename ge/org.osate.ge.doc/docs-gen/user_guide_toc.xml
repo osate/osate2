@@ -51,9 +51,9 @@
 		</topic>
 		<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
 		</topic>
-		<topic label="Refining" href="docs-gen/user_guide.html#refining">
+		<topic label="Refining Model Elements" href="docs-gen/user_guide.html#refining-model-elements">
 		</topic>
-		<topic label="Selecting Active Components" href="docs-gen/user_guide.html#sec:selective_active_components">
+		<topic label="Specifying Modes in which Elements are Active" href="docs-gen/user_guide.html#sec:edit_in_modes">
 		</topic>
 		<topic label="Editing Subprogram Call Sequences" href="docs-gen/user_guide.html#editing-subprogram-call-sequences">
 		</topic>
