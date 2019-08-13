@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 /**
  * This dialog is used to select the subprogram in order to configure a subprogram call.
@@ -60,7 +61,7 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 	public SelectSubprogramDialog(final Shell parentShell, final Model model) {
 		super(parentShell);
 		this.model = model;
-		setHelpAvailable(false);
+		setHelpAvailable(true);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 	}
 
@@ -76,6 +77,8 @@ public class SelectSubprogramDialog extends TitleAreaDialog {
 		super.create();
 		setTitle("Select Subprogram");
 		validate();
+
+		ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.SUBPROGRAM_CALL_SEQUENCES);
 	}
 
 	@Override

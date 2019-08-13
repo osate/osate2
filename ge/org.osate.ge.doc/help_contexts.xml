@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?NLS TYPE="org.eclipse.help.contexts"?>
+<contexts>
+   <context id="properties_view" title="Properties View">
+       <description>The properties view allows editing diagram elements and associated AADL model elements.</description>
+       <topic label="Properties View" href="docs-gen/user_guide.html#sec:properties_view"/>
+       <topic label="Element Appearance" href="docs-gen/user_guide.html#sec:de_apperance"/>
+       <topic label="Arrays" href="docs-gen/user_guide.html#arrays"/>
+       <topic label="Refining Model Elements" href="docs-gen/user_guide.html#refining-model-elements"/>
+       <topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows"/>
+       <topic label="Specifying Modes in which Elements are Active" href="docs-gen/user_guide.html#sec:edit_in_modes"/>
+       <topic label="Setting Initial Mode" href="docs-gen/user_guide.html#setting-the-initial-mode"/>
+       <topic label="Editing Subprogram Call Sequences" href="docs-gen/user_guide.html#editing-subprogram-call-sequences"/>
+   </context>
+   <context id="end_to_end_fs_tool" title="Create End-To-End Flow Specification Tool">
+       <description>This tool allows for the creation of end-to-end flow specifications.</description>
+       <topic label="Creating End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-end-to-end-flow-specifications"/>
+       <topic label="Flow Editor" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows"/>
+   </context>
+   <context id="flow_impl_tool" title="Create Flow Implementation Tool">
+       <description>This tool allows for the creation of flow implementations.</description>
+       <topic label="Creating Flow Implementations" href="docs-gen/user_guide.html#creating-flow-implementations"/>
+       <topic label="Flow Editor" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows"/>
+   </context>
+   <context id="binding_tool" title="Create Binding Tool">
+       <description>This tool allows for the creation of binding property associations.</description>
+       <topic label="Bindings" href="docs-gen/user_guide.html#sec:bindings"/>
+   </context>
+   <context id="diagram_editor" title="AADL Diagram Editor">
+   	   <description>The editor allows creating and viewing diagrams which reflect the contents of the underlying AADL model.</description>
+   	   <topic label="Editing Models" href="docs-gen/user_guide.html#editing-model-elements"/>
+   	   <topic label="Renaming Model Elements" href="docs-gen/user_guide.html#sec:renaming"/>
+   	   <topic label="Deleting Model Elements" href="docs-gen/user_guide.html#deleting"/>
+   	   <topic label="Creating Model Elements" href="docs-gen/user_guide.html#creating-model-elements"/>
+   	   <topic label="Visualization" href="docs-gen/user_guide.html#visualization"/>
+   	   <topic label="Diagram Configuration" href="docs-gen/user_guide.html#sec:diagram_configuration"/>
+   	   <topic label="Diagram Layout" href="docs-gen/user_guide.html#sec:diagram_layout"/>
+   	   <topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams"/>
+   	   <topic label="Annotations and Documentation" href="docs-gen/user_guide.html#annotations-and-documentation"/>
+   	   <topic label="Copying and Pasting" href="docs-gen/user_guide.html#copying-and-pasting"/>
+   	   <topic label="Instantiating a Component Implementation" href="docs-gen/user_guide.html#sec:instantiating"/>
+   </context>
+   <context id="diagram_config">
+	   <description>Diagram configuration allows customizing the contents of the diagram.</description>
+	   <topic label="Diagram Configuration" href="docs-gen/user_guide.html#sec:diagram_configuration"/>
+   </context>
+   <context id="subprogram_call_seq_tool" title="Subprogram Call Sequence Tool">
+	   <description>This tool allows creating subprogram call sequences.</description>
+	   <topic label="Creating Subprogram Call Sequences" href="docs-gen/user_guide.html#sec:subprogram_call_seq"/>
+	   <topic label="Editing Subprogram Call Sequences" href="docs-gen/user_guide.html#editing-subprogram-call-sequences"/>
+   </context>
+   <context id="restore_missing_des_tool">
+	  <description>This window allows restoring diagram elements which have been removed because of a invalid link to the AADL model.</description>
+	  <topic label="Restoring Missing Diagram Elements" href="docs-gen/user_guide.html#sec:restore_missing_diagram_elements"/>
+   </context>
+   <context id="rename_element_tool">
+      <description>This windows allows renaming model elements.</description>
+	  <topic label="Renaming" href="docs-gen/user_guide.html#sec:renaming"/>
+   </context>
+   <context id="outline_view" title="Outline View">
+      <description>This view displays the elements shown in the diagram.  Grayed out items are model elements which are not included in the diagram.</description>
+	   <topic label="Diagram Configuration" href="docs-gen/user_guide.html#sec:diagram_configuration"/>
+	   <topic label="Displaying Hidden Elements in Outline" href="docs-gen/user_guide.html#displaying-hidden-elements-in-outline"/>
+	   <topic label="AADL Element Related Diagrams" href="docs-gen/user_guide.html#aadl-element-related-diagrams"/>
+	   <topic label="Renaming" href="docs-gen/user_guide.html#sec:renaming"/>
+	   <topic label="Deleting" href="docs-gen/user_guide.html#deleting"/>
+	   <topic label="Instantiating" href="docs-gen/user_guide.html#sec:instantiating"/>
+   </context>
+   <context id="aadl_diagrams_view" title="AADL Diagrams View">
+       <description>This view shows the diagrams contained in the workspace.</description>
+	   <topic label="Diagrams View" href="docs-gen/user_guide.html#diagrams-view"/>
+	   <topic label="Navigating Between Diagrams" href="docs-gen/user_guide.html#navigating-between-diagrams"/>
+   </context>
+</contexts>
+

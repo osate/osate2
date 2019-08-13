@@ -101,6 +101,7 @@ public class SetModeTransitionTriggerPropertySection extends AbstractPropertySec
 
 		InternalPropertySectionUtil.createSectionLabel(composite,
 				getWidgetFactory(), "Triggers:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private final SelectionAdapter setModeTransitionTriggerSelectionListener = new SelectionAdapter() {
