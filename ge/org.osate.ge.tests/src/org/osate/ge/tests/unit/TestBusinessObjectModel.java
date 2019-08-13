@@ -1,4 +1,4 @@
-package org.osate.ge.tests;
+package org.osate.ge.tests.unit;
 
 import java.util.UUID;
 
