@@ -22,9 +22,9 @@
 package org.osate.ba.texteditor;
 
 import java.util.ArrayList ;
-import java.util.HashMap ;
 import java.util.List ;
 import java.util.Map ;
+import java.util.WeakHashMap ;
 
 import org.antlr.v4.runtime.Token ;
 import org.antlr.v4.runtime.CommonToken ;
@@ -63,7 +63,7 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
   private XtextAadlBaHighlighter() {}
 
   private static Map<AnnexSubclause, XtextAadlBaHighlighter> _highlighterPerAnnex = 
-      new HashMap<AnnexSubclause, XtextAadlBaHighlighter>();
+      new WeakHashMap<AnnexSubclause, XtextAadlBaHighlighter>();
   
   public static XtextAadlBaHighlighter getHighlighter(AnnexSubclause as)
   {
