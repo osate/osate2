@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.osate.ge.internal.util.StringUtil;
@@ -17,14 +17,16 @@ public class StringUtilTest {
 
 	@Test
 	public void Jointest() {
-		String[] test_str_arry = {"All","The","Strings","dot","JPEG"};
+		String[] test_str_arry = { "All", "The", "Strings", "dot", "JPEG" };
 		int startId = 0;
 		int endId = 4;
 		String delimit = "-";
-				
-		assertEquals("check if Valid Join","All-The-Strings-dot", StringUtil.join(test_str_arry, startId, endId, delimit));
+
+		assertEquals("check if Valid Join", "All-The-Strings-dot",
+				StringUtil.join(test_str_arry, startId, endId, delimit));
 
 	}
+
 	@Test
 	public void camelCaseTest()
 	{
