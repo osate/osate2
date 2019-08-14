@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -83,6 +84,7 @@ public class RestoreMissingDiagramElementsDialog<ElementType, BusinessObjectType
 
 		final Collection<BrokenElement<ElementType, BusinessObjectType>> updatedElements = model.getElements().stream()
 				.map(ob -> new BrokenElement<ElementType, BusinessObjectType>(ob, null)).collect(Collectors.toList());
+
 		protected InnerDialog(final Shell parentShell) {
 			super(parentShell);
 			setShellStyle(getShellStyle() | SWT.RESIZE);
@@ -94,6 +96,7 @@ public class RestoreMissingDiagramElementsDialog<ElementType, BusinessObjectType
 			newShell.setText("Restore Missing Diagram Elements");
 			newShell.setMinimumSize(250, 200);
 			newShell.setSize(600, 400);
+			ContextHelpUtil.setHelp(newShell, ContextHelpUtil.RESTORE_MISSING_DES);
 		}
 
 		@Override
@@ -293,9 +296,8 @@ public class RestoreMissingDiagramElementsDialog<ElementType, BusinessObjectType
 			@SuppressWarnings("unchecked")
 			@Override
 			protected CellEditor getCellEditor(final Object element) {
-				editor.setInput(
-						model.getAvailableBusinessObjects(
-								((BrokenElement<ElementType, BusinessObjectType>) element).element));
+				editor.setInput(model.getAvailableBusinessObjects(
+						((BrokenElement<ElementType, BusinessObjectType>) element).element));
 				return editor;
 			}
 

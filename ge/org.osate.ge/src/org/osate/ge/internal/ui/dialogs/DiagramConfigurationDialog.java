@@ -52,6 +52,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -118,6 +119,7 @@ public class DiagramConfigurationDialog {
 			newShell.setText("Configure Diagram");
 			newShell.setMinimumSize(250, 400);
 			newShell.setSize(1300, 1000);
+			ContextHelpUtil.setHelp(newShell, ContextHelpUtil.DIAGRAM_CONFIG);
 		}
 
 		@Override

@@ -107,6 +107,8 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		fd.left = new FormAttachment(curScClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curScClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	final SelectionListener setClassifierListener = new SelectionAdapter() {

@@ -161,6 +161,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		downBtn.setLayoutData(fd);
 
 		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Dimensions:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private static TableViewer createTableViewer(final Composite tableComposite) {
