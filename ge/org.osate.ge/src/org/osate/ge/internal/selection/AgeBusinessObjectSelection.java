@@ -64,8 +64,8 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	@Override
-	public <T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, Class<T> c,
-			BiConsumer<T, O> modifier) {
+	public <T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, final Class<T> c,
+			final BiConsumer<T, O> modifier) {
 		boStream(c).forEachOrdered(e -> {
 			opBuilder.modifyModel(null, (tag, prev) -> e, (tag, boToModify, prev) -> {
 				modifier.accept(boToModify, prev);
