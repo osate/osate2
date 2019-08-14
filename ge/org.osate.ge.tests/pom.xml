@@ -26,16 +26,46 @@
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
+				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
-				<extensions>true</extensions>
+				<configuration>
+					<!-- additional requirements for running the tests -->
+					<!-- adding them here works, adding them in surefire configuration as -->
+					<!-- dependency works only if the tests are started in the test plugin 
+						directory -->
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.event</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<!-- for transactional editing domain that is needed during instantiation -->
+								<type>eclipse-plugin</type>
+								<id>org.osate.aadl2.model.editor</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.osate.core.tests.log4j</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<product>osate2</product>
+					<product>org.osate.branding.org.osate.product</product>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 				</configuration>
