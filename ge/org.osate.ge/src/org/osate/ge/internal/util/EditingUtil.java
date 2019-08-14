@@ -237,7 +237,7 @@ public class EditingUtil {
 		}
 
 		final Optional<ResourceSet> firstResourceSet = getResourceSet(bos.get(0));
-		if(firstResourceSet.isEmpty()) {
+		if (!firstResourceSet.isPresent()) {
 			return false;
 		}
 
