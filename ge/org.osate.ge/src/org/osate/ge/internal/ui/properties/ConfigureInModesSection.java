@@ -45,6 +45,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class ConfigureInModesSection extends AbstractPropertySection {
@@ -69,6 +70,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, 0);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VMARGIN);
 		label.setLayoutData(fd);
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override
