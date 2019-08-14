@@ -48,6 +48,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
@@ -131,7 +132,7 @@ public class CreateFlowImplementationTool {
 			super(parentShell);
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
 			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
-			this.setHelpAvailable(false);
+			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
@@ -538,7 +539,7 @@ public class CreateFlowImplementationTool {
 		public void create() {
 			super.create();
 			setTitle("Select Elements");
-
+			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
 			update();
 		}
 

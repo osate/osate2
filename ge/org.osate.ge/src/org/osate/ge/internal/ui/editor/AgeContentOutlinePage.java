@@ -57,6 +57,7 @@ import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
@@ -138,6 +139,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		super.createControl(parent);
 
 		final TreeViewer viewer =  getTreeViewer();
+		ContextHelpUtil.setHelp(viewer.getControl(), ContextHelpUtil.OUTLINE_VIEW);
 
 		// A comparator is set to allow comparing tree elements of different types in a way where they will be equal if the relative reference is equal.
 		// This is needed so that tree node will be preserved when elements are hidden and shown and the underlying object type changes.

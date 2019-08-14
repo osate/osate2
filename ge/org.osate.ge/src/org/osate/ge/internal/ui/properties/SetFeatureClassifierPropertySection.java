@@ -153,6 +153,8 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		fd.left = new FormAttachment(curFeatureClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curFeatureClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	final SelectionListener setClassifierListener = new SelectionAdapter() {

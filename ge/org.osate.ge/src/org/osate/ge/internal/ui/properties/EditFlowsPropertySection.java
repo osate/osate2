@@ -103,6 +103,7 @@ public class EditFlowsPropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		editFlowsBtn.setLayoutData(fd);
 		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Flows:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override
