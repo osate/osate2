@@ -31,7 +31,9 @@ class Issue1841Test extends XtextTest {
 				"s.i2".assertEquals(name)
 				ownedSubcomponents.head => [
 					"sub".assertEquals(name)
-					assertError(testFileResult.issues, issueCollection, "SystemSubcomponent identifier 'sub' previously defined in s.i1. Maybe you forgot 'refined to'")
+					assertError(testFileResult.issues, issueCollection,
+						"SystemSubcomponent identifier 'sub' previously defined in s.i1. Maybe you forgot 'refined to'"
+					)
 				]
 			]
 		]
