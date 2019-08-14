@@ -1,0 +1,54 @@
+package Flow_Demo_System
+public
+    system Top
+        
+    end Top;
+    
+    system implementation Top.impl
+        subcomponents
+            one: abstract Thing.one;
+            two: abstract Thing.two;
+            three: abstract Thing.three;
+        connections
+            Top_impl_new_connection: feature one.output -> three.input;
+            Top_impl_new_connection2: feature three.output -> two.input;
+        flows
+            ETE: end to end flow one.Thing_new_flow_spec -> Top_impl_new_connection -> three.Thing_new_flow_spec3 -> Top_impl_new_connection2 -> two.Thing_new_flow_spec2;
+    end Top.impl;
+    
+    abstract Thing
+        features
+            input: in feature;
+            output: out feature;
+        flows
+            Thing_new_flow_spec: flow source output;
+            Thing_new_flow_spec2: flow sink input;
+            Thing_new_flow_spec3: flow path input -> output;
+    end Thing;
+    
+    abstract implementation Thing.one
+        
+    end Thing.one;
+    
+    abstract implementation Thing.two
+        
+    end Thing.two;
+    
+    abstract implementation Thing.three
+        subcomponents
+            stub: system sub;
+        connections
+            Thing_three_new_connection: feature input -> stub.input;
+            Thing_three_new_connection2: feature stub.output -> output;
+    end Thing.three;
+    
+    system sub
+        features
+            input: in feature;
+            output: out feature;
+    end sub;
+    
+    system implementation sub.impl
+        
+    end sub.impl;
+end Flow_Demo_System;
