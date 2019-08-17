@@ -369,20 +369,6 @@ public class GetProperties {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
 
-	// /**
-	// * this method only picks up the first element, which may not be a bus
-	// * @param connection Connection Instance
-	// * @return
-	// */
-	// public static ComponentInstance getBoundBus(final ConnectionInstance
-	// connection) {
-	// List<ComponentInstance> ret = getActualConnectionBinding(connection);
-	// ComponentInstance ci = ret.isEmpty() ? null : ret.get(0);
-	// if (ci != null) {
-	// return ci;
-	// }
-	// return null;
-	// }
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
@@ -944,22 +930,6 @@ public class GetProperties {
 		return getMIPSCapacityInMIPS(processor, 0);
 	}
 
-	/**
-	 * compute MIPS for thread based on instructions per dispatch;
-	 *
-	 * @param threadinstance
-	 *            thread instance
-	 * @return MIPS or 0.0
-	 */
-	public static double getThreadExecutionIPDinMIPS(ComponentInstance threadinstance) {
-		double period = getPeriodInSeconds(threadinstance, 0.0);
-		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
-		if (mipd > 0 && period > 0) {
-			double mips = mipd / period;
-			return mips;
-		}
-		return 0.0;
-	}
 
 	/**
 	 * @author: Dionisio de Niz
@@ -993,52 +963,17 @@ public class GetProperties {
 		if (!InstanceModelUtil.isThread(threadinstance)) {
 			return 0;
 		}
-		double mips = getThreadExecutionIPDinMIPS(threadinstance);
-		if (mips == 0) {
-			double period = getPeriodInSeconds(threadinstance, 0.0);
-			double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
-			if (exectimeval > 0 && period > 0) {
-				double mipspersec = getReferenceMIPS(threadinstance);
-				double time = exectimeval / period;
-				mips = time * mipspersec;
+		double period = getPeriodInSeconds(threadinstance, 0.0);
+		double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
+		if (exectimeval > 0 && period > 0) {
+			double mipspersec = getReferenceMIPS(threadinstance);
+			if (mipspersec == 0) {
+				mipspersec = getBoundProcessorMIPS(threadinstance);
 			}
+			double time = exectimeval / period;
+			return time * mipspersec;
 		}
-		return mips;
-	}
-
-	/**
-	 * compute Execution time for actual processor from instructions per
-	 * dispatch; or based on specified execution time
-	 *
-	 * @param threadinstance
-	 *            thread instance
-	 * @return double scaled execution time in Sec
-	 */
-	public static double getThreadExecutioninSec(ComponentInstance threadinstance) {
-		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
-		double actualProcMips = getBoundProcessorMIPS(threadinstance);
-		if (mipd > 0 && actualProcMips > 0) {
-			return mipd / actualProcMips;
-		}
-		return getScaledComputeExecutionTimeinSec(threadinstance);
-	}
-
-	/**
-	 * compute Execution time for actual processor from instructions per
-	 * dispatch; or based on specified execution time
-	 *
-	 * @param threadinstance
-	 *            thread instance
-	 * @return double scaled execution time in Sec
-	 */
-	public static double getThreadExecutioninMilliSec(ComponentInstance threadinstance) {
-		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
-		double actualProcMips = getBoundProcessorMIPS(threadinstance);
-		if (mipd > 0 && actualProcMips > 0) {
-			// adjust from sec to milli sec
-			return (mipd / actualProcMips) * 1000;
-		}
-		return getScaledMaxComputeExecutionTimeinMilliSec(threadinstance);
+		return 0;
 	}
 
 	/**
@@ -1181,33 +1116,6 @@ public class GetProperties {
 		return time;
 	}
 
-	/**
-	 * get specified instructions per dispatch as MIPD
-	 *
-	 * @param ne
-	 *            thread component instance
-	 * @return double MIPD
-	 */
-	public static double getSpecifiedThreadInstructionsinMIPD(final NamedElement ne) {
-		Property ipd = lookupPropertyDefinition(ne, SEI._NAME, SEI.INSTRUCTIONSPERDISPATCH);
-		UnitLiteral mipdunit = findUnitLiteral(ipd, SEI.MIPD_LITERAL);
-		double mipd = PropertyUtils.getScaledRangeMaximum(ne, ipd, mipdunit, 0.0);
-		return mipd;
-	}
-
-	/**
-	 * get specified instructions per dispatch as IPD
-	 *
-	 * @param ne
-	 *            thread component instance
-	 * @return double IPD
-	 */
-	public static double getSpecifiedThreadInstructionsinIPD(final NamedElement ne) {
-		Property ipd = lookupPropertyDefinition(ne, SEI._NAME, SEI.INSTRUCTIONSPERDISPATCH);
-		UnitLiteral mipdunit = findUnitLiteral(ipd, SEI.IPD_LITERAL);
-		double mipd = PropertyUtils.getScaledRangeMaximum(ne, ipd, mipdunit, 0.0);
-		return mipd;
-	}
 
 	public static double getPowerCapacity(final NamedElement ne, final double defaultValue) {
 		Property powerCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_CAPACITY);

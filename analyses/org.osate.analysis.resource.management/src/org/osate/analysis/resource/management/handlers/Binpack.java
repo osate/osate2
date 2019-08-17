@@ -241,7 +241,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 			incompletethreads = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					return GetProperties.getThreadExecutioninMilliSec((ComponentInstance) obj) == 0.0;
+					return GetProperties.getMaximumComputeExecutionTimeinMs((ComponentInstance) obj) == 0.0;
 				}
 			}.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 			for (final Iterator<Element> i = incompletethreads.iterator(); i.hasNext();) {

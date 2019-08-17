@@ -68,13 +68,16 @@ public class RuntimeProcessWalker {
 	final Schedule scheduleAction;
 
 	private QuickSort quick = new QuickSort() {
+		@Override
 		protected int compare(Object obj1, Object obj2) {
 			int a = ((RuntimeProcess) obj1).getPeriod();
 			int b = ((RuntimeProcess) obj2).getPeriod();
-			if (a > b)
+			if (a > b) {
 				return 1;
-			if (a == b)
+			}
+			if (a == b) {
 				return 0;
+			}
 			return -1;
 		}
 	};
@@ -124,7 +127,7 @@ public class RuntimeProcessWalker {
 	public void addThread(ComponentInstance elt) {
 		double exectimeval;
 		try {
-			exectimeval = GetProperties.getThreadExecutioninMilliSec(elt);
+			exectimeval = GetProperties.getMaximumComputeExecutionTimeinMs(elt);
 		} catch (PropertyNotPresentException e) {
 			scheduleAction.error(elt, elt.getComponentInstancePath() + ": Execution time is not set");
 			return;
@@ -165,14 +168,16 @@ public class RuntimeProcessWalker {
 	}
 
 	public void componentsSortByPeriod() {
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return;
+		}
 		quick.quickSort(runTimeComponents);
 	}
 
 	public void assignPriority() {
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return;
+		}
 		int prior = runTimeComponents.size();
 		for (Iterator it = runTimeComponents.iterator(); it.hasNext();) {
 			RuntimeProcess curComponent = (RuntimeProcess) it.next();
@@ -204,8 +209,9 @@ public class RuntimeProcessWalker {
 	 */
 	public boolean timingSchedualabilityAnalysis() {
 		// no process bounded to this process, so it is true. Of course.
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return true;
+		}
 
 		// numbering the ARC ID for all the schedulable component in the system.
 		for (int i = 0; i < runTimeComponents.size(); i++) {
@@ -217,10 +223,11 @@ public class RuntimeProcessWalker {
 			} else {
 				// it is associated with ARC component
 				int id = getARCID(curComponent);
-				if (id >= 0)
+				if (id >= 0) {
 					curComponent.setARCID(id);
-				else
+				} else {
 					curComponent.setARCID(ARCID++);
+				}
 			}
 		}
 
