@@ -46,9 +46,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
 public class DoResourceBudget extends AaxlReadOnlyHandlerAsJob {
@@ -89,13 +87,6 @@ public class DoResourceBudget extends AaxlReadOnlyHandlerAsJob {
 		if (si != null) {
 			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 			DoResourceBudgetLogic logic = null;
-
-			InstanceValidation iv = new InstanceValidation(this);
-			if (!iv.checkReferenceProcessor(si)) {
-				Dialog.showWarning("Resource Budget Analysis",
-						"Model contains thread execution times without reference processor.");
-				return;
-			}
 
 			logic = new DoResourceBudgetLogic(this);
 			final SOMIterator soms = new SOMIterator(si);

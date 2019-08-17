@@ -42,10 +42,8 @@ package org.osate.analysis.resource.budgets.handlers;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -86,11 +84,6 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
-		InstanceValidation iv = new InstanceValidation(this);
-		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
-			errManager.error(obj, "Model contains thread execution times without reference processor.");
-			return;
-		}
 		getLogicObject().analysisBody(monitor, obj);
 	}
 
