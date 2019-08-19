@@ -2,6 +2,7 @@ package org.osate.aadl2.errormodel.FaultTree.util;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -250,7 +251,8 @@ public class FaultTreeUtils {
 			if (event.getRelatedInstanceObject() == component && event.getRelatedEMV2Object() == ne
 					&& event.getRelatedErrorType() == type) {
 				if (!event.getSubEvents().isEmpty() && event.getSubEventLogic() == optype
-						&& event.getSubEvents().size() == subEvents.size() && subEvents.containsAll(event.getSubEvents())) {
+						&& event.getSubEvents().size() == subEvents.size()
+						&& subEvents.containsAll(event.getSubEvents())) {
 					return event;
 				}
 			}
@@ -326,7 +328,7 @@ public class FaultTreeUtils {
 		return description;
 	}
 
-	public static String getEMV2ElementDescription(Event event) {
+	public static String getEMV2ElementDescription(Event event) { // JH looks like the code to do the boxes in FTA
 		EObject errorModelArtifact = event.getRelatedEMV2Object();
 		TypeToken type = (TypeToken) event.getRelatedErrorType();
 		String description;
@@ -370,12 +372,13 @@ public class FaultTreeUtils {
 		}
 
 		if (errorModelArtifact instanceof ConditionExpression) {
+			// TODO
+
 			errorModelArtifact = EMV2Util.getConditionExpressionContext(errorModelArtifact);
 			String opcontext = "";
 			if (type instanceof TypeSet) {
 				opcontext = " on type set " + EMV2Util.getPrintName((TypeSet) type);
-			} else
-			if (errorModelArtifact instanceof ErrorBehaviorTransition) {
+			} else if (errorModelArtifact instanceof ErrorBehaviorTransition) {
 				String branch = ((ErrorBehaviorTransition) errorModelArtifact).getDestinationBranches().isEmpty() ? ""
 						: "branch ";
 				opcontext = " in transition " + branch + EMV2Util.getName(errorModelArtifact);
@@ -386,7 +389,13 @@ public class FaultTreeUtils {
 			} else if (errorModelArtifact instanceof CompositeState) {
 				opcontext = " in composite state " + EMV2Util.getName(errorModelArtifact);
 			}
-			description = "'" + event.getSubEventLogic() + "'" + opcontext;
+
+			if (event.getSubEventLogic() == LogicOperation.KORMORE) {
+				description = "'" + event.getSubEventLogic() + "' with k =" + event.getK() + opcontext;
+			}
+			else {
+				description = "'" + event.getSubEventLogic() + "'" + opcontext;
+			}
 		}
 
 		return description;
@@ -451,30 +460,30 @@ public class FaultTreeUtils {
 			FaultTree ft = (FaultTree) ev.eContainer();
 			String labeltext = ft.getFaultTreeType().equals(FaultTreeType.MINIMAL_CUT_SET)
 					? FaultTreeUtils.getCutsetLabel(ev)
-							: FaultTreeUtils.getInstanceDescription(ev);
-					if (labeltext == null || labeltext.isEmpty()) {
-						labeltext = ev.getName();
-					}
-					String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
-					String ftmsg = ft.getMessage();
-					if (ftmsg != null) {
-						return "ERROR: " + ftmsg + "\n" + labeltext;
-					}
+					: FaultTreeUtils.getInstanceDescription(ev);
+			if (labeltext == null || labeltext.isEmpty()) {
+				labeltext = ev.getName();
+			}
+			String emv2label = FaultTreeUtils.getEMV2ElementDescription(ev);
+			String ftmsg = ft.getMessage();
+			if (ftmsg != null) {
+				return "ERROR: " + ftmsg + "\n" + labeltext;
+			}
 //			String msg = ev.getMessage() != null ? "NOTE: " + ev.getMessage() : " ";
 //			String fullText = String.format("%1$s\n%2$s\n%4$s(%3$.3E)", labeltext, emv2label, val, msg);
-					String fullText = String.format("%1$s \n%2$s \n%3$s", labeltext, emv2label, getProbability(ev));
-					if (ev == ft.getRoot()) {
-						// mark probability with star if shared events are involved
-						if (FaultTreeUtils.hasSharedEvents(ft)) {
-							return fullText + "*";
-						} else {
-							return fullText;
-						}
+			String fullText = String.format("%1$s \n%2$s \n%3$s", labeltext, emv2label, getProbability(ev));
+			if (ev == ft.getRoot()) {
+				// mark probability with star if shared events are involved
+				if (FaultTreeUtils.hasSharedEvents(ft)) {
+					return fullText + "*";
+				} else {
+					return fullText;
+				}
 			} else if (isASharedEvent(ev)) {
-						return "*" + fullText;
-					} else {
-						return fullText;
-					}
+				return "*" + fullText;
+			} else {
+				return fullText;
+			}
 		}
 		return "";
 	}
@@ -552,10 +561,12 @@ public class FaultTreeUtils {
 				return p1OFEvents(event);
 			}
 			case OR: {
-				// P(A or B) = P(A) + P(B) - P(A and B)
-				// calculated as 1 - P(!A and !B) = 1 - (1 - P(A))*(1-P(B))
 				return pOREvents(event);
 			}
+			case KORMORE: {
+				return pORMOREEvents(event);
+			}
+
 			default: {
 				System.out.println("[Utils] Unsupported operator for now: " + event.getSubEventLogic());
 				return BigOne;
@@ -566,14 +577,77 @@ public class FaultTreeUtils {
 		}
 	}
 
-	// P(A or B) = P(A) + P(B) - P(A and B)
-	// calculated as 1 - P(!A and !B) = 1 - (1 - P(A))*(1-P(B))
 	public static BigDecimal pOREvents(Event event) {
+		// From equation (VI-17) from NRC guide, Fault Tree Handbook NUREG-0492
+		// P (E1 or E2 or E3 .. En) = 1 - ( (1-P(E1)) * (1-P(E2)) * (1-P(E3)) * ... * (1-P(En)) )
+
 		BigDecimal inverseProb = BigOne;
 		for (Event subEvent : event.getSubEvents()) {
 			inverseProb = inverseProb.multiply((BigOne.subtract(getScaledProbability(subEvent))));
 		}
 		return BigOne.subtract(inverseProb);
+	}
+
+	public static BigDecimal pORMOREEvents(Event event) {
+		// For this computation, we use the algorithm presented in
+		// "Computing k-out-of-n System Reliability", by R. E. Barlow and K. D. Heidtmann
+		// in IEEE Transactions on Reliability, Vol R-33, No 4, October 1984
+		//
+		// Note that this paper has a couple of flaws indicated below
+		//
+		// The general intuition of this algorithm goes as follows, using LaTex notation for the equations
+		// Conventions:
+		// $q_i$ is the failure rate of component i
+		// $p_i$ is the reliability rate of component i, $p_i = 1 - q_i$
+		// Re(k, n) is the probability that there are exactly k working components out of n
+		//
+		// Borderline cases as managed by the following conventions:
+		// $\forall j \in \{1 .. n\}, Re(-1, j) = Re(j+1, j) = 0$
+		// $Re(0, 0) = 0$
+		//
+		// Barlow and Heidtmann propose the following generating function
+		//
+		// g(z)=\prod_{i=1}^n (q_i + p_i z)
+		//
+		// By recurrence, one can establish that $g(z)=\prod_{i=1}^n (q_i + p_i z)=\sum_{i=0}^ n Re(i,n) z^i$
+		// using $Re(i,j) = q_j * Re(i, j - 1) + p_j * Re(i-1, j-1)$.
+		//
+		// It follows that computing $Re(k, n)$ for some $k \leq n$ is equivalent to computing the k-th element in the polynom
+		// g (z) = \sum_{i=0}^ n g_i z^i$ and perform term identification
+
+		// The associated probability is then $1 - \sum_{j = k}^n Re(j, n)$
+
+		// For simplicity, we implement PROGRAM 1
+		// Note: to match the original algorithm, we start with index at 1, up-to index n + 1
+
+		int n = event.getSubEvents().size();
+		BigDecimal[] probabilities = new BigDecimal[n + 2];
+		Arrays.fill(probabilities, BigDecimal.ZERO);
+
+		BigDecimal[] A = new BigDecimal[n + 2];
+		Arrays.fill(A, BigDecimal.ZERO);
+
+		A[0] = BigOne; // Error#1, was A[1] in the paper, does not make sense when you unfold the computations
+
+		int k = 1;
+		for (Event subEvent : event.getSubEvents()) {
+			probabilities[k] = BigOne.subtract(getScaledProbability(subEvent));
+			k++;
+		}
+
+		for (int j = 1; j <= n; j++) {
+			for (int i = j + 1; i >= 1; i--) {
+				// At each step, we perform A(i) = A(i) + P(i) * (A(i - 1) - A(i))
+				A[i] = A[i].add(probabilities[i].multiply(A[i - 1].subtract(A[i])));
+			}
+		}
+
+		BigDecimal R = BigZero;
+		for (int j = event.getK(); j <= n + 1; j++) { // Error#2: was k + 1 in the original paper.
+			R = R.add(A[j]);
+		}
+
+		return BigOne.subtract(R);
 	}
 
 	public static BigDecimal pANDEvents(Event event) {
