@@ -1,9 +1,14 @@
 package org.osate.ge.internal.util;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -141,4 +146,76 @@ public class AadlClassifierUtil {
 
 		}
 	}
+
+	private static EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+
+		switch (category) {
+		case SYSTEM:
+			return p.getSystemClassifier();
+
+		case PROCESS:
+			return p.getProcessClassifier();
+
+		case THREAD_GROUP:
+			return p.getThreadGroupClassifier();
+
+		case THREAD:
+			return p.getThreadClassifier();
+
+		case SUBPROGRAM:
+			return p.getSubprogramClassifier();
+
+		case SUBPROGRAM_GROUP:
+			return p.getSubprogramGroupClassifier();
+
+		case DATA:
+			return p.getDataClassifier();
+
+		case ABSTRACT:
+			return p.getAbstractClassifier();
+
+		case VIRTUAL_BUS:
+			return p.getVirtualBusClassifier();
+
+		case VIRTUAL_PROCESSOR:
+			return p.getVirtualProcessorClassifier();
+
+		case BUS:
+			return p.getBusClassifier();
+
+		case PROCESSOR:
+			return p.getProcessorClassifier();
+
+		case DEVICE:
+			return p.getDeviceClassifier();
+
+		case MEMORY:
+			return p.getMemoryClassifier();
+
+		default:
+			throw new RuntimeException("Unexpected category: " + category);
+		}
+	}
+
+	/**
+	* Return a set of IEObjectDescriptions for classifiers that would be valid "base" classifier for a new classifier of the specified component category.
+	* A "base" classifier is one that will be implemented or extended.
+	 */
+	public static Set<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project,
+			final ComponentCategory componentCategory, boolean includeImplementations) {
+		final EClass classifierClass = componentCategoryToClassifierEClass(componentCategory);
+		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
+		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+				Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+			// Add objects that have are either types or implementations of the same category as the classifier type
+			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !Aadl2Factory.eINSTANCE
+					.getAadl2Package().getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
+				objectDescriptions.add(desc);
+			}
+		}
+
+		return objectDescriptions;
+	}
+
 }

@@ -74,6 +74,8 @@ public class SetInitialModePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		setInitialModeBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

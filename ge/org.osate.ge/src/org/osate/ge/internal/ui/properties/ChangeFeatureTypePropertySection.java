@@ -75,6 +75,7 @@ public class ChangeFeatureTypePropertySection extends AbstractPropertySection {
 				featureTypeSelectionListener, featureTypeLabelProvider);
 		comboViewer.setComparator(new ViewerComparator());
 		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private final SelectionAdapter featureTypeSelectionListener = new SelectionAdapter() {
