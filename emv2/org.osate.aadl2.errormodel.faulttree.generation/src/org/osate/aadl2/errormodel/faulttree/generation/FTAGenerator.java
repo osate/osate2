@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
@@ -68,8 +69,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 					return ftaModel;
 				} else {
 					ftaRootEvent = (Event) traverseOutgoingErrorPropagation(rootComponent,
-							(ErrorPropagation) rootStateOrPropagation,
-							rootComponentType, BigOne);
+							(ErrorPropagation) rootStateOrPropagation, rootComponentType, BigOne);
 				}
 			}
 			if (ftaRootEvent == null) {
@@ -118,7 +118,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return ftaModel;
 	}
 
-
 	/**
 	 * turn list of subevents into an specified gate.
 	 * In the process flatten any sub gates of the same type (one level is sufficient since we flatten at each step
@@ -163,7 +162,33 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			combined.getSubEvents().add((Event) seobj);
 		}
 		return combined;
+	}
 
+	private Event finalizeAsOrMoreEvents(ComponentInstance component, Element ne, TypeToken type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
+			return null;
+		}
+//		if (subEvents.size() == 1) {
+//			return (Event) subEvents.get(0);
+//		}
+		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.KORMORE, component, ne,
+				type);
+		if (combined != null) {
+			return combined;
+		}
+
+		combined = FaultTreeUtils.createIntermediateEvent(ftaModel, component, ne, type);
+		combined.setSubEventLogic(LogicOperation.KORMORE);
+
+		// Propagate the K value from the original element
+		OrmoreExpression omCondition = (OrmoreExpression) ne;
+		combined.setK((int) omCondition.getCount()); // XXX this cast indicates discrepancy between two meta models
+
+		for (Object seobj : subEvents) {
+			combined.getSubEvents().add((Event) seobj);
+		}
+		return combined;
 	}
 
 	private Event finalizeAsAndEvents(ComponentInstance component, Element ne, TypeToken type,
@@ -462,7 +487,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		existingAlternatives.add(altEvent);
 	}
 
-
 	/**
 	 * recursively remove common events from subgates of XOR gates
 	 * @param rootevent
@@ -582,7 +606,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				removeZeroOneEventSubGates(res);
 			}
 		}
-		if (res.getSubEventLogic() == LogicOperation.AND ) {
+		if (res.getSubEventLogic() == LogicOperation.AND) {
 			res = removeSubEventsCommonWithEnclosingEvents(res, LogicOperation.AND, LogicOperation.OR);
 		}
 		if (res.getSubEventLogic() == LogicOperation.OR) {
@@ -600,7 +624,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	 * find common events in subgates and move them to an enclosing gate
 	 * Currently does it if all of the gates of a given type have something in common.
 	 * It also does it for various subsets of events with the matching gate type.
-	 * Distributive Law 3a and 3b (se NRC Fault Tree Handbook page 80.
+	 * Distributive Law 3a and 3b (see NRC Fault Tree Handbook page 80).
 	 * @param topevent
 	 * @param gt
 	 * @return Event
@@ -934,8 +958,8 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, TypeToken type, EObject conditionResult, EObject stateResult,
 			BigDecimal scale) {
-		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult,
-				component, opc, type);
+		Event consolidated = consolidateAsPriorityAnd((Event) stateResult, (Event) conditionResult, component, opc,
+				type);
 		return consolidated;
 	}
 
