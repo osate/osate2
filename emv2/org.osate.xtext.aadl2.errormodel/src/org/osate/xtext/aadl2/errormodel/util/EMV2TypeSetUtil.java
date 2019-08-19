@@ -52,6 +52,10 @@ public class EMV2TypeSetUtil {
 		return EMV2Util.resolveAlias(t1) == EMV2Util.resolveAlias(t2);
 	}
 
+	public static boolean isSame(TypeToken t1, ErrorTypes t2) {
+		return EMV2TypeSetUtil.contains(t1, t2) && EMV2TypeSetUtil.contains(t2, t1);
+	}
+
 	public static boolean isSame(ErrorTypes t1, ErrorTypes t2) {
 		return EMV2TypeSetUtil.contains(t1, t2) && EMV2TypeSetUtil.contains(t2, t1);
 	}
@@ -580,12 +584,12 @@ public class EMV2TypeSetUtil {
 	}
 
 	/**
-	 * generate all type tokens for a given typeset.
-	 * Do so for each leaf subtype.
+	 * generate all error types for a given typeset.
+	 * Do so recursively for contained type sets.
 	 * @param typeSet
-	 * @return list of type tokens
+	 * @return list of type tokens that are error types
 	 */
-	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
+	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
 		if (typeSet == null) {
 			return result;
@@ -602,7 +606,7 @@ public class EMV2TypeSetUtil {
 						result.add(typeSetElement);
 					}
 				} else { // we have a type set that needs to be flattened
-					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first, usetypes);
+					EList<TypeToken> etlist = flattenTypesetElements((TypeSet) first);
 					for (TypeToken typeToken : etlist) {
 						if (!EMV2TypeSetUtil.contains(result, typeToken)) {
 							result.add(typeToken);
@@ -786,9 +790,9 @@ public class EMV2TypeSetUtil {
 		return null;
 	}
 
-	public static ErrorTypes reverseMapTypeTokenToContributor(ErrorTypes targettoken, TypeTransformationSet tts) {
+	public static TypeSet reverseMapTypeTokenToContributor(TypeToken targettoken, TypeTransformationSet tts) {
 		if (tts == null) {
-			return targettoken;
+			return null;
 		}
 		EList<TypeTransformation> ttlist = tts.getTransformation();
 		for (TypeTransformation typeXform : ttlist) {
@@ -798,12 +802,12 @@ public class EMV2TypeSetUtil {
 				return contrib;
 			}
 		}
-		return targettoken;
+		return null;
 	}
 
-	public static ErrorTypes reverseMapTypeTokenToSource(ErrorTypes targettoken, TypeTransformationSet tts) {
+	public static TypeSet reverseMapTypeTokenToSource(TypeToken targettoken, TypeTransformationSet tts) {
 		if (tts == null) {
-			return targettoken;
+			return null;
 		}
 		EList<TypeTransformation> ttlist = tts.getTransformation();
 		for (TypeTransformation typeXform : ttlist) {
@@ -813,11 +817,15 @@ public class EMV2TypeSetUtil {
 				return src;
 			}
 		}
-		return targettoken;
+		return null;
 	}
 
 	public static boolean isNoError(ErrorTypes type) {
 		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
+	}
+
+	public static boolean isNoError(TypeToken type) {
+		return type.isNoError();
 	}
 
 	public static boolean isNoError(TypeSet type) {
@@ -826,4 +834,37 @@ public class EMV2TypeSetUtil {
 		}
 		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
+
+	/**
+	 * return all subtypes or prop type (or the prop type itself) contained in the type set 'constraint'
+	 * empty list if constraint includes unhandled type, i.e., type not covered (at all or is super type) by propagated
+	 * Use for matching type back propagated from incoming to outgoing
+	 * @param constraint
+	 * @param proptype
+	 * @return collection of error type
+	 */
+	public static Collection<TypeToken> filterFromIncomingPropagation(TypeSet constraint, TypeToken proptype) {
+		EList<TypeToken> result = new BasicEList<TypeToken>();
+		if (constraint == null && proptype == null) {
+			return result;
+		}
+		if (proptype == null) {
+			return EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		}
+		if (EMV2TypeSetUtil.contains(constraint, proptype)) {
+			result.add(proptype);
+			return result;
+		}
+		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		for (TypeToken token : tokens) {
+			if (EMV2TypeSetUtil.contains(proptype, token)) {
+				// include types that are the same or subtypes of propagated type
+				if (!isNoError(token)) {
+					result.add(token);
+				}
+			}
+		}
+		return result;
+	}
+
 }
