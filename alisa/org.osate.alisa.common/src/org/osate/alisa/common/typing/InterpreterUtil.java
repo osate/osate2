@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
@@ -218,9 +219,12 @@ public class InterpreterUtil {
 	/**
 	 * Resolve a model element reference relative to an instance object
 	 */
-	static InstanceObject resolve(AModelReference ref, InstanceObject root) {
+	static InstanceObject resolve(AModelReference ref, NamedElement root) {
+		if (!(root instanceof InstanceObject)) {
+			return null;
+		}
 		if (ref.getPrev() == null) {
-			return root;
+			return (InstanceObject) root;
 		} else {
 			InstanceObject io = resolve(ref.getPrev(), root);
 			EObject result = io.eContents().stream()
