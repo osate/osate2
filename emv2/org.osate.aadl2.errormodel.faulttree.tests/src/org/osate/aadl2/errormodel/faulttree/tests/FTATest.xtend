@@ -934,7 +934,7 @@ class FTATest {
 	@Test
 	def void issue1837Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1837, "state FailStop")
-		assertEquals(ft.events.size, 12)
+		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.computedProbability.doubleValue, 3.8e-1, 0.01)
 		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
