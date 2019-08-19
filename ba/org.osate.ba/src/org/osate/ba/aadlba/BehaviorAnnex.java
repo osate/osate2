@@ -232,7 +232,5 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement, IBAVisit
    */
   
   Map<AadlBaLocationReference, Element> getLinks();
-  
-  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters();
 
 } // BehaviorAnnex
