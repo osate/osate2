@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.ge.operations.OperationBuilder;
 
 public interface BusinessObjectSelection {
 	/**
@@ -39,5 +40,12 @@ public interface BusinessObjectSelection {
 	 * @param modifier
 	 */
 	<T extends EObject> void modify(Class<T> c, Consumer<T> modifier);
+
+	/**
+	 * Adds a modification for each business object to the operation being constructed using opBuilder
+	 * Throws an exception if any of the objects in the set are not of the specified type.
+	 */
+	<T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, Class<T> c,
+			BiConsumer<T, O> modifier);
 
 }

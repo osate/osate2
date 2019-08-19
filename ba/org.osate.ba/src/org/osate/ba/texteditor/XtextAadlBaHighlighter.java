@@ -23,10 +23,12 @@ package org.osate.ba.texteditor;
 
 import java.util.ArrayList ;
 import java.util.List ;
+import java.util.Map ;
+import java.util.WeakHashMap ;
 
 import org.antlr.v4.runtime.Token ;
 import org.antlr.v4.runtime.CommonToken ;
-import org.osate.ba.aadlba.BehaviorAnnex ;
+import org.osate.aadl2.AnnexSubclause ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 
@@ -47,7 +49,7 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
                                                         id));
   }
   
-  public List<AadlBaLocationReference> getElementsToHighlitght(BehaviorAnnex annex)
+  public List<AadlBaLocationReference> getElementsToHighlitght()
   {
 	  return _elementToHighlight;
   }
@@ -56,6 +58,26 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
   public void addToHighlighting(int annexOffset, int relativeOffset, int length, String id) {
 	_elementToHighlight.add(new AadlBaLocationReference(annexOffset, relativeOffset, length, 0,
               id));
+  }
+  
+  private XtextAadlBaHighlighter() {}
+
+  private static Map<AnnexSubclause, XtextAadlBaHighlighter> _highlighterPerAnnex = 
+      new WeakHashMap<AnnexSubclause, XtextAadlBaHighlighter>();
+  
+  public static XtextAadlBaHighlighter getHighlighter(AnnexSubclause as)
+  {
+    if(_highlighterPerAnnex.get(as)==null)
+    {
+      XtextAadlBaHighlighter ht = new XtextAadlBaHighlighter();
+      _highlighterPerAnnex.put(as, ht);
+    }
+    return _highlighterPerAnnex.get(as) ;
+  }
+
+  public void cleanup()
+  {
+    _elementToHighlight.clear();
   }
   
 }

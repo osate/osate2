@@ -53,6 +53,7 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -343,7 +344,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 
 	@Override
 	public boolean isActive(SystemOperationMode som) {
-		if (getInSystemOperationModes().contains(som)) {
+		if (InstanceUtil.isNoMode(som) || getInSystemOperationModes().contains(som)) {
 			return getContainingComponentInstance().isActive(som);
 		}
 		return false;
