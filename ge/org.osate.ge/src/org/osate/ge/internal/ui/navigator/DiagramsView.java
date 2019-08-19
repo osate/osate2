@@ -8,6 +8,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.navigator.CommonNavigator;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.util.DiagramUtil;
 
 public class DiagramsView extends CommonNavigator {
@@ -50,6 +51,7 @@ public class DiagramsView extends CommonNavigator {
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
+		ContextHelpUtil.setHelp(getCommonViewer().getControl(), ContextHelpUtil.AADL_DIAGRAMS_VIEW);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 	}
 

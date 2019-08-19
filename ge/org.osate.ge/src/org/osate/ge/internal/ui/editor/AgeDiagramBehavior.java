@@ -1342,7 +1342,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		super.selectPictogramElements(pes);
 
 		final IWorkbenchPart parentPart = getParentPart();
-		if (parentPart != null && propertySheetPage != null && propertySheetPage.part == parentPart
+		if (parentPart != null && propertySheetPage != null
+				&& (propertySheetPage.part == parentPart || propertySheetPage.part instanceof ContentOutline)
 				&& parentPart.getSite() != null
 				&& parentPart.getSite().getSelectionProvider() != null) {
 			propertySheetPage.selectionChanged(parentPart, parentPart.getSite().getSelectionProvider().getSelection());

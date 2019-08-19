@@ -111,6 +111,7 @@ public class SwitchDirectionOfConnectionPropertySection extends AbstractProperty
 
 		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Direction:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override
