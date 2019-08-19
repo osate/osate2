@@ -2459,15 +2459,12 @@ public class EMV2Util {
 			return "";
 		}
 		String res = "";
-		EList<ErrorTypes> te = tu.getType();
-		boolean dostar = false;
-		for (ErrorTypes et : te) {
-			if (dostar) {
-				res = res + "*";
+		for (ErrorTypes et : tu.getType()) {
+			if (res.isEmpty()) {
+				res = et.getName();
 			} else {
-				dostar = true;
+				res = res + '*' + et.getName();
 			}
-			res = res + et.getName();
 		}
 		return res;
 	}

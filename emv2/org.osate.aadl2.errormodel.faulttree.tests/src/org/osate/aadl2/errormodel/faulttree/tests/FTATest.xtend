@@ -26,6 +26,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(ErrorModelInjectorProvider)
@@ -381,15 +383,14 @@ class FTATest {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
-		val sube8 = ft.root.subEvents.get(7)
-		assertTrue(sube8.relatedInstanceObject instanceof ConnectionInstance)
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
+		assertTrue(ft.root.subEvents.exists[ev|ev.relatedInstanceObject instanceof ConnectionInstance])
 	}
 
 	@Test
@@ -417,13 +418,13 @@ class FTATest {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 	}
 
 	@Test
@@ -440,10 +441,10 @@ class FTATest {
 		val subsube2 = sube1.subEvents.get(1)
 		assertTrue(subsube1.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "valuein1")
-		assertEquals((subsube1.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "valuein2")
-		assertEquals((subsube2.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.relatedErrorType as TypeToken)), "OutOfRange")
 	}
 
 	@Test
@@ -644,7 +645,7 @@ class FTATest {
 
 	@Test
 	def void allFlowFaultTreeTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTree(instanceAllFlows, start)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -656,9 +657,10 @@ class FTATest {
 
 	@Test
 	def void allFlowFaultTraceTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		assertEquals(10, ft.events.size)
+		// Visualization shows more events but we have shared subtrees, thus, only 10.
+		assertEquals(10,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
@@ -920,7 +922,7 @@ class FTATest {
 		assertEquals(ft.events.size, 2)
 		val faultsource = ft.root.subEvents.get(0)
 		assertEquals((faultsource.relatedEMV2Object as NamedElement).name, "d")
-		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
+		assertEquals(EMV2Util.getName(faultsource.relatedErrorType as TypeToken), "ClFail")
 	}
 
 	@Test
