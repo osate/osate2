@@ -1,5 +1,6 @@
 package org.osate.ge.tests.endToEnd;
 
+import static org.osate.ge.tests.endToEnd.util.HighLevelFunctions.assertReadyToTest;
 import static org.osate.ge.tests.endToEnd.util.HighLevelFunctions.createAadlProject;
 
 import org.junit.Test;
@@ -11,6 +12,8 @@ import org.junit.Test;
 public class PrimaryEndToEndTest {
 	@Test
 	public void testGraphicalEditor() {
+		assertReadyToTest();
+
 		// Create Projects
 		createAadlProject("shared");
 		createAadlProject("hardware");

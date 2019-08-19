@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
@@ -30,10 +29,6 @@ public class LowLevelFunctions {
 	static {
 		bot = new SWTGefBot();
 		SWTBotPreferences.TIMEOUT = 5000;
-
-		assertEquals("Unsupported Eclipse product. Run test with the expected Eclipse product.",
-				"org.osate.branding.org.osate.product", Platform.getProduct().getId());
-		assertOsateShellIsActive();
 	}
 
 	public static void assertOsateShellIsActive() {
