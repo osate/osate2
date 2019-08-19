@@ -65,6 +65,7 @@ public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgre
 		this.handler = handler;
 	}
 
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public final void initSwitches() {
 		/* here we are creating the connection checking switches */
@@ -74,34 +75,46 @@ public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgre
 			/**
 			 * check physical connectivity of port connection instances
 			 */
+			@Override
 			public Object caseConnectionInstance(ConnectionInstance conni) {
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 					ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(conni.getSource());
 					ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(conni.getDestination());
+					if (!conni.isComplete()) {
+						return DONE;
+					}
 					if (srcHW == null || dstHW == null) {
-						handler.warning(conni, "Connection " + conni.getComponentInstancePath()
-								+ " source or destination is not bound to hardware");
+						handler.warning(conni, "Connection source and/or destination is not bound to hardware");
+						return DONE;
 					}
 					List<ComponentInstance> bindings = InstanceModelUtil.getPhysicalConnectionBinding(conni);
 					if (bindings.isEmpty()) {
-						handler.warning(conni, "Connection " + conni.getComponentInstancePath()
-								+ " has no actual connection binding to hardware");
 						List<ComponentInstance> result = InstanceModelUtil.connectedByBus(srcHW, dstHW);
 						if (result.isEmpty()) {
 							handler.error(conni,
-									"Hardware (processor or device) of connection " + conni.getComponentInstancePath()
-											+ " source and destination are not physically connected");
+									"Hardware (processor or device) of connection source and destination are not physically connected by bus.");
 						}
 					} else {
 						ComponentInstance ci = bindings.get(0);
-						if (srcHW != null && !InstanceModelUtil.connectedToBus(srcHW, ci)) {
-							handler.warning(conni, "Connection " + conni.getComponentInstancePath()
-									+ " source bound hardware is not connected to the first bus in the actual binding");
-						}
-						ci = bindings.get(bindings.size() - 1);
-						if (dstHW != null && !InstanceModelUtil.connectedToBus(srcHW, ci)) {
-							handler.warning(conni, "Connection " + conni.getComponentInstancePath()
-									+ " destination bound hardware is not connected to the last bus in the actual binding");
+						if (bindings.size() == 1) {
+							if (!InstanceModelUtil.connectedToBus(srcHW, ci)) {
+								handler.error(conni,
+										"Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.");
+							}
+							if (!InstanceModelUtil.connectedToBus(dstHW, ci)) {
+								handler.error(conni,
+										"Hardware (processor or device) of connection destination is not physically connected by bus specified in connection binding.");
+							}
+						} else {
+							if (!InstanceModelUtil.connectedToBus(srcHW, ci)) {
+								handler.error(conni,
+										"The first bus in the connection binding is not connected to the source hardware component.");
+							}
+							ci = bindings.get(bindings.size() - 1);
+							if (!InstanceModelUtil.connectedToBus(srcHW, ci)) {
+								handler.error(conni,
+										"The first bus in the connection binding is not connected to the source hardware component.");
+							}
 						}
 					}
 				}

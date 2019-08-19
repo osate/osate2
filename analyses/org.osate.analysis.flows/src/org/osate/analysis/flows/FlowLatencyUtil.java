@@ -29,10 +29,6 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.model.ConnectionType;
-import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
@@ -664,14 +660,6 @@ public class FlowLatencyUtil {
 			return ((InstanceObject) relatedElement).getComponentInstancePath();
 		}
 		return "";
-	}
-
-	public static void saveAsSpreadSheets(LatencyReport latreport) {
-		Report report = latreport.export();
-		CsvExport csvExport = new CsvExport(report);
-		csvExport.save();
-		ExcelExport excelExport = new ExcelExport(report);
-		excelExport.save();
 	}
 
 
