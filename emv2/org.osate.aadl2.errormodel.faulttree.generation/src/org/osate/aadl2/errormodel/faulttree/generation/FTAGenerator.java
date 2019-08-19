@@ -1037,6 +1037,14 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
+	protected EObject postProcessOrMore(ComponentInstance component, Element condition, TypeToken type,
+			List<EObject> subResults, BigDecimal scale) {
+
+		Event ftaEvent = finalizeAsOrMoreEvents(component, condition, type, subResults);
+		return ftaEvent;
+	}
+
+	@Override
 	protected EObject processTypesetElements(ComponentInstance component, Element state, TypeToken type,
 			List<EObject> subResults, BigDecimal scale) {
 		return finalizeAsOrEvents(component, state, type, subResults);

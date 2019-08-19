@@ -841,10 +841,6 @@ public class PropagationGraphBackwardTraversal {
 						return subResults.get(0);
 					} else {
 						return postProcessXor(component, conditionElement, type, scale, subResults);
-//=======
-//						return traverseOutgoingErrorPropagation(relatedComponent, errorPropagation, referencedErrorType,
-//								scale);
-//>>>>>>> refs/remotes/origin/master
 					}
 				}
 
