@@ -41,7 +41,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osate.ge.DiagramType;
@@ -51,12 +50,10 @@ import org.osate.ge.internal.ui.dialogs.CreateDiagramComposite;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateDiagramModel;
 import org.osate.ge.internal.ui.dialogs.ElementLabelProvider;
 import org.osate.ge.internal.ui.util.EditorUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ProxyUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.FrameworkUtil;
-
-import com.google.inject.Injector;
 
 public class NewDiagramWizard extends Wizard implements INewWizard {
 	// What type of context will be used for the new diagram
@@ -247,16 +244,8 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
 				return null;
 			}
 
-			// Create a live resource set and use it to load the actual context business object.
-			final Injector injector = Objects.requireNonNull(
-					Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-					"Unable to retrieve injector");
-			final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-					injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-					"Unable to retrieve live scope resource set provider");
-
-			final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
-					"Unable to get live resource set");
+			// Get a live resource set and use it to load the actual context business object.
+			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
 
 			return ProxyUtil.resolveOrNull(contextDescription, Element.class, liveResourceSet);
 		}

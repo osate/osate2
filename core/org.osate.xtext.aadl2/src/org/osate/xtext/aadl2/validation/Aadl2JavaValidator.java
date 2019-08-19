@@ -2838,9 +2838,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			EList<Element> ownedElements = extended.getOwnedElements();
 			if (null != ownedElements) {
 				for (Element ownedElement : ownedElements) {
-					if (ownedElement instanceof NamedElement
-							&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-						extendedClassifiers.add(extended);
+					if (ownedElement instanceof NamedElement) {
+						String ownedElementName = ((NamedElement) ownedElement).getName();
+						if (ownedElementName != null && ownedElementName.equalsIgnoreCase(ne.getName())) {
+							extendedClassifiers.add(extended);
+						}
 					}
 					if (ownedElement instanceof SubprogramCallSequence) {
 						EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
@@ -2868,9 +2870,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<Element> ownedElements = extended.getOwnedElements();
 		if (null != ownedElements) {
 			for (Element ownedElement : ownedElements) {
-				if (ownedElement instanceof NamedElement
-						&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-					extendedClassifiers.add(extended);
+				if (ownedElement instanceof NamedElement) {
+					String ownedElementName = ((NamedElement) ownedElement).getName();
+					if (ownedElementName != null && ownedElementName.equalsIgnoreCase(ne.getName())) {
+						extendedClassifiers.add(extended);
+					}
 				}
 				if (ownedElement instanceof SubprogramCallSequence) {
 					EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
