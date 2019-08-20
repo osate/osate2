@@ -13,12 +13,12 @@ public
 				component error behavior
 				events
 				unawareness: error event {ValueError};
-				mistakes: error event {ValueError, TimingError};
+				mistakes: error event {TimingError};
 				transitions
 				Operational -[unawareness{ValueError}]-> FailStop; 
 				propagations
 				FailStop-[mistakes{TimingError}]-> controlsurfacecmd{ServiceOmission};
-				FailStop-[mistakes{ValueError}]-> controlsurfacecmd{ServiceOmission};
+--				FailStop-[mistakes{ValueError}]-> controlsurfacecmd{ServiceOmission};
 				end component;
 				**};
 	end pilot;
