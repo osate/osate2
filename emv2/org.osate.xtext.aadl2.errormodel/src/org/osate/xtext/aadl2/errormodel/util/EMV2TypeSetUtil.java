@@ -867,12 +867,12 @@ public class EMV2TypeSetUtil {
 				}
 			}
 		}
-		if (result.isEmpty()) {
+		if (!result.isEmpty()) {
 			return result;
 		}
 		// proptype not contained in or super type of constraint element
 		// we have a type mapping
-		return EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		return tokens;
 	}
 
 }
