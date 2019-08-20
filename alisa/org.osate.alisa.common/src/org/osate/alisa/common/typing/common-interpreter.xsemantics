@@ -57,7 +57,7 @@ system org.osate.alisa.common.typing.CommonInterpreter
 
 auxiliary {
 	combineNumeric(NumberType left, NumberType right): NumberType
-	chooseRoot(EObject io, RuleEnvironment G): InstanceObject
+	chooseRoot(EObject io, RuleEnvironment G): NamedElement
 	errorPosition(EObject o): String
 }
 
@@ -88,12 +88,8 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 
 
 auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
-	val component = env(G, 'component', InstanceObject)
-	val element = env(G, 'element', NamedElement)
-	if (element instanceof InstanceObject)
-		element
-	else 
-		component
+	val element = env(G, 'target', NamedElement)
+	element
 }
 
 
@@ -264,26 +260,31 @@ from {
 }
 
 rule InterpretUnitExpression
-	G |- AUnitExpression unit ~> NumberValue number
+	G |- AUnitExpression unit ~> PropertyValue number
 from {
 	G |- unit.expression ~> var PropertyValue propval
-	number = EcoreUtil.copy((propval as NumberValue))
-	val unit_add = !unit.drop && !unit.convert && unit.unit !== null
-	if (unit.drop || unit.convert) {
-		switch (number) {
-			IntegerLiteral:
-				number.value = Math.round(number.getScaledValue(unit.unit))
-			RealLiteral:
-				number.value = number.getScaledValue(unit.unit)
-			default: {
-				// nothing
+	if (propval instanceof NumberValue){
+		val num = EcoreUtil.copy(propval)
+		val unit_add = !unit.drop && !unit.convert && unit.unit !== null
+		if (unit.drop || unit.convert) {
+			switch (num) {
+				IntegerLiteral:
+					num.value = Math.round(num.getScaledValue(unit.unit))
+				RealLiteral:
+					num.value = num.getScaledValue(unit.unit)
+				default: {
+					// nothing
+				}
 			}
+		}	
+		if (unit.drop) {
+			num.unit = null
+		} else if (unit.convert || unit_add) {
+			num.unit = unit.unit
 		}
-	}	
-	if (unit.drop) {
-		number.unit = null
-	} else if (unit.convert || unit_add) {
-		number.unit = unit.unit
+		number = num
+	} else {
+		number = propval
 	}
 }
 
@@ -356,7 +357,7 @@ rule InterpretPropertyReference
 	G |- APropertyReference prop ~> PropertyValue propVal
 from {
 	// access property on instance object
-	var InstanceObject io
+	var NamedElement io
 	{
 		prop.modelElementReference !== null
 		G |- prop.modelElementReference ~> var InstanceReferenceValue element
