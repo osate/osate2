@@ -999,6 +999,9 @@ public class GetProperties {
 			double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
 			if (exectimeval > 0 && period > 0) {
 				double mipspersec = getReferenceMIPS(threadinstance);
+				if (mipspersec == 0) {
+					mipspersec = getBoundProcessorMIPS(threadinstance);
+				}
 				double time = exectimeval / period;
 				mips = time * mipspersec;
 			}

@@ -86,11 +86,6 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
-		InstanceValidation iv = new InstanceValidation(this);
-		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
-			errManager.error(obj, "Model contains thread execution times without reference processor.");
-			return;
-		}
 		getLogicObject().analysisBody(monitor, obj);
 	}
 
