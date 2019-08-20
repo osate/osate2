@@ -51,14 +51,13 @@
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>
-								<!-- for transactional editing domain that is needed during instantiation -->
 								<type>eclipse-plugin</type>
-								<id>org.osate.aadl2.model.editor</id>
+								<id>org.osate.core.tests.log4j</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.osate.core.tests.log4j</id>
+								<type>eclipse-feature</type>
+								<id>org.osate.core.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 						</extraRequirements>

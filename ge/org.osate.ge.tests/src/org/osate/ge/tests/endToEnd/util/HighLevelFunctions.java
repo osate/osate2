@@ -18,7 +18,7 @@ public class HighLevelFunctions {
 
 	private static void assertOsateProduct() {
 		assertEquals("Unsupported Eclipse product. Run test with the expected Eclipse product.",
-				"org.osate.branding.org.osate.product", Platform.getProduct().getId());
+				"org.osate.branding.osate2", Platform.getProduct().getId());
 	}
 
 	public static void createAadlProject(final String name) {
