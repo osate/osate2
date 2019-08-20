@@ -2,10 +2,11 @@ package FGSErrorModelLibrary
 public
 annex EMV2 {**
 	error types
-		NoValue : type;
-		BadValue : type;
-		LateValue : type;
+		NoValue : type extends ValueProblem;
+		BadValue : type extends ValueProblem;
+		LateValue : type extends ValueProblem;
 		NoService : type;
+		ValueProblem:type;
 	end types;
 error behavior TwoState
 states
