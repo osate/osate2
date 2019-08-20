@@ -955,7 +955,7 @@ class FTATest {
 		val errorevent = pilotand.subEvents.get(1)
 		assertEquals((errorevent.relatedInstanceObject as NamedElement).name, "pilot")
 		assertEquals((errorevent.relatedEMV2Object as NamedElement).name, "mistakes")
-		assertEquals(EMV2Util.getName(errorevent.relatedErrorType as TypeToken), "ServiceOmission")
+		assertEquals(EMV2Util.getName(errorevent.relatedErrorType as TypeToken), "TimingError")
 	}
 
 }
