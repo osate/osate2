@@ -713,6 +713,9 @@ class AssureTests extends XtextTest {
 			11.assertEquals(counts.failCount)
 			17.assertEquals(counts.errorCount)
 		}
+		val mr = assuranceCaseResult.modelResult.head
+		val clR2lat = mr.claimResult.get(2)
+		constructMessage(clR2lat).assertEquals("sensortoactuatorresponse with Latency property value [12 ms .. 18 ms]")
 	}
 
 }

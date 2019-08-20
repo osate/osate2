@@ -8,14 +8,23 @@
  *******************************************************************************/
 package org.osate.ge.internal.util;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
@@ -121,4 +130,33 @@ public class AadlHelper {
 
 		return path.toArray();
 	}
+
+	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
+		return ScopedEMFIndexRetrieval
+				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())
+				.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
+				.collect(Collectors.toSet());
+	}
+
+	public static <T extends Element> Optional<IProject> getCommonProject(final List<T> elements) {
+		if (elements.isEmpty()) {
+			return Optional.empty();
+		}
+
+		final IProject firstProject = ProjectUtil.getProjectForBo(elements.get(0)).orElse(null);
+		for (int i = 1; i < elements.size(); i++) {
+			if (firstProject != ProjectUtil.getProjectForBo(elements.get(i)).orElse(null)) {
+				return Optional.empty();
+			}
+		}
+
+		return Optional.ofNullable(firstProject);
+	}
+
+	public static <T extends Element> Optional<AadlPackage> getCommonPackage(final Collection<T> elements) {
+		return Optional.ofNullable(elements.stream()
+				.map(e -> e.getElementRoot() instanceof AadlPackage ? (AadlPackage) e.getElementRoot() : null)
+				.reduce(null, (p1, p2) -> p1 == p2 ? p1 : null));
+	}
+
 }

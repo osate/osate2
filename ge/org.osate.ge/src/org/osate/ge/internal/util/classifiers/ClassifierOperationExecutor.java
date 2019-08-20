@@ -6,7 +6,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -24,11 +23,9 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlNameUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResultBuilder;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-
-import com.google.inject.Injector;
 
 public class ClassifierOperationExecutor {
 	private final ClassifierCreationHelper classifierCreationHelper;
@@ -41,10 +38,11 @@ public class ClassifierOperationExecutor {
 		this.classifierCreationHelper = new ClassifierCreationHelper(namingService, resourceSet);
 	}
 
-	public void execute(final OperationBuilder<?> operation, final ClassifierOperation classifierOp,
+	public OperationBuilder<Classifier> execute(final OperationBuilder<?> operation,
+			final ClassifierOperation classifierOp,
 			final BusinessObjectContext primaryPkgBoc) {
 		final OperationBuilder<Classifier> baseOp = addStep(operation, classifierOp.getBasePart(), null, null);
-		addStep(baseOp, classifierOp.getPrimaryPart(), classifierOp.getBasePart(), primaryPkgBoc);
+		return addStep(baseOp, classifierOp.getPrimaryPart(), classifierOp.getBasePart(), primaryPkgBoc);
 	}
 
 	/**
@@ -170,14 +168,7 @@ public class ClassifierOperationExecutor {
 
 		// Resolve the base classifier using a new resource set. Using the ClassifierCreationHelper to resolve the base classifier does not
 		// work if the classifier was just created.
-		final Injector injector = Objects.requireNonNull(
-				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-				"Unable to retrieve injector");
-		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-				"Unable to retrieve live scope resource set provider");
-
-		final ResourceSet liveResourceSet = liveResourceSetProvider.get(project);
+		final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
 
 		final Classifier resolvedClassifier = (Classifier) EcoreUtil.resolve(c, liveResourceSet);
 		if (resolvedClassifier == null) {
