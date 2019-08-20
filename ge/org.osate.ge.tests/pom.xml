@@ -70,7 +70,7 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<product>org.osate.branding.org.osate.product</product>
+					<product>org.osate.branding.osate2</product>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 				</configuration>
