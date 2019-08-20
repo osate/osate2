@@ -45,7 +45,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
@@ -859,24 +858,6 @@ public class PropagateErrorSources {
 		boolean handled = false;
 
 		for (FeatureInstance fi : filist) {
-			/**
-			 * JD
-			 * The toAnalyze boolean indicate if we have to analyze the current feature or not
-			 * This is made to try to detect cycle in the error path.
-			 *
-			 */
-			boolean toAnalyze = true;
-
-			Feature f = EMV2Util.getFeature(ep);
-			if (f.getName().equalsIgnoreCase(fi.getFeature().getName())) {
-				toAnalyze = false;
-			}
-
-			if (toAnalyze)
-
-			{
-				continue;
-			}
 
 			if (fi.getDirection().outgoing())
 

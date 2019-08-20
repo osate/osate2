@@ -1,15 +1,23 @@
 package org.osate.ge.internal.ui.dialogs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowDataFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -32,6 +40,7 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.ImmutableList;
 
 class ClassifierOperationPartEditor extends Composite {
 	private ElementLabelProvider elementLabelProvider = new ElementLabelProvider();
@@ -40,6 +49,8 @@ class ClassifierOperationPartEditor extends Composite {
 	private final Label existingLabel;
 	private final Composite existingValueContainer;
 	private final Label existingValueLabel;
+	private final Label componentCategoryLabel;
+	private final ComboViewer componentCategoryField;
 	private final Label packageLabel;
 	private final Composite packageValueContainer;
 	private final Label selectedPackageLabel;
@@ -47,7 +58,6 @@ class ClassifierOperationPartEditor extends Composite {
 	private final Text identifierField;
 	private final List<Button> operationPartTypeBtns = new ArrayList<>();
 	private final boolean showPackageSelector;
-	private final ComponentCategory componentCategory;
 	private final Value currentValue = new Value();
 
 	static interface Model {
@@ -71,6 +81,7 @@ class ClassifierOperationPartEditor extends Composite {
 		private Object selectedPackage;
 		private Object selectedElement;
 		private String identifier = "";
+		private ComponentCategory componentCategory;
 
 		public ClassifierOperationPart toConfiguredOperation() {
 			return new ClassifierOperationPart(type, selectedPackage, identifier, componentCategory,
@@ -80,11 +91,10 @@ class ClassifierOperationPartEditor extends Composite {
 
 	public ClassifierOperationPartEditor(final Composite parent,
 			final EnumSet<ClassifierOperationPartType> allowedOperations, final boolean showPackageSelector,
-			final ComponentCategory componentCategory,
+			final ImmutableList<ComponentCategory> componentCategories,
 			final ClassifierOperationPartEditor.Model widgetModel) {
 		super(parent, SWT.NONE);
 		this.showPackageSelector = showPackageSelector;
-		this.componentCategory = componentCategory;
 		setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		//
@@ -100,6 +110,7 @@ class ClassifierOperationPartEditor extends Composite {
 				final Button btn = ((Button) e.widget);
 				if (btn.getSelection()) {
 					currentValue.type = (ClassifierOperationPartType) btn.getData();
+
 					notifySelectionListeners();
 					updateOperationDetailsVisibility();
 				}
@@ -154,6 +165,25 @@ class ClassifierOperationPartEditor extends Composite {
 		//
 		// Create
 		//
+		componentCategoryLabel = new Label(this, SWT.NONE);
+		componentCategoryLabel.setText("Component Category:");
+
+		componentCategoryField = new ComboViewer(this, SWT.DROP_DOWN | SWT.READ_ONLY);
+		componentCategoryField.setComparator(new ViewerComparator());
+		componentCategoryField.setContentProvider(new ArrayContentProvider());
+		componentCategoryField.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return Arrays.stream(element.toString().split(" ")).map(StringUtil::capitalize)
+						.collect(Collectors.joining(" "));
+			}
+		});
+		setAllowedComponentCategories(componentCategories);
+		componentCategoryField.addPostSelectionChangedListener(event -> {
+			setSelectedComponentCategory((ComponentCategory) componentCategoryField.getStructuredSelection().getFirstElement());
+			notifySelectionListeners();
+		});
+
 		packageLabel = new Label(this, SWT.NONE);
 		packageLabel.setText("Package:");
 		packageLabel.setLayoutData(GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).create());
@@ -198,6 +228,20 @@ class ClassifierOperationPartEditor extends Composite {
 		updateOperationDetailsVisibility();
 	}
 
+	public void setAllowedComponentCategories(final ImmutableList<ComponentCategory> componentCategories) {
+		Objects.requireNonNull(componentCategories, "componentCategories must not be null");
+		componentCategoryField.setInput(componentCategories);
+
+		final boolean visible = componentCategories.size() > 1;
+		componentCategoryLabel.setVisible(visible);
+		componentCategoryField.getCombo().setVisible(visible);
+
+		componentCategoryLabel.setLayoutData(GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).exclude(!visible).create());
+		componentCategoryField.getCombo().setLayoutData(GridDataFactory.fillDefaults().exclude(!visible).create());
+
+		requestLayout();
+	}
+
 	public void setAllowedOperations(final EnumSet<ClassifierOperationPartType> allowedOperations) {
 		if (allowedOperations == null || allowedOperations.size() == 0) {
 			throw new RuntimeException("allowedOperations must contain at least one operation.");
@@ -220,12 +264,6 @@ class ClassifierOperationPartEditor extends Composite {
 
 			// Update the current operation to reflect the UI
 			setCurrentOperationPartType(newType);
-
-			// Update button selection to reflect the new type
-			for (final Button typeBtn : operationPartTypeBtns) {
-				final boolean isSelectedType = typeBtn.getData() == currentValue.type;
-				typeBtn.setSelection(isSelectedType);
-			}
 
 			operationGroup.requestLayout();
 		} else {
@@ -252,12 +290,28 @@ class ClassifierOperationPartEditor extends Composite {
 		if (opIsChanging) {
 			notifySelectionListeners();
 		}
+
+		// Update button selection to reflect the new type
+		for (final Button typeBtn : operationPartTypeBtns) {
+			final boolean isSelectedType = typeBtn.getData() == currentValue.type;
+			typeBtn.setSelection(isSelectedType);
+		}
+
+		updateOperationDetailsVisibility();
 	}
 
 	void setSelectedElement(final Object element) {
 		currentValue.selectedElement = element;
 		existingValueLabel.setText(getElementDescription(element));
 		existingValueContainer.requestLayout();
+	}
+
+	void setSelectedComponentCategory(final ComponentCategory category) {
+		currentValue.componentCategory = category;
+		if (componentCategoryField.getStructuredSelection().getFirstElement() != category) {
+			componentCategoryField
+			.setSelection(category == null ? StructuredSelection.EMPTY : new StructuredSelection(category));
+		}
 	}
 
 	void setSelectedPackage(final Object pkg) {

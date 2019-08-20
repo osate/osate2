@@ -26,10 +26,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 
 import static org.junit.Assert.*
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken
+import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(ErrorModelInjectorProvider)
-class FTATest  {
+class FTATest {
 
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -61,106 +63,110 @@ class FTATest  {
 	var static SystemInstance instanceIssue1913
 	var static SystemInstance instanceIssue1915
 	var static SystemInstance instanceIssue1899
+	var static SystemInstance instanceIssue1837
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
 	val static stateOp = "state Operational"
 
-			val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
-			val fta1File = "fta1Test.aadl"
-			val fta2File = "fta2Test.aadl"
-			val fta3File = "fta3Test.aadl"
-			val common1File = "common-error.aadl"
-			val common2File = "common-error2.aadl"
-			val common3File = "common-error3.aadl"
-			val nestedcompositeFile = "nestedcomposite.aadl"
-			val redundantFile = "redundant.aadl"
-			val redundant2File = "redundant2.aadl"
-			val voterFile = "voter.aadl"
-			val errorlibFile = "ErrorModellibrary.aadl"
-			val FTerrorlibFile = "FTerrorlibrary.aadl"
-			val dualfgsFile = "DualFGS.aadl"
-			val fgselibFile = "FGSErrorModelLibrary.aadl"
-			val filteredflowsFile = "FilteredFlows.aadl"
-			val allflowsFile = "AllFlows.aadl"
-			val optimizeFile = "OptimizeTree.aadl"
-			val transitionbranchFile = "branchtransitions.aadl"
-			val SysErrorLibFile = "Sys_Error_Lib.aadl"
-			val OR1OFProbabilityfile = "OR1OFProbability.aadl"
-			val PathProbabilityfile = "PathProbability.aadl"
-			val Issue1819file = "Issue1819.aadl"
-			val Issue1882file = "Issue1882.aadl"
-			val GPSErrorLibraryFile = "GPSErrorLibrary.aadl"
-			val GPSPartsFile = "GPSParts.aadl"
-			val GPSSystemFile = "GPSSystem.aadl"
-			val HardwarePartsFile = "HardwareParts.aadl"
-			val EMTypesFile = "EMTypes.aadl"
-			val ScrubbedTSFile = "ScrubbedTS.aadl"
-			val ScrubbedClFile = "ScrubbedCl.aadl"
-			val accessfeaturesFile = "accessfeatures.aadl"
+	val modelroot = "org.osate.aadl2.errormodel.faulttree.tests/models/FTATests/"
+	val fta1File = "fta1Test.aadl"
+	val fta2File = "fta2Test.aadl"
+	val fta3File = "fta3Test.aadl"
+	val common1File = "common-error.aadl"
+	val common2File = "common-error2.aadl"
+	val common3File = "common-error3.aadl"
+	val nestedcompositeFile = "nestedcomposite.aadl"
+	val redundantFile = "redundant.aadl"
+	val redundant2File = "redundant2.aadl"
+	val voterFile = "voter.aadl"
+	val errorlibFile = "ErrorModellibrary.aadl"
+	val FTerrorlibFile = "FTerrorlibrary.aadl"
+	val dualfgsFile = "DualFGS.aadl"
+	val fgselibFile = "FGSErrorModelLibrary.aadl"
+	val filteredflowsFile = "FilteredFlows.aadl"
+	val allflowsFile = "AllFlows.aadl"
+	val optimizeFile = "OptimizeTree.aadl"
+	val transitionbranchFile = "branchtransitions.aadl"
+	val SysErrorLibFile = "Sys_Error_Lib.aadl"
+	val OR1OFProbabilityfile = "OR1OFProbability.aadl"
+	val PathProbabilityfile = "PathProbability.aadl"
+	val Issue1819file = "Issue1819.aadl"
+	val Issue1882file = "Issue1882.aadl"
+	val GPSErrorLibraryFile = "GPSErrorLibrary.aadl"
+	val GPSPartsFile = "GPSParts.aadl"
+	val GPSSystemFile = "GPSSystem.aadl"
+	val HardwarePartsFile = "HardwareParts.aadl"
+	val EMTypesFile = "EMTypes.aadl"
+	val ScrubbedTSFile = "ScrubbedTS.aadl"
+	val ScrubbedClFile = "ScrubbedCl.aadl"
+	val accessfeaturesFile = "accessfeatures.aadl"
+	val Issue1837file = "Issue1837.aadl"
 
 	@Before
 	def void initWorkspace() {
-			primaryroot = testHelper.parseFile(
-				modelroot + fta1File,
-				modelroot + fta2File,
-				modelroot + fta3File,
-				modelroot + common1File,
-				modelroot + common2File,
-				modelroot + common3File,
-				modelroot + nestedcompositeFile,
-				modelroot + redundantFile,
-				modelroot + redundant2File,
-				modelroot + voterFile,
-				modelroot + dualfgsFile,
-				modelroot + filteredflowsFile,
-				modelroot + allflowsFile,
-				modelroot + optimizeFile,
-				modelroot + transitionbranchFile,
-				modelroot + fgselibFile,
-				modelroot + errorlibFile,
-				modelroot + FTerrorlibFile,
-				modelroot + SysErrorLibFile,
-				modelroot + OR1OFProbabilityfile,
-				modelroot + PathProbabilityfile,
-				modelroot + Issue1819file,
-				modelroot + Issue1882file,
-				modelroot + GPSErrorLibraryFile,
-				modelroot + HardwarePartsFile,
-				modelroot + GPSPartsFile,
-				modelroot + GPSSystemFile,
-				modelroot + EMTypesFile,
-				modelroot + ScrubbedTSFile,
-				modelroot + ScrubbedClFile,
-				modelroot + accessfeaturesFile
-			)
-			instance1 = instanceGenerator(modelroot + fta1File, "main.i")
-			instance2 = instanceGenerator(modelroot + fta2File, "main.i")
-			instance3 = instanceGenerator(modelroot + fta3File, "main.i")
-			instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
-			instancecommon2 = instanceGenerator(modelroot + common2File, "main.commonevents")
-			instancecommon3 = instanceGenerator(modelroot + common3File, "main.commoneventssingleport")
-			instancecomposite = instanceGenerator(modelroot + nestedcompositeFile, "main.nestedstate")
-			instanceredundant = instanceGenerator(modelroot + redundantFile, "main.compositestate")
+		primaryroot = testHelper.parseFile(
+			modelroot + fta1File,
+			modelroot + fta2File,
+			modelroot + fta3File,
+			modelroot + common1File,
+			modelroot + common2File,
+			modelroot + common3File,
+			modelroot + nestedcompositeFile,
+			modelroot + redundantFile,
+			modelroot + redundant2File,
+			modelroot + voterFile,
+			modelroot + dualfgsFile,
+			modelroot + filteredflowsFile,
+			modelroot + allflowsFile,
+			modelroot + optimizeFile,
+			modelroot + transitionbranchFile,
+			modelroot + fgselibFile,
+			modelroot + errorlibFile,
+			modelroot + FTerrorlibFile,
+			modelroot + SysErrorLibFile,
+			modelroot + OR1OFProbabilityfile,
+			modelroot + PathProbabilityfile,
+			modelroot + Issue1819file,
+			modelroot + Issue1882file,
+			modelroot + GPSErrorLibraryFile,
+			modelroot + HardwarePartsFile,
+			modelroot + GPSPartsFile,
+			modelroot + GPSSystemFile,
+			modelroot + EMTypesFile,
+			modelroot + ScrubbedTSFile,
+			modelroot + ScrubbedClFile,
+			modelroot + accessfeaturesFile,
+			modelroot + Issue1837file
+		)
+		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
+		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
+		instance3 = instanceGenerator(modelroot + fta3File, "main.i")
+		instancecommon1 = instanceGenerator(modelroot + common1File, "main.commonsource")
+		instancecommon2 = instanceGenerator(modelroot + common2File, "main.commonevents")
+		instancecommon3 = instanceGenerator(modelroot + common3File, "main.commoneventssingleport")
+		instancecomposite = instanceGenerator(modelroot + nestedcompositeFile, "main.nestedstate")
+		instanceredundant = instanceGenerator(modelroot + redundantFile, "main.compositestate")
 
-			instanceredundant21 = instanceGenerator(modelroot + redundant2File, "main2.connection")
-			instanceredundant22 = instanceGenerator(modelroot + redundant2File, "main2.compositesametype")
-			instanceredundant23 = instanceGenerator(modelroot + redundant2File, "main2.transition")
-			
-			instancevoter = instanceGenerator(modelroot + voterFile, "voter.i")
-			instanceDualFGS = instanceGenerator(modelroot + dualfgsFile, "FGS.impl")
-			instanceFilteredFlow = instanceGenerator(modelroot + filteredflowsFile, "FGS.impl")
-			instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
-			instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
-			instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
-			instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
-			instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
-			instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
-			instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
-			instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
-			instanceIssue1913 = instanceGenerator(modelroot + ScrubbedTSFile, "top.vccl")
-			instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
-			instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
+		instanceredundant21 = instanceGenerator(modelroot + redundant2File, "main2.connection")
+		instanceredundant22 = instanceGenerator(modelroot + redundant2File, "main2.compositesametype")
+		instanceredundant23 = instanceGenerator(modelroot + redundant2File, "main2.transition")
+
+		instancevoter = instanceGenerator(modelroot + voterFile, "voter.i")
+		instanceDualFGS = instanceGenerator(modelroot + dualfgsFile, "FGS.impl")
+		instanceFilteredFlow = instanceGenerator(modelroot + filteredflowsFile, "FGS.impl")
+		instanceAllFlows = instanceGenerator(modelroot + allflowsFile, "FGS.impl")
+		instanceOptimize = instanceGenerator(modelroot + optimizeFile, "Top.impl")
+		instanceTransitionBranch = instanceGenerator(modelroot + transitionbranchFile, "BTCU.i")
+		instanceOR1OFProbability = instanceGenerator(modelroot + OR1OFProbabilityfile, "S01.i")
+		instancePathProbability = instanceGenerator(modelroot + PathProbabilityfile, "main.i")
+		instanceIssue1819 = instanceGenerator(modelroot + Issue1819file, "Thermoheater.impl")
+		instanceIssue1882 = instanceGenerator(modelroot + Issue1882file, "ac.twoengine")
+		instanceIssue1893 = instanceGenerator(modelroot + GPSSystemFile, "GPS.Dual")
+		instanceIssue1913 = instanceGenerator(modelroot + ScrubbedTSFile, "top.vccl")
+		instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
+		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
+		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -377,15 +383,14 @@ class FTATest  {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
-		val sube8 = ft.root.subEvents.get(7)
-		assertTrue(sube8.relatedInstanceObject instanceof ConnectionInstance)
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
+		assertTrue(ft.root.subEvents.exists[ev|ev.relatedInstanceObject instanceof ConnectionInstance])
 	}
 
 	@Test
@@ -413,18 +418,17 @@ class FTATest  {
 		assertTrue(subsube1.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube1.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor1")
 		assertEquals((subsube1.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor1")
-		assertEquals((subsube1.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube1.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube1.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.subEvents.head.relatedEMV2Object instanceof ErrorSource)
 		assertEquals((subsube2.subEvents.head.relatedInstanceObject as NamedElement).name, "sensor2")
 		assertEquals((subsube2.subEvents.get(1).relatedInstanceObject as NamedElement).name, "sensor2")
-		assertEquals((subsube2.subEvents.head.relatedErrorType as NamedElement).name, "LateDelivery")
-		assertEquals((subsube2.subEvents.get(1).relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.head.relatedErrorType as TypeToken)), "LateDelivery")
+		assertEquals(EMV2Util.getName((subsube2.subEvents.get(1).relatedErrorType as TypeToken)), "OutOfRange")
 	}
-	
-	
+
 	@Test
-	def void redundant2VoterFaultTreeTest(){
+	def void redundant2VoterFaultTreeTest() {
 		val start = "outgoing propagation on valueout{ItemOmission}"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 5)
@@ -437,13 +441,14 @@ class FTATest  {
 		val subsube2 = sube1.subEvents.get(1)
 		assertTrue(subsube1.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube1.relatedEMV2Object as NamedElement), "valuein1")
-		assertEquals((subsube1.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube1.relatedErrorType as TypeToken)), "OutOfRange")
 		assertTrue(subsube2.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(subsube2.relatedEMV2Object as NamedElement), "valuein2")
-		assertEquals((subsube2.relatedErrorType as NamedElement).name, "OutOfRange")
+		assertEquals(EMV2Util.getName((subsube2.relatedErrorType as TypeToken)), "OutOfRange")
 	}
+
 	@Test
-	def void redundant2VoterFaultTreeInconsistentValueTest(){
+	def void redundant2VoterFaultTreeInconsistentValueTest() {
 		val start = "outgoing propagation on valueout{InconsistentValue}"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 2)
@@ -452,8 +457,9 @@ class FTATest  {
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "ComputeError")
 	}
+
 	@Test
-	def void redundant2VoterFaultTreeFailStopTest(){
+	def void redundant2VoterFaultTreeFailStopTest() {
 		val start = "state FailStop"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 2)
@@ -462,8 +468,9 @@ class FTATest  {
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "Failure")
 	}
+
 	@Test
-	def void redundant2VoterFaultTreeDegradedTest(){
+	def void redundant2VoterFaultTreeDegradedTest() {
 		val start = "state Degraded"
 		val ft = CreateFTAModel.createFaultTree(instancevoter, start)
 		assertEquals(ft.events.size, 2)
@@ -472,10 +479,9 @@ class FTATest  {
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "ComputeError")
 	}
-	
-	
-		@Test
-	def void DualFGSFaultTreeCriticalTest(){
+
+	@Test
+	def void DualFGSFaultTreeCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createFaultTree(instanceDualFGS, start)
 		assertEquals(ft.events.size, 10)
@@ -504,9 +510,9 @@ class FTATest  {
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Failure")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
 	}
-	
-		@Test
-	def void DualFGSFaultTraceCriticalTest(){
+
+	@Test
+	def void DualFGSFaultTraceCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createFaultTrace(instanceDualFGS, start)
 		assertEquals(ft.events.size, 16)
@@ -539,9 +545,9 @@ class FTATest  {
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
 	}
-	
-		@Test
-	def void DualFGSPartsFaultTreeCriticalTest(){
+
+	@Test
+	def void DualFGSPartsFaultTreeCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createPartsFaultTree(instanceDualFGS, start)
 		assertEquals(ft.events.size, 10)
@@ -570,12 +576,12 @@ class FTATest  {
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
 	}
-	
-		@Test
-	def void DualFGSCutsetCriticalTest(){
+
+	@Test
+	def void DualFGSCutsetCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createMinimalCutSet(instanceDualFGS, start)
-		assertEquals(13,ft.events.size)
+		assertEquals(13, ft.events.size)
 		assertEquals(ft.root.subEvents.size, 6)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEvents.size, 2)
@@ -598,9 +604,9 @@ class FTATest  {
 		val sube6 = ft.root.subEvents.get(5)
 		assertEquals(sube6.subEvents.size, 1)
 	}
-	
-			@Test
-	def void DualFGSFaultTreeNonCriticalTest(){
+
+	@Test
+	def void DualFGSFaultTreeNonCriticalTest() {
 		val start = "state NonCriticalModeFailure"
 		val ft = CreateFTAModel.createFaultTree(instanceDualFGS, start)
 		assertEquals(ft.events.size, 16)
@@ -621,9 +627,8 @@ class FTATest  {
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Operational")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
 	}
-	
-	
-		@Test
+
+	@Test
 	def void filteredFlowTest() {
 		val start = "outgoing propagation on outport{NoValue}"
 		val ft = CreateFTAModel.createFaultTrace(instanceFilteredFlow, start)
@@ -637,10 +642,10 @@ class FTATest  {
 		val subsubsube1 = subsube1.subEvents.get(0)
 		assertEquals(subsubsube1.subEvents.size, 1)
 	}
-	
-		@Test
+
+	@Test
 	def void allFlowFaultTreeTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTree(instanceAllFlows, start)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -649,21 +654,22 @@ class FTATest  {
 		assertTrue(sube1.relatedEMV2Object instanceof ErrorPropagation)
 		assertEquals(EMV2Util.getPrintName(sube1.relatedEMV2Object as NamedElement), "inport")
 	}
-	
-		@Test
+
+	@Test
 	def void allFlowFaultTraceTest() {
-		val start = "outgoing propagation on outport{NoValue}"
+		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
+		// Visualization shows more events but we have shared subtrees, thus, only 10.
 		assertEquals(10,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
 		assertEquals(sube1.subEvents.size, 3)
 	}
-	
-		@Test
+
+	@Test
 	def void allOptimizeFaultTreeTest1() {
-	val stateFailStop = "state FailStop"
+		val stateFailStop = "state FailStop"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -684,9 +690,10 @@ class FTATest  {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest2() {
-	val stateFailStop = "state Fail1"
+		val stateFailStop = "state Fail1"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -707,9 +714,10 @@ class FTATest  {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest3() {
-	val stateFailStop = "state Fail2"
+		val stateFailStop = "state Fail2"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -730,9 +738,10 @@ class FTATest  {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest4() {
-	val stateFailStop = "state Fail3"
+		val stateFailStop = "state Fail3"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 10)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -755,10 +764,10 @@ class FTATest  {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-	
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest5() {
-	val stateFailStop = "state Fail4"
+		val stateFailStop = "state Fail4"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 2)
 		assertEquals(ft.root.subEvents.size, 1)
@@ -767,10 +776,10 @@ class FTATest  {
 		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube1.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-	
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest6() {
-	val stateFailStop = "state Fail5"
+		val stateFailStop = "state Fail5"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(4, ft.events.size)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -790,10 +799,10 @@ class FTATest  {
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
-	
-		@Test
+
+	@Test
 	def void allOptimizeFaultTraceTest7() {
-	val stateFailStop = "state Fail6"
+		val stateFailStop = "state Fail6"
 		val ft = CreateFTAModel.createFaultTree(instanceOptimize, stateFailStop)
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -818,9 +827,9 @@ class FTATest  {
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "Sub1")
 	}
 
-		@Test
+	@Test
 	def void allTransitionBranchFaultTreeTest() {
-	val stateFailStop = "state FailStop"
+		val stateFailStop = "state FailStop"
 		val ft = CreateFTAModel.createFaultTree(instanceTransitionBranch, stateFailStop)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -832,9 +841,10 @@ class FTATest  {
 		assertEquals(asube1.scale.doubleValue, 0.6, 0.001)
 		assertEquals(asube2.scale.doubleValue, 0.6, 0.001)
 	}
-		@Test
+
+	@Test
 	def void allTransitionBranchCutSetTest() {
-	val stateFailStop = "state FailStop"
+		val stateFailStop = "state FailStop"
 		val ft = CreateFTAModel.createMinimalCutSet(instanceTransitionBranch, stateFailStop)
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -847,10 +857,9 @@ class FTATest  {
 		assertEquals(asube2.scale.doubleValue, 0.6, 0.001)
 	}
 
-
-		@Test
+	@Test
 	def void OR1OFProbabilityFaultTreeTest() {
-	val outProp = "outgoing propagation on o{BadData}"
+		val outProp = "outgoing propagation on o{BadData}"
 		val ft = CreateFTAModel.createFaultTree(instanceOR1OFProbability, outProp)
 		assertEquals(ft.events.size, 9)
 		assertEquals(ft.root.subEvents.size, 2)
@@ -859,9 +868,9 @@ class FTATest  {
 		assertEquals(sube1.computedProbability.doubleValue, 1.215e-1, 1.0e-5)
 	}
 
-		@Test
+	@Test
 	def void PathProbabilityFaultTreeTest() {
-	val outProp = "state FaultyState"
+		val outProp = "state FaultyState"
 		val ft = CreateFTAModel.createFaultTree(instancePathProbability, outProp)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEvents.size, 4)
@@ -913,8 +922,8 @@ class FTATest  {
 		assertEquals(ft.events.size, 2)
 		val faultsource = ft.root.subEvents.get(0)
 		assertEquals((faultsource.relatedEMV2Object as NamedElement).name, "d")
-		assertEquals((faultsource.relatedErrorType as NamedElement).name, "ClFail")
-		}
+		assertEquals(EMV2Util.getName(faultsource.relatedErrorType as TypeToken), "ClFail")
+	}
 
 	@Test
 	def void issue1899Test() {
@@ -923,5 +932,14 @@ class FTATest  {
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.subEvents.size, 5)
 	}
-	
+
+	@Test
+	def void issue1837Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1837, "state FailStop")
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.computedProbability.doubleValue, 3.8e-1, 0.01)
+		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+	}
+
 }

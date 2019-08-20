@@ -28,6 +28,7 @@ import org.osate.aadl2.AnnexLibrary ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
 import org.osate.annexsupport.AnnexParser ;
+import org.osate.annexsupport.AnnexUtil ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.parser.AadlAntlrErrorReporter ;
@@ -76,7 +77,7 @@ public class AadlBaParserAction implements AnnexParser
       // Set a Xtext highlighter if AADLBA Front End is running under OSATE2.
       if(Platform.isRunning())
       {
-        highlighter = new XtextAadlBaHighlighter() ;
+        highlighter = XtextAadlBaHighlighter.getHighlighter(AnnexUtil.getCurrentAnnexSubclause()) ;
       }
       else
       {
@@ -132,7 +133,6 @@ public class AadlBaParserAction implements AnnexParser
         
           location.setOffset(0) ;
           ba.setLocationReference(location) ;
-          ba.getHighlighters().put(ba, highlighter) ;
         }
         
         return ba ;
