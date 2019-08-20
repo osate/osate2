@@ -64,6 +64,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1915
 	var static SystemInstance instanceIssue1899
 	var static SystemInstance instanceIssue1837
+	var static SystemInstance instanceIssue1963
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -102,6 +103,7 @@ class FTATest {
 	val ScrubbedClFile = "ScrubbedCl.aadl"
 	val accessfeaturesFile = "accessfeatures.aadl"
 	val Issue1837file = "Issue1837.aadl"
+	val Issue1963file = "Issue1963.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -137,7 +139,8 @@ class FTATest {
 			modelroot + ScrubbedTSFile,
 			modelroot + ScrubbedClFile,
 			modelroot + accessfeaturesFile,
-			modelroot + Issue1837file
+			modelroot + Issue1837file,
+			modelroot + Issue1963file
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -167,6 +170,7 @@ class FTATest {
 		instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
+		instanceIssue1963 = instanceGenerator(modelroot + Issue1963file, "ac.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -940,6 +944,18 @@ class FTATest {
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		assertEquals(ft.root.computedProbability.doubleValue, 3.8e-1, 0.01)
 		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+	}
+
+
+	@Test
+	def void issue1963Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1963, "outgoing propagation on aceffect{ServiceOmission}")
+		assertEquals(ft.events.size, 7)
+		val pilotand = ft.root.subEvents.get(0)
+		val errorevent = pilotand.subEvents.get(1)
+		assertEquals((errorevent.relatedInstanceObject as NamedElement).name, "pilot")
+		assertEquals((errorevent.relatedEMV2Object as NamedElement).name, "mistakes")
+		assertEquals(EMV2Util.getName(errorevent.relatedErrorType as TypeToken), "ServiceOmission")
 	}
 
 }
