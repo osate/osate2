@@ -659,12 +659,20 @@ class FTATest {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		// Visualization shows more events but we have shared subtrees, thus, only 10.
-		assertEquals(10,ft.events.size)
+		assertEquals(11,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
 		assertEquals(sube1.subEvents.size, 3)
+		val sube11 = sube1.subEvents.get(0)
+		assertTrue(sube11.relatedEMV2Object instanceof ErrorBehaviorState)
+		assertEquals((sube11.relatedEMV2Object as NamedElement).name, "FailStop")
+		val sube12 = sube1.subEvents.get(1)
+		assertTrue(sube12.relatedEMV2Object instanceof ErrorPropagation)
+		assertEquals(EMV2Util.getPrintName(sube12.relatedEMV2Object as NamedElement), "FromAP1Port")
+		val sube13 = sube1.subEvents.get(2)
+		assertTrue(sube13.relatedEMV2Object instanceof ErrorPropagation)
+		assertEquals(EMV2Util.getPrintName(sube13.relatedEMV2Object as NamedElement), "FromAP2Port")
 	}
 
 	@Test
