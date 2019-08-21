@@ -317,7 +317,7 @@ public class FaultTreeUtils {
 			description += " source '" + EMV2Util.getName(errorSource) + "'";
 		}
 		if (errorModelArtifact instanceof ErrorEvent) {
-			ErrorSource errorSource = (ErrorSource) errorModelArtifact;
+			ErrorEvent errorSource = (ErrorEvent) errorModelArtifact;
 			description += " event '" + EMV2Util.getName(errorSource) + "'";
 		}
 		if (errorModelArtifact instanceof ErrorPropagation) {
