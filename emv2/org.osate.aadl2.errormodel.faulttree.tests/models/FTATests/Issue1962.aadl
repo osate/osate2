@@ -1,4 +1,4 @@
-package Issue1963
+package Issue1962
 public
 	
 	abstract pilot
@@ -66,4 +66,4 @@ public
 		**};
 	end ac.impl;
 
-end AircraftSafetyExample;
+end Issue1962;

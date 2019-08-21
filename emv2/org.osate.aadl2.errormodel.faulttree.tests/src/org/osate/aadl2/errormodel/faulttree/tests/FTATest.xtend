@@ -64,7 +64,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1915
 	var static SystemInstance instanceIssue1899
 	var static SystemInstance instanceIssue1837
-	var static SystemInstance instanceIssue1963
+	var static SystemInstance instanceIssue1962
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -103,7 +103,7 @@ class FTATest {
 	val ScrubbedClFile = "ScrubbedCl.aadl"
 	val accessfeaturesFile = "accessfeatures.aadl"
 	val Issue1837file = "Issue1837.aadl"
-	val Issue1963file = "Issue1963.aadl"
+	val Issue1962file = "Issue1962.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -140,7 +140,7 @@ class FTATest {
 			modelroot + ScrubbedClFile,
 			modelroot + accessfeaturesFile,
 			modelroot + Issue1837file,
-			modelroot + Issue1963file
+			modelroot + Issue1962file
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -170,7 +170,7 @@ class FTATest {
 		instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
-		instanceIssue1963 = instanceGenerator(modelroot + Issue1963file, "ac.impl")
+		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -948,8 +948,8 @@ class FTATest {
 
 
 	@Test
-	def void issue1963Test() {
-		val ft = CreateFTAModel.createFaultTree(instanceIssue1963, "outgoing propagation on aceffect{ServiceOmission}")
+	def void issue1962Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1962, "outgoing propagation on aceffect{ServiceOmission}")
 		assertEquals(ft.events.size, 7)
 		val pilotand = ft.root.subEvents.get(0)
 		val errorevent = pilotand.subEvents.get(1)
