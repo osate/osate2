@@ -836,35 +836,66 @@ public class EMV2TypeSetUtil {
 	}
 
 	/**
-	 * return all subtypes or prop type (or the prop type itself) contained in the type set 'constraint'
-	 * empty list if constraint includes unhandled type, i.e., type not covered (at all or is super type) by propagated
+	 * return token if contained in constraint.
+	 * return subtype(s) of token if present in constraint
 	 * Use for matching type back propagated from incoming to outgoing
+	 * @param constraint
+	 * @param token
+	 * @return collection of error type
+	 */
+	public static EList<TypeToken> filterTokenThroughConstraint(TypeSet constraint, TypeToken token) {
+		EList<TypeToken> result = new BasicEList<TypeToken>();
+		if (constraint == null && token == null) {
+			return result;
+		}
+		if (EMV2TypeSetUtil.contains(constraint, token)) {
+			// constraint contains proptype
+			result.add(token);
+			return result;
+		}
+		// constraint contains subtype(s) of token. Use those
+		EList<TypeToken> ctokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
+		for (TypeToken ctoken : ctokens) {
+			if (EMV2TypeSetUtil.contains(token, ctoken)) {
+				// include types that are the same or subtypes of propagated type
+				if (!isNoError(ctoken)) {
+					result.add(ctoken);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Reverse mapping of type token.
+	 * If contained in constraint return it, or subtype(s) of it when present in contraint (propagation)
+	 * If no match, then we have a transformation. return the types from the constraint.
 	 * @param constraint
 	 * @param proptype
 	 * @return collection of error type
 	 */
-	public static Collection<TypeToken> filterFromIncomingPropagation(TypeSet constraint, TypeToken proptype) {
+	public static EList<TypeToken> mapTokenThroughConstraint(TypeSet constraint, TypeToken proptype) {
 		EList<TypeToken> result = new BasicEList<TypeToken>();
 		if (constraint == null && proptype == null) {
 			return result;
 		}
 		if (proptype == null) {
+			// any constraint element is mapped to outgoing
 			return EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		}
-		if (EMV2TypeSetUtil.contains(constraint, proptype)) {
-			result.add(proptype);
-			return result;
-		}
+		// constraint contains subtype(s) of proptype. Use those
 		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		for (TypeToken token : tokens) {
-			if (EMV2TypeSetUtil.contains(proptype, token)) {
+			if (EMV2TypeSetUtil.contains(token, proptype)) {
 				// include types that are the same or subtypes of propagated type
-				if (!isNoError(token)) {
-					result.add(token);
+				if (!isNoError(proptype)) {
+					result.add(proptype);
 				}
+			} else {
+				result.add(token);
 			}
 		}
-		return result;
+			return result;
 	}
 
 }
