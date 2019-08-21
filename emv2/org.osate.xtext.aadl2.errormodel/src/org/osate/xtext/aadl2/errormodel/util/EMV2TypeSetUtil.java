@@ -883,27 +883,19 @@ public class EMV2TypeSetUtil {
 			// any constraint element is mapped to outgoing
 			return EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		}
-		if (EMV2TypeSetUtil.contains(constraint, proptype)) {
-			// constraint contains proptype
-			result.add(proptype);
-			return result;
-		}
 		// constraint contains subtype(s) of proptype. Use those
 		EList<TypeToken> tokens = EMV2TypeSetUtil.flattenTypesetElements(constraint);
 		for (TypeToken token : tokens) {
-			if (EMV2TypeSetUtil.contains(proptype, token)) {
+			if (EMV2TypeSetUtil.contains(token, proptype)) {
 				// include types that are the same or subtypes of propagated type
-				if (!isNoError(token)) {
-					result.add(token);
+				if (!isNoError(proptype)) {
+					result.add(proptype);
 				}
+			} else {
+				result.add(token);
 			}
 		}
-		if (!result.isEmpty()) {
 			return result;
-		}
-		// proptype not contained in or super type of constraint element
-		// we have a type mapping
-		return tokens;
 	}
 
 }
