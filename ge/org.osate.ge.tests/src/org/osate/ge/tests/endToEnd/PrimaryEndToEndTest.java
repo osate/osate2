@@ -1,7 +1,6 @@
 package org.osate.ge.tests.endToEnd;
 
-import static org.osate.ge.tests.endToEnd.util.HighLevelFunctions.assertReadyToTest;
-import static org.osate.ge.tests.endToEnd.util.HighLevelFunctions.createAadlProject;
+import static org.osate.ge.tests.endToEnd.util.HighLevelFunctions.*;
 
 import org.junit.Test;
 
@@ -10,14 +9,26 @@ import org.junit.Test;
  *
  */
 public class PrimaryEndToEndTest {
+	private static final String SHARED = "shared";
+	private static final String HARDWARE = "hardware";
+	private static final String HARDWARE_COMPONENTS_PACKAGE = HARDWARE + "::components";
+	private static final String HARDWARE_COMPONENTS_DIAGRAM = HARDWARE + "_components";
+	private static final String SOFTWARE = "software";
+	private static final String INTEGRATED = "integrated";
+
 	@Test
 	public void testGraphicalEditor() {
-		assertReadyToTest();
+		createAadlProject(SHARED);
+		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
-		// Create Projects
-		createAadlProject("shared");
-		createAadlProject("hardware");
-		createAadlProject("software");
-		createAadlProject("integrated");
+		createAadlProject(HARDWARE);
+		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE);
+		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE_COMPONENTS_PACKAGE, HARDWARE_COMPONENTS_DIAGRAM);
+
+		createAadlProject(SOFTWARE);
+		createNewPackageWithPackageDiagram(SOFTWARE, SOFTWARE);
+
+		createAadlProject(INTEGRATED);
+		createNewPackageWithPackageDiagram(INTEGRATED, INTEGRATED);
 	}
 }
