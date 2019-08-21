@@ -65,6 +65,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1899
 	var static SystemInstance instanceIssue1837
 	var static SystemInstance instanceIssue1962
+	var static SystemInstance instanceIssue1961
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -104,6 +105,7 @@ class FTATest {
 	val accessfeaturesFile = "accessfeatures.aadl"
 	val Issue1837file = "Issue1837.aadl"
 	val Issue1962file = "Issue1962.aadl"
+	val Issue1961file = "Issue1961.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -140,7 +142,8 @@ class FTATest {
 			modelroot + ScrubbedClFile,
 			modelroot + accessfeaturesFile,
 			modelroot + Issue1837file,
-			modelroot + Issue1962file
+			modelroot + Issue1962file,
+			modelroot + Issue1961file
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -171,6 +174,7 @@ class FTATest {
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
+		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -964,6 +968,22 @@ class FTATest {
 		assertEquals((errorevent.relatedInstanceObject as NamedElement).name, "pilot")
 		assertEquals((errorevent.relatedEMV2Object as NamedElement).name, "mistakes")
 		assertEquals(EMV2Util.getName(errorevent.relatedErrorType as TypeToken), "TimingError")
+	}
+
+
+	@Test
+	def void issue1961Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1961, "outgoing propagation on aceffect{ServiceOmission}")
+		assertEquals(ft.events.size, 8)
+		assertEquals(ft.root.subEvents.size,3)
+		val pilotand1 = ft.root.subEvents.get(0)
+		val pilotand2 = ft.root.subEvents.get(1)
+		val engine = ft.root.subEvents.get(2)
+		assertEquals(pilotand1.subEventLogic, LogicOperation.PRIORITY_AND)
+		assertEquals(pilotand2.subEventLogic, LogicOperation.PRIORITY_AND)
+		assertEquals((engine.relatedInstanceObject as NamedElement).name, "engine1")
+		assertEquals((engine.relatedEMV2Object as NamedElement).name, "engineFailure")
+		assertEquals(EMV2Util.getName(engine.relatedErrorType as TypeToken), "ServiceOmission")
 	}
 
 }
