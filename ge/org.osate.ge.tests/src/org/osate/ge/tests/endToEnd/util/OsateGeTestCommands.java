@@ -1,15 +1,24 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
-import static org.osate.ge.tests.endToEnd.util.MidLevelFunctions.*;
-import static org.osate.ge.tests.endToEnd.util.MidLevelFunctions.setTextField;
-import static org.osate.ge.tests.endToEnd.util.SwtBotFunctions.*;
+import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
+import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
+import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
+import java.util.Arrays;
+import java.util.Objects;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 
-public class HighLevelFunctions {
+/**
+ * High level commands for testing the OSATE Graphical editor.
+ */
+public class OsateGeTestCommands {
 	// All methods are static
-	private HighLevelFunctions() {
+	private OsateGeTestCommands() {
 	}
 
 	static {
@@ -33,10 +42,57 @@ public class HighLevelFunctions {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
 		clickMenu("File", "New", "AADL Project");
+
+		// Configure new project
 		waitForWindowWithTitle("New");
 		setTextField(0, name, "");
 		clickButton("Finish");
+
+		// Verify results
 		waitUntilProjectExistsInAadlNavigator(name);
+	}
+
+	/**
+	 * Creates a new AADL Project with the specified referenced projects
+	 * Preconditions: OSATE Shell is active and AADL Navigator is visible.
+	 * Postconditions: Project has been created and exists in the AADL Navigator
+	 * @param name is the name of the AADL project to create.
+	 */
+	public static void createAadlProjectWithReferencedProjects(final String name, final String... projectsToReference) {
+		assertOsateShellIsActive();
+		assertAadlNavigatorIsVisible();
+		clickMenu("File", "New", "AADL Project");
+
+		// Configure new project
+		waitForWindowWithTitle("New");
+		setTextField(0, name, "");
+		clickButton("Next >");
+
+		// Configure referenced projects
+		waitForWindowWithTitle("New");
+		checkItemsInSimpleTable(0, projectsToReference);
+		clickButton("Finish");
+
+		// Verify results
+		waitUntilProjectExistsInAadlNavigator(name);
+		assertReferencedProjects(name, projectsToReference);
+	}
+
+	private static void assertReferencedProjects(final String projectName, final String[] expectedReferencedProjects) {
+		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		assertNotNull(project);
+		try {
+			final IProject[] actualReferencedProjects = project.getReferencedProjects();
+			assertEquals(expectedReferencedProjects.length, actualReferencedProjects.length);
+			for (final String expectedProjectName : expectedReferencedProjects) {
+				assertTrue("Project '" + expectedProjectName + "' not referenced",
+						Arrays.stream(actualReferencedProjects)
+								.anyMatch(p -> Objects.equals(expectedProjectName, p.getName())));
+			}
+		} catch (CoreException ex) {
+			ex.printStackTrace();
+			fail(ex.toString());
+		}
 	}
 
 	/**
@@ -91,6 +147,6 @@ public class HighLevelFunctions {
 		clickButton("OK");
 
 		// Wait for completion
-		waitForDiagramActive(diagramName);
+		waitForDiagramActive(projectName, "diagrams", diagramName);
 	}
 }
