@@ -4,6 +4,7 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
@@ -16,22 +17,26 @@ import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.eclipse.ui.PartInitException;
 
 /**
- * Wraps SWTBot functionality into assertions and commands.
+ * Provides functions for controlling the user interface.
+ * This class should not contain any OSATE specific functionalities. Rather it wraps SWTBot functionality into assertions and commands so
+ * that it can be used to build higher level assertions and commands.
  * Public methods of this class should be a minimal wrapper around SWTBot and not return any SWTBot specific data structures.
  * Normally, only primitive values should be returned.
  */
-public class SwtBotFunctions {
+public class UiTestUtil {
 	private static final SWTGefBot bot;
 
 	// All methods are static
-	private SwtBotFunctions() {
+	private UiTestUtil() {
 	}
 
 	static {
@@ -193,14 +198,28 @@ public class SwtBotFunctions {
 	}
 
 	/**
-	 * Returns the active editor is a OSATE diagram editor for the specified diagram name
+	 * Returns whether the active editor is of the specified type and has the specified input name
 	 */
-	public static boolean isDiagramEditorActive(final String diagramName) {
-		// TODO: Need to check filepath instead . diagram name is not unique
+	public static boolean isEditorActive(final Class<?> editorClass, final String inputName) {
 		final WorkbenchContentsFinder finder = new WorkbenchContentsFinder();
 		final IEditorReference editor = finder.findActiveEditor();
-		return editor != null && editor.getEditor(false) instanceof AgeDiagramEditor
-				&& editor.getTitle().equals(diagramName + ".aadl_diagram");
+		// Check type of editor
+		if (!editorClass.isInstance(editor.getEditor(false))) {
+			return false;
+		}
+
+		// Check the name provided by the editor's input
+		try {
+			if (editor.getEditorInput() == null) {
+				return false;
+			}
+
+			return Objects.equals(editor.getEditorInput().getName(), inputName);
+		} catch (final PartInitException e) {
+			// Print error and return false
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -210,5 +229,20 @@ public class SwtBotFunctions {
 		final Control focused = bot.getFocusedWidget();
 		assertTrue("Focused widget is null", focused != null);
 		return new AbstractSWTBotControl<Control>(focused);
+	}
+
+	/**
+	 * Checks a row in the simple table which is the nth table in the active shell.
+	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
+	 */
+	public static void checkItemInSimpleTable(final int tableIndex, final String text) {
+		final SWTBotTable table = bot.table(tableIndex);
+		for (int row = 0; row < table.rowCount(); row++) {
+			final SWTBotTableItem rowItem = table.getTableItem(row);
+			if (Objects.equals(rowItem.getText(), text)) {
+				rowItem.check();
+				return;
+			}
+		}
 	}
 }

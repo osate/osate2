@@ -48,6 +48,9 @@ import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.FrameworkUtil;
 
 public class DiagramExporter {
+	// All methods are static
+	private DiagramExporter() {
+	}
 
 	private static org.eclipse.graphiti.mm.pictograms.Diagram readDiagram(final IFile diagramFile) throws IOException {
 		// Image container bounds
