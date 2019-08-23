@@ -42,15 +42,16 @@ public class FaultTreeUtils {
 		String identifier;
 
 		identifier = conni.getName();
-		identifier += "-";
 
 		if (namedElement == null) {
-			identifier += "unidentified";
+			identifier += "-unidentified";
 
 		} else {
-			identifier += EMV2Util.getPrintName(namedElement);
+			String name = EMV2Util.getDirectionName(namedElement);
+			if (!name.isEmpty()) {
+				identifier += "-" + name;
+			}
 		}
-
 		if (type != null) {
 			identifier += "-" + EMV2Util.getName(type);
 		}
@@ -67,14 +68,15 @@ public class FaultTreeUtils {
 		identifier = component instanceof SystemInstance
 				? component.getComponentClassifier().getQualifiedName().replaceAll("::", "_").replaceAll("\\.", "_")
 						: component.getComponentInstancePath();
-				identifier += "-";
 
-				if (namedElement == null) {
-					identifier += "unidentified";
-
-				} else {
-			identifier += EMV2Util.getDirectionName(namedElement);
-				}
+		if (namedElement == null) {
+			identifier += "-unidentified";
+		} else {
+			String name = EMV2Util.getDirectionName(namedElement);
+			if (!name.isEmpty()) {
+				identifier += "-" + name;
+			}
+		}
 
 		if (type != null) {
 			identifier += "-" + EMV2Util.getName(type);
@@ -217,7 +219,7 @@ public class FaultTreeUtils {
 			TypeToken type,
 			boolean unique) {
 		String name;
-		if (element instanceof NamedElement && !unique) {
+		if (element instanceof NamedElement && !unique && ((NamedElement) element).getName() != null) {
 			name = buildName(component, (NamedElement) element, type);
 			Event result = findEvent(ftaModel, name);
 			if (result != null && result.getType() == EventType.INTERMEDIATE) {
