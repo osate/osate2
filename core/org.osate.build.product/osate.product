@@ -78,7 +78,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
+      <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.5.2/updates/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.11" enabled="true" />
       <repository location="http://download.eclipse.org/releases/2019-03" enabled="true" />
    </repositories>
