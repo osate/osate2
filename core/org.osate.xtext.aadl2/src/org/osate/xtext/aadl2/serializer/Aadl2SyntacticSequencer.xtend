@@ -40,6 +40,7 @@ import org.eclipse.xtext.nodemodel.INode
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.PropertySet
 
 class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 
@@ -47,6 +48,8 @@ class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		if (semanticObject instanceof Classifier) {
 			semanticObject.name
 		} else if (semanticObject instanceof AadlPackage) {
+			semanticObject.name
+		} else if (semanticObject instanceof PropertySet) {
 			semanticObject.name
 		} else {
 			super.getIDToken(semanticObject, ruleCall, node)
