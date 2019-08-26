@@ -43,7 +43,9 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.PropertySet
 
 class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
-
+	/**
+	 * Adds the ending identifier to classifiers, packages, and property sets when serializing.
+	 */
 	override protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof Classifier) {
 			semanticObject.name
