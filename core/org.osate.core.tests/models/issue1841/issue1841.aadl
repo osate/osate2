@@ -1,0 +1,21 @@
+package issue1841
+public
+	system s
+		features
+			e: in event port;
+		modes
+			m1: initial mode;
+			m2: mode;
+			m1 -[e]-> m2; 
+	end s;
+	
+	system implementation s.i1
+		subcomponents
+			sub: abstract;
+	end s.i1;
+	
+	system implementation s.i2 extends s.i1
+		subcomponents
+			sub: system;
+	end s.i2;
+end issue1841;

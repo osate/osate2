@@ -16,13 +16,14 @@ features
 		use behavior ErrorLibrary::FailStop;
 		error propagations
 			satelliteSignal: in propagation {NoSignal,LowSignal};
-			sensedData: out propagation {ServiceOmission} ;
+			sensedData: out propagation {ServiceOmission, ServiceOmission*ValueError} ;
 			powersource: in propagation {ServiceOmission};
 			networkaccess: in propagation {ServiceOmission};
 		flows
 			-- in this abstraction we have the sensor as error source due to internal failure
 			-- The error paths represent the effect of incoming error proapgations on its output
 			sensorfailsrc: error source sensedData {ServiceOmission} when {SensorFailure};
+			sensorfailsrctp: error source sensedData {ServiceOmission*ValueError} when {SensorFailure};
 			satelliteimpact: error path satelliteSignal{NoSignal} -> sensedData{ServiceOmission};
 			networkimpact: error path networkaccess{ServiceOmission} -> sensedData{ServiceOmission};
 			powerimpact: error path powersource{ServiceOmission} -> sensedData{ServiceOmission};

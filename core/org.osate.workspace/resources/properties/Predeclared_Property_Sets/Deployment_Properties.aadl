@@ -12,7 +12,7 @@ property set Deployment_Properties is
 --- acceptable candidates.
 
 	Allowed_Processor_Binding_Class:
-		inherit list of classifier (processor, virtual processor, system, device)
+		inherit list of classifier (processor, virtual processor, system, device, abstract)
 		applies to (thread, thread group, process, system, virtual processor, device);
 		
 --- The <b>Allowed_Processor_Binding</b> property specifies the set of virtual processors and processors that are
@@ -30,7 +30,7 @@ property set Deployment_Properties is
 --- acceptable candidates.
 
 
-	Allowed_Processor_Binding: inherit list of reference (processor, virtual processor, system, device)
+	Allowed_Processor_Binding: inherit list of reference (processor, virtual processor, system, device, abstract)
 		applies to (thread, thread group, process, system, virtual processor, device);
 		
 --- A thread is bound to the processor specified by the <b>Actual_Processor_Binding</b> property.  The process of 
@@ -43,7 +43,7 @@ property set Deployment_Properties is
 --- Threads, devices, and virtual processors can be bound to virtual processors, which in turn are bound to virtual
 --- processors or processors.
 	
-	Actual_Processor_Binding: inherit list of reference (processor, virtual processor, system, device)
+	Actual_Processor_Binding: inherit list of reference (processor, virtual processor, system, device, abstract)
 		applies to (thread, thread group, process, system, virtual processor, device);
 		
 --- The <b>Allowed_Memory_Binding_Class</b> property specifies a set of memory, device, and system classifiers.  These
@@ -56,7 +56,7 @@ property set Deployment_Properties is
 		
 	
 	Allowed_Memory_Binding_Class:
-		inherit list of classifier (memory, system, processor, virtual processor)
+		inherit list of classifier (memory, system, processor, virtual processor, abstract)
 		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
 		
 --- Code and data produced from source text can be bound to the set of memory components that is specified by 
@@ -70,14 +70,14 @@ property set Deployment_Properties is
 --- If this property has no associated value, then all memory components declared in an AADL specification are 
 --- acceptable candidates.
 		
-	Allowed_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor)
+	Allowed_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor, abstract)
 		applies to (memory, thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
 		
 --- Code and data from source text is bound to the memory specified by the <b>Actual_Memory_Binding</b> property.  The
 --- property can hold a list of values to reflect the possibility of code and data being bound to different memory 
 --- components, for example.
 
-	Actual_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor)
+	Actual_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor, abstract)
 		applies to (memory, thread, thread group, process, system, processor, virtual processor, device, data, data port, event data port, subprogram, subprogram group);
 		
 --- The <b>Allowed_Connection_Binding_Class</b> property specifies a set of execution platform classifiers to constrain
@@ -87,7 +87,7 @@ property set Deployment_Properties is
 --- through that feature, e.g., any protocol assumptions a component makes about its communication through the port.		
 	
 	Allowed_Connection_Binding_Class:
-		inherit list of classifier (processor, virtual processor, bus, virtual bus, device, memory, system)
+		inherit list of classifier (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
 		applies to (feature, connection, thread, thread group, process, system, virtual bus);
 		
 --- The <b>Allowed_Connection_Binding</b> property specifies a set of execution platform components to constrain the
@@ -96,14 +96,14 @@ property set Deployment_Properties is
 --- constraint for all connections through that feature, e.g., any protocol assumptions a component makes about its
 --- communication through the port.
 	
-	Allowed_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system)
+	Allowed_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
 		applies to (feature, connection, thread, thread group, process, system, virtual bus);
 		
 --- Connections and virtual buses are bound to the bus, virtual bus, processor, virtual processor, device, and memory
 --- specified by the <b>Actual_Connection_Binding</b> property.  The entries in the list represent the flow sequence
 --- of the connection through the execution platform.
 	
-	Actual_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system)
+	Actual_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
 		applies to (feature, connection, thread, thread group, process, system, virtual bus);
 
 --- This property allows users to define mappings from functional architectures to system architectures.

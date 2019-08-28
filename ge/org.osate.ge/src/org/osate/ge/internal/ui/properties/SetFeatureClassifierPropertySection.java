@@ -3,15 +3,23 @@ package org.osate.ge.internal.ui.properties;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -37,8 +45,8 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BusFeatureClassifier;
-import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
@@ -53,11 +61,27 @@ import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramSubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.operations.OperationExecutor;
+import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
+import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.internal.util.classifiers.ClassifierOperation;
+import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
+import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.operations.Operation;
 import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osgi.framework.FrameworkUtil;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 public class SetFeatureClassifierPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
@@ -66,7 +90,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
 				if (bo instanceof Feature) {
 					final Feature feature = (Feature) bo;
-					return featureTypeToClassifierSetterMap.containsKey(feature.eClass());
+					return featureTypeToMetadataMap.containsKey(feature.eClass());
 				}
 
 				return false;
@@ -74,55 +98,73 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		}
 	}
 
-	private static Map<EClass, FeatureClassifierSetterInfo> featureTypeToClassifierSetterMap = new HashMap<EClass, FeatureClassifierSetterInfo>();
+	private static Map<EClass, FeatureClassifierMetadata> featureTypeToMetadataMap = new HashMap<EClass, FeatureClassifierMetadata>();
 
 	static {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		featureTypeToClassifierSetterMap.put(p.getBusAccess(), new FeatureClassifierSetterInfo(
-				p.getBusSubcomponentType(), BusSubcomponentType.class, "setBusFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getBusAccess(), new FeatureClassifierSetterInfo(
-				p.getBusSubcomponentType(), BusFeatureClassifier.class, "setBusFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getDataAccess(), new FeatureClassifierSetterInfo(
-				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getSubprogramAccess(), new FeatureClassifierSetterInfo(
-				p.getSubprogramSubcomponentType(), SubprogramSubcomponentType.class, "setSubprogramFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getSubprogramGroupAccess(),
-				new FeatureClassifierSetterInfo(p.getSubprogramGroupSubcomponentType(),
-						SubprogramGroupSubcomponentType.class, "setSubprogramGroupFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getAbstractFeature(), new FeatureClassifierSetterInfo(
-				p.getFeatureClassifier(), FeatureClassifier.class, "setAbstractFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getFeatureGroup(),
-				new FeatureClassifierSetterInfo(p.getFeatureType(), FeatureType.class, "setFeatureType"));
-		featureTypeToClassifierSetterMap.put(p.getParameter(), new FeatureClassifierSetterInfo(
-				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getDataPort(), new FeatureClassifierSetterInfo(
-				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getEventDataPort(), new FeatureClassifierSetterInfo(
-				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getEventDataSource(),
-				new FeatureClassifierSetterInfo(p.getDataClassifier(), DataClassifier.class, "setDataClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getPortProxy(),
-				new FeatureClassifierSetterInfo(p.getDataClassifier(), DataClassifier.class, "setDataClassifier"));
-		featureTypeToClassifierSetterMap.put(p.getSubprogramProxy(), new FeatureClassifierSetterInfo(
-				p.getSubprogramClassifier(), SubprogramClassifier.class, "setSubprogramClassifier"));
+		featureTypeToMetadataMap.put(p.getBusAccess(), new FeatureClassifierMetadata(
+				p.getBusFeatureClassifier(), BusFeatureClassifier.class, "setBusFeatureClassifier",
+				ImmutableList.of(ComponentCategory.BUS, ComponentCategory.VIRTUAL_BUS)));
+		featureTypeToMetadataMap.put(p.getDataAccess(), new FeatureClassifierMetadata(
+				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier",
+				ImmutableList.of(ComponentCategory.DATA)));
+		featureTypeToMetadataMap.put(p.getSubprogramAccess(), new FeatureClassifierMetadata(
+				p.getSubprogramSubcomponentType(), SubprogramSubcomponentType.class, "setSubprogramFeatureClassifier",
+				ImmutableList.of(ComponentCategory.SUBPROGRAM)));
+		featureTypeToMetadataMap.put(p.getSubprogramGroupAccess(),
+				new FeatureClassifierMetadata(p.getSubprogramGroupSubcomponentType(),
+						SubprogramGroupSubcomponentType.class, "setSubprogramGroupFeatureClassifier",
+						ImmutableList.of(ComponentCategory.SUBPROGRAM_GROUP)));
+		featureTypeToMetadataMap.put(p.getAbstractFeature(), new FeatureClassifierMetadata(
+				p.getFeatureClassifier(), FeatureClassifier.class, "setAbstractFeatureClassifier",
+				ImmutableList.of(ComponentCategory.ABSTRACT, ComponentCategory.DATA, ComponentCategory.BUS,
+						ComponentCategory.VIRTUAL_BUS, ComponentCategory.SUBPROGRAM,
+						ComponentCategory.SUBPROGRAM_GROUP)));
+		featureTypeToMetadataMap.put(p.getFeatureGroup(),
+				new FeatureClassifierMetadata(p.getFeatureType(), FeatureType.class, "setFeatureType",
+						ImmutableList.of()));
+		featureTypeToMetadataMap.put(p.getParameter(), new FeatureClassifierMetadata(
+				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier",
+				ImmutableList.of(ComponentCategory.DATA)));
+		featureTypeToMetadataMap.put(p.getDataPort(), new FeatureClassifierMetadata(
+				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier",
+				ImmutableList.of(ComponentCategory.DATA)));
+		featureTypeToMetadataMap.put(p.getEventDataPort(), new FeatureClassifierMetadata(
+				p.getDataSubcomponentType(), DataSubcomponentType.class, "setDataFeatureClassifier",
+				ImmutableList.of(ComponentCategory.DATA)));
+		featureTypeToMetadataMap.put(p.getEventDataSource(),
+				new FeatureClassifierMetadata(p.getDataClassifier(), DataClassifier.class, "setDataClassifier",
+						ImmutableList.of(ComponentCategory.DATA)));
+		featureTypeToMetadataMap.put(p.getPortProxy(),
+				new FeatureClassifierMetadata(p.getDataClassifier(), DataClassifier.class, "setDataClassifier", ImmutableList.of(ComponentCategory.BUS)));
+		featureTypeToMetadataMap.put(p.getSubprogramProxy(), new FeatureClassifierMetadata(
+				p.getSubprogramClassifier(), SubprogramClassifier.class, "setSubprogramClassifier",
+				ImmutableList.of(ComponentCategory.SUBPROGRAM)));
 	}
 
-	private static class FeatureClassifierSetterInfo {
+	/**
+	 * Holds information used to implement property section functionality that is specific to the type of feature.
+	 *
+	 */
+	private static class FeatureClassifierMetadata {
 		private final EClass classifierEClass;
 		private final Class<?> classifierClass;
 		private final String setterName;
+		private final ImmutableList<ComponentCategory> createComponentCategories; // Component categories which are allowed if creating a new one.
 
-		public FeatureClassifierSetterInfo(final EClass classifierEClass, final Class<?> classifierClass,
-				final String setterName) {
+		public FeatureClassifierMetadata(final EClass classifierEClass, final Class<?> classifierClass,
+				final String setterName, final ImmutableList<ComponentCategory> componentCategories) {
 			this.classifierEClass = classifierEClass;
 			this.classifierClass = classifierClass;
 			this.setterName = setterName;
+			this.createComponentCategories = componentCategories;
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
 	private Label curFeatureClassifier;
 	private Button chooseBtn;
+	private Button createBtn;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -153,6 +195,16 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		fd.left = new FormAttachment(curFeatureClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curFeatureClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
+
+		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
+				createClassifierListener, "Create...", SWT.PUSH);
+
+		fd = new FormData();
+		fd.left = new FormAttachment(chooseBtn, ITabbedPropertyConstants.HSPACE);
+		fd.top = new FormAttachment(chooseBtn, 0, SWT.CENTER);
+		createBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	final SelectionListener setClassifierListener = new SelectionAdapter() {
@@ -186,36 +238,86 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 				});
 			}
 		}
+	};
 
-		private void setFeatureClassifier(final NamedElement feature, final Object classifier) {
-			if (classifier != null) {
-				// Import its package if necessary
-				final AadlPackage pkg = (AadlPackage) feature.getElementRoot();
-				if (classifier instanceof Classifier && ((Classifier) classifier).getNamespace() != null
-						&& pkg != null) {
-					final PackageSection section = pkg.getPublicSection();
-					final AadlPackage selectedClassifierPkg = (AadlPackage) ((Classifier) classifier).getNamespace()
-							.getOwner();
-					if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
-						AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
-					}
+	final SelectionListener createClassifierListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			final List<Feature> features = selectedBos.boStream(Feature.class).collect(Collectors.toList());
+
+			// It should be safe to assume that the EClass of all selected feature match because the button would be disabled otherwise.
+			final FeatureClassifierMetadata metadata = featureTypeToMetadataMap.get(features.get(0).eClass());
+
+			// Get required services
+			final IEclipseContext context = EclipseContextFactory
+					.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext());
+			final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
+					"Unable to retrieve naming service");
+			final AadlModificationService aadlModService = Objects.requireNonNull(
+					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
+
+			// Determine project to use
+			final IProject project = AadlHelper.getCommonProject(features)
+					.orElseThrow(() -> new RuntimeException("Unable to determine project"));
+
+			// Get the resource set to use. Use the resource set from the selected model elements to ensure the proper model elements are modified.
+			// If the resource set did not match for all model elements, the create button would be disabled
+			final ResourceSet rs = features.get(0).eResource().getResourceSet();
+
+			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
+					rs, "Configure classifier.") {
+				@Override
+				public String getTitle() {
+					return "Create Classifier";
 				}
-			}
 
-			final FeatureClassifierSetterInfo setterInfo = featureTypeToClassifierSetterMap.get(feature.eClass());
-			try {
-				final Method method = feature.getClass().getMethod(setterInfo.setterName, setterInfo.classifierClass);
-				method.invoke(feature, classifier);
-			} catch (NoSuchMethodException e) {
-				throw new RuntimeException(e);
-			} catch (SecurityException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
+				@Override
+				public Collection<?> getPackageOptions() {
+					return AadlHelper.getEditablePackages(project);
+				}
+
+				@Override
+				public Collection<?> getBaseSelectOptions(final ClassifierOperationPartType primaryOperation) {
+					return metadata.createComponentCategories.stream()
+							.map(cc -> AadlClassifierUtil.getValidBaseClassifierDescriptions(project, cc,
+									primaryOperation == ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
+							.reduce(Sets::union).orElse(Collections.emptySet());
+				}
+			};
+
+			// Show the dialog to determine the operation
+			final boolean isFeatureGroup = metadata.classifierEClass == Aadl2Factory.eINSTANCE.getAadl2Package()
+					.getFeatureType();
+
+			final ClassifierOperationDialog.ArgumentBuilder argBuilder = new ClassifierOperationDialog.ArgumentBuilder(
+					model,
+					isFeatureGroup ? EnumSet.of(ClassifierOperationPartType.NEW_FEATURE_GROUP_TYPE)
+							: EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE,
+									ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
+					.defaultPackage(AadlHelper.getCommonPackage(features).orElse(null))
+					.componentCategories(metadata.createComponentCategories);
+
+			final ClassifierOperation classifierOp = ClassifierOperationDialog
+					.show(Display.getCurrent().getActiveShell(), argBuilder.create());
+
+			if (classifierOp != null) {
+				final Operation op = Operation.create(opBuilder -> {
+					// Add actual operation steps to the operation builder based on the classifier operation
+					final ClassifierOperationExecutor classifierOperationHandler = new ClassifierOperationExecutor(
+							namingService, rs, project);
+					opBuilder = classifierOperationHandler.execute(opBuilder, classifierOp, null);
+
+					// Modify the subcomponents based on the result of the classifier operation
+					selectedBos.modifyWithOperation(opBuilder, Feature.class, (featureToModify, classifier) -> {
+						final EObject resolvedClassifier = EditingUtil
+								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
+
+						setFeatureClassifier(featureToModify, resolvedClassifier);
+					});
+				});
+
+				// Execute the operation
+				new OperationExecutor(aadlModService).execute(op);
 			}
 		}
 	};
@@ -230,6 +332,11 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 	public void refresh() {
 		final List<Feature> features = selectedBos.boStream(Feature.class).collect(Collectors.toList());
 		curFeatureClassifier.setText(getFeatureClassifierLabel(features));
+
+		createBtn.setEnabled(
+				!features.isEmpty() && features.stream().allMatch(f -> f.eClass() == features.get(0).eClass())
+				&& EditingUtil.allHaveSameValidResourceSet(features)
+				&& AadlHelper.getCommonProject(features).isPresent());
 	}
 
 	private static String getFeatureClassifierLabel(final List<Feature> features) {
@@ -246,8 +353,8 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 	}
 
 	private static EObject getAllFeatureClassifier(Feature feature) {
-		if(feature instanceof FeatureGroup) {
-			final FeatureGroup fg = (FeatureGroup)feature;
+		if (feature instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup) feature;
 			return fg.getAllClassifier();
 		}
 
@@ -280,7 +387,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		final List<Object> featureClassifiers = new ArrayList<Object>();
 		featureClassifiers.add(null);
 
-		final FeatureClassifierSetterInfo setterInfo = featureTypeToClassifierSetterMap.get(feature.eClass());
+		final FeatureClassifierMetadata setterInfo = featureTypeToMetadataMap.get(feature.eClass());
 		// Populate the list with valid classifier descriptions
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(feature.eResource(),
 				setterInfo.classifierEClass)) {
@@ -297,5 +404,36 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		}
 
 		return featureClassifiers;
+	}
+
+	private static void setFeatureClassifier(final NamedElement feature, final Object classifier) {
+		if (classifier != null) {
+			// Import its package if necessary
+			final AadlPackage pkg = (AadlPackage) feature.getElementRoot();
+			if (classifier instanceof Classifier && ((Classifier) classifier).getNamespace() != null && pkg != null) {
+				final PackageSection section = pkg.getPublicSection();
+				final AadlPackage selectedClassifierPkg = (AadlPackage) ((Classifier) classifier).getNamespace()
+						.getOwner();
+				if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
+					AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
+				}
+			}
+		}
+
+		final FeatureClassifierMetadata setterInfo = featureTypeToMetadataMap.get(feature.eClass());
+		try {
+			final Method method = feature.getClass().getMethod(setterInfo.setterName, setterInfo.classifierClass);
+			method.invoke(feature, classifier);
+		} catch (NoSuchMethodException e) {
+			throw new RuntimeException(e);
+		} catch (SecurityException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (InvocationTargetException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
