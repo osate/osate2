@@ -33,7 +33,6 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -67,15 +66,11 @@ public class ScopedEMFIndexRetrieval {
 	}
 
 	public static Stream<IResourceDescription> calculateVisibleResourceDescriptions(final IProject project) {
+		final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+
 		final Injector injector = Objects.requireNonNull(
 				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
 				"Unable to retrieve injector");
-		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-				"Unable to retrieve live scope resource set provider");
-
-		final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
-				"Unable to get live resource set");
 		final ResourceDescriptionsProvider resourceDescProvider = Objects.requireNonNull(
 				injector.getInstance(ResourceDescriptionsProvider.class),
 				"Unable to get resource descriptions provider");
