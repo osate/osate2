@@ -104,7 +104,6 @@ import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -841,14 +840,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					return null;
 				}
 			}
-			// the next lines determine whether a connection is bi-directional
-			// and set a flag rather than creating a second connection instance
-			if (connInfo.src == test.getDestination() && dstI == test.getSource()
-					&& test.getKind() == ConnectionKind.ACCESS_CONNECTION) {
-				test.setBidirectional(true);
-				test.setName(test.getName().replace("->", "<->"));
-				return test;
-			}
+//			// the next lines determine whether a connection is bi-directional
+//			// and set a flag rather than creating a second connection instance
+//			if (connInfo.src == test.getDestination() && dstI == test.getSource()
+//					&& test.getKind() == ConnectionKind.ACCESS_CONNECTION) {
+//				test.setBidirectional(true);
+//				test.setName(test.getName().replace("->", "<->"));
+//				return test;
+//			}
 		}
 		boolean duplicate = false;
 
