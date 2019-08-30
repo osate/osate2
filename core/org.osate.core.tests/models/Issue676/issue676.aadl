@@ -1,4 +1,4 @@
-package isssue676
+package issue676
 public
     abstract aType
         features
@@ -16,4 +16,4 @@ public
             conn1: data access d -> a.da;
             conn2: data access a.da -> d;
     end s.i;
-end isssue676;
+end issue676;
