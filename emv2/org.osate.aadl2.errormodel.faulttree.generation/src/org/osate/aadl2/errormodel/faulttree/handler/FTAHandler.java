@@ -18,6 +18,9 @@
 
 package org.osate.aadl2.errormodel.faulttree.handler;
 
+import static org.osate.aadl2.errormodel.FaultTree.util.FaultTreeConfig.DECIMAL_FORMAT;
+import static org.osate.aadl2.errormodel.FaultTree.util.FaultTreeConfig.SCIENTIFIC_NOTATION_FORMAT;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +50,7 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
+import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeConfig;
 import org.osate.aadl2.errormodel.faulttree.generation.Activator;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
 import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
@@ -133,6 +137,16 @@ public final class FTAHandler extends AbstractHandler {
 			ERROR_STATE_NAME = diag.getValue();
 			FAULT_TREE_TYPE = diag.getFaultTreeType();
 			GRAPHIC_VIEW = diag.isGraphicView();
+
+			String probabilityFormat = FTADialog.getProbabilityFormat();
+			if (!DECIMAL_FORMAT.equals(probabilityFormat) && !SCIENTIFIC_NOTATION_FORMAT.equals(probabilityFormat)) {
+				throw new IllegalArgumentException("Probabiliy format not specified");
+			}
+			String probabilityPrecision = FTADialog.getProbabilityPrecision();
+			if (Integer.valueOf(probabilityPrecision) <= 0) {
+				throw new IllegalArgumentException("Probabiliy precision is incorrect");
+			}
+			FaultTreeConfig.getInstance().setProbabilityFormat(probabilityFormat, probabilityPrecision);
 		});
 
 		if (ERROR_STATE_NAME != null) {

@@ -414,11 +414,13 @@ public class FaultTreeUtils {
 	public static String getProbability(EObject context) {
 		Event ev = (Event) context;
 		String specProb = "";
+		String assignedProbabilityformat = FaultTreeConfig.getInstance().getProbabilityFormat();
 		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
 				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
-			specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
+			specProb = String.format(" (Spec %1$" + assignedProbabilityformat + ")", ev.getAssignedProbability());
 		}
-		return String.format("%1$.1e%2$s", ev.getProbability(), specProb) + getScale(context);
+		String probabilityformat = FaultTreeConfig.getInstance().getProbabilityFormat();
+		return String.format("%1$" + probabilityformat + "%2$s", ev.getProbability(), specProb) + getScale(context);
 	}
 
 	/**
@@ -431,7 +433,8 @@ public class FaultTreeUtils {
 		if (ev.getAssignedProbability() == null || ev.getAssignedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
-		return String.format("%1$.1e", ev.getAssignedProbability()) + getScale(context);
+		String format = FaultTreeConfig.getInstance().getProbabilityFormat();
+		return String.format("%1$" + format, ev.getAssignedProbability()) + getScale(context);
 	}
 
 	/**
@@ -444,7 +447,8 @@ public class FaultTreeUtils {
 		if (ev.getComputedProbability() == null || ev.getComputedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
-		return String.format("%1$.1e", ev.getComputedProbability()) + getScale(context);
+		String format = FaultTreeConfig.getInstance().getProbabilityFormat();
+		return String.format("%1$" + format, ev.getComputedProbability()) + getScale(context);
 	}
 
 	// return scaling factor if different from 1.0, otherwise empty string

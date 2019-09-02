@@ -1,6 +1,9 @@
 
 package org.osate.aadl2.errormodel.faulttree.handler;
 
+import static org.osate.aadl2.errormodel.FaultTree.util.FaultTreeConfig.DECIMAL_FORMAT;
+import static org.osate.aadl2.errormodel.FaultTree.util.FaultTreeConfig.SCIENTIFIC_NOTATION_FORMAT;
+
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
@@ -12,10 +15,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeType;
 
 public class FTADialog extends TitleAreaDialog {
-
 	private String value;
 	java.util.List<String> values;
 	private Combo errorMode;
@@ -26,6 +29,16 @@ public class FTADialog extends TitleAreaDialog {
 	private Button graphicViewBox;
 	private static boolean isGraphicView = false;
 	private static FaultTreeType faultTreeType = FaultTreeType.FAULT_TREE;
+
+	private Label probabilityFormatLabel;
+	private Button probabilityDecimalFormatButton;
+	private Button probabilityScientificNotationFormatButton;
+	private static String probabilityFormat;
+
+	private Label probabilityPrecisionLabel;
+	private Text probabilityPrecisionText;
+	private static String probabilityPrecision;
+
 	private String target = "";
 
 	public FTADialog(Shell parentShell) {
@@ -84,6 +97,41 @@ public class FTADialog extends TitleAreaDialog {
 		graphicViewBox = new Button(container, SWT.CHECK);
 		graphicViewBox.setText("Show in graphical view (default is table view)");
 		graphicViewBox.setSelection(isGraphicView);
+
+		Composite probabilityFormatContainer = new Composite(area, SWT.NONE);
+		GridLayout probabilityFormatLayout = new GridLayout(3, false);
+		probabilityFormatContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		probabilityFormatContainer.setLayout(probabilityFormatLayout);
+
+		probabilityFormatLabel = new Label(probabilityFormatContainer, SWT.NULL);
+		probabilityFormatLabel.setText("Probability format");
+		probabilityDecimalFormatButton = new Button(probabilityFormatContainer, SWT.RADIO);
+		probabilityDecimalFormatButton.setText("Decimal");
+		probabilityDecimalFormatButton.setSelection(false);
+		probabilityScientificNotationFormatButton = new Button(probabilityFormatContainer, SWT.RADIO);
+		probabilityScientificNotationFormatButton.setText("Scientific Notation");
+		probabilityScientificNotationFormatButton.setSelection(false);
+		if (DECIMAL_FORMAT.equals(probabilityFormat)) {
+			probabilityDecimalFormatButton.setSelection(true);
+			probabilityScientificNotationFormatButton.setSelection(false);
+		} else {
+			probabilityDecimalFormatButton.setSelection(false);
+			probabilityScientificNotationFormatButton.setSelection(true);
+		}
+
+		Composite probabilityPrecisionContainer = new Composite(area, SWT.NONE);
+		GridLayout probabilityPricisionLayout = new GridLayout(2, false);
+		probabilityPrecisionContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		probabilityPrecisionContainer.setLayout(probabilityPricisionLayout);
+
+		probabilityPrecisionLabel = new Label(probabilityPrecisionContainer, SWT.NULL);
+		probabilityPrecisionLabel.setText("Probability precision");
+		probabilityPrecisionText = new Text(probabilityPrecisionContainer, SWT.LEFT_TO_RIGHT);
+		if (probabilityPrecision != null && probabilityPrecision.length() > 0) {
+			probabilityPrecisionText.setText(probabilityPrecision);
+		} else {
+			probabilityPrecisionText.setText("1");
+		}
 		return area;
 	}
 
@@ -95,6 +143,12 @@ public class FTADialog extends TitleAreaDialog {
 	private void saveInput() {
 		value = errorMode.getText();
 		isGraphicView = graphicViewBox.getSelection();
+		if (probabilityDecimalFormatButton.getSelection()) {
+			probabilityFormat = DECIMAL_FORMAT;
+		} else if (probabilityScientificNotationFormatButton.getSelection()) {
+			probabilityFormat = SCIENTIFIC_NOTATION_FORMAT;
+		}
+		probabilityPrecision = probabilityPrecisionText.getText();
 		if (compositePartsBox.getSelection()) {
 			faultTreeType = FaultTreeType.COMPOSITE_PARTS;
 		} else if (faultTreeBox.getSelection()) {
@@ -124,4 +178,11 @@ public class FTADialog extends TitleAreaDialog {
 		return isGraphicView;
 	}
 
+	public static String getProbabilityFormat() {
+		return probabilityFormat;
+	}
+
+	public static String getProbabilityPrecision() {
+		return probabilityPrecision;
+	}
 }
