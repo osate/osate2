@@ -67,7 +67,7 @@ public class FaultTreeUtils {
 
 		identifier = component instanceof SystemInstance
 				? component.getComponentClassifier().getQualifiedName().replaceAll("::", "_").replaceAll("\\.", "_")
-						: component.getComponentInstancePath();
+				: component.getComponentInstancePath();
 
 		if (namedElement == null) {
 			identifier += "-unidentified";
@@ -80,9 +80,9 @@ public class FaultTreeUtils {
 
 		if (type != null) {
 			identifier += "-" + EMV2Util.getName(type);
-				}
-				identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
-				return identifier;
+		}
+		identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
+		return identifier;
 	}
 
 	private static void redoCount(FaultTree ftaModel) {
@@ -216,8 +216,7 @@ public class FaultTreeUtils {
 	}
 
 	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
-			TypeToken type,
-			boolean unique) {
+			TypeToken type, boolean unique) {
 		String name;
 		if (element instanceof NamedElement && !unique && ((NamedElement) element).getName() != null) {
 			name = buildName(component, (NamedElement) element, type);
@@ -291,7 +290,6 @@ public class FaultTreeUtils {
 		return (component instanceof SystemInstance ? component.getComponentClassifier().getName()
 				: component.getComponentInstancePath());
 	}
-
 
 	public static String getDescription(Event event) {
 		return getInstanceDescription(event) + " " + getEMV2ElementDescription(event);
@@ -394,8 +392,7 @@ public class FaultTreeUtils {
 
 			if (event.getSubEventLogic() == LogicOperation.KORMORE) {
 				description = "'" + event.getSubEventLogic() + "' with k =" + event.getK() + opcontext;
-			}
-			else {
+			} else {
 				description = "'" + event.getSubEventLogic() + "'" + opcontext;
 			}
 		}
@@ -617,8 +614,6 @@ public class FaultTreeUtils {
 		// It follows that computing $Re(k, n)$ for some $k \leq n$ is equivalent to computing the k-th element in the polynom
 		// g (z) = \sum_{i=0}^ n g_i z^i$ and perform term identification
 
-		// The associated probability is then $1 - \sum_{j = k}^n Re(j, n)$
-
 		// For simplicity, we implement PROGRAM 1
 		// Note: to match the original algorithm, we start with index at 1, up-to index n + 1
 
@@ -644,12 +639,10 @@ public class FaultTreeUtils {
 			}
 		}
 
-		BigDecimal R = BigZero;
-		for (int j = event.getK(); j <= n + 1; j++) { // Error#2: was k + 1 in the original paper.
-			R = R.add(A[j]);
-		}
+		// The associated failure probability of k or more is $1 - Re(n - j + 1, n)$
+		BigDecimal R = BigOne.subtract(A[n - event.getK() + 1]);
 
-		return BigOne.subtract(R);
+		return R;
 	}
 
 	public static BigDecimal pANDEvents(Event event) {
