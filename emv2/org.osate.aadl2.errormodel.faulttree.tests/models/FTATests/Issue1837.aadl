@@ -46,7 +46,7 @@ package Issue1837
                                 end component;
 
                                 properties
-                                        emv2::OccurrenceDistribution => [ProbabilityValue => 0.5; Distribution => Poisson;] applies to Failure;
+                                        emv2::OccurrenceDistribution => [ProbabilityValue => 0.2; Distribution => Poisson;] applies to Failure;
                         **};
                 end Module;
 
