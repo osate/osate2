@@ -22,7 +22,7 @@ class Issue1980Test {
 	TestHelper<AadlPackage> testHelper
 
 	@Test
-	def void testInstantiation() {
+	def void testPropertyAccess() {
 		val pkg = testHelper.parseFile(FILE)
 		val impl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == 'T.i'] as ThreadImplementation
 		assertNotNull(impl)
