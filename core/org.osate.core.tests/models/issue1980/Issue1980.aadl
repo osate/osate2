@@ -1,0 +1,12 @@
+package Issue1980
+public
+
+	thread T
+		properties
+			Dispatch_Protocol => aperiodic;
+	end T;
+	
+	thread implementation T.i
+	end T.i;
+	
+end Issue1980;
