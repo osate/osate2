@@ -2,6 +2,8 @@ package org.osate.ge.internal.util.classifiers;
 
 import org.osate.aadl2.ComponentCategory;
 
+import com.google.common.base.Strings;
+
 public class ClassifierOperationPart {
 	private final ClassifierOperationPartType type;
 	private final Object selectedPackage; // For create operations
@@ -58,7 +60,7 @@ public class ClassifierOperationPart {
 		return operation == ClassifierOperationPartType.NONE
 				|| (operation == ClassifierOperationPartType.EXISTING && value.getSelectedClassifier() != null)
 				|| (ClassifierOperationPartType.isCreate(operation) && value.getSelectedPackage() != null
-				&& value.getIdentifier() != null);
+						&& !Strings.isNullOrEmpty(value.getIdentifier()));
 	}
 
 	public static ClassifierOperationPart createNone() {

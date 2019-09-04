@@ -78,6 +78,8 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 		fd.left = new FormAttachment(extendedClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(extendedClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	final SelectionListener setExtendedClassifierListener = new SelectionAdapter() {

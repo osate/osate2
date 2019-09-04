@@ -694,7 +694,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			}
 		}
 		for (PropagationPath oep : EMV2Util.getAllPropagationPaths(ep.getContainingClassifier())) {
-			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
+			if (oep != ep && oep.getName() != null && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep, "Propagation point " + (ep instanceof PropagationPath ? "path " : "") + ep.getName()
 				+ "' conflicts with propagation path.");
 			}

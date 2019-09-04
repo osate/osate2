@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.preferences.Constants;
 import org.osate.ui.dialogs.Dialog;
 
@@ -33,7 +32,7 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	private final IPreferenceStore latencyPrefs;
 	private boolean dontShowDialog = false;
-	private final Map<String, String> localValues = new HashMap<>(); // indexed by LAST_USED_PREF_IDS
+	public final Map<String, String> localValues = new HashMap<>(); // indexed by LAST_USED_PREF_IDS
 	private final Map<String, Button> valueToButton = new HashMap<>(); // index by the preference value strings
 
 	public FlowLatencyDialog(Shell parentShell, final IPreferenceStore prefs) {
@@ -208,19 +207,5 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		}
 
 		return group;
-	}
-
-	public void setLatencyAnalysisParameters(final LatencyReport latencyReport) {
-		final boolean asynchronousSystem = localValues.get(Constants.ASYNCHRONOUS_SYSTEM_LAST_USED)
-				.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
-		final boolean majorFrameDelay = localValues.get(Constants.PARTITONING_POLICY_LAST_USED)
-				.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
-		final boolean worstCaseDeadline = localValues.get(Constants.WORST_CASE_DEADLINE_LAST_USED)
-				.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
-		final boolean bestCaseEmptyQueue = localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
-				.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
-
-		latencyReport.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-				bestCaseEmptyQueue);
 	}
 }

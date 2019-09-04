@@ -1,0 +1,70 @@
+package Issue1961
+public
+	
+	abstract pilot
+		features
+			controlsurfacecmd: out feature;
+			annex emv2 {**
+				use types ErrorLibrary;
+				use behavior FTerrorlibrary::ThreeStates;
+				error propagations
+				controlsurfacecmd: out propagation { ServiceOmission};
+				end propagations;
+				component error behavior
+				events
+				unawareness: error event {ValueError,ServiceOmission};
+				mistakes: error event {TimingError,SequenceOmission};
+				transitions
+				Operational -[unawareness{ValueError}]-> standby; 
+				Operational -[unawareness{ServiceOmission}]-> failed; 
+				propagations
+				failed-[mistakes{TimingError}]-> controlsurfacecmd{ServiceOmission};
+				standby-[mistakes{SequenceOmission}]-> controlsurfacecmd{ServiceOmission};
+				end component;
+				**};
+	end pilot;
+	
+	
+	device Engine
+		features
+			thrust: out feature;
+			annex emv2 {**
+				use types ErrorLibrary;
+				error propagations
+				thrust: out propagation {ServiceOmission};
+				flows
+					engineFailure: error source thrust{ServiceOmission};
+				end propagations;
+			**};
+	end Engine;
+
+	system ac
+		features
+			aceffect: out feature;
+		annex emv2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				aceffect: out propagation {ServiceOmission};
+			end propagations;
+		**};
+	end ac;
+	
+	system implementation ac.impl
+		subcomponents
+			engine1: device engine;
+			pilot: abstract pilot;
+		connections
+			pilotctrl: feature pilot.controlsurfacecmd -> aceffect;
+			engine1conn: feature engine1.thrust -> aceffect;
+		annex emv2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
+			propagations
+				all -[1 ormore (pilot.controlsurfacecmd {ServiceOmission}, engine1.thrust {ServiceOmission})]-> aceffect {ServiceOmission};
+			end component;
+		**};
+	end ac.impl;
+
+end Issue1961;
