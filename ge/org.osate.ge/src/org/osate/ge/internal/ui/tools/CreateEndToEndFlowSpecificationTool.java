@@ -52,6 +52,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowSpecificationTool {
@@ -63,14 +64,13 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
-			final AadlModificationService aadlModService,
-			final UiService uiService,
-			final ColoringService coloringService,
-			final NamingService namingService) {
+			final AadlModificationService aadlModService, final UiService uiService,
+			final ColoringService coloringService, final NamingService namingService) {
+
 		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
-				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
+				this.ci = (ComponentImplementation) ciBoc.getBusinessObject();
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 
 				uiService.clearSelection();
@@ -113,13 +113,15 @@ public class CreateEndToEndFlowSpecificationTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
+	public void onSelectionChanged(
+			@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
-			if(dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-				if(selectedDiagramElements.length > 1) {
-					dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
-				} else if(selectedDiagramElements.length == 1) {
+			if (dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+				if (selectedDiagramElements.length > 1) {
+					dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " "
+							+ getDialogMessage());
+				} else if (selectedDiagramElements.length == 1) {
 					// Get the selected diagram element
 					final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
 
@@ -128,7 +130,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 					if (bo instanceof Element) {
 						String error = null;
-						if (dlg.addSelectedElement((Element)bo, context)) {
+						if (dlg.addSelectedElement((Element) bo, context)) {
 							if (bo instanceof ModeFeature) {
 								coloring.setForeground(selectedDiagramElement, Color.MAGENTA.brighter());
 							} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
@@ -141,7 +143,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							error = "Invalid element selected. ";
 						}
 
-						if(error == null) {
+						if (error == null) {
 							dlg.setErrorMessage(null);
 							dlg.setMessage(getDialogMessage());
 						} else {
@@ -153,14 +155,15 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 	}
 
-	//Determine message based on currently selected element
+	// Determine message based on currently selected element
 	private String getDialogMessage() {
 		String msg = "";
 		if (previouslySelectedDiagramElements.size() > 0) {
-			final Object bo = previouslySelectedDiagramElements.get(previouslySelectedDiagramElements.size()-1).getBusinessObject();
-			if(bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
+			final Object bo = previouslySelectedDiagramElements.get(previouslySelectedDiagramElements.size() - 1)
+					.getBusinessObject();
+			if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
 				if (bo instanceof FlowSpecification) {
-					final FlowSpecification fs = (FlowSpecification)bo;
+					final FlowSpecification fs = (FlowSpecification) bo;
 					if (fs.getKind() != FlowKind.SINK) {
 						msg = "Select a connection.";
 					}
@@ -174,7 +177,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			msg = "Select a starting flow specification.";
 		}
 
-		if(msg.length() != 0) {
+		if (msg.length() != 0) {
 			msg += "\n";
 		}
 		msg += "Optionally, select a mode or mode transition.";
@@ -195,11 +198,10 @@ public class CreateEndToEndFlowSpecificationTool {
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 
-		public CreateFlowsToolsDialog(final Shell parentShell,
-				final NamingService namingService,
+		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService,
 				final UiService uiService) {
 			super(parentShell);
-			this.setHelpAvailable(false);
+			setHelpAvailable(true);
 			this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
 			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
@@ -218,7 +220,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		private boolean addSelectedElement(final Element selectedEle, final Context context) {
 			if (isValid(getRefinedElement(selectedEle), context)) {
 				if (selectedEle instanceof org.osate.aadl2.Connection) {
-					//Create flow segment with context = null because all valid connections belong to diagram
+					// Create flow segment with context = null because all valid connections belong to diagram
 					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
 				} else if (selectedEle instanceof FlowSpecification) {
 					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
@@ -235,8 +237,9 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @return - true or false depending on if the selected element is a valid start element
 		 */
 		private boolean isValidFirstElement(final Element selectedEle, final Context context) {
-			return selectedEle instanceof FlowSpecification && ((FlowSpecification)selectedEle).getKind() == FlowKind.SOURCE
-					&& isValidSubcomponent((Context)getRefinedElement(context));
+			return selectedEle instanceof FlowSpecification
+					&& ((FlowSpecification) selectedEle).getKind() == FlowKind.SOURCE
+					&& isValidSubcomponent((Context) getRefinedElement(context));
 		}
 
 		/**
@@ -257,15 +260,13 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param flowElement - element added to flow segments
 		 * @return - name of segment for dialog
 		 */
-		private String getSegmentName(final Context ctx,
-				final NamedElement flowElement) {
+		private String getSegmentName(final Context ctx, final NamedElement flowElement) {
 			String name = "";
 			if (ctx != null) {
 				name += ctx.getName() == null ? "<unknown>" : ctx.getName();
 				name += ".";
 			}
-			name += flowElement.getName() == null ? "<unknown>" : flowElement
-					.getName();
+			name += flowElement.getName() == null ? "<unknown>" : flowElement.getName();
 			return name;
 		}
 
@@ -285,14 +286,15 @@ public class CreateEndToEndFlowSpecificationTool {
 			if (!flowSegmentComposite.isDisposed()) {
 				flowSegmentLabel.setEnabled(true);
 				if (object instanceof EndToEndFlowSegment) {
-					final EndToEndFlowSegment eteFlowSegment = (EndToEndFlowSegment)object;
+					final EndToEndFlowSegment eteFlowSegment = (EndToEndFlowSegment) object;
 					if (eTEFlow.getAllFlowSegments().indexOf(eteFlowSegment) == 0) {
 						segmentList.add(getSegmentName(eteFlowSegment.getContext(), eteFlowSegment.getFlowElement()));
 					} else {
-						segmentList.add("  ->  " + getSegmentName(eteFlowSegment.getContext(), eteFlowSegment.getFlowElement()));
+						segmentList.add("  ->  "
+								+ getSegmentName(eteFlowSegment.getContext(), eteFlowSegment.getFlowElement()));
 					}
 				} else if (object instanceof ModeFeature) {
-					final ModeFeature mf = (ModeFeature)object;
+					final ModeFeature mf = (ModeFeature) object;
 					eTEFlow.getInModeOrTransitions().add(mf);
 					if (eTEFlow.getInModeOrTransitions().indexOf(mf) == 0) {
 						modeList.add("  in modes  (" + mf.getName());
@@ -319,7 +321,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			final String modeString = getModeString();
 			flowSegmentLabel.setText(segmentString + modeString);
 			if (modeString != "") {
-				flowSegmentLabel.setStyleRange(new StyleRange(segmentString.length(), 12, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
+				flowSegmentLabel.setStyleRange(new StyleRange(segmentString.length(), 12,
+						Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 			}
 		}
 
@@ -339,7 +342,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		private boolean isCompleteAndValid() {
 			return (eTEFlow.getAllFlowSegments().size() > 2 && eTEFlow.getAllFlowSegments().size() % 2 == 1
 					&& eTEFlow.getAllFlowSegments().get(0).getFlowElement() instanceof FlowSpecification
-					&& eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1).getFlowElement() instanceof FlowSpecification);
+					&& eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size() - 1)
+					.getFlowElement() instanceof FlowSpecification);
 		}
 
 		private void setNavigationButtonsEnabled(final boolean enabled) {
@@ -348,12 +352,16 @@ public class CreateEndToEndFlowSpecificationTool {
 				getButton(IDialogConstants.OK_ID).setEnabled(enabled);
 			}
 			if (undoButton != null) {
-				undoButton.setEnabled(eTEFlow != null && (eTEFlow.getInModeOrTransitions().size() > 0 || eTEFlow.getAllFlowSegments().size() > 0));
+				undoButton.setEnabled(eTEFlow != null
+						&& (eTEFlow.getInModeOrTransitions().size() > 0 || eTEFlow.getAllFlowSegments().size() > 0));
 			}
 		}
 
 		private Element getPreviousSegmentElement() {
-			return eTEFlow.getAllFlowSegments().size() > 0 ? getRefinedElement(eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1).getFlowElement()) : null;
+			return eTEFlow.getAllFlowSegments().size() > 0
+					? getRefinedElement(
+							eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size() - 1).getFlowElement())
+							: null;
 		}
 
 		/**
@@ -370,14 +378,14 @@ public class CreateEndToEndFlowSpecificationTool {
 			} else {
 				final Element prevEle = getRefinedElement(getPreviousSegmentElement());
 				if (prevEle != null) {
-					if ((prevEle instanceof org.osate.aadl2.Connection)
-							&& (selectedEle instanceof FlowSpecification) && isValidSubcomponent((Context) getRefinedElement(context))) {
+					if ((prevEle instanceof org.osate.aadl2.Connection) && (selectedEle instanceof FlowSpecification)
+							&& isValidSubcomponent((Context) getRefinedElement(context))) {
 						return true;
 					} else if ((prevEle instanceof FlowSpecification)
 							&& (selectedEle instanceof org.osate.aadl2.Connection)) {
-						final FlowSpecification segFs = (FlowSpecification)prevEle;
+						final FlowSpecification segFs = (FlowSpecification) prevEle;
 						if (segFs.getKind() == FlowKind.SOURCE || segFs.getKind() == FlowKind.PATH) {
-							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)selectedEle;
+							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection) selectedEle;
 							return isValidConnection(segFs, con, context);
 						}
 					}
@@ -387,8 +395,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		private Element getRefinedElement(final Element ce) {
-			if(ce instanceof RefinableElement) {
-				final RefinableElement refinedElement = ((RefinableElement)ce).getRefinedElement();
+			if (ce instanceof RefinableElement) {
+				final RefinableElement refinedElement = ((RefinableElement) ce).getRefinedElement();
 				return refinedElement == null ? ce : getRefinedElement(refinedElement);
 			}
 
@@ -401,8 +409,9 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param connection - current selected connection
 		 * @param context - context of the connection
 		 */
-		private boolean isValidConnection(final FlowSpecification fs, final org.osate.aadl2.Connection connection, final Context context) {
-			if (context != null && !isValidSubcomponent((Context)getRefinedElement(context))) {
+		private boolean isValidConnection(final FlowSpecification fs, final org.osate.aadl2.Connection connection,
+				final Context context) {
+			if (context != null && !isValidSubcomponent((Context) getRefinedElement(context))) {
 				return false;
 			}
 
@@ -417,7 +426,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow Specification");
-			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(DialogPlacementHelper
+					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(575, 275);
 			newShell.setMinimumSize(460, 215);
 		}
@@ -427,12 +437,13 @@ public class CreateEndToEndFlowSpecificationTool {
 			super.create();
 			setTitle("Select Elements");
 			setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
+			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.END_TO_END_TOOL);
 		}
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			flowSegmentComposite = (Composite)super.createDialogArea(parent);
-			GridLayout layout = (GridLayout)flowSegmentComposite.getLayout();
+			flowSegmentComposite = (Composite) super.createDialogArea(parent);
+			GridLayout layout = (GridLayout) flowSegmentComposite.getLayout();
 			layout.marginLeft = 10;
 			layout.marginTop = 5;
 
@@ -473,9 +484,9 @@ public class CreateEndToEndFlowSpecificationTool {
 				@Override
 				public void keyReleased(final KeyEvent e) {
 					final String errorMsg;
-					if(!namingService.isValidIdentifier(newETEFlowName.getText())) {
+					if (!namingService.isValidIdentifier(newETEFlowName.getText())) {
 						errorMsg = "Name is not a valid identifier";
-					} else if(namingService.isNameInUse(ci, newETEFlowName.getText())) {
+					} else if (namingService.isNameInUse(ci, newETEFlowName.getText())) {
 						errorMsg = "The specified name is already is use.";
 					} else {
 						errorMsg = null;
@@ -495,20 +506,22 @@ public class CreateEndToEndFlowSpecificationTool {
 				public void widgetSelected(SelectionEvent e) {
 					int prevDiagramElementsSize = previouslySelectedDiagramElements.size();
 					if (prevDiagramElementsSize > 0) {
-						final DiagramElement removedDiagramElement = previouslySelectedDiagramElements.get(prevDiagramElementsSize-1);
-						previouslySelectedDiagramElements.remove(prevDiagramElementsSize-1);
+						final DiagramElement removedDiagramElement = previouslySelectedDiagramElements
+								.get(prevDiagramElementsSize - 1);
+						previouslySelectedDiagramElements.remove(prevDiagramElementsSize - 1);
 						coloring.setForeground(removedDiagramElement, null);
 
 						final Object removedDiagramElementBo = removedDiagramElement.getBusinessObject();
-						if (removedDiagramElementBo instanceof ModeFeature)  {
-							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size()-1);
+						if (removedDiagramElementBo instanceof ModeFeature) {
+							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size() - 1);
 						} else {
-							final EndToEndFlowSegment flowSegment = eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size()-1);
+							final EndToEndFlowSegment flowSegment = eTEFlow.getAllFlowSegments()
+									.get(eTEFlow.getAllFlowSegments().size() - 1);
 							eTEFlow.getAllFlowSegments().remove(flowSegment);
 							EcoreUtil.remove(flowSegment);
 						}
 
-						//Clear strings for refresh
+						// Clear strings for refresh
 						segmentList.clear();
 						modeList.clear();
 						flowSegmentLabel.setText("");
@@ -554,13 +567,12 @@ public class CreateEndToEndFlowSpecificationTool {
 	}
 
 	private static boolean areEquivalent(final Object bo1, final Object bo2) {
-		if(!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
+		if (!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
 			return false;
 		}
 
-		final String n1 = ((NamedElement)bo1).getName();
-		final String n2 = ((NamedElement)bo2).getName();
+		final String n1 = ((NamedElement) bo1).getName();
+		final String n2 = ((NamedElement) bo2).getName();
 		return n1 != null && n1.equalsIgnoreCase(n2);
 	}
 }
-

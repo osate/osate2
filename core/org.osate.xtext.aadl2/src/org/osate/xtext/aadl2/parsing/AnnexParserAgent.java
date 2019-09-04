@@ -200,8 +200,12 @@ public class AnnexParserAgent extends LazyLinker {
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
 				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
+				if(defaultAnnexSection instanceof AnnexSubclause)
+					AnnexUtil.setCurrentAnnexSubclause((AnnexSubclause) defaultAnnexSection);
 				A annexSection = parserFunction.parse(ap, annexName, annexText, filename, line, offset,
 						parseErrReporter);
+				if(defaultAnnexSection instanceof AnnexSubclause)
+					AnnexUtil.setCurrentAnnexSubclause(null);
 				if (AnnexParseUtil.saveParseResult(defaultAnnexSection) == null) {
 					// Only consume messages for non-Xtext annexes
 					consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
@@ -236,6 +240,8 @@ public class AnnexParserAgent extends LazyLinker {
 						}
 					}
 				}
+				if(parseErrReporter.getNumErrors()>0)
+					setParsedAnnexSection.accept(null);
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);

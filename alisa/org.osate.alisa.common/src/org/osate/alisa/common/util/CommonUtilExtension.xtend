@@ -83,26 +83,40 @@ class CommonUtilExtension {
 						if (expr instanceof AModelReference){
 							return toText(expr)
 						}
-						val RuleEnvironment env = new RuleEnvironment
-						env.add('vals', new HashMap<String, PropertyExpression>)
-						env.add('computes', new HashMap<String, Object>)
-						val result = interpreter.interpretExpression(env, decl)
+						if (target instanceof InstanceObject) {
+							val RuleEnvironment env = new RuleEnvironment
+							env.add('vals', new HashMap<String, PropertyExpression>)
+							env.add('computes', new HashMap<String, Object>)
+							env.add('target', target)
+							val result = interpreter.interpretExpression(env, decl)
 
-						if (result.failed) {
-							return "Could not evaluate expression for " + variable.name + ": " +
-								result.ruleFailedException
+							if (result.failed) {
+								return "Could not evaluate expression for " + variable.name + ": " +
+									getFailedMsg(result.ruleFailedException)
+							}
+							var x = result.value
+							if (x === null || x instanceof NullLiteral)
+								"TBD"
+							else
+								x.toString
+						} else {
+							"value of '"+variable.name+"'"
 						}
-						var x = result.value
-						if (x === null || x instanceof NullLiteral)
-							"TBD"
-						else
-							x.toString
 					}
 				}
 			}
 		} else {
 			""
 		}
+	}
+
+
+	def static String getFailedMsg(Throwable e) {
+		var tmp = e;
+		while (tmp.cause !== null && tmp.cause != tmp) {
+			tmp = tmp.cause ;
+		}
+		return tmp.message
 	}
 	
 	def static String toText(AModelReference aref){
