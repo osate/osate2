@@ -592,8 +592,6 @@ public class FaultTreeUtils {
 		// "Computing k-out-of-n System Reliability", by R. E. Barlow and K. D. Heidtmann
 		// in IEEE Transactions on Reliability, Vol R-33, No 4, October 1984
 		//
-		// Note that this paper has a couple of flaws indicated below
-		//
 		// The general intuition of this algorithm goes as follows, using LaTex notation for the equations
 		// Conventions:
 		// $q_i$ is the failure rate of component i
@@ -624,7 +622,7 @@ public class FaultTreeUtils {
 		BigDecimal[] A = new BigDecimal[n + 2];
 		Arrays.fill(A, BigDecimal.ZERO);
 
-		A[0] = BigOne; // Error#1, was A[1] in the paper, does not make sense when you unfold the computations
+		A[1] = BigOne;
 
 		int k = 1;
 		for (Event subEvent : event.getSubEvents()) {
@@ -634,14 +632,19 @@ public class FaultTreeUtils {
 
 		for (int j = 1; j <= n; j++) {
 			for (int i = j + 1; i >= 1; i--) {
-				// At each step, we perform A(i) = A(i) + P(i) * (A(i - 1) - A(i))
-				A[i] = A[i].add(probabilities[i].multiply(A[i - 1].subtract(A[i])));
+				// At each step, we perform A(i) = A(i) + P(j) * (A(i - 1) - A(i))
+				A[i] = A[i].add(probabilities[j].multiply(A[i - 1].subtract(A[i])));
 			}
 		}
 
-		// The associated failure probability of k or more is $1 - Re(n - j + 1, n)$
-		BigDecimal R = BigOne.subtract(A[n - event.getK() + 1]);
+		// The associated failure probability of k or more is $1 - \Sum_{j=k}^n Re(j, n)$
+		BigDecimal R = BigZero;
 
+		for (int j = event.getK() + 1; j <= n + 1; j++) {
+			R = R.add(A[j]);
+		}
+
+		R = BigOne.subtract(R);
 		return R;
 	}
 
