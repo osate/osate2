@@ -713,7 +713,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void casePackageSection(PackageSection packageSection) {
 		checkWithsAreUsed(packageSection);
 	}
-	
+
 	@Check
 	public void checkOneSequencePerMode(SubprogramCallSequence sequence) {
 		BehavioredImplementation classifier = EcoreUtil2.getContainerOfType(sequence, BehavioredImplementation.class);
@@ -5932,6 +5932,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else if (connectionContext instanceof Subcomponent || connectionContext instanceof FeatureGroup
 				|| connectionContext instanceof SubprogramCall) {
 			if (!(connectionEnd instanceof Feature)) {
+				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
+						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
+						+ " is not a valid feature connection end.", connectedElement,
+						Aadl2Package.eINSTANCE.getConnectedElement_ConnectionEnd());
+			}
+
+			/*
+			 * Issue 1954: features connections cannot reference parameter features as part of a subprogram subcomponent.
+			 * They must be reference via subprogram call.
+			 */
+			if (connectionContext instanceof SubprogramSubcomponent && connectionEnd instanceof Parameter) {
 				error(StringExtensions.toFirstUpper(getEClassDisplayNameWithIndefiniteArticle(connectionEnd.eClass()))
 						+ " in " + getEClassDisplayNameWithIndefiniteArticle(connectionContext.eClass())
 						+ " is not a valid feature connection end.", connectedElement,
