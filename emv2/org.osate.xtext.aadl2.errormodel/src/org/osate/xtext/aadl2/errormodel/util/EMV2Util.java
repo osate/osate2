@@ -2190,6 +2190,9 @@ public class EMV2Util {
 		if (last.getNamedElement() instanceof ErrorTypes) {
 			return (ErrorTypes) last.getNamedElement();
 		}
+		if (last.getErrorType() != null) {
+			return last.getErrorType();
+		}
 		return null;
 	}
 
