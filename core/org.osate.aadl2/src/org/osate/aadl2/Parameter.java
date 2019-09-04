@@ -78,6 +78,7 @@ public interface Parameter extends DirectedFeature, Context, ParameterConnection
 	 * @see #setDataFeatureClassifier(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getParameter_DataFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	DataSubcomponentType getDataFeatureClassifier();
