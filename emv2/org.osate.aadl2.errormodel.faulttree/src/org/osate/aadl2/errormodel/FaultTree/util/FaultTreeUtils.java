@@ -67,7 +67,7 @@ public class FaultTreeUtils {
 
 		identifier = component instanceof SystemInstance
 				? component.getComponentClassifier().getQualifiedName().replaceAll("::", "_").replaceAll("\\.", "_")
-						: component.getComponentInstancePath();
+				: component.getComponentInstancePath();
 
 		if (namedElement == null) {
 			identifier += "-unidentified";
@@ -80,9 +80,9 @@ public class FaultTreeUtils {
 
 		if (type != null) {
 			identifier += "-" + EMV2Util.getName(type);
-				}
-				identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
-				return identifier;
+		}
+		identifier = identifier.replaceAll("\\{", "").replaceAll("\\}", "").toLowerCase();
+		return identifier;
 	}
 
 	private static void redoCount(FaultTree ftaModel) {
@@ -216,8 +216,7 @@ public class FaultTreeUtils {
 	}
 
 	private static Event createIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
-			TypeToken type,
-			boolean unique) {
+			TypeToken type, boolean unique) {
 		String name;
 		if (element instanceof NamedElement && !unique && ((NamedElement) element).getName() != null) {
 			name = buildName(component, (NamedElement) element, type);
@@ -291,7 +290,6 @@ public class FaultTreeUtils {
 		return (component instanceof SystemInstance ? component.getComponentClassifier().getName()
 				: component.getComponentInstancePath());
 	}
-
 
 	public static String getDescription(Event event) {
 		return getInstanceDescription(event) + " " + getEMV2ElementDescription(event);
@@ -394,8 +392,7 @@ public class FaultTreeUtils {
 
 			if (event.getSubEventLogic() == LogicOperation.KORMORE) {
 				description = "'" + event.getSubEventLogic() + "' with k =" + event.getK() + opcontext;
-			}
-			else {
+			} else {
 				description = "'" + event.getSubEventLogic() + "'" + opcontext;
 			}
 		}
@@ -595,8 +592,6 @@ public class FaultTreeUtils {
 		// "Computing k-out-of-n System Reliability", by R. E. Barlow and K. D. Heidtmann
 		// in IEEE Transactions on Reliability, Vol R-33, No 4, October 1984
 		//
-		// Note that this paper has a couple of flaws indicated below
-		//
 		// The general intuition of this algorithm goes as follows, using LaTex notation for the equations
 		// Conventions:
 		// $q_i$ is the failure rate of component i
@@ -617,8 +612,6 @@ public class FaultTreeUtils {
 		// It follows that computing $Re(k, n)$ for some $k \leq n$ is equivalent to computing the k-th element in the polynom
 		// g (z) = \sum_{i=0}^ n g_i z^i$ and perform term identification
 
-		// The associated probability is then $1 - \sum_{j = k}^n Re(j, n)$
-
 		// For simplicity, we implement PROGRAM 1
 		// Note: to match the original algorithm, we start with index at 1, up-to index n + 1
 
@@ -629,7 +622,7 @@ public class FaultTreeUtils {
 		BigDecimal[] A = new BigDecimal[n + 2];
 		Arrays.fill(A, BigDecimal.ZERO);
 
-		A[0] = BigOne; // Error#1, was A[1] in the paper, does not make sense when you unfold the computations
+		A[1] = BigOne;
 
 		int k = 1;
 		for (Event subEvent : event.getSubEvents()) {
@@ -639,17 +632,20 @@ public class FaultTreeUtils {
 
 		for (int j = 1; j <= n; j++) {
 			for (int i = j + 1; i >= 1; i--) {
-				// At each step, we perform A(i) = A(i) + P(i) * (A(i - 1) - A(i))
-				A[i] = A[i].add(probabilities[i].multiply(A[i - 1].subtract(A[i])));
+				// At each step, we perform A(i) = A(i) + P(j) * (A(i - 1) - A(i))
+				A[i] = A[i].add(probabilities[j].multiply(A[i - 1].subtract(A[i])));
 			}
 		}
 
+		// The associated failure probability of k or more is $1 - \Sum_{j=k}^n Re(j, n)$
 		BigDecimal R = BigZero;
-		for (int j = event.getK(); j <= n + 1; j++) { // Error#2: was k + 1 in the original paper.
+
+		for (int j = event.getK() + 1; j <= n + 1; j++) {
 			R = R.add(A[j]);
 		}
 
-		return BigOne.subtract(R);
+		R = BigOne.subtract(R);
+		return R;
 	}
 
 	public static BigDecimal pANDEvents(Event event) {
