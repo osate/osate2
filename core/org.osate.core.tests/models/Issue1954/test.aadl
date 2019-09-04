@@ -43,7 +43,7 @@ public
             f6: feature s1.p2 -> d2; -- should not be allowed
             
             f7: feature d1 -> call2.p1; -- allowed
-             f8: feature call2.p2 -> d2;  -- allowed
+            f8: feature call2.p2 -> d2;  -- allowed
     end th.i;
     
     subprogram s1
