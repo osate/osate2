@@ -76,4 +76,13 @@ package Issue1837
                                 end composite;
                         **};
                 end TMR_Archetype.impl;
+        
+        		system implementation TMR_Archetype.impl2 extends TMR_Archetype.impl
+				annex EMV2 {**
+				properties
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => Poisson;] applies to ^Module_1@Failure;
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.12; Distribution => Poisson;] applies to ^Module_2@Failure;
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^Module_3@Failure;
+				**};
+	end TMR_Archetype.impl2;
         end Issue1837;
