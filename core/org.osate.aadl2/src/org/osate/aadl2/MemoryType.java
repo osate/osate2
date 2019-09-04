@@ -82,6 +82,7 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();
@@ -117,6 +118,7 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -152,6 +154,7 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -187,6 +190,7 @@ public interface MemoryType extends ComponentType, MemoryClassifier {
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();

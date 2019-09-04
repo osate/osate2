@@ -83,6 +83,7 @@ public interface AadlPackage extends ModelUnit {
 	 * @see #setOwnedPublicSection(PublicPackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_OwnedPublicSection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PublicPackageSection getOwnedPublicSection();
@@ -129,6 +130,7 @@ public interface AadlPackage extends ModelUnit {
 	 * @see #setOwnedPrivateSection(PrivatePackageSection)
 	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_OwnedPrivateSection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PrivatePackageSection getOwnedPrivateSection();

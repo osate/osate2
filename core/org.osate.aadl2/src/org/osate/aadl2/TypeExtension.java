@@ -77,6 +77,7 @@ public interface TypeExtension extends Generalization {
 	 * @see #setExtended(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getTypeExtension_Extended()
 	 * @model required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentType getExtended();

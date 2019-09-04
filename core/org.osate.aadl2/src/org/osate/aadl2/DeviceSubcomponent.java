@@ -78,6 +78,7 @@ public interface DeviceSubcomponent extends Subcomponent, Device {
 	 * @see #setDeviceSubcomponentType(DeviceSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceSubcomponent_DeviceSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	DeviceSubcomponentType getDeviceSubcomponentType();

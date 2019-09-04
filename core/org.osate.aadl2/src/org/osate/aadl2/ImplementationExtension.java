@@ -77,6 +77,7 @@ public interface ImplementationExtension extends Generalization {
 	 * @see #setExtended(ComponentImplementation)
 	 * @see org.osate.aadl2.Aadl2Package#getImplementationExtension_Extended()
 	 * @model required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentImplementation getExtended();

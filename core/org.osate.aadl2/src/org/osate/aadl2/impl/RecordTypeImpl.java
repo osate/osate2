@@ -110,12 +110,12 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -137,7 +137,7 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	@Override
 	public EList<BasicProperty> getOwnedFields() {
 		if (ownedFields == null) {
-			ownedFields = new EObjectContainmentEList<BasicProperty>(BasicProperty.class, this,
+			ownedFields = new EObjectContainmentEList<>(BasicProperty.class, this,
 					Aadl2Package.RECORD_TYPE__OWNED_FIELD);
 		}
 		return ownedFields;

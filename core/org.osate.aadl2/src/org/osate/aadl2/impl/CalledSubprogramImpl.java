@@ -90,7 +90,7 @@ public abstract class CalledSubprogramImpl extends AObjectImpl implements Called
 	 * @generated
 	 */
 	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
+		return CacheAdapter.getInstance();
 	}
 
 } // CalledSubprogramImpl
