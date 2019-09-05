@@ -3,6 +3,11 @@ package org.osate.ge.tests.endToEnd;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 
 import org.junit.Test;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**
  * This class is the primary end to end test. It creates a complete model and exercises a large part of the graphical editor.
@@ -21,13 +26,14 @@ public class PrimaryEndToEndTest {
 	private static final String HARDWARE_COMPONENTS_DIAGRAM = HARDWARE + "_components";
 	private static final String SOFTWARE = "software";
 	private static final String INTEGRATED = "integrated";
+	private static final String SERVO_INTERFACE = "ServoInterface";
 
 	@Test
 	public void testGraphicalEditor() {
 		createSharedProject();
 		createHardwareProject();
-		createSoftwareProject();
-		createIntegratedProject();
+		// createSoftwareProject();
+		// createIntegratedProject();
 	}
 
 	private void createSharedProject() {
@@ -37,8 +43,12 @@ public class PrimaryEndToEndTest {
 		createAadlProject(SHARED);
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
-		// TODO
+		final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
+		createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
+				packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
 	}
+
+
 
 	private void createHardwareProject() {
 //		 * - Hardware(Project)
@@ -67,8 +77,136 @@ public class PrimaryEndToEndTest {
 		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE);
 		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE_COMPONENTS_PACKAGE, HARDWARE_COMPONENTS_DIAGRAM);
 
-		// TODO
+		final RelativeBusinessObjectReference hardwarePkgRef = getRelativeReference(AadlPackage.class, HARDWARE);
+		setActiveEditor(HARDWARE, HARDWARE);
+		createImplementationWithNewType("System Implementation", "impl", "robot", hardwarePkgRef);
 
+		final RelativeBusinessObjectReference componentsPackage = getRelativeReference(AadlPackage.class,
+				HARDWARE_COMPONENTS_PACKAGE);
+		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
+
+		// Create Virtual Bus Type ethernet
+		createElementAndLayout("Virtual Bus Type", "ethernet", new RelativeBusinessObjectReference[] {
+				componentsPackage, getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+
+		// Create Device Type servo
+		createElementAndLayout("Device Type", "servo", new RelativeBusinessObjectReference[] { componentsPackage,
+				  getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+
+		// Bus Access eth
+		createElementAndLayout("Bus Access", "eth", new RelativeBusinessObjectReference[] {componentsPackage, getRelativeReference(Classifier.class, "servo"),
+						getRelativeReference(Feature.class, "servo_new_feature") },
+				componentsPackage);
+
+		// Feature group interface
+		createElementAndLayout("Feature Group", "interface",
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"),
+						getRelativeReference(Feature.class, "servo_new_feature") },
+				componentsPackage);
+
+		// Set classifier shared::ServoInterface
+		setClassifierFromPropertyView("shared::ServoInterface",
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"),
+						getRelativeReference(Feature.class, "interface") });
+
+		// Device type rangefinder
+		createElementAndLayout("Device Type", "rangefinder", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+
+		// Bus Access eth
+		createElementAndLayout("Bus Access", "eth",
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "rangefinder"),
+						getRelativeReference(Feature.class, "rangefinder_new_feature") },
+				componentsPackage);
+
+		// Set classifier for rangefinder::eth and servo::eth
+		setClassifierFromPropertyView("hardware::components::ethernet",
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "rangefinder"),
+						getRelativeReference(Feature.class, "eth") },
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
+
+		// Set requires bus access
+		clickButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "rangefinder"), getRelativeReference(Feature.class, "eth") },
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
+
+		// Data Port range_o
+		createElementAndLayout("Data Port", "range_o", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "rangefinder"),
+				getRelativeReference(Feature.class, "rangefinder_new_feature") }, componentsPackage);
+
+		// Create cpu.impl
+		createImplementationWithNewType("Processor Implementation", "impl", "cpu", componentsPackage);
+		// Create memory type rom
+		createElementAndLayout("Memory Type", "rom", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+
+		// Create memory type ram
+		createElementAndLayout("Memory Type", "ram", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+
+		// Set hardware package editor active
+		setActiveEditor(HARDWARE, HARDWARE);
+		final RelativeBusinessObjectReference[] robotNewSCRef = new RelativeBusinessObjectReference[] { hardwarePkgRef,
+				getRelativeReference(Classifier.class, "robot.impl"),
+				getRelativeReference(Subcomponent.class, "robot_impl_new_subcomponent") };
+
+		// Create device subcomponent yaw_servo
+		createElementAndLayout("Device Subcomponent", "yaw_servo",
+				robotNewSCRef,
+				hardwarePkgRef);
+
+		// Set classifier
+		setClassifierFromPropertyView("hardware::components::servo",
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+				getRelativeReference(Classifier.class, "robot.impl"),
+				getRelativeReference(Subcomponent.class, "yaw_servo") });
+
+		// Create subcomponent pitch_servo
+		createElementAndLayout("Device Subcomponent", "pitch_servo", robotNewSCRef,
+				hardwarePkgRef);
+
+		// Set classifier for pitch_servo
+		setClassifierFromPropertyView("hardware::components::servo",
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+						getRelativeReference(Classifier.class, "robot.impl"),
+						getRelativeReference(Subcomponent.class, "pitch_servo") });
+
+		// Create subcomponent
+		createElementAndLayout("Device Subcomponent", "rangefinder", robotNewSCRef,
+				hardwarePkgRef);
+
+		// Set classifier for rangefinder
+		setClassifierFromPropertyView("hardware::components::rangefinder",
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+						getRelativeReference(Classifier.class, "robot.impl"),
+						getRelativeReference(Subcomponent.class, "rangefinder") });
+
+		// Create CPU subcomponent
+		createElementAndLayout("Processor Subcomponent", "cpu", robotNewSCRef,
+				hardwarePkgRef);
+
+		// Set classifier for cpu
+		setClassifierFromPropertyView("hardware::components::cpu",
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+						getRelativeReference(Classifier.class, "robot.impl"),
+						getRelativeReference(Subcomponent.class, "cpu") });
+
+		// Create Eth subcomponent
+		createElementAndLayout("Virtual Bus Subcomponent", "ethernet_buses", robotNewSCRef,
+				hardwarePkgRef);
+
+		// Set classifier for ethernet_buses
+		setClassifierFromPropertyView("hardware::components::ethernet",
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+						getRelativeReference(Classifier.class, "robot.impl"),
+						getRelativeReference(Subcomponent.class, "ethernet_buses") });
 	}
 
 	private void createSoftwareProject() {

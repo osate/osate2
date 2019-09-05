@@ -4,19 +4,25 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
+import org.eclipse.gef.EditPart;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
@@ -24,6 +30,8 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
 /**
  * Provides functions for controlling the user interface.
@@ -145,6 +153,19 @@ public class UiTestUtil {
 		bot.viewByTitle(title);
 	}
 
+	public static void setViewFocus(final String title) {
+		bot.viewByTitle(title).setFocus();
+	}
+
+	public static void clickViewTab(final String title) {
+		final SWTBotCanvas canvas = findViewCanvasByTitle(title);
+		canvas.click();
+	}
+
+	public static void clickTableItem(final int tableIndex, final String tableItem) {
+		bot.table().getTableItem(tableItem).click();
+	}
+
 	/**
 	 * Asserts that an item at the specified texts is contained in the first tree in the view with the specified title.
 	 */
@@ -223,6 +244,42 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Get the active editor.
+	 * @return the active editor
+	 */
+	public static IEditorReference getActiveEditor() {
+		return new WorkbenchContentsFinder().findActiveEditor();
+	}
+
+	/**
+	 * Show editor that has the specified input name
+	 */
+	public static void showEditor(final String inputName) {
+		final WorkbenchContentsFinder finder = new WorkbenchContentsFinder();
+		final Optional<IEditorReference> editor = finder.findEditors(new Matcher<IEditorReference>() {
+			@Override
+			public void describeTo(final Description description) {
+			}
+
+			@Override
+			public boolean matches(final Object item) {
+				final IEditorReference ref = (IEditorReference) item;
+				return inputName.equalsIgnoreCase(ref.getName());
+			}
+
+			@Override
+			public void describeMismatch(final Object item, final Description mismatchDescription) {
+			}
+
+			@Override
+			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			}
+		}).stream().findAny();
+
+		getGefEditor(editor.orElseThrow(() -> new RuntimeException("Cannot find editor '" + inputName + "'."))).show();
+	}
+
+	/**
 	 * Returns a bot for the focused widget
 	 */
 	private static AbstractSWTBot<?> getFocusedWidget() {
@@ -244,5 +301,132 @@ public class UiTestUtil {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Activates the tool type specified on the editor.
+	 * @param editor the editor
+	 * @param toolType the tool type to activate
+	 */
+	public static void activateToolType(final IEditorReference editor, final String toolType) {
+		getGefEditor(editor).activateTool(toolType);
+	}
+
+	private static SWTBotGefEditor getGefEditor(final IEditorReference editor) {
+		return new SWTBotGefEditor(editor, bot);
+	}
+
+	/**
+	 * Activates the default tool type on the editor.
+	 * @param editor the editor
+	 */
+	public static void activateDefaultTool(final IEditorReference editor) {
+		getGefEditor(editor).activateDefaultTool();
+	}
+
+	/**
+	 * Selects the edit parts specified on the editor.
+	 * @param editorRef the editor
+	 * @param editPart the edit part to click
+	 */
+	public static void selectEditParts(final IEditorReference editorRef, final List<EditPart> editParts) {
+		final SWTBotGefEditor editor = getGefEditor(editorRef);
+
+		final List<SWTBotGefEditPart> botEditParts = findEditPart(editor, editParts);
+		editor.select(botEditParts);
+	}
+
+	public static void clickEditPart(final IEditorReference editorRef, final EditPart editPart) {
+		final SWTBotGefEditor editor = getGefEditor(editorRef);
+		final List<SWTBotGefEditPart> botEditParts = findEditPart(editor, Arrays.asList(editPart));
+		editor.click(botEditParts.get(0));
+	}
+
+	/**
+	 * Renames selected element on the active editor.
+	 */
+	public static void clickRenameFromContextMenu(final String newName) {
+		getGefEditor(getActiveEditor()).clickContextMenu("Rename...");
+		waitForWindowWithTitle("Rename");
+		bot.text().setText(newName);
+		clickButton("OK");
+	}
+
+	/**
+	 * Retrieves the number of edit parts on the active editor.
+	 */
+	public static int getEditPartsSize() {
+		return getGefEditor(getActiveEditor()).editParts(allEditParts).size();
+	}
+
+	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
+		final List<Canvas> canvas = bot.activeView().bot().getFinder().findControls(new Matcher<Canvas>() {
+			@Override
+			public void describeTo(final Description description) {
+			}
+
+			@Override
+			public boolean matches(final Object item) {
+				return item instanceof Canvas && ((Canvas) item).toString().equals(title);
+			}
+
+			@Override
+			public void describeMismatch(final Object item, final Description mismatchDescription) {
+			}
+
+			@Override
+			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			}
+		});
+
+		assertTrue("Cannot find view canvas '" + title + "'", canvas.size() > 0);
+		return new SWTBotCanvas(canvas.get(0));
+	}
+
+	private static Matcher<EditPart> allEditParts = new Matcher<EditPart>() {
+		@Override
+		public void describeTo(Description description) {
+		}
+
+		@Override
+		public boolean matches(Object item) {
+			return true;
+		}
+
+		@Override
+		public void describeMismatch(Object item, Description mismatchDescription) {
+		}
+
+		@Override
+		public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+		}
+	};
+
+	public static List<SWTBotGefEditPart> findEditPart(final SWTBotGefEditor editor,
+			final List<EditPart> editPartsToFind) {
+		final Matcher<EditPart> matcher = new Matcher<EditPart>() {
+			@Override
+			public void describeTo(final Description description) {
+			}
+
+			@Override
+			public boolean matches(final Object editPart) {
+				return editPartsToFind.contains(editPart);
+			}
+
+			@Override
+			public void describeMismatch(final Object item, final Description mismatchDescription) {
+			}
+
+			@Override
+			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			}
+		};
+
+		return editor.editParts(matcher);
+	}
+
+	public static void sleep(int sec) {
+		bot.sleep(sec * 1000);
 	}
 }
