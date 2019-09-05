@@ -47,86 +47,34 @@ public class DeclarativeReferenceBuilder {
 		return new CanonicalBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
 	}
 
-	public static RelativeBusinessObjectReference buildPackageRelativeReference(final String qualifiedName) {
-		return new RelativeBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
-	}
-
-	public static String[] buildPackageReferenceSegments(final String qualifiedName) {
+	private static String[] buildPackageReferenceSegments(final String qualifiedName) {
 		return new String[] { DeclarativeReferenceType.PACKAGE.getId(), qualifiedName };
 	}
 
-	public static RelativeBusinessObjectReference buildRelativeReference(final Class<?> bo,
-			final String qualifiedName) {
-		return new RelativeBusinessObjectReference(getRelativeReference(bo, qualifiedName));
+	public static RelativeBusinessObjectReference getPackageRelativeReference(final String qualifiedName) {
+		return RelativeBusinessObjectReference.fromNullableSegments(buildPackageReferenceSegments(qualifiedName));
 	}
 
-	public static String[] getRelativeReference(final Class<?> clazz,
-			final String qualifiedName) {
-		if (clazz == AadlPackage.class) {
-			return new String[] { DeclarativeReferenceType.PACKAGE.getId(), qualifiedName };
-		} else if (clazz.equals(Classifier.class)) {
-			return new String[] { DeclarativeReferenceType.CLASSIFIER.getId(), qualifiedName };
-		} else if (clazz.equals(Subcomponent.class)) {
-			return new String[] { DeclarativeReferenceType.SUBCOMPONENT.getId(), qualifiedName};
-		} else if (clazz.equals(Realization.class)) {
-			return new String[] { DeclarativeReferenceType.REALIZATION.getId() };
-		} else if (clazz.equals(TypeExtension.class)) {
-			return new String[] { DeclarativeReferenceType.TYPE_EXTENSION.getId() };
-		} else if (clazz.equals(ImplementationExtension.class)) {
-			return new String[] { DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId() };
-		} else if (clazz.equals(GroupExtension.class)) {
-			return new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() };
-		} else if (clazz.equals(Feature.class)) {
-			return new String[] { DeclarativeReferenceType.FEATURE.getId(), qualifiedName };
-		} else if (clazz.equals(InternalFeature.class)) {
-			return new String[] { DeclarativeReferenceType.INTERNAL_FEATURE.getId(),
-					qualifiedName };
-		} else if (clazz.equals(ProcessorFeature.class)) {
-			return new String[] { DeclarativeReferenceType.PROCESSOR_FEATURE.getId(),
-					qualifiedName };
-		} else if (clazz.equals(FlowSpecification.class)) {
-			return new String[] { DeclarativeReferenceType.FLOW_SPECIFICATION.getId(),
-					qualifiedName};
-		} else if (clazz.equals(Connection.class)) {
-			return new String[] { DeclarativeReferenceType.CONNECTION.getId(), qualifiedName };
-		} else if (clazz.equals(Mode.class)) {
-			return new String[] { DeclarativeReferenceType.MODE.getId(), qualifiedName };
-		} else if (clazz.equals(ModeTransition.class)) {
-			return new String[] { DeclarativeReferenceType.MODE_TRANSITION_NAMED.getId(), qualifiedName };
-		} else if (clazz.equals(ModeTransitionTrigger.class)) {
-			return new String[] { DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
-					qualifiedName };
-		} else if (clazz.equals(SubprogramCallSequence.class)) {
-			return new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_SEQUENCE.getId(), qualifiedName };
-		} else if (clazz.equals(SubprogramCall.class)) {
-			return new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL.getId(), qualifiedName };
-		} else if (clazz.equals(SubprogramCallOrder.class)) {
-			return new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(), qualifiedName };
-		} else if (clazz.equals(AnnexLibrary.class)) {
-			return new String[] { DeclarativeReferenceType.ANNEX_LIBRARY.getId(), qualifiedName };
-		} else if (clazz.equals(AnnexSubclause.class)) {
-			return new String[] { DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(), qualifiedName };
-		} else {
-			return null;
-		}
+	public static RelativeBusinessObjectReference getClassifierRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
 	}
 
 	@BuildRelativeReference
-	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+	public RelativeBusinessObjectReference getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if (bo instanceof AadlPackage) {
-			return buildPackageReferenceSegments(((AadlPackage) bo).getQualifiedName());
+			return getPackageRelativeReference(((AadlPackage) bo).getQualifiedName());
 		} else if (bo instanceof Classifier) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), ((Classifier) bo));
+			return getClassifierRelativeReference(((Classifier) bo).getName());
 		} else if (bo instanceof Subcomponent) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), ((Subcomponent) bo));
 		} else if (bo instanceof Realization) {
-			return new String[] { DeclarativeReferenceType.REALIZATION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.REALIZATION.getId() });
 		} else if (bo instanceof TypeExtension) {
-			return new String[] { DeclarativeReferenceType.TYPE_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.TYPE_EXTENSION.getId() });
 		} else if (bo instanceof ImplementationExtension) {
-			return new String[] { DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId() });
 		} else if (bo instanceof GroupExtension) {
-			return new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() });
 		} else if (bo instanceof Feature) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), ((Feature) bo));
 		} else if (bo instanceof InternalFeature) {
@@ -152,9 +100,10 @@ public class DeclarativeReferenceBuilder {
 			}
 		} else if (bo instanceof ModeTransitionTrigger) {
 			final ModeTransitionTrigger mtt = (ModeTransitionTrigger) bo;
-			return new String[] { DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
-					getNameForSerialization(mtt.getContext()),
-					getNameForSerialization(mtt.getTriggerPort()) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
+							getNameForSerialization(mtt.getContext()),
+							getNameForSerialization(mtt.getTriggerPort()) });
 		} else if (bo instanceof SubprogramCallSequence) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.SUBPROGRAM_CALL_SEQUENCE.getId(),
 					((SubprogramCallSequence) bo));
@@ -163,14 +112,15 @@ public class DeclarativeReferenceBuilder {
 					((SubprogramCall) bo));
 		} else if (bo instanceof SubprogramCallOrder) {
 			final SubprogramCallOrder sco = (SubprogramCallOrder) bo;
-			return new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
-					getNameForSerialization(sco.previousSubprogramCall),
-					getNameForSerialization(sco.subprogramCall) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
+							getNameForSerialization(sco.previousSubprogramCall),
+							getNameForSerialization(sco.subprogramCall) });
 		} else if (bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new String[] { DeclarativeReferenceType.ANNEX_LIBRARY.getId(), annexLibrary.getName(),
-					Integer.toString(index) };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] {
+					DeclarativeReferenceType.ANNEX_LIBRARY.getId(), annexLibrary.getName(), Integer.toString(index) });
 
 		} else if (bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
@@ -179,25 +129,30 @@ public class DeclarativeReferenceBuilder {
 			}
 
 			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new String[] { DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(), annexSubclause.getName(),
-					Integer.toString(index) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+							annexSubclause.getName(), Integer.toString(index) });
 		} else {
 			return null;
 		}
 	}
 
-	private static String[] buildSimpleRelativeReference(final String type, final NamedElement bo) {
+	private static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type,
+			final NamedElement bo) {
 		if (bo == null) {
 			return null;
 		}
 
+		return buildSimpleRelativeReference(type, bo.getName());
+	}
+
+	private static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type, final String name) {
 		// Don't allow null or empty names for simple relative references
-		final String name = bo.getName();
 		if (name == null || name.length() == 0) {
 			return null;
 		}
 
-		return new String[] { type, name };
+		return RelativeBusinessObjectReference.fromNullableSegments(new String[] { type, name });
 	}
 
 	@BuildCanonicalReference
@@ -292,7 +247,7 @@ public class DeclarativeReferenceBuilder {
 		}
 	}
 
-	static String[] buildUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
+	static RelativeBusinessObjectReference buildUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
 		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
 		final String[] key = new String[4 + (triggers.size() * 2)];
 		int index = 0;
@@ -305,7 +260,7 @@ public class DeclarativeReferenceBuilder {
 			key[index++] = getNameForSerialization(trigger.getTriggerPort());
 		}
 
-		return key;
+		return RelativeBusinessObjectReference.fromNullableSegments(key);
 	}
 
 	public static String getNameForSerialization(final NamedElement ne) {

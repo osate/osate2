@@ -1,9 +1,9 @@
 package org.osate.ge.tests.endToEnd;
 
+import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 
 import org.junit.Test;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
@@ -32,8 +32,8 @@ public class PrimaryEndToEndTest {
 	public void testGraphicalEditor() {
 		createSharedProject();
 		createHardwareProject();
-		// createSoftwareProject();
-		// createIntegratedProject();
+		createSoftwareProject();
+		createIntegratedProject();
 	}
 
 	private void createSharedProject() {
@@ -43,7 +43,7 @@ public class PrimaryEndToEndTest {
 		createAadlProject(SHARED);
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
-		final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
+		final RelativeBusinessObjectReference packageRef = getPackageRelativeReference(SHARED);
 		createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
 				packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
 	}
@@ -77,11 +77,11 @@ public class PrimaryEndToEndTest {
 		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE);
 		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE_COMPONENTS_PACKAGE, HARDWARE_COMPONENTS_DIAGRAM);
 
-		final RelativeBusinessObjectReference hardwarePkgRef = getRelativeReference(AadlPackage.class, HARDWARE);
+		final RelativeBusinessObjectReference hardwarePkgRef = getPackageRelativeReference(HARDWARE);
 		setActiveEditor(HARDWARE, HARDWARE);
 		createImplementationWithNewType("System Implementation", "impl", "robot", hardwarePkgRef);
 
-		final RelativeBusinessObjectReference componentsPackage = getRelativeReference(AadlPackage.class,
+		final RelativeBusinessObjectReference componentsPackage = getPackageRelativeReference(
 				HARDWARE_COMPONENTS_PACKAGE);
 		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
 
@@ -91,7 +91,7 @@ public class PrimaryEndToEndTest {
 
 		// Create Device Type servo
 		createElementAndLayout("Device Type", "servo", new RelativeBusinessObjectReference[] { componentsPackage,
-				  getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Bus Access eth
 		createElementAndLayout("Bus Access", "eth", new RelativeBusinessObjectReference[] {componentsPackage, getRelativeReference(Classifier.class, "servo"),
@@ -101,14 +101,14 @@ public class PrimaryEndToEndTest {
 		// Feature group interface
 		createElementAndLayout("Feature Group", "interface",
 				new RelativeBusinessObjectReference[] { componentsPackage,
-						getRelativeReference(Classifier.class, "servo"),
+						getClassifierRelativeReference("servo"),
 						getRelativeReference(Feature.class, "servo_new_feature") },
 				componentsPackage);
 
 		// Set classifier shared::ServoInterface
 		setClassifierFromPropertyView("shared::ServoInterface",
 				new RelativeBusinessObjectReference[] { componentsPackage,
-						getRelativeReference(Classifier.class, "servo"),
+						getClassifierRelativeReference("servo"),
 						getRelativeReference(Feature.class, "interface") });
 
 		// Device type rangefinder
@@ -147,7 +147,7 @@ public class PrimaryEndToEndTest {
 
 		// Create memory type rom
 		createElementAndLayout("Memory Type", "rom", new RelativeBusinessObjectReference[] { componentsPackage,
-				getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Create memory type ram
 		createElementAndLayout("Memory Type", "ram", new RelativeBusinessObjectReference[] { componentsPackage,
