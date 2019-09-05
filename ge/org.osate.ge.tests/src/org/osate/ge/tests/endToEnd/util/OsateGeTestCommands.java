@@ -12,6 +12,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.ui.IEditorReference;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 
 /**
  * High level commands for testing the OSATE Graphical editor.
@@ -148,5 +151,160 @@ public class OsateGeTestCommands {
 
 		// Wait for completion
 		waitForDiagramActive(projectName, "diagrams", diagramName);
+	}
+
+	/**
+	 * Sets the active editor.
+	 * @param projectName the project name
+	 * @param diagramName the diagram name
+	 */
+	public static void setActiveEditor(final String projectName, final String diagramName) {
+		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
+		setActiveDiagramEditor(diagramPathSegments);
+		waitForDiagramActive(diagramPathSegments);
+	}
+
+	/**
+	 * Creates an implementation and type.
+	 * @param toolType the type to create
+	 * @param implName the implementation name
+	 * @param typeName the type name
+	 * @param refs the relative reference from the root diagram element to the package of the new implementation
+	 */
+	public static void createImplementationWithNewType(final String toolType, final String implName, final String typeName,
+			final RelativeBusinessObjectReference... refs) {
+		final IEditorReference editorRef = getActiveEditor();
+		// Initial edit parts
+		final int editPartsBefore = getEditPartsSize();
+
+		activateToolType(editorRef, toolType);
+		clickElement(editorRef, refs);
+
+		waitForWindowWithTitle("Create Component Implementation");
+		setTextField(0, implName, "");
+
+		clickRadioButton("New Component Type");
+		setTextField(1, typeName, "");
+
+		clickButton("OK");
+		activateDefaultTool(editorRef);
+
+		waitForElementToBeCreated(editPartsBefore);
+
+		layoutElementFromContextMenu(refs);
+	}
+
+	// TODO not implemented
+	public static void createImplementationWithExistingType(final String toolType, final String implName,
+			final String typeName, final RelativeBusinessObjectReference... refs) {
+		final IEditorReference editorRef = getActiveEditor();
+		activateToolType(editorRef, toolType);
+		clickElement(editorRef, refs);
+		activateDefaultTool(editorRef);
+
+		waitForWindowWithTitle("Create Component Implementation");
+		setTextField(0, implName, "");
+		clickRadioButton("Existing");
+
+	}
+
+	public static void createElementAndLayout(final String toolType, final String name,
+			final RelativeBusinessObjectReference[] pathToNewElement,
+			final RelativeBusinessObjectReference layoutElement) {
+		createShapeElement(toolType, Arrays.copyOfRange(pathToNewElement, 0, pathToNewElement.length - 1));
+		renameElementFromContextMenu(name, pathToNewElement);
+		// Layout
+		layoutElementFromContextMenu(layoutElement);
+	}
+
+	/**
+	 * Create a shape element the active diagram within the referenced element.
+	 * @param toolType the type of the new element
+	 * @param refs the relative reference from the root diagram element to the parent of the new element
+	 */
+	private static void createShapeElement(final String toolType, final RelativeBusinessObjectReference... refs) {
+		// Initial edit parts
+		final int editPartsBefore = getEditPartsSize();
+
+		// Create element
+		final IEditorReference editorRef = getActiveEditor();
+
+		activateToolType(editorRef, toolType);
+		clickElement(editorRef, refs);
+		activateDefaultTool(editorRef);
+
+		// Wait for element to be created
+		waitForElementToBeCreated(editPartsBefore);
+	}
+
+	// TODO
+	public static void createConnectionElement(final String toolType, final RelativeBusinessObjectReference[] srcRef,
+			final RelativeBusinessObjectReference[] destRef) {
+
+	}
+
+	// TODO: fix wording properties or property?
+	private static void setClassifierFromPropertyView(final String classifier) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab("AADL");
+		clickButton("Choose...");
+		waitForWindowWithTitle("Select a Classifier");
+
+		clickTableItem(0, classifier);
+		clickButton("OK");
+	}
+
+	// Change to show TAB?
+	// Click button after
+	private static void clickRadioButtonInPropertyView(final String btnLabel) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab("AADL");
+		// clickButton(btnLabel);
+		clickRadioButton(btnLabel);
+	}
+
+	public static void setClassifierFromPropertyView(final String classifier, final RelativeBusinessObjectReference[]... refs) {
+		selectElements(getActiveEditor(), refs);
+		setClassifierFromPropertyView(classifier);
+	}
+
+	public static void clickButtonInPropertyView(final String btnLabel,
+			final RelativeBusinessObjectReference[]... refs) {
+		selectElements(getActiveEditor(), refs);
+		clickRadioButtonInPropertyView(btnLabel);
+	}
+
+	private static void layoutElementFromContextMenu(final RelativeBusinessObjectReference... ref) {
+		clickElement(getActiveEditor(), ref);
+		clickContextMenuOfFocused("Layout", "Layout Diagram");
+	}
+
+	/**
+	 * Renames an element using the diagram context menu.
+	 * @param newName the name of the new element
+	 * @param refs the relative reference from the root diagram element to the element to rename
+	 */
+	private static void renameElementFromContextMenu(final String newName,
+			final RelativeBusinessObjectReference... refs) {
+		final IEditorReference editorRef = getActiveEditor();
+		selectElements(editorRef, refs);
+		clickRenameFromContextMenu(newName);
+		// TODO rework?
+		final RelativeBusinessObjectReference[] newRefs = new RelativeBusinessObjectReference[refs.length];
+		for (int i = 0; i < refs.length - 1; i++) {
+			newRefs[i] = refs[i];
+		}
+
+		final RelativeBusinessObjectReference ref = refs[refs.length - 1];
+		newRefs[refs.length - 1] = new RelativeBusinessObjectReference(ref.toSegmentArray()[0], newName);
+		selectElements(editorRef, newRefs);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReference(final Class<?> clazz, final String name) {
+		return DeclarativeReferenceBuilder.buildRelativeReference(clazz, name);
 	}
 }
