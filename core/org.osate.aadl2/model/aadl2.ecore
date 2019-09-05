@@ -1514,7 +1514,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Context #//CalledSubprogram">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>

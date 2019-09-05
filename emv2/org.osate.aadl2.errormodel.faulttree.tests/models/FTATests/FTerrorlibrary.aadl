@@ -18,6 +18,12 @@ transitions
 	SecondFailure : Degraded -[ Failure ]-> FailStop ;
 	DirectFailure : Operational -[ Failure ]-> FailStop ;
 end behavior ;
+	error behavior ThreeStates
+	  states 
+	    operational: initial state; 
+	    standby : state;
+	    failed : state;
+	end behavior;
 		
 	**};
 	

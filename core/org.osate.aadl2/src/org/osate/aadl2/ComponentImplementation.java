@@ -104,6 +104,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @see #setType(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_Type()
 	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentType getType();
@@ -199,6 +200,8 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Processor Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedProcessorFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ProcessorFeature> getOwnedProcessorFeatures();
@@ -226,6 +229,8 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Internal Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedInternalFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<InternalFeature> getOwnedInternalFeatures();
@@ -251,6 +256,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Event Source</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEventSource()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventSource> getOwnedEventSources();
@@ -286,6 +292,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Event Data Source</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEventDataSource()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataSource> getOwnedEventDataSources();
@@ -321,6 +328,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Port Proxy</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortProxy()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PortProxy> getOwnedPortProxies();
@@ -356,6 +364,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Subprogram Proxy</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedSubprogramProxy()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramProxy> getOwnedSubprogramProxies();
@@ -421,6 +430,8 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Subcomponent</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedSubcomponent()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Subcomponent> getOwnedSubcomponents();
@@ -446,6 +457,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @see #setExtended(ComponentImplementation)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_Extended()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	@Override
@@ -485,6 +497,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Flow Implementation</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFlowImplementation()
 	 * @model containment="true"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FlowImplementation> getOwnedFlowImplementations();
@@ -521,6 +534,8 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Connection</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedConnection()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Connection> getOwnedConnections();
@@ -546,6 +561,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @see #setOwnedExtension(ImplementationExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedExtension()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ImplementationExtension getOwnedExtension();
@@ -591,6 +607,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @see #setOwnedRealization(Realization)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedRealization()
 	 * @model containment="true" required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Realization getOwnedRealization();
@@ -637,6 +654,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Abstract Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAbstractSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AbstractSubcomponent> getOwnedAbstractSubcomponents();
@@ -671,6 +689,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Access Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedAccessConnection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AccessConnection> getOwnedAccessConnections();
@@ -706,6 +725,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Parameter Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedParameterConnection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ParameterConnection> getOwnedParameterConnections();
@@ -741,6 +761,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Port Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortConnection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PortConnection> getOwnedPortConnections();
@@ -776,6 +797,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Feature Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureConnection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FeatureConnection> getOwnedFeatureConnections();
@@ -811,6 +833,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Feature Group Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedFeatureGroupConnection()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FeatureGroupConnection> getOwnedFeatureGroupConnections();
@@ -848,6 +871,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @return the value of the '<em>Owned End To End Flow</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEndToEndFlow()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EndToEndFlow> getOwnedEndToEndFlows();

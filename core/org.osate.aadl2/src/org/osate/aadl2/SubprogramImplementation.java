@@ -55,7 +55,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getSubprogramImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface SubprogramImplementation extends BehavioredImplementation, SubprogramClassifier {
@@ -80,6 +80,7 @@ public interface SubprogramImplementation extends BehavioredImplementation, Subp
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -115,6 +116,7 @@ public interface SubprogramImplementation extends BehavioredImplementation, Subp
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();

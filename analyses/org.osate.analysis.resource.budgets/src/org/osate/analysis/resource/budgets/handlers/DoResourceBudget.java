@@ -90,13 +90,6 @@ public class DoResourceBudget extends AaxlReadOnlyHandlerAsJob {
 			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 			DoResourceBudgetLogic logic = null;
 
-			InstanceValidation iv = new InstanceValidation(this);
-			if (!iv.checkReferenceProcessor(si)) {
-				Dialog.showWarning("Resource Budget Analysis",
-						"Model contains thread execution times without reference processor.");
-				return;
-			}
-
 			logic = new DoResourceBudgetLogic(this);
 			final SOMIterator soms = new SOMIterator(si);
 			while (soms.hasNext()) {

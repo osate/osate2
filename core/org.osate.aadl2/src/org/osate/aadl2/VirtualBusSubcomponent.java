@@ -78,6 +78,7 @@ public interface VirtualBusSubcomponent extends Subcomponent, AccessConnectionEn
 	 * @see #setVirtualBusSubcomponentType(VirtualBusSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusSubcomponent_VirtualBusSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	VirtualBusSubcomponentType getVirtualBusSubcomponentType();
