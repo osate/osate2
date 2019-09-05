@@ -218,7 +218,7 @@ public class DefaultReferenceService implements ReferenceService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final Object rawRef = (String[]) ContextInjectionFactory.invoke(refBuilder,
+				final Object rawRef = ContextInjectionFactory.invoke(refBuilder,
 						BuildRelativeReference.class, serviceContext, argCtx, null);
 				if (rawRef != null) {
 					if (rawRef instanceof RelativeBusinessObjectReference) {
