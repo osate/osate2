@@ -1221,8 +1221,8 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 */
 	@Override
 	public EList<Feature> getAllFeatures() {
-		final List<Feature> allFeatures = new LinkedList<Feature>();
-		final List<Feature> refinedFeatures = new LinkedList<Feature>();
+		final List<Feature> allFeatures = new LinkedList<>();
+		final List<Feature> refinedFeatures = new LinkedList<>();
 		final HashSet<FeatureGroupType> seen = new HashSet<>();
 
 		FeatureGroupType current = this;
@@ -1268,7 +1268,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			}
 		}
 
-		return new BasicEList<Feature>(allFeatures);
+		return new BasicEList<>(allFeatures);
 	}
 
 	@Override

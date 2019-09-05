@@ -99,12 +99,12 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -126,7 +126,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(UnitLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<>(UnitLiteral.class, this,
 					Aadl2Package.UNITS_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;

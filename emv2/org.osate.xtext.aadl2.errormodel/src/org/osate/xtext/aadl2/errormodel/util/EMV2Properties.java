@@ -41,6 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class EMV2Properties {
@@ -108,6 +109,21 @@ public class EMV2Properties {
 		double prob = 0;
 		for (EMV2PropertyAssociation emv2PropertyAssociation : PA) {
 			prob += EMV2Properties.getOccurrenceValue(emv2PropertyAssociation);
+		}
+		return prob;
+	}
+
+	public static double getProbability(NamedElement ci, NamedElement ne, TypeToken tt) {
+		double prob = 0;
+		if (tt == null) {
+			List<EMV2PropertyAssociation> PA = EMV2Properties.getOccurrenceDistributionProperty(ci, ne, null);
+			for (EMV2PropertyAssociation emv2PropertyAssociation : PA) {
+				prob += EMV2Properties.getOccurrenceValue(emv2PropertyAssociation);
+			}
+		} else {
+			for (ErrorTypes et : tt.getType()) {
+				prob += EMV2Properties.getProbability(ci, ne, et);
+			}
 		}
 		return prob;
 	}

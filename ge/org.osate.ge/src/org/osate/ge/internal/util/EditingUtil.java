@@ -3,9 +3,14 @@ package org.osate.ge.internal.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -213,5 +218,43 @@ public class EditingUtil {
 
 		final BusinessObjectType targetBo = targetClass.cast(bo);
 		return filter.test(targetBo);
+	}
+
+	/**
+	 * Returning an optional describing the resource set in which the object's resource is contained. Returns empty optional if the object, the resource, or the resource set is null.
+	 */
+	private static Optional<ResourceSet> getResourceSet(final EObject obj) {
+		return Optional.ofNullable(obj).flatMap(eobj -> Optional.ofNullable(eobj.eResource()))
+				.flatMap(r -> Optional.ofNullable(r.getResourceSet()));
+	}
+
+	/**
+	 * Returns true if and only if the specified list contains at least one business object and all business objects are contained in the the same valid resource set.
+	 */
+	public static boolean allHaveSameValidResourceSet(final List<? extends EObject> bos) {
+		if(bos.size() == 0) {
+			return false;
+		}
+
+		final Optional<ResourceSet> firstResourceSet = getResourceSet(bos.get(0));
+		if (!firstResourceSet.isPresent()) {
+			return false;
+		}
+
+		return bos.stream().allMatch(bo -> EditingUtil.getResourceSet(bo).equals(firstResourceSet));
+	}
+
+	/**
+	 * Attempts to return a resolved version of the specified EObject.
+	 * If the specified EObject is not a proxy, it returns the EObject. If the specified EObject is a proxy,
+	 * it attempts to resolve the proxy using a live resource set for the specified project and returns the result.
+	 */
+	public static EObject resolveWithLiveResourceSetIfProject(final EObject obj, final IProject project) {
+		if (obj.eIsProxy()) {
+			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+			return EcoreUtil.resolve(obj, liveResourceSet);
+		} else {
+			return obj;
+		}
 	}
 }

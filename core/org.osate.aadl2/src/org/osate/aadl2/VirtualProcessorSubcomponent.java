@@ -78,6 +78,7 @@ public interface VirtualProcessorSubcomponent extends Subcomponent, VirtualProce
 	 * @see #setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType();

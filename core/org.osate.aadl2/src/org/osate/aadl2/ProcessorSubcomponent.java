@@ -78,6 +78,7 @@ public interface ProcessorSubcomponent extends Subcomponent, Processor {
 	 * @see #setProcessorSubcomponentType(ProcessorSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorSubcomponent_ProcessorSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ProcessorSubcomponentType getProcessorSubcomponentType();

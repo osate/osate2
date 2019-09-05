@@ -85,6 +85,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();
@@ -120,6 +121,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedDataAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataAccess> getOwnedDataAccesses();
@@ -155,6 +157,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -190,6 +193,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -225,6 +229,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -260,6 +265,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -295,6 +301,7 @@ public interface AbstractType extends ComponentType, AbstractClassifier, CallCon
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

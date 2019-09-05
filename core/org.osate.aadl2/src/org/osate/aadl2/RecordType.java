@@ -80,6 +80,7 @@ public interface RecordType extends Namespace, NonListType {
 	 * @return the value of the '<em>Owned Field</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getRecordType_OwnedField()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BasicProperty> getOwnedFields();

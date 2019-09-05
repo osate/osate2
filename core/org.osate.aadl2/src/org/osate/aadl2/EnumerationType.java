@@ -80,6 +80,7 @@ public interface EnumerationType extends Namespace, NonListType {
 	 * @return the value of the '<em>Owned Literal</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getEnumerationType_OwnedLiteral()
 	 * @model containment="true" required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EnumerationLiteral> getOwnedLiterals();

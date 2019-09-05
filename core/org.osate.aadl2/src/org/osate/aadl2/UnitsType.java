@@ -46,7 +46,7 @@ package org.osate.aadl2;
  *
  *
  * @see org.osate.aadl2.Aadl2Package#getUnitsType()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface UnitsType extends EnumerationType {

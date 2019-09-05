@@ -95,6 +95,8 @@ public interface Classifier extends Namespace, Type {
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_ClassifierFeature()
 	 * @see org.osate.aadl2.ClassifierFeature#getFeaturingClassifiers
 	 * @model opposite="featuringClassifier" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ClassifierFeature> getClassifierFeatures();
@@ -117,6 +119,7 @@ public interface Classifier extends Namespace, Type {
 	 * @return the value of the '<em>Inherited Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_InheritedMember()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<NamedElement> getInheritedMembers();
@@ -142,6 +145,8 @@ public interface Classifier extends Namespace, Type {
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_Generalization()
 	 * @see org.osate.aadl2.Generalization#getSpecific
 	 * @model opposite="specific" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Generalization> getGeneralizations();
@@ -159,6 +164,7 @@ public interface Classifier extends Namespace, Type {
 	 * @return the value of the '<em>General</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_General()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	EList<Classifier> getGenerals();
@@ -184,6 +190,7 @@ public interface Classifier extends Namespace, Type {
 	 * @return the value of the '<em>Owned Prototype</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_OwnedPrototype()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Prototype> getOwnedPrototypes();
@@ -250,6 +257,7 @@ public interface Classifier extends Namespace, Type {
 	 * @return the value of the '<em>Owned Annex Subclause</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifier_OwnedAnnexSubclause()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AnnexSubclause> getOwnedAnnexSubclauses();

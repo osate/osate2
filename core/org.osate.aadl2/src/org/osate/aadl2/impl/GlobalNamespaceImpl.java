@@ -98,12 +98,12 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						members = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
 	}
 

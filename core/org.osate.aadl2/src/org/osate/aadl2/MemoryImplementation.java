@@ -55,7 +55,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface MemoryImplementation extends ComponentImplementation, MemoryClassifier {
@@ -80,6 +80,7 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -115,6 +116,7 @@ public interface MemoryImplementation extends ComponentImplementation, MemoryCla
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getMemoryImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();

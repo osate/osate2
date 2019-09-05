@@ -96,12 +96,12 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						members = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
 				MEMBER_ESUBSETS);
 	}
 
@@ -120,12 +120,12 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
 								Aadl2Package.NAMESPACE__OWNED_MEMBER, null));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
 	}
 
@@ -144,12 +144,12 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
+						ownedElements = new DerivedUnionEObjectEList<>(Element.class, this,
 								Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
 
