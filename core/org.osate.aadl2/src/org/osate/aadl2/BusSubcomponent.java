@@ -78,6 +78,7 @@ public interface BusSubcomponent extends Subcomponent, AccessConnectionEnd, Bus 
 	 * @see #setBusSubcomponentType(BusSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getBusSubcomponent_BusSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	BusSubcomponentType getBusSubcomponentType();

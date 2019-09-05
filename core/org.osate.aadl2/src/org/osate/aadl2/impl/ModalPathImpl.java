@@ -100,7 +100,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
 					Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;

@@ -58,7 +58,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface ThreadGroupImplementation extends ComponentImplementation, ThreadGroupClassifier {
@@ -83,6 +83,7 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -118,6 +119,7 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * @return the value of the '<em>Owned Thread Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation_OwnedThreadSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ThreadSubcomponent> getOwnedThreadSubcomponents();
@@ -153,6 +155,7 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * @return the value of the '<em>Owned Thread Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation_OwnedThreadGroupSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents();
@@ -188,6 +191,7 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
@@ -223,6 +227,7 @@ public interface ThreadGroupImplementation extends ComponentImplementation, Thre
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents();

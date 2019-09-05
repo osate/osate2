@@ -1,0 +1,16 @@
+package BindingsPath
+public
+	bus PCI
+	annex EMV2 {**
+	use types ErrorLibrary;
+	error propagations
+		bindings: out propagation {ServiceOmission};
+	end propagations;
+	properties
+		EMV2::OccurrenceDistribution => [
+			ProbabilityValue => 0.567;]
+			applies to  bindings.ServiceOmission;
+		**};
+	end PCI;
+
+end BindingsPath;
