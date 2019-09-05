@@ -1891,6 +1891,12 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					//Tests typeCheckFeatureConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in an 'abstract subcomponent' is not a valid feature connection end.")
 				]
+				// From fixing Issue 1954
+				ownedFeatureConnections.get(59) => [
+					"fconn60".assertEquals(name)
+					//Tests typeCheckFeatureConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
+				]
 				ownedFeatureConnections.get(65) => [
 					"fconn66".assertEquals(name)
 					//Tests typeCheckFeatureConnectionEnd
