@@ -9,9 +9,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
+import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -32,6 +37,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
  * Provides functions for controlling the user interface.
@@ -336,10 +342,39 @@ public class UiTestUtil {
 		editor.select(botEditParts);
 	}
 
+	// Scrolls to and clicks an edit part
 	public static void clickEditPart(final IEditorReference editorRef, final EditPart editPart) {
+		scrollToEditPart(editorRef, editPart);
+
 		final SWTBotGefEditor editor = getGefEditor(editorRef);
 		final List<SWTBotGefEditPart> botEditParts = findEditPart(editor, Arrays.asList(editPart));
 		editor.click(botEditParts.get(0));
+	}
+
+	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
+		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
+		assertNotNull("Editor is null", editor);
+
+		Display.getDefault().syncExec(() -> {
+			// Get the figure canvas for the editor
+			final Control viewerControl = editor.getGraphicalViewer().getControl();
+			assertTrue("Graphical viewer control is not a FigureCanvas instance",
+					viewerControl instanceof FigureCanvas);
+			final FigureCanvas viewerCanvas = (FigureCanvas) viewerControl;
+
+			// Get the figure
+			assertTrue("Edit part is not a GraphicalEditPart", editPart instanceof GraphicalEditPart);
+			final IFigure figure = ((GraphicalEditPart) editPart).getFigure();
+			assertNotNull("Figure is null", figure);
+
+			// Get absolute bounds
+			final Rectangle bounds = figure.getBounds().getCopy();
+			figure.translateToAbsolute(bounds);
+
+			// Scroll to the edit part
+			viewerCanvas.scrollTo(bounds.x, bounds.y);
+
+		});
 	}
 
 	/**
