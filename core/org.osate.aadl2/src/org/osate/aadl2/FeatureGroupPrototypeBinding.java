@@ -53,7 +53,7 @@ package org.osate.aadl2;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototypeBinding()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface FeatureGroupPrototypeBinding extends PrototypeBinding {

@@ -28,7 +28,7 @@ annex emv2 {**
 	error propagations
 	FromAP1Port: in propagation {NoValue};
 	FromAP2Port: in propagation {NoValue};
-	OutPort: out propagation {NoValue};
+	OutPort: out propagation {ValueProblem};
 	flows
 		port1: error path all -> all;
 	end propagations;
@@ -52,7 +52,7 @@ annex emv2 {**
   use behavior FGSErrorModelLibrary::TwoState;
 	error propagations
 	inport: in propagation {NoValue};
-	outport : out propagation {NoValue};
+	outport : out propagation {ValueProblem};
 	end propagations;
 	**};
 end FGS;
@@ -72,7 +72,7 @@ annex emv2 {**
   use types FGSErrorModelLibrary;        
 component error behavior 
 propagations
-    all -[AC.outport{NoValue}]-> outport{NoValue};
+    all -[AC.outport]-> outport{ValueProblem};
 end component;
 **};
 end FGS.impl;

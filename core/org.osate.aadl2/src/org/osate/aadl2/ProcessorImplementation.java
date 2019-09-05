@@ -57,7 +57,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface ProcessorImplementation extends ComponentImplementation, ProcessorClassifier {
@@ -82,6 +82,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -117,6 +118,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * @return the value of the '<em>Owned Memory Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedMemorySubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<MemorySubcomponent> getOwnedMemorySubcomponents();
@@ -152,6 +154,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();
@@ -187,6 +190,7 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * @return the value of the '<em>Owned Virtual Processor Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorImplementation_OwnedVirtualProcessorSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents();

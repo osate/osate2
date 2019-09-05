@@ -35,6 +35,7 @@ package org.osate.xtext.aadl2.properties.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -889,7 +890,7 @@ public class GetProperties {
 	 */
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
 		double refmipspersec = getReferenceMIPS(thread);
-		double mipspersec = getBoundProcessorMIPS(thread);
+		double mipspersec = getBoundPhysicalProcessorMIPS(thread);
 		if (refmipspersec == 0 || mipspersec == 0) {
 			return 1;
 		}
@@ -910,10 +911,19 @@ public class GetProperties {
 	}
 
 	/**
-	 * Get the MIPS per sec of the bound processor. First tries to find the MIPS
-	 * capacity. If it does not find it, then it gets the cycle time of that
-	 * processor. Failing that, it returns a value corresponding to a 1GIPS
-	 * processor.
+	 * Get the MIPS per sec of the bound physical processor. The MIPS
+	 * capacity of the bound physical processor
+	 */
+	public static double getBoundPhysicalProcessorMIPS(final ComponentInstance thread) {
+		Iterator<ComponentInstance> pcis = InstanceModelUtil.getBoundPhysicalProcessors(thread).iterator();
+		if (pcis.hasNext()) {
+			return getMIPSCapacityInMIPS(pcis.next(), 0);
+		}
+		return 0.0;
+	}
+
+	/**
+	 * Get the MIPS capacity of the bound processor.
 	 */
 	public static double getBoundProcessorMIPS(final ComponentInstance thread) {
 		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
@@ -999,6 +1009,9 @@ public class GetProperties {
 			double exectimeval = getMaximumComputeExecutionTimeinSec(threadinstance);
 			if (exectimeval > 0 && period > 0) {
 				double mipspersec = getReferenceMIPS(threadinstance);
+				if (mipspersec == 0) {
+					mipspersec = getBoundPhysicalProcessorMIPS(threadinstance);
+				}
 				double time = exectimeval / period;
 				mips = time * mipspersec;
 			}

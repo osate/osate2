@@ -93,8 +93,7 @@ public final class FTAHandler extends AbstractHandler {
 		}
 		stateNames = new ArrayList<String>();
 		for (ErrorPropagation outprop : EMV2Util.getAllOutgoingErrorPropagations(target.getComponentClassifier())) {
-			EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet(),
-					EMV2Util.getUseTypes(outprop));
+			EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(outprop.getTypeSet());
 			for (TypeToken tt : result) {
 				String epName = CreateFTAModel.prefixOutgoingPropagation + EMV2Util.getPrintName(outprop)
 						+ EMV2Util.getPrintName(tt);

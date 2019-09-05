@@ -54,7 +54,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getVirtualBusImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface VirtualBusImplementation extends ComponentImplementation, VirtualBusClassifier {
@@ -79,6 +79,7 @@ public interface VirtualBusImplementation extends ComponentImplementation, Virtu
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();

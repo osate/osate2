@@ -85,6 +85,7 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * @return the value of the '<em>Owned Mode</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedMode()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Mode> getOwnedModes();
@@ -121,6 +122,7 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * @return the value of the '<em>Owned Mode Transition</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_OwnedModeTransition()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ModeTransition> getOwnedModeTransitions();

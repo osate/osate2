@@ -256,7 +256,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Connection 'fconn1' continues inside subcomponent 'asub1'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -270,7 +270,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -294,7 +294,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg1.da3'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
@@ -304,7 +304,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -328,7 +328,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Feature Group.Data Access 'fg2.da3'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["da3"])
@@ -338,7 +338,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -361,7 +361,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
@@ -371,7 +371,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -394,7 +394,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
@@ -404,7 +404,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -428,7 +428,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call1.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -438,7 +438,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -462,7 +462,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call2.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -472,7 +472,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -496,7 +496,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call3.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -506,7 +506,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -530,7 +530,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call4.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -540,7 +540,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -564,7 +564,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call5.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -574,7 +574,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -598,7 +598,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call6.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -608,7 +608,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -632,7 +632,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call7.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -642,7 +642,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -666,7 +666,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call8.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -676,7 +676,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -700,7 +700,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call12.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -710,7 +710,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -734,7 +734,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Subprogram Call.Data Access 'call13.da4'")
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
@@ -744,7 +744,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn1".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3", "call4",
-							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+							"call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 						])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub1", "asub2", "da1", "fconn1", "fconn2", "fsource1", "fsource10",
@@ -768,7 +768,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsource20".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -781,7 +781,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -797,7 +797,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -821,7 +821,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'feature group' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -832,7 +832,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -848,7 +848,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -872,7 +872,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'feature group' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -883,7 +883,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -899,7 +899,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -923,7 +923,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -936,7 +936,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -952,7 +952,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -976,7 +976,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -989,7 +989,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1005,7 +1005,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1029,7 +1029,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1042,7 +1042,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1058,7 +1058,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1082,7 +1082,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1095,7 +1095,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1111,7 +1111,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1135,7 +1135,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1148,7 +1148,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1164,7 +1164,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1188,7 +1188,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1201,7 +1201,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1217,7 +1217,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1241,7 +1241,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1254,7 +1254,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1270,7 +1270,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1294,7 +1294,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1307,7 +1307,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1323,7 +1323,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1347,7 +1347,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1360,7 +1360,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1376,7 +1376,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1400,7 +1400,7 @@ class FlowSegmentsTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1413,7 +1413,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fconn2".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1429,7 +1429,7 @@ class FlowSegmentsTest extends XtextTest {
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub1", "asub2", "call1", "call12", "call13", "call2", "call3",
-							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
+							"call4", "call5", "call6", "call7", "call8", "dp1", "edp1", "fg1", "fg2", "subpa1", "subpa2","subpgsub1", "subpgsub2", "subpgsub3", "subpsub1",
 							"subpsub2"
 						])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
@@ -1486,7 +1486,7 @@ class FlowSegmentsTest extends XtextTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param1.da2'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
@@ -1494,7 +1494,7 @@ class FlowSegmentsTest extends XtextTest {
 						context.assertNull
 						"fconn5".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
@@ -1508,7 +1508,7 @@ class FlowSegmentsTest extends XtextTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Expected Data Access, Subcomponent, or Subcomponent.Flow Specification; found Parameter.Data Access 'param2.da2'")
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub3", "da2", "fconn3", "fconn4", "fsink1", "fsource20"])
 					]
@@ -1516,7 +1516,7 @@ class FlowSegmentsTest extends XtextTest {
 						context.assertNull
 						"fconn5".assertEquals(flowElement.name)
 						//Tests scope_FlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.flowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_FlowSegment_flowElement(FlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.flowSegment_FlowElement, #["asub4", "da4", "fconn5", "fconn6", "fsource21", "fsource22"])
 					]
@@ -1532,7 +1532,7 @@ class FlowSegmentsTest extends XtextTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
@@ -1542,7 +1542,7 @@ class FlowSegmentsTest extends XtextTest {
 						context.assertNull
 						"fconn6".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
@@ -1552,7 +1552,7 @@ class FlowSegmentsTest extends XtextTest {
 						"asub4".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
@@ -1570,7 +1570,7 @@ class FlowSegmentsTest extends XtextTest {
 						"da2".assertEquals(flowElement.name)
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"
@@ -1580,7 +1580,7 @@ class FlowSegmentsTest extends XtextTest {
 						context.assertNull
 						"fconn6".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub4", "da4", "etef19", "etef20", "fconn5", "fconn6",
 							"fsource21", "fsource22"
@@ -1590,7 +1590,7 @@ class FlowSegmentsTest extends XtextTest {
 						"asub4".assertEquals(context.name)
 						"fsink1".assertEquals(flowElement.name)
 						//Tests scope_EndToEndFlowSegment_context
-						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2"])
+						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_Context, #["asub4", "param1", "param2","subpa4"])
 						//Tests scope_EndToEndFlowSegment_flowElement(EndToEndFlowSegment, EReference)
 						assertScope(Aadl2Package::eINSTANCE.endToEndFlowSegment_FlowElement, #["asub3", "da2", "etef18", "fconn3", "fconn4", "fsink1",
 							"fsource20"

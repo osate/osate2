@@ -82,6 +82,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * @return the value of the '<em>Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Prototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentPrototype getPrototype();
@@ -101,6 +102,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * @return the value of the '<em>Feature Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_FeatureClassifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	FeatureClassifier getFeatureClassifier();
@@ -125,6 +127,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Classifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Classifier getClassifier();
@@ -150,6 +153,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * @see #setRefined(Feature)
 	 * @see org.osate.aadl2.Aadl2Package#getFeature_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Feature getRefined();

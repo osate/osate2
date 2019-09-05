@@ -76,6 +76,7 @@ public interface Element extends AObject {
 	 * @return the value of the '<em>Owned Element</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedElement()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	EList<Element> getOwnedElements();
@@ -98,6 +99,7 @@ public interface Element extends AObject {
 	 * @return the value of the '<em>Owned Comment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedComment()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Comment> getOwnedComments();
