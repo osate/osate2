@@ -205,7 +205,25 @@ public class OsateGeTestCommands {
 		waitForWindowWithTitle("Create Component Implementation");
 		setTextField(0, implName, "");
 		clickRadioButton("Existing");
+	}
 
+	public static void setSubcomponentToNewTypeFromPropertiesView(final RelativeBusinessObjectReference[] refs,
+			final String packageName, final String newTypeName) {
+		clickButtonInPropertiesView("Create...", refs);
+
+		waitForWindowWithTitle("Create Classifier");
+
+		waitForWindowWithTitle("Create Component Classifier");
+
+		clickButton("...");
+
+		waitForWindowWithTitle("Select a Package");
+
+		clickTableItem(0, packageName);
+
+		setTextField(0, newTypeName, "");
+
+		clickButton("OK");
 	}
 
 	public static void createElementAndLayout(final String toolType, final String name,
@@ -258,13 +276,20 @@ public class OsateGeTestCommands {
 
 	// Change to show TAB?
 	// Click button after
-	private static void clickRadioButtonInPropertyView(final String btnLabel) {
+	private static void clickRadioButtonInPropertyView(final String btnLabel, final String tabLabel) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
-		// clickButton(btnLabel);
+		clickViewTab(tabLabel);
 		clickRadioButton(btnLabel);
+	}
+
+	private static void clickButtonInPropertiesView(final String btnLabel, final String tabLabel) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab(tabLabel);
+		clickButton(btnLabel);
 	}
 
 	public static void setClassifierFromPropertyView(final String classifier, final RelativeBusinessObjectReference[]... refs) {
@@ -272,10 +297,16 @@ public class OsateGeTestCommands {
 		setClassifierFromPropertyView(classifier);
 	}
 
-	public static void clickButtonInPropertyView(final String btnLabel,
+	public static void clickButtonInPropertiesView(final String btnLabel,
 			final RelativeBusinessObjectReference[]... refs) {
 		selectElements(getActiveEditor(), refs);
-		clickRadioButtonInPropertyView(btnLabel);
+		clickButtonInPropertiesView(btnLabel, "AADL");
+	}
+
+	public static void clickRadioButtonInPropertyView(final String btnLabel,
+			final RelativeBusinessObjectReference[]... refs) {
+		selectElements(getActiveEditor(), refs);
+		clickRadioButtonInPropertyView(btnLabel, "AADL");
 	}
 
 	private static void layoutElementFromContextMenu(final RelativeBusinessObjectReference... ref) {
