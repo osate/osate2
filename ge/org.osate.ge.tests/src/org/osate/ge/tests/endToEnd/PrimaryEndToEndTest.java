@@ -43,9 +43,9 @@ public class PrimaryEndToEndTest {
 		createAadlProject(SHARED);
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
-		// final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
-		// createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
-		// packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
+		final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
+		createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
+				packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
 	}
 
 
@@ -123,19 +123,20 @@ public class PrimaryEndToEndTest {
 				componentsPackage);
 
 		// Set classifier for rangefinder::eth and servo::eth
-		setClassifierFromPropertyView("hardware::components::ethernet",
-				new RelativeBusinessObjectReference[] { componentsPackage,
-						getRelativeReference(Classifier.class, "rangefinder"),
-						getRelativeReference(Feature.class, "eth") },
-				new RelativeBusinessObjectReference[] { componentsPackage,
-						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
+		// setClassifierFromPropertyView("hardware::components::ethernet",
+		// new RelativeBusinessObjectReference[] { componentsPackage,
+		// getRelativeReference(Classifier.class, "rangefinder"),
+		// getRelativeReference(Feature.class, "eth") },
+		// new RelativeBusinessObjectReference[] { componentsPackage,
+		// getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
 
-		// Set requires bus access
-		clickRadioButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
-				getRelativeReference(Classifier.class, "rangefinder"), getRelativeReference(Feature.class, "eth") },
-				new RelativeBusinessObjectReference[] { componentsPackage,
-						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
-
+		/*
+		 * // Set requires bus access
+		 * clickRadioButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
+		 * getRelativeReference(Classifier.class, "rangefinder"), getRelativeReference(Feature.class, "eth") },
+		 * new RelativeBusinessObjectReference[] { componentsPackage,
+		 * getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
+		 */
 		// Data Port range_o
 		createElementAndLayout("Data Port", "range_o", new RelativeBusinessObjectReference[] { componentsPackage,
 				getRelativeReference(Classifier.class, "rangefinder"),
@@ -207,10 +208,22 @@ public class PrimaryEndToEndTest {
 		setSubcomponentToNewTypeFromPropertiesView(new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getRelativeReference(Classifier.class, "robot.impl"),
 				getRelativeReference(Subcomponent.class, "ethernet_buses") }, HARDWARE_COMPONENTS_PACKAGE, "ethernet");
-		// setClassifierFromPropertyView("hardware::components::ethernet",
-		// new RelativeBusinessObjectReference[] { hardwarePkgRef,
-		// getRelativeReference(Classifier.class, "robot.impl"),
-		// getRelativeReference(Subcomponent.class, "ethernet_buses") });
+
+		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
+
+		// Set classifier for rangefinder::eth and servo::eth
+		setClassifierFromPropertyView("hardware::components::ethernet",
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "rangefinder"),
+						getRelativeReference(Feature.class, "eth") },
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
+
+		// Set requires bus access
+		clickRadioButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
+				getRelativeReference(Classifier.class, "rangefinder"), getRelativeReference(Feature.class, "eth") },
+				new RelativeBusinessObjectReference[] { componentsPackage,
+						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
 	}
 
 	private void createSoftwareProject() {
