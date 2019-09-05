@@ -59,6 +59,14 @@ public class DeclarativeReferenceBuilder {
 		return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
 	}
 
+	public static RelativeBusinessObjectReference getSubcomponentRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getFeatureRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
+	}
+
 	@BuildRelativeReference
 	public RelativeBusinessObjectReference getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if (bo instanceof AadlPackage) {
@@ -66,7 +74,7 @@ public class DeclarativeReferenceBuilder {
 		} else if (bo instanceof Classifier) {
 			return getClassifierRelativeReference(((Classifier) bo).getName());
 		} else if (bo instanceof Subcomponent) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), ((Subcomponent) bo));
+			return getSubcomponentRelativeReference(((Subcomponent) bo).getName());
 		} else if (bo instanceof Realization) {
 			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.REALIZATION.getId() });
 		} else if (bo instanceof TypeExtension) {
@@ -76,7 +84,7 @@ public class DeclarativeReferenceBuilder {
 		} else if (bo instanceof GroupExtension) {
 			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() });
 		} else if (bo instanceof Feature) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), ((Feature) bo));
+			return getFeatureRelativeReference(((Feature) bo).getName());
 		} else if (bo instanceof InternalFeature) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.INTERNAL_FEATURE.getId(),
 					((InternalFeature) bo));
