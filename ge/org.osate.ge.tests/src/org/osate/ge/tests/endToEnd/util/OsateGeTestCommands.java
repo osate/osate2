@@ -211,15 +211,21 @@ public class OsateGeTestCommands {
 			final String packageName, final String newTypeName) {
 		clickButtonInPropertiesView("Create...", refs);
 
-		waitForWindowWithTitle("Create Classifier");
+		// waitForWindowWithTitle("Create Classifier");
 
 		waitForWindowWithTitle("Create Component Classifier");
+
+		clickRadioButton("New Component Type");
 
 		clickButton("...");
 
 		waitForWindowWithTitle("Select a Package");
 
 		clickTableItem(0, packageName);
+
+		clickButton("OK");
+
+		waitForWindowWithTitle("Create Component Classifier");
 
 		setTextField(0, newTypeName, "");
 
