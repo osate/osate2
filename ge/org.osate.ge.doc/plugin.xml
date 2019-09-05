@@ -6,4 +6,8 @@
       <toc file="docs-gen/user_guide_toc.xml"/>
       <toc file="api_toc.xml"/>
    </extension>
+   <extension point="org.eclipse.help.contexts">
+   	  <contexts file="help_contexts.xml" plugin="org.osate.ge.doc">
+      </contexts>
+   </extension>
 </plugin>

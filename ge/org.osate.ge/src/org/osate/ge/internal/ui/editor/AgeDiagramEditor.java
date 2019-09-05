@@ -37,6 +37,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
@@ -48,6 +49,7 @@ import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableList;
 
@@ -70,6 +72,12 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 					PlatformUI.getWorkbench().getService(ActionService.class), "Unable to retrieve action service");
 			actionService.removeInvalidActions();
 		}
+	}
+
+	@Override
+	public void createPartControl(final Composite parent) {
+		super.createPartControl(parent);
+		ContextHelpUtil.setHelp(getGraphicalViewer().getControl(), ContextHelpUtil.DIAGRAM_EDITOR);
 	}
 
 	public boolean isDisposed() {

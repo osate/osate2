@@ -427,11 +427,11 @@ When viewing a component implementation diagram, a binding property associations
 ## Editing Flow Implementations and End-to-End Flows
 When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
-## Refining
+## Refining Model Elements
 Appropriate elements can be refined by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Refined* section option.
 
-## Selecting Active Components{#sec:selective_active_components}
-Modes can be specified for selected element(s) by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *In Modes* section options.
+## Specifying Modes in which Elements are Active {#sec:edit_in_modes}
+The modes in which the selected elements are active can be specified selecting the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *In Modes* section options.
 
 ## Editing Subprogram Call Sequences
 The subprogram call's order in the subprogram call sequence (See @sec:subprogram_call_seq) can be changed from the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Call Order* section options.
@@ -483,7 +483,7 @@ When creating a diagram, a type must be specified. A diagram's type determines t
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
 | Mode              | Component Classifiers                                    | - Classifiers: Modes and Mode Transitions                               | None                                             |
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
-| Processor Binding | Component Implementation and System Instances            | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::Actual_Processor_Binding  |
+| Processor Binding | Component Implementation and System Instances            | - Classifiers: Systems, Processors, Virtual Processors,                 | Deployment_Properties::&#8203;Actual_Processor_Binding  |
 |                   |                                                          | - Devices, Threads, Thread Groups, and Processes                        |                                                  |
 +-------------------+----------------------------------------------------------+-------------------------------------------------------------------------+--------------------------------------------------+
 

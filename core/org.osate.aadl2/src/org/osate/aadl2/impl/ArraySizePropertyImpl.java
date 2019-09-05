@@ -89,7 +89,7 @@ public abstract class ArraySizePropertyImpl extends AObjectImpl implements Array
 	 * @generated
 	 */
 	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
+		return CacheAdapter.getInstance();
 	}
 
 } // ArraySizePropertyImpl

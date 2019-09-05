@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.window.Window;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -31,11 +30,10 @@ import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.services.impl.InstanceReferenceBuilder;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.common.base.Strings;
-import com.google.inject.Injector;
 
 public class DiagramContextChecker {
 	private final IProject project;
@@ -206,15 +204,7 @@ public class DiagramContextChecker {
 			final EObject newContextProxy = (EObject) dlg.getFirstSelectedElement();
 
 			// Find the live object
-			final Injector injector = Objects.requireNonNull(
-					Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-					"Unable to retrieve injector");
-			final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-					injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-					"Unable to retrieve live scope resource set provider");
-
-			final ResourceSet liveResourceSet = Objects.requireNonNull(liveResourceSetProvider.get(project),
-					"Unable to get live resource set");
+			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
 
 			newContext = EcoreUtil.resolve(newContextProxy, liveResourceSet);
 			if (((EObject) newContext).eIsProxy()) {

@@ -56,7 +56,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface SubprogramGroupImplementation extends ComponentImplementation, SubprogramGroupClassifier {
@@ -81,6 +81,7 @@ public interface SubprogramGroupImplementation extends ComponentImplementation, 
 	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation_OwnedSubprogramSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
@@ -116,6 +117,7 @@ public interface SubprogramGroupImplementation extends ComponentImplementation, 
 	 * @return the value of the '<em>Owned Subprogram Group Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents();
@@ -151,6 +153,7 @@ public interface SubprogramGroupImplementation extends ComponentImplementation, 
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();

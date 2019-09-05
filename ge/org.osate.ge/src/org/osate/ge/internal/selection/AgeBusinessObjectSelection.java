@@ -18,6 +18,8 @@ import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
+import org.osate.ge.operations.OperationBuilder;
+import org.osate.ge.operations.StepResultBuilder;
 
 import com.google.common.collect.ImmutableList;
 
@@ -60,6 +62,18 @@ class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	public <T extends EObject> void modify(final Class<T> c, final Consumer<T> modifier) {
 		modify(boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
 	}
+
+	@Override
+	public <T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, final Class<T> c,
+			final BiConsumer<T, O> modifier) {
+		boStream(c).forEachOrdered(e -> {
+			opBuilder.modifyModel(null, (tag, prev) -> e, (tag, boToModify, prev) -> {
+				modifier.accept(boToModify, prev);
+				return StepResultBuilder.create().build();
+			});
+		});
+	}
+
 
 	/**
 	 * Gets the action executor that should be used to modify the model.

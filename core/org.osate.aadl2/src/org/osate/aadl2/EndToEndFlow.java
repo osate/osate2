@@ -80,6 +80,7 @@ public interface EndToEndFlow extends FlowFeature, ModalPath, EndToEndFlowElemen
 	 * @see #setRefined(EndToEndFlow)
 	 * @see org.osate.aadl2.Aadl2Package#getEndToEndFlow_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EndToEndFlow getRefined();

@@ -194,10 +194,16 @@ class AssureUtilExtension {
 		req?.targetElement //?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
 
-	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject, boolean save) {
+	def static SystemInstance getAssuranceCaseInstanceModel(AssureResult assureObject, boolean save) {
 		val rac = assureObject.modelResult?.target
 		if(rac === null) return null
 		rac.getInstanceModel(save)
+	}
+
+	def static SystemInstance getExistingAssuranceCaseInstanceModel(AssureResult assureObject) {
+		val rac = assureObject.modelResult?.target
+		if(rac === null) return null
+		rac.getExistingInstanceModel()
 	}
 
 	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si, SubsystemResult ac) {
@@ -1131,7 +1137,26 @@ class AssureUtilExtension {
 	def static String constructDescription(ClaimResult cr) {
 		val r = cr.target
 		if (r === null) return ""
-		if(r.description !== null) return r.description.toText(cr.caseTargetModelElement)
+		var instanceroot = cr.getExistingAssuranceCaseInstanceModel()
+		val targetElement = cr.caseTargetModelElement
+		var NamedElement target = targetElement
+		if (instanceroot !== null){
+			val targetComponent = findTargetSystemComponentInstance(instanceroot, cr.enclosingSubsystemResult)
+			if (targetComponent !== null) {
+				if (targetElement !== null && targetElement.name !== null) {
+					target = targetComponent.findElementInstance(targetElement)
+				} else {
+				target = targetComponent
+				}
+			}
+		} else {
+			if (targetElement !== null && targetElement.name !== null) {
+				target = targetElement
+			} else {
+				target = cr.modelResult?.target
+			}
+		}
+		if(r.description !== null && target !== null) return r.description.toText(target)
 		if(r.title !== null) return r.title
 		""
 	}
@@ -1221,6 +1246,11 @@ class AssureUtilExtension {
 			setInstanceModel(cimpl, si)
 		}
 		return si
+	}
+
+	def static SystemInstance getExistingInstanceModel(ComponentImplementation cimpl) {
+		if(Aadl2Util.isNull(cimpl)) return null
+		return instanceModelRecord.get(cimpl.name) as SystemInstance
 	}
 
 	def static int numberVerificationResults(AssuranceCaseResult ac) {
