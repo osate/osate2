@@ -7,6 +7,10 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 
 public class PropertyUtil {
+	// All items are static
+	private PropertyUtil() {
+	}
+
 	private static final String NAME_KEY = "name";
 	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
 	private static final String IS_TRANSIENT_KEY = "is_transient";

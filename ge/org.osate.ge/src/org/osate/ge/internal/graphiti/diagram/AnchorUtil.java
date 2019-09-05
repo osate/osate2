@@ -23,6 +23,10 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
 class AnchorUtil {
+	// All items are static
+	private AnchorUtil() {
+	}
+
 	public static ChopboxAnchor createOrUpdateChopboxAnchor(final AnchorContainer container) {
 		final IPeService peService = Graphiti.getPeService();
 		final Anchor retrievedAnchor = peService.getChopboxAnchor(container);
