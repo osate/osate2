@@ -48,11 +48,9 @@ import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.Assert;
@@ -1611,23 +1609,28 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		List<Feature> features = feature.getAllFeatureRefinements();
 		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
 		for (Connection conn : conns) {
+			if ((features.contains(conn.getAllSource()) && subs.contains(conn.getAllSourceContext()))
+					|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
+							&& subs.contains(conn.getAllDestinationContext()))) {
+				result.add(conn);
+			}
 			// DB: We also need to consider refined features
-			final Set<ConnectionEnd> refinedFeatures = new HashSet<ConnectionEnd>();
-			final ConnectionEnd conEnd = conn.getAllSource();
-
-			if (conEnd instanceof Feature) {
-				refinedFeatures.addAll(((Feature) conEnd).getAllFeatureRefinements());
-			}
-
-			for (final ConnectionEnd refFeat : refinedFeatures) {
-				if ((features.contains(refFeat) && subs.contains(conn.getAllSourceContext()))
-						|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
-								&& subs.contains(conn.getAllDestinationContext()))) {
-					result.add(conn);
-
-					break; // DB
-				}
-			}
+//			final Set<ConnectionEnd> refinedFeatures = new HashSet<ConnectionEnd>();
+//			final ConnectionEnd conEnd = conn.getAllSource();
+//
+//			if (conEnd instanceof Feature) {
+//				refinedFeatures.addAll(((Feature) conEnd).getAllFeatureRefinements());
+//			}
+//
+//			for (final ConnectionEnd refFeat : refinedFeatures) {
+//				if ((features.contains(refFeat) && subs.contains(conn.getAllSourceContext()))
+//						|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
+//								&& subs.contains(conn.getAllDestinationContext()))) {
+//					result.add(conn);
+//
+//					break; // DB
+//				}
+//			}
 		}
 		return result;
 	}
