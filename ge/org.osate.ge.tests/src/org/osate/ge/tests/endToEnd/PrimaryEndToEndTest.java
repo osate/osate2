@@ -43,9 +43,9 @@ public class PrimaryEndToEndTest {
 		createAadlProject(SHARED);
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
-		final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
-		createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
-				packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
+		// final RelativeBusinessObjectReference packageRef = getRelativeReference(AadlPackage.class, SHARED);
+		// createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
+		// packageRef, getRelativeReference(Classifier.class, "new_classifier") }, packageRef);
 	}
 
 
@@ -86,8 +86,8 @@ public class PrimaryEndToEndTest {
 		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
 
 		// Create Virtual Bus Type ethernet
-		createElementAndLayout("Virtual Bus Type", "ethernet", new RelativeBusinessObjectReference[] {
-				componentsPackage, getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
+		// createElementAndLayout("Virtual Bus Type", "ethernet", new RelativeBusinessObjectReference[] {
+		// componentsPackage, getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
 
 		// Create Device Type servo
 		createElementAndLayout("Device Type", "servo", new RelativeBusinessObjectReference[] { componentsPackage,
@@ -131,7 +131,7 @@ public class PrimaryEndToEndTest {
 						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
 
 		// Set requires bus access
-		clickButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
+		clickRadioButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
 				getRelativeReference(Classifier.class, "rangefinder"), getRelativeReference(Feature.class, "eth") },
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
@@ -143,6 +143,7 @@ public class PrimaryEndToEndTest {
 
 		// Create cpu.impl
 		createImplementationWithNewType("Processor Implementation", "impl", "cpu", componentsPackage);
+
 		// Create memory type rom
 		createElementAndLayout("Memory Type", "rom", new RelativeBusinessObjectReference[] { componentsPackage,
 				getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
@@ -165,8 +166,8 @@ public class PrimaryEndToEndTest {
 		// Set classifier
 		setClassifierFromPropertyView("hardware::components::servo",
 				new RelativeBusinessObjectReference[] { hardwarePkgRef,
-				getRelativeReference(Classifier.class, "robot.impl"),
-				getRelativeReference(Subcomponent.class, "yaw_servo") });
+						getRelativeReference(Classifier.class, "robot.impl"),
+						getRelativeReference(Subcomponent.class, "yaw_servo") });
 
 		// Create subcomponent pitch_servo
 		createElementAndLayout("Device Subcomponent", "pitch_servo", robotNewSCRef,
@@ -203,10 +204,13 @@ public class PrimaryEndToEndTest {
 				hardwarePkgRef);
 
 		// Set classifier for ethernet_buses
-		setClassifierFromPropertyView("hardware::components::ethernet",
-				new RelativeBusinessObjectReference[] { hardwarePkgRef,
+		setSubcomponentToNewTypeFromPropertiesView(new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getRelativeReference(Classifier.class, "robot.impl"),
-						getRelativeReference(Subcomponent.class, "ethernet_buses") });
+				getRelativeReference(Subcomponent.class, "ethernet_buses") }, HARDWARE_COMPONENTS_PACKAGE, "ethernet");
+		// setClassifierFromPropertyView("hardware::components::ethernet",
+		// new RelativeBusinessObjectReference[] { hardwarePkgRef,
+		// getRelativeReference(Classifier.class, "robot.impl"),
+		// getRelativeReference(Subcomponent.class, "ethernet_buses") });
 	}
 
 	private void createSoftwareProject() {
