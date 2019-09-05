@@ -57,7 +57,6 @@ public class OsateGeTestUtil {
 	}
 
 	public static void waitForDiagramActive(final String... diagramPathSegments) {
-		// Wait until the project appears in the AADL navigator
 		waitUntil(() -> isDiagramEditorActive(diagramPathSegments),
 				"Editor for diagram path segments '" + Arrays.toString(diagramPathSegments) + "' is not active.");
 	}
@@ -73,6 +72,7 @@ public class OsateGeTestUtil {
 		assertTrue(isDiagramEditorActive(diagramPathSegments));
 	}
 
+
 	public static void setTextField(final int index, final String value, final String expectedOriginalValue) {
 		assertTextFieldText("Original value is not the expected value", index, expectedOriginalValue);
 		org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextField(index, value);
@@ -83,9 +83,42 @@ public class OsateGeTestUtil {
 	 * The diagram file extension should not be included in the path segments.
 	 */
 	public static boolean isDiagramEditorActive(final String... diagramPathSegments) {
-		final String uri = URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
+		return isEditorActive(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
+	}
+
+	/**
+	 * Saves and closes the specified editor
+	 */
+	public static void saveDiagramEditor(final String... diagramPathSegments) {
+		saveEditor(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
+	}
+	
+	/**
+	 * Saves and closes the specified diagram editor
+	 */
+	public static void saveAndCloseDiagramEditor(final String... diagramPathSegments) {
+		saveAndCloseEditor(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
+	}
+
+	/**
+	 * Returns whether the OSATE Diagram Editor is open with its input set to the path indicated by the path segments.
+	 * The diagram file extension should not be included in the path segments.
+	 */
+	public static boolean isDiagramEditorOpen(final String... diagramPathSegments) {
+		return isEditorOpen(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
+	}
+
+	private static String getDiagramUri(final String... diagramPathSegments) {
+		return URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
 				+ ".aadl_diagram#/0";
-		return isEditorActive(AgeDiagramEditor.class, uri);
+	}
+
+	/**
+	 * Wait until the editor for the diagram to be closed
+	 */
+	public static void waitForDiagramClosed(final String... diagramPathSegments) {
+		waitUntil(() -> !isDiagramEditorOpen(diagramPathSegments),
+				"Editor for diagram path segments '" + Arrays.toString(diagramPathSegments) + "' is open.");
 	}
 
 	/**

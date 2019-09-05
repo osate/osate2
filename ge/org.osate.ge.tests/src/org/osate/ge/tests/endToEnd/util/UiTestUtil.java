@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -35,6 +36,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
+import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -230,6 +232,11 @@ public class UiTestUtil {
 	public static boolean isEditorActive(final Class<?> editorClass, final String inputName) {
 		final WorkbenchContentsFinder finder = new WorkbenchContentsFinder();
 		final IEditorReference editor = finder.findActiveEditor();
+		return isMatchingEditor(editor, editorClass, inputName);
+	}
+
+	private static boolean isMatchingEditor(final IEditorReference editor, final Class<?> editorClass,
+			final String inputName) {
 		// Check type of editor
 		if (!editorClass.isInstance(editor.getEditor(false))) {
 			return false;
@@ -247,6 +254,84 @@ public class UiTestUtil {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	/**
+	 * Saves the specified editor
+	 */
+	public static void saveEditor(final Class<?> editorClass, final String inputName) {
+		final List<SWTBotEditor> editors = bot.editors(new BaseMatcher<IEditorReference>() {
+			@Override
+			public boolean matches(final Object value) {
+				System.err.println(value);
+				if (!(value instanceof IEditorReference)) {
+					return false;
+				}
+
+				final IEditorReference editor = (IEditorReference) value;
+				return isMatchingEditor(editor, editorClass, inputName);
+			}
+
+			@Override
+			public void describeTo(final Description description) {
+				description.appendText("is editor open. Editor Class: '" + editorClass.getCanonicalName()
+						+ "'. Input: '" + inputName + "'");
+			}
+		});
+
+		assertEquals("Exactly one matching editor was not found", 1, editors.size());
+		editors.get(0).save();
+	}
+
+	/**
+	 * Saves and closes the specified editor
+	 */
+	public static void saveAndCloseEditor(final Class<?> editorClass, final String inputName) {
+		final List<SWTBotEditor> editors = bot.editors(new BaseMatcher<IEditorReference>() {
+			@Override
+			public boolean matches(final Object value) {
+				System.err.println(value);
+				if (!(value instanceof IEditorReference)) {
+					return false;
+				}
+
+				final IEditorReference editor = (IEditorReference) value;
+				return isMatchingEditor(editor, editorClass, inputName);
+			}
+
+			@Override
+			public void describeTo(final Description description) {
+				description.appendText("is editor open. Editor Class: '" + editorClass.getCanonicalName()
+						+ "'. Input: '" + inputName + "'");
+			}
+		});
+
+		assertTrue("Exactly one editor was not found", editors.size() == 1);
+		editors.get(0).saveAndClose();
+	}
+
+	/**
+	 * Returns whether there is an open editor with the specified input name
+	 */
+	public static boolean isEditorOpen(final Class<?> editorClass, final String inputName) {
+		return bot.editors(new BaseMatcher<IEditorReference>() {
+			@Override
+			public boolean matches(final Object value) {
+				System.err.println(value);
+				if (!(value instanceof IEditorReference)) {
+					return false;
+				}
+
+				final IEditorReference editor = (IEditorReference) value;
+				return isMatchingEditor(editor, editorClass, inputName);
+			}
+
+			@Override
+			public void describeTo(final Description description) {
+				description.appendText("is editor open. Editor Class: '" + editorClass.getCanonicalName()
+						+ "'. Input: '" + inputName + "'");
+			}
+		}).size() > 0;
 	}
 
 	/**
