@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.IEditorReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 
 /**
  * High level commands for testing the OSATE Graphical editor.
@@ -339,9 +338,5 @@ public class OsateGeTestCommands {
 		final RelativeBusinessObjectReference ref = refs[refs.length - 1];
 		newRefs[refs.length - 1] = new RelativeBusinessObjectReference(ref.toSegmentArray()[0], newName);
 		selectElements(editorRef, newRefs);
-	}
-
-	public static RelativeBusinessObjectReference getRelativeReference(final Class<?> clazz, final String name) {
-		return DeclarativeReferenceBuilder.buildRelativeReference(clazz, name);
 	}
 }
