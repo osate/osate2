@@ -114,12 +114,12 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+						ownedSubcomponents = new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 								Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -198,7 +198,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}

@@ -284,7 +284,7 @@ public class EM2TypeSetUtil {
 	 * @return list of type tokens
 	 */
 	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
-		return EMV2TypeSetUtil.flattenTypesetElements(typeSet, usetypes);
+		return EMV2TypeSetUtil.flattenTypesetElements(typeSet);
 	}
 
 	/**
@@ -367,11 +367,11 @@ public class EM2TypeSetUtil {
 		return EMV2TypeSetUtil.mapTypeToken(srctoken, contributortoken, tts);
 	}
 
-	public static ErrorTypes reverseMapTypeTokenToContributor(ErrorTypes targettoken, TypeTransformationSet tts) {
+	public static TypeSet reverseMapTypeTokenToContributor(TypeToken targettoken, TypeTransformationSet tts) {
 		return EMV2TypeSetUtil.reverseMapTypeTokenToContributor(targettoken, tts);
 	}
 
-	public static ErrorTypes reverseMapTypeTokenToSource(ErrorTypes targettoken, TypeTransformationSet tts) {
+	public static TypeSet reverseMapTypeTokenToSource(TypeToken targettoken, TypeTransformationSet tts) {
 		return EMV2TypeSetUtil.reverseMapTypeTokenToSource(targettoken, tts);
 	}
 

@@ -56,7 +56,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface DeviceImplementation extends ComponentImplementation, DeviceClassifier {
@@ -81,6 +81,7 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * @return the value of the '<em>Owned Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusSubcomponent> getOwnedBusSubcomponents();
@@ -116,6 +117,7 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedDataSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataSubcomponent> getOwnedDataSubcomponents();
@@ -151,6 +153,7 @@ public interface DeviceImplementation extends ComponentImplementation, DeviceCla
 	 * @return the value of the '<em>Owned Virtual Bus Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getDeviceImplementation_OwnedVirtualBusSubcomponent()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents();

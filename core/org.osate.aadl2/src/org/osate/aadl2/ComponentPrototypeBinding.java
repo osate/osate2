@@ -55,7 +55,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getComponentPrototypeBinding()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface ComponentPrototypeBinding extends PrototypeBinding {

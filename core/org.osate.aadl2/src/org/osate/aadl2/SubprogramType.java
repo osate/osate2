@@ -84,6 +84,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -119,6 +120,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -154,6 +156,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Parameter</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedParameter()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Parameter> getOwnedParameters();
@@ -189,6 +192,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedDataAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataAccess> getOwnedDataAccesses();
@@ -224,6 +228,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -259,6 +264,7 @@ public interface SubprogramType extends ComponentType, SubprogramClassifier, Cal
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

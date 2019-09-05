@@ -63,6 +63,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @see org.osate.aadl2.Aadl2Package#getSubcomponent()
  * @model abstract="true"
+ *        annotation="duplicates"
  * @generated
  */
 public interface Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
@@ -81,6 +82,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @return the value of the '<em>Subcomponent Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_SubcomponentType()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	SubcomponentType getSubcomponentType();
@@ -105,6 +107,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Classifier()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentClassifier getClassifier();
@@ -159,6 +162,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @return the value of the '<em>Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Prototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentPrototype getPrototype();
@@ -271,6 +275,7 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * @see #setRefined(Subcomponent)
 	 * @see org.osate.aadl2.Aadl2Package#getSubcomponent_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Subcomponent getRefined();

@@ -77,6 +77,7 @@ public interface GroupExtension extends Generalization {
 	 * @see #setExtended(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getGroupExtension_Extended()
 	 * @model required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	FeatureGroupType getExtended();
