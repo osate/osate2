@@ -35,6 +35,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
+import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -249,23 +250,9 @@ public class UiTestUtil {
 		}
 	}
 
-	/**
-	 * Get the active editor.
-	 * @return the active editor
-	 */
-	public static IEditorReference getActiveEditor() {
-		return new WorkbenchContentsFinder().findActiveEditor();
-	}
-
-	/**
-	 * Show editor that has the specified input name
-	 */
-	public static void showEditor(final String inputName) {
+	public static IEditorReference getDiagramEditor(final String inputName) {
 		final WorkbenchContentsFinder finder = new WorkbenchContentsFinder();
-		final Optional<IEditorReference> editor = finder.findEditors(new Matcher<IEditorReference>() {
-			@Override
-			public void describeTo(final Description description) {
-			}
+		final Optional<IEditorReference> editor = finder.findEditors(new BaseMatcher<IEditorReference>() {
 
 			@Override
 			public boolean matches(final Object item) {
@@ -274,16 +261,28 @@ public class UiTestUtil {
 			}
 
 			@Override
-			public void describeMismatch(final Object item, final Description mismatchDescription) {
-			}
-
-			@Override
-			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			public void describeTo(final Description description) {
 			}
 		}).stream().findAny();
 
-		getGefEditor(editor.orElseThrow(() -> new RuntimeException("Cannot find editor '" + inputName + "'."))).show();
+		return editor.orElseThrow(() -> new RuntimeException("Cannot find editor '" + inputName + "'."));
 	}
+
+	/**
+	 * Get the active editor.
+	 * @return the active editor
+	 */
+	// public static IEditorReference getActiveEditor() {
+	//// return new WorkbenchContentsFinder().findActiveEditor();
+	// }
+
+	/**
+	 * Show editor that has the specified input name
+	 */
+	public static void showEditor(final String inputName) {
+		getGefEditor(getDiagramEditor(inputName)).show();
+	}
+
 
 	/**
 	 * Returns a bot for the focused widget
@@ -314,8 +313,10 @@ public class UiTestUtil {
 	 * @param editor the editor
 	 * @param toolType the tool type to activate
 	 */
-	public static void activateToolType(final IEditorReference editor, final String toolType) {
-		getGefEditor(editor).activateTool(toolType);
+	// TODO rename
+	public static void activateToolType(final String inputName,
+			final String toolType) {
+		getGefEditor(getDiagramEditor(inputName)).activateTool(toolType);
 	}
 
 	private static SWTBotGefEditor getGefEditor(final IEditorReference editor) {
@@ -326,8 +327,8 @@ public class UiTestUtil {
 	 * Activates the default tool type on the editor.
 	 * @param editor the editor
 	 */
-	public static void activateDefaultTool(final IEditorReference editor) {
-		getGefEditor(editor).activateDefaultTool();
+	public static void activateDefaultToolType(final String inputName) {
+		getGefEditor(getDiagramEditor(inputName)).activateDefaultTool();
 	}
 
 	/**
@@ -380,37 +381,29 @@ public class UiTestUtil {
 	/**
 	 * Renames selected element on the active editor.
 	 */
-	public static void clickRenameFromContextMenu(final String newName) {
-		getGefEditor(getActiveEditor()).clickContextMenu("Rename...");
+	public static void renameFromContextMenu(final String inputName, final String newName) {
+		getGefEditor(getDiagramEditor(inputName)).clickContextMenu("Rename...");
 		waitForWindowWithTitle("Rename");
 		bot.text().setText(newName);
 		clickButton("OK");
 	}
 
 	/**
-	 * Retrieves the number of edit parts on the active editor.
+	 * Retrieves the number of edit parts on the diagram editor.
 	 */
-	public static int getEditPartsSize() {
-		return getGefEditor(getActiveEditor()).editParts(allEditParts).size();
+	public static int getEditPartsSize(final String inputName) {
+		return getGefEditor(getDiagramEditor(inputName)).editParts(allEditParts).size();
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
-		final List<Canvas> canvas = bot.activeView().bot().getFinder().findControls(new Matcher<Canvas>() {
-			@Override
-			public void describeTo(final Description description) {
-			}
-
+		final List<Canvas> canvas = bot.activeView().bot().getFinder().findControls(new BaseMatcher<Canvas>() {
 			@Override
 			public boolean matches(final Object item) {
 				return item instanceof Canvas && ((Canvas) item).toString().equals(title);
 			}
 
 			@Override
-			public void describeMismatch(final Object item, final Description mismatchDescription) {
-			}
-
-			@Override
-			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			public void describeTo(final Description description) {
 			}
 		});
 
@@ -418,43 +411,27 @@ public class UiTestUtil {
 		return new SWTBotCanvas(canvas.get(0));
 	}
 
-	private static Matcher<EditPart> allEditParts = new Matcher<EditPart>() {
-		@Override
-		public void describeTo(Description description) {
-		}
-
+	private static Matcher<EditPart> allEditParts = new BaseMatcher<EditPart>() {
 		@Override
 		public boolean matches(Object item) {
 			return true;
 		}
 
 		@Override
-		public void describeMismatch(Object item, Description mismatchDescription) {
-		}
-
-		@Override
-		public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+		public void describeTo(Description description) {
 		}
 	};
 
 	public static List<SWTBotGefEditPart> findEditPart(final SWTBotGefEditor editor,
 			final List<EditPart> editPartsToFind) {
-		final Matcher<EditPart> matcher = new Matcher<EditPart>() {
-			@Override
-			public void describeTo(final Description description) {
-			}
-
+		final Matcher<EditPart> matcher = new BaseMatcher<EditPart>() {
 			@Override
 			public boolean matches(final Object editPart) {
 				return editPartsToFind.contains(editPart);
 			}
 
 			@Override
-			public void describeMismatch(final Object item, final Description mismatchDescription) {
-			}
-
-			@Override
-			public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+			public void describeTo(final Description description) {
 			}
 		};
 
