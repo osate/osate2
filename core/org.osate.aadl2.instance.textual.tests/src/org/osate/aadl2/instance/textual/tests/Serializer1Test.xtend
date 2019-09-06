@@ -319,8 +319,7 @@ class Serializer1Test extends AbstractSerializerTest {
 					sub1[0].op -> sub2[0].ip : pkg1::s.i:conn2 in parent
 				}
 				som "No Modes"
-			}
-		''')
+			}''')
 	}
 	
 	@Test
