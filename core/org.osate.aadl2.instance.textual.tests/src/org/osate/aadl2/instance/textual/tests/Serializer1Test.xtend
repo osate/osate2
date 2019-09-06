@@ -319,7 +319,8 @@ class Serializer1Test extends AbstractSerializerTest {
 					sub1[0].op -> sub2[0].ip : pkg1::s.i:conn2 in parent
 				}
 				som "No Modes"
-			}''')
+			}
+		''')
 	}
 	
 	@Test
@@ -345,19 +346,19 @@ class Serializer1Test extends AbstractSerializerTest {
 			end pkg1;
 		''')
 		assertSerialize(pkg1, "s.i", '''
-system s_i_Instance : pkg1::s.i {
-	bus b [ 0 ] : pkg1::s.i:b
-	processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
-		in out busAccess ba : pkg1::p:ba
-	}
-	complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
-		b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
-	}
-	complete accessConnection "psub.ba -> b" : psub[0].ba -> b[0] {
-		psub[0].ba -> b[0] : pkg1::s.i:conn1 in parent
-	}
-	som "No Modes"
-}''')
+			system s_i_Instance : pkg1::s.i {
+				bus b [ 0 ] : pkg1::s.i:b
+				processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
+					in out busAccess ba : pkg1::p:ba
+				}
+				complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
+					b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
+				}
+				complete accessConnection "psub.ba -> b" : psub[0].ba -> b[0] {
+					psub[0].ba -> b[0] : pkg1::s.i:conn1 in parent
+				}
+				som "No Modes"
+			}''')
 	}
 	
 	@Test

@@ -840,14 +840,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					return null;
 				}
 			}
-//			// the next lines determine whether a connection is bi-directional
-//			// and set a flag rather than creating a second connection instance
-//			if (connInfo.src == test.getDestination() && dstI == test.getSource()
-//					&& test.getKind() == ConnectionKind.ACCESS_CONNECTION) {
-//				test.setBidirectional(true);
-//				test.setName(test.getName().replace("->", "<->"));
-//				return test;
-//			}
 		}
 		boolean duplicate = false;
 
