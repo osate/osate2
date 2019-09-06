@@ -173,51 +173,35 @@ public class OsateGeTestUtil {
 	 * @param editorRef the editor the element is located on
 	 * @param refs the relative references to element from diagram root element
 	 */
-	public static void selectElements(final String[] diagramPathSegments,
-			final RelativeBusinessObjectReference[]... refs) {
-		assertDiagramEditorActive(diagramPathSegments);
-		final IEditorReference editorRef = getDiagramEditor(getURI(diagramPathSegments));
+	public static void selectElements(final DiagramReference diagram,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		final IEditorReference editorRef = getDiagramEditor(getURI(diagram.getWithoutExtension()));
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
 		final List<EditPart> editPartsToSelect = new ArrayList<>();
-		for (int i = 0; i < refs.length; i++) {
-			final RelativeBusinessObjectReference[] ref = refs[i];
-			final DiagramElement de = getElementByRelativeReferences(editor, ref)
+		for (int i = 0; i < elements.length; i++) {
+			final DiagramElementReference element = elements[i];
+			final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences())
 				.orElseThrow(
 							() -> new RuntimeException(
-									"Cannot find relative reference for '" + relativeReferences(ref) + "'."));
-			final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
-				.getPictogramElementForBusinessObject(de.getBusinessObject());
+									"Cannot find relative reference for '"
+											+ relativeReferences(element.getRelativeReferences()) + "'."));
+
+			// TODO: Graphiti specific.. way to avoid? Worth it?
+			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
 			final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+
 			editPartsToSelect.add(editPart);
 		}
 		selectEditParts(editorRef, editPartsToSelect);
 	}
 
 	// TODO: Remove? Only keep one variant
-	public static void clickElement(final IEditorReference editorRef, final RelativeBusinessObjectReference... refs) {
+	public static void clickElement(final IEditorReference editorRef, final DiagramElementReference element) {
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		final DiagramElement de = getElementByRelativeReferences(editor, refs).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '" + relativeReferences(refs) + "'."));
-		// TODO: Is not correct
-		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
-				.getPictogramElementForBusinessObject(de.getBusinessObject());
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-		clickEditPart(editorRef, editPart);
-	}
-	public static void clickRenameFromContextMenu(final String[] diagramPathSegments, final String newName) {
-		assertDiagramEditorActive(diagramPathSegments);
-		renameFromContextMenu(getURI(diagramPathSegments), newName);
-	}
-
-	// TODO: Review
-	public static void clickElement(final String[] diagramPathSegments,
-			final RelativeBusinessObjectReference... refs) {
-		assertDiagramEditorActive(diagramPathSegments);
-		final IEditorReference editorRef = getDiagramEditor(getURI(diagramPathSegments));
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		final DiagramElement de = getElementByRelativeReferences(editor, refs).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '" + relativeReferences(refs) + "'."));
+		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
+				() -> new RuntimeException("Cannot find relative reference for '"
+						+ relativeReferences(element.getRelativeReferences()) + "'."));
 		// TODO: Is not correct
 		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
 				.getPictogramElementForBusinessObject(de.getBusinessObject());
@@ -226,7 +210,30 @@ public class OsateGeTestUtil {
 		clickEditPart(editorRef, editPart);
 	}
 
+	public static void clickRenameFromContextMenu(final DiagramReference diagram, final String newName) {
+		assertDiagramEditorActive(diagram.getWithoutExtension());
+		renameFromContextMenu(getURI(diagram.getWithoutExtension()), newName);
+	}
+
 	// TODO: Review
+	public static void clickElement(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		assertDiagramEditorActive(diagram.getWithoutExtension());
+		final IEditorReference editorRef = getDiagramEditor(getURI(diagram.getWithoutExtension()));
+		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
+		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
+				() -> new RuntimeException("Cannot find relative reference for '"
+						+ relativeReferences(element.getRelativeReferences()) + "'."));
+		// TODO: Is not correct
+		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
+				.getPictogramElementForBusinessObject(de.getBusinessObject());
+		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+
+		clickEditPart(editorRef, editPart);
+	}
+
+	// TODO: Review
+	// TODO: Overlap with select diagram elements?
 	public static void clickDiagramElement(final DiagramReference diagram, final DiagramElementReference element) {
 		openDiagramEditor(diagram);
 
@@ -282,28 +289,29 @@ public class OsateGeTestUtil {
 	/**
 	 * Create a shape element the active diagram within the referenced element.
 	 * @param toolType the type of the new element
-	 * @param refs the relative reference from the root diagram element to the parent of the new element
 	 */
-	public static void createShapeElement(final String[] diagramPathSegments, final String toolType,
-			final RelativeBusinessObjectReference... refs) {
-		assertDiagramEditorActive(diagramPathSegments);
+	public static void createShapeElement(final DiagramReference diagram, DiagramElementReference parentElement,
+			final String toolType) {
+		openDiagramEditor(diagram);
 
 		// Initial edit parts
-		final int editPartsBefore = getDiagramEditPartsSize(diagramPathSegments);
+		final int editPartsBefore = getDiagramEditPartsSize(diagram.getWithoutExtension());
 
-		activateToolType(getURI(diagramPathSegments), toolType);
-		clickElement(diagramPathSegments, refs);
-		activateDefaultToolType(getURI(diagramPathSegments));
+		activateToolType(getURI(diagram.getWithoutExtension()), toolType);
+		clickElement(diagram, parentElement);
+		activateDefaultToolType(getURI(diagram.getWithoutExtension()));
 
 		// Wait for element to be created
-		waitForElementToBeCreated(diagramPathSegments, editPartsBefore);
+		waitForElementToBeCreated(diagram, editPartsBefore);
 	}
 
+	// TODO: Review
 	/**
 	 * Waits for more edit parts to be created on the active editor than initial edit part size.
 	 */
-	public static void waitForElementToBeCreated(final String[] diagramPathSegments, final int initEditPartSize) {
-		waitUntil(() -> getEditPartsSize(getURI(diagramPathSegments)) > initEditPartSize, "Element was not created.");
+	public static void waitForElementToBeCreated(final DiagramReference diagram, final int initEditPartSize) {
+		waitUntil(() -> getEditPartsSize(getURI(diagram.getWithoutExtension())) > initEditPartSize,
+				"Element was not created.");
 	}
 
 	public static DiagramElementReference element(final RelativeBusinessObjectReference... pathToElement) {
@@ -316,5 +324,10 @@ public class OsateGeTestUtil {
 
 	public static DiagramReference diagram(final String... diagramPathSegments) {
 		return new DiagramReference(diagramPathSegments);
+	}
+
+	// TODO: Rename and document.
+	public static DiagramReference defaultDiagram(final String projectName, final String diagramName) {
+		return new DiagramReference(projectName, "diagrams", diagramName);
 	}
 }

@@ -17,7 +17,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.junit.Test;
 import org.osate.ge.DiagramExporter;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**
  * Creates a package with a single classifier and confirms that exporting a diagram using the API creates a file.
@@ -31,10 +30,8 @@ public class DiagramExporterTest {
 		createAadlProject(PROJECT_NAME);
 		createNewPackageWithPackageDiagram(PROJECT_NAME, PKG_NAME);
 
-		final RelativeBusinessObjectReference packageRef = getPackageRelativeReference(PKG_NAME);
-		createElementAndLayout(PROJECT_NAME, PKG_NAME, "Abstract Type", "TestAbstractType",
-				new RelativeBusinessObjectReference[] { packageRef, getClassifierRelativeReference("new_classifier") },
-				packageRef);
+		createElementAndLayout(defaultDiagram(PROJECT_NAME, PKG_NAME), packageElement(PKG_NAME), "Abstract Type",
+				getClassifierRelativeReference("new_classifier"), "TestAbstractType");
 
 		saveDiagramEditor(PROJECT_NAME, "diagrams", PKG_NAME);
 

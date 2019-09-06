@@ -151,6 +151,7 @@ public class OsateGeTestCommands {
 		waitForDiagramActive(projectName, "diagrams", diagramName);
 	}
 
+	// TODO: Review
 	/**
 	 * Sets the active editor.
 	 * @param projectName the project name
@@ -167,18 +168,15 @@ public class OsateGeTestCommands {
 	 * @param toolType the type to create
 	 * @param implName the implementation name
 	 * @param typeName the type name
-	 * @param refs the relative reference from the root diagram element to the package of the new implementation
 	 */
-	public static void createImplementationWithNewType(final String projectName, final String diagramName,
-			final String toolType, final String implName, final String typeName,
-			final RelativeBusinessObjectReference... refs) {
-		// final IEditorReference editorRef = getActiveEditor();
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
+	// TODO: Review
+	public static void createImplementationWithNewType(final DiagramReference diagram,
+			final DiagramElementReference pkg, final String toolType, final String implName, final String typeName) {
 		// Initial edit parts
-		final int editPartsBefore = getDiagramEditPartsSize(diagramPathSegments);
+		final int editPartsBefore = getDiagramEditPartsSize(diagram.getWithoutExtension());
 
-		activateTool(diagramPathSegments, toolType);
-		clickElement(diagramPathSegments, refs);
+		activateTool(diagram.getWithoutExtension(), toolType);
+		clickElement(diagram, pkg);
 
 		waitForWindowWithTitle("Create Component Implementation");
 		setTextField(0, implName, "");
@@ -187,11 +185,11 @@ public class OsateGeTestCommands {
 		setTextField(1, typeName, "");
 
 		clickButton("OK");
-		activateDefaultTool(diagramPathSegments);
+		activateDefaultTool(diagram.getWithoutExtension());
 
-		waitForElementToBeCreated(diagramPathSegments, editPartsBefore);
+		waitForElementToBeCreated(diagram, editPartsBefore);
 
-		layoutElementFromContextMenu(diagramPathSegments, refs);
+		layoutElementFromContextMenu(diagram, pkg);
 	}
 
 	// TODO not implemented
@@ -209,12 +207,10 @@ public class OsateGeTestCommands {
 		 */
 	}
 
-	public static void setSubcomponentToNewTypeFromPropertiesView(final String projectName, final String diagramName,
-			final RelativeBusinessObjectReference[] refs,
+	public static void setSubcomponentToNewTypeFromPropertiesView(final DiagramReference diagram,
+			final DiagramElementReference element,
 			final String packageName, final String newTypeName) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
-
-		selectElements(diagramPathSegments, refs);
+		selectElements(diagram, element);
 
 		clickButtonInPropertiesView("Create...", "AADL");
 
@@ -237,20 +233,26 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
-	public static void createElementAndLayout(final String projectName, final String diagramName, final String toolType,
-			final String name,
-			final RelativeBusinessObjectReference[] pathToNewElement,
-			final RelativeBusinessObjectReference layoutElement) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
-		createShapeElement(diagramPathSegments, toolType,
-				Arrays.copyOfRange(pathToNewElement, 0, pathToNewElement.length - 1));
-		renameElementFromContextMenu(diagramPathSegments, name, pathToNewElement);
-
-		// Layout
-		layoutElementFromContextMenu(diagramPathSegments, layoutElement);
+	/**
+	 * Creates a diagram element using a palette tool which will be represented as a shape.
+	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
+	 * @param diagram is the diagram in which to create the diagram element
+	 * @param parentElement reference to the element in which the new diagram element will be created
+	 * @param toolType is the text of the palette item to use to create the element
+	 * @param afterCreate is the relative reference of the diagram element which will be created by the tool
+	 * @param finalName is the name to which the element should be renamed
+	 */
+	public static void createElementAndLayout(final DiagramReference diagram,
+			final DiagramElementReference parentElement,
+			final String toolType,
+			final RelativeBusinessObjectReference afterCreate, // TODO: Rename
+			final String finalName) {
+		openDiagramEditor(diagram);
+		createShapeElement(diagram, parentElement, toolType);
+		renameElementFromContextMenu(diagram, parentElement.join(afterCreate), finalName);
+		layoutElementFromContextMenu(diagram, parentElement);
 	}
-
-
 
 	// TODO
 	public static void createConnectionElement(final String toolType, final RelativeBusinessObjectReference[] srcRef,
@@ -289,56 +291,49 @@ public class OsateGeTestCommands {
 		clickButton(btnLabel);
 	}
 
-	public static void setClassifierFromPropertyView(final String projectName, final String diagramName,
-			final String classifier, final RelativeBusinessObjectReference[]... refs) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
+	// TODO: Document
+	public static void setClassifierFromPropertyView(final DiagramReference diagram,
+			final String classifier, final DiagramElementReference... elements) {
 		// assertDiagramEditorActive(diagramPathSegments);
-		selectElements(diagramPathSegments, refs);
+		selectElements(diagram, elements);
 		setClassifierFromPropertyView(classifier);
 	}
 
-	public static void clickButtonInPropertiesView(final String projectName, final String diagramName,
+	// TODO: Review. Argument ordering... Assumptions. Name
+	public static void clickButtonInPropertiesView(final DiagramReference diagram,
 			final String btnLabel,
-			final RelativeBusinessObjectReference[]... refs) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
-		selectElements(diagramPathSegments, refs);
+			final DiagramElementReference... elements) {
+		selectElements(diagram, elements);
 		clickButtonInPropertiesView(btnLabel, "AADL");
 	}
 
-	public static void clickRadioButtonInPropertyView(final String projectName, final String diagramName,
+	// TODO: Review. Argument ordering... Assumptions. Name
+	public static void clickRadioButtonInPropertyView(final DiagramReference diagram,
 			final String btnLabel,
-			final RelativeBusinessObjectReference[]... refs) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
-
-		selectElements(diagramPathSegments, refs);
+			final DiagramElementReference... elements) {
+		selectElements(diagram, elements);
 		clickRadioButtonInPropertyView(btnLabel, "AADL");
 	}
 
-	private static void layoutElementFromContextMenu(final String[] diagramPathSegments,
-			final RelativeBusinessObjectReference... ref) {
-		clickElement(diagramPathSegments, ref);
+	// TODO: Rename
+	private static void layoutElementFromContextMenu(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		clickElement(diagram, element);
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
+	// TODO: Combine into one function?
 	/**
 	 * Renames an element using the diagram context menu.
 	 * @param newName the name of the new element
-	 * @param refs the relative reference from the root diagram element to the element to rename
+	 * @param element is the element to rename
 	 */
-	private static void renameElementFromContextMenu(final String[] diagramPathSegments,
-			final String newName,
-			final RelativeBusinessObjectReference... refs) {
+	private static void renameElementFromContextMenu(final DiagramReference diagram,
+			final DiagramElementReference element, final String newName) {
 		// final IEditorReference editorRef = getActiveEditor();
-		selectElements(diagramPathSegments, refs);
-		clickRenameFromContextMenu(diagramPathSegments, newName);
-		// TODO rework?
-		final RelativeBusinessObjectReference[] newRefs = new RelativeBusinessObjectReference[refs.length];
-		for (int i = 0; i < refs.length - 1; i++) {
-			newRefs[i] = refs[i];
-		}
+		selectElements(diagram, element);
+		clickRenameFromContextMenu(diagram, newName);
 
-		final RelativeBusinessObjectReference ref = refs[refs.length - 1];
-		newRefs[refs.length - 1] = new RelativeBusinessObjectReference(ref.toSegmentArray()[0], newName);
-		selectElements(diagramPathSegments, newRefs);
+		// TODO: Rework. Assert that the element has been renamed
 	}
 }
