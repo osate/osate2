@@ -56,6 +56,26 @@ public class OsateGeTestUtil {
 		selectItemInTreeView(AADL_NAVIGATOR, projectName);
 	}
 
+	public static int getDiagramEditPartsSize(final String[] diagramPathSegments) {
+		assertDiagramEditorActive(diagramPathSegments);
+		return getEditPartsSize(getURI(diagramPathSegments));
+	}
+
+	private static String getURI(final String... diagramPathSegments) {
+		return URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
+				+ ".aadl_diagram#/0";
+	}
+
+	public static void activateTool(final String[] diagramPathSegments, final String toolType) {
+		assertDiagramEditorActive(diagramPathSegments);
+		activateToolType(getURI(diagramPathSegments), toolType);
+	}
+
+	public static void activateDefaultTool(final String[] diagramPathSegments) {
+		assertDiagramEditorActive(diagramPathSegments);
+		activateDefaultToolType(getURI(diagramPathSegments));
+	}
+
 	public static void waitForDiagramActive(final String... diagramPathSegments) {
 		// Wait until the project appears in the AADL navigator
 		waitUntil(() -> isDiagramEditorActive(diagramPathSegments),
@@ -88,6 +108,10 @@ public class OsateGeTestUtil {
 		return isEditorActive(AgeDiagramEditor.class, uri);
 	}
 
+	// public static IEditorReference getEditorReference(final String... diagramPathSegments) {
+	/// final String uri
+	// }
+
 	/**
 	 * Checks all rows in the simple table which is the nth table in the active shell.
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
@@ -101,8 +125,10 @@ public class OsateGeTestUtil {
 	 * @param editorRef the editor the element is located on
 	 * @param refs the relative references to element from diagram root element
 	 */
-	public static void selectElements(final IEditorReference editorRef,
+	public static void selectElements(final String[] diagramPathSegments,
 			final RelativeBusinessObjectReference[]... refs) {
+		assertDiagramEditorActive(diagramPathSegments);
+		final IEditorReference editorRef = getDiagramEditor(getURI(diagramPathSegments));
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
 		final List<EditPart> editPartsToSelect = new ArrayList<>();
 		for (int i = 0; i < refs.length; i++) {
@@ -119,7 +145,15 @@ public class OsateGeTestUtil {
 		selectEditParts(editorRef, editPartsToSelect);
 	}
 
-	public static void clickElement(final IEditorReference editorRef, final RelativeBusinessObjectReference... refs) {
+	public static void clickRenameFromContextMenu(final String[] diagramPathSegments, final String newName) {
+		assertDiagramEditorActive(diagramPathSegments);
+		renameFromContextMenu(getURI(diagramPathSegments), newName);
+	}
+
+	public static void clickElement(final String[] diagramPathSegments,
+			final RelativeBusinessObjectReference... refs) {
+		assertDiagramEditorActive(diagramPathSegments);
+		final IEditorReference editorRef = getDiagramEditor(getURI(diagramPathSegments));
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
 		final DiagramElement de = getElementByRelativeReferences(editor, refs).orElseThrow(
 				() -> new RuntimeException("Cannot find relative reference for '" + relativeReferences(refs) + "'."));
@@ -157,9 +191,29 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Create a shape element the active diagram within the referenced element.
+	 * @param toolType the type of the new element
+	 * @param refs the relative reference from the root diagram element to the parent of the new element
+	 */
+	public static void createShapeElement(final String[] diagramPathSegments, final String toolType,
+			final RelativeBusinessObjectReference... refs) {
+		assertDiagramEditorActive(diagramPathSegments);
+
+		// Initial edit parts
+		final int editPartsBefore = getDiagramEditPartsSize(diagramPathSegments);
+
+		activateToolType(getURI(diagramPathSegments), toolType);
+		clickElement(diagramPathSegments, refs);
+		activateDefaultToolType(getURI(diagramPathSegments));
+
+		// Wait for element to be created
+		waitForElementToBeCreated(diagramPathSegments, editPartsBefore);
+	}
+
+	/**
 	 * Waits for more edit parts to be created on the active editor than initial edit part size.
 	 */
-	public static void waitForElementToBeCreated(final int initEditPartSize) {
-		waitUntil(() -> getEditPartsSize() > initEditPartSize, "Element was not created.");
+	public static void waitForElementToBeCreated(final String[] diagramPathSegments, final int initEditPartSize) {
+		waitUntil(() -> getEditPartsSize(getURI(diagramPathSegments)) > initEditPartSize, "Element was not created.");
 	}
 }
