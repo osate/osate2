@@ -368,15 +368,6 @@ public class UiTestUtil {
 		}).size() > 0;
 	}
 
-	// TODO: Review. Would like to avoid returning values like this
-	/**
-	 * Get the active editor.
-	 * @return the active editor
-	 */
-	// public static IEditorReference getActiveEditor() {
-	//// return new WorkbenchContentsFinder().findActiveEditor();
-	// }
-
 	/**
 	 * Show editor that has the specified input name
 	 */
@@ -479,6 +470,7 @@ public class UiTestUtil {
 		});
 	}
 
+	// TODO: Move to higher level
 	/**
 	 * Renames selected element on the active editor.
 	 */

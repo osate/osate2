@@ -11,8 +11,18 @@ public class DiagramElementReference {
 		this.pathToElement = ImmutableList.copyOf(pathToElement);
 	}
 
+	public DiagramElementReference(final ImmutableList<RelativeBusinessObjectReference> pathToElement) {
+		this.pathToElement = pathToElement;
+	}
+
 	// TODO: Rename. Should be immutable list?
 	public RelativeBusinessObjectReference[] getRelativeReferences() {
 		return pathToElement.toArray(c -> new RelativeBusinessObjectReference[c]);
+	}
+
+	// TODO: Document. Rename?
+	public DiagramElementReference join(final RelativeBusinessObjectReference toAdd) {
+		return new DiagramElementReference(
+				new ImmutableList.Builder<RelativeBusinessObjectReference>().addAll(pathToElement).add(toAdd).build());
 	}
 }
