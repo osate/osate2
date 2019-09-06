@@ -571,7 +571,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						ComponentInstance nextCi = ci.getContainingComponentInstance();
 						List<Connection> parentConns = InstanceUtil
 								.getComponentImplementation(nextCi, 0, classifierCache).getAllConnections();
-						List<Connection> conns = filterOutgoingConnections(parentConns, toFeature,
+						FeatureInstance dstFi = ci.findFeatureInstance(toFeature);
+						List<Connection> conns = filterOutgoingConnections(parentConns, dstFi.getFeature(),
 								ci.getSubcomponent());
 
 						if (conns.isEmpty()) {
@@ -1614,23 +1615,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							&& subs.contains(conn.getAllDestinationContext()))) {
 				result.add(conn);
 			}
-			// DB: We also need to consider refined features
-//			final Set<ConnectionEnd> refinedFeatures = new HashSet<ConnectionEnd>();
-//			final ConnectionEnd conEnd = conn.getAllSource();
-//
-//			if (conEnd instanceof Feature) {
-//				refinedFeatures.addAll(((Feature) conEnd).getAllFeatureRefinements());
-//			}
-//
-//			for (final ConnectionEnd refFeat : refinedFeatures) {
-//				if ((features.contains(refFeat) && subs.contains(conn.getAllSourceContext()))
-//						|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
-//								&& subs.contains(conn.getAllDestinationContext()))) {
-//					result.add(conn);
-//
-//					break; // DB
-//				}
-//			}
 		}
 		return result;
 	}

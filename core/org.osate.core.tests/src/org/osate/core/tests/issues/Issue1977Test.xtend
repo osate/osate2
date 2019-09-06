@@ -29,7 +29,10 @@ class Issue1977Test {
 		val instance = InstantiateModel.instantiate(impl)
 		assertEquals('s_i_Instance', instance.name)
 		
-		val conn = instance.connectionInstances.findFirst[name == 'd2 <-> a2.da']
-		assertTrue(conn !== null)
+		val conns = instance.connectionInstances 
+		assertTrue(conns.size == 2)
+		assertTrue(conns.findFirst[name == 'a1.da <-> d1'] !== null)
+		assertTrue(conns.findFirst[name == 'a2.da <-> d2'] !== null)
 	}
+
 }
