@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
+import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,7 +34,7 @@ public class DiagramExporterTest {
 		createElementAndLayout(defaultDiagram(PROJECT_NAME, PKG_NAME), packageElement(PKG_NAME), "Abstract Type",
 				getClassifierRelativeReference("new_classifier"), "TestAbstractType");
 
-		saveDiagramEditor(PROJECT_NAME, "diagrams", PKG_NAME);
+		saveDiagramEditor(defaultDiagram(PROJECT_NAME, PKG_NAME));
 
 		// Must run in an UI thread
 		final AtomicReference<RuntimeException> exception = new AtomicReference<>();

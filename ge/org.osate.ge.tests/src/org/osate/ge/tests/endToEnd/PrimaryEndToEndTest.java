@@ -76,17 +76,11 @@ public class PrimaryEndToEndTest {
 		createNewPackageWithPackageDiagram(HARDWARE, HARDWARE_COMPONENTS_PACKAGE, HARDWARE_COMPONENTS_DIAGRAM);
 
 		final RelativeBusinessObjectReference hardwarePkgRef = getPackageRelativeReference(HARDWARE);
-		setActiveEditor(HARDWARE, HARDWARE);
 		createImplementationWithNewType(defaultDiagram(HARDWARE, HARDWARE), packageElement(HARDWARE),
 				"System Implementation", "impl", "robot");
 
 		final RelativeBusinessObjectReference componentsPackage = getPackageRelativeReference(
 				HARDWARE_COMPONENTS_PACKAGE);
-		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
-
-		// Create Virtual Bus Type ethernet
-		// createElementAndLayout("Virtual Bus Type", "ethernet", new RelativeBusinessObjectReference[] {
-		// componentsPackage, getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
 
 		// Create Device Type servo
 		createElementAndLayout(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM),
@@ -140,9 +134,6 @@ public class PrimaryEndToEndTest {
 				packageElement(HARDWARE_COMPONENTS_PACKAGE), "Memory Type",
 				getClassifierRelativeReference("new_classifier"), "ram");
 
-		// Set hardware package editor active
-		setActiveEditor(HARDWARE, HARDWARE);
-
 		final DiagramElementReference robotImpl = element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"));
 
 		// Create device subcomponent yaw_servo
@@ -190,8 +181,6 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("ethernet_buses")),
 				HARDWARE_COMPONENTS_PACKAGE, "ethernet");
-
-		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
 
 		// Set classifier for rangefinder::eth and servo::eth
 		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "hardware::components::ethernet",
@@ -261,7 +250,7 @@ public class PrimaryEndToEndTest {
 	private void additionalTests() {
 		// TODO: additional tests
 		// TODO: Cleanup
-		final DiagramReference diagram = diagram(HARDWARE, "diagrams", HARDWARE);
+		final DiagramReference diagram = defaultDiagram(HARDWARE, HARDWARE);
 
 		// Hide Contents
 		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), "Hide Contents", "All");

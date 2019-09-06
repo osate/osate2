@@ -3,7 +3,9 @@ package org.osate.ge.tests.endToEnd.util;
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,11 +16,11 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
-import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -39,14 +41,20 @@ import org.eclipse.ui.PartInitException;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Provides functions for controlling the user interface.
- * This class should not contain any OSATE specific functionalities. Rather it wraps SWTBot functionality into assertions and commands so
- * that it can be used to build higher level assertions and commands.
- * Public methods of this class should be a minimal wrapper around SWTBot and not return any SWTBot specific data structures.
- * Normally, only primitive values should be returned.
+ * This class should not contain as little OSATE specific functionality as possible.
+ * Rather it wraps SWTBot and GEF functionality into assertions and commands so that it can be used to build higher level assertions
+ * and commands.
+ * Public methods of this class should be a minimal wrapper around SWTBot and GEF and not return any SWTBot or GEF specific data structures.
+ * Typically, only primitive values should be returned.
  */
 public class UiTestUtil {
 	private static final SWTGefBot bot;
@@ -273,14 +281,18 @@ public class UiTestUtil {
 		}
 	}
 
-	public static IEditorReference getDiagramEditor(final String inputName) {
+	private static IEditorReference getEditorReference(final Class<?> editorClass, final String inputName) {
 		final WorkbenchContentsFinder finder = new WorkbenchContentsFinder();
 		final Optional<IEditorReference> editor = finder.findEditors(new BaseMatcher<IEditorReference>() {
 
 			@Override
 			public boolean matches(final Object item) {
-				final IEditorReference ref = (IEditorReference) item;
-				return inputName.equalsIgnoreCase(ref.getName());
+				if (!(item instanceof IEditorReference)) {
+					return false;
+				}
+
+				final IEditorReference editor = (IEditorReference) item;
+				return isMatchingEditor(editor, editorClass, inputName);
 			}
 
 			@Override
@@ -294,54 +306,15 @@ public class UiTestUtil {
 	/**
 	 * Saves the specified editor
 	 */
-	public static void saveEditor(final Class<?> editorClass, final String inputName) {
-		final List<SWTBotEditor> editors = bot.editors(new BaseMatcher<IEditorReference>() {
-			@Override
-			public boolean matches(final Object value) {
-				if (!(value instanceof IEditorReference)) {
-					return false;
-				}
-
-				final IEditorReference editor = (IEditorReference) value;
-				return isMatchingEditor(editor, editorClass, inputName);
-			}
-
-			@Override
-			public void describeTo(final Description description) {
-				description.appendText("is editor open. Editor Class: '" + editorClass.getCanonicalName()
-						+ "'. Input: '" + inputName + "'");
-			}
-		});
-
-		assertEquals("Exactly one matching editor was not found", 1, editors.size());
-		editors.get(0).save();
+	public static void saveDiagramEditor(final DiagramReference diagram) {
+		getDiagramEditorBot(diagram).save();
 	}
 
 	/**
 	 * Saves and closes the specified editor
 	 */
-	public static void saveAndCloseEditor(final Class<?> editorClass, final String inputName) {
-		final List<SWTBotEditor> editors = bot.editors(new BaseMatcher<IEditorReference>() {
-			@Override
-			public boolean matches(final Object value) {
-				System.err.println(value);
-				if (!(value instanceof IEditorReference)) {
-					return false;
-				}
-
-				final IEditorReference editor = (IEditorReference) value;
-				return isMatchingEditor(editor, editorClass, inputName);
-			}
-
-			@Override
-			public void describeTo(final Description description) {
-				description.appendText("is editor open. Editor Class: '" + editorClass.getCanonicalName()
-						+ "'. Input: '" + inputName + "'");
-			}
-		});
-
-		assertTrue("Exactly one editor was not found", editors.size() == 1);
-		editors.get(0).saveAndClose();
+	public static void saveAndCloseDiagramEditor(final DiagramReference diagram) {
+		getDiagramEditorBot(diagram).saveAndClose();
 	}
 
 	/**
@@ -351,7 +324,6 @@ public class UiTestUtil {
 		return bot.editors(new BaseMatcher<IEditorReference>() {
 			@Override
 			public boolean matches(final Object value) {
-				System.err.println(value);
 				if (!(value instanceof IEditorReference)) {
 					return false;
 				}
@@ -371,10 +343,9 @@ public class UiTestUtil {
 	/**
 	 * Show editor that has the specified input name
 	 */
-	public static void showEditor(final String inputName) {
-		getGefEditor(getDiagramEditor(inputName)).show();
+	public static void showGraphicalEditor(final DiagramReference diagram) {
+		getDiagramEditorBot(diagram).show();
 	}
-
 
 	/**
 	 * Returns a bot for the focused widget
@@ -401,47 +372,46 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Activates the tool type specified on the editor.
+	 * Activates the palette item
 	 * @param editor the editor
-	 * @param toolType the tool type to activate
+	 * @param itemText the text for the palette item
 	 */
-	// TODO rename
-	public static void activateToolType(final String inputName,
-			final String toolType) {
-		getGefEditor(getDiagramEditor(inputName)).activateTool(toolType);
+	public static void activatePaletteItem(final DiagramReference diagram, final String itemText) {
+
+		getDiagramEditorBot(diagram).activateTool(itemText);
 	}
 
-	private static SWTBotGefEditor getGefEditor(final IEditorReference editor) {
+	private static SWTBotGefEditor getDiagramEditorBot(final DiagramReference diagram) {
+		final IEditorReference editor = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
 		return new SWTBotGefEditor(editor, bot);
 	}
 
 	/**
-	 * Activates the default tool type on the editor.
-	 * @param editor the editor
+	 * Activates the selection tool for the editor for the specified diagram. Does not open or activate the editor.
+	 * Precondition: editor for the diagram must be active.
 	 */
-	public static void activateDefaultToolType(final String inputName) {
-		getGefEditor(getDiagramEditor(inputName)).activateDefaultTool();
+	public static void activateSelectionTool(final DiagramReference diagram) {
+		assertDiagramEditorActive(diagram);
+		getDiagramEditorBot(diagram).activateDefaultTool();
 	}
 
-	/**
-	 * Selects the edit parts specified on the editor.
-	 * @param editorRef the editor
-	 * @param editPart the edit part to click
-	 */
-	public static void selectEditParts(final IEditorReference editorRef, final List<EditPart> editParts) {
-		final SWTBotGefEditor editor = getGefEditor(editorRef);
+	// Scrolls to and clicks a DiagramElement
+	public static void clickDiagramElement(final DiagramReference diagram, DiagramElementReference element) {
+		final DiagramElement de = getDiagramElement(diagram, element)
+				.orElseThrow(() -> new RuntimeException("Cannot find relative reference for '" + element + "'."));
 
-		final List<SWTBotGefEditPart> botEditParts = findEditPart(editor, editParts);
-		editor.select(botEditParts);
-	}
+		// Get the edit part
+		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
 
-	// Scrolls to and clicks an edit part
-	public static void clickEditPart(final IEditorReference editorRef, final EditPart editPart) {
+		// Scroll to the edit part
+		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
 		scrollToEditPart(editorRef, editPart);
 
-		final SWTBotGefEditor editor = getGefEditor(editorRef);
-		final List<SWTBotGefEditPart> botEditParts = findEditPart(editor, Arrays.asList(editPart));
-		editor.click(botEditParts.get(0));
+		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
+		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
+		editorBot.click(botEditParts.get(0));
 	}
 
 	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
@@ -470,24 +440,6 @@ public class UiTestUtil {
 		});
 	}
 
-	// TODO: Move to higher level
-	/**
-	 * Renames selected element on the active editor.
-	 */
-	public static void renameFromContextMenu(final String inputName, final String newName) {
-		getGefEditor(getDiagramEditor(inputName)).clickContextMenu("Rename...");
-		waitForWindowWithTitle("Rename");
-		bot.text().setText(newName);
-		clickButton("OK");
-	}
-
-	/**
-	 * Retrieves the number of edit parts on the diagram editor.
-	 */
-	public static int getEditPartsSize(final String inputName) {
-		return getGefEditor(getDiagramEditor(inputName)).editParts(allEditParts).size();
-	}
-
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
 		final List<Canvas> canvas = bot.activeView().bot().getFinder().findControls(new BaseMatcher<Canvas>() {
 			@Override
@@ -504,18 +456,7 @@ public class UiTestUtil {
 		return new SWTBotCanvas(canvas.get(0));
 	}
 
-	private static Matcher<EditPart> allEditParts = new BaseMatcher<EditPart>() {
-		@Override
-		public boolean matches(Object item) {
-			return true;
-		}
-
-		@Override
-		public void describeTo(Description description) {
-		}
-	};
-
-	public static List<SWTBotGefEditPart> findEditPart(final SWTBotGefEditor editor,
+	private static List<SWTBotGefEditPart> findEditParts(final SWTBotGefEditor editor,
 			final List<EditPart> editPartsToFind) {
 		final Matcher<EditPart> matcher = new BaseMatcher<EditPart>() {
 			@Override
@@ -525,13 +466,73 @@ public class UiTestUtil {
 
 			@Override
 			public void describeTo(final Description description) {
+				description.appendText("Find edit parts");
 			}
 		};
 
 		return editor.editParts(matcher);
 	}
 
-	public static void sleep(int sec) {
-		bot.sleep(sec * 1000);
+	/**
+	 * Returns the AgeDiagramEditor instance for the specified diagram. Does not open or activate the editor for the specified diagram.
+	 */
+	public static AgeDiagramEditor getDiagramEditor(final DiagramReference diagram) {
+		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
+		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
+		assertNotNull("Unable to get editor for '" + diagram + "'", editor);
+		return editor;
+	}
+
+	/**
+	 * Does not open or activate the editor the specified diagram.
+	 */
+	public static void selectDiagramElements(final DiagramReference diagram,
+			final DiagramElementReference... elements) {
+		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+
+		final List<EditPart> editPartsToSelect = new ArrayList<>();
+		for (int i = 0; i < elements.length; i++) {
+			final DiagramElementReference element = elements[i];
+			final DiagramElement de = getDiagramElement(diagram, element)
+					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
+
+			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+			final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+			assertNotNull("Edit part is null", editPart);
+			editPartsToSelect.add(editPart);
+		}
+
+		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
+		final List<SWTBotGefEditPart> partBots = findEditParts(editorBot, editPartsToSelect);
+		editorBot.select(partBots);
+	}
+
+	/**
+	 * Returns an optional describing the diagram element contained in the editor for the specified diagram.
+	 * Does not open or activate the editor for the specified diagram.
+	 */
+	public static Optional<DiagramElement> getDiagramElement(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
+		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
+		for (int i = 1; i < refs.size() && de != null; i++) {
+			de = de.getByRelativeReference(refs.get(i));
+		}
+
+		return Optional.ofNullable(de);
+	}
+
+	public static void assertDiagramEditorActive(final DiagramReference diagram) {
+		assertTrue(isDiagramEditorActive(diagram));
+	}
+
+	/**
+	 * Returns whether the OSATE Diagram Editor is active with its input set to the path indicated by the path segments.
+	 * The diagram file extension should not be included in the path segments.
+	 */
+	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
+		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
 	}
 }

@@ -1,23 +1,27 @@
 package org.osate.ge.tests.endToEnd.util;
 
+import java.util.stream.Collectors;
+
+import org.eclipse.emf.common.util.URI;
+
 import com.google.common.collect.ImmutableList;
 
 public class DiagramReference {
-	private final ImmutableList<String> pathSegments;
+	public final ImmutableList<String> pathSegments;
 
+	/**
+	 * Final segment is expected to contain diagram extension.
+	 */
 	public DiagramReference(final String... diagramPathSegments) {
 		this.pathSegments = ImmutableList.copyOf(diagramPathSegments);
 	}
 
-	// TODO: Rename? Should be immutable list?
-	public String[] getWithExtension() {
-		final String[] segments = pathSegments.toArray(c -> new String[c]);
-		segments[segments.length - 1] = segments[segments.length - 1] + ".aadl_diagram";
-		return segments;
+	public String getUri() {
+		return URI.createPlatformResourceURI(String.join("/", pathSegments), false).toString() + "#/0";
 	}
 
-	// TODO: Rename? Should be immutable list?
-	public String[] getWithoutExtension() {
-		return pathSegments.toArray(c -> new String[c]);
+	@Override
+	public String toString() {
+		return "[" + pathSegments.stream().map(r -> r.toString()).collect(Collectors.joining(",")) + "]";
 	}
 }

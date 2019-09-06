@@ -1,9 +1,11 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
+import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
+import static org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextField;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -148,19 +150,7 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 
 		// Wait for completion
-		waitForDiagramActive(projectName, "diagrams", diagramName);
-	}
-
-	// TODO: Review
-	/**
-	 * Sets the active editor.
-	 * @param projectName the project name
-	 * @param diagramName the diagram name
-	 */
-	public static void setActiveEditor(final String projectName, final String diagramName) {
-		final String[] diagramPathSegments = { projectName, "diagrams", diagramName };
-		setActiveDiagramEditor(diagramPathSegments);
-		waitForDiagramActive(diagramPathSegments);
+		waitForDiagramActive(defaultDiagram(projectName, diagramName));
 	}
 
 	/**
@@ -172,11 +162,10 @@ public class OsateGeTestCommands {
 	// TODO: Review
 	public static void createImplementationWithNewType(final DiagramReference diagram,
 			final DiagramElementReference pkg, final String toolType, final String implName, final String typeName) {
-		// Initial edit parts
-		final int editPartsBefore = getDiagramEditPartsSize(diagram.getWithoutExtension());
+		openDiagramEditor(diagram);
 
-		activateTool(diagram.getWithoutExtension(), toolType);
-		clickElement(diagram, pkg);
+		activatePaletteItem(diagram, toolType);
+		clickDiagramElement(diagram, pkg);
 
 		waitForWindowWithTitle("Create Component Implementation");
 		setTextField(0, implName, "");
@@ -185,32 +174,18 @@ public class OsateGeTestCommands {
 		setTextField(1, typeName, "");
 
 		clickButton("OK");
-		activateDefaultTool(diagram.getWithoutExtension());
+		activateSelectionTool(diagram);
 
-		waitForElementToBeCreated(diagram, editPartsBefore);
+		waitForDiagramElementToExist(diagram, pkg.join(getClassifierRelativeReference(typeName + "." + implName)));
 
 		layoutElementFromContextMenu(diagram, pkg);
-	}
-
-	// TODO not implemented
-	public static void createImplementationWithExistingType(final String toolType, final String implName,
-			final String typeName, final RelativeBusinessObjectReference... refs) {
-		// final IEditorReference editorRef = getActiveEditor();
-		/*
-		 * activateToolType(editorRef, toolType);
-		 * clickElement(editorRef, refs);
-		 * activateDefaultTool(editorRef);
-		 *
-		 * waitForWindowWithTitle("Create Component Implementation");
-		 * setTextField(0, implName, "");
-		 * clickRadioButton("Existing");
-		 */
 	}
 
 	public static void setSubcomponentToNewTypeFromPropertiesView(final DiagramReference diagram,
 			final DiagramElementReference element,
 			final String packageName, final String newTypeName) {
-		selectElements(diagram, element);
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
 
 		clickButtonInPropertiesView("Create...", "AADL");
 
@@ -240,25 +215,28 @@ public class OsateGeTestCommands {
 	 * @param diagram is the diagram in which to create the diagram element
 	 * @param parentElement reference to the element in which the new diagram element will be created
 	 * @param toolType is the text of the palette item to use to create the element
-	 * @param afterCreate is the relative reference of the diagram element which will be created by the tool
+	 * @param newReferenceAfterCreate is the relative reference of the diagram element which will be created by the tool
 	 * @param finalName is the name to which the element should be renamed
 	 */
 	public static void createElementAndLayout(final DiagramReference diagram,
 			final DiagramElementReference parentElement,
 			final String toolType,
-			final RelativeBusinessObjectReference afterCreate, // TODO: Rename
+			final RelativeBusinessObjectReference newReferenceAfterCreate,
 			final String finalName) {
 		openDiagramEditor(diagram);
-		createShapeElement(diagram, parentElement, toolType);
-		renameElementFromContextMenu(diagram, parentElement.join(afterCreate), finalName);
+		createShapeElement(diagram, parentElement, toolType, newReferenceAfterCreate);
+		renameElementFromContextMenu(diagram, parentElement.join(newReferenceAfterCreate), finalName);
 		layoutElementFromContextMenu(diagram, parentElement);
 	}
 
-	// TODO
-	public static void createConnectionElement(final String toolType, final RelativeBusinessObjectReference[] srcRef,
-			final RelativeBusinessObjectReference[] destRef) {
-
+	// TODO: Document
+	public static void setClassifierFromPropertyView(final DiagramReference diagram, final String classifier,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		setClassifierFromPropertyView(classifier);
 	}
+
 
 	// TODO: fix wording properties or property?
 	private static void setClassifierFromPropertyView(final String classifier) {
@@ -273,66 +251,25 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
-	// Change to show TAB?
-	// Click button after
-	private static void clickRadioButtonInPropertyView(final String btnLabel, final String tabLabel) {
-		assertViewIsVisible("Properties");
-		setViewFocus("Properties");
-
-		clickViewTab(tabLabel);
-		clickRadioButton(btnLabel);
-	}
-
-	private static void clickButtonInPropertiesView(final String btnLabel, final String tabLabel) {
-		assertViewIsVisible("Properties");
-		setViewFocus("Properties");
-
-		clickViewTab(tabLabel);
-		clickButton(btnLabel);
-	}
-
-	// TODO: Document
-	public static void setClassifierFromPropertyView(final DiagramReference diagram,
-			final String classifier, final DiagramElementReference... elements) {
-		// assertDiagramEditorActive(diagramPathSegments);
-		selectElements(diagram, elements);
-		setClassifierFromPropertyView(classifier);
-	}
-
-	// TODO: Review. Argument ordering... Assumptions. Name
-	public static void clickButtonInPropertiesView(final DiagramReference diagram,
-			final String btnLabel,
-			final DiagramElementReference... elements) {
-		selectElements(diagram, elements);
-		clickButtonInPropertiesView(btnLabel, "AADL");
-	}
-
-	// TODO: Review. Argument ordering... Assumptions. Name
-	public static void clickRadioButtonInPropertyView(final DiagramReference diagram,
-			final String btnLabel,
-			final DiagramElementReference... elements) {
-		selectElements(diagram, elements);
-		clickRadioButtonInPropertyView(btnLabel, "AADL");
-	}
-
 	// TODO: Rename
 	private static void layoutElementFromContextMenu(final DiagramReference diagram,
 			final DiagramElementReference element) {
-		clickElement(diagram, element);
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
-	// TODO: Combine into one function?
 	/**
 	 * Renames an element using the diagram context menu.
 	 * @param newName the name of the new element
 	 * @param element is the element to rename
 	 */
-	private static void renameElementFromContextMenu(final DiagramReference diagram,
+	public static void renameElementFromContextMenu(final DiagramReference diagram,
 			final DiagramElementReference element, final String newName) {
-		// final IEditorReference editorRef = getActiveEditor();
-		selectElements(diagram, element);
-		clickRenameFromContextMenu(diagram, newName);
+		clickContextMenuOfDiagramElement(diagram, element, "Rename...");
+		waitForWindowWithTitle("Rename");
+		setTextField(0, newName);
+		clickButton("OK");
 
 		// TODO: Rework. Assert that the element has been renamed
 	}
