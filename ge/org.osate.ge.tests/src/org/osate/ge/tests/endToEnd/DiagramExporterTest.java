@@ -32,7 +32,7 @@ public class DiagramExporterTest {
 		createNewPackageWithPackageDiagram(PROJECT_NAME, PKG_NAME);
 
 		final RelativeBusinessObjectReference packageRef = getPackageRelativeReference(PKG_NAME);
-		createElementAndLayout("Abstract Type", "TestAbstractType",
+		createElementAndLayout(PROJECT_NAME, PKG_NAME, "Abstract Type", "TestAbstractType",
 				new RelativeBusinessObjectReference[] { packageRef, getClassifierRelativeReference("new_classifier") },
 				packageRef);
 

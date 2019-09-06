@@ -45,7 +45,8 @@ public class PrimaryEndToEndTest {
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
 		final RelativeBusinessObjectReference packageRef = getPackageRelativeReference(SHARED);
-		createElementAndLayout("Feature Group Type", SERVO_INTERFACE, new RelativeBusinessObjectReference[] {
+		createElementAndLayout(SHARED, SHARED, "Feature Group Type", SERVO_INTERFACE,
+				new RelativeBusinessObjectReference[] {
 				packageRef, getClassifierRelativeReference("new_classifier") }, packageRef);
 	}
 
@@ -80,7 +81,7 @@ public class PrimaryEndToEndTest {
 
 		final RelativeBusinessObjectReference hardwarePkgRef = getPackageRelativeReference(HARDWARE);
 		setActiveEditor(HARDWARE, HARDWARE);
-		createImplementationWithNewType("System Implementation", "impl", "robot", hardwarePkgRef);
+		createImplementationWithNewType(HARDWARE, HARDWARE, "System Implementation", "impl", "robot", hardwarePkgRef);
 
 		final RelativeBusinessObjectReference componentsPackage = getPackageRelativeReference(
 				HARDWARE_COMPONENTS_PACKAGE);
@@ -91,34 +92,36 @@ public class PrimaryEndToEndTest {
 		// componentsPackage, getRelativeReference(Classifier.class, "new_classifier") }, componentsPackage);
 
 		// Create Device Type servo
-		createElementAndLayout("Device Type", "servo", new RelativeBusinessObjectReference[] { componentsPackage,
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Device Type", "servo",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Bus Access eth
-		createElementAndLayout(
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM,
 				"Bus Access", "eth", new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("servo"), getFeatureRelativeReference("servo_new_feature") },
 				componentsPackage);
 
 		// Feature group interface
-		createElementAndLayout("Feature Group", "interface",
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Feature Group", "interface",
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("servo"),
 						getFeatureRelativeReference("servo_new_feature") },
 				componentsPackage);
 
 		// Set classifier shared::ServoInterface
-		setClassifierFromPropertyView("shared::ServoInterface",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "shared::ServoInterface",
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("servo"),
 						getFeatureRelativeReference("interface") });
 
 		// Device type rangefinder
-		createElementAndLayout("Device Type", "rangefinder", new RelativeBusinessObjectReference[] { componentsPackage,
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Device Type", "rangefinder",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Bus Access eth
-		createElementAndLayout("Bus Access", "eth",
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Bus Access", "eth",
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("rangefinder"),
 						getFeatureRelativeReference("rangefinder_new_feature") },
@@ -140,19 +143,23 @@ public class PrimaryEndToEndTest {
 		 * getRelativeReference(Classifier.class, "servo"), getRelativeReference(Feature.class, "eth") });
 		 */
 		// Data Port range_o
-		createElementAndLayout("Data Port", "range_o", new RelativeBusinessObjectReference[] { componentsPackage,
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Data Port", "range_o",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("rangefinder"), getFeatureRelativeReference("rangefinder_new_feature") },
 				componentsPackage);
 
 		// Create cpu.impl
-		createImplementationWithNewType("Processor Implementation", "impl", "cpu", componentsPackage);
+		createImplementationWithNewType(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Processor Implementation", "impl",
+				"cpu", componentsPackage);
 
 		// Create memory type rom
-		createElementAndLayout("Memory Type", "rom", new RelativeBusinessObjectReference[] { componentsPackage,
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Memory Type", "rom",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Create memory type ram
-		createElementAndLayout("Memory Type", "ram", new RelativeBusinessObjectReference[] { componentsPackage,
+		createElementAndLayout(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Memory Type", "ram",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("new_classifier") }, componentsPackage);
 
 		// Set hardware package editor active
@@ -162,64 +169,66 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent") };
 
 		// Create device subcomponent yaw_servo
-		createElementAndLayout("Device Subcomponent", "yaw_servo",
+		createElementAndLayout(HARDWARE, HARDWARE, "Device Subcomponent", "yaw_servo",
 				robotNewSCRef,
 				hardwarePkgRef);
 
 		// Set classifier
-		setClassifierFromPropertyView("hardware::components::servo",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE, "hardware::components::servo",
 				new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("yaw_servo") });
 
 		// Create subcomponent pitch_servo
-		createElementAndLayout("Device Subcomponent", "pitch_servo", robotNewSCRef,
+		createElementAndLayout(HARDWARE, HARDWARE, "Device Subcomponent", "pitch_servo", robotNewSCRef,
 				hardwarePkgRef);
 
 		// Set classifier for pitch_servo
-		setClassifierFromPropertyView("hardware::components::servo",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE, "hardware::components::servo",
 				new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("pitch_servo") });
 
 		// Create subcomponent
-		createElementAndLayout("Device Subcomponent", "rangefinder", robotNewSCRef,
+		createElementAndLayout(HARDWARE, HARDWARE, "Device Subcomponent", "rangefinder", robotNewSCRef,
 				hardwarePkgRef);
 
 		// Set classifier for rangefinder
-		setClassifierFromPropertyView("hardware::components::rangefinder",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE, "hardware::components::rangefinder",
 				new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("rangefinder") });
 
 		// Create CPU subcomponent
-		createElementAndLayout("Processor Subcomponent", "cpu", robotNewSCRef,
+		createElementAndLayout(HARDWARE, HARDWARE, "Processor Subcomponent", "cpu", robotNewSCRef,
 				hardwarePkgRef);
 
 		// Set classifier for cpu
-		setClassifierFromPropertyView("hardware::components::cpu",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE, "hardware::components::cpu",
 				new RelativeBusinessObjectReference[] { hardwarePkgRef,
 						getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("cpu") });
 
 		// Create Eth subcomponent
-		createElementAndLayout("Virtual Bus Subcomponent", "ethernet_buses", robotNewSCRef,
+		createElementAndLayout(HARDWARE, HARDWARE, "Virtual Bus Subcomponent", "ethernet_buses", robotNewSCRef,
 				hardwarePkgRef);
 
 		// Set classifier for ethernet_buses
-		setSubcomponentToNewTypeFromPropertiesView(new RelativeBusinessObjectReference[] { hardwarePkgRef,
+		setSubcomponentToNewTypeFromPropertiesView(HARDWARE, HARDWARE,
+				new RelativeBusinessObjectReference[] { hardwarePkgRef,
 				getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("ethernet_buses") },
 				HARDWARE_COMPONENTS_PACKAGE, "ethernet");
 
 		setActiveEditor(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM);
 
 		// Set classifier for rangefinder::eth and servo::eth
-		setClassifierFromPropertyView("hardware::components::ethernet",
+		setClassifierFromPropertyView(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "hardware::components::ethernet",
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("rangefinder"), getFeatureRelativeReference("eth") },
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("servo"), getFeatureRelativeReference("eth") });
 
 		// Set requires bus access
-		clickRadioButtonInPropertyView("Requires", new RelativeBusinessObjectReference[] { componentsPackage,
+		clickRadioButtonInPropertyView(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM, "Requires",
+				new RelativeBusinessObjectReference[] { componentsPackage,
 				getClassifierRelativeReference("rangefinder"), getFeatureRelativeReference("eth") },
 				new RelativeBusinessObjectReference[] { componentsPackage,
 						getClassifierRelativeReference("servo"), getFeatureRelativeReference("eth") });
