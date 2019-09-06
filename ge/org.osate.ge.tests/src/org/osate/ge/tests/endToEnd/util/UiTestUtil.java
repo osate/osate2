@@ -201,6 +201,16 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Doubleclicks an item at the specified texts in the first tree in the view with the specified title.
+	 * Throws an exception if it is unable to do so.
+	 */
+	public static void doubleClickItemInTreeView(final String viewTitle, final String... itemTexts) {
+		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
+		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
+		item.get().doubleClick();
+	}
+
+	/**
 	 * Gets the first tree in the view with the specified title.
 	 * Throws an exception if it is unable to do so.
 	 */
@@ -210,6 +220,7 @@ public class UiTestUtil {
 
 	/**
 	 * Returns an optional describing the tree item located at the specified texts from the specified tree.
+	 * Expands the tree as it finds the items.
 	 * @param itemTexts a path to the item containing the text of each item along the tree hierarchy.
 	 * @returns an empty optional if the item is not found. Otherwise, it returns an optional containing the item.
 	 */
@@ -218,7 +229,13 @@ public class UiTestUtil {
 				.filter(tmpItem -> tmpItem.getText().equals(itemTexts[0])).findAny();
 		if (item.isPresent()) {
 			for (int i = 1; i < itemTexts.length && item.isPresent(); i++) {
-				item = Arrays.stream(item.get().getItems()).filter(tmpItem -> tmpItem.getText().equals(itemTexts[0]))
+				final SWTBotTreeItem treeItem = item.get();
+				if (!treeItem.isExpanded()) {
+					treeItem.expand();
+				}
+
+				final String searchText = itemTexts[i];
+				item = Arrays.stream(treeItem.getItems()).filter(tmpItem -> tmpItem.getText().equals(searchText))
 						.findAny();
 			}
 		}
@@ -334,6 +351,7 @@ public class UiTestUtil {
 		}).size() > 0;
 	}
 
+	// TODO: Review. Would like to avoid returning values like this
 	/**
 	 * Get the active editor.
 	 * @return the active editor
