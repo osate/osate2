@@ -1,28 +1,19 @@
 package org.osate.ge.tests.endToEnd.util;
 
-import static org.junit.Assert.*;
 import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.gef.EditPart;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.ui.IEditorReference;
-import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
- * Assertions and commands for testing the OSATE Graphical Editor. Used by OsateGeTestCommands to build define more complex commands.
+ * Additional assertions and commands for testing the OSATE Graphical Editor.
+ * Used by OsateGeTestCommands to build define more complex commands.
  *
+ * Intended to contain commands and assertions which can be written based on UiTestUtil but which are lower level than those contained in
+ * OsateGeTestCommands.
  */
 public class OsateGeTestUtil {
 	private final static String AADL_NAVIGATOR = "AADL Navigator";
@@ -61,43 +52,10 @@ public class OsateGeTestUtil {
 		doubleClickItemInTreeView(AADL_NAVIGATOR, itemTexts);
 	}
 
-	// TODO: Review
-	public static int getDiagramEditPartsSize(final String[] diagramPathSegments) {
-		assertDiagramEditorActive(diagramPathSegments);
-		return getEditPartsSize(getURI(diagramPathSegments));
+	public static void waitForDiagramActive(final DiagramReference diagram) {
+		waitUntil(() -> isDiagramEditorActive(diagram),
+				"Editor for diagram path segments '" + diagram + "' is not active.");
 	}
-
-	private static String getURI(final String... diagramPathSegments) {
-		return URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
-				+ ".aadl_diagram#/0";
-	}
-
-	public static void activateTool(final String[] diagramPathSegments, final String toolType) {
-		assertDiagramEditorActive(diagramPathSegments);
-		activateToolType(getURI(diagramPathSegments), toolType);
-	}
-
-	public static void activateDefaultTool(final String[] diagramPathSegments) {
-		assertDiagramEditorActive(diagramPathSegments);
-		activateDefaultToolType(getURI(diagramPathSegments));
-	}
-
-	public static void waitForDiagramActive(final String... diagramPathSegments) {
-		waitUntil(() -> isDiagramEditorActive(diagramPathSegments),
-				"Editor for diagram path segments '" + Arrays.toString(diagramPathSegments) + "' is not active.");
-	}
-
-	public static void setActiveDiagramEditor(final String... diagramPathSegments) {
-		final String uri = URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
-				+ ".aadl_diagram#/0";
-		showEditor(uri);
-		assertTrue("Diagram '" + uri + "' is not active.", isEditorActive(AgeDiagramEditor.class, uri));
-	}
-
-	public static void assertDiagramEditorActive(final String... diagramPathSegments) {
-		assertTrue(isDiagramEditorActive(diagramPathSegments));
-	}
-
 
 	public static void setTextField(final int index, final String value, final String expectedOriginalValue) {
 		assertTextFieldText("Original value is not the expected value", index, expectedOriginalValue);
@@ -105,60 +63,32 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Returns whether the OSATE Diagram Editor is active with its input set to the path indicated by the path segments.
-	 * The diagram file extension should not be included in the path segments.
+	 * If an editor for the specified diagram is not active, it double clicks the diagram in the aadl navigator and waits for the
+	 * the editor to become active.
 	 */
-	public static boolean isDiagramEditorActive(final String... diagramPathSegments) {
-		return isEditorActive(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
-	}
-
-	// TODO: Rename and document... Ensure diagram is active. Opens if necessary
 	public static void openDiagramEditor(final DiagramReference diagram) {
 		// Don't do anything if diagram is active
-		if (!isDiagramEditorActive(diagram.getWithoutExtension())) {
-			doubleClickInAadlNavigator(diagram.getWithExtension());
-			assertDiagramEditorActive(diagram.getWithoutExtension());
+		if (!isDiagramEditorActive(diagram)) {
+			doubleClickInAadlNavigator(diagram.pathSegments.toArray(s -> new String[s]));
+			waitForDiagramActive(diagram);
 		}
-	}
-
-	/**
-	 * Saves and closes the specified editor
-	 */
-	public static void saveDiagramEditor(final String... diagramPathSegments) {
-		saveEditor(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
-	}
-
-	/**
-	 * Saves and closes the specified diagram editor
-	 */
-	public static void saveAndCloseDiagramEditor(final String... diagramPathSegments) {
-		saveAndCloseEditor(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
 	}
 
 	/**
 	 * Returns whether the OSATE Diagram Editor is open with its input set to the path indicated by the path segments.
 	 * The diagram file extension should not be included in the path segments.
 	 */
-	public static boolean isDiagramEditorOpen(final String... diagramPathSegments) {
-		return isEditorOpen(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
-	}
-
-	private static String getDiagramUri(final String... diagramPathSegments) {
-		return URI.createPlatformResourceURI(String.join("/", diagramPathSegments), false).toString()
-				+ ".aadl_diagram#/0";
+	public static boolean isDiagramEditorOpen(final DiagramReference diagram) {
+		return isEditorOpen(AgeDiagramEditor.class, diagram.getUri());
 	}
 
 	/**
 	 * Wait until the editor for the diagram to be closed
 	 */
-	public static void waitForDiagramClosed(final String... diagramPathSegments) {
-		waitUntil(() -> !isDiagramEditorOpen(diagramPathSegments),
-				"Editor for diagram path segments '" + Arrays.toString(diagramPathSegments) + "' is open.");
+	public static void waitForDiagramClosed(final DiagramReference diagram) {
+		waitUntil(() -> !isDiagramEditorOpen(diagram),
+				"Editor for diagram path segments '" + diagram + "' is open.");
 	}
-
-	// public static IEditorReference getEditorReference(final String... diagramPathSegments) {
-	/// final String uri
-	// }
 
 	/**
 	 * Checks all rows in the simple table which is the nth table in the active shell.
@@ -168,150 +98,42 @@ public class OsateGeTestUtil {
 		Arrays.stream(itemTexts).forEach(itemText -> checkItemInSimpleTable(0, itemText));
 	}
 
-	/**
-	 * Select elements specified by relative references from diagram root element.
-	 * @param editorRef the editor the element is located on
-	 * @param refs the relative references to element from diagram root element
-	 */
-	public static void selectElements(final DiagramReference diagram,
-			final DiagramElementReference... elements) {
-		openDiagramEditor(diagram);
-		final IEditorReference editorRef = getDiagramEditor(getURI(diagram.getWithoutExtension()));
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		final List<EditPart> editPartsToSelect = new ArrayList<>();
-		for (int i = 0; i < elements.length; i++) {
-			final DiagramElementReference element = elements[i];
-			final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences())
-				.orElseThrow(
-							() -> new RuntimeException(
-									"Cannot find relative reference for '"
-											+ relativeReferences(element.getRelativeReferences()) + "'."));
-
-			// TODO: Graphiti specific.. way to avoid? Worth it?
-			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-			final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-			editPartsToSelect.add(editPart);
-		}
-		selectEditParts(editorRef, editPartsToSelect);
-	}
-
-	// TODO: Remove? Only keep one variant
-	public static void clickElement(final IEditorReference editorRef, final DiagramElementReference element) {
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '"
-						+ relativeReferences(element.getRelativeReferences()) + "'."));
-		// TODO: Is not correct
-		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
-				.getPictogramElementForBusinessObject(de.getBusinessObject());
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-		clickEditPart(editorRef, editPart);
-	}
-
-	public static void clickRenameFromContextMenu(final DiagramReference diagram, final String newName) {
-		assertDiagramEditorActive(diagram.getWithoutExtension());
-		renameFromContextMenu(getURI(diagram.getWithoutExtension()), newName);
-	}
-
-	// TODO: Review
-	public static void clickElement(final DiagramReference diagram,
-			final DiagramElementReference element) {
-		assertDiagramEditorActive(diagram.getWithoutExtension());
-		final IEditorReference editorRef = getDiagramEditor(getURI(diagram.getWithoutExtension()));
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '"
-						+ relativeReferences(element.getRelativeReferences()) + "'."));
-		// TODO: Is not correct
-		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
-				.getPictogramElementForBusinessObject(de.getBusinessObject());
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-		clickEditPart(editorRef, editPart);
-	}
-
-	// TODO: Review
-	// TODO: Overlap with select diagram elements?
-	public static void clickDiagramElement(final DiagramReference diagram, final DiagramElementReference element) {
-		openDiagramEditor(diagram);
-
-		final IEditorReference editorRef = getDiagramEditor(getURI(diagram.getWithoutExtension()));
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		assertNotNull("Editor is null", editor);
-
-		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '"
-						+ relativeReferences(element.getRelativeReferences()) + "'."));
-
-		// TODO: Graphiti specific.. way to avoid? Worth it?
-		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-		clickEditPart(editorRef, editPart);
-	}
-
 	public static void clickContextMenuOfDiagramElement(final DiagramReference diagram,
 			final DiagramElementReference element,
 			final String... texts) {
-		clickDiagramElement(diagram, element);
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
+
 		// TODO: Assert selected element
 		clickContextMenuOfFocused(texts);
 	}
 
-	private static String relativeReferences(final RelativeBusinessObjectReference... refs) {
-		final StringBuilder sb = new StringBuilder();
-		for (final RelativeBusinessObjectReference ref : refs) {
-			sb.append("[" + ref.toSegmentArray()[0] + "," + ref.toSegmentArray()[1] + "]");
-		}
-
-		return sb.toString();
-	}
-
-	private static Optional<DiagramElement> getElementByRelativeReferences(final AgeDiagramEditor editor,
-			final RelativeBusinessObjectReference... refs) {
-		final AgeDiagram ageDiagram = editor.getAgeDiagram();
-		final List<RelativeBusinessObjectReference> refsAsList = Arrays.asList(refs);
-		final Iterator<RelativeBusinessObjectReference> it = refsAsList.iterator();
-		RelativeBusinessObjectReference rel = it.next();
-		DiagramElement de = Objects.requireNonNull(ageDiagram.getByRelativeReference(rel),
-				"Relative reference '" + relativeReferences(rel) + "'.");
-		while (it.hasNext()) {
-			rel = it.next();
-			de = Objects.requireNonNull(de.getByRelativeReference(rel),
-					"Relative reference '" + relativeReferences(rel) + "'.");
-		}
-
-		return Optional.ofNullable(de);
-	}
-
 	/**
 	 * Create a shape element the active diagram within the referenced element.
-	 * @param toolType the type of the new element
+	 * @param paletteItem the text for the palette item to use
 	 */
 	public static void createShapeElement(final DiagramReference diagram, DiagramElementReference parentElement,
-			final String toolType) {
+			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
-		// Initial edit parts
-		final int editPartsBefore = getDiagramEditPartsSize(diagram.getWithoutExtension());
-
-		activateToolType(getURI(diagram.getWithoutExtension()), toolType);
-		clickElement(diagram, parentElement);
-		activateDefaultToolType(getURI(diagram.getWithoutExtension()));
+		activatePaletteItem(diagram, paletteItem);
+		clickDiagramElement(diagram, parentElement);
+		activateSelectionTool(diagram);
 
 		// Wait for element to be created
-		waitForElementToBeCreated(diagram, editPartsBefore);
+		waitForDiagramElementToExist(diagram, parentElement.join(referenceAfterCreate));
 	}
 
-	// TODO: Review
 	/**
-	 * Waits for more edit parts to be created on the active editor than initial edit part size.
+	 * Waits until the diagram element exists
 	 */
-	public static void waitForElementToBeCreated(final DiagramReference diagram, final int initEditPartSize) {
-		waitUntil(() -> getEditPartsSize(getURI(diagram.getWithoutExtension())) > initEditPartSize,
-				"Element was not created.");
+	public static void waitForDiagramElementToExist(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		waitUntil(() -> {
+			// TODO:
+			assertDiagramEditorActive(diagram);
+			return getDiagramElement(diagram, element).isPresent();
+		}, "Expected element '" + element + "' doesn't exist.");
 	}
 
 	public static DiagramElementReference element(final RelativeBusinessObjectReference... pathToElement) {
@@ -323,11 +145,53 @@ public class OsateGeTestUtil {
 	}
 
 	public static DiagramReference diagram(final String... diagramPathSegments) {
-		return new DiagramReference(diagramPathSegments);
+		final String[] segmentsWithExtension = diagramPathSegments.clone();
+		segmentsWithExtension[segmentsWithExtension.length
+				- 1] = segmentsWithExtension[segmentsWithExtension.length - 1] + ".aadl_diagram";
+		return new DiagramReference(segmentsWithExtension);
 	}
 
-	// TODO: Rename and document.
+	/**
+	 * Returns a reference to the diagram located in the diagrams folder for the specified project.
+	 * @param projectName
+	 * @param diagramName should not include file extension.
+	 * @return
+	 */
 	public static DiagramReference defaultDiagram(final String projectName, final String diagramName) {
-		return new DiagramReference(projectName, "diagrams", diagramName);
+		return diagram(projectName, "diagrams", diagramName);
+	}
+
+	// TODO: Review. Argument ordering... Assumptions. Name
+	public static void clickButtonInPropertiesView(final DiagramReference diagram, final String btnLabel,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		clickButtonInPropertiesView(btnLabel, "AADL");
+	}
+
+	// TODO: Review. Argument ordering... Assumptions. Name
+	public static void clickRadioButtonInPropertyView(final DiagramReference diagram, final String btnLabel,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		clickRadioButtonInPropertyView(btnLabel, "AADL");
+	}
+
+	// Change to show TAB?
+	// Click button after
+	private static void clickRadioButtonInPropertyView(final String btnLabel, final String tabLabel) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab(tabLabel);
+		clickRadioButton(btnLabel);
+	}
+
+	public static void clickButtonInPropertiesView(final String btnLabel, final String tabLabel) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab(tabLabel);
+		clickButton(btnLabel);
 	}
 }
