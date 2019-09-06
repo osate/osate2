@@ -2,9 +2,11 @@ package org.osate.ge.tests.endToEnd;
 
 import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
+import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 
 import org.junit.Test;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.tests.endToEnd.util.DiagramReference;
 
 /**
  * This class is the primary end to end test. It creates a complete model and exercises a large part of the graphical editor.
@@ -31,7 +33,9 @@ public class PrimaryEndToEndTest {
 		createHardwareProject();
 		createSoftwareProject();
 		createIntegratedProject();
+		additionalTests();
 	}
+
 
 	private void createSharedProject() {
 //		 * - Shared(Project)
@@ -268,5 +272,20 @@ public class PrimaryEndToEndTest {
 		createAadlProjectWithReferencedProjects(INTEGRATED, HARDWARE, SOFTWARE);
 		createNewPackageWithPackageDiagram(INTEGRATED, INTEGRATED);
 
+	}
+
+	// TODO: rename
+	private void additionalTests() {
+		// TODO: additional tests
+		// TODO: Cleanup
+		final DiagramReference diagram = diagram(HARDWARE, "diagrams", HARDWARE);
+
+		// Hide Contents
+		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), "Hide Contents", "All");
+		// TODO: Contents contents. Can be done at this level? Fundamental objects. Sharing required BO
+
+		// Show contents
+		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), "Show Contents", "All");
+		// TODO: Contents contents. Can be done at this level? Fundamental objects. Sharing required BO
 	}
 }

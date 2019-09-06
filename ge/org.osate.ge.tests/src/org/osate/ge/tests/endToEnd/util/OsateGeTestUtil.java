@@ -1,6 +1,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
+import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.ArrayList;
@@ -56,6 +57,10 @@ public class OsateGeTestUtil {
 		selectItemInTreeView(AADL_NAVIGATOR, projectName);
 	}
 
+	public static void doubleClickInAadlNavigator(final String... itemTexts) {
+		doubleClickItemInTreeView(AADL_NAVIGATOR, itemTexts);
+	}
+
 	public static void waitForDiagramActive(final String... diagramPathSegments) {
 		waitUntil(() -> isDiagramEditorActive(diagramPathSegments),
 				"Editor for diagram path segments '" + Arrays.toString(diagramPathSegments) + "' is not active.");
@@ -86,13 +91,22 @@ public class OsateGeTestUtil {
 		return isEditorActive(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
 	}
 
+	// TODO: Rename and document... Ensure diagram is active. Opens if necessary
+	public static void openDiagramEditor(final DiagramReference diagram) {
+		// Don't do anything if diagram is active
+		if (!isDiagramEditorActive(diagram.getWithoutExtension())) {
+			doubleClickInAadlNavigator(diagram.getWithExtension());
+			assertDiagramEditorActive(diagram.getWithoutExtension());
+		}
+	}
+
 	/**
 	 * Saves and closes the specified editor
 	 */
 	public static void saveDiagramEditor(final String... diagramPathSegments) {
 		saveEditor(AgeDiagramEditor.class, getDiagramUri(diagramPathSegments));
 	}
-	
+
 	/**
 	 * Saves and closes the specified diagram editor
 	 */
@@ -152,15 +166,42 @@ public class OsateGeTestUtil {
 		selectEditParts(editorRef, editPartsToSelect);
 	}
 
+	// TODO: Remove? Only keep one variant
 	public static void clickElement(final IEditorReference editorRef, final RelativeBusinessObjectReference... refs) {
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
 		final DiagramElement de = getElementByRelativeReferences(editor, refs).orElseThrow(
 				() -> new RuntimeException("Cannot find relative reference for '" + relativeReferences(refs) + "'."));
+		// TODO: Is not correct
 		final PictogramElement pe = editor.getDiagramTypeProvider().getFeatureProvider()
 				.getPictogramElementForBusinessObject(de.getBusinessObject());
 		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
 
 		clickEditPart(editorRef, editPart);
+	}
+
+	public static void clickDiagramElement(final DiagramReference diagram, final DiagramElementReference element) {
+		openDiagramEditor(diagram);
+
+		final AgeDiagramEditor editor = (AgeDiagramEditor) getActiveEditor().getEditor(true);
+		assertNotNull("Editor is null", editor);
+
+		final DiagramElement de = getElementByRelativeReferences(editor, element.getRelativeReferences()).orElseThrow(
+				() -> new RuntimeException("Cannot find relative reference for '"
+						+ relativeReferences(element.getRelativeReferences()) + "'."));
+
+		// TODO: Graphiti specific.. way to avoid? Worth it?
+		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+
+		clickEditPart(getActiveEditor(), editPart);
+	}
+
+	public static void clickContextMenuOfDiagramElement(final DiagramReference diagram,
+			final DiagramElementReference element,
+			final String... texts) {
+		clickDiagramElement(diagram, element);
+		// TODO: Assert selected element
+		clickContextMenuOfFocused(texts);
 	}
 
 	private static String relativeReferences(final RelativeBusinessObjectReference... refs) {
@@ -194,5 +235,17 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitForElementToBeCreated(final int initEditPartSize) {
 		waitUntil(() -> getEditPartsSize() > initEditPartSize, "Element was not created.");
+	}
+
+	public static DiagramElementReference element(final RelativeBusinessObjectReference... pathToElement) {
+		return new DiagramElementReference(pathToElement);
+	}
+
+	public static DiagramElementReference packageElement(final String packageQualifiedName) {
+		return new DiagramElementReference(getPackageRelativeReference(packageQualifiedName));
+	}
+
+	public static DiagramReference diagram(final String... diagramPathSegments) {
+		return new DiagramReference(diagramPathSegments);
 	}
 }
