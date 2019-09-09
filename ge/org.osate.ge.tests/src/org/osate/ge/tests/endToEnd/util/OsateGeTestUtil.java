@@ -69,7 +69,7 @@ public class OsateGeTestUtil {
 	public static void openDiagramEditor(final DiagramReference diagram) {
 		// Don't do anything if diagram is active
 		if (!isDiagramEditorActive(diagram)) {
-			doubleClickInAadlNavigator(diagram.pathSegments.toArray(s -> new String[s]));
+			doubleClickInAadlNavigator(diagram.pathSegments.toArray(new String[diagram.pathSegments.size()]));
 			waitForDiagramActive(diagram);
 		}
 	}
