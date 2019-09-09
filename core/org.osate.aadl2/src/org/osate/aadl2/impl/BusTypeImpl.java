@@ -145,12 +145,12 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+						ownedFeatures = new DerivedUnionEObjectEList<>(Feature.class, this,
 								Aadl2Package.BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.BUS_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.BUS_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -175,7 +175,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -201,7 +201,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -227,7 +227,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -253,7 +253,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;

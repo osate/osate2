@@ -81,6 +81,7 @@ public interface RangeType extends NonListType {
 	 * @see #setOwnedNumberType(NumberType)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeType_OwnedNumberType()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	NumberType getOwnedNumberType();
@@ -141,6 +142,7 @@ public interface RangeType extends NonListType {
 	 * @see #setReferencedNumberType(NumberType)
 	 * @see org.osate.aadl2.Aadl2Package#getRangeType_ReferencedNumberType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	NumberType getReferencedNumberType();

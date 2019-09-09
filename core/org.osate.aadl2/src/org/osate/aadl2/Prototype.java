@@ -78,6 +78,7 @@ public interface Prototype extends StructuralFeature, CalledSubprogram {
 	 * @see #setRefined(Prototype)
 	 * @see org.osate.aadl2.Aadl2Package#getPrototype_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Prototype getRefined();

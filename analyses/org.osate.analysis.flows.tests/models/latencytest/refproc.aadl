@@ -1,0 +1,66 @@
+package refproc
+public
+	with SEI;
+
+	thread t
+		features
+		inp: in data port;
+		outp: out data port;
+		flows 
+			fl1: flow path inp -> outp;
+		properties
+			Compute_Execution_Time => 100ms .. 200ms;
+	end t;
+
+	process p
+		properties
+			SEI::MIPSBudget => 50.0 mips;
+			Reference_Processor => classifier (cpu);
+	end p;
+
+	process implementation p.i
+		subcomponents
+			t1: thread t;
+			t2: thread t;
+		connections
+			c1: port t1.outp -> t2.inp;
+		flows
+			etef1: end to end flow t1.fl1 -> c1 -> t2.fl1;
+	end p.i;
+
+	processor cpu
+		properties
+			Processor_Capacity => 100.0 MIPS;
+	end cpu;
+
+	processor cpuu
+		properties
+			Processor_Capacity => 400.0 MIPS;
+	end cpuu;
+
+	virtual processor partition
+	end partition;
+
+	system top
+	end top;
+
+	system implementation top.iu
+		subcomponents
+			proc1: process p.i;
+			cpu1: processor cpuu;
+			vp1: virtual processor partition;
+		properties
+			Actual_Processor_Binding => (reference (cpu1)) applies to vp1;
+			Actual_Processor_Binding => (reference (vp1)) applies to proc1;
+	end top.iu;
+
+	system implementation top.i
+		subcomponents
+			proc1: process p.i;
+			cpu1: processor cpu;
+			vp1: virtual processor partition;
+		properties
+			Actual_Processor_Binding => (reference (cpu1)) applies to vp1;
+			Actual_Processor_Binding => (reference (vp1)) applies to proc1;
+	end top.i;
+end refproc;
