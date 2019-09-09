@@ -54,6 +54,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 				scTypeSelectionListener, subcompTypeLabelProvider);
 		comboViewer.setComparator(new ViewerComparator());
 		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private final SelectionAdapter scTypeSelectionListener = new SelectionAdapter() {

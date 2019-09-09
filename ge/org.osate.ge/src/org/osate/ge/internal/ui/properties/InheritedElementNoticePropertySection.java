@@ -19,6 +19,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class InheritedElementNoticePropertySection extends AbstractPropertySection {
@@ -64,6 +65,8 @@ public class InheritedElementNoticePropertySection extends AbstractPropertySecti
 		final FontDescriptor boldDescriptor = FontDescriptor.createFrom(lbl.getFont()).setStyle(SWT.BOLD);
 		boldFont = boldDescriptor.createFont(lbl.getDisplay());
 		lbl.setFont(boldFont);
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

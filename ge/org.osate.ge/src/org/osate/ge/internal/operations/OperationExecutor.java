@@ -60,6 +60,16 @@ public class OperationExecutor {
 	}
 
 	/**
+	 * Executes without a results processor
+	 * @param op
+	 */
+	public void execute(final Operation op) {
+		this.execute(op, results -> {
+
+		});
+	}
+
+	/**
 	 * Finishes executing an operation. Ensures that pending step suppliers are called and the results processor is called
 	 * @param resultsProcessor
 	 * @param pendingStepConsumers

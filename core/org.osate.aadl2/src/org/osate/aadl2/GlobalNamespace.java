@@ -81,6 +81,7 @@ public interface GlobalNamespace extends Namespace {
 	 * @return the value of the '<em>Package</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getGlobalNamespace_Package()
 	 * @model transient="true" volatile="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PublicPackageSection> getPackages();
@@ -106,6 +107,7 @@ public interface GlobalNamespace extends Namespace {
 	 * @return the value of the '<em>Property Set</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getGlobalNamespace_PropertySet()
 	 * @model transient="true" volatile="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PropertySet> getPropertySets();

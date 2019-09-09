@@ -104,6 +104,7 @@ public interface AbstractFeature extends DirectedFeature, TriggerPort {
 	 * @see #setAbstractFeatureClassifier(FeatureClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_AbstractFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	FeatureClassifier getAbstractFeatureClassifier();

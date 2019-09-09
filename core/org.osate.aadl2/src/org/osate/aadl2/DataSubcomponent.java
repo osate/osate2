@@ -79,6 +79,7 @@ public interface DataSubcomponent
 	 * @see #setDataSubcomponentType(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDataSubcomponent_DataSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	DataSubcomponentType getDataSubcomponentType();

@@ -78,6 +78,7 @@ public interface ProcessSubcomponent extends Subcomponent, org.osate.aadl2.Proce
 	 * @see #setProcessSubcomponentType(ProcessSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getProcessSubcomponent_ProcessSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ProcessSubcomponentType getProcessSubcomponentType();

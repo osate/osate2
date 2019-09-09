@@ -21,6 +21,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 public class RenameHandler extends AbstractHandler {
 	@Override
@@ -133,6 +134,7 @@ public class RenameHandler extends AbstractHandler {
 		protected void configureShell(final Shell shell) {
 			super.configureShell(shell);
 			shell.setMinimumSize(225, 185);
+			ContextHelpUtil.setHelp(shell, ContextHelpUtil.RENAMING_ELEMENTS);
 		}
 	}
 }

@@ -20,6 +20,7 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -27,7 +28,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
+import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Dialog used for creating or selecting a classifier.
@@ -64,17 +68,19 @@ public class ClassifierOperationDialog {
 	private static class Arguments {
 		private Arguments(final Model model, final EnumSet<ClassifierOperationPartType> allowedOperations, final Object defaultPackage,
 				final Object defaultSelection, final boolean showPrimaryPackageSelector,
-				final ComponentCategory componentCategory) {
+				final ImmutableList<ComponentCategory> componentCategories) {
 			this.model = Objects.requireNonNull(model, "model must not be null");
 			this.allowedOperations = Objects.requireNonNull(allowedOperations, "allowedOperations must not be null");
 			this.defaultPackage = defaultPackage;
 			this.defaultSelection = defaultSelection;
 			this.showPrimaryPackageSelector = showPrimaryPackageSelector;
-			this.componentCategory = componentCategory;
+			this.componentCategories = componentCategories;
 
-			if(componentCategory == null && allowedOperations.stream().anyMatch(op -> op == ClassifierOperationPartType.NEW_COMPONENT_TYPE || op == ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION)) {
+			if ((componentCategories == null || componentCategories.isEmpty())
+					&& allowedOperations.stream().anyMatch(op -> op == ClassifierOperationPartType.NEW_COMPONENT_TYPE
+					|| op == ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION)) {
 				throw new RuntimeException(
-						"Component category must not be null if new component type or component implementation is allowed.");
+						"Component category must not be null or empty if new component type or component implementation is allowed.");
 			}
 		}
 
@@ -83,7 +89,7 @@ public class ClassifierOperationDialog {
 		public final Object defaultPackage;
 		public final Object defaultSelection;
 		public final boolean showPrimaryPackageSelector;
-		public final ComponentCategory componentCategory; // For create component operations
+		public final ImmutableList<ComponentCategory> componentCategories; // For create component operations
 	}
 
 	public static class ArgumentBuilder {
@@ -92,7 +98,7 @@ public class ClassifierOperationDialog {
 		private Object defaultPackage;
 		private Object defaultSelection;
 		private boolean showPrimaryPackageSelector = true;
-		private ComponentCategory componentCategory;
+		private ImmutableList<ComponentCategory> componentCategories = ImmutableList.of();
 
 		public ArgumentBuilder(final Model model, final EnumSet<ClassifierOperationPartType> allowedOperations) {
 			this.model = Objects.requireNonNull(model, "model must not be null");
@@ -114,14 +120,14 @@ public class ClassifierOperationDialog {
 			return this;
 		}
 
-		public ArgumentBuilder componentCategory(final ComponentCategory value) {
-			this.componentCategory = value;
+		public ArgumentBuilder componentCategories(final ImmutableList<ComponentCategory> value) {
+			this.componentCategories = value;
 			return this;
 		}
 
 		public Arguments create() {
 			return new Arguments(model, allowedOperations, defaultPackage, defaultSelection,
-					showPrimaryPackageSelector, componentCategory);
+					showPrimaryPackageSelector, componentCategories);
 		}
 	}
 
@@ -148,7 +154,7 @@ public class ClassifierOperationDialog {
 		@Override
 		protected Point getInitialSize() {
 			final Point initialSize = super.getInitialSize();
-			return new Point(initialSize.x, Math.max(initialSize.y, 500));
+			return new Point(initialSize.x, Math.max(initialSize.y, 550));
 		}
 
 		@Override
@@ -171,114 +177,121 @@ public class ClassifierOperationDialog {
 			final Composite container = new Composite(scrolled, SWT.NONE);
 			container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 
-			// Editor for the primary operation part
-			primaryPartEditor = new ClassifierOperationPartEditor(container, args.allowedOperations,
-					args.showPrimaryPackageSelector, args.componentCategory,
-					new ClassifierOperationPartEditor.Model() {
-				@Override
-				public Collection<?> getPackageOptions() {
-					return args.model.getPackageOptions();
-				}
+			// Determine initial component category selection. Set it if there is only one valid option.
+			final ComponentCategory initialComponentCategory = args.componentCategories.size() == 1
+					? args.componentCategories.get(0)
+							: null;
 
-				@Override
-				public String getSelectTitle() {
-					return args.model.getPrimarySelectTitle();
-				}
+					// Editor for the primary operation part
+					primaryPartEditor = new ClassifierOperationPartEditor(container, args.allowedOperations,
+							args.showPrimaryPackageSelector, args.componentCategories,
+							new ClassifierOperationPartEditor.Model() {
+						@Override
+						public Collection<?> getPackageOptions() {
+							return args.model.getPackageOptions();
+						}
 
-				@Override
-				public String getSelectMessage() {
-					return args.model.getPrimarySelectMessage();
-				}
+						@Override
+						public String getSelectTitle() {
+							return args.model.getPrimarySelectTitle();
+						}
 
-				@Override
-				public Collection<?> getSelectOptions() {
-					return args.model.getPrimarySelectOptions();
-				}
+						@Override
+						public String getSelectMessage() {
+							return args.model.getPrimarySelectMessage();
+						}
 
-				@Override
-				public Collection<?> getUnfilteredSelectOptions() {
-					return args.model.getUnfilteredPrimarySelectOptions();
-				}
-			});
-			primaryPartEditor.setData(primaryPartIdentifier);
-			primaryPartEditor.setSelectedElement(args.defaultSelection);
-			primaryPartEditor.setSelectedPackage(args.defaultPackage);
-			primaryPartEditor.setLayoutData(GridDataFactory.fillDefaults().span(2, 1).grab(true, false).create());
+						@Override
+						public Collection<?> getSelectOptions() {
+							return args.model.getPrimarySelectOptions();
+						}
 
-			baseGroup = new Group(container, SWT.NONE);
-			baseGroup.setText("Base");
-			baseGroup.setLayout(GridLayoutFactory.swtDefaults().create());
-			baseGroup.setLayoutData(GridDataFactory.fillDefaults().span(2, 1).grab(true, false).create());
+						@Override
+						public Collection<?> getUnfilteredSelectOptions() {
+							return args.model.getUnfilteredPrimarySelectOptions();
+						}
+					});
+					primaryPartEditor.setData(primaryPartIdentifier);
+					primaryPartEditor.setSelectedElement(args.defaultSelection);
+					primaryPartEditor.setSelectedComponentCategory(initialComponentCategory);
+					primaryPartEditor.setSelectedPackage(args.defaultPackage);
+					primaryPartEditor.setLayoutData(GridDataFactory.fillDefaults().span(2, 1).grab(true, false).create());
 
-			baseValueWidget = new ClassifierOperationPartEditor(baseGroup,
-					EnumSet.allOf(ClassifierOperationPartType.class), true, args.componentCategory,
-					new ClassifierOperationPartEditor.Model() {
-				@Override
-				public Collection<?> getPackageOptions() {
-					return args.model.getPackageOptions();
-				}
+					baseGroup = new Group(container, SWT.NONE);
+					baseGroup.setText("Base");
+					baseGroup.setLayout(GridLayoutFactory.swtDefaults().create());
+					baseGroup.setLayoutData(GridDataFactory.fillDefaults().span(2, 1).grab(true, false).create());
 
-				@Override
-				public String getSelectTitle() {
-					return "Select Base Classifier";
-				}
+					baseValueWidget = new ClassifierOperationPartEditor(baseGroup,
+							EnumSet.allOf(ClassifierOperationPartType.class), true, args.componentCategories,
+							new ClassifierOperationPartEditor.Model() {
+						@Override
+						public Collection<?> getPackageOptions() {
+							return args.model.getPackageOptions();
+						}
 
-				@Override
-				public String getSelectMessage() {
-					return "Select a base classifier.";
-				}
+						@Override
+						public String getSelectTitle() {
+							return "Select Base Classifier";
+						}
 
-				@Override
-				public Collection<?> getSelectOptions() {
-					return args.model
-							.getBaseSelectOptions(primaryPartEditor.getConfiguredOperation().getType());
-				}
+						@Override
+						public String getSelectMessage() {
+							return "Select a base classifier.";
+						}
 
-				@Override
-				public Collection<?> getUnfilteredSelectOptions() {
-					return args.model.getUnfilteredBaseSelectOptions(
-							primaryPartEditor.getConfiguredOperation().getType());
-				}
-			});
-			baseValueWidget.setData(baseValueIdentifier);
-			baseValueWidget.setSelectedElement(args.defaultSelection);
-			baseValueWidget.setSelectedPackage(args.defaultPackage);
-			baseValueWidget.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
+						@Override
+						public Collection<?> getSelectOptions() {
+							return args.model
+									.getBaseSelectOptions(primaryPartEditor.getConfiguredOperation().getType());
+						}
 
-			// Update the base whenever the primary widget is updated
-			primaryPartEditor.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
+						@Override
+						public Collection<?> getUnfilteredSelectOptions() {
+							return args.model.getUnfilteredBaseSelectOptions(
+									primaryPartEditor.getConfiguredOperation().getType());
+						}
+					});
+					baseValueWidget.setData(baseValueIdentifier);
+					baseValueWidget.setSelectedElement(args.defaultSelection);
+					baseValueWidget.setSelectedComponentCategory(initialComponentCategory);
+					baseValueWidget.setSelectedPackage(args.defaultPackage);
+					baseValueWidget.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
+
+					// Update the base whenever the primary widget is updated
+					primaryPartEditor.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(final SelectionEvent e) {
+							updateBase();
+							validate();
+						}
+					});
+
+					baseValueWidget.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(final SelectionEvent e) {
+							validate();
+						}
+					});
+
 					updateBase();
-					validate();
-				}
-			});
 
-			baseValueWidget.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					validate();
-				}
-			});
-
-			updateBase();
-
-			// The set scrolled composite' content
-			scrolled.setContent(container);
-			scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-
-			// Update the min size of the scrolled composite whenever the the size of the widgets change.
-			final ControlListener resizeListener = new ControlAdapter() {
-				@Override
-				public void controlResized(ControlEvent e) {
+					// The set scrolled composite' content
+					scrolled.setContent(container);
 					scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-				}
-			};
 
-			primaryPartEditor.addControlListener(resizeListener);
-			baseGroup.addControlListener(resizeListener);
+					// Update the min size of the scrolled composite whenever the the size of the widgets change.
+					final ControlListener resizeListener = new ControlAdapter() {
+						@Override
+						public void controlResized(ControlEvent e) {
+							scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+						}
+					};
 
-			return area;
+					primaryPartEditor.addControlListener(resizeListener);
+					baseGroup.addControlListener(resizeListener);
+
+					return area;
 		}
 
 		@Override
@@ -290,24 +303,48 @@ public class ClassifierOperationDialog {
 		}
 
 		private void updateBase() {
-			final ClassifierOperationPartType primaryOp = primaryPartEditor.getConfiguredOperation().getType();
+			final ClassifierOperationPart primaryPart = primaryPartEditor.getConfiguredOperation();
+			final ClassifierOperationPartType primaryOp = primaryPart.getType();
 			baseGroup.setVisible(ClassifierOperationPartType.isCreate(primaryOp));
+
+			// Set allowed component categories and selected component category for the base widget
+			final ComponentCategory cc = primaryPart.getComponentCategory();
+			baseValueWidget
+			.setAllowedComponentCategories(cc == null ? ImmutableList.of() : ImmutableList.of(cc));
+			baseValueWidget.setSelectedComponentCategory(cc);
 
 			if (baseGroup.getVisible()) {
 				switch (primaryOp) {
 				case NEW_COMPONENT_TYPE:
 					baseValueWidget
 					.setAllowedOperations(EnumSet.of(ClassifierOperationPartType.NONE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NONE);
+					}
+
 					break;
 
 				case NEW_COMPONENT_IMPLEMENTATION:
 					baseValueWidget.setAllowedOperations(
 							EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NEW_COMPONENT_TYPE);
+					}
+
 					break;
 
 				case NEW_FEATURE_GROUP_TYPE:
 					baseValueWidget
 					.setAllowedOperations(EnumSet.of(ClassifierOperationPartType.NONE, ClassifierOperationPartType.EXISTING));
+
+					// Set default value for base operation
+					if (baseValueWidget.getConfiguredOperation().getType() == null) {
+						baseValueWidget.setCurrentOperationPartType(ClassifierOperationPartType.NONE);
+					}
 					break;
 
 				default:
@@ -317,11 +354,14 @@ public class ClassifierOperationDialog {
 		}
 
 		private void validate() {
-			final String errorMsg = args.model.validate(createResult());
-			setErrorMessage(errorMsg);
-			getButton(IDialogConstants.OK_ID).setEnabled(errorMsg == null);
+			final Button okBtn = getButton(IDialogConstants.OK_ID);
 
-			updateMessage();
+			if(okBtn != null) {
+				final String errorMsg = args.model.validate(createResult());
+				setErrorMessage(errorMsg);
+				okBtn.setEnabled(errorMsg == null);
+				updateMessage();
+			}
 		}
 
 		private void updateMessage() {
@@ -434,7 +474,7 @@ public class ClassifierOperationDialog {
 			final ClassifierOperation result = show(new Shell(),
 					new ArgumentBuilder(testModel,
 							EnumSet.complementOf(EnumSet.of(ClassifierOperationPartType.NONE)))
-					.componentCategory(ComponentCategory.ABSTRACT).create());
+					.componentCategories(ImmutableList.of(ComponentCategory.ABSTRACT)).create());
 			System.out.println("Result: " + result);
 		});
 

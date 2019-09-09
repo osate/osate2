@@ -59,6 +59,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -151,7 +152,7 @@ public class SetBindingTool {
 			this.elementsToBind = Arrays.stream(bocsToBind).map(boc -> (NamedElement) boc.getBusinessObject())
 					.toArray(size -> new NamedElement[size]);
 			setShellStyle(SWT.RESIZE | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
-			setHelpAvailable(false);
+			setHelpAvailable(true);
 		}
 
 		@Override
@@ -163,6 +164,8 @@ public class SetBindingTool {
 					.stream(elementsToBind).map(e -> Strings.emptyIfNull(e.getName())).collect(Collectors.joining(","))
 					+ ".");
 			validate();
+
+			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.BINDING_TOOL);
 		}
 
 		@Override
@@ -284,8 +287,8 @@ public class SetBindingTool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Bind");
-			newShell.setSize(400, 225);
-			newShell.setMinimumSize(250, 220);
+			newShell.setSize(400, 285);
+			newShell.setMinimumSize(400, 280);
 		}
 
 		public void cancel() {

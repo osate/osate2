@@ -55,7 +55,7 @@ import org.eclipse.emf.ecore.EClass;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeaturePrototypeBinding()
- * @model
+ * @model annotation="duplicates"
  * @generated
  */
 public interface FeaturePrototypeBinding extends PrototypeBinding {

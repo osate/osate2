@@ -20,7 +20,6 @@ import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -49,7 +48,7 @@ public class CreateFTAModel {
 	public static FaultTree createModel(ComponentInstance selection, final String startingPoint,
 			FaultTreeType faultTreeType) {
 		NamedElement errorStateOrPropagation=null;
-		ErrorTypes errorType =null;
+		TypeToken errorType = null;
 
 		if (startingPoint.startsWith(prefixState)) {
 			String toProcess = startingPoint.replace(prefixState, "");
@@ -64,13 +63,12 @@ public class CreateFTAModel {
 		if (startingPoint.startsWith(prefixOutgoingPropagation)) {
 			String toProcess = startingPoint.replace(prefixOutgoingPropagation, "");
 			for (ErrorPropagation opc : EMV2Util.getAllOutgoingErrorPropagations(selection.getComponentClassifier())) {
-				EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(opc.getTypeSet(),
-						EMV2Util.getUseTypes(opc));
+				EList<TypeToken> result = EMV2TypeSetUtil.flattenTypesetElements(opc.getTypeSet());
 				for (TypeToken tt : result) {
 					String longName = EMV2Util.getPrintName(opc) + EMV2Util.getPrintName(tt);
 					if (longName.equalsIgnoreCase(toProcess) && !tt.getType().isEmpty()) {
 						errorStateOrPropagation = opc;
-						errorType = tt.getType().get(0);
+						errorType = tt;
 					}
 				}
 			}

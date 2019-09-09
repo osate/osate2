@@ -91,7 +91,7 @@ public abstract class CallContextImpl extends AObjectImpl implements CallContext
 	 * @generated
 	 */
 	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
+		return CacheAdapter.getInstance();
 	}
 
 } // CallContextImpl

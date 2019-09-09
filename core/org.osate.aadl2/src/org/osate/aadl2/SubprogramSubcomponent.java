@@ -78,6 +78,7 @@ public interface SubprogramSubcomponent extends Subcomponent, AccessConnectionEn
 	 * @see #setSubprogramSubcomponentType(SubprogramSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramSubcomponent_SubprogramSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	SubprogramSubcomponentType getSubprogramSubcomponentType();
