@@ -72,6 +72,7 @@ public interface Relationship extends Element {
 	 * @return the value of the '<em>Related Element</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getRelationship_RelatedElement()
 	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	EList<Element> getRelatedElements();

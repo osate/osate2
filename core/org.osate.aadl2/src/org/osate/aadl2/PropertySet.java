@@ -84,6 +84,7 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * @return the value of the '<em>Owned Property Type</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyType()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PropertyType> getOwnedPropertyTypes();
@@ -120,6 +121,7 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * @return the value of the '<em>Owned Property</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedProperty()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Property> getOwnedProperties();
@@ -155,6 +157,7 @@ public interface PropertySet extends Namespace, ModelUnit {
 	 * @return the value of the '<em>Owned Property Constant</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPropertySet_OwnedPropertyConstant()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PropertyConstant> getOwnedPropertyConstants();

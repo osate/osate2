@@ -84,6 +84,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -119,6 +120,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -154,6 +156,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -189,6 +192,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();
@@ -224,6 +228,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -259,6 +264,7 @@ public interface ProcessorType extends ComponentType, ProcessorClassifier {
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();

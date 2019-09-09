@@ -138,6 +138,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * @return the value of the '<em>Feature Group Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupType()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	FeatureGroupType getFeatureGroupType();
@@ -185,6 +186,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * @return the value of the '<em>Feature Group Prototype</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureGroupPrototype()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	FeatureGroupPrototype getFeatureGroupPrototype();
@@ -198,7 +200,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	int getIndexOf(Feature feature);
 
 	/**
-	 * check for inverseof between two features. 
+	 * check for inverseof between two features.
 	 * If they are feature groups then we check both the inverse of on the feature group and whether the feature group type is inverseof.
 	 * @param f1
 	 * @param f2

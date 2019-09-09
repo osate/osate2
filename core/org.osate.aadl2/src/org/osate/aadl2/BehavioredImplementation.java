@@ -80,6 +80,7 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * @return the value of the '<em>Subprogram Call</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_SubprogramCall()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramCall> getSubprogramCalls();
@@ -113,6 +114,7 @@ public interface BehavioredImplementation extends ComponentImplementation {
 	 * @return the value of the '<em>Owned Subprogram Call Sequence</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getBehavioredImplementation_OwnedSubprogramCallSequence()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramCallSequence> getOwnedSubprogramCallSequences();
