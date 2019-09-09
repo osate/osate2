@@ -569,12 +569,6 @@
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.setAadlProjectProperties">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
-          </command>
-          <command
                 commandId="org.osate.ui.visualizeProjectDependencies">
              <visibleWhen
                    checkEnabled="true">
@@ -1029,10 +1023,6 @@
        		 id="org.osate.ui.showInClassifierInfoView"
        		 name="Open in Classifier Information View"/>
        <command
-             id="org.osate.ui.setAadlProjectProperties"
-             name="Set As AADL_Project Property Set">
-       </command>
-       <command
              id="org.osate.ui.instantiate"
              name="Instantiate">
        </command>
@@ -1114,26 +1104,6 @@
 	                      </or>
 	                   </iterate>
                    </or>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
-             commandId="org.osate.ui.setAadlProjectProperties">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="1">
-                   </count>
-                   <iterate
-                         ifEmpty="false">
-                      <reference
-                            definitionId="org.osate.is_aadl_project_propertyset">
-                      </reference>
-                   </iterate>
                 </and>
              </with>
           </enabledWhen>
