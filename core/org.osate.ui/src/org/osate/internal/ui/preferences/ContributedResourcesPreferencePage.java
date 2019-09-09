@@ -58,6 +58,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -114,7 +115,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			final String preferenceNameForURI = PredeclaredProperties.getIsVisiblePreferenceNameForURI(uri);
 			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
-					preferenceNameForURI, uri.toString(), contributedResourcesGroup);
+					preferenceNameForURI, uriToLabel(uri), contributedResourcesGroup);
 			fields.put(uri, booleanEditor);
 			addField(booleanEditor);
 		}
@@ -167,6 +168,12 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 				return ((List<?>) inputElement).toArray();
 			}
 		});
+		workspaceList.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(final Object element) {
+				return uriToLabel((URI) element);
+			}
+		});
 		workspaceList.setInput(workspaceContributions);
 
 		// Set up the field editors
@@ -174,6 +181,13 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		checkState();
 
 		return composite;
+	}
+
+	private static String uriToLabel(final URI uri) {
+		final String uriAsString = uri.toString();
+		final int firstSlash = uriAsString.indexOf('/');
+		final int secondSlash = uriAsString.indexOf('/', firstSlash + 1);
+		return uriAsString.substring(secondSlash + 1);
 	}
 
 	@Override
