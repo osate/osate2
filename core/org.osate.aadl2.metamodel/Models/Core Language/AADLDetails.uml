@@ -2706,6 +2706,9 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
         <generalization xmi:id="Features-SubprogramAccess-_generalization.1" general="Calls-CalledSubprogram"/>
+        <generalization xmi:id="_WegLoL9xEemfm9dWGnR7ew">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
+        </generalization>
         <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramFeatureClassifier" visibility="public" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Features-A_subprogramAccess_subprogramClassifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramAccess-subprogramClassifier-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramAccess-subprogramClassifier-_upperValue" value="1"/>

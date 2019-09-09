@@ -713,7 +713,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void casePackageSection(PackageSection packageSection) {
 		checkWithsAreUsed(packageSection);
 	}
-	
+
 	@Check
 	public void checkOneSequencePerMode(SubprogramCallSequence sequence) {
 		BehavioredImplementation classifier = EcoreUtil2.getContainerOfType(sequence, BehavioredImplementation.class);
@@ -2203,10 +2203,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						} else if (segment.getFlowElement() instanceof FlowSpecification) {
 							error(segment, "Illegal reference to '" + segment.getFlowElement().getName()
 									+ "'.  Cannot refer to a flow specification in the local classifier's namespace.");
-						} else if (segment.getFlowElement() instanceof DataAccess && i > 0
-								&& i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
-							error(segment, "Illegal reference to '" + segment.getFlowElement().getName()
-									+ "'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.");
 						}
 					} else if (segment.getContext() instanceof Subcomponent) {
 						if (!(segment.getFlowElement() instanceof FlowSpecification)) {
@@ -6365,13 +6361,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			// Don't validate if the context or feature could not be resolved.
 			return;
 		}
-		if (flowEndContext != null && !(flowEndContext instanceof FeatureGroup)) {
+		if (flowEndContext != null && !(flowEndContext instanceof FeatureGroup)
+				&& !(flowEndContext instanceof SubprogramAccess)) {
 			error("Anything in " + getEClassDisplayNameWithIndefiniteArticle(flowEndContext.eClass())
 					+ " is not a valid flow specification feature.", flowEnd,
 					Aadl2Package.eINSTANCE.getFlowEnd_Context());
 		} else if (!(flowFeature instanceof DataAccess) && !(flowFeature instanceof AbstractFeature)
 				&& !(flowFeature instanceof FeatureGroup) && !(flowFeature instanceof Parameter)
-				&& !(flowFeature instanceof Port)) {
+				&& !(flowFeature instanceof Port) && !(flowFeature instanceof Parameter)) {
 			error('\'' + (flowEndContext != null ? flowEndContext.getName() + '.' : "") + flowFeature.getName()
 					+ "' must be a port, parameter, data access, feature group, or abstract feature.", flowEnd,
 					Aadl2Package.eINSTANCE.getFlowEnd_Feature());

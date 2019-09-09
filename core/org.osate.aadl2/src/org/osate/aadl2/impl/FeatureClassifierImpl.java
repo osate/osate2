@@ -89,7 +89,7 @@ public abstract class FeatureClassifierImpl extends AObjectImpl implements Featu
 	 * @generated
 	 */
 	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
+		return CacheAdapter.getInstance();
 	}
 
 } // FeatureClassifierImpl

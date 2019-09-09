@@ -158,13 +158,13 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+						ownedSubcomponents = new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 								Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT,
 								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -192,7 +192,7 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<>(DataSubcomponent.class, this,
 					Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -219,7 +219,7 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	@Override
 	public EList<ThreadSubcomponent> getOwnedThreadSubcomponents() {
 		if (ownedThreadSubcomponents == null) {
-			ownedThreadSubcomponents = new EObjectContainmentEList<ThreadSubcomponent>(ThreadSubcomponent.class, this,
+			ownedThreadSubcomponents = new EObjectContainmentEList<>(ThreadSubcomponent.class, this,
 					Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_THREAD_SUBCOMPONENT);
 		}
 		return ownedThreadSubcomponents;
@@ -246,7 +246,7 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	@Override
 	public EList<ThreadGroupSubcomponent> getOwnedThreadGroupSubcomponents() {
 		if (ownedThreadGroupSubcomponents == null) {
-			ownedThreadGroupSubcomponents = new EObjectContainmentEList<ThreadGroupSubcomponent>(
+			ownedThreadGroupSubcomponents = new EObjectContainmentEList<>(
 					ThreadGroupSubcomponent.class, this,
 					Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT);
 		}
@@ -274,7 +274,7 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
-			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<>(
 					SubprogramSubcomponent.class, this,
 					Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
@@ -302,7 +302,7 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	@Override
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
-			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
+			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<>(
 					SubprogramGroupSubcomponent.class, this,
 					Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}

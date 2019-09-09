@@ -65,6 +65,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @see org.osate.aadl2.Aadl2Package#getPackageSection()
  * @model abstract="true"
+ *        annotation="duplicates"
  * @generated
  */
 public interface PackageSection extends Namespace {
@@ -89,6 +90,7 @@ public interface PackageSection extends Namespace {
 	 * @return the value of the '<em>Owned Package Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedPackageRename()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<PackageRename> getOwnedPackageRenames();
@@ -124,6 +126,7 @@ public interface PackageSection extends Namespace {
 	 * @return the value of the '<em>Owned Component Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedComponentTypeRename()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<ComponentTypeRename> getOwnedComponentTypeRenames();
@@ -217,6 +220,7 @@ public interface PackageSection extends Namespace {
 	 * @return the value of the '<em>Owned Classifier</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedClassifier()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Classifier> getOwnedClassifiers();
@@ -253,6 +257,7 @@ public interface PackageSection extends Namespace {
 	 * @return the value of the '<em>Owned Feature Group Type Rename</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedFeatureGroupTypeRename()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames();
@@ -288,6 +293,7 @@ public interface PackageSection extends Namespace {
 	 * @return the value of the '<em>Owned Annex Library</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getPackageSection_OwnedAnnexLibrary()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AnnexLibrary> getOwnedAnnexLibraries();

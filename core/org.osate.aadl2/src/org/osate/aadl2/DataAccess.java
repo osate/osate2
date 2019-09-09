@@ -77,6 +77,7 @@ public interface DataAccess extends Access, FlowElement, ParameterConnectionEnd,
 	 * @see #setDataFeatureClassifier(DataSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getDataAccess_DataFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	DataSubcomponentType getDataFeatureClassifier();

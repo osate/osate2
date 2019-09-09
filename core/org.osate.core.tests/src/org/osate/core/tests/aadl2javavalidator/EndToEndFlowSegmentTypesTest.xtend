@@ -268,14 +268,6 @@ class EndToEndFlowSegmentTypesTest extends XtextTest {
 						assertError(testFileResult.issues, issueCollection, "Illegal reference to connection 'fconn1'.  Expecting subcomponent flow or end-to-end flow reference.")
 					]
 				]
-				ownedEndToEndFlows.get(8) => [
-					"etef9".assertEquals(name)
-					ownedEndToEndFlowSegments.get(2) => [
-						"da1".assertEquals(flowElement.name)
-						//Tests typeCheckEndToEndFlowSegments
-						assertError(testFileResult.issues, issueCollection, "Illegal reference to 'da1'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.")
-					]
-				]
 				ownedEndToEndFlows.get(9) => [
 					"etef10".assertEquals(name)
 					ownedEndToEndFlowSegments.get(0) => [

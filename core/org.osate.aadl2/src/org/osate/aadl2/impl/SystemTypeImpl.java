@@ -177,12 +177,12 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
 				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+						ownedFeatures = new DerivedUnionEObjectEList<>(Feature.class, this,
 								Aadl2Package.SYSTEM_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.SYSTEM_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.SYSTEM_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -208,7 +208,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -234,7 +234,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -260,7 +260,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -286,7 +286,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
 					SubprogramGroupAccess.class, this, Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;
@@ -313,7 +313,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -340,7 +340,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -366,7 +366,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
 					Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;

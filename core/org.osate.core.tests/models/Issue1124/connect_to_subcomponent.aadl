@@ -1,0 +1,44 @@
+package connect_to_subcomponent
+public
+  system s1
+  end s1;
+
+  system implementation s1.i1
+    subcomponents
+      sub1: data;
+      sub2: system s2.i1;
+    connections
+      conn1: data access sub2.f1 <-> sub1;
+  end s1.i1;
+
+  system s2
+    features
+      f1: requires data access;
+  end s2;
+
+  system implementation s2.i1
+    subcomponents
+      sub3: abstract a1;
+      sub4: abstract a2;
+    connections
+      conn2: data access sub3.f2 -> f1;
+      conn3: data access f1 -> sub4.f3;
+    flows
+      --Error: Illegal reference to 'f1'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.
+      etef1: end to end flow sub3.fsource1 -> conn2 -> f1 -> conn3 -> sub4.fsink1;
+  end s2.i1;
+
+  abstract a1
+    features
+      f2: requires data access;
+    flows
+      fsource1: flow source f2;
+  end a1;
+
+  abstract a2
+    features
+      f3: requires data access;
+    flows
+      fsink1: flow sink f3;
+  end a2;
+end connect_to_subcomponent;
