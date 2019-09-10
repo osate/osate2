@@ -12,7 +12,9 @@
 		<topic href="html/start2/OSATEUserGuide.html#analysis" label="Analyzing Models" />
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
 		<topic href="html/start2/OSATEUserGuide.html#classifierView" label="Viewing Classifier Members" />
-		<topic href="html/start2/OSATEUserGuide.html#contributedResources" label="Managing Contributed Resources" />
+	</topic>
+	<topic href="html/advanced/AdvancedOSATEFeatures.html" label="Advanced OSATE Features">
+		<topic href="html/advanced/AdvancedOSATEFeatures.html#contributedResources" label="Managing Contributed Resources" />
 	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
