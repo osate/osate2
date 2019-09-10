@@ -1,0 +1,19 @@
+package issue676
+public
+    abstract aType
+        features
+            da: requires data access;
+    end aType;
+
+    system s
+    end s;
+
+    system implementation s.i
+        subcomponents
+            d: data;
+            a: abstract aType;
+        connections
+            conn1: data access d -> a.da;
+            conn2: data access a.da -> d;
+    end s.i;
+end issue676;
