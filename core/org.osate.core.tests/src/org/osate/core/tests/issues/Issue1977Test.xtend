@@ -30,9 +30,11 @@ class Issue1977Test {
 		assertEquals('s_i_Instance', instance.name)
 		
 		val conns = instance.connectionInstances 
-		assertTrue(conns.size == 2)
-		assertTrue(conns.findFirst[name == 'a1.da <-> d1'] !== null)
-		assertTrue(conns.findFirst[name == 'a2.da <-> d2'] !== null)
+		assertTrue(conns.size == 4)
+		assertTrue(conns.findFirst[name == 'a1.da -> d1'] !== null)
+		assertTrue(conns.findFirst[name == 'a2.da -> d2'] !== null)
+		assertTrue(conns.findFirst[name == 'd1 -> a1.da'] !== null)
+		assertTrue(conns.findFirst[name == 'd2 -> a2.da'] !== null)
 	}
 
 }
