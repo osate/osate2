@@ -1,4 +1,4 @@
-package FGConnections
+package FGConnectionsPath
 public
     feature group FG
     	features
@@ -35,7 +35,7 @@ public
     		fpath: flow path fg1.x_in1 -> fg2.x_in2;
     end th.specific;
     
-    thread implementation th.withCall
+    thread implementation th.withCall_noFlowImpl
     	subcomponents
     		sub1: subprogram sub;
     	calls
@@ -45,9 +45,12 @@ public
     	connections
     		c1: parameter fg1.x_in1 -> call1.p1;
     		c2: parameter call1.p2 -> fg2.x_in2;
+    end th.withCall_noFlowImpl;
+    
+    thread implementation th.withCall_flowImpl extends th.withCall_noFlowImpl
    		flows
     		fpath: flow path fg1.x_in1 -> c1 -> sub1.subPath -> c2 -> fg2.x_in2;
-    end th.withCall;
+    end th.withCall_flowImpl;
     
     thread th2
     	features
@@ -86,8 +89,13 @@ public
             t: refined to thread th.specific;
     end top.specific;
 
-    process implementation top.withCall extends top.generic
+    process implementation top.withCall_noFlowImpl extends top.generic
         subcomponents
-            t: refined to thread th.withCall;
-    end top.withCall;
-end FGConnections;
+            t: refined to thread th.withCall_noFlowImpl;
+    end top.withCall_noFlowImpl;
+
+    process implementation top.withCall_flowImpl extends top.generic
+        subcomponents
+            t: refined to thread th.withCall_flowImpl;
+    end top.withCall_flowImpl;
+end FGConnectionsPath;
