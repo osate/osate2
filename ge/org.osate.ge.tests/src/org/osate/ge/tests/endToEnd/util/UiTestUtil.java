@@ -148,6 +148,10 @@ public class UiTestUtil {
 		btn.click();
 	}
 
+	public static void clickToolbarItem(final String title) {
+		bot.toolbarButtonWithTooltip(title).click();
+	}
+
 	/**
 	 * Clicks the context menu of the focused widget
 	 */
@@ -534,5 +538,9 @@ public class UiTestUtil {
 	 */
 	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
 		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
+	}
+
+	public static void sleep(int sec) {
+		bot.sleep(sec * 1000);
 	}
 }

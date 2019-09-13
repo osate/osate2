@@ -170,7 +170,7 @@ public class OsateGeTestUtil {
 	}
 
 	// TODO: Review. Argument ordering... Assumptions. Name
-	public static void clickRadioButtonInPropertyView(final DiagramReference diagram, final String btnLabel,
+	public static void clickRadioButtonInPropertiesView(final DiagramReference diagram, final String btnLabel,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
@@ -187,6 +187,7 @@ public class OsateGeTestUtil {
 		clickRadioButton(btnLabel);
 	}
 
+	// TODO keep public? can remove? rename? duplicate
 	public static void clickButtonInPropertiesView(final String btnLabel, final String tabLabel) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");

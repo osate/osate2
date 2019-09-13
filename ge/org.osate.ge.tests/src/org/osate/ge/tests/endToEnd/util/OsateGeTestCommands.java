@@ -181,6 +181,31 @@ public class OsateGeTestCommands {
 		layoutElementFromContextMenu(diagram, pkg);
 	}
 
+	public static void createImplementationWithExistingType(final DiagramReference diagram,
+			final DiagramElementReference pkg, final String toolType, final String implName, final String classifierPkg, final String classifier) {
+		openDiagramEditor(diagram);
+
+		activatePaletteItem(diagram, toolType);
+		clickDiagramElement(diagram, pkg);
+
+		waitForWindowWithTitle("Create Component Implementation");
+		setTextField(0, implName, "");
+
+		clickRadioButton("Existing");
+		clickButton("...");
+		waitForWindowWithTitle("Select Base Classifier");
+
+		clickTableItem(0, classifierPkg + "::" + classifier);
+		clickButton("OK");
+
+		waitForWindowWithTitle("Create Component Implementation");
+		clickButton("OK");
+
+		waitForDiagramElementToExist(diagram, pkg.join(getClassifierRelativeReference(classifier + "." + implName)));
+
+		layoutElementFromContextMenu(diagram, pkg);
+	}
+
 	public static void setSubcomponentToNewTypeFromPropertiesView(final DiagramReference diagram,
 			final DiagramElementReference element,
 			final String packageName, final String newTypeName) {
@@ -227,6 +252,21 @@ public class OsateGeTestCommands {
 		createShapeElement(diagram, parentElement, toolType, newReferenceAfterCreate);
 		renameElementFromContextMenu(diagram, parentElement.join(newReferenceAfterCreate), finalName);
 		layoutElementFromContextMenu(diagram, parentElement);
+	}
+
+	public static void bind(final DiagramReference diagram, final DiagramElementReference[] toBind,
+			final DiagramElementReference[] target, final String bindType) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, toBind);
+
+		clickToolbarItem("Bind...");
+
+		waitForWindowWithTitle("Bind");
+
+		setComboBoxSelection(0, bindType);
+		selectDiagramElements(diagram, target);
+
+		clickButton("OK");
 	}
 
 	// TODO: Document
