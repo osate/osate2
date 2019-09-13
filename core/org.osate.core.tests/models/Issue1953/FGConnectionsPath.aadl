@@ -54,7 +54,10 @@ public
     
     thread th2
     	features
+    		-- out
     		fg1: feature group FG_inverse;
+    		
+    		-- in 
     		fg2: feature group FG;
     	flows
     		fsrc: flow source fg1;
