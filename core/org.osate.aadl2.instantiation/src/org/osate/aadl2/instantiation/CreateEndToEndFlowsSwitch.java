@@ -69,6 +69,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -400,8 +401,28 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 
 				// add all ete instances that continue through flow impl
-				if (!processFlowImpl(ci, etei, flowImpl)) {
-					processFlowStep(ci, etei, fs, flowImpl, iter);
+
+				/*
+				 * Special case for Issue 1953: If flowImpl is a flow in a Thread, and has a non-trivial implementation
+				 * (i.e, it doesn't just pass through), then we ignore the flow implementation details and just use the
+				 * flow specification. Specifically, we are trying NOT to ignore the case where the flow specification
+				 * uses a feature group and the flow implementation refines the feature group to a specific feature
+				 * of that feature group. THese cases are necessary to reduce the combinatorics of the instance model.
+				 *
+				 * CAVEAT: Make sure we don't discard the mode information from the flow implementation, even if we are
+				 * ignoring the flow segments.
+				 */
+				if (subImpl instanceof ThreadClassifier && flowImpl.getOwnedFlowSegments().size() != 0) {
+					// Do use the modes from the flow implementation
+					etei.getModesList().add(getModeInstances(ci, flowImpl));
+					state.pop();
+
+					// Revert to using the flow specification
+					processFlowStep(ci, etei, fs, iter);
+				} else {
+					if (!processFlowImpl(ci, etei, flowImpl)) {
+						processFlowStep(ci, etei, fs, flowImpl, iter);
+					}
 				}
 
 				if (prepareNext) {
