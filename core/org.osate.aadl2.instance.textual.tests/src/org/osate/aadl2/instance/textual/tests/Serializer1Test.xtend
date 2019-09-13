@@ -350,8 +350,11 @@ class Serializer1Test extends AbstractSerializerTest {
 				processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
 					in out busAccess ba : pkg1::p:ba
 				}
-				complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
+				complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
 					b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
+				}
+				complete accessConnection "psub.ba -> b" : psub[0].ba -> b[0] {
+					psub[0].ba -> b[0] : pkg1::s.i:conn1 in parent
 				}
 				som "No Modes"
 			}''')
