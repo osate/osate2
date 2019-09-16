@@ -89,7 +89,7 @@ public abstract class FeatureTypeImpl extends AObjectImpl implements FeatureType
 	 * @generated
 	 */
 	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
+		return CacheAdapter.getInstance();
 	}
 
 } // FeatureTypeImpl

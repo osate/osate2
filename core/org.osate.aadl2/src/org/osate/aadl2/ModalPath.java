@@ -56,6 +56,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * @see org.osate.aadl2.Aadl2Package#getModalPath()
  * @model abstract="true"
+ *        annotation="duplicates"
  * @generated
  */
 public interface ModalPath extends ModalElement {

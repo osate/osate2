@@ -48,11 +48,9 @@ import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.Assert;
@@ -104,7 +102,6 @@ import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -573,7 +570,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						ComponentInstance nextCi = ci.getContainingComponentInstance();
 						List<Connection> parentConns = InstanceUtil
 								.getComponentImplementation(nextCi, 0, classifierCache).getAllConnections();
-						List<Connection> conns = filterOutgoingConnections(parentConns, toFeature,
+						FeatureInstance dstFi = ci.findFeatureInstance(toFeature);
+						List<Connection> conns = filterOutgoingConnections(parentConns, dstFi.getFeature(),
 								ci.getSubcomponent());
 
 						if (conns.isEmpty()) {
@@ -840,14 +838,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (isDuplicate) {
 					return null;
 				}
-			}
-			// the next lines determine whether a connection is bi-directional
-			// and set a flag rather than creating a second connection instance
-			if (connInfo.src == test.getDestination() && dstI == test.getSource()
-					&& test.getKind() == ConnectionKind.ACCESS_CONNECTION) {
-				test.setBidirectional(true);
-				test.setName(test.getName().replace("->", "<->"));
-				return test;
 			}
 		}
 		boolean duplicate = false;
@@ -1611,22 +1601,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		List<Feature> features = feature.getAllFeatureRefinements();
 		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
 		for (Connection conn : conns) {
-			// DB: We also need to consider refined features
-			final Set<ConnectionEnd> refinedFeatures = new HashSet<ConnectionEnd>();
-			final ConnectionEnd conEnd = conn.getAllSource();
-
-			if (conEnd instanceof Feature) {
-				refinedFeatures.addAll(((Feature) conEnd).getAllFeatureRefinements());
-			}
-
-			for (final ConnectionEnd refFeat : refinedFeatures) {
-				if ((features.contains(refFeat) && subs.contains(conn.getAllSourceContext()))
-						|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
-								&& subs.contains(conn.getAllDestinationContext()))) {
-					result.add(conn);
-
-					break; // DB
-				}
+			if ((features.contains(conn.getAllSource()) && subs.contains(conn.getAllSourceContext()))
+					|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
+							&& subs.contains(conn.getAllDestinationContext()))) {
+				result.add(conn);
 			}
 		}
 		return result;

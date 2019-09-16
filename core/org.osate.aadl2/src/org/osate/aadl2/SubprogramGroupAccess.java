@@ -77,6 +77,7 @@ public interface SubprogramGroupAccess extends Access, CallContext {
 	 * @see #setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupAccess_SubprogramGroupFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier();

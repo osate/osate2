@@ -95,6 +95,8 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Feature> getOwnedFeatures();
@@ -120,6 +122,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @see #setExtended(FeatureGroupType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_Extended()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	@Override
@@ -185,6 +188,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @see #setOwnedExtension(GroupExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedExtension()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	GroupExtension getOwnedExtension();
@@ -230,6 +234,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedBusAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<BusAccess> getOwnedBusAccesses();
@@ -265,6 +270,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedDataAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataAccess> getOwnedDataAccesses();
@@ -300,6 +306,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<DataPort> getOwnedDataPorts();
@@ -335,6 +342,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedEventDataPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventDataPort> getOwnedEventDataPorts();
@@ -370,6 +378,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedEventPort()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<EventPort> getOwnedEventPorts();
@@ -405,6 +414,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Feature Group</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedFeatureGroup()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FeatureGroup> getOwnedFeatureGroups();
@@ -440,6 +450,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Parameter</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedParameter()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Parameter> getOwnedParameters();
@@ -475,6 +486,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Subprogram Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedSubprogramAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramAccess> getOwnedSubprogramAccesses();
@@ -510,6 +522,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Subprogram Group Access</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedSubprogramGroupAccess()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses();
@@ -545,6 +558,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * @return the value of the '<em>Owned Abstract Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedAbstractFeature()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AbstractFeature> getOwnedAbstractFeatures();

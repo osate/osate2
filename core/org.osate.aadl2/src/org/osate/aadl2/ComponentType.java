@@ -117,6 +117,8 @@ public interface ComponentType extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeature()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<Feature> getOwnedFeatures();
@@ -142,6 +144,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @see #setExtended(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_Extended()
 	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	@Override
@@ -179,6 +182,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Flow Specification</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFlowSpecification()
 	 * @model containment="true"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FlowSpecification> getOwnedFlowSpecifications();
@@ -214,6 +218,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @see #setOwnedExtension(TypeExtension)
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedExtension()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	TypeExtension getOwnedExtension();
@@ -259,6 +264,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Feature Group</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeatureGroup()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<FeatureGroup> getOwnedFeatureGroups();
@@ -294,6 +300,7 @@ public interface ComponentType extends ComponentClassifier {
 	 * @return the value of the '<em>Owned Abstract Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedAbstractFeature()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	EList<AbstractFeature> getOwnedAbstractFeatures();

@@ -64,6 +64,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1915
 	var static SystemInstance instanceIssue1899
 	var static SystemInstance instanceIssue1837
+	var static SystemInstance instanceIssue1837bis
 	var static SystemInstance instanceIssue1962
 	var static SystemInstance instanceIssue1961
 
@@ -173,6 +174,7 @@ class FTATest {
 		instanceIssue1915 = instanceGenerator(modelroot + ScrubbedClFile, "top.vc")
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
+		instanceIssue1837bis = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl2")
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 	}
@@ -954,10 +956,18 @@ class FTATest {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1837, "state FailStop")
 		assertEquals(ft.events.size, 6)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		assertEquals(ft.root.computedProbability.doubleValue, 3.8e-1, 0.01)
+		assertEquals(ft.root.computedProbability.doubleValue, 1.04e-1, 0.01)
 		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
 	}
 
+	@Test
+	def void issue1837bisTest() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1837bis, "state FailStop")
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.computedProbability.doubleValue, 0.0414, 0.01)
+		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+	}
 
 	@Test
 	def void issue1962Test() {

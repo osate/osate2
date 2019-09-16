@@ -77,6 +77,7 @@ public interface BasicProperty extends TypedElement {
 	 * @see #setReferencedPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_ReferencedPropertyType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PropertyType getReferencedPropertyType();
@@ -111,6 +112,7 @@ public interface BasicProperty extends TypedElement {
 	 * @return the value of the '<em>Property Type</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_PropertyType()
 	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="redefines"
 	 * @generated
 	 */
 	PropertyType getPropertyType();
@@ -136,6 +138,7 @@ public interface BasicProperty extends TypedElement {
 	 * @see #setOwnedPropertyType(PropertyType)
 	 * @see org.osate.aadl2.Aadl2Package#getBasicProperty_OwnedPropertyType()
 	 * @model containment="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	PropertyType getOwnedPropertyType();
