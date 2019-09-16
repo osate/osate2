@@ -194,6 +194,7 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	 * @see #setRefined(FlowSpecification)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowSpecification_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	FlowSpecification getRefined();

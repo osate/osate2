@@ -1,0 +1,21 @@
+package Issue1977
+public
+    abstract aType
+        features
+            da: requires data access;
+    end aType;
+
+    system s
+    end s;
+
+    system implementation s.i
+        subcomponents
+            d1: data;
+            a1: abstract aType;
+            d2: data;
+            a2: abstract aType;
+        connections
+            conn1: data access a1.da <-> d1;
+            conn2: data access d2 <-> a2.da;
+    end s.i;
+end Issue1977;

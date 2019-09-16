@@ -77,6 +77,7 @@ public interface Realization extends Generalization {
 	 * @see #setImplemented(ComponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getRealization_Implemented()
 	 * @model required="true" ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ComponentType getImplemented();

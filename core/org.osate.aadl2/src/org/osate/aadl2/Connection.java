@@ -187,6 +187,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @see #setRefined(Connection)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Refined()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	Connection getRefined();

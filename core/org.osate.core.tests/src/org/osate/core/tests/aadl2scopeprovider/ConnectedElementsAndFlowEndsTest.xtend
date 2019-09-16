@@ -555,13 +555,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3","subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -572,13 +572,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -589,13 +589,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -606,13 +606,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -623,13 +623,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -640,13 +640,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -657,13 +657,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -674,13 +674,13 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
-						"call9", "edp4", "fg4", "fg5", "param1", "subpsub3", "subpsub4"
+						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)

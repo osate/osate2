@@ -85,6 +85,7 @@ public interface RefinableElement extends NamedElement {
 	 * @return the value of the '<em>Refined Element</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getRefinableElement_RefinedElement()
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 *        annotation="union"
 	 * @generated
 	 */
 	RefinableElement getRefinedElement();
