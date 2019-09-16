@@ -254,7 +254,7 @@ public class OsateGeTestCommands {
 		layoutElementFromContextMenu(diagram, parentElement);
 	}
 
-	public static void bind(final DiagramReference diagram, final DiagramElementReference[] toBind,
+	public static void bindPropertyAssociations(final DiagramReference diagram, final DiagramElementReference[] toBind,
 			final DiagramElementReference[] target, final String bindType) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, toBind);
@@ -270,16 +270,15 @@ public class OsateGeTestCommands {
 	}
 
 	// TODO: Document
-	public static void setClassifierFromPropertyView(final DiagramReference diagram, final String classifier,
+	public static void setClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		setClassifierFromPropertyView(classifier);
+		setClassifierFromPropertiesView(classifier);
 	}
 
 
-	// TODO: fix wording properties or property?
-	private static void setClassifierFromPropertyView(final String classifier) {
+	private static void setClassifierFromPropertiesView(final String classifier) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
@@ -310,6 +309,7 @@ public class OsateGeTestCommands {
 		waitForWindowWithTitle("Rename");
 		setTextField(0, newName);
 		clickButton("OK");
+
 
 		// TODO: Rework. Assert that the element has been renamed
 	}
