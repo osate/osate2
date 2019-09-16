@@ -171,14 +171,14 @@ public class OsateGeTestUtil {
 
 	// TODO: Review. Argument ordering... Assumptions. Name
 	public static void clickRadioButtonInPropertiesView(final DiagramReference diagram, final String btnLabel,
+			final String tabLabel,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		clickRadioButtonInPropertyView(btnLabel, "AADL");
+		clickRadioButtonInPropertyView(btnLabel, tabLabel);
 	}
 
 	// Change to show TAB?
-	// Click button after
 	private static void clickRadioButtonInPropertyView(final String btnLabel, final String tabLabel) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");

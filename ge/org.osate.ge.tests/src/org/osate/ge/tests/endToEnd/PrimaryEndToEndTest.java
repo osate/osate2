@@ -97,7 +97,7 @@ public class PrimaryEndToEndTest {
 				getFeatureRelativeReference("servo_new_feature"), "interface");
 
 		// Set classifier shared::ServoInterface
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "shared::ServoInterface",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "shared::ServoInterface",
 				element(componentsPackage, getClassifierRelativeReference("servo"),
 						getFeatureRelativeReference("interface")));
 
@@ -141,7 +141,7 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "yaw_servo");
 
 		// Set classifier
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::servo",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::servo",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("yaw_servo")));
 
@@ -150,7 +150,7 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "pitch_servo");
 
 		// Set classifier for pitch_servo
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::servo",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::servo",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("pitch_servo")));
 
@@ -159,7 +159,7 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "rangefinder");
 
 		// Set classifier for rangefinder
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::rangefinder",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::rangefinder",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("rangefinder")));
 
@@ -168,7 +168,7 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "cpu");
 
 		// Set classifier for cpu
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::cpu",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::cpu",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("cpu")));
 
@@ -183,14 +183,14 @@ public class PrimaryEndToEndTest {
 				HARDWARE_COMPONENTS_PACKAGE, "ethernet");
 
 		// Set classifier for rangefinder::eth and servo::eth
-		setClassifierFromPropertyView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "hardware::components::ethernet",
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "hardware::components::ethernet",
 				element(componentsPackage, getClassifierRelativeReference("rangefinder"),
 						getFeatureRelativeReference("eth")),
 				element(componentsPackage, getClassifierRelativeReference("servo"),
 						getFeatureRelativeReference("eth")));
 
 		// Set requires bus access
-		clickRadioButtonInPropertiesView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "Requires",
+		clickRadioButtonInPropertiesView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "Requires", "AADL",
 				element(componentsPackage, getClassifierRelativeReference("rangefinder"),
 						getFeatureRelativeReference("eth")),
 				element(componentsPackage, getClassifierRelativeReference("servo"),
@@ -216,6 +216,7 @@ public class PrimaryEndToEndTest {
 //		 *        - point_cloud(provides data access shared::PointCloud)
 //		 *        - direction(in event port direction)
 //		 *        - range(in data port integer)
+		// add flows and everything connected
 		createAadlProjectWithReferencedProjects(SOFTWARE, SHARED);
 		createNewPackageWithPackageDiagram(SOFTWARE, SOFTWARE);
 
@@ -250,13 +251,13 @@ public class PrimaryEndToEndTest {
 				"Data Access", getFeatureRelativeReference("point_cloud_generator_new_feature"), "point_cloud");
 
 		// Set point_cloud data access to provides
-		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Provides",
+		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Provides", "AADL",
 				element(getPackageRelativeReference(SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Set point_cloud classifier to software::PointCloud
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::PointCloud",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::PointCloud",
 				element(getPackageRelativeReference(SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("point_cloud")));
@@ -270,7 +271,7 @@ public class PrimaryEndToEndTest {
 				"threads");
 
 		// Set classifier to software::threads.impl
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::threads.impl",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::threads.impl",
 				element(getPackageRelativeReference(SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads")));
@@ -281,7 +282,7 @@ public class PrimaryEndToEndTest {
 				"Thread Subcomponent", getSubcomponentRelativeReference("threads_impl_new_subcomponent"), "pointer");
 
 		// Set classifier for pointer to shared::pointer
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::pointer",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::pointer",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
 						getSubcomponentRelativeReference("pointer")));
 
@@ -291,7 +292,7 @@ public class PrimaryEndToEndTest {
 				"Thread Subcomponent", getSubcomponentRelativeReference("threads_impl_new_subcomponent"), "integrator");
 
 		// Set classifier for integrator to shared::integrator
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::integrator.impl",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::integrator.impl",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
 						getSubcomponentRelativeReference("integrator")));
 
@@ -301,7 +302,7 @@ public class PrimaryEndToEndTest {
 				"Feature Group", getFeatureRelativeReference("pointer_new_feature"), "yaw_servo_interface");
 
 		// Set yaw_servo_interface classifier to shared::ServoInterface
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "shared::ServoInterface",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "shared::ServoInterface",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
 						getFeatureRelativeReference("yaw_servo_interface")));
 
@@ -311,7 +312,7 @@ public class PrimaryEndToEndTest {
 				"Feature Group", getFeatureRelativeReference("pointer_new_feature"), "pitch_servo_interface");
 
 		// Set pitch_servo_interface classifier to shared::ServoInterface
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "shared::ServoInterface",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "shared::ServoInterface",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
 						getFeatureRelativeReference("pitch_servo_interface")));
 
@@ -321,12 +322,12 @@ public class PrimaryEndToEndTest {
 				getFeatureRelativeReference("pointer_new_feature"), "direction");
 
 		// Set direction to output
-		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Output",
+		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Output", "AADL",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
 						getFeatureRelativeReference("direction")));
 
 		// Set direction classifier to Direction
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::Direction",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::Direction",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
 						getFeatureRelativeReference("direction")));
 
@@ -336,7 +337,7 @@ public class PrimaryEndToEndTest {
 				"Data Access", getFeatureRelativeReference("integrator_new_feature"), "point_cloud");
 
 		// Set point_cloud classifier to software::PointCloud
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::PointCloud",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::PointCloud",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
@@ -346,12 +347,12 @@ public class PrimaryEndToEndTest {
 				"Data Port", getFeatureRelativeReference("integrator_new_feature"), "direction");
 
 		// Set direction classifier to Direction
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "software::Direction",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "software::Direction",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
 						getFeatureRelativeReference("direction")));
 
 		// Set direction to input
-		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Input",
+		clickRadioButtonInPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Input", "AADL",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
 						getFeatureRelativeReference("direction")));
 
@@ -361,7 +362,7 @@ public class PrimaryEndToEndTest {
 				"Data Port", getFeatureRelativeReference("integrator_new_feature"), "range_i");
 
 		// Set range_i classifier to Integer
-		setClassifierFromPropertyView(defaultDiagram(SOFTWARE, SOFTWARE), "Base_Types::Integer",
+		setClassifierFromPropertiesView(defaultDiagram(SOFTWARE, SOFTWARE), "Base_Types::Integer",
 				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
 						getFeatureRelativeReference("range_i")));
 	}
@@ -412,7 +413,7 @@ public class PrimaryEndToEndTest {
 				getFeatureRelativeReference("specialized_app_new_feature"), "point_cloud");
 
 		// Set point_cloud classifier to shared::PointCloud
-		setClassifierFromPropertyView(defaultDiagram(INTEGRATED, INTEGRATED), "software::PointCloud",
+		setClassifierFromPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "software::PointCloud",
 				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
@@ -423,7 +424,7 @@ public class PrimaryEndToEndTest {
 				"robot");
 
 		// Set robot classifier to hardware::robot.impl
-		setClassifierFromPropertyView(defaultDiagram(INTEGRATED, INTEGRATED), "hardware::robot.impl",
+		setClassifierFromPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "hardware::robot.impl",
 				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("robot")));
 
@@ -434,7 +435,7 @@ public class PrimaryEndToEndTest {
 				"point_cloud_generator");
 
 		// Set point_cloud_generator to software::point_cloud_generator.impl
-		setClassifierFromPropertyView(defaultDiagram(INTEGRATED, INTEGRATED), "software::point_cloud_generator.impl",
+		setClassifierFromPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "software::point_cloud_generator.impl",
 				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("point_cloud_generator")));
 
@@ -456,8 +457,7 @@ public class PrimaryEndToEndTest {
 				"Virtual Processor Subcomponent",
 				getSubcomponentRelativeReference("robotic_system_base_new_subcomponent"), "sched2");
 
-
-		bind(defaultDiagram(INTEGRATED, INTEGRATED),
+		bindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
 				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("sched2")) },
@@ -466,7 +466,7 @@ public class PrimaryEndToEndTest {
 						getSubcomponentRelativeReference("sched1")) },
 				"Actual_Processor_Binding");
 
-		bind(defaultDiagram(INTEGRATED, INTEGRATED),
+		bindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
 				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("specialized_app")) },
@@ -483,7 +483,7 @@ public class PrimaryEndToEndTest {
 				"specialized_app");
 
 		// Set point_cloud requires
-		clickRadioButtonInPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "Requires",
+		clickRadioButtonInPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "Requires", "AADL",
 				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
@@ -494,7 +494,7 @@ public class PrimaryEndToEndTest {
 				"Data Access", getFeatureRelativeReference("specialized_thread_new_feature"), "point_cloud");
 
 		// Set point_cloud classifier to software::PointCloud
-		setClassifierFromPropertyView(defaultDiagram(INTEGRATED, INTEGRATED), "software::PointCloud",
+		setClassifierFromPropertiesView(defaultDiagram(INTEGRATED, INTEGRATED), "software::PointCloud",
 				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_thread"),
 						getFeatureRelativeReference("point_cloud")));
 	}
