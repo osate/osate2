@@ -52,7 +52,7 @@ public
     
     thread implementation th2.specific
     	flows
-    		fsnk: flow sink fg2.x_out2;
+    		fsnk: flow sink fg2.x_in2;
     end th2.specific;
     
     thread implementation th2.withCall_noFlowImpl
