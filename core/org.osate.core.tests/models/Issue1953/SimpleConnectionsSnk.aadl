@@ -55,6 +55,7 @@ public
     
     thread implementation th2.withCall_flowImpl extends th2.withCall_noFlowImpl
     	flows
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
     		fsnk: flow sink ip2 -> c1 -> sub1.subPath -> c2 -> myData;
     end th2.withCall_flowImpl;
     

@@ -49,6 +49,7 @@ public
     
     thread implementation th.withCall_flowImpl extends th.withCall_noFlowImpl
    		flows
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
     		fpath: flow path fg1.x_in1 -> c1 -> sub1.subPath -> c2 -> fg2.x_in2;
     end th.withCall_flowImpl;
     
