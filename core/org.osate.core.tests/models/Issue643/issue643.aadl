@@ -1,7 +1,6 @@
 package issue643
 public
     system top
-
     end top;
 
     system implementation top.i
@@ -12,7 +11,8 @@ public
         connections
             c0: data access p.a <-> d;
             c1: data access d <-> c.a;
-        flows
+    	flows
+    		-- Currently has declarative errors (wrong), but instantiates fine
             e2e: end to end flow p -> c0 -> d -> c1 -> c;
     end top.i;
 
@@ -20,5 +20,4 @@ public
         features
             a: requires data access;
     end S;
-
 end issue643;
