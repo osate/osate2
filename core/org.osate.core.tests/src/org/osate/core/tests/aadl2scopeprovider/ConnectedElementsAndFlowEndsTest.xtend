@@ -473,6 +473,8 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					// From fixing issue 1954
+					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
 				]
 				ownedFeatureConnections.get(1) => [
 					"conn11".assertEquals(name)
@@ -490,6 +492,8 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					// From fixing issue 1954
+					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
 				]
 				ownedAccessConnections.head => [
 					"conn12".assertEquals(name)
