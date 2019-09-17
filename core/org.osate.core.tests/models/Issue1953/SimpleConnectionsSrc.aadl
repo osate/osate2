@@ -55,7 +55,8 @@ public
     
     thread implementation th2.withCall_flowImpl extends th2.withCall_noFlowImpl
     	flows
-    		-- doesn't work yet, see issue 1987
+    		-- Should have declarative model error, see issue 1987
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
     		fsrc: flow source myData -> c1 -> sub1.subPath -> c2 -> op2;
     end th2.withCall_flowImpl;
     

@@ -20,28 +20,74 @@ import org.osate.aadl2.ProcessImplementation
 class Issue1953Test {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue1953/"
 	
+	val static SIMPLE = "top.simple"
+	val static SPECIFIC = "top.specific"
+	val static WITH_CALLS_NO_FLOW_IMPL = "top.withCall_noFlowImpl"
+	val static WITH_CALLS_FLOW_IMPL = "top.withCall_flowImpl"
+	
+	val END_TO_END_FLOW_LENGTH = 5 
+	
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
 	@Test
-	def void testSimple() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "SimpleConnections.aadl")
-		testProcess(pkg, "top.simple", 1)
-		testProcess(pkg, "top.withCall", 0)
+	def void testSimplePath() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "SimpleConnectionsPath.aadl")
+		testProcess(pkg, SIMPLE, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
 	}
 	
 	@Test
-	def void testFeatureGroups() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "FGConnections.aadl")
-		testProcess(pkg, "top.simple", 4)
-		testProcess(pkg, "top.specific", 1)
-		testProcess(pkg, "top.withCall", 0)
+	def void testSimpleSrc() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "SimpleConnectionsSrc.aadl")
+		testProcess(pkg, SIMPLE, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
 	}
 	
-	def private void testProcess(AadlPackage pkg, String pname, int numFlows) {
+	@Test
+	def void testSimpleSnk() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "SimpleConnectionsSnk.aadl")
+		testProcess(pkg, SIMPLE, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 1, END_TO_END_FLOW_LENGTH)
+	}
+	
+	@Test
+	def void testFeatureGroupPath() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "FGConnectionsPath.aadl")
+		testProcess(pkg, SIMPLE, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, SPECIFIC, 1, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+	}
+	
+	@Test
+	def void testFeatureGroupSrc() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "FGConnectionsSrc.aadl")
+		testProcess(pkg, SIMPLE, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, SPECIFIC, 2, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+	}
+	
+	@Test
+	def void testFeatureGroupSnk() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "FGConnectionsSnk.aadl")
+		testProcess(pkg, SIMPLE, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, SPECIFIC, 2, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_NO_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+		testProcess(pkg, WITH_CALLS_FLOW_IMPL, 4, END_TO_END_FLOW_LENGTH)
+	}
+	
+	def private void testProcess(AadlPackage pkg, String pname, int numFlows, int flowLength) {
 		val process = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == pname] as ProcessImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(process, errorManager)
 		assertEquals(numFlows, instance.endToEndFlows.size)
+		for (var i = 0; i < numFlows; i++) {
+			assertEquals(flowLength, instance.endToEndFlows.get(i).flowElements.size)
+		}
 	}
 }
