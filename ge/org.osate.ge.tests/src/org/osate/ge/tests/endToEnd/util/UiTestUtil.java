@@ -13,13 +13,19 @@ import java.util.function.BooleanSupplier;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -477,6 +483,29 @@ public class UiTestUtil {
 		return editor.editParts(matcher);
 	}
 
+	public static void clickContextMenuOfOutlineViewItem(final String menuItem, final String... treeItems) {
+		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
+		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
+
+		for (final String node : nodes) {
+			treeItem = findTreeItem(treeItem.getItems(), node);
+		}
+
+		treeItem.contextMenu(menuItem).click();
+	}
+
+	private static SWTBotTreeItem findTreeItem(final SWTBotTreeItem[] items, final String treeItem) {
+		for (final SWTBotTreeItem item : items) {
+			final String text = item.getText().substring(item.getText().lastIndexOf(" ") + 1);
+			if (text.equalsIgnoreCase(treeItem)) {
+				return item;
+			}
+		}
+
+		throw new RuntimeException("Could not find tree item '" + treeItem + "' in the outline view.");
+	}
+
 	/**
 	 * Returns the AgeDiagramEditor instance for the specified diagram. Does not open or activate the editor for the specified diagram.
 	 */
@@ -509,6 +538,74 @@ public class UiTestUtil {
 		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
 		final List<SWTBotGefEditPart> partBots = findEditParts(editorBot, editPartsToSelect);
 		editorBot.select(partBots);
+	}
+
+	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference parent,
+			final RelativeBusinessObjectReference newAfterCreate, final String newName) {
+		final DiagramElementReference newAfterCreateElement = parent.join(newAfterCreate);
+		final DiagramElement de = getDiagramElement(diagram, newAfterCreateElement).orElseThrow(
+				() -> new RuntimeException("Cannot find relative reference for '" + newAfterCreateElement + "'."));
+
+		// Get the edit part
+		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+
+		// Scroll to the edit part
+		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
+		scrollToEditPart(editorRef, editPart);
+
+		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
+
+		final GraphicalEditPart p = (GraphicalEditPart) editPart;
+		final Point centerOfLabel = getPoint(p.getFigure())
+				.orElseThrow(() -> new RuntimeException("Cannot find label for edit part."));// TODO msg
+
+		editorBot.click(centerOfLabel.x, centerOfLabel.y);
+		Display.getDefault().syncExec(() -> {
+			final Control graphicalViewerControl = getDiagramEditor(diagram).getGraphicalViewer().getControl();
+			final Event event = new Event();
+			event.x = centerOfLabel.x;
+			event.y = centerOfLabel.y;
+			graphicalViewerControl.notifyListeners(SWT.MouseMove, event);
+
+			final DirectEditRequest req = new DirectEditRequest();
+			req.setLocation(centerOfLabel);
+			editPart.performRequest(req);
+		});
+
+		editorBot.directEditType(newName);
+	}
+
+	private static Optional<Point> getPoint(final IFigure figure) {
+		if (figure instanceof Label) {
+			final Label label = (Label) figure;
+			final Rectangle bounds = ((Label) figure).getBounds().getCopy();
+			label.translateToAbsolute(bounds);
+			return Optional.of(bounds.getCenter());
+		}
+
+		for (final Object child : figure.getChildren()) {
+			final Optional<Point> point = getPoint((IFigure) child);
+			if (point.isPresent()) {
+				return point;
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	protected static Event createMouseEvent(int x, int y, int button, int stateMask, int count, final Widget widget) {
+		Event event = new Event();
+		event.time = (int) System.currentTimeMillis();
+		 event.widget = widget;
+		event.display = widget.getDisplay();
+		event.x = x;
+		event.y = y;
+		event.button = button;
+		event.stateMask = stateMask;
+		event.count = count;
+		return event;
 	}
 
 	/**
