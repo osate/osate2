@@ -59,6 +59,10 @@ public class DeclarativeReferenceBuilder {
 		return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
 	}
 
+	public static RelativeBusinessObjectReference getConnectionRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(), name);
+	}
+
 	public static RelativeBusinessObjectReference getSubcomponentRelativeReference(final String name) {
 		return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), name);
 	}

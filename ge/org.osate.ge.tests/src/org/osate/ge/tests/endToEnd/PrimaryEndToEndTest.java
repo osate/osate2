@@ -46,6 +46,11 @@ public class PrimaryEndToEndTest {
 
 		createElementAndLayout(defaultDiagram(SHARED, SHARED), packageElement(SHARED), "Feature Group Type",
 				getClassifierRelativeReference("new_classifier"), SERVO_INTERFACE);
+
+		renameElementFromDiagram(defaultDiagram(SHARED, SHARED),
+				element(getPackageRelativeReference(SHARED)), getClassifierRelativeReference(SERVO_INTERFACE), "AA");
+		renameElementFromDiagram(defaultDiagram(SHARED, SHARED), element(getPackageRelativeReference(SHARED)),
+				getClassifierRelativeReference("AA"), SERVO_INTERFACE);
 	}
 
 	private void createHardwareProject() {
@@ -145,6 +150,9 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("yaw_servo")));
 
+		showContentsAndLayout(defaultDiagram(HARDWARE, HARDWARE), element(hardwarePkgRef,
+				getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("yaw_servo")));
+
 		// Create subcomponent pitch_servo
 		createElementAndLayout(defaultDiagram(HARDWARE, HARDWARE), robotImpl, "Device Subcomponent",
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "pitch_servo");
@@ -154,6 +162,9 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("pitch_servo")));
 
+		showContentsAndLayout(defaultDiagram(HARDWARE, HARDWARE), element(hardwarePkgRef,
+				getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("pitch_servo")));
+
 		// Create subcomponent
 		createElementAndLayout(defaultDiagram(HARDWARE, HARDWARE), robotImpl, "Device Subcomponent",
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "rangefinder");
@@ -162,6 +173,9 @@ public class PrimaryEndToEndTest {
 		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::rangefinder",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("rangefinder")));
+
+		showContentsAndLayout(defaultDiagram(HARDWARE, HARDWARE), element(hardwarePkgRef,
+				getClassifierRelativeReference("robot.impl"), getSubcomponentRelativeReference("rangefinder")));
 
 		// Create CPU subcomponent
 		createElementAndLayout(defaultDiagram(HARDWARE, HARDWARE), robotImpl, "Processor Subcomponent",
@@ -182,6 +196,22 @@ public class PrimaryEndToEndTest {
 						getSubcomponentRelativeReference("ethernet_buses")),
 				HARDWARE_COMPONENTS_PACKAGE, "ethernet");
 
+		// Create eth bus access in ethernet_buses
+		createElementAndLayout(defaultDiagram(HARDWARE, HARDWARE),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses")),
+				"Bus Access", getFeatureRelativeReference("ethernet_new_feature"), "eth");
+
+		// Set classifier
+		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "hardware::components::ethernet",
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")));
+
+		// Set bus access to provides
+		clickRadioButtonInPropertiesView(defaultDiagram(HARDWARE, HARDWARE), "Provides", "AADL",
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")));
+
 		// Set classifier for rangefinder::eth and servo::eth
 		setClassifierFromPropertiesView(defaultDiagram(HARDWARE, HARDWARE_COMPONENTS_DIAGRAM), "hardware::components::ethernet",
 				element(componentsPackage, getClassifierRelativeReference("rangefinder"),
@@ -195,6 +225,34 @@ public class PrimaryEndToEndTest {
 						getFeatureRelativeReference("eth")),
 				element(componentsPackage, getClassifierRelativeReference("servo"),
 						getFeatureRelativeReference("eth")));
+
+		// Create connection from ethernet_buses.eth to pitch_servo.eth
+		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("pitch_servo"), getFeatureRelativeReference("eth")),
+				"Access Connection",
+				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				getConnectionRelativeReference("robot_impl_new_connection"), "pitch_servo_con");
+
+		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("rangefinder"), getFeatureRelativeReference("eth")),
+				"Access Connection",
+				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				getConnectionRelativeReference("robot_impl_new_connection"), "rangefinder_con");
+
+		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
+				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
+						getSubcomponentRelativeReference("yaw_servo"), getFeatureRelativeReference("eth")),
+				"Access Connection",
+				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				getConnectionRelativeReference("robot_impl_new_connection"), "yaw_servo_con");
 	}
 
 	private void createSoftwareProject() {

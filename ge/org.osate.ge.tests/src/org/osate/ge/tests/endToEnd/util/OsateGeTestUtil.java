@@ -112,7 +112,7 @@ public class OsateGeTestUtil {
 	 * Create a shape element the active diagram within the referenced element.
 	 * @param paletteItem the text for the palette item to use
 	 */
-	public static void createShapeElement(final DiagramReference diagram, DiagramElementReference parentElement,
+	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
 			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
@@ -122,6 +122,20 @@ public class OsateGeTestUtil {
 
 		// Wait for element to be created
 		waitForDiagramElementToExist(diagram, parentElement.join(referenceAfterCreate));
+	}
+
+	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
+			final DiagramElementReference dest, final String paletteItem,
+			final DiagramElementReference referenceAfterCreate) {
+		openDiagramEditor(diagram);
+
+		activatePaletteItem(diagram, paletteItem);
+		clickDiagramElement(diagram, src);
+		clickDiagramElement(diagram, dest);
+		activateSelectionTool(diagram);
+
+		// Wait for element to be created
+		waitForDiagramElementToExist(diagram, referenceAfterCreate);
 	}
 
 	/**

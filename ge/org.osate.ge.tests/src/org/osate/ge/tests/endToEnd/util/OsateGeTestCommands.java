@@ -16,6 +16,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * High level commands for testing the OSATE Graphical editor.
  */
@@ -248,10 +250,26 @@ public class OsateGeTestCommands {
 			final String toolType,
 			final RelativeBusinessObjectReference newReferenceAfterCreate,
 			final String finalName) {
-		openDiagramEditor(diagram);
 		createShapeElement(diagram, parentElement, toolType, newReferenceAfterCreate);
-		renameElementFromContextMenu(diagram, parentElement.join(newReferenceAfterCreate), finalName);
+		renameElementFromContextMenu(diagram, parentElement, newReferenceAfterCreate, finalName);
 		layoutElementFromContextMenu(diagram, parentElement);
+	}
+
+	public static void createConnection(final DiagramReference diagram, final DiagramElementReference src,
+			final DiagramElementReference dest, final String toolType,
+			final DiagramElementReference parent, final RelativeBusinessObjectReference newReferenceAfterCreate,
+			final String newName) {
+		openDiagramEditor(diagram);
+		createConnectionElement(diagram, src, dest, toolType, parent.join(newReferenceAfterCreate));
+		renameElementFromOutlineView(diagram, parent, newReferenceAfterCreate, newName);
+		layoutElementFromContextMenu(diagram, parent);
+	}
+
+	public static void showContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
+		// Show contents
+		clickContextMenuOfDiagramElement(diagram, element, "Show Contents", "All");
+
+		layoutElementFromContextMenu(diagram, element);
 	}
 
 	public static void bindPropertyAssociations(final DiagramReference diagram, final DiagramElementReference[] toBind,
@@ -304,13 +322,48 @@ public class OsateGeTestCommands {
 	 * @param element is the element to rename
 	 */
 	public static void renameElementFromContextMenu(final DiagramReference diagram,
-			final DiagramElementReference element, final String newName) {
-		clickContextMenuOfDiagramElement(diagram, element, "Rename...");
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
+			final String newName) {
+		clickContextMenuOfDiagramElement(diagram, parent.join(element), "Rename...");
+		waitForWindowWithTitle("Rename");
+		setTextField(0, newName);
+		clickButton("OK");
+
+		// TODO: Rework. Assert that the element has been renamed
+		waitForDiagramElementToExist(diagram,
+				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
+	}
+
+	public static void renameElementFromDiagram(final DiagramReference diagram, final DiagramElementReference parent,
+			final RelativeBusinessObjectReference afterCreate, final String newName) {
+		renameElementDirectEdit(diagram, parent, afterCreate, newName);
+
+		// Wait for element to be created
+		waitForDiagramElementToExist(diagram,
+				parent.join(new RelativeBusinessObjectReference(afterCreate.getSegments().get(0), newName)));
+	}
+
+	/**
+	 * Renames an element using the diagram context menu.
+	 * @param newName the name of the new element
+	 * @param element is the element to rename
+	 */
+	public static void renameElementFromOutlineView(final DiagramReference diagram,
+			final DiagramElementReference parent, final RelativeBusinessObjectReference afterCreate,
+			final String newName) {
+		final ImmutableList<RelativeBusinessObjectReference> pathToElement = parent.join(afterCreate).pathToElement;
+		final String[] outlineTreeItems = new String[pathToElement.size()];
+		for (int i = 0; i < pathToElement.size(); i++) {
+			outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
+		}
+
+		clickContextMenuOfOutlineViewItem("Rename...", outlineTreeItems);
 		waitForWindowWithTitle("Rename");
 		setTextField(0, newName);
 		clickButton("OK");
 
 
-		// TODO: Rework. Assert that the element has been renamed
+		waitForDiagramElementToExist(diagram,
+				parent.join(new RelativeBusinessObjectReference(afterCreate.getSegments().get(0), newName)));
 	}
 }
