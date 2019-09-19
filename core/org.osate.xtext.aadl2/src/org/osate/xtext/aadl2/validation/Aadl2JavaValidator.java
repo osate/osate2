@@ -2307,6 +2307,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return;
 					}
 					Boolean noMatch = false;
+					// something doesn't work right here
 					if (isMatchingConnectionPoint(previousFlowCxt, outEnd.getFeature(), outEnd.getContext(),
 							connectedElement)) {
 						if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
@@ -2357,9 +2358,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
 								|| AadlUtil.isSameOrRefines(previousFlowSegment, (Subcomponent) cxt))) {
 							if (connection.isAllBidirectional()) {
-								ce = connection.getAllLastSource();
-								cxt = connection.getAllSourceContext();
-								connectedElement = connection.getRootConnection().getSource();
+								ce = connection.getAllLastDestination();
+								cxt = connection.getAllDestinationContext();
+								connectedElement = connection.getRootConnection().getDestination();
 								if (cxt instanceof Subcomponent) {
 									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
 											|| AadlUtil.isSameOrRefines(previousFlowSegment, (Subcomponent) cxt))) {
