@@ -1063,6 +1063,18 @@ public final class AadlUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * Returns {@code true} if {@code extension} is an extension of {@code origin} or {@code extension} is a
+	 * {@link ComponentImplementation} and it's {@link ComponentType} is an extension of {@code origin}.
+	 */
+	public static boolean isSubClassifier(Classifier origin, Classifier extension) {
+		if (origin instanceof ComponentType && extension instanceof ComponentImplementation) {
+			return isSameOrExtends(origin, ((ComponentImplementation) extension).getType());
+		} else {
+			return isSameOrExtends(origin, extension);
+		}
+	}
 
 	/**
 	 * return true if repl is the same Subcomponent or a refinement of the
