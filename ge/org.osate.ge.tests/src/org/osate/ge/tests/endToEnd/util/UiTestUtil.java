@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -193,12 +192,13 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Asserts that an item at the specified texts is contained in the first tree in the view with the specified title.
-	 */
-	public static void assertItemExistsInTreeView(final String viewTitle, final String... itemTexts) {
-		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in view: " + viewTitle,
-				doesItemExistsInTreeView(viewTitle, itemTexts));
-	}
+			* Asserts that an item at the specified texts is contained in the first tree in the view with the specified title.
+			*//*
+				 * public static void assertItemExistsInTreeView(final String viewTitle, final String... itemTexts) {
+				 * assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in view: " + viewTitle,
+				 * doesItemExistsInTreeView(viewTitle, itemTexts));
+				 * }
+				 */
 
 	/**
 	 * Returns whether an item at the specified texts is contained in the first tree in the view with the specified title.
@@ -348,13 +348,6 @@ public class UiTestUtil {
 						+ "'. Input: '" + inputName + "'");
 			}
 		}).size() > 0;
-	}
-
-	/**
-	 * Show editor that has the specified input name
-	 */
-	public static void showGraphicalEditor(final DiagramReference diagram) {
-		getDiagramEditorBot(diagram).show();
 	}
 
 	/**
@@ -538,6 +531,9 @@ public class UiTestUtil {
 		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
 		final List<SWTBotGefEditPart> partBots = findEditParts(editorBot, editPartsToSelect);
 		editorBot.select(partBots);
+
+		// Assert elements are selected
+		assertTrue("Elements were not selected", editorBot.selectedEditParts().equals(partBots));
 	}
 
 	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference parent,
@@ -558,8 +554,8 @@ public class UiTestUtil {
 		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
 
 		final GraphicalEditPart p = (GraphicalEditPart) editPart;
-		final Point centerOfLabel = getPoint(p.getFigure())
-				.orElseThrow(() -> new RuntimeException("Cannot find label for edit part."));// TODO msg
+		final Point centerOfLabel = getPoint(p.getFigure()).orElseThrow(
+				() -> new RuntimeException("Cannot find label for diagram element ' " + de.getLabelName() + "."));
 
 		editorBot.click(centerOfLabel.x, centerOfLabel.y);
 		Display.getDefault().syncExec(() -> {
@@ -595,19 +591,6 @@ public class UiTestUtil {
 		return Optional.empty();
 	}
 
-	protected static Event createMouseEvent(int x, int y, int button, int stateMask, int count, final Widget widget) {
-		Event event = new Event();
-		event.time = (int) System.currentTimeMillis();
-		 event.widget = widget;
-		event.display = widget.getDisplay();
-		event.x = x;
-		event.y = y;
-		event.button = button;
-		event.stateMask = stateMask;
-		event.count = count;
-		return event;
-	}
-
 	/**
 	 * Returns an optional describing the diagram element contained in the editor for the specified diagram.
 	 * Does not open or activate the editor for the specified diagram.
@@ -635,9 +618,5 @@ public class UiTestUtil {
 	 */
 	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
 		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
-	}
-
-	public static void sleep(int sec) {
-		bot.sleep(sec * 1000);
 	}
 }

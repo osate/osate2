@@ -45,12 +45,12 @@ public class PrimaryEndToEndTest {
 		createNewPackageWithPackageDiagram(SHARED, SHARED);
 
 		createElementAndLayout(defaultDiagram(SHARED, SHARED), packageElement(SHARED), "Feature Group Type",
-				getClassifierRelativeReference("new_classifier"), SERVO_INTERFACE);
+				getClassifierRelativeReference("new_classifier"), SERVO_INTERFACE + "tmp");
 
-		renameElementFromDiagram(defaultDiagram(SHARED, SHARED),
-				element(getPackageRelativeReference(SHARED)), getClassifierRelativeReference(SERVO_INTERFACE), "AA");
-		renameElementFromDiagram(defaultDiagram(SHARED, SHARED), element(getPackageRelativeReference(SHARED)),
-				getClassifierRelativeReference("AA"), SERVO_INTERFACE);
+		renameElementFromDiagramEditor(defaultDiagram(SHARED, SHARED), element(getPackageRelativeReference(SHARED)),
+				getClassifierRelativeReference(SERVO_INTERFACE + "tmp"), SERVO_INTERFACE);
+
+		saveAndClose(defaultDiagram(SHARED, SHARED));
 	}
 
 	private void createHardwareProject() {
@@ -227,7 +227,7 @@ public class PrimaryEndToEndTest {
 						getFeatureRelativeReference("eth")));
 
 		// Create connection from ethernet_buses.eth to pitch_servo.eth
-		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+		createConnectionAndLayout(defaultDiagram(HARDWARE, HARDWARE),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
@@ -236,7 +236,7 @@ public class PrimaryEndToEndTest {
 				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "pitch_servo_con");
 
-		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+		createConnectionAndLayout(defaultDiagram(HARDWARE, HARDWARE),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
@@ -245,7 +245,7 @@ public class PrimaryEndToEndTest {
 				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "rangefinder_con");
 
-		createConnection(defaultDiagram(HARDWARE, HARDWARE),
+		createConnectionAndLayout(defaultDiagram(HARDWARE, HARDWARE),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("ethernet_buses"), getFeatureRelativeReference("eth")),
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
@@ -274,7 +274,7 @@ public class PrimaryEndToEndTest {
 //		 *        - point_cloud(provides data access shared::PointCloud)
 //		 *        - direction(in event port direction)
 //		 *        - range(in data port integer)
-		// add flows and everything connected
+		// TODO add flows and connection
 		createAadlProjectWithReferencedProjects(SOFTWARE, SHARED);
 		createNewPackageWithPackageDiagram(SOFTWARE, SOFTWARE);
 
@@ -515,7 +515,7 @@ public class PrimaryEndToEndTest {
 				"Virtual Processor Subcomponent",
 				getSubcomponentRelativeReference("robotic_system_base_new_subcomponent"), "sched2");
 
-		bindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
+		createBindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
 				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("sched2")) },
@@ -524,7 +524,7 @@ public class PrimaryEndToEndTest {
 						getSubcomponentRelativeReference("sched1")) },
 				"Actual_Processor_Binding");
 
-		bindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
+		createBindPropertyAssociations(defaultDiagram(INTEGRATED, INTEGRATED),
 				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("specialized_app")) },

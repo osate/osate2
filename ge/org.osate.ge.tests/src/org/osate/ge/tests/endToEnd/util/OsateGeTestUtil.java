@@ -39,10 +39,12 @@ public class OsateGeTestUtil {
 				"Project '" + projectName + "' not found in AADL navigator");
 	}
 
-	public static void assertProjectExistsInAadlNavigator(final String projectName) {
-		assertAadlNavigatorIsVisible();
-		assertItemExistsInTreeView(AADL_NAVIGATOR, projectName);
-	}
+	/*
+	 * public static void assertProjectExistsInAadlNavigator(final String projectName) {
+	 * assertAadlNavigatorIsVisible();
+	 * assertItemExistsInTreeView(AADL_NAVIGATOR, projectName);
+	 * }
+	 */
 
 	public static void selectProjectInAadlNavigator(final String projectName) {
 		selectItemInTreeView(AADL_NAVIGATOR, projectName);
@@ -105,6 +107,7 @@ public class OsateGeTestUtil {
 		selectDiagramElements(diagram, element);
 
 		// TODO: Assert selected element
+
 		clickContextMenuOfFocused(texts);
 	}
 
