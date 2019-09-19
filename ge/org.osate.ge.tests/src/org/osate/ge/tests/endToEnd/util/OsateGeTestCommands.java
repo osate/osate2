@@ -100,6 +100,11 @@ public class OsateGeTestCommands {
 		}
 	}
 
+	public static void saveAndClose(final DiagramReference diagram) {
+		saveAndCloseDiagramEditor(diagram);
+		waitForDiagramClosed(diagram);
+	}
+
 	/**
 	 * Version of {@link #createNewPackageWithDiagram(String, String, String, String)} which uses the package as the diagram name and creates a package diagram.
 	 */
@@ -133,8 +138,7 @@ public class OsateGeTestCommands {
 	 * @param diagramType the type of diagram to create
 	 */
 	public static void createNewPackageWithDiagram(final String projectName, final String packageName,
-			final String diagramName,
-			final String diagramType) {
+			final String diagramName, final String diagramType) {
 		// Open the new AADL Package wizard
 		selectProjectInAadlNavigator(projectName);
 		clickContextMenuOfFocused("New", "AADL Package");
@@ -143,6 +147,7 @@ public class OsateGeTestCommands {
 		waitForWindowWithTitle("New AADL Package File");
 		setTextField(0, packageName, "");
 		clickRadioButton("Diagram Editor");
+		// Display.getDefault().syncExec(() -> {
 		clickButton("Finish");
 
 		// Create the diagram
@@ -161,7 +166,6 @@ public class OsateGeTestCommands {
 	 * @param implName the implementation name
 	 * @param typeName the type name
 	 */
-	// TODO: Review
 	public static void createImplementationWithNewType(final DiagramReference diagram,
 			final DiagramElementReference pkg, final String toolType, final String implName, final String typeName) {
 		openDiagramEditor(diagram);
@@ -180,11 +184,19 @@ public class OsateGeTestCommands {
 
 		waitForDiagramElementToExist(diagram, pkg.join(getClassifierRelativeReference(typeName + "." + implName)));
 
-		layoutElementFromContextMenu(diagram, pkg);
+		layoutDiagram(diagram, pkg);
 	}
 
+	/**
+	 * Creates an implementation using an existing type.
+	 * @param toolType the type to create
+	 * @param implName the implementation name
+	 * @param classifierPkg the name of the classifiers package
+	 * @param classifier the name of the existing classifier
+	 */
 	public static void createImplementationWithExistingType(final DiagramReference diagram,
-			final DiagramElementReference pkg, final String toolType, final String implName, final String classifierPkg, final String classifier) {
+			final DiagramElementReference pkg, final String toolType, final String implName, final String classifierPkg,
+			final String classifier) {
 		openDiagramEditor(diagram);
 
 		activatePaletteItem(diagram, toolType);
@@ -205,12 +217,17 @@ public class OsateGeTestCommands {
 
 		waitForDiagramElementToExist(diagram, pkg.join(getClassifierRelativeReference(classifier + "." + implName)));
 
-		layoutElementFromContextMenu(diagram, pkg);
+		layoutDiagram(diagram, pkg);
 	}
 
+	/**
+	 * Sets an elements classifier by creating a new type using the Properties view.
+	 * @param element the element to set classifier
+	 * @param packageName the package of new type
+	 * @param newTypeName the new types name
+	 */
 	public static void setSubcomponentToNewTypeFromPropertiesView(final DiagramReference diagram,
-			final DiagramElementReference element,
-			final String packageName, final String newTypeName) {
+			final DiagramElementReference element, final String packageName, final String newTypeName) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, element);
 
@@ -246,55 +263,73 @@ public class OsateGeTestCommands {
 	 * @param finalName is the name to which the element should be renamed
 	 */
 	public static void createElementAndLayout(final DiagramReference diagram,
-			final DiagramElementReference parentElement,
-			final String toolType,
-			final RelativeBusinessObjectReference newReferenceAfterCreate,
-			final String finalName) {
+			final DiagramElementReference parentElement, final String toolType,
+			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
 		createShapeElement(diagram, parentElement, toolType, newReferenceAfterCreate);
 		renameElementFromContextMenu(diagram, parentElement, newReferenceAfterCreate, finalName);
-		layoutElementFromContextMenu(diagram, parentElement);
+		layoutDiagram(diagram, parentElement);
 	}
 
-	public static void createConnection(final DiagramReference diagram, final DiagramElementReference src,
-			final DiagramElementReference dest, final String toolType,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference newReferenceAfterCreate,
-			final String newName) {
+	/**
+	 *
+	 * @param src the source of the connection
+	 * @param dest the destination of the connection
+	 * @param toolType the type of connection to create using the palette
+	 * @param parentElement the parent of the new connection
+	 * @param newReferenceAfterCreate the reference to the connection
+	 * @param finalName the new name of the connection
+	 */
+	public static void createConnectionAndLayout(final DiagramReference diagram, final DiagramElementReference src,
+			final DiagramElementReference dest, final String toolType, final DiagramElementReference parentElement,
+			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
 		openDiagramEditor(diagram);
-		createConnectionElement(diagram, src, dest, toolType, parent.join(newReferenceAfterCreate));
-		renameElementFromOutlineView(diagram, parent, newReferenceAfterCreate, newName);
-		layoutElementFromContextMenu(diagram, parent);
+		createConnectionElement(diagram, src, dest, toolType, parentElement.join(newReferenceAfterCreate));
+		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
+		layoutDiagram(diagram, parentElement);
 	}
 
+	/**
+	 * Show contents of element using the context menu.
+	 */
 	public static void showContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
 		// Show contents
 		clickContextMenuOfDiagramElement(diagram, element, "Show Contents", "All");
-
-		layoutElementFromContextMenu(diagram, element);
+		layoutDiagram(diagram, element);
 	}
 
-	public static void bindPropertyAssociations(final DiagramReference diagram, final DiagramElementReference[] toBind,
-			final DiagramElementReference[] target, final String bindType) {
+	/**
+	 * Create binding property associations for elements using the bind tool.
+	 * @param elementsToBind the elements to bind
+	 * @param targetElements the elements being bound to
+	 * @param bindType the type of binding
+	 */
+	public static void createBindPropertyAssociations(final DiagramReference diagram,
+			final DiagramElementReference[] elementsToBind, final DiagramElementReference[] targetElements,
+			final String bindType) {
 		openDiagramEditor(diagram);
-		selectDiagramElements(diagram, toBind);
+		selectDiagramElements(diagram, elementsToBind);
 
 		clickToolbarItem("Bind...");
 
 		waitForWindowWithTitle("Bind");
 
 		setComboBoxSelection(0, bindType);
-		selectDiagramElements(diagram, target);
+		selectDiagramElements(diagram, targetElements);
 
 		clickButton("OK");
 	}
 
-	// TODO: Document
+	/**
+	 * Sets the classifier for elements using the Properties view.
+	 * @param classifier the classifier qualified name
+	 * @param elements the elements to set classifier
+	 */
 	public static void setClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
 		setClassifierFromPropertiesView(classifier);
 	}
-
 
 	private static void setClassifierFromPropertiesView(final String classifier) {
 		assertViewIsVisible("Properties");
@@ -308,8 +343,7 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
-	// TODO: Rename
-	private static void layoutElementFromContextMenu(final DiagramReference diagram,
+	private static void layoutDiagram(final DiagramReference diagram,
 			final DiagramElementReference element) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, element);
@@ -318,40 +352,47 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Renames an element using the diagram context menu.
-	 * @param newName the name of the new element
+	 * @param parent the parent of the new element
 	 * @param element is the element to rename
+	 * @param newName the name of the new element
 	 */
 	public static void renameElementFromContextMenu(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
-			final String newName) {
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
 		clickContextMenuOfDiagramElement(diagram, parent.join(element), "Rename...");
 		waitForWindowWithTitle("Rename");
 		setTextField(0, newName);
 		clickButton("OK");
 
-		// TODO: Rework. Assert that the element has been renamed
+		// Assert that the element has been renamed
 		waitForDiagramElementToExist(diagram,
 				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
 	}
 
-	public static void renameElementFromDiagram(final DiagramReference diagram, final DiagramElementReference parent,
-			final RelativeBusinessObjectReference afterCreate, final String newName) {
-		renameElementDirectEdit(diagram, parent, afterCreate, newName);
+	/**
+	 * Rename an element using direct edit feature.
+	 * @param parent the parent of the new element
+	 * @param element is the element to rename
+	 * @param newName the name of the new element
+	 */
+	public static void renameElementFromDiagramEditor(final DiagramReference diagram, final DiagramElementReference parent,
+			final RelativeBusinessObjectReference element, final String newName) {
+		renameElementDirectEdit(diagram, parent, element, newName);
 
 		// Wait for element to be created
 		waitForDiagramElementToExist(diagram,
-				parent.join(new RelativeBusinessObjectReference(afterCreate.getSegments().get(0), newName)));
+				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
 	}
 
 	/**
-	 * Renames an element using the diagram context menu.
-	 * @param newName the name of the new element
+	 * Rename an element using the outline view.
+	 * @param parent the parent of the new element
 	 * @param element is the element to rename
+	 * @param newName the name of the new element
 	 */
 	public static void renameElementFromOutlineView(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference afterCreate,
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
 			final String newName) {
-		final ImmutableList<RelativeBusinessObjectReference> pathToElement = parent.join(afterCreate).pathToElement;
+		final ImmutableList<RelativeBusinessObjectReference> pathToElement = parent.join(element).pathToElement;
 		final String[] outlineTreeItems = new String[pathToElement.size()];
 		for (int i = 0; i < pathToElement.size(); i++) {
 			outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
@@ -362,8 +403,8 @@ public class OsateGeTestCommands {
 		setTextField(0, newName);
 		clickButton("OK");
 
-
+		// Wait for element to be renamed
 		waitForDiagramElementToExist(diagram,
-				parent.join(new RelativeBusinessObjectReference(afterCreate.getSegments().get(0), newName)));
+				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
 	}
 }
