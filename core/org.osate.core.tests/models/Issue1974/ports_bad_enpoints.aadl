@@ -4,6 +4,7 @@ public
 
     end top;
 
+	-- Tests the use of the wrong port in the correct component
     system implementation top.i
         subcomponents
             p: system P;
@@ -20,11 +21,12 @@ public
     		e2e_22_incorrect: end to end flow p.start -> c22 -> c.finish; -- bad source and destination features on connection (should have 2 errors)
 
     		e2e_11s_correct: end to end flow p -> c11 -> c;    		
-    		e2e_12s_incorrect: end to end flow p -> c12 -> c; -- bad destination on connection
-    		e2e_21s_incorrect: end to end flow p -> c21 -> c; -- bad source on connection
-    		e2e_22s_incorrect: end to end flow p -> c22 -> c; -- bad source and destination on connection
+    		e2e_12s_incorrect: end to end flow p -> c12 -> c; 
+    		e2e_21s_incorrect: end to end flow p -> c21 -> c; 
+    		e2e_22s_incorrect: end to end flow p -> c22 -> c; 
     end top.i;
 
+	-- Tests the use of the wrong component
     system implementation top.i2
         subcomponents
             p1: system P;
