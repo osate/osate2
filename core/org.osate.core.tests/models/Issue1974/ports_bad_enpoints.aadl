@@ -1,7 +1,6 @@
 package ports_bad_endpoints
 public
     system top
-
     end top;
 
 	-- Tests the use of the wrong port in the correct component
@@ -21,9 +20,9 @@ public
     		e2e_22_incorrect: end to end flow p.start -> c22 -> c.finish; -- bad source and destination features on connection (should have 2 errors)
 
     		e2e_11s_correct: end to end flow p -> c11 -> c;    		
-    		e2e_12s_incorrect: end to end flow p -> c12 -> c; 
-    		e2e_21s_incorrect: end to end flow p -> c21 -> c; 
-    		e2e_22s_incorrect: end to end flow p -> c22 -> c; 
+    		e2e_12s_incorrect: end to end flow p -> c12 -> c; -- Allowed: flow sink at feature c.ip2 is implicit
+    		e2e_21s_incorrect: end to end flow p -> c21 -> c; -- Allowed: flow source at feature p.ip2 is implicit
+    		e2e_22s_incorrect: end to end flow p -> c22 -> c;  -- Allowed: flow source at feature p.ip2 is implicit; flow sink at feature c.ip2 is implicit
     end top.i;
 
 	-- Tests the use of the wrong component

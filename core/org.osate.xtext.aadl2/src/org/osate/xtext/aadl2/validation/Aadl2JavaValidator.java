@@ -2372,7 +2372,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 					if (noMatch) {
 						error(flow.getOwnedEndToEndFlowSegments().get(i),
-								"A The source of connection '" + connection.getName()
+								"The source of connection '" + connection.getName()
 										+ "' does not match the preceding subcomponent or out flow spec feature '"
 										+ previousFlowSegment.getContext().getName() + '.'
 										+ outEnd.getFeature().getName() + '\'');
@@ -2380,9 +2380,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else if (i > 0 && previousFlowElement instanceof Subcomponent) { // "sub"
 					final Subcomponent previousFlowSubcomponent = (Subcomponent) previousFlowElement;
 					boolean noMatch = false;
-					if (cxt instanceof Subcomponent) {
-						if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSubcomponent)
-								|| AadlUtil.isSameOrRefines(previousFlowSubcomponent, (Subcomponent) cxt))) {
+					Subcomponent connectionSubcomponent = (connection instanceof AccessConnection)
+							? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
+							: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
+					if (connectionSubcomponent != null) {
+						if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, previousFlowSubcomponent)
+								|| AadlUtil.isSameOrRefines(previousFlowSubcomponent, connectionSubcomponent))) {
 							/*
 							 * Subcomponent in the flow doesn't match the subcomponent context of the connection,
 							 * so flip the connection around if possible.
@@ -2391,10 +2394,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								ce = connection.getAllLastDestination();
 								cxt = connection.getAllDestinationContext();
 								connectedElement = connection.getRootConnection().getDestination();
-								if (cxt instanceof Subcomponent) {
-									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSubcomponent)
+								connectionSubcomponent = (connection instanceof AccessConnection)
+										? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
+										: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
+								if (connectionSubcomponent != null) {
+									if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, previousFlowSubcomponent)
 											|| AadlUtil.isSameOrRefines(previousFlowSubcomponent,
-													(Subcomponent) cxt))) {
+													connectionSubcomponent))) {
 										noMatch = true;
 									} else {
 										/*
@@ -2418,7 +2424,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 					if (noMatch) {
 						error(flow.getOwnedEndToEndFlowSegments().get(i),
-								"B The source of connection '" + connection.getName()
+								"The source of connection '" + connection.getName()
 										+ "' does not match the preceding subcomponent or out flow spec feature '"
 										+ previousFlowSubcomponent.getName() + '\'');
 					}
@@ -2471,7 +2477,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						if (noMatch) {
 							error(flow.getOwnedEndToEndFlowSegments().get(i),
-									"C The destination of connection '" + connection.getName()
+									"The destination of connection '" + connection.getName()
 											+ "' does not match the succeeding subcomponent or in flow spec feature '"
 											+ nextFlowSegment.getContext().getName()
 											+ '.' + inEnd.getFeature().getName() + '\'');
@@ -2479,9 +2485,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					} else if (nextFlowElement instanceof Subcomponent) { // just "sub"
 						final Subcomponent nextFlowSubcomponent = (Subcomponent) nextFlowElement;
 						boolean noMatch = false;
-						if (cxt instanceof Subcomponent) {
-							if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, nextFlowSubcomponent)
-									|| AadlUtil.isSameOrRefines(nextFlowSubcomponent, (Subcomponent) cxt))) {
+						final Subcomponent connectionSubcomponent = (connection instanceof AccessConnection)
+								? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
+								: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
+						if (connectionSubcomponent != null) {
+							if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, nextFlowSubcomponent)
+									|| AadlUtil.isSameOrRefines(nextFlowSubcomponent, connectionSubcomponent))) {
 								// subcomponents don't match: fail
 								noMatch = true;
 							} else {
@@ -2493,7 +2502,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						if (noMatch) {
 							error(flow.getOwnedEndToEndFlowSegments().get(i),
-									"D The destination of connection '" + connection.getName()
+									"The destination of connection '" + connection.getName()
 											+ "' does not match the succeeding subcomponent or in flow spec feature '"
 											+ nextFlowSubcomponent.getName() + '\'');
 						}
