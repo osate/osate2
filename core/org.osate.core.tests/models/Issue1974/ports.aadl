@@ -1,7 +1,7 @@
+-- There should be no errors anywhere in this package
 package ports
 public
     system top
-
     end top;
 
     system implementation top.i

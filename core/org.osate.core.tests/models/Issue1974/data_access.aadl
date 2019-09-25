@@ -16,7 +16,7 @@ public
             e2e_1: end to end flow p -> c0 -> d -> c1 -> c;
             
             e2e_2: end to end flow p.start -> c0 -> d -> c1 -> c.finish;
-    end top.i;
+    end top.i; 
 
     system implementation top.i2
         subcomponents
@@ -31,7 +31,7 @@ public
             
             e2e_2: end to end flow p.start -> c0 -> d -> c1 -> c.finish;
     end top.i2;
-
+ 
 
     system S
         features

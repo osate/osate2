@@ -1,7 +1,6 @@
 package ports_unidirectional
 public
     system top
-
     end top;
 
     system implementation top.i
