@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
@@ -88,19 +86,6 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 */
 	@Override
 	public EList<NamedElement> getMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_Member());
-			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<>(NamedElement.class, this,
-								Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS));
-			}
-			return members;
-		}
 		return new DerivedUnionEObjectEList<>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
 				MEMBER_ESUBSETS);
 	}
@@ -112,19 +97,6 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
-			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
-								Aadl2Package.NAMESPACE__OWNED_MEMBER, null));
-			}
-			return ownedMembers;
-		}
 		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
 	}
@@ -136,19 +108,6 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 */
 	@Override
 	public EList<Element> getOwnedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<>(Element.class, this,
-								Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
-			}
-			return ownedElements;
-		}
 		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
