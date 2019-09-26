@@ -71,6 +71,10 @@ public class DeclarativeReferenceBuilder {
 		return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
 	}
 
+	public static RelativeBusinessObjectReference getFlowSpecificationRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(), name);
+	}
+
 	@BuildRelativeReference
 	public RelativeBusinessObjectReference getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if (bo instanceof AadlPackage) {

@@ -27,6 +27,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
@@ -152,7 +153,10 @@ public class CreateFlowImplementationTool {
 			} else if(fs.getKind() == FlowKind.PATH) {
 				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 2;
 			} else if(fs.getKind() == FlowKind.SINK) {
-				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof FlowSpecification && ((FlowSpecification)boc.getBusinessObject()).getKind() == FlowKind.SINK).count() == 1;
+				return getSelectedBocsOtherThanFirst().stream()
+						.filter(boc -> boc.getBusinessObject() instanceof FlowSpecification
+								&& ((FlowSpecification) boc.getBusinessObject()).getKind() == FlowKind.SINK)
+						.count() == 1;
 			}
 
 			return false;
@@ -237,26 +241,30 @@ public class CreateFlowImplementationTool {
 				final List<BusinessObjectContext> modeFeatureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof ModeFeature).collect(Collectors.toCollection(ArrayList::new));
 
 				int nextFeatureIndex = 0;
+				BusinessObjectContext inBoc = null;
 				if(needsStartingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd inEnd = flowImpl.createInEnd();
-					final BusinessObjectContext tmpBoc = featureBocs.get(nextFeatureIndex);
-					inEnd.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
-					inEnd.setFeature((Feature)tmpBoc.getBusinessObject());
+					inBoc = featureBocs.get(nextFeatureIndex);
+					inEnd.setContext(ToolUtil.findContextExcludeOwner(inBoc, flowImplOwnerBoc));
+					inEnd.setFeature((Feature) inBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
 
+				BusinessObjectContext outBoc = null;
 				if(needsEndingFeature() && featureBocs.size() > nextFeatureIndex) {
 					final FlowEnd outEnd = flowImpl.createOutEnd();
-					final BusinessObjectContext tmpBoc = featureBocs.get(nextFeatureIndex);
-					outEnd.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
-					outEnd.setFeature((Feature)tmpBoc.getBusinessObject());
+					outBoc = featureBocs.get(nextFeatureIndex);
+					outEnd.setContext(ToolUtil.findContextExcludeOwner(outBoc, flowImplOwnerBoc));
+					outEnd.setFeature((Feature) outBoc.getBusinessObject());
 					nextFeatureIndex++;
 				}
 
 				for(final BusinessObjectContext tmpBoc : flowElementBocs) {
-					final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
-					newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
-					newFlowSegment.setFlowElement((FlowElement)tmpBoc.getBusinessObject());
+					if (!(tmpBoc.getBusinessObject() instanceof DataAccess) || (tmpBoc != outBoc && tmpBoc != inBoc)) {
+						final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
+						newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
+						newFlowSegment.setFlowElement((FlowElement) tmpBoc.getBusinessObject());
+					}
 				}
 
 				for(final BusinessObjectContext tmpModeFeature : modeFeatureBocs) {
