@@ -696,8 +696,4 @@ public class UiTestUtil {
 	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
 		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
 	}
-
-	public static void sleep(int sec) {
-		bot.sleep(sec * 1000);
-	}
 }
