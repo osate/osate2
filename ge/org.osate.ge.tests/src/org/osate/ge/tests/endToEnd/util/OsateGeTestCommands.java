@@ -14,7 +14,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Event;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.ui.editor.FlowContributionItem;
 
 import com.google.common.collect.ImmutableList;
 
@@ -46,7 +49,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProject(final String name) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu("File", "New", "AADL Project");
+		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -66,7 +69,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProjectWithReferencedProjects(final String name, final String... projectsToReference) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu("File", "New", "AADL Project");
+		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -231,7 +234,7 @@ public class OsateGeTestCommands {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, element);
 
-		clickButtonInPropertiesView("Create...", "AADL");
+		clickButtonInPropertiesView("AADL", "Create...");
 
 		waitForWindowWithTitle("Create Component Classifier");
 
@@ -271,7 +274,105 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 *
+	 * Creates a flow specification using the palette tool.
+	 * Preconditions: OSATE shell is active.  Specified parent element exists.
+	 * Postconditions: New flow specification has been created, renamed to match the specified name
+	 * @param diagram is the diagram in which to create the flow specification
+	 * @param parentElement is the reference to the element in which the flow specification will be created
+	 * @param toolType is the text of the palette item to use to create the flow specifcation
+	 * @param featureRef is the relative reference of the feature that the flow specification will be attached to
+	 * @param newReferenceAfterCreate is the relative reference of the diagram element which will be created by the tool.
+	 * @param finalName is the name to which the element should be renamed
+	 */
+	public static void createFlowSpecification(final DiagramReference diagram,
+			final DiagramElementReference parentElement, final String toolType,
+			final RelativeBusinessObjectReference featureRef,
+			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
+		createFlowSpecificationElement(diagram, parentElement, toolType, featureRef, newReferenceAfterCreate);
+		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
+	}
+
+	/**
+	 * Creates an end to end flow using the segments specified.  The segments
+	 * will be selected in the order received.
+	 * Preconditions: OSATE shell is active.  Flow segments exist.
+	 * Postconditions: New end to end flow specification has been created and highlighted
+	 * @param classifier is the reference to the diagram element to select to enable tool item
+	 * @param eteQualifiedName the qualified name of the end to end flow
+	 * @param flowSegments is the reference to the segments that will make up the the end to end flow
+	 */
+	public static void createEndToEndFlowSpecification(final DiagramReference diagram,
+			final DiagramElementReference classifier, final String eteQualifiedName,
+			final DiagramElementReference... flowSegments) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, classifier);
+
+		clickToolbarItem("Create End to End Flow Specification");
+
+		waitForWindowWithTitle("Create End To End Flow Specification");
+
+		clickElements(flowSegments);
+
+		final String eteName = eteQualifiedName.substring(eteQualifiedName.lastIndexOf(':') + 1);
+		setTextForShell("Create End To End Flow Specification", 0, eteName);
+		sendTextKeyUpEvent("Create End To End Flow Specification", 0, SWT.KeyUp, new Event());
+
+		clickButtonForShell("Create End To End Flow Specification", "OK");
+
+		// Highlight flow to ensure it was created successfully
+		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
+
+		// Set selection to default
+		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+	}
+
+	private static void clickElements(final DiagramElementReference[] elements) {
+		for (final DiagramElementReference flowSegment : elements) {
+			final ImmutableList<RelativeBusinessObjectReference> pathToElement = flowSegment.pathToElement;
+			final String[] outlineTreeItems = new String[pathToElement.size()];
+			for (int i = 0; i < pathToElement.size(); i++) {
+				outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
+			}
+
+			clickElementInOutlineView(outlineTreeItems);
+		}
+	}
+
+	/**
+	 * Creates a flow implementation using the segments specified.  The segments
+	 * will be selected in the order received.
+	 * Preconditions: OSATE shell is active.  Flow segments exist.
+	 * Postconditions: New flow implementation has been created and highlighted
+	 * @param classifier is the reference to the diagram element to select to enable tool item
+	 * @param flowImpQualifiedlName the qualified name of the flow implementation
+	 * @param flowSegments is the reference to the segments that will make up the flow implementation
+	 */
+	public static void createFlowImplementation(final DiagramReference diagram,
+			final DiagramElementReference classifier, final String flowImpQualifiedlName,
+			final DiagramElementReference... flowSegments) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, classifier);
+
+		clickToolbarItem("Create Flow Implementation");
+
+		waitForWindowWithTitle("Create Flow Implementation");
+
+		clickElements(flowSegments);
+
+		clickButtonForShell("Create Flow Implementation", "OK");
+
+		// Highlight flow to ensure it was created successfully
+		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);
+
+		// Set selection to default
+		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+	}
+
+	/**
+	 * Creates a diagram element using a palette tool which will be represented as a connection.
+	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
+	 * @param diagram is the diagram in which to create the connection
 	 * @param src the source of the connection
 	 * @param dest the destination of the connection
 	 * @param toolType the type of connection to create using the palette
@@ -293,7 +394,7 @@ public class OsateGeTestCommands {
 	 */
 	public static void showContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
 		// Show contents
-		clickContextMenuOfDiagramElement(diagram, element, "Show Contents", "All");
+		clickContextMenuOfDiagramElement(diagram, element, Menus.SHOW_CONTENTS_ALL);
 		layoutDiagram(diagram, element);
 	}
 
@@ -348,6 +449,9 @@ public class OsateGeTestCommands {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, element);
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
+
+		// Layout again because in some cases the ports may overlap. Laying out multiple times works around this issue.
+		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
 	/**
@@ -398,7 +502,7 @@ public class OsateGeTestCommands {
 			outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
 		}
 
-		clickContextMenuOfOutlineViewItem("Rename...", outlineTreeItems);
+		clickContextMenuOfOutlineViewItem(outlineTreeItems, new String[] { "Rename..." });
 		waitForWindowWithTitle("Rename");
 		setTextField(0, newName);
 		clickButton("OK");

@@ -139,10 +139,24 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Sets the combo box with specified ID to the specified value.
+	 */
+	public static void setComboBoxWithIdSelection(final String id, final String value) {
+		bot.comboBoxWithId(id).setSelection(value);
+	}
+
+	/**
 	 * Clicks the radio button which has the specified text.
 	 */
 	public static void clickRadioButton(final String text) {
 		bot.radio(text).click();
+	}
+
+	/**
+	 * Clicks the radio button at specified index.
+	 */
+	public static void clickCheckBox(final int index) {
+		bot.checkBox(index).click();
 	}
 
 	/**
@@ -190,15 +204,6 @@ public class UiTestUtil {
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
 		bot.table().getTableItem(tableItem).click();
 	}
-
-	/**
-			* Asserts that an item at the specified texts is contained in the first tree in the view with the specified title.
-			*//*
-				 * public static void assertItemExistsInTreeView(final String viewTitle, final String... itemTexts) {
-				 * assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in view: " + viewTitle,
-				 * doesItemExistsInTreeView(viewTitle, itemTexts));
-				 * }
-				 */
 
 	/**
 	 * Returns whether an item at the specified texts is contained in the first tree in the view with the specified title.
@@ -380,7 +385,6 @@ public class UiTestUtil {
 	 * @param itemText the text for the palette item
 	 */
 	public static void activatePaletteItem(final DiagramReference diagram, final String itemText) {
-
 		getDiagramEditorBot(diagram).activateTool(itemText);
 	}
 
@@ -400,11 +404,12 @@ public class UiTestUtil {
 
 	// Scrolls to and clicks a DiagramElement
 	public static void clickDiagramElement(final DiagramReference diagram, DiagramElementReference element) {
+		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+
 		final DiagramElement de = getDiagramElement(diagram, element)
 				.orElseThrow(() -> new RuntimeException("Cannot find relative reference for '" + element + "'."));
 
 		// Get the edit part
-		final AgeDiagramEditor editor = getDiagramEditor(diagram);
 		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
 		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
 
@@ -414,7 +419,26 @@ public class UiTestUtil {
 
 		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
 		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
-		editorBot.click(botEditParts.get(0));
+
+		final Rectangle absoluteBounds = getAbsoluteBounds(botEditParts.get(0));
+		// Click element
+		editorBot.click(absoluteBounds.x + 1, absoluteBounds.y + 1);
+		// editorBot.click(botEditParts.get(0)); // TODO does not work
+	}
+
+	private static Rectangle getAbsoluteBounds(final SWTBotGefEditPart editPart) {
+		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
+		Rectangle bounds = figure.getBounds().getCopy();
+		figure.translateToAbsolute(bounds);
+		return bounds;
+	}
+
+	public static void zoomOut() {
+		bot.toolbarButtonWithTooltip("Zoom Out (Ctrl+-)").click();
+	}
+
+	public static void zoomIn() {
+		bot.toolbarButtonWithTooltip("Zoom In (Ctrl+=)").click();
 	}
 
 	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
@@ -427,9 +451,9 @@ public class UiTestUtil {
 			assertTrue("Graphical viewer control is not a FigureCanvas instance",
 					viewerControl instanceof FigureCanvas);
 			final FigureCanvas viewerCanvas = (FigureCanvas) viewerControl;
-
 			// Get the figure
 			assertTrue("Edit part is not a GraphicalEditPart", editPart instanceof GraphicalEditPart);
+
 			final IFigure figure = ((GraphicalEditPart) editPart).getFigure();
 			assertNotNull("Figure is null", figure);
 
@@ -439,7 +463,6 @@ public class UiTestUtil {
 
 			// Scroll to the edit part
 			viewerCanvas.scrollTo(bounds.x, bounds.y);
-
 		});
 	}
 
@@ -476,16 +499,28 @@ public class UiTestUtil {
 		return editor.editParts(matcher);
 	}
 
-	public static void clickContextMenuOfOutlineViewItem(final String menuItem, final String... treeItems) {
+	public static void clickContextMenuOfOutlineViewItem(final String[] treeItems, final String[] menuItem) {
 		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
 		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
 
 		for (final String node : nodes) {
-			treeItem = findTreeItem(treeItem.getItems(), node);
+			treeItem = findTreeItem(treeItem.getItems(), node).expand();
 		}
 
-		treeItem.contextMenu(menuItem).click();
+		treeItem.contextMenu().menu(menuItem).click();
+	}
+
+	public static void clickElementInOutlineView(final String... treeItems) {
+		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
+		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
+		final String[] nodes = Arrays.copyOfRange(treeItems, 1, treeItems.length);
+
+		for (final String node : nodes) {
+			treeItem = findTreeItem(treeItem.getItems(), node).expand();
+		}
+
+		treeItem.click();
 	}
 
 	private static SWTBotTreeItem findTreeItem(final SWTBotTreeItem[] items, final String treeItem) {
@@ -497,6 +532,35 @@ public class UiTestUtil {
 		}
 
 		throw new RuntimeException("Could not find tree item '" + treeItem + "' in the outline view.");
+	}
+
+	/**
+	 * Sets the nth text for the shell with specified title.
+	 */
+	public static void setTextForShell(final String title, final int index, final String text) {
+		bot.shell(title).bot().text(index).setText(text);
+	}
+
+	/**
+	 * Sends an event to the listeners of specified text located on the shell with specified title.
+	 * @param title the title of the shell
+	 * @param index the index of the text
+	 * @param eventType the type of event to notify listeners
+	 * @param event the event to send to listeners
+	 */
+	public static void sendTextKeyUpEvent(final String title, final int index, final int eventType, final Event event) {
+		Display.getDefault().syncExec(() -> {
+			// Send notification
+			bot.shell(title).bot().text(index).widget.notifyListeners(eventType, event);
+		});
+	}
+
+	/**
+	 * Clicks the button with specified text on the shell with specified title.
+	 */
+	public static void clickButtonForShell(final String title, final String text) {
+		final SWTBotButton btn = bot.shell(title).bot().button(text);
+		btn.click();
 	}
 
 	/**
@@ -533,9 +597,22 @@ public class UiTestUtil {
 		editorBot.select(partBots);
 
 		// Assert elements are selected
-		assertTrue("Elements were not selected", editorBot.selectedEditParts().equals(partBots));
+		assertTrue("Elements '" + getDiagramElementReferences(elements) + "' were not selected",
+				editorBot.selectedEditParts().containsAll(partBots));
 	}
 
+	private static String getDiagramElementReferences(final DiagramElementReference... elements) {
+		final List<String> segments = new ArrayList<>();
+		for (final DiagramElementReference element : elements) {
+			segments.add(element.toString());
+		}
+
+		return String.join(", ", segments);
+	}
+
+	/**
+	 * Renames the specified element executing direct edit on the diagram elements label.
+	 */
 	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference parent,
 			final RelativeBusinessObjectReference newAfterCreate, final String newName) {
 		final DiagramElementReference newAfterCreateElement = parent.join(newAfterCreate);
@@ -618,5 +695,9 @@ public class UiTestUtil {
 	 */
 	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
 		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
+	}
+
+	public static void sleep(int sec) {
+		bot.sleep(sec * 1000);
 	}
 }
