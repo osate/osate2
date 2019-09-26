@@ -2285,144 +2285,82 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkFlowConnectionEnds(EndToEndFlow flow) {
 		int size = flow.getOwnedEndToEndFlowSegments().size();
 		for (int i = 0; i < size; i++) {
-			ConnectionEnd ce = null;
-			Context cxt = null;
-			ConnectedElement connectedElement = null;
 			final EndToEndFlowElement flowElement = flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
 			if (i % 2 == 1 && flowElement instanceof Connection && !flowElement.eIsProxy()) {
 				// for connection (every even element) check that it matches up
 				// with the preceding flow specification
 				final Connection connection = (Connection) flowElement;
-				ce = connection.getAllLastSource();
-				cxt = connection.getAllSourceContext();
-				connectedElement = connection.getRootConnection().getSource();
 				boolean usedReverse = false;
 
 				final EndToEndFlowSegment previousFlowSegment = flow.getOwnedEndToEndFlowSegments().get(i - 1);
 				final EndToEndFlowElement previousFlowElement = previousFlowSegment.getFlowElement();
 				// Flow element can be a full flow specification "sub.f" or just a subcomponent "sub"
 				if (i > 0 && previousFlowElement instanceof FlowSpecification) { // "sub.f"
-					final FlowSpecification previousFlowSpec = (FlowSpecification) previousFlowElement;
 					final Context previousFlowCxt = previousFlowSegment.getContext();
-					final FlowEnd outEnd = previousFlowSpec.getAllOutEnd();
-					if (Aadl2Util.isNull(outEnd)) {
+					final FlowEnd flowOutEnd = ((FlowSpecification) previousFlowElement).getAllOutEnd();
+					if (Aadl2Util.isNull(flowOutEnd)) {
 						return;
 					}
 
-					// TODO: Refactor so I don't repeat the code for the test in each direction of the connection, and for each
-					// endpint.
-
-					// TODO: Is it better (more readable) to replace "noMatch" with "match"?
-
 					/*
 					 * Need to check that both the features and the subcomponents match on the end point of the flow
-					 * specification and the end point of the connection. If nether matches, we need to check if the
+					 * specification and the end point of the connection. If neither matches, we need to check if the
 					 * connection is bidirectional and flip it around and try again.
 					 */
-					boolean noMatch = false;
+					boolean matched = false;
 					boolean tryTheOtherWay = false;
-					if (isMatchingConnectionPoint(previousFlowCxt, outEnd.getFeature(), outEnd.getContext(),
-							connectedElement)) {
-						// Features on the connection and the flow end match, still need to check the contexts
-						if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
-							if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, (Subcomponent) previousFlowCxt)
-									|| AadlUtil.isSameOrRefines((Subcomponent) previousFlowCxt, (Subcomponent) cxt))) {
-								// contexts don't match, flip the connection if possible
-								tryTheOtherWay = true;
-							}
-						}
-					} else {
-						// features don't match, flip the connection if possible
+					if (doSubcomponentsAndFeaturesMatch(previousFlowCxt, flowOutEnd, connection.getAllSourceContext(),
+							connection.getRootConnection().getSource())) {
+						matched = true;
+					} else { // features don't match, flip the connection if possible
 						tryTheOtherWay = true;
 					}
 
-					if (tryTheOtherWay) {
-						if (connection.isAllBidirectional()) {
-							// Flip the connection ...
-							ce = connection.getAllLastDestination();
-							cxt = connection.getAllDestinationContext();
-							connectedElement = connection.getRootConnection().getDestination();
-							// ... and test again
-							if (isMatchingConnectionPoint(previousFlowCxt, outEnd.getFeature(), outEnd.getContext(),
-									connectedElement)) {
-								// Features on the connection and the flow end match, still need to check the contexts
-								if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
-									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, (Subcomponent) previousFlowCxt)
-											|| AadlUtil.isSameOrRefines((Subcomponent) previousFlowCxt,
-													(Subcomponent) cxt))) {
-										// contexts don't match, fail
-										noMatch = true;
-									} else {
-										// everything matches, record that we flipped the connection
-										usedReverse = true;
-									}
-								} else {
-									// contexts don't match, fail
-									noMatch = true;
-								}
-							} else {
-								// features don't match: fail
-								noMatch = true;
-							}
-						} else {
-							// Connection cannot be flipped around, we have a genuine mismatch
-							noMatch = true;
+					if (tryTheOtherWay && connection.isAllBidirectional()) {
+						// Flip the connection and test again
+						if (doSubcomponentsAndFeaturesMatch(previousFlowCxt, flowOutEnd,
+								connection.getAllDestinationContext(),
+								connection.getRootConnection().getDestination())) {
+							matched = true;
+							usedReverse = true;
 						}
 					}
 
-					if (noMatch) {
+					if (!matched) {
 						error(flow.getOwnedEndToEndFlowSegments().get(i),
 								"The source of connection '" + connection.getName()
 										+ "' does not match the preceding subcomponent or out flow spec feature '"
-										+ previousFlowSegment.getContext().getName() + '.'
-										+ outEnd.getFeature().getName() + '\'');
+										+ previousFlowCxt.getName() + '.'
+										+ flowOutEnd.getFeature().getName() + '\'');
 					}
 				} else if (i > 0 && previousFlowElement instanceof Subcomponent) { // "sub"
 					final Subcomponent previousFlowSubcomponent = (Subcomponent) previousFlowElement;
-					boolean noMatch = false;
-					Subcomponent connectionSubcomponent = (connection instanceof AccessConnection)
-							? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
-							: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
+					boolean matched = false;
+					Subcomponent connectionSubcomponent = getConnectionSubcomponent(connection,
+							connection.getAllSourceContext(),
+							connection.getAllLastSource());
 					if (connectionSubcomponent != null) {
-						if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, previousFlowSubcomponent)
-								|| AadlUtil.isSameOrRefines(previousFlowSubcomponent, connectionSubcomponent))) {
-							/*
-							 * Subcomponent in the flow doesn't match the subcomponent context of the connection,
-							 * so flip the connection around if possible.
-							 */
+						/*
+						 * Check that the subcomponents match at the end point of the flow spec and the end point of the connection. If
+						 * neither matches, we need to check if the connection is bidirectional and flip it around and try again.
+						 */
+						if (doSubcomponentsMatch(previousFlowSubcomponent, connectionSubcomponent)) {
+							matched = true;
+						} else { // no match, flip the connection around
 							if (connection.isAllBidirectional()) {
-								ce = connection.getAllLastDestination();
-								cxt = connection.getAllDestinationContext();
-								connectedElement = connection.getRootConnection().getDestination();
-								connectionSubcomponent = (connection instanceof AccessConnection)
-										? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
-										: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
-								if (connectionSubcomponent != null) {
-									if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, previousFlowSubcomponent)
-											|| AadlUtil.isSameOrRefines(previousFlowSubcomponent,
-													connectionSubcomponent))) {
-										noMatch = true;
-									} else {
-										/*
-										 * Subcomponent in the flow matches the subcomponent context of the other end
-										 * of the connection, so record that we flipped the connection around.
-										 */
+								connectionSubcomponent = getConnectionSubcomponent(connection,
+										connection.getAllDestinationContext(),
+										connection.getAllLastDestination());
+								if (connectionSubcomponent != null
+										&& doSubcomponentsMatch(previousFlowSubcomponent, connectionSubcomponent)) {
+										matched = true;
 										usedReverse = true;
-									}
-								} else {
-									noMatch = true;
 								}
-							} else {
-								// Connection cannot be flipped
-								noMatch = true;
 							}
 						}
-					} else {
-						// Connection doesn't come from a subcomponent? No match
-						noMatch = true;
 					}
 
-					if (noMatch) {
+					if (!matched) {
 						error(flow.getOwnedEndToEndFlowSegments().get(i),
 								"The source of connection '" + connection.getName()
 										+ "' does not match the preceding subcomponent or out flow spec feature '"
@@ -2435,15 +2373,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				 * we do not need to see if we can flip the connection around, because we know already that flipping the connection
 				 * will make the source of the connection mismatch.
 				 */
+				final Context connectionContext;
+				final ConnectionEnd connectionEnd;
+				final ConnectedElement connectedElement;
 				if (usedReverse) {
 					// We flipped the connection around, so end end point is really the source of the connection
-					ce = connection.getAllLastSource();
-					cxt = connection.getAllSourceContext();
+					connectionEnd = connection.getAllLastSource();
+					connectionContext = connection.getAllSourceContext();
 					connectedElement = connection.getRootConnection().getSource();
 				} else {
 					// We didn't flip the connection, so use the destination of the connection
-					ce = connection.getAllLastDestination();
-					cxt = connection.getAllDestinationContext();
+					connectionEnd = connection.getAllLastDestination();
+					connectionContext = connection.getAllDestinationContext();
 					connectedElement = connection.getRootConnection().getDestination();
 				}
 				if (i + 1 < size) { // make sure there actually IS a next flow element
@@ -2451,56 +2392,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					final EndToEndFlowElement nextFlowElement = nextFlowSegment.getFlowElement();
 					final Context nextFlowCxt = nextFlowSegment.getContext();
 					if (nextFlowElement instanceof FlowSpecification) { // "sub.f"
-						final FlowSpecification nextFlowSpec = (FlowSpecification) nextFlowElement;
-						final FlowEnd inEnd = nextFlowSpec.getAllInEnd();
-						if (Aadl2Util.isNull(inEnd)) {
+						final FlowEnd flowInEnd = ((FlowSpecification) nextFlowElement).getAllInEnd();
+						if (Aadl2Util.isNull(flowInEnd)) {
 							return;
 						}
-						boolean noMatch = false;
-						if (isMatchingConnectionPoint(nextFlowCxt, inEnd.getFeature(), inEnd.getContext(),
-								connectedElement)) {
-							if (cxt instanceof Subcomponent && nextFlowCxt instanceof Subcomponent) {
-								if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, (Subcomponent) nextFlowCxt)
-										|| AadlUtil.isSameOrRefines((Subcomponent) nextFlowCxt, (Subcomponent) cxt))) {
-									// features match, but contexts don't match
-									noMatch = true;
-								} else {
-									// features match AND contexts match: everything is okay
-								}
-							} else {
-								// features match, but problem with contexts
-								noMatch = true;
-							}
-						} else {
-							// features don't match
-							noMatch = true;
-						}
-						if (noMatch) {
+						if (!doSubcomponentsAndFeaturesMatch(nextFlowCxt, flowInEnd, connectionContext, connectedElement)) {
 							error(flow.getOwnedEndToEndFlowSegments().get(i),
 									"The destination of connection '" + connection.getName()
 											+ "' does not match the succeeding subcomponent or in flow spec feature '"
-											+ nextFlowSegment.getContext().getName()
-											+ '.' + inEnd.getFeature().getName() + '\'');
+											+ nextFlowCxt.getName()
+											+ '.' + flowInEnd.getFeature().getName() + '\'');
 						}
 					} else if (nextFlowElement instanceof Subcomponent) { // just "sub"
 						final Subcomponent nextFlowSubcomponent = (Subcomponent) nextFlowElement;
-						boolean noMatch = false;
-						final Subcomponent connectionSubcomponent = (connection instanceof AccessConnection)
-								? ((cxt == null) ? (Subcomponent) ce : (Subcomponent) cxt)
-								: (cxt instanceof Subcomponent) ? (Subcomponent) cxt : null;
-						if (connectionSubcomponent != null) {
-							if (!(AadlUtil.isSameOrRefines(connectionSubcomponent, nextFlowSubcomponent)
-									|| AadlUtil.isSameOrRefines(nextFlowSubcomponent, connectionSubcomponent))) {
-								// subcomponents don't match: fail
-								noMatch = true;
-							} else {
-								// subcomponents match: everything is okay
-							}
-						} else {
-							// problem with subcomponents, don't match
-							noMatch = true;
-						}
-						if (noMatch) {
+						final Subcomponent connectionSubcomponent = getConnectionSubcomponent(connection, connectionContext, connectionEnd);
+						if (connectionSubcomponent == null
+								|| !doSubcomponentsMatch(nextFlowSubcomponent, connectionSubcomponent)) {
 							error(flow.getOwnedEndToEndFlowSegments().get(i),
 									"The destination of connection '" + connection.getName()
 											+ "' does not match the succeeding subcomponent or in flow spec feature '"
@@ -2510,7 +2417,40 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 		}
+	}
 
+	/**
+	 * Check that the endpoint of a flow spec matches with the endpoint of a connection.
+	 */
+	private boolean doSubcomponentsAndFeaturesMatch(final Context flowContext, final FlowEnd flowEnd,
+			final Context connectionContext, final ConnectedElement connectedElement) {
+		// First check the features at the end of the flow and at the end of the connection
+		if (isMatchingConnectionPoint(flowContext, flowEnd.getFeature(), flowEnd.getContext(), connectedElement)) {
+			// Then check the subcomponents that qualify the features
+			return connectionContext instanceof Subcomponent && flowContext instanceof Subcomponent
+					&& doSubcomponentsMatch((Subcomponent) connectionContext, (Subcomponent) flowContext);
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Do two subcomponents reference the same subcomponent element
+	 */
+	private boolean doSubcomponentsMatch(final Subcomponent sub1, final Subcomponent sub2) {
+		return AadlUtil.isSameOrRefines(sub1, sub2) || AadlUtil.isSameOrRefines(sub2, sub1);
+	}
+
+	/**
+	 * Get the subcomponent to test from the connection. If the connection is an access connection, the subcomponent
+	 * is the ConnectionEnd if the connection context is null, otherwise it is just the connection context.
+	 */
+	private Subcomponent getConnectionSubcomponent(final Connection connection, final Context connectionContext, final ConnectionEnd connectionEnd) {
+		if (connection instanceof AccessConnection && connectionContext == null) {
+			return (Subcomponent) connectionEnd;
+		} else {
+			return connectionContext instanceof Subcomponent ? (Subcomponent) connectionContext : null;
+		}
 	}
 
 	/**
