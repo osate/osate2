@@ -437,10 +437,6 @@ public class UiTestUtil {
 		bot.toolbarButtonWithTooltip("Zoom Out (Ctrl+-)").click();
 	}
 
-	public static void zoomIn() {
-		bot.toolbarButtonWithTooltip("Zoom In (Ctrl+=)").click();
-	}
-
 	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
 		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
 		assertNotNull("Editor is null", editor);
@@ -499,6 +495,11 @@ public class UiTestUtil {
 		return editor.editParts(matcher);
 	}
 
+	/**
+	 * Clicks the context menu option for the tree item in the outline view.
+	 * @param treeItems is the name of the elements to traverse in the outline view
+	 * @param menuItem is the menu item to select
+	 */
 	public static void clickContextMenuOfOutlineViewItem(final String[] treeItems, final String[] menuItem) {
 		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
@@ -511,6 +512,10 @@ public class UiTestUtil {
 		treeItem.contextMenu().menu(menuItem).click();
 	}
 
+	/**
+	 * Selects the tree item in the outline view.
+	 * @param treeItems is the name of the elements to traverse in the outline view
+	 */
 	public static void clickElementInOutlineView(final String... treeItems) {
 		final SWTBotTree tree = bot.viewByTitle("Outline").bot().tree();
 		SWTBotTreeItem treeItem = findTreeItem(tree.getAllItems(), treeItems[0]);
