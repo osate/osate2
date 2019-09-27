@@ -1488,7 +1488,7 @@
           commandId="org.osate.ge.hideElement"
           contextId="org.osate.ge.context"
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-          sequence="H">
+          sequence="M1+M2+H">
     </key>
   </extension>
   
