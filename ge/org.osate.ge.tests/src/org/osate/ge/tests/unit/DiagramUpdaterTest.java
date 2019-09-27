@@ -1,4 +1,4 @@
-package org.osate.ge.tests;
+package org.osate.ge.tests.unit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -7,7 +7,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.osate.ge.tests.TestBusinessObject.newBO;
+import static org.osate.ge.tests.unit.TestBusinessObject.newBO;
 
 import java.util.Collection;
 import java.util.EnumSet;
