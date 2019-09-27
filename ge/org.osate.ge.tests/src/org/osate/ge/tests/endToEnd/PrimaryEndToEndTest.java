@@ -9,7 +9,6 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
 import org.osate.ge.tests.endToEnd.util.Menus;
-import org.osate.ge.tests.endToEnd.util.UiTestUtil;
 
 /**
  * This class is the primary end to end test. It creates a complete model and exercises a large part of the graphical editor.
@@ -751,10 +750,6 @@ public class PrimaryEndToEndTest {
 		createAadlProjectWithReferencedProjects(INTEGRATED, HARDWARE, SOFTWARE);
 		createNewPackageWithPackageDiagram(INTEGRATED, INTEGRATED);
 
-		// TODO fails without zoom
-		UiTestUtil.zoomOut();
-		UiTestUtil.zoomOut();
-
 		final DiagramReference integratedDiagram = defaultDiagram(INTEGRATED, INTEGRATED);
 		final DiagramElementReference integratedPkg = packageElement(INTEGRATED);
 
@@ -981,18 +976,16 @@ public class PrimaryEndToEndTest {
 				"Actual_Processor_Binding");
 	}
 
-	// TODO: rename
+	/**
+	 * Exercises additional functionality after the model has been created
+	 */
 	private void additionalTests() {
-		// TODO: additional tests
-		// TODO: Cleanup
 		final DiagramReference diagram = defaultDiagram(HARDWARE, HARDWARE);
 
 		// Hide Contents
 		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.HIDE_CONTENTS_ALL);
-		// TODO: Contents contents. Can be done at this level? Fundamental objects. Sharing required BO
 
 		// Show contents
 		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.SHOW_CONTENTS_ALL);
-		// TODO: Contents contents. Can be done at this level? Fundamental objects. Sharing required BO
 	}
 }

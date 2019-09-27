@@ -162,7 +162,6 @@ public class OsateGeTestUtil {
 		clickDiagramElement(diagram, dest);
 		activateSelectionTool(diagram);
 
-		UiTestUtil.saveDiagramEditor(diagram);
 		// Wait for element to be created
 		waitForDiagramElementToExist(diagram, referenceAfterCreate);
 	}
