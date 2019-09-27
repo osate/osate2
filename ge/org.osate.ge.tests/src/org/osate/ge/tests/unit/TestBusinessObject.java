@@ -1,4 +1,4 @@
-package org.osate.ge.tests;
+package org.osate.ge.tests.unit;
 
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Point;
