@@ -39,8 +39,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -90,19 +88,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 */
 	@Override
 	public EList<Element> getTargets() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> targets = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getDirectedRelationship_Target());
-			if (targets == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
-						targets = new DerivedUnionEObjectEList<>(Element.class, this,
-								Aadl2Package.GENERALIZATION__TARGET, TARGET_ESUBSETS));
-			}
-			return targets;
-		}
 		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
 				TARGET_ESUBSETS);
 	}
@@ -124,19 +109,6 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 */
 	@Override
 	public EList<Element> getSources() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> sources = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getDirectedRelationship_Source());
-			if (sources == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
-						sources = new DerivedUnionEObjectEList<>(Element.class, this,
-								Aadl2Package.GENERALIZATION__SOURCE, SOURCE_ESUBSETS));
-			}
-			return sources;
-		}
 		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
 				SOURCE_ESUBSETS);
 	}

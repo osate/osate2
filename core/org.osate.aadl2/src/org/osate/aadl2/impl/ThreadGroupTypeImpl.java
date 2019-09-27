@@ -41,10 +41,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
@@ -158,19 +156,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
-			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<>(Feature.class, this,
-								Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
-			}
-			return ownedFeatures;
-		}
 		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
