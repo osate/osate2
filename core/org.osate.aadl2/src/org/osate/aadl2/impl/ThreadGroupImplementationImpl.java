@@ -41,10 +41,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
@@ -150,20 +148,6 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
-			if (ownedSubcomponents == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<>(Subcomponent.class, this,
-								Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-								OWNED_SUBCOMPONENT_ESUBSETS));
-			}
-			return ownedSubcomponents;
-		}
 		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
 				Aadl2Package.THREAD_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
