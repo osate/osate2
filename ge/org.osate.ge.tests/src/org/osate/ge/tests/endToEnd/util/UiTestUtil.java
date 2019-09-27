@@ -415,26 +415,14 @@ public class UiTestUtil {
 
 		// Scroll to the edit part
 		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-		scrollToEditPart(editorRef, editPart);
 
 		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
 		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
 
-		final Rectangle absoluteBounds = getAbsoluteBounds(botEditParts.get(0));
+		scrollToEditPart(editorRef, editPart);
+
 		// Click element
-		editorBot.click(absoluteBounds.x + 1, absoluteBounds.y + 1);
-		// editorBot.click(botEditParts.get(0)); // TODO does not work
-	}
-
-	private static Rectangle getAbsoluteBounds(final SWTBotGefEditPart editPart) {
-		IFigure figure = ((GraphicalEditPart) editPart.part()).getFigure();
-		Rectangle bounds = figure.getBounds().getCopy();
-		figure.translateToAbsolute(bounds);
-		return bounds;
-	}
-
-	public static void zoomOut() {
-		bot.toolbarButtonWithTooltip("Zoom Out (Ctrl+-)").click();
+		editorBot.click(botEditParts.get(0));
 	}
 
 	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
@@ -455,7 +443,6 @@ public class UiTestUtil {
 
 			// Get absolute bounds
 			final Rectangle bounds = figure.getBounds().getCopy();
-			figure.translateToAbsolute(bounds);
 
 			// Scroll to the edit part
 			viewerCanvas.scrollTo(bounds.x, bounds.y);
