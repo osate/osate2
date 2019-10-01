@@ -1,0 +1,43 @@
+package data_access
+public
+    system top
+
+    end top;
+
+    system implementation top.i
+        subcomponents
+            p: system S;
+            c: system S;
+            d: data;
+        connections
+            c0: data access p.a <-> d;
+            c1: data access d <-> c.a;
+        flows
+            e2e_1: end to end flow p -> c0 -> d -> c1 -> c;
+            
+            e2e_2: end to end flow p.start -> c0 -> d -> c1 -> c.finish;
+    end top.i; 
+
+    system implementation top.i2
+        subcomponents
+            p: system S;
+            c: system S;
+            d: data;
+        connections
+            c0: data access d <-> p.a;
+            c1: data access c.a <-> d;
+        flows
+            e2e_1: end to end flow p -> c0 -> d -> c1 -> c;
+            
+            e2e_2: end to end flow p.start -> c0 -> d -> c1 -> c.finish;
+    end top.i2;
+ 
+
+    system S
+        features
+            a: requires data access;
+    	flows
+    		start: flow source a;
+    		finish: flow sink a;
+    end S;
+end data_access;
