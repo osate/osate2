@@ -27,6 +27,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.contribution.sei.names.DataModel;
@@ -198,10 +199,13 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		FlowElementInstance prevConn = getPreviousFlowElement(etef, flowElementInstance);
 		if (prevConn != null) {
-			FlowElementInstance prevComp = getPreviousFlowElement(etef, prevConn);
-			if (prevComp != null) {
-				if (prevComp instanceof ComponentInstance) {
-					return (ComponentInstance) prevComp;
+			FlowElementInstance prevEl = getPreviousFlowElement(etef, prevConn);
+			if (prevEl != null) {
+				if (prevEl instanceof FlowSpecificationInstance) {
+					return prevEl.getContainingComponentInstance();
+				}
+				if (prevEl instanceof ComponentInstance) {
+					return (ComponentInstance) prevEl;
 				}
 			}
 		}
