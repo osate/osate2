@@ -189,6 +189,26 @@ public class FlowLatencyUtil {
 	}
 
 	/**
+	 * get previous component instance in flow
+	 * @param etef
+	 * @param flowElementInstance
+	 * @return
+	 */
+	public static ComponentInstance getPreviousComponent(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance) {
+		FlowElementInstance prevConn = getPreviousFlowElement(etef, flowElementInstance);
+		if (prevConn != null) {
+			FlowElementInstance prevComp = getPreviousFlowElement(etef, prevConn);
+			if (prevComp != null) {
+				if (prevComp instanceof ComponentInstance) {
+					return (ComponentInstance) prevComp;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Get the next thread/device period within an end to end flow after the flow element
 	 * given as attribute.
 	 * @param etef - the end to end flow
