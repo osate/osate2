@@ -218,17 +218,17 @@ public class DefaultReferenceService implements ReferenceService {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildRelativeReference.class, serviceContext, argCtx, null);
-				if(ref != null) {
-					// Return null if any segment is null.
-					// This is done to prevent the reference builder from having to check all fields such as qualified name for null values.
-					for(final String seg : ref) {
-						if(seg == null) {
-							return null;
-						}
+				final Object rawRef = ContextInjectionFactory.invoke(refBuilder,
+						BuildRelativeReference.class, serviceContext, argCtx, null);
+				if (rawRef != null) {
+					if (rawRef instanceof RelativeBusinessObjectReference) {
+						return (RelativeBusinessObjectReference) rawRef;
+					} else if (rawRef instanceof String[]) {
+						return RelativeBusinessObjectReference.fromNullableSegments((String[]) rawRef);
+					} else {
+						throw new RuntimeException(
+								"Invalid value: '" + rawRef + "' returned by relative reference builder");
 					}
-
-					return new RelativeBusinessObjectReference(ref);
 				}
 			}
 		} finally {

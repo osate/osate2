@@ -19,6 +19,10 @@ import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
 import org.osate.ge.internal.graphiti.ShapeNames;
 
 class StyleUtil {
+	// All items are static
+	private StyleUtil() {
+	}
+
 	public static void refreshStyle(final Diagram graphitiDiagram, final PictogramElement pe,
 			final DiagramElement element, final StyleProvider finalStyleProvider,
 			final NodePictogramBiMap mapping) {
