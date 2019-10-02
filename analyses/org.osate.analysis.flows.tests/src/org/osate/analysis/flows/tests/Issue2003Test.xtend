@@ -28,7 +28,7 @@ class Issue2003Test extends XtextTest {
 
 	val projectprefix = "org.osate.analysis.flows.tests/models/latencytest/"
 
-	val issue2003Text = "Issue2003.aadl"
+	val issue2003Text = "issue2003.aadl"
 	
 	@Test
 	def void issue2003etef() {
