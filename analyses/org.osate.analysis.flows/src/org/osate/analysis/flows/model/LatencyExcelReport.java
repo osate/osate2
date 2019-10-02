@@ -59,75 +59,77 @@ public class LatencyExcelReport {
 			if (file.exists()) {
 				file.delete(true, null);
 			}
-			AadlUtil.makeSureFoldersExist(file.getFullPath());
+			if (!latres.getResults().isEmpty()) {
+				AadlUtil.makeSureFoldersExist(file.getFullPath());
 
-			String reportHeader = "Latency analysis with preference settings: "
-					+ FlowLatencyUtil.getParametersAsDescriptions(latres);
+				String reportHeader = "Latency analysis with preference settings: "
+						+ FlowLatencyUtil.getParametersAsDescriptions(latres);
 
-			WorkbookSettings wbSettings = new WorkbookSettings();
-			wbSettings.setLocale(new Locale("en", "EN"));
-			wbSettings.setCellValidationDisabled(false);
-			wbSettings.setRationalization(false);
+				WorkbookSettings wbSettings = new WorkbookSettings();
+				wbSettings.setLocale(new Locale("en", "EN"));
+				wbSettings.setCellValidationDisabled(false);
+				wbSettings.setRationalization(false);
 
-			WritableWorkbook workbook = Workbook.createWorkbook(file.getLocation().toFile(), wbSettings);
+				WritableWorkbook workbook = Workbook.createWorkbook(file.getLocation().toFile(), wbSettings);
 
-			int sheetNumber = 0;
-			for (Result result : latres.getResults()) {
-				InstanceObject instanceObject = (InstanceObject) result.getModelElement();
-				String flowName = instanceObject.getComponentInstancePath();
-				String systemName = instanceObject.getSystemInstance().getComponentClassifier().getName();
-				String inMode = ResultUtil.getString(result, 0);
-				String sheetName;
-				if (inMode.isEmpty()) {
-					sheetName = flowName;
-				} else {
-					sheetName = flowName + " in mode " + inMode;
-				}
-				WritableSheet sheet = workbook.createSheet(sheetName, sheetNumber);
-				sheet.addCell(new Label(0, 0, reportHeader, BOLD_FORMAT));
-				sheet.addCell(new Label(0, 2, "Latency results for end-to-end flow '" + flowName + "' of system '"
-						+ systemName + "'" + inMode, BOLD_FORMAT));
-				sheet.addCell(new Label(0, 4, "Result", BOLD_FORMAT));
-				sheet.addCell(new Label(1, 4, "Min Specified", BOLD_FORMAT));
-				sheet.addCell(new Label(2, 4, "Min Actual", BOLD_FORMAT));
-				sheet.addCell(new Label(3, 4, "Min Method", BOLD_FORMAT));
-				sheet.addCell(new Label(4, 4, "Max Specified", BOLD_FORMAT));
-				sheet.addCell(new Label(5, 4, "Max Actual", BOLD_FORMAT));
-				sheet.addCell(new Label(6, 4, "Max Method", BOLD_FORMAT));
-				sheet.addCell(new Label(7, 4, "Comments", BOLD_FORMAT));
-				int row = 5;
-				for (Result contributor : result.getSubResults()) {
-					for (Result subc : contributor.getSubResults()) {
-						addContributor(sheet, row, subc, true);
+				int sheetNumber = 0;
+				for (Result result : latres.getResults()) {
+					InstanceObject instanceObject = (InstanceObject) result.getModelElement();
+					String flowName = instanceObject.getComponentInstancePath();
+					String systemName = instanceObject.getSystemInstance().getComponentClassifier().getName();
+					String inMode = ResultUtil.getString(result, 0);
+					String sheetName;
+					if (inMode.isEmpty()) {
+						sheetName = flowName;
+					} else {
+						sheetName = flowName + " in mode " + inMode;
+					}
+					WritableSheet sheet = workbook.createSheet(sheetName, sheetNumber);
+					sheet.addCell(new Label(0, 0, reportHeader, BOLD_FORMAT));
+					sheet.addCell(new Label(0, 2, "Latency results for end-to-end flow '" + flowName + "' of system '"
+							+ systemName + "'" + inMode, BOLD_FORMAT));
+					sheet.addCell(new Label(0, 4, "Result", BOLD_FORMAT));
+					sheet.addCell(new Label(1, 4, "Min Specified", BOLD_FORMAT));
+					sheet.addCell(new Label(2, 4, "Min Actual", BOLD_FORMAT));
+					sheet.addCell(new Label(3, 4, "Min Method", BOLD_FORMAT));
+					sheet.addCell(new Label(4, 4, "Max Specified", BOLD_FORMAT));
+					sheet.addCell(new Label(5, 4, "Max Actual", BOLD_FORMAT));
+					sheet.addCell(new Label(6, 4, "Max Method", BOLD_FORMAT));
+					sheet.addCell(new Label(7, 4, "Comments", BOLD_FORMAT));
+					int row = 5;
+					for (Result contributor : result.getSubResults()) {
+						for (Result subc : contributor.getSubResults()) {
+							addContributor(sheet, row, subc, true);
+							row++;
+						}
+						addContributor(sheet, row, contributor, false);
 						row++;
 					}
-					addContributor(sheet, row, contributor, false);
+					sheet.addCell(new Label(0, row, "Latency Total"));
+					sheet.addCell(new Label(1, row, ResultUtil.getReal(result, 3) + "ms"));
+					sheet.addCell(new Label(2, row, ResultUtil.getReal(result, 1) + "ms"));
+					sheet.addCell(new Label(4, row, ResultUtil.getReal(result, 4) + "ms"));
+					sheet.addCell(new Label(5, row, ResultUtil.getReal(result, 2) + "ms"));
 					row++;
-				}
-				sheet.addCell(new Label(0, row, "Latency Total"));
-				sheet.addCell(new Label(1, row, ResultUtil.getReal(result, 3) + "ms"));
-				sheet.addCell(new Label(2, row, ResultUtil.getReal(result, 1) + "ms"));
-				sheet.addCell(new Label(4, row, ResultUtil.getReal(result, 4) + "ms"));
-				sheet.addCell(new Label(5, row, ResultUtil.getReal(result, 2) + "ms"));
-				row++;
-				sheet.addCell(new Label(0, row, "Specified End To End Latency"));
-				sheet.addCell(new Label(2, row, ResultUtil.getReal(result, 5) + "ms"));
-				sheet.addCell(new Label(5, row, ResultUtil.getReal(result, 6) + "ms"));
-				row++;
-				sheet.addCell(new Label(0, row, "End To End Latency Summary", BOLD_FORMAT));
-				row++;
-				for (Diagnostic dia : result.getDiagnostics()) {
-					sheet.addCell(new Label(0, row, dia.getDiagnosticType().toString(), getCellFormat(dia)));
-					sheet.addCell(new Label(1, row, dia.getMessage()));
+					sheet.addCell(new Label(0, row, "Specified End To End Latency"));
+					sheet.addCell(new Label(2, row, ResultUtil.getReal(result, 5) + "ms"));
+					sheet.addCell(new Label(5, row, ResultUtil.getReal(result, 6) + "ms"));
 					row++;
+					sheet.addCell(new Label(0, row, "End To End Latency Summary", BOLD_FORMAT));
+					row++;
+					for (Diagnostic dia : result.getDiagnostics()) {
+						sheet.addCell(new Label(0, row, dia.getDiagnosticType().toString(), getCellFormat(dia)));
+						sheet.addCell(new Label(1, row, dia.getMessage()));
+						row++;
+					}
+					sheetNumber++;
 				}
-				sheetNumber++;
+
+				workbook.write();
+				workbook.close();
+
+				file.refreshLocal(IResource.DEPTH_INFINITE, null);
 			}
-
-			workbook.write();
-			workbook.close();
-
-			file.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (CoreException e) {
 			StatusManager.getManager().handle(e, FlowanalysisPlugin.getDefault().getBundle().getSymbolicName());
 		} catch (IOException | WriteException e) {
