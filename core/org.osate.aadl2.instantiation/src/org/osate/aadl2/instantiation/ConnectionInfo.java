@@ -27,6 +27,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -197,9 +198,7 @@ class ConnectionInfo {
 		if (c instanceof FeatureGroupConnection) {
 			FeatureGroup s = (FeatureGroup) c.getAllSource();
 			FeatureGroup d = (FeatureGroup) c.getAllDestination();
-			if (s.getAllFeatureGroupType() == d.getAllFeatureGroupType()) {
-				return true;
-			}
+			return !(s.eContainer() instanceof FeatureGroupType || d.eContainer() instanceof FeatureGroupType);
 		}
 		return false;
 	}
