@@ -1,10 +1,11 @@
 package PulseOx_Forwarding_Patient
 public
+	with ErrorLibrary, MAP_Errors, PulseOx_Forwarding_Errors;
 	with MAP_Properties;
 	abstract PulseOx_Forwarding_Patient
 		features
-			Fingerclip: out feature;
-			Treatment: in feature;
+			PatientFingerclip: out feature;
+			PatientTreatment: in feature;
 		properties
 			MAP_Properties::Component_Type => controlled_process;
 	end PulseOx_Forwarding_Patient;

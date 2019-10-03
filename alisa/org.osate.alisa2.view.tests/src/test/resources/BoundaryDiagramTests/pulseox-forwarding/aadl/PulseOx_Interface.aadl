@@ -1,11 +1,12 @@
 package PulseOx_Interface
 public
+	with ErrorLibrary, MAP_Errors, PulseOx_Forwarding_Errors;
 with PulseOx_Forwarding_Types, PulseOx_Forwarding_Properties, MAP_Properties;
 	device ICEpoInterface
 	features
-		IncSpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
+		POInSpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
 		SensorInput : in feature;
-		SpO2 : out event data port PulseOx_Forwarding_Types::SpO2
+		POOutSpO2 : out event data port PulseOx_Forwarding_Types::SpO2
   		{MAP_Properties::Exchange_Name => "spo2_per";};
 	properties
 		MAP_Properties::Component_Type => sensor;
@@ -13,9 +14,9 @@ with PulseOx_Forwarding_Types, PulseOx_Forwarding_Properties, MAP_Properties;
 			use types PulseOx_Forwarding_Errors, MAP_Errors;
 			
 			error propagations
-				SpO2: out propagation {SpO2ValueHigh};
+				POOutSpO2: out propagation {SpO2ValueHigh};
 			flows
-				SpO2TooHighFlowSource: error source SpO2 {SpO2ValueHigh} when {Deterioration};
+				SpO2TooHighFlowSource: error source POOutSpO2 {SpO2ValueHigh} when {Deterioration};
 			end propagations;
 		**};
 	end ICEpoInterface;

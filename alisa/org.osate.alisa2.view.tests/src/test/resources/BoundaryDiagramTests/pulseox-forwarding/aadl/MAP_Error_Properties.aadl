@@ -1,5 +1,6 @@
 property set MAP_Error_Properties is
 with EMV2, MAP_Errors;
+	with ErrorLibrary, PulseOx_Forwarding_Errors;
 
 -- =================================== --
 -- Types related to STPA preliminaries --

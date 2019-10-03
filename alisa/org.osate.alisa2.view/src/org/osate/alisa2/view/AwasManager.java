@@ -18,7 +18,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.sireum.aadl.ir.Aadl;
 import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
 import org.sireum.awas.ast.Model;
@@ -30,6 +29,7 @@ import org.sireum.awas.symbol.Resource;
 import org.sireum.awas.symbol.SymbolTable;
 import org.sireum.awas.symbol.SymbolTableHelper;
 import org.sireum.awas.util.JavaConverters;
+import org.sireum.hamr.ir.Aadl;
 import org.sireum.util.ConsoleTagReporter;
 
 /**
@@ -140,7 +140,7 @@ public class AwasManager {
 		Aadl airModel = Util.getAir(component, false);
 		Model awasModel = AadlHandler.buildAwasModel(airModel);
 		SymbolTable st = SymbolTable.apply(awasModel, new ConsoleTagReporter());
-		FlowGraph<FlowNode, FlowEdge<FlowNode>> graph = FlowGraph.apply(awasModel, st);
+		FlowGraph<FlowNode, FlowEdge<FlowNode>> graph = FlowGraph.apply(awasModel, st, false);
 		graphTableCache.put(component, new AWASCacheTriple(graph, st));
 	}
 

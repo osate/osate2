@@ -1,5 +1,6 @@
 package PulseOx_Forwarding_Errors
 public
+	with ErrorLibrary, MAP_Errors;
 
 annex EMV2
 {**

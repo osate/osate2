@@ -19,6 +19,10 @@ public class FundamentalsTreeTest extends TestBase {
 	protected void onSetUpAfterOpeningDesignerPerspective() throws Exception {
 		super.onSetUpAfterOpeningDesignerPerspective();
 
+		// TODO: This doesn't actually create a new diagram, and it probably should.
+		// see org.eclipse.sirius.tests.swtbot.DiagramCreationDescriptionTest.testNewRepresentationFromNode()
+		// for a possible implementation.
+
 		sessionAirdResource = new UIResource(designerProject, AIRD_FILE);
 		localSession = designerPerspective.openSessionFromFile(sessionAirdResource, true);
 		treeEditor = openRepresentation(localSession.getOpenedSession(), ORIG_REPRESENTATION_NAME,

@@ -39,6 +39,7 @@ public class TestBase extends AbstractSiriusSwtBotGefTestCase {
 			AADL_DIR + "PulseOx_Forwarding_System.aadl",
 			AADL_DIR + "PulseOx_Forwarding_Types.aadl",
 			AADL_DIR + "PulseOx_Interface.aadl",
+			AADL_DIR + "ErrorLibrary.aadl",
 //			INSTANCE_DIR + "PulseOx_Forwarding_Logic_PulseOx_Logic_Process_imp_Instance.aaxl2",
 			INSTANCE_DIR + "PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2"
 	};
