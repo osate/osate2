@@ -54,7 +54,7 @@ class ExprInterpreterUtil {
 	static NumberLiteral multiply(NumberLiteral v1, NumberLiteral v2) {
 		if (v1 instanceof EIntegerLiteral && v2 instanceof EIntegerLiteral) {
 			long s1 = ((EIntegerLiteral) v1).getValue();
-			long s2 = ((EIntegerLiteral) v1).getValue();
+			long s2 = ((EIntegerLiteral) v2).getValue();
 			EIntegerLiteral result = ExprFactory.eINSTANCE.createEIntegerLiteral();
 			result.setValue(s1 * s2);
 			return result;
