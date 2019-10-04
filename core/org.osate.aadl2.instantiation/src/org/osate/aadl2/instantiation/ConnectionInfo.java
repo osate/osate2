@@ -25,6 +25,9 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -163,10 +166,13 @@ class ConnectionInfo {
 				while (keep[0] && i > 0 && srcToMatch != null) {
 					i -= 1;
 					Connection c = connections.get(i);
-					ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
-					ConnectionEnd cce = srcToMatch.getConnectionEnd();
-					srcToMatch = srcToMatch.getNext();
-					keep[0] = cce == e;
+					// skip connections that don't go into a feature group
+					if (!connectsSameFeatureGroup(c)) {
+						ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
+						ConnectionEnd cce = srcToMatch.getConnectionEnd();
+						srcToMatch = srcToMatch.getNext();
+						keep[0] = cce == e;
+					}
 				}
 				across = true;
 				acrossConnection = newSeg;
@@ -174,16 +180,27 @@ class ConnectionInfo {
 				dstToMatch = dstToMatch.getNext();
 				container = ci;
 			} else if (across && dstToMatch != null) {
-				ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
-				ConnectionEnd cce = dstToMatch.getConnectionEnd();
-				dstToMatch = dstToMatch.getNext();
-				keep[0] = cce == e;
+				if (!connectsSameFeatureGroup(newSeg)) {
+					ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
+					ConnectionEnd cce = dstToMatch.getConnectionEnd();
+					dstToMatch = dstToMatch.getNext();
+					keep[0] = cce == e;
+				}
 			}
 		}
 		connections.add(newSeg);
 		opposites.add(opposite);
 		contexts.add(ci);
 		return valid;
+	}
+
+	protected boolean connectsSameFeatureGroup(Connection c) {
+		if (c instanceof FeatureGroupConnection) {
+			FeatureGroup s = (FeatureGroup) c.getAllSource();
+			FeatureGroup d = (FeatureGroup) c.getAllDestination();
+			return !(s.eContainer() instanceof FeatureGroupType || d.eContainer() instanceof FeatureGroupType);
+		}
+		return false;
 	}
 
 	/*
