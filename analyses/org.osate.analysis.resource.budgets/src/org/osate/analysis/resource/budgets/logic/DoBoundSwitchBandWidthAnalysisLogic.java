@@ -58,11 +58,6 @@ public class DoBoundSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysis
 				checkBusLoads(root, som);
 			}
 			monitor.done();
-
-//			if (root.getSystemOperationModes().size() == 1) {
-//				// Also report the results using a message dialog
-//				Dialog.showInfo("Bound Bus Bandwidth Analysis Results", getErrManager().getResultsMessages());
-//			}
 		} else {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 		}
