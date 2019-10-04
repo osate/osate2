@@ -41,12 +41,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.FeatureCategory;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -56,24 +52,17 @@ import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 //TODO-LW: assumes connection ends are features
-public class DoBoundResourceAnalysisLogic {
-	private int components = 0;
-	private int budgetedComponents = 0;
-	private final AbstractAaxlHandler errManager;
-	private final boolean doDetailedLog = true;
-	private final String prefixSymbol = "  ";
-	
+public class DoBoundResourceAnalysisLogic extends AbstractResourceBudgetLogic {
 	private final String actionName;
-
+	
 	private int count = 0;
 
 	public DoBoundResourceAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
-		this.errManager = errManager;
+		super(errManager);
 		this.actionName = actionName;
 	}
 
@@ -379,172 +368,6 @@ public class DoBoundResourceAnalysisLogic {
 			 * actually applies to the category of the component instance 'ci'
 			 */
 			return 0.0;
-		}
-	}
-
-	private void detailedLog(InstanceObject obj, double budget, double actual, String msg) {
-		if (doDetailedLog) {
-			String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String actualmsg = actual + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
-					: ((ComponentInstance) obj).getComponentInstancePath();
-			errManager.logInfo(objname + ", " + budgetmsg + actualmsg + msg);
-		}
-
-	}
-
-	private void logHeader(String msg) {
-		errManager.logInfo(msg);
-	}
-	
-	private enum ResourceKind {
-		MIPS, RAM, ROM, Memory
-	}
-	
-	/**
-	 * calculate the budget of components with budgets, i.e., application
-	 * components and devices For application components they are required,
-	 * while for devices they are optional
-	 * 
-	 * @param ci component instance whose subtree is to be added up
-	 * @param rk Property Definition of property to be added
-	 * @param unit Unit in which the property value should be retrieved
-	 * @param somName String name of SOM (used in reporting)
-	 * @return double total, zero, if no budget, -1 if hardware only in
-	 *         substructure
-	 */
-	private double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, final SystemOperationMode som,
-			String prefix) {
-		if (!ci.isActive(som)) {
-			return 0.0;
-		}
-		double subtotal = 0.0;
-		EList<ComponentInstance> subcis = ci.getComponentInstances();
-		boolean HWOnly = false;
-		boolean isSystemInstance = ci instanceof SystemInstance;
-		int subbudgetcount = 0;
-		int subcount = 0;
-		if (subcis.size() == 0) {
-			if (isHardware(ci)) {
-				return -1;
-			}
-		} else {
-			// track HWonly if subcomponents
-			HWOnly = true;
-		}
-		for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
-			ComponentInstance subci = it.next();
-			double subresult = sumBudgets(subci, rk, unit, som, isSystemInstance ? "" : prefix + prefixSymbol);
-			if (subresult >= 0) {
-				HWOnly = false;
-				subtotal += subresult;
-				if (subci.getCategory() == ComponentCategory.DEVICE) {
-					if (subresult > 0) {
-						// only count device if it has a budget
-						subcount++;
-						subbudgetcount++;
-					}
-				} else {
-					// track how many non-devices and whether they have a budget
-					subcount++;
-					if (subresult > 0) {
-						subbudgetcount++;
-					}
-				}
-			}
-		}
-		if (HWOnly)
-			return -1;
-		double budget = getBudget(ci, rk);
-		if (rk.equals(ResourceKind.RAM) || rk.equals(ResourceKind.ROM) || rk.equals(ResourceKind.Memory)) {
-			double actualsize = getMemoryUseActual(ci, rk.name(), unit);
-			subtotal += actualsize;
-		}
-		String resourceName = ci.getCategory().getName();
-		String notes = "";
-		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
-		}
-		components = components + subcount;
-		budgetedComponents = budgetedComponents + subbudgetcount;
-		if (budget > 0 && subtotal > budget) {
-			notes = String.format("Error: subtotal/actual exceeds budget %.3f by %.3f " + unit.getName(), budget,
-					(subtotal - budget));
-		} else if (subtotal > 0 && subtotal < budget) {
-			notes = String.format(
-					resourceName + " " + ci.getInstanceObjectPath() + " total %.3f " + unit.getName()
-							+ " below budget %.3f " + unit.getName() + " (%.1f %% slack)",
-					subtotal, budget, (budget - subtotal) / budget * 100);
-		}
-		if (!isSystemInstance)
-			detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
-		return subtotal == 0 ? budget : subtotal;
-	}
-	
-	private double getMemoryUseActual(ComponentInstance bci, String resourceName, UnitLiteral unit) {
-		double actualsize = 0.0;
-		if (resourceName.equals("ROM")) {
-			actualsize = GetProperties.getCodeSize(bci, unit);
-		} else if (resourceName.equals("RAM")) {
-			actualsize = GetProperties.getDataSize(bci, unit);
-			actualsize += GetProperties.getHeapSize(bci, unit);
-			actualsize += GetProperties.getStackSize(bci, unit);
-		} else {
-			actualsize = GetProperties.getDataSize(bci, unit);
-			actualsize += GetProperties.getHeapSize(bci, unit);
-			actualsize += GetProperties.getStackSize(bci, unit);
-			actualsize += GetProperties.getCodeSize(bci, unit);
-		}
-		return actualsize;
-	}
-	
-	private void detailedLogTotal2(ComponentInstance ci, double budget, UnitLiteral unit) {
-		if (doDetailedLog) {
-			String budgetmsg = String.format("%.3f " + unit.getName() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
-			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-			errManager.logInfo(front + ", ," + budgetmsg);
-		}
-	}
-	
-	private boolean isHardware(ComponentInstance ci) {
-		ComponentCategory cat = ci.getCategory();
-		if (cat == ComponentCategory.BUS || cat == ComponentCategory.PROCESSOR
-				|| cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY)
-			return true;
-		if (cat == ComponentCategory.SYSTEM || cat == ComponentCategory.DEVICE) {
-			EList<FeatureInstance> el = ci.getFeatureInstances();
-			for (Iterator<FeatureInstance> it = el.iterator(); it.hasNext();) {
-				FeatureInstance fi = it.next();
-				if (fi.getCategory() != FeatureCategory.BUS_ACCESS) {
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-	
-	private double getBudget(NamedElement ne, ResourceKind kind) {
-		switch (kind) {
-		case MIPS:
-			return GetProperties.getMIPSBudgetInMIPS(ne, 0.0);
-		case RAM:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0);
-		case ROM:
-			return GetProperties.getROMBudgetInKB(ne, 0.0);
-		case Memory:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0) + GetProperties.getROMBudgetInKB(ne, 0.0);
-		}
-		return 0.0;
-	}
-	
-	private void detailedLog(String prefix, ComponentInstance ci, double budget, double actual, String resourceName,
-			UnitLiteral unit, String msg) {
-		if (doDetailedLog) {
-			String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
-			String actualmsg = prefix + GetProperties.toStringScaled(actual, unit) + ",";
-			errManager.logInfo(prefix + ci.getCategory().getName() + " " + ci.getComponentInstancePath() + ", "
-					+ budgetmsg + actualmsg + msg);
 		}
 	}
 }
