@@ -1,0 +1,54 @@
+package Issue1998_1
+public
+
+	feature group fg
+		features
+			d_f: out data port;
+			d_f2: out data port;
+	end fg;
+
+	process p1
+		features
+			fg_f: feature group fg;
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			t1: thread t1;
+		connections
+			c: feature group t1.p -> fg_f;
+	end p1.impl;
+
+	thread t1
+		features
+			p: feature group fg;
+	end t1;
+
+	process p2
+		features
+			p: in data port;
+	end p2;
+
+	process implementation p2.impl
+		subcomponents
+			t2: thread t2;
+		connections
+			c: port p -> t2.p_t;
+	end p2.impl;
+
+	thread t2
+		features
+			p_t: in data port;
+	end t2;
+
+	system s
+	end s;
+
+	system implementation s.impl
+		subcomponents
+			p1: process p1.impl;
+			p2: process p2.impl;
+		connections
+			c1: feature p1.fg_f.d_f -> p2.p;
+	end s.impl;
+end Issue1998_1;
