@@ -46,9 +46,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
 public class DoResourceBudget extends AaxlReadOnlyHandlerAsJob {
