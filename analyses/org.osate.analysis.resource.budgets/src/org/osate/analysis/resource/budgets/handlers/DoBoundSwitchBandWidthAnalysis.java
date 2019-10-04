@@ -39,12 +39,15 @@
  */
 package org.osate.analysis.resource.budgets.handlers;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
+public class DoBoundSwitchBandWidthAnalysis extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getActionName() {
 		return "Bound Bus Bandwidth Analysis";
@@ -60,10 +63,14 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		setCSVLog("Bandwidth", obj);
 		return true;
 	}
-
+	
 	@Override
-	protected DoBoundResourceAnalysisLogic getLogicObject() {
+	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
 		InstanceModelUtil.clearCache();
-		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
+		new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this).analysisBody(monitor, root);
+	}
+	
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
 	}
 }
