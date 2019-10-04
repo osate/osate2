@@ -50,7 +50,6 @@ import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
-
 	private double capacity = 0;
 	private double vcapacity = 0;
 	private double budgetTotal = 0;
@@ -59,16 +58,12 @@ public class DoResourceBudgetLogic {
 	private int budgetedComponents = 0;
 	private int resources = 0;
 	private int capacityResources = 0;
-	protected AbstractAaxlHandler errManager;
-	private boolean doDetailedLog = true;
-	String prefixSymbol = "  ";
+	private final AbstractAaxlHandler errManager;
+	private final boolean doDetailedLog = true;
+	private final String prefixSymbol = "  ";
 
 	public DoResourceBudgetLogic(AbstractAaxlHandler handler) {
 		this.errManager = handler;
-	}
-
-	protected AbstractAaxlHandler getErrManager() {
-		return this.errManager;
 	}
 
 	public void analyzeResourceBudget(final SystemInstance si, final SystemOperationMode som) {
@@ -162,9 +157,9 @@ public class DoResourceBudgetLogic {
 		budgetTotal = 0;
 	}
 
-	protected enum ResourceKind {
+	private enum ResourceKind {
 		MIPS, RAM, ROM, Memory
-	};
+	}
 
 	private double getCapacity(ComponentInstance ne, ResourceKind kind, UnitLiteral unit) {
 		switch (kind) {
@@ -246,7 +241,7 @@ public class DoResourceBudgetLogic {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, final SystemOperationMode som,
+	private double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, final SystemOperationMode som,
 			String prefix) {
 		if (!ci.isActive(som)) {
 			return 0.0;
@@ -314,7 +309,7 @@ public class DoResourceBudgetLogic {
 		return subtotal == 0 ? budget : subtotal;
 	}
 
-	protected double getMemoryUseActual(ComponentInstance bci, String resourceName, UnitLiteral unit) {
+	private double getMemoryUseActual(ComponentInstance bci, String resourceName, UnitLiteral unit) {
 		double actualsize = 0.0;
 		if (resourceName.equals("ROM")) {
 			actualsize = GetProperties.getCodeSize(bci, unit);
@@ -331,7 +326,7 @@ public class DoResourceBudgetLogic {
 		return actualsize;
 	}
 
-	protected boolean isHardware(ComponentInstance ci) {
+	private boolean isHardware(ComponentInstance ci) {
 		ComponentCategory cat = ci.getCategory();
 		if (cat == ComponentCategory.BUS || cat == ComponentCategory.PROCESSOR
 				|| cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY)
@@ -376,11 +371,11 @@ public class DoResourceBudgetLogic {
 		}
 	}
 
-	protected void logHeader(String msg) {
+	private void logHeader(String msg) {
 		errManager.logInfo(msg);
 	}
 
-	protected void detailedLog(String prefix, ComponentInstance ci, double budget, double actual, String resourceName,
+	private void detailedLog(String prefix, ComponentInstance ci, double budget, double actual, String resourceName,
 			UnitLiteral unit, String msg) {
 		if (doDetailedLog) {
 			String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
@@ -390,16 +385,7 @@ public class DoResourceBudgetLogic {
 		}
 	}
 
-	protected void detailedLogTotal(ComponentInstance ci, double budget, double actual, UnitLiteral unit) {
-		if (doDetailedLog) {
-			String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
-			String actualmsg = GetProperties.toStringScaled(actual, unit) + ",";
-			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-			errManager.logInfo(front + ", " + budgetmsg + actualmsg);
-		}
-	}
-
-	protected void detailedLogTotal1(ComponentInstance ci, double budget, UnitLiteral unit) {
+	private void detailedLogTotal1(ComponentInstance ci, double budget, UnitLiteral unit) {
 		if (doDetailedLog) {
 			String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
 			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
@@ -407,12 +393,11 @@ public class DoResourceBudgetLogic {
 		}
 	}
 
-	protected void detailedLogTotal2(ComponentInstance ci, double budget, UnitLiteral unit) {
+	private void detailedLogTotal2(ComponentInstance ci, double budget, UnitLiteral unit) {
 		if (doDetailedLog) {
 			String budgetmsg = String.format("%.3f " + unit.getName() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
 			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
 			errManager.logInfo(front + ", ," + budgetmsg);
 		}
 	}
-
 }

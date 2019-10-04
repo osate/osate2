@@ -84,11 +84,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
-		getLogicObject().analysisBody(monitor, obj);
-	}
-
-	protected DoBoundResourceAnalysisLogic getLogicObject() {
-		return new DoBoundResourceAnalysisLogic(getActionName(), this);
+		new DoBoundResourceAnalysisLogic(getActionName(), this).analysisBody(monitor, obj);
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
