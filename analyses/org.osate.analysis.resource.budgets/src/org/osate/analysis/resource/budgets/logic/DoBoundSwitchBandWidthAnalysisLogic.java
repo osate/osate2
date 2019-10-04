@@ -53,18 +53,14 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class DoBoundSwitchBandWidthAnalysisLogic {
-	private final AbstractAaxlHandler errManager;
-	private final boolean doDetailedLog = true;
-	
+public class DoBoundSwitchBandWidthAnalysisLogic extends AbstractLoggingLogic {
 	private final String actionName;
 	
 	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
-		this.errManager = errManager;
+		super(errManager);
 		this.actionName = actionName;
 	}
 
@@ -242,25 +238,6 @@ public class DoBoundSwitchBandWidthAnalysisLogic {
 			}
 		}
 		return res;
-	}
-	
-	private void detailedLog(InstanceObject obj, double budget, double actual, String msg) {
-		if (doDetailedLog) {
-			String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String actualmsg = actual + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
-					: ((ComponentInstance) obj).getComponentInstancePath();
-			errManager.logInfo(objname + ", " + budgetmsg + actualmsg + msg);
-		}
-
-	}
-	
-	private void detailedLogTotal2(ComponentInstance ci, double budget, UnitLiteral unit) {
-		if (doDetailedLog) {
-			String budgetmsg = String.format("%.3f " + unit.getName() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
-			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-			errManager.logInfo(front + ", ," + budgetmsg);
-		}
 	}
 	
 	private boolean hasConnectionSource(EList<ConnectionInstance> connections, ConnectionInstance conni) {
