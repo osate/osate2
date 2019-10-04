@@ -1,14 +1,8 @@
 import java.util.HashMap
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xsemantics.runtime.RuleEnvironment
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
-import org.osate.aadl2.BooleanLiteral
-import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.PropertyValue
-import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.expr.expr.BinaryOperation
 import org.osate.expr.expr.Conditional
@@ -16,15 +10,13 @@ import org.osate.expr.expr.EBooleanLiteral
 import org.osate.expr.expr.EInteger
 import org.osate.expr.expr.EIntegerLiteral
 import org.osate.expr.expr.ENumberType
+import org.osate.expr.expr.ERealLiteral
 import org.osate.expr.expr.EStringLiteral
 import org.osate.expr.expr.ExprFactory
 import org.osate.expr.expr.Expression
-import org.osate.expr.expr.Field
 import org.osate.expr.expr.Literal
-import org.osate.expr.expr.NamedElementRef
 import org.osate.expr.expr.NumberLiteral
 import org.osate.expr.expr.Operation
-import org.osate.expr.expr.PropertyExpression
 import org.osate.expr.expr.RecordLiteral
 import org.osate.expr.expr.UnaryOperation
 import org.osate.expr.expr.Value
@@ -87,12 +79,12 @@ auxiliary	errorPosition(EObject o) {
 // expression interpreter
 
 rule InterpretBinaryExpression
-	G |- BinaryOperation binary ~> Value value
+	G |- BinaryOperation binary ~> Value result
 from {
 	G |- binary.left ~> var Value leftVal
 	G |- binary.right ~> var Value rightVal
 	
-	value = 
+	result = 
 	switch (binary.operator) {
 		case AND, case OR, case ALT_AND, case ALT_OR: {
 			val boolVal = ExprFactory.eINSTANCE.createEBooleanLiteral
@@ -173,19 +165,19 @@ from {
 }
 
 rule InterpretUnaryExpression
-	G |- UnaryOperation unary ~> Literal propVal
+	G |- UnaryOperation unary ~> Value result
 from {
-	G |- unary.operand ~> propVal
+	G |- unary.operand ~> result
 	
 	switch (unary.operator) {
 		case MINUS:
-			switch (propVal) {
-				RealLiteral: propVal.value = -propVal.value
-				IntegerLiteral: propVal.value = -propVal.value
+			switch (result) {
+				ERealLiteral: result.value = -result.value
+				EIntegerLiteral: result.value = -result.value
 			}
 		case NOT:
-			switch (propVal) {
-				BooleanLiteral: propVal.value = !propVal.getValue
+			switch (result) {
+				EBooleanLiteral: result.value = !result.value
 			}
 		default: {
 			// nothing

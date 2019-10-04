@@ -26,7 +26,6 @@ import org.osate.aadl2.Flow;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NumberType;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RecordType;
@@ -1004,7 +1003,7 @@ public class ExprTypeSystem extends XsemanticsRuntimeSystem {
       switch (_operator) {
         case PLUS:
         case MINUS:
-          if ((opType instanceof NumberType)) {
+          if ((opType instanceof ENumberType)) {
             type = opType;
           } else {
             /* fail error 'typing: operand is not numeric' source unary */

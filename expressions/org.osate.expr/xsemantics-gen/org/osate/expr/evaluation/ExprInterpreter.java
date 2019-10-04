@@ -17,10 +17,7 @@ import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.expr.evaluation.ExprInterpreterUtil;
 import org.osate.expr.expr.BinaryOperation;
@@ -29,6 +26,7 @@ import org.osate.expr.expr.EBooleanLiteral;
 import org.osate.expr.expr.EInteger;
 import org.osate.expr.expr.EIntegerLiteral;
 import org.osate.expr.expr.ENumberType;
+import org.osate.expr.expr.ERealLiteral;
 import org.osate.expr.expr.EStringLiteral;
 import org.osate.expr.expr.ExprFactory;
 import org.osate.expr.expr.Expression;
@@ -492,20 +490,20 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
   }
   
   protected Result<Value> applyRuleInterpretBinaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final BinaryOperation binary) throws RuleFailedException {
-    Value value = null; // output parameter
+    Value result = null; // output parameter
     /* G |- binary.left ~> var Value leftVal */
     Expression _left = binary.getLeft();
     Value leftVal = null;
-    Result<Value> result = interpretExpressionInternal(G, _trace_, _left);
-    checkAssignableTo(result.getFirst(), Value.class);
-    leftVal = (Value) result.getFirst();
+    Result<Value> result_1 = interpretExpressionInternal(G, _trace_, _left);
+    checkAssignableTo(result_1.getFirst(), Value.class);
+    leftVal = (Value) result_1.getFirst();
     
     /* G |- binary.right ~> var Value rightVal */
     Expression _right = binary.getRight();
     Value rightVal = null;
-    Result<Value> result_1 = interpretExpressionInternal(G, _trace_, _right);
-    checkAssignableTo(result_1.getFirst(), Value.class);
-    rightVal = (Value) result_1.getFirst();
+    Result<Value> result_2 = interpretExpressionInternal(G, _trace_, _right);
+    checkAssignableTo(result_2.getFirst(), Value.class);
+    rightVal = (Value) result_2.getFirst();
     
     Literal _switchResult = null;
     Operation _operator = binary.getOperator();
@@ -668,8 +666,8 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     } else {
       _switchResult = null;
     }
-    value = _switchResult;
-    return new Result<Value>(value);
+    result = _switchResult;
+    return new Result<Value>(result);
   }
   
   protected Result<Value> interpretExpressionImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
@@ -684,7 +682,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
     	addAsSubtrace(_trace_, _subtrace_);
     	return _result_;
     } catch (Exception e_applyRuleInterpretUnaryExpression) {
-    	interpretExpressionThrowException(ruleName("InterpretUnaryExpression") + stringRepForEnv(G) + " |- " + stringRep(unary) + " ~> " + "Literal",
+    	interpretExpressionThrowException(ruleName("InterpretUnaryExpression") + stringRepForEnv(G) + " |- " + stringRep(unary) + " ~> " + "Value",
     		INTERPRETUNARYEXPRESSION,
     		e_applyRuleInterpretUnaryExpression, unary, new ErrorInformation[] {new ErrorInformation(unary)});
     	return null;
@@ -692,40 +690,40 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
   }
   
   protected Result<Value> applyRuleInterpretUnaryExpression(final RuleEnvironment G, final RuleApplicationTrace _trace_, final UnaryOperation unary) throws RuleFailedException {
-    Literal propVal = null; // output parameter
-    /* G |- unary.operand ~> propVal */
+    Value result = null; // output parameter
+    /* G |- unary.operand ~> result */
     Expression _operand = unary.getOperand();
-    Result<Value> result = interpretExpressionInternal(G, _trace_, _operand);
-    checkAssignableTo(result.getFirst(), Literal.class);
-    propVal = (Literal) result.getFirst();
+    Result<Value> result_1 = interpretExpressionInternal(G, _trace_, _operand);
+    checkAssignableTo(result_1.getFirst(), Value.class);
+    result = (Value) result_1.getFirst();
     
     Operation _operator = unary.getOperator();
     if (_operator != null) {
       switch (_operator) {
         case MINUS:
           boolean _matched = false;
-          if (propVal instanceof RealLiteral) {
+          if (result instanceof ERealLiteral) {
             _matched=true;
-            double _value = ((RealLiteral)propVal).getValue();
+            double _value = ((ERealLiteral)result).getValue();
             double _minus = (-_value);
-            ((RealLiteral)propVal).setValue(_minus);
+            ((ERealLiteral)result).setValue(_minus);
           }
           if (!_matched) {
-            if (propVal instanceof IntegerLiteral) {
+            if (result instanceof EIntegerLiteral) {
               _matched=true;
-              long _value = ((IntegerLiteral)propVal).getValue();
+              long _value = ((EIntegerLiteral)result).getValue();
               long _minus = (-_value);
-              ((IntegerLiteral)propVal).setValue(_minus);
+              ((EIntegerLiteral)result).setValue(_minus);
             }
           }
           break;
         case NOT:
           boolean _matched_1 = false;
-          if (propVal instanceof BooleanLiteral) {
+          if (result instanceof EBooleanLiteral) {
             _matched_1=true;
-            boolean _value = ((BooleanLiteral)propVal).getValue();
-            boolean _not = (!_value);
-            ((BooleanLiteral)propVal).setValue(_not);
+            boolean _isValue = ((EBooleanLiteral)result).isValue();
+            boolean _not = (!_isValue);
+            ((EBooleanLiteral)result).setValue(_not);
           }
           break;
         default:
@@ -733,7 +731,7 @@ public class ExprInterpreter extends XsemanticsRuntimeSystem {
       }
     } else {
     }
-    return new Result<Value>(propVal);
+    return new Result<Value>(result);
   }
   
   protected Result<Value> interpretVariableImpl(final RuleEnvironment G, final RuleApplicationTrace _trace_, final VarDecl varDecl) throws RuleFailedException {
