@@ -347,7 +347,7 @@ from {
 	G |- unary.operand : var Type opType
 	switch (unary.operator) {
 		case PLUS, case MINUS:
-			if (opType instanceof NumberType) {
+			if (opType instanceof ENumberType) {
 				type = opType
 			} else {
 				fail	
