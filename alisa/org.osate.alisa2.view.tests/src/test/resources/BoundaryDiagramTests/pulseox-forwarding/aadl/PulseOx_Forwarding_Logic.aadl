@@ -28,107 +28,107 @@ with PulseOx_Forwarding_Types, MAP_Properties, MAP_Error_Properties, PulseOx_For
 		{MAP_Error_Properties::Process_Variable => true;};
 	connections
 		outgoing_alarm : port CheckSpO2Thread.Alarm -> LogicDerivedAlarm;
-	annex EMV2 {**
-			use types MAP_Errors, PulseOx_Forwarding_Errors;
-			use behavior PulseOx_Forwarding_Errors::PulseOxStatus;
-			
-			error propagations
-			flows
-				-- Error path examples
-				HighSpO2LeadsToMissedAlarm: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm};
-				LowSpO2DoesNothing: error sink LogicSpO2 {SpO2ValueLow};
-				LateSpO2DoesNothing: error sink LogicSpO2 {LateSpO2};
-				EarlySpO2DoesNothing: error sink LogicSpO2 {EarlySpO2};
-				BogusAlarmsArePossible: error source LogicDerivedAlarm {BogusAlarm} when {Deterioration};
-					-- Nonsensical error paths here as examples of more complex behaviors: 
-				MultipleInputs: error path LogicSpO2 {SpO2ValueHigh, SpO2ValueLow} -> LogicDerivedAlarm {MissedAlarm};
-				MultipleOutputs: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm, BogusAlarm};
-				MtoN: error path LogicSpO2 {SpO2ValueLow, SpO2ValueHigh} -> LogicDerivedAlarm {BogusAlarm, MissedAlarm};
-			end propagations;
-			
-			component error behavior
-			events
-				-- Detectable external problems
-				TimeoutViolation: error event {EarlySpO2};
-				TimestampViolation: error event {LateSpO2};
-					-- Internal problems that cause successor dangers
-				PulseOxDeteriorates: error event {Deterioration};
-			transitions
-				SwitchToNoOutput: Normal -[TimeoutViolation or TimestampViolation]-> NoOutput;
-				ClinicianTurnsOffPulseOx: Normal -[PulseOxDeteriorates]-> NoOutput;
-			end component;
-			
-			properties
-				MAP_Error_Properties::ExternallyCausedDanger => [
-							ProcessVariableValue => reference (SpO2Val);
-							ProcessVariableConstraint => "Higher than true value";
-							Explanation => "The SpO2 value is too high, leading the app to fail to issue an alarm when it should";
-						] applies to HighSpO2LeadsToMissedAlarm;
-				MAP_Error_Properties::ExternallyCausedDanger => [
-							Explanation => "Placeholder explanation";
-						] applies to MultipleInputs;
-				MAP_Error_Properties::ExternallyCausedDanger => [
-							Explanation => "Placeholder explanation";
-						] applies to MultipleOutputs;
-				MAP_Error_Properties::ExternallyCausedDanger => [
-							Explanation => "Placeholder explanation";
-						] applies to MtoN;
-				MAP_Error_Properties::RuntimeErrorDetection => [
-							ErrorDetectionApproach => Concurrent;
-							Explanation => "Minimum separation between messages are added to detect early arrivals";
-						] applies to TimeoutViolation;
-				MAP_Error_Properties::RuntimeErrorDetection => [
-							ErrorDetectionApproach => Concurrent;
-							Explanation => "Messages should be timestamped so latency violations can be detected";
-						] applies to TimestampViolation;
-				MAP_Error_Properties::RuntimeErrorDetection => [
-							ErrorDetectionApproach => Preemptive;
-							Explanation => "The pulse oximeter should be periodically inspected for signs of wear";
-						] applies to PulseOxDeteriorates;
-				MAP_Error_Properties::RuntimeErrorHandling => [
-							ErrorHandlingApproach => Rollforward;
-							Explanation => "The pump switches into a fail-safe mode, ie, it runs at a minimal (KVO) rate";
-						] applies to SwitchToNoOutput;
-				MAP_Error_Properties::InternallyCausedDanger => [
-							Explanation => "The pulse oximeter can deteriorate, causing inappropriate alarms.";
-						] applies to BogusAlarmsArePossible;
-				MAP_Error_Properties::DesignTimeFaultDetection => [
-							FaultDetectionApproach => Testing;
-							Explanation => "The PulseOx is poorly maintained, and reports bad values due to deterioration. It should be tested periodically to ensure proper functioning.";
-						] applies to PulseOxDeteriorates;
-				MAP_Error_Properties::RuntimeFaultHandling => [
-							FaultHandlingApproach => Diagnosis;
-							ErrorHandlingApproach => Rollforward;
-							Explanation => "The nurse sees that the pulse oximeter has deteriorated and turns it off.";
-						] applies to ClinicianTurnsOffPulseOx;
-				MAP_Error_Properties::EliminatedFaults => [
-							FaultTypes => (
-										reference (SoftwareBug),
-										reference (BadSoftwareDesign),
-										reference (CompromisedSoftware),
-										reference (CompromisedHardware),
-										reference (HardwareBug),
-										reference (BadHardwareDesign),
-										reference (ProductionDefect)
-									);
-							Explanation => "We're using a 'proven in use' app";
-						] applies to Normal;
-				MAP_Error_Properties::EliminatedFaults => [
-							FaultTypes => (
-										reference (AdversaryAccessesHardware),
-										reference (AdversaryAccessesSoftware)
-									);
-							Explanation => "The hospital has physical security measures in place";
-						] applies to Normal;
-				MAP_Error_Properties::EliminatedFaults => [
-							FaultTypes => (
-										reference (SyntaxMismatch),
-										reference (RateMismatch),
-										reference (SemanticMismatch)
-									);
-							Explanation => "The app logic isn't a connection between two components";
-						] applies to Normal;
-		**};
+--	annex EMV2 {**
+--			use types MAP_Errors, PulseOx_Forwarding_Errors;
+--			use behavior PulseOx_Forwarding_Errors::PulseOxStatus;
+--			
+--			error propagations
+--			flows
+--				-- Error path examples
+--				HighSpO2LeadsToMissedAlarm: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm};
+--				LowSpO2DoesNothing: error sink LogicSpO2 {SpO2ValueLow};
+--				LateSpO2DoesNothing: error sink LogicSpO2 {LateSpO2};
+--				EarlySpO2DoesNothing: error sink LogicSpO2 {EarlySpO2};
+--				BogusAlarmsArePossible: error source LogicDerivedAlarm {BogusAlarm} when {Deterioration};
+--					-- Nonsensical error paths here as examples of more complex behaviors: 
+--				MultipleInputs: error path LogicSpO2 {SpO2ValueHigh, SpO2ValueLow} -> LogicDerivedAlarm {MissedAlarm};
+--				MultipleOutputs: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm, BogusAlarm};
+--				MtoN: error path LogicSpO2 {SpO2ValueLow, SpO2ValueHigh} -> LogicDerivedAlarm {BogusAlarm, MissedAlarm};
+--			end propagations;
+--			
+----			component error behavior
+----			events
+----				-- Detectable external problems
+----				TimeoutViolation: error event {EarlySpO2};
+----				TimestampViolation: error event {LateSpO2};
+----					-- Internal problems that cause successor dangers
+----				PulseOxDeteriorates: error event {Deterioration};
+----			transitions
+----				SwitchToNoOutput: Normal -[TimeoutViolation or TimestampViolation]-> NoOutput;
+----				ClinicianTurnsOffPulseOx: Normal -[PulseOxDeteriorates]-> NoOutput;
+----			end component;
+--			
+--			properties
+--				MAP_Error_Properties::ExternallyCausedDanger => [
+--							ProcessVariableValue => reference (SpO2Val);
+--							ProcessVariableConstraint => "Higher than true value";
+--							Explanation => "The SpO2 value is too high, leading the app to fail to issue an alarm when it should";
+--						] applies to HighSpO2LeadsToMissedAlarm;
+--				MAP_Error_Properties::ExternallyCausedDanger => [
+--							Explanation => "Placeholder explanation";
+--						] applies to MultipleInputs;
+--				MAP_Error_Properties::ExternallyCausedDanger => [
+--							Explanation => "Placeholder explanation";
+--						] applies to MultipleOutputs;
+--				MAP_Error_Properties::ExternallyCausedDanger => [
+--							Explanation => "Placeholder explanation";
+--						] applies to MtoN;
+----				MAP_Error_Properties::RuntimeErrorDetection => [
+----							ErrorDetectionApproach => Concurrent;
+----							Explanation => "Minimum separation between messages are added to detect early arrivals";
+----						] applies to TimeoutViolation;
+----				MAP_Error_Properties::RuntimeErrorDetection => [
+----							ErrorDetectionApproach => Concurrent;
+----							Explanation => "Messages should be timestamped so latency violations can be detected";
+----						] applies to TimestampViolation;
+----				MAP_Error_Properties::RuntimeErrorDetection => [
+----							ErrorDetectionApproach => Preemptive;
+----							Explanation => "The pulse oximeter should be periodically inspected for signs of wear";
+----						] applies to PulseOxDeteriorates;
+----				MAP_Error_Properties::RuntimeErrorHandling => [
+----							ErrorHandlingApproach => Rollforward;
+----							Explanation => "The pump switches into a fail-safe mode, ie, it runs at a minimal (KVO) rate";
+----						] applies to SwitchToNoOutput;
+----				MAP_Error_Properties::InternallyCausedDanger => [
+----							Explanation => "The pulse oximeter can deteriorate, causing inappropriate alarms.";
+----						] applies to BogusAlarmsArePossible;
+----				MAP_Error_Properties::DesignTimeFaultDetection => [
+----							FaultDetectionApproach => Testing;
+----							Explanation => "The PulseOx is poorly maintained, and reports bad values due to deterioration. It should be tested periodically to ensure proper functioning.";
+----						] applies to PulseOxDeteriorates;
+----				MAP_Error_Properties::RuntimeFaultHandling => [
+----							FaultHandlingApproach => Diagnosis;
+----							ErrorHandlingApproach => Rollforward;
+----							Explanation => "The nurse sees that the pulse oximeter has deteriorated and turns it off.";
+----						] applies to ClinicianTurnsOffPulseOx;
+--				MAP_Error_Properties::EliminatedFaults => [
+--							FaultTypes => (
+--										reference (SoftwareBug),
+--										reference (BadSoftwareDesign),
+--										reference (CompromisedSoftware),
+--										reference (CompromisedHardware),
+--										reference (HardwareBug),
+--										reference (BadHardwareDesign),
+--										reference (ProductionDefect)
+--									);
+--							Explanation => "We're using a 'proven in use' app";
+--						] applies to Normal;
+--				MAP_Error_Properties::EliminatedFaults => [
+--							FaultTypes => (
+--										reference (AdversaryAccessesHardware),
+--										reference (AdversaryAccessesSoftware)
+--									);
+--							Explanation => "The hospital has physical security measures in place";
+--						] applies to Normal;
+--				MAP_Error_Properties::EliminatedFaults => [
+--							FaultTypes => (
+--										reference (SyntaxMismatch),
+--										reference (RateMismatch),
+--										reference (SemanticMismatch)
+--									);
+--							Explanation => "The app logic isn't a connection between two components";
+--						] applies to Normal;
+--		**};
 	end PulseOx_Logic_Process.imp;
 	
 	thread CheckSpO2Thread
