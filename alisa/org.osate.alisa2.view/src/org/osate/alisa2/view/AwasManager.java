@@ -17,7 +17,10 @@ import org.osate.aadl2.impl.AadlPackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
 import org.sireum.awas.ast.Model;
@@ -224,7 +227,7 @@ public class AwasManager {
 //				.getUriFromString(graphTableCache.get(parent).table, parent.getInstanceObjectPath()).get();
 		String portURI = SymbolTableHelper.getPortUri(graphTableCache.get(parent).table, self.getSource().getComponentInstancePath()).get();
 		FlowNode flowNode = FlowNode.getNode(Resource.getParentUri(portURI).get()).get();
-		Set<String> propSet = JavaConverters.toJavaSet(flowNode.getFptcPropagation(portURI));
+		Set<String> propSet = JavaConverters.toJavaSet(flowNode.getPropagation(portURI));
 		// Check the symbol table -- first entry (compSymbolTableMap) should have everything in the component
 		Collection<EObject> ret = urisToInstEObjs(parent, propSet);
 
@@ -240,9 +243,22 @@ public class AwasManager {
 	 * @return The instance model objects corresponding to the given URIs
 	 */
 	private Collection<EObject> urisToInstEObjs(ComponentInstance parent, Collection<String> uris) {
+		Map<String, EObject> children = new HashMap<>();
+
 		// Rather than iterate through the list of children each time, we cache them temporarily
-		Map<String, EObject> children = parent.getChildren().stream().filter(e -> e instanceof NamedElement)
+		Map<String, EObject> childElements = parent.getChildren().stream().filter(e -> e instanceof NamedElement)
 				.collect(Collectors.toMap(e -> ((NamedElement) e).getName(), Function.identity()));
+		children.putAll(childElements);
+
+		// Also cache error type names, since we need those too
+		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
+		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses(parent)) {
+			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
+				for (ErrorType currType : currLibrary.getTypes()) {
+					children.put(currType.getName(), currType);
+				}
+			}
+		}
 
 		return uris.stream().map(u -> uriToInstEObj(children, u, graphTableCache.get(parent).table))
 				.filter(Objects::nonNull).collect(Collectors.toSet());
