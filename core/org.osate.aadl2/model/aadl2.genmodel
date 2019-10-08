@@ -12,7 +12,7 @@
     complianceLevel="8.0" copyrightFields="false" providerRootExtendsClass="" testsPluginID="org.osate.aadl2.editor"
     language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel#//types"
     importOrganizing="true" cleanup="true" factoryMethods="true" pluralizedGetters="true"
-    cacheAdapterSupport="true" invariantPrefix="">
+    invariantPrefix="">
   <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
     <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
     <details key="UNION_PROPERTIES" value="PROCESS"/>

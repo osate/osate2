@@ -27,12 +27,9 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.model.ConnectionType;
-import org.osate.analysis.flows.model.LatencyReport;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
@@ -189,6 +186,29 @@ public class FlowLatencyUtil {
 			return etef.getFlowElements().get(n - 1);
 		}
 
+		return null;
+	}
+
+	/**
+	 * get previous component instance in flow
+	 * @param etef
+	 * @param flowElementInstance
+	 * @return
+	 */
+	public static ComponentInstance getPreviousComponent(final EndToEndFlowInstance etef,
+			final FlowElementInstance flowElementInstance) {
+		FlowElementInstance prevConn = getPreviousFlowElement(etef, flowElementInstance);
+		if (prevConn != null) {
+			FlowElementInstance prevEl = getPreviousFlowElement(etef, prevConn);
+			if (prevEl != null) {
+				if (prevEl instanceof FlowSpecificationInstance) {
+					return prevEl.getContainingComponentInstance();
+				}
+				if (prevEl instanceof ComponentInstance) {
+					return (ComponentInstance) prevEl;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -664,14 +684,6 @@ public class FlowLatencyUtil {
 			return ((InstanceObject) relatedElement).getComponentInstancePath();
 		}
 		return "";
-	}
-
-	public static void saveAsSpreadSheets(LatencyReport latreport) {
-		Report report = latreport.export();
-		CsvExport csvExport = new CsvExport(report);
-		csvExport.save();
-		ExcelExport excelExport = new ExcelExport(report);
-		excelExport.save();
 	}
 
 

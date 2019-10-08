@@ -43,11 +43,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -109,20 +107,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 */
 	@Override
 	public EList<Element> getOwnedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.ELEMENT__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
-			}
-			return ownedElements;
-		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
 
@@ -144,7 +129,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	@Override
 	public EList<Comment> getOwnedComments() {
 		if (ownedComments == null) {
-			ownedComments = new EObjectContainmentEList<Comment>(Comment.class, this,
+			ownedComments = new EObjectContainmentEList<>(Comment.class, this,
 					Aadl2Package.ELEMENT__OWNED_COMMENT);
 		}
 		return ownedComments;
@@ -263,17 +248,6 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	}
 
 	/**
-	 * Retrieves the cache adapter for this '<em><b>Element</b></em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The cache adapter for this '<em><b>Element</b></em>'.
-	 * @generated
-	 */
-	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getCacheAdapter(this);
-	}
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -307,7 +281,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	public EList<Element> getChildren() {
 		// TODO if we use this we need to change InstanceObject to not use
 		// ownedElement return getOwnedElements();
-		EList<Element> list = new BasicEList<Element>(20);
+		EList<Element> list = new BasicEList<>(20);
 		for (EObject eo : eContents()) {
 			if (eo instanceof Element) {
 				list.add((Element) eo);

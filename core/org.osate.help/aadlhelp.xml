@@ -21,6 +21,7 @@
 	</topic>
 	<topic label="Model Analyses">
     	<anchor id="_latency"/>
+   		<anchor id="_scheduling"/>
 		<anchor id="_codegen_checker"/>
 		<anchor id="_check_binding_constraints"/>
 		<anchor id="_check_connection_binding_consistency"/>

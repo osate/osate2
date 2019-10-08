@@ -41,10 +41,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentCategory;
@@ -114,20 +112,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
-			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
-			}
-			return ownedFeatures;
-		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+		return new DerivedUnionEObjectEList<>(Feature.class, this,
 				Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -153,7 +138,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -180,7 +165,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
 					SubprogramGroupAccess.class, this,
 					Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}

@@ -39,10 +39,11 @@
  */
 package org.osate.analysis.flows.handlers;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -57,7 +58,9 @@ import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.dialogs.FlowLatencyDialog;
-import org.osate.analysis.flows.model.LatencyReport;
+import org.osate.analysis.flows.model.LatencyCSVReport;
+import org.osate.analysis.flows.model.LatencyExcelReport;
+import org.osate.analysis.flows.preferences.Constants;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -66,7 +69,11 @@ import org.osate.result.util.ResultUtil;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
-	protected static LatencyReport latreport = null;
+	protected static AnalysisResult latResult = null;
+	protected static boolean isAsynchronousSystem = true;
+	protected static boolean isMajorFrameDelay = true;
+	protected static boolean isWorstCaseDeadline = true;
+	protected static boolean isBestCaseEmptyQueue = true;
 
 	@Override
 	protected String getActionName() {
@@ -103,9 +110,16 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		}
 
 		if (doIt) {
-			latreport = new LatencyReport();
-			latreport.setRootinstance((SystemInstance) object);
-			d.setLatencyAnalysisParameters(latreport);
+			isAsynchronousSystem = d.localValues.get(Constants.ASYNCHRONOUS_SYSTEM_LAST_USED)
+					.equalsIgnoreCase(Constants.ASYNCHRONOUS_SYSTEM_YES);
+			isMajorFrameDelay = d.localValues.get(Constants.PARTITONING_POLICY_LAST_USED)
+					.equalsIgnoreCase(Constants.PARTITIONING_POLICY_MAJOR_FRAME_DELAYED_STR);
+			isWorstCaseDeadline = d.localValues.get(Constants.WORST_CASE_DEADLINE_LAST_USED)
+					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
+			isBestCaseEmptyQueue = d.localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
+					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+			latResult = FlowLatencyUtil.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
+					isWorstCaseDeadline, isBestCaseEmptyQueue);
 		}
 
 		return doIt;
@@ -113,16 +127,13 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 
 	@Override
 	protected boolean finalizeAnalysis() {
-		if (latreport != null && !latreport.getEntries().isEmpty()) {
-			// do cvs and xsl reports
-			FlowLatencyUtil.saveAsSpreadSheets(latreport);
-			Collection<Result> results = latreport.genResult();
-			AnalysisResult ar = FlowLatencyUtil.recordAsAnalysisResult(results, latreport.getRootinstance(),
-					latreport.isAsynchronousSystem(), latreport.isMajorFrameDelay(), latreport.isWorstCaseDeadline(),
-					latreport.isBestcaseEmptyQueue());
-			FlowLatencyUtil.saveAnalysisResult(ar);
-//			LatencyCSVReport.generateCSVReport(results); Generate CSV file from AnalysisResult
-			generateMarkers(ar, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
+		FlowLatencyUtil.saveAnalysisResult(latResult);
+		LatencyCSVReport.generateCSVReport(latResult);
+		LatencyExcelReport.generateExcelReport(latResult);
+		generateMarkers(latResult, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
+		if (latResult.getResults().isEmpty()) {
+			getShell().getDisplay().asyncExec(() -> MessageDialog.openInformation(getShell(), "Flow Latency Analysis",
+					"No active flows were found to analyze."));
 		}
 		return true;
 	};
@@ -134,8 +145,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		}
 	}
 
-	private void generateMarkers(AnalysisErrorReporterManager errManager, List<Diagnostic> issues,
-			String som, EndToEndFlowInstance target) {
+	private void generateMarkers(AnalysisErrorReporterManager errManager, List<Diagnostic> issues, String som,
+			EndToEndFlowInstance target) {
 		String inMode = som.isEmpty() ? "" : " in mode " + som;
 		for (Diagnostic issue : issues) {
 			if (issue.getDiagnosticType() == DiagnosticType.INFO) {
@@ -157,10 +168,11 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
-		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root, latreport);
-		flas.processPreOrderAll(root);
+		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);
+		EList<Result> res = flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue);
+		latResult.getResults().addAll(res);
 		monitor.done();
 	}
-
 
 }

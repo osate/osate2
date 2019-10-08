@@ -132,6 +132,7 @@ public class SetSubprogramCallSequenceOrderPropertySection extends AbstractPrope
 		downBtn.setLayoutData(fd);
 
 		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Call Order:");
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	private static TableViewer createTableViewer(final Composite tableComposite) {

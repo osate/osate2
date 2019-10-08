@@ -70,7 +70,7 @@ class PropagationPointsTest  {
 		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ft = CreateFTAModel.createFaultTree(instance, start)
 		assertEquals(ft.events.size, 6)
-		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
+		val andevent = ft.root.subEvents.get(1) 
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		val actual = ft.root.computedProbability
 		assertEquals(7.1e-8, actual.doubleValue, 0.1e-8)
@@ -127,7 +127,7 @@ class PropagationPointsTest  {
 		val start = "outgoing propagation on observation{ServiceOmission}"
 		val ft = CreateFTAModel.createFaultTree(instance2, start)
 		assertEquals(ft.events.size, 6)
-		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
+		val andevent = ft.root.subEvents.get(1) 
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 		val actual = ft.root.computedProbability
 		assertEquals(7.1e-8, actual.doubleValue, 0.1e-8)

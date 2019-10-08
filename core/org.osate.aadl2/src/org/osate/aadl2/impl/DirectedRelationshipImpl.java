@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.DirectedRelationship;
@@ -86,20 +84,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 */
 	@Override
 	public EList<Element> getSources() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> sources = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getDirectedRelationship_Source());
-			if (sources == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
-						sources = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE, null));
-			}
-			return sources;
-		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
 				null);
 	}
 
@@ -110,20 +95,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 */
 	@Override
 	public EList<Element> getRelatedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> relatedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getRelationship_RelatedElement());
-			if (relatedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getRelationship_RelatedElement(),
-						relatedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS));
-			}
-			return relatedElements;
-		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+		return new DerivedUnionEObjectEList<>(Element.class, this,
 				Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS);
 	}
 
@@ -145,20 +117,7 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 */
 	@Override
 	public EList<Element> getTargets() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> targets = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getDirectedRelationship_Target());
-			if (targets == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
-						targets = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__TARGET, null));
-			}
-			return targets;
-		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
 				null);
 	}
 

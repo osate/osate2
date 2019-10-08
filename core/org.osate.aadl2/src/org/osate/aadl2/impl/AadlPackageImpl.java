@@ -44,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -136,19 +135,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 */
 	@Override
 	public EList<Element> getOwnedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<>(Element.class, this,
-								Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
-			}
-			return ownedElements;
-		}
 		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.AADL_PACKAGE__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}

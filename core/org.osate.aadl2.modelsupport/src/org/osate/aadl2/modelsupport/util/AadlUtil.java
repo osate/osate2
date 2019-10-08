@@ -81,6 +81,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -869,7 +870,7 @@ public final class AadlUtil {
 		 * there is zero or one implementation It may be desirable to allow the
 		 * desintation to be a type while the source specifies an implementation
 		 * indicating that the recipient can handle any implementation
-		 * 
+		 *
 		 * Currently we do match type only if one of the two side has a type
 		 * only
 		 */
@@ -1061,6 +1062,18 @@ public final class AadlUtil {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns {@code true} if {@code extension} is an extension of {@code origin} or {@code extension} is a
+	 * {@link ComponentImplementation} and it's {@link ComponentType} is an extension of {@code origin}.
+	 */
+	public static boolean isSubClassifier(Classifier origin, Classifier extension) {
+		if (origin instanceof ComponentType && extension instanceof ComponentImplementation) {
+			return isSameOrExtends(origin, ((ComponentImplementation) extension).getType());
+		} else {
+			return isSameOrExtends(origin, extension);
+		}
 	}
 
 	/**
@@ -1636,7 +1649,7 @@ public final class AadlUtil {
 			return false;
 		}
 		for (Subcomponent o : sl) {
-			if (o instanceof SystemSubcomponent || o instanceof ProcessSubcomponent
+			if (o instanceof AbstractSubcomponent || o instanceof SystemSubcomponent || o instanceof ProcessSubcomponent
 					|| o instanceof ThreadGroupSubcomponent || o instanceof ThreadSubcomponent
 					|| o instanceof DeviceSubcomponent || o instanceof ProcessorSubcomponent) {
 				return true;
@@ -2310,8 +2323,9 @@ public final class AadlUtil {
 	 * Find the array dimensions in the element or the element it refines.
 	 */
 	public static long getMultiplicity(NamedElement el) {
-		if (!(el instanceof ArrayableElement))
+		if (!(el instanceof ArrayableElement)) {
 			return 1;
+		}
 		ArrayableElement ae = (ArrayableElement) el;
 		EList<ArrayDimension> dims = ae.getArrayDimensions();
 		if (!dims.isEmpty()) {

@@ -1,0 +1,23 @@
+package issue643
+public
+    system top
+    end top;
+
+    system implementation top.i
+        subcomponents
+            p: system S;
+            c: system S;
+            d: data;
+        connections
+            c0: data access p.a <-> d;
+            c1: data access d <-> c.a;
+    	flows
+    		-- Currently has declarative errors (wrong), but instantiates fine
+            e2e: end to end flow p -> c0 -> d -> c1 -> c;
+    end top.i;
+
+    system S
+        features
+            a: requires data access;
+    end S;
+end issue643;

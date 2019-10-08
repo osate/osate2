@@ -41,10 +41,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
@@ -137,20 +135,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
-			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.MEMORY_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
-			}
-			return ownedFeatures;
-		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.MEMORY_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.MEMORY_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -175,7 +160,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
 					Aadl2Package.MEMORY_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -201,7 +186,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
 					Aadl2Package.MEMORY_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -227,7 +212,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
 					Aadl2Package.MEMORY_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -253,7 +238,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
 					Aadl2Package.MEMORY_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;

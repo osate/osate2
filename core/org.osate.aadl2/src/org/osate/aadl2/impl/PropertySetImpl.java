@@ -41,11 +41,9 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
@@ -151,20 +149,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
-			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.PROPERTY_SET__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
-			}
-			return ownedMembers;
-		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.PROPERTY_SET__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -187,7 +172,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public EList<PropertyType> getOwnedPropertyTypes() {
 		if (ownedPropertyTypes == null) {
-			ownedPropertyTypes = new EObjectContainmentEList<PropertyType>(PropertyType.class, this,
+			ownedPropertyTypes = new EObjectContainmentEList<>(PropertyType.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE);
 		}
 		return ownedPropertyTypes;
@@ -213,7 +198,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public EList<Property> getOwnedProperties() {
 		if (ownedProperties == null) {
-			ownedProperties = new EObjectContainmentEList<Property>(Property.class, this,
+			ownedProperties = new EObjectContainmentEList<>(Property.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY);
 		}
 		return ownedProperties;
@@ -239,7 +224,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public EList<PropertyConstant> getOwnedPropertyConstants() {
 		if (ownedPropertyConstants == null) {
-			ownedPropertyConstants = new EObjectContainmentEList<PropertyConstant>(PropertyConstant.class, this,
+			ownedPropertyConstants = new EObjectContainmentEList<>(PropertyConstant.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT);
 		}
 		return ownedPropertyConstants;
@@ -266,7 +251,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<>(ModelUnit.class, this,
 					Aadl2Package.PROPERTY_SET__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -280,7 +265,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
-			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
+			ownedAnnexSubclauses = new EObjectContainmentEList<>(AnnexSubclause.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_ANNEX_SUBCLAUSE);
 		}
 		return ownedAnnexSubclauses;

@@ -1,6 +1,6 @@
 pipeline {
-    agent any
-    stages {
+	agent any
+	stages {
 		stage('Nightly Build') {
         	stages {
         	    stage('Build Products') {
@@ -13,8 +13,10 @@ pipeline {
                     		//mavenSettingsConfig: 'my-maven-settings',
     	                	mavenLocalRepo: '.repository') 
     	                {
-	                        // Run the maven build
-                        	sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
+	                        // Run the maven build with Xvnc
+							wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+                        		sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
+							}	
                 		} // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs reports...
             		}
         	    }

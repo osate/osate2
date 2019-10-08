@@ -25,6 +25,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -90,6 +91,8 @@ public class NotePropertySection extends AbstractPropertySection {
 				}
 			}
 		});
+
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

@@ -78,6 +78,7 @@ public interface BusAccess extends Access {
 	 * @see #setBusFeatureClassifier(BusFeatureClassifier)
 	 * @see org.osate.aadl2.Aadl2Package#getBusAccess_BusFeatureClassifier()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	BusFeatureClassifier getBusFeatureClassifier();

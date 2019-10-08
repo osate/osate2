@@ -62,7 +62,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
@@ -86,26 +85,20 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	LatencyReport report;
 
+
 	public FlowLatencyAnalysisSwitch() {
 		super(new NullProgressMonitor(), PROCESS_PRE_ORDER_ALL);
 	}
 
 	public FlowLatencyAnalysisSwitch(SystemInstance si) {
-		this(new NullProgressMonitor(), si, null);
+		this(new NullProgressMonitor(), si);
 	}
 
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
-		this(monitor, si, null);
-	}
-
-	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si, LatencyReport latreport) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		if (latreport == null) {
-			report = new LatencyReport();
-			report.setRootinstance(si);
-		} else {
-			report = latreport;
-		}
+		report = new LatencyReport();
+		report.setRootinstance(si);
+
 	}
 
 	@Override
@@ -125,7 +118,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef) {
 				LatencyReportEntry entry;
 
-				//XXX: [Code Coverage] etef.getFlowElements() cannot be empty.
+				// XXX: [Code Coverage] etef.getFlowElements() cannot be empty.
 				if (etef.getFlowElements().isEmpty()) {
 					return DONE;
 				}
@@ -227,9 +220,16 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							checkLastImmediate = true;
 						}
 					} else {
+						// sampled. We may under sample
+						ComponentInstance prevComp = FlowLatencyUtil.getPreviousComponent(etef, flowElementInstance);
+						double prevPeriod = prevComp != null ? GetProperties.getPeriodinMS(prevComp) : 0;
+						if (period > 0 && prevPeriod > 0 && period % prevPeriod == 0.0) {
+							samplingLatencyContributor.setSamplingPeriod(prevPeriod);
+						} else {
+							samplingLatencyContributor.setSamplingPeriod(period);
+						}
 						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-						samplingLatencyContributor.setSamplingPeriod(period);
 					}
 					entry.addContributor(samplingLatencyContributor);
 				} else {
@@ -547,7 +547,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public void processTransmissionTime(NamedElement targetMedium, double datasizeinbyte,
 			LatencyContributor latencyContributor) {
-		//XXX: [Code Coverage] targetMedium cannot be null.
+		// XXX: [Code Coverage] targetMedium cannot be null.
 		if (targetMedium != null) {
 
 			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(targetMedium);
@@ -574,7 +574,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
 				subContributor.reportInfo("Using specified bus latency");
 			} else {
-				//XXX: [Code Coverage] Only executable if maxBusTransferTime or maxBusLatency is negative.
+				// XXX: [Code Coverage] Only executable if maxBusTransferTime or maxBusLatency is negative.
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
 
@@ -586,7 +586,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.setMinimum(minBusLatency);
 				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
 			} else {
-				//XXX: [Code Coverage] Only executable if minBusTransferTime or minBusLatency is negative.
+				// XXX: [Code Coverage] Only executable if minBusTransferTime or minBusLatency is negative.
 				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
 			latencyContributor.addSubContributor(subContributor);
@@ -616,9 +616,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * If we have that we want to use that virtual bus overhead
 			 */
 			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
-			//XXX: [Code Coverage] protocols cannot be null.
+			// XXX: [Code Coverage] protocols cannot be null.
 			if ((protocols != null) && (protocols.size() > 0)) {
-				//XXX: [Code Coverage] willDoBuses is always true if willDoVirtualBuses is false.
+				// XXX: [Code Coverage] willDoBuses is always true if willDoVirtualBuses is false.
 				if (willDoBuses) {
 					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
@@ -659,7 +659,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	}
 
-	//XXX: [Code Coverage] First parameter should be ConnectionInstance. Recursive call is a no-op.
+	// XXX: [Code Coverage] First parameter should be ConnectionInstance. Recursive call is a no-op.
 	public void processActualConnectionBindingsSampling(NamedElement connorvb, LatencyContributor latencyContributor) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
@@ -680,7 +680,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 */
 			if (!willDoVirtualBuses) {
 				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
-				//XXX: [Code Coverage] protocols cannot be null.
+				// XXX: [Code Coverage] protocols cannot be null.
 				if ((protocols != null) && (protocols.size() > 0)) {
 					if (willDoBuses) {
 						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
@@ -707,7 +707,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * we add the bus/VB sampling time as a subcontributor.
 		 */
 
-		//XXX: [Code Coverage] boundBus cannot be null.
+		// XXX: [Code Coverage] boundBus cannot be null.
 		if (boundBus != null) {
 			double period = GetProperties.getPeriodinMS(boundBus);
 			if (period > 0) {
@@ -771,7 +771,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	private EList<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+	public EList<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
@@ -785,6 +785,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public AnalysisResult invoke(ComponentInstance ci) {
 		return invoke(ci, null, true, true, true, true);
 	}
+
 	/**
 	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
 	 *
@@ -846,6 +847,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public AnalysisResult invoke(EndToEndFlowInstance etef) {
 		return invoke(etef, null, true, true, true, true);
 	}
+
 	/**
 	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
 	 *
@@ -862,20 +864,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		SystemInstance root = etef.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
 		if (som == null) {
-			SystemOperationMode som0 = root.getSystemOperationModes().get(0);
-			if (root.getSystemOperationModes().isEmpty()
-					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
-				// no SOM
-				results = invokeOnSOM(etef, som0, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue);
-			} else {
-				// we need to run it for every SOM
-				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-					root.setCurrentSystemOperationMode(eachsom);
-					results.addAll(invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay,
-							worstCaseDeadline, bestCaseEmptyQueue));
-					root.clearCurrentSystemOperationMode();
-				}
+			// we need to run it for every SOM
+			for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
+				root.setCurrentSystemOperationMode(eachsom);
+				results.addAll(invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+						bestCaseEmptyQueue));
+				root.clearCurrentSystemOperationMode();
 			}
 		} else {
 			results = invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
@@ -896,9 +890,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return Collection of Result. May be empty if ETEF is not active in SOM
 	 */
-	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som,
-			boolean asynchronousSystem, boolean majorFrameDelay, boolean worstCaseDeadline,
-			boolean bestCaseEmptyQueue) {
+	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		if (report == null) {
 			report = new LatencyReport();
 		}
@@ -906,20 +899,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		SystemInstance root = etef.getSystemInstance();
 		EList<Result> results = new BasicEList<Result>();
-		if (!Aadl2Util.isNoModes(som)) {
+		if (etef.isActive(som)) {
 			root.setCurrentSystemOperationMode(som);
-		}
-		if (Aadl2Util.isNoModes(som) || etef.isActive(som)) {
 			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
 			results.add(latres.genResult());
 			root.clearCurrentSystemOperationMode();
 			return results;
-		} else {
-			root.clearCurrentSystemOperationMode();
-			return results;
 		}
+		return results;
 	}
-
 
 	/**
 	 * invoke latency analysis and save results in file system as .result, and as .csv files
@@ -939,6 +927,5 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		LatencyCSVReport.generateCSVReport(ar);
 		return ar;
 	}
-
 
 }

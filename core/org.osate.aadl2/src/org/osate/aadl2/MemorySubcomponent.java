@@ -78,6 +78,7 @@ public interface MemorySubcomponent extends Subcomponent, Memory {
 	 * @see #setMemorySubcomponentType(MemorySubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getMemorySubcomponent_MemorySubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	MemorySubcomponentType getMemorySubcomponentType();

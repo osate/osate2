@@ -78,6 +78,7 @@ public interface ThreadSubcomponent extends Subcomponent, org.osate.aadl2.Thread
 	 * @see #setThreadSubcomponentType(ThreadSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getThreadSubcomponent_ThreadSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ThreadSubcomponentType getThreadSubcomponentType();

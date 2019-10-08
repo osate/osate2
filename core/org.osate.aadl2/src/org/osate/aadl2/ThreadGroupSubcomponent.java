@@ -78,6 +78,7 @@ public interface ThreadGroupSubcomponent extends Subcomponent, org.osate.aadl2.T
 	 * @see #setThreadGroupSubcomponentType(ThreadGroupSubcomponentType)
 	 * @see org.osate.aadl2.Aadl2Package#getThreadGroupSubcomponent_ThreadGroupSubcomponentType()
 	 * @model ordered="false"
+	 *        annotation="subsets"
 	 * @generated
 	 */
 	ThreadGroupSubcomponentType getThreadGroupSubcomponentType();

@@ -43,10 +43,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
@@ -112,20 +110,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<NamedElement> getMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_Member());
-			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS));
-			}
-			return members;
-		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS);
 	}
 
@@ -149,21 +134,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
-			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE,
-								CLASSIFIER_FEATURE_ESUBSETS));
-			}
-			return classifierFeatures;
-		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -193,20 +164,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
-			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
-			}
-			return ownedMembers;
-		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -240,6 +198,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		return BehavioredImplementationOperations.subprogramCalls(this);
 	}
 
+	@Override
 	public EList<SubprogramCallSequence> getAllSubprogramCallSequences() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<SubprogramCallSequence> returnlist = new BasicEList<>();
@@ -258,7 +217,7 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	@Override
 	public EList<SubprogramCallSequence> getOwnedSubprogramCallSequences() {
 		if (ownedSubprogramCallSequences == null) {
-			ownedSubprogramCallSequences = new EObjectContainmentEList<SubprogramCallSequence>(
+			ownedSubprogramCallSequences = new EObjectContainmentEList<>(
 					SubprogramCallSequence.class, this,
 					Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);
 		}

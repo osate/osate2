@@ -1687,6 +1687,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseAccess(subprogramAccess);
 			}
 			if (result == null) {
+				result = caseContext(subprogramAccess);
+			}
+			if (result == null) {
 				result = caseCalledSubprogram(subprogramAccess);
 			}
 			if (result == null) {

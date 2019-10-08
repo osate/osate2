@@ -39,8 +39,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.GlobalNamespace;
@@ -90,20 +88,7 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 */
 	@Override
 	public EList<NamedElement> getMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_Member());
-			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS));
-			}
-			return members;
-		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
 	}
 

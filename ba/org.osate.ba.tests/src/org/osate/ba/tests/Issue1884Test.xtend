@@ -30,11 +30,11 @@ class Issue1884Test {
 				"parser_error".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					(parsedAnnexSubclause instanceof BehaviorAnnex).assertTrue
+					(parsedAnnexSubclause===null).assertTrue
 				]
 			]
 		]
-		5.assertEquals(result.issues.size)
+		3.assertEquals(result.issues.size)
 		result.issues.get(0) => [
 			"unterminated behavior state (missing ending ';')".assertEquals(message)
 			7.assertEquals(lineNumber)
@@ -46,14 +46,6 @@ class Issue1884Test {
 		result.issues.get(2) => [
 			"The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.".assertEquals(message)
 			27.assertEquals(lineNumber)
-		]
-		result.issues.get(3) => [
-			message.startsWith("The required feature 'initialState'").assertTrue
-			4.assertEquals(lineNumber)
-		]
-		result.issues.get(4) => [
-			message.startsWith("The required feature 'initialState'").assertTrue
-			4.assertEquals(lineNumber)
 		]
 	}
 }
