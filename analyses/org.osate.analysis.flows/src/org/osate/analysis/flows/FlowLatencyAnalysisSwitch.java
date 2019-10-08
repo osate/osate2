@@ -220,9 +220,16 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							checkLastImmediate = true;
 						}
 					} else {
+						// sampled. We may under sample
+						ComponentInstance prevComp = FlowLatencyUtil.getPreviousComponent(etef, flowElementInstance);
+						double prevPeriod = prevComp != null ? GetProperties.getPeriodinMS(prevComp) : 0;
+						if (period > 0 && prevPeriod > 0 && period % prevPeriod == 0.0) {
+							samplingLatencyContributor.setSamplingPeriod(prevPeriod);
+						} else {
+							samplingLatencyContributor.setSamplingPeriod(period);
+						}
 						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED);
 						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED);
-						samplingLatencyContributor.setSamplingPeriod(period);
 					}
 					entry.addContributor(samplingLatencyContributor);
 				} else {

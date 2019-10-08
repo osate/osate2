@@ -10,10 +10,10 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.0.0</tycho.version>
-		<tycho-extras.version>1.0.0</tycho-extras.version>
-		<xtext.version>2.17.0</xtext.version>
-		<xsemantics.version>1.17.0-SNAPSHOT</xsemantics.version>
+		<tycho.version>1.4.0</tycho.version>
+		<tycho-extras.version>1.4.0</tycho-extras.version>
+		<xtext.version>2.19.0</xtext.version>
+		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.6.0-SNAPSHOT</osate.version>
 
@@ -23,8 +23,8 @@
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-03</eclipse.repo.url>
-		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
+		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
