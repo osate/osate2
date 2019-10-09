@@ -20,7 +20,7 @@
 		<module>org.osate.ge.diagram</module>
 		<module>org.osate.ge.doc</module>
 		<module>org.osate.ge.feature</module>
-		<module>org.osate.ge.tests</module>
-	</modules>
+<!-- 		<module>org.osate.ge.tests</module>
+ -->	</modules>
 
 </project>
