@@ -41,12 +41,12 @@ import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-abstract class AbstractLoggingLogic {
+abstract class AbstractLoggingAnalysis {
 	private final boolean doDetailedLog = true;
 	
 	protected final AbstractAaxlHandler errManager;
 	
-	protected AbstractLoggingLogic(AbstractAaxlHandler handler) {
+	protected AbstractLoggingAnalysis(AbstractAaxlHandler handler) {
 		errManager = handler;
 	}
 	

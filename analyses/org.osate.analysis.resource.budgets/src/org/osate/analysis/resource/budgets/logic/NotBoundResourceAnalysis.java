@@ -46,14 +46,14 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public class DoResourceBudgetLogic extends AbstractResourceBudgetLogic {
+public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 	private double capacity = 0;
 	private double vcapacity = 0;
 	private double budgetTotal = 0;
 	private int resources = 0;
 	private int capacityResources = 0;
 
-	public DoResourceBudgetLogic(AbstractAaxlHandler handler) {
+	public NotBoundResourceAnalysis(AbstractAaxlHandler handler) {
 		super(handler);
 	}
 

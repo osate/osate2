@@ -1,7 +1,7 @@
 /*
  *
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright � 2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -9,7 +9,7 @@
  * NO WARRANTY
  *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE �DELIVERABLES�) ARE ON AN �AS-IS� BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -20,7 +20,7 @@
  *
  * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
  * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+ * attorney�s fees) arising out of, or relating to Licensee�s and/or its sub licensees� negligent use or willful
  * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
  * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
@@ -43,66 +43,31 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.flows.reporting.exporters.CsvExport;
-import org.osate.analysis.flows.reporting.exporters.ExcelExport;
-import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.analysis.flows.reporting.model.Report.ReportType;
-import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
-import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
+import org.osate.analysis.resource.budgets.logic.BoundResourceAnalysis;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
-	Report powerReport;
-
+/**
+ * @author lwrage
+ *
+ */
+public class BoundResourceAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	public String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
+		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "Analyze power consumption";
+		return "Bound Resource Budget Analysis";
 	}
 
 	@Override
-	protected boolean canAnalyzeDeclarativeModels() {
-		return false;
-	}
-
-	@Override
-	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
-			Element declarativeObject) {
-	}
-
-	@Override
-	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
-			SystemInstance root, SystemOperationMode som) {
-		monitor.beginTask(getActionName(), 1);
-		DoPowerAnalysisLogic pas = new DoPowerAnalysisLogic(errManager);
-
-		pas.analyzePowerBudget(root, powerReport, som);
-
-		monitor.done();
-	}
-
-	@Override
-	protected boolean initializeAnalysis(NamedElement object) {
-		if (object instanceof SystemInstance) {
-			powerReport = new Report(object, "Power", "Power", ReportType.TABLE);
-			return true;
-		}
-		return false;
-	};
-
-	@Override
-	protected boolean finalizeAnalysis() {
-		CsvExport csvExport = new CsvExport(powerReport);
-		csvExport.save();
-		ExcelExport excelExport = new ExcelExport(powerReport);
-		excelExport.save();
+	public boolean initializeAction(NamedElement obj) {
+		setCSVLog("BoundResourceBudgets", obj);
 		return true;
-	};
+	}
 
 	public void setErrManager() {
 		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
@@ -116,12 +81,13 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		this.getCSVLog().saveToFile();
 	}
 
-	public void invoke(IProgressMonitor monitor, SystemInstance root) {
-		actionBody(monitor, root);
+	@Override
+	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
+		InstanceModelUtil.clearCache();
+		new BoundResourceAnalysis(getActionName(), this).analysisBody(monitor, obj);
 	}
 
-	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
-		return powerReport;
 	}
 }

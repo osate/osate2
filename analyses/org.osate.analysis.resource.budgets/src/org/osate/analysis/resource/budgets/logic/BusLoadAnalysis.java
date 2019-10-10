@@ -56,10 +56,10 @@ import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class DoBoundSwitchBandWidthAnalysisLogic extends AbstractLoggingLogic {
+public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	private final String actionName;
 	
-	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
+	public BusLoadAnalysis(final String actionName, final AbstractAaxlHandler errManager) {
 		super(errManager);
 		this.actionName = actionName;
 	}

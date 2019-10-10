@@ -56,12 +56,12 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 //TODO-LW: assumes connection ends are features
-public class DoBoundResourceAnalysisLogic extends AbstractResourceBudgetLogic {
+public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	private final String actionName;
 	
 	private int count = 0;
 
-	public DoBoundResourceAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
+	public BoundResourceAnalysis(final String actionName, final AbstractAaxlHandler errManager) {
 		super(errManager);
 		this.actionName = actionName;
 	}
