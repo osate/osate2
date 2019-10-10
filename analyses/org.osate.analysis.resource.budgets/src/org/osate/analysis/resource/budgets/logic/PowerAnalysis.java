@@ -52,7 +52,6 @@ public class PowerAnalysis {
 
 	private final AnalysisErrorReporterManager errManager;
 
-	private StringBuffer msg = new StringBuffer();
 	private double capacity = 0;
 	private double budgetTotal = 0;
 	private double supplyTotal = 0;
@@ -67,7 +66,6 @@ public class PowerAnalysis {
 
 		final Section section = new Section(systemName + somName);
 		powerReport.addSection(section);
-		msg = new StringBuffer();
 		ForAllElement DoCapacity = new ForAllElement() {
 			@Override
 			protected void action(Element aobj) {
@@ -240,6 +238,5 @@ public class PowerAnalysis {
 		Line l = new Line();
 		l.addContent("");
 		section.addLine(l);
-		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}
 }
