@@ -43,50 +43,33 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
+import org.osate.analysis.resource.budgets.logic.BusLoadAnalysis;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-/**
- * @author lwrage
- *
- */
-public class DoBoundResourceAnalysis extends AaxlReadOnlyHandlerAsJob {
+public class BusLoadAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
-	public String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
+	protected String getActionName() {
+		return "Bus Load Analysis";
 	}
 
 	@Override
-	protected String getActionName() {
-		return "Bound Resource Budget Analysis";
+	public String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.BusLoadAnalysisMarker";
 	}
 
 	@Override
 	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("BoundResourceBudgets", obj);
+		setCSVLog("BusLoad", obj);
 		return true;
 	}
-
-	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
-	}
-
-	public void setSummaryReport() {
-		this.summaryReport = new StringBuffer();
-	}
-
-	public void saveReport() {
-		this.getCSVLog().saveToFile();
-	}
-
+	
 	@Override
-	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
+	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
 		InstanceModelUtil.clearCache();
-		new DoBoundResourceAnalysisLogic(getActionName(), this).analysisBody(monitor, obj);
+		new BusLoadAnalysis(getActionName(), this).analysisBody(monitor, root);
 	}
-
+	
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}

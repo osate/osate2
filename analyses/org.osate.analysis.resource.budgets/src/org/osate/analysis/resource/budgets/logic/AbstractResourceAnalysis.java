@@ -47,13 +47,13 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-abstract class AbstractResourceBudgetLogic extends AbstractLoggingLogic {
+abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private final String prefixSymbol = "  ";
 	
 	protected int components = 0;
 	protected int budgetedComponents = 0;
 	
-	protected AbstractResourceBudgetLogic(AbstractAaxlHandler handler) {
+	protected AbstractResourceAnalysis(AbstractAaxlHandler handler) {
 		super(handler);
 	}
 	
