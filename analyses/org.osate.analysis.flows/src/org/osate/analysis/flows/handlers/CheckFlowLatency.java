@@ -66,9 +66,9 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
-public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyHandler {
 	protected static AnalysisResult latResult = null;
 	protected static boolean isAsynchronousSystem = true;
 	protected static boolean isMajorFrameDelay = true;
