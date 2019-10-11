@@ -126,7 +126,7 @@ public class InterpreterUtil {
 				: v2.getScaledValue(minUnit);
 		RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
 		result.setValue(s1 / s2);
-		result.setUnit(twoUnits ? minUnit : unit);
+		result.setUnit(twoUnits ? null : unit);
 		return result;
 	}
 
