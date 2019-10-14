@@ -2474,7 +2474,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * is the ConnectionEnd if the connection context is null, otherwise it is just the connection context.
 	 */
 	private Subcomponent getConnectionSubcomponent(final Connection connection, final Context connectionContext, final ConnectionEnd connectionEnd) {
-		if (connection instanceof AccessConnection && connectionContext == null) {
+		if (connectionContext == null) {
 			return (Subcomponent) connectionEnd;
 		} else {
 			return connectionContext instanceof Subcomponent ? (Subcomponent) connectionContext : null;
