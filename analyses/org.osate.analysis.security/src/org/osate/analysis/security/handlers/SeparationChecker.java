@@ -50,7 +50,7 @@ import org.osate.analysis.security.SecurityLabelChecker;
 import org.osate.analysis.security.SecurityPolicy;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+public final class SeparationChecker extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 	@Override
 	public String getMarkerType() {

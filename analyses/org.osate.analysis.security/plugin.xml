@@ -10,16 +10,57 @@
       </category>
       <command
             categoryId="org.osate.analysis.architecture.category"
-            id="org.osate.analysis.security.checkSecurity"
-            name="Check Security">
+            id="org.osate.analysis.security.checkSeparation"
+            name="Check Data Separation">
+      </command>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.architecture.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.architecture.category"
+            id="org.osate.analysis.security.checkViolations"
+            name="Check Security Violations">
       </command>
    </extension>
 
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.osate.analysis.security.handlers.SecurityChecker"
-            commandId="org.osate.analysis.security.checkSecurity">
+            class="org.osate.analysis.security.handlers.SeparationChecker"
+            commandId="org.osate.analysis.security.checkSeparation">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.security.handlers.ViolationChecker"
+            commandId="org.osate.analysis.security.checkViolations">
          <enabledWhen>
             <or>
                <reference
@@ -46,9 +87,14 @@
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.analysis.security.checkSecurity"
-            disabledIcon="icons/noCheckSecurity.gif"
-            icon="icons/checkSecurity.gif">
+            commandId="org.osate.analysis.security.checkSeparation"
+            disabledIcon="icons/noCheckSeparation.gif"
+            icon="icons/checkSeparation.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.security.checkViolations"
+            disabledIcon="icons/noCheckViolations.gif"
+            icon="icons/checkViolations.gif">
       </image>
    </extension>
 
@@ -57,14 +103,40 @@
       <menuContribution
             locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity">
+               commandId="org.osate.analysis.security.checkSeparation">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkViolations">
          </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity"
+               commandId="org.osate.analysis.security.checkSeparation"
                tooltip="%checkSecurity.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkViolations"
+               tooltip="%checkViolations.toolTip">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -83,7 +155,16 @@
       <menuContribution
             locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity">
+               commandId="org.osate.analysis.security.checkSeparation">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkViolations">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
