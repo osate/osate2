@@ -43,6 +43,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -65,9 +66,9 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
-public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyHandler {
 	protected static AnalysisResult latResult = null;
 	protected static boolean isAsynchronousSystem = true;
 	protected static boolean isMajorFrameDelay = true;
@@ -118,8 +119,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 			isBestCaseEmptyQueue = d.localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
 			latResult = FlowLatencyUtil.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
-					isWorstCaseDeadline,
-					isBestCaseEmptyQueue);
+					isWorstCaseDeadline, isBestCaseEmptyQueue);
 		}
 
 		return doIt;
@@ -131,6 +131,10 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		LatencyCSVReport.generateCSVReport(latResult);
 		LatencyExcelReport.generateExcelReport(latResult);
 		generateMarkers(latResult, new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory()));
+		if (latResult.getResults().isEmpty()) {
+			getShell().getDisplay().asyncExec(() -> MessageDialog.openInformation(getShell(), "Flow Latency Analysis",
+					"No active flows were found to analyze."));
+		}
 		return true;
 	};
 
@@ -141,8 +145,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		}
 	}
 
-	private void generateMarkers(AnalysisErrorReporterManager errManager, List<Diagnostic> issues,
-			String som, EndToEndFlowInstance target) {
+	private void generateMarkers(AnalysisErrorReporterManager errManager, List<Diagnostic> issues, String som,
+			EndToEndFlowInstance target) {
 		String inMode = som.isEmpty() ? "" : " in mode " + som;
 		for (Diagnostic issue : issues) {
 			if (issue.getDiagnosticType() == DiagnosticType.INFO) {
@@ -170,6 +174,5 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		latResult.getResults().addAll(res);
 		monitor.done();
 	}
-
 
 }

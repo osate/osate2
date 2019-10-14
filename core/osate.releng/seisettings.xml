@@ -61,6 +61,14 @@
 
   <mirrors>
     <mirror>
+      <id>eclipse-2019-09</id>
+      <mirrorOf>http://download.eclipse.org/releases/2019-09</mirrorOf>
+      <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-09/201909181001</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
       <id>eclipse-2019-03</id>
       <mirrorOf>http://download.eclipse.org/releases/2019-03</mirrorOf>
       <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-03/201903201000</url>

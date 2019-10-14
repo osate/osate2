@@ -1,0 +1,90 @@
+package SimpleConnectionsSnk
+public
+	data D
+		-- empty
+	end D;
+	
+    subprogram sub
+        features
+            p1: in parameter D;
+            p2: out parameter D;
+        flows
+            subPath: flow path p1 -> p2;
+    end sub;
+    
+    thread th
+    	features
+    		ip: in data port D;
+    		op: out data port D;
+    	flows
+    		fpath: flow path ip -> op;
+    end th;
+    
+    thread implementation th.i
+	   	flows
+    		fpath: flow path ip -> op;
+    end th.i;
+ 
+    thread th2
+    	features
+    		ip2: in data port D;
+    		op2: out data port D;
+    	flows
+    		fsrc: flow source op2;
+    		fsnk: flow sink ip2;
+    end th2;
+
+	thread implementation th2.simple
+		flows
+			fsrc: flow source op2;
+    		fsnk: flow sink ip2;
+	end th2.simple;
+
+	thread implementation th2.withCall_noFlowImpl
+		subcomponents
+			myData: data D;
+    		sub1: subprogram sub;
+    	calls
+    		normal:{
+    			call1: subprogram sub1;
+    		};
+		connections
+			c1: parameter ip2 -> call1.p1;
+			c2: parameter call1.p2 -> myData;
+    end th2.withCall_noFlowImpl;
+    
+    thread implementation th2.withCall_flowImpl extends th2.withCall_noFlowImpl
+    	flows
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
+    		fsnk: flow sink ip2 -> c1 -> sub1.subPath -> c2 -> myData;
+    end th2.withCall_flowImpl;
+    
+    process top
+    end top;
+    
+    process implementation top.generic
+    	subcomponents
+    		t: thread th.i;
+    		q: thread th2;
+    	connections
+            c1: port q.op2 -> t.ip;
+            c2: port t.op -> q.ip2;
+        flows
+            e2e: end to end flow q.fsrc -> c1 -> t.fpath -> c2 -> q.fsnk;
+    end top.generic;
+    
+    process implementation top.simple extends top.generic
+        subcomponents
+            q: refined to thread th2.simple;
+    end top.simple;
+    
+    process implementation top.withCall_noFlowImpl extends top.generic
+        subcomponents
+            q: refined to thread th2.withCall_noFlowImpl;
+    end top.withCall_noFlowImpl;
+    
+    process implementation top.withCall_flowImpl extends top.generic
+        subcomponents
+            q: refined to thread th2.withCall_flowImpl;
+    end top.withCall_flowImpl;
+end SimpleConnectionsSnk;

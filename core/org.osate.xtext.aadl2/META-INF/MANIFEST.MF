@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.eclipse.core.runtime;bundle-version="3.7.0",
  org.apache.log4j;bundle-version="1.2.15",
  org.apache.commons.logging;bundle-version="1.0.4",
- org.eclipse.xtext;bundle-version="[2.17.0,2.18.0)";visibility:=reexport,
+ org.eclipse.xtext;bundle-version="[2.19.0,2.20.0)";visibility:=reexport,
  org.eclipse.xtext.util;bundle-version="2.16.0",
  org.antlr.runtime;bundle-version="3.2.0",
  org.osate.aadl2.modelsupport;visibility:=reexport,

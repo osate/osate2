@@ -791,6 +791,9 @@ class FlowSegmentsTest extends XtextTest {
 							"fsource3", "fsource4", "fsource5", "fsource6", "fsource7", "fsource8", "fsource9", "subpgsub1", "subpgsub2", "subpgsub3",
 							"subpsub1", "subpsub2"
 						])
+
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The destination of connection 'fconn2' does not match the succeeding subcomponent or in flow spec feature 'asub2.af2'")
 					]
 					ownedEndToEndFlowSegments.get(2) => [
 						"asub2".assertEquals(context.name)
