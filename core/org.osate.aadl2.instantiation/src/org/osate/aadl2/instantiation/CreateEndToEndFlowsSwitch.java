@@ -496,6 +496,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (!lastFlowImpl.isEmpty()) {
 					FlowImplementation flowFilter = lastFlowImpl.peek();
 					if (flowFilter != null) {
+						/* [**] See note below. */
 						error(etei.getContainingComponentInstance(),
 								"Cannot create end to end flow '" + etei.getName()
 								+ "' because there are no semantic connections that continue the flow '"
@@ -522,15 +523,18 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 				if (connectionsToUse.isEmpty()) {
 					/*
-					 * Note: I'm pretty sure it is impossible to get here, but I don't have any more time
-					 * investigate issue 1984. --Aaron
+					 * I originally thought that this case couldn't happen, but I've been proven wrong. This happens when the
+					 * connections inside a component implementation completely bypass the flow implementation. That is, the
+					 * flow implies one path, but the actual connections in the implementation make a different one.
+					 *
+					 * This error is the opposite of the case above [**].
 					 */
-					// Report error
 					final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
 					error(etei.getContainingComponentInstance(),
-							"Cannot create end to end flow '" + etei.getName() + "' because the connections "
-									+ connections + " do not connect to the flow '" + ff.getSpecification().getName()
-									+ "'");
+							"Cannot create end to end flow '" + etei.getName()
+									+ "' because there are no semantic connections that connect to the start of the flow '"
+									+ ff.getSpecification().getName() + "' at feature '"
+									+ ff.getInEnd().getFeature().getName() + "'");
 					connections.clear();
 					removeETEI.add(etei);
 				} else {
