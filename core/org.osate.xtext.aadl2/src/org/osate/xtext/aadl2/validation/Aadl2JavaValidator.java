@@ -1521,7 +1521,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ ((Subcomponent) prevFlowElement).getName() + '\'');
 							}
 						} else {
-							if (!(cxt instanceof SubprogramCall
+							if ((prevFlowElement != cxt) && !(cxt instanceof SubprogramCall
 									&& ((SubprogramCall) cxt).getCalledSubprogram() == prevFlowElement)) {
 								error(flow.getOwnedFlowSegments().get(i),
 										"The source of connection '" + connection.getName()
@@ -1588,7 +1588,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ ((Subcomponent) felem).getName() + '\'');
 							}
 						} else {
-							if (!(cxt instanceof SubprogramCall
+							if ((felem != cxt) && !(cxt instanceof SubprogramCall
 									&& ((SubprogramCall) cxt).getCalledSubprogram() == felem)) {
 								error(flow.getOwnedFlowSegments().get(i),
 										"The destination component '" + cxt.getName() + "' of connection '"
