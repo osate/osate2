@@ -1,5 +1,5 @@
 -- These flows are okay
-package SubprogramCall
+package SubprogramCallTest
 public
 	data D
 	end D;
@@ -52,4 +52,4 @@ public
 		flows 
 			fsnk: flow sink input;
 	end TT;
-end SubprogramCall;
+end SubprogramCallTest;
