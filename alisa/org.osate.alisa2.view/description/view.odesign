@@ -220,6 +220,7 @@
         </popupMenus>
       </subItemMappings>
       <ownedRepresentationCreationDescriptions xsi:type="tool_1:DiagramCreationDescription" name="NewConnectedNeighbors" diagramDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']">
+        <initialOperation/>
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="diagramName"/>
       </ownedRepresentationCreationDescriptions>
@@ -315,6 +316,7 @@
           <popupMenus name="Focus Operations">
             <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
               <view name="views"/>
+              <initialOperation/>
             </menuItemDescriptions>
             <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
               <view name="views"/>
@@ -343,8 +345,22 @@
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="TopLevelErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
-      <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()"/>
-      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()"/>
+      <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+        </defaultBackground>
+      </ownedLineMappings>
+      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+        </defaultBackground>
+      </ownedColumnMappings>
       <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">

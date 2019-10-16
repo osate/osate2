@@ -250,7 +250,7 @@ public class AwasManager {
 				.collect(Collectors.toMap(e -> ((NamedElement) e).getName(), Function.identity()));
 		children.putAll(childElements);
 
-		// Also cache error type names, since we need those too
+		// Also cache error type names --> root error types, since we need those too
 		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
 		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses(parent)) {
 			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {

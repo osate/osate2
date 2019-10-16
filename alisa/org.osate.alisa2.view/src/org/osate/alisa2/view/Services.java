@@ -140,7 +140,7 @@ public class Services {
 		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses((Element) self)) {
 			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
 				for (ErrorType currType : currLibrary.getTypes()) {
-					ret.add(getRootType(currType));
+					ret.add(AsapUtil.getRootType(currType));
 				}
 			}
 		}
@@ -148,30 +148,17 @@ public class Services {
 	}
 
 	public static Collection<EObject> getRootErrorTypesByConnection(EObject self) {
-		// TODO Stubbed this out, use either Hari's or Peter's or someone else's calculation
-		// It's hard because you have error models at different levels of the hierarchy, and
-		// so I don't think it's appropes to calculate that myself
-//		return (new Random()).nextBoolean() ? Collections.emptySet()
-//				: Collections
-//						.singleton(getRootErrorTypes(self).toArray()[new Random()
-//								.nextInt(getRootErrorTypes(self).size())]);
-		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self);
-		
-	}
+//		Collection<EObject> ret = AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self);
 
-	/**
-	 * Get the root error type associated with the given type. We walk up the
-	 * type's hierarchy until we're at the top, then return that.
-	 *
-	 * @param err The type to get the root type from
-	 * @return The root type (which may be the 'err' parameter, if it has no supertype)
-	 */
-	private static ErrorType getRootType(ErrorType err) {
-		ErrorType ret = err;
-		while (ret.getSuperType() != null) {
-			ret = ret.getSuperType();
-		}
-		return ret;
+		//@formatter:off
+		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
+	    	.filter(c -> c instanceof ErrorType)
+	    	.map(c -> (ErrorType) c)
+	    	.map(AsapUtil::getRootType)
+	    	.collect(Collectors.toSet());
+		//@formatter:on
+
+//		return ret;
 	}
 
 	/**
