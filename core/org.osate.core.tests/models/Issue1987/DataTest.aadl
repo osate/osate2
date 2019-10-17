@@ -1,0 +1,38 @@
+-- These flows are okay
+package DataTest
+public
+	data D
+	end D;
+	
+	thread T
+		features
+			output: out data port D;
+		flows
+			fsrc: flow source output;
+	end T;
+	
+	thread implementation T.i
+		subcomponents
+			myData: data D;
+		connections
+			c: port myData -> output;
+		flows
+			fsrc: flow source myData -> c -> output;
+	end T.i;
+	
+	thread TT
+		features
+			input: in data port D;
+		flows 
+			fsnk: flow sink input;
+	end TT;
+	
+	thread implementation TT.i
+		subcomponents
+			myData: data D;
+		connections
+			c: port input -> myData;
+		flows
+			fsnk: flow sink input -> c -> myData;
+	end TT.i;
+end DataTest;
