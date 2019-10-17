@@ -616,11 +616,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature flowIn = fimpl.getInEnd().getFeature();
 			Feature connDst = ((FeatureInstance) dst).getFeature();
 			result = flowIn == connDst;
-//			if (!result) {
-//				error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
-//				+ "' because the end of the semantic connection '" + conni.getComponentInstancePath()
-//				+ "' does not connect to the start of flow '" + fimpl.getSpecification().getName() + "'");
-//			}
 		}
 		return result;
 	}
@@ -638,13 +633,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature flowOut = fimpl.getOutEnd().getFeature();
 			Feature connSrc = ((FeatureInstance) src).getFeature();
 			result = flowOut == connSrc;
-//			if (!result) {
-//				error(etei.getContainingComponentInstance(),
-//						"Cannot create end to end flow '" + etei.getName() + "' because flow '"
-//								+ fimpl.getSpecification().getName()
-//								+ "' does not connect to the start of the semantic connection '"
-//								+ conni.getComponentInstancePath() + "'");
-//			}
 		}
 		return result;
 	}
