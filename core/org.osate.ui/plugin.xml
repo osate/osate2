@@ -1143,27 +1143,30 @@
                          value="1">
                    </count>
                    <iterate>
-                      <and>
-                         <test
-                               property="org.osate.ui.superType"
-                               value="ComponentImplementation"
-                               forcePluginActivation="true">
-                         </test>
-                         <not>
+                      <adapt
+                            type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                         <and>
                             <test
                                   property="org.osate.ui.superType"
-                                  value="SubprogramImplementation"
+                                  value="ComponentImplementation"
                                   forcePluginActivation="true">
                             </test>
-                         </not>
-                         <not>
-                            <test
-                                  property="org.osate.ui.superType"
-                                  value="SubprogramGroupImplementation"
-                                  forcePluginActivation="true">
-                            </test>
-                         </not>
-                      </and>
+                            <not>
+                               <test
+                                     property="org.osate.ui.superType"
+                                     value="SubprogramImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                            </not>
+                            <not>
+                               <test
+                                     property="org.osate.ui.superType"
+                                     value="SubprogramGroupImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                            </not>
+                         </and>
+                      </adapt>
                    </iterate>
                 </and>
              </with>
