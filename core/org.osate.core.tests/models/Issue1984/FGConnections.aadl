@@ -1,0 +1,53 @@
+package FGConnections
+public
+    feature group FG
+        features
+            x_in1: in data port;
+            x_in2: in data port;
+            x_out1: out data port;
+            x_out2: out data port;
+    end FG;
+
+    feature group FG_inverse inverse of FG
+    end FG_inverse;
+    
+    system th
+        features
+            fg1: feature group FG;
+            fg2: feature group FG_inverse;
+        flows
+            fpath: flow path fg1 -> fg2;
+    end th;
+    
+    system implementation th.specific
+        flows
+            fpath: flow path fg1.x_in1 -> fg2.x_in2;
+    end th.specific;
+        
+    system th2
+        features
+            fg1: feature group FG_inverse;
+            fg2: feature group FG;
+        flows
+            fsrc: flow source fg1;
+            fsnk: flow sink fg2;
+    end th2;
+    
+    system implementation th2.i
+        -- trivial
+    end th2.i;
+    
+    system top
+    end top;
+    
+    system implementation top.specific
+        subcomponents
+            t: system th.specific;
+            q: system th2.i;
+        connections
+            c1: feature group q.fg1 <-> t.fg1;
+            c2: feature group t.fg2 <-> q.fg2;
+        flows
+            e2e: end to end flow q.fsrc -> c1 -> t.fpath -> c2 -> q.fsnk;
+    end top.specific;
+end FGConnections;

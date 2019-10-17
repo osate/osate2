@@ -96,7 +96,7 @@ public class InterpreterUtil {
 		UnitLiteral unit = (v1.getUnit() != null) ? v1.getUnit() : v2.getUnit();
 		if (v1 instanceof IntegerLiteral && v2 instanceof IntegerLiteral) {
 			long s1 = ((IntegerLiteral) v1).getValue();
-			long s2 = ((IntegerLiteral) v1).getValue();
+			long s2 = ((IntegerLiteral) v2).getValue();
 			IntegerLiteral result = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 			result.setValue(s1 * s2);
 			result.setUnit(unit);
@@ -126,7 +126,7 @@ public class InterpreterUtil {
 				: v2.getScaledValue(minUnit);
 		RealLiteral result = Aadl2Factory.eINSTANCE.createRealLiteral();
 		result.setValue(s1 / s2);
-		result.setUnit(twoUnits ? minUnit : unit);
+		result.setUnit(twoUnits ? null : unit);
 		return result;
 	}
 
