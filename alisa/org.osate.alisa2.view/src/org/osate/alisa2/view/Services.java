@@ -1,6 +1,7 @@
 package org.osate.alisa2.view;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -148,8 +149,6 @@ public class Services {
 	}
 
 	public static Collection<EObject> getRootErrorTypesByConnection(EObject self) {
-//		Collection<EObject> ret = AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self);
-
 		//@formatter:off
 		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
 	    	.filter(c -> c instanceof ErrorType)
@@ -157,8 +156,6 @@ public class Services {
 	    	.map(AsapUtil::getRootType)
 	    	.collect(Collectors.toSet());
 		//@formatter:on
-
-//		return ret;
 	}
 
 	/**
@@ -173,6 +170,10 @@ public class Services {
 
 	public static String getControlActionRowHeader(EObject self) {
 		return ((ConnectionInstance) self).getName();
+	}
+
+	public static Collection<EObject> getFamilyErrorTypes(EObject self, Object containerView) {
+		return Collections.emptySet();
 	}
 
 	/**
@@ -223,6 +224,10 @@ public class Services {
 	}
 
 	public static Collection<EObject> debug(EObject self) {
-		return null;
+		return null;// service:getFamilyErrorTypes(containerView)
+	}
+
+	public static boolean debugPrecondition(EObject self) {
+		return true;
 	}
 }
