@@ -10,10 +10,10 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.0.0</tycho.version>
-		<tycho-extras.version>1.0.0</tycho-extras.version>
-		<xtext.version>2.17.0</xtext.version>
-		<xsemantics.version>1.17.0-SNAPSHOT</xsemantics.version>
+		<tycho.version>1.4.0</tycho.version>
+		<tycho-extras.version>1.4.0</tycho-extras.version>
+		<xtext.version>2.19.0</xtext.version>
+		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.6.0-SNAPSHOT</osate.version>
 
@@ -23,8 +23,8 @@
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-03</eclipse.repo.url>
-		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2/</xtext-testing.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
+		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
@@ -333,6 +333,18 @@
 		</profile>
 	</profiles>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>xtext-dev-bom</artifactId>
+				<version>${xtext.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -388,60 +400,13 @@
 							<goal>xtend-install-debug-info</goal>
 							<goal>xtend-test-install-debug-info</goal>
 						</goals>
+						<phase>process-sources</phase>
 						<configuration>
 							<xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
-				<!-- workaround for dependency issue, see https://github.com/eclipse/xtext/issues/1231 -->
-				<dependencies>
-					<dependency>
-						<groupId>org.eclipse.platform</groupId>
-						<artifactId>org.eclipse.equinox.common</artifactId>
-						<version>3.10.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.core</artifactId>
-						<version>3.13.102</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-						<version>1.3.110</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.jdt</groupId>
-						<artifactId>org.eclipse.jdt.compiler.tool</artifactId>
-						<version>1.2.101</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.common</artifactId>
-						<version>2.12.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.ecore</artifactId>
-						<version>2.12.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-						<version>2.12.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.codegen</artifactId>
-						<version>2.11.0</version>
-					</dependency>
-					<dependency>
-						<groupId>org.eclipse.emf</groupId>
-						<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
-						<version>2.12.0</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -523,9 +488,15 @@
 							<goals>
 								<goal>generate</goal>
 							</goals>
+							<phase>generate-sources</phase>
 						</execution>
 					</executions>
 					<configuration>
+						<compilerSourceLevel>1.8</compilerSourceLevel>
+						<compilerTargetLevel>1.8</compilerTargetLevel>
+						<sourceRoots>
+							<sourceRoot>${basedir}/src</sourceRoot>
+						</sourceRoots>
 						<languages>
 							<language>
 								<setup>org.eclipse.xsemantics.dsl.XsemanticsStandaloneSetup</setup>
