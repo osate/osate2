@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.BusLoadAnalysis;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -64,8 +65,20 @@ public class BusLoadAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 		return true;
 	}
 	
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
+	}
+	
+	public void setSummaryReport() {
+		this.summaryReport = new StringBuffer();
+	}
+	
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
+	
 	@Override
-	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
+	public void doAaxlAction(IProgressMonitor monitor, Element root) {
 		InstanceModelUtil.clearCache();
 		new BusLoadAnalysis(getActionName(), this).analysisBody(monitor, root);
 	}
