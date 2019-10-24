@@ -251,17 +251,17 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkRecoverEventTriggerType(recoverEvent);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseConditionElement(ConditionElement conditionElement) {
 		checkConditionElementType(conditionElement);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseSConditionElement(SConditionElement conditionElement) {
 		checkSConditionElementType(conditionElement);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 		checkSubclauseAssociationToClassifier(subclause);
 		checkDuplicateSubclause(subclause);
@@ -287,12 +287,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkUseBehavior(subclause);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseTypeMappingSet(TypeMappingSet tms) {
 		// checkElementRuleConsistency(tms);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorModelLibrary(ErrorModelLibrary errorModelLibrary) {
 		if (errorModelLibrary.getName() == null) {
 			errorModelLibrary.setName("emv2");
@@ -301,48 +301,48 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkUniqueDefiningIdentifiers(errorModelLibrary, cyclicextends);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
 		checkUniqueEBSMElements(ebsm);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorBehaviorTransition(ErrorBehaviorTransition ebt) {
 		checkTransitionSourceTypes(ebt);
 		checkTransitionTargetTypes(ebt);
 		checkBranches(ebt);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseTransitionBranch(TransitionBranch ebt) {
 		checkTransitionTargetTypes(ebt);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorDetection(ErrorDetection ebt) {
 		checkDetectionSourceTypes(ebt);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorSource(ErrorSource ef) {
 		checkErrorSourceTypes(ef);
 		checkFlowDirection(ef);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition opc) {
 		checkOutgoingConditionSourceTypes(opc);
 		checkOutgoingTypes(opc);
 		checkHasConditionOrTypeToken(opc);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorSink(ErrorSink ef) {
 		checkErrorSinkTypes(ef);
 		checkFlowDirection(ef);
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseErrorPath(ErrorPath ef) {
 		checkErrorPathTypes(ef);
 		checkFlowDirection(ef);
@@ -351,7 +351,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check(CheckType.FAST)
 	public void caseConnection(Connection conn) {
 		checkConnectionErrorTypes(conn);
 	}
