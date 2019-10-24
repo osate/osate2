@@ -128,8 +128,7 @@ public final class SeparationChecker extends AbstractInstanceOrDeclarativeModelR
 			return;
 		}
 
-		final SecurityLabelChecker checker = new SecurityLabelChecker(errManager,
-				policy.get());
+		final SecurityLabelChecker checker = new SecurityLabelChecker(errManager, policy.get());
 		checker.processPostOrderAll(root);
 		monitor.done();
 	}

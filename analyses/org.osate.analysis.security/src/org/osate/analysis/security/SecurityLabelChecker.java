@@ -177,8 +177,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 						SecurityLabel dl = dstLabel.get();
 						if (!policy.allows(dir, sl, dl)) {
 							error(element,
-									"Security policy violation: Flow from " + sl.toString() + " to "
-									+ dl.toString());
+									"Security policy violation: Flow from " + sl.toString() + " to " + dl.toString());
 						}
 					} else {
 						if (!srcLabel.isPresent() && dstLabel.isPresent()) {
