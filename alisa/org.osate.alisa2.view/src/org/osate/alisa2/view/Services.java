@@ -1,7 +1,6 @@
 package org.osate.alisa2.view;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -111,13 +110,16 @@ public class Services {
 		return ((ComponentInstance) self).getContainingComponentInstance() != null;
 	}
 
+	/**
+	 * Gets the current object's container.
+	 *
+	 * Used by: FamilyErrors.Table Creation CreateFamilyErrors.Advanced-Browse Expression
+	 *
+	 * @param self The object to get the container of
+	 * @return The object's container
+	 */
 	public static EObject getContainer(EObject self) {
 		return self.eContainer();
-	}
-
-	public static EObject getContainer(EObject self, DCellSpec containerView) {
-		return containerView.getColumn().getSemanticElements().get(0);
-//		return self.eContainer();
 	}
 
 	/**
@@ -148,6 +150,8 @@ public class Services {
 	 * for every error type referenced by self, we get the root of that type's
 	 * hierarchy.
 	 *
+	 * Used by: TopLevelErrors.ErrorTypesTopLevelErrors.General-Semantic Candidates Expression
+	 *
 	 * @param self The component to get the error types from
 	 * @return A set of root error types
 	 */
@@ -169,6 +173,14 @@ public class Services {
 		return AsapUtil.getRootType((ErrorType) errorType);
 	}
 
+	/**
+	 * Gets the root error types associated with each error type sent on a connection
+	 *
+	 * Used by: TopLevelErrors.HasError.General-Column Finder Expression
+	 *
+	 * @param self
+	 * @return
+	 */
 	public static Collection<EObject> getRootErrorTypesByConnection(EObject self) {
 		//@formatter:off
 		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
@@ -179,6 +191,14 @@ public class Services {
 		//@formatter:on
 	}
 
+	/**
+	 * Gets the error types sent on a connection
+	 *
+	 * Used by: FamilyErrors.HasError.General-Column Finder Expression
+	 *
+	 * @param self The connection
+	 * @return A set of error types sent on the connection
+	 */
 	public static Collection<EObject> getErrorTypesByConnection(EObject self) {
 		//@formatter:off
 		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
@@ -190,6 +210,10 @@ public class Services {
 	/**
 	 * Get text appropriate for the error type column header
 	 *
+	 * Used by:
+	 * 	* FamilyErrors.ErrorTypesFamilyErrors.Label-Header Label Expression
+	 * 	* TopLevelErrors.ErrorTypesTopLevelErrors.Label-Header Label Expression
+	 *
 	 * @param self The error type to get the title from
 	 * @return Appropriate header text
 	 */
@@ -197,37 +221,43 @@ public class Services {
 		return ((ErrorType) self).getName();
 	}
 
+	/**
+	 * Used by:
+	 * 	* FamilyErrors.ControlActionsFamilyErrors.Label-Header Label Expression
+	 *  * TopLevelErrors.ControlActionsTopLevelErrors.Label-Header Label Expression
+	 */
 	public static String getControlActionRowHeader(EObject self) {
 		return ((ConnectionInstance) self).getName();
 	}
 
-	public static Collection<EObject> getFamilyErrorTypes(EObject self, ErrorType rootError) {
-		return Collections.emptySet();
-	}
-
-	public static Collection<EObject> getFamilyErrorTypes(EObject self) {
-		return Collections.emptySet();
-	}
-
+	/**
+	 * Used by: FamilyErrors.ErrorTypesFamilyErrors.General-Semantic Candidates Expression
+	 *
+	 * @param self A connection. Currently unused, but required by Sirius.
+	 * @param containerView The cell the user clicked, used for determining the error family.
+	 * @return All error types that have the error type referenced by the cell's column as a supertype
+	 */
 	public static Collection<EObject> getFamilyErrorTypes(EObject self, DCellSpec containerView) {
 		ErrorType root = (ErrorType) containerView.getColumn().getSemanticElements().get(0);
 		ResourceSet rs = root.eResource().getResourceSet();
-		ErrorTypeTreeBuilder ettb = new ErrorTypeTreeBuilder(rs);
+		ErrorTypeTreeBuilder ettb;
 
-		Collection<EObject> kids = new HashSet<>();
+		Collection<EObject> subtypes = new HashSet<>();
 		Queue<ErrorType> toProcess = new LinkedList<>();
 		ErrorType curType;
 		toProcess.add(root);
 		while (!toProcess.isEmpty()) {
-			ettb = new ErrorTypeTreeBuilder(rs);
+			ettb = new ErrorTypeTreeBuilder(rs); // Have to re-init for each call of findUsage to avoid NPE
 			curType = toProcess.poll();
-			Collection<ErrorType> newTypes = ettb.findUsage(curType).stream()//
-					.map(e -> (ErrorType) e.getEObject())//
+			//@formatter:off
+			Collection<ErrorType> newTypes = ettb.findUsage(curType).stream()
+					.map(e -> (ErrorType) e.getEObject())
 					.collect(Collectors.toSet());
+			//@formatter:on
 			toProcess.addAll(newTypes);
-			kids.addAll(newTypes);
+			subtypes.addAll(newTypes);
 		}
-		return kids;
+		return subtypes;
 	}
 
 	/**
@@ -285,6 +315,16 @@ public class Services {
 		return true;
 	}
 
+	/**
+	 * This class is used by {@link #getFamilyErrorTypes(EObject, DCellSpec)} to
+	 * calculate all subtypes of a particular error type.
+	 *
+	 * This is lightly adapted from pages 524-525 of "EMF Eclipse Modeling
+	 * Foundation" by Steinberg, Budinsky, Paternostro, and Merks (2nd ed)
+	 *
+	 * @author sprocter
+	 *
+	 */
 	private static class ErrorTypeTreeBuilder extends UsageCrossReferencer {
 		protected ErrorTypeTreeBuilder(ResourceSet resourceSet) {
 			super(resourceSet);
@@ -294,18 +334,21 @@ public class Services {
 
 		@Override
 		protected boolean crossReference(EObject eObject, EReference eReference, EObject referencedObj) {
-			boolean ret = super.crossReference(eObject, eReference, referencedObj)
-					&& eReference.getName().equals("superType");
-			return ret;
+			// We only want supertype references (left hand side) and those types
+			// that actually cross-reference our object (right hand side)
+			return eReference.getName().equals("superType") && super.crossReference(eObject, eReference, referencedObj);
 		}
 
 		@Override
 		protected boolean containment(EObject eObject) {
+			// This restricts the search to AADL objects that point at the error type
+			// (as opposed to, eg, sirius objects)
 			return eObject instanceof AObject;
 		}
 
 		@Override
 		public Collection<Setting> findUsage(EObject eObject) {
+			// we have to override this to change its visibility
 			return super.findUsage(eObject);
 		}
 	}

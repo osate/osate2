@@ -14,6 +14,10 @@
            id="org.osate.alisa2.view.DoFocusActionID">
      </javaActions>
      <javaActions
+           actionClass="org.osate.alisa2.view.ForceVariableInitializationAction"
+           id="org.osate.alisa2.view.ForceVariableInitializationActionID">
+     </javaActions>
+     <javaActions
            actionClass="org.osate.alisa2.view.ClearFocusAction"
            id="org.osate.alisa2.view.ClearFocusActionID">
      </javaActions>

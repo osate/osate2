@@ -346,14 +346,7 @@
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="tableName"/>
       </ownedRepresentationCreationDescriptions>
-      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateFamilyErrors" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']">
-        <initialOperation>
-          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="printem" id="org.eclipse.sirius.business.api.action.printVariables"/>
-        </initialOperation>
-        <containerViewVariable name="containerQView"/>
-        <representationNameVariable name="tableName"/>
-      </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+      <ownedLineMappings name="ControlActionsTopLevelErrors" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -361,7 +354,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
+      <ownedColumnMappings name="ErrorTypesTopLevelErrors" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -369,7 +362,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasError" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
+      <intersection name="HasErrorTopLevelErrors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActionsTopLevelErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
@@ -451,7 +444,14 @@
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="FamilyErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
-      <ownedLineMappings name="ControlActionsFam" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateFamilyErrors" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']">
+        <initialOperation>
+          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="ForceVariableInitialization" id="org.osate.alisa2.view.ForceVariableInitializationActionID"/>
+        </initialOperation>
+        <containerViewVariable name="TLECellContainerView"/>
+        <representationNameVariable name="tableName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedLineMappings name="ControlActionsFamilyErrors" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -459,7 +459,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypesFam" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(containerQView)">
+      <ownedColumnMappings name="ErrorTypesFamilyErrors" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(TLECellContainerView)">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -467,44 +467,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasError" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedLineMappings[name='ControlActionsFam']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()">
-        <foregroundConditionalStyle predicateExpression="service:isFocused()">
-          <style labelSize="8">
-            <labelFormat>bold</labelFormat>
-            <labelFormat>italic</labelFormat>
-            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
-          </style>
-        </foregroundConditionalStyle>
-      </intersection>
-    </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="TopLevelErrorsNeue" domainClass="instance.ComponentInstance">
-      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
-      <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
-      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="Table Creation NewTopLevelErrors" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrorsNeue']">
-        <containerViewVariable name="containerView"/>
-        <representationNameVariable name="tableName"/>
-      </ownedRepresentationCreationDescriptions>
-      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateFamilyErrors" elementsToSelect="service:debug()" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']">
-        <containerViewVariable name="containerView"/>
-        <representationNameVariable name="tableName"/>
-      </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActions" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
-        <defaultForeground>
-          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-        </defaultForeground>
-        <defaultBackground>
-          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-        </defaultBackground>
-      </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypes" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
-        <defaultForeground>
-          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-        </defaultForeground>
-        <defaultBackground>
-          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-        </defaultBackground>
-      </ownedColumnMappings>
-      <intersection name="HasError" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrorsNeue']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrorsNeue']/@ownedLineMappings[name='ControlActions']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrorsNeue']/@ownedColumnMappings.0" labelExpression="X" useDomainClass="true" columnFinderExpression="service:getRootErrorTypesByConnection()" lineFinderExpression="service:debug()" semanticCandidatesExpression="service:getRootErrorTypes()" domainClass="ErrorTypes">
+      <intersection name="HasErrorFamilyErrors" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedLineMappings[name='ControlActionsFamilyErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
