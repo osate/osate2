@@ -4,8 +4,14 @@
 package org.osate.xtext.aadl2.properties.formatting2;
 
 import com.google.inject.Inject
+import org.eclipse.xtext.AbstractRule
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.formatting2.ITextReplacer
+import org.eclipse.xtext.formatting2.internal.SinglelineCodeCommentReplacer
+import org.eclipse.xtext.formatting2.internal.SinglelineDocCommentReplacer
+import org.eclipse.xtext.formatting2.regionaccess.IComment
+import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch
 import org.osate.aadl2.ArrayRange
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ClassifierValue
@@ -23,6 +29,19 @@ import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess
 
 class PropertiesFormatter extends AbstractFormatter2 {
 	@Inject extension PropertiesGrammarAccess
+	
+	override createCommentReplacer(IComment comment) {
+		val grammarElement = comment.grammarElement
+		if (grammarElement instanceof AbstractRule) {
+			if (comment.lineRegions.head.indentation.length > 0) {
+				return new SinglelineDocCommentReplacer(comment, "--")
+			} else {
+				return new SinglelineCodeCommentReplacer(comment, "--")
+			}
+		}
+		val elementName = new GrammarElementTitleSwitch().showQualified.showRule.doSwitch(grammarElement)
+		throw new IllegalStateException("No " + ITextReplacer.simpleName + " configured for " + elementName)
+	}
 	
 	def dispatch void format(ModalPropertyValue modalPropertyValue, extension IFormattableDocument document) {
 		modalPropertyValue.ownedValue.format(document)
