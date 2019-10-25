@@ -1,0 +1,55 @@
+-- These flows are okay
+package SubprogramCallTest
+public
+	data D
+	end D;
+	
+	subprogram SP
+		features
+			pin: in parameter D;
+			pout: out parameter D;
+		flows
+			through: flow path pin -> pout;
+	end SP;
+	
+	thread T
+		features
+			output: out data port D;
+			input: in data port D;
+		flows
+			fsrc: flow source output;
+			fsnk: flow sink input;
+	end T;
+	
+	thread implementation T.i
+		subcomponents
+			myData: data D;
+			dummy: data D;
+		calls
+			q: {
+				call1: subprogram SP;
+				call2: subprogram SP;
+			};
+		connections
+			b: parameter myData -> call1.pin;
+			c: parameter call1.pout -> output;
+			
+			e: parameter input -> call2.pin;
+			f: parameter call2.pout -> myData;
+		flows
+			-- b and e should not have an error on the source
+			-- c and f should not have an error on the destination
+			-- The other errors are because flows through subprograms aren't working, so I had to put a 
+			-- dummy component in the middle.  
+			-- So, errors about 'dummy' are expected, but there should be no other errors
+			fsrc: flow source myData -> b -> dummy -> c -> output;
+			fsnk: flow sink input -> e -> dummy -> f -> myData;
+	end T.i;
+	
+	thread TT
+		features
+			input: in data port D;
+		flows 
+			fsnk: flow sink input;
+	end TT;
+end SubprogramCallTest;
