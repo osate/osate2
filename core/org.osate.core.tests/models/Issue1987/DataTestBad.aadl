@@ -1,0 +1,40 @@
+-- These flows are bad because the connections name the wrong data component
+package DataTestBad
+public
+	data D
+	end D;
+	
+	thread T
+		features
+			output: out data port D;
+		flows
+			fsrc: flow source output;
+	end T;
+	
+	thread implementation T.i
+		subcomponents
+			myData: data D;
+			myData2: data D;
+		connections
+			c: port myData -> output;
+		flows
+			fsrc: flow source myData2 -> c -> output;
+	end T.i;
+	
+	thread TT
+		features
+			input: in data port D;
+		flows 
+			fsnk: flow sink input;
+	end TT;
+	
+	thread implementation TT.i
+		subcomponents
+			myData: data D;
+			myData2: data D;
+		connections
+			c: port input -> myData;
+		flows
+			fsnk: flow sink input -> c -> myData2;
+	end TT.i;
+end DataTestBad;
