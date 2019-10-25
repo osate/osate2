@@ -3,19 +3,27 @@ package org.osate.alisa2.view;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil.UsageCrossReferencer;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
+import org.eclipse.sirius.table.business.internal.metamodel.spec.DCellSpec;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.parsesupport.AObject;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -103,6 +111,15 @@ public class Services {
 		return ((ComponentInstance) self).getContainingComponentInstance() != null;
 	}
 
+	public static EObject getContainer(EObject self) {
+		return self.eContainer();
+	}
+
+	public static EObject getContainer(EObject self, DCellSpec containerView) {
+		return containerView.getColumn().getSemanticElements().get(0);
+//		return self.eContainer();
+	}
+
 	/**
 	 * Returns true if this is the first connection between two components. Used to prevent double-creating
 	 * edges between one-hop neighbors when those neighbors "close the loop" ie, are connected to each other.
@@ -148,12 +165,24 @@ public class Services {
 		return ret;
 	}
 
+	public static EObject getRootErrorType(EObject errorType) {
+		return AsapUtil.getRootType((ErrorType) errorType);
+	}
+
 	public static Collection<EObject> getRootErrorTypesByConnection(EObject self) {
 		//@formatter:off
 		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
 	    	.filter(c -> c instanceof ErrorType)
 	    	.map(c -> (ErrorType) c)
 	    	.map(AsapUtil::getRootType)
+	    	.collect(Collectors.toSet());
+		//@formatter:on
+	}
+
+	public static Collection<EObject> getErrorTypesByConnection(EObject self) {
+		//@formatter:off
+		return AwasManager.getInstance().getRootErrorTypesByConnection((ConnectionInstance) self).stream()
+	    	.filter(c -> c instanceof ErrorType)
 	    	.collect(Collectors.toSet());
 		//@formatter:on
 	}
@@ -172,8 +201,33 @@ public class Services {
 		return ((ConnectionInstance) self).getName();
 	}
 
-	public static Collection<EObject> getFamilyErrorTypes(EObject self, Object containerView) {
+	public static Collection<EObject> getFamilyErrorTypes(EObject self, ErrorType rootError) {
 		return Collections.emptySet();
+	}
+
+	public static Collection<EObject> getFamilyErrorTypes(EObject self) {
+		return Collections.emptySet();
+	}
+
+	public static Collection<EObject> getFamilyErrorTypes(EObject self, DCellSpec containerView) {
+		ErrorType root = (ErrorType) containerView.getColumn().getSemanticElements().get(0);
+		ResourceSet rs = root.eResource().getResourceSet();
+		ErrorTypeTreeBuilder ettb = new ErrorTypeTreeBuilder(rs);
+
+		Collection<EObject> kids = new HashSet<>();
+		Queue<ErrorType> toProcess = new LinkedList<>();
+		ErrorType curType;
+		toProcess.add(root);
+		while (!toProcess.isEmpty()) {
+			ettb = new ErrorTypeTreeBuilder(rs);
+			curType = toProcess.poll();
+			Collection<ErrorType> newTypes = ettb.findUsage(curType).stream()//
+					.map(e -> (ErrorType) e.getEObject())//
+					.collect(Collectors.toSet());
+			toProcess.addAll(newTypes);
+			kids.addAll(newTypes);
+		}
+		return kids;
 	}
 
 	/**
@@ -229,5 +283,30 @@ public class Services {
 
 	public static boolean debugPrecondition(EObject self) {
 		return true;
+	}
+
+	private static class ErrorTypeTreeBuilder extends UsageCrossReferencer {
+		protected ErrorTypeTreeBuilder(ResourceSet resourceSet) {
+			super(resourceSet);
+		}
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected boolean crossReference(EObject eObject, EReference eReference, EObject referencedObj) {
+			boolean ret = super.crossReference(eObject, eReference, referencedObj)
+					&& eReference.getName().equals("superType");
+			return ret;
+		}
+
+		@Override
+		protected boolean containment(EObject eObject) {
+			return eObject instanceof AObject;
+		}
+
+		@Override
+		public Collection<Setting> findUsage(EObject eObject) {
+			return super.findUsage(eObject);
+		}
 	}
 }
