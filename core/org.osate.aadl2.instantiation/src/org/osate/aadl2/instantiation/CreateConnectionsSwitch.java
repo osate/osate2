@@ -699,8 +699,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// we may need to stop at the processor in addition to
 							// going in
 							boolean finalizeConnectionInstance = true;
-							if (toEnd instanceof BusAccess
-									&& ((BusAccess) toEnd).getKind() == AccessType.PROVIDES) {
+							if (toEnd instanceof BusAccess && ((BusAccess) toEnd).getKind() == AccessType.PROVIDES) {
 								if (toImpl instanceof ProcessorImplementation || toImpl instanceof MemoryImplementation
 										|| toImpl instanceof BusImplementation || toImpl instanceof DeviceImplementation
 										|| toImpl instanceof SystemImplementation) {
@@ -746,28 +745,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								clone.complete = true;
 								finalizeConnectionInstance(ci, clone, toFi);
 							}
-
-//							if (((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation
-//									|| toImpl instanceof MemoryImplementation)
-//									&& !(toEnd instanceof BusAccess
-//											&& ((BusAccess) toEnd).getKind() == AccessType.PROVIDES))
-//									|| ((toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
-//											|| toImpl instanceof ThreadGroupImplementation
-//											|| toImpl instanceof ProcessImplementation)
-//											&& !(toEnd instanceof DataAccess
-//													&& ((DataAccess) toEnd).getKind() == AccessType.PROVIDES))
-//									|| ((toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
-//											|| toImpl instanceof ThreadGroupImplementation
-//											|| toImpl instanceof ProcessImplementation
-//											|| toImpl instanceof VirtualProcessorImplementation
-//											|| toImpl instanceof DeviceImplementation)
-//											&& !(toEnd instanceof SubprogramAccess
-//													&& ((SubprogramAccess) toEnd).getKind() == AccessType.PROVIDES))
-//							) {
-//								final ConnectionInfo clone = connInfo.cloneInfo();
-//								clone.complete = true;
-//								finalizeConnectionInstance(ci, clone, toFi);
-//							}
 
 							// we have ingoing connections that start with toFeature
 							// as End or as Cxt
