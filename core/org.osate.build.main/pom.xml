@@ -314,10 +314,10 @@
 						<artifactId>maven-jarsigner-plugin</artifactId>
 						<version>3.0.0</version>
 						<configuration>
-							<keystore>file:///home/lw/.pki/osate-signing.keystore</keystore>
-							<storepass>STOREPASS</storepass>
-							<alias>testsign</alias>
-							<keypass>KEYPASS</keypass>
+							<keystore>file:///home/lw/.pki/codesign.pkcs12</keystore>
+							<storepass>{n824hiOUTfUHUZUWe0HAyDPG3P6ZoL4/FqdUvgnk+j8=}</storepass>
+							<alias>carnegie mellon university’s internet2 id</alias>
+							<keypass>{lZIkq0wYx48HZrHdsUI4mc7z9RB9NdoafG8UgdFAgU8=}</keypass>
 						</configuration>
 						<executions>
 							<execution>
