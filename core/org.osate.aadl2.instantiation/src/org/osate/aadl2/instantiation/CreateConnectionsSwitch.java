@@ -38,10 +38,14 @@ package org.osate.aadl2.instantiation;
 import static org.osate.aadl2.ComponentCategory.BUS;
 import static org.osate.aadl2.ComponentCategory.DATA;
 import static org.osate.aadl2.ComponentCategory.DEVICE;
+import static org.osate.aadl2.ComponentCategory.MEMORY;
+import static org.osate.aadl2.ComponentCategory.PROCESS;
 import static org.osate.aadl2.ComponentCategory.PROCESSOR;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
+import static org.osate.aadl2.ComponentCategory.SYSTEM;
 import static org.osate.aadl2.ComponentCategory.THREAD;
+import static org.osate.aadl2.ComponentCategory.THREAD_GROUP;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 
@@ -60,8 +64,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
@@ -69,6 +75,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
@@ -88,15 +95,23 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -288,9 +303,31 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							&& ((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
 									// in case of a provides bus access we want to
 									// start from the bus.
-									|| ((cat == PROCESSOR || cat == DEVICE || cat == ComponentCategory.MEMORY)
+									|| ((cat == PROCESSOR || cat == MEMORY || cat == BUS || cat == VIRTUAL_BUS
+											|| cat == DEVICE || cat == SYSTEM)
 											&& feature instanceof BusAccess
-											&& ((BusAccess) feature).getKind() == AccessType.PROVIDES))) {
+											&& ((BusAccess) feature).getKind() == AccessType.PROVIDES)
+									// in case of a provides data access we want to
+									// start from the data.
+									|| ((cat == DATA || cat == THREAD || cat == THREAD_GROUP || cat == PROCESS
+											|| cat == SYSTEM)
+											&& feature instanceof DataAccess
+											&& ((DataAccess) feature).getKind() == AccessType.PROVIDES)
+									// in case of a provides subprogram access we want to
+									// start from the subprogram.
+									|| ((cat == DATA || cat == SUBPROGRAM_GROUP || cat == THREAD || cat == THREAD_GROUP
+											|| cat == PROCESS || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR
+											|| cat == DEVICE || cat == SYSTEM)
+											&& feature instanceof SubprogramAccess
+											&& ((SubprogramAccess) feature).getKind() == AccessType.PROVIDES)
+									// in case of a provides subprogram group access we want to
+									// start from the subprogram group.
+									|| ((cat == DATA || cat == SUBPROGRAM_GROUP || cat == THREAD || cat == THREAD_GROUP
+											|| cat == PROCESS || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR
+											|| cat == DEVICE || cat == SYSTEM)
+											&& feature instanceof SubprogramGroupAccess
+											&& ((SubprogramGroupAccess) feature).getKind() == AccessType.PROVIDES)
+							)) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}
@@ -512,7 +549,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			} else {
 				Feature toFeature = (Feature) toEnd;
 
-				if (toEnd instanceof Parameter || finalComponent && !(toEnd instanceof FeatureGroup)) {
+				if (toEnd instanceof Parameter
+						|| finalComponent && !(toEnd instanceof FeatureGroup || toEnd instanceof Access)) {
 					// connection ends at a parameter or at a simple feature of a
 					// thread, device, or (virtual) processor
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
@@ -660,14 +698,77 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						} else {
 							// we may need to stop at the processor in addition to
 							// going in
-							if ((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation
-									|| toImpl instanceof MemoryImplementation)
-									&& !(toEnd instanceof BusAccess
-											&& ((BusAccess) toEnd).getKind() == AccessType.PROVIDES)) {
+							boolean finalizeConnectionInstance = true;
+							if (toEnd instanceof BusAccess
+									&& ((BusAccess) toEnd).getKind() == AccessType.PROVIDES) {
+								if (toImpl instanceof ProcessorImplementation || toImpl instanceof MemoryImplementation
+										|| toImpl instanceof BusImplementation || toImpl instanceof DeviceImplementation
+										|| toImpl instanceof SystemImplementation) {
+									finalizeConnectionInstance = false;
+								}
+							} else if (toEnd instanceof DataAccess
+									&& ((DataAccess) toEnd).getKind() == AccessType.PROVIDES) {
+								if (toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
+										|| toImpl instanceof ThreadGroupImplementation
+										|| toImpl instanceof ProcessImplementation
+										|| toImpl instanceof SystemImplementation) {
+									finalizeConnectionInstance = false;
+								}
+							} else if (toEnd instanceof SubprogramAccess
+									&& ((SubprogramAccess) toEnd).getKind() == AccessType.PROVIDES) {
+								if (toImpl instanceof DataImplementation
+										|| toImpl instanceof SubprogramGroupImplementation
+										|| toImpl instanceof ThreadImplementation
+										|| toImpl instanceof ThreadGroupImplementation
+										|| toImpl instanceof ProcessImplementation
+										|| toImpl instanceof ProcessorImplementation
+										|| toImpl instanceof VirtualProcessorImplementation
+										|| toImpl instanceof DeviceImplementation
+										|| toImpl instanceof SystemImplementation) {
+									finalizeConnectionInstance = false;
+								}
+							} else if (toEnd instanceof SubprogramGroupAccess
+									&& ((SubprogramGroupAccess) toEnd).getKind() == AccessType.PROVIDES) {
+								if (toImpl instanceof DataImplementation
+										|| toImpl instanceof SubprogramGroupImplementation
+										|| toImpl instanceof ThreadImplementation
+										|| toImpl instanceof ThreadGroupImplementation
+										|| toImpl instanceof ProcessImplementation
+										|| toImpl instanceof ProcessorImplementation
+										|| toImpl instanceof VirtualProcessorImplementation
+										|| toImpl instanceof DeviceImplementation
+										|| toImpl instanceof SystemImplementation) {
+									finalizeConnectionInstance = false;
+								}
+							}
+							if (finalizeConnectionInstance) {
 								final ConnectionInfo clone = connInfo.cloneInfo();
 								clone.complete = true;
 								finalizeConnectionInstance(ci, clone, toFi);
 							}
+
+//							if (((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation
+//									|| toImpl instanceof MemoryImplementation)
+//									&& !(toEnd instanceof BusAccess
+//											&& ((BusAccess) toEnd).getKind() == AccessType.PROVIDES))
+//									|| ((toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
+//											|| toImpl instanceof ThreadGroupImplementation
+//											|| toImpl instanceof ProcessImplementation)
+//											&& !(toEnd instanceof DataAccess
+//													&& ((DataAccess) toEnd).getKind() == AccessType.PROVIDES))
+//									|| ((toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
+//											|| toImpl instanceof ThreadGroupImplementation
+//											|| toImpl instanceof ProcessImplementation
+//											|| toImpl instanceof VirtualProcessorImplementation
+//											|| toImpl instanceof DeviceImplementation)
+//											&& !(toEnd instanceof SubprogramAccess
+//													&& ((SubprogramAccess) toEnd).getKind() == AccessType.PROVIDES))
+//							) {
+//								final ConnectionInfo clone = connInfo.cloneInfo();
+//								clone.complete = true;
+//								finalizeConnectionInstance(ci, clone, toFi);
+//							}
+
 							// we have ingoing connections that start with toFeature
 							// as End or as Cxt
 							for (Connection nextConn : conns) {
