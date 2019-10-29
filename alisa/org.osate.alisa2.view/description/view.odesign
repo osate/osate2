@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
   <ownedViewpoints name="Hazard Analyst" modelFileExtension="safe2">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" endUserDocumentation="Graph view of the specified component as well as its &quot;neighbors&quot; (ie, produce its input and consume its output), their neighbors, and connections between all displayed elements." name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.graphviz.circo" label="Circo" description="Circular layout, after Six and Tollis '99, Kaufmann and Wiese '02. The algorithm finds biconnected components and arranges each component in a circle, trying to minimize the number of crossings inside the circle. This is suitable for certain diagrams of multiple cyclic structures such as certain telecommunications networks."/>
       <defaultLayer name="Default">
@@ -133,7 +133,7 @@
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_2:TreeDescription" documentation="Placeholder initial view until we iron out the SAFE2.0 process." endUserDocumentation="Placeholder initial view until we iron out the SAFE2.0 process." name="Containment" showOnStartup="true" domainClass="instance.ComponentInstance">
+    <ownedRepresentations xsi:type="description_2:TreeDescription" documentation="Placeholder initial view until we iron out the SAFE2.0 process." endUserDocumentation="Shows the subcomponents contained in this component, as well as what they contain." name="Containment" initialisation="true" showOnStartup="true" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <subItemMappings name="component" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='NewConnectedNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
         <defaultStyle>
@@ -220,11 +220,12 @@
         </popupMenus>
       </subItemMappings>
       <ownedRepresentationCreationDescriptions xsi:type="tool_1:DiagramCreationDescription" name="NewConnectedNeighbors" diagramDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']">
+        <initialOperation/>
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="diagramName"/>
       </ownedRepresentationCreationDescriptions>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_2:TreeDescription" name="Fundamentals" domainClass="safe2.SystemOverview">
+    <ownedRepresentations xsi:type="description_2:TreeDescription" endUserDocumentation="The fundamentals (accident levels, accidents, hazards, and constraints) associated with the component." name="Fundamentals" initialisation="true" domainClass="safe2.SystemOverview">
       <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
       <subItemMappings name="Accident Level" domainClass="safe2.AccidentLevel" semanticCandidatesExpression="feature:eAllContents">
         <defaultStyle>
@@ -339,7 +340,7 @@
         </popupMenus>
       </subItemMappings>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="TopLevelErrors" domainClass="instance.ComponentInstance">
+    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the families of error types propagated on those convnections." name="TopLevelErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="Table Creation NewTopLevelErrors" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']">
@@ -441,7 +442,7 @@
         </containerMappings>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:CrossTableDescription" name="FamilyErrors" domainClass="instance.ComponentInstance">
+    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="FamilyErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateFamilyErrors" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']">
