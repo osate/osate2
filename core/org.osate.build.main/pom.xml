@@ -314,10 +314,7 @@
 						<artifactId>maven-jarsigner-plugin</artifactId>
 						<version>3.0.0</version>
 						<configuration>
-							<keystore>file:///home/lw/.pki/osate-signing.keystore</keystore>
-							<storepass>STOREPASS</storepass>
-							<alias>testsign</alias>
-							<keypass>KEYPASS</keypass>
+							<alias>carnegie mellon university’s internet2 id</alias>
 						</configuration>
 						<executions>
 							<execution>
