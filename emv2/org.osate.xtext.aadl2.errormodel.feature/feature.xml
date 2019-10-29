@@ -2,7 +2,7 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="2.6.0.qualifier"
+      version="2.6.0.vfinal"
       provider-name="CMU-SEI"
       plugin="org.osate.branding">
 
