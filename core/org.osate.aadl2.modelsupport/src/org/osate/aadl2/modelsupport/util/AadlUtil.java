@@ -56,6 +56,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -1063,7 +1064,7 @@ public final class AadlUtil {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Returns {@code true} if {@code extension} is an extension of {@code origin} or {@code extension} is a
 	 * {@link ComponentImplementation} and it's {@link ComponentType} is an extension of {@code origin}.
@@ -1731,6 +1732,22 @@ public final class AadlUtil {
 	 * @return EList connections with feature as source
 	 */
 	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl, Feature feature) {
+		return getIngoingConnections(cimpl, feature, c -> true);
+	}
+
+	/**
+	 * Get ingoing connections to subcomponents from a specified feature of the
+	 * component impl
+	 *
+	 * @param feature component impl feature that is the source of a connection
+	 * @param context the outer feature (feature group) or null
+	 * @param useConnection Predicate that indicates if the connection should be added to the result.  Each ingoing
+	 * connection is tested before being added to the result.  This predicate should return <code>true</code> if the
+	 * connection should be added to the result.
+	 * @return EList connections with feature as source
+	 */
+	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl, Feature feature,
+			Predicate<Connection> useConnection) {
 		EList<Connection> result = new BasicEList<Connection>();
 		// The local feature could be a refinement of the feature through which the connection enters the component
 		Feature local = (Feature) cimpl.findNamedElement(feature.getName());
@@ -1740,11 +1757,15 @@ public final class AadlUtil {
 			if (features.contains(conn.getAllSource()) && !(conn.getAllSourceContext() instanceof Subcomponent)
 					|| (conn.isAllBidirectional() && features.contains(conn.getAllDestination())
 							&& !(conn.getAllDestinationContext() instanceof Subcomponent))) {
-				result.add(conn);
+				if (useConnection.test(conn)) {
+					result.add(conn);
+				}
 			}
 			if ((features.contains(conn.getAllSourceContext())
 					|| (conn.isAllBidirectional() && features.contains(conn.getAllDestinationContext())))) {
-				result.add(conn);
+				if (useConnection.test(conn)) {
+					result.add(conn);
+				}
 			}
 		}
 		return result;
