@@ -1,0 +1,56 @@
+package JustSubprogram_device
+public
+	subprogram ComputeAverage
+	end ComputeAverage;
+
+	data D
+		features
+			shared_sub: provides subprogram access ComputeAverage;
+	end D;
+
+	data implementation D.i
+		subcomponents
+			s: subprogram ComputeAverage;
+		connections
+			xxx: subprogram access s <-> shared_sub;
+	end D.i;
+
+	device T1
+		features
+			shared_sub: provides subprogram access ComputeAverage;			
+	end T1;
+	
+	device implementation T1.impl
+		subcomponents
+			d: data D.i;
+		connections
+			ac1: subprogram access d.shared_sub <-> shared_sub;
+	end T1.impl;
+
+	data T2
+		features
+			ext_sub: requires subprogram access ComputeAverage;
+	end T2;
+
+	data implementation T2.impl
+	end T2.impl;
+
+	system p1
+	end p1;
+
+	system implementation p1.impl
+		subcomponents
+			MyT1: device T1.impl;
+			MyT2: data T2.impl;
+		connections
+			ac2: subprogram access MyT1.shared_sub <-> MyT2.ext_sub;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: system p1.impl;
+	end Root.impl;
+end JustSubprogram_device;
