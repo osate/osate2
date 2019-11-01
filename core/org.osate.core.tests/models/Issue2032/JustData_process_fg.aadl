@@ -1,0 +1,55 @@
+package JustData_process_fg
+public
+	data D
+	end D;
+
+	feature group FG
+		features
+			shared_data: provides data access D;
+	end FG;
+
+	feature group FG2
+		features
+			ext_data: requires data access D;
+		inverse of FG
+	end FG2;
+
+	process T1
+		features
+			fg: feature group FG;
+	end T1;
+
+	process implementation T1.impl
+		subcomponents
+			myData: data D;
+		connections
+			dc1: data access myData <-> fg.shared_data;
+	end T1.impl;
+
+	process T2
+		features
+			fg2: feature group FG2;
+	end T2;
+
+	process implementation T2.impl
+	end T2.impl;
+
+	system p1
+	end p1;
+
+	system implementation p1.impl
+		subcomponents
+			MyT1: process T1.impl;
+			MyT2: process T2.impl;
+		connections
+			dc2: feature group MyT1.fg <-> MyT2.fg2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: system p1.impl;
+	end Root.impl;
+end JustData_process_fg;
