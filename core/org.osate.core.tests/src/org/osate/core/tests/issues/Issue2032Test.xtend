@@ -307,6 +307,37 @@ class Issue2032Test {
 		assertEquals(1, connRefs2.size)
 		assertEquals(1, connRefs3.size)
 	}
+	
+	@Test
+	def void testStopAndGo() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "StopAndGo.aadl")
+
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		assertTrue('System implementation "' + ROOT_IMPL + '" not found', cls.exists[name == ROOT_IMPL])
+
+		// Instantiate system
+		val sysImpl = cls.findFirst[name == ROOT_IMPL] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+		assertEquals(ROOT_INSTANCE, instance.name)
+		
+		// There should be exactly 2 connection instances
+		val myS = instance.componentInstances.get(0)
+		assertEquals(2, myS.connectionInstances.size)
+		
+		val ci1 = myS.connectionInstances.get(0)
+		val ci2 = myS.connectionInstances.get(1)
+
+		// The first connection should just 'cc'
+		val connRefs1 = ci1.connectionReferences
+		assertEquals(1, connRefs1.size)
+		assertEquals("cc", connRefs1.get(0).connection.name)
+		
+		// The second connection should be 'cc', 'aa'
+		val connRefs2 = ci2.connectionReferences
+		assertEquals(2, connRefs2.size)
+		assertEquals("cc", connRefs2.get(0).connection.name)
+		assertEquals("aa", connRefs2.get(1).connection.name)
+	}
 		
 	private def void test0(String aadlFile) {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + aadlFile)

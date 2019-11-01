@@ -1,0 +1,60 @@
+package StopAndGo
+public
+	data D
+	end D;
+	
+	subprogram Sub
+		features
+			p: in parameter D;
+	end sub;
+	
+	abstract A
+		features
+			input: in data port D;
+	end A;
+	
+	thread T1
+		features
+			output: out data port D;
+	end T1;
+	
+	thread implementation T1.i
+	end T1.i;
+	
+	thread T2
+		features
+			input: in data port D;
+	end T2;
+	
+	thread implementation T2.i
+		subcomponents
+			s: subprogram Sub;
+			abs: abstract A;
+		calls
+			normal: {
+				call1: subprogram s;
+			};
+		connections
+			aa: port input -> abs.input;
+			bb: parameter input -> call1.p;
+	end T2.i;
+	
+	process p
+	end p;
+	
+	process implementation p.i
+		subcomponents
+			t1: thread t1.i;
+			t2: thread t2.i;
+		connections
+			cc: port t1.output -> t2.input;
+	end p.i;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.impl
+		subcomponents
+			p: process p.i;
+	end Root.impl;
+end StopAndGo;
