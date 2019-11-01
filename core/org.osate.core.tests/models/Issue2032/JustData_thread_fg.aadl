@@ -1,4 +1,4 @@
-package JustData_fg
+package JustData_thread_fg
 public
 	data D
 	end D;
@@ -52,4 +52,4 @@ public
 		subcomponents
 			MyP: process p1.impl;
 	end Root.impl;
-end JustData_fg;
+end JustData_thread_fg;

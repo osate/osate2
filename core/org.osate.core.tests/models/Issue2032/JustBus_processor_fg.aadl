@@ -1,4 +1,4 @@
-package JustBus_fg
+package JustBus_processor_fg
 public
 	bus B
 	end B;
@@ -14,24 +14,24 @@ public
 		inverse of FG
 	end FG2;
 
-	system s1
+	processor s1
 		features
 			fg: feature group FG;
 	end s1;
 
-	system implementation s1.impl
+	processor implementation s1.impl
 		subcomponents
 			myBus: bus B;
 		connections
 			bc1: bus access myBus <-> fg.shared_bus;
 	end s1.impl;
 	
-	system s2
+	processor s2
 		features
 			fg2: feature group FG2;
 	end s2;
 	
-	system implementation s2.impl
+	processor implementation s2.impl
 	end s2.impl;
 	
 	system MySystem
@@ -39,8 +39,8 @@ public
 	
 	system implementation MySystem.impl
 		subcomponents
-			myS1: system s1.impl;
-			myS2: system s2.impl;
+			myS1: processor s1.impl;
+			myS2: processor s2.impl;
 		connections
 			bc2: feature group myS1.fg <-> myS2.fg2;
 	end MySystem.impl;
@@ -52,4 +52,4 @@ public
 		subcomponents
 			MyS: system MySystem.impl;
 	end Root.impl;
-end JustBus_fg;
+end JustBus_processor_fg;

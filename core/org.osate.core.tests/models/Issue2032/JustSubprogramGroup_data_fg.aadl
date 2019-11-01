@@ -1,5 +1,10 @@
-package JustSubprogramGroup_fg
+package JustSubprogramGroup_data_fg
 public
+	subprogram sub
+		features
+			f: requires subprogram group access SubGroup;
+	end sub;
+	
 	subprogram group SubGroup
 	end SubGroup;
 	
@@ -13,7 +18,7 @@ public
 			ext_subg: requires subprogram group access SubGroup;
 		inverse of FG
 	end FG2;
-
+	
 	thread T1
 		features
 			fg: feature group FG;
@@ -26,13 +31,17 @@ public
 			sgc1: subprogram group access SubG <-> fg.shared_subg;
 	end T1.impl;
 
-	thread T2
+	data D
 		features
 			fg2: feature group FG2;
-	end T2;
+	end D;
 
-	thread implementation T2.impl
-	end T2.impl;
+	data implementation D.impl
+		subcomponents
+			s: subprogram sub;
+		connections
+			cc: subprogram group access fg2.ext_subg <-> s.f;
+	end D.impl;
 
 	process p1
 	end p1;
@@ -40,9 +49,9 @@ public
 	process implementation p1.impl
 		subcomponents
 			MyT1: thread T1.impl;
-			MyT2: thread T2.impl;
+			MyD: data D.impl;
 		connections
-			sgc2: feature group MyT1.fg <-> MyT2.fg2;
+			sgc2: feature group MyT1.fg <-> MyD.fg2;
 	end p1.impl;
 
 	system Root
@@ -52,4 +61,4 @@ public
 		subcomponents
 			MyP: process p1.impl;
 	end Root.impl;
-end JustSubprogramGroup_fg;
+end JustSubprogramGroup_data_fg;
