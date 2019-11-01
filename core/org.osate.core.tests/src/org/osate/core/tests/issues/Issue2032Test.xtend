@@ -269,6 +269,16 @@ class Issue2032Test {
 		test2("JustVBus_vprocessor.aadl")
 	}
 		
+	@Test
+	def void testAbstract_System() {
+		test2("JustAbstract_system.aadl");
+	}
+		
+	@Test
+	def void testAbstract_Thread() {
+		test2("JustAbstract_thread.aadl");
+	}
+		
 	private def void test0(String aadlFile) {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + aadlFile)
 
