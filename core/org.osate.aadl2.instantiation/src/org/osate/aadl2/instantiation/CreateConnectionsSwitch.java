@@ -276,18 +276,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					boolean connectedInside = false;
 					boolean destinationFromInside = false;
 
-					// WAS
-//                    if (hasOutgoingFeatureSubcomponents
-//                            && ((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
-//                                    // in case of a provides bus access we want to
-//                                    // start from the bus.
-//                                    || ((cat == PROCESSOR || cat == DEVICE || cat == MEMORY)
-//                                            && feature instanceof BusAccess
-//                                            && ((BusAccess) feature).getKind() == AccessType.PROVIDES)) {
-//                        connectedInside = isConnectionEnd(insideSubConns, feature);
-//                        destinationFromInside = isDestination(insideSubConns, feature);
-//                    }
-
 					// warn if there's an incomplete connection
 					if (hasOutgoingFeatureSubcomponents) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
@@ -374,7 +362,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		final Context toCtx = goOpposite ? newSegment.getAllSourceContext() : newSegment.getAllDestinationContext();
 		final ComponentInstance toCi = (toCtx instanceof Subcomponent)
 				? ci.findSubcomponentInstance((Subcomponent) toCtx) : null;
-		final boolean finalComponent = isConnectionEndingComponent(toCtx);
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
 		ConnectionInstanceEnd toFi = null;
@@ -514,18 +501,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (toEnd instanceof Parameter) {
 					// connection ends at a parameter or at a simple feature of a
 					// thread, device, or (virtual) processor
-					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
-					if (dstFi == null) {
-						error(toCi,
-								"Destination feature " + toFeature.getName() + " not found. No connection created.");
-					} else {
-						connInfo.complete = true;
-						finalizeConnectionInstance(ci, connInfo, dstFi);
-					}
-				} else if (finalComponent && toEnd instanceof FeatureGroup) { // XXX: Issue 2032 what do with this?
-					// connection ends at a feature that is contained in a feature
-					// group
-					// of a thread, device, or (virtual) processor
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
 					if (dstFi == null) {
 						error(toCi,
@@ -674,16 +649,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// we may need to stop at the processor in addition to
 							// going in
 
-							// was:
-//                            if (((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation
-//                                    || toImpl instanceof MemoryImplementation)
-//                                    && !(toEnd instanceof BusAccess
-//                                            && ((BusAccess) toEnd).getKind() == AccessType.PROVIDES))) {
-//                                final ConnectionInfo clone = connInfo.cloneInfo();
-//                                clone.complete = true;
-//                                finalizeConnectionInstance(ci, clone, toFi);
-//                            }
-
 							/*
 							 * Issue 2032: If we get here then destination component has internal connections,
 							 * not all of which are parameter connections. If there is at least one
@@ -696,54 +661,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								clone.complete = true;
 								finalizeConnectionInstance(ci, clone, toFi);
 							}
-
-//							boolean finalizeConnectionInstance = true;
-//							if (toEnd instanceof BusAccess && ((BusAccess) toEnd).getKind() == AccessType.PROVIDES) {
-//								if (toImpl instanceof ProcessorImplementation || toImpl instanceof MemoryImplementation
-//										|| toImpl instanceof BusImplementation || toImpl instanceof DeviceImplementation
-//										|| toImpl instanceof SystemImplementation) {
-//									finalizeConnectionInstance = false;
-//								}
-//							} else if (toEnd instanceof DataAccess
-//									&& ((DataAccess) toEnd).getKind() == AccessType.PROVIDES) {
-//								if (toImpl instanceof DataImplementation || toImpl instanceof ThreadImplementation
-//										|| toImpl instanceof ThreadGroupImplementation
-//										|| toImpl instanceof ProcessImplementation
-//										|| toImpl instanceof SystemImplementation) {
-//									finalizeConnectionInstance = false;
-//								}
-//							} else if (toEnd instanceof SubprogramAccess
-//									&& ((SubprogramAccess) toEnd).getKind() == AccessType.PROVIDES) {
-//								if (toImpl instanceof DataImplementation
-//										|| toImpl instanceof SubprogramGroupImplementation
-//										|| toImpl instanceof ThreadImplementation
-//										|| toImpl instanceof ThreadGroupImplementation
-//										|| toImpl instanceof ProcessImplementation
-//										|| toImpl instanceof ProcessorImplementation
-//										|| toImpl instanceof VirtualProcessorImplementation
-//										|| toImpl instanceof DeviceImplementation
-//										|| toImpl instanceof SystemImplementation) {
-//									finalizeConnectionInstance = false;
-//								}
-//							} else if (toEnd instanceof SubprogramGroupAccess
-//									&& ((SubprogramGroupAccess) toEnd).getKind() == AccessType.PROVIDES) {
-//								if (toImpl instanceof DataImplementation
-//										|| toImpl instanceof SubprogramGroupImplementation
-//										|| toImpl instanceof ThreadImplementation
-//										|| toImpl instanceof ThreadGroupImplementation
-//										|| toImpl instanceof ProcessImplementation
-//										|| toImpl instanceof ProcessorImplementation
-//										|| toImpl instanceof VirtualProcessorImplementation
-//										|| toImpl instanceof DeviceImplementation
-//										|| toImpl instanceof SystemImplementation) {
-//									finalizeConnectionInstance = false;
-//								}
-//							}
-//							if (finalizeConnectionInstance) {
-//								final ConnectionInfo clone = connInfo.cloneInfo();
-//								clone.complete = true;
-//								finalizeConnectionInstance(ci, clone, toFi);
-//							}
 
 							// we have ingoing connections that start with toFeature
 							// as End or as Cxt
@@ -1696,22 +1613,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 *            a subcomponent feature
 	 * @return whether one of the connections points to the feature
 	 */
-//	public boolean isDestination_original(List<Connection> conns, Feature feature) {
-//		List<Feature> features = feature.getAllFeatureRefinements();
-//
-//		for (Connection conn : conns) {
-//			if (features.contains(conn.getAllDestination())
-//					|| conn.isAllBidirectional() && features.contains(conn.getAllSource())) {
-//				return true;
-//			}
-//			if ((features.contains(conn.getAllDestinationContext())
-//					|| conn.isAllBidirectional() && features.contains(conn.getAllSourceContext()))) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-
 	public boolean isDestination(List<Connection> conns, Feature feature) {
 		List<Feature> features = feature.getAllFeatureRefinements();
 
@@ -1756,28 +1657,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return false;
-	}
-
-//	public boolean isConnectionEnd_original(List<Connection> conns, Feature feature) {
-//		List<Feature> features = feature.getAllFeatureRefinements();
-//
-//		for (Connection conn : conns) {
-//			if (features.contains(conn.getAllDestination()) || features.contains(conn.getAllSource())) {
-//				return true;
-//			}
-//			if ((features.contains(conn.getAllDestinationContext()) || features.contains(conn.getAllSourceContext()))) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-
-	/**
-	 * @param ctx
-	 * @return
-	 */
-	private boolean isConnectionEndingComponent(final Context ctx) {
-		return ctx instanceof ThreadSubcomponent || ctx instanceof DeviceSubcomponent;
 	}
 
 	/**
