@@ -1,4 +1,4 @@
-package JustSubrogram_fg
+package JustSubrogram_data_fg
 public
 	subprogram ComputeAverage
 	end ComputeAverage;
@@ -14,24 +14,24 @@ public
 		inverse of FG
 	end FG2;
 
-	thread T1
+	data T1
 		features
 			fg: feature group FG;
 	end T1;
 
-	thread implementation T1.impl
+	data implementation T1.impl
 		subcomponents
 			CompAvg: subprogram ComputeAverage;
 		connections
 			ac1: subprogram access CompAvg <-> fg.shared_sub;
 	end T1.impl;
 
-	thread T2
+	data T2
 		features
 			fg2: feature group FG2;
 	end T2;
 
-	thread implementation T2.impl
+	data implementation T2.impl
 	end T2.impl;
 
 	process p1
@@ -39,8 +39,8 @@ public
 
 	process implementation p1.impl
 		subcomponents
-			MyT1: thread T1.impl;
-			MyT2: thread T2.impl;
+			MyT1: data T1.impl;
+			MyT2: data T2.impl;
 		connections
 			ac2: feature group MyT1.fg <-> MyT2.fg2;
 	end p1.impl;
@@ -52,4 +52,4 @@ public
 		subcomponents
 			MyP: process p1.impl;
 	end Root.impl;
-end JustSubrogram_fg;
+end JustSubrogram_data_fg;

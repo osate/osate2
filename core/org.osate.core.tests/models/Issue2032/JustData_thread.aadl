@@ -1,23 +1,23 @@
-package JustSubprogram
+package JustData_thread
 public
-	subprogram ComputeAverage
-	end ComputeAverage;
+	data D
+	end D;
 
 	thread T1
 		features
-			shared_sub: provides subprogram access ComputeAverage;
+			shared_data: provides data access D;
 	end T1;
 
 	thread implementation T1.impl
 		subcomponents
-			CompAvg: subprogram ComputeAverage;
+			myData: data D;
 		connections
-			ac1: subprogram access CompAvg <-> shared_sub;
+			dc1: data access myData <-> shared_data;
 	end T1.impl;
 
 	thread T2
 		features
-			ext_sub: requires subprogram access ComputeAverage;
+			ext_data: requires data access D;
 	end T2;
 
 	thread implementation T2.impl
@@ -31,7 +31,7 @@ public
 			MyT1: thread T1.impl;
 			MyT2: thread T2.impl;
 		connections
-			ac2: subprogram access MyT1.shared_sub <-> MyT2.ext_sub;
+			dc2: data access MyT1.shared_data <-> MyT2.ext_data;
 	end p1.impl;
 
 	system Root
@@ -41,4 +41,4 @@ public
 		subcomponents
 			MyP: process p1.impl;
 	end Root.impl;
-end JustSubprogram;
+end JustData_thread;
