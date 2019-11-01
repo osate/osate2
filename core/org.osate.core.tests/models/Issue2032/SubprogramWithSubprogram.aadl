@@ -1,0 +1,101 @@
+package SubprogramWithSubprogram
+public
+	data D
+	end D;
+	
+	subprogram inner1
+		features 
+			input: in parameter D;
+			output: out parameter D;
+	end inner1;
+
+	subprogram inner2
+		features 
+			input1: in parameter D;
+			input2: in parameter D;
+			output: out parameter D;
+	end inner2;
+	
+	subprogram sub
+		features 
+			input1: in parameter D;
+			input2: in parameter D;
+			output: out parameter D;
+	end inner2;
+
+	subprogram implementation sub.i
+		subcomponents
+			s1: subprogram inner1;
+			s2: subprogram inner2;
+		calls
+			x: {
+				call1: subprogram s1;
+				call2: subprogram s2;	
+			};
+		connections
+			c1: parameter input1 -> call1.input;
+			c2: parameter call1.output -> call2.input1;
+			c3: parameter input2 -> call2.input2;
+			c4: parameter call2.output -> output;
+	end sub.i;
+
+	thread T1
+		features
+			input1: in data port D;
+			input2: in data port D;
+			output: out data port D;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			mySub: subprogram sub.i;
+		calls
+			q: {
+				call: subprogram mySub;
+			};
+		connections
+			t1: parameter input1 -> call.input1;
+			t2: parameter input2 -> call.input2;
+			t3: parameter call.output -> output;
+	end T1.impl;
+
+	thread T2
+		features
+			output: out data port D;
+	end T2;
+
+	thread implementation T2.impl
+	end T2.impl;
+
+
+	thread T3
+		features
+			input: in data port D;
+	end T3;
+
+	thread implementation T3.impl
+	end T3.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyT2a: thread T2.impl;
+			MyT2b: thread T2.impl;
+			MyT3: thread T3.impl;
+		connections
+			x1: port MyT2a.output -> MyT1.input1;
+			x2: port MyT2b.output -> MyT1.input2;
+			x3: port MyT1.output -> MyT3.input;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end SubprogramWithSubprogram;
