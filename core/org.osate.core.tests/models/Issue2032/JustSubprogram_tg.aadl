@@ -1,0 +1,44 @@
+package JustSubprogram_tg
+public
+	subprogram ComputeAverage
+	end ComputeAverage;
+
+	thread group T1
+		features
+			shared_sub: provides subprogram access ComputeAverage;
+	end T1;
+
+	thread group implementation T1.impl
+		subcomponents
+			CompAvg: subprogram ComputeAverage;
+		connections
+			ac1: subprogram access CompAvg <-> shared_sub;
+	end T1.impl;
+
+	thread group T2
+		features
+			ext_sub: requires subprogram access ComputeAverage;
+	end T2;
+
+	thread group implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread group T1.impl;
+			MyT2: thread group T2.impl;
+		connections
+			ac2: subprogram access MyT1.shared_sub <-> MyT2.ext_sub;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustSubprogram_tg;
