@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ BoundaryDiagramTests.class, ContainmentTreeTest.class, FundamentalsTreeTest.class })
+@SuiteClasses({ ConnectedNeighborDiagramTests.class, ContainmentTreeTest.class, FundamentalsTreeTest.class })
 public class AllTests {
 
 }

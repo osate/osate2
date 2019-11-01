@@ -14,7 +14,7 @@ import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefConnectionEditPart
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.junit.Test;
 
-public class BoundaryDiagramTests extends TestBase {
+public class ConnectedNeighborDiagramTests extends TestBase {
 
 
 	private static final String ORIG_REPRESENTATION_NAME = "Containment";
