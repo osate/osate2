@@ -289,36 +289,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 //                    }
 
 					// warn if there's an incomplete connection
-					if (hasOutgoingFeatureSubcomponents
-//							&& ((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
-//									// in case of a provides bus access we want to
-//									// start from the bus.
-//									|| ((cat == PROCESSOR || cat == MEMORY || cat == BUS || cat == VIRTUAL_BUS
-//											|| cat == DEVICE || cat == SYSTEM)
-//											&& feature instanceof BusAccess
-//											&& ((BusAccess) feature).getKind() == AccessType.PROVIDES)
-//									// in case of a provides data access we want to
-//									// start from the data.
-//									|| ((cat == DATA || cat == THREAD || cat == THREAD_GROUP || cat == PROCESS
-//											|| cat == SYSTEM)
-//											&& feature instanceof DataAccess
-//											&& ((DataAccess) feature).getKind() == AccessType.PROVIDES)
-//									// in case of a provides subprogram access we want to
-//									// start from the subprogram.
-//									|| ((cat == DATA || cat == SUBPROGRAM_GROUP || cat == THREAD || cat == THREAD_GROUP
-//											|| cat == PROCESS || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR
-//											|| cat == DEVICE || cat == SYSTEM)
-//											&& feature instanceof SubprogramAccess
-//											&& ((SubprogramAccess) feature).getKind() == AccessType.PROVIDES)
-//									// in case of a provides subprogram group access we want to
-//									// start from the subprogram group.
-//									|| ((cat == DATA || cat == SUBPROGRAM_GROUP || cat == THREAD || cat == THREAD_GROUP
-//											|| cat == PROCESS || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR
-//											|| cat == DEVICE || cat == SYSTEM)
-//											&& feature instanceof SubprogramGroupAccess
-//											&& ((SubprogramGroupAccess) feature).getKind() == AccessType.PROVIDES)
-//							)
-					) {
+					if (hasOutgoingFeatureSubcomponents) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}

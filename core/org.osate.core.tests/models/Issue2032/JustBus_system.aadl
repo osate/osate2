@@ -1,4 +1,4 @@
-package JustBus
+package JustBus_system
 public
 	bus B
 	end B;
@@ -41,4 +41,4 @@ public
 		subcomponents
 			MyS: system MySystem.impl;
 	end Root.impl;
-end JustBus;
+end JustBus_system;

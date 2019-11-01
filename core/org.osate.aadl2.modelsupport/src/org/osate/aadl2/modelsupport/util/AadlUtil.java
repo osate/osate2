@@ -48,6 +48,7 @@ import static org.osate.aadl2.ComponentCategory.BUS;
 import static org.osate.aadl2.ComponentCategory.DATA;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
+import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1798,7 +1799,7 @@ public final class AadlUtil {
 			}
 			// subcomponent can be access source
 			ComponentCategory cat = o.getCategory();
-			if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
+			if (cat == DATA || cat == BUS || cat == VIRTUAL_BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
 				return true;
 			}
 		}
