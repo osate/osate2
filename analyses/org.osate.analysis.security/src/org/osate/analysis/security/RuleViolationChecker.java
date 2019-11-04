@@ -58,8 +58,7 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 					} else if (algCount == 1) {
 						EnumerationLiteral alg = enc.getEncryptionAlgorithms().get(0);
 						if (!isNoEncryption(alg)) {
-							error(io,
-									"Inconsistent encryption specification: No algorithm allowed with no_encryption");
+							error(io, "Inconsistent encryption specification: No algorithm allowed with no_encryption");
 						}
 					}
 					if (keyCount > 0) {
@@ -71,6 +70,8 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 				} else if (form.equals("symmetric")) {
 					if (modeCount != 1) {
 						error(io, "Inconsistent encryption specification: Symmetric encryption must have a mode");
+					} else {
+						// check if mode is good
 					}
 					if (algCount == 0) {
 						error(io, "Inconsistent encryption specification: Missing encryption algorithm");
@@ -79,11 +80,22 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 								"Inconsistent encryption specification: Symmetric encryption must specify exactly one algorithm");
 					}
 					enc.getEncryptionAlgorithms().forEach((a) -> {
+						try {
+							Algorithm alg = Algorithm.valueOf(a.getName());
+						} catch (IllegalArgumentException e) {
+							// unknown algorithm
+						}
 						if (!isSymmetric(a)) {
 							error(io, "Inconsistent encryption specification: " + a.getName()
 									+ " is not a symmetric encryption algorithm");
 						}
 					});
+					if (keyCount != 1) {
+						error(io,
+								"Inconsistent encryption specification: Symmetric encryption must specify exactly one key length");
+					} else {
+						// check key length for algorithm
+					}
 					if (enc.getPadding() != null && !is(enc.getPadding(), "no_padding")) {
 						error(io,
 								"Inconsistent encryption specification: No padding allowed with symmetric encryption");
