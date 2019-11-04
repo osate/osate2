@@ -95,6 +95,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.aadl2.instance.EndToEndFlowInstance
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -398,6 +399,11 @@ class AssureProcessor implements IAssureProcessor {
 							for (conni : conns) {
 								addMarkersAsResult(verificationResult, conni, result, method)
 							}
+						} else if (target instanceof EndToEndFlowInstance) {
+							val etefis = findETEFInstances(targetComponent.endToEndFlows, target)
+							for (etefi : etefis) {
+								addMarkersAsResult(verificationResult, etefi, result, method)
+							}
 						} else {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
@@ -690,6 +696,19 @@ class AssureProcessor implements IAssureProcessor {
 			for (conni : conns) {
 				if (checkPropertyValues(verificationResult, conni)) {
 					verificationResult.executeMethodOnce(method, targetComponent, conni, parameters)
+				}
+			}
+			// fix verification activity result state
+			if (verificationResult.results.hasResultErrors) {
+				setToError(verificationResult)
+			} else if (verificationResult.results.hasResultFailures) {
+				setToFail(verificationResult)
+			}
+		} else if (target instanceof EndToEndFlowInstance) {
+			val etefis = findETEFInstances(targetComponent.endToEndFlows, target)
+			for (etefi : etefis) {
+				if (checkPropertyValues(verificationResult, etefi)) {
+					verificationResult.executeMethodOnce(method, targetComponent, etefi, parameters)
 				}
 			}
 			// fix verification activity result state
