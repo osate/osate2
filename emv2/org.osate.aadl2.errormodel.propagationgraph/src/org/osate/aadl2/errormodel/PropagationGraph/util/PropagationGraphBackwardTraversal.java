@@ -268,9 +268,16 @@ public class PropagationGraphBackwardTraversal {
 								if (src instanceof ErrorPropagation) {
 									handledEOPs.put((ErrorPropagation) src, EMV2Util.getPrintName(mappedType));
 								}
-								EObject newEvent = processErrorSource(component, errorSource, mappedType, scale);
-								addSubresult(subResults, newEvent);
-								didProp = true;
+								if (errorSource.getFailureModeReference() != null) {
+									ErrorBehaviorState ebs = errorSource.getFailureModeReference();
+									EObject sEvent = traverseErrorBehaviorState(component, ebs, mappedType, scale);
+									addSubresult(subResults, sEvent);
+									didProp = true;
+								} else {
+									EObject newEvent = processErrorSource(component, errorSource, mappedType, scale);
+									addSubresult(subResults, newEvent);
+									didProp = true;
+								}
 							}
 						}
 					}
