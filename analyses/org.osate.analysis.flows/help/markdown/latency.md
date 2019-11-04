@@ -653,10 +653,10 @@ A run of the plug-in produces one instance of AnalysisResult stored as a file wi
 
 The AnalysisResult object contains the following information:
 
- - **name**: "latencyreport"
- - **sourceReference**: reference to the root of the instance model (SystemInstance) 
- - **analysis**: "org.osate.analysis.flows"
- - **info**: 4 parameters to latency analysis as single string. Each parameter is a 2 character label separated by "-", e.g., "SS-DL-WC-EQ". The labels are explained in the preference documentation (SS/AS, DL)
+ - **ModelElement**: reference to the root of the instance model (SystemInstance) 
+ - **Analysis**: "latency"
+ - **Parameter**: list of 4 boolean parameters to latency analysis stored in XMI as Objects
+ - **Message**: 4 parameters to latency analysis as single string. Each parameter is a 2 character label separated by "-", e.g., "SS-DL-WC-EQ". The labels are explained in the preference documentation (SS/AS, DL)
 
 The AnalysisResult object contains a collection of Result objects, one for each end to end flow and system operation mode combination.
 
@@ -666,9 +666,11 @@ Each end-to-end flow latency Result object contains a collection of subResults t
 
 The Result object representing the latency results for one end to end flow contains the following information:
 
-- **SourceReference**: reference to the end to end flow instance object in the instance model 
+- **ModelElement**: reference to the end to end flow instance object in the instance model 
+- **Message**: "Latency results for " <end to end flow instance name>
 - **Values**: list of values representing the results
 - **Diagnostics**: list of observations about the values represented as Diagnostic 
+- **SubResults**: list of latency contributions as sub-results
 
 The values of the result are stored in the following order:
 
@@ -692,7 +694,7 @@ ResultUtil provides methods to retrieve the values by index starting with index 
 
 The Result object representing a latency contribution contains the following information:
 
-- **SourceReference**: reference to the instance model that contributes to the latency. This may be a component or a connection instance.
+- **ModelElement**: reference to the instance model that contributes to the latency. This may be a component or a connection instance.
 - **Values**: list of values representing details of the contribution
 - **Diagnostics**: list of observations about the contribution 
 
