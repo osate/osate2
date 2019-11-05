@@ -25,7 +25,7 @@ Export-Package: org.osate.xtext.aadl2.properties.ui,
  org.osate.xtext.aadl2.properties.ui.internal,
  org.osate.xtext.aadl2.properties.ui.outline,
  org.osate.xtext.aadl2.properties.ui.quickfix
-Bundle-Activator: org.osate.xtext.aadl2.properties.ui.MyPropertiesActivator
+Bundle-Activator: org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator
 Import-Package: org.apache.log4j
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.xtext.aadl2.properties.ui
