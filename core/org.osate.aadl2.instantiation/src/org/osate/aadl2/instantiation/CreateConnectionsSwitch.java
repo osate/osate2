@@ -284,8 +284,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					 * Try to go into the subcomponent if the current component is not a "connection ending component"
 					 * or if the feature is a provides access connection.
 					 */
-					if (hasOutgoingFeatureSubcomponents && (!isConnectionEndingCategory(cat)
-							|| (feature instanceof Access && ((Access) feature).getKind() == AccessType.PROVIDES))) {
+					if (hasOutgoingFeatureSubcomponents
+							&& (!isConnectionEndingCategory(cat) || endHasAccessFeatures(ci, feature))) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}
@@ -730,13 +730,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	private boolean endHasAccessFeatures(final ComponentInstance ci, final ConnectionEnd end) {
 		if (end instanceof Access) {
-			return true;
+			return ((Access) end).getKind() == AccessType.PROVIDES;
 		} else if (end instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) end;
 			final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
 			for (final FeatureInstance fi : fgInstance.getFeatureInstances()) {
 				if (fi.getFeature() instanceof Access) {
-					return true;
+					return ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES;
 				}
 			}
 			return false;
