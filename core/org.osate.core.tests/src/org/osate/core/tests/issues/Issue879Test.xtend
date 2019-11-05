@@ -47,7 +47,7 @@ class Issue879Test extends XtextTest {
 	val static FPATH1 = "fpath1"
 	val static FSRC1 = "fsrc1"
 	
-	val static ERROR_NO_END_TO_END_FLOW1 = "Cannot create end to end flow 'etef1' because the end of the semantic connection 'sub1.af3 -> sub2.sub4.af3' does not connect to the start of flow 'fpath1'"
+	val static ERROR_NO_END_TO_END_FLOW1 = "Cannot create end to end flow 'etef1' because there are no semantic connections that connect to the start of the flow 'fpath1' at feature 'af1'"
 	val static ERROR_NO_END_TO_END_FLOW2 = "Cannot create end to end flow 'etef1' because there are no semantic connections that continue the flow 'fsrc1' from feature 'af2'"
 	@Test
 	def void test1() {

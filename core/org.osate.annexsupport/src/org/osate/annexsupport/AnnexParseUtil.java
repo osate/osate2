@@ -32,6 +32,13 @@ public class AnnexParseUtil {
 	private static ThreadLocal<IParseResult> lastParseResult = new ThreadLocal<IParseResult>();
 
 	/**
+	 * Must be called before parsing an annex
+	 */
+	public static void reset() {
+		lastParseResult.set(null);
+	}
+
+	/**
 	 * Parse an annex.
 	 * Note: After parsing the returned element must be added to a default annex library/subclause
 	 * object and saveParceResult must be called. Various functionality depends on being able to
@@ -52,9 +59,9 @@ public class AnnexParseUtil {
 		try {
 			editString = genWhitespace(offset) + editString;
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
+			lastParseResult.set(parseResult);
 
 			if (parseResult.getRootASTElement() != null) {
-				lastParseResult.set(parseResult);
 				if (parseResult.hasSyntaxErrors()) {
 					createDiagnostics(parseResult, filename, err);
 				}
