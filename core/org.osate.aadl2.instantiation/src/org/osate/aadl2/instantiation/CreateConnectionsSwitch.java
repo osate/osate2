@@ -37,9 +37,13 @@ package org.osate.aadl2.instantiation;
 
 import static org.osate.aadl2.ComponentCategory.BUS;
 import static org.osate.aadl2.ComponentCategory.DATA;
+import static org.osate.aadl2.ComponentCategory.DEVICE;
+import static org.osate.aadl2.ComponentCategory.PROCESSOR;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
+import static org.osate.aadl2.ComponentCategory.THREAD;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
+import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +61,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
@@ -65,7 +72,6 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
@@ -83,14 +89,11 @@ import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -277,7 +280,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					boolean destinationFromInside = false;
 
 					// warn if there's an incomplete connection
-					if (hasOutgoingFeatureSubcomponents) {
+					/*
+					 * Try to go into the subcomponent if the current component is not a "connection ending component"
+					 * or if the feature is a provides access connection.
+					 */
+					if (hasOutgoingFeatureSubcomponents && (!isConnectionEndingCategory(cat)
+							|| (feature instanceof Access && ((Access) feature).getKind() == AccessType.PROVIDES))) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}
@@ -362,6 +370,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		final Context toCtx = goOpposite ? newSegment.getAllSourceContext() : newSegment.getAllDestinationContext();
 		final ComponentInstance toCi = (toCtx instanceof Subcomponent)
 				? ci.findSubcomponentInstance((Subcomponent) toCtx) : null;
+		final boolean finalComponent = isConnectionEndingComponent(toCtx);
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
 		ConnectionInstanceEnd toFi = null;
@@ -497,8 +506,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
 			} else {
 				Feature toFeature = (Feature) toEnd;
+				final boolean endHasAccessFeatures = endHasAccessFeatures(toCi, toEnd);
 
-				if (toEnd instanceof Parameter) {
+				if (toEnd instanceof Parameter || finalComponent && !endHasAccessFeatures) {
 					// connection ends at a parameter or at a simple feature of a
 					// thread, device, or (virtual) processor
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
@@ -616,11 +626,24 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					} else {
 						// there is a toImpl
 						/*
-						 * Issue 2032: Get all the connections internal to the destination component that connect
-						 * to the feature but filter out those that are parameter connections.
+						 * Issue 2032: Get the connections internal to the destination component that connect
+						 * to the feature. Two cases here. (1) If the component is final (thread/device/processor) but
+						 * the end we are starting from has access features, then we are only interested in access connections
+						 * internal to the component. (2) otherwise we want all the internal connections except for the parameter
+						 * connections. Either way, we need to know if there are any parameter connections.
 						 */
 						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
 						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
+								(finalComponent && endHasAccessFeatures) ? c -> {
+									if (c instanceof ParameterConnection) {
+										hasParameterConnection.set(true);
+										return false;
+									} else if (c instanceof AccessConnection) {
+										return true;
+									} else {
+										return false;
+									}
+								} :
 								c -> {
 									if (c instanceof ParameterConnection) {
 										hasParameterConnection.set(true);
@@ -635,7 +658,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							List<Subcomponent> subs = toImpl.getAllSubcomponents();
 
 							if (!subs.isEmpty()) {
-								if (!isValidFinalComponent(toCtx)) {
+								if (!isConnectionEndingComponent(toCtx)) {
 									warning(ci,
 											"No connection declaration from feature " + toEnd.getName()
 													+ " of component " + ((Subcomponent) toCtx).getName()
@@ -702,6 +725,23 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					warning(ci, "Did not match popped downIndex");
 				}
 			}
+		}
+	}
+
+	private boolean endHasAccessFeatures(final ComponentInstance ci, final ConnectionEnd end) {
+		if (end instanceof Access) {
+			return true;
+		} else if (end instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup) end;
+			final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
+			for (final FeatureInstance fi : fgInstance.getFeatureInstances()) {
+				if (fi.getFeature() instanceof Access) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
 		}
 	}
 
@@ -1663,9 +1703,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param ctx
 	 * @return
 	 */
-	private boolean isValidFinalComponent(final Context ctx) {
-		return ctx instanceof ThreadSubcomponent || ctx instanceof DeviceSubcomponent
-				|| ctx instanceof ProcessorSubcomponent || ctx instanceof VirtualProcessorSubcomponent;
+	private boolean isConnectionEndingComponent(final Context ctx) {
+		if (ctx instanceof Subcomponent) {
+			return isConnectionEndingCategory(((Subcomponent) ctx).getCategory());
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isConnectionEndingCategory(final ComponentCategory cat) {
+		return cat == THREAD || cat == DEVICE || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR;
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
