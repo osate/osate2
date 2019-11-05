@@ -52,7 +52,7 @@ import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.analysis.resource.budgets.logic.PowerAnalysis;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-public final class PowerAnalysisHandler extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+public class PowerAnalysisHandler extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	Report powerReport;
 
 	@Override
