@@ -119,9 +119,10 @@ public class NamedElementOperations extends ElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @deprecated Will be removed in 2.7.
 	 * @generated NOT
 	 */
-	@SuppressWarnings("unchecked")
+	@Deprecated
 	public static EList<PropertyExpression> getPropertyValues(NamedElement namedElement, String propertySetName,
 			String propertyName) {
 		final EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
