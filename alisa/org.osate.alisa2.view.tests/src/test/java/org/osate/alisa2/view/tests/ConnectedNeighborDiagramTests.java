@@ -27,14 +27,12 @@ public class ConnectedNeighborDiagramTests extends TestBase {
 
 		sessionAirdResource = new UIResource(designerProject, AIRD_FILE);
 		localSession = designerPerspective.openSessionFromFile(sessionAirdResource, true);
-		SWTBotEditor treeEditor = openRepresentation(localSession.getOpenedSession(),
-				ORIG_REPRESENTATION_NAME, ORIG_REPRESENTATION_INSTANCE_NAME, DTree.class);
-
-//		EclipseTestsSupportHelper.
+		SWTBotEditor treeEditor = openRepresentation(localSession.getOpenedSession(), ORIG_REPRESENTATION_NAME,
+				ORIG_REPRESENTATION_INSTANCE_NAME, DTree.class);
 
 		SWTBot treeBot = treeEditor.bot();
-		treeBot.tree().getTreeItem("appLogic").contextMenu().contextMenu("New")
-				.contextMenu("NewConnectedNeighbors").click();
+		treeBot.tree().getTreeItem("appLogic").contextMenu().contextMenu("New").contextMenu("NewConnectedNeighbors")
+				.click();
 		treeBot.shell("New ConnectedNeighbors").bot().button("OK").click();
 
 		editor = (SWTBotSiriusDiagramEditor) openRepresentation(localSession.getOpenedSession(),
