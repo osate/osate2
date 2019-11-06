@@ -320,23 +320,26 @@ class Issue2032Test {
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
-		// There should be exactly 2 connection instances
+		// There should be exactly 3 connection instances
 		val myS = instance.componentInstances.get(0)
-		assertEquals(2, myS.connectionInstances.size)
+		assertEquals(3, myS.connectionInstances.size)
 		
 		val ci1 = myS.connectionInstances.get(0)
 		val ci2 = myS.connectionInstances.get(1)
+		val ci3 = myS.connectionInstances.get(2)
 
 		// The first connection should just 'cc'
 		val connRefs1 = ci1.connectionReferences
 		assertEquals(1, connRefs1.size)
 		assertEquals("cc", connRefs1.get(0).connection.name)
 		
-		// The second connection should be 'cc', 'aa'
+		// The second and third connections should be inverses.
 		val connRefs2 = ci2.connectionReferences
+		val connRefs3 = ci3.connectionReferences
 		assertEquals(2, connRefs2.size)
-		assertEquals("cc", connRefs2.get(0).connection.name)
-		assertEquals("aa", connRefs2.get(1).connection.name)
+		assertEquals(2, connRefs3.size)
+		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
+		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
 	}
 		
 	private def void test0(String aadlFile) {
