@@ -148,9 +148,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-//		if (subEvents.size() == 1) {
-//			return (Event) subEvents.get(0);
-//		}
 		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.OR, component, ne, type);
 		if (combined != null) {
 			return combined;
@@ -169,9 +166,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-//		if (subEvents.size() == 1) {
-//			return (Event) subEvents.get(0);
-//		}
 		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.KORMORE, component, ne,
 				type);
 		if (combined != null) {
@@ -196,9 +190,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		if (subEvents.size() == 0) {
 			return null;
 		}
-//		if (subEvents.size() == 1) {
-//			return (Event) subEvents.get(0);
-//		}
 		Event combined = FaultTreeUtils.findSharedSubtree(ftaModel, subEvents, LogicOperation.AND, component, ne, type);
 		if (combined != null) {
 			return combined;
@@ -931,12 +922,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	protected EObject postProcessErrorSource(ComponentInstance component, ErrorSource errorSource, TypeToken type,
 			List<EObject> subResults, BigDecimal scale) {
 		return finalizeAsOrEvents(component, errorSource, type, subResults);
-//		Event newEvent = FaultTreeUtils.createIntermediateEvent(ftaModel, component, errorSource, type);
-//		newEvent.setScale(scale);
-//		for (EObject sub : subResults) {
-//			newEvent.getSubEvents().add((Event) sub);
-//		}
-//		return newEvent;
 	}
 
 	@Override
