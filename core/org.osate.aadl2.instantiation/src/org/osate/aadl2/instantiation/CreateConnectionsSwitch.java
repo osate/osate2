@@ -35,16 +35,6 @@
  */
 package org.osate.aadl2.instantiation;
 
-import static org.osate.aadl2.ComponentCategory.BUS;
-import static org.osate.aadl2.ComponentCategory.DATA;
-import static org.osate.aadl2.ComponentCategory.DEVICE;
-import static org.osate.aadl2.ComponentCategory.PROCESSOR;
-import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
-import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
-import static org.osate.aadl2.ComponentCategory.THREAD;
-import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
-import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -63,7 +53,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
@@ -251,7 +240,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			monitor.subTask("Creating connections in  " + ci.getName());
 		}
 
-		if (cat == DATA || cat == BUS || cat == VIRTUAL_BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
+		if (cat == ComponentCategory.DATA || cat == ComponentCategory.BUS || cat == ComponentCategory.VIRTUAL_BUS
+				|| cat == ComponentCategory.SUBPROGRAM || cat == ComponentCategory.SUBPROGRAM_GROUP) {
 			// connection instance may start at a shared component
 			for (Connection conn : filterStartingConnections(parentConns, sub)) {
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
@@ -276,31 +266,38 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// exist
 				if (AadlUtil.hasOutgoingFeatures(featurei)) {
 					List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
-					boolean connectedInside = false;
-					boolean destinationFromInside = false;
-
-					// warn if there's an incomplete connection
 					/*
-					 * Try to go into the subcomponent if the current component is not a "connection ending component"
-					 * or if the feature is a provides access connection.
+					 * We only care about internal connections if (1) they exist and (2) the component is either not connection ending or it is connection
+					 * ending but the feature has an access feature.
 					 */
-					if (hasOutgoingFeatureSubcomponents
-							&& (!isConnectionEndingCategory(cat) || endHasAccessFeatures(ci, feature))) {
-						connectedInside = isConnectionEnd(insideSubConns, feature);
-						destinationFromInside = isDestination(insideSubConns, feature);
-					}
+					final FeatureInfo fInfo = FeatureInfo.init(ci, feature);
+					final boolean isConnectionEndingCategory = isConnectionEndingCategory(cat);
+					final boolean lookInside = hasOutgoingFeatureSubcomponents && (!isConnectionEndingCategory || fInfo.hasAccess());
+					final boolean connectedInside = lookInside ? isConnectionEnd(insideSubConns, feature) : false;
+					final boolean destinationFromInside = lookInside ? isDestination(insideSubConns, feature) : false;
 
 					// first see if mode transitions are triggered by a
 					// doModeTransitionConnections(ci, featurei);
 
-					for (Connection conn : outgoingConns) {
+					for (final Connection conn : outgoingConns) {
 						// conn is first segment if it can't continue inside
 						// the subcomponent
-						if (!(destinationFromInside || conn.isAllBidirectional() && connectedInside)) {
+
+						/*
+						 * We start from inside the component in the following cases
+						 * - The feature is a destination from inside (we have already dealt with the connection ending component case above)
+						 * - The outside connection is bidirectional and the the feature is connected inside (again, we have already filtered out the connection
+						 * ending component case)
+						 *
+						 * So, we start AT THE Component in the following cases
+						 * - The disjunction of the above is false
+						 * - The component is connection ending and the feature has ports or feature groups.  (This case is only relevant when
+						 *   the feature is a feature group.)
+						 */
+						if ((destinationFromInside && !(conn.isAllBidirectional() && connectedInside)) ||
+								(isConnectionEndingCategory && (fInfo.hasFeatureGroup() || fInfo.hasPort()))) {
 							prevFi = featurei;
-
 							boolean opposite = isOpposite(feature, sub, conn);
-
 							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
 							if (monitor.isCanceled()) {
 								return;
@@ -506,9 +503,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
 			} else {
 				Feature toFeature = (Feature) toEnd;
-				final boolean endHasAccessFeatures = endHasAccessFeatures(toCi, toEnd);
+				final FeatureInfo fInfo = FeatureInfo.init(toCi, toEnd);
 
-				if (toEnd instanceof Parameter || finalComponent && !endHasAccessFeatures) {
+				if (toEnd instanceof Parameter || finalComponent && !fInfo.hasAccess()) {
 					// connection ends at a parameter or at a simple feature of a
 					// thread, device, or (virtual) processor
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
@@ -634,7 +631,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						 */
 						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
 						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
-								(finalComponent && endHasAccessFeatures) ? c -> {
+								(finalComponent && fInfo.hasAccess()) ? c -> {
 									if (c instanceof ParameterConnection) {
 										hasParameterConnection.set(true);
 										return false;
@@ -728,22 +725,85 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 	}
 
-	private boolean endHasAccessFeatures(final ComponentInstance ci, final ConnectionEnd end) {
-		if (end instanceof Access) {
-			return ((Access) end).getKind() == AccessType.PROVIDES;
-		} else if (end instanceof FeatureGroup) {
-			final FeatureGroup fg = (FeatureGroup) end;
-			final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
-			for (final FeatureInstance fi : fgInstance.getFeatureInstances()) {
-				if (fi.getFeature() instanceof Access) {
-					return ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES;
-				}
+	private static final class FeatureInfo {
+		private final boolean isFeatureGroup;
+		private final boolean hasAccess;
+		private final boolean hasPort;
+		private final boolean hasParameter;
+		private final boolean hasFeatureGroup;
+
+		private FeatureInfo(final boolean isFeatureGroup, final boolean hasAccess, final boolean hasPort,
+				final boolean hasParameter, final boolean hasFeatureGroup) {
+			this.isFeatureGroup = isFeatureGroup;
+			this.hasAccess = hasAccess;
+			this.hasPort = hasPort;
+			this.hasParameter = hasParameter;
+			this.hasFeatureGroup = hasFeatureGroup;
+		}
+
+		public static FeatureInfo init(final ComponentInstance ci, final ConnectionEnd end) {
+			if (end instanceof FeatureGroup) {
+				final FeatureGroup fg = (FeatureGroup) end;
+				final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
+				return init(fgInstance.getFeatureInstances().iterator(), false, false, false, false);
+			} else if (end instanceof Access) {
+				return new FeatureInfo(false, true, false, false, false);
+			} else if (end instanceof Parameter) {
+				return new FeatureInfo(false, false, false, true, false);
+			} else if (end instanceof Port) {
+				return new FeatureInfo(false, false, true, false, false);
+			} else {
+				return new FeatureInfo(false, false, false, false, false);
 			}
-			return false;
-		} else {
-			return false;
+		}
+
+		private static FeatureInfo init(final Iterator<FeatureInstance> iter, final boolean hasAccess, final boolean hasPort, final boolean hasParameter, final boolean hasFeatureGroup) {
+			if (iter.hasNext()) {
+				final Feature f = iter.next().getFeature();
+				return init(iter, hasAccess || f instanceof Access, hasPort || f instanceof Port,
+						hasParameter || f instanceof Parameter, hasFeatureGroup || f instanceof FeatureGroup);
+			} else {
+				return new FeatureInfo(true, hasAccess, hasPort, hasParameter, hasFeatureGroup);
+			}
+		}
+
+		public boolean isFeatureGroup() {
+			return isFeatureGroup;
+		}
+
+		public boolean hasAccess() {
+			return hasAccess;
+		}
+
+		public boolean hasPort() {
+			return hasPort;
+		}
+
+		public boolean hasParameter() {
+			return hasParameter;
+		}
+
+		public boolean hasFeatureGroup() {
+			return hasFeatureGroup;
 		}
 	}
+
+//	private boolean endHasAccessFeatures(final ComponentInstance ci, final ConnectionEnd end) {
+//		if (end instanceof Access) {
+//			return ((Access) end).getKind() == AccessType.PROVIDES;
+//		} else if (end instanceof FeatureGroup) {
+//			final FeatureGroup fg = (FeatureGroup) end;
+//			final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
+//			for (final FeatureInstance fi : fgInstance.getFeatureInstances()) {
+//				if (fi.getFeature() instanceof Access) {
+//					return ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES;
+//				}
+//			}
+//			return false;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	// ------------------------------------------------------------------------
 	// Post-process completed connection instance
@@ -1712,7 +1772,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isConnectionEndingCategory(final ComponentCategory cat) {
-		return cat == THREAD || cat == DEVICE || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR;
+		return cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE || cat == ComponentCategory.PROCESSOR
+				|| cat == ComponentCategory.VIRTUAL_PROCESSOR;
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
