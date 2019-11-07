@@ -268,7 +268,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
 					/*
 					 * We only care about internal connections if (1) they exist and (2) the component is either not connection ending or it is connection
-					 * ending but the feature has an access feature.
+					 * ending but the feature has an access feature. (Here we are deliberately ignoring any connections between a port on thread
+					 * and feature of a abstract subcomponent. Such connections are currently legal but seem wrong.)
 					 */
 					final FeatureInfo fInfo = FeatureInfo.init(ci, feature);
 					final boolean isConnectionEndingCategory = isConnectionEndingCategory(cat);
@@ -294,7 +295,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						 * - The component is connection ending and the feature has ports or feature groups.  (This case is only relevant when
 						 *   the feature is a feature group.)
 						 */
-						if ((destinationFromInside && !(conn.isAllBidirectional() && connectedInside)) ||
+						if ((!destinationFromInside && !(conn.isAllBidirectional() && connectedInside))
+								||
 								(isConnectionEndingCategory && (fInfo.hasFeatureGroup() || fInfo.hasPort()))) {
 							prevFi = featurei;
 							boolean opposite = isOpposite(feature, sub, conn);
@@ -465,6 +467,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			toFi = ci.findSubcomponentInstance((Subcomponent) toEnd);
 		}
 
+		/*
+		 * Issue 2032: We do not want connections that go from abstract subcomponent to the ports of
+		 * their containing components if the containing component is final. We specifically are
+		 * checking that the connection starts at a port feature and ends at a feature that is a feature
+		 * of the containing component and the containing component is a connection ending component. We don't
+		 * have to check that the end feature is a port because AADL semantics guarantee that it will be.
+		 */
+		if (fromFi instanceof FeatureInstance && ((FeatureInstance) fromFi).getFeature() instanceof Port
+				&& toFi.eContainer().equals(ci) && isConnectionEndingCategory(ci.getCategory())) {
+			return;
+		}
+
 		try {
 			boolean[] keep = { false };
 			boolean valid = connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite, keep);
@@ -505,9 +519,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				Feature toFeature = (Feature) toEnd;
 				final FeatureInfo fInfo = FeatureInfo.init(toCi, toEnd);
 
-				if (toEnd instanceof Parameter || finalComponent && !fInfo.hasAccess()) {
-					// connection ends at a parameter or at a simple feature of a
-					// thread, device, or (virtual) processor
+				if (toEnd instanceof Parameter) { // 6 Nov 2019 get rid of this again! -- will be dealt with below >>>> || finalComponent && !fInfo.hasAccess())
+					// connection ends at a parameter
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
 					if (dstFi == null) {
 						error(toCi,
@@ -629,6 +642,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						 * internal to the component. (2) otherwise we want all the internal connections except for the parameter
 						 * connections. Either way, we need to know if there are any parameter connections.
 						 */
+
+						/*
+						 * 6 Nov 2019 -- try to make this like the tests in instantiateConnections()
+						 *
+						 * We only care about internal connections if the component is either not connection ending or it is connection
+						 * ending but the feature has an access feature. We need to track the existence of access features, feature groups,
+						 * and ports.
+						 *
+						 * TODO: Make the changes below
+						 */
+
 						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
 						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
 								(finalComponent && fInfo.hasAccess()) ? c -> {
@@ -649,6 +673,24 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 										return true;
 									}
 								});
+
+						/*
+						 * 6 Nov 2019 -- need to make this liek the tests in instantiateConnections()
+						 *
+						 * TODO: update the wording below to make it make sense here
+						 *
+						 * We start from inside the component in the following cases
+						 * - The feature is a destination from inside (we have already dealt with the connection ending component case above)
+						 * - The outside connection is bidirectional and the the feature is connected inside (again, we have already filtered out the connection
+						 * ending component case)
+						 *
+						 * So, we start AT THE Component in the following cases
+						 * - The disjunction of the above is false
+						 * - The component is connection ending and the feature has ports or feature groups. (This case is only relevant when
+						 * the feature is a feature group.)
+						 *
+						 * TODO: Make the changes to the code
+						 */
 
 						if (conns.isEmpty()) {
 							// No internal connections, or they are all parameter connections, so we stop here
