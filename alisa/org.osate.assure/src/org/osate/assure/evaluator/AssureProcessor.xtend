@@ -828,7 +828,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				// record a reference to the AnalysisResult
-				verificationResult.analysisresult = returned
+				verificationResult.analysisresult += returned
 			} else if (returned instanceof Exception){
 				setToError(verificationResult, "Verification method execution exception: "+returned.message,
 					target);

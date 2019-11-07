@@ -98,6 +98,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedVAReference getTargetReference() {
 		return targetReference;
 	}
@@ -122,6 +123,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetReference(QualifiedVAReference newTargetReference) {
 		if (newTargetReference != targetReference) {
 			NotificationChain msgs = null;
@@ -141,6 +143,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationResult getPreconditionResult() {
 		return preconditionResult;
 	}
@@ -165,6 +168,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPreconditionResult(VerificationResult newPreconditionResult) {
 		if (newPreconditionResult != preconditionResult) {
 			NotificationChain msgs = null;
@@ -184,6 +188,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationResult getValidationResult() {
 		return validationResult;
 	}
@@ -208,6 +213,7 @@ public class VerificationActivityResultImpl extends VerificationResultImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValidationResult(VerificationResult newValidationResult) {
 		if (newValidationResult != validationResult) {
 			NotificationChain msgs = null;

@@ -211,7 +211,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link AssurePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -225,7 +225,8 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		if (isInited) return (AssurePackage)EPackage.Registry.INSTANCE.getEPackage(AssurePackage.eNS_URI);
 
 		// Obtain or create and register package
-		AssurePackageImpl theAssurePackage = (AssurePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AssurePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AssurePackageImpl());
+		Object registeredAssurePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		AssurePackageImpl theAssurePackage = registeredAssurePackage instanceof AssurePackageImpl ? (AssurePackageImpl)registeredAssurePackage : new AssurePackageImpl();
 
 		isInited = true;
 
@@ -249,7 +250,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		// Mark meta-data to indicate it can't be changed
 		theAssurePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(AssurePackage.eNS_URI, theAssurePackage);
 		return theAssurePackage;
@@ -540,6 +540,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVerificationResult_Analysisresult() {
 		return (EReference)verificationResultEClass.getEStructuralFeatures().get(4);
 	}
@@ -1300,7 +1301,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 		initEReference(getVerificationResult_Issues(), theResultPackage.getDiagnostic(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVerificationResult_Results(), theResultPackage.getResult(), null, "results", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVerificationResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVerificationResult_Analysisresult(), theResultPackage.getAnalysisResult(), null, "analysisresult", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVerificationResult_Analysisresult(), theResultPackage.getAnalysisResult(), null, "analysisresult", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(assureResultEClass, AssureResult.class, "AssureResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAssureResult_Metrics(), this.getMetrics(), null, "metrics", null, 0, 1, AssureResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
