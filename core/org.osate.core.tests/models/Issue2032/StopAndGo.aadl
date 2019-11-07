@@ -14,6 +14,7 @@ public
     abstract A
         features
             input: in data port D;
+            output: out data port D;
     end A;
     
     thread T1
@@ -25,7 +26,11 @@ public
     thread implementation T1.i
     	subcomponents
     		s: subprogram ShareMe;
+            abs: abstract A;
+            abs2: abstract A;
     	connections
+    		qq: port abs.output -> abs2.input; -- don't ignore
+    		qqq: port abs2.output -> output; -- ignore
     		xxx: subprogram access s <-> shared_sub;
     end T1.i;
     
@@ -38,14 +43,16 @@ public
     thread implementation T2.i
         subcomponents
             s: subprogram Sub;
-            abs: abstract A;
+            abs20: abstract A;
+            abs22: abstract A;
         calls
             normal: {
                 call1: subprogram s;
             };
         connections
-            aa: port input -> abs.input; -- ignored
-            bb: parameter input -> call1.p; -- ignored
+            aa: port input -> abs20.input;  -- ignore
+            aaa: port abs20.output -> abs22.input; -- don't ignore
+            bb: parameter input -> call1.p; -- ignore
     end T2.i;
     
     process p
