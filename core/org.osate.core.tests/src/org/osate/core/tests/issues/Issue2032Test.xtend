@@ -306,6 +306,17 @@ class Issue2032Test {
 		assertEquals(1, connRefs1.size)
 		assertEquals(1, connRefs2.size)
 		assertEquals(1, connRefs3.size)
+		
+		
+		// None of the threads or subprograms should have connection instances
+		val t1 = myP.componentInstances.get(0)
+		assertEquals(0, t1.connectionInstances.size)
+		assertEquals(0, t1.componentInstances.get(0).connectionInstances.size)
+		assertEquals(0, t1.componentInstances.get(0).componentInstances.get(0).connectionInstances.size)
+		assertEquals(0, t1.componentInstances.get(0).componentInstances.get(1).connectionInstances.size)
+		assertEquals(0, myP.componentInstances.get(1).connectionInstances.size)
+		assertEquals(0, myP.componentInstances.get(2).connectionInstances.size)
+		assertEquals(0, myP.componentInstances.get(3).connectionInstances.size)
 	}
 	
 	@Test
