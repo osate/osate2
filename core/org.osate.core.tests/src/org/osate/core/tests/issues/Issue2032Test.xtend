@@ -276,7 +276,7 @@ class Issue2032Test {
 		
 	@Test
 	def void testAbstract_Thread() {
-		test2("JustAbstract_thread.aadl");
+		test1("JustAbstract_thread.aadl");
 	}
 		
 	@Test
@@ -292,12 +292,12 @@ class Issue2032Test {
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
 		// There should be exactly 3 connection instances
-		val myS = instance.componentInstances.get(0)
-		assertEquals(3, myS.connectionInstances.size)
+		val myP = instance.componentInstances.get(0)
+		assertEquals(3, myP.connectionInstances.size)
 		
-		val ci1 = myS.connectionInstances.get(0)
-		val ci2 = myS.connectionInstances.get(1)
-		val ci3 = myS.connectionInstances.get(2)
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
+		val ci3 = myP.connectionInstances.get(2)
 		
 		// Each connection instance should have 1 connection reference
 		val connRefs1 = ci1.connectionReferences
@@ -321,12 +321,12 @@ class Issue2032Test {
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
 		// There should be exactly 3 connection instances
-		val myS = instance.componentInstances.get(0)
-		assertEquals(3, myS.connectionInstances.size)
+		val myP = instance.componentInstances.get(0)
+		assertEquals(3, myP.connectionInstances.size)
 		
-		val ci1 = myS.connectionInstances.get(0)
-		val ci2 = myS.connectionInstances.get(1)
-		val ci3 = myS.connectionInstances.get(2)
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
+		val ci3 = myP.connectionInstances.get(2)
 
 		// The first connection should just 'cc'
 		val connRefs1 = ci1.connectionReferences
@@ -340,6 +340,57 @@ class Issue2032Test {
 		assertEquals(2, connRefs3.size)
 		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
 		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
+		
+		/* Thread t1 should have one connection */
+		val t1 = myP.componentInstances.get(0)
+		assertEquals(1, t1.connectionInstances.size)
+		val qqRefs = t1.connectionInstances.get(0).connectionReferences
+		assertEquals(1, qqRefs.size)
+		assertEquals("qq", qqRefs.get(0).connection.name)
+		
+		/* Thread t2 should have one connection */
+		val t2 = myP.componentInstances.get(1)
+		assertEquals(1, t2.connectionInstances.size)
+		val aaRefs = t2.connectionInstances.get(0).connectionReferences
+		assertEquals(1, aaRefs.size)
+		assertEquals("aa", aaRefs.get(0).connection.name)
+	}
+	
+	@Test
+	def void testStopAndGo_FeatureGroup() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "StopAndGo_fg.aadl")
+
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		assertTrue('System implementation "' + ROOT_IMPL + '" not found', cls.exists[name == ROOT_IMPL])
+
+		// Instantiate system
+		val sysImpl = cls.findFirst[name == ROOT_IMPL] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+		assertEquals(ROOT_INSTANCE, instance.name)
+		
+		// There should be exactly 4 connection instances
+		val myP = instance.componentInstances.get(0)
+		assertEquals(4, myP.connectionInstances.size)
+		
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
+		val ci3 = myP.connectionInstances.get(2)
+		val ci4 = myP.connectionInstances.get(3)
+
+		// The first two should have 1 connection and be the same
+		val connRefs1 = ci1.connectionReferences
+		val connRefs2 = ci2.connectionReferences
+		assertEquals(1, connRefs1.size)
+		assertEquals(1, connRefs2.size)
+		assertEquals(connRefs1.get(0).connection, connRefs2.get(0).connection)
+		
+		// The third and fourth connections should be inverses.
+		val connRefs3 = ci3.connectionReferences
+		val connRefs4 = ci4.connectionReferences
+		assertEquals(2, connRefs3.size)
+		assertEquals(2, connRefs4.size)
+		assertEquals(connRefs3.get(0).connection, connRefs4.get(1).connection)
+		assertEquals(connRefs4.get(1).connection, connRefs3.get(0).connection)
 	}
 		
 	private def void test0(String aadlFile) {
@@ -354,8 +405,36 @@ class Issue2032Test {
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
 		// There should be exactly 0 connection instances
-		val myS = instance.componentInstances.get(0)
-		assertEquals(0, myS.connectionInstances.size)
+		val myP = instance.componentInstances.get(0)
+		assertEquals(0, myP.connectionInstances.size)
+	}
+		
+	private def void test1(String aadlFile) {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + aadlFile)
+
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		assertTrue('System implementation "' + ROOT_IMPL + '" not found', cls.exists[name == ROOT_IMPL])
+
+		// Instantiate system
+		val sysImpl = cls.findFirst[name == ROOT_IMPL] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+		assertEquals(ROOT_INSTANCE, instance.name)
+		
+		// There should be exactly 2 connection instances
+		val myP = instance.componentInstances.get(0)
+		assertEquals(2, myP.connectionInstances.size)
+		
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
+
+		// Each connection instance should have 1 connection reference
+		val connRefs1 = ci1.connectionReferences
+		val connRefs2 = ci2.connectionReferences
+		assertEquals(1, connRefs1.size)
+		assertEquals(1, connRefs2.size)
+		
+		// The two connection instances should follow opposite paths
+		assertEquals(connRefs1.get(0).connection, connRefs2.get(0).connection)
 	}
 	
 	private def void test2(String aadlFile) {
@@ -370,11 +449,11 @@ class Issue2032Test {
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
 		// There should be exactly 2 connection instances
-		val myS = instance.componentInstances.get(0)
-		assertEquals(2, myS.connectionInstances.size)
+		val myP = instance.componentInstances.get(0)
+		assertEquals(2, myP.connectionInstances.size)
 		
-		val ci1 = myS.connectionInstances.get(0)
-		val ci2 = myS.connectionInstances.get(1)
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
 
 		// Each connection instance should have 2 connection references
 		val connRefs1 = ci1.connectionReferences
@@ -399,11 +478,11 @@ class Issue2032Test {
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
 		// There should be exactly 2 connection instances
-		val myS = instance.componentInstances.get(0)
-		assertEquals(2, myS.connectionInstances.size)
+		val myP = instance.componentInstances.get(0)
+		assertEquals(2, myP.connectionInstances.size)
 		
-		val ci1 = myS.connectionInstances.get(0)
-		val ci2 = myS.connectionInstances.get(1)
+		val ci1 = myP.connectionInstances.get(0)
+		val ci2 = myP.connectionInstances.get(1)
 
 		// Each connection instance should have 3 connection references
 		val connRefs1 = ci1.connectionReferences

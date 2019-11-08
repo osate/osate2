@@ -517,7 +517,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
 			} else {
 				Feature toFeature = (Feature) toEnd;
-				final FeatureInfo fInfo = FeatureInfo.init(toCi, toEnd);
+//				final FeatureInfo fInfo = FeatureInfo.init(toCi, toEnd);
 
 				if (toEnd instanceof Parameter) { // 6 Nov 2019 get rid of this again! -- will be dealt with below >>>> || finalComponent && !fInfo.hasAccess())
 					// connection ends at a parameter
@@ -635,69 +635,61 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						finalizeConnectionInstance(ci, connInfo, toFi);
 					} else {
 						// there is a toImpl
+
 						/*
 						 * Issue 2032: Get the connections internal to the destination component that connect
-						 * to the feature. Two cases here. (1) If the component is final (thread/device/processor) but
-						 * the end we are starting from has access features, then we are only interested in access connections
-						 * internal to the component. (2) otherwise we want all the internal connections except for the parameter
-						 * connections. Either way, we need to know if there are any parameter connections.
+						 * to the feature. Two cases here. (1) If the component is final (thread/device/processor),
+						 * we only follow access features inside, (2) otherwise we follow all the internal connections
+						 * except for the parameter connections. We keep track of whether any internal connections were
+						 * ignored so we know if we should create a connection instance that stops at the component itself.
 						 */
-
-						/*
-						 * 6 Nov 2019 -- try to make this like the tests in instantiateConnections()
-						 *
-						 * We only care about internal connections if the component is either not connection ending or it is connection
-						 * ending but the feature has an access feature. We need to track the existence of access features, feature groups,
-						 * and ports.
-						 *
-						 * TODO: Make the changes below
-						 */
-
-						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
+						final AtomicBoolean hasIgnoredConnection = new AtomicBoolean(false);
 						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
-								(finalComponent && fInfo.hasAccess()) ? c -> {
-									if (c instanceof ParameterConnection) {
-										hasParameterConnection.set(true);
-										return false;
-									} else if (c instanceof AccessConnection) {
-										return true;
-									} else {
-										return false;
-									}
-								} :
 								c -> {
-									if (c instanceof ParameterConnection) {
-										hasParameterConnection.set(true);
+									if (c instanceof AccessConnection) {
+										return true; // never ignore access connections
+									} else if (c instanceof ParameterConnection) {
+										// always ignore parameter connections
+										hasIgnoredConnection.set(true);
 										return false;
 									} else {
-										return true;
+										// Ignore other connections only if the component is connection ending
+										if (finalComponent) {
+											hasIgnoredConnection.set(true);
+											return false;
+										} else {
+											return true;
+										}
 									}
 								});
 
-						/*
-						 * 6 Nov 2019 -- need to make this liek the tests in instantiateConnections()
-						 *
-						 * TODO: update the wording below to make it make sense here
-						 *
-						 * We start from inside the component in the following cases
-						 * - The feature is a destination from inside (we have already dealt with the connection ending component case above)
-						 * - The outside connection is bidirectional and the the feature is connected inside (again, we have already filtered out the connection
-						 * ending component case)
-						 *
-						 * So, we start AT THE Component in the following cases
-						 * - The disjunction of the above is false
-						 * - The component is connection ending and the feature has ports or feature groups. (This case is only relevant when
-						 * the feature is a feature group.)
-						 *
-						 * TODO: Make the changes to the code
-						 */
+//						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
+//						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
+//								(finalComponent && fInfo.hasAccess()) ? c -> {
+//									if (c instanceof ParameterConnection) {
+//										hasParameterConnection.set(true);
+//										return false;
+//									} else if (c instanceof AccessConnection) {
+//										return true;
+//									} else {
+//										return false;
+//									}
+//								} :
+//								c -> {
+//									if (c instanceof ParameterConnection) {
+//										hasParameterConnection.set(true);
+//										return false;
+//									} else {
+//										return true;
+//									}
+//								});
 
 						if (conns.isEmpty()) {
 							// No internal connections, or they are all parameter connections, so we stop here
 							List<Subcomponent> subs = toImpl.getAllSubcomponents();
 
 							if (!subs.isEmpty()) {
-								if (!isConnectionEndingComponent(toCtx)) {
+								if (!finalComponent) {
 									warning(ci,
 											"No connection declaration from feature " + toEnd.getName()
 													+ " of component " + ((Subcomponent) toCtx).getName()
@@ -713,12 +705,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 							/*
 							 * Issue 2032: If we get here then destination component has internal connections,
-							 * not all of which are parameter connections. If there is at least one
-							 * parameter connection, as indicated by the hasParameterConnection flag,
-							 * we finalize the current connection, but also keep going with processing
-							 * the internal connections along the current path.
+							 * not all of which are parameter connections. We definitely are going to proceed
+							 * inside the component with the connection. However, if there are internal
+							 * connections that were ignored, we also need to create a connection instance that
+							 * ends at the component.
+							 *
+							 * NB. Not possible to have an ignored parameter connection from a feature and have a
+							 * another not ignored connection from that feature because the only place a
+							 * parameter connection can exist is in a subprogram or a thread, and it's
+							 * not possible to have a regular port connections internal to
+							 * either one of those (with the exception of abstract components, but those
+							 * should probably be illegal anyway and we ignore those too).
 							 */
-							if (hasParameterConnection.get()) {
+							if (hasIgnoredConnection.get()) {
 								final ConnectionInfo clone = connInfo.cloneInfo();
 								clone.complete = true;
 								finalizeConnectionInstance(ci, clone, toFi);
