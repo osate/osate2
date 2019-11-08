@@ -517,9 +517,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
 			} else {
 				Feature toFeature = (Feature) toEnd;
-//				final FeatureInfo fInfo = FeatureInfo.init(toCi, toEnd);
 
-				if (toEnd instanceof Parameter) { // 6 Nov 2019 get rid of this again! -- will be dealt with below >>>> || finalComponent && !fInfo.hasAccess())
+				if (toEnd instanceof Parameter) {
 					// connection ends at a parameter
 					FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
 					if (dstFi == null) {
@@ -662,27 +661,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 										}
 									}
 								});
-
-//						final AtomicBoolean hasParameterConnection = new AtomicBoolean(false);
-//						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
-//								(finalComponent && fInfo.hasAccess()) ? c -> {
-//									if (c instanceof ParameterConnection) {
-//										hasParameterConnection.set(true);
-//										return false;
-//									} else if (c instanceof AccessConnection) {
-//										return true;
-//									} else {
-//										return false;
-//									}
-//								} :
-//								c -> {
-//									if (c instanceof ParameterConnection) {
-//										hasParameterConnection.set(true);
-//										return false;
-//									} else {
-//										return true;
-//									}
-//								});
 
 						if (conns.isEmpty()) {
 							// No internal connections, or they are all parameter connections, so we stop here
@@ -828,23 +806,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			return hasFeatureGroup;
 		}
 	}
-
-//	private boolean endHasAccessFeatures(final ComponentInstance ci, final ConnectionEnd end) {
-//		if (end instanceof Access) {
-//			return ((Access) end).getKind() == AccessType.PROVIDES;
-//		} else if (end instanceof FeatureGroup) {
-//			final FeatureGroup fg = (FeatureGroup) end;
-//			final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
-//			for (final FeatureInstance fi : fgInstance.getFeatureInstances()) {
-//				if (fi.getFeature() instanceof Access) {
-//					return ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES;
-//				}
-//			}
-//			return false;
-//		} else {
-//			return false;
-//		}
-//	}
 
 	// ------------------------------------------------------------------------
 	// Post-process completed connection instance
