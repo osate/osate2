@@ -55,8 +55,8 @@ public
                 call1: subprogram s;
             };
         connections
-            aa: port fg2.input -> abs.input;
-            bb: parameter fg2.input -> call1.p;
+            aa: port fg2.input -> abs.input; -- ignored
+            bb: parameter fg2.input -> call1.p; -- ignored
     end T2.i;
     
     process p

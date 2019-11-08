@@ -50,8 +50,8 @@ public
                 call1: subprogram s;
             };
         connections
-            aa: port input -> abs20.input;  -- ignore
-            aaa: port abs20.output -> abs22.input; -- don't ignore
+            aa: port abs20.output -> abs22.input; -- don't ignore
+            aaa: port input -> abs20.input;  -- ignore
             bb: parameter input -> call1.p; -- ignore
     end T2.i;
     
