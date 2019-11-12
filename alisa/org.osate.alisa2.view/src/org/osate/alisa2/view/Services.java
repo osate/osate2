@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
@@ -17,6 +18,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil.UsageCrossReferencer;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.table.business.internal.metamodel.spec.DCellSpec;
+import org.eclipse.sirius.table.metamodel.table.DColumn;
+import org.eclipse.sirius.table.metamodel.table.DLine;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -305,6 +308,20 @@ public class Services {
 	 */
 	public static boolean isFocused(EObject self) {
 		return FocusManager.getInstance().isFocused(self);
+	}
+
+	public static String getCauseAndCompensation(EObject self, EObject lineSemantic, EObject columnSemantic,
+			EObject root, DLine line, DColumn column, EObject container) {
+		EClass eClazz = self.eClass();
+		if (!line.getLines().isEmpty()) {
+			return "Cause: Bad stuff happened.";
+		} else {
+			return "Compensation: Bad stuff should not happen.";
+		}
+	}
+
+	public static EObject duplicate(EObject self) {
+		return self;
 	}
 
 	public static Collection<EObject> debug(EObject self) {

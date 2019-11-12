@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:description_3="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_4="http://www.eclipse.org/sirius/diagram/sequence/description/2.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="SystemOverview" version="12.0.0.2017041100">
   <ownedViewpoints name="Hazard Analyst" modelFileExtension="safe2">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" endUserDocumentation="Graph view of the specified component as well as its &quot;neighbors&quot; (ie, produce its input and consume its output), their neighbors, and connections between all displayed elements." name="ConnectedNeighbors" titleExpression="aql:'Neighbors of '+self.name" domainClass="instance.ComponentInstance" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
@@ -363,7 +363,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasErrorTopLevelErrors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActionsTopLevelErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
+      <intersection name="HasErrorTopLevelErrors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedRepresentationCreationDescriptions[name='CreateUCA-Refinement']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActionsTopLevelErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
@@ -468,7 +468,47 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasErrorFamilyErrors" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedLineMappings[name='ControlActionsFamilyErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getErrorTypesByConnection()">
+      <intersection name="HasErrorFamilyErrors" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedLineMappings[name='ControlActionsFamilyErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(lineSemantic, columnSemantic, root, line, column, container)" columnFinderExpression="service:getErrorTypesByConnection()">
+        <foregroundConditionalStyle predicateExpression="service:isFocused()">
+          <style labelSize="8">
+            <labelFormat>bold</labelFormat>
+            <labelFormat>italic</labelFormat>
+            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
+          </style>
+        </foregroundConditionalStyle>
+      </intersection>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_4:SequenceDiagramDescription" enablePopupBars="true">
+      <defaultLayer name="Default"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="UCA-Refinement" domainClass="instance.ComponentInstance">
+      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
+      <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
+      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateUCA-Refinement" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']">
+        <initialOperation>
+          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="ForceVariableInitialization" id="org.osate.alisa2.view.ForceVariableInitializationActionID"/>
+        </initialOperation>
+        <containerViewVariable name="TLECellContainerView"/>
+        <representationNameVariable name="tableName"/>
+      </ownedRepresentationCreationDescriptions>
+      <ownedLineMappings name="ControlActionsUCA-Refinement" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+        </defaultBackground>
+        <ownedSubLines name="secondLine" domainClass="instance.ConnectionInstance" semanticCandidatesExpression="service:duplicate()" headerLabelExpression="service:getControlActionRowHeader()"/>
+      </ownedLineMappings>
+      <ownedColumnMappings name="ErrorTypesUCA-Refinement" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(TLECellContainerView)">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+        </defaultBackground>
+      </ownedColumnMappings>
+      <intersection name="HasErrorUCA-Refinement" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement']/@ownedSubLines[name='secondLine']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(lineSemantic, columnSemantic, root, line, column, container)" columnFinderExpression="service:getErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
