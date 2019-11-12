@@ -1508,12 +1508,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					} else if (prevFlowElement instanceof Subcomponent) {
-						if (prevFlowElement != cxt && !(cxt instanceof SubprogramCall
-								&& ((SubprogramCall) cxt).getCalledSubprogram() == prevFlowElement)) {
-							error(flow.getOwnedFlowSegments().get(i),
-									"The source of connection '" + connection.getName()
-											+ "' does not match the preceding subcomponent '"
-											+ ((Subcomponent) prevFlowElement).getName() + '\'');
+						/*
+						 * If cxt is null then the connection may be an access connection or parameter connection that points
+						 * to a data/bus subcomponent. If cxt is not null then the connection end may refer to a subprogram paramter.
+						 */
+						if (cxt == null) {
+							if (prevFlowElement != ce) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The source component '" + ce.getName() + "' of connection '"
+												+ connection.getName()
+												+ "' does not match the preceding subcomponent '"
+												+ ((Subcomponent) prevFlowElement).getName() + '\'');
+							}
+						} else {
+							if ((prevFlowElement != cxt) && !(cxt instanceof SubprogramCall
+									&& ((SubprogramCall) cxt).getCalledSubprogram() == prevFlowElement)) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The source of connection '" + connection.getName()
+												+ "' does not match the preceding subcomponent '"
+												+ ((Subcomponent) prevFlowElement).getName() + '\'');
+							}
 						}
 					}
 				}
@@ -1561,14 +1575,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							}
 						}
 					} else if (felem instanceof Subcomponent) {
-						if (felem != cxt && !(cxt instanceof SubprogramCall
-								&& ((SubprogramCall) cxt).getCalledSubprogram() == felem)) {
-							error(flow.getOwnedFlowSegments().get(i),
-									"The destination component '" + cxt.getName() + "' of connection '"
-											+ connection.getName() + "' does not match the succeeding subcomponent  '"
-											+ ((Subcomponent) felem).getName() + '\'');
+						/*
+						 * If cxt is null then the connection may be an access connection or parameter connection that points
+						 * to a data/bus subcomponent. If cxt is not null then the connection end may refer to a subprogram paramter.
+						 */
+						if (cxt == null) {
+							if (felem != ce) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The destination component '" + ce.getName() + "' of connection '"
+												+ connection.getName()
+												+ "' does not match the succeeding subcomponent  '"
+												+ ((Subcomponent) felem).getName() + '\'');
+							}
+						} else {
+							if ((felem != cxt) && !(cxt instanceof SubprogramCall
+									&& ((SubprogramCall) cxt).getCalledSubprogram() == felem)) {
+								error(flow.getOwnedFlowSegments().get(i),
+										"The destination component '" + cxt.getName() + "' of connection '"
+												+ connection.getName()
+												+ "' does not match the succeeding subcomponent  '"
+												+ ((Subcomponent) felem).getName() + '\'');
+							}
 						}
-
 					}
 				}
 			}
@@ -2446,7 +2474,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * is the ConnectionEnd if the connection context is null, otherwise it is just the connection context.
 	 */
 	private Subcomponent getConnectionSubcomponent(final Connection connection, final Context connectionContext, final ConnectionEnd connectionEnd) {
-		if (connection instanceof AccessConnection && connectionContext == null) {
+		if (connectionContext == null) {
 			return (Subcomponent) connectionEnd;
 		} else {
 			return connectionContext instanceof Subcomponent ? (Subcomponent) connectionContext : null;
