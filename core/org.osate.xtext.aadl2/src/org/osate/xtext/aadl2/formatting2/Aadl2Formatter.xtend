@@ -180,12 +180,15 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//Declaration line
 		propertySet.regionFor.keyword(propertySetAccess.setKeyword_1).surround[oneSpace]
-		propertySet.regionFor.keyword(propertySetAccess.isKeyword_3).prepend[oneSpace].append[newLines = 1]
+		val isKeyword = propertySet.regionFor.keyword(propertySetAccess.isKeyword_3)
+		isKeyword.prepend[oneSpace].append[newLines = 1]
+		val endKeyword = propertySet.regionFor.keyword(propertySetAccess.endKeyword_7)
+		interior(isKeyword, endKeyword, [indent])
 		
 		//With statements
 		val withSemicolons = propertySet.regionFor.keywords(propertySetAccess.semicolonKeyword_4_3)
 		if (!withSemicolons.empty) {
-			propertySet.regionFor.keywords(propertySetAccess.withKeyword_4_0).forEach[surround[indent].append[oneSpace]]
+			propertySet.regionFor.keywords(propertySetAccess.withKeyword_4_0).forEach[append[oneSpace]]
 			propertySet.regionFor.keywords(propertySetAccess.commaKeyword_4_2_0).forEach[prepend[noSpace].append[oneSpace]]
 			withSemicolons.take(withSemicolons.size - 1).forEach[prepend[noSpace].append[newLines = 1]]
 			val newLineCount = if (propertySet.ownedPropertyTypes.empty &&
@@ -207,13 +210,13 @@ class Aadl2Formatter extends PropertiesFormatter {
 		propertySet.ownedAnnexSubclauses.forEach[it.format(document)]
 		
 		//End line
-		propertySet.regionFor.keyword(propertySetAccess.endKeyword_7).append[oneSpace]
+		endKeyword.append[oneSpace]
 		propertySet.regionFor.keyword(propertySetAccess.semicolonKeyword_9).prepend[noSpace]
 	}
 	
 	def dispatch void format(AadlBoolean aadlBoolean, extension IFormattableDocument document) {
 		if (aadlBoolean.name !== null) {
-			aadlBoolean.surround[indent].conditionalAppend(document, [newLines = 1])
+			aadlBoolean.conditionalAppend(document, [newLines = 1])
 			aadlBoolean.regionFor.keyword(booleanTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlBoolean.regionFor.keyword(booleanTypeAccess.aadlbooleanKeyword_3).prepend[oneSpace].append[noSpace]
 		}
@@ -221,7 +224,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	
 	def dispatch void format(AadlString aadlString, extension IFormattableDocument document) {
 		if (aadlString.name !== null) {
-			aadlString.surround[indent].conditionalAppend(document, [newLines = 1])
+			aadlString.conditionalAppend(document, [newLines = 1])
 			aadlString.regionFor.keyword(stringTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlString.regionFor.keyword(stringTypeAccess.aadlstringKeyword_3).prepend[oneSpace].append[noSpace]
 		}
@@ -235,7 +238,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				enumerationType.regionFor.keywords(unnamedEnumerationTypeAccess.commaKeyword_3_0)
 			)
 		} else {
-			enumerationType.surround[indent].conditionalAppend(document, [newLines = 1])
+			enumerationType.conditionalAppend(document, [newLines = 1])
 			enumerationType.regionFor.keyword(enumerationTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			enumerationType.regionFor.keyword(enumerationTypeAccess.enumerationKeyword_3).surround[oneSpace]
 			formatEnumerationTypeCommon(document, enumerationType.regionFor.keyword(enumerationTypeAccess.leftParenthesisKeyword_4),
@@ -266,7 +269,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				unitsType.regionFor.keyword(unnamedUnitsTypeAccess.rightParenthesisKeyword_4), unitsType.regionFor.keywords(unnamedUnitsTypeAccess.commaKeyword_3_0)
 			)
 		} else {
-			unitsType.surround[indent].conditionalAppend(document, [newLines = 1])
+			unitsType.conditionalAppend(document, [newLines = 1])
 			unitsType.regionFor.keyword(unitsTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			unitsType.regionFor.keyword(unitsTypeAccess.unitsKeyword_3).surround[oneSpace]
 			formatUnitsTypeCommon(unitsType, document, unitsType.regionFor.keyword(unitsTypeAccess.leftParenthesisKeyword_4),
@@ -299,7 +302,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		if (aadlReal.name === null) {
 			formatAadlRealCommon(aadlReal, document, aadlReal.regionFor.keyword(unnamedRealTypeAccess.unitsKeyword_3_1_0))
 		} else {
-			aadlReal.surround[indent].conditionalAppend(document, [newLines = 1])
+			aadlReal.conditionalAppend(document, [newLines = 1])
 			aadlReal.regionFor.keyword(realTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlReal.regionFor.keyword(realTypeAccess.aadlrealKeyword_3).prepend[oneSpace]
 			
@@ -333,7 +336,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		if (aadlInteger.name === null) {
 			formatAadlIntegerCommon(aadlInteger, document, aadlInteger.regionFor.keyword(unnamedIntegerTypeAccess.unitsKeyword_3_1_0))
 		} else {
-			aadlInteger.surround[indent].conditionalAppend(document, [newLines = 1])
+			aadlInteger.conditionalAppend(document, [newLines = 1])
 			aadlInteger.regionFor.keyword(integerTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			aadlInteger.regionFor.keyword(integerTypeAccess.aadlintegerKeyword_3).prepend[oneSpace]
 			
@@ -362,7 +365,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			
 			formatRangeTypeCommon(rangeType, document, rangeType.regionFor.assignment(unnamedRangeTypeAccess.referencedNumberTypeAssignment_2_1))
 		} else {
-			rangeType.surround[indent].conditionalAppend(document, [newLines = 1])
+			rangeType.conditionalAppend(document, [newLines = 1])
 			rangeType.regionFor.keyword(rangeTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			rangeType.regionFor.keyword(rangeOfKeywordsAccess.rangeKeyword_0).surround[oneSpace]
 			
@@ -388,7 +391,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				classifierType.regionFor.keywords(unnamedClassifierTypeAccess.commaKeyword_2_2_0)
 			)
 		} else {
-			classifierType.surround[indent].conditionalAppend(document, [newLines = 1])
+			classifierType.conditionalAppend(document, [newLines = 1])
 			classifierType.regionFor.keyword(classifierTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			classifierType.regionFor.keyword(classifierTypeAccess.classifierKeyword_3).prepend[oneSpace]
 			
@@ -434,7 +437,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				referenceType.regionFor.keywords(unnamedReferenceTypeAccess.commaKeyword_2_2_0)
 			)
 		} else {
-			referenceType.surround[indent].conditionalAppend(document, [newLines = 1])
+			referenceType.conditionalAppend(document, [newLines = 1])
 			referenceType.regionFor.keyword(referenceTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			referenceType.regionFor.keyword(referenceTypeAccess.referenceKeyword_3).prepend[oneSpace]
 			
@@ -469,7 +472,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				recordType.regionFor.keyword(unnamedRecordTypeAccess.rightParenthesisKeyword_3)
 			)
 		} else {
-			recordType.surround[indent].conditionalAppend(document, [newLines = 1])
+			recordType.conditionalAppend(document, [newLines = 1])
 			recordType.regionFor.keyword(recordTypeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 			recordType.regionFor.keyword(recordTypeAccess.typeKeyword_2).append[oneSpace]
 			formatRecordTypeCommon(recordType, document, recordType.regionFor.keyword(recordTypeAccess.leftParenthesisKeyword_4),
@@ -505,7 +508,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(PropertyConstant propertyConstant, extension IFormattableDocument document) {
-		propertyConstant.surround[indent].conditionalAppend(document, [newLines = 1])
+		propertyConstant.conditionalAppend(document, [newLines = 1])
 		propertyConstant.regionFor.keyword(propertyConstantAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		propertyConstant.regionFor.keyword(propertyConstantAccess.constantKeyword_2).append[oneSpace]
 		
@@ -521,7 +524,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(Property property, extension IFormattableDocument document) {
-		property.surround[indent].conditionalAppend(document, [newLines = 1])
+		property.conditionalAppend(document, [newLines = 1])
 		property.regionFor.keyword(propertyDefinitionAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		property.regionFor.keyword(propertyDefinitionAccess.inheritInheritKeyword_2_0).append[oneSpace]
 		
@@ -562,16 +565,18 @@ class Aadl2Formatter extends PropertiesFormatter {
 		aadlPackage.ownedPrivateSection.format(document)
 		
 		//Properties
-		aadlPackage.regionFor.keyword(aadlPackageAccess.propertiesKeyword_3_0).append[newLines = 1]
+		val propertiesKeyword = aadlPackage.regionFor.keyword(aadlPackageAccess.propertiesKeyword_3_0)
+		propertiesKeyword.append[newLines = 1]
+		val endKeyword = aadlPackage.regionFor.keyword(aadlPackageAccess.endKeyword_4)
+		interior(propertiesKeyword, endKeyword, [indent])
 		aadlPackage.ownedPropertyAssociations.forEach[
-			surround[indent].append[newLines = 1]
+			append[newLines = 1]
 			it.format(document)
 		]
-		aadlPackage.regionFor.keyword(aadlPackageAccess.noneKeyword_3_1_1_0).surround[indent]
 		aadlPackage.regionFor.keyword(aadlPackageAccess.semicolonKeyword_3_1_1_1).prepend[noSpace].append[newLines = 1]
 		
 		//End line
-		aadlPackage.regionFor.keyword(aadlPackageAccess.endKeyword_4).append[oneSpace]
+		endKeyword.append[oneSpace]
 		aadlPackage.regionFor.keyword(aadlPackageAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 	
@@ -619,17 +624,21 @@ class Aadl2Formatter extends PropertiesFormatter {
 	def private formatPackageSectionCommon(PackageSection packageSection, extension IFormattableDocument document,
 		ISemanticRegion visibilityKeyword, Iterable<ISemanticRegion> withs, Iterable<ISemanticRegion> commas, Iterable<ISemanticRegion> semicolons
 	) {
+		if (!packageSection.eContents.empty || !packageSection.importedUnits.empty) {
+			packageSection.interior[indent]
+		}
+		
 		//Visibility label
 		visibilityKeyword.append[newLines = 1]
 		
 		//With statements
-		withs.forEach[surround[indent].append[oneSpace]]
+		withs.forEach[append[oneSpace]]
 		commas.forEach[prepend[noSpace].append[oneSpace]]
 		semicolons.forEach[
-			val newLineCount = switch nextSemanticRegion?.semanticElement {
+			val newLineCount = switch nextElement : nextSemanticRegion?.semanticElement {
 				Classifier,
 				AnnexLibrary,
-				PackageSection: 2
+				PackageSection case nextElement != packageSection: 2
 				default: 1
 			}
 			prepend[noSpace].append[newLines = newLineCount]
@@ -652,7 +661,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		packageRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		packageRename.conditionalAppend(document, [newLines = newLineCount])
 		
 		//PackageRename parser rule
 		packageRename.regionFor.keyword(packageRenameAccess.renamesKeyword_1).surround[oneSpace]
@@ -673,7 +682,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		featureGroupTypeRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		featureGroupTypeRename.conditionalAppend(document, [newLines = newLineCount])
 		featureGroupTypeRename.regionFor.assignment(FGTRenameAccess.nameAssignment_0).append[oneSpace]
 		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.featureKeyword_0).surround[oneSpace]
 		featureGroupTypeRename.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).append[oneSpace]
@@ -687,7 +696,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		componentTypeRename.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		componentTypeRename.conditionalAppend(document, [newLines = newLineCount])
 		componentTypeRename.regionFor.assignment(CTRenameAccess.nameAssignment_0).append[oneSpace]
 		componentTypeRename.regionFor.assignment(CTRenameAccess.categoryAssignment_2).surround[oneSpace]
 		componentTypeRename.regionFor.keyword(CTRenameAccess.semicolonKeyword_4).prepend[noSpace]
@@ -700,7 +709,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		defaultAnnexLibrary.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		defaultAnnexLibrary.conditionalAppend(document, [newLines = newLineCount])
 		defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.nameAssignment_1).surround[oneSpace]
 		
 		val annexName = defaultAnnexLibrary.name
@@ -717,105 +726,80 @@ class Aadl2Formatter extends PropertiesFormatter {
 	
 	def dispatch void format(AbstractType abstractType, extension IFormattableDocument document) {
 		abstractType.regionFor.keyword(abstractTypeAccess.abstractKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(abstractType, document, abstractType.regionFor.assignment(abstractTypeAccess.nameAssignment_1),
-			abstractType.regionFor.keyword(abstractTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(abstractType, document, abstractType.regionFor.assignment(abstractTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(SystemType systemType, extension IFormattableDocument document) {
 		systemType.regionFor.keyword(systemTypeAccess.systemKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(systemType, document, systemType.regionFor.assignment(systemTypeAccess.nameAssignment_1),
-			systemType.regionFor.keyword(systemTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(systemType, document, systemType.regionFor.assignment(systemTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(ProcessType processType, extension IFormattableDocument document) {
 		processType.regionFor.keyword(processTypeAccess.processKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(processType, document, processType.regionFor.assignment(processTypeAccess.nameAssignment_1),
-			processType.regionFor.keyword(processTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(processType, document, processType.regionFor.assignment(processTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(ThreadGroupType threadGroupType, extension IFormattableDocument document) {
 		threadGroupType.regionFor.keyword(threadGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
-		formatComponentTypeCommon(threadGroupType, document, threadGroupType.regionFor.assignment(threadGroupTypeAccess.nameAssignment_1),
-			threadGroupType.regionFor.keyword(threadGroupTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(threadGroupType, document, threadGroupType.regionFor.assignment(threadGroupTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(ThreadType threadType, extension IFormattableDocument document) {
 		threadType.regionFor.keyword(threadTypeAccess.threadKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(threadType, document, threadType.regionFor.assignment(threadTypeAccess.nameAssignment_1),
-			threadType.regionFor.keyword(threadTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(threadType, document, threadType.regionFor.assignment(threadTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(SubprogramType subprogramType, extension IFormattableDocument document) {
 		subprogramType.regionFor.keyword(subprogramTypeAccess.subprogramKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(subprogramType, document, subprogramType.regionFor.assignment(subprogramTypeAccess.nameAssignment_1),
-			subprogramType.regionFor.keyword(subprogramTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(subprogramType, document, subprogramType.regionFor.assignment(subprogramTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(SubprogramGroupType subprogramGroupType, extension IFormattableDocument document) {
 		subprogramGroupType.regionFor.keyword(subprogramGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
 		formatComponentTypeCommon(subprogramGroupType, document,
-			subprogramGroupType.regionFor.assignment(subprogramGroupTypeAccess.nameAssignment_1), null
+			subprogramGroupType.regionFor.assignment(subprogramGroupTypeAccess.nameAssignment_1)
 		)
 	}
 	
 	def dispatch void format(ProcessorType processorType, extension IFormattableDocument document) {
 		processorType.regionFor.keyword(processorTypeAccess.processorKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(processorType, document, processorType.regionFor.assignment(processorTypeAccess.nameAssignment_1),
-			processorType.regionFor.keyword(processorTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(processorType, document, processorType.regionFor.assignment(processorTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(DeviceType deviceType, extension IFormattableDocument document) {
 		deviceType.regionFor.keyword(deviceTypeAccess.deviceKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(deviceType, document, deviceType.regionFor.assignment(deviceTypeAccess.nameAssignment_1),
-			deviceType.regionFor.keyword(deviceTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(deviceType, document, deviceType.regionFor.assignment(deviceTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(MemoryType memoryType, extension IFormattableDocument document) {
 		memoryType.regionFor.keyword(memoryTypeAccess.memoryKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(memoryType, document, memoryType.regionFor.assignment(memoryTypeAccess.nameAssignment_1),
-			memoryType.regionFor.keyword(memoryTypeAccess.modesKeyword_5_1_0)
-		)
+		formatComponentTypeCommon(memoryType, document, memoryType.regionFor.assignment(memoryTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(BusType busType, extension IFormattableDocument document) {
 		busType.regionFor.keyword(busTypeAccess.busKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(busType, document, busType.regionFor.assignment(busTypeAccess.nameAssignment_1),
-			busType.regionFor.keyword(busTypeAccess.modesKeyword_5_1_0)
-		)
+		formatComponentTypeCommon(busType, document, busType.regionFor.assignment(busTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(VirtualBusType virtualBusType, extension IFormattableDocument document) {
 		virtualBusType.regionFor.keyword(virtualBusKeywordsAccess.busKeyword_1).surround[oneSpace]
-		formatComponentTypeCommon(virtualBusType, document, virtualBusType.regionFor.assignment(virtualBusTypeAccess.nameAssignment_1),
-			virtualBusType.regionFor.keyword(virtualBusTypeAccess.modesKeyword_5_1_0)
-		)
+		formatComponentTypeCommon(virtualBusType, document, virtualBusType.regionFor.assignment(virtualBusTypeAccess.nameAssignment_1))
 	}
 	
 	def dispatch void format(VirtualProcessorType virtualProcessorType, extension IFormattableDocument document) {
 		virtualProcessorType.regionFor.keyword(virtualProcessorKeywordsAccess.processorKeyword_1).surround[oneSpace]
 		formatComponentTypeCommon(virtualProcessorType, document,
-			virtualProcessorType.regionFor.assignment(virtualProcessorTypeAccess.nameAssignment_1),
-			virtualProcessorType.regionFor.keyword(virtualProcessorTypeAccess.modesKeyword_6_1_0)
+			virtualProcessorType.regionFor.assignment(virtualProcessorTypeAccess.nameAssignment_1)
 		)
 	}
 	
 	def dispatch void format(DataType dataType, extension IFormattableDocument document) {
 		dataType.regionFor.keyword(dataTypeAccess.dataKeyword_0).append[oneSpace]
-		formatComponentTypeCommon(dataType, document, dataType.regionFor.assignment(dataTypeAccess.nameAssignment_1),
-			dataType.regionFor.keyword(dataTypeAccess.modesKeyword_6_1_0)
-		)
+		formatComponentTypeCommon(dataType, document, dataType.regionFor.assignment(dataTypeAccess.nameAssignment_1))
 	}
 	
 	def private formatComponentTypeCommon(ComponentType componentType, extension IFormattableDocument document,
-		ISemanticRegion nameAssignment, ISemanticRegion modesKeyword
+		ISemanticRegion nameAssignment
 	) {
 		val newLineCount = switch componentType.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
@@ -823,16 +807,20 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		componentType.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		componentType.conditionalAppend(document, [newLines = newLineCount])
+		
+		val endKeyword = componentType.regionFor.keyword("end")
 		
 		//Declaration line
 		if (componentType.ownedExtension === null) {
 			nameAssignment.append[newLines = 1]
+			interior(nameAssignment, endKeyword, [indent])
 		} else {
 			nameAssignment.append[oneSpace]
 			componentType.ownedExtension.format(document)
 			if (componentType.ownedPrototypeBindings.empty) {
 				componentType.ownedExtension.append[newLines = 1]
+				interior(componentType.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
 			} else {
 				val leftParenthesis = componentType.regionFor.keyword("(")
 				val rightParenthesis = componentType.regionFor.keyword(")")
@@ -846,28 +834,57 @@ class Aadl2Formatter extends PropertiesFormatter {
 					} else {
 						rightParenthesis.prepend[noSpace].append[newLines = 1]
 					}
+					interior(rightParenthesis, endKeyword, [indent])
 				}
 			}
 		}
 		
 		//Section headings
-		componentType.regionFor.keywords("prototypes", "features", "flows", "properties").forEach[surround[indent].append[newLines = 1]]
+		val prototypesKeyword = componentType.regionFor.keyword("prototypes")
+		val featuresKeyword = componentType.regionFor.keyword("features")
+		val flowsKeyword = componentType.regionFor.keyword("flows")
+		val requiresKeyword = componentType.regionFor.keyword("requires")
+		val modesKeyword = componentType.regionFor.keyword("modes")
+		val propertiesKeyword = componentType.regionFor.keyword("properties")
+		val annexRegion = componentType.ownedAnnexSubclauses.head.semanticRegions.head
+		
+		if (prototypesKeyword !== null) {
+			prototypesKeyword.append[newLines = 1]
+			val endMarker = featuresKeyword ?: flowsKeyword ?: requiresKeyword ?: modesKeyword ?: propertiesKeyword ?:
+				annexRegion ?: endKeyword
+			interior(prototypesKeyword, endMarker, [indent])
+		}
+		if (featuresKeyword !== null) {
+			featuresKeyword.append[newLines = 1]
+			val endMarker = flowsKeyword ?: requiresKeyword ?: modesKeyword ?: propertiesKeyword ?: annexRegion ?:
+				endKeyword
+			interior(featuresKeyword, endMarker, [indent])
+		}
+		if (flowsKeyword !== null) {
+			flowsKeyword.append[newLines = 1]
+			val endMarker = requiresKeyword ?: modesKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(flowsKeyword, endMarker, [indent])
+		}
+		if (modesKeyword !== null) {
+			modesKeyword.append[newLines = 1]
+			val endMarker = propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(modesKeyword, endMarker, [indent])
+		}
+		if (propertiesKeyword !== null) {
+			propertiesKeyword.append[newLines = 1]
+			val endMarker = annexRegion ?: endKeyword
+			interior(propertiesKeyword, endMarker, [indent])
+		}
+		requiresKeyword.append[oneSpace]
 		
 		//None keywords
-		componentType.regionFor.keywords("none").forEach[surround[indent; indent].append[noSpace]]
+		componentType.regionFor.keywords("none").forEach[append[noSpace]]
 		
 		//Semicolons after none keywords
 		val semicolons = componentType.regionFor.keywords(";")
 		if (semicolons.size > 1) {
 			semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
 		}
-		
-		//Requires modes
-		componentType.regionFor.keyword(requiresModesKeywordsAccess.requiresKeyword_0).surround[indent].append[oneSpace]
-		componentType.regionFor.keyword(requiresModesKeywordsAccess.modesKeyword_1).append[newLines = 1]
-		
-		//Modes
-		modesKeyword.surround[indent].append[newLines = 1]
 		
 		//Contents
 		(componentType.ownedPrototypes +
@@ -880,12 +897,12 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//Properties
 		componentType.ownedPropertyAssociations.forEach[
-			surround[indent; indent].append[newLines = 1]
+			append[newLines = 1]
 			it.format(document)
 		]
 		
 		//End line
-		componentType.regionFor.keyword("end").append[oneSpace]
+		endKeyword.append[oneSpace]
 		semicolons.last.prepend[noSpace]
 	}
 	
@@ -980,7 +997,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(DataPort dataPort, extension IFormattableDocument document) {
-		dataPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		dataPort.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		dataPort.regionFor.keyword(dataPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1014,7 +1031,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(EventDataPort eventDataPort, extension IFormattableDocument document) {
-		eventDataPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		eventDataPort.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		eventDataPort.regionFor.keyword(eventDataPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1042,7 +1059,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(EventPort eventPort, extension IFormattableDocument document) {
-		eventPort.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		eventPort.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		eventPort.regionFor.keyword(eventPortAccess.colonKeyword_1_0_1).prepend[noSpace].append[oneSpace]
@@ -1069,7 +1086,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FeatureGroup featureGroup, extension IFormattableDocument document) {
-		featureGroup.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		featureGroup.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featureGroup.regionFor.keyword(featureGroupAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1101,7 +1118,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(Parameter parameter, extension IFormattableDocument document) {
-		parameter.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		parameter.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		parameter.regionFor.keyword(parameterAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1128,7 +1145,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(SubprogramAccess subprogramAccess, extension IFormattableDocument document) {
-		subprogramAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		subprogramAccess.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		subprogramAccess.regionFor.keyword(subprogramAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1151,7 +1168,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(SubprogramGroupAccess subprogramGroupAccess, extension IFormattableDocument document) {
-		subprogramGroupAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		subprogramGroupAccess.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		subprogramGroupAccess.regionFor.keyword(subprogramGroupAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1176,7 +1193,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(BusAccess busAccess, extension IFormattableDocument document) {
-		busAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		busAccess.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		busAccess.regionFor.keyword(busAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1200,7 +1217,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(DataAccess dataAccess, extension IFormattableDocument document) {
-		dataAccess.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		dataAccess.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		dataAccess.regionFor.keyword(dataAccessAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1223,7 +1240,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(AbstractFeature abstractFeature, extension IFormattableDocument document) {
-		abstractFeature.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		abstractFeature.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		abstractFeature.regionFor.keyword(abstractFeatureAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1250,7 +1267,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(Mode mode, extension IFormattableDocument document) {
-		mode.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		mode.conditionalAppend(document, [newLines = 1])
 		mode.regionFor.keyword(modeAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		mode.regionFor.keyword(modeAccess.initialInitialKeyword_2_0).append[oneSpace]
 		formatCurlyProperties(mode, document, mode.regionFor.keyword(modeAccess.leftCurlyBracketKeyword_4_0),
@@ -1260,7 +1277,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(ModeTransition modeTransition, extension IFormattableDocument document) {
-		modeTransition.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		modeTransition.conditionalAppend(document, [newLines = 1])
 		modeTransition.regionFor.keyword(modeTransitionAccess.colonKeyword_0_1).prepend[noSpace].append[oneSpace]
 		
 		//Triggers
@@ -1309,7 +1326,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FeatureGroupPrototype featureGroupPrototype, extension IFormattableDocument document) {
-		featureGroupPrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		featureGroupPrototype.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1328,7 +1345,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FeaturePrototype featurePrototype, extension IFormattableDocument document) {
-		featurePrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		featurePrototype.conditionalAppend(document, [newLines = 1])
 		
 		//Named
 		featurePrototype.regionFor.keyword(featurePrototypeAccess.colonKeyword_0_0_1).prepend[noSpace].append[oneSpace]
@@ -1349,7 +1366,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def private formatComponentPrototypeCommon(ComponentPrototype componentPrototype, extension IFormattableDocument document, ISemanticRegion constrainingClassifierAssignment) {
-		componentPrototype.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		componentPrototype.conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined
 		componentPrototype.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -1452,7 +1469,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(DefaultAnnexSubclause defaultAnnexSubclause, extension IFormattableDocument document) {
-		defaultAnnexSubclause.surround[indent].conditionalAppend(document, [newLines = 1])
+		defaultAnnexSubclause.conditionalAppend(document, [newLines = 1])
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
 		val annexName = defaultAnnexSubclause.name
@@ -1491,19 +1508,23 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		featureGroupType.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		featureGroupType.conditionalAppend(document, [newLines = newLineCount])
 		
 		featureGroupType.regionFor.keyword(featureGroupKeywordsAccess.groupKeyword_1).surround[oneSpace]
+		
+		val endKeyword = featureGroupType.regionFor.keyword(featureGroupTypeAccess.endKeyword_8)
 		
 		//Declaration line
 		val nameAssignment = featureGroupType.regionFor.assignment(featureGroupTypeAccess.nameAssignment_1)
 		if (featureGroupType.ownedExtension === null) {
 			nameAssignment.append[newLines = 1]
+			interior(nameAssignment, endKeyword, [indent])
 		} else {
 			nameAssignment.append[oneSpace]
 			featureGroupType.ownedExtension.format(document)
 			if (featureGroupType.ownedPrototypeBindings.empty) {
 				featureGroupType.ownedExtension.append[newLines = 1]
+				interior(featureGroupType.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
 			} else {
 				val leftParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.leftParenthesisKeyword_2_1_0)
 				val rightParenthesis = featureGroupType.regionFor.keyword(featureGroupTypeAccess.rightParenthesisKeyword_2_1_3)
@@ -1519,20 +1540,39 @@ class Aadl2Formatter extends PropertiesFormatter {
 					} else {
 						rightParenthesis.prepend[noSpace].append[newLines = 1]
 					}
+					interior(rightParenthesis, endKeyword, [indent])
 				}
 			}
 		}
 		
 		//Section headings
-		featureGroupType.regionFor.keywords(featureGroupTypeAccess.prototypesKeyword_3_0,
-			featureGroupTypeAccess.featuresKeyword_4_0,
-			featureGroupTypeAccess.propertiesKeyword_6_0
-		).forEach[surround[indent].append[newLines = 1]]
+		val prototypesKeyword = featureGroupType.regionFor.keyword(featureGroupTypeAccess.prototypesKeyword_3_0)
+		val featuresKeyword = featureGroupType.regionFor.keyword(featureGroupTypeAccess.featuresKeyword_4_0)
+		val inverseKeyword = featureGroupType.regionFor.keyword(inverseOfKeywordsAccess.inverseKeyword_0)
+		val inverseAssignment = featureGroupType.regionFor.assignment(featureGroupTypeAccess.inverseAssignment_5_1)
+		val propertiesKeyword = featureGroupType.regionFor.keyword(featureGroupTypeAccess.propertiesKeyword_6_0)
+		val annexRegion = featureGroupType.ownedAnnexSubclauses.head.semanticRegions.head
+		
+		if (prototypesKeyword !== null) {
+			prototypesKeyword.append[newLines = 1]
+			val endMarker = featuresKeyword ?: inverseKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(prototypesKeyword, endMarker, [indent])
+		}
+		if (featuresKeyword !== null) {
+			featuresKeyword.append[newLines = 1]
+			val endMarker = inverseKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(featuresKeyword, endMarker, [indent])
+		}
+		if (propertiesKeyword !== null) {
+			propertiesKeyword.append[newLines = 1]
+			val endMarker = annexRegion ?: endKeyword
+			interior(propertiesKeyword, endMarker, [indent])
+		}
 		
 		//None keywords
 		featureGroupType.regionFor.keywords(featureGroupTypeAccess.noPrototypesNoneKeyword_3_1_0_0_0,
 			featureGroupTypeAccess.noPropertiesNoneKeyword_6_1_1_0_0
-		).forEach[surround[indent; indent].append[noSpace]]
+		).forEach[append[noSpace]]
 		
 		//Semicolons after none keywords
 		val semicolons = featureGroupType.regionFor.keywords(";")
@@ -1547,17 +1587,17 @@ class Aadl2Formatter extends PropertiesFormatter {
 		).forEach[it.format(document)]
 		
 		//Inverse of
-		featureGroupType.regionFor.keyword(inverseOfKeywordsAccess.inverseKeyword_0).surround[indent].append[oneSpace]
-		featureGroupType.regionFor.assignment(featureGroupTypeAccess.inverseAssignment_5_1).prepend[oneSpace].append[newLines = 1]
+		inverseKeyword.append[oneSpace]
+		inverseAssignment.prepend[oneSpace].append[newLines = 1]
 		
 		//Properties
 		featureGroupType.ownedPropertyAssociations.forEach[
-			surround[indent; indent].append[newLines = 1]
+			append[newLines = 1]
 			it.format(document)
 		]
 		
 		//End line
-		featureGroupType.regionFor.keyword(featureGroupTypeAccess.endKeyword_8).append[oneSpace]
+		endKeyword.append[oneSpace]
 		semicolons.last.prepend[noSpace]
 	}
 	
@@ -1574,18 +1614,22 @@ class Aadl2Formatter extends PropertiesFormatter {
 			PackageSection: 2
 			default: 1
 		}
-		componentImplementation.surround[indent].conditionalAppend(document, [newLines = newLineCount])
+		componentImplementation.conditionalAppend(document, [newLines = newLineCount])
+		
+		val endKeyword = componentImplementation.regionFor.keyword("end")
 		
 		//Declaration line
 		componentImplementation.ownedRealization.prepend[oneSpace].append[noSpace]
 		nameAssignment.prepend[noSpace]
 		if (componentImplementation.ownedExtension === null && componentImplementation.ownedPrototypeBindings.empty) {
 			nameAssignment.append[newLines = 1]
+			interior(nameAssignment, endKeyword, [indent])
 		} else {
 			nameAssignment.append[oneSpace]
 			componentImplementation.ownedExtension.format(document)
 			if (componentImplementation.ownedPrototypeBindings.empty) {
 				componentImplementation.ownedExtension.append[newLines = 1]
+				interior(componentImplementation.ownedExtension.allSemanticRegions.last, endKeyword, [indent])
 			} else {
 				componentImplementation.ownedExtension.append[oneSpace]
 				val leftParenthesis = componentImplementation.regionFor.keyword("(")
@@ -1600,22 +1644,82 @@ class Aadl2Formatter extends PropertiesFormatter {
 					} else {
 						rightParenthesis.prepend[noSpace].append[newLines = 1]
 					}
+					interior(rightParenthesis, endKeyword, [indent])
 				}
 			}
 		}
 		
 		//Section headings
-		componentImplementation.regionFor.keywords("prototypes", "subcomponents", "connections", "flows", "modes", "properties").forEach[
-			surround[indent].append[newLines = 1]
-		]
+		val prototypesKeyword = componentImplementation.regionFor.keyword("prototypes")
+		val subcomponentsKeyword = componentImplementation.regionFor.keyword("subcomponents")
+		val internalKeyword = componentImplementation.regionFor.keyword(internalFeaturesKeywordsAccess.internalKeyword_0)
+		val internalFeaturesKeyword = componentImplementation.regionFor.keyword(internalFeaturesKeywordsAccess.featuresKeyword_1)
+		val processorKeyword = componentImplementation.regionFor.keyword(processorFeaturesKeywordsAccess.processorKeyword_0)
+		val processorFeaturesKeyword = componentImplementation.regionFor.keyword(processorFeaturesKeywordsAccess.featuresKeyword_1)
+		val callsKeyword = componentImplementation.regionFor.keyword("calls")
+		val connectionsKeyword = componentImplementation.regionFor.keyword("connections")
+		val flowsKeyword = componentImplementation.regionFor.keyword("flows")
+		val modesKeyword = componentImplementation.regionFor.keyword("modes")
+		val propertiesKeyword = componentImplementation.regionFor.keyword("properties")
+		val annexRegion = componentImplementation.ownedAnnexSubclauses.head.semanticRegions.head
+		
+		if (prototypesKeyword !== null) {
+			prototypesKeyword.append[newLines = 1]
+			val endMarker = subcomponentsKeyword ?: internalKeyword ?: processorKeyword ?: callsKeyword ?:
+				connectionsKeyword ?: flowsKeyword ?: modesKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(prototypesKeyword, endMarker, [indent])
+		}
+		if (subcomponentsKeyword !== null) {
+			subcomponentsKeyword.append[newLines = 1]
+			val endMarker = internalKeyword ?: processorKeyword ?: callsKeyword ?: connectionsKeyword ?: flowsKeyword ?:
+				modesKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(subcomponentsKeyword, endMarker, [indent])
+		}
+		if (internalFeaturesKeyword !== null) {
+			internalFeaturesKeyword.append[newLines = 1]
+			val endMarker = processorKeyword ?: callsKeyword ?: connectionsKeyword ?: flowsKeyword ?: modesKeyword ?:
+				propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(internalFeaturesKeyword, endMarker, [indent])
+		}
+		if (processorFeaturesKeyword !== null) {
+			processorFeaturesKeyword.append[newLines = 1]
+			val endMarker = callsKeyword ?: connectionsKeyword ?: flowsKeyword ?: modesKeyword ?: propertiesKeyword ?:
+				annexRegion ?: endKeyword
+			interior(processorFeaturesKeyword, endMarker, [indent])
+		}
+		if (callsKeyword !== null) {
+			callsKeyword.append[newLines = 1]
+			val endMarker = connectionsKeyword ?: flowsKeyword ?: modesKeyword ?: propertiesKeyword ?: annexRegion ?:
+				endKeyword
+			interior(callsKeyword, endMarker, [indent])
+		}
+		if (connectionsKeyword !== null) {
+			connectionsKeyword.append[newLines = 1]
+			val endMarker = flowsKeyword ?: modesKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(connectionsKeyword, endMarker, [indent])
+		}
+		if (flowsKeyword !== null) {
+			flowsKeyword.append[newLines = 1]
+			val endMarker = modesKeyword ?: propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(flowsKeyword, endMarker, [indent])
+		}
+		if (modesKeyword !== null) {
+			modesKeyword.append[newLines = 1]
+			val endMarker = propertiesKeyword ?: annexRegion ?: endKeyword
+			interior(modesKeyword, endMarker, [indent])
+		}
+		if (propertiesKeyword !== null) {
+			propertiesKeyword.append[newLines = 1]
+			val endMarker = annexRegion ?: endKeyword
+			interior(propertiesKeyword, endMarker, [indent])
+		}
 		
 		//Internal and processor features
-		componentImplementation.regionFor.keyword("internal").surround[indent].append[oneSpace]
-		componentImplementation.regionFor.keyword(processorFeaturesKeywordsAccess.processorKeyword_0).surround[indent].append[oneSpace]
-		componentImplementation.regionFor.keywords("features").forEach[append[newLines = 1]]
+		internalKeyword.append[oneSpace]
+		processorKeyword.append[oneSpace]
 		
 		//None keywords
-		componentImplementation.regionFor.keywords("none").forEach[surround[indent; indent].append[noSpace]]
+		componentImplementation.regionFor.keywords("none").forEach[append[noSpace]]
 		
 		//Semicolons after none keywords
 		val semicolons = componentImplementation.regionFor.keywords(";")
@@ -1638,19 +1742,18 @@ class Aadl2Formatter extends PropertiesFormatter {
 		
 		//Properties
 		componentImplementation.ownedPropertyAssociations.forEach[
-			surround[indent; indent].append[newLines = 1]
+			append[newLines = 1]
 			it.format(document)
 		]
 		
 		//End line
-		componentImplementation.regionFor.keyword("end").append[oneSpace]
+		endKeyword.append[oneSpace]
 		semicolons.last.prepend[noSpace]
 	}
 	
 	def private formatBehavioredImplementationCommon(BehavioredImplementation behavioredImplementation, extension IFormattableDocument document,
 		ISemanticRegion nameAssignment
 	) {
-		behavioredImplementation.regionFor.keyword("calls").surround[indent].append[newLines = 1]
 		behavioredImplementation.ownedSubprogramCallSequences.forEach[it.format(document)]
 		formatComponentImplementationCommon(behavioredImplementation, document, nameAssignment)
 	}
@@ -1758,7 +1861,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(EventSource eventSource, extension IFormattableDocument document) {
-		eventSource.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		eventSource.conditionalAppend(document, [newLines = 1])
 		eventSource.regionFor.keyword(eventSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		formatCurlyProperties(eventSource, document,
 			eventSource.regionFor.keyword(eventSourceAccess.leftCurlyBracketKeyword_3_0),
@@ -1768,7 +1871,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(EventDataSource eventDataSource, extension IFormattableDocument document) {
-		eventDataSource.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		eventDataSource.conditionalAppend(document, [newLines = 1])
 		eventDataSource.regionFor.keyword(eventDataSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		eventDataSource.regionFor.keyword(eventDataKeywordsAccess.eventKeyword_0).append[oneSpace]
 		eventDataSource.regionFor.assignment(eventDataSourceAccess.dataClassifierAssignment_3).prepend[oneSpace]
@@ -1780,7 +1883,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(PortProxy portProxy, extension IFormattableDocument document) {
-		portProxy.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		portProxy.conditionalAppend(document, [newLines = 1])
 		portProxy.regionFor.keyword(portProxyAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		portProxy.regionFor.assignment(portProxyAccess.dataClassifierAssignment_3).prepend[oneSpace]
 		formatCurlyProperties(portProxy, document,
@@ -1791,7 +1894,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(SubprogramProxy subprogramProxy, extension IFormattableDocument document) {
-		subprogramProxy.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		subprogramProxy.conditionalAppend(document, [newLines = 1])
 		subprogramProxy.regionFor.keyword(subprogramProxyAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
 		subprogramProxy.regionFor.assignment(subprogramProxyAccess.subprogramClassifierAssignment_3).prepend[oneSpace]
 		formatCurlyProperties(subprogramProxy, document,
@@ -1802,9 +1905,11 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(SubprogramCallSequence subprogramCallSequence, extension IFormattableDocument document) {
-		subprogramCallSequence.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		subprogramCallSequence.conditionalAppend(document, [newLines = 1])
 		subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftCurlyBracketKeyword_2).append[newLines = 1]
+		val leftCurly = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftCurlyBracketKeyword_2)
+		leftCurly.append[newLines = 1]
+		interior(leftCurly, subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightCurlyBracketKeyword_4), [indent])
 		subprogramCallSequence.ownedSubprogramCalls.forEach[it.format(document)]
 		formatCurlyProperties(subprogramCallSequence, document,
 			subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftCurlyBracketKeyword_5_0),
@@ -1832,7 +1937,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(SubprogramCall subprogramCall, extension IFormattableDocument document) {
-		subprogramCall.surround[indent].conditionalAppend(document, [newLines = 1])
+		subprogramCall.conditionalAppend(document, [newLines = 1])
 		subprogramCall.regionFor.keyword(subprogramCallAccess.colonKeyword_2).prepend[noSpace].append[oneSpace]
 		subprogramCall.regionFor.keyword(subprogramCallAccess.subprogramKeyword_3).append[oneSpace]
 		subprogramCall.regionFor.keyword(subprogramCallAccess.fullStopKeyword_4_0_1).surround[noSpace]
@@ -1847,7 +1952,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	def private formatSubcomponentCommon(Subcomponent subcomponent, extension IFormattableDocument document,
 		ISemanticRegion subcomponentTypeAssignment
 	) {
-		subcomponent.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		subcomponent.conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		subcomponent.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -1995,7 +2100,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def private formatConnectionCommon(Connection connection, extension IFormattableDocument document) {
-		connection.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		connection.conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		connection.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -2054,7 +2159,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FlowSpecification flowSpecification, extension IFormattableDocument document) {
-		flowSpecification.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		flowSpecification.conditionalAppend(document, [newLines = 1])
 		
 		//Named and refined to
 		flowSpecification.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
@@ -2077,11 +2182,12 @@ class Aadl2Formatter extends PropertiesFormatter {
 		if (leftParenthesis !== null && rightParenthesis !== null) {
 			flowSpecification.regionFor.keyword("in").surround[oneSpace]
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
+			interior(leftParenthesis, rightParenthesis, [indent])
 			flowSpecification.regionFor.keywords(",").forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1].surround[indent; indent]
+				rightParenthesis.prepend[newLines = 1]
 			} else {
 				rightParenthesis.prepend[noSpace]
 			}
@@ -2095,7 +2201,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FlowImplementation flowImplementation, extension IFormattableDocument document) {
-		flowImplementation.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		flowImplementation.conditionalAppend(document, [newLines = 1])
 		
 		flowImplementation.regionFor.keyword(":").prepend[noSpace].append[oneSpace]
 		flowImplementation.regionFor.assignment(flowSourceImplAccess.kindAssignment_3).surround[oneSpace]
@@ -2133,7 +2239,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(EndToEndFlow endToEndFlow, extension IFormattableDocument document) {
-		endToEndFlow.surround[indent; indent].conditionalAppend(document, [newLines = 1])
+		endToEndFlow.conditionalAppend(document, [newLines = 1])
 		
 		if (endToEndFlow.refined === null) {
 			//Named
