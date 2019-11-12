@@ -52,7 +52,7 @@ import org.osate.ui.OsateUiPlugin;
  * AaxlModifyAction defines an action framework for processing Aadl object model with modifications
   *
  * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.actions.AaxlModifyActionAsJob}.
+ * {@link org.osate.ui.actions.AaxlModifyActionAsJob}. Will be removed in 2.7.
 */
 @Deprecated
 public abstract class AaxlModifyAction extends AaxlReadOnlyAction {
