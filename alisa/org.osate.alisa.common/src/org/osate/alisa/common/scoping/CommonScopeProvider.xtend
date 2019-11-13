@@ -31,22 +31,21 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
+import org.osate.alisa.common.common.AModelReference
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
-import org.osate.aadl2.Classifier
-import org.osate.aadl2.AbstractFeature
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.ComponentPrototype
-import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupType
-import org.osate.aadl2.FeatureGroupPrototype
-import org.osate.aadl2.Feature
-import org.osate.aadl2.Subcomponent
-import org.osate.alisa.common.common.AModelReference
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider.allMembers
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
@@ -65,7 +64,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 
-	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
+	val static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
 	def private getUnitLiterals(EObject context) {
 
@@ -123,11 +122,11 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	def private convertImplName(IEObjectDescription description) {
 		val implName = description.name.lastSegment.split("\\.")
+		val typename = description.name.skipLast(1).toString("::") + "::" + implName.get(0)
 		val newName = if (implName.length > 1)
-				QualifiedName.create(description.name.skipLast(1).toString("::") + "::" + implName.get(0),
-					implName.get(1))
+				QualifiedName.create(typename, implName.get(1))
 			else
-				QualifiedName.create(description.name.skipLast(1).toString("::") + "::" + implName.get(0))
+				QualifiedName.create(typename)
 		EObjectDescription.create(newName, description.EObjectOrProxy)
 	}
 
