@@ -98,7 +98,7 @@ import org.osgi.framework.Bundle;
  * @author aarong
  * 
  * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AbstractAaxlHandler}.
+ * {@link org.osate.ui.handlers.AbstractAaxlHandler}. Will be removed in 2.7.
  */
 @Deprecated
 public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
