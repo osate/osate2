@@ -57,7 +57,7 @@
 								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases</site>
 								<site>http://download.eclipse.org/xsemantics/milestones</site>
 								<site>http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository</site>
-								<site>http://download.eclipse.org/elk/updates/releases</site>
+								<site>http://download.eclipse.org/elk/updates/releases/0.5.0</site>
 								<site>http://download.eclipse.org/ease/update/release</site>
 								<site>https://eclipse.py4j.org</site>
 							</associateSites>
