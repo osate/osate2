@@ -51,6 +51,7 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.testsupport.AssertHelper.*
+import org.osate.assure.assure.VerificationResult
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
@@ -96,12 +97,16 @@ class AssureTests extends XtextTest {
 			alisaprefix + "PeterPlan.verify",
 			alisaprefix + "SCS.reqspec",
 			alisaprefix + "scsvplan.verify",
+			alisaprefix + "SCSTier0Reqs.reqspec",
+			alisaprefix + "scstier0vplan.verify",
+			alisaprefix + "SCSgoals2.goals",
+			alisaprefix + "SCSVerificationNestedSensors.alisa",
 			alisaprefix + "SCSImplementationReqs.reqspec",
 			alisaprefix + "scsimplvplan.verify",
-			alisaprefix + "SCSgoals2.goals",
 			resoluteprefix + "BasicResolute.aadl",
 			resoluteprefix + "BudgetResolute.aadl"
 		)
+
 
 	}
 
@@ -180,7 +185,7 @@ class AssureTests extends XtextTest {
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
 			"SimpleControlSystem".assertEquals(name)
-			7.assertEquals(publicSection.ownedClassifiers.size)
+			8.assertEquals(publicSection.ownedClassifiers.size)
 		]
 		assertNoIssues(pkg)
 	}
@@ -232,7 +237,7 @@ class AssureTests extends XtextTest {
 		val pkg = scssrc.contents.get(0) as AadlPackage
 		pkg => [
 			"DigitalControlSystem".assertEquals(name)
-			7.assertEquals(publicSection.ownedClassifiers.size)
+			9.assertEquals(publicSection.ownedClassifiers.size)
 		]
 		assertNoIssues(pkg)
 	}
@@ -547,10 +552,10 @@ class AssureTests extends XtextTest {
 
 //			,alisaprefix+"SCSImplementationReqs.reqspec" ,alisaprefix+"scsimplvplan.verify" 
 	@Test
-	def void SCSImplementationReqSpectest() {
+	def void SCSTier0ReqSpectest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
-		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCSImplementationReqs.reqspec"), true)
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCSTier0Reqs.reqspec"), true)
 
 		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
@@ -558,7 +563,7 @@ class AssureTests extends XtextTest {
 		val reqspec = scssrc.contents.get(0) as ReqSpec
 		val srs = reqspec.parts.get(0) as SystemRequirementSet
 		srs => [
-			"SCSImplementationreqs".assertEquals(name)
+			"SCSTier0reqs".assertEquals(name)
 			0.assertEquals(constants.size)
 			5.assertEquals(requirements.size)
 			requirements.get(0) => [
@@ -592,6 +597,52 @@ class AssureTests extends XtextTest {
 	}
 
 	@Test
+	def void SCSImplementationReqSpectest() {
+		val ac = primaryroot as AssuranceCase
+		val rs = ac.eResource.resourceSet
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "SCSImplementationReqs.reqspec"), true)
+
+		val testFileResult = issues = alisaTestHelper.testResource(scssrc)
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+
+		val reqspec = scssrc.contents.get(0) as ReqSpec
+		val srs = reqspec.parts.get(0) as SystemRequirementSet
+		srs => [
+			"SCSImplementationreqs".assertEquals(name)
+			0.assertEquals(constants.size)
+			1.assertEquals(requirements.size)
+			requirements.get(0) => [
+				"R2_Lat".assertEquals(name)
+			]
+		]
+		srs.assertWarning(testFileResult.issues, issueCollection, "Features without requirement: power force")
+		assertNoErrors(srs)
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+
+	@Test
+	def void SCSTier0VPlantest() {
+		val ac = primaryroot as AssuranceCase
+		val rs = ac.eResource.resourceSet
+		val scssrc = rs.getResource(URI.createURI(alisaprefix + "scstier0vplan.verify"), true)
+		val ver = scssrc.contents.get(0) as Verification
+		val vp = ver.contents.get(0) as VerificationPlan
+		vp => [
+			"scstier0vplan".assertEquals(name)
+			5.assertEquals(claim.size)
+			claim.get(0) => [
+				1.assertEquals(activities.size)
+			]
+			claim.get(1) => [
+				0.assertEquals(activities.size)
+			]
+		]
+		assertNoIssues(vp)
+	}
+
+	@Test
 	def void SCSImplVPlantest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
@@ -600,12 +651,9 @@ class AssureTests extends XtextTest {
 		val vp = ver.contents.get(0) as VerificationPlan
 		vp => [
 			"scsimplvplan".assertEquals(name)
-			5.assertEquals(claim.size)
+			1.assertEquals(claim.size)
 			claim.get(0) => [
 				1.assertEquals(activities.size)
-			]
-			claim.get(1) => [
-				0.assertEquals(activities.size)
 			]
 		]
 		assertNoIssues(vp)
@@ -716,6 +764,44 @@ class AssureTests extends XtextTest {
 		val mr = assuranceCaseResult.modelResult.head
 		val clR2lat = mr.claimResult.get(2)
 		constructMessage(clR2lat).assertEquals("sensortoactuatorresponse with Latency property value [12 ms .. 18 ms]")
+	}
+
+
+
+	@Test
+	def void SCSNestedSensorsAssuranceInstancetest() {
+		val ac = primaryroot as AssuranceCase
+		val rs = ac.eResource.resourceSet
+		val acsrc = rs.getResource(URI.createURI(alisaprefix + "SCSVerificationNestedSensors.alisa"), true)
+		val NSac = acsrc.contents.get(0) as AssuranceCase
+		// null pointer exception in Global reference finder for ReqSpec
+		// Resource set is null
+		// when running as OSATE resource descriptions is a DirtyStateAware...
+		val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(NSac)
+		assuranceCaseResult.resetToTBD(null)
+		assuranceCaseResult.recomputeAllCounts(null)
+		val counts = assuranceCaseResult.metrics
+		22.assertEquals(counts.tbdCount)
+		val ap = new AssureProcessor
+		ap.processCase(assuranceCaseResult, null, new NullProgressMonitor(), false)
+		0.assertEquals(counts.tbdCount)
+		if (ResoluteUtil.isResoluteInstalled()) {
+			8.assertEquals(counts.successCount)
+			14.assertEquals(counts.failCount)
+			0.assertEquals(counts.errorCount)
+		} else {
+			5.assertEquals(counts.successCount)
+			7.assertEquals(counts.failCount)
+			10.assertEquals(counts.errorCount)
+		}
+		val mr = assuranceCaseResult.modelResult.head
+		val clR2lat = mr.claimResult.get(2)
+		constructMessage(clR2lat).assertEquals("sensortoactuatorresponse_1 with Latency property value [12 ms .. 50 ms]")
+		val eviR2lats = clR2lat.verificationActivityResult
+		1.assertEquals(eviR2lats.size)
+		val eviR2lat = eviR2lats.get(0) as VerificationResult
+		// test for 2 AnalysisResult objects
+		2.assertEquals(eviR2lat.analysisresult.size)
 	}
 
 }

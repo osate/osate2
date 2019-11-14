@@ -77,6 +77,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.result.ResultType
 import org.eclipse.core.runtime.CoreException
+import org.osate.result.AnalysisResult
 
 class AssureUtilExtension {
 
@@ -1185,6 +1186,9 @@ class AssureUtilExtension {
 		if (ri.message !== null)
 			return ri.message 
 		""
+	}
+	def static String constructMessage(AnalysisResult ri) {
+			return ri.analysis +": "+(ri.message !== null? ri.message:"" )+ " for "+(ri.modelElement as NamedElement).name
 	}
 
 	def static String constructMessage(PredicateResult pr) {
