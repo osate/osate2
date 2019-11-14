@@ -154,6 +154,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssurancePlan getPlan() {
 		if (plan != null && plan.eIsProxy()) {
 			InternalEObject oldPlan = (InternalEObject)plan;
@@ -180,6 +181,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPlan(AssurancePlan newPlan) {
 		AssurancePlan oldPlan = plan;
 		plan = newPlan;
@@ -192,6 +194,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComponentImplementation getTarget() {
 		if (target != null && ((EObject)target).eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -218,6 +221,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(ComponentImplementation newTarget) {
 		ComponentImplementation oldTarget = target;
 		target = newTarget;
@@ -230,6 +234,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -239,6 +244,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
@@ -251,6 +257,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClaimResult> getClaimResult() {
 		if (claimResult == null) {
 			claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.MODEL_RESULT__CLAIM_RESULT);
@@ -263,6 +270,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubsystemResult> getSubsystemResult() {
 		if (subsystemResult == null) {
 			subsystemResult = new EObjectContainmentEList<SubsystemResult>(SubsystemResult.class, this, AssurePackage.MODEL_RESULT__SUBSYSTEM_RESULT);
@@ -275,6 +283,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AssuranceCaseResult> getSubAssuranceCase() {
 		if (subAssuranceCase == null) {
 			subAssuranceCase = new EObjectContainmentEList<AssuranceCaseResult>(AssuranceCaseResult.class, this, AssurePackage.MODEL_RESULT__SUB_ASSURANCE_CASE);
@@ -423,7 +432,7 @@ public class ModelResultImpl extends AssureResultImpl implements ModelResult {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (message: ");
 		result.append(message);
 		result.append(')');
