@@ -42,6 +42,8 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclared
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
+ * 
+ * @deprecated Will be removed in 2.7.
  */
  @Deprecated
 abstract class OsateTest extends XtextTest {

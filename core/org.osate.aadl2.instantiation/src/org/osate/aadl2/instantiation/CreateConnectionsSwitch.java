@@ -60,6 +60,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
@@ -91,6 +92,7 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -115,7 +117,9 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 
 /**
@@ -374,7 +378,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		ConnectionEnd toEnd = goOpposite ? newSegment.getAllSource() : newSegment.getAllDestination();
 		final Context toCtx = goOpposite ? newSegment.getAllSourceContext() : newSegment.getAllDestinationContext();
 		final ComponentInstance toCi = (toCtx instanceof Subcomponent)
-				? ci.findSubcomponentInstance((Subcomponent) toCtx) : null;
+				? ci.findSubcomponentInstance((Subcomponent) toCtx)
+				: null;
 		final boolean finalComponent = isConnectionEndingComponent(toCtx);
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
@@ -411,7 +416,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (!(fromEnd instanceof Subcomponent)) {
 			// fromEnd is a feature
 			final ComponentInstance fromCi = (fromCtx instanceof Subcomponent)
-					? ci.findSubcomponentInstance((Subcomponent) fromCtx) : null;
+					? ci.findSubcomponentInstance((Subcomponent) fromCtx)
+					: null;
 			if (fromCtx instanceof Subcomponent && fromCi == null) {
 				if (!(fromCtx instanceof SubprogramSubcomponent)) {
 					error(ci, "Instantiation error: no component instance for subcomponent " + fromCtx.getName());
@@ -1676,14 +1682,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
-		EList<PropertyExpression> vals = conn.getPropertyValues("Modeling_Properties", "Classifier_Matching_Rule");
-		for (PropertyExpression val : vals) {
-			EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) val).getNamedValue();
-			if (enumLit.getName().equalsIgnoreCase("subset")) {
-				return true;
-			}
+		Property property = Aadl2GlobalScopeUtil.get(conn, Aadl2Package.eINSTANCE.getProperty(),
+				"Modeling_Properties::Classifier_Matching_Rule");
+		try {
+			PropertyExpression value = conn.getSimplePropertyValue(property);
+			EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) value).getNamedValue();
+			return enumLit.getName().equalsIgnoreCase("subset");
+		} catch (PropertyNotPresentException e) {
+			return false;
 		}
-		return false;
 	}
 
 	boolean subsetMatch(List<Connection> conns) {
