@@ -154,11 +154,17 @@ public class EMV2Properties {
 		return getHazardDescription(element, relatedComponent, ts);
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
 		return getHazardDescription(element, relatedComponent);
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static String getDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
 		return getHazardDescription(element, relatedComponent, ts);

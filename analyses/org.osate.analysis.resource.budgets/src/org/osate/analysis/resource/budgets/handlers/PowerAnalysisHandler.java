@@ -37,78 +37,91 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.ui.actions;
-
-import java.io.IOException;
+package org.osate.analysis.resource.budgets.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.RollbackException;
-import org.eclipse.emf.transaction.TransactionalCommandStack;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
-import org.osate.ui.OsateUiPlugin;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.Report.ReportType;
+import org.osate.analysis.resource.budgets.logic.PowerAnalysis;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-/**
- * AaxlModifyAction defines an action framework for processing Aadl object model
- * with modifications.
- * 
- * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler}. Will be removed in 2.7.
- */
-@Deprecated
-public abstract class AbstractInstanceOrDeclarativeModelModifyActionAction
-		extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
-	/**
-	 * Override to wrap the execution of the action so that changes to the
-	 * resource are tracked and the resource is saved afterwards if it has
-	 * been changed.
-	 */
-	/*
-	 * This is identical to what we do in AaxlModifyActionAsJob. The
-	 * extension hierarchy is getting a big out of control, but that is the
-	 * price we pay for not break existing code.
-	 */
+public class PowerAnalysisHandler extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+	Report powerReport;
+
 	@Override
-	final void processAaxlAction(final IProgressMonitor monitor, final Resource resource, final Element root) {
-		boolean prev = resource.isTrackingModification();
-		// turn on modification tracking since we may make changes
-		resource.setTrackingModification(true);
-		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
-				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-		// We execute this command on the command stack because otherwise, we will not
-		// have write permissions on the editing domain.
-		Command cmd = new RecordingCommand(domain) {
+	public String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
+	}
 
-			@Override
-			protected void doExecute() {
-				doAaxlAction(monitor, root);
-				if (resource.isModified()) {
-					try {
-						resource.save(null);
-					} catch (IOException e) {
-						IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-						StatusManager.getManager().handle(status);
-					}
-				}
-			}
+	@Override
+	protected String getActionName() {
+		return "Power Analysis";
+	}
 
-		};
+	@Override
+	protected boolean canAnalyzeDeclarativeModels() {
+		return false;
+	}
 
-		try {
-			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	@Override
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			Element declarativeObject) {
+	}
+
+	@Override
+	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			SystemInstance root, SystemOperationMode som) {
+		monitor.beginTask(getActionName(), 1);
+		PowerAnalysis pas = new PowerAnalysis(errManager);
+
+		pas.analyzePowerBudget(root, powerReport, som);
+
+		monitor.done();
+	}
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement object) {
+		if (object instanceof SystemInstance) {
+			powerReport = new Report(object, "Power", "Power", ReportType.TABLE);
+			return true;
 		}
-		resource.setTrackingModification(prev);
+		return false;
+	};
+
+	@Override
+	protected boolean finalizeAnalysis() {
+		CsvExport csvExport = new CsvExport(powerReport);
+		csvExport.save();
+		ExcelExport excelExport = new ExcelExport(powerReport);
+		excelExport.save();
+		return true;
+	};
+
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
+	}
+
+	public void setSummaryReport() {
+		this.summaryReport = new StringBuffer();
+	}
+
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
+	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+		return powerReport;
 	}
 }

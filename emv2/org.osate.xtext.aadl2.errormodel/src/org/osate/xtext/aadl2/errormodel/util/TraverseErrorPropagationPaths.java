@@ -54,7 +54,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * @author phf
+ * @deprecated Unused. Will be removed in 2.7.
  */
+@Deprecated
 public class TraverseErrorPropagationPaths {
 	protected WriteToFile report;
 	protected AnalysisModel faultModel;
