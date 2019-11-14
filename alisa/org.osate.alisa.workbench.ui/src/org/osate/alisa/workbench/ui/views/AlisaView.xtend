@@ -91,6 +91,7 @@ import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.aadl2.NamedElement
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -382,8 +383,8 @@ class AlisaView extends ViewPart {
 
 				override getChildren(Object parentElement) {
 					val eo = resourceSetForUI.getEObject(parentElement as URI, true)
-					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresult !== null){
-						(eo as VerificationResult).analysisresult.results.map[URI] //+ eo.eContents.map[URI]
+					if (eo instanceof VerificationResult && !(eo as VerificationResult).analysisresult.empty){
+						(eo as VerificationResult).analysisresult.map[URI] //+ eo.eContents.map[URI]
 					} else {
 						eo.eContents.map[URI]
 					}
@@ -399,8 +400,8 @@ class AlisaView extends ViewPart {
 
 				override hasChildren(Object element) {
 					val eo = resourceSetForUI.getEObject(element as URI, true)
-					if (eo instanceof VerificationResult && (eo as VerificationResult).analysisresult !== null){
-						!((eo as VerificationResult).analysisresult.eContents ).empty
+					if (eo instanceof VerificationResult ){
+						!(eo as VerificationResult).analysisresult.empty
 					}
 					!(eo?.eContents ?: Collections.EMPTY_LIST as EList<EObject>).empty
 				}
@@ -440,6 +441,9 @@ class AlisaView extends ViewPart {
 								"Validation " + eObject.name
 							PreconditionResult:
 								"Precondition " + eObject.name
+							AnalysisResult: {
+								 eObject.analysis +" analysis: "+ (eObject.modelElement as NamedElement).name
+							}
 							Result: {
 								if (eObject.resultType == ResultType.TBD){
 									"Result: "+ (eObject.modelElement?.constructLabel ?: "" ) 
@@ -483,6 +487,13 @@ class AlisaView extends ViewPart {
 					override getImage(Object element) {
 						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							Value: "info.png"
+							AnalysisResult:
+								switch eObject.resultType {
+									case ERROR:  "error.png"
+									case SUCCESS: "valid.png"
+									case FAILURE: "invalid.png"
+									case TBD: "info.png"
+								}
 							Result:
 								switch eObject.resultType {
 									case ERROR:  "error.png"
@@ -596,6 +607,7 @@ class AlisaView extends ViewPart {
 							ThenResult: "then"
 							PredicateResult: eObject.constructMessage
 							Result: eObject.constructMessage
+							AnalysisResult: eObject.constructMessage
 						}
 					}
 				}

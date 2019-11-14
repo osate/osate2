@@ -1,0 +1,9 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+assurance case SCSNestedSensorsCase for SimpleControlSystem::SCS [  
+	assurance plan SCSPlanSensorGroup for SimpleControlSystem::SCS.NestedSensors [
+		description "my sensor group plan"
+		assure scsvplan scsimplvplan
+		assume subsystem dcs sensors actuator
+]
+]
