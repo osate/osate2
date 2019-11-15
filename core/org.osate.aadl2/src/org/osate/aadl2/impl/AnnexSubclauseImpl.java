@@ -60,7 +60,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Will be removed in 2.7.
 	 */
 	@Deprecated
 	public boolean bypassUnparser() {
@@ -68,7 +68,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Will be removed in 2.7.
 	 */
 	@Deprecated
 	public void bypassUnparser(boolean b) {
@@ -76,7 +76,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Will be removed in 2.7.
 	 */
 	@Deprecated
 	public String getAnnexContent() {
@@ -84,7 +84,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Will be removed in 2.7.
 	 */
 	@Deprecated
 	public void setAnnexContent(String s) {

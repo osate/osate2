@@ -152,6 +152,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedClaimReference getTargetReference() {
 		return targetReference;
 	}
@@ -176,6 +177,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetReference(QualifiedClaimReference newTargetReference) {
 		if (newTargetReference != targetReference) {
 			NotificationChain msgs = null;
@@ -195,6 +197,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getModelElement() {
 		if (modelElement != null && ((EObject)modelElement).eIsProxy()) {
 			InternalEObject oldModelElement = (InternalEObject)modelElement;
@@ -221,6 +224,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModelElement(NamedElement newModelElement) {
 		NamedElement oldModelElement = modelElement;
 		modelElement = newModelElement;
@@ -233,6 +237,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -242,6 +247,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
@@ -254,6 +260,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClaimResult> getSubClaimResult() {
 		if (subClaimResult == null) {
 			subClaimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT);
@@ -266,6 +273,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getVerificationActivityResult() {
 		if (verificationActivityResult == null) {
 			verificationActivityResult = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
@@ -278,6 +286,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationResult getPredicateResult() {
 		return predicateResult;
 	}
@@ -302,6 +311,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPredicateResult(VerificationResult newPredicateResult) {
 		if (newPredicateResult != predicateResult) {
 			NotificationChain msgs = null;
@@ -457,7 +467,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (message: ");
 		result.append(message);
 		result.append(')');

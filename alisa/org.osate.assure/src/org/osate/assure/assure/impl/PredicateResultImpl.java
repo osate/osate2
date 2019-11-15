@@ -75,6 +75,7 @@ public class PredicateResultImpl extends VerificationResultImpl implements Predi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedClaimReference getTargetReference() {
 		return targetReference;
 	}
@@ -99,6 +100,7 @@ public class PredicateResultImpl extends VerificationResultImpl implements Predi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetReference(QualifiedClaimReference newTargetReference) {
 		if (newTargetReference != targetReference) {
 			NotificationChain msgs = null;

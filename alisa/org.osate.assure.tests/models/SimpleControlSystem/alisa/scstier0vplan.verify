@@ -1,0 +1,25 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+verification plan scstier0vplan for SCSTier0reqs 
+[
+	
+claim R2_Lat [
+		activities
+//			responsetime : Plugins.EndToEndFlowLatencyAnalysis()
+			computeLatency: SOM, MinLatency, MaxLatency = Plugins.ComputeEndToEndFlowLatency()
+//			timing: Plugins.ResourceAllocationScheduling()
+//		assert timing then computeLatency
+
+	]
+claim DCS_R1 [
+	]
+
+	claim Sensor1_R1 [
+	]
+
+	claim Sensor2_R1 [
+	]
+
+	claim Actuator_R1 [
+	]
+] 

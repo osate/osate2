@@ -34,94 +34,70 @@
  * </copyright>
  *
  *
- * @version $Id: ForAllIFile.java,v 1.4 2009-10-07 16:46:48 lwrage Exp $
+ * %W%
+ * @version %I% %H%
  */
-package org.osate.internal.workspace;
+package org.osate.analysis.resource.budgets.handlers;
 
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.analysis.resource.budgets.logic.NotBoundResourceAnalysis;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-/**
- * ForAllIFile operates on all files in a container hierarchy
- *
- * @author phf
- *
- * @deprecated Will be removed in 2.6.0.
- */
-@Deprecated
-public class ForAllIFile {
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
-
-	protected final EList<IFile> resultList = new BasicEList<IFile>();
-
-	/**
-	 * Create a new traversal that uses the given error manager and used the
-	 * given default traversal algorithm.
-	 */
-	public ForAllIFile() {
+public class NotBoundResourceAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
+	@Override
+	protected String getActionName() {
+		return "Not Bound Resource Budget Analysis";
 	}
 
-	/**
-	 * placeholder to be overwritten by real action in each list element
-	 *
-	 * @param obj IFile
-	 * @return true always
-	 */
-	protected boolean suchThat(IFile obj) {
+	@Override
+	public String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.NotBoundResourceAnalysisMarker";
+	}
+
+	@Override
+	public boolean initializeAction(NamedElement obj) {
+		setCSVLog("NotBoundResourceBudgets", obj);
 		return true;
 	}
 
-	/**
-	 * placeholder to be overwritten by real action in each list element the
-	 * default implementation creates a list of elements satisfying the
-	 * condition
-	 *
-	 * @param obj IFile
-	 */
-	protected void action(IFile obj) {
-		resultList.add(obj);
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
 
-	/**
-	 * Can be re-implemented by each concrete switch performs object processing
-	 * specific to the switch
-	 */
-
-	protected void process(IFile theFile) {
-		if (suchThat(theFile)) {
-			action(theFile);
-		}
-		return;
+	public void setSummaryReport() {
+		this.summaryReport = new StringBuffer();
 	}
 
-	/**
-	 * Does preorder processing of containment hierarchy The default
-	 * implementation applies the suchThat condition and if true adds the
-	 * element to the result list
-	 *
-	 * @param obj root object
-	 * @return EList result list of IFile
-	 */
-	public final EList<IFile> traverse(IResource obj) {
-		if (obj == null) {
-			return resultList;
-		}
-		if (obj instanceof IFile) {
-			process((IFile) obj);
-		} else if (obj instanceof IContainer) {
-			IResource[] list;
-			try {
-				list = ((IContainer) obj).members();
-				for (int it = 0; it < list.length; it++) {
-					traverse(list[it]);
-				}
-			} catch (CoreException e) {
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
+
+	@Override
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+
+		// Get the system instance (if any)
+		final SystemInstance si = (obj instanceof InstanceObject) ? ((InstanceObject) obj).getSystemInstance() : null;
+
+		if (si != null) {
+			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
+			NotBoundResourceAnalysis logic = null;
+
+			logic = new NotBoundResourceAnalysis(this);
+			final SOMIterator soms = new SOMIterator(si);
+			while (soms.hasNext()) {
+				logic.analyzeResourceBudget(si, soms.next());
 			}
+			monitor.done();
 		}
-		return resultList;
+	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
 	}
 }

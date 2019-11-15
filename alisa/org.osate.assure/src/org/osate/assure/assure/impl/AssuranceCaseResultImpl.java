@@ -124,6 +124,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -133,6 +134,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -145,6 +147,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -154,6 +157,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
@@ -166,6 +170,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModelResult> getModelResult() {
 		if (modelResult == null) {
 			modelResult = new EObjectContainmentEList<ModelResult>(ModelResult.class, this, AssurePackage.ASSURANCE_CASE_RESULT__MODEL_RESULT);
@@ -276,7 +281,7 @@ public class AssuranceCaseResultImpl extends AssureResultImpl implements Assuran
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", message: ");
