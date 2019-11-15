@@ -463,6 +463,11 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
+		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
 		/*
 		 * XXX: Currently, there are no annexes that use instantiation. If a
 		 * case is found, then this code needs to be moved elsewhere, such as
@@ -482,25 +487,8 @@ public class InstantiateModel {
 //		}
 
 		getUsedPropertyDefinitions(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-
 		// handle connection patterns
 		processConnections(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-
-		/*
-		 * Issue 1741: Moved this to after processConnections() because we want all the connections as
-		 * replicated by arrays, etc. Also, processConnections() can remove connections from the end
-		 * to end flows if we do them first. (This used to be after CreateConnectionsSwitch, above.)
-		 */
-		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
 
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
