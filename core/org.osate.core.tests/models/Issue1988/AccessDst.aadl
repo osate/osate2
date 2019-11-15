@@ -1,0 +1,34 @@
+package AccessDst
+public
+    data D
+    end D;
+    
+    thread t1
+    	features
+    		p1: provides data access D;
+    		p2: provides data access ;
+    end t1;
+ 
+ 	thread implementation t1.i
+ 		subcomponents
+ 			d: data D;
+ 		connections
+ 			c: data access d -> p2;
+ 	end t1.i;
+ 
+    thread t2
+        features
+            ip2: requires data access ;
+    end t2;
+
+	process p
+	end p;
+	
+	process implementation p.i
+		subcomponents
+			t1: thread t1;
+			t2: thread t2;
+		connections
+			c1: data access t1.p1 -> t2.ip2;
+	end p.i;
+end AccessDst;

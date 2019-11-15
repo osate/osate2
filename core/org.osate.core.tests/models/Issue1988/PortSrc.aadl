@@ -1,0 +1,26 @@
+package PortSrc
+public
+    data D
+    end D;
+    
+    thread t1
+    	features
+    		p1: out data port ;
+    end t1;
+ 
+    thread t2
+        features
+            ip2: in data port D;
+    end t2;
+
+	process p
+	end p;
+	
+	process implementation p.i
+		subcomponents
+			t1: thread t1;
+			t2: thread t2;
+		connections
+			c1: port t1.p1 -> t2.ip2;
+	end p.i;
+end PortSrc;
