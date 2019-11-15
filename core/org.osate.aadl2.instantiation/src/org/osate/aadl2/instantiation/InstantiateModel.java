@@ -43,6 +43,7 @@ import static org.osate.aadl2.modelsupport.util.AadlUtil.getElementCount;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -135,6 +136,7 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.service.prefs.Preferences;
 
 /**
@@ -463,11 +465,6 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
-		if (monitor.isCanceled()) {
-			throw new InterruptedException();
-		}
-
 		/*
 		 * XXX: Currently, there are no annexes that use instantiation. If a
 		 * case is found, then this code needs to be moved elsewhere, such as
@@ -486,9 +483,18 @@ public class InstantiateModel {
 //			return null;
 //		}
 
-		getUsedPropertyDefinitions(root);
 		// handle connection patterns
 		processConnections(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
+		getUsedPropertyDefinitions(root);
 
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
@@ -1194,9 +1200,18 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private void processConnections(SystemInstance root) throws InterruptedException {
+		/* Issue 1741: Cache just Connection_Set and Connection_Pattern right now */
+		final List<Property> connectionProperties = Arrays.asList(
+				GetProperties.lookupPropertyDefinition(root, "Connection_Set"),
+				GetProperties.lookupPropertyDefinition(root, "Connection_Pattern"));
+		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager,
+				connectionProperties,
+				classifierCache, scProps, mode2som);
+		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+
 		EList<ComponentInstance> replicateConns = new UniqueEList<ComponentInstance>();
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
 		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
