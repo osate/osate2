@@ -48,7 +48,7 @@ import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Section;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public class DoPowerAnalysisLogic {
+public class PowerAnalysis {
 
 	private final AnalysisErrorReporterManager errManager;
 
@@ -57,7 +57,7 @@ public class DoPowerAnalysisLogic {
 	private double budgetTotal = 0;
 	private double supplyTotal = 0;
 
-	public DoPowerAnalysisLogic(AnalysisErrorReporterManager errManager) {
+	public PowerAnalysis(AnalysisErrorReporterManager errManager) {
 		this.errManager = errManager;
 	}
 
@@ -91,7 +91,7 @@ public class DoPowerAnalysisLogic {
 						// there must be a connection on this feature
 						if (!fi.getDstConnectionInstances().isEmpty() || !fi.getSrcConnectionInstances().isEmpty()) {
 							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-									+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+									+ PowerAnalysis.this.toString(supply) + " from "
 									+ fi.getContainingComponentInstance().getName();
 							supplyTotal += supply;
 						} else {
@@ -104,7 +104,7 @@ public class DoPowerAnalysisLogic {
 						supply = GetProperties.getPowerSupply(srcfi, 0.0);
 						if (supply > 0) {
 							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-									+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+									+ PowerAnalysis.this.toString(supply) + " from "
 									+ srcfi.getContainingComponentInstance().getName();
 							supplyTotal += supply;
 						}
@@ -115,7 +115,7 @@ public class DoPowerAnalysisLogic {
 						double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 						if (budget > 0) {
 							budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
-									+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+									+ PowerAnalysis.this.toString(budget) + " for "
 									+ dstfi.getContainingComponentInstance().getName();
 							budgetTotal += budget;
 						}
@@ -130,14 +130,14 @@ public class DoPowerAnalysisLogic {
 					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
 						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ PowerAnalysis.this.toString(budget) + " for "
 								+ dstfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
 					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (supply > 0) {
 						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+								+ PowerAnalysis.this.toString(supply) + " from "
 								+ dstfi.getContainingComponentInstance().getName();
 						supplyTotal += supply;
 					}
@@ -148,14 +148,14 @@ public class DoPowerAnalysisLogic {
 					double budget = GetProperties.getPowerBudget(srcfi, 0.0);
 					if (budget > 0) {
 						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(budget) + " for "
+								+ PowerAnalysis.this.toString(budget) + " for "
 								+ srcfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
 					double supply = GetProperties.getPowerSupply(srcfi, 0.0);
 					if (supply > 0) {
 						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
-								+ DoPowerAnalysisLogic.this.toString(supply) + " from "
+								+ PowerAnalysis.this.toString(supply) + " from "
 								+ srcfi.getContainingComponentInstance().getName();
 						supplyTotal += supply;
 					}

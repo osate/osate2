@@ -59,7 +59,7 @@ import org.osate.ui.OsateUiPlugin;
  * with modifications.
  * 
  * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler}.
+ * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler}. Will be removed in 2.7.
  */
 @Deprecated
 public abstract class AbstractInstanceOrDeclarativeModelModifyActionAction

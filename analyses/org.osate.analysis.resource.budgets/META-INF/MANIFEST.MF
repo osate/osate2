@@ -22,3 +22,4 @@ Export-Package: org.osate.analysis.resource.budgets,
  org.osate.analysis.resource.budgets.handlers,
  org.osate.analysis.resource.budgets.logic
 Automatic-Module-Name: org.osate.analysis.resource.budgets
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

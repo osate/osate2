@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
 
 /**
- * @deprecated Will be removed in 2.6.0.
+ * @deprecated Will be removed in 2.7.
  */
 @Deprecated
 public class IResourceUtility {

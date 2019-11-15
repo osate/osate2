@@ -128,6 +128,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Subcomponent getTargetSystem() {
 		if (targetSystem != null && ((EObject)targetSystem).eIsProxy()) {
 			InternalEObject oldTargetSystem = (InternalEObject)targetSystem;
@@ -154,6 +155,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetSystem(Subcomponent newTargetSystem) {
 		Subcomponent oldTargetSystem = targetSystem;
 		targetSystem = newTargetSystem;
@@ -166,6 +168,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
@@ -175,6 +178,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
@@ -187,6 +191,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClaimResult> getClaimResult() {
 		if (claimResult == null) {
 			claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.SUBSYSTEM_RESULT__CLAIM_RESULT);
@@ -199,6 +204,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<SubsystemResult> getSubsystemResult() {
 		if (subsystemResult == null) {
 			subsystemResult = new EObjectContainmentEList<SubsystemResult>(SubsystemResult.class, this, AssurePackage.SUBSYSTEM_RESULT__SUBSYSTEM_RESULT);
@@ -323,7 +329,7 @@ public class SubsystemResultImpl extends AssureResultImpl implements SubsystemRe
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (message: ");
 		result.append(message);
 		result.append(')');
