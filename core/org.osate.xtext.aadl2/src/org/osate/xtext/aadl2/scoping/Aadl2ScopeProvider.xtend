@@ -449,15 +449,26 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 
 	// Reference is from ConnectedElement in Aadl2.xtext
 	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		val previous = context.connectionEnd
-		if (previous instanceof Context) {
-			previous.scopeForElementsOfContext(
-				context.getContainerOfType(Classifier), [allConnectionEnds.filterRefined])
+		val classifier = context.getContainerOfType(Classifier)
+		val previousConnectedElement = context.eContainer
+		if (previousConnectedElement instanceof ConnectedElement) {
+			val previous = previousConnectedElement.connectionEnd
+			if (previous instanceof Context) {
+				previous.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+			} else {
+				IScope.NULLSCOPE
+			}
+		} else if (context.context === null) {
+			classifier.allConnectionEnds.filterRefined.scopeFor
 		} else {
-			IScope.NULLSCOPE
+			context.context.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
 		}
 	}
-
+	
+	def scope_ConnectedElement_connectionEnd(Classifier context, EReference reference) {
+		context.allConnectionEnds.filterRefined.scopeFor
+	}
+	
 	// Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
 	def scope_Connection_refined(ComponentImplementation context, EReference reference) {
 		context.extended?.allConnections?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
