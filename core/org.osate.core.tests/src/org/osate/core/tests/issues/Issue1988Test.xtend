@@ -84,7 +84,7 @@ class Issue1988Test extends XtextTest {
 
 		val t1_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "t1.i"] as ThreadImplementation
 		t1_i.ownedConnections.get(0) => [
-			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'd' to have classifier 'AccessSrc::D'")
+			assertWarning(testFileResult.issues, issueCollection, "Expected subcomponent 'd' to have classifier 'AccessSrc::D'")
 		]	
 
 		issueCollection.sizeIs(testFileResult.issues.size)
@@ -159,7 +159,7 @@ class Issue1988Test extends XtextTest {
 			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p1' to have classifier 'ParameterDst::D'")
 		]	
 		th2_bad.ownedConnections.get(1) => [
-			assertWarning(testFileResult.issues, issueCollection, "Expected feature 'myData' to have classifier 'ParameterDst::D'")
+			assertWarning(testFileResult.issues, issueCollection, "Expected subcomponent 'myData' to have classifier 'ParameterDst::D'")
 		]	
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
