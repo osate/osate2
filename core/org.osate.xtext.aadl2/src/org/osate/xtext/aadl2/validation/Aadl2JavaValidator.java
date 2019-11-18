@@ -5305,7 +5305,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
 				warning("Expected feature \'" + destination.getName() + "' to have classifier \'"
-						+ sourceClassifier.getQualifiedName(), connection,
+						+ sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
