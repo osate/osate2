@@ -283,13 +283,20 @@ public class Aadl2InstanceUtil {
 	}
 
 	public static boolean isOpposite(ConnectionInstance conni) {
-		ConnectionReference topref = getTopConnectionReference(conni);
-		Connection conn = topref.getConnection();
-		ConnectionInstanceEnd srcend = topref.getSource();
-		ComponentInstance srcCI = srcend.getContainingComponentInstance();
-		Subcomponent srcSub = srcCI.getSubcomponent();
-		Context srcelem = conn.getAllSourceContext();
-		return srcSub != srcelem;
+		final ConnectionReference topref = getTopConnectionReference(conni);
+		final Connection conn = topref.getConnection();
+		final ConnectionInstanceEnd srcend = topref.getSource();
+		if (srcend instanceof ComponentInstance) {
+			final Subcomponent srcSub = ((ComponentInstance) srcend).getSubcomponent();
+			final ConnectionEnd srcelem = conn.getAllSource();
+			return srcSub != srcelem;
+		} else { // FeatureInstance
+			// XXX: what about ModeTransitionInstance?
+			final ComponentInstance srcCI = srcend.getContainingComponentInstance();
+			final Subcomponent srcSub = srcCI.getSubcomponent();
+			final Context srcelem = conn.getAllSourceContext();
+			return srcSub != srcelem;
+		}
 	}
 
 }
