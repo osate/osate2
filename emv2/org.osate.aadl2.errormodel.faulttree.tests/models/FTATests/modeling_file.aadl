@@ -1,0 +1,246 @@
+package modeling_file
+public
+	--including packages
+--	with busses;
+--	with devices_generated;
+	--with VCU_C;
+--	with VCU_S2;
+--	with HMI411;
+
+	--system
+	system sys
+	end sys;
+	
+	
+---------------------------------------------------------------------------------------------------------------------------------------------------
+	
+
+	system BTCU
+		features
+			MVB1	:	 in out event port;
+			
+		flows
+			f0	:	flow source MVB1;
+			f1	:	flow sink MVB1;
+			f2	:	flow path MVB1 -> MVB1;
+	end BTCU;
+
+	
+	system implementation BTCU.i
+			
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::PermanentTransientFailure; 
+			
+			error propagations
+				MVB1	:	out propagation{BTCU_Error};
+			flows
+				btcuef0	:	error source MVB1{BTCU_Error} when FailedTransient;
+			end propagations;
+			
+			
+			component error behavior
+				events
+					Reset	:	recover event;
+				transitions
+					failtransition	:	Operational-[Failure]->(FailedTransient with 0.9, FailedPermanent with others);
+					t1	:	FailedTransient-[Recovery]->Operational;		
+				propagations
+				btcup1: FailedTransient -[]-> MVB1{BTCU_Error};
+			end component;
+			
+			properties
+				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;					
+		**};	
+	end BTCU.i;
+	
+	-------------------------------------------------------------------------------------------------------------------------------------------
+	
+	
+	
+	system CCUS1 --extends devices_generated::CCUS1
+		features
+			MVB1 : in out event port;
+			ETH1: in out event port;
+		flows
+			f6	:	flow path MVB1 -> ETH1;
+			f7	:	flow path ETH1 -> MVB1;
+	end CCUS1;
+
+	
+	system implementation CCUS1.i
+		
+		
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::PermanentTransientFailure; 
+			
+			error propagations
+				MVB1	:	in propagation{BTCU_Error};
+				ETH1	:	out propagation{CCUS_Error, BTCU_Error};
+			flows
+				ef0	:	error source ETH1{CCUS_Error} when FailedTransient;
+				ef1	:	error path MVB1{BTCU_Error} -> ETH1{BTCU_Error};
+			end propagations;
+			
+			component error behavior
+				events
+					Reset	:	recover event;
+				transitions
+					failtransition	:	Operational-[Failure]->(FailedTransient with 0.8, FailedPermanent with others);
+					t1	:	FailedTransient-[Recovery]->Operational;		
+			end component;
+			
+			properties
+				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;	
+		**};
+	end CCUS1.i;
+	
+	-------------------------------------------------------------------------------------------------------------------------------------------
+	
+		
+
+	device user
+		features
+			p_out	:	out event port;
+			
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::PermanentTransientFailure; 
+			
+			error propagations
+				p_out	:	out propagation {User_Error};
+			flows
+				ef0	:	error source p_out{User_Error};
+			end propagations;	
+			
+			component error behavior
+				events
+					Reset	:	recover event;
+				transitions
+					failtransition	:	Operational-[Failure]->(FailedTransient with 0.7, FailedPermanent with others);
+					t1	:	FailedTransient-[Recovery]->Operational;		
+			end component;
+			
+			properties
+				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;				
+		**};
+	end user;
+	
+	
+	process UGBT
+		features
+			p_in	:	in event port;
+			
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::PermanentTransientFailure; 
+			
+			error propagations
+				p_in	:	in propagation{BTCU_Error, CCUS_Error, User_Error};
+			flows
+				ef0	:	error sink p_in{BTCU_Error, CCUS_Error, User_Error};
+			end propagations;
+			
+			component error behavior
+				events
+					Reset	:	recover event;
+				transitions
+					failtransition	:	Operational-[p_in{BTCU_Error, CCUS_Error, User_Error}]->(FailedTransient with 0.6, FailedPermanent with others);
+					t1	:	FailedTransient-[Recovery]->Operational;		
+			end component;
+			
+			properties
+				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;	
+						
+		**};
+	end UGBT;
+	
+	
+	system TDD1 --extends devices_generated::TDD1
+		features
+			ETH1: in event port;
+		flows
+			f1 : flow sink ETH1;
+	end TDD1;
+	
+	
+	system implementation TDD1.i --extends devices_generated::TDD1.i
+		subcomponents
+			ugbt			:	process	ugbt;
+			user			:	device	user;
+		
+		connections
+			c4	:	port	ETH1 -> ugbt.p_in;
+			c5	:	port	user.p_out -> ugbt.p_in;
+			
+			
+		
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::FailStop; 
+			
+			error propagations
+				ETH1	:	in propagation{CCUS_Error, BTCU_Error};
+			flows
+				ef0	:	error sink ETH1{CCUS_Error, BTCU_Error};
+			end propagations;
+			
+			composite error behavior
+			states
+				[ugbt.FailedTransient]-> FailStop;
+			end composite;
+			
+			properties
+				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure;	
+		**};
+	end TDD1.i;
+	
+	bus mvb
+		
+	end mvb;
+	
+	bus eth
+		
+	end eth;
+	
+	-------------------------------------------------------------------------------------------------------------------------------------------
+	--implementation of system
+	system implementation sys.i
+		subcomponents
+			BTCU	:	system BTCU.i;
+			CCUS1	:	system CCUS1.i;
+			TDD1	:	system TDD1.i;
+			MVB1	:	bus mvb;
+			ETH1	:	bus eth;
+			
+		connections
+			c0	:	port BTCU.MVB1 <-> CCUS1.MVB1;
+			c1	:	port CCUS1.ETH1 <-> TDD1.ETH1;
+			c2	:	port CCUS1.MVB1 -> BTCU.MVB1;
+			c3	:	port  CCUS1.ETH1 -> TDD1.ETH1 ;
+			
+		flows
+			f0:	end to end flow	BTCU.f0 -> c0 -> CCUS1.f6 -> c1 -> TDD1.f1;
+
+		
+			
+		properties
+			Actual_Connection_Binding => (reference(MVB1)) applies to c0;
+			Actual_Connection_Binding => (reference(ETH1)) applies to c1;
+			
+		annex EMV2{**
+			use types	emv2_errortype_definition, ErrorLibrary;
+			use behavior ErrorLibrary::FailStop; 
+			
+			composite error behavior
+			states
+				[BTCU.FailedTransient]-> FailStop;
+				[CCUS1.FailedTransient]-> FailStop;
+				[TDD1.FailStop]-> FailStop;
+			end composite;	
+		**};	
+	end sys.i;
+
+
+end modeling_file;

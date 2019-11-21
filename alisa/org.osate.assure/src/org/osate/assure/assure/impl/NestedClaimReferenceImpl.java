@@ -88,6 +88,7 @@ public class NestedClaimReferenceImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Requirement getRequirement() {
 		if (requirement != null && requirement.eIsProxy()) {
 			InternalEObject oldRequirement = (InternalEObject)requirement;
@@ -114,6 +115,7 @@ public class NestedClaimReferenceImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRequirement(Requirement newRequirement) {
 		Requirement oldRequirement = requirement;
 		requirement = newRequirement;
@@ -126,6 +128,7 @@ public class NestedClaimReferenceImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NestedClaimReference getSub() {
 		return sub;
 	}
@@ -150,6 +153,7 @@ public class NestedClaimReferenceImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSub(NestedClaimReference newSub) {
 		if (newSub != sub) {
 			NotificationChain msgs = null;
