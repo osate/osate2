@@ -49,6 +49,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
@@ -61,6 +62,7 @@ import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
+import org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
@@ -212,6 +214,13 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		super.configure(binder);
 		binder.bind(ISerializer.class).annotatedWith(InstanceEnabledSerializerBinding.class)
 				.to(InstanceEnabledSerializer.class);
+	}
+
+	@Override
+	public void configureSerializerIScopeProvider(com.google.inject.Binder binder) {
+		binder.bind(IScopeProvider.class)
+				.annotatedWith(SerializerScopeProviderBinding.class)
+				.to(Aadl2SerializerScopeProvider.class);
 	}
 
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {

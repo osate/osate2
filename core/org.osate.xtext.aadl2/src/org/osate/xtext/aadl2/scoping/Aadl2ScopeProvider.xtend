@@ -452,23 +452,26 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		val classifier = context.getContainerOfType(Classifier)
 		val previousConnectedElement = context.eContainer
 		if (previousConnectedElement instanceof ConnectedElement) {
-			val previous = previousConnectedElement.connectionEnd
-			if (previous instanceof Context) {
-				previous.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+		val current = context.connectionEnd
+			if (current instanceof Context) {
+				current.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
 			} else {
 				IScope.NULLSCOPE
 			}
-		} else if (context.context === null) {
-			classifier.allConnectionEnds.filterRefined.scopeFor
 		} else {
-			context.context.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+			if (context.context === null) {
+				classifier.allConnectionEnds.filterRefined.scopeFor
+			} else {
+				if (context.context instanceof Context) {
+					context.context
+						.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+				} else {
+					IScope.NULLSCOPE
+				}
+			}
 		}
 	}
-	
-	def scope_ConnectedElement_connectionEnd(Classifier context, EReference reference) {
-		context.allConnectionEnds.filterRefined.scopeFor
-	}
-	
+
 	// Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
 	def scope_Connection_refined(ComponentImplementation context, EReference reference) {
 		context.extended?.allConnections?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
@@ -694,7 +697,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		validElements
 	}
 
-	def private static allConnectionEnds(Classifier classifier) {
+	def protected static allConnectionEnds(Classifier classifier) {
 		val connectionEnds = newArrayList
 		connectionEnds.addAll(classifier.getAllFeatures())
 		if (classifier instanceof ComponentImplementation) {
@@ -764,7 +767,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			subcomponentPrototypeContext, prototype)
 	}
 
-	def private static scopeForElementsOfContext(Context context, Classifier containingClassifier,
+	def protected static scopeForElementsOfContext(Context context, Classifier containingClassifier,
 		extension (Classifier)=>Iterable<? extends EObject> validMemberCollector) {
 		val contextClassifier = switch context {
 			FeatureGroup: {
