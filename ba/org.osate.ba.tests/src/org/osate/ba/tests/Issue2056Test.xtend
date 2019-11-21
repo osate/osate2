@@ -16,18 +16,18 @@ import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue1884Test {
+class Issue2056Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
 	@Test
-	def void testIssue1884() {
+	def void testIssue2056() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/issue1884/issue1884.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2056/issue2056.aadl")
 		result.resource.contents.head as AadlPackage => [
-			"issue1884".assertEquals(name)
-			publicSection.ownedClassifiers.get(0) => [
-				"parser_error".assertEquals(name)
+			"issue2056".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) => [
+				"threadA.impl".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
 					(parsedAnnexSubclause===null).assertTrue
@@ -36,16 +36,16 @@ class Issue1884Test {
 		]
 		3.assertEquals(result.issues.size)
 		result.issues.get(0) => [
-			"unterminated behavior state (missing ending ';')".assertEquals(message)
-			7.assertEquals(lineNumber)
+			"Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access".assertEquals(message)
+			19.assertEquals(lineNumber)
 		]
 		result.issues.get(1) => [
-			"'bad_reference' is not found".assertEquals(message)
-			17.assertEquals(lineNumber)
+			"Wrong type in assignment left hand side; expected types are: data subcomponent or data access or behavior variable or data access feature prototype or out parameter or out port or out port prototype".assertEquals(message)
+			38.assertEquals(lineNumber)
 		]
 		result.issues.get(2) => [
-			"abstract components cannot contain a dispatch condition in any of its transitions: they cannot be dispatched (extention of Behavior Annex D.3.(L5) legality rule).".assertEquals(message)
-			27.assertEquals(lineNumber)
+			"Wrong type in dispatch trigger condition; expected types are: in event port or in event data port or provides subprogram access".assertEquals(message)
+			39.assertEquals(lineNumber)
 		]
 	}
 }

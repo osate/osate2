@@ -89,6 +89,7 @@ public class QualifiedVerificationPlanElementReferenceImpl extends MinimalEObjec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationPlan getVerificationPlan() {
 		if (verificationPlan != null && verificationPlan.eIsProxy()) {
 			InternalEObject oldVerificationPlan = (InternalEObject)verificationPlan;
@@ -115,6 +116,7 @@ public class QualifiedVerificationPlanElementReferenceImpl extends MinimalEObjec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVerificationPlan(VerificationPlan newVerificationPlan) {
 		VerificationPlan oldVerificationPlan = verificationPlan;
 		verificationPlan = newVerificationPlan;
@@ -127,6 +129,7 @@ public class QualifiedVerificationPlanElementReferenceImpl extends MinimalEObjec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NestedClaimReference getRequirement() {
 		return requirement;
 	}
@@ -151,6 +154,7 @@ public class QualifiedVerificationPlanElementReferenceImpl extends MinimalEObjec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRequirement(NestedClaimReference newRequirement) {
 		if (newRequirement != requirement) {
 			NotificationChain msgs = null;

@@ -75,6 +75,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationMethod getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -101,6 +102,7 @@ public class ValidationResultImpl extends VerificationResultImpl implements Vali
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(VerificationMethod newTarget) {
 		VerificationMethod oldTarget = target;
 		target = newTarget;
