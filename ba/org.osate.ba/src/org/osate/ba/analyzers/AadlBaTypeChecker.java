@@ -1240,8 +1240,15 @@ public class AadlBaTypeChecker
           return null ;
         }
       }
+      if(result.isEmpty() && false==grpl.isEmpty())
+      {
+        String expectedTypes = currentRule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
+        String errMsg = "Wrong type in "+stopOnThisRule.getLiteral()+"; expected types are: "+ expectedTypes;
+        this.reportError(ref, errMsg);
+      }
     } // End of for.
-    
+    if(result.isEmpty())
+      return null;
     return result ;
   }
   
@@ -2254,7 +2261,7 @@ public class AadlBaTypeChecker
     
     if(comAct.getTarget() != null)
     {
-      tarTmp = targetCheck(comAct.getTarget()) ;
+      tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
       if(tarTmp == null)
       {
         tarCheckResult = false ;
@@ -2868,7 +2875,8 @@ public class AadlBaTypeChecker
 
         if(v instanceof Target) // Target case.
         {
-          tar = targetCheck((Target) v) ;
+          TypeCheckRule stopOnThisRule = TypeCheckRule.DATA_ACCESS;
+          tar = targetCheck((Target) v, stopOnThisRule) ;
 
           if(tar != null)
           {
@@ -3063,7 +3071,8 @@ public class AadlBaTypeChecker
    */
   private boolean assignmentActionCheck(AssignmentAction aa)
   {
-    Target tmp = targetCheck(aa.getTarget()) ;
+    TypeCheckRule stopOnThisRule = TypeCheckRule.ASSIGNMENT_TARGET;
+    Target tmp = targetCheck(aa.getTarget(), stopOnThisRule) ;
 
     boolean result = tmp != null ;
 
@@ -3122,9 +3131,8 @@ public class AadlBaTypeChecker
   // Semantic rule about iterative variable assignment is checked.
   // This method checks the given object and returns an object resolved from
   // semantic ambiguities. On error, reports error and returns null.
-  private Target targetCheck(Target tar)
+  private Target targetCheck(Target tar, TypeCheckRule stopOnThisRule)
   {
-    TypeCheckRule stopOnThisRule = TypeCheckRule.TARGET_STOP_RULE ; 
     TypeCheckRule[] checkRules = new TypeCheckRule[]
           {
             TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME,
@@ -3383,7 +3391,7 @@ public class AadlBaTypeChecker
     // because data subcomponent and data access are very high level feature types.
     DATA_COMPONENT_REFERENCE_FIRST_NAME("data subcomponent" +
           STRING_TYPE_SEPARATOR + "data access" + STRING_TYPE_SEPARATOR +
-          "parameter" + STRING_TYPE_SEPARATOR + "behavior variable" +
+          "behavior variable" +
           STRING_TYPE_SEPARATOR + "data access feature prototype", new Enum[]
           {FeatureType.DATA_SUBCOMPONENT,
            TypeCheckRule.DATA_ACCESS,
@@ -3492,8 +3500,11 @@ public class AadlBaTypeChecker
           
           
     PROCESSOR_RULE("processor unique component classifier reference", new Enum[]
-          {FeatureType.PROCESSOR_CLASSIFIER}) ;
-          
+          {FeatureType.PROCESSOR_CLASSIFIER}),
+    
+    ASSIGNMENT_TARGET("assignment left hand side", new Enum[]
+        {TypeCheckRule.TARGET_STOP_RULE}) ;
+    
     String _literal ;
     Enum<?>[] _acceptableTypes ;
 
