@@ -103,18 +103,22 @@ class PropertiesFormatter extends AbstractFormatter2 {
 	
 	def dispatch void format(ListValue listValue, extension IFormattableDocument document) {
 		val leftParenthesis = listValue.regionFor.keyword(listTermAccess.leftParenthesisKeyword_1)
-		val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
-		interior(leftParenthesis, rightParenthesis, [indent])
-		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
-		listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
-			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
-		]
-		listValue.ownedListElements.forEach[it.format(document)]
-		if (rightParenthesis !== null) {
-			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1]
-			} else {
-				rightParenthesis.prepend[noSpace]
+		if (listValue.ownedListElements.empty) {
+			leftParenthesis.append[noSpace]
+		} else {
+			val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
+			interior(leftParenthesis, rightParenthesis, [indent])
+			leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
+			listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
+				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
+			]
+			listValue.ownedListElements.forEach[it.format(document)]
+			if (rightParenthesis !== null) {
+				if (rightParenthesis.previousHiddenRegion.multiline) {
+					rightParenthesis.prepend[newLines = 1]
+				} else {
+					rightParenthesis.prepend[noSpace]
+				}
 			}
 		}
 	}
