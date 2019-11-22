@@ -1,0 +1,31 @@
+package port_to_port
+public
+    system top
+    end top;
+
+    system implementation top.impl
+        subcomponents
+            p1: process process1.impl;
+    end top.impl;
+
+    process process1
+    end process1;
+
+    process implementation process1.impl
+        subcomponents
+            src: thread thread0;
+            threads: thread thread1[8];
+    	connections
+    		 xxx: port src.op <-> threads.ip { Connection_Pattern => ((One_To_All)); };
+    end process1.impl;
+
+	thread thread0
+		features
+			op: in out event port;
+	end thread0;
+
+    thread thread1
+        features
+            ip: in out event port;
+    end thread1;
+end port_to_port;
