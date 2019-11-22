@@ -1,0 +1,29 @@
+package data_to_data_port
+public
+    data D
+    end D;
+    	
+    system top
+    end top;
+
+    system implementation top.impl
+        subcomponents
+            p1: process process1.impl;
+    end top.impl;
+
+    process process1
+    end process1;
+
+    thread thread1
+        features
+            dp: in out data port D;
+    end thread1;
+
+    process implementation process1.impl
+        subcomponents
+            thr: thread thread1 [8];
+            d1: data D;
+    	connections
+           yyy: port d1 <-> thr.dp { Connection_Pattern => ((One_To_All)); };
+    end process1.impl;
+end data_to_data_port;
