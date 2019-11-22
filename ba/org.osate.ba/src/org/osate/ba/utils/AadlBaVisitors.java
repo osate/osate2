@@ -52,6 +52,8 @@ public class AadlBaVisitors
    public static final String INITIALIZE_ENTRYPOINT_PROPERTY_NAME =
                                                        "Initialize_Entrypoint" ;
    
+   public static final String DISPATCH_PROTOCOL_PROPERTY_NAME = "Dispatch_Protocol";
+   
    public static final String SEI_AADL2_PACKAGE_NAME = "org.osate.aadl2";
    
    public static final String SEI_AADL2_CLASSIFIER_SUFFIX = "Classifier" ;
