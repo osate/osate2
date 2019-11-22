@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.EReference ;
 import org.osate.aadl2.Aadl2Package ;
+import org.osate.aadl2.ComponentCategory ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.DeviceClassifier ;
 import org.osate.aadl2.EnumerationLiteral ;
@@ -73,6 +74,7 @@ import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.utils.AadlBaUtils ;
 import org.osate.ba.utils.AadlBaVisitors ;
+import org.osate.utils.Aadl2Visitors ;
 import org.osate.utils.PropertyUtils ;
 import org.osate.utils.names.DispatchTriggerProperties ;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
@@ -395,17 +397,38 @@ public class AadlBaLegalityRulesChecker
    */
   public boolean D_3_L5_Check(DispatchCondition dc)
   {
-    // Error case.
-    if(_baParentContainer instanceof SubprogramClassifier)
+    boolean canBeDispatched = false;
+    // Only accept dispatch conditions on components for which a Dispatch_Protocl can be associated
+    PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
+    PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(contextsTab[0]) ;
+    
+    Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer, 
+                                                                   AadlBaVisitors.DISPATCH_PROTOCOL_PROPERTY_NAME);
+    if(dispatchProtocolProperty!=null)
     {
-      this.reportLegalityError(dc, "Subprogram components must not contain" +
-            " a dispatch condition in any of its transitions: " + 
-            "Behavior Annex D.3.(L5) legality rule failed") ;
+      List<MetaclassReference> appliesToMetaClasses = dispatchProtocolProperty.getAppliesToMetaclasses();
+      for(MetaclassReference mClass: appliesToMetaClasses)
+      {
+        String mMetaClassName = mClass.getMetaclass().getName();
+        String CategoryName = _baParentContainer.getCategory().getName();
+        if(mMetaClassName.equalsIgnoreCase(CategoryName))
+        {
+          canBeDispatched=true;
+          break;
+        }
+      }
+    }
+    if(canBeDispatched==false)
+    {
+      ComponentCategory cc = _baParentContainer.getCategory();
+      this.reportLegalityError(dc, cc.getName()+" components cannot contain" +
+          " a dispatch condition in any of its transitions: they cannot be dispatched " + 
+          "(extention of Behavior Annex D.3.(L5) legality rule)") ;
 
       return false ;
     }
-    else
-      return true ;
+    return true;
+    
   }
 
   /**
