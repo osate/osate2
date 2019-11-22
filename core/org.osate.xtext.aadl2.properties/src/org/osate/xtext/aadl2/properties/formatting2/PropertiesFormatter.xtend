@@ -26,6 +26,7 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.ReferenceValue
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess
+import org.eclipse.xtext.formatting2.ITextReplacerContext
 
 class PropertiesFormatter extends AbstractFormatter2 {
 	@Inject extension PropertiesGrammarAccess
@@ -34,7 +35,11 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		val grammarElement = comment.grammarElement
 		if (grammarElement instanceof AbstractRule) {
 			if (comment.lineRegions.head.indentation.length > 0) {
-				return new SinglelineDocCommentReplacer(comment, "--")
+				return new SinglelineDocCommentReplacer(comment, "--") {
+					override createReplacements(ITextReplacerContext context) {
+						context
+					}
+				}
 			} else {
 				return new SinglelineCodeCommentReplacer(comment, "--")
 			}
