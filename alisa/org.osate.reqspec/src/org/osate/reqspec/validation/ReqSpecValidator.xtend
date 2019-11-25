@@ -84,7 +84,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	public static val INCORRECT_GLOBAL_REQUIREMENT_INCLUDE = "org.osate.reqspec.validation.incorrect.global.requirement.include"
 	public static val CONDITION_METHOD_NOT_FOUND = "org.osate.reqspec.validation.condition.method.not.found"
 	public static val DUPLICATE_GLOBALREQUIREMENTS = 'org.osate.reqspec.validation.duplicate.globalrequirements'
-	public static val  ELEMENT_TARGETTYPE = 'org.osate.reqspec.validation.element.targettype'
+	public static val ELEMENT_TARGETTYPE = 'org.osate.reqspec.validation.element.targettype'
 
 	@Check // (CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
@@ -198,372 +198,368 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 							"holds the goal that corresponds to requirement '" + requirement.name + "'", sysReqs,
 						ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET__TARGET,
 						REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR, sysReqs.target.name, goalTargetName,
-						goalTargetURI )
-					}
-
-				]
-			]
-		}
-
-		@Check(CheckType.FAST)
-		def void checkGoalForCycles(Goal goal) {
-			val goalList = new ArrayList<Goal>()
-			goalList.add(goal)
-			goal.refinesReference.forEach [ refinedGoal, index |
-				goalList.add(refinedGoal)
-				if (refinedGoal.checkGoalForCycles(goalList)) {
-					error(
-						"A circular dependency or dependencies exists in the 'refined' hierarchy of " + goal.getName() +
-							".", goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index,
-						CYCLE_IN_GOAL_REFINE_HIERARCHY, refinedGoal.name, EcoreUtil.getURI(refinedGoal).toString())
+						goalTargetURI)
 				}
-				goalList.remove(goalList.size - 1)
-			]
-		}
 
-		def private boolean checkGoalForCycles(Goal goal, List<Goal> goalList) {
-			val refinedGoals = goal.getRefinesReference()
-			refinedGoals.exists[refinedGoal|goalList.contains(refinedGoal)] || refinedGoals.exists [ refinedGoal |
-				goalList.add(refinedGoal)
-				val cycles = refinedGoal.checkGoalForCycles(goalList)
-				goalList.remove(goalList.size - 1)
-				return cycles
 			]
-		}
+		]
+	}
 
-		@Check(CheckType.FAST)
-		def void checkRequirementTargetType(Requirement requirement) {
-			if (requirement.targetType === TargetType.ELEMENT) {
-				error("Target type of global requirement cannot be 'element'", requirement,
-					ReqSpecPackage.Literals.REQUIREMENT__TARGET_TYPE, ELEMENT_TARGETTYPE)
+	@Check(CheckType.FAST)
+	def void checkGoalForCycles(Goal goal) {
+		val goalList = new ArrayList<Goal>()
+		goalList.add(goal)
+		goal.refinesReference.forEach [ refinedGoal, index |
+			goalList.add(refinedGoal)
+			if (refinedGoal.checkGoalForCycles(goalList)) {
+				error("A circular dependency or dependencies exists in the 'refined' hierarchy of " + goal.getName() +
+					".", goal, ReqSpecPackage.Literals.GOAL__REFINES_REFERENCE, index, CYCLE_IN_GOAL_REFINE_HIERARCHY,
+					refinedGoal.name, EcoreUtil.getURI(refinedGoal).toString())
 			}
+			goalList.remove(goalList.size - 1)
+		]
+	}
+
+	def private boolean checkGoalForCycles(Goal goal, List<Goal> goalList) {
+		val refinedGoals = goal.getRefinesReference()
+		refinedGoals.exists[refinedGoal|goalList.contains(refinedGoal)] || refinedGoals.exists [ refinedGoal |
+			goalList.add(refinedGoal)
+			val cycles = refinedGoal.checkGoalForCycles(goalList)
+			goalList.remove(goalList.size - 1)
+			return cycles
+		]
+	}
+
+	@Check(CheckType.FAST)
+	def void checkRequirementTargetType(Requirement requirement) {
+		if (requirement.targetType === TargetType.ELEMENT) {
+			error("Target type of global requirement cannot be 'element'", requirement,
+				ReqSpecPackage.Literals.REQUIREMENT__TARGET_TYPE, ELEMENT_TARGETTYPE)
 		}
+	}
 
-		@Check(CheckType.FAST)
-		def void checkRequirementForCycles(Requirement requirement) {
-			val reqList = new ArrayList<Requirement>()
-			reqList.add(requirement)
-			requirement.refinesReference.forEach [ refinedReq, index |
-				reqList.add(refinedReq)
-				if (refinedReq.checkRequirementForCycles(reqList)) {
-					error(
-						"A circular dependency or dependencies exists in the 'refined' hierarchy of " +
-							requirement.getName() + ".", requirement,
-						ReqSpecPackage.Literals.REQUIREMENT__REFINES_REFERENCE, index,
-						CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY, refinedReq.name, EcoreUtil.getURI(refinedReq).toString())
-				}
-				reqList.remove(reqList.size - 1)
-			]
-		}
-
-		def private boolean checkRequirementForCycles(Requirement requirement, List<Requirement> reqList) {
-			val refinedReqs = requirement.getRefinesReference()
-			refinedReqs.exists[refinedReq|reqList.contains(refinedReq)] || refinedReqs.exists [ refinedReq |
-				reqList.add(refinedReq)
-				val cycles = refinedReq.checkRequirementForCycles(reqList)
-				reqList.remove(reqList.size - 1)
-				return cycles
-			]
-		}
-
-		@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
-
-		@Check(CheckType.EXPENSIVE)
-		def void checkCoverage(StakeholderGoals shgs) {
-			val target = shgs.target
-			if (!SystemImplementation.isInstance(target)) {
-				return
+	@Check(CheckType.FAST)
+	def void checkRequirementForCycles(Requirement requirement) {
+		val reqList = new ArrayList<Requirement>()
+		reqList.add(requirement)
+		requirement.refinesReference.forEach [ refinedReq, index |
+			reqList.add(refinedReq)
+			if (refinedReq.checkRequirementForCycles(reqList)) {
+				error(
+					"A circular dependency or dependencies exists in the 'refined' hierarchy of " +
+						requirement.getName() + ".", requirement,
+					ReqSpecPackage.Literals.REQUIREMENT__REFINES_REFERENCE, index,
+					CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY, refinedReq.name, EcoreUtil.getURI(refinedReq).toString())
 			}
-			val sysReqs = reqSpecrefFinder.getSystemRequirementSets(target)
-			shgs.goals.forEach [ goal |
-				if (!sysReqs.
-					exists[sysReq|sysReq.requirements.exists[goalReference.exists[goalRef|goalRef === goal]]]) {
-					error("Goal " + goal.name + " does not have a corresponding System Requirement.", goal,
-						ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
-				}
-			]
-		}
+			reqList.remove(reqList.size - 1)
+		]
+	}
 
-		@Check(CheckType.FAST)
-		def void checkFileTypeContents(ReqSpec reqSpec) {
-			val reqSpecURI = EcoreUtil.getURI(reqSpec)
-			val fileExt = reqSpecURI.fileExtension.toLowerCase
-			val parts = reqSpec.parts
-			switch fileExt {
-				case REQSPEC_FILE_EXT: {
-					parts.forEach [ part |
-						switch part {
-							SystemRequirementSet: {
-							}
-							GlobalRequirementSet: {
-							}
+	def private boolean checkRequirementForCycles(Requirement requirement, List<Requirement> reqList) {
+		val refinedReqs = requirement.getRefinesReference()
+		refinedReqs.exists[refinedReq|reqList.contains(refinedReq)] || refinedReqs.exists [ refinedReq |
+			reqList.add(refinedReq)
+			val cycles = refinedReq.checkRequirementForCycles(reqList)
+			reqList.remove(reqList.size - 1)
+			return cycles
+		]
+	}
+
+	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
+
+	@Check(CheckType.EXPENSIVE)
+	def void checkCoverage(StakeholderGoals shgs) {
+		val target = shgs.target
+		if (!SystemImplementation.isInstance(target)) {
+			return
+		}
+		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(target)
+		shgs.goals.forEach [ goal |
+			if (!sysReqs.exists[sysReq|sysReq.requirements.exists[goalReference.exists[goalRef|goalRef === goal]]]) {
+				error("Goal " + goal.name + " does not have a corresponding System Requirement.", goal,
+					ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+			}
+		]
+	}
+
+	@Check(CheckType.FAST)
+	def void checkFileTypeContents(ReqSpec reqSpec) {
+		val reqSpecURI = EcoreUtil.getURI(reqSpec)
+		val fileExt = reqSpecURI.fileExtension.toLowerCase
+		val parts = reqSpec.parts
+		switch fileExt {
+			case REQSPEC_FILE_EXT: {
+				parts.forEach [ part |
+					switch part {
+						SystemRequirementSet: {
+						}
+						GlobalRequirementSet: {
+						}
 //						StakeholderGoals : fileTypeWarning(fileExt, "stakeholder goals", part)	
 //						ReqDocument : fileTypeWarning(fileExt, "document", part)	
-							GlobalConstants:
-								fileTypeWarning(fileExt, "constants", part)
-							default:
-								fileTypeWarning(fileExt, part.class.name, part)
-						}
-					]
-				}
-				case GOALS_FILE_EXT: {
-					parts.forEach [ part |
-						switch part {
-							StakeholderGoals: {
-							}
-							SystemRequirementSet:
-								fileTypeWarning(fileExt, "system requirements", part)
-							ReqDocument:
-								fileTypeWarning(fileExt, "document", part)
-							GlobalConstants:
-								fileTypeWarning(fileExt, "constants", part)
-							default:
-								fileTypeWarning(fileExt, part.class.name, part)
-						}
-					]
-				}
-				case REQDOC_FILE_EXT: {
-					parts.forEach [ part |
-						switch part {
-							ReqDocument: {
-								val reqDocContent = part.content
-								reqDocContent.forEach [ element |
-									switch element {
-										Requirement: {
-										}
-										Goal:
-											fileTypeWarning(fileExt, "goal", element)
-										DocumentSection:
-											checkRecDocSection(element)
-										default:
-											fileTypeWarning(fileExt, element.class.name, element)
-									}
-								]
-							}
-							SystemRequirementSet:
-								fileTypeWarning(fileExt, "system requirements", part)
-							GlobalRequirementSet:
-								fileTypeWarning(fileExt, "global requirements", part)
-							GlobalConstants:
-								fileTypeWarning(fileExt, "constants", part)
-							StakeholderGoals:
-								fileTypeWarning(fileExt, "stakeholder goals", part)
-							default:
-								fileTypeWarning(fileExt, part.class.name, part)
-						}
-					]
-				}
-				case GOALDOC_FILE_EXT: {
-					parts.forEach [ part |
-						switch part {
-							ReqDocument: {
-								val reqDocContent = part.content
-								reqDocContent.forEach [ element |
-									switch element {
-										Goal: {
-										}
-										Requirement:
-											fileTypeWarning(fileExt, "requirement", element)
-										DocumentSection:
-											checkGoalDocSection(element)
-										default:
-											fileTypeWarning(fileExt, element.class.name, element)
-									}
-								]
-							}
-							SystemRequirementSet:
-								fileTypeWarning(fileExt, "system requirements", part)
-							GlobalRequirementSet:
-								fileTypeWarning(fileExt, "global requirements", part)
-							GlobalConstants:
-								fileTypeWarning(fileExt, "constants", part)
-							StakeholderGoals:
-								fileTypeWarning(fileExt, "stakeholder goals", part)
-							default:
-								fileTypeWarning(fileExt, part.class.name, part)
-						}
-					]
-				}
-				case CONSTANTS_FILE_EXT: {
-					parts.forEach [ part |
-						switch part {
-							GlobalConstants: {
-							}
-							SystemRequirementSet:
-								fileTypeWarning(fileExt, "system requirements", part)
-							GlobalRequirementSet:
-								fileTypeWarning(fileExt, "global requirements", part)
-							StakeholderGoals:
-								fileTypeWarning(fileExt, "stakeholder goals", part)
-							ReqDocument:
-								fileTypeWarning(fileExt, "document", part)
-							default:
-								fileTypeWarning(fileExt, part.class.name, part)
-						}
-					]
-				}
-				default: {
-				}
-			}
-		}
-
-		def void fileTypeWarning(String fileType, String partName, EObject part) {
-			warning(partName + " not allowed in '" + fileType + "' file.", part, null)
-		}
-
-		/** TODO: These methods invoke the QuickFixes, not using yet do to unexpected behavior: 
-		 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirementSet elements re-order in a way causing an error
-		 * def void fileTypeError(String fileType, String partName, EObject part, ReqSpec parent){
-		 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC, partName, EcoreUtil.getURI(parent).toString())
-		 * }
-		 * def void fileTypeError(String fileType, String partName, EObject part, ReqDocument parent){
-		 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT, partName, EcoreUtil.getURI(parent).toString())
-		 * }
-		 * def void fileTypeError(String fileType, String partName, EObject part, DocumentSection parent){
-		 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION, partName, EcoreUtil.getURI(parent).toString())
-		 * }
-		 */
-		def void checkRecDocSection(DocumentSection section) {
-			val contents = section.content
-			contents.forEach [ element |
-				switch element {
-					Requirement: {
+						GlobalConstants:
+							fileTypeWarning(fileExt, "constants", part)
+						default:
+							fileTypeWarning(fileExt, part.class.name, part)
 					}
-					Goal:
-						fileTypeWarning(REQDOC_FILE_EXT, "goal", element)
-					DocumentSection:
-						checkRecDocSection(element)
-					default:
-						fileTypeWarning(REQDOC_FILE_EXT, element.class.name, element)
-				}
-			]
-		}
-
-		def void checkGoalDocSection(DocumentSection section) {
-			val contents = section.content
-			contents.forEach [ element |
-				switch element {
-					Goal: {
-					}
-					Requirement:
-						fileTypeWarning(GOALDOC_FILE_EXT, "requirement", element)
-					DocumentSection:
-						checkGoalDocSection(element)
-					default:
-						fileTypeWarning(GOALDOC_FILE_EXT, element.class.name, element)
-				}
-			]
-		}
-
-		@Check(CheckType.EXPENSIVE)
-		def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
-			val target = sysReq.target
-			val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
-			if (allSystemRequirements.size > 1) {
-				error("Other System Requirements exist for '" + target.name +
-					"'. Only one System Requirement is allowed for a specific component.", sysReq,
-					ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET__TARGET)
-			}
-		}
-
-		@Check(CheckType.EXPENSIVE)
-		def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
-			val target = shg.target
-			val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
-			if (allStakeholderGoals.size > 1) {
-				error("Other Stakeholder Goals exist for '" + target.name +
-					"'. Only one Stakeholder Goals is allowed for a specific component.", shg,
-					ReqSpecPackage.Literals.STAKEHOLDER_GOALS__TARGET)
-			}
-		}
-
-		@Check(CheckType.EXPENSIVE)
-		def void checkRequirementShadowing(Requirement req) {
-			val reqName = req.name.toLowerCase
-			val reqEvolvesReferences = req.evolvesReference
-			val containingSysReqs = req.containingRequirementSet
-			if (containingSysReqs instanceof SystemRequirementSet) {
-				val componentClassifier = containingSysReqs.target
-				val classifierParents = new ArrayList<ComponentClassifier>
-
-				componentClassifier.buildExtended(classifierParents)
-
-				var ComponentType compType
-				if(componentClassifier instanceof ComponentImplementation) compType = componentClassifier.type
-				classifierParents.toSet.toList.forEach [ classifierParent |
-					reqSpecrefFinder.getSystemRequirementSets(classifierParent).forEach [ sysreqs |
-						if (sysreqs.requirements.exists [r|
-							r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)
-						]) {
-							error(
-								"Requirement '" + req.name + "' for '" + componentClassifier.name +
-									"' shadows a requirement of the same name in the System Requirements for '" +
-									classifierParent.name + "'. Shadowing '" + reqName +
-									"' must evolve original or original '" + reqName + "' must be tagged as 'dropped'",
-								req, ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
-						}
-					]
 				]
-
 			}
-		}
-
-		def void buildExtended(ComponentClassifier compClassifier, List<ComponentClassifier> ancestors) {
-			var ext = compClassifier.extended
-			if (ext !== null && ext instanceof ComponentClassifier) {
-				ancestors.add(ext as ComponentClassifier)
-				(ext as ComponentClassifier).buildExtended(ancestors)
-			}
-			if (compClassifier instanceof ComponentImplementation) {
-				var type = compClassifier.type
-				ancestors.add(type)
-				type.buildExtended(ancestors)
-			}
-		}
-
-		@Check(CheckType.FAST)
-		def void checkRequirementRefinement(Requirement req) {
-			switch req {
-				case req.refinesReference.nullOrEmpty: {
-				}
-				case req.refinesReference.head.containingRequirementSet === req.containingRequirementSet: {
-				}
-				default: {
-					val classifierParents = new ArrayList<ComponentClassifier>
-					val reqs = req.containingRequirementSet
-					if (reqs instanceof SystemRequirementSet) {
-						reqs.target.buildExtended(classifierParents)
-						val refinedreqs = req.refinesReference.head.containingRequirementSet
-						if (refinedreqs instanceof SystemRequirementSet) {
-							if(classifierParents.contains(refinedreqs.target)) return;
-							error(
-								"Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name +
-									"' and must either be in the same System Requirements or '" + req.name +
-									"' must be for an extension or implementation of the component '" +
-									req.refinesReference.head.name + "' is for. '", req,
-								ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
-							}
+			case GOALS_FILE_EXT: {
+				parts.forEach [ part |
+					switch part {
+						StakeholderGoals: {
 						}
+						SystemRequirementSet:
+							fileTypeWarning(fileExt, "system requirements", part)
+						ReqDocument:
+							fileTypeWarning(fileExt, "document", part)
+						GlobalConstants:
+							fileTypeWarning(fileExt, "constants", part)
+						default:
+							fileTypeWarning(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case REQDOC_FILE_EXT: {
+				parts.forEach [ part |
+					switch part {
+						ReqDocument: {
+							val reqDocContent = part.content
+							reqDocContent.forEach [ element |
+								switch element {
+									Requirement: {
+									}
+									Goal:
+										fileTypeWarning(fileExt, "goal", element)
+									DocumentSection:
+										checkRecDocSection(element)
+									default:
+										fileTypeWarning(fileExt, element.class.name, element)
+								}
+							]
+						}
+						SystemRequirementSet:
+							fileTypeWarning(fileExt, "system requirements", part)
+						GlobalRequirementSet:
+							fileTypeWarning(fileExt, "global requirements", part)
+						GlobalConstants:
+							fileTypeWarning(fileExt, "constants", part)
+						StakeholderGoals:
+							fileTypeWarning(fileExt, "stakeholder goals", part)
+						default:
+							fileTypeWarning(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case GOALDOC_FILE_EXT: {
+				parts.forEach [ part |
+					switch part {
+						ReqDocument: {
+							val reqDocContent = part.content
+							reqDocContent.forEach [ element |
+								switch element {
+									Goal: {
+									}
+									Requirement:
+										fileTypeWarning(fileExt, "requirement", element)
+									DocumentSection:
+										checkGoalDocSection(element)
+									default:
+										fileTypeWarning(fileExt, element.class.name, element)
+								}
+							]
+						}
+						SystemRequirementSet:
+							fileTypeWarning(fileExt, "system requirements", part)
+						GlobalRequirementSet:
+							fileTypeWarning(fileExt, "global requirements", part)
+						GlobalConstants:
+							fileTypeWarning(fileExt, "constants", part)
+						StakeholderGoals:
+							fileTypeWarning(fileExt, "stakeholder goals", part)
+						default:
+							fileTypeWarning(fileExt, part.class.name, part)
+					}
+				]
+			}
+			case CONSTANTS_FILE_EXT: {
+				parts.forEach [ part |
+					switch part {
+						GlobalConstants: {
+						}
+						SystemRequirementSet:
+							fileTypeWarning(fileExt, "system requirements", part)
+						GlobalRequirementSet:
+							fileTypeWarning(fileExt, "global requirements", part)
+						StakeholderGoals:
+							fileTypeWarning(fileExt, "stakeholder goals", part)
+						ReqDocument:
+							fileTypeWarning(fileExt, "document", part)
+						default:
+							fileTypeWarning(fileExt, part.class.name, part)
+					}
+				]
+			}
+			default: {
+			}
+		}
+	}
+
+	def void fileTypeWarning(String fileType, String partName, EObject part) {
+		warning(partName + " not allowed in '" + fileType + "' file.", part, null)
+	}
+
+	/** TODO: These methods invoke the QuickFixes, not using yet do to unexpected behavior: 
+	 * 		  when removing illegal stakeholder goal from reqspec, the SystemsRequirementSet elements re-order in a way causing an error
+	 * def void fileTypeError(String fileType, String partName, EObject part, ReqSpec parent){
+	 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC, partName, EcoreUtil.getURI(parent).toString())
+	 * }
+	 * def void fileTypeError(String fileType, String partName, EObject part, ReqDocument parent){
+	 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT, partName, EcoreUtil.getURI(parent).toString())
+	 * }
+	 * def void fileTypeError(String fileType, String partName, EObject part, DocumentSection parent){
+	 * 	error( partName +" not allowed in '"+ fileType + "' file.", part, null, ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION, partName, EcoreUtil.getURI(parent).toString())
+	 * }
+	 */
+	def void checkRecDocSection(DocumentSection section) {
+		val contents = section.content
+		contents.forEach [ element |
+			switch element {
+				Requirement: {
+				}
+				Goal:
+					fileTypeWarning(REQDOC_FILE_EXT, "goal", element)
+				DocumentSection:
+					checkRecDocSection(element)
+				default:
+					fileTypeWarning(REQDOC_FILE_EXT, element.class.name, element)
+			}
+		]
+	}
+
+	def void checkGoalDocSection(DocumentSection section) {
+		val contents = section.content
+		contents.forEach [ element |
+			switch element {
+				Goal: {
+				}
+				Requirement:
+					fileTypeWarning(GOALDOC_FILE_EXT, "requirement", element)
+				DocumentSection:
+					checkGoalDocSection(element)
+				default:
+					fileTypeWarning(GOALDOC_FILE_EXT, element.class.name, element)
+			}
+		]
+	}
+
+	@Check(CheckType.EXPENSIVE)
+	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
+		val target = sysReq.target
+		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
+		if (allSystemRequirements.size > 1) {
+			error("Other System Requirements exist for '" + target.name +
+				"'. Only one System Requirement is allowed for a specific component.", sysReq,
+				ReqSpecPackage.Literals.SYSTEM_REQUIREMENT_SET__TARGET)
+		}
+	}
+
+	@Check(CheckType.EXPENSIVE)
+	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
+		val target = shg.target
+		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
+		if (allStakeholderGoals.size > 1) {
+			error("Other Stakeholder Goals exist for '" + target.name +
+				"'. Only one Stakeholder Goals is allowed for a specific component.", shg,
+				ReqSpecPackage.Literals.STAKEHOLDER_GOALS__TARGET)
+		}
+	}
+
+	@Check(CheckType.EXPENSIVE)
+	def void checkRequirementShadowing(Requirement req) {
+		val reqName = req.name.toLowerCase
+		val reqEvolvesReferences = req.evolvesReference
+		val containingSysReqs = req.containingRequirementSet
+		if (containingSysReqs instanceof SystemRequirementSet) {
+			val componentClassifier = containingSysReqs.target
+			val classifierParents = new ArrayList<ComponentClassifier>
+
+			componentClassifier.buildExtended(classifierParents)
+
+			var ComponentType compType
+			if(componentClassifier instanceof ComponentImplementation) compType = componentClassifier.type
+			classifierParents.toSet.toList.forEach [ classifierParent |
+				reqSpecrefFinder.getSystemRequirementSets(classifierParent).forEach [ sysreqs |
+					if (sysreqs.requirements.exists [ r |
+						r.name.toLowerCase == reqName && !r.dropped && !reqEvolvesReferences.contains(r)
+					]) {
+						error(
+							"Requirement '" + req.name + "' for '" + componentClassifier.name +
+								"' shadows a requirement of the same name in the System Requirements for '" +
+								classifierParent.name + "'. Shadowing '" + reqName +
+								"' must evolve original or original '" + reqName + "' must be tagged as 'dropped'", req,
+							ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
+					}
+				]
+			]
+
+		}
+	}
+
+	def void buildExtended(ComponentClassifier compClassifier, List<ComponentClassifier> ancestors) {
+		var ext = compClassifier.extended
+		if (ext !== null && ext instanceof ComponentClassifier) {
+			ancestors.add(ext as ComponentClassifier)
+			(ext as ComponentClassifier).buildExtended(ancestors)
+		}
+		if (compClassifier instanceof ComponentImplementation) {
+			var type = compClassifier.type
+			ancestors.add(type)
+			type.buildExtended(ancestors)
+		}
+	}
+
+	@Check(CheckType.FAST)
+	def void checkRequirementRefinement(Requirement req) {
+		switch req {
+			case req.refinesReference.nullOrEmpty: {
+			}
+			case req.refinesReference.head.containingRequirementSet === req.containingRequirementSet: {
+			}
+			default: {
+				val classifierParents = new ArrayList<ComponentClassifier>
+				val reqs = req.containingRequirementSet
+				if (reqs instanceof SystemRequirementSet) {
+					reqs.target.buildExtended(classifierParents)
+					val refinedreqs = req.refinesReference.head.containingRequirementSet
+					if (refinedreqs instanceof SystemRequirementSet) {
+						if(classifierParents.contains(refinedreqs.target)) return;
+						error(
+							"Requirement '" + req.name + "' refined from '" + req.refinesReference.head.name +
+								"' and must either be in the same System Requirements or '" + req.name +
+								"' must be for an extension or implementation of the component '" +
+								req.refinesReference.head.name + "' is for. '", req,
+							ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__NAME)
 					}
 				}
 			}
+		}
+	}
 
-			@Check(CheckType.FAST)
-			def void checkIncludeGlobalRequirement(IncludeGlobalRequirement igr) {
-				if (!(igr.include instanceof GlobalRequirementSet || igr.include instanceof Requirement)) {
-					error("Must include global requirements or requirement in global requirements.", igr,
-						ReqSpecPackage.Literals.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE,
-						INCORRECT_GLOBAL_REQUIREMENT_INCLUDE)
-					}
-				}
+	@Check(CheckType.FAST)
+	def void checkIncludeGlobalRequirement(IncludeGlobalRequirement igr) {
+		if (!(igr.include instanceof GlobalRequirementSet || igr.include instanceof Requirement)) {
+			error("Must include global requirements or requirement in global requirements.", igr,
+				ReqSpecPackage.Literals.INCLUDE_GLOBAL_REQUIREMENT__INCLUDE, INCORRECT_GLOBAL_REQUIREMENT_INCLUDE)
+		}
+	}
 
-				@Check(CheckType.FAST)
-				def void checkWhenCondition(WhenCondition wc) {
-					if (ExecuteJavaUtil.getJavaMethod(wc.condition) === null) {
-						error("Could not find Java method " + wc.condition + " with single EObject parameter",
-							ReqSpecPackage.Literals.WHEN_CONDITION__CONDITION, CONDITION_METHOD_NOT_FOUND)
-					}
-				}
+	@Check(CheckType.FAST)
+	def void checkWhenCondition(WhenCondition wc) {
+		if (ExecuteJavaUtil.getJavaMethod(wc.condition) === null) {
+			error("Could not find Java method " + wc.condition + " with single EObject parameter",
+				ReqSpecPackage.Literals.WHEN_CONDITION__CONDITION, CONDITION_METHOD_NOT_FOUND)
+		}
+	}
 
-			}
-			
+}
