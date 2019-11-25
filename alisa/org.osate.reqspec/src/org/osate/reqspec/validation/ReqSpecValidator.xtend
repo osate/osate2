@@ -87,25 +87,17 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 
 	@Check // (CheckType.EXPENSIVE)
 	def void checkMissingStakeholder(Goal goal) {
-		if (goal.stakeholderReference.empty) {
-			if (goal.refinesReference.empty) {
-				warning('Goal should have stakeholders', ReqSpecPackage.Literals.GOAL__STAKEHOLDER_REFERENCE,
-					MISSING_STAKEHOLDER)
-			} else {
-				goal.refinesReference.forEach[checkMissingStakeholder]
-			}
+		if (goal.stakeholderReference.empty && goal.refinesReference.empty) {
+			warning('Goal should have stakeholders', ReqSpecPackage.Literals.GOAL__STAKEHOLDER_REFERENCE,
+				MISSING_STAKEHOLDER)
 		}
 	}
 
 	@Check(CheckType.EXPENSIVE)
 	def void checkMissingGoal(Requirement req) {
-		if (req.goalReference.empty) {
-			if (req.refinesReference.empty) {
-				warning('System requirement should have stakeholder goal or requirement reference',
-					ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__GOAL_REFERENCE, MISSING_STAKEHOLDER_GOAL)
-			} else {
-				req.refinesReference.forEach[checkMissingGoal]
-			}
+		if (req.goalReference.empty && req.refinesReference.empty) {
+			warning('System requirement should have stakeholder goal or requirement reference',
+				ReqSpecPackage.Literals.CONTRACTUAL_ELEMENT__GOAL_REFERENCE, MISSING_STAKEHOLDER_GOAL)
 		}
 	}
 
