@@ -213,7 +213,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		val actualParameters = va.actuals
 		val method = va.method
 		val expectedParms = method.formals
-		if ((expectedParms?.size != actualParameters?.size)) {
+		if (expectedParms.size != actualParameters.size) {
 			warning(
 				"The number of actual parameters differs from the number of formal parameters for verification activity",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)

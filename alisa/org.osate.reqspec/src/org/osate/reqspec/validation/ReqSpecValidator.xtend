@@ -30,11 +30,11 @@ import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.ComponentType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.common.util.CommonUtilExtension
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.GlobalConstants
@@ -50,7 +50,6 @@ import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.WhenCondition
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.pluginsupport.ExecuteJavaUtil
 
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 
@@ -486,8 +485,6 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 
 			componentClassifier.buildExtended(classifierParents)
 
-			var ComponentType compType
-			if(componentClassifier instanceof ComponentImplementation) compType = componentClassifier.type
 			classifierParents.toSet.toList.forEach [ classifierParent |
 				reqSpecrefFinder.getSystemRequirementSets(classifierParent).forEach [ sysreqs |
 					if (sysreqs.requirements.exists [ r |
