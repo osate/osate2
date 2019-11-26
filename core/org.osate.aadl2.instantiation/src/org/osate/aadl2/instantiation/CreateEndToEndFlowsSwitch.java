@@ -516,7 +516,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
 				for (final ConnectionInstance ciToCheck : connis) {
 					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
-							&& (nextFlowImpl == null || isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
+							&& (nextFlowImpl == null
+									? (leaf instanceof FlowSpecification
+											? isValidContinuation(etei, ciToCheck, (FlowSpecification) leaf)
+											: true)
+									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
 					}
 				}
@@ -529,12 +533,19 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					 *
 					 * This error is the opposite of the case above [**].
 					 */
-					final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
-					error(etei.getContainingComponentInstance(),
-							"Cannot create end to end flow '" + etei.getName()
-									+ "' because there are no semantic connections that connect to the start of the flow '"
-									+ ff.getSpecification().getName() + "' at feature '"
-									+ ff.getInEnd().getFeature().getName() + "'");
+					if (flowFilter == null && nextFlowImpl == null) {
+						final FlowSpecification flowSpec = (FlowSpecification) leaf;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ flowSpec.getName() + "' at feature '" + flowSpec.getInEnd().getFeature().getName()
+								+ "'");
+					} else {
+						final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ ff.getSpecification().getName() + "' at feature '"
+								+ ff.getInEnd().getFeature().getName() + "'");
+					}
 					connections.clear();
 					removeETEI.add(etei);
 				} else {
@@ -614,6 +625,17 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		ConnectionInstanceEnd dst = conni.getDestination();
 		if (dst instanceof FeatureInstance) {
 			Feature flowIn = fimpl.getInEnd().getFeature();
+			Feature connDst = ((FeatureInstance) dst).getFeature();
+			result = flowIn == connDst;
+		}
+		return result;
+	}
+
+	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+		boolean result = false;
+		ConnectionInstanceEnd dst = conni.getDestination();
+		if (dst instanceof FeatureInstance) {
+			Feature flowIn = fspec.getInEnd().getFeature();
 			Feature connDst = ((FeatureInstance) dst).getFeature();
 			result = flowIn == connDst;
 		}
