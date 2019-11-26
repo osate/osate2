@@ -22,8 +22,29 @@
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
+<!-- 		<sonar.projectKey>osate_osate2</sonar.projectKey> -->
+		<sonar.organization>osate</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>{wApN3pGBNBcHEHWkTQ15pAKBbpUEmPZ0avW0icwTs5KiyxBJM5LqCGRFu77FbXR022QHRzILQnqo/+XOzOVwAw==}</sonar.login>
+		<sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
+		<sonar.jacoco.reportPaths>target</sonar.jacoco.reportPaths>
+
+		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
+		
+		<sonar.coverage.jacoco.xmlReportPaths>
+			../../emv2/org.osate.aadl2.errormodel.faulttree.tests/target/site/jacoco/jacoco.xml,
+			../../emv2/org.osate.aadl2.errormodel.tests/target/site/jacoco/jacoco.xml,
+			../../analyses/org.osate.analysis.flows.tests/target/site/jacoco/jacoco.xml,
+			../../analyses/org.osate.analysis.architecture.tests/target/site/jacoco/jacoco.xml,
+			../../core/org.osate.core.tests/target/site/jacoco/jacoco.xml,
+			../../core/org.osate.aadl2.instance.textual.tests/target/site/jacoco/jacoco.xml,
+			../../alisa/org.osate.assure.tests/target/site/jacoco/jacoco.xml,
+			../../alisa/org.osate.alisa.workbench.tests/target/site/jacoco/jacoco.xml,
+			../../ba/org.osate.ba.tests/target/site/jacoco/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
+
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09/201909181001</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
@@ -222,8 +243,7 @@
 				</property>
 			</activation>
 			<properties>
-				<tycho.testArgLine>
-				</tycho.testArgLine>
+				<tycho.testArgLine></tycho.testArgLine>
 			</properties>
 		</profile>
 		<profile>
@@ -249,6 +269,7 @@
 							<execution>
 								<goals>
 									<goal>prepare-agent</goal>
+									<goal>report</goal>
 								</goals>
 							</execution>
 						</executions>
