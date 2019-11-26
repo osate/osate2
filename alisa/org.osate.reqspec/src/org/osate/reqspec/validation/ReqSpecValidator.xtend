@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.validation.Check
-import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
@@ -85,7 +84,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	public static val DUPLICATE_GLOBALREQUIREMENTS = 'org.osate.reqspec.validation.duplicate.globalrequirements'
 	public static val ELEMENT_TARGETTYPE = 'org.osate.reqspec.validation.element.targettype'
 
-	@Check // (CheckType.EXPENSIVE)
+	@Check
 	def void checkMissingStakeholder(Goal goal) {
 		if (goal.stakeholderReference.empty && goal.refinesReference.empty) {
 			warning('Goal should have stakeholders', ReqSpecPackage.Literals.GOAL__STAKEHOLDER_REFERENCE,
@@ -93,7 +92,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkMissingGoal(Requirement req) {
 		if (req.goalReference.empty && req.refinesReference.empty) {
 			warning('System requirement should have stakeholder goal or requirement reference',
@@ -101,7 +100,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkMultipleSystems(ReqDocument reqdoc) {
 		val syslist = new BasicEList<Classifier>
 		reqdoc.content.forEach[e|if(e instanceof ContractualElement) syslist += e.targetClassifier]
@@ -112,7 +111,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkMultipleSystems(DocumentSection docsection) {
 		val syslist = new BasicEList<Classifier>
 		docsection.content.forEach[e|if(e instanceof ContractualElement) syslist += e.targetClassifier]
@@ -123,7 +122,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkFeatureCoverage(SystemRequirementSet sysreqs) {
 		val cl = sysreqs.target
 		if(cl === null || cl.getAllFeatures.empty) return
@@ -137,7 +136,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def void checkDuplicateGoal(StakeholderGoals stakeHolderGoals) {
 		stakeHolderGoals.goals.forEach [ goal |
 			if (stakeHolderGoals.goals.filter[name == goal.name].size > 1)
@@ -151,7 +150,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def void checkDuplicateRequirement(RequirementSet sysReq) {
 		sysReq.requirements.forEach [ requirement |
 			if (sysReq.requirements.filter[name == requirement.name].size > 1)
@@ -165,7 +164,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def void checkSpecGoalTargetConsistency(SystemRequirementSet sysReqs) {
 		val reqSpecTarget = sysReqs.target
 		val requirements = sysReqs.requirements
@@ -196,7 +195,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkGoalForCycles(Goal goal) {
 		val goalList = new ArrayList<Goal>()
 		goalList.add(goal)
@@ -221,7 +220,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkRequirementTargetType(Requirement requirement) {
 		if (requirement.targetType === TargetType.ELEMENT) {
 			error("Target type of global requirement cannot be 'element'", requirement,
@@ -229,7 +228,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkRequirementForCycles(Requirement requirement) {
 		val reqList = new ArrayList<Requirement>()
 		reqList.add(requirement)
@@ -258,7 +257,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 
 	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkCoverage(StakeholderGoals shgs) {
 		val target = shgs.target
 		if (!SystemImplementation.isInstance(target)) {
@@ -273,7 +272,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkFileTypeContents(ReqSpec reqSpec) {
 		val reqSpecURI = EcoreUtil.getURI(reqSpec)
 		val fileExt = reqSpecURI.fileExtension.toLowerCase
@@ -444,7 +443,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
 		val target = sysReq.target
 		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
@@ -455,7 +454,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
 		val target = shg.target
 		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
@@ -466,7 +465,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.EXPENSIVE)
+	@Check
 	def void checkRequirementShadowing(Requirement req) {
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
@@ -508,7 +507,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkRequirementRefinement(Requirement req) {
 		switch req {
 			case req.refinesReference.nullOrEmpty: {
@@ -535,7 +534,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkIncludeGlobalRequirement(IncludeGlobalRequirement igr) {
 		if (!(igr.include instanceof GlobalRequirementSet || igr.include instanceof Requirement)) {
 			error("Must include global requirements or requirement in global requirements.", igr,
@@ -543,7 +542,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkWhenCondition(WhenCondition wc) {
 		if (ExecuteJavaUtil.getJavaMethod(wc.condition) === null) {
 			error("Could not find Java method " + wc.condition + " with single EObject parameter",
