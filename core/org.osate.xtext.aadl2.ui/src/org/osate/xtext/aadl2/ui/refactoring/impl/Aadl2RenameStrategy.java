@@ -32,15 +32,19 @@ public class Aadl2RenameStrategy extends DefaultRenameStrategy {
 
 	@Override
 	public boolean initialize(EObject targetElement, IRenameElementContext context) {
+		endNameRegions = new ArrayList<ITextRegion>();
 		if (super.initialize(targetElement, context)) {
-			endNameRegions = new ArrayList<ITextRegion>();
-			endNameRegions.add(((Aadl2LocationInFile) locationInFileProvider).getSecondaryTextRegion(targetElement,
-					!(targetElement instanceof ComponentImplementation)));
-			AadlPackage pkg = EcoreUtil2.getContainerOfType(targetElement, AadlPackage.class);
-			for (ComponentImplementation impl : EcoreUtil2.getAllContentsOfType(pkg, ComponentImplementation.class)) {
-				if (impl.getType() == targetElement) {
-					endNameRegions
-							.add(((Aadl2LocationInFile) locationInFileProvider).getSecondaryTextRegion(impl, true));
+			ITextRegion region = ((Aadl2LocationInFile) locationInFileProvider).getSecondaryTextRegion(targetElement,
+					!(targetElement instanceof ComponentImplementation));
+			if (region != null) {
+				endNameRegions.add(region);
+				AadlPackage pkg = EcoreUtil2.getContainerOfType(targetElement, AadlPackage.class);
+				for (ComponentImplementation impl : EcoreUtil2.getAllContentsOfType(pkg,
+						ComponentImplementation.class)) {
+					if (impl.getType() == targetElement) {
+						endNameRegions
+								.add(((Aadl2LocationInFile) locationInFileProvider).getSecondaryTextRegion(impl, true));
+					}
 				}
 			}
 			return true;
