@@ -18,6 +18,7 @@ import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ModelUnit;
 import org.osate.xtext.aadl2.util.Aadl2LocationInFile;
 
 import com.google.inject.Inject;
@@ -38,7 +39,7 @@ public class Aadl2RenameStrategy extends DefaultRenameStrategy {
 					!(targetElement instanceof ComponentImplementation));
 			if (region != null) {
 				endNameRegions.add(region);
-				AadlPackage pkg = EcoreUtil2.getContainerOfType(targetElement, AadlPackage.class);
+				ModelUnit pkg = EcoreUtil2.getContainerOfType(targetElement, ModelUnit.class);
 				for (ComponentImplementation impl : EcoreUtil2.getAllContentsOfType(pkg,
 						ComponentImplementation.class)) {
 					if (impl.getType() == targetElement) {
