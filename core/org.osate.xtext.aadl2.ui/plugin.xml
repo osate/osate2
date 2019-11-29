@@ -324,25 +324,4 @@
             id="org.osate.xtext.aadl2.ui.editor.ContributedAadlEditorInputFactory">
       </factory>
    </extension>
-   <extension
-         point="org.eclipse.ltk.core.refactoring.renameParticipants">
-      <renameParticipant
-            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2ClassifierRenameParticipant"
-            id="org.osate.xtext.aadl2.ui.renameParticipant1"
-            name="name">
-         <enablement>
-            <with variable="processorIdentifier">
-               <equals value="org.osate.xtext.aadl2.Aadl2.ui.refactoring.Processor"></equals>
-            </with>
-            <with variable="affectedNatures">
-               <iterate operator="or">
-                  <equals value="org.eclipse.xtext.ui.shared.xtextNature"></equals>
-               </iterate>    
-            </with>
-            <with variable="element">
-               <instanceof value="org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext"></instanceof>
-            </with>
-         </enablement>
-      </renameParticipant>
-   </extension>
 </plugin>
