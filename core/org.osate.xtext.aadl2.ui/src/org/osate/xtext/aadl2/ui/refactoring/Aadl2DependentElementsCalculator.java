@@ -25,16 +25,9 @@ public class Aadl2DependentElementsCalculator extends DefaultDependentElementsCa
 		List<URI> dependentElementURIs = super.getDependentElementURIs(baseElement, monitor);
 
 		if (baseElement instanceof ComponentType) {
-//			List<ComponentImplementation> impls = Aadl2GlobalScopeUtil.getAll(baseElement,
-//					Aadl2Package.eINSTANCE.getComponentImplementation());
-//			impls.stream()
-//					.filter((impl) -> impl.getType() == baseElement)
-//					.map((impl) -> EcoreUtil.getURI(impl))
-//					.forEach(dependentElementURIs::add);
-
 			AadlPackage pkg = EcoreUtil2.getContainerOfType(baseElement, AadlPackage.class);
-			List<ComponentImplementation> impls = EcoreUtil2.getAllContentsOfType(pkg, ComponentImplementation.class);
-			impls.stream()
+			EcoreUtil2.getAllContentsOfType(pkg, ComponentImplementation.class)
+					.stream()
 					.filter((impl) -> impl.getType() == baseElement)
 					.map((impl) -> EcoreUtil.getURI(impl))
 					.forEach(dependentElementURIs::add);
