@@ -588,7 +588,7 @@ class CommentsFormattingTest {
 				feature group fgt5 extends fgt4(p2=>in data port)
 				 -- Comment
 				 prototypes
-				 --Comment
+				 -- Comment
 				none;end fgt5;end pkg1;
 			'''
 		]

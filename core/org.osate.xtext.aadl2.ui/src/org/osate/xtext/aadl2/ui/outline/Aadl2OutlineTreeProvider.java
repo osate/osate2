@@ -62,6 +62,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexParseUtil;
@@ -104,7 +105,8 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 			}
 		} else {
 			for (EObject childElement : modelElement.getChildren()) {
-				if (childElement instanceof Realization || childElement instanceof ImplementationExtension
+				if (childElement instanceof Realization || childElement instanceof TypeExtension
+						|| childElement instanceof ImplementationExtension
 						|| childElement instanceof ContainmentPathElement
 						|| childElement instanceof PropertyAssociation) {
 					continue;
