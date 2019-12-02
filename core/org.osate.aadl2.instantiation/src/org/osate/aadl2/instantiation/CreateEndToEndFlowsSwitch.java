@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
@@ -632,12 +633,33 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+		/*
+		 * Issue 2009: Check if the connection instance connects to the flow spec. Here we have a weird
+		 * situation. If the subcomponent the flow spec is qualified by is only described by a component type, then
+		 * connection end is going to match up with the beginning of the flow. That's fine. If the component
+		 * has a classifier implementation AND the flow spec has a flow implementation, then everything will also
+		 * fine: either the connection instance is correct and reaches the start of the flow implementation, or it
+		 * is incorrect and doesn't. But we can also have the case that the subcomponent is described by a
+		 * component implementation but the flow spec does not have a flow implementation. In this case we
+		 * still may have the case the connection instance continues into the subcomponent and terminates at a
+		 * subsubcomponent. But the flow spec that we have here will be at the edge of the original subcomponent.
+		 * so the end connection instance will not match up with the start of the flow spec.
+		 *
+		 * So what we really need to do is walk backwards along the connections that make up the connection instance
+		 * until we find one that connects to the flow because as wee the connection instance may "punch through" the
+		 * subcomponent.
+		 */
+		final Feature flowIn = fspec.getInEnd().getFeature();
+		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
+		int idx = connRefs.size() - 1;
 		boolean result = false;
-		ConnectionInstanceEnd dst = conni.getDestination();
-		if (dst instanceof FeatureInstance) {
-			Feature flowIn = fspec.getInEnd().getFeature();
-			Feature connDst = ((FeatureInstance) dst).getFeature();
-			result = flowIn == connDst;
+		while (!result && idx >= 0) {
+			final Connection conn = connRefs.get(idx).getConnection();
+			final ConnectionEnd connEnd = conn.getDestination().getConnectionEnd();
+			if (connEnd instanceof Feature) {
+				result = flowIn == connEnd;
+			}
+			idx -= 1;
 		}
 		return result;
 	}
