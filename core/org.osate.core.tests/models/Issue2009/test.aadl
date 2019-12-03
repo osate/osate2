@@ -1,0 +1,82 @@
+package test
+public
+	system s1
+		features
+			o: out event port;
+		flows
+			src: flow source o;
+	end s1;
+	
+	system s2
+		features
+			i: in event port;
+			i_wrong: in event port;
+		flows
+			snk: flow sink i;
+	end s2;
+
+	system s3
+		features 
+			i2: in event port;
+			i2_wrong: in event port;
+		flows
+			snk2: flow sink i2;
+	end s3;
+
+	system implementation s2.implFlow
+		subcomponents
+			s3: system s3;
+		connections
+			c2: port i -> s3.i2;
+			c2_wrong: port i_wrong -> s3.i2_wrong;
+		flows
+			snk: flow sink i -> c2 -> s3.snk2;
+	end s2.implFlow;
+
+	system implementation s2.implNoFlow
+		subcomponents
+			s3: system s3;
+		connections
+			c2: port i -> s3.i2;
+			c2_wrong: port i_wrong -> s3.i2_wrong;
+	end s2.implNoFlow;
+
+	system top
+	end top;
+	
+	system implementation top.typeOnly
+		subcomponents
+			s1: system s1;
+			s2: system s2;
+		connections
+			c1: port s1.o -> s2.i;
+			c1_wrong: port s1.o -> s2.i_wrong;
+		flows
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should never be instantiated
+	end top.typeOnly;
+	
+	system implementation top.withImpl_implFlow
+		subcomponents
+			s1: system s1;
+			s2: system s2.implFlow;
+		connections
+			c1: port s1.o -> s2.i;
+			c1_wrong: port s1.o -> s2.i_wrong;
+		flows
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should never be instantiated
+	end top.withImpl_implFlow;
+	
+	system implementation top.withImpl_implNoFlow
+		subcomponents
+			s1: system s1;
+			s2: system s2.implNoFlow;
+		connections
+			c1: port s1.o -> s2.i;
+			c1_wrong: port s1.o -> s2.i_wrong;
+		flows
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated, but currently is not
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should never be instantiated
+	end top.withImpl_implNoFlow;
+end test;
