@@ -1,0 +1,96 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package SimpleControlSystem
+public
+
+	with ACVIP	;	
+	
+	with SEI;
+	with PhysicalResources;
+	with DigitalControlSystem;
+	renames DigitalControlSystem::all;
+with Physical;
+
+
+	system SCS
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+			force: out feature;
+		modes
+			operational: initial mode;
+			standby: mode;
+		properties
+			ACVIP::Aliases => ("SCS", "Simple Controller");
+			ACVIP::Author => "Peter";
+			SEI::PowerBudget => 2.5 w applies to power;
+			SEI::WeightLimit => 1.2 kg;
+			Physical::Voltage => 12.0V applies to power;
+	end SCS;
+	
+	system SCSDualPower extends SCS
+		features
+			backuppower: in feature PhysicalResources::ElectricalPower;
+	end SCSDualPower;
+
+	system implementation SCS.Phys
+		subcomponents
+			dcs: system DCS.singletier0;
+			sensor1: device sensor;
+			sensor2: device sensor;
+			actuator: device actuator;
+	end SCS.Phys;
+	
+
+	system implementation SCS.tier0
+		subcomponents
+			dcs: system DCS;
+			sensor1: device sensor;
+			sensor2: device sensor;
+			actuator: device actuator;
+		connections
+			sensor1access: bus access dcs.canbusaccess -> sensor1.canbusaccess;
+			sensor2access: bus access dcs.canbusaccess -> sensor2.canbusaccess;
+			actuatoraccess: bus access dcs.canbusaccess -> actuator.canbusaccess;
+			Sensor1Xfer: port sensor1.sensorSignal -> dcs.sensor1in;
+			Signal1Xfer: port sensor2.sensorSignal -> dcs.sensor2In;
+			ActuatorCmdXfer: port dcs.actuatorOut -> actuator.actuatorCmd;
+		flows
+			sensortoactuatorresponse: end to end flow sensor1.sensorreading -> Sensor1Xfer ->
+					dcs.sensorprocessing -> ActuatorCmdXfer -> actuator.actuatoraction;
+		properties
+			latency => 12 ms .. 18 ms applies to sensortoactuatorresponse;
+	end SCS.tier0;
+
+	system implementation SCS.tier1 extends SCS.tier0
+		subcomponents
+			dcs: refined to system DCS.singletier1;
+	end SCS.tier1;
+
+	system implementation SCS.tier2 extends SCS.tier1
+		subcomponents
+			dcs: refined to system DCS.singletier2;
+	end SCS.tier2;
+
+	system implementation SCS.dualtier2 extends SCS.tier1
+		subcomponents
+			dcs: refined to system DCS.dualtier2;
+	end SCS.dualtier2;
+
+
+
+	system implementation SCS.NestedSensors
+		subcomponents
+			dcs: system DCS;
+			sensors: system  sensors.impl;
+			actuator: device actuator;
+		connections
+			Sensor1Xfer: port sensors.sensorSignal -> dcs.sensor1in;
+			ActuatorCmdXfer: port dcs.actuatorOut -> actuator.actuatorCmd;
+		flows
+			sensortoactuatorresponse: end to end flow sensors.sensorreading -> Sensor1Xfer ->
+					dcs.sensorprocessing -> ActuatorCmdXfer -> actuator.actuatoraction;
+		properties
+			latency => 12 ms .. 50 ms applies to sensortoactuatorresponse;
+	end SCS.NestedSensors;
+
+end SimpleControlSystem;

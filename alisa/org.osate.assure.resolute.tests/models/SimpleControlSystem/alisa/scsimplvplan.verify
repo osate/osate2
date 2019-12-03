@@ -1,0 +1,14 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+verification plan scsimplvplan for SCSImplementationreqs 
+[
+	
+claim R2_Lat [
+		activities
+//			responsetime : Plugins.EndToEndFlowLatencyAnalysis()
+			computeLatency: SOM, MinLatency, MaxLatency = Plugins.ComputeEndToEndFlowLatency()
+//			timing: Plugins.ResourceAllocationScheduling()
+//		assert timing then computeLatency
+
+	]
+] 

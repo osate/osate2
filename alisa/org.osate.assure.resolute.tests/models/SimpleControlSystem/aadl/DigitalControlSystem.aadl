@@ -1,0 +1,117 @@
+-- Copyright 2016 Carnegie Mellon University. See Notice.txt
+-- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+package DigitalControlSystem
+public
+	with SEI;
+	with PhysicalResources;
+	renames PhysicalResources::all;
+	with Platform;
+	renames Platform::all;
+	with DataDictionary;
+	renames DataDictionary::all;
+	with Software;
+	renames Software::all;
+
+	device sensor
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+			canbusaccess: requires bus access CANbus;
+			sensorSignal: out data port SensorData;
+		flows
+			sensorreading: flow source sensorSignal;
+		properties
+			SEI::GrossWeight => 0.1 kg;
+			SEI::PowerBudget => 0.45 w applies to power;
+			Period => 25 ms;
+			Dispatch_Protocol => Periodic;
+			Latency => 3 ms .. 5 ms applies to sensorreading;
+	end sensor;
+
+	system sensors
+		features
+			sensorSignal: out event data port SensorData;
+		flows
+			sensorreading: flow source sensorSignal;
+		properties
+			Latency => 3 ms .. 5 ms applies to sensorreading;
+	end sensors;
+	
+	system implementation sensors.impl
+		subcomponents
+			sensor1: device sensor;
+			sensor2: device sensor;
+		connections
+			s1out: port sensor1.sensorSignal -> sensorSignal;
+			s2out: port sensor2.sensorSignal -> sensorSignal;
+		flows
+			sensorreading: flow source sensor1.sensorreading -> s1out -> sensorSignal;
+			sensorreading: flow source sensor2.sensorreading -> s2out ->sensorSignal;
+	end sensors.impl;
+
+
+	device actuator
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+			canbusaccess: requires bus access CANbus;
+			actuatorCmd: in data port actuatecmd;
+		flows
+			actuatoraction: flow sink actuatorCmd;
+		properties
+--			SEI::GrossWeight => 0.3 kg;
+			SEI::PowerBudget => 0.8 w applies to power;
+			Period => 25 ms;
+			Latency => 3 ms .. 5 ms applies to actuatoraction;
+			Dispatch_Protocol => Periodic;
+	end actuator;
+
+	system DCS
+		features
+			power: in feature PhysicalResources::ElectricalPower;
+			canbusaccess: provides bus access CANbus;
+			sensor1in: in data port SensorData;
+			sensor2In: in data port SensorData;
+			actuatorOut: out data port actuatecmd;
+		flows
+			sensorprocessing: flow path sensor1in -> actuatorOut;
+		properties
+			SEI::Grossweight => 0.5 kg;
+			Latency => 15 ms .. 18 ms applies to sensorprocessing;
+	end DCS;
+
+	system implementation DCS.singletier0
+		subcomponents
+			app: system DCA;
+			hw: system platform;
+		connections
+			powerline: feature power -> hw.power;
+			Signal1Xfer: port sensor1in -> app.sensor1in;
+			Signal2Xfer: port sensor2In -> app.sensor2In;
+			ActuatorCmdXfer: port app.actuatorOut -> actuatorOut;
+			CanbusConn: bus access hw.canbusaccess -> canbusaccess;
+		flows
+			sensorprocessing: flow path sensor1in -> Signal1Xfer -> app.s1toa -> ActuatorCmdXfer -> actuatorOut;
+	end DCS.singletier0;
+
+	system implementation DCS.singletier1 extends DCS.singletier0
+		subcomponents
+			app: refined to system DCA.tier1;
+			hw: refined to system platform.single;
+	end DCS.singletier1;
+
+	system implementation DCS.singletier2 extends DCS.singletier1
+		subcomponents
+			app: refined to system DCA.tier2;
+		properties
+			Reference_Processor => classifier (powerpc);
+			Actual_Processor_Binding => (reference (hw.pc1)) applies to app;
+--			Actual_Processor_Binding => (reference (hw.pc1)) applies to iop;
+	end DCS.singletier2;
+
+	system implementation DCS.dualtier2 extends DCS.singletier2
+		subcomponents
+			hw: refined to system platform.dual;
+		properties
+			Reference_Processor => classifier (powerpc);
+	end DCS.dualtier2;
+
+end DigitalControlSystem;

@@ -49,7 +49,7 @@ class AssureTests extends XtextTest {
 	@Inject
 	IAssureConstructor assureConstructor
 
-	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
+	val projectprefix = "org.osate.assure.resolute.tests/models/SimpleControlSystem/"
 	val propertiesprefix = projectprefix + "Properties/"
 	val aadlprefix = projectprefix + "aadl/"
 	val alisaprefix = projectprefix + "alisa/"
