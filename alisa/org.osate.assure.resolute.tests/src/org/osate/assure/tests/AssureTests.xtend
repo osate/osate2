@@ -17,7 +17,6 @@
 package org.osate.assure.tests
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
 import com.rockwellcollins.atc.resolute.resolute.ResoluteLibrary
 import org.eclipse.core.runtime.NullProgressMonitor
@@ -30,27 +29,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
-import org.osate.aadl2.PropertySet
 import org.osate.alisa.workbench.alisa.AssuranceCase
-import org.osate.alisa.workbench.alisa.AssuranceTask
 import org.osate.assure.evaluator.AssureProcessor
 import org.osate.assure.generator.IAssureConstructor
-import org.osate.assure.util.ResoluteUtil
-import org.osate.categories.categories.CategoriesDefinitions
-import org.osate.organization.organization.Organization
-import org.osate.reqspec.reqSpec.GlobalConstants
-import org.osate.reqspec.reqSpec.GlobalRequirementSet
-import org.osate.reqspec.reqSpec.ReqSpec
-import org.osate.reqspec.reqSpec.StakeholderGoals
-import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.testsupport.TestHelper
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationMethodRegistry
-import org.osate.verify.verify.VerificationPlan
 
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import static extension org.osate.testsupport.AssertHelper.*
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
