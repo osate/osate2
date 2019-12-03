@@ -19,7 +19,6 @@ package org.osate.assure.tests
 import com.google.inject.Inject
 import com.itemis.xtext.testing.FluentIssueCollection
 import com.itemis.xtext.testing.XtextTest
-import com.rockwellcollins.atc.resolute.resolute.ResoluteLibrary
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
@@ -29,10 +28,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.PropertySet
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssuranceTask
+import org.osate.assure.assure.VerificationResult
 import org.osate.assure.evaluator.AssureProcessor
 import org.osate.assure.generator.IAssureConstructor
 import org.osate.assure.util.ResoluteUtil
@@ -51,24 +50,24 @@ import org.osate.verify.verify.VerificationPlan
 import static extension org.junit.Assert.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.testsupport.AssertHelper.*
-import org.osate.assure.assure.VerificationResult
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
 class AssureTests extends XtextTest {
 	@Inject
 	TestHelper<AssuranceCase> alisaTestHelper
-	@Inject extension ValidationTestHelper
+	@Inject 
+	protected extension ValidationTestHelper
 
 	@Inject
-	IAssureConstructor assureConstructor
+	protected IAssureConstructor assureConstructor
 
-	val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
-	val propertiesprefix = projectprefix + "Properties/"
-	val aadlprefix = projectprefix + "aadl/"
-	val alisaprefix = projectprefix + "alisa/"
-	val resoluteprefix = projectprefix + "resolute/"
-	var primaryroot = null
+	protected val projectprefix = "org.osate.assure.tests/models/SimpleControlSystem/"
+	protected val propertiesprefix = projectprefix + "Properties/"
+	protected val aadlprefix = projectprefix + "aadl/"
+	protected val alisaprefix = projectprefix + "alisa/"
+	protected val resoluteprefix = projectprefix + "resolute/"
+	protected var primaryroot = null
 
 	@Before
 	def void setUp() {

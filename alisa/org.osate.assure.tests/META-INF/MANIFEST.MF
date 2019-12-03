@@ -40,3 +40,4 @@ Import-Package: com.rockwellcollins.atc.resolute;resolution:=optional,
  org.junit.runners.model;version="4.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.assure.tests
+Export-Package: org.osate.assure.tests

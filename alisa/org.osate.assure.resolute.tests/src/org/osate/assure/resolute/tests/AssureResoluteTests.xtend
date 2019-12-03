@@ -16,23 +16,18 @@
 
 package org.osate.assure.resolute.tests
 
-import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextTest
 import com.rockwellcollins.atc.resolute.resolute.ResoluteLibrary
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.testing.validation.ValidationTestHelper
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.assure.evaluator.AssureProcessor
-import org.osate.assure.generator.IAssureConstructor
-import org.osate.testsupport.TestHelper
+import org.osate.assure.tests.AssureTests
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationMethodRegistry
 
@@ -41,59 +36,10 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 
 @RunWith(XtextRunner)
 @InjectWith(FullAlisaInjectorProvider)
-class AssureTests extends XtextTest {
-	@Inject
-	TestHelper<AssuranceCase> alisaTestHelper
-	@Inject extension ValidationTestHelper
-
-	@Inject
-	IAssureConstructor assureConstructor
-
-	val projectprefix = "org.osate.assure.resolute.tests/models/SimpleControlSystem/"
-	val propertiesprefix = projectprefix + "Properties/"
-	val aadlprefix = projectprefix + "aadl/"
-	val alisaprefix = projectprefix + "alisa/"
-	val resoluteprefix = projectprefix + "resolute/"
-	var primaryroot = null
-
-	@Before
-	def void setUp() {
-		primaryroot = alisaTestHelper.parseFile(
-			alisaprefix + "SCSVerification.alisa",
-			aadlprefix + "SimpleControlSystem.aadl",
-			propertiesprefix + "ACVIP.aadl",
-			aadlprefix + "PhysicalResources.aadl",
-			aadlprefix + "DataDictionary.aadl",
-			aadlprefix + "Platform.aadl",
-			aadlprefix + "Software.aadl",
-			aadlprefix + "DigitalControlSystem.aadl",
-			alisaprefix + "sei.org",
-			alisaprefix + "authors.constants",
-			alisaprefix + "predefined.cat",
-			alisaprefix + "Resolute.methodregistry",
-			alisaprefix + "Plugins.methodregistry",
-			alisaprefix + "Alisa_Consistency.methodregistry",
-			alisaprefix + "DCS.reqspec",
-			alisaprefix + "dcsvplan.verify",
-			alisaprefix + "DualSCS.reqspec",
-			alisaprefix + "dualscsvplan.verify",
-			alisaprefix + "globalReq.reqspec",
-			alisaprefix + "GlobalVPlan.verify",
-			alisaprefix + "Peter.reqspec",
-			alisaprefix + "PeterPlan.verify",
-			alisaprefix + "SCS.reqspec",
-			alisaprefix + "scsvplan.verify",
-			alisaprefix + "SCSImplementationReqs.reqspec",
-			alisaprefix + "scsimplvplan.verify",
-			alisaprefix + "SCSgoals2.goals",
-			resoluteprefix + "BasicResolute.aadl",
-			resoluteprefix + "BudgetResolute.aadl"
-		)
-
-	}
+class AssureResoluteTests extends AssureTests {
 
 	@Test
-	def void ResoluteRegistrytest() {
+	override void ResoluteRegistrytest() {
 		val ac = primaryroot as AssuranceCase
 		val rs = ac.eResource.resourceSet
 		val scssrc = rs.getResource(URI.createURI(alisaprefix + "Resolute.methodregistry"), true)
@@ -142,7 +88,7 @@ class AssureTests extends XtextTest {
 	}
 
 	@Test
-	def void SCSAssuranceInstancetest() {
+	override void SCSAssuranceInstancetest() {
 		val ac = primaryroot as AssuranceCase
 		// null pointer exception in Global reference finder for ReqSpec
 		// Resource set is null
