@@ -15,6 +15,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 import static extension org.junit.Assert.*
 import com.itemis.xtext.testing.XtextTest
 import org.osate.aadl2.ProcessImplementation
+import org.osate.aadl2.SystemImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -65,4 +66,62 @@ class Issue2009Test extends XtextTest {
 		// There should be no end to end flow instance
 		assertEquals(0, instance.endToEndFlows.size)
 	}
+	
+	@Test
+	def void typeOnly() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.typeOnly"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be 1 error
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1_wrong' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'i'", message)			
+		]
+		
+		// There should be one end to end flow instance
+		assertEquals(1, instance.endToEndFlows.size)
+		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+	}	
+	
+	@Test
+	def void withImpl_implFlow() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.withImpl_implFlow"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be no errors
+		assertTrue(messages.size == 0)
+		
+		// There should be one end to end flow instance
+		assertEquals(1, instance.endToEndFlows.size)
+		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+	}	
+	
+	@Test
+	def void withImpl_implNoFlow() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.withImpl_implNoFlow"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be 1 error and 2 warnings
+		assertTrue(messages.size == 3)
+		
+		// There should be one end to end flow instance
+		assertEquals(1, instance.endToEndFlows.size)
+		assertEquals("etef1", instance.endToEndFlows.get(0).name)
+	}	
 }

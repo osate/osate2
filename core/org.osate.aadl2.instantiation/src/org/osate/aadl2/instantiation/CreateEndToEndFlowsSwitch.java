@@ -650,6 +650,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		 * subcomponent.
 		 */
 		final Feature flowIn = fspec.getInEnd().getFeature();
+		final List<Feature> flowInRefined = flowIn.getAllFeatureRefinements();
 		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
 		int idx = connRefs.size() - 1;
 		boolean result = false;
@@ -657,7 +658,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			final Connection conn = connRefs.get(idx).getConnection();
 			final ConnectionEnd connEnd = conn.getDestination().getConnectionEnd();
 			if (connEnd instanceof Feature) {
-				result = flowIn == connEnd;
+				final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
+				result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
 			}
 			idx -= 1;
 		}
