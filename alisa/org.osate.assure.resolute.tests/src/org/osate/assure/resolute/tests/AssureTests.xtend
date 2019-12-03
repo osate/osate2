@@ -14,7 +14,7 @@
  * See COPYRIGHT file for full details.
  */
 
-package org.osate.assure.tests
+package org.osate.assure.resolute.tests
 
 import com.google.inject.Inject
 import com.itemis.xtext.testing.XtextTest

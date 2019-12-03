@@ -1,4 +1,4 @@
-package org.osate.assure.tests;
+package org.osate.assure.resolute.tests;
 
 import org.osate.alisa.workbench.AlisaStandaloneSetup;
 import org.osate.categories.CategoriesStandaloneSetup;
