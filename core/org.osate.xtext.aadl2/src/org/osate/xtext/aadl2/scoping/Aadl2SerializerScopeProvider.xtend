@@ -37,9 +37,16 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.scoping.IScope
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ConnectedElement
+import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Context
+import org.osate.aadl2.Element
+import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.ReferenceValue
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.aadl2.ContainedNamedElement
+import org.eclipse.xtext.EcoreUtil2.ElementReferenceAcceptor
+import org.eclipse.xtext.EcoreUtil2
 
 /**
  * This class contains custom scoping description.
@@ -68,4 +75,19 @@ class Aadl2SerializerScopeProvider extends Aadl2ScopeProvider {
 		}
 	}
 
+	def scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
+		val previous = context.owner
+		if (previous instanceof ContainmentPathElement) {
+			val namespace = previous.classifierForPreviousContainmentPathElement
+			namespace?.allMembers?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
+		} else
+			null
+	}
+	
+	def scope_ContainmentPathElement_namedElement(ContainedNamedElement context, EReference reference) {
+		val propertyAssociation = EcoreUtil2.getContainerOfType(context, PropertyAssociation)
+		val namespace = propertyAssociation.namespaceForPropertyAssociation
+		namespace?.allMembers?.filterRefined?.scopeFor ?: IScope::NULLSCOPE
+	}
+	
 }
