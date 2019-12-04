@@ -10,32 +10,46 @@ package org.osate.xtext.aadl2.ui.editor.occurrences;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMapWithExpectedSize;
 import static java.util.Collections.emptyMap;
-import static java.util.Collections.singleton;
 
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.findReferences.IReferenceFinder;
+import org.eclipse.xtext.findReferences.TargetURIs;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.service.OperationCanceledManager;
 import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder;
-import org.eclipse.xtext.ui.editor.findrefs.SimpleLocalResourceAccess;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.occurrences.DefaultOccurrenceComputer;
-import org.eclipse.xtext.util.IAcceptor;
+import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.util.ITextRegion;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.eclipse.xtext.util.TextRegion;
+import org.eclipse.xtext.util.concurrent.CancelableUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
 import org.osate.xtext.aadl2.util.Aadl2LocationInFile;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * @author Jan Koehnlein - Initial contribution and API
@@ -52,72 +66,131 @@ public class Aadl2OccurrenceComputer extends DefaultOccurrenceComputer {
 	@Inject
 	private IReferenceFinder referenceFinder;
 
+	@Inject
+	private Provider<TargetURIs> targetURIsProvider;
+
+	@Inject
+	private OperationCanceledManager operationCanceledManager;
+
+	private static class EObjectReferenceAndIndex {
+		EObject source;
+		EReference reference;
+		int idx;
+	}
+
 	@Override
 	public Map<Annotation, Position> createAnnotationMap(XtextEditor editor, final ITextSelection selection,
 			final SubMonitor monitor) {
 		final IXtextDocument document = editor.getDocument();
 		if (document != null) {
-			return document.readOnly(new IUnitOfWork<Map<Annotation, Position>, XtextResource>() {
+			return document.tryReadOnly(new CancelableUnitOfWork<Map<Annotation, Position>, XtextResource>() {
+
 				@Override
-				public Map<Annotation, Position> exec(final XtextResource resource) throws Exception {
-					if (resource != null) {
-						EObject target = eObjectAtOffsetHelper.resolveElementAt(resource, (selection).getOffset());
-						if (target != null && !target.eIsProxy()) {
-							monitor.setWorkRemaining(100);
-							final List<IReferenceDescription> references = newArrayList();
-							IAcceptor<IReferenceDescription> acceptor = new IAcceptor<IReferenceDescription>() {
-								@Override
-								public void accept(IReferenceDescription reference) {
-									references.add(reference);
-								}
-							};
-							SimpleLocalResourceAccess localResourceAccess = new SimpleLocalResourceAccess(
-									resource.getResourceSet());
-							referenceFinder.findReferences(getTargetURIs(target), singleton(resource.getURI()),
-									localResourceAccess, acceptor, monitor.newChild(40));
-							if (monitor.isCanceled()) {
-								return emptyMap();
+				public Map<Annotation, Position> exec(XtextResource resource, final CancelIndicator cancelIndicator)
+						throws Exception {
+					EObject target = eObjectAtOffsetHelper.resolveElementAt(resource, selection.getOffset());
+					if (target != null && !target.eIsProxy()) {
+						final List<EObjectReferenceAndIndex> references = newArrayList();
+						IReferenceFinder.Acceptor acceptor = new IReferenceFinder.Acceptor() {
+							@Override
+							public void accept(IReferenceDescription reference) {
+								throw new UnsupportedOperationException("Local references are announced per object");
 							}
-							Map<Annotation, Position> result = newHashMapWithExpectedSize(references.size() + 1);
-							if (target.eResource() == resource) {
-								if (!references.isEmpty() || canBeReferencedLocally(target)) {
-									ITextRegion declarationRegion = locationInFileProvider
-											.getSignificantTextRegion(target);
-									addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion,
-											result);
-									declarationRegion = ((Aadl2LocationInFile) locationInFileProvider)
-											.getSecondaryTextRegion(target,
-													!(target instanceof ComponentImplementation));
-									if (declarationRegion != null) {
-										addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document,
-												declarationRegion, result);
-									}
-								}
+
+							@Override
+							public void accept(EObject source, URI sourceURI, EReference eReference, int index,
+									EObject targetOrProxy, URI targetURI) {
+								EObjectReferenceAndIndex acceptMe = new EObjectReferenceAndIndex();
+								acceptMe.source = source;
+								acceptMe.reference = eReference;
+								acceptMe.idx = index;
+								references.add(acceptMe);
 							}
-							monitor.worked(5);
-							for (IReferenceDescription reference : references) {
-								try {
-									EObject source = resource.getEObject(reference.getSourceEObjectUri().fragment());
-									if (source != null && reference.getEReference() != null) { // prevent exception for outdated data
-										ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(source,
-												reference.getEReference(), reference.getIndexInList());
-										addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, textRegion,
-												result);
-									}
-								} catch (Exception exc) {
-									// outdated index information. Ignore
-								}
-							}
-							monitor.worked(15);
-							return result;
+						};
+						Iterable<URI> targetURIs = getTargetURIs(target);
+						if (!(targetURIs instanceof TargetURIs)) {
+							TargetURIs result = targetURIsProvider.get();
+							result.addAllURIs(targetURIs);
+							targetURIs = result;
 						}
+						IProgressMonitor localMonitor = new NullProgressMonitor() {
+							@Override
+							public boolean isCanceled() {
+								return monitor.isCanceled() || cancelIndicator.isCanceled();
+							}
+						};
+						referenceFinder.findReferences((TargetURIs) targetURIs, resource, acceptor, localMonitor);
+						operationCanceledManager.checkCanceled(cancelIndicator);
+						Map<Annotation, Position> result = newHashMapWithExpectedSize(references.size() + 1);
+						if (target.eResource() == resource) {
+							if (!references.isEmpty() || canBeReferencedLocally(target)) {
+								ITextRegion declarationRegion = locationInFileProvider.getSignificantTextRegion(target);
+								addOccurrenceAnnotation(DECLARATION_ANNOTATION_TYPE, document, declarationRegion,
+										result);
+								declarationRegion = ((Aadl2LocationInFile) locationInFileProvider)
+										.getSecondaryTextRegion(target, !(target instanceof ComponentImplementation));
+								if (declarationRegion != null) {
+									addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, declarationRegion,
+											result);
+									if (target instanceof ComponentType) {
+										ModelUnit pkg = EcoreUtil2.getContainerOfType(target, ModelUnit.class);
+										for (ComponentImplementation impl : EcoreUtil2.getAllContentsOfType(pkg,
+												ComponentImplementation.class)) {
+											if (impl.getType() == target) {
+												declarationRegion = ((Aadl2LocationInFile) locationInFileProvider)
+														.getSecondaryTextRegion(impl, true);
+												if (declarationRegion != null) {
+													addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document,
+															declarationRegion, result);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						for (EObjectReferenceAndIndex highlightMe : references) {
+							try {
+								if (localMonitor.isCanceled()) {
+									return emptyMap();
+								}
+								ITextRegion textRegion = locationInFileProvider.getSignificantTextRegion(
+										highlightMe.source, highlightMe.reference, highlightMe.idx);
+								if (target instanceof ComponentImplementation) {
+									ComponentImplementation impl = (ComponentImplementation) target;
+									textRegion = getAdjustedRegion(document, textRegion, impl.getImplementationName(),
+											textRegion);
+								} else if (target instanceof ComponentType || target instanceof Property
+										|| target instanceof PropertyType || target instanceof PropertyConstant) {
+									NamedElement named = (NamedElement) target;
+									textRegion = getAdjustedRegion(document, textRegion, named.getName(), textRegion);
+								} else if (target instanceof ModelUnit) {
+									NamedElement named = (NamedElement) target;
+									textRegion = getAdjustedRegion(document, textRegion, named.getName(), null);
+								}
+								if (textRegion != null) {
+									addOccurrenceAnnotation(OCCURRENCE_ANNOTATION_TYPE, document, textRegion, result);
+								}
+							} catch (Exception exc) {
+								// outdated index information. Ignore
+							}
+						}
+						return result;
 					}
 					return emptyMap();
 				}
-			});
+			}, () -> emptyMap());
 		} else {
 			return emptyMap();
 		}
+	}
+
+	protected ITextRegion getAdjustedRegion(IXtextDocument document, ITextRegion original, String name,
+			ITextRegion notFound)
+			throws BadLocationException {
+		String text = document.get(original.getOffset(), original.getLength());
+		int offset = text.indexOf(name);
+		return (offset < 0) ? notFound : new TextRegion(original.getOffset() + offset, name.length());
 	}
 
 }
