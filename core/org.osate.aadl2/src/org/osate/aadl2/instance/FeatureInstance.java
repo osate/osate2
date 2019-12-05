@@ -263,4 +263,6 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	FeatureInstance findFeatureInstance(Feature feature);
 
 	Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath);
+
+	boolean isAccess();
 } // FeatureInstance

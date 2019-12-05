@@ -717,4 +717,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return false;
 	}
 
+	@Override
+	public boolean isAccess() {
+		return getCategory().isAccess();
+	}
+
 } // FeatureInstanceImpl

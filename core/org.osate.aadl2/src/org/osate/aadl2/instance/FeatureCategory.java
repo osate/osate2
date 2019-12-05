@@ -455,4 +455,9 @@ public enum FeatureCategory implements Enumerator {
 		return literal;
 	}
 
+	public boolean isAccess() {
+		return value == BUS_ACCESS_VALUE || value == DATA_ACCESS_VALUE || value == SUBPROGRAM_ACCESS_VALUE
+				|| value == SUBPROGRAM_GROUP_ACCESS_VALUE;
+	}
+
 } // FeatureCategory
