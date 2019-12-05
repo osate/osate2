@@ -35,6 +35,16 @@
  */
 package org.osate.aadl2.instantiation;
 
+import static org.osate.aadl2.ComponentCategory.BUS;
+import static org.osate.aadl2.ComponentCategory.DATA;
+import static org.osate.aadl2.ComponentCategory.DEVICE;
+import static org.osate.aadl2.ComponentCategory.PROCESSOR;
+import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
+import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
+import static org.osate.aadl2.ComponentCategory.THREAD;
+import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
+import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -244,8 +254,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			monitor.subTask("Creating connections in  " + ci.getName());
 		}
 
-		if (cat == ComponentCategory.DATA || cat == ComponentCategory.BUS || cat == ComponentCategory.VIRTUAL_BUS
-				|| cat == ComponentCategory.SUBPROGRAM || cat == ComponentCategory.SUBPROGRAM_GROUP) {
+		if (cat == DATA || cat == BUS || cat == VIRTUAL_BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
 			// connection instance may start at a shared component
 			for (Connection conn : filterStartingConnections(parentConns, sub)) {
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
@@ -300,8 +309,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						 *   the feature is a feature group.)
 						 */
 						if ((!destinationFromInside && !(conn.isAllBidirectional() && connectedInside))
-								||
-								(isConnectionEndingCategory && (fInfo.hasFeatureGroup() || fInfo.hasPort()))) {
+								|| (isConnectionEndingCategory && (fInfo.hasFeatureGroup() || fInfo.hasPort()))) {
 							prevFi = featurei;
 							boolean opposite = isOpposite(feature, sub, conn);
 							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
@@ -1780,8 +1788,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isConnectionEndingCategory(final ComponentCategory cat) {
-		return cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE || cat == ComponentCategory.PROCESSOR
-				|| cat == ComponentCategory.VIRTUAL_PROCESSOR;
+		return cat == THREAD || cat == DEVICE || cat == PROCESSOR || cat == VIRTUAL_PROCESSOR;
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
