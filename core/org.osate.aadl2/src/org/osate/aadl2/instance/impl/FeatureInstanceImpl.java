@@ -722,4 +722,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return getCategory().isAccess();
 	}
 
+	@Override
+	public DirectionType getFlowDirection() {
+		return isAccess() ? DirectionType.IN_OUT : getDirection();
+	}
+
 } // FeatureInstanceImpl

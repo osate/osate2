@@ -512,7 +512,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi) {
-		if (!fi.getDirection().outgoing()) {
+		if (!fi.getFlowDirection().outgoing()) {
 			return null;
 		}
 		ComponentInstance ci = fi.getContainingComponentInstance();
@@ -532,7 +532,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi) {
-		if (!fi.getDirection().incoming()) {
+		if (!fi.getFlowDirection().incoming()) {
 			return null;
 		}
 		ComponentInstance ci = fi.getContainingComponentInstance();
@@ -552,7 +552,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi) {
-		if (!fi.getDirection().outgoing()) {
+		if (!fi.getFlowDirection().outgoing()) {
 			return null;
 		}
 		ComponentInstance ci = fi.getContainingComponentInstance();
@@ -572,7 +572,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi) {
-		if (!fi.getDirection().incoming()) {
+		if (!fi.getFlowDirection().incoming()) {
 			return null;
 		}
 		ComponentInstance ci = fi.getContainingComponentInstance();

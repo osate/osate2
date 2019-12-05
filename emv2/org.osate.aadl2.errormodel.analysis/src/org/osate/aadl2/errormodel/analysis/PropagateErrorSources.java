@@ -859,7 +859,7 @@ public class PropagateErrorSources {
 
 		for (FeatureInstance fi : filist) {
 
-			if (fi.getDirection().outgoing())
+			if (fi.getFlowDirection().outgoing())
 
 			{
 				ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);

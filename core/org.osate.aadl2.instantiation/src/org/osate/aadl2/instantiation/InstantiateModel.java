@@ -68,8 +68,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RollbackException;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -998,18 +1000,20 @@ public class InstantiateModel {
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
 		fgi.getFeatureInstances().add(fi);
-		// take into account inverse in setting direction of features inside feature groups
-		if (feature instanceof DirectedFeature) {
-			fi.setDirection(((DirectedFeature) feature).getDirection());
-			DirectionType dir = ((DirectedFeature) feature).getDirection();
 
-			if (inverse && dir != DirectionType.IN_OUT) {
-				dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
-			}
-			fi.setDirection(dir);
+		// take into account inverse in setting direction of features inside feature groups
+		DirectionType dir;
+		if (feature instanceof DirectedFeature) {
+			dir = ((DirectedFeature) feature).getDirection();
 		} else {
-			fi.setDirection(DirectionType.IN_OUT);
+			Access access = (Access) feature;
+			dir = access.getKind() == AccessType.PROVIDES ? DirectionType.OUT : DirectionType.IN;
 		}
+		if (inverse && dir != DirectionType.IN_OUT) {
+			dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+		}
+		fi.setDirection(dir);
+
 		// must add before prototype resolution in fillFeatureInstance
 		filloutFeatureInstance(fi, feature, inverse, index);
 	}
