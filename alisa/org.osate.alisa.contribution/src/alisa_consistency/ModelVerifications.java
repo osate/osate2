@@ -83,7 +83,7 @@ public class ModelVerifications {
 	public static boolean twoPowerInlets(ComponentInstance ci) {
 		int count = 0;
 		for (FeatureInstance fi : ci.getAllFeatureInstances(FeatureCategory.ABSTRACT_FEATURE)) {
-			if (fi.getDirection().incoming()) {
+			if (fi.getFlowDirection().incoming()) {
 				Classifier cl = fi.getFeature().getAllClassifier();
 				if (cl.getName().equalsIgnoreCase("power")) {
 					count++;
@@ -112,7 +112,7 @@ public class ModelVerifications {
 	 * @return
 	 */
 	public static boolean hasWattageBudgetValue(FeatureInstance fi, double w) {
-			if (fi.getDirection().incoming()) {
+		if (fi.getFlowDirection().incoming()) {
 				double watt = GetProperties.getPowerBudget(fi, 0.0);
 				return watt == w;
 			}
@@ -128,7 +128,7 @@ public class ModelVerifications {
 		EList<FeatureInstance> inlets = new BasicEList<FeatureInstance>();
 		for (FeatureInstance fi : ci.getAllFeatureInstances(FeatureCategory.ABSTRACT_FEATURE)) {
 			Classifier cl = fi.getFeature().getAllClassifier();
-			if (fi.getDirection().incoming() && cl.getName().equalsIgnoreCase("power")) {
+			if (fi.getFlowDirection().incoming() && cl.getName().equalsIgnoreCase("power")) {
 				inlets.add(fi);
 			}
 		}
@@ -149,7 +149,7 @@ public class ModelVerifications {
 		EList<FeatureInstance> inlets = new BasicEList<FeatureInstance>();
 		for (FeatureInstance fi : ci.getAllFeatureInstances(FeatureCategory.ABSTRACT_FEATURE)) {
 			Classifier cl = fi.getFeature().getAllClassifier();
-			if (fi.getDirection().incoming() && cl.getName().equalsIgnoreCase("power")) {
+			if (fi.getFlowDirection().incoming() && cl.getName().equalsIgnoreCase("power")) {
 				inlets.add(fi);
 			}
 		}

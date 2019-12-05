@@ -209,7 +209,7 @@ public class TraverseErrorPropagationPaths {
 				// now all outgoing connections since we did not find flows
 				EList<FeatureInstance> filist = ci.getFeatureInstances();
 				for (FeatureInstance fi : filist) {
-					if (fi.getDirection().outgoing()) {
+					if (fi.getFlowDirection().outgoing()) {
 						ErrorPropagation outprop = EMV2Util.getOutgoingErrorPropagation(fi);
 						Object newparam = processFlow(ci, inprop, outprop, tt, param);
 						traverseErrorPaths(ci, outprop, depth + 1, EMV2Util.mapToken(tt, null), newparam);

@@ -265,4 +265,11 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath);
 
 	boolean isAccess();
+
+	/**
+	 * Get direction of allowed data flow
+	 *
+	 * @return in/out for access features, result of getDirection() otherwise
+	 */
+	DirectionType getFlowDirection();
 } // FeatureInstance
