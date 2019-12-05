@@ -911,7 +911,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			warning(connInfo.container, "Connection from " + connInfo.sources.get(0).getInstanceObjectPath() + " to "
 					+ dstI.getInstanceObjectPath() + " could not be instantiated.");
 			return null;
+		}
 
+		// check access connections (resulting from expanded feature groups)
+		// connection may actually end at shared component inside src/dst component
+		if (discardShortAccessConnection(connInfo.src) || discardShortAccessConnection(dstI)) {
+			return null;
 		}
 
 		// check for duplicate connection instance
@@ -986,6 +991,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			fillInModeTransitions(conni);
 		}
 		return conni;
+	}
+
+	private boolean discardShortAccessConnection(ConnectionInstanceEnd cie) {
+		if (cie instanceof FeatureInstance) {
+			FeatureInstance fi = (FeatureInstance) cie;
+//			if (fi.getCategory().isAccess()) {
+				// need a way to get provides/requires information
+//			}
+		}
+		return false;
 	}
 
 	private FeatureInstance getTopFeatureInstance(FeatureInstance fi) {
