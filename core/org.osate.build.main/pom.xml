@@ -44,7 +44,7 @@
 		</sonar.coverage.jacoco.xmlReportPaths>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09/201909181001</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
