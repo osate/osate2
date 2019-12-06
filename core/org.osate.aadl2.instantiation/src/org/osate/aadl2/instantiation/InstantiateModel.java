@@ -979,11 +979,10 @@ public class InstantiateModel {
 		fi.setFeature(feature);
 		// must add before prototype resolution in fillFeatureInstance
 		ci.getFeatureInstances().add(fi);
-		if (feature instanceof DirectedFeature) {
-			fi.setDirection(((DirectedFeature) feature).getDirection());
-		} else {
-			fi.setDirection(DirectionType.IN_OUT);
-		}
+
+		// take into account inverse in setting direction of features inside feature groups
+		fi.setDirection(getDirection(feature, inverse));
+
 		filloutFeatureInstance(fi, feature, inverse, index);
 	}
 
@@ -1002,6 +1001,13 @@ public class InstantiateModel {
 		fgi.getFeatureInstances().add(fi);
 
 		// take into account inverse in setting direction of features inside feature groups
+		fi.setDirection(getDirection(feature, inverse));
+
+		// must add before prototype resolution in fillFeatureInstance
+		filloutFeatureInstance(fi, feature, inverse, index);
+	}
+
+	private DirectionType getDirection(Feature feature, boolean inverse) {
 		DirectionType dir;
 		if (feature instanceof DirectedFeature) {
 			dir = ((DirectedFeature) feature).getDirection();
@@ -1012,10 +1018,7 @@ public class InstantiateModel {
 		if (inverse && dir != DirectionType.IN_OUT) {
 			dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
 		}
-		fi.setDirection(dir);
-
-		// must add before prototype resolution in fillFeatureInstance
-		filloutFeatureInstance(fi, feature, inverse, index);
+		return dir;
 	}
 
 	/**
