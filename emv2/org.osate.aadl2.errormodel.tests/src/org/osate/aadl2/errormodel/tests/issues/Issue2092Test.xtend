@@ -39,5 +39,6 @@ class Issue2092Test extends XtextTest {
 		val instance1 = instanceGenerator(pkg, "top.i")
 		val ufh = new UnhandledFaultsHandler();
 		ufh.checkUnhandledFaults(instance1)
+		assertTrue(instance1.eResource.errors.empty)
 	}
 }
