@@ -14,7 +14,7 @@ pipeline {
                         mavenLocalRepo: '.repository') {
                      // Run the maven build with Xvnc
                      wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-                        sh 'mvn -U -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
+                        sh 'mvn -U -T 3 -s core/osate.releng/seisettings.xml clean install -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
                      }
                      withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONAR_TOKEN')]) {
                         sh 'mvn -s core/osate.releng/seisettings.xml sonar:sonar -Dsonar.login=$SONAR_TOKEN'
