@@ -82,6 +82,14 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 		monitor.done();
 	}
 
+	public void checkUnhandledFaults(SystemInstance si) {
+		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(si, false);
+		Collection<PropagationGraphPath> pathlist = currentPropagationGraph.getPropagationGraphPaths();
+		for (PropagationGraphPath path : pathlist) {
+			checkPropagationPathErrorTypes(path);
+		}
+	}
+
 	protected void checkPropagationPathErrorTypes(PropagationGraphPath path) {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();

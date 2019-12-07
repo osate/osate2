@@ -1,0 +1,47 @@
+package unhandled
+public
+	thread sense
+		features
+			outp: out data port;
+		annex emv2 {**
+			use types ErrorLibrary;
+			error propagations
+			outp: out propagation {ServiceOmission};
+			end propagations;
+		**};
+	end sense;
+	thread actuate
+		features
+			inp: in data port;
+		annex emv2 {**
+			use types ErrorLibrary;
+			error propagations
+			inp: in propagation {ServiceOmission};
+			end propagations;
+		**};
+	end actuate;
+	
+	bus pci
+		annex emv2 {**
+			use types ErrorLibrary;
+			error propagations
+			bindings: out propagation {ServiceOmission};
+			end propagations;
+		**};
+	end pci;
+	
+	abstract top
+		
+	end top;
+	
+	abstract implementation top.i
+		subcomponents
+			ts: thread sense;
+			ta: thread actuate;
+			b1: bus pci;
+		connections
+			stoa: port ts.outp -> ta.inp;
+		properties
+			Actual_Connection_Binding => (reference(b1)) applies to stoa;
+	end top.i;
+end unhandled;
