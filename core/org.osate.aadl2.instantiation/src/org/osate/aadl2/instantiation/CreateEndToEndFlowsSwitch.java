@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -657,12 +658,26 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		boolean result = false;
 		while (!result && idx >= 0) {
 			final Connection conn = connRefs.get(idx).getConnection();
-			final ConnectionEnd connEnd = conn.getDestination().getConnectionEnd();
+			final ConnectedElement connDestination = conn.getDestination();
+			final ConnectionEnd connEnd = connDestination.getConnectionEnd();
 			if (connEnd instanceof Feature) {
 				final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
-				if (flowCxt instanceof FeatureGroup) {
+				if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
 					result = connEndRefined.contains(flowCxt);
+					// if connDestination.getNext() is null then dest end of connection is "fg"
+					if (result && connDestination.getNext() != null) {
+						final ConnectionEnd connEnd2 = connDestination.getNext().getConnectionEnd();
+						if (connEnd2 instanceof Feature) {
+							// check "fg.f" to "fg.f"
+							final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
+							result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
+						} else {
+							// Connnection doesn't end in feature, so no match
+							result = false;
+						}
+					}
 				} else {
+					// checks "f" to "f" or "fg" to "fg"
 					result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
 				}
 			}
