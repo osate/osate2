@@ -153,6 +153,38 @@ class Issue2009Test extends XtextTest {
 	}	
 	
 	@Test
+	def void fg2TypeOnly() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test_fg2.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.typeOnly"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be 3 errors
+		assertTrue(messages.size == 3)
+		messages.get(0) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
+		]
+		messages.get(1) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1F_wrong2' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
+		]
+		messages.get(2) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1_wrong2' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
+		]
+		
+		// There should be 3 end to end flow instances
+		assertEquals(3, instance.endToEndFlows.size)
+		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
+		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
+	}	
+	
+	@Test
 	def void fgWithImpl_implFlow() {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test_fg.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.withImpl_implFlow"] as SystemImplementation
@@ -169,6 +201,27 @@ class Issue2009Test extends XtextTest {
 		assertEquals(2, instance.endToEndFlows.size)
 		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
 		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+	}	
+	
+	@Test
+	def void fg2WithImpl_implFlow() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test_fg2.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.withImpl_implFlow"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be no errors
+		assertTrue(messages.size == 0)
+		
+		// There should be 4 end to end flow instances
+		assertEquals(4, instance.endToEndFlows.size)
+		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
+		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals("etef1F_wrong1", instance.endToEndFlows.get(2).name)
+		assertEquals("etef1_wrong1", instance.endToEndFlows.get(3).name)
 	}	
 	
 	@Test
@@ -196,5 +249,37 @@ class Issue2009Test extends XtextTest {
 		assertEquals(2, instance.endToEndFlows.size)
 		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
 		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+	}	
+	
+	@Test
+	def void fg2WithImpl_implNoFlow() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "test_fg2.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "top.typeOnly"] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		
+		// There should be 3 errors
+		assertTrue(messages.size == 3)
+		messages.get(0) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1F_wrong1' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
+		]
+		messages.get(1) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1F_wrong2' because there are no semantic connections that connect to the start of the flow 'snkF' at feature 'i'", message)			
+		]
+		messages.get(2) => [
+			assertEquals(QueuingAnalysisErrorReporter.ERROR, kind)
+			assertEquals("Cannot create end to end flow 'etef1_wrong2' because there are no semantic connections that connect to the start of the flow 'snk' at feature 'fg'", message)			
+		]
+		
+		// There should be 3 end to end flow instances
+		assertEquals(3, instance.endToEndFlows.size)
+		assertEquals("etef1F", instance.endToEndFlows.get(0).name)
+		assertEquals("etef1", instance.endToEndFlows.get(1).name)
+		assertEquals("etef1_wrong1", instance.endToEndFlows.get(2).name)
 	}	
 }
