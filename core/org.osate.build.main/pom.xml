@@ -10,8 +10,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.4.0</tycho.version>
-		<tycho-extras.version>1.4.0</tycho-extras.version>
+		<tycho.version>1.5.1</tycho.version>
+		<tycho-extras.version>1.5.1</tycho-extras.version>
 		<xtext.version>2.19.0</xtext.version>
 		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,6 +51,7 @@
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
+		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
 	</properties>
 
 	<!-- Begin metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
