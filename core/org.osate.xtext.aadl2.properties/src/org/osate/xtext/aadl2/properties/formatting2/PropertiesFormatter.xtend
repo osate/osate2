@@ -26,6 +26,7 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.ReferenceValue
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess
+import org.eclipse.xtext.formatting2.ITextReplacerContext
 
 class PropertiesFormatter extends AbstractFormatter2 {
 	@Inject extension PropertiesGrammarAccess
@@ -34,7 +35,11 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		val grammarElement = comment.grammarElement
 		if (grammarElement instanceof AbstractRule) {
 			if (comment.lineRegions.head.indentation.length > 0) {
-				return new SinglelineDocCommentReplacer(comment, "--")
+				return new SinglelineDocCommentReplacer(comment, "--") {
+					override createReplacements(ITextReplacerContext context) {
+						context
+					}
+				}
 			} else {
 				return new SinglelineCodeCommentReplacer(comment, "--")
 			}
@@ -98,18 +103,22 @@ class PropertiesFormatter extends AbstractFormatter2 {
 	
 	def dispatch void format(ListValue listValue, extension IFormattableDocument document) {
 		val leftParenthesis = listValue.regionFor.keyword(listTermAccess.leftParenthesisKeyword_1)
-		val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
-		interior(leftParenthesis, rightParenthesis, [indent])
-		leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
-		listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
-			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
-		]
-		listValue.ownedListElements.forEach[it.format(document)]
-		if (rightParenthesis !== null) {
-			if (rightParenthesis.previousHiddenRegion.multiline) {
-				rightParenthesis.prepend[newLines = 1]
-			} else {
-				rightParenthesis.prepend[noSpace]
+		if (listValue.ownedListElements.empty) {
+			leftParenthesis.append[noSpace]
+		} else {
+			val rightParenthesis = listValue.regionFor.keyword(listTermAccess.rightParenthesisKeyword_3)
+			interior(leftParenthesis, rightParenthesis, [indent])
+			leftParenthesis.append[noSpace; setNewLines(0, 0, 1); autowrap]
+			listValue.regionFor.keywords(listTermAccess.commaKeyword_2_1_0).forEach[
+				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
+			]
+			listValue.ownedListElements.forEach[it.format(document)]
+			if (rightParenthesis !== null) {
+				if (rightParenthesis.previousHiddenRegion.multiline) {
+					rightParenthesis.prepend[newLines = 1]
+				} else {
+					rightParenthesis.prepend[noSpace]
+				}
 			}
 		}
 	}

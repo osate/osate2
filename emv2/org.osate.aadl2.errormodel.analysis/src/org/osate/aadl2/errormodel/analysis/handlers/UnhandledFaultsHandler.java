@@ -40,6 +40,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPath;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
@@ -81,6 +82,14 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 		monitor.done();
 	}
 
+	public void checkUnhandledFaults(SystemInstance si) {
+		PropagationGraph currentPropagationGraph = Util.generatePropagationGraph(si, false);
+		Collection<PropagationGraphPath> pathlist = currentPropagationGraph.getPropagationGraphPaths();
+		for (PropagationGraphPath path : pathlist) {
+			checkPropagationPathErrorTypes(path);
+		}
+	}
+
 	protected void checkPropagationPathErrorTypes(PropagationGraphPath path) {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
@@ -95,15 +104,25 @@ public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
 		}
 		if (dstprop == null && srcprop != null) {
 			// has an EMV2 subclause but no propagation specification for the feature
-			error(path.getConnection() != null ? path.getConnection() : path.getPathDst().getComponentInstance(),
-					"Connection target has no error propagation/containment but source does: "
-							+ EMV2Util.getPrintName(srcprop));
+			ComponentInstance dstci = path.getPathDst().getComponentInstance();
+			if (dstci != null) {
+				// filter out path involving connection instance (binding of connection)
+				error(dstci,
+						"Connection target " + dstci.getComponentInstancePath()
+								+ " has no error propagation/containment but source does: "
+						+ EMV2Util.getPrintName(srcprop)  + EMV2Util.getPrintName(srcprop.getTypeSet()));
+			}
 		}
 		if (dstprop != null && srcprop == null) {
 			// has an EMV2 subclause but no propagation specification for the feature
-			error(path.getConnection() != null ? path.getConnection() : path.getPathSrc().getComponentInstance(),
-					"Connection source has no error propagation/containment but target does: "
-							+ EMV2Util.getPrintName(dstprop));
+			ComponentInstance srcci = path.getPathSrc().getComponentInstance();
+			if (srcci != null) {
+				// filter out path involving connection instance (binding of connection)
+			error(srcci,
+						"Connection source " + srcci.getComponentInstancePath()
+								+ " has no error propagation/containment but target does: "
+								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+			}
 		}
 	}
 }
