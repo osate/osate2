@@ -1,0 +1,30 @@
+package ParameterDst
+public
+    data D
+    end D;
+    
+    subprogram sub
+        features
+            p1: in parameter;
+            p2: out parameter D;
+    end sub;
+ 
+    thread th2
+        features
+            ip2: in data port D;
+            op2: out data port;
+    end th2;
+
+    thread implementation th2.bad
+        subcomponents
+            myData: data;
+            sub1: subprogram sub;
+        calls
+            normal:{
+                call1: subprogram sub1;
+            };
+        connections
+            c1: parameter ip2 -> call1.p1;
+            c2: parameter call1.p2 -> myData;
+    end th2.bad;
+end ParameterDst;

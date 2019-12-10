@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.findReferences.TargetURICollector;
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
@@ -53,6 +54,7 @@ import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
+import org.osate.xtext.aadl2.findReferences.Aadl2TargetURICollector;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
@@ -239,4 +241,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2ResourceServiceProvider.class;
 	}
 
+	public Class<? extends TargetURICollector> bindTargetURICollector() {
+		return Aadl2TargetURICollector.class;
+	}
 }
