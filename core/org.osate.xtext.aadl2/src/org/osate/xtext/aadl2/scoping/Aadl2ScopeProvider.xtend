@@ -449,12 +449,26 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 
 	// Reference is from ConnectedElement in Aadl2.xtext
 	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		val previous = context.connectionEnd
-		if (previous instanceof Context) {
-			previous.scopeForElementsOfContext(
-				context.getContainerOfType(Classifier), [allConnectionEnds.filterRefined])
+		val classifier = context.getContainerOfType(Classifier)
+		val previousConnectedElement = context.eContainer
+		if (previousConnectedElement instanceof ConnectedElement) {
+		val current = context.connectionEnd
+			if (current instanceof Context) {
+				current.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+			} else {
+				IScope.NULLSCOPE
+			}
 		} else {
-			IScope.NULLSCOPE
+			if (context.context === null) {
+				classifier.allConnectionEnds.filterRefined.scopeFor
+			} else {
+				if (context.context instanceof Context) {
+					context.context
+						.scopeForElementsOfContext(classifier, [allConnectionEnds.filterRefined])
+				} else {
+					IScope.NULLSCOPE
+				}
+			}
 		}
 	}
 
@@ -683,7 +697,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		validElements
 	}
 
-	def private static allConnectionEnds(Classifier classifier) {
+	def protected static allConnectionEnds(Classifier classifier) {
 		val connectionEnds = newArrayList
 		connectionEnds.addAll(classifier.getAllFeatures())
 		if (classifier instanceof ComponentImplementation) {
@@ -753,7 +767,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			subcomponentPrototypeContext, prototype)
 	}
 
-	def private static scopeForElementsOfContext(Context context, Classifier containingClassifier,
+	def protected static scopeForElementsOfContext(Context context, Classifier containingClassifier,
 		extension (Classifier)=>Iterable<? extends EObject> validMemberCollector) {
 		val contextClassifier = switch context {
 			FeatureGroup: {
