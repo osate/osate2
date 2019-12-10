@@ -658,30 +658,39 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		boolean result = false;
 		while (!result && idx >= 0) {
 			final Connection conn = connRefs.get(idx).getConnection();
-			final ConnectedElement connDestination = conn.getDestination();
-			final ConnectionEnd connEnd = connDestination.getConnectionEnd();
-			if (connEnd instanceof Feature) {
-				final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
-				if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
-					result = connEndRefined.contains(flowCxt);
-					// if connDestination.getNext() is null then dest end of connection is "fg"
-					if (result && connDestination.getNext() != null) {
-						final ConnectionEnd connEnd2 = connDestination.getNext().getConnectionEnd();
-						if (connEnd2 instanceof Feature) {
-							// check "fg.f" to "fg.f"
-							final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
-							result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
-						} else {
-							// Connnection doesn't end in feature, so no match
-							result = false;
-						}
-					}
-				} else {
-					// checks "f" to "f" or "fg" to "fg"
-					result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
-				}
+			result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getDestination());
+			if (!result && conn.isBidirectional()) {
+				result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getSource());
 			}
 			idx -= 1;
+		}
+		return result;
+	}
+
+	private boolean isValidContinuationConnectionEnd(final Context flowCxt, final Feature flowIn,
+			final List<Feature> flowInRefined, final ConnectedElement connElement) {
+		boolean result = false;
+		final ConnectionEnd connEnd = connElement.getConnectionEnd();
+		if (connEnd instanceof Feature) {
+			final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
+			if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
+				result = connEndRefined.contains(flowCxt);
+				// if connDestination.getNext() is null then dest end of connection is "fg"
+				if (result && connElement.getNext() != null) {
+					final ConnectionEnd connEnd2 = connElement.getNext().getConnectionEnd();
+					if (connEnd2 instanceof Feature) {
+						// check "fg.f" to "fg.f"
+						final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
+						result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
+					} else {
+						// Connection doesn't end in feature, so no match
+						result = false;
+					}
+				}
+			} else {
+				// checks "f" to "f" or "fg" to "fg"
+				result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
+			}
 		}
 		return result;
 	}
