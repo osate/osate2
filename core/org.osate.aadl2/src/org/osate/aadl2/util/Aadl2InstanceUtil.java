@@ -6,12 +6,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -284,19 +282,7 @@ public class Aadl2InstanceUtil {
 
 	public static boolean isOpposite(ConnectionInstance conni) {
 		final ConnectionReference topref = getTopConnectionReference(conni);
-		final Connection conn = topref.getConnection();
-		final ConnectionInstanceEnd srcend = topref.getSource();
-		if (srcend instanceof ComponentInstance) {
-			final Subcomponent srcSub = ((ComponentInstance) srcend).getSubcomponent();
-			final ConnectionEnd srcelem = conn.getAllSource();
-			return srcSub != srcelem;
-		} else { // FeatureInstance
-			// XXX: what about ModeTransitionInstance?
-			final ComponentInstance srcCI = srcend.getContainingComponentInstance();
-			final Subcomponent srcSub = srcCI.getSubcomponent();
-			final Context srcelem = conn.getAllSourceContext();
-			return srcSub != srcelem;
-		}
+		return topref.isReverse();
 	}
 
 }
