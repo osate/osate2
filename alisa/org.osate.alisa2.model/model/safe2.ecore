@@ -31,6 +31,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazard" lowerBound="1"
         eType="#//Hazard" eOpposite="#//Hazard/constraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cause" ordered="false"
+        unique="false" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compensation" ordered="false"
+        unique="false" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ControlAction" eSuperTypes="#//Node"/>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" interface="true">

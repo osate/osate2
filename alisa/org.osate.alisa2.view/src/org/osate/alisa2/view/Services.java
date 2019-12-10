@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.UsageCrossReferencer;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
@@ -25,6 +26,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.parsesupport.AObject;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -313,6 +315,8 @@ public class Services {
 	public static String getCauseAndCompensation(EObject self, EObject lineSemantic, EObject columnSemantic,
 			EObject root, DLine line, DColumn column, EObject container) {
 		EClass eClazz = self.eClass();
+		FeatureInstance fi = (FeatureInstance) ((ConnectionInstance) self).getSource();
+		Collection settings = EcoreUtil.UsageCrossReferencer.find(fi, self.eResource().getResourceSet());
 		if (!line.getLines().isEmpty()) {
 			return "Cause: Bad stuff happened.";
 		} else {

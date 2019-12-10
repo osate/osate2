@@ -341,6 +341,26 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getConstraint_Cause() {
+		return (EAttribute)constraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getConstraint_Compensation() {
+		return (EAttribute)constraintEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getControlAction() {
 		return controlActionEClass;
 	}
@@ -446,6 +466,8 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		constraintEClass = createEClass(CONSTRAINT);
 		createEReference(constraintEClass, CONSTRAINT__HAZARD);
 		createEReference(constraintEClass, CONSTRAINT__PORT);
+		createEAttribute(constraintEClass, CONSTRAINT__CAUSE);
+		createEAttribute(constraintEClass, CONSTRAINT__COMPENSATION);
 
 		controlActionEClass = createEClass(CONTROL_ACTION);
 
@@ -522,6 +544,8 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstraint_Hazard(), this.getHazard(), this.getHazard_Constraint(), "hazard", null, 1, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstraint_Port(), theInstancePackage.getFeatureInstance(), null, "port", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConstraint_Cause(), theEcorePackage.getEString(), "cause", "", 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getConstraint_Compensation(), theEcorePackage.getEString(), "compensation", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(controlActionEClass, ControlAction.class, "ControlAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

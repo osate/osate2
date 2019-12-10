@@ -450,13 +450,31 @@ public interface Safe2Package extends EPackage {
 	int CONSTRAINT__PORT = FUNDAMENTAL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Cause</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__CAUSE = FUNDAMENTAL_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Compensation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__COMPENSATION = FUNDAMENTAL_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRAINT_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 2;
+	int CONSTRAINT_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Constraint</em>' class.
@@ -754,6 +772,28 @@ public interface Safe2Package extends EPackage {
 	EReference getConstraint_Port();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.alisa2.model.safe2.Constraint#getCause <em>Cause</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cause</em>'.
+	 * @see org.osate.alisa2.model.safe2.Constraint#getCause()
+	 * @see #getConstraint()
+	 * @generated
+	 */
+	EAttribute getConstraint_Cause();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.alisa2.model.safe2.Constraint#getCompensation <em>Compensation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Compensation</em>'.
+	 * @see org.osate.alisa2.model.safe2.Constraint#getCompensation()
+	 * @see #getConstraint()
+	 * @generated
+	 */
+	EAttribute getConstraint_Compensation();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.ControlAction <em>Control Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -992,6 +1032,22 @@ public interface Safe2Package extends EPackage {
 		 * @generated
 		 */
 		EReference CONSTRAINT__PORT = eINSTANCE.getConstraint_Port();
+
+		/**
+		 * The meta object literal for the '<em><b>Cause</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSTRAINT__CAUSE = eINSTANCE.getConstraint_Cause();
+
+		/**
+		 * The meta object literal for the '<em><b>Compensation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSTRAINT__COMPENSATION = eINSTANCE.getConstraint_Compensation();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.alisa2.model.safe2.impl.ControlActionImpl <em>Control Action</em>}' class.

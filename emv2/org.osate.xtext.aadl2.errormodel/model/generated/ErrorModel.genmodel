@@ -5,7 +5,7 @@
     forceOverwrite="true" modelName="ErrorModel" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
     editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.9"
-    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="ErrorModel" basePackage="org.osate.xtext.aadl2.errormodel"
       resource="XML" disposableProviderFactory="true" ecorePackage="ErrorModel.ecore#/">
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelSubclause">
@@ -27,7 +27,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/points"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/paths"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/properties"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelLibrary">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/useTypes"/>
@@ -38,22 +37,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/behaviors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/mappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/transformations"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EMV2PropertyAssociation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/property"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/ownedValues"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/emv2Path"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/actualProperty"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/appliesTo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAssociation/ownedValue"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EMV2Path">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Path/containmentPath"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Path/emv2Target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//EMV2Path/emv2PropagationKind"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Path/errorType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//EMV2Path/paTarget"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EMV2PathElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//EMV2PathElement/emv2PropagationKind"/>
@@ -77,7 +69,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformationSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/transformation"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/source"/>
@@ -88,7 +79,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//TypeMappingSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/mapping"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeMapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMapping/source"/>
@@ -100,7 +90,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagation/not"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagation/direction"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/typeSet"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagation/featureorPPRefs"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//FeatureorPPReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//FeatureorPPReference/featureorPP"/>
@@ -116,9 +105,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/failureModeReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/failureModeType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/failureModeDescription"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/condition"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/outgoing"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/allOutgoing"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorSink">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSink/incoming"/>
@@ -136,7 +122,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//IfCondition/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//IfCondition/resoluteFunction"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//IfCondition/javaMethod"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//IfCondition/functionReference"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//PropagationPoint"/>
     <genClasses ecoreClass="ErrorModel.ecore#//PropagationPath">
@@ -147,7 +132,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/subcomponent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/next"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/propagationPoint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/subcomponents"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateMachine">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTypes"/>
@@ -156,17 +140,14 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/states"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/transitions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/properties"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorEvent"/>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorEvent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/typeSet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorEvent/eventcondition"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RepairEvent">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RepairEvent/eventInitiator"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RepairEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RecoverEvent">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RecoverEvent/eventInitiator"/>
@@ -209,11 +190,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ConditionElement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/qualifiedErrorPropagationReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/constraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/qualifiedState"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/incoming"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/subcomponents"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/state"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/subcomponent"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EventOrPropagation"/>
     <genClasses ecoreClass="ErrorModel.ecore#//OutgoingPropagationCondition">
@@ -232,7 +208,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/condition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/detectionReportingPort"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/errorCode"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/internalDetectionPort"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorCodeValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorCodeValue/intValue"/>
@@ -261,7 +236,6 @@
     <genClasses ecoreClass="ErrorModel.ecore#//EMV2Root">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Root/library"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Root/subclauses"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2Root/subclause"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//OrExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//OrExpression/operands"/>
@@ -274,93 +248,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//AllExpression/operands"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorEventOrPropagation"/>
-    <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorPropagation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedErrorPropagation/modelElementReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//QualifiedErrorPropagation/kind"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedErrorPropagation/errorPropagation"/>
-    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//QualifiedErrorPropagation"/>
     <genClasses ecoreClass="ErrorModel.ecore#//SConditionElement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SConditionElement/qualifiedState"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//FlowCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//FlowCondition/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//FlowCondition/functionReference"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ConnectionErrorSource">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/connection"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/all"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/typeTokenConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/failureModeType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/failureModeDescription"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/condition"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//PropertyAssociation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/property"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/ownedValue"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/appliesTo"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/emv2Path"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/PropertyAssociationth"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/xproperty"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/ownedValue"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/appliesTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//PropertyAssociation/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/property"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/ownedValue"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/appliesTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//PropertyAssociation/paTarget"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/errorType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociation/emv2Target"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//NestedModelElement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//NestedModelElement/modelElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//NestedModelElement/next"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//BasicEMV2PropertyAssociation"/>
-    <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateOrTypeSet"/>
-    <genClasses ecoreClass="ErrorModel.ecore#//PropertyAssociationth">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//PropertyAssociationth/paTarget"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociationth/errorType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociationth/emv2Target"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//PropertyAssociationthElement">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociationthElement/namedElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropertyAssociationthElement/path"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//EMV2PA">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//EMV2PA/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//EMV2PA/property"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PA/xproperty"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation/property"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//EMV2PropertyAss">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//EMV2PropertyAss/property"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//SOrExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SOrExpression/operands"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//SAndExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//SAndExpression/operands"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ErrorPropagationPointPath">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagationPointPath/namedElementReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagationPointPath/next"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPropagationPointPath/propatationKind"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//NamedElementReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//NamedElementReference/namedElement"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//PropagationPointPath">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/subcomponent"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/next"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//PropagationPointPath/propagationPoint"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelGrammarRoot">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelGrammarRoot/eml"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelGrammarRoot/emsc"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//TypeUseContext">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeUseContext/useTypes"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//DefiningTypeToken"/>
   </genPackages>
 </genmodel:GenModel>

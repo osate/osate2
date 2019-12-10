@@ -31,6 +31,8 @@ import org.osate.alisa2.model.safe2.Safe2Package;
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getExplanations <em>Explanations</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getHazard <em>Hazard</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getPort <em>Port</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getCause <em>Cause</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.ConstraintImpl#getCompensation <em>Compensation</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,6 +97,46 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @ordered
 	 */
 	protected FeatureInstance port;
+
+	/**
+	 * The default value of the '{@link #getCause() <em>Cause</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCause()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CAUSE_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getCause() <em>Cause</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCause()
+	 * @generated
+	 * @ordered
+	 */
+	protected String cause = CAUSE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCompensation() <em>Compensation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCompensation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COMPENSATION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCompensation() <em>Compensation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCompensation()
+	 * @generated
+	 * @ordered
+	 */
+	protected String compensation = COMPENSATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +305,52 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 	 * @generated
 	 */
 	@Override
+	public String getCause() {
+		return cause;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCause(String newCause) {
+		String oldCause = cause;
+		cause = newCause;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__CAUSE, oldCause, cause));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCompensation() {
+		return compensation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCompensation(String newCompensation) {
+		String oldCompensation = compensation;
+		compensation = newCompensation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.CONSTRAINT__COMPENSATION, oldCompensation, compensation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Safe2Package.CONSTRAINT__HAZARD:
@@ -320,6 +408,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__PORT:
 				if (resolve) return getPort();
 				return basicGetPort();
+			case Safe2Package.CONSTRAINT__CAUSE:
+				return getCause();
+			case Safe2Package.CONSTRAINT__COMPENSATION:
+				return getCompensation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,6 +441,12 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__PORT:
 				setPort((FeatureInstance)newValue);
 				return;
+			case Safe2Package.CONSTRAINT__CAUSE:
+				setCause((String)newValue);
+				return;
+			case Safe2Package.CONSTRAINT__COMPENSATION:
+				setCompensation((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -376,6 +474,12 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 			case Safe2Package.CONSTRAINT__PORT:
 				setPort((FeatureInstance)null);
 				return;
+			case Safe2Package.CONSTRAINT__CAUSE:
+				setCause(CAUSE_EDEFAULT);
+				return;
+			case Safe2Package.CONSTRAINT__COMPENSATION:
+				setCompensation(COMPENSATION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -398,6 +502,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 				return getHazard() != null;
 			case Safe2Package.CONSTRAINT__PORT:
 				return port != null;
+			case Safe2Package.CONSTRAINT__CAUSE:
+				return CAUSE_EDEFAULT == null ? cause != null : !CAUSE_EDEFAULT.equals(cause);
+			case Safe2Package.CONSTRAINT__COMPENSATION:
+				return COMPENSATION_EDEFAULT == null ? compensation != null : !COMPENSATION_EDEFAULT.equals(compensation);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -418,6 +526,10 @@ public class ConstraintImpl extends MinimalEObjectImpl.Container implements Cons
 		result.append(description);
 		result.append(", explanations: ");
 		result.append(explanations);
+		result.append(", cause: ");
+		result.append(cause);
+		result.append(", compensation: ");
+		result.append(compensation);
 		result.append(')');
 		return result.toString();
 	}
