@@ -39,8 +39,10 @@ package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -171,6 +173,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	private ETEInfo myInfo;
+
+	private final Set<EndToEndFlowInstance> completedETEI = new HashSet<>();
 
 	private Stack<FlowIterator> state = new Stack<FlowIterator>();
 
@@ -1026,10 +1030,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				processETESegment(ci, etei, e, iter, errorElement);
 			}
 			if (state.size() == 0) {
-				// a flow is done
-				fillinModes(etei);
-				myInfo.postConns.addAll(connections);
-				connections.clear();
+				if (!completedETEI.contains(etei)) {
+					// a flow is done
+					fillinModes(etei);
+					myInfo.postConns.addAll(connections);
+					connections.clear();
+					completedETEI.add(etei);
+				}
 				break;
 			}
 			iter = state.pop();
