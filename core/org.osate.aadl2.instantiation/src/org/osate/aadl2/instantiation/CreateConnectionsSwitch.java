@@ -340,7 +340,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
-		if (featurei.getDirection().incoming()) {
+		if (featurei.getFlowDirection().incoming()) {
 			if (featurei.getIndex() <= 1) {
 				List<Connection> inConns = filterIngoingConnections(si, sysConns, featurei);
 				for (Connection conn : inConns) {
@@ -1006,14 +1006,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
 					// both ends are empty
 					if (connInfo.isAcross()) {
-						if (srcFi.getDirection().outgoing() && dstFi.getDirection().incoming()) {
+						if (srcFi.getFlowDirection().outgoing() && dstFi.getFlowDirection().incoming()) {
 							connInfo.src = srcFi;
 							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 						}
 					} else {
 						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
-						if (upOnly && srcFi.getDirection().outgoing() && dstFi.getDirection().outgoing()
-								|| !upOnly && srcFi.getDirection().incoming() && dstFi.getDirection().incoming()) {
+						if (upOnly && srcFi.getFlowDirection().outgoing() && dstFi.getFlowDirection().outgoing()
+								|| !upOnly && srcFi.getFlowDirection().incoming()
+										&& dstFi.getFlowDirection().incoming()) {
 							connInfo.src = srcFi;
 							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 						}
@@ -1022,19 +1023,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// first find the feature instance as an element of the other end
 					FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
 					// we need to deal with outgoing/incoming only and check the direction correctly
-					if (dst != null && ((connInfo.isAcross() && dst.getDirection().incoming())
-							|| dst.getDirection().outgoing())) {
+					if (dst != null && ((connInfo.isAcross() && dst.getFlowDirection().incoming())
+							|| dst.getFlowDirection().outgoing())) {
 						expandFeatureGroupConnection(parentci, connInfo, srcFi, dst, srcToMatch, dstToMatch);
 					} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 						// we may have a feature group with no FGT or an empty FGT
 						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
 						for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
 							if (upOnly) {
-								if (dstelem.getDirection().outgoing()) {
+								if (dstelem.getFlowDirection().outgoing()) {
 									expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
 											dstToMatch);
 								}
-							} else if (dstelem.getDirection().incoming()) {
+							} else if (dstelem.getFlowDirection().incoming()) {
 								expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
 										dstToMatch);
 							}
@@ -1047,19 +1048,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				} else if (isLeafFeature(dstFi)) {
 					FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
 					// we need to deal with outgoing/incoming only and check the direction correctly
-					if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
-							|| target.getDirection().incoming())) {
+					if (target != null && ((connInfo.isAcross() && target.getFlowDirection().outgoing())
+							|| target.getFlowDirection().incoming())) {
 						expandFeatureGroupConnection(parentci, connInfo, target, dstFi, srcToMatch, dstToMatch);
 					} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP || connInfo.srcToMatch != null) {
 						// we may have a feature group with no FGT or an empty FGT
 						boolean downOnly = !connInfo.isAcross() && !isUpOnly(connInfo, srcFi, dstFi);
 						for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
 							if (downOnly) {
-								if (srcelem.getDirection().incoming()) {
+								if (srcelem.getFlowDirection().incoming()) {
 									expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
 											dstToMatch);
 								}
-							} else if (srcelem.getDirection().outgoing()) {
+							} else if (srcelem.getFlowDirection().outgoing()) {
 								expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
 										dstToMatch);
 							}
@@ -1084,8 +1085,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					} else {
 						// subset matching features by name
 						for (FeatureInstance dst : dstFi.getFeatureInstances()) {
-							if ((connInfo.isAcross() && dst.getDirection().incoming())
-									|| dst.getDirection().outgoing()) {
+							if ((connInfo.isAcross() && dst.getFlowDirection().incoming())
+									|| dst.getFlowDirection().outgoing()) {
 								FeatureInstance src = findFeatureInstance(srcFi, dst.getName());
 								if (src != null) {
 									expandFeatureGroupConnection(parentci, connInfo, src, dst, srcToMatch, dstToMatch);

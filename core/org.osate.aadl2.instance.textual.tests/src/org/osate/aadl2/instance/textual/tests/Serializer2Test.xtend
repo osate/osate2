@@ -1016,7 +1016,7 @@ class Serializer2Test extends AbstractSerializerTest {
 				}
 				in eventPort p1 : pkg1::s1:p1
 				abstract pkg1::a1.i sub2 [ 0 ] : pkg1::s1.i:sub2 {
-					in out subprogramAccess sa1 : pkg1::a1:sa1
+					in subprogramAccess sa1 : pkg1::a1:sa1
 				}
 				system pkg1::s2 sub1 [ 0 ] : pkg1::s1.i:sub1
 				initial mode m1 : pkg1::s1:m1
