@@ -1063,7 +1063,7 @@ public final class AadlUtil {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Returns {@code true} if {@code extension} is an extension of {@code origin} or {@code extension} is a
 	 * {@link ComponentImplementation} and it's {@link ComponentType} is an extension of {@code origin}.
@@ -1709,7 +1709,7 @@ public final class AadlUtil {
 		EList<FeatureInstance> filist = fi.getFeatureInstances();
 		if (filist.isEmpty()) {
 			// feature or feature group without features
-			if (!fi.getDirection().equals(DirectionType.IN)) {
+			if (!fi.getFlowDirection().equals(DirectionType.IN)) {
 				return true;
 			}
 		} else {
