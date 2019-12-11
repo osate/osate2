@@ -123,16 +123,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.eclipse.ui.navigator" version="3.7.300" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.commons.core" version="3.24.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtend"/>
-      <!-- manually added to pin versions -->
-      <import plugin="org.eclipse.xtext.common.types.edit" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.ecore" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.generator" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.ide" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.smap" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.ui.codetemplates" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.ui.codetemplates.ide" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.util" version="2.19.0" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.xtext.generator" version="2.19.0" match="equivalent"/>
    </requires>
 
    <plugin
