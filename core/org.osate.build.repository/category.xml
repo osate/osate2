@@ -42,6 +42,8 @@
    <feature id="org.osate.alisa.workbench.sdk.source">
       <category name="alisa.source"/>
    </feature>
+   <bundle id="com.itemis.xtext.testing"/>
+   <bundle id="org.osate.testsupport"/>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
