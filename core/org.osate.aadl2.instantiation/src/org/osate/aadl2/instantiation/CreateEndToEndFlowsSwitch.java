@@ -1278,14 +1278,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	private boolean containsModeInstances(SystemOperationMode som, List<EList<ModeInstance>> modeLists) {
 		outer: for (List<ModeInstance> mis : modeLists) {
-			for (ModeInstance mi : mis) {
-				if (som.getCurrentModes().contains(mi)) {
-					continue outer;
+			if (!mis.isEmpty()) {
+				for (ModeInstance mi : mis) {
+					if (som.getCurrentModes().contains(mi)) {
+						continue outer;
+					}
 				}
+				return false;
 			}
-			return false;
 		}
-	return true;
+		return true;
 	}
 
 	// -------------------------------------------------------------------------
