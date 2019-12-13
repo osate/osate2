@@ -1,33 +1,36 @@
-import glob, os
-import xml.etree.ElementTree as ET
+import subprocess
 
-tags = ['groupId', 'artifactId', 'version']
+cmd = ['mvn', '-Dexec.executable=echo', '-Dexec.args=\'${project.groupId}:${project.artifactId}:${project.version}:${project.packaging}\'',
+       'exec:exec', '-Dtycho.mode=maven', '-q', '-f', '../..']
+proc = subprocess.run(cmd, encoding='utf8', stdout=subprocess.PIPE)
 
-deps = ET.Element('dependencies')
+indent = '    '
+indent2 = indent + indent
+indent3 = indent2 + indent
 
-for filename in glob.iglob('../../*/*/pom.xml'):
-    if os.path.isfile(filename): # filter dirs
-        tree = ET.parse(filename)
-        root = tree.getroot()
-        pkgElem = root.find('{http://maven.apache.org/POM/4.0.0}packaging')
-        packaging = ''
-        if pkgElem is not None:
-            packaging = pkgElem.text 
-        if packaging.endswith('plugin'):
-            dep = ET.SubElement(deps, 'dependency')
-            for tag in tags:
-                nsTag = '{http://maven.apache.org/POM/4.0.0}' + tag
-                pomElem = root.find(nsTag)
-                if pomElem is not None:
-                    depElem = ET.SubElement(dep, tag)
-                    depElem.text = pomElem.text
-            depElem = ET.SubElement(dep, 'optional')
-            depElem.text = 'true'
-            depElem = ET.SubElement(dep, 'scope')
-            if packaging == 'eclipse-test-plugin':
-                depElem.text = 'test'
-            else:
-                depElem.text = 'compile'
+print(indent + '<dependencies>')
+
+for line in proc.stdout.split('\n'):
+    parts = line.split(':')
+    if len(parts) < 4:
+        break
+    
+    groupId = parts[0]
+    artifactId = parts[1]
+    version = parts[2]
+    packaging = parts[3]
+    
+    if packaging.endswith('plugin'):
+        if packaging == 'eclipse-test-plugin':
+            scope = 'test'
+        else:
+            scope = 'compile'
         
-
-print(ET.tostring(deps, encoding='unicode'))
+        print(indent2 + '<dependency>')
+        print(indent3 + '<groupId>' + groupId + '</groupId>')
+        print(indent3 + '<artifactId>' + artifactId + '</artifactId>')
+        print(indent3 + '<version>' + version + '</version>')
+        print(indent3 + '<scope>' + scope + '</scope>')
+        print(indent2 + '</dependency>')
+        
+print(indent + '</dependencies>')    
