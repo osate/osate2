@@ -10,7 +10,7 @@
 <listEntry value="tycho.localArtifacts=ignore"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
-<booleanAttribute key="M2_SKIP_TESTS" value="false"/>
+<booleanAttribute key="M2_SKIP_TESTS" value="true"/>
 <intAttribute key="M2_THREADS" value="1"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="true"/>
 <stringAttribute key="M2_USER_SETTINGS" value="${workspace_loc:/osate.releng/settings.xml}"/>
