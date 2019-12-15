@@ -1,23 +1,23 @@
 import subprocess
 
-cmd = ['mvn', '-Dexec.executable=echo', '-Dexec.args=\'${project.groupId}:${project.artifactId}:${project.version}:${project.packaging}\'',
+cmd = ['mvn', '-Dexec.executable=echo', 
+        '-Dexec.args=\'${project.groupId}:${project.artifactId}:${project.version}:${project.packaging}\'',
        'exec:exec', '-Dtycho.mode=maven', '-q', '-f', '../..']
-proc = subprocess.run(cmd, encoding='utf8', stdout=subprocess.PIPE)
+proc = subprocess.Popen(cmd, encoding='utf8', stdout=subprocess.PIPE, bufsize=1)
 
 indent = '    '
 indent2 = indent + indent
 indent3 = indent2 + indent
 
+tags = ['groupId', 'artifactId', 'version']
+
 print(indent + '<dependencies>')
 
-for line in proc.stdout.split('\n'):
-    parts = line.split(':')
+for line in proc.stdout:
+    parts = line.strip().split(':')
     if len(parts) < 4:
         break
     
-    groupId = parts[0]
-    artifactId = parts[1]
-    version = parts[2]
     packaging = parts[3]
     
     if packaging.endswith('plugin'):
@@ -25,12 +25,13 @@ for line in proc.stdout.split('\n'):
             scope = 'test'
         else:
             scope = 'compile'
-        
+            
         print(indent2 + '<dependency>')
-        print(indent3 + '<groupId>' + groupId + '</groupId>')
-        print(indent3 + '<artifactId>' + artifactId + '</artifactId>')
-        print(indent3 + '<version>' + version + '</version>')
-        print(indent3 + '<scope>' + scope + '</scope>')
+        
+        for i in range(len(tags)):
+            print(indent3 + '<{0}>{1}</{0}>'.format(tags[i], parts[i]))
+        
+        print(indent3 + '<{0}>{1}</{0}>'.format('scope', scope))
         print(indent2 + '</dependency>')
         
 print(indent + '</dependencies>')    
