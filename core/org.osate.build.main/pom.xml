@@ -17,31 +17,28 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.7.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.2</jacoco.version>
+		<jacoco.version>0.8.5</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
-<!-- 		<sonar.projectKey>osate_osate2</sonar.projectKey> -->
+		<!-- <sonar.projectKey>osate_osate2</sonar.projectKey> -->
 		<sonar.organization>osate</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.login>{wApN3pGBNBcHEHWkTQ15pAKBbpUEmPZ0avW0icwTs5KiyxBJM5LqCGRFu77FbXR022QHRzILQnqo/+XOzOVwAw==}</sonar.login>
 		<sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
-		<sonar.jacoco.reportPaths>target</sonar.jacoco.reportPaths>
-
-		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
-		
+		<!-- Generated files -->
+		<sonar.exclusions>**/src-gen/**/*.java</sonar.exclusions>
+		<sonar.issue.ignore.allfile>e1</sonar.issue.ignore.allfile>
+		<sonar.issue.ignore.allfile.e1.fileRegexp>@generated</sonar.issue.ignore.allfile.e1.fileRegexp>
+		<!-- Matching files contain tests, don't count for coverage -->
+		<sonar.test.inclusions>**/*Test.java</sonar.test.inclusions>
+		<!-- MUST use aggregate report for multi-module project -->
 		<sonar.coverage.jacoco.xmlReportPaths>
-			../../emv2/org.osate.aadl2.errormodel.faulttree.tests/target/site/jacoco/jacoco.xml,
-			../../emv2/org.osate.aadl2.errormodel.tests/target/site/jacoco/jacoco.xml,
-			../../analyses/org.osate.analysis.flows.tests/target/site/jacoco/jacoco.xml,
-			../../analyses/org.osate.analysis.architecture.tests/target/site/jacoco/jacoco.xml,
-			../../core/org.osate.core.tests/target/site/jacoco/jacoco.xml,
-			../../core/org.osate.aadl2.instance.textual.tests/target/site/jacoco/jacoco.xml,
-			../../alisa/org.osate.assure.tests/target/site/jacoco/jacoco.xml,
-			../../alisa/org.osate.alisa.workbench.tests/target/site/jacoco/jacoco.xml,
-			../../ba/org.osate.ba.tests/target/site/jacoco/jacoco.xml
+			../../core/org.osate.build.coverage.report/target/site/jacoco-aggregate/jacoco.xml
 		</sonar.coverage.jacoco.xmlReportPaths>
+		<!-- Include xtend-gen -->
+		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
