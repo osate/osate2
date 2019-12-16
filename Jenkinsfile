@@ -11,7 +11,8 @@ pipeline {
                         // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
                         // Maven settings and global settings can also be defined in Jenkins Global Tools Configuration
                         //mavenSettingsConfig: 'my-maven-settings',
-                        mavenLocalRepo: '.repository') {
+                        mavenLocalRepo: '.repository',
+                        publisherStrategy: 'EXPLICIT') {
                      // Run the maven build with Xvnc
                      wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
                         sh 'mvn -U -T 3 -s core/osate.releng/seisettings.xml clean install -Pfull -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true'
