@@ -268,9 +268,20 @@ public class PropagationGraphBackwardTraversal {
 								if (src instanceof ErrorPropagation) {
 									handledEOPs.put((ErrorPropagation) src, EMV2Util.getPrintName(mappedType));
 								}
-								EObject newEvent = processErrorSource(component, errorSource, mappedType, scale);
-								addSubresult(subResults, newEvent);
-								didProp = true;
+								if (errorSource.getFailureModeReference() != null) {
+									List<EObject> stResults = new LinkedList<EObject>();
+									ErrorBehaviorState ebs = errorSource.getFailureModeReference();
+									EObject sEvent = traverseErrorBehaviorState(component, ebs, mappedType, scale);
+									addSubresult(stResults, sEvent);
+									EObject newEvent = postProcessErrorSource(component, errorSource, proptype,
+											stResults, scale);
+									addSubresult(subResults, newEvent);
+									didProp = true;
+								} else {
+									EObject newEvent = processErrorSource(component, errorSource, mappedType, scale);
+									addSubresult(subResults, newEvent);
+									didProp = true;
+								}
 							}
 						}
 					}
@@ -1057,6 +1068,18 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource, TypeToken type,
 			BigDecimal scale) {
+		return null;
+	}
+
+	/**
+	 * post-process error source to add a subgraph for the error behavior state of when
+	 * @param component
+	 * @param errorSource
+	 * @param typeTokenConstraint
+	 * @return EObject (can be null)
+	 */
+	protected EObject postProcessErrorSource(ComponentInstance component, ErrorSource errorSource, TypeToken type,
+			List<EObject> subResults, BigDecimal scale) {
 		return null;
 	}
 

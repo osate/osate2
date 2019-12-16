@@ -2,8 +2,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.DockingPosition;
@@ -51,19 +49,6 @@ public class FeatureInstanceHandler {
 	}
 
 	private DirectionType getDirection(final FeatureInstance fi) {
-		// Determine the direction of access feature instances using the type of the feature.
-		// This is needed because as of 2016-12-09 access feature instances have a direction of IN OUT. The AccessType may not be reliable because it could be
-		// inverted
-		// by being inside an inverse of feature group.
-		// TODO: Fix when/if OSATE provides direction.
-		final DirectionType direction;
-		if (fi.getFeature() instanceof Access) {
-			direction = ((Access) fi.getFeature()).getKind() == AccessType.PROVIDES ? DirectionType.OUT
-					: DirectionType.IN;
-		} else {
-			direction = fi.getDirection();
-		}
-
-		return direction;
+		return fi.getDirection();
 	}
 }

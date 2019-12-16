@@ -618,6 +618,9 @@ public class EMV2TypeSetUtil {
 		return result;
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
 		return flattenTypesetElements(typeSet);

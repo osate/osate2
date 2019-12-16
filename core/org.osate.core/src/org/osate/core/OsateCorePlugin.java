@@ -291,8 +291,10 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 		}
 
 		public void executeRename() {
-			final Job job = new RenameJob(moved, movedTo);
-			job.schedule();
+			if (!moved.isEmpty()) {
+				final Job job = new RenameJob(moved, movedTo);
+				job.schedule();
+			}
 		}
 	}
 
@@ -304,6 +306,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 			super("Rename AADL Project");
 			this.moved = moved;
 			this.movedTo = movedTo;
+
 		}
 
 		@Override

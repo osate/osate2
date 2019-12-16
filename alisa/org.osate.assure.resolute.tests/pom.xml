@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.osate</groupId>
+		<artifactId>alisa.parent</artifactId>
+		<version>2.7.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.osate</groupId>
+	<artifactId>org.osate.assure.resolute.tests</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-test-plugin</packaging>
+
+	<repositories>
+		<repository>
+			<id>eclipse</id>
+			<url>${eclipse.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>xtext-testing</id>
+			<url>${xtext-testing.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>resolute</id>
+			<url>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<!-- additional requirements for running the tests -->
+					<!-- adding them here works, adding them in surefire configuration as -->
+					<!-- dependency works only if the tests are started in the test plugin 
+						directory -->
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.event</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<!-- for transactional editing domain that is needed during instantiation -->
+								<type>eclipse-plugin</type>
+								<id>org.osate.aadl2.model.editor</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.osate.core.tests.log4j</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.osate.alisa.contribution</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>com.rockwellcollins.atc.resolute</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>com.rockwellcollins.atc.resolute.analysis</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

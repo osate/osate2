@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-   <!-- analysis extension point will be removed in 2.3.6. -->
-   <extension-point id="analysis" name="Analysis" schema="schema/analysis.exsd"/>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -552,6 +550,12 @@
           </separator>
           <command
                 commandId="org.osate.ui.showInClassifierInfoView">
+             <visibleWhen
+                   checkEnabled="true">
+             </visibleWhen>
+          </command>
+          <command
+                commandId="org.osate.ui.instantiate">
              <visibleWhen
                    checkEnabled="true">
              </visibleWhen>
@@ -1143,30 +1147,59 @@
                          value="1">
                    </count>
                    <iterate>
-                      <adapt
-                            type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-                         <and>
-                            <test
-                                  property="org.osate.ui.superType"
-                                  value="ComponentImplementation"
-                                  forcePluginActivation="true">
-                            </test>
-                            <not>
+                      <or>
+                         <!-- For the AADL Navigator View -->
+                         <adapt
+                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                            <and>
                                <test
-                                     property="org.osate.ui.superType"
-                                     value="SubprogramImplementation"
+                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                     value="ComponentImplementation"
                                      forcePluginActivation="true">
                                </test>
-                            </not>
-                            <not>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
+                         
+                         <!-- For the Outline View -->
+                         <adapt
+                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                            <and>
                                <test
                                      property="org.osate.ui.superType"
-                                     value="SubprogramGroupImplementation"
+                                     value="ComponentImplementation"
                                      forcePluginActivation="true">
                                </test>
-                            </not>
-                         </and>
-                      </adapt>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
+                      </or>
                    </iterate>
                 </and>
              </with>

@@ -131,29 +131,19 @@ public interface VerificationResult extends AssureResult, VerificationExpr {
 	void setMessage(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Analysisresult</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Analysisresult</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.result.AnalysisResult}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Analysisresult</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Analysisresult</em>' containment reference.
-	 * @see #setAnalysisresult(AnalysisResult)
+	 * @return the value of the '<em>Analysisresult</em>' containment reference list.
 	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Analysisresult()
 	 * @model containment="true"
 	 * @generated
 	 */
-	AnalysisResult getAnalysisresult();
-
-	/**
-	 * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getAnalysisresult <em>Analysisresult</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Analysisresult</em>' containment reference.
-	 * @see #getAnalysisresult()
-	 * @generated
-	 */
-	void setAnalysisresult(AnalysisResult value);
+	EList<AnalysisResult> getAnalysisresult();
 
 } // VerificationResult

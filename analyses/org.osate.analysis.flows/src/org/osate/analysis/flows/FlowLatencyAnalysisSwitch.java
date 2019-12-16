@@ -819,7 +819,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		} else {
 			results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
-		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+		return FlowLatencyUtil.recordAsAnalysisResult(results, ci, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
@@ -875,7 +875,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			results = invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 		}
-		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+		return FlowLatencyUtil.recordAsAnalysisResult(results, etef, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 

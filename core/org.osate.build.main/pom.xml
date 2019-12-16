@@ -6,21 +6,39 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2</artifactId>
-	<version>2.6.0-SNAPSHOT</version>
+	<version>2.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.4.0</tycho.version>
-		<tycho-extras.version>1.4.0</tycho-extras.version>
+		<tycho.version>1.5.1</tycho.version>
+		<tycho-extras.version>1.5.1</tycho-extras.version>
 		<xtext.version>2.19.0</xtext.version>
 		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<osate.version>2.6.0-SNAPSHOT</osate.version>
+		<osate.version>2.7.0-SNAPSHOT</osate.version>
 
-		<jacoco.version>0.8.2</jacoco.version>
+		<jacoco.version>0.8.5</jacoco.version>
 		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
+
+		<!-- <sonar.projectKey>osate_osate2</sonar.projectKey> -->
+		<sonar.organization>osate</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>{wApN3pGBNBcHEHWkTQ15pAKBbpUEmPZ0avW0icwTs5KiyxBJM5LqCGRFu77FbXR022QHRzILQnqo/+XOzOVwAw==}</sonar.login>
+		<sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
+		<!-- Generated files -->
+		<sonar.exclusions>**/src-gen/**/*.java</sonar.exclusions>
+		<sonar.issue.ignore.allfile>e1</sonar.issue.ignore.allfile>
+		<sonar.issue.ignore.allfile.e1.fileRegexp>@generated</sonar.issue.ignore.allfile.e1.fileRegexp>
+		<!-- Matching files contain tests, don't count for coverage -->
+		<sonar.test.inclusions>**/*Test.java</sonar.test.inclusions>
+		<!-- MUST use aggregate report for multi-module project -->
+		<sonar.coverage.jacoco.xmlReportPaths>
+			../../core/org.osate.build.coverage.report/target/site/jacoco-aggregate/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
+		<!-- Include xtend-gen -->
+		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 
 		<!-- The following are for use in poms for test plugins -->
 		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
@@ -30,6 +48,7 @@
 		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
+		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
 	</properties>
 
 	<!-- Begin metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
@@ -222,8 +241,7 @@
 				</property>
 			</activation>
 			<properties>
-				<tycho.testArgLine>
-				</tycho.testArgLine>
+				<tycho.testArgLine></tycho.testArgLine>
 			</properties>
 		</profile>
 		<profile>
@@ -249,6 +267,7 @@
 							<execution>
 								<goals>
 									<goal>prepare-agent</goal>
+									<goal>report</goal>
 								</goals>
 							</execution>
 						</executions>

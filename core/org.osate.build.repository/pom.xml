@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>core.parent</artifactId>
-		<version>2.6.0-SNAPSHOT</version>
+		<version>2.7.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
@@ -26,6 +26,19 @@
 			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>eclipse</id>
+			<url>${eclipse.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>xtext-testing</id>
+			<url>${xtext-testing.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -53,11 +66,11 @@
 
 							<!-- this adds repository references to the update site's content.xml -->
 							<associateSites>
-								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.17.0/</site>
-								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.10.0/</site>
-								<site>http://download.eclipse.org/xsemantics/milestones/</site>
-								<site>http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/</site>
-								<site>http://download.eclipse.org/elk/updates/releases/0.5.0/</site>
+								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.19.0</site>
+								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.0</site>
+								<site>http://download.eclipse.org/xsemantics/milestones/1.18</site>
+								<site>http://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository</site>
+								<site>http://download.eclipse.org/elk/updates/releases/0.5.0</site>
 								<site>http://download.eclipse.org/ease/update/release</site>
 								<site>https://eclipse.py4j.org</site>
 							</associateSites>

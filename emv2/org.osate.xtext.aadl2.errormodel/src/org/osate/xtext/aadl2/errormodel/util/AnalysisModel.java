@@ -35,10 +35,9 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
  *
  * @author phf
  *
- * @deprecated use {@link org.osate.aadl2.errormodel.propagationgraph.PropgationGraph} instead
- *
+ * @deprecated use {@link org.osate.aadl2.errormodel.propagationgraph.PropgationGraph} instead. Will be removed in 2.7.
+ *             This may be used by the AltaRica plugin. If so, move to AltaRica when removing.
  */
-
 @Deprecated
 public class AnalysisModel {
 

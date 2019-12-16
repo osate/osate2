@@ -44,7 +44,7 @@ class Issue1884Test {
 			17.assertEquals(lineNumber)
 		]
 		result.issues.get(2) => [
-			"The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.".assertEquals(message)
+			"abstract components cannot contain a dispatch condition in any of its transitions: they cannot be dispatched (extention of Behavior Annex D.3.(L5) legality rule).".assertEquals(message)
 			27.assertEquals(lineNumber)
 		]
 	}

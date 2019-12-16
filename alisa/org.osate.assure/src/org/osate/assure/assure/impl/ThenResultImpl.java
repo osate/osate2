@@ -114,6 +114,7 @@ public class ThenResultImpl extends VerificationExprImpl implements ThenResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getFirst() {
 		if (first == null) {
 			first = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.THEN_RESULT__FIRST);
@@ -126,6 +127,7 @@ public class ThenResultImpl extends VerificationExprImpl implements ThenResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<VerificationExpr> getSecond() {
 		if (second == null) {
 			second = new EObjectContainmentEList<VerificationExpr>(VerificationExpr.class, this, AssurePackage.THEN_RESULT__SECOND);
@@ -138,6 +140,7 @@ public class ThenResultImpl extends VerificationExprImpl implements ThenResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDidThenFail() {
 		return didThenFail;
 	}
@@ -147,6 +150,7 @@ public class ThenResultImpl extends VerificationExprImpl implements ThenResult {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDidThenFail(boolean newDidThenFail) {
 		boolean oldDidThenFail = didThenFail;
 		didThenFail = newDidThenFail;
@@ -260,7 +264,7 @@ public class ThenResultImpl extends VerificationExprImpl implements ThenResult {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (didThenFail: ");
 		result.append(didThenFail);
 		result.append(')');

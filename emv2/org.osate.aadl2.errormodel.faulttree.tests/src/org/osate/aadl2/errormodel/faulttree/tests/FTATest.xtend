@@ -67,6 +67,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1837bis
 	var static SystemInstance instanceIssue1962
 	var static SystemInstance instanceIssue1961
+	var static SystemInstance instanceIssue1384
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -107,6 +108,8 @@ class FTATest {
 	val Issue1837file = "Issue1837.aadl"
 	val Issue1962file = "Issue1962.aadl"
 	val Issue1961file = "Issue1961.aadl"
+	val Issue1384file = "modeling_file.aadl"
+	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -144,7 +147,9 @@ class FTATest {
 			modelroot + accessfeaturesFile,
 			modelroot + Issue1837file,
 			modelroot + Issue1962file,
-			modelroot + Issue1961file
+			modelroot + Issue1961file,
+			modelroot + Issue1384Errortypesfile,
+			modelroot + Issue1384file
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -177,6 +182,7 @@ class FTATest {
 		instanceIssue1837bis = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl2")
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
+		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -994,6 +1000,19 @@ class FTATest {
 		assertEquals((engine.relatedInstanceObject as NamedElement).name, "engine1")
 		assertEquals((engine.relatedEMV2Object as NamedElement).name, "engineFailure")
 		assertEquals(EMV2Util.getName(engine.relatedErrorType as TypeToken), "ServiceOmission")
+	}
+
+	@Test
+	def void issue1384Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue1384, stateFailStop)
+		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size,3)
+		val tdd = ft.root.subEvents.get(2)
+		assertEquals(tdd.subEvents.size,3)
+		val btcu = tdd.subEvents.get(0)
+		assertEquals((btcu.relatedEMV2Object as NamedElement).name, "Failure")
+		val ccus = tdd.subEvents.get(1)
+		assertEquals((ccus.relatedEMV2Object as NamedElement).name, "Failure")
 	}
 
 }

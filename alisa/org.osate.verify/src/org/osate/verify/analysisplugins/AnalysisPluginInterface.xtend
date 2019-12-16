@@ -23,15 +23,13 @@ import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsisten
 import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
-import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
-import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
-import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
-import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
 import org.osate.analysis.resource.management.handlers.Binpack
-import org.osate.result.AnalysisResult
 
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler
 
 class AnalysisPluginInterface {
 
@@ -98,7 +96,7 @@ class AnalysisPluginInterface {
 	}
 
 	def static String BoundResourceAnalysis(InstanceObject ci) {
-		val checker = new DoBoundResourceAnalysis()
+		val checker = new BoundResourceAnalysisHandler()
 		val markerType = checker.getMarkerType
 		val instance = ci.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
@@ -113,7 +111,7 @@ class AnalysisPluginInterface {
 	}
 
 	def static String NetworkBandWidthAnalysis(InstanceObject ci) {
-		val checker = new DoBoundSwitchBandWidthAnalysis
+		val checker = new BusLoadAnalysisHandler
 		val markerType = checker.getMarkerType
 		val instance = ci.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
@@ -128,7 +126,7 @@ class AnalysisPluginInterface {
 	}
 
 	def static String PowerAnalysis(InstanceObject ci) {
-		val checker = new DoPowerAnalysis()
+		val checker = new PowerAnalysisHandler()
 		val markerType = checker.getMarkerType
 		val instance = ci.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
@@ -143,7 +141,7 @@ class AnalysisPluginInterface {
 	}
 
 	def static String ResourceBudget(InstanceObject ci) {
-		val checker = new DoResourceBudget()
+		val checker = new NotBoundResourceAnalysisHandler()
 		val markerType = checker.getMarkerType
 		val instance = ci.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {

@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.DefaultLocationInFileProvider;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.parsesupport.AObject;
@@ -60,24 +62,43 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 		if (obj instanceof ModelUnit || obj instanceof Classifier) {
 			ICompositeNode node = NodeModelUtils.getNode(obj);
 			INode endID = node.getLastChild().getPreviousSibling();
+			List<INode> nodes = null;
 			while (endID instanceof HiddenLeafNode) {
 				endID = endID.getPreviousSibling();
 			}
+			nodes = Collections.<INode> singletonList(endID);
 			if (endID instanceof ICompositeNode) {
 				ICompositeNode fullName = (ICompositeNode) endID;
-				if (typeName) {
+				if (obj instanceof AadlPackage) {
+					nodes = new ArrayList<INode>();
+					endID = fullName.getLastChild();
+					while (endID instanceof HiddenLeafNode) {
+						endID = endID.getPreviousSibling();
+					}
+					INode id = fullName.getFirstChild();
+					while (id instanceof HiddenLeafNode) {
+						id = id.getNextSibling();
+					}
+					nodes.add(id);
+					while (id != endID) {
+						id = id.getNextSibling();
+						nodes.add(id);
+					}
+				} else if (typeName) {
 					endID = fullName.getFirstChild();
 					while (endID instanceof HiddenLeafNode) {
 						endID = endID.getNextSibling();
 					}
+					nodes = Collections.<INode> singletonList(endID);
 				} else {
 					endID = fullName.getLastChild();
 					while (endID instanceof HiddenLeafNode) {
 						endID = endID.getPreviousSibling();
 					}
+					nodes = Collections.<INode> singletonList(endID);
 				}
 			}
-			return createRegion(Collections.<INode> singletonList(endID));
+			return createRegion(nodes);
 		} else {
 			return null;
 		}

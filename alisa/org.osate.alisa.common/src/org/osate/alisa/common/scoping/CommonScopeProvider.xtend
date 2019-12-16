@@ -31,26 +31,24 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.Classifier
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.Feature
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupPrototype
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
+import org.osate.alisa.common.common.AModelReference
 
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
-import org.osate.aadl2.Classifier
-import org.osate.aadl2.AbstractFeature
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.ComponentPrototype
-import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupType
-import org.osate.aadl2.FeatureGroupPrototype
-import org.osate.aadl2.Feature
-import org.osate.aadl2.Subcomponent
-import org.osate.alisa.common.common.AModelReference
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider.allMembers
 
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
-
 
 	def scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE,
@@ -66,43 +64,43 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 
-	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
+	val static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
 	def private getUnitLiterals(EObject context) {
 
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
 		val Collection<UnitLiteral> result = new ArrayList<UnitLiteral>()
-		for (IEObjectDescription desc : Aadl2GlobalScopeUtil.getAllEObjectDescriptions(context,UNITS_TYPE)) {
+		for (IEObjectDescription desc : Aadl2GlobalScopeUtil.getAllEObjectDescriptions(context, UNITS_TYPE)) {
 			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
 			unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
 		}
 
 		return result;
 	}
-	
+
 	def IScope scope_NumberType_referencedUnitsType(EObject context, EReference reference) {
 		propertySetMemberScope(context, reference)
 	}
-	
+
 	def IScope scope_TypeRef_ref(EObject context, EReference reference) {
 		propertySetMemberScope(context, reference)
 	}
-	
+
 	def IScope scope_Property(EObject context, EReference reference) {
 		propertySetMemberScope(context, reference)
 	}
-	
+
 	def IScope scope_APropertyReference_property(EObject context, EReference reference) {
 		propertySetMemberScope(context, reference)
 	}
-	
+
 	def IScope scope_ComponentImplementation(EObject context, EReference reference) {
 		new SimpleScope(delegateGetScope(context, reference).allElements.map[convertImplName], false)
 	}
-	
+
 	def IScope scope_ComponentClassifier(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[
+		new SimpleScope(delegateGetScope(context, reference).allElements.map [
 			if (Aadl2Package.eINSTANCE.componentImplementation.isSuperTypeOf(EObjectOrProxy.eClass)) {
 				convertImplName
 			} else {
@@ -110,36 +108,40 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		], false)
 	}
-	
+
 	def private propertySetMemberScope(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[
-			#[EObjectDescription.create(name.toString("::"), EObjectOrProxy)] + if (name.firstSegment.predeclaredPropertySet) {
-				#[EObjectDescription.create(name.lastSegment, EObjectOrProxy)]
-			} else {
-				emptyList
-			}
+		new SimpleScope(delegateGetScope(context, reference).allElements.map [
+			#[EObjectDescription.create(name.toString("::"), EObjectOrProxy)] +
+				if (name.firstSegment.predeclaredPropertySet) {
+					#[EObjectDescription.create(name.lastSegment, EObjectOrProxy)]
+				} else {
+					emptyList
+				}
 		].flatten, false)
 	}
-	
+
 	def private convertImplName(IEObjectDescription description) {
 		val implName = description.name.lastSegment.split("\\.")
-		val newName = QualifiedName.create(description.name.skipLast(1).toString("::") + "::" + implName.get(0), implName.get(1))
+		val typename = description.name.skipLast(1).toString("::") + "::" + implName.get(0)
+		val newName = if (implName.length > 1)
+				QualifiedName.create(typename, implName.get(1))
+			else
+				QualifiedName.create(typename)
 		EObjectDescription.create(newName, description.EObjectOrProxy)
 	}
-	
-		
+
 	def IScope scope_AModelReference_modelElement(EObject context, EReference reference) {
 		new SimpleScope(#[EObjectDescription.create("this", context)])
 	}
-	
-	def EObject getAModelReferenceContext(AModelReference amr){
+
+	def EObject getAModelReferenceContext(AModelReference amr) {
 		var context = amr.eContainer
-		while (context instanceof AModelReference){
+		while (context instanceof AModelReference) {
 			context = context.eContainer
 		}
 		return context
 	}
-	
+
 	def IScope scope_AModelReference_modelElement(AModelReference context, EReference reference) {
 		if (context.prev === null) {
 			scope_AModelReference_modelElement(context.AModelReferenceContext, reference)
@@ -147,26 +149,31 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			val prev = context.prev
 			val prevElement = prev.modelElement
 			switch prevElement {
-				Classifier: prevElement
-				AbstractFeature: switch featureClassifier : prevElement.abstractFeatureClassifier {
-					ComponentClassifier: featureClassifier
-					ComponentPrototype: featureClassifier.constrainingClassifier
-					default: prevElement.featurePrototype.constrainingClassifier
-				}
-				FeatureGroup: switch featureType : prevElement.featureType {
-					FeatureGroupType: featureType
-					FeatureGroupPrototype: featureType.constrainingFeatureGroupType
-				}
-				Feature: switch featureClassifier : prevElement.featureClassifier {
-					ComponentClassifier: featureClassifier
-					ComponentPrototype: featureClassifier.constrainingClassifier
-				}
-				Subcomponent: switch subcomponentType : prevElement.subcomponentType {
-					ComponentClassifier: subcomponentType
-					ComponentPrototype: subcomponentType.constrainingClassifier
-				}
+				Classifier:
+					prevElement
+				AbstractFeature:
+					switch featureClassifier : prevElement.abstractFeatureClassifier {
+						ComponentClassifier: featureClassifier
+						ComponentPrototype: featureClassifier.constrainingClassifier
+						default: prevElement.featurePrototype.constrainingClassifier
+					}
+				FeatureGroup:
+					switch featureType : prevElement.featureType {
+						FeatureGroupType: featureType
+						FeatureGroupPrototype: featureType.constrainingFeatureGroupType
+					}
+				Feature:
+					switch featureClassifier : prevElement.featureClassifier {
+						ComponentClassifier: featureClassifier
+						ComponentPrototype: featureClassifier.constrainingClassifier
+					}
+				Subcomponent:
+					switch subcomponentType : prevElement.subcomponentType {
+						ComponentClassifier: subcomponentType
+						ComponentPrototype: subcomponentType.constrainingClassifier
+					}
 			}?.allMembers?.scopeFor
 		}
 	}
-	
+
 }

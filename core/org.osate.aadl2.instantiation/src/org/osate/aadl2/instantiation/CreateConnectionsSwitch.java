@@ -60,6 +60,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
@@ -91,6 +92,7 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -115,7 +117,9 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 
 /**
@@ -336,7 +340,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
-		if (featurei.getDirection().incoming()) {
+		if (featurei.getFlowDirection().incoming()) {
 			if (featurei.getIndex() <= 1) {
 				List<Connection> inConns = filterIngoingConnections(si, sysConns, featurei);
 				for (Connection conn : inConns) {
@@ -374,7 +378,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		ConnectionEnd toEnd = goOpposite ? newSegment.getAllSource() : newSegment.getAllDestination();
 		final Context toCtx = goOpposite ? newSegment.getAllSourceContext() : newSegment.getAllDestinationContext();
 		final ComponentInstance toCi = (toCtx instanceof Subcomponent)
-				? ci.findSubcomponentInstance((Subcomponent) toCtx) : null;
+				? ci.findSubcomponentInstance((Subcomponent) toCtx)
+				: null;
 		final boolean finalComponent = isConnectionEndingComponent(toCtx);
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
@@ -411,7 +416,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (!(fromEnd instanceof Subcomponent)) {
 			// fromEnd is a feature
 			final ComponentInstance fromCi = (fromCtx instanceof Subcomponent)
-					? ci.findSubcomponentInstance((Subcomponent) fromCtx) : null;
+					? ci.findSubcomponentInstance((Subcomponent) fromCtx)
+					: null;
 			if (fromCtx instanceof Subcomponent && fromCi == null) {
 				if (!(fromCtx instanceof SubprogramSubcomponent)) {
 					error(ci, "Instantiation error: no component instance for subcomponent " + fromCtx.getName());
@@ -1000,14 +1006,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
 					// both ends are empty
 					if (connInfo.isAcross()) {
-						if (srcFi.getDirection().outgoing() && dstFi.getDirection().incoming()) {
+						if (srcFi.getFlowDirection().outgoing() && dstFi.getFlowDirection().incoming()) {
 							connInfo.src = srcFi;
 							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 						}
 					} else {
 						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
-						if (upOnly && srcFi.getDirection().outgoing() && dstFi.getDirection().outgoing()
-								|| !upOnly && srcFi.getDirection().incoming() && dstFi.getDirection().incoming()) {
+						if (upOnly && srcFi.getFlowDirection().outgoing() && dstFi.getFlowDirection().outgoing()
+								|| !upOnly && srcFi.getFlowDirection().incoming()
+										&& dstFi.getFlowDirection().incoming()) {
 							connInfo.src = srcFi;
 							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 						}
@@ -1016,19 +1023,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// first find the feature instance as an element of the other end
 					FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
 					// we need to deal with outgoing/incoming only and check the direction correctly
-					if (dst != null && ((connInfo.isAcross() && dst.getDirection().incoming())
-							|| dst.getDirection().outgoing())) {
+					if (dst != null && ((connInfo.isAcross() && dst.getFlowDirection().incoming())
+							|| dst.getFlowDirection().outgoing())) {
 						expandFeatureGroupConnection(parentci, connInfo, srcFi, dst, srcToMatch, dstToMatch);
 					} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 						// we may have a feature group with no FGT or an empty FGT
 						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
 						for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
 							if (upOnly) {
-								if (dstelem.getDirection().outgoing()) {
+								if (dstelem.getFlowDirection().outgoing()) {
 									expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
 											dstToMatch);
 								}
-							} else if (dstelem.getDirection().incoming()) {
+							} else if (dstelem.getFlowDirection().incoming()) {
 								expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
 										dstToMatch);
 							}
@@ -1041,19 +1048,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				} else if (isLeafFeature(dstFi)) {
 					FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
 					// we need to deal with outgoing/incoming only and check the direction correctly
-					if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
-							|| target.getDirection().incoming())) {
+					if (target != null && ((connInfo.isAcross() && target.getFlowDirection().outgoing())
+							|| target.getFlowDirection().incoming())) {
 						expandFeatureGroupConnection(parentci, connInfo, target, dstFi, srcToMatch, dstToMatch);
 					} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP || connInfo.srcToMatch != null) {
 						// we may have a feature group with no FGT or an empty FGT
 						boolean downOnly = !connInfo.isAcross() && !isUpOnly(connInfo, srcFi, dstFi);
 						for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
 							if (downOnly) {
-								if (srcelem.getDirection().incoming()) {
+								if (srcelem.getFlowDirection().incoming()) {
 									expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
 											dstToMatch);
 								}
-							} else if (srcelem.getDirection().outgoing()) {
+							} else if (srcelem.getFlowDirection().outgoing()) {
 								expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
 										dstToMatch);
 							}
@@ -1078,8 +1085,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					} else {
 						// subset matching features by name
 						for (FeatureInstance dst : dstFi.getFeatureInstances()) {
-							if ((connInfo.isAcross() && dst.getDirection().incoming())
-									|| dst.getDirection().outgoing()) {
+							if ((connInfo.isAcross() && dst.getFlowDirection().incoming())
+									|| dst.getFlowDirection().outgoing()) {
 								FeatureInstance src = findFeatureInstance(srcFi, dst.getName());
 								if (src != null) {
 									expandFeatureGroupConnection(parentci, connInfo, src, dst, srcToMatch, dstToMatch);
@@ -1676,14 +1683,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
-		EList<PropertyExpression> vals = conn.getPropertyValues("Modeling_Properties", "Classifier_Matching_Rule");
-		for (PropertyExpression val : vals) {
-			EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) val).getNamedValue();
-			if (enumLit.getName().equalsIgnoreCase("subset")) {
-				return true;
-			}
+		Property property = Aadl2GlobalScopeUtil.get(conn, Aadl2Package.eINSTANCE.getProperty(),
+				"Modeling_Properties::Classifier_Matching_Rule");
+		try {
+			PropertyExpression value = conn.getSimplePropertyValue(property);
+			EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) value).getNamedValue();
+			return enumLit.getName().equalsIgnoreCase("subset");
+		} catch (PropertyNotPresentException e) {
+			return false;
 		}
-		return false;
 	}
 
 	boolean subsetMatch(List<Connection> conns) {

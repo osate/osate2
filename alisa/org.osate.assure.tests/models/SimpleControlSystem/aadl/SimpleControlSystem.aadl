@@ -25,14 +25,6 @@ with Physical;
 			SEI::PowerBudget => 2.5 w applies to power;
 			SEI::WeightLimit => 1.2 kg;
 			Physical::Voltage => 12.0V applies to power;
---		annex emv2 {**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
---				use types ErrorLibrary;
---				use behavior ErrorLibrary::FailStop;
---				error propagations
---					force: out propagation {ServiceOmission};
---					flows
---						es1: error source force if "ModelConditions.isLeafComponent";
---				end propagations;**};
 	end SCS;
 	
 	system SCSDualPower extends SCS
@@ -77,14 +69,28 @@ with Physical;
 	system implementation SCS.tier2 extends SCS.tier1
 		subcomponents
 			dcs: refined to system DCS.singletier2;
---		annex Resolute {**
---		prove allComponentsConnected(this)
---	**};
 	end SCS.tier2;
 
 	system implementation SCS.dualtier2 extends SCS.tier1
 		subcomponents
 			dcs: refined to system DCS.dualtier2;
 	end SCS.dualtier2;
+
+
+
+	system implementation SCS.NestedSensors
+		subcomponents
+			dcs: system DCS;
+			sensors: system  sensors.impl;
+			actuator: device actuator;
+		connections
+			Sensor1Xfer: port sensors.sensorSignal -> dcs.sensor1in;
+			ActuatorCmdXfer: port dcs.actuatorOut -> actuator.actuatorCmd;
+		flows
+			sensortoactuatorresponse: end to end flow sensors.sensorreading -> Sensor1Xfer ->
+					dcs.sensorprocessing -> ActuatorCmdXfer -> actuator.actuatoraction;
+		properties
+			latency => 12 ms .. 50 ms applies to sensortoactuatorresponse;
+	end SCS.NestedSensors;
 
 end SimpleControlSystem;
