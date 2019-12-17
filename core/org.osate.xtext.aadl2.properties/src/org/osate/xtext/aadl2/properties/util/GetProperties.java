@@ -1054,6 +1054,12 @@ public class GetProperties {
 		return getScaledMaxComputeExecutionTimeinMilliSec(threadinstance);
 	}
 
+	public static boolean hasComputeExecutionTime(final NamedElement ne) {
+		final Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
+				TimingProperties.COMPUTE_EXECUTION_TIME);
+		return PropertyUtils.hasPropertyValue(ne, computeExecutionTime);
+	}
+
 	/**
 	 * get max execution time scaled in terms of the processor the thread is
 	 * bound to If it is not bound then return the specified execution time
