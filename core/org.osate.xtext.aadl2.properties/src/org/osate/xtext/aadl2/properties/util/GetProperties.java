@@ -1060,6 +1060,22 @@ public class GetProperties {
 		return PropertyUtils.hasPropertyValue(ne, computeExecutionTime);
 	}
 
+	private static double scaleTime(final double time, final NamedElement ne) {
+		ComponentInstance ci = null;
+		if (ne instanceof FeatureInstance) {
+			ci = ((FeatureInstance) ne).getComponentInstance();
+		} else if (ne instanceof ComponentInstance) {
+			ci = (ComponentInstance) ne;
+		}
+
+		if (ci != null) {
+			double scale = getProcessorScalingFactor(ci);
+			return time * scale;
+		} else {
+			return time;
+		}
+	}
+
 	/**
 	 * get max execution time scaled in terms of the processor the thread is
 	 * bound to If it is not bound then return the specified execution time
@@ -1073,11 +1089,7 @@ public class GetProperties {
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
-		if (ne instanceof ComponentInstance) {
-			double scale = getProcessorScalingFactor((ComponentInstance) ne);
-			return time * scale;
-		}
-		return time;
+		return scaleTime(time, ne);
 	}
 
 	/**
@@ -1093,11 +1105,7 @@ public class GetProperties {
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
 		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
-		if (ne instanceof ComponentInstance) {
-			double scale = getProcessorScalingFactor((ComponentInstance) ne);
-			return time * scale;
-		}
-		return time;
+		return scaleTime(time, ne);
 	}
 
 	/**
@@ -1113,11 +1121,7 @@ public class GetProperties {
 				TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
-		if (ne instanceof ComponentInstance) {
-			double scale = getProcessorScalingFactor((ComponentInstance) ne);
-			return time * scale;
-		}
-		return time;
+		return scaleTime(time, ne);
 	}
 
 	/**
