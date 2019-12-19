@@ -478,7 +478,7 @@
         </foregroundConditionalStyle>
       </intersection>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="UCA-Refinement" domainClass="instance.ComponentInstance">
+    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="UCA-Refinement" titleExpression="service:getUCARefinementTitle()" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
@@ -506,7 +506,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasErrorUCA-Refinement" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement']/@ownedSubLines[name='secondLine']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(lineSemantic, columnSemantic, root, line, column, container)" columnFinderExpression="service:getErrorTypesByConnection()">
+      <intersection name="HasErrorUCA-Refinement" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement']/@ownedSubLines[name='secondLine']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(columnSemantic, line)" columnFinderExpression="service:getErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>

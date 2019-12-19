@@ -9,25 +9,26 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.UsageCrossReferencer;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.table.business.internal.metamodel.spec.DCellSpec;
-import org.eclipse.sirius.table.metamodel.table.DColumn;
 import org.eclipse.sirius.table.metamodel.table.DLine;
+import org.eclipse.sirius.table.metamodel.table.DTable;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.parsesupport.AObject;
+import org.osate.alisa2.model.safe2.Constraint;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -312,16 +313,78 @@ public class Services {
 		return FocusManager.getInstance().isFocused(self);
 	}
 
-	public static String getCauseAndCompensation(EObject self, EObject lineSemantic, EObject columnSemantic,
-			EObject root, DLine line, DColumn column, EObject container) {
-		EClass eClazz = self.eClass();
+	/**
+	 * Used by: UCA-Refinement.HasErrorUCA-Refinement.Label-Label Expression
+	 *
+	 * This computes the "label" for the UCA refinement tables, that is, the cause and compensation.
+	 * Or, if none are found, the lack of documentation is described.
+	 *
+	 * Note that this also overrides the table's title, since the actual title expression doesn't
+	 * have access to the data needed to set a useful title
+	 *
+	 * @param self The connection the errors are being analyzed for, this is used for the lookup
+	 * into the SAFE2 data structure
+	 * @param columnSemantic A reference to the errorType being used for the column, we use this to get
+	 * the information necessary to set a useful title
+	 * @param line A reference to the Sirius line object, this is used to set the table's title
+	 * @return A list of user-specified causes or compensations or the phrase
+	 * "Undocumented error propagation"
+	 */
+	public static String getCauseAndCompensation(EObject self, EObject columnSemantic, DLine line) {
+		final String NO_DOCUMENTATION = "Undocumented error propagation";
+
+		// This finds constraints which reference the current row in the SAFE2 data structure
 		FeatureInstance fi = (FeatureInstance) ((ConnectionInstance) self).getSource();
-		Collection settings = EcoreUtil.UsageCrossReferencer.find(fi, self.eResource().getResourceSet());
-		if (!line.getLines().isEmpty()) {
-			return "Cause: Bad stuff happened.";
-		} else {
-			return "Compensation: Bad stuff should not happen.";
+		CauseAndCompensationFinder cacf = new CauseAndCompensationFinder(self.eResource().getResourceSet());
+		Collection<Setting> relatedConstraints = cacf.findUsage(fi);
+
+		String cause = "";
+		String compensation = "";
+		int i = 1;
+		boolean found;
+		// This grabs the correct cause and constraint for the the connection and sets the return values
+		for (Setting s : relatedConstraints) {
+			found = false;
+			Constraint c = (Constraint) s.getEObject();
+			FeatureInstance hRef = c.getHazard().getSystemElement();
+
+			for (ConnectionReference cr : ((ConnectionInstance) self).getConnectionReferences()) {
+				// Check to see if the system element referred to by the hazard associated with this constraint
+				// is the same component as the destination of the current connection
+				if (hRef == cr.getDestination()) {
+					found = true;
+				}
+			}
+
+			if (found) {
+				cause += String.valueOf(i) + ". " + c.getCause() + "|";
+				compensation += String.valueOf(i++) + ". " + c.getCompensation() + "|";
+			}
 		}
+
+		if (!line.getLines().isEmpty()) {
+			// These lines are what set the title of the table. Note we only set it in the cause, because
+			// line.getContainer() returns the parent line for the compensation rows
+			((DTable) line.getContainer()).setName("UCA-" + ((NamedElement) self.eContainer()).getName() + "-"
+					+ ((ErrorType) getRootErrorType(columnSemantic)).getName());
+			return cause.isEmpty() ? NO_DOCUMENTATION : cause;
+		} else {
+			return compensation.isEmpty() ? NO_DOCUMENTATION : compensation;
+		}
+	}
+
+	/**
+	 * Used by: UCA-Refinement.Advanced-Title Expression
+	 *
+	 * This sets the table's title to a placeholder. The table's title is overridden / actually set as
+	 * part of {@link #getCauseAndCompensation(EObject, EObject, DLine)}, because Sirius won't let me
+	 * pass the necessary parameters to this method.
+	 *
+	 * @param self Unused.
+	 * @return The word "PLACEHOLDER"
+	 */
+	public static String getUCARefinementTitle(EObject self) {
+		return "PLACEHOLDER";
 	}
 
 	public static EObject duplicate(EObject self) {
@@ -329,11 +392,36 @@ public class Services {
 	}
 
 	public static Collection<EObject> debug(EObject self) {
-		return null;// service:getFamilyErrorTypes(containerView)
+		return null;
 	}
 
 	public static boolean debugPrecondition(EObject self) {
 		return true;
+	}
+
+	public static String debugLabel(EObject self) {
+		return "DEBUG";
+	}
+
+	private static class CauseAndCompensationFinder extends UsageCrossReferencer {
+
+		protected CauseAndCompensationFinder(ResourceSet resourceSet) {
+			super(resourceSet);
+		}
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected boolean containment(EObject eObject) {
+			// This restricts the search to SAFE2 objects that point at the feature instance
+			// (as opposed to, eg, sirius or AADL objects)
+			return eObject instanceof org.osate.alisa2.model.safe2.Node;
+		}
+
+		@Override
+		public Collection<Setting> findUsage(EObject eObject) {
+			return super.findUsage(eObject);
+		}
 	}
 
 	/**
