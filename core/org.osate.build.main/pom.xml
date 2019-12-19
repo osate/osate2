@@ -12,8 +12,8 @@
 	<properties>
 		<tycho.version>1.5.1</tycho.version>
 		<tycho-extras.version>1.5.1</tycho-extras.version>
-		<xtext.version>2.19.0</xtext.version>
-		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
+		<xtext.version>2.20.0</xtext.version>
+		<xsemantics.version>1.19.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.7.0-SNAPSHOT</osate.version>
 
@@ -41,7 +41,7 @@
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-12</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
