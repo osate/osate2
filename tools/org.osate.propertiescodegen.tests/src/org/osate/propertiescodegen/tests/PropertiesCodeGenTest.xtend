@@ -90,6 +90,10 @@ class PropertiesCodeGenTest {
 					this.factorToBase = factorToBase;
 				}
 				
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
 				public double getFactorTo(UnitsType1 target) {
 					return factorToBase / target.factorToBase;
 				}
@@ -155,6 +159,10 @@ class PropertiesCodeGenTest {
 					this.factorToBase = factorToBase;
 				}
 				
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
 				public double getFactorTo(Time target) {
 					return factorToBase / target.factorToBase;
 				}
@@ -218,6 +226,10 @@ class PropertiesCodeGenTest {
 					
 					private Units(double factorToBase) {
 						this.factorToBase = factorToBase;
+					}
+					
+					public double getFactorToBase() {
+						return factorToBase;
 					}
 					
 					public double getFactorTo(Units target) {
