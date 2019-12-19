@@ -77,6 +77,10 @@ class PropertiesCodeGen {
 					this.factorToBase = factorToBase;
 				}
 				
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
 				public double getFactorTo(«typeName» target) {
 					return factorToBase / target.factorToBase;
 				}
@@ -133,6 +137,10 @@ class PropertiesCodeGen {
 						
 						private Units(double factorToBase) {
 							this.factorToBase = factorToBase;
+						}
+						
+						public double getFactorToBase() {
+							return factorToBase;
 						}
 						
 						public double getFactorTo(Units target) {
