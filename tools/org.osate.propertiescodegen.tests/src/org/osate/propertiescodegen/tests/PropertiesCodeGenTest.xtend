@@ -80,9 +80,9 @@ class PropertiesCodeGenTest {
 			public enum UnitsType1 {
 				MM(1.0),
 				CM(10.0),
-				M(1000.0),
 				INCH(25.4),
-				FT(304.8);
+				FT(304.8),
+				M(1000.0);
 				
 				private final double factorToBase;
 				

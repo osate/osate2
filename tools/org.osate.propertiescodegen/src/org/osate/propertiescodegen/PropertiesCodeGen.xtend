@@ -57,7 +57,7 @@ class PropertiesCodeGen {
 	
 	def private static GeneratedJava generateUnits(String packageName, UnitsType unitsType) {
 		val typeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
-		val literals = unitsType.ownedLiterals.filter(UnitLiteral).join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
+		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
 		val contents = '''
 			package «packageName»;
 			
@@ -101,7 +101,7 @@ class PropertiesCodeGen {
 	def private static GeneratedJava generateInteger(String packageName, AadlInteger integerType) {
 		val typeName = integerType.name.split("_").map[it.toLowerCase.toFirstUpper].join
 		val contents = if (integerType.ownedUnitsType !== null) {
-			val literals = integerType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
+			val literals = integerType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
 			'''
 				package «packageName»;
 				
