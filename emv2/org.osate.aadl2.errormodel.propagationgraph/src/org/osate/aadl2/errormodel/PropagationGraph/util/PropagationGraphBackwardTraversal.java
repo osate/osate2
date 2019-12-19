@@ -375,8 +375,6 @@ public class PropagationGraphBackwardTraversal {
 				}
 				if (subResults.isEmpty()) {
 					stateResult = processErrorBehaviorState(component, state, type, scale);
-				} else if (subResults.size() == 1) {
-					stateResult = subResults.get(0);
 				} else {
 					stateResult = postProcessXor(component, state, type, BigOne, subResults);
 				}
@@ -548,8 +546,6 @@ public class PropagationGraphBackwardTraversal {
 							}
 							if (subsubResults.isEmpty()) {
 								stateResult = processErrorBehaviorState(component, state, type, inscale);
-							} else if (subsubResults.size() == 1) {
-								stateResult = subsubResults.get(0);
 							} else {
 								stateResult = processTypesetElements(component, state, type, subsubResults,
 										combinedscale);
@@ -721,8 +717,6 @@ public class PropagationGraphBackwardTraversal {
 						if (subResults.isEmpty()) {
 							return processErrorBehaviorState(referencedInstance, EMV2Util.getState(sconditionElement),
 									type, scale);
-						} else if (subResults.size() == 1) {
-							return subResults.get(0);
 						} else {
 							return postProcessXor(component, sconditionElement, type, scale, subResults);
 						}
@@ -753,8 +747,6 @@ public class PropagationGraphBackwardTraversal {
 						if (subResults.isEmpty()) {
 							return processIncomingErrorPropagation(referencedInstance, ep, type,
 									scale);
-						} else if (subResults.size() == 1) {
-							return subResults.get(0);
 						} else {
 							return postProcessXor(component, sconditionElement, type, scale,
 									subResults);
@@ -801,8 +793,6 @@ public class PropagationGraphBackwardTraversal {
 							}
 							if (subResults.isEmpty()) {
 								return null;
-							} else if (subResults.size() == 1) {
-								return subResults.get(0);
 							} else {
 								return postProcessXor(component, conditionElement, type, scale, subResults);
 							}
@@ -847,8 +837,6 @@ public class PropagationGraphBackwardTraversal {
 					}
 					if (subResults.isEmpty()) {
 						return null;
-					} else if (subResults.size() == 1) {
-						return subResults.get(0);
 					} else {
 						return postProcessXor(component, conditionElement, type, scale, subResults);
 					}

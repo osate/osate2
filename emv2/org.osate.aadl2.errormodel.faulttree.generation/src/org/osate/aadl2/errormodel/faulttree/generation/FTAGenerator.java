@@ -963,13 +963,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			TypeToken targetType, List<EObject> subResults, BigDecimal scale) {
-		if (subResults.size() == 1) {
-			Event result = (Event) subResults.get(0);
-			result.setRelatedInstanceObject(component);
-			result.setRelatedEMV2Object(state);
-			result.setRelatedErrorType(targetType);
-			return result;
-		}
 		Event result = finalizeAsOrEvents(component, state, targetType, subResults);
 		if (result == null) {
 			Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, state, targetType);
