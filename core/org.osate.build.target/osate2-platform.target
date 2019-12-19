@@ -93,7 +93,6 @@
       <unit id="org.eclipse.ease.lang.scriptarchive.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.ease.lang.unittest.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.ease.modules.feature.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.ease.modules.modeling.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.ease.ui.feature.feature.group" version="0.0.0"/>
       <repository location="http://download.eclipse.org/ease/update/release"/>
     </location>

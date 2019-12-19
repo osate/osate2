@@ -62,7 +62,6 @@
       <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
       <feature id="org.eclipse.ease.lang.unittest.feature"/>
       <feature id="org.eclipse.ease.modules.feature"/>
-      <feature id="org.eclipse.ease.modules.modeling.feature"/>
       <feature id="org.eclipse.ease.ui.feature"/>
       <feature id="org.py4j.feature"/>
    </features>
