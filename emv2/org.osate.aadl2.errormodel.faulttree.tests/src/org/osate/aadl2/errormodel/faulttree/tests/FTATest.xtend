@@ -1024,8 +1024,26 @@ class FTATest {
 	def void issue2124Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssues21232425, "state undetected_failure")
 		assertEquals(ft.root.subEvents.size,1)
-		val tdd = ft.root.subEvents.get(0)
-		assertEquals((tdd.relatedInstanceObject as NamedElement).name, "error_detect")
+		val ev1 = ft.root.subEvents.get(0)
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "iPCA_Safety.i")
+		assertEquals(ev1.subEvents.size,1)
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedInstanceObject as NamedElement).name, "error_detect")
+	}
+
+	@Test
+	def void issue2123Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssues21232425, "state undetected_failure")
+		assertEquals(ft.events.size, 4)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root.subEvents.get(0)
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "iPCA_Safety.i")
+		assertEquals(ev1.subEvents.size,1)
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedInstanceObject as NamedElement).name, "error_detect")
+		val ev3 = ev2.subEvents.get(0)
+		assertEquals((ev3.relatedInstanceObject as NamedElement).name, "error_detect")
+		assertEquals((ev3.relatedEMV2Object as NamedElement).name, "post_not_detect_failure")
 	}
 
 
