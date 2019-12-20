@@ -550,8 +550,6 @@
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <requirement
-          name="org.eclipse.birt.feature.group"/>
-      <requirement
           name="org.eclipse.emf.compare.ide.ui.feature.group"/>
       <requirement
           name="org.eclipse.emf.compare.egit.feature.group"/>
@@ -770,6 +768,8 @@
             url="http://xtexttools.libutzki.de/"/>
         <repository
             url="https://eclipse.py4j.org"/>
+        <repository
+            url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
       </repositoryList>
     </targlet>
     <description></description>
