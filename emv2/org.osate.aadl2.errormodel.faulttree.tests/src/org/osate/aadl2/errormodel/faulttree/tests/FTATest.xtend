@@ -68,6 +68,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1962
 	var static SystemInstance instanceIssue1961
 	var static SystemInstance instanceIssue1384
+	var static SystemInstance instanceIssues21232425
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -110,6 +111,7 @@ class FTATest {
 	val Issue1961file = "Issue1961.aadl"
 	val Issue1384file = "modeling_file.aadl"
 	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
+	val ErrorStateWithTypesfile = "ErrorStateWithTypes.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -149,7 +151,8 @@ class FTATest {
 			modelroot + Issue1962file,
 			modelroot + Issue1961file,
 			modelroot + Issue1384Errortypesfile,
-			modelroot + Issue1384file
+			modelroot + Issue1384file,
+			modelroot + ErrorStateWithTypesfile
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -183,6 +186,7 @@ class FTATest {
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
+		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -1014,5 +1018,15 @@ class FTATest {
 		val ccus = tdd.subEvents.get(1)
 		assertEquals((ccus.relatedEMV2Object as NamedElement).name, "Failure")
 	}
+
+
+	@Test
+	def void issue2124Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssues21232425, "state undetected_failure")
+		assertEquals(ft.root.subEvents.size,1)
+		val tdd = ft.root.subEvents.get(0)
+		assertEquals((tdd.relatedInstanceObject as NamedElement).name, "error_detect")
+	}
+
 
 }
