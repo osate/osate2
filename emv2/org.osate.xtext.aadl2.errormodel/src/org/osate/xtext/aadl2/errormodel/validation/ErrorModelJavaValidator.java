@@ -311,6 +311,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkTransitionSourceTypes(ebt);
 		checkTransitionTargetTypes(ebt);
 		checkBranches(ebt);
+		checkTransitionTargetTriggerTypes(ebt);
 	}
 
 	@Check(CheckType.FAST)
@@ -912,6 +913,73 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			} else if (!EMV2TypeSetUtil.contains(ebsTS, ebtargetTS)) {
 				error(ebt, "Target type " + EMV2Util.getPrintName(ebt.getTargetToken())
 				+ " is not contained in type set of error behavior state \'" + ebs.getName() + "\'");
+			}
+		}
+	}
+
+	private void checkTransitionTargetTriggerTypes(ErrorBehaviorTransition ebt) {
+		if (ebt.isSteadyState()) {
+			return;
+		}
+		ErrorBehaviorState targetstate = ebt.getTarget();
+		if (targetstate != null) {
+			TypeSet targetTS = targetstate.getTypeSet();
+			if (targetTS == null) {
+				return;
+			}
+			TypeSet tt = ebt.getTargetToken();
+			if (tt != null) {
+				return;
+			}
+			// state requires a type
+			if (ebt.getCondition() instanceof ConditionElement) {
+				// either the event must be typed or the source state must be typed
+				EventOrPropagation ep = EMV2Util.getErrorEventOrPropagation((ConditionElement) ebt.getCondition());
+				if (ep instanceof ErrorEvent) {
+					ErrorEvent ev = (ErrorEvent) ep;
+					TypeSet evTS = ev.getTypeSet();
+					if (evTS == null) {
+						TypeSet srcTS = ebt.getSource().getTypeSet();
+						if (srcTS == null) {
+							error(ebt,
+									"Target state " + targetstate.getName()
+											+ " requires type but the triggering error event "
+											+ EMV2Util.getPrintName(ev) + " or source state "
+											+ EMV2Util.getPrintName(ebt.getSource()) + " does not have a type");
+						} else {
+							// source typeset must be contained in target type set
+							if (!EMV2TypeSetUtil.contains(targetTS, srcTS)) {
+								error(ebt,
+										"Target state " + targetstate.getName()
+												+ " does not contain types of source state "
+												+ EMV2Util.getPrintName(ebt.getSource()));
+							}
+						}
+					} else {
+						// error event has type. It must be consistent with the expected state type
+						if (!EMV2TypeSetUtil.contains(targetTS, evTS)) {
+							error(ebt, "Target state " + targetstate.getName()
+									+ " does not contain types of error event " + EMV2Util.getPrintName(ev));
+						}
+					}
+				} else if (ep instanceof ErrorPropagation) {
+					ErrorPropagation eprop = (ErrorPropagation) ep;
+					// we have an error propagation
+					// we can check type compatibility
+					if (!EMV2TypeSetUtil.contains(targetTS, eprop.getTypeSet())) {
+						error(ebt, "Target state " + targetstate.getName()
+								+ " does not contain types of error propagation " + EMV2Util.getPrintName(eprop));
+					}
+				}
+			} else {
+				// full condition expression
+				// type transformation & events must be typed
+				ErrorBehaviorStateMachine ebsm = (ErrorBehaviorStateMachine) targetstate.eContainer();
+				if (ebsm.getUseTransformation().isEmpty()) {
+					error(ebt, "Target state " + targetstate.getName()
+							+ " does not include a target type but requires types. For conditions on multiple elements a target type must be assigned explicitly or a type transformation must be specified in the error behavior state machine"
+							+ EMV2Util.getPrintName(ebsm));
+				}
 			}
 		}
 	}
