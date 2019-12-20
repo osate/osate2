@@ -649,7 +649,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				if (subEvents.size() == todo.size()) {
 					// all subgates are involved
 					// remove from lower OR and create an OR above top gate
-					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
+					Event newtopevent = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
 							topevent.getRelatedEMV2Object(),
 							(TypeToken) topevent.getRelatedErrorType());
