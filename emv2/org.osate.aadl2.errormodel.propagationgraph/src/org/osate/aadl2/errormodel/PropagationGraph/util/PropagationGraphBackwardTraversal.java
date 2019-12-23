@@ -791,15 +791,28 @@ public class PropagationGraphBackwardTraversal {
 								? mapTokenThroughConstraint(conditionElement.getConstraint(), type)
 								: mapTokenThroughConstraint(((ErrorEvent) errorModelElement).getTypeSet(), type);
 						if (referencedErrorTypes.isEmpty()) {
-							return processErrorEvent(component, (ErrorEvent) errorModelElement, null, scale);
+							if (type == null) {
+								return processErrorEvent(component, (ErrorEvent) errorModelElement, null, scale);
+							} else {
+								return null;
+							}
 						} else {
 							List<EObject> subResults = new LinkedList<EObject>();
-							for (TypeToken et : referencedErrorTypes) {
-								EObject newEvent = processErrorEvent(component, (ErrorEvent) errorModelElement, et,
-										scale);
-								if (newEvent != null) {
-									subResults.add(newEvent);
+							if (type == null) {
+								for (TypeToken et : referencedErrorTypes) {
+									EObject newEvent = processErrorEvent(component, (ErrorEvent) errorModelElement, et,
+											scale);
+									if (newEvent != null) {
+										subResults.add(newEvent);
+									}
 								}
+							} else {
+								if (EMV2TypeSetUtil.contains(referencedErrorTypes, type)) {
+									return processErrorEvent(component, (ErrorEvent) errorModelElement, type, scale);
+								} else {
+									return null;
+								}
+
 							}
 							if (subResults.isEmpty()) {
 								return null;
