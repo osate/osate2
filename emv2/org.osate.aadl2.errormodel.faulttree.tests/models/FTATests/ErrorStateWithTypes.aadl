@@ -73,7 +73,7 @@ device implementation iPCA_Error_Detector.i
   component error behavior
     events
       post_detected_failure : error event {POSTdetectedFault, HWdetectedFault};
-      post_not_detect_failure : error event;
+      post_not_detect_failure : error event{UndetectedFault};
 	  transitions
 	    working -[post_detected_failure]-> failed_detected;   
 	    working -[post_not_detect_failure]-> failed_undetected;   
@@ -83,6 +83,9 @@ device implementation iPCA_Error_Detector.i
 		EMV2::OccurrenceDistribution =>  
 		  [ProbabilityValue => 1.2E-7; Distribution => Fixed;]
 		  applies to post_detected_failure.POSTdetectedFault;
+		EMV2::OccurrenceDistribution =>  
+		  [ProbabilityValue => 1.4E-7; Distribution => Fixed;]
+		  applies to post_detected_failure.HWdetectedFault;
 	--power-on self-test did not detect failure when it should have
 		EMV2::OccurrenceDistribution =>  
 		  [ProbabilityValue => 1.3E-10;	Distribution => Fixed;]
