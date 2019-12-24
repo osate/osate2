@@ -184,7 +184,7 @@ class FTATest {
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
 		instanceIssue1837bis = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl2")
-		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "top.impl")
+		instanceIssue2112 = instanceGenerator(modelroot + Issue1837file, "top.impl")
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
