@@ -1,18 +1,44 @@
 pipeline {
-	agent any
-	stages {
-		stage('Build Pull Request') {
-			steps {
-				withMaven(
-					maven: 'M3',
-					mavenLocalRepo: '.repository',
-					publisherStrategy: 'EXPLICIT'
-				) {
-					wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-						sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
-					}
-				}
-			}
-		}
-	}
+   agent any
+   stages {
+      stage('Build Pull Request') {
+         steps {
+            withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
+               wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+                  sh 'mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Plocal -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false -Dcodecoverage=true -Dspotbugs=true -Dpr.build=true'
+               }
+            }
+         }
+      }
+   }
+   post {
+      always {
+         jacoco execPattern: '**/**.exec', exclusionPattern: '**/ba/**,**/tests/**,**/src-gen/**', classPattern: '**/classes', sourcePattern: '**/src', sourceInclusionPattern: '**/*.java'
+         recordIssues tool: spotBugs(pattern: '**/spotbugsXml.xml', reportEncoding: 'UTF-8'), sourceCodeEncoding: 'UTF-8'
+      }
+      failure {
+         emailext (
+              subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+              body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+               <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+              recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+         )
+      }
+      unstable {
+         emailext (
+              subject: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+              body: """<p>UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+               <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+              recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+         )
+      }
+      fixed {
+         emailext (
+              subject: "FIXED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+              body: """<p>FIXED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+               <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+              recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+         )
+      }
+   }
 }
