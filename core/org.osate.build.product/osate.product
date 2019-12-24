@@ -46,8 +46,8 @@
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="org.osate.dependencies.birt"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
-      <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.equinox.executable"/>
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
