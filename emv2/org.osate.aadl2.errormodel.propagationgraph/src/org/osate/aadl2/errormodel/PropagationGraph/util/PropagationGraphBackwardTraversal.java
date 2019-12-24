@@ -353,7 +353,8 @@ public class PropagationGraphBackwardTraversal {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
-			conditionResult = processCondition(component, opc.getCondition(), type, FaultTreeUtils.BigOne, false);
+			conditionResult = processCondition(component, opc.getCondition(), opc.getCondition() == null ? type : null,
+					FaultTreeUtils.BigOne, false);
 		}
 		ErrorBehaviorState state = opc.getState();
 		if (state != null) {
@@ -527,7 +528,8 @@ public class PropagationGraphBackwardTraversal {
 			combinedscale = inscale.multiply(branchscale);
 			if (!sameState && conditionExpression != null) {
 				// don't include transition staying in same state
-				EObject conditionResult = processCondition(component, conditionExpression, type, combinedscale, false);
+				EObject conditionResult = processCondition(component, conditionExpression,
+						newtypes == null ? type : null, combinedscale, false);
 				// XXX this is the recursive call
 				// do not traverse back in same state
 				// we also do not traverse back if left is allstates.
@@ -1023,7 +1025,7 @@ public class PropagationGraphBackwardTraversal {
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
 			if (cs.getState() == state && (type == null || EMV2TypeSetUtil.contains(cs.getTypedToken(), type))) {
-					EObject res = processCondition(component, cs.getCondition(), type, new BigDecimal(1.0), stateOnly);
+				EObject res = processCondition(component, cs.getCondition(), null, new BigDecimal(1.0), stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
