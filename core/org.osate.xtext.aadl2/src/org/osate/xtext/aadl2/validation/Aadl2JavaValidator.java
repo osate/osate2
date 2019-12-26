@@ -5289,21 +5289,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						|| destination instanceof DataPort || destination instanceof EventDataPort)) {
 			Classifier sourceClassifier;
 			Classifier destinationClassifier;
-			if (source instanceof DataSubcomponent) {
+			final boolean sourceIsSubcomponent = source instanceof DataSubcomponent;
+			final boolean destIsSubcomponent = destination instanceof DataSubcomponent;
+			if (sourceIsSubcomponent) {
 				sourceClassifier = ((DataSubcomponent) source).getAllClassifier();
 			} else {
 				sourceClassifier = ((Feature) source).getAllClassifier();
 			}
-			if (destination instanceof DataSubcomponent) {
+			if (destIsSubcomponent) {
 				destinationClassifier = ((DataSubcomponent) destination).getAllClassifier();
 			} else {
 				destinationClassifier = ((Feature) destination).getAllClassifier();
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning('\'' + source.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+						+ "' to have classifier '"
+						+ destinationClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning('\'' + destination.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
+						+ "' to have classifier '"
+						+ sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
@@ -5851,21 +5857,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (source instanceof ParameterConnectionEnd && destination instanceof ParameterConnectionEnd) {
 			Classifier sourceClassifier;
 			Classifier destinationClassifier;
-			if (source instanceof DataSubcomponent) {
+			final boolean sourceIsSubcomponent = source instanceof DataSubcomponent;
+			final boolean destIsSubcomponent = destination instanceof DataSubcomponent;
+			if (sourceIsSubcomponent) {
 				sourceClassifier = ((DataSubcomponent) source).getAllClassifier();
 			} else {
 				sourceClassifier = ((Feature) source).getAllClassifier();
 			}
-			if (destination instanceof DataSubcomponent) {
+			if (destIsSubcomponent) {
 				destinationClassifier = ((DataSubcomponent) destination).getAllClassifier();
 			} else {
 				destinationClassifier = ((Feature) destination).getAllClassifier();
 			}
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning('\'' + source.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName() + "' to have classifier '"
+						+ destinationClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning('\'' + destination.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'"
+						+ destination.getName() + "' to have classifier '"
+						+ sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
@@ -6319,6 +6330,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			AccessType dstkind = null;
 			Context srcCxt = null;
 			Context dstCxt = null;
+			boolean sourceIsSubcomponent = false;
+			boolean destIsSubcomponent = false;
 			if (source instanceof Access) {
 				sourceClassifier = ((Access) source).getAllClassifier();
 				srckind = ((Access) source).getKind();
@@ -6326,8 +6339,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			} else if (source instanceof Subcomponent) {
 				sourceClassifier = ((Subcomponent) source).getAllClassifier();
 				invert = true;
+				sourceIsSubcomponent = true;
 			} else if (source instanceof SubprogramProxy) {
 				sourceClassifier = ((SubprogramProxy) source).getSubprogramClassifier();
+				sourceIsSubcomponent = true;
 			}
 			if (destination instanceof Access) {
 				dstkind = ((Access) destination).getKind();
@@ -6335,16 +6350,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				dstCxt = connection.getAllDestinationContext();
 			} else if (destination instanceof Subcomponent) {
 				destinationClassifier = ((Subcomponent) destination).getAllClassifier();
+				destIsSubcomponent = true;
 			} else if (destination instanceof SubprogramProxy) {
 				destinationClassifier = ((SubprogramProxy) destination).getSubprogramClassifier();
+				destIsSubcomponent = true;
 			}
 			// now we have the classifier
 
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning('\'' + source.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+						+ "' to have classifier '"
+						+ destinationClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Source());
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning('\'' + destination.getName() + "' is missing a classifier.", connection,
+				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
+						+ "' to have classifier '"
+						+ sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
