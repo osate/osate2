@@ -1711,7 +1711,7 @@ public final class AadlUtil {
 		EList<FeatureInstance> filist = fi.getFeatureInstances();
 		if (filist.isEmpty()) {
 			// feature or feature group without features
-			if (!fi.getDirection().equals(DirectionType.IN)) {
+			if (!fi.getFlowDirection().equals(DirectionType.IN)) {
 				return true;
 			}
 		} else {

@@ -711,7 +711,8 @@ public class PropagationGraphBackwardTraversal {
 							// get incoming type from propagation
 							EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements(referencedErrorType);
 							for (TypeToken typeToken : leaftypes) {
-								EObject newEvent = traverseCompositeErrorState(component, state, typeToken, stateOnly,
+								EObject newEvent = traverseCompositeErrorState(referencedInstance, state, typeToken,
+										stateOnly,
 										scale);
 								if (newEvent != null) {
 									subResults.add(newEvent);
@@ -745,7 +746,8 @@ public class PropagationGraphBackwardTraversal {
 						List<EObject> subResults = new LinkedList<EObject>();
 						for (TypeToken typeToken : leaftypes) {
 							// XXX ErrorType newtype = mapTargetType(typeToken, type);
-							EObject newEvent = traverseIncomingErrorPropagation(component, ep, typeToken, scale);
+							EObject newEvent = traverseIncomingErrorPropagation(referencedInstance, ep, typeToken,
+									scale);
 							if (newEvent != null) {
 								subResults.add(newEvent);
 							}
