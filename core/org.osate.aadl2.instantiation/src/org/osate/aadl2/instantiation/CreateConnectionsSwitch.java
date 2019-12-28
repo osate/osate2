@@ -271,6 +271,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		@SuppressWarnings("unchecked")
 		List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
 		boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
+		// prevFi is used to skip all but the first element in a feature array
+		// TODO inspect index, instead
 		FeatureInstance prevFi = null;
 		for (FeatureInstance featurei : ci.getFeatureInstances()) {
 			if (prevFi == null || !prevFi.getName().equalsIgnoreCase(featurei.getName())) {
@@ -284,11 +286,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					 * ending but the feature has an access feature. (Here we are deliberately ignoring any connections between a port on thread
 					 * and feature of a abstract subcomponent. Such connections are currently legal but seem wrong.)
 					 */
-					final FeatureInfo fInfo = FeatureInfo.init(ci, feature);
+					final FeatureInfo fInfo = FeatureInfo.init(featurei);
 					final boolean isConnectionEndingCategory = isConnectionEndingCategory(cat);
 					final boolean lookInside = hasOutgoingFeatureSubcomponents && (!isConnectionEndingCategory || fInfo.hasAccess());
-					final boolean connectedInside = lookInside ? isConnectionEnd(insideSubConns, feature) : false;
-					final boolean destinationFromInside = lookInside ? isDestination(insideSubConns, feature) : false;
+					final boolean connectedInside = lookInside && isConnectionEnd(insideSubConns, feature);
+					final boolean destinationFromInside = lookInside && isDestination(insideSubConns, feature);
 
 					// first see if mode transitions are triggered by a
 					// doModeTransitionConnections(ci, featurei);
@@ -774,11 +776,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			this.hasFeatureGroup = hasFeatureGroup;
 		}
 
-		public static FeatureInfo init(final ComponentInstance ci, final ConnectionEnd end) {
-			if (end instanceof FeatureGroup) {
-				final FeatureGroup fg = (FeatureGroup) end;
-				final FeatureInstance fgInstance = ci.findFeatureInstance(fg);
-				return init(fgInstance.getFeatureInstances().iterator(), false, false, false, false);
+		public static FeatureInfo init(final FeatureInstance fi) {
+			Feature end = fi.getFeature();
+			if (fi.getFeature() instanceof FeatureGroup) {
+				return init(fi.getFeatureInstances().iterator(), false, false, false, false);
 			} else if (end instanceof Access) {
 				return new FeatureInfo(false, true, false, false, false);
 			} else if (end instanceof Parameter) {
