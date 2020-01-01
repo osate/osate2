@@ -25,6 +25,11 @@ class Issue2032Test {
 	TestHelper<AadlPackage> testHelper
 
 	@Test
+	def void testShortAccessConnections_Cleanup() {
+		test3("ShortAccessConnections.aadl")
+	}
+
+	@Test
 	def void testJustBus_Device_FeatureGroup() {
 		test2("JustBus_device_fg.aadl")
 	}
@@ -379,29 +384,25 @@ class Issue2032Test {
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals(ROOT_INSTANCE, instance.name)
 		
-		// There should be exactly 4 connection instances
+		// There should be exactly 3 connection instances
 		val myP = instance.componentInstances.get(0)
-		assertEquals(4, myP.connectionInstances.size)
+		assertEquals(3, myP.connectionInstances.size)
 		
 		val ci1 = myP.connectionInstances.get(0)
 		val ci2 = myP.connectionInstances.get(1)
 		val ci3 = myP.connectionInstances.get(2)
-		val ci4 = myP.connectionInstances.get(3)
 
 		// The first two should have 1 connection and be the same
 		val connRefs1 = ci1.connectionReferences
-		val connRefs2 = ci2.connectionReferences
 		assertEquals(1, connRefs1.size)
-		assertEquals(1, connRefs2.size)
-		assertEquals(connRefs1.get(0).connection, connRefs2.get(0).connection)
 		
 		// The third and fourth connections should be inverses.
+		val connRefs2 = ci2.connectionReferences
 		val connRefs3 = ci3.connectionReferences
-		val connRefs4 = ci4.connectionReferences
+		assertEquals(2, connRefs2.size)
 		assertEquals(2, connRefs3.size)
-		assertEquals(2, connRefs4.size)
-		assertEquals(connRefs3.get(0).connection, connRefs4.get(1).connection)
-		assertEquals(connRefs4.get(1).connection, connRefs3.get(0).connection)
+		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
+		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
 	}
 		
 	private def void test0(String aadlFile) {
