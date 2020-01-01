@@ -145,9 +145,9 @@ public final class FHAReport {
 		for (ErrorSource errorSource : eslist) {
 			NamedElement ne = errorSource.getSourceModelElement();
 			ErrorBehaviorState failureMode = errorSource.getFailureModeReference();
-			List<EMV2PropertyAssociation> HazardPA = Collections.EMPTY_LIST;
-			List<EMV2PropertyAssociation> Sev = Collections.EMPTY_LIST;
-			List<EMV2PropertyAssociation> Like = Collections.EMPTY_LIST;
+			List<EMV2PropertyAssociation> HazardPA = Collections.emptyList();
+			List<EMV2PropertyAssociation> Sev = Collections.emptyList();
+			List<EMV2PropertyAssociation> Like = Collections.emptyList();
 			TypeSet ts = null;
 			NamedElement target = null;
 			Element localContext = null;
@@ -301,7 +301,7 @@ public final class FHAReport {
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
 						EMV2PropertyAssociation Sev = SevList.isEmpty() ? null : SevList.get(0);
-						EMV2PropertyAssociation Like = SevList.isEmpty() ? null : LikeList.get(0);
+						EMV2PropertyAssociation Like = LikeList.isEmpty() ? null : LikeList.get(0);
 						PropertyExpression severityValue = EMV2Properties.getPropertyValue(Sev);
 						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(Like);
 						if (localContext == null) {

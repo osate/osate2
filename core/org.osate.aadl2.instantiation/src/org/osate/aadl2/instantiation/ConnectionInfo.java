@@ -127,7 +127,7 @@ class ConnectionInfo {
 		if (srcFi != null) {
 			sources.add(srcFi);
 			if (srcFi instanceof FeatureInstance) {
-				DirectionType dir = ((FeatureInstance) srcFi).getDirection();
+				DirectionType dir = ((FeatureInstance) srcFi).getFlowDirection();
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
@@ -143,7 +143,7 @@ class ConnectionInfo {
 		if (dstFi != null) {
 			destinations.add(dstFi);
 			if (dstFi instanceof FeatureInstance) {
-				DirectionType dir = ((FeatureInstance) dstFi).getDirection();
+				DirectionType dir = ((FeatureInstance) dstFi).getFlowDirection();
 
 				bidirectional &= (dir == DirectionType.IN_OUT);
 				if (goingUp) {
