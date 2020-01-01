@@ -1,0 +1,53 @@
+package JustSubprogramGroup_data
+public
+	subprogram sub
+		features
+			f: requires subprogram group access SubGroup;
+	end sub;
+	
+	subprogram group SubGroup
+	end SubGroup;
+	
+	thread T1
+		features
+			shared_subg: provides subprogram group access SubGroup;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			SubG: subprogram group SubGroup;
+		connections
+			sgc1: subprogram group access SubG <-> shared_subg;
+	end T1.impl;
+
+	data D
+		features
+			ext_subg: requires subprogram group access SubGroup;
+	end D;
+
+	data implementation D.impl
+		subcomponents
+			s: subprogram sub;
+		connections
+			cc: subprogram group access ext_subg <-> s.f;
+	end D.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyD: data D.impl;
+		connections
+			sgc2: subprogram group access MyT1.shared_subg <-> MyD.ext_subg;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustSubprogramGroup_data;
