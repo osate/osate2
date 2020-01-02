@@ -40,6 +40,7 @@
 package org.osate.analysis.flows;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -49,6 +50,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -182,19 +184,24 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		double period = GetProperties.getPeriodinMS(componentInstance);
 		double deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
 		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
-		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
-		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
+
+		final boolean isPeriodic = period > 0 && ((InstanceModelUtil.isThread(componentInstance)
+				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
+						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
+								&& !InstanceModelUtil.isTimedComponent(componentInstance)
+								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
+						: true);
+
+//		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
+//		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
+		double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
+		double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
 		 */
 		boolean checkLastImmediate = false;
-		if (period > 0 && ((InstanceModelUtil.isThread(componentInstance)
-				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
-						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
-								&& !InstanceModelUtil.isTimedComponent(componentInstance)
-								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
-						: true)) {
+		if (isPeriodic) {
 			// we have a periodic component that samples
 			if (incomingConnectionFI != null) {
 				// it is not the first component in the ETEF. We need to add sampling latency
@@ -928,4 +935,36 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return ar;
 	}
 
+	private double getExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic, final Function<NamedElement, Double> getExecTime) {
+		/*
+		 * If the flow element is a component instance or if the thread is periodic, we use the thread's
+		 * computation time. Otherwise we try to use the compute execution time from the flow's input feature.
+		 */
+		if (isPeriodic || fei == ci) { // the flow element is a component instance
+			return getExecTime.apply(ci);
+		} else { // the flow element is a FlowSpecificationInstance
+			final FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
+			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
+			if (allInEnd != null) { // we have an input feature
+				final FeatureInstance fi = ci.findFeatureInstance(allInEnd.getFeature());
+				if (GetProperties.hasComputeExecutionTime(fi)) {
+					return getExecTime.apply(fi);
+				}
+			}
+			return getExecTime.apply(ci);
+		}
+	}
+
+	private double getMinExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+				GetProperties::getScaledMinComputeExecutionTimeinMilliSec);
+	}
+
+	private double getMaxExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+				GetProperties::getScaledMaxComputeExecutionTimeinMilliSec);
+	}
 }
