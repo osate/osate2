@@ -230,35 +230,35 @@ class Serializer1Test extends AbstractSerializerTest {
 				system s1_i_Instance : pkg1::s1.i {
 					in out featureGroup fg1 : pkg1::s1:fg1
 					in out featureGroup fg2 : pkg1::s1:fg2 {
-						in out busAccess ba : pkg1::fgt1:ba
-						in out dataAccess da : pkg1::fgt1:da
+						out busAccess ba : pkg1::fgt1:ba
+						out dataAccess da : pkg1::fgt1:da
 						in dataPort dp : pkg1::fgt1:dp
 						in eventDataPort edp : pkg1::fgt1:edp
 						out eventPort ep : pkg1::fgt1:ep
 						in out featureGroup fg1 : pkg1::fgt1:fg1
 						in parameter p : pkg1::fgt1:p
-						in out subprogramAccess subpa : pkg1::fgt1:subpa
-						in out subprogramGroupAccess subpga : pkg1::fgt1:subpga
+						out subprogramAccess subpa : pkg1::fgt1:subpa
+						out subprogramGroupAccess subpga : pkg1::fgt1:subpga
 						in out abstractFeature af : pkg1::fgt1:af
 					}
 					in out abstractFeature af : pkg1::s1:af
-					in out busAccess ba : pkg1::s1:ba
-					in out dataAccess da : pkg1::s1:da
+					out busAccess ba : pkg1::s1:ba
+					out dataAccess da : pkg1::s1:da
 					in dataPort dp : pkg1::s1:dp
-					in out subprogramGroupAccess subpga : pkg1::s1:subpga
-					in out subprogramAccess subpa : pkg1::s1:subpa
+					out subprogramGroupAccess subpga : pkg1::s1:subpga
+					out subprogramAccess subpa : pkg1::s1:subpa
 					out eventPort ep : pkg1::s1:ep
 					in eventDataPort edp : pkg1::s1:edp
 					abstract pkg1::a asub [ 0 ] : pkg1::s1.i:asub {
 						in out featureGroup fg : pkg1::a:fg
 						in out abstractFeature af : pkg1::a:af
-						in out busAccess ba : pkg1::a:ba
-						in out dataAccess da : pkg1::a:da
-						in out subprogramAccess subpa : pkg1::a:subpa
+						out busAccess ba : pkg1::a:ba
+						out dataAccess da : pkg1::a:da
+						out subprogramAccess subpa : pkg1::a:subpa
 						in dataPort dp : pkg1::a:dp
 						out eventPort ep : pkg1::a:ep
 						in eventDataPort edp : pkg1::a:edp
-						in out subprogramGroupAccess subpga : pkg1::a:subpga
+						out subprogramGroupAccess subpga : pkg1::a:subpga
 					}
 					subprogram pkg1::subp subpsub [ 0 ] : pkg1::s1.i:subpsub {
 						in parameter p : pkg1::subp:p
@@ -348,7 +348,7 @@ class Serializer1Test extends AbstractSerializerTest {
 			system s_i_Instance : pkg1::s.i {
 				bus b [ 0 ] : pkg1::s.i:b
 				processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
-					in out busAccess ba : pkg1::p:ba
+					in busAccess ba : pkg1::p:ba
 				}
 				complete accessConnection "b -> psub.ba" : b[0] -> psub[0].ba {
 					b[0] -> psub[0].ba : reverse pkg1::s.i:conn1 in parent
@@ -571,13 +571,13 @@ class Serializer1Test extends AbstractSerializerTest {
 				abstract pkg1::a1 a1sub [ 0 ] : pkg1::top.i:a1sub {
 					in out featureGroup fg1 : pkg1::a1:fg1
 					in out abstractFeature af1 : pkg1::a1:af1
-					in out busAccess ba1 : pkg1::a1:ba1
+					out busAccess ba1 : pkg1::a1:ba1
 					out eventPort ep1 : pkg1::a1:ep1
 				}
 				abstract pkg1::a2 a2sub [ 0 ] : pkg1::top.i:a2sub {
 					in out featureGroup fg2 : pkg1::a2:fg2
 					in out abstractFeature af2 : pkg1::a2:af2
-					in out busAccess ba2 : pkg1::a2:ba2
+					in busAccess ba2 : pkg1::a2:ba2
 					in eventPort ep2 : pkg1::a2:ep2
 				}
 				complete featureGroupConnection "a1sub.fg1 -> a2sub.fg2" : a1sub[0].fg1 -> a2sub[0].fg2 {

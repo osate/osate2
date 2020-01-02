@@ -1,0 +1,53 @@
+package JustData_subprogram
+public
+	data D
+	end D;
+
+	subprogram sub
+		features
+			f: requires data access D;
+	end sub;
+
+	data T1
+		features
+			shared_data: provides data access D;
+	end T1;
+
+	data implementation T1.impl
+		subcomponents
+			myData: data D;
+		connections
+			dc1: data access myData <-> shared_data;
+	end T1.impl;
+
+	subprogram T2
+		features
+			ext_data: requires data access D;
+	end T2;
+
+	subprogram implementation T2.impl
+		subcomponents
+			s: subprogram sub;
+		connections
+			xxx: data access ext_data <-> s.f;
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: data T1.impl;
+			MyT2: subprogram T2.impl;
+		connections
+			dc2: data access MyT1.shared_data <-> MyT2.ext_data;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustData_subprogram;

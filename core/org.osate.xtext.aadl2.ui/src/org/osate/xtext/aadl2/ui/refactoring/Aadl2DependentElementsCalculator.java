@@ -28,8 +28,8 @@ public class Aadl2DependentElementsCalculator extends DefaultDependentElementsCa
 			AadlPackage pkg = EcoreUtil2.getContainerOfType(baseElement, AadlPackage.class);
 			EcoreUtil2.getAllContentsOfType(pkg, ComponentImplementation.class)
 					.stream()
-					.filter((impl) -> impl.getType() == baseElement)
-					.map((impl) -> EcoreUtil.getURI(impl))
+					.filter(impl -> impl.getType() == baseElement)
+					.map(EcoreUtil::getURI)
 					.forEach(dependentElementURIs::add);
 		}
 		if (monitor.isCanceled()) {
