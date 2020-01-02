@@ -1,0 +1,44 @@
+package JustData_thread
+public
+	data D
+	end D;
+
+	thread T1
+		features
+			shared_data: provides data access D;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			myData: data D;
+		connections
+			dc1: data access myData <-> shared_data;
+	end T1.impl;
+
+	thread T2
+		features
+			ext_data: requires data access D;
+	end T2;
+
+	thread implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyT2: thread T2.impl;
+		connections
+			dc2: data access MyT1.shared_data <-> MyT2.ext_data;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustData_thread;
