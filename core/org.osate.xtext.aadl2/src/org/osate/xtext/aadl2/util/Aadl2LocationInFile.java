@@ -79,10 +79,12 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 					while (id instanceof HiddenLeafNode) {
 						id = id.getNextSibling();
 					}
-					nodes.add(id);
-					while (id != endID) {
-						id = id.getNextSibling();
+					if (id != null) {
 						nodes.add(id);
+						while (id != endID) {
+							id = id.getNextSibling();
+							nodes.add(id);
+						}
 					}
 				} else if (typeName) {
 					endID = fullName.getFirstChild();
