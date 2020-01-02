@@ -1,0 +1,44 @@
+package JustVBus_processor
+public
+	virtual bus B
+	end B;
+
+	processor s1
+		features
+			shared_bus: provides virtual bus access B;
+	end s1;
+
+	processor implementation s1.impl
+		subcomponents
+			myBus: virtual bus B;
+		connections
+			bc1: virtual bus access myBus <-> shared_bus;
+	end s1.impl;
+	
+	processor s2
+		features
+			ext_bus: requires virtual bus access B;
+	end s2;
+	
+	processor implementation s2.impl
+	end s2.impl;
+	
+	system MySystem
+	end MySystem;
+	
+	system implementation MySystem.impl
+		subcomponents
+			myS1: processor s1.impl;
+			myS2: processor s2.impl;
+		connections
+			bc2: virtual bus access myS1.shared_bus <-> myS2.ext_bus;
+	end MySystem.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyS: system MySystem.impl;
+	end Root.impl;
+end JustVBus_processor;

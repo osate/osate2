@@ -1,0 +1,77 @@
+package StopAndGo
+public
+    data D
+    end D;
+        
+    subprogram ShareMe
+    end SHareMe;
+    
+    subprogram Sub
+        features
+            p: in parameter D;
+    end sub;
+    
+    abstract A
+        features
+            input: in data port D;
+            output: out data port D;
+    end A;
+    
+    thread T1
+        features
+            output: out data port D;
+    		shared_sub: provides subprogram access ShareMe;
+    end T1;
+    
+    thread implementation T1.i
+    	subcomponents
+    		s: subprogram ShareMe;
+            abs: abstract A;
+            abs2: abstract A;
+    	connections
+    		qq: port abs.output -> abs2.input; -- don't ignore
+    		qqq: port abs2.output -> output; -- ignore
+    		xxx: subprogram access s <-> shared_sub;
+    end T1.i;
+    
+    thread T2
+        features
+            input: in data port D;
+    		provided_sub: requires subprogram access ShareMe;
+    end T2;
+    
+    thread implementation T2.i
+        subcomponents
+            s: subprogram Sub;
+            abs20: abstract A;
+            abs22: abstract A;
+        calls
+            normal: {
+                call1: subprogram s;
+            };
+        connections
+            aa: port abs20.output -> abs22.input; -- don't ignore
+            aaa: port input -> abs20.input;  -- ignore
+            bb: parameter input -> call1.p; -- ignore
+    end T2.i;
+    
+    process p
+    end p;
+    
+    process implementation p.i
+        subcomponents
+            t1: thread t1.i;
+            t2: thread t2.i;
+        connections
+            cc: port t1.output -> t2.input;
+            dd: subprogram access t1.shared_sub <-> t2.provided_sub;
+    end p.i;
+    
+    system Root
+    end Root;
+    
+    system implementation Root.impl
+        subcomponents
+            p: process p.i;
+    end Root.impl;
+end StopAndGo;
