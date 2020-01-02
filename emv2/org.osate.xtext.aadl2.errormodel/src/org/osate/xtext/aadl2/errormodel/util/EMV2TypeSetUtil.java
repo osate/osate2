@@ -293,7 +293,7 @@ public class EMV2TypeSetUtil {
 	 * @param token TypeToken
 	 * @return
 	 */
-	public static boolean contains(List<TypeToken> constraint, TypeToken token) {
+	public static boolean contains(Collection<TypeToken> constraint, TypeToken token) {
 		if (token == null) {
 			return true;
 		}
