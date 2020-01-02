@@ -465,6 +465,11 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
+		new ValidateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();

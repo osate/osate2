@@ -1,0 +1,80 @@
+package StopAndGo_fg
+public
+    data D
+    end D;
+    
+    subprogram ShareMe
+    end SHareMe;
+    
+    subprogram Sub
+        features
+            p: in parameter D;
+    end sub;
+    
+    abstract A
+        features
+            input: in data port D;
+    end A;
+    
+    feature group FG1
+    	features
+    		output: out data port D;
+    		shared_sub: provides subprogram access ShareMe;
+    end FG1;
+    
+    feature group FG2
+    	features
+    		input: in data port D;
+    		provided_sub: requires subprogram access ShareMe;
+    	inverse of FG1
+    end FG2;
+    
+    thread T1
+    	features
+    		fg1: feature group fg1;
+    end T1;
+    
+    thread implementation T1.i
+    	subcomponents
+    		s: subprogram ShareMe;
+  	 	connections
+    		xxx: subprogram access s <-> fg1.shared_sub;
+    end T1.i;
+    
+    thread T2
+        features
+            fg2: feature group fg2;
+    end T2;
+    
+    thread implementation T2.i
+        subcomponents
+            s: subprogram Sub;
+            abs: abstract A;
+        calls
+            normal: {
+                call1: subprogram s;
+            };
+        connections
+            aa: port fg2.input -> abs.input; -- ignored
+            bb: parameter fg2.input -> call1.p; -- ignored
+    end T2.i;
+    
+    process p
+    end p;
+    
+    process implementation p.i
+        subcomponents
+            t1: thread t1.i;
+            t2: thread t2.i;
+        connections
+            cc: feature group t1.fg1 <-> t2.fg2;
+    end p.i;
+    
+    system Root
+    end Root;
+    
+    system implementation Root.impl
+        subcomponents
+            p: process p.i;
+    end Root.impl;
+end StopAndGo;
