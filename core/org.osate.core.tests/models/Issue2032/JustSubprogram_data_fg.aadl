@@ -1,0 +1,55 @@
+package JustSubrogram_data_fg
+public
+	subprogram ComputeAverage
+	end ComputeAverage;
+
+	feature group FG
+		features
+			shared_sub: provides subprogram access ComputeAverage;
+	end FG;
+
+	feature group FG2
+		features
+			ext_sub: requires subprogram access ComputeAverage;
+		inverse of FG
+	end FG2;
+
+	data T1
+		features
+			fg: feature group FG;
+	end T1;
+
+	data implementation T1.impl
+		subcomponents
+			CompAvg: subprogram ComputeAverage;
+		connections
+			ac1: subprogram access CompAvg <-> fg.shared_sub;
+	end T1.impl;
+
+	data T2
+		features
+			fg2: feature group FG2;
+	end T2;
+
+	data implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: data T1.impl;
+			MyT2: data T2.impl;
+		connections
+			ac2: feature group MyT1.fg <-> MyT2.fg2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustSubrogram_data_fg;

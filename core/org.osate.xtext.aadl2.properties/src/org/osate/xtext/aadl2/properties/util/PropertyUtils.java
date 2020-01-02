@@ -65,6 +65,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
@@ -90,7 +91,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal integer property value with no units. Returns a given
-	 * default value if no property value exists. 
+	 * default value if no property value exists.
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -140,7 +141,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal real property value with no units. Returns a given
-	 * default value if no property value exists. 
+	 * default value if no property value exists.
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -219,7 +220,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal string property value. Returns a given
-	 * default value if no property value exists. 
+	 * default value if no property value exists.
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -326,7 +327,7 @@ public class PropertyUtils {
 
 	/**
 	 * Get a non-modal numeric property value scaled to the given unit. Returns
-	 * a given default value if no property value exists. 
+	 * a given default value if no property value exists.
 	 *
 	 * @param ph The property holder from which to retrieve the property value.
 	 * @param pd The property to retrieve.
@@ -877,6 +878,20 @@ public class PropertyUtils {
 			}
 		}
 		return res;
+	}
+
+	/**
+	 * Return whether the given model element has a value for the given property.
+	 */
+	public static boolean hasPropertyValue(final NamedElement ph, final Property pd) {
+		try {
+			final PropertyAcc acc = ph.getPropertyValue(pd);
+			return acc.first() != null;
+		} catch (IllegalStateException | InvalidModelException | PropertyDoesNotApplyToHolderException
+				| IllegalArgumentException e) {
+			// Lookup blows up, so no, there is not a property association for this property
+			return false;
+		}
 	}
 
 	/**
