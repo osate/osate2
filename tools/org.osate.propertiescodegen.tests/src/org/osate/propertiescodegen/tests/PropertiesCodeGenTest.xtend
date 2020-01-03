@@ -36,9 +36,15 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.PropertyExpression;
 			
 			public enum EnumType1 {
-				ONE,
-				TWO,
-				THREE;
+				ONE("one"),
+				TWO("two"),
+				THREE("three");
+				
+				private final String originalName;
+				
+				private EnumType1(String originalName) {
+					this.originalName = originalName;
+				}
 				
 				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
@@ -51,6 +57,11 @@ class PropertiesCodeGenTest {
 					} else {
 						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
 					}
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
 				}
 			}
 		'''
@@ -78,16 +89,18 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.UnitLiteral;
 			
 			public enum UnitsType1 {
-				MM(1.0),
-				CM(10.0),
-				INCH(25.4),
-				FT(304.8),
-				M(1000.0);
+				MM(1.0, "mm"),
+				CM(10.0, "cm"),
+				INCH(25.4, "inch"),
+				FT(304.8, "ft"),
+				M(1000.0, "m");
 				
 				private final double factorToBase;
+				private final String originalName;
 				
-				private UnitsType1(double factorToBase) {
+				private UnitsType1(double factorToBase, String originalName) {
 					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
 				public double getFactorToBase() {
@@ -109,6 +122,11 @@ class PropertiesCodeGenTest {
 					} else {
 						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
 					}
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
 				}
 			}
 		'''
@@ -148,15 +166,17 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.UnitLiteral;
 			
 			public enum Time {
-				SEC(1.0),
-				MIN(60.0),
-				HR(3600.0),
-				DAY(86400.0);
+				SEC(1.0, "sec"),
+				MIN(60.0, "min"),
+				HR(3600.0, "hr"),
+				DAY(86400.0, "day");
 				
 				private final double factorToBase;
+				private final String originalName;
 				
-				private Time(double factorToBase) {
+				private Time(double factorToBase, String originalName) {
 					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
 				public double getFactorToBase() {
@@ -179,6 +199,11 @@ class PropertiesCodeGenTest {
 						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
 					}
 				}
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
 			}
 		'''
 		val integerNoUnits = '''
@@ -195,6 +220,8 @@ class PropertiesCodeGenTest {
 		'''
 		val integerOwnedUnits = '''
 			package ps1;
+			
+			import java.util.Objects;
 			
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.PropertyExpression;
@@ -218,14 +245,16 @@ class PropertiesCodeGenTest {
 				}
 				
 				public enum Units {
-					MM(1.0),
-					CM(10.0),
-					M(1000.0);
+					MM(1.0, "mm"),
+					CM(10.0, "cm"),
+					M(1000.0, "m");
 					
 					private final double factorToBase;
+					private final String originalName;
 					
-					private Units(double factorToBase) {
+					private Units(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
+						this.originalName = originalName;
 					}
 					
 					public double getFactorToBase() {
@@ -235,11 +264,40 @@ class PropertiesCodeGenTest {
 					public double getFactorTo(Units target) {
 						return factorToBase / target.factorToBase;
 					}
+					
+					@Override
+					public String toString() {
+						return originalName;
+					}
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(value, unit);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof IntegerOwnedUnits)) {
+						return false;
+					}
+					IntegerOwnedUnits other = (IntegerOwnedUnits) obj;
+					return value == other.value && unit == other.unit;
+				}
+				
+				@Override
+				public String toString() {
+					return value + unit.toString();
 				}
 			}
 		'''
 		val integerReferencedUnitsLocal = '''
 			package ps1;
+			
+			import java.util.Objects;
 			
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.PropertyExpression;
@@ -261,10 +319,34 @@ class PropertiesCodeGenTest {
 				public Time getUnit() {
 					return unit;
 				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(value, unit);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof IntegerReferencedUnitsLocal)) {
+						return false;
+					}
+					IntegerReferencedUnitsLocal other = (IntegerReferencedUnitsLocal) obj;
+					return value == other.value && unit == other.unit;
+				}
+				
+				@Override
+				public String toString() {
+					return value + unit.toString();
+				}
 			}
 		'''
 		val integerReferencedUnitsOtherFile = '''
 			package ps1;
+			
+			import java.util.Objects;
 			
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.PropertyExpression;
@@ -287,6 +369,28 @@ class PropertiesCodeGenTest {
 				
 				public Mass getUnit() {
 					return unit;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(value, unit);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof IntegerReferencedUnitsOtherFile)) {
+						return false;
+					}
+					IntegerReferencedUnitsOtherFile other = (IntegerReferencedUnitsOtherFile) obj;
+					return value == other.value && unit == other.unit;
+				}
+				
+				@Override
+				public String toString() {
+					return value + unit.toString();
 				}
 			}
 		'''

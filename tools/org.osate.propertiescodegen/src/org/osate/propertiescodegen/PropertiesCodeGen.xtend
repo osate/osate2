@@ -24,7 +24,7 @@ class PropertiesCodeGen {
 	
 	def private static GeneratedJava generateEnum(String packageName, EnumerationType enumType) {
 		val typeName = enumType.name.split("_").map[it.toLowerCase.toFirstUpper].join
-		val literals = enumType.ownedLiterals.join(",\n")[it.name.toUpperCase]
+		val literals = enumType.ownedLiterals.join(",\n")['''«it.name.toUpperCase»("«it.name»")''']
 		val contents = '''
 			package «packageName»;
 			
@@ -38,6 +38,12 @@ class PropertiesCodeGen {
 			public enum «typeName» {
 				«literals»;
 				
+				private final String originalName;
+				
+				private «typeName»(String originalName) {
+					this.originalName = originalName;
+				}
+				
 				public static «typeName» valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof EnumerationLiteral) {
@@ -50,6 +56,11 @@ class PropertiesCodeGen {
 						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
 					}
 				}
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
 			}
 		'''
 		new GeneratedJava(typeName + ".java", contents)
@@ -57,7 +68,7 @@ class PropertiesCodeGen {
 	
 	def private static GeneratedJava generateUnits(String packageName, UnitsType unitsType) {
 		val typeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
-		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
+		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
 		val contents = '''
 			package «packageName»;
 			
@@ -72,9 +83,11 @@ class PropertiesCodeGen {
 				«literals»;
 				
 				private final double factorToBase;
+				private final String originalName;
 				
-				private «typeName»(double factorToBase) {
+				private «typeName»(double factorToBase, String originalName) {
 					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
 				public double getFactorToBase() {
@@ -97,6 +110,11 @@ class PropertiesCodeGen {
 						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
 					}
 				}
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
 			}
 		'''
 		new GeneratedJava(typeName + ".java", contents)
@@ -105,9 +123,11 @@ class PropertiesCodeGen {
 	def private static GeneratedJava generateInteger(String packageName, AadlInteger integerType) {
 		val typeName = integerType.name.split("_").map[it.toLowerCase.toFirstUpper].join
 		val contents = if (integerType.ownedUnitsType !== null) {
-			val literals = integerType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor»)''']
+			val literals = integerType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
 			'''
 				package «packageName»;
+				
+				import java.util.Objects;
 				
 				import org.osate.aadl2.IntegerLiteral;
 				import org.osate.aadl2.PropertyExpression;
@@ -134,9 +154,11 @@ class PropertiesCodeGen {
 						«literals»;
 						
 						private final double factorToBase;
+						private final String originalName;
 						
-						private Units(double factorToBase) {
+						private Units(double factorToBase, String originalName) {
 							this.factorToBase = factorToBase;
+							this.originalName = originalName;
 						}
 						
 						public double getFactorToBase() {
@@ -146,6 +168,33 @@ class PropertiesCodeGen {
 						public double getFactorTo(Units target) {
 							return factorToBase / target.factorToBase;
 						}
+						
+						@Override
+						public String toString() {
+							return originalName;
+						}
+					}
+					
+					@Override
+					public int hashCode() {
+						return Objects.hash(value, unit);
+					}
+					
+					@Override
+					public boolean equals(Object obj) {
+						if (this == obj) {
+							return true;
+						}
+						if (!(obj instanceof «typeName»)) {
+							return false;
+						}
+						«typeName» other = («typeName») obj;
+						return value == other.value && unit == other.unit;
+					}
+					
+					@Override
+					public String toString() {
+						return value + unit.toString();
 					}
 				}
 			'''
@@ -155,6 +204,8 @@ class PropertiesCodeGen {
 			if (unitsType.eContainer == integerType.eContainer) {
 				'''
 					package «packageName»;
+					
+					import java.util.Objects;
 					
 					import org.osate.aadl2.IntegerLiteral;
 					import org.osate.aadl2.PropertyExpression;
@@ -176,12 +227,36 @@ class PropertiesCodeGen {
 						public «unitsTypeName» getUnit() {
 							return unit;
 						}
+						
+						@Override
+						public int hashCode() {
+							return Objects.hash(value, unit);
+						}
+						
+						@Override
+						public boolean equals(Object obj) {
+							if (this == obj) {
+								return true;
+							}
+							if (!(obj instanceof «typeName»)) {
+								return false;
+							}
+							«typeName» other = («typeName») obj;
+							return value == other.value && unit == other.unit;
+						}
+						
+						@Override
+						public String toString() {
+							return value + unit.toString();
+						}
 					}
 				'''
 			} else {
 				val unitsPackageName = unitsType.getContainerOfType(PropertySet).name.toLowerCase
 				'''
 					package «packageName»;
+					
+					import java.util.Objects;
 					
 					import org.osate.aadl2.IntegerLiteral;
 					import org.osate.aadl2.PropertyExpression;
@@ -204,6 +279,28 @@ class PropertiesCodeGen {
 						
 						public «unitsTypeName» getUnit() {
 							return unit;
+						}
+						
+						@Override
+						public int hashCode() {
+							return Objects.hash(value, unit);
+						}
+						
+						@Override
+						public boolean equals(Object obj) {
+							if (this == obj) {
+								return true;
+							}
+							if (!(obj instanceof «typeName»)) {
+								return false;
+							}
+							«typeName» other = («typeName») obj;
+							return value == other.value && unit == other.unit;
+						}
+						
+						@Override
+						public String toString() {
+							return value + unit.toString();
 						}
 					}
 				'''
