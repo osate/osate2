@@ -1,0 +1,55 @@
+package JustSubprogramGroup_thread_fg
+public
+	subprogram group SubGroup
+	end SubGroup;
+	
+	feature group FG
+		features
+			shared_subg: provides subprogram group access SubGroup;
+	end FG;
+
+	feature group FG2
+		features
+			ext_subg: requires subprogram group access SubGroup;
+		inverse of FG
+	end FG2;
+
+	thread T1
+		features
+			fg: feature group FG;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			SubG: subprogram group SubGroup;
+		connections
+			sgc1: subprogram group access SubG <-> fg.shared_subg;
+	end T1.impl;
+
+	thread T2
+		features
+			fg2: feature group FG2;
+	end T2;
+
+	thread implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyT2: thread T2.impl;
+		connections
+			sgc2: feature group MyT1.fg <-> MyT2.fg2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustSubprogramGroup_thread_fg;
