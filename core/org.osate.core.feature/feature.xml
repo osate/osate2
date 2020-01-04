@@ -104,8 +104,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.eclipse.ui.ide" version="3.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.compare" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtend"/>
-      <import plugin="org.eclipse.xpand" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.common.types.ui"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
       <import plugin="org.eclipse.jdt.core" version="3.13.0" match="greaterOrEqual"/>
