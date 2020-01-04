@@ -29,6 +29,9 @@
       <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
+      <repository location="http://download.eclipse.org/releases/2019-12"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.birt.chart.engine.extension" version="0.0.0"/>
       <unit id="org.eclipse.birt.chart.engine" version="0.0.0"/>
       <unit id="org.eclipse.birt.chart.reportitem" version="0.0.0"/>
@@ -62,7 +65,7 @@
       <unit id="org.eclipse.birt.report.item.crosstab.core" version="0.0.0"/>
       <unit id="org.eclipse.birt.report.model" version="0.0.0"/>
       <unit id="uk.co.spudsoft.birt.emitters.excel" version="0.0.0"/>
-      <repository location="http://download.eclipse.org/releases/2019-12"/>
+      <repository location="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.xtext.redist.feature.group" version="0.0.0"/>
