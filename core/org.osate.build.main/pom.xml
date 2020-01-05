@@ -430,9 +430,6 @@
 				<configuration>
 					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
 					<resolver>p2</resolver>
-					<dependency-resolution>
-						<optionalDependencies>ignore</optionalDependencies>
-					</dependency-resolution>
 					<target>
 						<artifact>
 							<groupId>org.osate</groupId>
