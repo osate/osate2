@@ -39,6 +39,7 @@
  */
 package org.osate.analysis.flows;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -406,7 +407,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
 		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
 
-		Classifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
 		ComponentInstance componentInstanceSource = InstanceModelUtil.getRelatedComponentSource(connectionInstance);
 		ComponentInstance componentInstanceDestination = InstanceModelUtil
 				.getRelatedComponentDestination(connectionInstance);
@@ -448,6 +448,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				report.isMajorFrameDelay());
 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
+		Classifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
 		processActualConnectionBindingsTransmission(connectionInstance,
 				relatedConnectionData == null ? 0.0 : GetProperties.getDataSizeInBytes(relatedConnectionData),
 				latencyContributor);
@@ -726,6 +727,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				samplingLatencyContributor.setSamplingPeriod(period);
 
 				latencyContributor.addSubContributor(samplingLatencyContributor);
+			} else {
+				/*
+				 * If the bus has a transmission time, then we use that to find the all the actual transmission times
+				 * for the *other* connections on the bus, and we add them up. This is the worst case time we have
+				 * to wait to get access to the bus.
+				 *
+				 * (1) Get the list of other connection instances bound to the same bus
+				 * (2) Get the transmission time for those instances (needs the data size, which is computed recursively along the binding)
+				 * (3) min sampling time is 0
+				 * (4) max sampling time is sum of the transmission times
+				 *
+				 * TODO
+				 */
 			}
 		}
 	}
@@ -966,5 +980,21 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final boolean isPeriodic) {
 		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
 				GetProperties::getScaledMaxComputeExecutionTimeinMilliSec);
+	}
+
+	private List<ConnectionInstance> getOtherBoundConnections(final ComponentInstance bus, final ConnectionInstance notThisOne) {
+		final List<ConnectionInstance> boundCIs = new ArrayList<>();
+		for (final ConnectionInstance ci : notThisOne.getSystemInstance().getConnectionInstances()) {
+			if (ci != notThisOne) {
+				final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
+				for (final ComponentInstance componentInstance : bindings) {
+					if (componentInstance.equals(bus)) {
+						boundCIs.add(ci);
+						break;
+					}
+				}
+			}
+		}
+		return boundCIs;
 	}
 }
