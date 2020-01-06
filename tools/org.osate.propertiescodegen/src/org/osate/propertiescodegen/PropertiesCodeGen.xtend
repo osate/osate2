@@ -44,7 +44,7 @@ class PropertiesCodeGen {
 					this.originalName = originalName;
 				}
 				
-				public static «typeName» valueOf(PropertyExpression propertyExpression) {
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof EnumerationLiteral) {
 						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
@@ -98,7 +98,7 @@ class PropertiesCodeGen {
 					return factorToBase / target.factorToBase;
 				}
 				
-				public static «typeName» valueOf(PropertyExpression propertyExpression) {
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof UnitLiteral) {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
@@ -136,10 +136,14 @@ class PropertiesCodeGen {
 					private final long value;
 					private final Units unit;
 					
-					public «typeName»(PropertyExpression propertyExpression) {
+					private «typeName»(PropertyExpression propertyExpression) {
 						IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 						value = integerLiteral.getValue();
 						unit = Units.valueOf(integerLiteral.getUnit().getName().toUpperCase());
+					}
+					
+					public static «typeName» getValue(PropertyExpression propertyExpression) {
+						return new «typeName»(propertyExpression);
 					}
 					
 					public long getValue() {
@@ -214,10 +218,14 @@ class PropertiesCodeGen {
 						private final long value;
 						private final «unitsTypeName» unit;
 						
-						public «typeName»(PropertyExpression propertyExpression) {
+						private «typeName»(PropertyExpression propertyExpression) {
 							IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 							value = integerLiteral.getValue();
 							unit = «unitsTypeName».valueOf(integerLiteral.getUnit().getName().toUpperCase());
+						}
+						
+						public static «typeName» getValue(PropertyExpression propertyExpression) {
+							return new «typeName»(propertyExpression);
 						}
 						
 						public long getValue() {
@@ -267,10 +275,14 @@ class PropertiesCodeGen {
 						private final long value;
 						private final «unitsTypeName» unit;
 						
-						public «typeName»(PropertyExpression propertyExpression) {
+						private «typeName»(PropertyExpression propertyExpression) {
 							IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 							value = integerLiteral.getValue();
 							unit = «unitsTypeName».valueOf(integerLiteral.getUnit().getName().toUpperCase());
+						}
+						
+						public static «typeName» getValue(PropertyExpression propertyExpression) {
+							return new «typeName»(propertyExpression);
 						}
 						
 						public long getValue() {
