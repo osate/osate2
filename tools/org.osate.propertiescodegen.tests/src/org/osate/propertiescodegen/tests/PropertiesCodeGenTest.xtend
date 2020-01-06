@@ -46,7 +46,7 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
+				public static EnumType1 getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof EnumerationLiteral) {
 						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
@@ -111,7 +111,7 @@ class PropertiesCodeGenTest {
 					return factorToBase / target.factorToBase;
 				}
 				
-				public static UnitsType1 valueOf(PropertyExpression propertyExpression) {
+				public static UnitsType1 getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof UnitLiteral) {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
@@ -187,7 +187,7 @@ class PropertiesCodeGenTest {
 					return factorToBase / target.factorToBase;
 				}
 				
-				public static Time valueOf(PropertyExpression propertyExpression) {
+				public static Time getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					if (abstractNamedValue instanceof UnitLiteral) {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
@@ -230,10 +230,14 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Units unit;
 				
-				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
+				private IntegerOwnedUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 					value = integerLiteral.getValue();
 					unit = Units.valueOf(integerLiteral.getUnit().getName().toUpperCase());
+				}
+				
+				public static IntegerOwnedUnits getValue(PropertyExpression propertyExpression) {
+					return new IntegerOwnedUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -306,10 +310,14 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Time unit;
 				
-				public IntegerReferencedUnitsLocal(PropertyExpression propertyExpression) {
+				private IntegerReferencedUnitsLocal(PropertyExpression propertyExpression) {
 					IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 					value = integerLiteral.getValue();
 					unit = Time.valueOf(integerLiteral.getUnit().getName().toUpperCase());
+				}
+				
+				public static IntegerReferencedUnitsLocal getValue(PropertyExpression propertyExpression) {
+					return new IntegerReferencedUnitsLocal(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -357,10 +365,14 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Mass unit;
 				
-				public IntegerReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
+				private IntegerReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
 					IntegerLiteral integerLiteral = (IntegerLiteral) propertyExpression;
 					value = integerLiteral.getValue();
 					unit = Mass.valueOf(integerLiteral.getUnit().getName().toUpperCase());
+				}
+				
+				public static IntegerReferencedUnitsOtherFile getValue(PropertyExpression propertyExpression) {
+					return new IntegerReferencedUnitsOtherFile(propertyExpression);
 				}
 				
 				public long getValue() {
