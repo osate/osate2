@@ -23,19 +23,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 @SuppressWarnings("all")
 public class InternalCategoriesParser extends AbstractInternalContentAssistParser {
@@ -106,11 +114,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCategoriesDefinitions"
-    // InternalCategoriesParser.g:80:1: entryRuleCategoriesDefinitions : ruleCategoriesDefinitions EOF ;
+    // InternalCategoriesParser.g:88:1: entryRuleCategoriesDefinitions : ruleCategoriesDefinitions EOF ;
     public final void entryRuleCategoriesDefinitions() throws RecognitionException {
         try {
-            // InternalCategoriesParser.g:81:1: ( ruleCategoriesDefinitions EOF )
-            // InternalCategoriesParser.g:82:1: ruleCategoriesDefinitions EOF
+            // InternalCategoriesParser.g:89:1: ( ruleCategoriesDefinitions EOF )
+            // InternalCategoriesParser.g:90:1: ruleCategoriesDefinitions EOF
             {
              before(grammarAccess.getCategoriesDefinitionsRule()); 
             pushFollow(FOLLOW_1);
@@ -136,21 +144,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCategoriesDefinitions"
-    // InternalCategoriesParser.g:89:1: ruleCategoriesDefinitions : ( ( rule__CategoriesDefinitions__Group__0 ) ) ;
+    // InternalCategoriesParser.g:97:1: ruleCategoriesDefinitions : ( ( rule__CategoriesDefinitions__Group__0 ) ) ;
     public final void ruleCategoriesDefinitions() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:93:5: ( ( ( rule__CategoriesDefinitions__Group__0 ) ) )
-            // InternalCategoriesParser.g:94:1: ( ( rule__CategoriesDefinitions__Group__0 ) )
+            // InternalCategoriesParser.g:101:5: ( ( ( rule__CategoriesDefinitions__Group__0 ) ) )
+            // InternalCategoriesParser.g:102:1: ( ( rule__CategoriesDefinitions__Group__0 ) )
             {
-            // InternalCategoriesParser.g:94:1: ( ( rule__CategoriesDefinitions__Group__0 ) )
-            // InternalCategoriesParser.g:95:1: ( rule__CategoriesDefinitions__Group__0 )
+            // InternalCategoriesParser.g:102:1: ( ( rule__CategoriesDefinitions__Group__0 ) )
+            // InternalCategoriesParser.g:103:1: ( rule__CategoriesDefinitions__Group__0 )
             {
              before(grammarAccess.getCategoriesDefinitionsAccess().getGroup()); 
-            // InternalCategoriesParser.g:96:1: ( rule__CategoriesDefinitions__Group__0 )
-            // InternalCategoriesParser.g:96:2: rule__CategoriesDefinitions__Group__0
+            // InternalCategoriesParser.g:104:1: ( rule__CategoriesDefinitions__Group__0 )
+            // InternalCategoriesParser.g:104:2: rule__CategoriesDefinitions__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__CategoriesDefinitions__Group__0();
@@ -183,11 +191,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCategories"
-    // InternalCategoriesParser.g:108:1: entryRuleCategories : ruleCategories EOF ;
+    // InternalCategoriesParser.g:116:1: entryRuleCategories : ruleCategories EOF ;
     public final void entryRuleCategories() throws RecognitionException {
         try {
-            // InternalCategoriesParser.g:109:1: ( ruleCategories EOF )
-            // InternalCategoriesParser.g:110:1: ruleCategories EOF
+            // InternalCategoriesParser.g:117:1: ( ruleCategories EOF )
+            // InternalCategoriesParser.g:118:1: ruleCategories EOF
             {
              before(grammarAccess.getCategoriesRule()); 
             pushFollow(FOLLOW_1);
@@ -213,21 +221,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCategories"
-    // InternalCategoriesParser.g:117:1: ruleCategories : ( ( rule__Categories__Group__0 ) ) ;
+    // InternalCategoriesParser.g:125:1: ruleCategories : ( ( rule__Categories__Group__0 ) ) ;
     public final void ruleCategories() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:121:5: ( ( ( rule__Categories__Group__0 ) ) )
-            // InternalCategoriesParser.g:122:1: ( ( rule__Categories__Group__0 ) )
+            // InternalCategoriesParser.g:129:5: ( ( ( rule__Categories__Group__0 ) ) )
+            // InternalCategoriesParser.g:130:1: ( ( rule__Categories__Group__0 ) )
             {
-            // InternalCategoriesParser.g:122:1: ( ( rule__Categories__Group__0 ) )
-            // InternalCategoriesParser.g:123:1: ( rule__Categories__Group__0 )
+            // InternalCategoriesParser.g:130:1: ( ( rule__Categories__Group__0 ) )
+            // InternalCategoriesParser.g:131:1: ( rule__Categories__Group__0 )
             {
              before(grammarAccess.getCategoriesAccess().getGroup()); 
-            // InternalCategoriesParser.g:124:1: ( rule__Categories__Group__0 )
-            // InternalCategoriesParser.g:124:2: rule__Categories__Group__0
+            // InternalCategoriesParser.g:132:1: ( rule__Categories__Group__0 )
+            // InternalCategoriesParser.g:132:2: rule__Categories__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__Categories__Group__0();
@@ -260,11 +268,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCategory"
-    // InternalCategoriesParser.g:136:1: entryRuleCategory : ruleCategory EOF ;
+    // InternalCategoriesParser.g:144:1: entryRuleCategory : ruleCategory EOF ;
     public final void entryRuleCategory() throws RecognitionException {
         try {
-            // InternalCategoriesParser.g:137:1: ( ruleCategory EOF )
-            // InternalCategoriesParser.g:138:1: ruleCategory EOF
+            // InternalCategoriesParser.g:145:1: ( ruleCategory EOF )
+            // InternalCategoriesParser.g:146:1: ruleCategory EOF
             {
              before(grammarAccess.getCategoryRule()); 
             pushFollow(FOLLOW_1);
@@ -290,21 +298,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCategory"
-    // InternalCategoriesParser.g:145:1: ruleCategory : ( ( rule__Category__NameAssignment ) ) ;
+    // InternalCategoriesParser.g:153:1: ruleCategory : ( ( rule__Category__NameAssignment ) ) ;
     public final void ruleCategory() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:149:5: ( ( ( rule__Category__NameAssignment ) ) )
-            // InternalCategoriesParser.g:150:1: ( ( rule__Category__NameAssignment ) )
+            // InternalCategoriesParser.g:157:5: ( ( ( rule__Category__NameAssignment ) ) )
+            // InternalCategoriesParser.g:158:1: ( ( rule__Category__NameAssignment ) )
             {
-            // InternalCategoriesParser.g:150:1: ( ( rule__Category__NameAssignment ) )
-            // InternalCategoriesParser.g:151:1: ( rule__Category__NameAssignment )
+            // InternalCategoriesParser.g:158:1: ( ( rule__Category__NameAssignment ) )
+            // InternalCategoriesParser.g:159:1: ( rule__Category__NameAssignment )
             {
              before(grammarAccess.getCategoryAccess().getNameAssignment()); 
-            // InternalCategoriesParser.g:152:1: ( rule__Category__NameAssignment )
-            // InternalCategoriesParser.g:152:2: rule__Category__NameAssignment
+            // InternalCategoriesParser.g:160:1: ( rule__Category__NameAssignment )
+            // InternalCategoriesParser.g:160:2: rule__Category__NameAssignment
             {
             pushFollow(FOLLOW_2);
             rule__Category__NameAssignment();
@@ -337,11 +345,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCategoryFilter"
-    // InternalCategoriesParser.g:164:1: entryRuleCategoryFilter : ruleCategoryFilter EOF ;
+    // InternalCategoriesParser.g:172:1: entryRuleCategoryFilter : ruleCategoryFilter EOF ;
     public final void entryRuleCategoryFilter() throws RecognitionException {
         try {
-            // InternalCategoriesParser.g:165:1: ( ruleCategoryFilter EOF )
-            // InternalCategoriesParser.g:166:1: ruleCategoryFilter EOF
+            // InternalCategoriesParser.g:173:1: ( ruleCategoryFilter EOF )
+            // InternalCategoriesParser.g:174:1: ruleCategoryFilter EOF
             {
              before(grammarAccess.getCategoryFilterRule()); 
             pushFollow(FOLLOW_1);
@@ -367,21 +375,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCategoryFilter"
-    // InternalCategoriesParser.g:173:1: ruleCategoryFilter : ( ( rule__CategoryFilter__Group__0 ) ) ;
+    // InternalCategoriesParser.g:181:1: ruleCategoryFilter : ( ( rule__CategoryFilter__Group__0 ) ) ;
     public final void ruleCategoryFilter() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:177:5: ( ( ( rule__CategoryFilter__Group__0 ) ) )
-            // InternalCategoriesParser.g:178:1: ( ( rule__CategoryFilter__Group__0 ) )
+            // InternalCategoriesParser.g:185:5: ( ( ( rule__CategoryFilter__Group__0 ) ) )
+            // InternalCategoriesParser.g:186:1: ( ( rule__CategoryFilter__Group__0 ) )
             {
-            // InternalCategoriesParser.g:178:1: ( ( rule__CategoryFilter__Group__0 ) )
-            // InternalCategoriesParser.g:179:1: ( rule__CategoryFilter__Group__0 )
+            // InternalCategoriesParser.g:186:1: ( ( rule__CategoryFilter__Group__0 ) )
+            // InternalCategoriesParser.g:187:1: ( rule__CategoryFilter__Group__0 )
             {
              before(grammarAccess.getCategoryFilterAccess().getGroup()); 
-            // InternalCategoriesParser.g:180:1: ( rule__CategoryFilter__Group__0 )
-            // InternalCategoriesParser.g:180:2: rule__CategoryFilter__Group__0
+            // InternalCategoriesParser.g:188:1: ( rule__CategoryFilter__Group__0 )
+            // InternalCategoriesParser.g:188:2: rule__CategoryFilter__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__CategoryFilter__Group__0();
@@ -414,11 +422,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "entryRuleCatRef"
-    // InternalCategoriesParser.g:192:1: entryRuleCatRef : ruleCatRef EOF ;
+    // InternalCategoriesParser.g:200:1: entryRuleCatRef : ruleCatRef EOF ;
     public final void entryRuleCatRef() throws RecognitionException {
         try {
-            // InternalCategoriesParser.g:193:1: ( ruleCatRef EOF )
-            // InternalCategoriesParser.g:194:1: ruleCatRef EOF
+            // InternalCategoriesParser.g:201:1: ( ruleCatRef EOF )
+            // InternalCategoriesParser.g:202:1: ruleCatRef EOF
             {
              before(grammarAccess.getCatRefRule()); 
             pushFollow(FOLLOW_1);
@@ -444,21 +452,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "ruleCatRef"
-    // InternalCategoriesParser.g:201:1: ruleCatRef : ( ( rule__CatRef__Group__0 ) ) ;
+    // InternalCategoriesParser.g:209:1: ruleCatRef : ( ( rule__CatRef__Group__0 ) ) ;
     public final void ruleCatRef() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:205:5: ( ( ( rule__CatRef__Group__0 ) ) )
-            // InternalCategoriesParser.g:206:1: ( ( rule__CatRef__Group__0 ) )
+            // InternalCategoriesParser.g:213:5: ( ( ( rule__CatRef__Group__0 ) ) )
+            // InternalCategoriesParser.g:214:1: ( ( rule__CatRef__Group__0 ) )
             {
-            // InternalCategoriesParser.g:206:1: ( ( rule__CatRef__Group__0 ) )
-            // InternalCategoriesParser.g:207:1: ( rule__CatRef__Group__0 )
+            // InternalCategoriesParser.g:214:1: ( ( rule__CatRef__Group__0 ) )
+            // InternalCategoriesParser.g:215:1: ( rule__CatRef__Group__0 )
             {
              before(grammarAccess.getCatRefAccess().getGroup()); 
-            // InternalCategoriesParser.g:208:1: ( rule__CatRef__Group__0 )
-            // InternalCategoriesParser.g:208:2: rule__CatRef__Group__0
+            // InternalCategoriesParser.g:216:1: ( rule__CatRef__Group__0 )
+            // InternalCategoriesParser.g:216:2: rule__CatRef__Group__0
             {
             pushFollow(FOLLOW_2);
             rule__CatRef__Group__0();
@@ -491,14 +499,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__Group__0"
-    // InternalCategoriesParser.g:222:1: rule__CategoriesDefinitions__Group__0 : rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1 ;
+    // InternalCategoriesParser.g:230:1: rule__CategoriesDefinitions__Group__0 : rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1 ;
     public final void rule__CategoriesDefinitions__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:226:1: ( rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1 )
-            // InternalCategoriesParser.g:227:2: rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1
+            // InternalCategoriesParser.g:234:1: ( rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1 )
+            // InternalCategoriesParser.g:235:2: rule__CategoriesDefinitions__Group__0__Impl rule__CategoriesDefinitions__Group__1
             {
             pushFollow(FOLLOW_3);
             rule__CategoriesDefinitions__Group__0__Impl();
@@ -529,20 +537,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__Group__0__Impl"
-    // InternalCategoriesParser.g:234:1: rule__CategoriesDefinitions__Group__0__Impl : ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* ) ;
+    // InternalCategoriesParser.g:242:1: rule__CategoriesDefinitions__Group__0__Impl : ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* ) ;
     public final void rule__CategoriesDefinitions__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:238:1: ( ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* ) )
-            // InternalCategoriesParser.g:239:1: ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* )
+            // InternalCategoriesParser.g:246:1: ( ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* ) )
+            // InternalCategoriesParser.g:247:1: ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* )
             {
-            // InternalCategoriesParser.g:239:1: ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* )
-            // InternalCategoriesParser.g:240:1: ( rule__CategoriesDefinitions__CategoriesAssignment_0 )*
+            // InternalCategoriesParser.g:247:1: ( ( rule__CategoriesDefinitions__CategoriesAssignment_0 )* )
+            // InternalCategoriesParser.g:248:1: ( rule__CategoriesDefinitions__CategoriesAssignment_0 )*
             {
              before(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesAssignment_0()); 
-            // InternalCategoriesParser.g:241:1: ( rule__CategoriesDefinitions__CategoriesAssignment_0 )*
+            // InternalCategoriesParser.g:249:1: ( rule__CategoriesDefinitions__CategoriesAssignment_0 )*
             loop1:
             do {
                 int alt1=2;
@@ -555,7 +563,7 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalCategoriesParser.g:241:2: rule__CategoriesDefinitions__CategoriesAssignment_0
+            	    // InternalCategoriesParser.g:249:2: rule__CategoriesDefinitions__CategoriesAssignment_0
             	    {
             	    pushFollow(FOLLOW_4);
             	    rule__CategoriesDefinitions__CategoriesAssignment_0();
@@ -594,14 +602,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__Group__1"
-    // InternalCategoriesParser.g:251:1: rule__CategoriesDefinitions__Group__1 : rule__CategoriesDefinitions__Group__1__Impl ;
+    // InternalCategoriesParser.g:259:1: rule__CategoriesDefinitions__Group__1 : rule__CategoriesDefinitions__Group__1__Impl ;
     public final void rule__CategoriesDefinitions__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:255:1: ( rule__CategoriesDefinitions__Group__1__Impl )
-            // InternalCategoriesParser.g:256:2: rule__CategoriesDefinitions__Group__1__Impl
+            // InternalCategoriesParser.g:263:1: ( rule__CategoriesDefinitions__Group__1__Impl )
+            // InternalCategoriesParser.g:264:2: rule__CategoriesDefinitions__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CategoriesDefinitions__Group__1__Impl();
@@ -627,20 +635,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__Group__1__Impl"
-    // InternalCategoriesParser.g:262:1: rule__CategoriesDefinitions__Group__1__Impl : ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* ) ;
+    // InternalCategoriesParser.g:270:1: rule__CategoriesDefinitions__Group__1__Impl : ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* ) ;
     public final void rule__CategoriesDefinitions__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:266:1: ( ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* ) )
-            // InternalCategoriesParser.g:267:1: ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* )
+            // InternalCategoriesParser.g:274:1: ( ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* ) )
+            // InternalCategoriesParser.g:275:1: ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* )
             {
-            // InternalCategoriesParser.g:267:1: ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* )
-            // InternalCategoriesParser.g:268:1: ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )*
+            // InternalCategoriesParser.g:275:1: ( ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )* )
+            // InternalCategoriesParser.g:276:1: ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )*
             {
              before(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersAssignment_1()); 
-            // InternalCategoriesParser.g:269:1: ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )*
+            // InternalCategoriesParser.g:277:1: ( rule__CategoriesDefinitions__CategoryFiltersAssignment_1 )*
             loop2:
             do {
                 int alt2=2;
@@ -653,7 +661,7 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalCategoriesParser.g:269:2: rule__CategoriesDefinitions__CategoryFiltersAssignment_1
+            	    // InternalCategoriesParser.g:277:2: rule__CategoriesDefinitions__CategoryFiltersAssignment_1
             	    {
             	    pushFollow(FOLLOW_5);
             	    rule__CategoriesDefinitions__CategoryFiltersAssignment_1();
@@ -692,14 +700,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__0"
-    // InternalCategoriesParser.g:283:1: rule__Categories__Group__0 : rule__Categories__Group__0__Impl rule__Categories__Group__1 ;
+    // InternalCategoriesParser.g:291:1: rule__Categories__Group__0 : rule__Categories__Group__0__Impl rule__Categories__Group__1 ;
     public final void rule__Categories__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:287:1: ( rule__Categories__Group__0__Impl rule__Categories__Group__1 )
-            // InternalCategoriesParser.g:288:2: rule__Categories__Group__0__Impl rule__Categories__Group__1
+            // InternalCategoriesParser.g:295:1: ( rule__Categories__Group__0__Impl rule__Categories__Group__1 )
+            // InternalCategoriesParser.g:296:2: rule__Categories__Group__0__Impl rule__Categories__Group__1
             {
             pushFollow(FOLLOW_6);
             rule__Categories__Group__0__Impl();
@@ -730,21 +738,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__0__Impl"
-    // InternalCategoriesParser.g:295:1: rule__Categories__Group__0__Impl : ( ( rule__Categories__NameAssignment_0 ) ) ;
+    // InternalCategoriesParser.g:303:1: rule__Categories__Group__0__Impl : ( ( rule__Categories__NameAssignment_0 ) ) ;
     public final void rule__Categories__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:299:1: ( ( ( rule__Categories__NameAssignment_0 ) ) )
-            // InternalCategoriesParser.g:300:1: ( ( rule__Categories__NameAssignment_0 ) )
+            // InternalCategoriesParser.g:307:1: ( ( ( rule__Categories__NameAssignment_0 ) ) )
+            // InternalCategoriesParser.g:308:1: ( ( rule__Categories__NameAssignment_0 ) )
             {
-            // InternalCategoriesParser.g:300:1: ( ( rule__Categories__NameAssignment_0 ) )
-            // InternalCategoriesParser.g:301:1: ( rule__Categories__NameAssignment_0 )
+            // InternalCategoriesParser.g:308:1: ( ( rule__Categories__NameAssignment_0 ) )
+            // InternalCategoriesParser.g:309:1: ( rule__Categories__NameAssignment_0 )
             {
              before(grammarAccess.getCategoriesAccess().getNameAssignment_0()); 
-            // InternalCategoriesParser.g:302:1: ( rule__Categories__NameAssignment_0 )
-            // InternalCategoriesParser.g:302:2: rule__Categories__NameAssignment_0
+            // InternalCategoriesParser.g:310:1: ( rule__Categories__NameAssignment_0 )
+            // InternalCategoriesParser.g:310:2: rule__Categories__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Categories__NameAssignment_0();
@@ -777,14 +785,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__1"
-    // InternalCategoriesParser.g:312:1: rule__Categories__Group__1 : rule__Categories__Group__1__Impl rule__Categories__Group__2 ;
+    // InternalCategoriesParser.g:320:1: rule__Categories__Group__1 : rule__Categories__Group__1__Impl rule__Categories__Group__2 ;
     public final void rule__Categories__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:316:1: ( rule__Categories__Group__1__Impl rule__Categories__Group__2 )
-            // InternalCategoriesParser.g:317:2: rule__Categories__Group__1__Impl rule__Categories__Group__2
+            // InternalCategoriesParser.g:324:1: ( rule__Categories__Group__1__Impl rule__Categories__Group__2 )
+            // InternalCategoriesParser.g:325:2: rule__Categories__Group__1__Impl rule__Categories__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__Categories__Group__1__Impl();
@@ -815,17 +823,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__1__Impl"
-    // InternalCategoriesParser.g:324:1: rule__Categories__Group__1__Impl : ( LeftSquareBracket ) ;
+    // InternalCategoriesParser.g:332:1: rule__Categories__Group__1__Impl : ( LeftSquareBracket ) ;
     public final void rule__Categories__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:328:1: ( ( LeftSquareBracket ) )
-            // InternalCategoriesParser.g:329:1: ( LeftSquareBracket )
+            // InternalCategoriesParser.g:336:1: ( ( LeftSquareBracket ) )
+            // InternalCategoriesParser.g:337:1: ( LeftSquareBracket )
             {
-            // InternalCategoriesParser.g:329:1: ( LeftSquareBracket )
-            // InternalCategoriesParser.g:330:1: LeftSquareBracket
+            // InternalCategoriesParser.g:337:1: ( LeftSquareBracket )
+            // InternalCategoriesParser.g:338:1: LeftSquareBracket
             {
              before(grammarAccess.getCategoriesAccess().getLeftSquareBracketKeyword_1()); 
             match(input,LeftSquareBracket,FOLLOW_2); 
@@ -852,14 +860,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__2"
-    // InternalCategoriesParser.g:343:1: rule__Categories__Group__2 : rule__Categories__Group__2__Impl rule__Categories__Group__3 ;
+    // InternalCategoriesParser.g:351:1: rule__Categories__Group__2 : rule__Categories__Group__2__Impl rule__Categories__Group__3 ;
     public final void rule__Categories__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:347:1: ( rule__Categories__Group__2__Impl rule__Categories__Group__3 )
-            // InternalCategoriesParser.g:348:2: rule__Categories__Group__2__Impl rule__Categories__Group__3
+            // InternalCategoriesParser.g:355:1: ( rule__Categories__Group__2__Impl rule__Categories__Group__3 )
+            // InternalCategoriesParser.g:356:2: rule__Categories__Group__2__Impl rule__Categories__Group__3
             {
             pushFollow(FOLLOW_8);
             rule__Categories__Group__2__Impl();
@@ -890,24 +898,24 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__2__Impl"
-    // InternalCategoriesParser.g:355:1: rule__Categories__Group__2__Impl : ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) ) ;
+    // InternalCategoriesParser.g:363:1: rule__Categories__Group__2__Impl : ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) ) ;
     public final void rule__Categories__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:359:1: ( ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) ) )
-            // InternalCategoriesParser.g:360:1: ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) )
+            // InternalCategoriesParser.g:367:1: ( ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) ) )
+            // InternalCategoriesParser.g:368:1: ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) )
             {
-            // InternalCategoriesParser.g:360:1: ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) )
-            // InternalCategoriesParser.g:361:1: ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* )
+            // InternalCategoriesParser.g:368:1: ( ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* ) )
+            // InternalCategoriesParser.g:369:1: ( ( rule__Categories__CategoryAssignment_2 ) ) ( ( rule__Categories__CategoryAssignment_2 )* )
             {
-            // InternalCategoriesParser.g:361:1: ( ( rule__Categories__CategoryAssignment_2 ) )
-            // InternalCategoriesParser.g:362:1: ( rule__Categories__CategoryAssignment_2 )
+            // InternalCategoriesParser.g:369:1: ( ( rule__Categories__CategoryAssignment_2 ) )
+            // InternalCategoriesParser.g:370:1: ( rule__Categories__CategoryAssignment_2 )
             {
              before(grammarAccess.getCategoriesAccess().getCategoryAssignment_2()); 
-            // InternalCategoriesParser.g:363:1: ( rule__Categories__CategoryAssignment_2 )
-            // InternalCategoriesParser.g:363:2: rule__Categories__CategoryAssignment_2
+            // InternalCategoriesParser.g:371:1: ( rule__Categories__CategoryAssignment_2 )
+            // InternalCategoriesParser.g:371:2: rule__Categories__CategoryAssignment_2
             {
             pushFollow(FOLLOW_4);
             rule__Categories__CategoryAssignment_2();
@@ -921,11 +929,11 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
             }
 
-            // InternalCategoriesParser.g:366:1: ( ( rule__Categories__CategoryAssignment_2 )* )
-            // InternalCategoriesParser.g:367:1: ( rule__Categories__CategoryAssignment_2 )*
+            // InternalCategoriesParser.g:374:1: ( ( rule__Categories__CategoryAssignment_2 )* )
+            // InternalCategoriesParser.g:375:1: ( rule__Categories__CategoryAssignment_2 )*
             {
              before(grammarAccess.getCategoriesAccess().getCategoryAssignment_2()); 
-            // InternalCategoriesParser.g:368:1: ( rule__Categories__CategoryAssignment_2 )*
+            // InternalCategoriesParser.g:376:1: ( rule__Categories__CategoryAssignment_2 )*
             loop3:
             do {
                 int alt3=2;
@@ -938,7 +946,7 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalCategoriesParser.g:368:2: rule__Categories__CategoryAssignment_2
+            	    // InternalCategoriesParser.g:376:2: rule__Categories__CategoryAssignment_2
             	    {
             	    pushFollow(FOLLOW_4);
             	    rule__Categories__CategoryAssignment_2();
@@ -980,14 +988,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__3"
-    // InternalCategoriesParser.g:379:1: rule__Categories__Group__3 : rule__Categories__Group__3__Impl ;
+    // InternalCategoriesParser.g:387:1: rule__Categories__Group__3 : rule__Categories__Group__3__Impl ;
     public final void rule__Categories__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:383:1: ( rule__Categories__Group__3__Impl )
-            // InternalCategoriesParser.g:384:2: rule__Categories__Group__3__Impl
+            // InternalCategoriesParser.g:391:1: ( rule__Categories__Group__3__Impl )
+            // InternalCategoriesParser.g:392:2: rule__Categories__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Categories__Group__3__Impl();
@@ -1013,17 +1021,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__Group__3__Impl"
-    // InternalCategoriesParser.g:390:1: rule__Categories__Group__3__Impl : ( RightSquareBracket ) ;
+    // InternalCategoriesParser.g:398:1: rule__Categories__Group__3__Impl : ( RightSquareBracket ) ;
     public final void rule__Categories__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:394:1: ( ( RightSquareBracket ) )
-            // InternalCategoriesParser.g:395:1: ( RightSquareBracket )
+            // InternalCategoriesParser.g:402:1: ( ( RightSquareBracket ) )
+            // InternalCategoriesParser.g:403:1: ( RightSquareBracket )
             {
-            // InternalCategoriesParser.g:395:1: ( RightSquareBracket )
-            // InternalCategoriesParser.g:396:1: RightSquareBracket
+            // InternalCategoriesParser.g:403:1: ( RightSquareBracket )
+            // InternalCategoriesParser.g:404:1: RightSquareBracket
             {
              before(grammarAccess.getCategoriesAccess().getRightSquareBracketKeyword_3()); 
             match(input,RightSquareBracket,FOLLOW_2); 
@@ -1050,14 +1058,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__0"
-    // InternalCategoriesParser.g:417:1: rule__CategoryFilter__Group__0 : rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1 ;
+    // InternalCategoriesParser.g:425:1: rule__CategoryFilter__Group__0 : rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1 ;
     public final void rule__CategoryFilter__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:421:1: ( rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1 )
-            // InternalCategoriesParser.g:422:2: rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1
+            // InternalCategoriesParser.g:429:1: ( rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1 )
+            // InternalCategoriesParser.g:430:2: rule__CategoryFilter__Group__0__Impl rule__CategoryFilter__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__CategoryFilter__Group__0__Impl();
@@ -1088,17 +1096,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__0__Impl"
-    // InternalCategoriesParser.g:429:1: rule__CategoryFilter__Group__0__Impl : ( Filter ) ;
+    // InternalCategoriesParser.g:437:1: rule__CategoryFilter__Group__0__Impl : ( Filter ) ;
     public final void rule__CategoryFilter__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:433:1: ( ( Filter ) )
-            // InternalCategoriesParser.g:434:1: ( Filter )
+            // InternalCategoriesParser.g:441:1: ( ( Filter ) )
+            // InternalCategoriesParser.g:442:1: ( Filter )
             {
-            // InternalCategoriesParser.g:434:1: ( Filter )
-            // InternalCategoriesParser.g:435:1: Filter
+            // InternalCategoriesParser.g:442:1: ( Filter )
+            // InternalCategoriesParser.g:443:1: Filter
             {
              before(grammarAccess.getCategoryFilterAccess().getFilterKeyword_0()); 
             match(input,Filter,FOLLOW_2); 
@@ -1125,14 +1133,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__1"
-    // InternalCategoriesParser.g:448:1: rule__CategoryFilter__Group__1 : rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2 ;
+    // InternalCategoriesParser.g:456:1: rule__CategoryFilter__Group__1 : rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2 ;
     public final void rule__CategoryFilter__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:452:1: ( rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2 )
-            // InternalCategoriesParser.g:453:2: rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2
+            // InternalCategoriesParser.g:460:1: ( rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2 )
+            // InternalCategoriesParser.g:461:2: rule__CategoryFilter__Group__1__Impl rule__CategoryFilter__Group__2
             {
             pushFollow(FOLLOW_6);
             rule__CategoryFilter__Group__1__Impl();
@@ -1163,21 +1171,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__1__Impl"
-    // InternalCategoriesParser.g:460:1: rule__CategoryFilter__Group__1__Impl : ( ( rule__CategoryFilter__NameAssignment_1 ) ) ;
+    // InternalCategoriesParser.g:468:1: rule__CategoryFilter__Group__1__Impl : ( ( rule__CategoryFilter__NameAssignment_1 ) ) ;
     public final void rule__CategoryFilter__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:464:1: ( ( ( rule__CategoryFilter__NameAssignment_1 ) ) )
-            // InternalCategoriesParser.g:465:1: ( ( rule__CategoryFilter__NameAssignment_1 ) )
+            // InternalCategoriesParser.g:472:1: ( ( ( rule__CategoryFilter__NameAssignment_1 ) ) )
+            // InternalCategoriesParser.g:473:1: ( ( rule__CategoryFilter__NameAssignment_1 ) )
             {
-            // InternalCategoriesParser.g:465:1: ( ( rule__CategoryFilter__NameAssignment_1 ) )
-            // InternalCategoriesParser.g:466:1: ( rule__CategoryFilter__NameAssignment_1 )
+            // InternalCategoriesParser.g:473:1: ( ( rule__CategoryFilter__NameAssignment_1 ) )
+            // InternalCategoriesParser.g:474:1: ( rule__CategoryFilter__NameAssignment_1 )
             {
              before(grammarAccess.getCategoryFilterAccess().getNameAssignment_1()); 
-            // InternalCategoriesParser.g:467:1: ( rule__CategoryFilter__NameAssignment_1 )
-            // InternalCategoriesParser.g:467:2: rule__CategoryFilter__NameAssignment_1
+            // InternalCategoriesParser.g:475:1: ( rule__CategoryFilter__NameAssignment_1 )
+            // InternalCategoriesParser.g:475:2: rule__CategoryFilter__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__CategoryFilter__NameAssignment_1();
@@ -1210,14 +1218,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__2"
-    // InternalCategoriesParser.g:477:1: rule__CategoryFilter__Group__2 : rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3 ;
+    // InternalCategoriesParser.g:485:1: rule__CategoryFilter__Group__2 : rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3 ;
     public final void rule__CategoryFilter__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:481:1: ( rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3 )
-            // InternalCategoriesParser.g:482:2: rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3
+            // InternalCategoriesParser.g:489:1: ( rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3 )
+            // InternalCategoriesParser.g:490:2: rule__CategoryFilter__Group__2__Impl rule__CategoryFilter__Group__3
             {
             pushFollow(FOLLOW_9);
             rule__CategoryFilter__Group__2__Impl();
@@ -1248,17 +1256,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__2__Impl"
-    // InternalCategoriesParser.g:489:1: rule__CategoryFilter__Group__2__Impl : ( LeftSquareBracket ) ;
+    // InternalCategoriesParser.g:497:1: rule__CategoryFilter__Group__2__Impl : ( LeftSquareBracket ) ;
     public final void rule__CategoryFilter__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:493:1: ( ( LeftSquareBracket ) )
-            // InternalCategoriesParser.g:494:1: ( LeftSquareBracket )
+            // InternalCategoriesParser.g:501:1: ( ( LeftSquareBracket ) )
+            // InternalCategoriesParser.g:502:1: ( LeftSquareBracket )
             {
-            // InternalCategoriesParser.g:494:1: ( LeftSquareBracket )
-            // InternalCategoriesParser.g:495:1: LeftSquareBracket
+            // InternalCategoriesParser.g:502:1: ( LeftSquareBracket )
+            // InternalCategoriesParser.g:503:1: LeftSquareBracket
             {
              before(grammarAccess.getCategoryFilterAccess().getLeftSquareBracketKeyword_2()); 
             match(input,LeftSquareBracket,FOLLOW_2); 
@@ -1285,14 +1293,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__3"
-    // InternalCategoriesParser.g:508:1: rule__CategoryFilter__Group__3 : rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4 ;
+    // InternalCategoriesParser.g:516:1: rule__CategoryFilter__Group__3 : rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4 ;
     public final void rule__CategoryFilter__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:512:1: ( rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4 )
-            // InternalCategoriesParser.g:513:2: rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4
+            // InternalCategoriesParser.g:520:1: ( rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4 )
+            // InternalCategoriesParser.g:521:2: rule__CategoryFilter__Group__3__Impl rule__CategoryFilter__Group__4
             {
             pushFollow(FOLLOW_9);
             rule__CategoryFilter__Group__3__Impl();
@@ -1323,20 +1331,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__3__Impl"
-    // InternalCategoriesParser.g:520:1: rule__CategoryFilter__Group__3__Impl : ( ( rule__CategoryFilter__CategoryAssignment_3 )* ) ;
+    // InternalCategoriesParser.g:528:1: rule__CategoryFilter__Group__3__Impl : ( ( rule__CategoryFilter__CategoryAssignment_3 )* ) ;
     public final void rule__CategoryFilter__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:524:1: ( ( ( rule__CategoryFilter__CategoryAssignment_3 )* ) )
-            // InternalCategoriesParser.g:525:1: ( ( rule__CategoryFilter__CategoryAssignment_3 )* )
+            // InternalCategoriesParser.g:532:1: ( ( ( rule__CategoryFilter__CategoryAssignment_3 )* ) )
+            // InternalCategoriesParser.g:533:1: ( ( rule__CategoryFilter__CategoryAssignment_3 )* )
             {
-            // InternalCategoriesParser.g:525:1: ( ( rule__CategoryFilter__CategoryAssignment_3 )* )
-            // InternalCategoriesParser.g:526:1: ( rule__CategoryFilter__CategoryAssignment_3 )*
+            // InternalCategoriesParser.g:533:1: ( ( rule__CategoryFilter__CategoryAssignment_3 )* )
+            // InternalCategoriesParser.g:534:1: ( rule__CategoryFilter__CategoryAssignment_3 )*
             {
              before(grammarAccess.getCategoryFilterAccess().getCategoryAssignment_3()); 
-            // InternalCategoriesParser.g:527:1: ( rule__CategoryFilter__CategoryAssignment_3 )*
+            // InternalCategoriesParser.g:535:1: ( rule__CategoryFilter__CategoryAssignment_3 )*
             loop4:
             do {
                 int alt4=2;
@@ -1349,7 +1357,7 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
                 switch (alt4) {
             	case 1 :
-            	    // InternalCategoriesParser.g:527:2: rule__CategoryFilter__CategoryAssignment_3
+            	    // InternalCategoriesParser.g:535:2: rule__CategoryFilter__CategoryAssignment_3
             	    {
             	    pushFollow(FOLLOW_4);
             	    rule__CategoryFilter__CategoryAssignment_3();
@@ -1388,14 +1396,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__4"
-    // InternalCategoriesParser.g:537:1: rule__CategoryFilter__Group__4 : rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5 ;
+    // InternalCategoriesParser.g:545:1: rule__CategoryFilter__Group__4 : rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5 ;
     public final void rule__CategoryFilter__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:541:1: ( rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5 )
-            // InternalCategoriesParser.g:542:2: rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5
+            // InternalCategoriesParser.g:549:1: ( rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5 )
+            // InternalCategoriesParser.g:550:2: rule__CategoryFilter__Group__4__Impl rule__CategoryFilter__Group__5
             {
             pushFollow(FOLLOW_9);
             rule__CategoryFilter__Group__4__Impl();
@@ -1426,20 +1434,20 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__4__Impl"
-    // InternalCategoriesParser.g:549:1: rule__CategoryFilter__Group__4__Impl : ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? ) ;
+    // InternalCategoriesParser.g:557:1: rule__CategoryFilter__Group__4__Impl : ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? ) ;
     public final void rule__CategoryFilter__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:553:1: ( ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? ) )
-            // InternalCategoriesParser.g:554:1: ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? )
+            // InternalCategoriesParser.g:561:1: ( ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? ) )
+            // InternalCategoriesParser.g:562:1: ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? )
             {
-            // InternalCategoriesParser.g:554:1: ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? )
-            // InternalCategoriesParser.g:555:1: ( rule__CategoryFilter__AnyCategoryAssignment_4 )?
+            // InternalCategoriesParser.g:562:1: ( ( rule__CategoryFilter__AnyCategoryAssignment_4 )? )
+            // InternalCategoriesParser.g:563:1: ( rule__CategoryFilter__AnyCategoryAssignment_4 )?
             {
              before(grammarAccess.getCategoryFilterAccess().getAnyCategoryAssignment_4()); 
-            // InternalCategoriesParser.g:556:1: ( rule__CategoryFilter__AnyCategoryAssignment_4 )?
+            // InternalCategoriesParser.g:564:1: ( rule__CategoryFilter__AnyCategoryAssignment_4 )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1448,7 +1456,7 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
             }
             switch (alt5) {
                 case 1 :
-                    // InternalCategoriesParser.g:556:2: rule__CategoryFilter__AnyCategoryAssignment_4
+                    // InternalCategoriesParser.g:564:2: rule__CategoryFilter__AnyCategoryAssignment_4
                     {
                     pushFollow(FOLLOW_2);
                     rule__CategoryFilter__AnyCategoryAssignment_4();
@@ -1484,14 +1492,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__5"
-    // InternalCategoriesParser.g:566:1: rule__CategoryFilter__Group__5 : rule__CategoryFilter__Group__5__Impl ;
+    // InternalCategoriesParser.g:574:1: rule__CategoryFilter__Group__5 : rule__CategoryFilter__Group__5__Impl ;
     public final void rule__CategoryFilter__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:570:1: ( rule__CategoryFilter__Group__5__Impl )
-            // InternalCategoriesParser.g:571:2: rule__CategoryFilter__Group__5__Impl
+            // InternalCategoriesParser.g:578:1: ( rule__CategoryFilter__Group__5__Impl )
+            // InternalCategoriesParser.g:579:2: rule__CategoryFilter__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CategoryFilter__Group__5__Impl();
@@ -1517,17 +1525,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__Group__5__Impl"
-    // InternalCategoriesParser.g:577:1: rule__CategoryFilter__Group__5__Impl : ( RightSquareBracket ) ;
+    // InternalCategoriesParser.g:585:1: rule__CategoryFilter__Group__5__Impl : ( RightSquareBracket ) ;
     public final void rule__CategoryFilter__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:581:1: ( ( RightSquareBracket ) )
-            // InternalCategoriesParser.g:582:1: ( RightSquareBracket )
+            // InternalCategoriesParser.g:589:1: ( ( RightSquareBracket ) )
+            // InternalCategoriesParser.g:590:1: ( RightSquareBracket )
             {
-            // InternalCategoriesParser.g:582:1: ( RightSquareBracket )
-            // InternalCategoriesParser.g:583:1: RightSquareBracket
+            // InternalCategoriesParser.g:590:1: ( RightSquareBracket )
+            // InternalCategoriesParser.g:591:1: RightSquareBracket
             {
              before(grammarAccess.getCategoryFilterAccess().getRightSquareBracketKeyword_5()); 
             match(input,RightSquareBracket,FOLLOW_2); 
@@ -1554,14 +1562,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__0"
-    // InternalCategoriesParser.g:608:1: rule__CatRef__Group__0 : rule__CatRef__Group__0__Impl rule__CatRef__Group__1 ;
+    // InternalCategoriesParser.g:616:1: rule__CatRef__Group__0 : rule__CatRef__Group__0__Impl rule__CatRef__Group__1 ;
     public final void rule__CatRef__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:612:1: ( rule__CatRef__Group__0__Impl rule__CatRef__Group__1 )
-            // InternalCategoriesParser.g:613:2: rule__CatRef__Group__0__Impl rule__CatRef__Group__1
+            // InternalCategoriesParser.g:620:1: ( rule__CatRef__Group__0__Impl rule__CatRef__Group__1 )
+            // InternalCategoriesParser.g:621:2: rule__CatRef__Group__0__Impl rule__CatRef__Group__1
             {
             pushFollow(FOLLOW_10);
             rule__CatRef__Group__0__Impl();
@@ -1592,17 +1600,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__0__Impl"
-    // InternalCategoriesParser.g:620:1: rule__CatRef__Group__0__Impl : ( RULE_ID ) ;
+    // InternalCategoriesParser.g:628:1: rule__CatRef__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__CatRef__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:624:1: ( ( RULE_ID ) )
-            // InternalCategoriesParser.g:625:1: ( RULE_ID )
+            // InternalCategoriesParser.g:632:1: ( ( RULE_ID ) )
+            // InternalCategoriesParser.g:633:1: ( RULE_ID )
             {
-            // InternalCategoriesParser.g:625:1: ( RULE_ID )
-            // InternalCategoriesParser.g:626:1: RULE_ID
+            // InternalCategoriesParser.g:633:1: ( RULE_ID )
+            // InternalCategoriesParser.g:634:1: RULE_ID
             {
              before(grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -1629,14 +1637,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__1"
-    // InternalCategoriesParser.g:637:1: rule__CatRef__Group__1 : rule__CatRef__Group__1__Impl rule__CatRef__Group__2 ;
+    // InternalCategoriesParser.g:645:1: rule__CatRef__Group__1 : rule__CatRef__Group__1__Impl rule__CatRef__Group__2 ;
     public final void rule__CatRef__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:641:1: ( rule__CatRef__Group__1__Impl rule__CatRef__Group__2 )
-            // InternalCategoriesParser.g:642:2: rule__CatRef__Group__1__Impl rule__CatRef__Group__2
+            // InternalCategoriesParser.g:649:1: ( rule__CatRef__Group__1__Impl rule__CatRef__Group__2 )
+            // InternalCategoriesParser.g:650:2: rule__CatRef__Group__1__Impl rule__CatRef__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__CatRef__Group__1__Impl();
@@ -1667,17 +1675,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__1__Impl"
-    // InternalCategoriesParser.g:649:1: rule__CatRef__Group__1__Impl : ( FullStop ) ;
+    // InternalCategoriesParser.g:657:1: rule__CatRef__Group__1__Impl : ( FullStop ) ;
     public final void rule__CatRef__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:653:1: ( ( FullStop ) )
-            // InternalCategoriesParser.g:654:1: ( FullStop )
+            // InternalCategoriesParser.g:661:1: ( ( FullStop ) )
+            // InternalCategoriesParser.g:662:1: ( FullStop )
             {
-            // InternalCategoriesParser.g:654:1: ( FullStop )
-            // InternalCategoriesParser.g:655:1: FullStop
+            // InternalCategoriesParser.g:662:1: ( FullStop )
+            // InternalCategoriesParser.g:663:1: FullStop
             {
              before(grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
             match(input,FullStop,FOLLOW_2); 
@@ -1704,14 +1712,14 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__2"
-    // InternalCategoriesParser.g:668:1: rule__CatRef__Group__2 : rule__CatRef__Group__2__Impl ;
+    // InternalCategoriesParser.g:676:1: rule__CatRef__Group__2 : rule__CatRef__Group__2__Impl ;
     public final void rule__CatRef__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:672:1: ( rule__CatRef__Group__2__Impl )
-            // InternalCategoriesParser.g:673:2: rule__CatRef__Group__2__Impl
+            // InternalCategoriesParser.g:680:1: ( rule__CatRef__Group__2__Impl )
+            // InternalCategoriesParser.g:681:2: rule__CatRef__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CatRef__Group__2__Impl();
@@ -1737,17 +1745,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CatRef__Group__2__Impl"
-    // InternalCategoriesParser.g:679:1: rule__CatRef__Group__2__Impl : ( RULE_ID ) ;
+    // InternalCategoriesParser.g:687:1: rule__CatRef__Group__2__Impl : ( RULE_ID ) ;
     public final void rule__CatRef__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:683:1: ( ( RULE_ID ) )
-            // InternalCategoriesParser.g:684:1: ( RULE_ID )
+            // InternalCategoriesParser.g:691:1: ( ( RULE_ID ) )
+            // InternalCategoriesParser.g:692:1: ( RULE_ID )
             {
-            // InternalCategoriesParser.g:684:1: ( RULE_ID )
-            // InternalCategoriesParser.g:685:1: RULE_ID
+            // InternalCategoriesParser.g:692:1: ( RULE_ID )
+            // InternalCategoriesParser.g:693:1: RULE_ID
             {
              before(grammarAccess.getCatRefAccess().getIDTerminalRuleCall_2()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -1774,17 +1782,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__CategoriesAssignment_0"
-    // InternalCategoriesParser.g:703:1: rule__CategoriesDefinitions__CategoriesAssignment_0 : ( ruleCategories ) ;
+    // InternalCategoriesParser.g:711:1: rule__CategoriesDefinitions__CategoriesAssignment_0 : ( ruleCategories ) ;
     public final void rule__CategoriesDefinitions__CategoriesAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:707:1: ( ( ruleCategories ) )
-            // InternalCategoriesParser.g:708:1: ( ruleCategories )
+            // InternalCategoriesParser.g:715:1: ( ( ruleCategories ) )
+            // InternalCategoriesParser.g:716:1: ( ruleCategories )
             {
-            // InternalCategoriesParser.g:708:1: ( ruleCategories )
-            // InternalCategoriesParser.g:709:1: ruleCategories
+            // InternalCategoriesParser.g:716:1: ( ruleCategories )
+            // InternalCategoriesParser.g:717:1: ruleCategories
             {
              before(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -1815,17 +1823,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoriesDefinitions__CategoryFiltersAssignment_1"
-    // InternalCategoriesParser.g:718:1: rule__CategoriesDefinitions__CategoryFiltersAssignment_1 : ( ruleCategoryFilter ) ;
+    // InternalCategoriesParser.g:726:1: rule__CategoriesDefinitions__CategoryFiltersAssignment_1 : ( ruleCategoryFilter ) ;
     public final void rule__CategoriesDefinitions__CategoryFiltersAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:722:1: ( ( ruleCategoryFilter ) )
-            // InternalCategoriesParser.g:723:1: ( ruleCategoryFilter )
+            // InternalCategoriesParser.g:730:1: ( ( ruleCategoryFilter ) )
+            // InternalCategoriesParser.g:731:1: ( ruleCategoryFilter )
             {
-            // InternalCategoriesParser.g:723:1: ( ruleCategoryFilter )
-            // InternalCategoriesParser.g:724:1: ruleCategoryFilter
+            // InternalCategoriesParser.g:731:1: ( ruleCategoryFilter )
+            // InternalCategoriesParser.g:732:1: ruleCategoryFilter
             {
              before(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersCategoryFilterParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -1856,17 +1864,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__NameAssignment_0"
-    // InternalCategoriesParser.g:733:1: rule__Categories__NameAssignment_0 : ( RULE_ID ) ;
+    // InternalCategoriesParser.g:741:1: rule__Categories__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__Categories__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:737:1: ( ( RULE_ID ) )
-            // InternalCategoriesParser.g:738:1: ( RULE_ID )
+            // InternalCategoriesParser.g:745:1: ( ( RULE_ID ) )
+            // InternalCategoriesParser.g:746:1: ( RULE_ID )
             {
-            // InternalCategoriesParser.g:738:1: ( RULE_ID )
-            // InternalCategoriesParser.g:739:1: RULE_ID
+            // InternalCategoriesParser.g:746:1: ( RULE_ID )
+            // InternalCategoriesParser.g:747:1: RULE_ID
             {
              before(grammarAccess.getCategoriesAccess().getNameIDTerminalRuleCall_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -1893,17 +1901,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Categories__CategoryAssignment_2"
-    // InternalCategoriesParser.g:748:1: rule__Categories__CategoryAssignment_2 : ( ruleCategory ) ;
+    // InternalCategoriesParser.g:756:1: rule__Categories__CategoryAssignment_2 : ( ruleCategory ) ;
     public final void rule__Categories__CategoryAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:752:1: ( ( ruleCategory ) )
-            // InternalCategoriesParser.g:753:1: ( ruleCategory )
+            // InternalCategoriesParser.g:760:1: ( ( ruleCategory ) )
+            // InternalCategoriesParser.g:761:1: ( ruleCategory )
             {
-            // InternalCategoriesParser.g:753:1: ( ruleCategory )
-            // InternalCategoriesParser.g:754:1: ruleCategory
+            // InternalCategoriesParser.g:761:1: ( ruleCategory )
+            // InternalCategoriesParser.g:762:1: ruleCategory
             {
              before(grammarAccess.getCategoriesAccess().getCategoryCategoryParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -1934,17 +1942,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__Category__NameAssignment"
-    // InternalCategoriesParser.g:763:1: rule__Category__NameAssignment : ( RULE_ID ) ;
+    // InternalCategoriesParser.g:771:1: rule__Category__NameAssignment : ( RULE_ID ) ;
     public final void rule__Category__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:767:1: ( ( RULE_ID ) )
-            // InternalCategoriesParser.g:768:1: ( RULE_ID )
+            // InternalCategoriesParser.g:775:1: ( ( RULE_ID ) )
+            // InternalCategoriesParser.g:776:1: ( RULE_ID )
             {
-            // InternalCategoriesParser.g:768:1: ( RULE_ID )
-            // InternalCategoriesParser.g:769:1: RULE_ID
+            // InternalCategoriesParser.g:776:1: ( RULE_ID )
+            // InternalCategoriesParser.g:777:1: RULE_ID
             {
              before(grammarAccess.getCategoryAccess().getNameIDTerminalRuleCall_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -1971,17 +1979,17 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__NameAssignment_1"
-    // InternalCategoriesParser.g:778:1: rule__CategoryFilter__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalCategoriesParser.g:786:1: rule__CategoryFilter__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__CategoryFilter__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:782:1: ( ( RULE_ID ) )
-            // InternalCategoriesParser.g:783:1: ( RULE_ID )
+            // InternalCategoriesParser.g:790:1: ( ( RULE_ID ) )
+            // InternalCategoriesParser.g:791:1: ( RULE_ID )
             {
-            // InternalCategoriesParser.g:783:1: ( RULE_ID )
-            // InternalCategoriesParser.g:784:1: RULE_ID
+            // InternalCategoriesParser.g:791:1: ( RULE_ID )
+            // InternalCategoriesParser.g:792:1: RULE_ID
             {
              before(grammarAccess.getCategoryFilterAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -2008,21 +2016,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__CategoryAssignment_3"
-    // InternalCategoriesParser.g:793:1: rule__CategoryFilter__CategoryAssignment_3 : ( ( ruleCatRef ) ) ;
+    // InternalCategoriesParser.g:801:1: rule__CategoryFilter__CategoryAssignment_3 : ( ( ruleCatRef ) ) ;
     public final void rule__CategoryFilter__CategoryAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:797:1: ( ( ( ruleCatRef ) ) )
-            // InternalCategoriesParser.g:798:1: ( ( ruleCatRef ) )
+            // InternalCategoriesParser.g:805:1: ( ( ( ruleCatRef ) ) )
+            // InternalCategoriesParser.g:806:1: ( ( ruleCatRef ) )
             {
-            // InternalCategoriesParser.g:798:1: ( ( ruleCatRef ) )
-            // InternalCategoriesParser.g:799:1: ( ruleCatRef )
+            // InternalCategoriesParser.g:806:1: ( ( ruleCatRef ) )
+            // InternalCategoriesParser.g:807:1: ( ruleCatRef )
             {
              before(grammarAccess.getCategoryFilterAccess().getCategoryCategoryCrossReference_3_0()); 
-            // InternalCategoriesParser.g:800:1: ( ruleCatRef )
-            // InternalCategoriesParser.g:801:1: ruleCatRef
+            // InternalCategoriesParser.g:808:1: ( ruleCatRef )
+            // InternalCategoriesParser.g:809:1: ruleCatRef
             {
              before(grammarAccess.getCategoryFilterAccess().getCategoryCategoryCatRefParserRuleCall_3_0_1()); 
             pushFollow(FOLLOW_2);
@@ -2057,21 +2065,21 @@ public class InternalCategoriesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__CategoryFilter__AnyCategoryAssignment_4"
-    // InternalCategoriesParser.g:812:1: rule__CategoryFilter__AnyCategoryAssignment_4 : ( ( Any ) ) ;
+    // InternalCategoriesParser.g:820:1: rule__CategoryFilter__AnyCategoryAssignment_4 : ( ( Any ) ) ;
     public final void rule__CategoryFilter__AnyCategoryAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalCategoriesParser.g:816:1: ( ( ( Any ) ) )
-            // InternalCategoriesParser.g:817:1: ( ( Any ) )
+            // InternalCategoriesParser.g:824:1: ( ( ( Any ) ) )
+            // InternalCategoriesParser.g:825:1: ( ( Any ) )
             {
-            // InternalCategoriesParser.g:817:1: ( ( Any ) )
-            // InternalCategoriesParser.g:818:1: ( Any )
+            // InternalCategoriesParser.g:825:1: ( ( Any ) )
+            // InternalCategoriesParser.g:826:1: ( Any )
             {
              before(grammarAccess.getCategoryFilterAccess().getAnyCategoryAnyKeyword_4_0()); 
-            // InternalCategoriesParser.g:819:1: ( Any )
-            // InternalCategoriesParser.g:820:1: Any
+            // InternalCategoriesParser.g:827:1: ( Any )
+            // InternalCategoriesParser.g:828:1: Any
             {
              before(grammarAccess.getCategoryFilterAccess().getAnyCategoryAnyKeyword_4_0()); 
             match(input,Any,FOLLOW_2); 
