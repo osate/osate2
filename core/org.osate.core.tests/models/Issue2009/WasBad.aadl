@@ -1,0 +1,41 @@
+package WasBad
+public
+    thread th
+        features
+            i: in event port;
+            i_wrong: in event port;
+            o: out event port;
+        flows
+            fpath: flow path i -> o;
+    end th;
+    
+    thread implementation th.specific
+    end th.specific;
+        
+    thread th2
+        features
+            o: out event port;
+            i: in event port;
+        flows
+            fsrc: flow source o;
+            fsnk: flow sink i;
+    end th2;
+    
+    thread implementation th2.i
+        -- trivial
+    end th2.i;
+    
+    process top
+    end top;
+    
+    process implementation top.specific
+        subcomponents
+            t: thread th.specific;
+            q: thread th2.i;
+        connections
+            c1: port q.o -> t.i_wrong;
+            c2: port t.o -> q.i;
+        flows
+            e2e: end to end flow q.fsrc -> c1 -> t.fpath -> c2 -> q.fsnk;
+    end top.specific;
+end WasBad;

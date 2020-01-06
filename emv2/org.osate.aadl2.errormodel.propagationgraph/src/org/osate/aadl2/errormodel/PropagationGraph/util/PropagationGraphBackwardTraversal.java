@@ -353,7 +353,8 @@ public class PropagationGraphBackwardTraversal {
 		EObject conditionResult = null;
 		EObject stateResult = null;
 		if (opc.getCondition() != null) {
-			conditionResult = processCondition(component, opc.getCondition(), type, FaultTreeUtils.BigOne, false);
+			conditionResult = processCondition(component, opc.getCondition(), opc.getCondition() == null ? type : null,
+					FaultTreeUtils.BigOne, false);
 		}
 		ErrorBehaviorState state = opc.getState();
 		if (state != null) {
@@ -527,7 +528,8 @@ public class PropagationGraphBackwardTraversal {
 			combinedscale = inscale.multiply(branchscale);
 			if (!sameState && conditionExpression != null) {
 				// don't include transition staying in same state
-				EObject conditionResult = processCondition(component, conditionExpression, type, combinedscale, false);
+				EObject conditionResult = processCondition(component, conditionExpression,
+						newtypes == null ? type : null, combinedscale, false);
 				// XXX this is the recursive call
 				// do not traverse back in same state
 				// we also do not traverse back if left is allstates.
@@ -711,7 +713,8 @@ public class PropagationGraphBackwardTraversal {
 							// get incoming type from propagation
 							EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements(referencedErrorType);
 							for (TypeToken typeToken : leaftypes) {
-								EObject newEvent = traverseCompositeErrorState(component, state, typeToken, stateOnly,
+								EObject newEvent = traverseCompositeErrorState(referencedInstance, state, typeToken,
+										stateOnly,
 										scale);
 								if (newEvent != null) {
 									subResults.add(newEvent);
@@ -745,7 +748,8 @@ public class PropagationGraphBackwardTraversal {
 						List<EObject> subResults = new LinkedList<EObject>();
 						for (TypeToken typeToken : leaftypes) {
 							// XXX ErrorType newtype = mapTargetType(typeToken, type);
-							EObject newEvent = traverseIncomingErrorPropagation(component, ep, typeToken, scale);
+							EObject newEvent = traverseIncomingErrorPropagation(referencedInstance, ep, typeToken,
+									scale);
 							if (newEvent != null) {
 								subResults.add(newEvent);
 							}
@@ -789,15 +793,28 @@ public class PropagationGraphBackwardTraversal {
 								? mapTokenThroughConstraint(conditionElement.getConstraint(), type)
 								: mapTokenThroughConstraint(((ErrorEvent) errorModelElement).getTypeSet(), type);
 						if (referencedErrorTypes.isEmpty()) {
-							return processErrorEvent(component, (ErrorEvent) errorModelElement, null, scale);
+							if (type == null) {
+								return processErrorEvent(component, (ErrorEvent) errorModelElement, null, scale);
+							} else {
+								return null;
+							}
 						} else {
 							List<EObject> subResults = new LinkedList<EObject>();
-							for (TypeToken et : referencedErrorTypes) {
-								EObject newEvent = processErrorEvent(component, (ErrorEvent) errorModelElement, et,
-										scale);
-								if (newEvent != null) {
-									subResults.add(newEvent);
+							if (type == null) {
+								for (TypeToken et : referencedErrorTypes) {
+									EObject newEvent = processErrorEvent(component, (ErrorEvent) errorModelElement, et,
+											scale);
+									if (newEvent != null) {
+										subResults.add(newEvent);
+									}
 								}
+							} else {
+								if (EMV2TypeSetUtil.contains(referencedErrorTypes, type)) {
+									return processErrorEvent(component, (ErrorEvent) errorModelElement, type, scale);
+								} else {
+									return null;
+								}
+
 							}
 							if (subResults.isEmpty()) {
 								return null;
@@ -1008,7 +1025,7 @@ public class PropagationGraphBackwardTraversal {
 		// should only match one composite state declaration.
 		for (CompositeState cs : EMV2Util.getAllCompositeStates(component)) {
 			if (cs.getState() == state && (type == null || EMV2TypeSetUtil.contains(cs.getTypedToken(), type))) {
-					EObject res = processCondition(component, cs.getCondition(), type, new BigDecimal(1.0), stateOnly);
+				EObject res = processCondition(component, cs.getCondition(), null, new BigDecimal(1.0), stateOnly);
 					if (res != null) {
 						subResults.add(res);
 					}
