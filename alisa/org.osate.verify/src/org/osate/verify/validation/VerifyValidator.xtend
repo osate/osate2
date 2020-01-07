@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.validation.Check
-import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -114,7 +113,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Inject IVerifyGlobalReferenceFinder verifyGlobalRefFinder
 
-	@Check(CheckType.FAST)
+	@Check
 	def void deprecateVerificationMethodBoolReport(VerificationMethod vm) {
 		if (vm.isIsPredicate) {
 			warning("Keyword 'boolean' is deprecated", VerifyPackage.Literals.VERIFICATION_METHOD__IS_PREDICATE)
@@ -208,19 +207,19 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def checkVerificationActivityParams(VerificationActivity va) {
 		val actualParameters = va.actuals
 		val method = va.method
 		val expectedParms = method.formals
-		if ((expectedParms?.size != actualParameters?.size)) {
+		if (expectedParms.size != actualParameters.size) {
 			warning(
 				"The number of actual parameters differs from the number of formal parameters for verification activity",
 				va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def checkVerificationActivityReturnCompute(VerificationActivity va) {
 		val computeParameters = va.computes
 		if (computeParameters.isEmpty) {
@@ -248,7 +247,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def checkForDuplicateClaims(VerificationPlan vp) {
 		val claims = vp.claim
 		claims.forEach[EcoreUtil.resolveAll(it)]
@@ -266,7 +265,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		]
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def checkMultipleInvalidRequirementsForClaims(VerificationPlan vp) {
 
 		val claims = vp.claim
@@ -315,7 +314,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		}
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def checkClaimsForRequirement(VerificationPlan vp) {
 		val systemRequirements = vp.requirementSet
 		val requirements = systemRequirements.requirements
@@ -329,7 +328,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		]
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def checkClaimsForMultipleRequirement(VerificationPlan vp) {
 		val systemRequirements = vp.requirementSet
 		val requirements = systemRequirements.requirements
@@ -346,7 +345,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkVerificationMethodSignature(VerificationMethod vm) {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod: {
@@ -452,7 +451,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		false
 	}
 
-	@Check(CheckType.FAST)
+	@Check
 	def void checkFileTypeContents(Verification verification) {
 		val verificationURI = EcoreUtil.getURI(verification)
 		val fileExt = verificationURI.fileExtension.toLowerCase
@@ -495,7 +494,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		warning(partName + " not allowed in '" + fileType + "' file.", part, null)
 	}
 
-	@Check(CheckType.NORMAL)
+	@Check
 	def void checkVerificationPlanUniqueToComponentClassifier(VerificationPlan vp) {
 		val sysReq = vp.requirementSet
 		if (sysReq instanceof SystemRequirementSet) {

@@ -393,8 +393,6 @@
     <requirement
         name="org.eclipse.ease.lang.unittest.feature.feature.group"/>
     <requirement
-        name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
-    <requirement
         name="org.eclipse.ease.modules.feature.feature.group"/>
     <requirement
         name="org.py4j.feature.feature.group"/>

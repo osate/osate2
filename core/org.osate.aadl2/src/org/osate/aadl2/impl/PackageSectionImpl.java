@@ -632,7 +632,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public String getName() {
-		return ((AadlPackage) getOwner()).getName();
+		AadlPackage owner = (AadlPackage) getOwner();
+		return owner != null ? owner.getName() : "";
 	}
 
 	/**
