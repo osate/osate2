@@ -28,7 +28,7 @@ public class SelectAllAction extends WorkbenchPartAction {
 	public void run() {
 		final GraphitiAgeDiagram gad = editor.getGraphitiAgeDiagram();
 		final PictogramElement[] pictogramElements = editor.getAgeDiagram().getAllDiagramNodes()
-				.filter(dn -> dn instanceof DiagramElement).map(DiagramElement.class::cast)
+				.filter(DiagramElement.class::isInstance).map(DiagramElement.class::cast)
 				.map(gad::getPictogramElement).filter(Predicates.notNull()).toArray(PictogramElement[]::new);
 
 		editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(pictogramElements);
