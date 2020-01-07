@@ -133,6 +133,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.actions.CopyAction;
 import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
+import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
@@ -333,6 +334,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		registerAction(new PasteAction(editor));
 		registerAction(new UndoAction(editor));
 		registerAction(new RedoAction(editor));
+		registerAction(new SelectAllAction(editor));
 
 		// Disable Graphiti's default delete action.
 		final IDiagramContainerUI diagramContainer = getDiagramContainer();
