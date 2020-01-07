@@ -359,6 +359,10 @@ public class AadlBaTypeChecker
       {
         result &= dispatchConditionCheck((DispatchCondition) cond);
       }
+      else if(cond instanceof ModeSwitchTriggerLogicalExpression)
+      {
+        result &= modeSwitchTriggerLogicalExpressionCheck((ModeSwitchTriggerLogicalExpression) cond);
+      }
       else
       {
         result &= executeConditionCheck((ExecuteCondition) cond) ;
@@ -372,7 +376,38 @@ public class AadlBaTypeChecker
         
     return result ;
   }
+  
+  private boolean modeSwitchTriggerLogicalExpressionCheck(
+                                                          ModeSwitchTriggerLogicalExpression dtle)
+  {
+    boolean result = true ;
 
+    ElementHolder elHolder = null ;
+
+    for(ModeSwitchConjunction msc : dtle.getModeSwitchConjunctions())
+    {
+      ListIterator<ModeSwitchTrigger> it = msc.getModeSwitchTriggers().listIterator();
+
+      while(it.hasNext())
+      {
+        Reference e  = (Reference) it.next() ;
+
+        elHolder = dispatchTriggerResolver(e, TypeCheckRule.MODE_SWITCH_TRIGGER) ;
+
+        if(elHolder != null)
+        {
+          it.set((ModeSwitchTrigger) elHolder) ;
+        }
+        else
+        {
+          result = false ;
+        }
+      }
+    }
+
+    return result ;
+  }
+  
   /**
    * Document: AADL Behavior Annex draft 
    * Version : 0.94 
@@ -1240,15 +1275,14 @@ public class AadlBaTypeChecker
           return null ;
         }
       }
-      if(result.isEmpty() && false==grpl.isEmpty())
-      {
-        String expectedTypes = currentRule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
-        String errMsg = "Wrong type in "+stopOnThisRule.getLiteral()+"; expected types are: "+ expectedTypes;
-        this.reportError(ref, errMsg);
-      }
     } // End of for.
     if(result.isEmpty())
+    {
+      String expectedTypes = currentRule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
+      String errMsg = "Wrong type in "+stopOnThisRule.getLiteral()+"; expected types are: "+ expectedTypes;
+      this.reportError(ref, errMsg);
       return null;
+    }
     return result ;
   }
   
@@ -3381,6 +3415,10 @@ public class AadlBaTypeChecker
     DISPATCH_TRIGGER("dispatch trigger", new Enum[]
           {TypeCheckRule.IN_EVENT_PORT,
            TypeCheckRule.IN_EVENT_DATA_PORT}),
+    
+    MODE_SWITCH_TRIGGER("mode switch trigger", new Enum[]
+        {TypeCheckRule.IN_EVENT_PORT,
+         TypeCheckRule.IN_EVENT_DATA_PORT}),
 
     DISPATCH_TRIGGER_CONDITION("dispatch trigger condition", new Enum[]
           {TypeCheckRule.IN_EVENT_PORT,
