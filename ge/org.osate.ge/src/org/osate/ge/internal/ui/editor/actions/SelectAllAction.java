@@ -27,11 +27,11 @@ public class SelectAllAction extends WorkbenchPartAction {
 	@Override
 	public void run() {
 		final GraphitiAgeDiagram gad = editor.getGraphitiAgeDiagram();
-		final PictogramElement[] connectionPictogramElements = editor.getAgeDiagram().getAllDiagramNodes()
+		final PictogramElement[] pictogramElements = editor.getAgeDiagram().getAllDiagramNodes()
 				.filter(dn -> dn instanceof DiagramElement).map(DiagramElement.class::cast)
 				.map(gad::getPictogramElement).filter(Predicates.notNull()).toArray(PictogramElement[]::new);
 
-		editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(connectionPictogramElements);
+		editor.getDiagramBehavior().getDiagramContainer().selectPictogramElements(pictogramElements);
 	}
 
 	@Override
