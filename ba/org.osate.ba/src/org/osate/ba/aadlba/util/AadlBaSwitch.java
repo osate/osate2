@@ -80,7 +80,7 @@ public class AadlBaSwitch<T> extends Switch<T>
    * Checks whether this is a switch for the given package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
+   * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
    * @generated
    */
@@ -1601,6 +1601,43 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(whileOrDoUntilStatement);
         if (result == null) result = caseBehaviorElement(whileOrDoUntilStatement);
         if (result == null) result = caseElement(whileOrDoUntilStatement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION:
+      {
+        ModeSwitchTriggerLogicalExpression modeSwitchTriggerLogicalExpression = (ModeSwitchTriggerLogicalExpression)theEObject;
+        T result = caseModeSwitchTriggerLogicalExpression(modeSwitchTriggerLogicalExpression);
+        if (result == null) result = caseModeSwitchTriggerCondition(modeSwitchTriggerLogicalExpression);
+        if (result == null) result = caseBehaviorElement(modeSwitchTriggerLogicalExpression);
+        if (result == null) result = caseElement(modeSwitchTriggerLogicalExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.MODE_SWITCH_TRIGGER_CONDITION:
+      {
+        ModeSwitchTriggerCondition modeSwitchTriggerCondition = (ModeSwitchTriggerCondition)theEObject;
+        T result = caseModeSwitchTriggerCondition(modeSwitchTriggerCondition);
+        if (result == null) result = caseBehaviorElement(modeSwitchTriggerCondition);
+        if (result == null) result = caseElement(modeSwitchTriggerCondition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.MODE_SWITCH_CONJUNCTION:
+      {
+        ModeSwitchConjunction modeSwitchConjunction = (ModeSwitchConjunction)theEObject;
+        T result = caseModeSwitchConjunction(modeSwitchConjunction);
+        if (result == null) result = caseBehaviorElement(modeSwitchConjunction);
+        if (result == null) result = caseElement(modeSwitchConjunction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.MODE_SWITCH_TRIGGER:
+      {
+        ModeSwitchTrigger modeSwitchTrigger = (ModeSwitchTrigger)theEObject;
+        T result = caseModeSwitchTrigger(modeSwitchTrigger);
+        if (result == null) result = caseBehaviorElement(modeSwitchTrigger);
+        if (result == null) result = caseElement(modeSwitchTrigger);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -3316,6 +3353,70 @@ public class AadlBaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mode Switch Trigger Logical Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mode Switch Trigger Logical Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModeSwitchTriggerLogicalExpression(ModeSwitchTriggerLogicalExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mode Switch Trigger Condition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mode Switch Trigger Condition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModeSwitchTriggerCondition(ModeSwitchTriggerCondition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mode Switch Conjunction</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mode Switch Conjunction</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModeSwitchConjunction(ModeSwitchConjunction object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Mode Switch Trigger</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Mode Switch Trigger</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseModeSwitchTrigger(ModeSwitchTrigger object)
   {
     return null;
   }
