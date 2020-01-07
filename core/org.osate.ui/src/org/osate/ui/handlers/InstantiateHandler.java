@@ -52,6 +52,7 @@ import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -67,8 +68,15 @@ public class InstantiateHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		EObjectNode node = (EObjectNode) HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
-		URI uri = node.getEObjectURI();
+		Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
+		URI uri;
+		if (selection instanceof EObjectNode) {
+			uri = ((EObjectNode) selection).getEObjectURI();
+		} else if (selection instanceof EObjectURIWrapper) {
+			uri = ((EObjectURIWrapper) selection).getUri();
+		} else {
+			throw new AssertionError("Unexpected selection: " + selection);
+		}
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
 		ResourceSet resourceSet = resourceSetProvider.get(project);
 		ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);

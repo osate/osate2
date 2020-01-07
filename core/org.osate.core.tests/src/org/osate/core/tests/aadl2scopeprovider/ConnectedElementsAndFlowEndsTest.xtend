@@ -311,13 +311,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2",
+						"da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2",
+						"subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedFeatureGroupConnections.get(1) => [
 					"conn2".assertEquals(name)
@@ -328,13 +334,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2",
+						"da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2",
+						"subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedFeatureGroupConnections.get(2) => [
 					"conn3".assertEquals(name)
@@ -345,13 +357,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af2", "ba2", "da2", "dp2", "edp2", "ep2", "fg3", "param2"])
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedFeatureGroupConnections.get(3) => [
 					"conn4".assertEquals(name)
@@ -362,13 +380,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af2", "ba2", "da2",
+						"dp2", "edp2", "ep2", "fg3", "param2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedFeatureGroupConnections.get(4) => [
 					"conn5".assertEquals(name)
@@ -379,13 +402,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af2", "ba2", "da2",
+						"dp2", "edp2", "ep2", "fg3", "param2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedPortConnections.get(0) => [
 					"conn6".assertEquals(name)
@@ -397,13 +425,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2",
+						"da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2",
+						"subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14",
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedPortConnections.get(1) => [
 					"conn7".assertEquals(name)
@@ -415,13 +449,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp1", "dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3", "bsub2",
+						"da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1", "subpgsub2",
+						"subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedPortConnections.get(2) => [
 					"conn8".assertEquals(name)
@@ -432,13 +472,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedPortConnections.get(3) => [
 					"conn9".assertEquals(name)
@@ -449,13 +495,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedFeatureConnections.get(0) => [
 					"conn10".assertEquals(name)
@@ -466,13 +518,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 					// From fixing issue 1954
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
 				]
@@ -485,13 +542,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 					// From fixing issue 1954
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid feature connection end.")
 				]
@@ -504,13 +566,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af3", "ba3",
+						"bsub2", "da3", "dp2", "dsub2", "edp3", "eds1", "ep3", "fg2", "pp1", "sp1", "subpa1",
+						"subpgsub2", "subpsub2"
+					])
 				]
 				ownedParameterConnections.get(0) => [
 					"conn24".assertEquals(name)
@@ -521,13 +589,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(1) => [
 					"conn25".assertEquals(name)
@@ -538,13 +612,19 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1",
+						"da1", "dp1", "dp2", "dsub1", "edp1", "eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1",
+						"subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["asub1", "asub2", "bsub1", "call1", "call13", "call14", "dp1",
 						"dp2", "dsub1", "edp1", "fg1", "fg4", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
@@ -558,13 +638,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3","subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(1) => [
 					"conn14".assertEquals(name)
@@ -575,13 +660,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(2) => [
 					"conn15".assertEquals(name)
@@ -592,13 +682,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(3) => [
 					"conn16".assertEquals(name)
@@ -609,13 +704,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(4) => [
 					"conn17".assertEquals(name)
@@ -626,13 +726,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(5) => [
 					"conn18".assertEquals(name)
@@ -643,13 +748,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(6) => [
 					"conn19".assertEquals(name)
@@ -660,13 +770,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 				ownedParameterConnections.get(7) => [
 					"conn20".assertEquals(name)
@@ -677,13 +792,18 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					source.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4", "edp4",
+						"ep4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpga1", "subpga2", "subpsub3", "subpsub4"
+					])
 					//Tests scope_ConnectedElement_context
 					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_Context, #["call2", "call3", "call4", "call5", "call6", "call7", "call8",
 						"call9", "edp4", "fg4", "fg5", "param1", "subpa2", "subpa3", "subpsub3", "subpsub4"
 					])
 					//Tests scope_ConnectedElement_connectionEnd(ConnectedElement, EReference)
-					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
+					destination.assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af4", "da4",
+						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
+						"subpga1", "subpga2", "subpsub3"
+					])
 				]
 			]
 		]

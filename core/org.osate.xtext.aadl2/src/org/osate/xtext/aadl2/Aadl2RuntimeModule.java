@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
+import org.eclipse.xtext.findReferences.TargetURICollector;
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
@@ -49,9 +50,11 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
+import org.osate.xtext.aadl2.findReferences.Aadl2TargetURICollector;
 import org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
@@ -61,6 +64,7 @@ import org.osate.xtext.aadl2.resource.NoCacheDerivedStateAwareResource;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
+import org.osate.xtext.aadl2.scoping.Aadl2SerializerScopeProvider;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
@@ -214,6 +218,13 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 				.to(InstanceEnabledSerializer.class);
 	}
 
+	@Override
+	public void configureSerializerIScopeProvider(com.google.inject.Binder binder) {
+		binder.bind(IScopeProvider.class)
+				.annotatedWith(SerializerScopeProviderBinding.class)
+				.to(Aadl2SerializerScopeProvider.class);
+	}
+
 	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
 		return Aadl2DocumentationProvider.class;
 	}
@@ -230,4 +241,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2ResourceServiceProvider.class;
 	}
 
+	public Class<? extends TargetURICollector> bindTargetURICollector() {
+		return Aadl2TargetURICollector.class;
+	}
 }
