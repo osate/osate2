@@ -1296,6 +1296,15 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
         setLocationReference(ctx.dispatch_condition().result, ctx.ON()) ;
         ctx.result = ctx.dispatch_condition().result ;
       }
+      else
+      {
+        if(ctx.mode_switch_trigger_logical_expression()!=null &&
+            ctx.mode_switch_trigger_logical_expression().result!=null)
+        {
+          setLocationReference(ctx.mode_switch_trigger_logical_expression().result, ctx.ON()) ;
+          ctx.result = ctx.mode_switch_trigger_logical_expression().result ;
+        }
+      }
     }
     else
     {
