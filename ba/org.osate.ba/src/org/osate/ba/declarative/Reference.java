@@ -27,6 +27,7 @@ import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
 import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
+import org.osate.ba.aadlba.ModeSwitchTrigger ;
 import org.osate.ba.aadlba.Target ;
 import org.osate.ba.aadlba.ValueVariable ;
 
@@ -49,7 +50,7 @@ import org.osate.ba.aadlba.ValueVariable ;
 public interface Reference extends ActualPortHolder,
                           DeclarativeBehaviorElement, IntegerValueVariable,
                           ValueVariable, ElementValues, Target,
-                          DispatchTriggerCondition, DispatchTrigger
+                          DispatchTriggerCondition, DispatchTrigger, ModeSwitchTrigger
 {
   /**
    * Returns the value of the '<em><b>Ids</b></em>' containment reference list.

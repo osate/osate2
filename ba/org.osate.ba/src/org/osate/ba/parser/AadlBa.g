@@ -504,6 +504,8 @@ behavior_condition returns [BehaviorCondition result]
   :
       ( ON dispatch_condition )
     |
+      ( ON mode_switch_trigger_logical_expression)
+    |
       ( execute_condition )?
 ;
 
@@ -614,6 +616,12 @@ dispatch_trigger_condition returns [DispatchTriggerCondition result]
        STOP
 ;
 
+mode_switch_trigger_logical_expression returns [ModeSwitchTriggerLogicalExpression
+                                             result]
+   : 
+     mode_switch_trigger_conjunction ( OR mode_switch_trigger_conjunction )*
+;
+
 // dispatch_trigger_logical_expression ::=
 // dispatch_conjunction { or dispatch_conjunction }*
 dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
@@ -629,6 +637,11 @@ dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
 // in_event_port_name
 // | in_event_data_port_name
 dispatch_conjunction returns [DispatchConjunction result]
+   :
+     reference ( AND reference )*
+;
+
+mode_switch_trigger_conjunction returns [ModeSwitchConjunction result]
    :
      reference ( AND reference )*
 ;

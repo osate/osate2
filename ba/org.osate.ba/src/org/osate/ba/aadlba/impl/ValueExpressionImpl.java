@@ -41,11 +41,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.ValueExpressionImpl#getRelations <em>Relations</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.ValueExpressionImpl#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -97,6 +97,7 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Relation> getRelations()
   {
     if (relations == null)
@@ -111,6 +112,7 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<LogicalOperator> getLogicalOperators()
   {
     if (logicalOperators == null)
@@ -125,6 +127,7 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetLogicalOperators()
   {
     if (logicalOperators != null) ((InternalEList.Unsettable<?>)logicalOperators).unset();
@@ -135,6 +138,7 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetLogicalOperators()
   {
     return logicalOperators != null && ((InternalEList.Unsettable<?>)logicalOperators).isSet();
@@ -245,7 +249,7 @@ public class ValueExpressionImpl extends BehaviorElementImpl implements ValueExp
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (logicalOperators: ");
     result.append(logicalOperators);
     result.append(')');

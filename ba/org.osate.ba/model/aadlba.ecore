@@ -806,4 +806,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="doUntil" eType="#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTriggerLogicalExpression"
+      eSuperTypes="#//ModeSwitchTriggerCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitchConjunctions"
+        lowerBound="1" upperBound="-1" eType="#//ModeSwitchConjunction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTriggerCondition" abstract="true"
+      interface="true" eSuperTypes="#//BehaviorElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction" eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitchTriggers" lowerBound="1"
+        upperBound="-1" eType="#//ModeSwitchTrigger" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTrigger" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
 </ecore:EPackage>
