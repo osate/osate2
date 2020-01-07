@@ -135,6 +135,7 @@ import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
+import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -822,15 +823,17 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 
-		// Register the context menu and disable includeEditorInput
 		final IWorkbenchPart parentPart = getParentPart();
 		final GraphicalViewer graphicalViewer = getDiagramContainer().getGraphicalViewer();
 		if (graphicalViewer != null && parentPart != null && parentPart.getSite() instanceof EditorSite) {
+			// Register the context menu and disable includeEditorInput
 			contextMenuProvider = createContextMenuProvider();
 			graphicalViewer.setContextMenu(contextMenuProvider);
 			((EditorSite) parentPart.getSite()).registerContextMenu(contextMenuProvider, graphicalViewer, false);
-		}
 
+			// Register context sensitive help
+			ContextHelpUtil.setHelp(graphicalViewer.getControl(), ContextHelpUtil.DIAGRAM_EDITOR);
+		}
 	}
 
 	public void setDiagramContextIsValid(final boolean value) {
