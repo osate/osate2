@@ -1,0 +1,66 @@
+package Aperiodic
+public
+	
+	system s
+	end s;
+	
+	system implementation s.impl
+		subcomponents
+			p: process p.impl;
+	end s.impl;
+	
+	process p
+	end p;
+	
+	process implementation p.impl
+		subcomponents
+			t1_sample: thread t_out {Period => 3 ms;};
+			t2: thread t_inout {Period => 15 ms; Deadline => 5ms;};
+			t3: thread t_in {Compute_Execution_Time => 5ms..10ms;};
+		connections
+			c1: port t1_sample.p -> t2.p_i;
+			x1: port t2.p_o -> t3.p1;
+			x2: port t2.p_o -> t3.p2;
+			x3: port t2.p_o -> t3.p3;
+			x4: port t2.p_o -> t3.p4;
+		flows
+			e2e_sample1: end to end flow t1_sample.s -> c1 -> t2.p -> x1 -> t3.s1;
+			e2e_sample2: end to end flow t1_sample.s -> c1 -> t2.p -> x2 -> t3.s2;
+			e2e_sample3: end to end flow t1_sample.s -> c1 -> t2.p -> x3 -> t3.s3;
+			e2e_sample4: end to end flow t1_sample.s -> c1 -> t2.p -> x4 -> t3.s4;
+		properties
+			Latency => 0 ms .. 100 ms applies to e2e_sample1;
+			Latency => 0 ms .. 100 ms applies to e2e_sample2;
+			Latency => 0 ms .. 100 ms applies to e2e_sample3;
+			Latency => 0 ms .. 100 ms applies to e2e_sample4;
+	end p.impl;
+	
+	thread t_out
+		features
+			p: out event port;
+		flows
+			s: flow source p;
+	end t_out;
+	
+	thread t_in
+		features
+			p1: in event port; -- use the thread's property
+			p2: in event port {Compute_Execution_Time => 15ms..20ms;};
+			p3: in event port {Compute_Execution_Time => 3ms..6ms;};
+			p4: in event port {Compute_Execution_Time => 20ms..23ms;};
+		flows
+			s1: flow sink p1;
+			s2: flow sink p2;
+			s3: flow sink p3;
+			s4: flow sink p4;
+	end t_in;
+	
+	thread t_inout
+		features
+			p_i: in event port;
+			p_o: out event port;
+		flows
+			p: flow path p_i -> p_o;
+	end t_inout;
+	
+end Aperiodic;

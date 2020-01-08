@@ -1,0 +1,55 @@
+package JustSubprogramGroup_process_fg
+public
+	subprogram group SubGroup
+	end SubGroup;
+	
+	feature group FG
+		features
+			shared_subg: provides subprogram group access SubGroup;
+	end FG;
+
+	feature group FG2
+		features
+			ext_subg: requires subprogram group access SubGroup;
+		inverse of FG
+	end FG2;
+
+	process T1
+		features
+			fg: feature group FG;
+	end T1;
+
+	process implementation T1.impl
+		subcomponents
+			SubG: subprogram group SubGroup;
+		connections
+			sgc1: subprogram group access SubG <-> fg.shared_subg;
+	end T1.impl;
+
+	process T2
+		features
+			fg2: feature group FG2;
+	end T2;
+
+	process implementation T2.impl
+	end T2.impl;
+
+	system p1
+	end p1;
+
+	system implementation p1.impl
+		subcomponents
+			MyT1: process T1.impl;
+			MyT2: process T2.impl;
+		connections
+			sgc2: feature group MyT1.fg <-> MyT2.fg2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: system p1.impl;
+	end Root.impl;
+end JustSubprogramGroup_process_fg;

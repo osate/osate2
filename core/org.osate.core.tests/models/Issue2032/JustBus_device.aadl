@@ -1,0 +1,44 @@
+package JustBus_device
+public
+	bus B
+	end B;
+
+	device s1
+		features
+			shared_bus: provides bus access B;
+	end s1;
+
+	device implementation s1.impl
+		subcomponents
+			myBus: bus B;
+		connections
+			bc1: bus access myBus <-> shared_bus;
+	end s1.impl;
+	
+	device s2
+		features
+			ext_bus: requires bus access B;
+	end s2;
+	
+	device implementation s2.impl
+	end s2.impl;
+	
+	system MySystem
+	end MySystem;
+	
+	system implementation MySystem.impl
+		subcomponents
+			myS1: device s1.impl;
+			myS2: device s2.impl;
+		connections
+			bc2: bus access myS1.shared_bus <-> myS2.ext_bus;
+	end MySystem.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyS: system MySystem.impl;
+	end Root.impl;
+end JustBus_device;

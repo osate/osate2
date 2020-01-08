@@ -1,0 +1,46 @@
+package JustAbstract_system
+public
+	abstract A
+		features
+			p: in out event port;
+	end A;
+
+	system T1
+		features
+			f1: in out event port;
+	end T1;
+
+	system implementation T1.impl
+		subcomponents
+			sub: abstract A;
+		connections
+			c1: port sub.p <-> f1;
+	end T1.impl;
+
+	system T2
+		features
+			f2: in out event port;
+	end T2;
+
+	system implementation T2.impl
+	end T2.impl;
+
+	system p1
+	end p1;
+
+	system implementation p1.impl
+		subcomponents
+			MyT1: system T1.impl;
+			MyT2: system T2.impl;
+		connections
+			c2: port MyT1.f1 <-> MyT2.f2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: system p1.impl;
+	end Root.impl;
+end JustAbstract_system;
