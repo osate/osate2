@@ -2,6 +2,7 @@ package org.osate.propertiescodegen
 
 import java.util.List
 import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.UnitLiteral
@@ -17,6 +18,7 @@ class PropertiesCodeGen {
 				UnitsType: generateUnits(packageName, type)
 				EnumerationType: generateEnum(packageName, type)
 				AadlInteger: generateInteger(packageName, type)
+				AadlReal: generateReal(packageName, type)
 				default: null
 			}
 		].filterNull.toList
@@ -154,6 +156,28 @@ class PropertiesCodeGen {
 						return unit;
 					}
 					
+					@Override
+					public int hashCode() {
+						return Objects.hash(value, unit);
+					}
+					
+					@Override
+					public boolean equals(Object obj) {
+						if (this == obj) {
+							return true;
+						}
+						if (!(obj instanceof «typeName»)) {
+							return false;
+						}
+						«typeName» other = («typeName») obj;
+						return value == other.value && unit == other.unit;
+					}
+					
+					@Override
+					public String toString() {
+						return value + unit.toString();
+					}
+					
 					public enum Units {
 						«literals»;
 						
@@ -177,28 +201,6 @@ class PropertiesCodeGen {
 						public String toString() {
 							return originalName;
 						}
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(value, unit);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof «typeName»)) {
-							return false;
-						}
-						«typeName» other = («typeName») obj;
-						return value == other.value && unit == other.unit;
-					}
-					
-					@Override
-					public String toString() {
-						return value + unit.toString();
 					}
 				}
 			'''
@@ -327,6 +329,220 @@ class PropertiesCodeGen {
 				public class «typeName» {
 					public static long getValue(PropertyExpression propertyExpression) {
 						return ((IntegerLiteral) propertyExpression).getValue();
+					}
+				}
+			'''
+		}
+		new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static GeneratedJava generateReal(String packageName, AadlReal realType) {
+		val typeName = realType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+		val contents = if (realType.ownedUnitsType !== null) {
+			val literals = realType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
+			'''
+				package «packageName»;
+				
+				import java.util.Objects;
+				
+				import org.osate.aadl2.PropertyExpression;
+				import org.osate.aadl2.RealLiteral;
+				
+				public class «typeName» {
+					private final double value;
+					private final Units unit;
+					
+					private «typeName»(PropertyExpression propertyExpression) {
+						RealLiteral realLiteral = (RealLiteral) propertyExpression;
+						value = realLiteral.getValue();
+						unit = Units.valueOf(realLiteral.getUnit().getName().toUpperCase());
+					}
+					
+					public static «typeName» getValue(PropertyExpression propertyExpression) {
+						return new «typeName»(propertyExpression);
+					}
+					
+					public double getValue() {
+						return value;
+					}
+					
+					public Units getUnit() {
+						return unit;
+					}
+					
+					@Override
+					public int hashCode() {
+						return Objects.hash(value, unit);
+					}
+					
+					@Override
+					public boolean equals(Object obj) {
+						if (this == obj) {
+							return true;
+						}
+						if (!(obj instanceof «typeName»)) {
+							return false;
+						}
+						«typeName» other = («typeName») obj;
+						return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+					}
+					
+					@Override
+					public String toString() {
+						return value + unit.toString();
+					}
+					
+					public enum Units {
+						«literals»;
+						
+						private final double factorToBase;
+						private final String originalName;
+						
+						private Units(double factorToBase, String originalName) {
+							this.factorToBase = factorToBase;
+							this.originalName = originalName;
+						}
+						
+						public double getFactorToBase() {
+							return factorToBase;
+						}
+						
+						public double getFactorTo(Units target) {
+							return factorToBase / target.factorToBase;
+						}
+						
+						@Override
+						public String toString() {
+							return originalName;
+						}
+					}
+				}
+			'''
+		} else if (realType.referencedUnitsType !== null) {
+			val unitsType = realType.referencedUnitsType
+			val unitsTypeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+			if (unitsType.eContainer == realType.eContainer) {
+				'''
+					package «packageName»;
+					
+					import java.util.Objects;
+					
+					import org.osate.aadl2.PropertyExpression;
+					import org.osate.aadl2.RealLiteral;
+					
+					public class «typeName» {
+						private final double value;
+						private final «unitsTypeName» unit;
+						
+						private «typeName»(PropertyExpression propertyExpression) {
+							RealLiteral realLiteral = (RealLiteral) propertyExpression;
+							value = realLiteral.getValue();
+							unit = «unitsTypeName».valueOf(realLiteral.getUnit().getName().toUpperCase());
+						}
+						
+						public static «typeName» getValue(PropertyExpression propertyExpression) {
+							return new «typeName»(propertyExpression);
+						}
+						
+						public double getValue() {
+							return value;
+						}
+						
+						public «unitsTypeName» getUnit() {
+							return unit;
+						}
+						
+						@Override
+						public int hashCode() {
+							return Objects.hash(value, unit);
+						}
+						
+						@Override
+						public boolean equals(Object obj) {
+							if (this == obj) {
+								return true;
+							}
+							if (!(obj instanceof «typeName»)) {
+								return false;
+							}
+							«typeName» other = («typeName») obj;
+							return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+						}
+						
+						@Override
+						public String toString() {
+							return value + unit.toString();
+						}
+					}
+				'''
+			} else {
+				val unitsPackageName = unitsType.getContainerOfType(PropertySet).name.toLowerCase
+				'''
+					package «packageName»;
+					
+					import java.util.Objects;
+					
+					import org.osate.aadl2.PropertyExpression;
+					import org.osate.aadl2.RealLiteral;
+					
+					import «unitsPackageName».«unitsTypeName»;
+					
+					public class «typeName» {
+						private final double value;
+						private final «unitsTypeName» unit;
+						
+						private «typeName»(PropertyExpression propertyExpression) {
+							RealLiteral realLiteral = (RealLiteral) propertyExpression;
+							value = realLiteral.getValue();
+							unit = Mass.valueOf(realLiteral.getUnit().getName().toUpperCase());
+						}
+						
+						public static «typeName» getValue(PropertyExpression propertyExpression) {
+							return new «typeName»(propertyExpression);
+						}
+						
+						public double getValue() {
+							return value;
+						}
+						
+						public «unitsTypeName» getUnit() {
+							return unit;
+						}
+						
+						@Override
+						public int hashCode() {
+							return Objects.hash(value, unit);
+						}
+						
+						@Override
+						public boolean equals(Object obj) {
+							if (this == obj) {
+								return true;
+							}
+							if (!(obj instanceof «typeName»)) {
+								return false;
+							}
+							«typeName» other = («typeName») obj;
+							return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+						}
+						
+						@Override
+						public String toString() {
+							return value + unit.toString();
+						}
+					}
+				'''
+			}
+		} else {
+			'''
+				package «packageName»;
+				
+				import org.osate.aadl2.PropertyExpression;
+				import org.osate.aadl2.RealLiteral;
+				
+				public class «typeName» {
+					public static double getValue(PropertyExpression propertyExpression) {
+						return ((RealLiteral) propertyExpression).getValue();
 					}
 				}
 			'''
