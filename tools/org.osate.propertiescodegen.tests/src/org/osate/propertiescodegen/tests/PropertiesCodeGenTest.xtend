@@ -19,6 +19,31 @@ class PropertiesCodeGenTest {
 	TestHelper<PropertySet> testHelper
 	
 	@Test
+	def void testBooleanType() {
+		val propertySet = '''
+			property set ps1 is
+				boolean_type_1: type aadlboolean;
+			end ps1;
+		'''
+		val javaClass = '''
+			package ps1;
+			
+			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.PropertyExpression;
+			
+			public class BooleanType1 {
+				public static boolean getValue(PropertyExpression propertyExpression) {
+					return ((BooleanLiteral) propertyExpression).getValue();
+				}
+			}
+		'''
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
+		assertEquals(1, results.size)
+		assertEquals("BooleanType1.java", results.head.fileName)
+		assertEquals(javaClass.toString, results.head.contents)
+	}
+	
+	@Test
 	def void testEnumType() {
 		val propertySet = '''
 			property set enum_test is
