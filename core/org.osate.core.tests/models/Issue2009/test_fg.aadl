@@ -1,0 +1,112 @@
+package test_fg
+public
+	feature group fg1
+		features
+			o: out event port;
+	end fg1;
+	
+	feature group fg2
+		features
+			i: in event port;
+		inverse of fg1
+	end fg2;
+	
+	system s1
+		features
+			fg: feature group fg1;
+		flows
+			srcF: flow source fg.o;
+			src: flow source fg;
+	end s1;
+	
+	system s2
+		features
+			fg: feature group fg2;
+			fg_wrong: feature group fg2;
+		flows
+			-- test matching of "fg" on connection with "fg.i" on the flow
+			snkF: flow sink fg.i;
+			-- test matching of "fg" on connection with "fg" on the flow
+			snk: flow sink fg;
+	end s2;
+
+	system s3
+		features 
+			fg: feature group fg2;
+			fg_wrong: feature group fg2;
+		flows
+			-- test matching of "fg" on connection with "fg.i" on the flow
+			snk2F: flow sink fg.i;
+			-- test matching of "fg" on connection with "fg" on the flow
+			snk2: flow sink fg;
+	end s3;
+
+	system implementation s2.implFlow
+		subcomponents
+			s3: system s3;
+		connections
+			c2: feature group fg -> s3.fg;
+			c2_wrong: feature group fg_wrong -> s3.fg_wrong;
+		flows
+			-- test matching of "fg" on connection with "fg.i" on the flow
+			snkF: flow sink fg.i -> c2 -> s3.snk2F;
+			-- test matching of "fg" on connection with "fg" on the flow
+			snk: flow sink fg -> c2 -> s3.snk2;
+	end s2.implFlow;
+
+	system implementation s2.implNoFlow
+		subcomponents
+			s3: system s3;
+		connections
+			c2: feature group fg -> s3.fg;
+			c2_wrong: feature group fg_wrong -> s3.fg_wrong;
+	end s2.implNoFlow;
+
+	system top
+	end top;
+	
+	system implementation top.typeOnly
+		subcomponents
+			s1: system s1;
+			s2: system s2;
+		connections
+			c1: feature group s1.fg -> s2.fg;
+			c1_wrong: feature group s1.fg -> s2.fg_wrong;
+		flows
+			etef1F: end to end flow s1.srcF -> c1 -> s2.snkF; -- should be instantiated
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated
+			
+			etef1F_wrong: end to end flow s1.srcF -> c1_wrong -> s2.snkF; -- should NOT be instantiated
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should NOT be instantiated
+	end top.typeOnly;
+	
+	system implementation top.withImpl_implFlow
+		subcomponents
+			s1: system s1;
+			s2: system s2.implFlow;
+		connections
+			c1: feature group s1.fg -> s2.fg;
+			c1_wrong: feature group s1.fg -> s2.fg_wrong;
+		flows
+			etef1F: end to end flow s1.srcF -> c1 -> s2.snkF; -- should be instantiated
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated
+				
+			etef1F_wrong: end to end flow s1.srcF -> c1_wrong -> s2.snkF; -- should NOT be instantiated
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should NOT be instantiated
+	end top.withImpl_implFlow;
+	
+	system implementation top.withImpl_implNoFlow
+		subcomponents
+			s1: system s1;
+			s2: system s2.implNoFlow;
+		connections
+			c1: feature group s1.fg -> s2.fg;
+			c1_wrong: feature group s1.fg -> s2.fg_wrong;
+		flows
+			etef1F: end to end flow s1.srcF -> c1 -> s2.snkF; -- should be instantiated
+			etef1: end to end flow s1.src -> c1 -> s2.snk; -- should be instantiated
+			
+			etef1F_wrong: end to end flow s1.srcF -> c1_wrong -> s2.snkF; -- should NOT be instantiated
+			etef1_wrong: end to end flow s1.src -> c1_wrong -> s2.snk; -- should NOT be instantiated
+	end top.withImpl_implNoFlow;
+end test_fg;

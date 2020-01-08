@@ -1,0 +1,46 @@
+package JustAbstract_thread
+public
+	abstract A
+		features
+			p: in out event port;
+	end A;
+
+	thread T1
+		features
+			f1: in out event port;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			sub: abstract A;
+		connections
+			c1: port sub.p <-> f1;
+	end T1.impl;
+
+	thread T2
+		features
+			f2: in out event port;
+	end T2;
+
+	thread implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyT2: thread T2.impl;
+		connections
+			c2: port MyT1.f1 <-> MyT2.f2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustAbstract_thread;

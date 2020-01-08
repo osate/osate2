@@ -1,0 +1,55 @@
+package JustBus_processor_fg
+public
+	bus B
+	end B;
+
+	feature group FG
+		features
+			shared_bus: provides bus access B;
+	end FG;
+
+	feature group FG2
+		features
+			ext_bus: requires bus access B;
+		inverse of FG
+	end FG2;
+
+	processor s1
+		features
+			fg: feature group FG;
+	end s1;
+
+	processor implementation s1.impl
+		subcomponents
+			myBus: bus B;
+		connections
+			bc1: bus access myBus <-> fg.shared_bus;
+	end s1.impl;
+	
+	processor s2
+		features
+			fg2: feature group FG2;
+	end s2;
+	
+	processor implementation s2.impl
+	end s2.impl;
+	
+	system MySystem
+	end MySystem;
+	
+	system implementation MySystem.impl
+		subcomponents
+			myS1: processor s1.impl;
+			myS2: processor s2.impl;
+		connections
+			bc2: feature group myS1.fg <-> myS2.fg2;
+	end MySystem.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyS: system MySystem.impl;
+	end Root.impl;
+end JustBus_processor_fg;

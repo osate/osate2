@@ -1,0 +1,57 @@
+package ShortAccessConnections
+public
+	feature group fgt
+		features
+			a: provides subprogram access;
+			p: out data port;
+	end fgt;
+	
+	thread T1
+		features
+			fg: feature group fgt;
+	end T1;
+	
+	thread implementation T1.i
+		subcomponents
+			s: subprogram;
+		connections
+			c1: subprogram access s <-> fg.a;
+	end T1.i;
+	
+	thread T2
+		features
+			fgi: feature group inverse of fgt;
+	end T2;
+
+	thread implementation T2.i
+		subcomponents
+			s: subprogram S1;
+		connections
+			c1: subprogram access s.rsa <-> fgi.a;
+	end T2.i;
+	
+	subprogram S1
+		features
+			rsa: requires subprogram access;
+	end S1;
+	
+	process P
+	end P;
+	
+	process implementation P.i
+		subcomponents
+			t1: thread T1.i;
+			t2: thread T2.i;
+		connections
+			ca: feature group t1.fg <-> t2.fgi;
+	end P.i;
+	
+	system Root
+	end Root;
+	
+    system implementation Root.impl
+        subcomponents
+            p: process p.i;
+    end Root.impl;
+
+end ShortAccessConnections;

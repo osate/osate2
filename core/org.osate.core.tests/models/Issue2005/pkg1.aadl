@@ -1,0 +1,56 @@
+package pkg1
+public
+  system top
+    modes
+      m1: initial mode;
+      m2: mode;
+      m3: mode;
+      m4: mode;
+  end top;
+
+  system implementation top.i
+    subcomponents
+      sub1: system s1 in modes (m1, m2, m3);
+      sub2: system s2 in modes (m2, m3, m4);
+    connections
+      conn1: feature sub1.out1 -> sub2.in2 in modes (m2, m3, m4);      
+    flows
+      etef1a: end to end flow sub1.source1 -> conn1 -> sub2.sink1 in modes (m2, m3);
+      etef1b: end to end flow sub1.source1 -> conn1 -> sub2.sink1 in modes (m2);
+      etef1c: end to end flow sub1.source1 -> conn1 -> sub2.sink1 in modes (m3);
+
+      etef2a: end to end flow sub1.source1 -> conn1 -> sub2.sink2 in modes (m2, m3);
+      etef2b: end to end flow sub1.source1 -> conn1 -> sub2.sink2 in modes (m2);
+      etef2c: end to end flow sub1.source1 -> conn1 -> sub2.sink2 in modes (m3);
+
+      etef3a: end to end flow sub1.source2 -> conn1 -> sub2.sink1 in modes (m2, m3);
+      etef3b: end to end flow sub1.source2 -> conn1 -> sub2.sink1 in modes (m2);
+      etef3c: end to end flow sub1.source2 -> conn1 -> sub2.sink1 in modes (m3);
+
+      etef4a: end to end flow sub1.source2 -> conn1 -> sub2.sink2 in modes (m2, m3);
+      etef4b: end to end flow sub1.source2 -> conn1 -> sub2.sink2 in modes (m2);
+      etef4c: end to end flow sub1.source2 -> conn1 -> sub2.sink2 in modes (m3);
+  end top.i;
+
+  system s1
+    features
+      out1: out feature;
+    flows
+      source1: flow source out1 in modes (a1);
+      source2: flow source out1 in modes (a2);
+  	modes
+  	  a1: initial mode;
+  	  a2: mode;
+  end s1;
+
+  system s2
+    features
+      in2: in feature;
+    flows
+      sink1: flow sink in2 in modes (b1);
+      sink2: flow sink in2 in modes (b2);
+  	modes
+  	  b1: initial mode;
+  	  b2: mode;
+  end s2;
+end pkg1;

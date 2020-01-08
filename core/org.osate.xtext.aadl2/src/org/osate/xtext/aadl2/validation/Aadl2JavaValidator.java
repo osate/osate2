@@ -7606,7 +7606,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private IQualifiedNameConverter qualifiedNameConverter;
 
 	/**
-	 * check whether there are duplicate names
+	 * Check whether there are duplicate names among packages or property sets
 	 */
 	private void checkForDuplicateModelUnits(ModelUnit modelUnit) {
 		IScope scope = scopeProvider.getScope(modelUnit.eResource(), Aadl2Package.eINSTANCE.getModelUnit(),
@@ -7616,7 +7616,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (elements.iterator().hasNext()) {
 			StringBuilder message = new StringBuilder();
 			if (modelUnit instanceof AadlPackage) {
-				message.append("Packge");
+				message.append("Package");
 			} else if (modelUnit instanceof PropertySet) {
 				message.append("Property set");
 			}
