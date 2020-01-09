@@ -50,7 +50,6 @@ public abstract class SubprogramGroupClassifierImpl extends ComponentClassifierI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupClassifier();
 	}

@@ -132,7 +132,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramType();
 	}
@@ -142,9 +141,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -167,10 +165,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
 					Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -181,7 +178,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -193,10 +189,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
 					Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -207,7 +202,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -219,10 +213,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Parameter> getOwnedParameters() {
 		if (ownedParameters == null) {
-			ownedParameters = new EObjectContainmentEList<>(Parameter.class, this,
+			ownedParameters = new EObjectContainmentEList<Parameter>(Parameter.class, this,
 					Aadl2Package.SUBPROGRAM_TYPE__OWNED_PARAMETER);
 		}
 		return ownedParameters;
@@ -233,7 +226,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Parameter createOwnedParameter() {
 		Parameter newOwnedParameter = (Parameter) create(Aadl2Package.eINSTANCE.getParameter());
 		getOwnedParameters().add(newOwnedParameter);
@@ -245,10 +237,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
 					Aadl2Package.SUBPROGRAM_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -259,7 +250,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -271,10 +261,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
 					Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -285,7 +274,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramAccess());
@@ -298,10 +286,9 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
 					SubprogramGroupAccess.class, this, Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;
@@ -312,7 +299,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
@@ -325,7 +311,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
@@ -349,7 +334,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
@@ -374,7 +358,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
@@ -410,7 +393,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
@@ -440,7 +422,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE:
@@ -466,7 +447,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT)
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_PORT)
@@ -476,7 +456,6 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements SubprogramT
 				|| eIsSet(Aadl2Package.SUBPROGRAM_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;
 	}

@@ -185,7 +185,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPackageSection();
 	}
@@ -195,9 +194,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -219,10 +217,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Classifier> getOwnedClassifiers() {
 		if (ownedClassifiers == null) {
-			ownedClassifiers = new EObjectContainmentEList<>(Classifier.class, this,
+			ownedClassifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER);
 		}
 		return ownedClassifiers;
@@ -233,7 +230,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier createOwnedClassifier(EClass eClass) {
 		Classifier newOwnedClassifier = (Classifier) create(eClass);
 		getOwnedClassifiers().add(newOwnedClassifier);
@@ -245,10 +241,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PackageRename> getOwnedPackageRenames() {
 		if (ownedPackageRenames == null) {
-			ownedPackageRenames = new EObjectContainmentEList<>(PackageRename.class, this,
+			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME);
 		}
 		return ownedPackageRenames;
@@ -259,7 +254,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PackageRename createOwnedPackageRename() {
 		PackageRename newOwnedPackageRename = (PackageRename) create(Aadl2Package.eINSTANCE.getPackageRename());
 		getOwnedPackageRenames().add(newOwnedPackageRename);
@@ -271,10 +265,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ComponentTypeRename> getOwnedComponentTypeRenames() {
 		if (ownedComponentTypeRenames == null) {
-			ownedComponentTypeRenames = new EObjectContainmentEList<>(ComponentTypeRename.class,
+			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(ComponentTypeRename.class,
 					this, Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
 		}
 		return ownedComponentTypeRenames;
@@ -285,7 +278,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentTypeRename createOwnedComponentTypeRename() {
 		ComponentTypeRename newOwnedComponentTypeRename = (ComponentTypeRename) create(
 				Aadl2Package.eINSTANCE.getComponentTypeRename());
@@ -298,7 +290,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoAnnexes() {
 		return noAnnexes;
 	}
@@ -308,14 +299,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_ANNEXES,
 					oldNoAnnexes, noAnnexes));
-		}
 	}
 
 	/**
@@ -323,7 +312,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoProperties() {
 		return noProperties;
 	}
@@ -333,14 +321,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES,
 					oldNoProperties, noProperties));
-		}
 	}
 
 	/**
@@ -348,10 +334,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames() {
 		if (ownedFeatureGroupTypeRenames == null) {
-			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<>(
+			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<FeatureGroupTypeRename>(
 					FeatureGroupTypeRename.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
 		}
 		return ownedFeatureGroupTypeRenames;
@@ -362,7 +347,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureGroupTypeRename createOwnedFeatureGroupTypeRename() {
 		FeatureGroupTypeRename newOwnedFeatureGroupTypeRename = (FeatureGroupTypeRename) create(
 				Aadl2Package.eINSTANCE.getFeatureGroupTypeRename());
@@ -375,10 +359,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AnnexLibrary> getOwnedAnnexLibraries() {
 		if (ownedAnnexLibraries == null) {
-			ownedAnnexLibraries = new EObjectContainmentEList<>(AnnexLibrary.class, this,
+			ownedAnnexLibraries = new EObjectContainmentEList<AnnexLibrary>(AnnexLibrary.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY);
 		}
 		return ownedAnnexLibraries;
@@ -389,7 +372,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexLibrary createOwnedAnnexLibrary(EClass eClass) {
 		AnnexLibrary newOwnedAnnexLibrary = (AnnexLibrary) create(eClass);
 		getOwnedAnnexLibraries().add(newOwnedAnnexLibrary);
@@ -401,7 +383,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexLibrary createOwnedAnnexLibrary() {
 		return createOwnedAnnexLibrary(Aadl2Package.eINSTANCE.getAnnexLibrary());
 	}
@@ -411,10 +392,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
 					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -425,7 +405,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -447,7 +426,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -476,7 +454,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -518,7 +495,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -554,7 +530,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER:
@@ -586,11 +561,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noAnnexes: ");
@@ -606,7 +579,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME)
@@ -618,7 +590,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	/**
 	 * Returns the name of the package.
 	 */
-	@Override
 	public String getName() {
 		AadlPackage owner = (AadlPackage) getOwner();
 		return owner != null ? owner.getName() : "";
@@ -629,7 +600,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setName(String newName) {
 		// DB: Ticket #249. Causes problem with model merge operations. Because getName() is derived from the name of the containing package,
 		// EMF compare computes a difference between the package section since the package has been renamed.
@@ -651,7 +621,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * name lookup of externally visible names.
 	 * Does not resolve renames; does not lookup when private package section
 	 */
-	@Override
 	public NamedElement findNamedElement(String name) {
 		if (this instanceof PublicPackageSection) {
 			for (NamedElement namedElement : getMembers()) {
@@ -673,7 +642,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * name lookup from within package.
 	 * It searches through all internally visible elements resolving renames as appropriate
 	 */
-	@Override
 	public NamedElement findInternallyVisibleNamedElement(String name) {
 		NamedElement result = super.findNamedElement(name);
 		if (result instanceof ComponentTypeRename) {

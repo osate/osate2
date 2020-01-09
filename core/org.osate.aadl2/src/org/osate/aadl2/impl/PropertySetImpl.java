@@ -125,7 +125,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertySet();
 	}
@@ -135,9 +134,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.PROPERTY_SET__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -157,10 +155,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PropertyType> getOwnedPropertyTypes() {
 		if (ownedPropertyTypes == null) {
-			ownedPropertyTypes = new EObjectContainmentEList<>(PropertyType.class, this,
+			ownedPropertyTypes = new EObjectContainmentEList<PropertyType>(PropertyType.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE);
 		}
 		return ownedPropertyTypes;
@@ -171,7 +168,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyType createOwnedPropertyType(EClass eClass) {
 		PropertyType newOwnedPropertyType = (PropertyType) create(eClass);
 		getOwnedPropertyTypes().add(newOwnedPropertyType);
@@ -183,10 +179,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Property> getOwnedProperties() {
 		if (ownedProperties == null) {
-			ownedProperties = new EObjectContainmentEList<>(Property.class, this,
+			ownedProperties = new EObjectContainmentEList<Property>(Property.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY);
 		}
 		return ownedProperties;
@@ -197,7 +192,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Property createOwnedProperty() {
 		Property newOwnedProperty = (Property) create(Aadl2Package.eINSTANCE.getProperty());
 		getOwnedProperties().add(newOwnedProperty);
@@ -209,10 +203,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PropertyConstant> getOwnedPropertyConstants() {
 		if (ownedPropertyConstants == null) {
-			ownedPropertyConstants = new EObjectContainmentEList<>(PropertyConstant.class, this,
+			ownedPropertyConstants = new EObjectContainmentEList<PropertyConstant>(PropertyConstant.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_CONSTANT);
 		}
 		return ownedPropertyConstants;
@@ -223,7 +216,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyConstant createOwnedPropertyConstant() {
 		PropertyConstant newOwnedPropertyConstant = (PropertyConstant) create(
 				Aadl2Package.eINSTANCE.getPropertyConstant());
@@ -236,10 +228,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
 					Aadl2Package.PROPERTY_SET__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -250,10 +241,9 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
-			ownedAnnexSubclauses = new EObjectContainmentEList<>(AnnexSubclause.class, this,
+			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
 					Aadl2Package.PROPERTY_SET__OWNED_ANNEX_SUBCLAUSE);
 		}
 		return ownedAnnexSubclauses;
@@ -264,7 +254,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexSubclause createOwnedAnnexSubclause(EClass eClass) {
 		AnnexSubclause newOwnedAnnexSubclause = (AnnexSubclause) create(eClass);
 		getOwnedAnnexSubclauses().add(newOwnedAnnexSubclause);
@@ -276,7 +265,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexSubclause createOwnedAnnexSubclause() {
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}
@@ -286,7 +274,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -306,7 +293,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -329,7 +315,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -361,7 +346,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -388,7 +372,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_MEMBER:
@@ -412,7 +395,6 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE)
 				|| eIsSet(Aadl2Package.PROPERTY_SET__OWNED_PROPERTY)

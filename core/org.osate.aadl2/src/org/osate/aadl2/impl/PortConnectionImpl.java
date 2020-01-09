@@ -51,7 +51,6 @@ public class PortConnectionImpl extends ConnectionImpl implements PortConnection
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPortConnection();
 	}

@@ -23,11 +23,8 @@
  */
 package org.osate.aadl2.instance.provider;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -36,7 +33,6 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -229,8 +225,18 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	public String getText(Object object) {
 		ComponentInstance ci = (ComponentInstance) object;
 		String label = ci.getFullName();
-		Stream<String> categoryParts = Arrays.stream(ci.getCategory().getName().split(" "));
-		String ctype = categoryParts.map(part -> StringExtensions.toFirstUpper(part)).collect(Collectors.joining(" "));
+		String[] categoryParts = ci.getCategory().getName().split(" ");
+		String ctype = "";
+		for (int i = 0; i < categoryParts.length; i++) {
+			if (i > 0) {
+				ctype += " ";
+			}
+			String s = categoryParts[i];
+			ctype += s.toUpperCase().substring(0, 1);
+			if (s.length() > 1) {
+				ctype += s.substring(1);
+			}
+		}
 		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype) //$NON-NLS-1$
 				+ (label == null || label.length() == 0 ? "" : " " + label);
 	}

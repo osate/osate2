@@ -49,7 +49,6 @@ public abstract class PortConnectionEndImpl extends ConnectionEndImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPortConnectionEnd();
 	}

@@ -49,7 +49,6 @@ public abstract class DataImpl extends NamedElementImpl implements Data {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getData();
 	}

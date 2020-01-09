@@ -73,7 +73,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessSubcomponent();
 	}
@@ -83,7 +82,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -96,7 +94,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE)) {
 			return basicGetProcessSubcomponentType();
@@ -109,17 +106,15 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ProcessSubcomponentType getProcessSubcomponentType() {
 		if (processSubcomponentType != null && ((EObject) processSubcomponentType).eIsProxy()) {
 			InternalEObject oldProcessSubcomponentType = (InternalEObject) processSubcomponentType;
 			processSubcomponentType = (ProcessSubcomponentType) eResolveProxy(oldProcessSubcomponentType);
 			if (processSubcomponentType != oldProcessSubcomponentType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE, oldProcessSubcomponentType,
 							processSubcomponentType));
-				}
 			}
 		}
 		return processSubcomponentType;
@@ -139,15 +134,13 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setProcessSubcomponentType(ProcessSubcomponentType newProcessSubcomponentType) {
 		ProcessSubcomponentType oldProcessSubcomponentType = processSubcomponentType;
 		processSubcomponentType = newProcessSubcomponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE, oldProcessSubcomponentType,
 					processSubcomponentType));
-		}
 	}
 
 	/**
@@ -155,13 +148,11 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getProcessSubcomponentType();
-			}
 			return basicGetProcessSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -172,7 +163,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE:
@@ -187,7 +177,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE:
@@ -202,7 +191,6 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROCESS_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -218,12 +206,10 @@ public class ProcessSubcomponentImpl extends SubcomponentImpl implements Process
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.PROCESS_SUBCOMPONENT__PROCESS_SUBCOMPONENT_TYPE);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESS;
 	}

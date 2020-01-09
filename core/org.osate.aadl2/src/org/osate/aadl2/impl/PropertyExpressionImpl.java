@@ -52,12 +52,10 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyExpression();
 	}
 
-	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		return new EvaluatedProperty(EcoreUtil.copy(this));
 	}
@@ -67,7 +65,6 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 	 *
 	 * @see org.osate.aadl2.PropertyExpression#sameAs(org.osate.aadl2.PropertyExpression)
 	 */
-	@Override
 	public boolean sameAs(PropertyExpression other) {
 		return false;
 	}

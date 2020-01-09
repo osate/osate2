@@ -120,7 +120,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPortProxy();
 	}
@@ -130,7 +129,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public DirectionType getDirection() {
 		// DONE: implement this method to return the 'Direction' attribute
 		if (in) {
@@ -153,16 +151,14 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataClassifier getDataClassifier() {
 		if (dataClassifier != null && ((EObject) dataClassifier).eIsProxy()) {
 			InternalEObject oldDataClassifier = (InternalEObject) dataClassifier;
 			dataClassifier = (DataClassifier) eResolveProxy(oldDataClassifier);
 			if (dataClassifier != oldDataClassifier) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PORT_PROXY__DATA_CLASSIFIER,
 							oldDataClassifier, dataClassifier));
-				}
 			}
 		}
 		return dataClassifier;
@@ -182,14 +178,12 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDataClassifier(DataClassifier newDataClassifier) {
 		DataClassifier oldDataClassifier = dataClassifier;
 		dataClassifier = newDataClassifier;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__DATA_CLASSIFIER,
 					oldDataClassifier, dataClassifier));
-		}
 	}
 
 	/**
@@ -197,7 +191,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isIn() {
 		return in;
 	}
@@ -207,13 +200,11 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__IN, oldIn, in));
-		}
 	}
 
 	/**
@@ -221,7 +212,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isOut() {
 		return out;
 	}
@@ -231,13 +221,11 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_PROXY__OUT, oldOut, out));
-		}
 	}
 
 	/**
@@ -245,15 +233,13 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
 			return getDirection();
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getDataClassifier();
-			}
 			return basicGetDataClassifier();
 		case Aadl2Package.PORT_PROXY__IN:
 			return isIn();
@@ -268,7 +254,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
@@ -289,7 +274,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DATA_CLASSIFIER:
@@ -310,7 +294,6 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PORT_PROXY__DIRECTION:
@@ -330,11 +313,9 @@ public class PortProxyImpl extends ProcessorFeatureImpl implements PortProxy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (in: ");

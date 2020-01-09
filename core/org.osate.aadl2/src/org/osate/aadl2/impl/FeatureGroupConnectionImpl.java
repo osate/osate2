@@ -49,7 +49,6 @@ public class FeatureGroupConnectionImpl extends ConnectionImpl implements Featur
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupConnection();
 	}

@@ -83,7 +83,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBasicPropertyAssociation();
 	}
@@ -93,7 +92,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyExpression createOwnedValue(EClass eClass) {
 		PropertyExpression newOwnedValue = (PropertyExpression) create(eClass);
 		setOwnedValue(newOwnedValue);
@@ -105,16 +103,14 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public BasicProperty getProperty() {
 		if (property != null && ((EObject) property).eIsProxy()) {
 			InternalEObject oldProperty = (InternalEObject) property;
 			property = (BasicProperty) eResolveProxy(oldProperty);
 			if (property != oldProperty) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY, oldProperty, property));
-				}
 			}
 		}
 		return property;
@@ -134,14 +130,12 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setProperty(BasicProperty newProperty) {
 		BasicProperty oldProperty = property;
 		property = newProperty;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY,
 					oldProperty, property));
-		}
 	}
 
 	/**
@@ -149,7 +143,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyExpression getOwnedValue() {
 		return ownedValue;
 	}
@@ -165,11 +158,10 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, oldOwnedValue, newOwnedValue);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -179,26 +171,21 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOwnedValue(PropertyExpression newOwnedValue) {
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
-			if (ownedValue != null) {
+			if (ownedValue != null)
 				msgs = ((InternalEObject) ownedValue).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
-			}
-			if (newOwnedValue != null) {
+			if (newOwnedValue != null)
 				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
-			}
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
 					newOwnedValue, newOwnedValue));
-		}
 	}
 
 	/**
@@ -206,7 +193,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE:
@@ -220,13 +206,11 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY:
-			if (resolve) {
+			if (resolve)
 				return getProperty();
-			}
 			return basicGetProperty();
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE:
 			return getOwnedValue();
@@ -239,7 +223,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY:
@@ -257,7 +240,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY:
@@ -275,7 +257,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY:
@@ -291,7 +272,6 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 *
 	 * @see org.osate.aadl2.BasicPropertyAssociation#getValue()
 	 */
-	@Override
 	public PropertyExpression getValue() {
 		return getOwnedValue();
 	}

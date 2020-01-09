@@ -77,7 +77,6 @@ public interface ListValue extends PropertyExpression {
 	 */
 	PropertyExpression createOwnedListElement(EClass eClass);
 
-	@Override
 	boolean sameAs(PropertyExpression pe);
 
 } // ListValue

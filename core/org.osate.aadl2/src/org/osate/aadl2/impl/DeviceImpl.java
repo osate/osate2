@@ -49,7 +49,6 @@ public abstract class DeviceImpl extends NamedElementImpl implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDevice();
 	}

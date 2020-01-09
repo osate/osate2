@@ -93,7 +93,6 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ConnectionInstance> getSrcConnectionInstances() {
 		if (srcConnectionInstances == null) {
 			srcConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,
@@ -108,7 +107,6 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ConnectionInstance> getDstConnectionInstances() {
 		if (dstConnectionInstances == null) {
 			dstConnectionInstances = new EObjectWithInverseEList<ConnectionInstance>(ConnectionInstance.class, this,

@@ -122,7 +122,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModeInstance getDestination() {
 		return destination;
 	}
@@ -152,7 +151,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDestination(ModeInstance newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
@@ -179,7 +177,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModeTransition getModeTransition() {
 		if (modeTransition != null && ((EObject) modeTransition).eIsProxy()) {
 			InternalEObject oldModeTransition = (InternalEObject) modeTransition;
@@ -209,7 +206,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setModeTransition(ModeTransition newModeTransition) {
 		ModeTransition oldModeTransition = modeTransition;
 		modeTransition = newModeTransition;
@@ -224,10 +220,9 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureInstance> getTriggers() {
 		if (triggers == null) {
-			triggers = new EObjectResolvingEList<>(FeatureInstance.class, this,
+			triggers = new EObjectResolvingEList<FeatureInstance>(FeatureInstance.class, this,
 					InstancePackage.MODE_TRANSITION_INSTANCE__TRIGGER);
 		}
 		return triggers;
@@ -238,7 +233,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModeInstance getSource() {
 		return source;
 	}
@@ -268,7 +262,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSource(ModeInstance newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -428,7 +421,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		return Collections.singletonList(getModeTransition());
 	}
 
-	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return getContainingComponentInstance().isActive(som);
 	}

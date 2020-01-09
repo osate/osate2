@@ -73,7 +73,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getClassifierType();
 	}
@@ -83,7 +82,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<MetaclassReference> getClassifierReferences() {
 		if (classifierReferences == null) {
 			classifierReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
@@ -97,7 +95,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public MetaclassReference createClassifierReference() {
 		MetaclassReference newClassifierReference = (MetaclassReference) create(
 				Aadl2Package.eINSTANCE.getMetaclassReference());
@@ -110,7 +107,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
@@ -124,7 +120,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
@@ -139,7 +134,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
@@ -155,7 +149,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
@@ -170,7 +163,6 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:

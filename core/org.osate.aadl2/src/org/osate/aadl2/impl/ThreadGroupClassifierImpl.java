@@ -49,7 +49,6 @@ public abstract class ThreadGroupClassifierImpl extends ComponentClassifierImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadGroupClassifier();
 	}

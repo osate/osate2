@@ -60,7 +60,6 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPublicPackageSection();
 	}
@@ -70,7 +69,6 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PrivatePackageSection getPrivateSection() {
 		PrivatePackageSection privateSection = basicGetPrivateSection();
 		return privateSection != null && ((EObject) privateSection).eIsProxy()
@@ -93,7 +91,6 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
-	@Override
 	public Namespace getNamespace() {
 		// TODO: Return global namespace
 		return null;
@@ -104,13 +101,11 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION__PRIVATE_SECTION:
-			if (resolve) {
+			if (resolve)
 				return getPrivateSection();
-			}
 			return basicGetPrivateSection();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -121,7 +116,6 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION__PRIVATE_SECTION:
@@ -133,7 +127,6 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 	/**
 	 * Returns the name of the package.
 	 */
-	@Override
 	public String getName() {
 		// DB: Add the public suffix like it is done for the private package section so that a public package section
 		// has a different name than the package.

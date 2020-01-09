@@ -104,7 +104,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getIntegerLiteral();
 	}
@@ -114,7 +113,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getBase() {
 		return base;
 	}
@@ -124,13 +122,11 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBase(long newBase) {
 		long oldBase = base;
 		base = newBase;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__BASE, oldBase, base));
-		}
 	}
 
 	/**
@@ -138,7 +134,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getValue() {
 		return value;
 	}
@@ -148,14 +143,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(long newValue) {
 		long oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue,
 					value));
-		}
 	}
 
 	/**
@@ -163,7 +156,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -179,7 +171,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -197,7 +188,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -215,7 +205,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -231,7 +220,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -300,7 +288,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 *
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
-	@Override
 	public void setValue(String s) {
 		long[] res = ParseUtil.parseAadlInteger(s);
 		Long.valueOf(res[1]);
@@ -313,7 +300,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
-	@Override
 	public NumberValue cloneAndInvert() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -331,7 +317,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
-	@Override
 	public final NumberValue cloneNumber() {
 		final IntegerLiteral newVal = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -342,7 +327,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		return newVal;
 	}
 
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

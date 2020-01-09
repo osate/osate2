@@ -23,10 +23,10 @@
  */
 package org.osate.aadl2.instance.provider;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -148,8 +148,11 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	@Override
 	public Collection<?> getChildren(Object object) {
 		SystemOperationMode som = (SystemOperationMode) object;
-		return som.getCurrentModes().stream().map(subMode -> new SubModeItemProvider(adapterFactory, som, subMode))
-				.collect(Collectors.toList());
+		List<SubModeItemProvider> result = new ArrayList<SubModeItemProvider>();
+		for (ModeInstance subMode : som.getCurrentModes()) {
+			result.add(new SubModeItemProvider(adapterFactory, som, subMode));
+		}
+		return result;
 	}
 
 	public static class SubModeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,

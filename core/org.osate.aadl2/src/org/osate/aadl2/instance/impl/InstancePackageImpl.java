@@ -263,7 +263,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureInstance() {
 		return featureInstanceEClass;
 	}
@@ -273,7 +272,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureInstance_Feature() {
 		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(5);
 	}
@@ -283,7 +281,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeatureInstance_Index() {
 		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(6);
 	}
@@ -293,7 +290,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureInstance_SrcFlowSpec() {
 		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -303,7 +299,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureInstance_DstFlowSpec() {
 		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -313,7 +308,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureInstance_FeatureInstance() {
 		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -323,7 +317,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeatureInstance_Category() {
 		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -333,7 +326,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeatureInstance_Direction() {
 		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(4);
 	}
@@ -343,7 +335,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getInstanceObject() {
 		return instanceObjectEClass;
 	}
@@ -353,7 +344,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getInstanceObject_AnnexInstance() {
 		return (EReference) instanceObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -363,7 +353,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAnnexInstance() {
 		return annexInstanceEClass;
 	}
@@ -373,7 +362,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAnnexInstance_AnnexSubclause() {
 		return (EReference) annexInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -383,7 +371,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyAssociationInstance() {
 		return propertyAssociationInstanceEClass;
 	}
@@ -393,7 +380,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyAssociationInstance_PropertyAssociation() {
 		return (EReference) propertyAssociationInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -403,7 +389,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnectionInstanceEnd() {
 		return connectionInstanceEndEClass;
 	}
@@ -413,7 +398,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstanceEnd_SrcConnectionInstance() {
 		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(0);
 	}
@@ -423,7 +407,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstanceEnd_DstConnectionInstance() {
 		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(1);
 	}
@@ -433,7 +416,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnectionInstance() {
 		return connectionInstanceEClass;
 	}
@@ -443,7 +425,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstance_InSystemOperationMode() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -453,7 +434,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstance_InModeTransition() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -463,7 +443,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getConnectionInstance_Complete() {
 		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -473,7 +452,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getConnectionInstance_Kind() {
 		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -483,7 +461,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstance_Destination() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(4);
 	}
@@ -493,7 +470,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstance_ConnectionReference() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(5);
 	}
@@ -503,7 +479,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getConnectionInstance_Bidirectional() {
 		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures().get(6);
 	}
@@ -513,7 +488,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionInstance_Source() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(7);
 	}
@@ -523,7 +497,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowElementInstance() {
 		return flowElementInstanceEClass;
 	}
@@ -533,7 +506,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemOperationMode() {
 		return systemOperationModeEClass;
 	}
@@ -543,7 +515,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemOperationMode_CurrentMode() {
 		return (EReference) systemOperationModeEClass.getEStructuralFeatures().get(0);
 	}
@@ -553,7 +524,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeInstance() {
 		return modeInstanceEClass;
 	}
@@ -563,7 +533,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeInstance_SrcModeTransition() {
 		return (EReference) modeInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -573,7 +542,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeInstance_DstModeTransition() {
 		return (EReference) modeInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -583,7 +551,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeInstance_Mode() {
 		return (EReference) modeInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -593,7 +560,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getModeInstance_Derived() {
 		return (EAttribute) modeInstanceEClass.getEStructuralFeatures().get(4);
 	}
@@ -603,7 +569,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeInstance_Parent() {
 		return (EReference) modeInstanceEClass.getEStructuralFeatures().get(5);
 	}
@@ -613,7 +578,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getModeInstance_Initial() {
 		return (EAttribute) modeInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -623,7 +587,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeTransitionInstance() {
 		return modeTransitionInstanceEClass;
 	}
@@ -633,7 +596,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionInstance_Destination() {
 		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -643,7 +605,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionInstance_ModeTransition() {
 		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -653,7 +614,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionInstance_Trigger() {
 		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -663,7 +623,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionInstance_Source() {
 		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -673,7 +632,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnectionReference() {
 		return connectionReferenceEClass;
 	}
@@ -683,7 +641,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionReference_Context() {
 		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -693,7 +650,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionReference_Connection() {
 		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -703,7 +659,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionReference_Source() {
 		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(2);
 	}
@@ -713,7 +668,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectionReference_Destination() {
 		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(3);
 	}
@@ -723,7 +677,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getConnectionReference_Reverse() {
 		return (EAttribute) connectionReferenceEClass.getEStructuralFeatures().get(4);
 	}
@@ -733,7 +686,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentInstance() {
 		return componentInstanceEClass;
 	}
@@ -743,7 +695,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_FeatureInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -753,7 +704,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_ComponentInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -763,7 +713,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_Subcomponent() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(9);
 	}
@@ -773,7 +722,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentInstance_Index() {
 		return (EAttribute) componentInstanceEClass.getEStructuralFeatures().get(10);
 	}
@@ -783,7 +731,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_Classifier() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(11);
 	}
@@ -793,7 +740,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowSpecificationInstance() {
 		return flowSpecificationInstanceEClass;
 	}
@@ -803,7 +749,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecificationInstance_Source() {
 		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -813,7 +758,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecificationInstance_Destination() {
 		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -823,7 +767,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecificationInstance_FlowSpecification() {
 		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -833,7 +776,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecificationInstance_InMode() {
 		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -843,7 +785,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecificationInstance_InModeTransition() {
 		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(4);
 	}
@@ -853,7 +794,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_ModeInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -863,7 +803,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_ModeTransitionInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -873,7 +812,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentInstance_Category() {
 		return (EAttribute) componentInstanceEClass.getEStructuralFeatures().get(4);
 	}
@@ -883,7 +821,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_InMode() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(5);
 	}
@@ -893,7 +830,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_FlowSpecification() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(6);
 	}
@@ -903,7 +839,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_EndToEndFlow() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(7);
 	}
@@ -913,7 +848,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentInstance_ConnectionInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(8);
 	}
@@ -923,7 +857,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEndToEndFlowInstance() {
 		return endToEndFlowInstanceEClass;
 	}
@@ -933,7 +866,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowInstance_FlowElement() {
 		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -943,7 +875,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowInstance_InMode() {
 		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -953,7 +884,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowInstance_EndToEndFlow() {
 		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(3);
 	}
@@ -963,7 +893,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowInstance_InSystemOperationMode() {
 		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -973,7 +902,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemInstance() {
 		return systemInstanceEClass;
 	}
@@ -983,7 +911,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemInstance_SystemOperationMode() {
 		return (EReference) systemInstanceEClass.getEStructuralFeatures().get(0);
 	}
@@ -993,7 +920,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemInstance_ComponentImplementation() {
 		return (EReference) systemInstanceEClass.getEStructuralFeatures().get(1);
 	}
@@ -1003,7 +929,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getInstanceReferenceValue() {
 		return instanceReferenceValueEClass;
 	}
@@ -1013,7 +938,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getInstanceReferenceValue_ReferencedInstanceObject() {
 		return (EReference) instanceReferenceValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -1023,7 +947,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getConnectionKind() {
 		return connectionKindEEnum;
 	}
@@ -1033,7 +956,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getFeatureCategory() {
 		return featureCategoryEEnum;
 	}
@@ -1043,7 +965,6 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public InstanceFactory getInstanceFactory() {
 		return (InstanceFactory) getEFactoryInstance();
 	}

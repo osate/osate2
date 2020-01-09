@@ -34,7 +34,6 @@ public class NonNotifyingEObjectEList<E> extends EObjectEList<E> {
 		super(dataClass, owner, featureID);
 	}
 
-	@Override
 	protected boolean isNotificationRequired() {
 		return false;
 	}

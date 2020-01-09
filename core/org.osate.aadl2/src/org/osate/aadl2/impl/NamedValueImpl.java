@@ -78,7 +78,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedValue();
 	}
@@ -88,16 +87,14 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AbstractNamedValue getNamedValue() {
 		if (namedValue != null && ((EObject) namedValue).eIsProxy()) {
 			InternalEObject oldNamedValue = (InternalEObject) namedValue;
 			namedValue = (AbstractNamedValue) eResolveProxy(oldNamedValue);
 			if (namedValue != oldNamedValue) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NAMED_VALUE__NAMED_VALUE,
 							oldNamedValue, namedValue));
-				}
 			}
 		}
 		return namedValue;
@@ -117,14 +114,12 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNamedValue(AbstractNamedValue newNamedValue) {
 		AbstractNamedValue oldNamedValue = namedValue;
 		namedValue = newNamedValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NAMED_VALUE__NAMED_VALUE, oldNamedValue,
 					namedValue));
-		}
 	}
 
 	/**
@@ -132,13 +127,11 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
-			if (resolve) {
+			if (resolve)
 				return getNamedValue();
-			}
 			return basicGetNamedValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -149,7 +142,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -164,7 +156,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -179,7 +170,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -188,7 +178,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		return super.eIsSet(featureID);
 	}
 
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;
@@ -205,7 +194,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 *
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
 	 */
-	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		AbstractNamedValue nv = getNamedValue();
 		if (depth > 50) {

@@ -58,7 +58,6 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRelationship();
 	}
@@ -68,9 +67,8 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Element> getRelatedElements() {
-		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
 				null);
 	}
 
@@ -79,7 +77,6 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RELATIONSHIP__RELATED_ELEMENT:
@@ -93,7 +90,6 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RELATIONSHIP__RELATED_ELEMENT:

@@ -129,9 +129,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * {@link Property} objects.
 	 */
 	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
-		@Override
 		protected LinkedList<Property> initialValue() {
-			return new LinkedList<>();
+			return new LinkedList<Property>();
 		}
 	};
 
@@ -149,7 +148,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedElement();
 	}
@@ -159,7 +157,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -169,13 +166,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NAMED_ELEMENT__NAME, oldName, name));
-		}
 	}
 
 	/**
@@ -183,7 +178,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getQualifiedName() {
 		// DONE: implement this method to return the 'Qualified Name' attribute
 		return qualifiedName();
@@ -194,10 +188,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
-			ownedPropertyAssociations = new EObjectContainmentEList<>(PropertyAssociation.class,
+			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class,
 					this, Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION);
 		}
 		return ownedPropertyAssociations;
@@ -208,7 +201,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyAssociation createOwnedPropertyAssociation() {
 		PropertyAssociation newOwnedPropertyAssociation = (PropertyAssociation) create(
 				Aadl2Package.eINSTANCE.getPropertyAssociation());
@@ -221,7 +213,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Namespace getNamespace() {
 		return NamedElementOperations.getNamespace(this);
 	}
@@ -231,7 +222,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String qualifiedName() {
 		return NamedElementOperations.qualifiedName(this);
 	}
@@ -241,7 +231,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
@@ -255,7 +244,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -274,7 +262,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -293,7 +280,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -311,7 +297,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -330,11 +315,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
@@ -343,13 +326,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		return result.toString();
 	}
 
-	@Override
 	public boolean hasName() {
 		String name = getName();
 		return name != null && name.length() > 0;
 	}
 
-	@Override
 	public String getFullName() {
 		return getName();
 	}
@@ -371,7 +352,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @throws PropertyDoesNotApplyToHolderException
 	 * @throws PropertyIsListException
 	 */
-	@Override
 	public PropertyExpression getSimplePropertyValue(Property property)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
@@ -385,7 +365,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @param property Property
 	 * @return The property expression or null if the property has no value.
 	 */
-	@Override
 	public PropertyExpression getNonModalPropertyValue(final Property property)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException {
@@ -451,7 +430,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * 				  Thrown if the lookup encounters a cycle of property
 	 * 				  reference dependencies.
 	 */
-	@Override
 	public PropertyAcc getPropertyValue(final Property property, final boolean all) throws IllegalStateException,
 			InvalidModelException, PropertyDoesNotApplyToHolderException, IllegalArgumentException {
 		// Error if the property is not acceptable
@@ -478,7 +456,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	@Override
+	public PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
+			PropertyDoesNotApplyToHolderException, IllegalArgumentException {
+		return getPropertyValue(property, false);
+	};
+
 	public boolean acceptsProperty(Property property) {
 
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {
@@ -502,7 +484,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * TODO-lw: check if fromInstanceSlaveCall is still needed and if it's correctly implemented
 	 * See https://github.com/osate/osate2/issues/875
 	 */
-	@Override
 	public void getPropertyValueInternal(final Property pn, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		if (!fromInstanceSlaveCall && getContainingClassifier() != null
@@ -514,7 +495,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		pas.addLocal(this);
 	}
 
-	@Override
+	public void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
+		getPropertyValueInternal(property, pas, fromInstanceSlaveCall, false);
+	}
+
 	public final PropertyAssociation setPropertyValue(final Property pd, final List<? extends PropertyExpression> pes) {
 		checkPropertyAssociation(pd, pes);
 		PropertyAssociation pa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
@@ -544,7 +529,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	/**
 	 * Check that the proposed association is legal.
 	 */
-	@Override
 	public void checkPropertyAssociation(final Property pd, final Collection<? extends PropertyExpression> vals) {
 		// Check that the property applies to this element
 		if (!acceptsProperty(pd)) {
@@ -576,7 +560,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	@Override
 	public final void removePropertyAssociations(final Property pd) {
 		final EList<PropertyAssociation> pal = getOwnedPropertyAssociations();
 		for (final Iterator<PropertyAssociation> it = pal.iterator(); it.hasNext();) {
@@ -591,7 +574,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	@Override
 	public final void removePropertyAssociations(final Property pd, final List<? extends Mode> modes) {
 		final EList<PropertyAssociation> pal = getOwnedPropertyAssociations();
 		for (final Iterator<PropertyAssociation> it = pal.iterator(); it.hasNext();) {
@@ -626,7 +608,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	@Override
 	public final PropertyAssociation setPropertyValue(final Property pd, final List<? extends PropertyExpression> pvl,
 			final List<? extends Mode> modes) {
 		checkPropertyAssociation(pd, pvl);
@@ -649,7 +630,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @param property PropertyDefinition
 	 * @return A list of PropertyValues.  This does not return null.
 	 */
-	@Override
 	public final List<PropertyExpression> getPropertyValueList(final Property property)
 			throws InvalidModelException, IllegalArgumentException, PropertyNotPresentException,
 			PropertyIsModalException, IllegalStateException, PropertyDoesNotApplyToHolderException {
@@ -658,7 +638,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			if (pe instanceof ListValue) {
 				return ((ListValue) pe).getOwnedListElements();
 			} else {
-				List<PropertyExpression> pes = new BasicEList<>();
+				List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
 
 				pes.add(pe);
 				return pes;
@@ -668,7 +648,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
-	@Override
 	public final PropertyAssociation setPropertyValue(final Property pd, final PropertyValue pv) {
 		checkPropertyAssociation(pd, Collections.singletonList(pv));
 		PropertyAssociation pa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
@@ -702,14 +681,12 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @deprecated Will be removed in 2.7.
 	 */
 	@Deprecated
-	@Override
 	public EList<PropertyExpression> getPropertyValues(final String propertySetName, final String propertyName)
 			throws InvalidModelException, IllegalArgumentException, PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException {
 		return NamedElementOperations.getPropertyValues(this, propertySetName, propertyName);
 	}
 
-	@Override
 	public boolean equals(Object arg0) {
 		/*
 		 * if (arg0 instanceof DataPortImpl)

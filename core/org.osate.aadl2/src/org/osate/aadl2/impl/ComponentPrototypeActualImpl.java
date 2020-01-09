@@ -110,7 +110,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentPrototypeActual();
 	}
@@ -120,7 +119,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentCategory getCategory() {
 		return category;
 	}
@@ -130,14 +128,12 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCategory(ComponentCategory newCategory) {
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY,
 					oldCategory, category));
-		}
 	}
 
 	/**
@@ -145,10 +141,9 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;
@@ -159,7 +154,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PrototypeBinding createBinding(EClass eClass) {
 		PrototypeBinding newBinding = (PrototypeBinding) create(eClass);
 		getBindings().add(newBinding);
@@ -171,7 +165,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public SubcomponentType getSubcomponentType() {
 		if (subcomponentType != null && ((EObject) subcomponentType).eIsProxy()) {
 			InternalEObject oldSubcomponentType = (InternalEObject) subcomponentType;
@@ -201,14 +194,12 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSubcomponentType(SubcomponentType newSubcomponentType) {
 		SubcomponentType oldSubcomponentType = subcomponentType;
 		subcomponentType = newSubcomponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE, oldSubcomponentType, subcomponentType));
-		}
 	}
 
 	/**
@@ -216,7 +207,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
@@ -230,7 +220,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
@@ -238,9 +227,8 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
 			return getBindings();
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getSubcomponentType();
-			}
 			return basicGetSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -252,7 +240,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
@@ -274,7 +261,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
@@ -295,7 +281,6 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY:
@@ -313,11 +298,9 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (category: ");

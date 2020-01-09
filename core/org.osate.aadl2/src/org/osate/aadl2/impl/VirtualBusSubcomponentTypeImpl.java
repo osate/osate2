@@ -50,7 +50,6 @@ public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusSubcomponentType();
 	}

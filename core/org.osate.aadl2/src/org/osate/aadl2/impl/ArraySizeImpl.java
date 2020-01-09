@@ -89,7 +89,6 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArraySize();
 	}
@@ -99,7 +98,6 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getSize() {
 		return size;
 	}
@@ -109,13 +107,11 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSize(long newSize) {
 		long oldSize = size;
 		size = newSize;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_SIZE__SIZE, oldSize, size));
-		}
 	}
 
 	/**
@@ -123,16 +119,14 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArraySizeProperty getSizeProperty() {
 		if (sizeProperty != null && ((EObject) sizeProperty).eIsProxy()) {
 			InternalEObject oldSizeProperty = (InternalEObject) sizeProperty;
 			sizeProperty = (ArraySizeProperty) eResolveProxy(oldSizeProperty);
 			if (sizeProperty != oldSizeProperty) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY,
 							oldSizeProperty, sizeProperty));
-				}
 			}
 		}
 		return sizeProperty;
@@ -152,14 +146,12 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSizeProperty(ArraySizeProperty newSizeProperty) {
 		ArraySizeProperty oldSizeProperty = sizeProperty;
 		sizeProperty = newSizeProperty;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY,
 					oldSizeProperty, sizeProperty));
-		}
 	}
 
 	/**
@@ -167,15 +159,13 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
 			return getSize();
 		case Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY:
-			if (resolve) {
+			if (resolve)
 				return getSizeProperty();
-			}
 			return basicGetSizeProperty();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -186,7 +176,6 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -204,7 +193,6 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -222,7 +210,6 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
@@ -238,11 +225,9 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (size: ");

@@ -221,10 +221,8 @@ public interface NamedElement extends Element {
 	PropertyAcc getPropertyValue(Property property, boolean all) throws IllegalStateException, InvalidModelException,
 			PropertyDoesNotApplyToHolderException, IllegalArgumentException;
 
-	default PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
-			PropertyDoesNotApplyToHolderException, IllegalArgumentException {
-		return getPropertyValue(property, false);
-	};
+	PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
+			PropertyDoesNotApplyToHolderException, IllegalArgumentException;
 
 	/**
 	 * Query whether this object accepts values for the given property. That is,
@@ -277,10 +275,8 @@ public interface NamedElement extends Element {
 	void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall, boolean all)
 			throws InvalidModelException;
 
-	default void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
-			throws InvalidModelException {
-		getPropertyValueInternal(property, pas, fromInstanceSlaveCall, false);
-	}
+	void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
+			throws InvalidModelException;
 
 	/**
 	 * Set property association for given property definition with specified

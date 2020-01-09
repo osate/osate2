@@ -49,7 +49,6 @@ public abstract class FeaturePrototypeActualImpl extends ArrayableElementImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeaturePrototypeActual();
 	}

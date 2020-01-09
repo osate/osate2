@@ -49,7 +49,6 @@ public abstract class FeatureGroupConnectionEndImpl extends ConnectionEndImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupConnectionEnd();
 	}

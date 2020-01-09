@@ -119,10 +119,9 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
-			systemOperationModes = new EObjectContainmentEList<>(SystemOperationMode.class, this,
+			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
 		}
 		return systemOperationModes;
@@ -132,7 +131,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SystemOperationMode createSystemOperationMode() {
 		SystemOperationMode newSystemOperationMode = (SystemOperationMode) create(
 				InstancePackage.Literals.SYSTEM_OPERATION_MODE);
@@ -145,7 +143,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentImplementation getComponentImplementation() {
 		if (componentImplementation != null && ((EObject) componentImplementation).eIsProxy()) {
 			InternalEObject oldComponentImplementation = (InternalEObject) componentImplementation;
@@ -175,7 +172,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setComponentImplementation(ComponentImplementation newComponentImplementation) {
 		ComponentImplementation oldComponentImplementation = componentImplementation;
 		componentImplementation = newComponentImplementation;
@@ -279,9 +275,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
-	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
-		final List<SystemOperationMode> output = new ArrayList<>();
+		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis)) {
 				output.add(som);
@@ -290,7 +285,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return Collections.unmodifiableList(output);
 	}
 
-	@Override
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
 		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
@@ -301,7 +295,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		currentSOM = som;
 	}
 
-	@Override
 	public SystemOperationMode getCurrentSystemOperationMode() {
 		return currentSOM;
 	}
@@ -310,7 +303,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * Clear the mode states for a given SystemInstance. That is, the modal
 	 * adapters for the model all have their modes set to <code>null</code>.
 	 */
-	@Override
 	public void clearCurrentSystemOperationMode() {
 		/*
 		 * Just walk the whole tree and clear the modes of all the components.
@@ -320,7 +312,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		 * not exist in some SOMs.
 		 */
 		currentSOM = null;
-		final LinkedList<ComponentInstance> comps = new LinkedList<>();
+		final LinkedList<ComponentInstance> comps = new LinkedList<ComponentInstance>();
 		comps.add(this);
 		while (!comps.isEmpty()) {
 			final ComponentInstance ci = comps.removeFirst();
@@ -334,7 +326,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * You may want to call on AadlUtil.findConnectionInstance as it can handle any endpoint, not just
 	 * features on port connections.
 	 */
-	@Override
 	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
 		EList<ConnectionInstance> subcl = getAllConnectionInstances();
 		for (Iterator<ConnectionInstance> it = subcl.iterator(); it.hasNext();) {
@@ -364,9 +355,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
 	 */
-	@Override
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
-		List<ConnectionInstance> result = new LinkedList<>();
+		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
 
 		for (ConnectionInstance conni : getAllConnectionInstances()) {
 			boolean foundFirst = (first == second);
@@ -417,9 +407,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mi Mode Instance
 	 * @return List of SOM that contains the mode instance
 	 */
-	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
-		final List<SystemOperationMode> output = new ArrayList<>();
+		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
 			if (som.getCurrentModes().contains(mi)) {
@@ -436,7 +425,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	private SystemOperationMode initialMode = null;
 
-	@Override
 	public final SystemOperationMode getInitialSystemOperationMode() {
 		if (initialMode == null) {
 			final List<SystemOperationMode> soms = getSystemOperationModes();
@@ -456,53 +444,52 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return true;
 	}
 
-	@Override
 	public Iterable<ConnectionInstance> allConnectionInstances() {
 		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
 
-		return () -> new Iterator<ConnectionInstance>() {
-			ConnectionInstance next;
+		return new Iterable<ConnectionInstance>() {
+			public Iterator<ConnectionInstance> iterator() {
+				return new Iterator<ConnectionInstance>() {
+					ConnectionInstance next;
 
-			private boolean advance() {
-				boolean found = false;
+					private boolean advance() {
+						boolean found = false;
 
-				next = null;
-				while (iter.hasNext()) {
-					Object obj = iter.next();
-					if (found = obj instanceof ConnectionInstance) {
-						next = (ConnectionInstance) obj;
-						iter.prune();
-						break;
+						next = null;
+						while (iter.hasNext()) {
+							Object obj = iter.next();
+							if (found = obj instanceof ConnectionInstance) {
+								next = (ConnectionInstance) obj;
+								iter.prune();
+								break;
+							}
+						}
+						return found;
 					}
-				}
-				return found;
-			}
 
-			@Override
-			public boolean hasNext() {
-				return next != null || advance();
-			}
+					public boolean hasNext() {
+						return next != null || advance();
+					}
 
-			@Override
-			public ConnectionInstance next() {
-				if (next == null && !advance()) {
-					throw new NoSuchElementException();
-				}
-				ConnectionInstance result = next;
-				next = null;
-				return result;
-			}
+					public ConnectionInstance next() {
+						if (next == null && !advance()) {
+							throw new NoSuchElementException();
+						}
+						ConnectionInstance result = next;
+						next = null;
+						return result;
+					}
 
-			@Override
-			public void remove() {
-				throw new UnsupportedOperationException();
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+				};
 			}
 		};
 	}
 
-	@Override
 	public EList<ConnectionInstance> getAllConnectionInstances() {
-		EList<ConnectionInstance> result = new BasicEList<>();
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 
 		for (ConnectionInstance conni : allConnectionInstances()) {
 			result.add(conni);

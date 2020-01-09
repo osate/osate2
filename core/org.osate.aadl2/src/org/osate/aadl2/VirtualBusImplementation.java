@@ -86,7 +86,6 @@ public interface VirtualBusImplementation extends ComponentImplementation, Virtu
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
-	@Override
 	VirtualBusType getType();
 
 } // VirtualBusImplementation
