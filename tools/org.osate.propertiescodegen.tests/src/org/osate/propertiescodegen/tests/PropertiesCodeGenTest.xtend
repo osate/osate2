@@ -69,6 +69,32 @@ class PropertiesCodeGenTest {
 	}
 	
 	@Test
+	def void testClassifierType() {
+		val propertySet = '''
+			property set ps1 is
+				classifier_type_1: type classifier;
+			end ps1;
+		'''
+		val javaClass = '''
+			package ps1;
+			
+			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.PropertyExpression;
+			
+			public class ClassifierType1 {
+				public static Classifier getValue(PropertyExpression propertyExpression) {
+					return ((ClassifierValue) propertyExpression).getClassifier();
+				}
+			}
+		'''
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
+		assertEquals(1, results.size)
+		assertEquals("ClassifierType1.java", results.head.fileName)
+		assertEquals(javaClass.toString, results.head.contents)
+	}
+	
+	@Test
 	def void testEnumType() {
 		val propertySet = '''
 			property set enum_test is
