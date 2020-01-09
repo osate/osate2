@@ -82,7 +82,7 @@ public interface Generalization extends DirectedRelationship {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * References the specializing classifier in the Generalization relationship.
+	 * References the specializing classifier in the Generalization relationship. 
 	 * <p>From package AADLInfrastructure.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Specific</em>' reference.

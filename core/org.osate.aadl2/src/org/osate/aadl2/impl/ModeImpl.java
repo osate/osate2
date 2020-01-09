@@ -94,7 +94,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMode();
 	}
@@ -104,7 +103,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isInitial() {
 		return initial;
 	}
@@ -114,13 +112,11 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE__INITIAL, oldInitial, initial));
-		}
 	}
 
 	/**
@@ -128,7 +124,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public boolean isDerived() {
 		// DONE: implement this method to return the 'Derived' attribute
 		return ((ComponentClassifier) getOwner()).isDerivedModes();
@@ -139,7 +134,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE__INITIAL:
@@ -155,7 +149,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE__INITIAL:
@@ -170,7 +163,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE__INITIAL:
@@ -185,7 +177,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE__INITIAL:
@@ -201,11 +192,9 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (initial: ");
@@ -215,7 +204,6 @@ public class ModeImpl extends ModeFeatureImpl implements Mode {
 	}
 
 	// Cannot make this final because I need to override in SystemOperationMode
-	@Override
 	public void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();

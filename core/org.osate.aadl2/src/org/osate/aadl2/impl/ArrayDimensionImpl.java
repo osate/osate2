@@ -70,7 +70,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArrayDimension();
 	}
@@ -80,7 +79,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArraySize getSize() {
 		return size;
 	}
@@ -96,11 +94,10 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.ARRAY_DIMENSION__SIZE, oldSize, newSize);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -110,26 +107,21 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSize(ArraySize newSize) {
 		if (newSize != size) {
 			NotificationChain msgs = null;
-			if (size != null) {
+			if (size != null)
 				msgs = ((InternalEObject) size).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
-			}
-			if (newSize != null) {
+			if (newSize != null)
 				msgs = ((InternalEObject) newSize).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.ARRAY_DIMENSION__SIZE, null, msgs);
-			}
 			msgs = basicSetSize(newSize, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_DIMENSION__SIZE, newSize,
 					newSize));
-		}
 	}
 
 	/**
@@ -137,7 +129,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArraySize createSize() {
 		ArraySize newSize = (ArraySize) create(Aadl2Package.eINSTANCE.getArraySize());
 		setSize(newSize);
@@ -149,7 +140,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -163,7 +153,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -177,7 +166,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -192,7 +180,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:
@@ -207,7 +194,6 @@ public class ArrayDimensionImpl extends ElementImpl implements ArrayDimension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAY_DIMENSION__SIZE:

@@ -159,7 +159,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getConnection();
 	}
@@ -169,7 +168,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Mode> getInModes() {
 		return ModalPathOperations.getInModes(this);
 	}
@@ -198,10 +196,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeFeature> getInModeOrTransitions() {
 		if (inModeOrTransitions == null) {
-			inModeOrTransitions = new EObjectResolvingEList<>(ModeFeature.class, this,
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(ModeFeature.class, this,
 					Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION);
 		}
 		return inModeOrTransitions;
@@ -212,7 +209,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -225,7 +221,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.CONNECTION__REFINED)) {
 			return basicGetRefined();
@@ -238,7 +233,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.CONNECTION__REFINED);
 	}
@@ -248,10 +242,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
-		final EList<Classifier> list = new NonNotifyingEObjectEList<>(Classifier.class, this,
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.CONNECTION__FEATURING_CLASSIFIER);
 		// BasicEList<Classifier> list = new BasicEList<Classifier>();
 
@@ -287,7 +280,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectedElement getDestination() {
 		return destination;
 	}
@@ -303,11 +295,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTION__DESTINATION, oldDestination, newDestination);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -317,26 +308,21 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDestination(ConnectedElement newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
-			if (destination != null) {
+			if (destination != null)
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
-			}
-			if (newDestination != null) {
+			if (newDestination != null)
 				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
-			}
 			msgs = basicSetDestination(newDestination, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__DESTINATION, newDestination,
 					newDestination));
-		}
 	}
 
 	/**
@@ -344,7 +330,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectedElement createDestination() {
 		ConnectedElement newDestination = (ConnectedElement) create(Aadl2Package.eINSTANCE.getConnectedElement());
 		setDestination(newDestination);
@@ -356,7 +341,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectedElement getSource() {
 		return source;
 	}
@@ -372,11 +356,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTION__SOURCE, oldSource, newSource);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -386,26 +369,21 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSource(ConnectedElement newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
-			if (source != null) {
+			if (source != null)
 				msgs = ((InternalEObject) source).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
-			}
-			if (newSource != null) {
+			if (newSource != null)
 				msgs = ((InternalEObject) newSource).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
-			}
 			msgs = basicSetSource(newSource, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE, newSource,
 					newSource));
-		}
 	}
 
 	/**
@@ -413,7 +391,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectedElement createSource() {
 		ConnectedElement newSource = (ConnectedElement) create(Aadl2Package.eINSTANCE.getConnectedElement());
 		setSource(newSource);
@@ -425,7 +402,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isBidirectional() {
 		return bidirectional;
 	}
@@ -435,14 +411,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBidirectional(boolean newBidirectional) {
 		boolean oldBidirectional = bidirectional;
 		bidirectional = newBidirectional;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__BIDIRECTIONAL,
 					oldBidirectional, bidirectional));
-		}
 	}
 
 	/**
@@ -450,16 +424,14 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Connection getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Connection) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__REFINED,
 							oldRefined, refined));
-				}
 			}
 		}
 		return refined;
@@ -479,14 +451,12 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setRefined(Connection newRefined) {
 		Connection oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__REFINED, oldRefined,
 					refined));
-		}
 	}
 
 	/**
@@ -494,7 +464,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -504,7 +473,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeTransition> getInModeTransitions() {
 		return ModalPathOperations.getInModeTransitions(this);
 	}
@@ -514,7 +482,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeTransition> getAllInModeTransitions() {
 		return ModalPathOperations.getAllInModeTransitions(this);
 	}
@@ -524,7 +491,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__DESTINATION:
@@ -540,7 +506,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
@@ -554,9 +519,8 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			return isBidirectional();
 		case Aadl2Package.CONNECTION__REFINED:
-			if (resolve) {
+			if (resolve)
 				return getRefined();
-			}
 			return basicGetRefined();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -568,7 +532,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
@@ -600,7 +563,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
@@ -630,7 +592,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTION__IN_MODE:
@@ -656,7 +617,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -694,7 +654,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
@@ -732,11 +691,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (bidirectional: ");
@@ -750,18 +707,15 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refine
 	 * @return ConnectionEnd the source (feature, data/bus access end or parameter end)
 	 */
-	@Override
 	public ConnectionEnd getAllSource() {
 		ConnectedElement end = getRootConnection().getSource();
 		return (end instanceof ConnectedElement) ? end.getConnectionEnd() : null;
 	}
 
-	@Override
 	public ConnectionEnd getAllLastSource() {
 		return getRootConnection().getSource().getLastConnectionEnd();
 	}
 
-	@Override
 	public Connection getRootConnection() {
 		Connection conn = this;
 		Connection refined = getRefined();
@@ -777,7 +731,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return Context
 	 */
-	@Override
 	public Context getAllDestinationContext() {
 		ConnectedElement end = getRootConnection().getDestination();
 		return end.getContext();
@@ -788,13 +741,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return ConnectionEnd the destination (feature, data/bus access end or parameter end)
 	 */
-	@Override
 	public ConnectionEnd getAllDestination() {
 		ConnectedElement end = getRootConnection().getDestination();
 		return end.getConnectionEnd();
 	}
 
-	@Override
 	public ConnectionEnd getAllLastDestination() {
 		return getRootConnection().getDestination().getLastConnectionEnd();
 	}
@@ -804,13 +755,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * in case of a refined connection get it from the connection being refined
 	 * @return Context
 	 */
-	@Override
 	public Context getAllSourceContext() {
 		ConnectedElement end = getRootConnection().getSource();
 		return end.getContext();
 	}
 
-	@Override
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
@@ -864,7 +813,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 *
 	 * @see org.osate.aadl2.Connection#getAllSrcContextComponent()
 	 */
-	@Override
 	public NamedElement getAllSrcContextComponent() {
 		Connection conn = getRootConnection();
 		Context scxt = conn.getAllSourceContext();
@@ -879,7 +827,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 *
 	 * @see org.osate.aadl2.Connection#getAllDstContextComponent()
 	 */
-	@Override
 	public NamedElement getAllDstContextComponent() {
 		Connection conn = getRootConnection();
 		Context dcxt = conn.getAllDestinationContext();
@@ -889,12 +836,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		return dcxt;
 	}
 
-	@Override
 	public boolean isAllBidirectional() {
 		return getRootConnection().isBidirectional();
 	}
 
-	@Override
 	public boolean isAcross() {
 		Connection conn = getRootConnection();
 		ConnectionEnd src = conn.getAllSource();

@@ -147,7 +147,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentInstance getContext() {
 		if (context != null && context.eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
@@ -176,7 +175,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setContext(ComponentInstance newContext) {
 		ComponentInstance oldContext = context;
 		context = newContext;
@@ -191,7 +189,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Connection getConnection() {
 		if (connection != null && ((EObject) connection).eIsProxy()) {
 			InternalEObject oldConnection = (InternalEObject) connection;
@@ -220,7 +217,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setConnection(Connection newConnection) {
 		Connection oldConnection = connection;
 		connection = newConnection;
@@ -235,7 +231,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionInstanceEnd getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject) source;
@@ -264,7 +259,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSource(ConnectionInstanceEnd newSource) {
 		ConnectionInstanceEnd oldSource = source;
 		source = newSource;
@@ -279,7 +273,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionInstanceEnd getDestination() {
 		if (destination != null && destination.eIsProxy()) {
 			InternalEObject oldDestination = (InternalEObject) destination;
@@ -308,7 +301,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDestination(ConnectionInstanceEnd newDestination) {
 		ConnectionInstanceEnd oldDestination = destination;
 		destination = newDestination;
@@ -323,7 +315,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isReverse() {
 		return reverse;
 	}
@@ -333,7 +324,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setReverse(boolean newReverse) {
 		boolean oldReverse = reverse;
 		reverse = newReverse;
@@ -471,7 +461,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		return result.toString();
 	}
 
-	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return ((ConnectionInstance) getOwner()).isActive(som) && getSource().isActive(som)
 				&& getDestination().isActive(som);

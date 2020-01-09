@@ -50,7 +50,6 @@ public class EventPortImpl extends PortImpl implements EventPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEventPort();
 	}
@@ -60,7 +59,6 @@ public class EventPortImpl extends PortImpl implements EventPort {
 	 *
 	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
 	 */
-	@Override
 	public PortCategory getCategory() {
 		return PortCategory.EVENT;
 	}

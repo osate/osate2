@@ -78,7 +78,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAccessConnection();
 	}
@@ -88,7 +87,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AccessCategory getAccessCategory() {
 		return accessCategory;
 	}
@@ -98,14 +96,12 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setAccessCategory(AccessCategory newAccessCategory) {
 		AccessCategory oldAccessCategory = accessCategory;
 		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT : newAccessCategory;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY,
 					oldAccessCategory, accessCategory));
-		}
 	}
 
 	/**
@@ -113,7 +109,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY:
@@ -127,7 +122,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY:
@@ -142,7 +136,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY:
@@ -157,7 +150,6 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY:
@@ -171,11 +163,9 @@ public class AccessConnectionImpl extends ConnectionImpl implements AccessConnec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (accessCategory: ");

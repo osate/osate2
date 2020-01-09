@@ -87,7 +87,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramCallSequence();
 	}
@@ -97,7 +96,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE);
@@ -110,7 +108,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramCall> getOwnedSubprogramCalls() {
 		if (ownedSubprogramCalls == null) {
 			ownedSubprogramCalls = new EObjectContainmentEList<SubprogramCall>(SubprogramCall.class, this,
@@ -124,7 +121,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramCall createOwnedSubprogramCall() {
 		SubprogramCall newOwnedSubprogramCall = (SubprogramCall) create(Aadl2Package.eINSTANCE.getSubprogramCall());
 		getOwnedSubprogramCalls().add(newOwnedSubprogramCall);
@@ -136,7 +132,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -146,7 +141,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
@@ -160,7 +154,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
@@ -177,7 +170,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
@@ -197,7 +189,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
@@ -215,7 +206,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
@@ -231,7 +221,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -249,7 +238,6 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {

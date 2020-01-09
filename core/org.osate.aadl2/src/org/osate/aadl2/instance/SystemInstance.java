@@ -101,7 +101,6 @@ public interface SystemInstance extends ComponentInstance {
 	 */
 	void setComponentImplementation(ComponentImplementation value);
 
-	@Override
 	ComponentImplementation getComponentClassifier();
 
 	/**

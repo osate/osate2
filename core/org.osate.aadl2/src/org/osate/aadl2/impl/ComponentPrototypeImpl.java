@@ -91,7 +91,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentPrototype();
 	}
@@ -101,7 +100,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isArray() {
 		return array;
 	}
@@ -111,14 +109,12 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setArray(boolean newArray) {
 		boolean oldArray = array;
 		array = newArray;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE__ARRAY, oldArray,
 					array));
-		}
 	}
 
 	/**
@@ -126,17 +122,15 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentClassifier getConstrainingClassifier() {
 		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
 			constrainingClassifier = (ComponentClassifier) eResolveProxy(oldConstrainingClassifier);
 			if (constrainingClassifier != oldConstrainingClassifier) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
 							constrainingClassifier));
-				}
 			}
 		}
 		return constrainingClassifier;
@@ -156,15 +150,13 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
 					constrainingClassifier));
-		}
 	}
 
 	/**
@@ -172,15 +164,13 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
 			return isArray();
 		case Aadl2Package.COMPONENT_PROTOTYPE__CONSTRAINING_CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getConstrainingClassifier();
-			}
 			return basicGetConstrainingClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -191,7 +181,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -209,7 +198,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -227,7 +215,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -243,11 +230,9 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (array: ");

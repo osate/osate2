@@ -197,7 +197,6 @@ public interface ProcessorImplementation extends ComponentImplementation, Proces
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
-	@Override
 	ProcessorType getType();
 
 } // ProcessorImplementation

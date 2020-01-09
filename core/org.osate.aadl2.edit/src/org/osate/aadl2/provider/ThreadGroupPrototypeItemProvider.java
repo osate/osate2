@@ -54,7 +54,6 @@ public class ThreadGroupPrototypeItemProvider extends ComponentPrototypeItemProv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -69,7 +68,6 @@ public class ThreadGroupPrototypeItemProvider extends ComponentPrototypeItemProv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadGroupPrototype"));
 	}
@@ -80,7 +78,6 @@ public class ThreadGroupPrototypeItemProvider extends ComponentPrototypeItemProv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((ThreadGroupPrototype) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_ThreadGroupPrototype_type")
@@ -94,7 +91,6 @@ public class ThreadGroupPrototypeItemProvider extends ComponentPrototypeItemProv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -107,7 +103,6 @@ public class ThreadGroupPrototypeItemProvider extends ComponentPrototypeItemProv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

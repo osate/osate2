@@ -49,7 +49,6 @@ public abstract class SubprogramImpl extends NamedElementImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogram();
 	}

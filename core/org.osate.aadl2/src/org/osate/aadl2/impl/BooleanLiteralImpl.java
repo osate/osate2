@@ -78,7 +78,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBooleanLiteral();
 	}
@@ -88,12 +87,10 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isValue() {
 		return value;
 	}
 
-	@Override
 	public boolean getValue() {
 		return isValue();
 	}
@@ -103,14 +100,12 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(boolean newValue) {
 		boolean oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue,
 					value));
-		}
 	}
 
 	/**
@@ -118,7 +113,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BOOLEAN_LITERAL__VALUE:
@@ -132,7 +126,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BOOLEAN_LITERAL__VALUE:
@@ -147,7 +140,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BOOLEAN_LITERAL__VALUE:
@@ -162,7 +154,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BOOLEAN_LITERAL__VALUE:
@@ -176,7 +167,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -187,7 +177,6 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		return result.toString();
 	}
 
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

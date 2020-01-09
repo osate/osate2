@@ -72,7 +72,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumberValue();
 	}
@@ -82,16 +81,14 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public UnitLiteral getUnit() {
 		if (unit != null && ((EObject) unit).eIsProxy()) {
 			InternalEObject oldUnit = (InternalEObject) unit;
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
 							unit));
-				}
 			}
 		}
 		return unit;
@@ -111,13 +108,11 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setUnit(UnitLiteral newUnit) {
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
-		}
 	}
 
 	/**
@@ -125,7 +120,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public double getScaledValue(UnitLiteral target) {
 		return NumberValueOperations.getScaledValue(this, target);
 	}
@@ -135,7 +129,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public double getScaledValue() {
 		return NumberValueOperations.getScaledValue(this);
 	}
@@ -145,13 +138,11 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
-			if (resolve) {
+			if (resolve)
 				return getUnit();
-			}
 			return basicGetUnit();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -162,7 +153,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -177,7 +167,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -192,7 +181,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_VALUE__UNIT:
@@ -207,7 +195,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 *
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
 	 */
-	@Override
 	public double getScaledValue(String target) {
 		final UnitLiteral currentUnit = getUnit();
 		final UnitLiteral targetUnit;

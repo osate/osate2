@@ -99,7 +99,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataType();
 	}
@@ -109,9 +108,8 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.DATA_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.DATA_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -132,10 +130,9 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
 					Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -146,7 +143,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramAccess());
@@ -159,10 +155,9 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
 					Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -173,7 +168,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -185,10 +179,9 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
 					SubprogramGroupAccess.class, this, Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;
@@ -199,7 +192,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
@@ -212,7 +204,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -230,7 +221,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -249,7 +239,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -273,7 +262,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
@@ -294,7 +282,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DATA_TYPE__OWNED_FEATURE:
@@ -314,14 +301,12 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS)
 				|| eIsSet(Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS)
 				|| eIsSet(Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}

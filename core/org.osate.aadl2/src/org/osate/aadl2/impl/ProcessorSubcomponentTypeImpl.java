@@ -49,7 +49,6 @@ public abstract class ProcessorSubcomponentTypeImpl extends SubcomponentTypeImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorSubcomponentType();
 	}

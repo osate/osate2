@@ -208,7 +208,6 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	@Override
 	PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) throws InvalidModelException;
 
 } // PropertyConstant

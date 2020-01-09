@@ -50,12 +50,10 @@ public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramPrototype();
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;
 	}

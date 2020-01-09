@@ -448,7 +448,6 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 *        annotation="subsets"
 	 * @generated
 	 */
-	@Override
 	ComponentImplementation getExtended();
 
 	/**

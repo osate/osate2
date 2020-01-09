@@ -73,7 +73,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArrayableElement();
 	}
@@ -83,7 +82,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
 			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
@@ -97,7 +95,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArrayDimension createArrayDimension() {
 		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
 		getArrayDimensions().add(newArrayDimension);
@@ -109,7 +106,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
@@ -123,7 +119,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
@@ -138,7 +133,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
@@ -154,7 +148,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
@@ -169,7 +162,6 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:

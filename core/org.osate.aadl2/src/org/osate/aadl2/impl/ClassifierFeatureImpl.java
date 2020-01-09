@@ -58,7 +58,6 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getClassifierFeature();
 	}
@@ -68,7 +67,6 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
 		// final EList<Classifier> list = new BasicEList<Classifier>();
@@ -89,7 +87,6 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:
@@ -103,7 +100,6 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:

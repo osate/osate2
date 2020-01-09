@@ -54,7 +54,6 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 		super();
 	}
 
-	@Override
 	public final Object getAdapter(final Class adapter) {
 		// defer to the platform
 		return Platform.getAdapterManager().getAdapter(this, adapter);
@@ -64,7 +63,6 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 	 * Returns  the '<em><b>location reference</b></em>' attribute.
 	 *
 	 */
-	@Override
 	public LocationReference getLocationReference() {
 		return locationReference;
 	}
@@ -73,7 +71,6 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 	 * sets  the '<em><b>location reference</b></em>' attribute.
 	 *
 	 */
-	@Override
 	public void setLocationReference(String fn, int ln) {
 		if (locationReference == null) {
 			locationReference = new LocationReference(fn, ln);
@@ -87,7 +84,6 @@ public abstract class AObjectImpl extends EObjectImpl implements AObject {
 	 * sets  the '<em><b>location reference</b></em>' attribute.
 	 *
 	 */
-	@Override
 	public void setLocationReference(LocationReference lr) {
 		locationReference = lr;
 	}

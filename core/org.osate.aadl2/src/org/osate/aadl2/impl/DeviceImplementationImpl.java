@@ -103,7 +103,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDeviceImplementation();
 	}
@@ -113,9 +112,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -138,10 +136,9 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<>(BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -152,7 +149,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public BusSubcomponent createOwnedBusSubcomponent() {
 		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
@@ -164,10 +160,9 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -178,7 +173,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
 				Aadl2Package.eINSTANCE.getDataSubcomponent());
@@ -191,10 +185,9 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
-			ownedVirtualBusSubcomponents = new EObjectContainmentEList<>(
+			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
 					VirtualBusSubcomponent.class, this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
@@ -206,7 +199,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public VirtualBusSubcomponent createOwnedVirtualBusSubcomponent() {
 		VirtualBusSubcomponent newOwnedVirtualBusSubcomponent = (VirtualBusSubcomponent) create(
 				Aadl2Package.eINSTANCE.getVirtualBusSubcomponent());
@@ -219,7 +211,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public DeviceType getType() {
 		ComponentType ct = super.getType();
 		return ct instanceof DeviceType ? (DeviceType) ct : null;
@@ -230,7 +221,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -241,7 +231,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(ComponentType newType) {
 		super.setType(newType);
 	}
@@ -260,7 +249,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -278,7 +266,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -297,7 +284,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -321,7 +307,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -342,7 +327,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -364,14 +348,12 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DEVICE;
 	}
