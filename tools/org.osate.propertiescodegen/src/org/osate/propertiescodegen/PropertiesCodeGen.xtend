@@ -5,6 +5,7 @@ import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
+import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.UnitLiteral
@@ -19,6 +20,7 @@ class PropertiesCodeGen {
 			switch type {
 				AadlBoolean: generateBoolean(packageName, type)
 				AadlString: generateString(packageName, type)
+				ClassifierType: generateClassifier(packageName, type)
 				UnitsType: generateUnits(packageName, type)
 				EnumerationType: generateEnum(packageName, type)
 				AadlInteger: generateInteger(packageName, type)
@@ -60,6 +62,24 @@ class PropertiesCodeGen {
 		 	}
 		 '''
 		 new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static GeneratedJava generateClassifier(String packageName, ClassifierType classifierType) {
+		val typeName = classifierType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+		val contents = '''
+			package «packageName»;
+			
+			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.PropertyExpression;
+			
+			public class «typeName» {
+				public static Classifier getValue(PropertyExpression propertyExpression) {
+					return ((ClassifierValue) propertyExpression).getClassifier();
+				}
+			}
+		'''
+		new GeneratedJava(typeName + ".java", contents)
 	}
 	
 	def private static GeneratedJava generateEnum(String packageName, EnumerationType enumType) {
