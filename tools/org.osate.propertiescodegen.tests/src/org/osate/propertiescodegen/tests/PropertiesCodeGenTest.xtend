@@ -789,4 +789,30 @@ class PropertiesCodeGenTest {
 		assertEquals("RealReferencedUnitsOtherFile.java", results.get(4).fileName)
 		assertEquals(realReferencedUnitsOtherFile.toString, results.get(4).contents)
 	}
+	
+	@Test
+	def void testReferenceType() {
+		val propertySet = '''
+			property set ps1 is
+				reference_type_1: type reference;
+			end ps1;
+		'''
+		val javaClass = '''
+			package ps1;
+			
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
+			
+			public class ReferenceType1 {
+				public static InstanceObject getValue(PropertyExpression propertyExpression) {
+					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
+				}
+			}
+		'''
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
+		assertEquals(1, results.size)
+		assertEquals("ReferenceType1.java", results.head.fileName)
+		assertEquals(javaClass.toString, results.head.contents)
+	}
 }

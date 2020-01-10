@@ -8,6 +8,7 @@ import org.osate.aadl2.AadlString
 import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 
@@ -25,6 +26,7 @@ class PropertiesCodeGen {
 				EnumerationType: generateEnum(packageName, type)
 				AadlInteger: generateInteger(packageName, type)
 				AadlReal: generateReal(packageName, type)
+				ReferenceType: generateReference(packageName, type)
 				default: null
 			}
 		].filterNull.toList
@@ -605,6 +607,24 @@ class PropertiesCodeGen {
 				}
 			'''
 		}
+		new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static GeneratedJava generateReference(String packageName, ReferenceType referenceType) {
+		val typeName = referenceType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+		val contents = '''
+			package «packageName»;
+			
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
+			
+			public class ReferenceType1 {
+				public static InstanceObject getValue(PropertyExpression propertyExpression) {
+					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
+				}
+			}
+		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
 }
