@@ -226,6 +226,10 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
 	 * @return {@code input} without any spaces.
 	 */
 	protected static String removeSpacesFromQualifiedName(final String input) {
+		/*
+		 * Could use String.replaceAll(" ", ""), but this seems faster then compiling
+		 * and interpreting a regular expression.
+		 */
 		int indexOfSpace = input.indexOf(' ');
 		if (indexOfSpace != -1) {
 			int startOfSubstring = 0;
