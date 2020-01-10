@@ -767,7 +767,7 @@
         <repository
             url="http://xtexttools.libutzki.de/"/>
         <repository
-            url="https://eclipse.py4j.org"/>
+            url="http://eclipse.py4j.org"/>
         <repository
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
       </repositoryList>
