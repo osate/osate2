@@ -78,6 +78,14 @@
     </mirror>
 
     <mirror>
+      <id>py4j-mirror1</id>
+      <mirrorOf>https://eclipse.py4j.org</mirrorOf>
+      <url>file:/var/cache/p2mirror/py4j</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
       <id>itemis-mirror</id>
       <mirrorOf>https://dl.bintray.com/itemis</mirrorOf>
       <url>file:/var/cache/p2mirror/itemis</url>
