@@ -45,7 +45,7 @@
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
-		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
+		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina</ocarina.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
