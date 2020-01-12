@@ -60,6 +60,57 @@
   </proxies>
 
   <mirrors>
+
+    <mirror>
+      <id>eclipse-mirror</id>
+      <mirrorOf>http://download.eclipse.org</mirrorOf>
+      <url>file:/var/cache/p2mirror</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>py4j-mirror</id>
+      <mirrorOf>http://eclipse.py4j.org</mirrorOf>
+      <url>file:/var/cache/p2mirror/py4j</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>py4j-mirror1</id>
+      <mirrorOf>https://eclipse.py4j.org</mirrorOf>
+      <url>file:/var/cache/p2mirror/py4j</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>itemis-mirror</id>
+      <mirrorOf>https://dl.bintray.com/itemis</mirrorOf>
+      <url>file:/var/cache/p2mirror/itemis</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>ocarina-mirror</id>
+      <mirrorOf>http://osate-build.sei.cmu.edu/p2/ocarina</mirrorOf>
+      <url>file:/var/cache/p2mirror/ocarina</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>resolute-mirror</id>
+      <mirrorOf>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</mirrorOf>
+      <url>file:/var/cache/p2mirror/resolute</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+  </mirrors>
+  <!--mirrors>
     <mirror>
       <id>eclipse-2019-12</id>
       <mirrorOf>http://download.eclipse.org/releases/2019-12</mirrorOf>
@@ -147,5 +198,5 @@
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
-  </mirrors>
+  </mirrors-->
 </settings>
