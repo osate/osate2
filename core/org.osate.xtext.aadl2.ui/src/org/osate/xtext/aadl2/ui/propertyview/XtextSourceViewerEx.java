@@ -23,54 +23,46 @@
  */
 package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.resources.IProject;
-import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.projection.ProjectionDocument;
+import org.eclipse.swt.custom.StyledText;
 
-import com.google.inject.Injector;
+public class XtextSourceViewerEx extends org.yakindu.base.xtext.utils.jface.viewers.XtextSourceViewerEx {
 
-public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor {
-
-	private final IProject project;
-
-	public XtextStyledTextCellEditor(int style, Injector injector,
-			IXtextFakeContextResourcesProvider contextFakeResourceProvider, IProject project) {
-		super(style, injector, contextFakeResourceProvider);
-		this.project = project;
-	}
-
-	public XtextStyledTextCellEditor(int style, Injector injector, IProject project) {
-		super(style, injector);
-		this.project = project;
+	public XtextSourceViewerEx(StyledText styledText, IPreferenceStore preferenceStore) {
+		super(styledText, preferenceStore);
 	}
 
 	@Override
-	protected StyledTextXtextAdapter createXtextAdapter() {
-		return new StyledTextXtextAdapter(this.getInjector(),
-				getContextFakeResourceProvider() == null ? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER
-						: getContextFakeResourceProvider(),
-				project);
-	}
+	protected boolean updateSlaveDocument(IDocument slaveDocument, int modelRangeOffset, int modelRangeLength)
+			throws BadLocationException {
+		if (slaveDocument instanceof ProjectionDocument) {
+			ProjectionDocument projection = (ProjectionDocument) slaveDocument;
 
-	@Override
-	protected void doSetValue(Object value) {
-		if (value instanceof CellEditorPartialValue) {
-			CellEditorPartialValue partialValue = (CellEditorPartialValue) value;
-			getXtextAdapter().getXtextDocument().set(partialValue.getWholeText());
-			getXtextAdapter().getXtextSourceviewer()
-					.setDocument(getXtextAdapter().getXtextDocument(),
-							getXtextAdapter().getXtextSourceviewer().getAnnotationModel(), partialValue.getOffset(),
-							partialValue.getLength());
-		} else {
-			super.doSetValue(value);
+			int offset = modelRangeOffset;
+			int length = modelRangeLength;
+
+			if (!isProjectionMode()) {
+				// mimic original TextViewer behavior
+				IDocument master = projection.getMasterDocument();
+				int line = master.getLineOfOffset(modelRangeOffset);
+				offset = master.getLineOffset(line);
+				length = (modelRangeOffset - offset) + modelRangeLength;
+			}
+
+			try {
+				// fHandleProjectionChanges= false;
+				setPrivateHandleProjectionChangesField(false);
+				projection.replaceMasterDocumentRanges(offset, length);
+			} finally {
+				// fHandleProjectionChanges= true;
+				setPrivateHandleProjectionChangesField(true);
+			}
+			return true;
 		}
-		// Reset the undo manager to prevend deletion of complete text if the
-		// user hits ctrl+z after cell editor opens
-		getXtextAdapter().getXtextSourceviewer().getUndoManager().reset();
-	}
-
-	@Override
-	public StyledTextXtextAdapter getXtextAdapter() {
-		return (StyledTextXtextAdapter) super.getXtextAdapter();
+		return false;
 	}
 
 }
