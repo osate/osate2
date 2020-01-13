@@ -109,6 +109,14 @@
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
 
+    <mirror>
+      <id>yakindu-mirror</id>
+      <mirrorOf>http://updates.yakindu.com/statecharts/releases/3.5.9</mirrorOf>
+      <url>file:/var/cache/p2mirror/yakindu</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
   </mirrors>
   <!--mirrors>
     <mirror>
