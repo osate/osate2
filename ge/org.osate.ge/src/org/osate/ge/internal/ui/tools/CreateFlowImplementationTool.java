@@ -539,7 +539,7 @@ public class CreateFlowImplementationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(540, 250);
+			newShell.setSize(800, 400);
 			newShell.setMinimumSize(300, 215);
 		}
 
