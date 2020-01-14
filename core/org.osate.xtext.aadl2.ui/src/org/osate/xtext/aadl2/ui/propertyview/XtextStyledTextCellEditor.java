@@ -24,11 +24,18 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
 import com.google.inject.Injector;
 
 public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor {
+	private static final String CONTEXTMENUID = "org.yakindu.base.xtext.utils.jface.viewers.StyledTextXtextAdapterContextMenu";
 
 	private final IProject project;
 
@@ -43,6 +50,16 @@ public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jfac
 				getContextFakeResourceProvider() == null ? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER
 						: getContextFakeResourceProvider(),
 				project);
+	}
+
+	@Override
+	protected void initContextMenu(Control control) {
+		MenuManager menuManager = createMenuManager();
+		Menu contextMenu = menuManager.createContextMenu(control);
+		control.setMenu(contextMenu);
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPartSite site = window.getActivePage().getActivePart().getSite();
+		site.registerContextMenu(CONTEXTMENUID, menuManager, site.getSelectionProvider());
 	}
 
 	@Override
