@@ -39,10 +39,6 @@ public class StyledTextXtextAdapter extends org.yakindu.base.xtext.utils.jface.v
 		((XtextFakeResourceContext) getFakeResourceContext()).setProject(project);
 	}
 
-	public StyledTextXtextAdapter(Injector injector, IProject project) {
-		this(injector, IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER, project);
-	}
-
 	@Override
 	protected XtextFakeResourceContext createFakeResourceContext(Injector injector) {
 		return new XtextFakeResourceContext(injector);
