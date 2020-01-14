@@ -99,8 +99,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		tableViewer.addDragSupport(operations, types, dNDSupport.dragSourceListener);
 
 		final TableViewerColumn portCol = InternalPropertySectionUtil.createTableColumnViewer(tableViewer,
-				"Array Dimensions",
-				SWT.RESIZE, new CellLabelProvider() {
+				"Array Dimensions", SWT.RESIZE, new CellLabelProvider() {
 			@Override
 			public void update(final ViewerCell cell) {
 				final DragAndDropElement element = (DragAndDropElement) cell.getElement();
@@ -142,8 +141,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 
 // Up
 		upBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, true, moveBtnSelectionListener,
-				"Up",
-				SWT.PUSH);
+				"Up", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(deleteBtn, -ITabbedPropertyConstants.VMARGIN);
@@ -152,8 +150,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 
 // Down
 		downBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, false,
-				moveBtnSelectionListener,
-				"Down", SWT.PUSH);
+				moveBtnSelectionListener, "Down", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(upBtn, -ITabbedPropertyConstants.VMARGIN);
@@ -214,11 +211,16 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					selectedIndex = tableViewer.getTable().getSelectionIndex();
-					final ArrayDimension dim = getSelectedDimension();
-					if (dim != null && modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(dim.eResource()))) {
+					final ArrayDimension readonlyDim = getSelectedDimension();
+					if (readonlyDim != null) {
 						final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
-						selectedBos.modify(ArrayableElement.class, ae -> {
-							ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
+						final ArrayDimension dim = createArrayDimensionDuplicate(pkg, readonlyDim);
+						selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
+							if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {
+								selectedBos.modify(ArrayableElement.class, ae -> {
+									ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
+								});
+							}
 						});
 					}
 				}
