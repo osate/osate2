@@ -34,7 +34,6 @@
  */
 package org.osate.xtext.aadl2.ui.propertyview
 
-import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.jface.viewers.EditingSupport
