@@ -32,12 +32,6 @@ public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jfac
 
 	private final IProject project;
 
-	public XtextStyledTextCellEditor(int style, Injector injector,
-			IXtextFakeContextResourcesProvider contextFakeResourceProvider, IProject project) {
-		super(style, injector, contextFakeResourceProvider);
-		this.project = project;
-	}
-
 	public XtextStyledTextCellEditor(int style, Injector injector, IProject project) {
 		super(style, injector);
 		this.project = project;
