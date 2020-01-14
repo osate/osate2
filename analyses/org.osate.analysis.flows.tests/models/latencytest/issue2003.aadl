@@ -1,0 +1,51 @@
+package Issue2003
+public
+	
+	system s
+	end s;
+	
+	system implementation s.impl
+		subcomponents
+			p: process p.impl;
+	end s.impl;
+	
+	process p
+	end p;
+	
+	process implementation p.impl
+		subcomponents
+			t1_sample: thread t_out {Period => 3 ms;};
+			t2: thread t_inout {Period => 15 ms; Deadline => 5ms;};
+			t3: thread t_in {Period => 15ms;Compute_Execution_Time => 5ms..10ms;};
+		connections
+			c1: port t1_sample.p -> t2.p_i;
+			c3: port t2.p_o -> t3.p;
+		flows
+			e2e_sample: end to end flow t1_sample.s -> c1 -> t2.p -> c3 -> t3.s;
+		properties
+			Latency => 0 ms .. 100 ms applies to e2e_sample;
+	end p.impl;
+	
+	thread t_out
+		features
+			p: out data port;
+		flows
+			s: flow source p;
+	end t_out;
+	
+	thread t_in
+		features
+			p: in data port;
+		flows
+			s: flow sink p;
+	end t_in;
+	
+	thread t_inout
+		features
+			p_i: in data port;
+			p_o: out data port;
+		flows
+			p: flow path p_i -> p_o;
+	end t_inout;
+	
+end Issue2003;

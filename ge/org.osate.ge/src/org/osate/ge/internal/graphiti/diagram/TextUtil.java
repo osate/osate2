@@ -13,6 +13,10 @@ import org.eclipse.swt.widgets.Display;
 import org.osate.ge.graphics.Style;
 
 public class TextUtil {
+	// All items are static
+	private TextUtil() {
+	}
+
 	// Default font size will be used if specified font size is null.
 	// The text's size will be updated based on its current value. For that reason, the value of the text must be set before calling this function.
 	public static void setStyleAndSize(final Diagram diagram, final AbstractText text, final Double fontSize) {

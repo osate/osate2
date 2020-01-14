@@ -14,7 +14,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
 /**
- * @deprecated Use {@link EMV2TypeSetUtil} instead.
+ * @deprecated Use {@link EMV2TypeSetUtil} instead. Will be removed in 2.7.
  */
 @Deprecated
 public class EM2TypeSetUtil {

@@ -1,0 +1,110 @@
+package FGConnectionsSnk
+public
+	data D
+		-- empty
+	end D;
+	
+    feature group FG
+    	features
+	    	x_in1: in data port D;
+	    	x_in2: in data port D;
+	    	x_out1: out data port D;
+	    	x_out2: out data port D;
+    end FG;
+
+	feature group FG_inverse inverse of FG
+	end FG_inverse;
+
+    subprogram sub
+        features
+            p1: in parameter D;
+            p2: out parameter D;
+        flows
+            subPath: flow path p1 -> p2;
+    end sub;
+    
+    thread th
+    	features
+    		fg1: feature group FG;
+    		fg2: feature group FG_inverse;
+    	flows
+    		fpath: flow path fg1 -> fg2;
+    end th;
+    
+    thread implementation th.i
+    end th.i;
+        
+    thread th2
+    	features
+    		-- OUT
+    		fg1: feature group FG_inverse;
+    		
+    		-- IN
+    		fg2: feature group FG;
+    	flows
+    		fsrc: flow source fg1;
+    		fsnk: flow sink fg2;
+    end th2;
+    
+    thread implementation th2.simple
+    	-- trivial
+    end th2.i;
+    
+    thread implementation th2.specific
+    	flows
+    		fsnk: flow sink fg2.x_in2;
+    end th2.specific;
+    
+    thread implementation th2.withCall_noFlowImpl
+    	subcomponents
+			myData: data D;
+    		sub1: subprogram sub;
+    	calls
+    		normal: {
+    			call1: subprogram sub1;
+    		};
+    	connections
+    		c1: parameter fg2.x_out2 -> call1.p1;
+    		c2: parameter call1.p2 -> myData;
+    end th2.withCall_noFlowImpl;
+    
+    thread implementation th2.withCall_flowImpl extends th2.withCall_noFlowImpl
+    	flows
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
+    		fsnk: flow sink fg2.x_out2 -> c1 -> sub1.subPath -> c2 -> myData;
+    end th2.withCall_flowImpl;
+    
+    process top
+    end top;
+    
+    process implementation top.generic
+        subcomponents
+            t: thread th.i;
+            q: thread th2;
+        connections
+            c1: feature group q.fg1 <-> t.fg1;
+            c2: feature group t.fg2 <-> q.fg2;
+        flows
+            e2e: end to end flow q.fsrc -> c1 -> t.fpath -> c2 -> q.fsnk;
+    end top.generic;
+    
+    process implementation top.simple extends top.generic
+        subcomponents
+            q: refined to thread th2.simple;
+    end top.simple;
+
+    process implementation top.specific extends top.generic
+        subcomponents
+            q: refined to thread th2.specific;
+    end top.specific;
+
+    process implementation top.withCall_noFlowImpl extends top.generic
+        subcomponents
+            q: refined to thread th2.withCall_noFlowImpl;
+    end top.withCall_noFlowImpl;
+
+    process implementation top.withCall_flowImpl extends top.generic
+        subcomponents
+            q: refined to thread th2.withCall_flowImpl;
+    end top.withCall_flowImpl;
+end FGConnectionsSnk;

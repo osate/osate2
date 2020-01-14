@@ -40,6 +40,10 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.framework.BundleContext;
 
+/**
+ * @deprecated Will be removed in 2.7.
+ */
+@Deprecated
 public class MyPropertiesActivator extends PropertiesActivator {
 
 	@Override

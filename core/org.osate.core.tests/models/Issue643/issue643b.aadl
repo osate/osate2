@@ -1,0 +1,51 @@
+package issue643b
+public
+    system top
+    end top;
+
+    system implementation top.i
+        subcomponents
+            p: system S;
+            c: system S;
+            d: data;
+        connections
+            c0: data access p.a <-> d;
+            c1: data access d <-> c.a;
+        flows
+    		-- Currently has declarative errors (wrong), but instantiates fine
+            e2e: end to end flow p.start -> c0 -> d -> c1 -> c.finish;
+    end top.i;
+
+    system S
+        features
+            a: requires data access;
+    	flows
+    		start: flow source a;
+    		finish: flow sink a;
+    end S;
+
+
+	system top2
+	end top2;
+
+	system implementation top2.i
+		subcomponents
+			d1: data;
+			d2: data;
+			t: system T;
+		connections
+			c1: data access d1 <-> t.x;
+			c2: data access d2 <-> t.y;
+		flows
+    		-- Currently has declarative errors (wrong), but instantiates fine
+			e2e: end to end flow d1 -> c1 -> t.through -> c2 -> d2;
+	end top2.i;
+    
+    system T
+    	features
+    		x: requires data access;
+    		y: requires data access;
+    	flows
+    		through: flow path x -> y;
+    end T;
+end issue643b;

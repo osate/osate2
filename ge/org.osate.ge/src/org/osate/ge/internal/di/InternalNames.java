@@ -13,6 +13,10 @@ package org.osate.ge.internal.di;
  *
  */
 public class InternalNames {
+	// All items are static
+	private InternalNames() {
+	}
+
 	public static final String PROJECT = "project";
 	public static final String SELECTED_DIAGRAM_ELEMENT = "selected_diagram_element";
 	public static final String SELECTED_DIAGRAM_ELEMENTS = "selected_diagram_elements";

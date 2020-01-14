@@ -58,7 +58,7 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexLibrary(java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -69,12 +69,13 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 		if (parser == null) {
 			return null;
 		}
+		AnnexParseUtil.reset();
 		return parser.parseAnnexLibrary(annexName, source, filename, line, column, errReporter);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see edu.cmu.sei.aadl.parser.AnnexParser#parseAnnexSubclause(java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -85,6 +86,7 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 		if (parser == null) {
 			return null;
 		}
+		AnnexParseUtil.reset();
 		return parser.parseAnnexSubclause(annexName, source, filename, line, column, errReporter);
 	}
 

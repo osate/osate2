@@ -87,7 +87,7 @@ class PropagationPointsTest  {
 	def void propagationpointspartsfaulttree() {
 		val start = "state FailStop"
 		val ft = CreateFTAModel.createPartsFaultTree(instance, start)
-		assertEquals(ft.events.size, 6)
+		assertEquals(ft.events.size, 7)
 		val andevent = FaultTreeUtils.findEvent(ft, "Intermediate1")
 		assertEquals(andevent.subEventLogic, LogicOperation.AND)
 	}

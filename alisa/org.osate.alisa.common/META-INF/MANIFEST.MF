@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.alisa.common; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtend,
  org.eclipse.xtext.generator;resolution:=optional,
  org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
  org.eclipse.emf.codegen.ecore;resolution:=optional,

@@ -1,0 +1,90 @@
+package issue2056
+
+public
+  
+ thread group threadA
+    features
+      inputA: in feature group;
+      outputA: out feature group;
+  end threadA;
+  
+  thread group implementation threadA.impl
+    subcomponents
+      t0 : thread;
+    annex behavior_specification {**
+    states
+    s0: initial complete state;
+    s1: final state;
+    transitions
+    s0 -[ on dispatch inputA]-> s1 {outputA:=1};
+    **};
+  end threadA.impl;
+
+  thread group threadB
+    features
+      inputB: in feature group;
+      outputB: out feature group;
+  end threadB;
+  
+  thread group implementation threadB.impl
+    subcomponents
+      t0 : thread;
+      annex behavior_specification {**
+    states
+    s0: initial complete state;
+    s1: complete state;
+    s2: final state;
+    transitions
+    s0 -[ on dispatch ]-> s1 {outputB:=1};
+    s1 -[ on dispatch inputB]->s2;
+    **};
+  end threadB.impl;
+
+  process processA
+    features
+      inputA: in feature group;
+      outputA: out feature group;
+  end processA;
+  
+  process processB
+    features
+      outputB: out feature group;
+      inputB: in feature group;
+  end processB;
+
+  process implementation processA.impl
+    subcomponents
+      tA: thread group threadA.impl;
+    connections
+      throughput : feature inputA -> tA.inputA;
+      throughput2 : feature tA.outputA -> outputA;
+  end processA.impl;
+  
+  process implementation processB.impl
+    subcomponents
+      tB: thread group threadB.impl;
+    connections
+      throughput: feature tB.outputB -> outputB;
+      throughput2: feature inputB -> tB.inputB;
+  end processB.impl;
+  
+  processor core
+  end core;
+
+  processor implementation core.impl
+  end core.impl;
+
+  system Example
+  end Example;
+  
+  system implementation Example.impl
+    subcomponents
+      core1: processor core.impl;
+      partAProcess: process processA.impl;
+      partBProcess: process processB.impl;
+    connections
+      procBToA: feature partBProcess.outputB -> partAProcess.inputA;
+      procAToB: feature partAProcess.outputA -> partBProcess.inputB;
+  end Example.impl;
+  
+end issue2056;

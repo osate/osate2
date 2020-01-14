@@ -75,6 +75,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationMethod getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -101,6 +102,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(VerificationMethod newTarget) {
 		VerificationMethod oldTarget = target;
 		target = newTarget;

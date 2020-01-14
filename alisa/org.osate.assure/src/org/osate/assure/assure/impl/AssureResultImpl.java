@@ -76,6 +76,7 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Metrics getMetrics() {
 		return metrics;
 	}
@@ -100,6 +101,7 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMetrics(Metrics newMetrics) {
 		if (newMetrics != metrics) {
 			NotificationChain msgs = null;

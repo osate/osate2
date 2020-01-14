@@ -1,6 +1,5 @@
 package org.osate.workspace;
 
-import java.io.File;
 import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -65,35 +64,6 @@ public class WorkspacePlugin extends Plugin {
 	 * Package separator in package file names.
 	 */
 	public static final String FILE_PACKAGE_SEPARATOR = "-";
-
-	/**
-	 * Name of preference for standard AADL property set file
-	 * @deprecated Will be removed in 2.6.0.
-	 */
-	@Deprecated
-	public static final String AADL_PROPERTIES_FILE = "aadlPropertiesFilePreference";
-
-	/**
-	 * Name of preference for standard AADL property set file
-	 * @deprecated Will be removed in 2.6.0.
-	 */
-	@Deprecated
-	public static final String AADL_PROJECT_FILE = "aadlProjectFilePreference";
-
-	/**
-	 * Aadl packages directory.
-	 * @deprecated Will be removed in 2.6.0.
-	 */
-	@Deprecated
-	public static final String AADL_PACKAGES_DIR = "packages";
-
-	/**
-	 * Default model directory.
-	 * @deprecated Will be removed in 2.6.0.
-	 */
-	@Deprecated
-	public static final String PROPERTY_SETS_DIR = "propertysets";
-
 
 	// The shared instance.
 	private static WorkspacePlugin plugin;
@@ -175,17 +145,5 @@ public class WorkspacePlugin extends Plugin {
 
 	public static String getPluginId() {
 		return plugin.getBundle().getSymbolicName();
-	}
-
-	/**
-	 * @deprecated Will be removed in 2.6.0.
-	 */
-	@Deprecated
-//	Creates directory if it doesn't exist.
-	public static void ensureDirectoryExistance(File toCheck) {
-		if (!toCheck.exists()) {
-			ensureDirectoryExistance(toCheck.getParentFile());
-			toCheck.mkdir();
-		}
 	}
 }

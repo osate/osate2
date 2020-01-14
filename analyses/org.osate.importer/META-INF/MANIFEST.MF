@@ -43,3 +43,4 @@ Export-Package: org.osate.importer,
  org.osate.importer.model.sm,
  org.osate.importer.properties
 Automatic-Module-Name: org.osate.importer
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

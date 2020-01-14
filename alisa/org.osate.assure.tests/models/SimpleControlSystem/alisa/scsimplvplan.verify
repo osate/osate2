@@ -11,15 +11,4 @@ claim R2_Lat [
 //		assert timing then computeLatency
 
 	]
-claim DCS_R1 [
-	]
-
-	claim Sensor1_R1 [
-	]
-
-	claim Sensor2_R1 [
-	]
-
-	claim Actuator_R1 [
-	]
 ] 

@@ -17,6 +17,11 @@
 
 	<repositories>
 		<repository>
+			<id>eclipse</id>
+			<url>${eclipse.repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
 			<id>swtbot</id>
 			<url>http://download.eclipse.org/technology/swtbot/releases/latest</url>
 			<layout>p2</layout>
@@ -26,42 +31,13 @@
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
+					<!-- additional requirements for running the tests -->
+					<!-- adding them here works, adding them in surefire configuration as -->
+					<!-- dependency works only if the tests are started in the test plugin 
+						directory -->
 					<dependency-resolution>
 						<extraRequirements>
 							<requirement>
@@ -70,18 +46,18 @@
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.ds</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.osate.core.tests.log4j</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
 								<type>eclipse-feature</type>
-								<id>org.eclipse.rcp</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.osate.aadl2.model.editor</id>
-								<versionRange>0.0.0</versionRange>
-							</requirement>
-							<requirement>
-								<type>eclipse-plugin</type>
-								<id>org.eclipse.ui</id>
+								<id>org.osate.core.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 						</extraRequirements>
@@ -93,19 +69,9 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<product>osate2</product>
+					<product>org.osate.branding.osate2</product>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
-					<dependencies>
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.sdk.feature.group</artifactId>
-						</dependency>
-					</dependencies>
-					<includes>
-						<include>**/AllTests.java</include>
-					</includes>
-					<jgit.dirtyWorkingTree>${jgit.dirtyWorkingTree}</jgit.dirtyWorkingTree>
 				</configuration>
 			</plugin>
 		</plugins>

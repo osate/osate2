@@ -46,6 +46,7 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
 import org.osate.alisa.common.typing.CommonInterpreter
+import org.osate.aadl2.instance.EndToEndFlowInstance
 
 class CommonUtilExtension {
 
@@ -176,7 +177,7 @@ class CommonUtilExtension {
 	def static InstanceObject findElementInstance(ComponentInstance io, NamedElement element) {
 		val n = element.name
 		switch (element) {
-			EndToEndFlow: return findElementInstanceInList(io.endToEndFlows, n)
+			EndToEndFlow: return findETEFInstance(io.endToEndFlows, n)
 			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
 			Feature: return findElementInstanceInList(io.featureInstances, n)
 			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
@@ -200,6 +201,16 @@ class CommonUtilExtension {
 		for (ei : connilist) {
 			val conn = getCrossConnection(ei)
 			if (conn !== null && name.equalsIgnoreCase(conn.name)) {
+				return ei
+			}
+		}
+		return null
+	}
+	
+	def static EndToEndFlowInstance findETEFInstance(Collection<EndToEndFlowInstance> etefilist, String name) {
+		for (ei : etefilist) {
+			val etef = ei.endToEndFlow
+			if (etef !== null && name.equalsIgnoreCase(etef.name)) {
 				return ei
 			}
 		}
@@ -232,15 +243,18 @@ class CommonUtilExtension {
 		ci.allConnections.filter [ conn | conn.isAcross	]
 	}
 
-	def static findElementInstance(ComponentInstance io, String elementName) {
-		val n = elementName
-		var res = findElementInstanceInList(io.endToEndFlows, n)
-		if (res === null) res = findElementInstanceInList(io.componentInstances, n)
-		if (res === null) res = findElementInstanceInList(io.featureInstances, n)
-		return res
-	}
-
 	public static val eInstance = new CommonUtilExtension
 
+
+	def static Collection<EndToEndFlowInstance> findETEFInstances(Collection<EndToEndFlowInstance> etefilist, EndToEndFlowInstance etefi) {
+		val Collection<EndToEndFlowInstance> result = newArrayList()
+		val tetef = etefi.endToEndFlow
+		for (ei : etefilist) {
+			if (tetef == ei.endToEndFlow) {
+				result.add(ei)
+			}
+		}
+		return result
+	}
 
 }

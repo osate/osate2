@@ -13,7 +13,7 @@
 <listEntry value="spotbugs=false"/>
 <listEntry value="codecoverage=false"/>
 </listAttribute>
-<stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
+<stringAttribute key="M2_RUNTIME" value="mvn"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
 <intAttribute key="M2_THREADS" value="1"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>

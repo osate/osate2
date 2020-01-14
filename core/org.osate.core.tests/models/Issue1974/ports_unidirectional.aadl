@@ -1,0 +1,51 @@
+package ports_unidirectional
+public
+    system top
+    end top;
+
+    system implementation top.i
+        subcomponents
+            p: system S;
+            c: system S;
+            m: system S;
+        connections
+            c0: port p.x -> m.x;
+            c1: port m.x -> c.x;
+        flows
+            e2e_1a: end to end flow p -> c0 -> m -> c1 -> c;            
+            e2e_1b: end to end flow p.start -> c0 -> m.through -> c1 -> c.finish;
+            
+            -- This should always have errors because the flow is going the wrong way over the connections
+            e2e_2a: end to end flow c -> c1 -> m -> c0 -> p;
+            -- This should always have errors because the flow is going the wrong way over the connections
+            e2e_3b: end to end flow c.start -> c1 -> m.through -> c0 -> p.finish;
+    end top.i;
+
+    system implementation top.i2
+        subcomponents
+            p: system S;
+            c: system S;
+            m: system S;
+        connections
+            c0: port m.x -> p.x;
+            c1: port c.x -> m.x;
+        flows
+            -- This should always have errors because the flow is going the wrong way over the connections
+            e2e_1a: end to end flow p -> c0 -> m -> c1 -> c;            
+            -- This should always have errors because the flow is going the wrong way over the connections
+            e2e_1b: end to end flow p.start -> c0 -> m.through -> c1 -> c.finish;
+            
+            e2e_2a: end to end flow c -> c1 -> m -> c0 -> p;
+            e2e_3b: end to end flow c.start -> c1 -> m.through -> c0 -> p.finish;
+    end top.i2;
+
+
+    system S
+    	features
+    		x: in out event port;
+    	flows
+    		start: flow source x;
+    		finish: flow sink x;
+    		through: flow path x -> x;
+    end S;
+end ports_unidirectional;

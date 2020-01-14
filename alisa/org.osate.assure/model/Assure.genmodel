@@ -4,28 +4,9 @@
     modelDirectory="/org.osate.assure/src" editDirectory="" editorDirectory="" modelPluginID="org.osate.assure"
     forceOverwrite="true" modelName="Assure" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="" complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.assure.edit"
-    editorPluginID="org.osate.assure.edit" runtimeVersion="2.13" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.results/model/Result.genmodel#//Result ../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.osate.alisa.workbench/model/generated/Alisa.genmodel#//alisa ../../org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec ../../org.osate.results/model/Result.genmodel#//result ../../org.osate.verify/model/generated/Verify.genmodel#//verify ../../org.osate.alisa.common/model/generated/Common.genmodel#//common ../../org.osate.categories/model/generated/Categories.genmodel#//categories ../../org.osate.organization/model/generated/Organization.genmodel#//organization">
+    editorPluginID="org.osate.assure.edit" runtimeVersion="2.13" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.osate.alisa.workbench/model/generated/Alisa.genmodel#//alisa ../../org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec ../../org.osate.results/model/Result.genmodel#//result ../../org.osate.verify/model/generated/Verify.genmodel#//verify ../../org.osate.alisa.common/model/generated/Common.genmodel#//common ../../org.osate.categories/model/generated/Categories.genmodel#//categories ../../org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
       fileExtensions="xassure" ecorePackage="Assure.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//ElseType">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/OK"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/TIMEOUT"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//ElseType/ERROR"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/ERROR"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TIMEOUT"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationExecutionState">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/TODO"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/RUNNING"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/REDO"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/COMPLETED"/>
-    </genEnums>
     <genClasses ecoreClass="Assure.ecore#//AssuranceCaseResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCaseResult/message"/>
@@ -54,11 +35,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/predicateResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/executionState"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/resultState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/issues"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/results"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/analysisresult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//AssureResult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssureResult/metrics"/>
@@ -80,7 +61,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/tbdCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/successCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/failCount"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/timeoutCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/errorCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/didelseCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//Metrics/thenskipCount"/>

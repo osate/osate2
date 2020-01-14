@@ -37,7 +37,6 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.parsesupport.AObjectImpl;
@@ -79,17 +78,6 @@ public abstract class FeatureClassifierImpl extends AObjectImpl implements Featu
 	 */
 	protected EObject create(EClass eClass) {
 		return EcoreUtil.create(eClass);
-	}
-
-	/**
-	 * Retrieves the cache adapter for this '<em><b>Feature Classifier</b></em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The cache adapter for this '<em><b>Feature Classifier</b></em>'.
-	 * @generated
-	 */
-	protected CacheAdapter getCacheAdapter() {
-		return CacheAdapter.getInstance();
 	}
 
 } // FeatureClassifierImpl

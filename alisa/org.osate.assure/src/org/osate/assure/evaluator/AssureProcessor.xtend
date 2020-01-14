@@ -95,6 +95,7 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.aadl2.instance.EndToEndFlowInstance
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -398,6 +399,11 @@ class AssureProcessor implements IAssureProcessor {
 							for (conni : conns) {
 								addMarkersAsResult(verificationResult, conni, result, method)
 							}
+						} else if (target instanceof EndToEndFlowInstance) {
+							val etefis = findETEFInstances(targetComponent.endToEndFlows, target)
+							for (etefi : etefis) {
+								addMarkersAsResult(verificationResult, etefi, result, method)
+							}
 						} else {
 							addMarkersAsResult(verificationResult, target, result, method)
 						}
@@ -698,6 +704,19 @@ class AssureProcessor implements IAssureProcessor {
 			} else if (verificationResult.results.hasResultFailures) {
 				setToFail(verificationResult)
 			}
+		} else if (target instanceof EndToEndFlowInstance) {
+			val etefis = findETEFInstances(targetComponent.endToEndFlows, target)
+			for (etefi : etefis) {
+				if (checkPropertyValues(verificationResult, etefi)) {
+					verificationResult.executeMethodOnce(method, targetComponent, etefi, parameters)
+				}
+			}
+			// fix verification activity result state
+			if (verificationResult.results.hasResultErrors) {
+				setToError(verificationResult)
+			} else if (verificationResult.results.hasResultFailures) {
+				setToFail(verificationResult)
+			}
 		} else if (target !== null) {
 			if (checkPropertyValues(verificationResult, target)) {
 				verificationResult.executeMethodOnce(method, targetComponent, target, parameters)
@@ -809,7 +828,7 @@ class AssureProcessor implements IAssureProcessor {
 					}
 				}
 				// record a reference to the AnalysisResult
-				verificationResult.analysisresult = returned
+				verificationResult.analysisresult += returned
 			} else if (returned instanceof Exception){
 				setToError(verificationResult, "Verification method execution exception: "+returned.message,
 					target);

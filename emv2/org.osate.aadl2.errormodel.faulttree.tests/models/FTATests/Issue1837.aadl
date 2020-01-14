@@ -85,4 +85,23 @@ package Issue1837
 					emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^Module_3@Failure;
 				**};
 	end TMR_Archetype.impl2;
+	
+	system top
+		
+	end top;
+	system implementation top.impl
+		subcomponents
+			sys: system TMR_Archetype.impl;
+				annex EMV2 {**
+                                use behavior ErrorLibrary::FailStop;
+                               composite error behavior
+                                states
+                                        F: [sys.FailStop]-> FailStop;
+                                end composite;
+				properties
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => Poisson;] applies to ^sys.Module_1@Failure;
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.12; Distribution => Poisson;] applies to ^sys.Module_2@Failure;
+					emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^sys.Module_3@Failure;
+				**};
+	end top.impl;
         end Issue1837;

@@ -81,7 +81,7 @@ import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.r
  * on how and when to use it
  *
  */
-public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
+class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Adds scope with renames for all references to Classifiers.
 	def scope_Classifier(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
@@ -155,7 +155,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from FieldPropertyAssociation in Properties.xtext
 	def scope_BasicPropertyAssociation_property(Element context, EReference reference) {
 		var parent = switch context {
-			BasicPropertyAssociation case context.property.propertyType === null:
+			BasicPropertyAssociation:
 				context.owner
 			default:
 				context
@@ -320,7 +320,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
-	def private static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
+	def protected static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
 		switch container : propertyAssociation.owner {
 			Classifier:
 				container
@@ -343,7 +343,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 	
-	def private static getClassifierForPreviousContainmentPathElement(ContainmentPathElement previousCpe) {
+	def protected static getClassifierForPreviousContainmentPathElement(ContainmentPathElement previousCpe) {
 		switch previousElement : previousCpe.namedElement {
 			case null,
 			case previousElement.eIsProxy:

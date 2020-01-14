@@ -111,14 +111,14 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	protected String message = MESSAGE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAnalysisresult() <em>Analysisresult</em>}' containment reference.
+	 * The cached value of the '{@link #getAnalysisresult() <em>Analysisresult</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAnalysisresult()
 	 * @generated
 	 * @ordered
 	 */
-	protected AnalysisResult analysisresult;
+	protected EList<AnalysisResult> analysisresult;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -216,42 +216,12 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnalysisResult getAnalysisresult() {
+	@Override
+	public EList<AnalysisResult> getAnalysisresult() {
+		if (analysisresult == null) {
+			analysisresult = new EObjectContainmentEList<AnalysisResult>(AnalysisResult.class, this, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT);
+		}
 		return analysisresult;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetAnalysisresult(AnalysisResult newAnalysisresult, NotificationChain msgs) {
-		AnalysisResult oldAnalysisresult = analysisresult;
-		analysisresult = newAnalysisresult;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT, oldAnalysisresult, newAnalysisresult);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAnalysisresult(AnalysisResult newAnalysisresult) {
-		if (newAnalysisresult != analysisresult) {
-			NotificationChain msgs = null;
-			if (analysisresult != null)
-				msgs = ((InternalEObject)analysisresult).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT, null, msgs);
-			if (newAnalysisresult != null)
-				msgs = ((InternalEObject)newAnalysisresult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT, null, msgs);
-			msgs = basicSetAnalysisresult(newAnalysisresult, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT, newAnalysisresult, newAnalysisresult));
 	}
 
 	/**
@@ -267,7 +237,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 			case AssurePackage.VERIFICATION_RESULT__RESULTS:
 				return ((InternalEList<?>)getResults()).basicRemove(otherEnd, msgs);
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT:
-				return basicSetAnalysisresult(null, msgs);
+				return ((InternalEList<?>)getAnalysisresult()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -318,7 +288,8 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 				setMessage((String)newValue);
 				return;
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT:
-				setAnalysisresult((AnalysisResult)newValue);
+				getAnalysisresult().clear();
+				getAnalysisresult().addAll((Collection<? extends AnalysisResult>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -345,7 +316,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 				setMessage(MESSAGE_EDEFAULT);
 				return;
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT:
-				setAnalysisresult((AnalysisResult)null);
+				getAnalysisresult().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -368,7 +339,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 			case AssurePackage.VERIFICATION_RESULT__MESSAGE:
 				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
 			case AssurePackage.VERIFICATION_RESULT__ANALYSISRESULT:
-				return analysisresult != null;
+				return analysisresult != null && !analysisresult.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -382,7 +353,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (type: ");
 		result.append(type);
 		result.append(", message: ");

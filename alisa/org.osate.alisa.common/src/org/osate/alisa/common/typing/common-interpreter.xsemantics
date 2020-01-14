@@ -215,8 +215,8 @@ from {
 		case 'abs': {
 			G |- call.arguments.get(0) ~> var NumberValue pVal
 			switch (pVal) {
-				RealLiteral: pVal.value = -pVal.value
-				IntegerLiteral: pVal.value = -pVal.value
+				RealLiteral: pVal.value = if (pVal.value < 0) { -pVal.value } else { pVal.value }
+				IntegerLiteral: pVal.value = if (pVal.value < 0) { -pVal.value } else { pVal.value }
 			}
 			pVal
 		}

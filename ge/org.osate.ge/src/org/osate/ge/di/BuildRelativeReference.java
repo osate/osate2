@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Reference Builder</td><td>Returns a relative reference for a business object. A relative reference is an array of strings.</td><td>String[]</td></tr>
+ *   <tr><td>Reference Builder</td><td>Returns a relative reference for a business object. A relative reference is an array of strings or a RelativeBusinessObjectReference instance.</td><td>String[] or RelativeBusinessObjectReference</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">

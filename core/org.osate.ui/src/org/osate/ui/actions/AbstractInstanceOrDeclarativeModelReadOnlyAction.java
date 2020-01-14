@@ -53,7 +53,7 @@ import org.osate.ui.dialogs.SOMChooserDialog;
 
 /**
  * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler}.
+ * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler}. Will be removed in 2.7.
  */
 @Deprecated
 public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends AaxlReadOnlyActionAsJob {

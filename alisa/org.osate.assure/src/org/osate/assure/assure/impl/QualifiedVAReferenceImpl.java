@@ -75,6 +75,7 @@ public class QualifiedVAReferenceImpl extends QualifiedVerificationPlanElementRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationActivity getVerificationActivity() {
 		if (verificationActivity != null && verificationActivity.eIsProxy()) {
 			InternalEObject oldVerificationActivity = (InternalEObject)verificationActivity;
@@ -101,6 +102,7 @@ public class QualifiedVAReferenceImpl extends QualifiedVerificationPlanElementRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVerificationActivity(VerificationActivity newVerificationActivity) {
 		VerificationActivity oldVerificationActivity = verificationActivity;
 		verificationActivity = newVerificationActivity;

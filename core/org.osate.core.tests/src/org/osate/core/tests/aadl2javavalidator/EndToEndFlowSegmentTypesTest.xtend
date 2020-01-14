@@ -529,6 +529,11 @@ class EndToEndFlowSegmentTypesTest extends XtextTest {
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
 					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn4".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn4' does not match the preceding subcomponent or out flow spec feature 'param1.af3'")
+					]
 				]
 				ownedEndToEndFlows.get(4) => [
 					"etef39".assertEquals(name)

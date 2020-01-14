@@ -23,7 +23,10 @@ public class Aadl2Util {
 	 * The property service to be used by the meta-model class to lookup property definitions. When using OSATE in the
 	 * Eclipse IDE, an implementation is provided by the org.osate.xtext.aadl2.properties.ui plugin making use of
 	 * GetProperties to search for property definitions in the workspace.
+	 * 
+	 * @deprecated Will be removed in 2.7.
 	 */
+	@Deprecated
 	public static IPropertyService propertyService = null;
 
 	/**
@@ -126,7 +129,9 @@ public class Aadl2Util {
 	 * @param ps String property set name, which may be null
 	 * @param name String Property Definition name
 	 * @return Property or null
+	 * @deprecated Will be removed in 2.7.
 	 */
+	@Deprecated
 	public static Property lookupPropertyDefinition(final EObject context, final String propSetName,
 			final String propName) {
 		if (propertyService != null) {
