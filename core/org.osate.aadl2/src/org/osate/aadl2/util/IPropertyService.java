@@ -11,7 +11,7 @@ import org.osate.aadl2.Property;
  * Note: A different implementation would need to be provided for running OSATE outside the Eclipse IDE.
  *
  * @author dblouin
- * @deprecated will be removed in 2.5.0
+ * @deprecated will be removed in 2.7.
  */
 @Deprecated
 public interface IPropertyService {

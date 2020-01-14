@@ -98,6 +98,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssuranceCaseResult createAssuranceCaseResult() {
 		AssuranceCaseResultImpl assuranceCaseResult = new AssuranceCaseResultImpl();
 		return assuranceCaseResult;
@@ -108,6 +109,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelResult createModelResult() {
 		ModelResultImpl modelResult = new ModelResultImpl();
 		return modelResult;
@@ -118,6 +120,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubsystemResult createSubsystemResult() {
 		SubsystemResultImpl subsystemResult = new SubsystemResultImpl();
 		return subsystemResult;
@@ -128,6 +131,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ClaimResult createClaimResult() {
 		ClaimResultImpl claimResult = new ClaimResultImpl();
 		return claimResult;
@@ -138,6 +142,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationResult createVerificationResult() {
 		VerificationResultImpl verificationResult = new VerificationResultImpl();
 		return verificationResult;
@@ -148,6 +153,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssureResult createAssureResult() {
 		AssureResultImpl assureResult = new AssureResultImpl();
 		return assureResult;
@@ -158,6 +164,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationExpr createVerificationExpr() {
 		VerificationExprImpl verificationExpr = new VerificationExprImpl();
 		return verificationExpr;
@@ -168,6 +175,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ElseResult createElseResult() {
 		ElseResultImpl elseResult = new ElseResultImpl();
 		return elseResult;
@@ -178,6 +186,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ThenResult createThenResult() {
 		ThenResultImpl thenResult = new ThenResultImpl();
 		return thenResult;
@@ -188,6 +197,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Metrics createMetrics() {
 		MetricsImpl metrics = new MetricsImpl();
 		return metrics;
@@ -198,6 +208,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedVerificationPlanElementReference createQualifiedVerificationPlanElementReference() {
 		QualifiedVerificationPlanElementReferenceImpl qualifiedVerificationPlanElementReference = new QualifiedVerificationPlanElementReferenceImpl();
 		return qualifiedVerificationPlanElementReference;
@@ -208,6 +219,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedClaimReference createQualifiedClaimReference() {
 		QualifiedClaimReferenceImpl qualifiedClaimReference = new QualifiedClaimReferenceImpl();
 		return qualifiedClaimReference;
@@ -218,6 +230,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedVAReference createQualifiedVAReference() {
 		QualifiedVAReferenceImpl qualifiedVAReference = new QualifiedVAReferenceImpl();
 		return qualifiedVAReference;
@@ -228,6 +241,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NestedClaimReference createNestedClaimReference() {
 		NestedClaimReferenceImpl nestedClaimReference = new NestedClaimReferenceImpl();
 		return nestedClaimReference;
@@ -238,6 +252,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PreconditionResult createPreconditionResult() {
 		PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
 		return preconditionResult;
@@ -248,6 +263,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValidationResult createValidationResult() {
 		ValidationResultImpl validationResult = new ValidationResultImpl();
 		return validationResult;
@@ -258,6 +274,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VerificationActivityResult createVerificationActivityResult() {
 		VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
 		return verificationActivityResult;
@@ -268,6 +285,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PredicateResult createPredicateResult() {
 		PredicateResultImpl predicateResult = new PredicateResultImpl();
 		return predicateResult;
@@ -278,6 +296,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssurePackage getAssurePackage() {
 		return (AssurePackage)getEPackage();
 	}

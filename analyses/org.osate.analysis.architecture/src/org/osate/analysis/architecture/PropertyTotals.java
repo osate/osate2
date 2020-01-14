@@ -155,7 +155,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	}
 
 	/**
-	 * @deprecated Use {@link #invoke(ComponentInstance)} instead.
+	 * @deprecated Use {@link #invoke(ComponentInstance)} instead. Will be removed in 2.7.
 	 */
 	@Deprecated
 	public final double getWeight(ComponentInstance ci) {

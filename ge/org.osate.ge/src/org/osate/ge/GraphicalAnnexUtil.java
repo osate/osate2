@@ -10,6 +10,10 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 
 public class GraphicalAnnexUtil {
+	// All methods are static
+	private GraphicalAnnexUtil() {
+	}
+
 	//
 	// Libraries
 	//

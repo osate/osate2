@@ -1,0 +1,83 @@
+package SimpleConnectionsPath
+public
+    subprogram sub
+        features
+            p1: in parameter;
+            p2: out parameter;
+        flows
+            subPath: flow path p1 -> p2;
+    end sub;
+    
+    thread th
+    	features
+    		ip: in data port;
+    		op: out data port;
+    	flows
+    		fpath: flow path ip -> op;
+    end th;
+    
+    thread implementation th.simple
+	   	flows
+    		fpath: flow path ip -> op;
+    end th.simple;
+    
+    thread implementation th.withCall_noFlowImpl
+    	subcomponents
+    		sub1: subprogram sub;
+    	calls
+    		normal:{
+    			call1: subprogram sub1;
+    		};
+    	connections
+    		c1: parameter ip -> call1.p1;
+    		c2: parameter call1.p2 -> op;
+    end th.withCall_noFlowImpl;
+    
+    thread implementation th.withCall_flowImpl extends th.withCall_noFlowImpl
+   		flows
+    		-- The point of this example is that this flow implementation should be ignored and the flow specification should be used instead during instantiation
+    		fpath: flow path ip -> c1 -> sub1.subPath -> c2 -> op;
+    end th.withCall_flowImpl;
+    
+    thread th2
+    	features
+    		ip2: in data port;
+    		op2: out data port;
+    	flows
+    		fsrc: flow source op2;
+    		fsnk: flow sink ip2;
+    end th2;
+    
+    thread implementation th2.i
+    	-- trivial
+    end th2.i;
+    
+    process top
+    end top;
+    
+    process implementation top.generic
+    	subcomponents
+    		t: thread th;
+    		q: thread th2.i;
+    	connections
+            c1: port q.op2 -> t.ip;
+            c2: port t.op -> q.ip2;
+        flows
+            e2e: end to end flow q.fsrc -> c1 -> t.fpath -> c2 -> q.fsnk;
+    end top.generic;
+    
+    process implementation top.simple extends top.generic
+        subcomponents
+            t: refined to thread th.simple;
+    end top.simple;
+    
+    process implementation top.withCall_noFlowImpl extends top.generic
+        subcomponents
+            t: refined to thread th.withCall_noFlowImpl;
+    end top.withCall_noFlowImpl;
+    
+    process implementation top.withCall_flowImpl extends top.generic
+        subcomponents
+            t: refined to thread th.withCall_flowImpl;
+    end top.withCall_flowImpl;
+end SimpleConnectionsPath;

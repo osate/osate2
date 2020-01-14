@@ -397,7 +397,9 @@ public interface NamedElement extends Element {
 	 * @throws PropertyIsModalException
 	 * @throws IllegalStateException
 	 * @throws PropertyDoesNotApplyToHolderException
+	 * @deprecated Will be removed in 2.7.
 	 */
+	@Deprecated
 	EList<PropertyExpression> getPropertyValues(String propertySetName, String propertyName)
 			throws InvalidModelException, IllegalArgumentException, PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException;

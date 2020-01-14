@@ -39,8 +39,10 @@ package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -50,7 +52,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
@@ -69,6 +73,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -170,6 +175,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	private ETEInfo myInfo;
+
+	private final Set<EndToEndFlowInstance> completedETEI = new HashSet<>();
 
 	private Stack<FlowIterator> state = new Stack<FlowIterator>();
 
@@ -400,8 +407,28 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 
 				// add all ete instances that continue through flow impl
-				if (!processFlowImpl(ci, etei, flowImpl)) {
-					processFlowStep(ci, etei, fs, flowImpl, iter);
+
+				/*
+				 * Special case for Issue 1953: If flowImpl is a flow in a Thread, and has a non-trivial implementation
+				 * (i.e, it doesn't just pass through), then we ignore the flow implementation details and just use the
+				 * flow specification. Specifically, we are trying NOT to ignore the case where the flow specification
+				 * uses a feature group and the flow implementation refines the feature group to a specific feature
+				 * of that feature group. THese cases are necessary to reduce the combinatorics of the instance model.
+				 *
+				 * CAVEAT: Make sure we don't discard the mode information from the flow implementation, even if we are
+				 * ignoring the flow segments.
+				 */
+				if (subImpl instanceof ThreadClassifier && flowImpl.getOwnedFlowSegments().size() != 0) {
+					// Do use the modes from the flow implementation
+					etei.getModesList().add(getModeInstances(ci, flowImpl));
+					state.pop();
+
+					// Revert to using the flow specification
+					processFlowStep(ci, etei, fs, iter);
+				} else {
+					if (!processFlowImpl(ci, etei, flowImpl)) {
+						processFlowStep(ci, etei, fs, flowImpl, iter);
+					}
 				}
 
 				if (prepareNext) {
@@ -475,6 +502,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (!lastFlowImpl.isEmpty()) {
 					FlowImplementation flowFilter = lastFlowImpl.peek();
 					if (flowFilter != null) {
+						/* [**] See note below. */
 						error(etei.getContainingComponentInstance(),
 								"Cannot create end to end flow '" + etei.getName()
 								+ "' because there are no semantic connections that continue the flow '"
@@ -483,76 +511,110 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					}
 				}
 			} else {
-				Iterator<ConnectionInstance> connIter = connis.iterator();
 				FlowImplementation flowFilter = lastFlowImpl.isEmpty() ? null : lastFlowImpl.peek();
-				boolean remove = false;
 
-				while (connIter.hasNext()) {
-					EndToEndFlowInstance eteiClone = null;
-					Stack<FlowIterator> stateClone = null;
-					ConnectionInstance conni = connIter.next();
-					boolean prepareNext = connIter.hasNext();
-					FlowIterator iterClone = null;
-
-					remove = true;
-					if (flowFilter != null && !isValidContinuation(etei, flowFilter, conni)
-							|| nextFlowImpl != null && !isValidContinuation(etei, conni, nextFlowImpl)) {
-						continue;
-					}
-					remove = false;
-					lastFlowImpl.push(nextFlowImpl);
-
-					if (prepareNext) {
-						stateClone = clone(state);
-						eteiClone = EcoreUtil.copy(etei);
-						iterClone = iter.clone();
-						eteiClone.getModesList().addAll(etei.getModesList());
-					}
-
-					etei.getFlowElements().add(conni);
-					addLeafElement(ci, etei, leaf);
-
-					// prepare next connection filter
-					connections.clear();
-					if (iter.hasNext()) {
-						Element obj = iter.next();
-						Connection conn = null;
-						if (obj instanceof FlowSegment) {
-							FlowElement fe = ((FlowSegment) obj).getFlowElement();
-							if (fe instanceof Connection) {
-								conn = (Connection) fe;
-							}
-						} else if (obj instanceof EndToEndFlowSegment) {
-							EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
-							if (fe instanceof Connection) {
-								conn = (Connection) fe;
-							}
-						}
-						if (conn != null) {
-							connections.add(conn);
-						}
-					}
-
-					continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
-
-					lastFlowImpl.pop();
-
-					if (prepareNext) {
-						// add clone
-						etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
-						etei = eteiClone;
-						state = stateClone;
-						iter = iterClone;
-						addETEI.add(etei);
-						if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
-							created.add(myInfo = new ETEInfo(etei));
-						} else {
-							created.add(myInfo = new ETEInfo(myInfo.preConns, etei));
-						}
+				/*
+				 * Issue 1984: isValidContinuation() should be used purely as a filter, and not as an error
+				 * reporter. We need to make a first pass through the connection instances and determine which
+				 * ones are applicable to the current flow. Only if NONE of them are, do we report an error.
+				 * Otherwise, we use the subset of applicable connection instances and continue on normally.
+				 */
+				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
+				for (final ConnectionInstance ciToCheck : connis) {
+					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
+							&& (nextFlowImpl == null
+									? (leaf instanceof FlowSpecification
+											? isValidContinuation(etei, ciToCheck, (FlowSpecification) leaf)
+											: true)
+									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
+						connectionsToUse.add(ciToCheck);
 					}
 				}
-				if (remove) {
+
+				if (connectionsToUse.isEmpty()) {
+					/*
+					 * I originally thought that this case couldn't happen, but I've been proven wrong. This happens when the
+					 * connections inside a component implementation completely bypass the flow implementation. That is, the
+					 * flow implies one path, but the actual connections in the implementation make a different one.
+					 *
+					 * This error is the opposite of the case above [**].
+					 */
+					if (flowFilter == null && nextFlowImpl == null) {
+						final FlowSpecification flowSpec = (FlowSpecification) leaf;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ flowSpec.getName() + "' at feature '" + flowSpec.getInEnd().getFeature().getName()
+								+ "'");
+					} else {
+						final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ ff.getSpecification().getName() + "' at feature '"
+								+ ff.getInEnd().getFeature().getName() + "'");
+					}
+					connections.clear();
 					removeETEI.add(etei);
+				} else {
+					// continue the flow along each eligible connection instance
+					Iterator<ConnectionInstance> connIter = connectionsToUse.iterator();
+					while (connIter.hasNext()) {
+						final ConnectionInstance conni = connIter.next();
+						final boolean prepareNext = connIter.hasNext();
+						EndToEndFlowInstance eteiClone = null;
+						Stack<FlowIterator> stateClone = null;
+						FlowIterator iterClone = null;
+
+						lastFlowImpl.push(nextFlowImpl);
+
+						if (prepareNext) {
+							stateClone = clone(state);
+							eteiClone = EcoreUtil.copy(etei);
+							iterClone = iter.clone();
+							eteiClone.getModesList().addAll(etei.getModesList());
+						}
+
+						etei.getFlowElements().add(conni);
+						addLeafElement(ci, etei, leaf);
+
+						// prepare next connection filter
+						connections.clear();
+						if (iter.hasNext()) {
+							Element obj = iter.next();
+							Connection conn = null;
+							if (obj instanceof FlowSegment) {
+								FlowElement fe = ((FlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection) {
+									conn = (Connection) fe;
+								}
+							} else if (obj instanceof EndToEndFlowSegment) {
+								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection) {
+									conn = (Connection) fe;
+								}
+							}
+							if (conn != null) {
+								connections.add(conn);
+							}
+						}
+
+						continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
+
+						lastFlowImpl.pop();
+
+						if (prepareNext) {
+							// add clone
+							etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
+							etei = eteiClone;
+							state = stateClone;
+							iter = iterClone;
+							addETEI.add(etei);
+							if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
+								created.add(myInfo = new ETEInfo(etei));
+							} else {
+								created.add(myInfo = new ETEInfo(myInfo.preConns, etei));
+							}
+						}
+					}
 				}
 			}
 		}
@@ -571,10 +633,67 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature flowIn = fimpl.getInEnd().getFeature();
 			Feature connDst = ((FeatureInstance) dst).getFeature();
 			result = flowIn == connDst;
-			if (!result) {
-				error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
-				+ "' because the end of the semantic connection '" + conni.getComponentInstancePath()
-				+ "' does not connect to the start of flow '" + fimpl.getSpecification().getName() + "'");
+		}
+		return result;
+	}
+
+	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+		/*
+		 * Issue 2009: Check if the connection instance connects to the flow spec. Here we have a weird
+		 * situation. If the subcomponent the flow spec is qualified by is only described by a component type, then
+		 * connection end is going to match up with the beginning of the flow. That's fine. If the component
+		 * has a classifier implementation AND the flow spec has a flow implementation, then everything will also
+		 * fine: either the connection instance is correct and reaches the start of the flow implementation, or it
+		 * is incorrect and doesn't. But we can also have the case that the subcomponent is described by a
+		 * component implementation but the flow spec does not have a flow implementation. In this case we
+		 * still may have the case the connection instance continues into the subcomponent and terminates at a
+		 * subsubcomponent. But the flow spec that we have here will be at the edge of the original subcomponent.
+		 * so the end connection instance will not match up with the start of the flow spec.
+		 *
+		 * So what we really need to do is walk backwards along the connections that make up the connection instance
+		 * until we find one that connects to the flow because as wee the connection instance may "punch through" the
+		 * subcomponent.
+		 */
+		final Context flowCxt = fspec.getInEnd().getContext();
+		final Feature flowIn = fspec.getInEnd().getFeature();
+		final List<Feature> flowInRefined = flowIn.getAllFeatureRefinements();
+		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
+		int idx = connRefs.size() - 1;
+		boolean result = false;
+		while (!result && idx >= 0) {
+			final Connection conn = connRefs.get(idx).getConnection();
+			result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getDestination());
+			if (!result && conn.isBidirectional()) {
+				result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getSource());
+			}
+			idx -= 1;
+		}
+		return result;
+	}
+
+	private boolean isValidContinuationConnectionEnd(final Context flowCxt, final Feature flowIn,
+			final List<Feature> flowInRefined, final ConnectedElement connElement) {
+		boolean result = false;
+		final ConnectionEnd connEnd = connElement.getConnectionEnd();
+		if (connEnd instanceof Feature) {
+			final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
+			if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
+				result = connEndRefined.contains(flowCxt);
+				// if connDestination.getNext() is null then dest end of connection is "fg"
+				if (result && connElement.getNext() != null) {
+					final ConnectionEnd connEnd2 = connElement.getNext().getConnectionEnd();
+					if (connEnd2 instanceof Feature) {
+						// check "fg.f" to "fg.f"
+						final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
+						result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
+					} else {
+						// Connection doesn't end in feature, so no match
+						result = false;
+					}
+				}
+			} else {
+				// checks "f" to "f" or "fg" to "fg"
+				result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
 			}
 		}
 		return result;
@@ -593,13 +712,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature flowOut = fimpl.getOutEnd().getFeature();
 			Feature connSrc = ((FeatureInstance) src).getFeature();
 			result = flowOut == connSrc;
-			if (!result) {
-				error(etei.getContainingComponentInstance(),
-						"Cannot create end to end flow '" + etei.getName() + "' because flow '"
-								+ fimpl.getSpecification().getName()
-								+ "' does not connect to the start of the semantic connection '"
-								+ conni.getComponentInstancePath() + "'");
-			}
 		}
 		return result;
 	}
@@ -993,10 +1105,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				processETESegment(ci, etei, e, iter, errorElement);
 			}
 			if (state.size() == 0) {
-				// a flow is done
-				fillinModes(etei);
-				myInfo.postConns.addAll(connections);
-				connections.clear();
+				if (!completedETEI.contains(etei)) {
+					// a flow is done
+					fillinModes(etei);
+					myInfo.postConns.addAll(connections);
+					connections.clear();
+					completedETEI.add(etei);
+				}
 				break;
 			}
 			iter = state.pop();
@@ -1238,14 +1353,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	private boolean containsModeInstances(SystemOperationMode som, List<EList<ModeInstance>> modeLists) {
 		outer: for (List<ModeInstance> mis : modeLists) {
-			for (ModeInstance mi : mis) {
-				if (som.getCurrentModes().contains(mi)) {
-					continue outer;
+			if (!mis.isEmpty()) {
+				for (ModeInstance mi : mis) {
+					if (som.getCurrentModes().contains(mi)) {
+						continue outer;
+					}
 				}
+				return false;
 			}
-			return false;
 		}
-	return true;
+		return true;
 	}
 
 	// -------------------------------------------------------------------------

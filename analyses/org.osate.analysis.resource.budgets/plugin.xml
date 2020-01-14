@@ -2,8 +2,8 @@
 <?eclipse version="3.0"?>
 <plugin>
    <extension
-         id="ResourceAnalysisMarker"
-         name="Resource Analysis Marker"
+         id="NotBoundResourceAnalysisMarker"
+         name="Not Bound Resource Analysis Marker"
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
@@ -19,8 +19,8 @@
 
 
    <extension
-         id="BoundBandwidthAnalysisMarker"
-         name="Bound Bandwidth Analysis Marker"
+         id="BusLoadAnalysisMarker"
+         name="Bus Load Analysis Marker"
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
@@ -42,30 +42,30 @@
       </category>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
-            id="org.osate.analysis.resource.budgets.doResourceBudget"
-            name="&amp;Analyze Resource Budgets (Not Bound)">
+            id="org.osate.analysis.resource.budgets.notBoundResourceAnalysis"
+            name="Analyze Resource Budgets (Not Bound)">
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
-            id="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
-            name="&amp;Analyze Resource Allocations (Bound)">
+            id="org.osate.analysis.resource.budgets.boundResourceAnalysis"
+            name="Analyze Resource Allocations (Bound)">
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
-            id="org.osate.analysis.resource.budgets.doPowerAnalysis"
-            name="&amp;Analyze Power Requirements">
+            id="org.osate.analysis.resource.budgets.powerAnalysis"
+            name="Analyze Power Requirements">
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
-            id="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
-            name="&amp;Analyze Bus Load">
+            id="org.osate.analysis.resource.budgets.busLoadAnalysis"
+            name="Analyze Bus Load">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.DoResourceBudget"
-            commandId="org.osate.analysis.resource.budgets.doResourceBudget">
+            class="org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          <enabledWhen>
             <or>
                <reference
@@ -98,8 +98,8 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis"
-            commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
+            class="org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis">
          <enabledWhen>
             <or>
                <reference
@@ -132,8 +132,8 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis"
-            commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
+            class="org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.powerAnalysis">
          <enabledWhen>
             <or>
                <reference
@@ -166,8 +166,8 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis"
-            commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
+            class="org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
          <enabledWhen>
             <or>
                <reference
@@ -203,19 +203,19 @@
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.analysis.resource.budgets.doResourceBudget"
+            commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis"
             icon="icons/budget.gif">
       </image>
       <image
-            commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+            commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis"
             icon="icons/budgetB.gif">
       </image>
       <image
-            commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
+            commandId="org.osate.analysis.resource.budgets.powerAnalysis"
             icon="icons/power.gif">
       </image>
       <image
-            commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+            commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
             icon="icons/switchB.gif">
       </image>
    </extension>
@@ -224,22 +224,22 @@
       <menuContribution
             locationURI="menu:org.osate.ui.budgetMenu?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
+               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
+               commandId="org.osate.analysis.resource.budgets.powerAnalysis">
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
+               commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis">
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doResourceBudget">
+               commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
                tooltip="Analyze bus load for bound connections">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -256,7 +256,7 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
+               commandId="org.osate.analysis.resource.budgets.powerAnalysis"
                tooltip="Analyze power requirements">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -273,7 +273,7 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+               commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis"
                tooltip="Analyze resource allocations for processors and memories">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -290,7 +290,7 @@
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doResourceBudget"
+               commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis"
                tooltip="Analyze resource budget totals for processors and memories">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -310,25 +310,25 @@
       <menuContribution
             locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
+               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
+               commandId="org.osate.analysis.resource.budgets.powerAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
+               commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
          </command>
          <command
-               commandId="org.osate.analysis.resource.budgets.doResourceBudget">
+               commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>

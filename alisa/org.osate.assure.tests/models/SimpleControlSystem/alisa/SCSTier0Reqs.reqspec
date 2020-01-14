@@ -1,0 +1,49 @@
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+system requirements SCSTier0reqs for SimpleControlSystem::SCS.tier0 [
+
+	requirement R2_Lat : "SCS sensor to actuator response time limit" for sensortoactuatorresponse[
+		val ExpectedLatencyRange = [12ms..50ms]
+		val ExpectedMaximumLatency = 50 ms
+		val latProperty = #Latency
+		compute SOM : string
+		compute MinLatency : Time
+		compute MaxLatency : Time
+		description this " with Latency property value "latProperty
+		value predicate MaxLatency <= ExpectedMaximumLatency
+		category Quality.Latency
+		see goal SCSgoals.g1
+		]
+	requirement DCS_R1 : "DCS weight limit" for dcs [
+		val  MaximumWeight = 0.6 kg
+		compute actualweight: real units SEI::WeightUnits
+		category Quality.Mass Kind.Constraint
+		description this " shall be within weight of " MaximumWeight
+		decomposes scsreqs.R1
+	]
+
+	requirement Sensor1_R1 : "sensor weight limit" for sensor1 [
+		val  MaximumWeight = 0.2 kg
+		compute actualweight: real units SEI::WeightUnits
+		category Quality.Mass  Kind.Constraint
+		description this " shall be within weight of " MaximumWeight
+		decomposes scsreqs.R1
+	] 
+
+	requirement Sensor2_R1 : "sensor weight limit" for sensor2 [
+		val  MaximumWeight = 0.2 kg
+		compute actualweight: real units SEI::WeightUnits
+		category Quality.Mass
+		description this " shall be within weight of " MaximumWeight
+		decomposes scsreqs.R1
+	] 
+	
+	requirement Actuator_R1 : "sensor weight limit" for actuator [
+		val  MaximumWeight = 0.2 kg
+		compute actualweight: real units SEI::WeightUnits
+		category Quality.Mass
+		description this " shall be within weight of " MaximumWeight
+		decomposes scsreqs.R1
+	] 
+]
+

@@ -1,0 +1,38 @@
+package EndToEndFlowData
+public
+    data D
+        -- empty        
+    end D;
+    
+    data E
+        -- empty
+    end E;
+    
+    thread T
+        features
+            input: in data port D;
+            output: out data port E;
+        flows
+            fpath: flow path input -> output;
+    end T;
+    
+    process P
+        -- empty
+    end P;
+    
+    process implementation P.top
+        subcomponents
+            dataD: data D;
+            dataE: data E;
+            dataD2: data D;
+            dataE2: data E;
+            threadT: thread T;
+        connections
+            c1: port dataD -> threadT.input;
+            c2: port threadT.output -> dataE;
+        flows
+            e2e_good: end to end flow dataD -> c1 -> threadT.fpath -> c2 -> dataE;
+            e2e_bad: end to end flow dataD2 -> c1 -> threadT.fpath -> c2 -> dataE2;
+    end P.top;
+end EndToEndFlowData;
+ 

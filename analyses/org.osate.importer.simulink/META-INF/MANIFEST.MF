@@ -41,3 +41,4 @@ Import-Package: org.eclipse.core.resources,
  org.osate.xtext.aadl2.properties.util
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.importer.simulink
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

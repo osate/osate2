@@ -1,0 +1,69 @@
+package ports_bad_endpoints
+public
+    system top
+    end top;
+
+	-- Tests the use of the wrong port in the correct component
+    system implementation top.i
+        subcomponents
+            p: system P;
+            c: system C;
+    	connections
+    		c11: port p.op1 -> c.ip1;
+    		c12: port p.op1 -> c.ip2;
+    		c21: port p.op2 -> c.ip1;
+    		c22: port p.op2 -> c.ip2;
+    	flows
+    		e2e_11_correct: end to end flow p.start -> c11 -> c.finish;    		
+    		e2e_12_incorrect: end to end flow p.start -> c12 -> c.finish; -- bad destination feature on connection
+    		e2e_21_incorrect: end to end flow p.start -> c21 -> c.finish; -- bad source feature on connection
+    		e2e_22_incorrect: end to end flow p.start -> c22 -> c.finish; -- bad source and destination features on connection (should have 2 errors)
+
+    		e2e_11s_correct: end to end flow p -> c11 -> c;    		
+    		e2e_12s_incorrect: end to end flow p -> c12 -> c; -- Allowed: flow sink at feature c.ip2 is implicit
+    		e2e_21s_incorrect: end to end flow p -> c21 -> c; -- Allowed: flow source at feature p.ip2 is implicit
+    		e2e_22s_incorrect: end to end flow p -> c22 -> c;  -- Allowed: flow source at feature p.ip2 is implicit; flow sink at feature c.ip2 is implicit
+    end top.i;
+
+	-- Tests the use of the wrong component
+    system implementation top.i2
+        subcomponents
+            p1: system P;
+            c1: system C;
+            
+            p2: system P;
+            c2: system C;
+    	connections
+    		c11: port p1.op1 -> c1.ip1;
+    		c12: port p1.op1 -> c2.ip1;
+    		c21: port p2.op1 -> c1.ip1;
+    		c22: port p2.op1 -> c2.ip1;
+    	flows
+    		e2e_11_correct: end to end flow p1.start -> c11 -> c1.finish;    		
+    		e2e_12_incorrect: end to end flow p1.start -> c12 -> c1.finish; -- bad destination subcomponent on connection
+    		e2e_21_incorrect: end to end flow p1.start -> c21 -> c1.finish; -- bad source subcomponent on connection
+    		e2e_22_incorrect: end to end flow p1.start -> c22 -> c1.finish; -- bad source and destination subcomponents on connection (should have 2 errors)
+
+    		e2e_11s_correct: end to end flow p1 -> c11 -> c1;    		
+    		e2e_12s_incorrect: end to end flow p1 -> c12 -> c1; -- bad destination subcomponent on connection
+    		e2e_21s_incorrect: end to end flow p1 -> c21 -> c1; -- bad source subcomponent on connection
+    		e2e_22s_incorrect: end to end flow p1 -> c22 -> c1; -- bad source and destination subcomponents on connection (should have 2 errors)
+    end top.i2;
+
+
+    system P
+    	features
+    		op1: out event port;
+    		op2: out event port;
+    	flows
+    		start: flow source op1;
+    end P;
+
+    system C
+    	features
+    		ip1: in event port;
+    		ip2: in event port;
+    	flows
+    		finish: flow sink ip1;
+    end C;
+end ports_bad_endpoints;

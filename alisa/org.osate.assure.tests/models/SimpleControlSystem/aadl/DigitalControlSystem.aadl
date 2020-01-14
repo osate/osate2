@@ -27,6 +27,28 @@ public
 			Latency => 3 ms .. 5 ms applies to sensorreading;
 	end sensor;
 
+	system sensors
+		features
+			sensorSignal: out event data port SensorData;
+		flows
+			sensorreading: flow source sensorSignal;
+		properties
+			Latency => 3 ms .. 5 ms applies to sensorreading;
+	end sensors;
+	
+	system implementation sensors.impl
+		subcomponents
+			sensor1: device sensor;
+			sensor2: device sensor;
+		connections
+			s1out: port sensor1.sensorSignal -> sensorSignal;
+			s2out: port sensor2.sensorSignal -> sensorSignal;
+		flows
+			sensorreading: flow source sensor1.sensorreading -> s1out -> sensorSignal;
+			sensorreading: flow source sensor2.sensorreading -> s2out ->sensorSignal;
+	end sensors.impl;
+
+
 	device actuator
 		features
 			power: in feature PhysicalResources::ElectricalPower;

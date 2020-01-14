@@ -710,6 +710,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 *
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
+	@Deprecated
 	@Override
 	public EList<PropertyExpression> getPropertyValues(final String propertySetName, final String propertyName)
 			throws InvalidModelException, IllegalArgumentException, PropertyIsModalException, IllegalStateException,

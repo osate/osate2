@@ -49,10 +49,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
@@ -181,19 +179,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public EList<Feature> getOwnedFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
-			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<>(Feature.class, this,
-								Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
-			}
-			return ownedFeatures;
-		}
 		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
@@ -216,19 +201,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
-			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<>(ClassifierFeature.class,
-								this, Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS));
-			}
-			return classifierFeatures;
-		}
 		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
@@ -252,19 +224,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
-			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
-								Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
-			}
-			return ownedMembers;
-		}
 		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
@@ -289,19 +248,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public EList<Classifier> getGenerals() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_General());
-			if (generals == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<>(Classifier.class, this,
-								Aadl2Package.COMPONENT_TYPE__GENERAL, GENERAL_ESUBSETS));
-			}
-			return generals;
-		}
 		return new DerivedUnionEObjectEList<>(Classifier.class, this, Aadl2Package.COMPONENT_TYPE__GENERAL,
 				GENERAL_ESUBSETS);
 	}
@@ -323,19 +269,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public EList<Generalization> getGeneralizations() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_Generalization());
-			if (generalizations == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<>(Generalization.class, this,
-								Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS));
-			}
-			return generalizations;
-		}
 		return new DerivedUnionEObjectEList<>(Generalization.class, this,
 				Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS);
 	}

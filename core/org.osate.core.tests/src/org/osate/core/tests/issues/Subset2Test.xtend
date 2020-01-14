@@ -30,9 +30,9 @@ class Subset2Test {
 		val instance = InstantiateModel.instantiate(sysImpl)
 		assertEquals('main_subset_Instance', instance.name)
 
-		// check if there are 5 connections
+		// check if there are 6 connections
 		val connections = instance.connectionInstances
-		assertTrue('In main_subset_Instance: Expected 5 connections but found ' + connections.size, connections.size == 5)
+		assertTrue('In main_subset_Instance: Expected 6 connections but found ' + connections.size, connections.size == 6)
 	}
 
 	val aadlText = '''

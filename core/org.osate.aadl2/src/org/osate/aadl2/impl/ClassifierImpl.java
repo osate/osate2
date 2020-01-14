@@ -46,11 +46,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
@@ -209,19 +207,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
-			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<>(ClassifierFeature.class,
-								this, Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null));
-			}
-			return classifierFeatures;
-		}
 		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
 				Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null);
 	}
@@ -232,19 +217,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<NamedElement> getMembersGen() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_Member());
-			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<>(NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__MEMBER, MEMBER_ESUBSETS));
-			}
-			return members;
-		}
 		return new DerivedUnionEObjectEList<>(NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER,
 				MEMBER_ESUBSETS);
 	}
@@ -280,19 +252,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public EList<Element> getOwnedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<>(Element.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
-			}
-			return ownedElements;
-		}
 		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
 	}
@@ -315,19 +274,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
-			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<>(NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
-			}
-			return ownedMembers;
-		}
 		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
 				Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
@@ -448,19 +394,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public EList<Generalization> getGeneralizations() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_Generalization());
-			if (generalizations == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<>(Generalization.class, this,
-								Aadl2Package.CLASSIFIER__GENERALIZATION, null));
-			}
-			return generalizations;
-		}
 		return new DerivedUnionEObjectEList<>(Generalization.class, this,
 				Aadl2Package.CLASSIFIER__GENERALIZATION, null);
 	}
@@ -472,19 +405,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	@Override
 	public EList<Classifier> getGenerals() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_General());
-			if (generals == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<>(Classifier.class, this,
-								Aadl2Package.CLASSIFIER__GENERAL, null));
-			}
-			return generals;
-		}
 		return new DerivedUnionEObjectEList<>(Classifier.class, this, Aadl2Package.CLASSIFIER__GENERAL, null);
 	}
 

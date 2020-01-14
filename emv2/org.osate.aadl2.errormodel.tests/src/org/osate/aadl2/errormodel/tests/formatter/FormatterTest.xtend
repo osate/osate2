@@ -23,10 +23,10 @@ class FormatterTest {
 				public
 					annex EMV2 {**
 						error types
-						use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary;
-						extends ErrorLibrary, lib2, lib3 with
+							use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary;
+							extends ErrorLibrary, lib2, lib3 with
 							t1: type;
 							t2: type extends AboveRange;
 							t3 renames type AboveRange;
@@ -35,51 +35,51 @@ class FormatterTest {
 								AsymmetricTiming, WriteWriteRace, UndetectableValueError, BelowRange, BoundedOmissionInterval,
 								BoundedValueChange, Deadlock};
 							ts2 renames type set CommonErrors;
-						properties
-							EMV2::Severity => 1 applies to t1;
-							EMV2::Severity => 2 applies to t2;
+							properties
+								EMV2::Severity => 1 applies to t1;
+								EMV2::Severity => 2 applies to t2;
 						end types;
 						
 						error behavior bvr1
-						use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary;
-						use transformations transformation1;
-						events
-							evt1: error event;
-							evt2: error event {AboveRange};
-							evt3: error event if "condition";
-							evt4: error event {AboveRange} if "condition";
-						states
-							state1: initial state;
-							state2: state;
-							state3: state {AsymmetricExactValue * AboveRange * AsymmetricApproximateValue};
-							state4: state {AboveRange};
-						transitions
-							all -[memory]-> same state;
-							transition1: all -[processor]-> same state;
-							state1 -[memory]-> same state;
-							transition2: state1 -[memory]-> same state;
-							state4 {AboveRange} -[memory]-> same state;
-							all -[(memory)]-> same state;
-							all -[memory]-> state1;
-							all -[memory]-> state4 {AboveRange};
-							all -[memory]-> (state1 with 0.1, state2 with EMV2::ExposurePeriod, state4 {AboveRange} with 0.1,
-								same state with others);
-							all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
-								memory or memory]-> same state;
-						properties
-							EMV2::StateKind => Working applies to state1;
-							EMV2::StateKind => Working applies to state2;
+							use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary;
+							use transformations transformation1;
+							events
+								evt1: error event;
+								evt2: error event {AboveRange};
+								evt3: error event if "condition";
+								evt4: error event {AboveRange} if "condition";
+							states
+								state1: initial state;
+								state2: state;
+								state3: state {AsymmetricExactValue * AboveRange * AsymmetricApproximateValue};
+								state4: state {AboveRange};
+							transitions
+								all -[memory]-> same state;
+								transition1: all -[processor]-> same state;
+								state1 -[memory]-> same state;
+								transition2: state1 -[memory]-> same state;
+								state4 {AboveRange} -[memory]-> same state;
+								all -[(memory)]-> same state;
+								all -[memory]-> state1;
+								all -[memory]-> state4 {AboveRange};
+								all -[memory]-> (state1 with 0.1, state2 with EMV2::ExposurePeriod, state4 {AboveRange} with 0.1,
+									same state with others);
+								all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
+									memory or memory or memory]-> same state;
+							properties
+								EMV2::StateKind => Working applies to state1;
+								EMV2::StateKind => Working applies to state2;
 						end behavior;
 						
 						error behavior bvr2
 						end behavior;
 						
 						type mappings map1
-						use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary;
+							use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary;
 							{AboveRange} -> {AsymmetricApproximateValue};
 							{AsymmetricExactValue} -> {AsymmetricItemOmission};
 						end mappings;
@@ -89,9 +89,9 @@ class FormatterTest {
 						end mappings;
 						
 						type transformations transformation1
-						use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
-							ErrorLibrary, ErrorLibrary, ErrorLibrary;
+							use types ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary, ErrorLibrary,
+								ErrorLibrary, ErrorLibrary, ErrorLibrary;
 							all -[]-> {AsymmetricReplicatesError};
 							all -[{noerror}]-> {AsymmetricApproximateValue};
 							{noerror} -[]-> {AboveRange};
@@ -199,107 +199,107 @@ class FormatterTest {
 								fg1.fport1: in propagation {AboveRange};
 								fg1.fport1: out propagation {AboveRange};
 								fg1.fg2.fg3.fg4.fport2: out propagation {AboveRange};
-							flows
-								src1: error source fg1.fport1;
-								src2: error source memory;
-								src3: error source all;
-								src4: error source all {AboveRange};
-								src5: error source all when state1;
-								src6: error source all when state4 {AboveRange};
-								src7: error source all when {AboveRange};
-								src8: error source all when "string";
-								src9: error source all if "condition";
-								src10: error source all {AboveRange} when state1;
-								src11: error source all {AboveRange} if "condition";
-								src12: error source all when state1 if "condition";
-								src13: error source all {AboveRange} when state1 if "condition";
-								sink1: error sink all;
-								sink2: error sink all;
-								sink3: error sink fg1.fport1;
-								sink4: error sink memory;
-								sink5: error sink all {AboveRange};
-								sink6: error sink all if "condition";
-								sink7: error sink all {AboveRange} if "condition";
-								path1: error path all -> all;
-								path2: error path memory -> memory;
-								path3: error path fg1.fport1 -> fg1.fport1;
-								path4: error path all {AboveRange} -> all {AboveRange};
-								path5: error path all -> all use mappings test::map1;
-								path6: error path all -> all if "condition";
-								path7: error path all -> all {AboveRange} if "condition";
-								path8: error path all -> all use mappings test::map1 if "condition";
+								flows
+									src1: error source fg1.fport1;
+									src2: error source memory;
+									src3: error source all;
+									src4: error source all {AboveRange};
+									src5: error source all when state1;
+									src6: error source all when state4 {AboveRange};
+									src7: error source all when {AboveRange};
+									src8: error source all when "string";
+									src9: error source all if "condition";
+									src10: error source all {AboveRange} when state1;
+									src11: error source all {AboveRange} if "condition";
+									src12: error source all when state1 if "condition";
+									src13: error source all {AboveRange} when state1 if "condition";
+									sink1: error sink all;
+									sink2: error sink all;
+									sink3: error sink fg1.fport1;
+									sink4: error sink memory;
+									sink5: error sink all {AboveRange};
+									sink6: error sink all if "condition";
+									sink7: error sink all {AboveRange} if "condition";
+									path1: error path all -> all;
+									path2: error path memory -> memory;
+									path3: error path fg1.fport1 -> fg1.fport1;
+									path4: error path all {AboveRange} -> all {AboveRange};
+									path5: error path all -> all use mappings test::map1;
+									path6: error path all -> all if "condition";
+									path7: error path all -> all {AboveRange} if "condition";
+									path8: error path all -> all use mappings test::map1 if "condition";
 							end propagations;
 							
 							component error behavior
-							use transformations test::transformation1;
-							events
-								evt1: error event;
-								evt2: error event;
-								evt3: repair event;
-								evt4: repair event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
-									port1, port1;
-								evt5: recover event;
-								evt6: recover event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
-									port1, port1;
-								evt7: recover event if "condition";
-								evt8: recover event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
-									port1, port1 if "condition";
-							transitions
-								all -[memory]-> same state;
-								all -[processor]-> same state;
-							propagations
-								all -[]-> all {AboveRange};
-								condition1: all -[(memory)]-> all;
-								state1 -[(memory)]-> all;
-								state4 {AboveRange} -[(memory)]-> all;
-								all -[(memory)]-> memory;
-								all -[(memory)]-> memory {AboveRange};
-								all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
-									memory or memory]-> memory;
-							detections
-								all -[]-> port1 !;
-								detection1: all -[]-> port1 !;
-								state1 -[]-> port1 !;
-								state4 {AboveRange} -[]-> port1 !;
-								all -[(memory)]-> port1 !;
-								all -[]-> port1 ! (42);
-								all -[]-> port1 ! ("string");
-								all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
-									memory or memory and memory and memory and memory and memory and memory and memory and memory and memory and
-									memory {AboveRange} and all (memory {AboveRange}) and all - 42 (memory, memory, memory, memory, memory,
-									memory) and 1 ormore (memory and memory) and 1 ormore (memory, memory, memory, memory, memory, memory, memory,
-									memory, memory) and 1 orless (memory and memory) and 1 orless (memory, memory, memory, memory, memory, memory,
-									memory, memory, memory, memory)]-> port1 !;
-							mode mappings
-								state1 in modes (mode1);
-								state1 in modes (mode1);
-								state1 {AboveRange} in modes (mode1);
-								state1 in modes (mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1,
-									mode1, mode1, mode1, mode1);
+								use transformations test::transformation1;
+								events
+									evt1: error event;
+									evt2: error event;
+									evt3: repair event;
+									evt4: repair event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
+										port1, port1, port1;
+									evt5: recover event;
+									evt6: recover event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
+										port1, port1, port1;
+									evt7: recover event if "condition";
+									evt8: recover event when port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1, port1,
+										port1, port1, port1 if "condition";
+								transitions
+									all -[memory]-> same state;
+									all -[processor]-> same state;
+								propagations
+									all -[]-> all {AboveRange};
+									condition1: all -[(memory)]-> all;
+									state1 -[(memory)]-> all;
+									state4 {AboveRange} -[(memory)]-> all;
+									all -[(memory)]-> memory;
+									all -[(memory)]-> memory {AboveRange};
+									all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
+										memory or memory or memory]-> memory;
+								detections
+									all -[]-> port1 !;
+									detection1: all -[]-> port1 !;
+									state1 -[]-> port1 !;
+									state4 {AboveRange} -[]-> port1 !;
+									all -[(memory)]-> port1 !;
+									all -[]-> port1 ! (42);
+									all -[]-> port1 ! ("string");
+									all -[memory or memory or memory or memory or memory or memory or memory or memory or memory or memory or
+										memory or memory or memory and memory and memory and memory and memory and memory and memory and memory and
+										memory and memory {AboveRange} and all (memory {AboveRange}) and all - 42 (memory, memory, memory, memory,
+										memory, memory) and 1 ormore (memory and memory) and 1 ormore (memory, memory, memory, memory, memory,
+										memory, memory, memory, memory) and 1 orless (memory and memory) and 1 orless (memory, memory, memory,
+										memory, memory, memory, memory, memory, memory, memory)]-> port1 !;
+								mode mappings
+									state1 in modes (mode1);
+									state1 in modes (mode1);
+									state1 {AboveRange} in modes (mode1);
+									state1 in modes (mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1, mode1,
+										mode1, mode1, mode1, mode1, mode1);
 							end component;
 							
 							composite error behavior
-							states
-								[others]-> state1;
-								cstate1: [others]-> state2;
-								[in memory]-> state1;
-								[others]-> state1 {AboveRange};
-								[in memory or in memory or in memory or in memory or in memory or in memory or in memory or in memory or
-									in memory or in memory or in memory and in memory and in memory and in memory and in memory and in memory and
-									in memory and all (in memory {AboveRange}) and all - 42 (in memory, in memory, in memory, in memory, in memory,
-									in memory) and 1 ormore (in memory) and 1 ormore (in memory, in memory, in memory, in memory, in memory,
-									in memory, in memory, in memory, in memory, in memory) and 1 orless (in memory) and 1 orless (in memory,
-									in memory, in memory)]-> state1;
-								[(in memory or in memory)]-> state1;
-								[sub1.state1]-> state1;
-								[sub1.state4 {AboveRange}]-> state1;
-								[in memory {AboveRange}]-> state1;
-								[(in memory)]-> state1;
-								[sub1.sub2.state1]-> state1;
+								states
+									[others]-> state1;
+									cstate1: [others]-> state2;
+									[in memory]-> state1;
+									[others]-> state1 {AboveRange};
+									[in memory or in memory or in memory or in memory or in memory or in memory or in memory or in memory or
+										in memory or in memory or in memory and in memory and in memory and in memory and in memory and
+										in memory and in memory and all (in memory {AboveRange}) and all - 42 (in memory, in memory, in memory,
+										in memory, in memory, in memory) and 1 ormore (in memory) and 1 ormore (in memory, in memory, in memory,
+										in memory, in memory, in memory, in memory, in memory, in memory, in memory) and 1 orless (in memory) and
+										1 orless (in memory, in memory, in memory)]-> state1;
+									[(in memory or in memory)]-> state1;
+									[sub1.state1]-> state1;
+									[sub1.state4 {AboveRange}]-> state1;
+									[in memory {AboveRange}]-> state1;
+									[(in memory)]-> state1;
+									[sub1.sub2.state1]-> state1;
 							end composite;
 							
 							connection error
-							use transformations test::transformation1;
+								use transformations test::transformation1;
 								src1: error source all;
 								src2: error source all;
 							end connection;
@@ -486,13 +486,13 @@ class FormatterTest {
 				public
 					annex EMV2 {**
 						error behavior bvr1
-						transitions
-							transition1: all -[(memory)]-> same state;
-							transition2: all -[(memory or memory)]-> same state;
-							transition3: all -[(memory and memory)]-> same state;
-							transition4: all -[(all (memory))]-> same state;
-							transition5: all -[(1 ormore (memory))]-> same state;
-							transition6: all -[(1 orless (memory))]-> same state;
+							transitions
+								transition1: all -[(memory)]-> same state;
+								transition2: all -[(memory or memory)]-> same state;
+								transition3: all -[(memory and memory)]-> same state;
+								transition4: all -[(all (memory))]-> same state;
+								transition5: all -[(1 ormore (memory))]-> same state;
+								transition6: all -[(1 orless (memory))]-> same state;
 						end behavior;
 					**};
 				
@@ -549,8 +549,8 @@ class FormatterTest {
 							end propagations;
 							
 							component error behavior
-							propagations
-								all -[fg1.fg2.fg3.fg4.f5]-> all;
+								propagations
+									all -[fg1.fg2.fg3.fg4.f5]-> all;
 							end component;
 							
 							properties
@@ -638,8 +638,8 @@ class FormatterTest {
 							t1: type;
 							t2: type;
 							t3: type;
-						properties
-							EMV2::ExposurePeriod => 1.0 applies to t1, t2, t3;
+							properties
+								EMV2::ExposurePeriod => 1.0 applies to t1, t2, t3;
 						end types;
 					**};
 				end prop;'''
@@ -681,6 +681,243 @@ class FormatterTest {
 				'EMV2   {**   error   types   t1   :   type   ;   t2   :   type   ;   t3   :   type   ;   ' +
 				'properties   EMV2::ExposurePeriod   =>   1.0   applies   to   t1,   t2,   t3   ;   end   ' +
 				'types   ;   **}   ;   end   prop   ;   '
+		]
+	}
+	
+	@Test
+	def void subclauseComments() {
+		assertFormatted[
+			useSerializer = false
+			expectation = '''
+				package pkg1
+				public
+					abstract a1
+						features
+							f1: feature;
+						modes
+							m1: initial mode;
+						annex EMV2 {**
+							-- Comment
+							use types ErrorLibrary;
+							-- Comment
+							use behavior pkg2::bvr1;
+							
+							-- Comment
+							error propagations
+								-- Comment
+								memory: in propagation {AboveRange};
+								-- Comment
+								flows
+									-- Comment
+									source1: error source all;
+							end propagations;
+							
+							-- Comment			
+							component error behavior
+								-- Comment
+								events
+									-- Comment
+									event1: error event;
+								-- Comment
+								transitions
+									-- Comment
+									all -[memory]-> same state;
+								-- Comment
+								propagations
+									-- Comment
+									all -[memory]-> all;
+								-- Comment
+								detections
+									-- Comment
+									all -[]-> f1 !;
+								-- Comment
+								mode mappings
+									-- Comment
+									state1 in modes (m1);
+							end component;
+							
+							-- Comment
+							composite error behavior
+								-- Comment
+								states
+									-- Comment
+									[others]-> state1;
+							end composite;
+							
+							-- Comment
+							connection error
+								-- Comment
+								errorSource1: error source all;
+							end connection;
+							
+							-- Comment
+							propagation paths
+								-- Comment
+								point1: propagation point;
+								-- Comment
+								point1 -> point1;
+							end paths;
+							
+							-- Comment
+							properties
+								-- Comment
+								ps1::def1 => 1;
+						**};
+					end a1;
+				end pkg1;'''
+			toBeFormatted = '''
+				package pkg1 public abstract a1 features f1:feature;modes m1:initial mode;annex EMV2{**
+				 -- Comment
+				use types ErrorLibrary;
+				 -- Comment
+				use behavior pkg2::bvr1;			
+				 -- Comment
+				error propagations
+				 -- Comment
+				memory:in propagation{AboveRange};
+				 -- Comment
+				flows
+				 -- Comment
+				source1:error source all;end propagations;			
+				 -- Comment			
+				component error behavior
+				 -- Comment
+				events
+				 -- Comment
+				event1:error event;
+				 -- Comment
+				transitions
+				 -- Comment
+				all-[memory]->same state;
+				 -- Comment
+				propagations
+				 -- Comment
+				all-[memory]->all;
+				 -- Comment
+				detections
+				 -- Comment
+				all-[]->f1!;
+				 -- Comment
+				mode mappings
+				 -- Comment
+				state1 in modes(m1);end component;			
+				 -- Comment
+				composite error behavior
+				 -- Comment
+				states
+				 -- Comment
+				[others]->state1;end composite;			
+				 -- Comment
+				connection error
+				 -- Comment
+				errorSource1:error source all;end connection;
+				 -- Comment
+				propagation paths
+				 -- Comment
+				point1:propagation point;
+				 -- Comment
+				point1->point1;end paths;			
+				 -- Comment
+				properties
+				 -- Comment
+				ps1::def1=>1;
+						**};end a1;end pkg1;
+			'''
+		]
+	}
+	
+	@Test
+	def void libraryComments() {
+		assertFormatted[
+			useSerializer = false
+			expectation = '''
+				package pkg1
+				public
+					annex EMV2 {**
+						-- Comment
+						error types
+							-- Comment
+							t1: type;
+							-- Comment
+							ts1: type set {t1};
+							-- Comment
+							properties
+								-- Comment
+								ps1::def1 => 1;
+						end types;
+						
+						-- Comment
+						error behavior bvr1
+							-- Comment
+							events
+								-- Comment
+								event1: error event;
+							-- Comment
+							states
+								-- Comment
+								state1: initial state;
+							-- Comment
+							transitions
+								-- Comment
+								all -[memory]-> same state;
+							-- Comment
+							properties
+								-- Comment
+								ps1::def1 => 1;
+						end behavior;
+						
+						-- Comment
+						type mappings mappings1
+							-- Comment
+							{ErrorLibrary::AboveRange} -> {ErrorLibrary::AboveRange};
+						end mappings;
+						
+						-- Comment
+						type transformations transformations1
+							-- Comment
+							all -[]-> {ErrorLibrary::AboveRange};
+						end transformations;
+					**};
+				end pkg1;'''
+			toBeFormatted = '''
+				package pkg1 public annex EMV2{**
+				 -- Comment
+				error types
+				 -- Comment
+				t1:type;
+				 -- Comment
+				ts1:type set{t1};
+				 -- Comment
+				properties
+				 -- Comment
+				ps1::def1=>1;end types;		
+				 -- Comment
+				error behavior bvr1
+				 -- Comment
+				events
+				 -- Comment
+				event1:error event;
+				 -- Comment
+				states
+				 -- Comment
+				state1:initial state;
+				 -- Comment
+				transitions
+				 -- Comment
+				all-[memory]->same state;
+				 -- Comment
+				properties
+				 -- Comment
+				ps1::def1=>1;end behavior;		
+				 -- Comment
+				type mappings mappings1
+				 -- Comment
+				{ErrorLibrary::AboveRange}->{ErrorLibrary::AboveRange};end mappings;		
+				 -- Comment
+				type transformations transformations1
+				 -- Comment
+				all-[]->{ErrorLibrary::AboveRange};end transformations;**};end pkg1;
+			'''
 		]
 	}
 }

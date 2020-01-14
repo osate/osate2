@@ -108,7 +108,7 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
  * @author aarong
  * 
  * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob}.
+ * {@link org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob}. Will be removed in 2.7.
  */
 @Deprecated
 public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {

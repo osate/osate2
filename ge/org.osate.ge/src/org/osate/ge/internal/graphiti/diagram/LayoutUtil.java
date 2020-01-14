@@ -47,6 +47,10 @@ import com.google.common.base.Strings;
  *
  */
 public class LayoutUtil {
+	// All items are static
+	private LayoutUtil() {
+	}
+
 	public final static int labelPadding = 3;
 
 	private static class LayoutMetrics {

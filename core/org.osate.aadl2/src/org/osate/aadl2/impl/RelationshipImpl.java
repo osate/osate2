@@ -37,8 +37,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
@@ -84,20 +82,7 @@ public abstract class RelationshipImpl extends ElementImpl implements Relationsh
 	 */
 	@Override
 	public EList<Element> getRelatedElements() {
-		CacheAdapter cache = getCacheAdapter();
-		if (cache != null) {
-			Resource eResource = eResource();
-			@SuppressWarnings("unchecked")
-			EList<Element> relatedElements = (EList<Element>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getRelationship_RelatedElement());
-			if (relatedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getRelationship_RelatedElement(),
-						relatedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.RELATIONSHIP__RELATED_ELEMENT, null));
-			}
-			return relatedElements;
-		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
+		return new DerivedUnionEObjectEList<>(Element.class, this, Aadl2Package.RELATIONSHIP__RELATED_ELEMENT,
 				null);
 	}
 

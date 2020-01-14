@@ -47,32 +47,52 @@ public class DeclarativeReferenceBuilder {
 		return new CanonicalBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
 	}
 
-	public static RelativeBusinessObjectReference buildPackageRelativeReference(final String qualifiedName) {
-		return new RelativeBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
-	}
-
-	public static String[] buildPackageReferenceSegments(final String qualifiedName) {
+	private static String[] buildPackageReferenceSegments(final String qualifiedName) {
 		return new String[] { DeclarativeReferenceType.PACKAGE.getId(), qualifiedName };
 	}
 
+	public static RelativeBusinessObjectReference getPackageRelativeReference(final String qualifiedName) {
+		return RelativeBusinessObjectReference.fromNullableSegments(buildPackageReferenceSegments(qualifiedName));
+	}
+
+	public static RelativeBusinessObjectReference getClassifierRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getConnectionRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getSubcomponentRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getFeatureRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getFlowSpecificationRelativeReference(final String name) {
+		return buildSimpleRelativeReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(), name);
+	}
+
 	@BuildRelativeReference
-	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+	public RelativeBusinessObjectReference getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if (bo instanceof AadlPackage) {
-			return buildPackageReferenceSegments(((AadlPackage) bo).getQualifiedName());
+			return getPackageRelativeReference(((AadlPackage) bo).getQualifiedName());
 		} else if (bo instanceof Classifier) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), ((Classifier) bo));
+			return getClassifierRelativeReference(((Classifier) bo).getName());
 		} else if (bo instanceof Subcomponent) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), ((Subcomponent) bo));
+			return getSubcomponentRelativeReference(((Subcomponent) bo).getName());
 		} else if (bo instanceof Realization) {
-			return new String[] { DeclarativeReferenceType.REALIZATION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.REALIZATION.getId() });
 		} else if (bo instanceof TypeExtension) {
-			return new String[] { DeclarativeReferenceType.TYPE_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.TYPE_EXTENSION.getId() });
 		} else if (bo instanceof ImplementationExtension) {
-			return new String[] { DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId() });
 		} else if (bo instanceof GroupExtension) {
-			return new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] { DeclarativeReferenceType.GROUP_EXTENSION.getId() });
 		} else if (bo instanceof Feature) {
-			return buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), ((Feature) bo));
+			return getFeatureRelativeReference(((Feature) bo).getName());
 		} else if (bo instanceof InternalFeature) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.INTERNAL_FEATURE.getId(),
 					((InternalFeature) bo));
@@ -96,9 +116,10 @@ public class DeclarativeReferenceBuilder {
 			}
 		} else if (bo instanceof ModeTransitionTrigger) {
 			final ModeTransitionTrigger mtt = (ModeTransitionTrigger) bo;
-			return new String[] { DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
-					getNameForSerialization(mtt.getContext()),
-					getNameForSerialization(mtt.getTriggerPort()) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
+							getNameForSerialization(mtt.getContext()),
+							getNameForSerialization(mtt.getTriggerPort()) });
 		} else if (bo instanceof SubprogramCallSequence) {
 			return buildSimpleRelativeReference(DeclarativeReferenceType.SUBPROGRAM_CALL_SEQUENCE.getId(),
 					((SubprogramCallSequence) bo));
@@ -107,14 +128,15 @@ public class DeclarativeReferenceBuilder {
 					((SubprogramCall) bo));
 		} else if (bo instanceof SubprogramCallOrder) {
 			final SubprogramCallOrder sco = (SubprogramCallOrder) bo;
-			return new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
-					getNameForSerialization(sco.previousSubprogramCall),
-					getNameForSerialization(sco.subprogramCall) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
+							getNameForSerialization(sco.previousSubprogramCall),
+							getNameForSerialization(sco.subprogramCall) });
 		} else if (bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new String[] { DeclarativeReferenceType.ANNEX_LIBRARY.getId(), annexLibrary.getName(),
-					Integer.toString(index) };
+			return RelativeBusinessObjectReference.fromNullableSegments(new String[] {
+					DeclarativeReferenceType.ANNEX_LIBRARY.getId(), annexLibrary.getName(), Integer.toString(index) });
 
 		} else if (bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
@@ -123,25 +145,30 @@ public class DeclarativeReferenceBuilder {
 			}
 
 			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new String[] { DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(), annexSubclause.getName(),
-					Integer.toString(index) };
+			return RelativeBusinessObjectReference
+					.fromNullableSegments(new String[] { DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+							annexSubclause.getName(), Integer.toString(index) });
 		} else {
 			return null;
 		}
 	}
 
-	private String[] buildSimpleRelativeReference(final String type, final NamedElement bo) {
+	private static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type,
+			final NamedElement bo) {
 		if (bo == null) {
 			return null;
 		}
 
+		return buildSimpleRelativeReference(type, bo.getName());
+	}
+
+	private static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type, final String name) {
 		// Don't allow null or empty names for simple relative references
-		final String name = bo.getName();
 		if (name == null || name.length() == 0) {
 			return null;
 		}
 
-		return new String[] { type, name };
+		return RelativeBusinessObjectReference.fromNullableSegments(new String[] { type, name });
 	}
 
 	@BuildCanonicalReference
@@ -236,7 +263,7 @@ public class DeclarativeReferenceBuilder {
 		}
 	}
 
-	static String[] buildUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
+	static RelativeBusinessObjectReference buildUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
 		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
 		final String[] key = new String[4 + (triggers.size() * 2)];
 		int index = 0;
@@ -249,7 +276,7 @@ public class DeclarativeReferenceBuilder {
 			key[index++] = getNameForSerialization(trigger.getTriggerPort());
 		}
 
-		return key;
+		return RelativeBusinessObjectReference.fromNullableSegments(key);
 	}
 
 	public static String getNameForSerialization(final NamedElement ne) {
@@ -293,7 +320,7 @@ public class DeclarativeReferenceBuilder {
 	 * @param annexLibrary
 	 * @return
 	 */
-	private int getAnnexLibraryIndex(AnnexLibrary annexLibrary) {
+	private static int getAnnexLibraryIndex(AnnexLibrary annexLibrary) {
 		// Get the default annex library if a parsed annex library was specified. This is needed for the comparison later in the function.
 		if (!(annexLibrary instanceof DefaultAnnexLibrary)) {
 			if (annexLibrary.eContainer() instanceof DefaultAnnexLibrary) {
@@ -332,7 +359,7 @@ public class DeclarativeReferenceBuilder {
 	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
 	 * @return
 	 */
-	private int getAnnexSubclauseIndex(AnnexSubclause annexSubclause) {
+	private static int getAnnexSubclauseIndex(AnnexSubclause annexSubclause) {
 		// Get the default annex library if a parsed annex subclause was specified. This is needed for the comparison later in the function.
 		if (!(annexSubclause instanceof DefaultAnnexSubclause)) {
 			if (annexSubclause.eContainer() instanceof DefaultAnnexSubclause) {

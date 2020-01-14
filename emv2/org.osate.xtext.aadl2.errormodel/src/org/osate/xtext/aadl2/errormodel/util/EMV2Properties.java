@@ -154,11 +154,17 @@ public class EMV2Properties {
 		return getHazardDescription(element, relatedComponent, ts);
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static String getDescription(NamedElement element, NamedElement relatedComponent) {
 		return getHazardDescription(element, relatedComponent);
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static String getDescription(NamedElement element, NamedElement relatedComponent, ErrorTypes ts) {
 		return getHazardDescription(element, relatedComponent, ts);
@@ -519,7 +525,8 @@ public class EMV2Properties {
 			return false;
 		}
 		ContainmentPathElement emv2ce = cp;
-		for (NamedElement namedElement : ciStack) {
+		for (int idx = ciStack.size() - 1; idx >= 0; idx--) {
+			NamedElement namedElement = ciStack.get(idx);
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
 				return false;
 			} else {
@@ -534,7 +541,8 @@ public class EMV2Properties {
 			return true;
 		}
 		EMV2PathElement emv2ce = cp;
-		for (NamedElement namedElement : ciStack) {
+		for (int idx = ciStack.size() - 1; idx >= 0; idx--) {
+			NamedElement namedElement = ciStack.get(idx);
 			if (emv2ce == null || !namedElement.getName().equalsIgnoreCase(emv2ce.getNamedElement().getName())) {
 				return false;
 			} else {

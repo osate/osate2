@@ -152,7 +152,7 @@ public class AadlBusinessObjectProvider {
 			final String pkgQualifiedName = desc.getQualifiedName().toString("::");
 			packages.add(new BusinessObjectProxy(pkgQualifiedName, desc.getEClass(),
 					DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName),
-					DeclarativeReferenceBuilder.buildPackageRelativeReference(pkgQualifiedName)));
+					DeclarativeReferenceBuilder.getPackageRelativeReference(pkgQualifiedName)));
 		}
 
 		return packages == null ? null : packages.build();

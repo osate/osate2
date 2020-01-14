@@ -293,7 +293,7 @@ public class EMV2TypeSetUtil {
 	 * @param token TypeToken
 	 * @return
 	 */
-	public static boolean contains(List<TypeToken> constraint, TypeToken token) {
+	public static boolean contains(Collection<TypeToken> constraint, TypeToken token) {
 		if (token == null) {
 			return true;
 		}
@@ -618,6 +618,9 @@ public class EMV2TypeSetUtil {
 		return result;
 	}
 
+	/**
+	 * @deprecated Will be removed in 2.7.
+	 */
 	@Deprecated
 	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
 		return flattenTypesetElements(typeSet);

@@ -1,0 +1,54 @@
+package test
+public 
+    thread th
+        features
+            ip: in data port;
+            op: out data port;
+            
+            d1: requires data access;
+            d2: requires data access;
+    end th;
+    
+    thread implementation th.i
+        subcomponents
+            s1: subprogram s1;
+        calls
+            cs1: {
+                call1: subprogram s1;
+            	call2: subprogram s1;
+            };
+        connections
+            ct1: parameter ip -> call1.p1; -- allowed
+            ct2: parameter call1.p2 -> op; -- allowed
+            
+            bad1: port ip -> s1.p1; -- not allowed
+            bad2: port s1.p2 -> op; -- not allowed
+            
+            bad10: parameter ip -> s1.p1; -- not allowed
+            bad11: parameter s1.p2 -> op; -- not allowed
+           
+            f1: feature ip -> s1.p1; -- should not be allowed
+            f2: feature s1.p2 -> op; -- should not be allowed
+            
+            f3: feature ip -> call1.p1; -- allowed
+            f4: feature call1.p2 -> op; -- allowed
+            
+            dc1: parameter d1 -> call2.p1; -- allowed
+            dc2: parameter call2.p2 -> d2; -- allowed
+            
+            bad20: data access d1 -> s1.p1; -- not allowed
+            bad21: data access s1.p2 -> d2; -- not allowed
+            
+            f5: feature d1 -> s1.p1; -- should not be allowed
+            f6: feature s1.p2 -> d2; -- should not be allowed
+            
+            f7: feature d1 -> call2.p1; -- allowed
+            f8: feature call2.p2 -> d2;  -- allowed
+    end th.i;
+    
+    subprogram s1
+        features
+            p1: in parameter;
+            p2: out parameter;
+    end s1;
+end test;

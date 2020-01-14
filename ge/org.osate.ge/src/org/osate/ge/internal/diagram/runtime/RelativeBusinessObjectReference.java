@@ -31,6 +31,24 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 		this.segments = Collections.unmodifiableList(segmentCopy);
 	}
 
+	/**
+	 * Creates a RelativeBusinessObjectReference from a segment array. Returns null if the segment array or any of the segments is null.
+	 */
+	public static RelativeBusinessObjectReference fromNullableSegments(final String[] segments) {
+		if (segments == null) {
+			return null;
+		}
+
+		// Return null if any segments are null
+		for (final String seg : segments) {
+			if (seg == null) {
+				return null;
+			}
+		}
+
+		return new RelativeBusinessObjectReference(segments);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
