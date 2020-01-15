@@ -137,7 +137,22 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 //            	if (e instanceof NamedElement){
 //            		((NamedElement)e).setName(string);
 //            	}
-				return string;
+				return removeSpacesFromQualifiedName(string);
+			}
+
+			@Override
+			public String toString(String value) {
+				return value;
+			}
+		};
+	}
+
+	@ValueConverter(rule = "FQCREF")
+	public IValueConverter<String> FQCREF() {
+		return new IValueConverter<String>() {
+			@Override
+			public String toValue(String string, INode node) {
+				return removeSpacesFromQualifiedName(string);
 			}
 
 			@Override

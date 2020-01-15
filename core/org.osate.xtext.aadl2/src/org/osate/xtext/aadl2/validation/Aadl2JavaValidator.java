@@ -1204,7 +1204,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkEndId(ModelUnit mu) {
 		ICompositeNode n = NodeModelUtils.getNode(mu);
 		INode lln = getPreviousNode(getLastLeaf(n));
-		String ss = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
+		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "")
+				.replaceAll("\n", "").replaceAll("\r", "");
 		// lln = getPreviousNode(lln);
 		// while (lln.getText().equalsIgnoreCase("::")) {
 		// lln = getPreviousNode(lln);
