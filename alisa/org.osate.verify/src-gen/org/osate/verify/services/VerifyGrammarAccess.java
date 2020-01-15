@@ -1,17 +1,25 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.verify.services;
 
@@ -138,7 +146,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//description=Description? & claim+=Claim* & rationale=Rationale? & ('issues' issues+=STRING+)?
+		//(description=Description? & claim+=Claim* & rationale=Rationale? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//description=Description?
@@ -223,8 +231,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} 'claim' requirement=[ReqSpec::Requirement|QualifiedName]? (':' title=STRING)? '[' (('activities'
-		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)?
-		//& subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
+		//activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight' weight=INT)? &
+		//subclaim+=Claim* & ('issues' issues+=STRING+)?) ']'
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -257,8 +265,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//('activities' activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight'
-		//weight=INT)? & subclaim+=Claim* & ('issues' issues+=STRING+)?
+		//(('activities' activities+=VerificationActivity*)? & ('assert' assert=ArgumentExpr)? & rationale=Rationale? & ('weight'
+		//weight=INT)? & subclaim+=Claim* & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//('activities' activities+=VerificationActivity*)?
@@ -365,7 +373,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ThenExpr.left=current} 'then')
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ThenExpr.left=current} 'then'
+		//({ThenExpr.left=current} 'then')
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ThenExpr.left=current}
@@ -455,7 +463,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ElseExpr.left=current} 'else')
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ElseExpr.left=current} 'else'
+		//({ElseExpr.left=current} 'else')
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ElseExpr.left=current}
@@ -464,8 +472,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'else'
 		public Keyword getElseKeyword_1_0_0_1() { return cElseKeyword_1_0_0_1; }
 
-		//error=ElseEvidenceExpr | '[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? ('error' ':'
-		//error=ThenEvidenceExpr)? ']'
+		//(error=ElseEvidenceExpr | '[' ('fail' ':' fail=ThenEvidenceExpr)? ('timeout' ':' timeout=ThenEvidenceExpr)? ('error' ':'
+		//error=ThenEvidenceExpr)? ']')
 		public Alternatives getAlternatives_1_1() { return cAlternatives_1_1; }
 
 		//error=ElseEvidenceExpr
@@ -558,7 +566,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ElseExpr.left=current} 'else')
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ElseExpr.left=current} 'else'
+		//({ElseExpr.left=current} 'else')
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ElseExpr.left=current}
@@ -910,8 +918,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_9_0() { return cLeftSquareBracketKeyword_9_0; }
 
-		//('category' category+=[categories::Category|QualifiedName]+)? & ('timeout' timeout=AIntegerTerm)? & ('weight'
-		//weight=INT)?
+		//(('category' category+=[categories::Category|QualifiedName]+)? & ('timeout' timeout=AIntegerTerm)? & ('weight'
+		//weight=INT)?)
 		public UnorderedGroup getUnorderedGroup_9_1() { return cUnorderedGroup_9_1; }
 
 		//('category' category+=[categories::Category|QualifiedName]+)?
@@ -1172,7 +1180,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//description=Description? methods+=VerificationMethod*
+		//(description=Description? methods+=VerificationMethod*)
 		public Group getGroup_5() { return cGroup_5; }
 
 		//description=Description?
@@ -1226,7 +1234,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef
+		//(type=TypeRef | 'typeof' type=PropertyRef)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//type=TypeRef
@@ -1368,8 +1376,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'method' name=ID ('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* |
 		//targetType=TargetType ',' formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)? (':' title=STRING)? ('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
 		//componentCategory+=ComponentCategory+))? '[' (methodKind=MethodKind & description=Description? &
 		//precondition=VerificationPrecondition? & validation=VerificationValidation? & ('category'
@@ -1387,16 +1395,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//('(' (targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
 		//formals+=FormalParameter (',' formals+=FormalParameter)*) ')' ('properties' '('
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//')')? ('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ')')?
+		//('returns' '(' (results+=FormalParameter (',' results+=FormalParameter)*)? ')')? (isPredicate?='boolean' |
 		//isResultReport?='report')?)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//'('
 		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
-		//targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
-		//formals+=FormalParameter (',' formals+=FormalParameter)*
+		//(targetType=TargetType? | formals+=FormalParameter (',' formals+=FormalParameter)* | targetType=TargetType ','
+		//formals+=FormalParameter (',' formals+=FormalParameter)*)
 		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
 
 		//targetType=TargetType?
@@ -1565,7 +1573,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'for'
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+
+		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
@@ -1586,8 +1594,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
-		//validation=VerificationValidation? & ('category' category+=[categories::Category|QualifiedName]+)?
+		//(methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
+		//validation=VerificationValidation? & ('category' category+=[categories::Category|QualifiedName]+)?)
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//methodKind=MethodKind
@@ -1861,7 +1869,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//'agree'
 		public Keyword getAgreeKeyword_0() { return cAgreeKeyword_0; }
 
-		//singleLayer?='single' | all?='all'
+		//(singleLayer?='single' | all?='all')
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//singleLayer?='single'
@@ -2964,7 +2972,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
