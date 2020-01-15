@@ -11,19 +11,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 @SuppressWarnings("all")
 public class InternalCategoriesLexer extends Lexer {
@@ -59,8 +67,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = Filter;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:31:8: ( 'filter' )
-            // InternalCategoriesLexer.g:31:10: 'filter'
+            // InternalCategoriesLexer.g:39:8: ( 'filter' )
+            // InternalCategoriesLexer.g:39:10: 'filter'
             {
             match("filter"); 
 
@@ -80,8 +88,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = Any;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:33:5: ( 'any' )
-            // InternalCategoriesLexer.g:33:7: 'any'
+            // InternalCategoriesLexer.g:41:5: ( 'any' )
+            // InternalCategoriesLexer.g:41:7: 'any'
             {
             match("any"); 
 
@@ -101,8 +109,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:35:10: ( '.' )
-            // InternalCategoriesLexer.g:35:12: '.'
+            // InternalCategoriesLexer.g:43:10: ( '.' )
+            // InternalCategoriesLexer.g:43:12: '.'
             {
             match('.'); 
 
@@ -121,8 +129,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:37:19: ( '[' )
-            // InternalCategoriesLexer.g:37:21: '['
+            // InternalCategoriesLexer.g:45:19: ( '[' )
+            // InternalCategoriesLexer.g:45:21: '['
             {
             match('['); 
 
@@ -141,8 +149,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:39:20: ( ']' )
-            // InternalCategoriesLexer.g:39:22: ']'
+            // InternalCategoriesLexer.g:47:20: ( ']' )
+            // InternalCategoriesLexer.g:47:22: ']'
             {
             match(']'); 
 
@@ -161,10 +169,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:43:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalCategoriesLexer.g:43:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalCategoriesLexer.g:51:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalCategoriesLexer.g:51:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalCategoriesLexer.g:43:11: ( '^' )?
+            // InternalCategoriesLexer.g:51:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -173,7 +181,7 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalCategoriesLexer.g:43:11: '^'
+                    // InternalCategoriesLexer.g:51:11: '^'
                     {
                     match('^'); 
 
@@ -191,7 +199,7 @@ public class InternalCategoriesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalCategoriesLexer.g:43:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalCategoriesLexer.g:51:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -240,10 +248,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:45:10: ( ( '0' .. '9' )+ )
-            // InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
+            // InternalCategoriesLexer.g:53:10: ( ( '0' .. '9' )+ )
+            // InternalCategoriesLexer.g:53:12: ( '0' .. '9' )+
             {
-            // InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
+            // InternalCategoriesLexer.g:53:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -257,7 +265,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalCategoriesLexer.g:45:13: '0' .. '9'
+            	    // InternalCategoriesLexer.g:53:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -289,10 +297,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:47:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalCategoriesLexer.g:55:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalCategoriesLexer.g:55:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalCategoriesLexer.g:55:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -310,10 +318,10 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalCategoriesLexer.g:47:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalCategoriesLexer.g:55:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalCategoriesLexer.g:47:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalCategoriesLexer.g:55:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -329,7 +337,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalCategoriesLexer.g:47:21: '\\\\' .
+                    	    // InternalCategoriesLexer.g:55:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -337,7 +345,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalCategoriesLexer.g:47:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalCategoriesLexer.g:55:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -362,10 +370,10 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalCategoriesLexer.g:47:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalCategoriesLexer.g:55:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalCategoriesLexer.g:47:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalCategoriesLexer.g:55:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -381,7 +389,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalCategoriesLexer.g:47:54: '\\\\' .
+                    	    // InternalCategoriesLexer.g:55:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -389,7 +397,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalCategoriesLexer.g:47:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalCategoriesLexer.g:55:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -432,12 +440,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:49:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalCategoriesLexer.g:49:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalCategoriesLexer.g:57:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalCategoriesLexer.g:57:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalCategoriesLexer.g:49:24: ( options {greedy=false; } : . )*
+            // InternalCategoriesLexer.g:57:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -462,7 +470,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalCategoriesLexer.g:49:52: .
+            	    // InternalCategoriesLexer.g:57:52: .
             	    {
             	    matchAny(); 
 
@@ -492,12 +500,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:51:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalCategoriesLexer.g:51:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalCategoriesLexer.g:59:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalCategoriesLexer.g:59:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalCategoriesLexer.g:51:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalCategoriesLexer.g:59:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -510,7 +518,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalCategoriesLexer.g:51:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalCategoriesLexer.g:59:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -530,7 +538,7 @@ public class InternalCategoriesLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalCategoriesLexer.g:51:40: ( ( '\\r' )? '\\n' )?
+            // InternalCategoriesLexer.g:59:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -539,9 +547,9 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalCategoriesLexer.g:51:41: ( '\\r' )? '\\n'
+                    // InternalCategoriesLexer.g:59:41: ( '\\r' )? '\\n'
                     {
-                    // InternalCategoriesLexer.g:51:41: ( '\\r' )?
+                    // InternalCategoriesLexer.g:59:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -550,7 +558,7 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalCategoriesLexer.g:51:41: '\\r'
+                            // InternalCategoriesLexer.g:59:41: '\\r'
                             {
                             match('\r'); 
 
@@ -582,10 +590,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:53:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalCategoriesLexer.g:61:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalCategoriesLexer.g:61:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalCategoriesLexer.g:61:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -639,8 +647,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalCategoriesLexer.g:55:16: ( . )
-            // InternalCategoriesLexer.g:55:18: .
+            // InternalCategoriesLexer.g:63:16: ( . )
+            // InternalCategoriesLexer.g:63:18: .
             {
             matchAny(); 
 
