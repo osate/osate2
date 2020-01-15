@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+# This script can be used to replace existing copyright headers with new text
+
+# It assumes that the existing header occurs before the first non-comment line
+# in a file (except for XML, where the xml declaration must be the first element)
+
+# It replaces the first such comment with the new text, or inserts the text as 
+# the new first comment. 
+ 
 import glob
 import os
 from pathlib import Path
