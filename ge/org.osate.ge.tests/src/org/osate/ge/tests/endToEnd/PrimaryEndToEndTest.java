@@ -64,6 +64,7 @@ public class PrimaryEndToEndTest {
 //		 *       - pitch_servo(hardware::components::servo subcomponent). For adjusting pitch of range finder
 //		 *       - rangefinder(hardware::components::rangefinder subcomponent).
 //		 *       - cpu : (hardware::components::cpu subcomponent).
+//		 *       - ram : (hardware::components::ram subcomponent).
 //		 *       - ethernet_buses : (hardware::components::ethernet subcomponent).
 //		 *   - hardware::components(package)
 //		 *       - servo(device)
@@ -223,6 +224,18 @@ public class PrimaryEndToEndTest {
 		setClassifierFromPropertiesView(hardwareDiagram, "hardware::components::cpu",
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("cpu")));
+
+		// Create RAM subcomponent
+		createElementAndLayout(hardwareDiagram, robotImpl, "Memory Subcomponent",
+				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "ram");
+		final DiagramElementReference ram = element(getPackageRelativeReference(HARDWARE),
+				getClassifierRelativeReference("robot.impl"),
+				getSubcomponentRelativeReference("ram"));
+
+		// Add, modify, and delete array dimension
+		addArrayDimension(hardwareDiagram, 2, ram);
+		modifyArrayDimension(hardwareDiagram, 0, 5, ram);
+		deleteArrayDimension(hardwareDiagram, 0, ram);
 
 		// Create Eth subcomponent
 		createElementAndLayout(hardwareDiagram, robotImpl, "Virtual Bus Subcomponent",
