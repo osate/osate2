@@ -741,6 +741,8 @@
       <requirement
           name="org.eclipse.pde.feature.group"/>
       <requirement
+          name="org.yakindu.base.xtext.utils.jface"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}">
@@ -767,9 +769,11 @@
         <repository
             url="http://xtexttools.libutzki.de/"/>
         <repository
-            url="https://eclipse.py4j.org"/>
+            url="http://eclipse.py4j.org"/>
         <repository
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
+        <repository
+            url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
       </repositoryList>
     </targlet>
     <description></description>
