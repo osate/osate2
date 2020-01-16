@@ -525,6 +525,7 @@ public class DiagramConfigurationDialog {
 		this.dlg = new InnerDialog(parentShell);
 		this.diagramConfigBuilder = new DiagramConfigurationBuilder(
 				Objects.requireNonNull(diagramConfig, "diagramConfig must not be null"));
+
 		this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null")
 				.copy();
 		this.initialSelectionBoPath = initialSelectionBoPath;

@@ -13,11 +13,14 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
+	final ShowFlowImplElements showFlowImplElements;
 	DummyContributionItem dummyItem;
 
 	public AgeDiagramEditorActionBarContributor() {
 		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode");
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow");
+		showFlowImplElements = new ShowFlowImplElements("org.osate.ge.ui.editor.items.showFlowImplElements",
+				selectedFlowItem);
 		dummyItem = new DummyContributionItem("org.osate.ge.ui.editor.items.dummy");
 	}
 
@@ -30,6 +33,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	public void dispose() {
 		selectedModeItem.setActiveEditor(null);
 		selectedFlowItem.setActiveEditor(null);
+		showFlowImplElements.setActiveEditor(null);
 		super.dispose();
 	}
 
@@ -48,6 +52,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(selectedModeItem);
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
+		tbm.add(showFlowImplElements);
 		tbm.add(new Separator());
 		tbm.add(dummyItem);
 	}
@@ -95,6 +100,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		super.setActiveEditor(editor);
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
+		showFlowImplElements.setActiveEditor(editor);
 	}
 
 }

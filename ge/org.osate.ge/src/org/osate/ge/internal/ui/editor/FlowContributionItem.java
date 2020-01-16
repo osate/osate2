@@ -143,7 +143,7 @@ public class FlowContributionItem extends ComboContributionItem {
 					queryService.getResults(flowContainerQuery, diagram).stream()
 					.flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
-									return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
+							return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
 									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
 									.orElse(Stream.empty());
 						} else {
@@ -263,7 +263,7 @@ public class FlowContributionItem extends ComboContributionItem {
 		return emptySelectionTxt;
 	}
 
-	private static class HighlightableFlowInfo {
+	public static class HighlightableFlowInfo {
 		private final FlowSegmentReference highlightableFlowElement;
 		private final boolean isPartial;
 
@@ -272,8 +272,12 @@ public class FlowContributionItem extends ComboContributionItem {
 			this.isPartial = isPartial;
 		}
 
-		private boolean isPartial() {
+		public boolean isPartial() {
 			return isPartial;
+		}
+
+		public Queryable getContainer() {
+			return highlightableFlowElement.container;
 		}
 
 		public static HighlightableFlowInfo create(final FlowSegmentReference fsr) {
@@ -282,6 +286,10 @@ public class FlowContributionItem extends ComboContributionItem {
 				return null;
 			}
 			return new HighlightableFlowInfo(fsr, state == FlowSegmentState.PARTIAL);
+		}
+
+		public NamedElement getFlowSegment() {
+			return highlightableFlowElement.flowSegmentElement;
 		}
 	}
 
