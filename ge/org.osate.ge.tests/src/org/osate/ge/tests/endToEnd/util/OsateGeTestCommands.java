@@ -511,4 +511,87 @@ public class OsateGeTestCommands {
 		waitForDiagramElementToExist(diagram,
 				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
 	}
+
+	/**
+	 * Adds a numeric array dimension to elements using the properties view
+	 * @param size the size of the dimension
+	 * @param element the element to which to add the dimension
+	 */
+	public static void addArrayDimension(final DiagramReference diagram, final int size,
+			final DiagramElementReference element) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
+		addArrayDimension(size);
+	}
+
+	private static void addArrayDimension(final int size) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab("AADL");
+		final int dimensionCount = getNumberOfTableRows(0);
+		clickButton("Add");
+		waitForWindowWithTitle("Modify Dimension");
+
+		setComboBoxSelection(0, "Number");
+		setSpinnerValue(0, size);
+		clickButton("OK");
+		assertTableItemText(0, dimensionCount, "[" + size + "]");
+	}
+
+	/**
+	 * Modifies an array dimension by turning it into a numeric array dimension with the specified size using the properties view
+	 * @param dimensionIndex the index of the dimension to modify
+	 * @param size the size of the dimension
+	 * @param element the element for which to modify the dimension
+	 * @param
+	 */
+	public static void modifyArrayDimension(final DiagramReference diagram, final int dimensionIndex, final int size,
+			final DiagramElementReference element) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
+		modifyArrayDimension(dimensionIndex, size);
+	}
+
+	private static void modifyArrayDimension(final int dimensionIndex, final int size) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab("AADL");
+		clickTableItem(0, dimensionIndex);
+		clickButton("Modify...");
+		waitForWindowWithTitle("Modify Dimension");
+
+		setComboBoxSelection(0, "Number");
+		setSpinnerValue(0, size);
+		clickButton("OK");
+
+		assertTableItemText(0, dimensionIndex, "[" + size + "]");
+	}
+
+	/**
+	 * Delete an array dimension using the properties view
+	 * @param dimensionIndex the index of the dimension to delete
+	 * @param element the element for which to modify the dimension
+	 * @param
+	 */
+	public static void deleteArrayDimension(final DiagramReference diagram, final int dimensionIndex,
+			final DiagramElementReference element) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, element);
+		deleteArrayDimension(dimensionIndex);
+	}
+
+	private static void deleteArrayDimension(final int dimensionIndex) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickViewTab("AADL");
+		final int dimensionCount = getNumberOfTableRows(0);
+		clickTableItem(0, dimensionIndex);
+		clickButton("Delete");
+		waitForWindowWithTitle("Confirm");
+		clickButton("Yes");
+		assertNumberOfTableRows(0, dimensionCount - 1);
+	}
 }
