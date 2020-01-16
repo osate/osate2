@@ -2211,6 +2211,13 @@
                id="org.osate.ge.ui.properties.directionalFeatureSection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
+		<propertySection
+               afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
+               class="org.osate.ge.internal.ui.properties.VirtualBusAccessPropertySection"
+               filter="org.osate.ge.internal.ui.properties.VirtualBusAccessPropertySection$Filter"
+               id="org.osate.ge.ui.properties.virtualBusAccessSection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.accessSection"
                class="org.osate.ge.internal.ui.properties.SetFeatureClassifierPropertySection"

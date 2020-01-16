@@ -13,3 +13,4 @@ Require-Bundle: org.eclipse.emf.mwe2.launch;bundle-version="2.8.0",
  org.osate.alisa.workbench;bundle-version="1.0.0",
  org.osate.assure;bundle-version="1.0.0"
 Automatic-Module-Name: alisa.releng
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

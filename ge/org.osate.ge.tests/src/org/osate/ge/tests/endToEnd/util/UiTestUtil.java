@@ -36,6 +36,7 @@ import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
@@ -124,6 +125,24 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Asserts that the nth spinner has the specified value.
+	 */
+	public static void assertSpinnerValue(final String message, final int index, final int expectedValue) {
+		final SWTBotSpinner spinner = bot.spinner(index);
+		assertEquals(message, expectedValue, spinner.getSelection());
+	}
+
+	/**
+	 * Sets the text in the nth spinner to the specified value.
+	 * @param index
+	 * @param value
+	 */
+	public static void setSpinnerValue(final int index, final int value) {
+		bot.spinner(index).setSelection(value);
+		assertSpinnerValue("New value not valid", index, value);
+	}
+
+	/**
 	 * Asserts that the nth combo box has the specified selection.
 	 */
 	public static void assertComboBoxSelection(final String message, final int index, final String expected) {
@@ -203,6 +222,23 @@ public class UiTestUtil {
 
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
 		bot.table().getTableItem(tableItem).click();
+	}
+
+	public static void clickTableItem(final int tableIndex, final int rowIndex) {
+		bot.table().getTableItem(rowIndex).click();
+	}
+
+	public static int getNumberOfTableRows(final int tableIndex) {
+		return bot.table().rowCount();
+	}
+
+	public static void assertNumberOfTableRows(final int tableIndex, final int expectedValue) {
+		assertEquals("Unexpected number of table rows", expectedValue, getNumberOfTableRows(tableIndex));
+	}
+
+	public static void assertTableItemText(final int tableIndex, final int rowIndex,
+			final String expectedValue) {
+		assertEquals("Unexpected table item text", expectedValue, bot.table().getTableItem(rowIndex).getText());
 	}
 
 	/**
