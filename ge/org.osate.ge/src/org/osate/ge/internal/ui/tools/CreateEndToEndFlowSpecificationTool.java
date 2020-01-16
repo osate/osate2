@@ -428,7 +428,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper
 					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(575, 275);
+			newShell.setSize(800, 400);
 			newShell.setMinimumSize(460, 215);
 		}
 
@@ -476,7 +476,6 @@ public class CreateEndToEndFlowSpecificationTool {
 
 			newETEFlowName = new Text(buttonBar, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
 			final GridData nameTextData = new GridData(SWT.FILL, SWT.CENTER, true, false);
-			nameTextData.widthHint = 180;
 			newETEFlowName.setLayoutData(nameTextData);
 			newETEFlowName.setEditable(true);
 			newETEFlowName.setOrientation(SWT.LEFT_TO_RIGHT);
@@ -538,9 +537,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 			});
 
-			final GridData removeBtnData = new GridData(SWT.LEFT, SWT.CENTER, true, false);
-			removeBtnData.horizontalIndent = 4;
-			removeBtnData.widthHint = 45;
+			final GridData removeBtnData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			undoButton.setLayoutData(removeBtnData);
 
 			super.createButtonBar(buttonBar);
@@ -552,15 +549,6 @@ public class CreateEndToEndFlowSpecificationTool {
 					flows.add(eTEFlow);
 				}
 			});
-
-			final GridData okBtnData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
-			okBtnData.widthHint = 65;
-			okBtn.setLayoutData(okBtnData);
-
-			final GridData cancelBtnData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
-			cancelBtnData.widthHint = 65;
-			final Button cancelBtn = getButton(IDialogConstants.CANCEL_ID);
-			cancelBtn.setLayoutData(cancelBtnData);
 
 			return buttonBar;
 		}
