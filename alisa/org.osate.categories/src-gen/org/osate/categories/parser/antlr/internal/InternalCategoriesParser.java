@@ -19,19 +19,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 @SuppressWarnings("all")
 public class InternalCategoriesParser extends AbstractInternalAntlrParser {
@@ -92,7 +100,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategoriesDefinitions"
-    // InternalCategoriesParser.g:73:1: entryRuleCategoriesDefinitions returns [EObject current=null] : iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF ;
+    // InternalCategoriesParser.g:81:1: entryRuleCategoriesDefinitions returns [EObject current=null] : iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF ;
     public final EObject entryRuleCategoriesDefinitions() throws RecognitionException {
         EObject current = null;
 
@@ -100,8 +108,8 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalCategoriesParser.g:74:2: (iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF )
-            // InternalCategoriesParser.g:75:2: iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF
+            // InternalCategoriesParser.g:82:2: (iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF )
+            // InternalCategoriesParser.g:83:2: iv_ruleCategoriesDefinitions= ruleCategoriesDefinitions EOF
             {
              newCompositeNode(grammarAccess.getCategoriesDefinitionsRule()); 
             pushFollow(FOLLOW_1);
@@ -128,7 +136,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategoriesDefinitions"
-    // InternalCategoriesParser.g:82:1: ruleCategoriesDefinitions returns [EObject current=null] : ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) ;
+    // InternalCategoriesParser.g:90:1: ruleCategoriesDefinitions returns [EObject current=null] : ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) ;
     public final EObject ruleCategoriesDefinitions() throws RecognitionException {
         EObject current = null;
 
@@ -140,13 +148,13 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalCategoriesParser.g:85:28: ( ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) )
-            // InternalCategoriesParser.g:86:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
+            // InternalCategoriesParser.g:93:28: ( ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* ) )
+            // InternalCategoriesParser.g:94:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
             {
-            // InternalCategoriesParser.g:86:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
-            // InternalCategoriesParser.g:86:2: ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
+            // InternalCategoriesParser.g:94:1: ( ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )* )
+            // InternalCategoriesParser.g:94:2: ( (lv_categories_0_0= ruleCategories ) )* ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
             {
-            // InternalCategoriesParser.g:86:2: ( (lv_categories_0_0= ruleCategories ) )*
+            // InternalCategoriesParser.g:94:2: ( (lv_categories_0_0= ruleCategories ) )*
             loop1:
             do {
                 int alt1=2;
@@ -159,10 +167,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalCategoriesParser.g:87:1: (lv_categories_0_0= ruleCategories )
+            	    // InternalCategoriesParser.g:95:1: (lv_categories_0_0= ruleCategories )
             	    {
-            	    // InternalCategoriesParser.g:87:1: (lv_categories_0_0= ruleCategories )
-            	    // InternalCategoriesParser.g:88:3: lv_categories_0_0= ruleCategories
+            	    // InternalCategoriesParser.g:95:1: (lv_categories_0_0= ruleCategories )
+            	    // InternalCategoriesParser.g:96:3: lv_categories_0_0= ruleCategories
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoriesCategoriesParserRuleCall_0_0()); 
@@ -195,7 +203,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalCategoriesParser.g:104:3: ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
+            // InternalCategoriesParser.g:112:3: ( (lv_categoryFilters_1_0= ruleCategoryFilter ) )*
             loop2:
             do {
                 int alt2=2;
@@ -208,10 +216,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalCategoriesParser.g:105:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
+            	    // InternalCategoriesParser.g:113:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
             	    {
-            	    // InternalCategoriesParser.g:105:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
-            	    // InternalCategoriesParser.g:106:3: lv_categoryFilters_1_0= ruleCategoryFilter
+            	    // InternalCategoriesParser.g:113:1: (lv_categoryFilters_1_0= ruleCategoryFilter )
+            	    // InternalCategoriesParser.g:114:3: lv_categoryFilters_1_0= ruleCategoryFilter
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getCategoriesDefinitionsAccess().getCategoryFiltersCategoryFilterParserRuleCall_1_0()); 
@@ -265,7 +273,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategories"
-    // InternalCategoriesParser.g:130:1: entryRuleCategories returns [EObject current=null] : iv_ruleCategories= ruleCategories EOF ;
+    // InternalCategoriesParser.g:138:1: entryRuleCategories returns [EObject current=null] : iv_ruleCategories= ruleCategories EOF ;
     public final EObject entryRuleCategories() throws RecognitionException {
         EObject current = null;
 
@@ -273,8 +281,8 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalCategoriesParser.g:131:2: (iv_ruleCategories= ruleCategories EOF )
-            // InternalCategoriesParser.g:132:2: iv_ruleCategories= ruleCategories EOF
+            // InternalCategoriesParser.g:139:2: (iv_ruleCategories= ruleCategories EOF )
+            // InternalCategoriesParser.g:140:2: iv_ruleCategories= ruleCategories EOF
             {
              newCompositeNode(grammarAccess.getCategoriesRule()); 
             pushFollow(FOLLOW_1);
@@ -301,7 +309,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategories"
-    // InternalCategoriesParser.g:139:1: ruleCategories returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) ;
+    // InternalCategoriesParser.g:147:1: ruleCategories returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) ;
     public final EObject ruleCategories() throws RecognitionException {
         EObject current = null;
 
@@ -314,17 +322,17 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalCategoriesParser.g:142:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) )
-            // InternalCategoriesParser.g:143:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
+            // InternalCategoriesParser.g:150:28: ( ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket ) )
+            // InternalCategoriesParser.g:151:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
             {
-            // InternalCategoriesParser.g:143:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
-            // InternalCategoriesParser.g:143:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket
+            // InternalCategoriesParser.g:151:1: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket )
+            // InternalCategoriesParser.g:151:2: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= LeftSquareBracket ( (lv_category_2_0= ruleCategory ) )+ otherlv_3= RightSquareBracket
             {
-            // InternalCategoriesParser.g:143:2: ( (lv_name_0_0= RULE_ID ) )
-            // InternalCategoriesParser.g:144:1: (lv_name_0_0= RULE_ID )
+            // InternalCategoriesParser.g:151:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalCategoriesParser.g:152:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalCategoriesParser.g:144:1: (lv_name_0_0= RULE_ID )
-            // InternalCategoriesParser.g:145:3: lv_name_0_0= RULE_ID
+            // InternalCategoriesParser.g:152:1: (lv_name_0_0= RULE_ID )
+            // InternalCategoriesParser.g:153:3: lv_name_0_0= RULE_ID
             {
             lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
@@ -350,7 +358,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getCategoriesAccess().getLeftSquareBracketKeyword_1());
                 
-            // InternalCategoriesParser.g:166:1: ( (lv_category_2_0= ruleCategory ) )+
+            // InternalCategoriesParser.g:174:1: ( (lv_category_2_0= ruleCategory ) )+
             int cnt3=0;
             loop3:
             do {
@@ -364,10 +372,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalCategoriesParser.g:167:1: (lv_category_2_0= ruleCategory )
+            	    // InternalCategoriesParser.g:175:1: (lv_category_2_0= ruleCategory )
             	    {
-            	    // InternalCategoriesParser.g:167:1: (lv_category_2_0= ruleCategory )
-            	    // InternalCategoriesParser.g:168:3: lv_category_2_0= ruleCategory
+            	    // InternalCategoriesParser.g:175:1: (lv_category_2_0= ruleCategory )
+            	    // InternalCategoriesParser.g:176:3: lv_category_2_0= ruleCategory
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getCategoriesAccess().getCategoryCategoryParserRuleCall_2_0()); 
@@ -429,7 +437,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategory"
-    // InternalCategoriesParser.g:197:1: entryRuleCategory returns [EObject current=null] : iv_ruleCategory= ruleCategory EOF ;
+    // InternalCategoriesParser.g:205:1: entryRuleCategory returns [EObject current=null] : iv_ruleCategory= ruleCategory EOF ;
     public final EObject entryRuleCategory() throws RecognitionException {
         EObject current = null;
 
@@ -437,8 +445,8 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalCategoriesParser.g:198:2: (iv_ruleCategory= ruleCategory EOF )
-            // InternalCategoriesParser.g:199:2: iv_ruleCategory= ruleCategory EOF
+            // InternalCategoriesParser.g:206:2: (iv_ruleCategory= ruleCategory EOF )
+            // InternalCategoriesParser.g:207:2: iv_ruleCategory= ruleCategory EOF
             {
              newCompositeNode(grammarAccess.getCategoryRule()); 
             pushFollow(FOLLOW_1);
@@ -465,7 +473,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategory"
-    // InternalCategoriesParser.g:206:1: ruleCategory returns [EObject current=null] : ( (lv_name_0_0= RULE_ID ) ) ;
+    // InternalCategoriesParser.g:214:1: ruleCategory returns [EObject current=null] : ( (lv_name_0_0= RULE_ID ) ) ;
     public final EObject ruleCategory() throws RecognitionException {
         EObject current = null;
 
@@ -474,14 +482,14 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalCategoriesParser.g:209:28: ( ( (lv_name_0_0= RULE_ID ) ) )
-            // InternalCategoriesParser.g:210:1: ( (lv_name_0_0= RULE_ID ) )
+            // InternalCategoriesParser.g:217:28: ( ( (lv_name_0_0= RULE_ID ) ) )
+            // InternalCategoriesParser.g:218:1: ( (lv_name_0_0= RULE_ID ) )
             {
-            // InternalCategoriesParser.g:210:1: ( (lv_name_0_0= RULE_ID ) )
-            // InternalCategoriesParser.g:211:1: (lv_name_0_0= RULE_ID )
+            // InternalCategoriesParser.g:218:1: ( (lv_name_0_0= RULE_ID ) )
+            // InternalCategoriesParser.g:219:1: (lv_name_0_0= RULE_ID )
             {
-            // InternalCategoriesParser.g:211:1: (lv_name_0_0= RULE_ID )
-            // InternalCategoriesParser.g:212:3: lv_name_0_0= RULE_ID
+            // InternalCategoriesParser.g:219:1: (lv_name_0_0= RULE_ID )
+            // InternalCategoriesParser.g:220:3: lv_name_0_0= RULE_ID
             {
             lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -521,7 +529,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCategoryFilter"
-    // InternalCategoriesParser.g:236:1: entryRuleCategoryFilter returns [EObject current=null] : iv_ruleCategoryFilter= ruleCategoryFilter EOF ;
+    // InternalCategoriesParser.g:244:1: entryRuleCategoryFilter returns [EObject current=null] : iv_ruleCategoryFilter= ruleCategoryFilter EOF ;
     public final EObject entryRuleCategoryFilter() throws RecognitionException {
         EObject current = null;
 
@@ -529,8 +537,8 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalCategoriesParser.g:237:2: (iv_ruleCategoryFilter= ruleCategoryFilter EOF )
-            // InternalCategoriesParser.g:238:2: iv_ruleCategoryFilter= ruleCategoryFilter EOF
+            // InternalCategoriesParser.g:245:2: (iv_ruleCategoryFilter= ruleCategoryFilter EOF )
+            // InternalCategoriesParser.g:246:2: iv_ruleCategoryFilter= ruleCategoryFilter EOF
             {
              newCompositeNode(grammarAccess.getCategoryFilterRule()); 
             pushFollow(FOLLOW_1);
@@ -557,7 +565,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCategoryFilter"
-    // InternalCategoriesParser.g:245:1: ruleCategoryFilter returns [EObject current=null] : (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) ;
+    // InternalCategoriesParser.g:253:1: ruleCategoryFilter returns [EObject current=null] : (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) ;
     public final EObject ruleCategoryFilter() throws RecognitionException {
         EObject current = null;
 
@@ -570,21 +578,21 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalCategoriesParser.g:248:28: ( (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) )
-            // InternalCategoriesParser.g:249:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
+            // InternalCategoriesParser.g:256:28: ( (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket ) )
+            // InternalCategoriesParser.g:257:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
             {
-            // InternalCategoriesParser.g:249:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
-            // InternalCategoriesParser.g:250:2: otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket
+            // InternalCategoriesParser.g:257:1: (otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket )
+            // InternalCategoriesParser.g:258:2: otherlv_0= Filter ( (lv_name_1_0= RULE_ID ) ) otherlv_2= LeftSquareBracket ( ( ruleCatRef ) )* ( (lv_anyCategory_4_0= Any ) )? otherlv_5= RightSquareBracket
             {
             otherlv_0=(Token)match(input,Filter,FOLLOW_6); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getCategoryFilterAccess().getFilterKeyword_0());
                 
-            // InternalCategoriesParser.g:254:1: ( (lv_name_1_0= RULE_ID ) )
-            // InternalCategoriesParser.g:255:1: (lv_name_1_0= RULE_ID )
+            // InternalCategoriesParser.g:262:1: ( (lv_name_1_0= RULE_ID ) )
+            // InternalCategoriesParser.g:263:1: (lv_name_1_0= RULE_ID )
             {
-            // InternalCategoriesParser.g:255:1: (lv_name_1_0= RULE_ID )
-            // InternalCategoriesParser.g:256:3: lv_name_1_0= RULE_ID
+            // InternalCategoriesParser.g:263:1: (lv_name_1_0= RULE_ID )
+            // InternalCategoriesParser.g:264:3: lv_name_1_0= RULE_ID
             {
             lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
@@ -610,7 +618,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_2, grammarAccess.getCategoryFilterAccess().getLeftSquareBracketKeyword_2());
                 
-            // InternalCategoriesParser.g:277:1: ( ( ruleCatRef ) )*
+            // InternalCategoriesParser.g:285:1: ( ( ruleCatRef ) )*
             loop4:
             do {
                 int alt4=2;
@@ -623,10 +631,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
                 switch (alt4) {
             	case 1 :
-            	    // InternalCategoriesParser.g:278:1: ( ruleCatRef )
+            	    // InternalCategoriesParser.g:286:1: ( ruleCatRef )
             	    {
-            	    // InternalCategoriesParser.g:278:1: ( ruleCatRef )
-            	    // InternalCategoriesParser.g:279:3: ruleCatRef
+            	    // InternalCategoriesParser.g:286:1: ( ruleCatRef )
+            	    // InternalCategoriesParser.g:287:3: ruleCatRef
             	    {
 
             	    			if (current==null) {
@@ -656,7 +664,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // InternalCategoriesParser.g:293:3: ( (lv_anyCategory_4_0= Any ) )?
+            // InternalCategoriesParser.g:301:3: ( (lv_anyCategory_4_0= Any ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -665,10 +673,10 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // InternalCategoriesParser.g:294:1: (lv_anyCategory_4_0= Any )
+                    // InternalCategoriesParser.g:302:1: (lv_anyCategory_4_0= Any )
                     {
-                    // InternalCategoriesParser.g:294:1: (lv_anyCategory_4_0= Any )
-                    // InternalCategoriesParser.g:295:3: lv_anyCategory_4_0= Any
+                    // InternalCategoriesParser.g:302:1: (lv_anyCategory_4_0= Any )
+                    // InternalCategoriesParser.g:303:3: lv_anyCategory_4_0= Any
                     {
                     lv_anyCategory_4_0=(Token)match(input,Any,FOLLOW_9); 
 
@@ -714,7 +722,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCatRef"
-    // InternalCategoriesParser.g:322:1: entryRuleCatRef returns [String current=null] : iv_ruleCatRef= ruleCatRef EOF ;
+    // InternalCategoriesParser.g:330:1: entryRuleCatRef returns [String current=null] : iv_ruleCatRef= ruleCatRef EOF ;
     public final String entryRuleCatRef() throws RecognitionException {
         String current = null;
 
@@ -722,8 +730,8 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalCategoriesParser.g:323:1: (iv_ruleCatRef= ruleCatRef EOF )
-            // InternalCategoriesParser.g:324:2: iv_ruleCatRef= ruleCatRef EOF
+            // InternalCategoriesParser.g:331:1: (iv_ruleCatRef= ruleCatRef EOF )
+            // InternalCategoriesParser.g:332:2: iv_ruleCatRef= ruleCatRef EOF
             {
              newCompositeNode(grammarAccess.getCatRefRule()); 
             pushFollow(FOLLOW_1);
@@ -750,7 +758,7 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCatRef"
-    // InternalCategoriesParser.g:331:1: ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) ;
+    // InternalCategoriesParser.g:339:1: ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) ;
     public final AntlrDatatypeRuleToken ruleCatRef() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -761,11 +769,11 @@ public class InternalCategoriesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalCategoriesParser.g:335:6: ( (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) )
-            // InternalCategoriesParser.g:336:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
+            // InternalCategoriesParser.g:343:6: ( (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID ) )
+            // InternalCategoriesParser.g:344:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
             {
-            // InternalCategoriesParser.g:336:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
-            // InternalCategoriesParser.g:336:6: this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID
+            // InternalCategoriesParser.g:344:1: (this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID )
+            // InternalCategoriesParser.g:344:6: this_ID_0= RULE_ID kw= FullStop this_ID_2= RULE_ID
             {
             this_ID_0=(Token)match(input,RULE_ID,FOLLOW_10); 
 

@@ -97,5 +97,9 @@
       <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
       <repository location="https://eclipse.py4j.org"/>
     </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.yakindu.base.xtext.utils.jface" version="0.0.0"/>
+      <repository location="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
+    </location>
   </locations>
 </target>

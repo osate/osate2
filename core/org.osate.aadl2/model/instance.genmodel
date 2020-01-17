@@ -8,7 +8,7 @@
     editorPluginClass="org.osate.presentation.Aadl2EditorPlugin" nonNLSMarkers="true"
     featureMapWrapperInterface="" featureMapWrapperInternalInterface="" featureMapWrapperClass=""
     codeFormatting="true" testsDirectory="" testSuiteClass="" booleanFlagsField=""
-    importerID="org.eclipse.uml2.uml.ecore.importer" bundleManifest="false" complianceLevel="8.0"
+    importerID="org.eclipse.uml2.uml.ecore.importer" bundleManifest="false" complianceLevel="5.0"
     copyrightFields="false" editPluginID="org.osate.aadl2.edit" editorPluginID="org.osate.aadl2.editor"
     runtimeVersion="2.11" language="" usedGenPackages="aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel#//types"
     importOrganizing="true" cleanup="true" factoryMethods="true" pluralizedGetters="true"
