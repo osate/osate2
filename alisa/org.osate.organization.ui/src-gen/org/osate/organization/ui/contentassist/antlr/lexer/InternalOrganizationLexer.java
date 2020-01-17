@@ -11,19 +11,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 @SuppressWarnings("all")
 public class InternalOrganizationLexer extends Lexer {
@@ -67,8 +75,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Organization;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:31:14: ( 'organization' )
-            // InternalOrganizationLexer.g:31:16: 'organization'
+            // InternalOrganizationLexer.g:39:14: ( 'organization' )
+            // InternalOrganizationLexer.g:39:16: 'organization'
             {
             match("organization"); 
 
@@ -88,8 +96,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Description;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:33:13: ( 'description' )
-            // InternalOrganizationLexer.g:33:15: 'description'
+            // InternalOrganizationLexer.g:41:13: ( 'description' )
+            // InternalOrganizationLexer.g:41:15: 'description'
             {
             match("description"); 
 
@@ -109,8 +117,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Stakeholder;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:35:13: ( 'stakeholder' )
-            // InternalOrganizationLexer.g:35:15: 'stakeholder'
+            // InternalOrganizationLexer.g:43:13: ( 'stakeholder' )
+            // InternalOrganizationLexer.g:43:15: 'stakeholder'
             {
             match("stakeholder"); 
 
@@ -130,8 +138,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Supervisor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:37:12: ( 'supervisor' )
-            // InternalOrganizationLexer.g:37:14: 'supervisor'
+            // InternalOrganizationLexer.g:45:12: ( 'supervisor' )
+            // InternalOrganizationLexer.g:45:14: 'supervisor'
             {
             match("supervisor"); 
 
@@ -151,8 +159,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Email;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:39:7: ( 'email' )
-            // InternalOrganizationLexer.g:39:9: 'email'
+            // InternalOrganizationLexer.g:47:7: ( 'email' )
+            // InternalOrganizationLexer.g:47:9: 'email'
             {
             match("email"); 
 
@@ -172,8 +180,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Phone;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:41:7: ( 'phone' )
-            // InternalOrganizationLexer.g:41:9: 'phone'
+            // InternalOrganizationLexer.g:49:7: ( 'phone' )
+            // InternalOrganizationLexer.g:49:9: 'phone'
             {
             match("phone"); 
 
@@ -193,8 +201,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Title;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:43:7: ( 'title' )
-            // InternalOrganizationLexer.g:43:9: 'title'
+            // InternalOrganizationLexer.g:51:7: ( 'title' )
+            // InternalOrganizationLexer.g:51:9: 'title'
             {
             match("title"); 
 
@@ -214,8 +222,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Full;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:45:6: ( 'full' )
-            // InternalOrganizationLexer.g:45:8: 'full'
+            // InternalOrganizationLexer.g:53:6: ( 'full' )
+            // InternalOrganizationLexer.g:53:8: 'full'
             {
             match("full"); 
 
@@ -235,8 +243,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Name;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:47:6: ( 'name' )
-            // InternalOrganizationLexer.g:47:8: 'name'
+            // InternalOrganizationLexer.g:55:6: ( 'name' )
+            // InternalOrganizationLexer.g:55:8: 'name'
             {
             match("name"); 
 
@@ -256,8 +264,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = Role;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:49:6: ( 'role' )
-            // InternalOrganizationLexer.g:49:8: 'role'
+            // InternalOrganizationLexer.g:57:6: ( 'role' )
+            // InternalOrganizationLexer.g:57:8: 'role'
             {
             match("role"); 
 
@@ -277,8 +285,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:51:10: ( '.' )
-            // InternalOrganizationLexer.g:51:12: '.'
+            // InternalOrganizationLexer.g:59:10: ( '.' )
+            // InternalOrganizationLexer.g:59:12: '.'
             {
             match('.'); 
 
@@ -297,8 +305,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:53:19: ( '[' )
-            // InternalOrganizationLexer.g:53:21: '['
+            // InternalOrganizationLexer.g:61:19: ( '[' )
+            // InternalOrganizationLexer.g:61:21: '['
             {
             match('['); 
 
@@ -317,8 +325,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:55:20: ( ']' )
-            // InternalOrganizationLexer.g:55:22: ']'
+            // InternalOrganizationLexer.g:63:20: ( ']' )
+            // InternalOrganizationLexer.g:63:22: ']'
             {
             match(']'); 
 
@@ -337,10 +345,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:59:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalOrganizationLexer.g:59:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalOrganizationLexer.g:67:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalOrganizationLexer.g:67:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalOrganizationLexer.g:59:11: ( '^' )?
+            // InternalOrganizationLexer.g:67:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -349,7 +357,7 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalOrganizationLexer.g:59:11: '^'
+                    // InternalOrganizationLexer.g:67:11: '^'
                     {
                     match('^'); 
 
@@ -367,7 +375,7 @@ public class InternalOrganizationLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalOrganizationLexer.g:59:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalOrganizationLexer.g:67:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -416,10 +424,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:61:10: ( ( '0' .. '9' )+ )
-            // InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
+            // InternalOrganizationLexer.g:69:10: ( ( '0' .. '9' )+ )
+            // InternalOrganizationLexer.g:69:12: ( '0' .. '9' )+
             {
-            // InternalOrganizationLexer.g:61:12: ( '0' .. '9' )+
+            // InternalOrganizationLexer.g:69:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -433,7 +441,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalOrganizationLexer.g:61:13: '0' .. '9'
+            	    // InternalOrganizationLexer.g:69:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -465,10 +473,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:63:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalOrganizationLexer.g:71:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalOrganizationLexer.g:71:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalOrganizationLexer.g:63:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalOrganizationLexer.g:71:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -486,10 +494,10 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalOrganizationLexer.g:63:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalOrganizationLexer.g:71:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalOrganizationLexer.g:63:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalOrganizationLexer.g:71:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -505,7 +513,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalOrganizationLexer.g:63:21: '\\\\' .
+                    	    // InternalOrganizationLexer.g:71:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -513,7 +521,7 @@ public class InternalOrganizationLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalOrganizationLexer.g:63:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalOrganizationLexer.g:71:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -538,10 +546,10 @@ public class InternalOrganizationLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalOrganizationLexer.g:63:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalOrganizationLexer.g:71:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalOrganizationLexer.g:63:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalOrganizationLexer.g:71:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -557,7 +565,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalOrganizationLexer.g:63:54: '\\\\' .
+                    	    // InternalOrganizationLexer.g:71:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -565,7 +573,7 @@ public class InternalOrganizationLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalOrganizationLexer.g:63:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalOrganizationLexer.g:71:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -608,12 +616,12 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:65:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalOrganizationLexer.g:65:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalOrganizationLexer.g:73:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalOrganizationLexer.g:73:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalOrganizationLexer.g:65:24: ( options {greedy=false; } : . )*
+            // InternalOrganizationLexer.g:73:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -638,7 +646,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalOrganizationLexer.g:65:52: .
+            	    // InternalOrganizationLexer.g:73:52: .
             	    {
             	    matchAny(); 
 
@@ -668,12 +676,12 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:67:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalOrganizationLexer.g:67:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalOrganizationLexer.g:75:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalOrganizationLexer.g:75:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalOrganizationLexer.g:67:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalOrganizationLexer.g:75:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -686,7 +694,7 @@ public class InternalOrganizationLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalOrganizationLexer.g:67:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalOrganizationLexer.g:75:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -706,7 +714,7 @@ public class InternalOrganizationLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalOrganizationLexer.g:67:40: ( ( '\\r' )? '\\n' )?
+            // InternalOrganizationLexer.g:75:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -715,9 +723,9 @@ public class InternalOrganizationLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalOrganizationLexer.g:67:41: ( '\\r' )? '\\n'
+                    // InternalOrganizationLexer.g:75:41: ( '\\r' )? '\\n'
                     {
-                    // InternalOrganizationLexer.g:67:41: ( '\\r' )?
+                    // InternalOrganizationLexer.g:75:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -726,7 +734,7 @@ public class InternalOrganizationLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalOrganizationLexer.g:67:41: '\\r'
+                            // InternalOrganizationLexer.g:75:41: '\\r'
                             {
                             match('\r'); 
 
@@ -758,10 +766,10 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:69:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalOrganizationLexer.g:77:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalOrganizationLexer.g:77:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalOrganizationLexer.g:69:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalOrganizationLexer.g:77:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -815,8 +823,8 @@ public class InternalOrganizationLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalOrganizationLexer.g:71:16: ( . )
-            // InternalOrganizationLexer.g:71:18: .
+            // InternalOrganizationLexer.g:79:16: ( . )
+            // InternalOrganizationLexer.g:79:18: .
             {
             matchAny(); 
 

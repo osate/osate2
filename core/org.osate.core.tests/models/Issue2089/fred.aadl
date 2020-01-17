@@ -1,0 +1,8 @@
+package x  ::fred
+public
+	system s
+	end s;
+end x::
+  -- comment
+   -- comment
+   fred;

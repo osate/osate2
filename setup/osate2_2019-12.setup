@@ -566,7 +566,7 @@
       <repository
           url="http://download.eclipse.org/releases/2019-12"/>
       <repository
-          url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
+          url="https://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/0.9.0.201609252021/"/>
       <repository
           url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
       <description>Additional features for core OSATE</description>
@@ -741,6 +741,8 @@
       <requirement
           name="org.eclipse.pde.feature.group"/>
       <requirement
+          name="org.yakindu.base.xtext.utils.jface"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}">
@@ -770,6 +772,8 @@
             url="http://eclipse.py4j.org"/>
         <repository
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
+        <repository
+            url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
       </repositoryList>
     </targlet>
     <description></description>
