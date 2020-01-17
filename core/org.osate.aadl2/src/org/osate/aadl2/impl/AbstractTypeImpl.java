@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: AbstractTypeImpl.java,v 1.18 2011-04-11 13:35:54 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -155,7 +143,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractType();
 	}
@@ -165,9 +152,8 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -191,10 +177,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<>(BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -205,7 +190,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public BusAccess createOwnedBusAccess() {
 		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
@@ -217,10 +201,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -231,7 +214,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -243,10 +225,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -257,7 +238,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramAccess());
@@ -270,10 +250,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -284,7 +263,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataPort createOwnedDataPort() {
 		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
@@ -296,10 +274,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -310,7 +287,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -322,10 +298,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
 					Aadl2Package.ABSTRACT_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -336,7 +311,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -348,10 +322,9 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
 					SubprogramGroupAccess.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;
@@ -362,7 +335,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
@@ -375,7 +347,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -401,7 +372,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -428,7 +398,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -468,7 +437,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -501,7 +469,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE:
@@ -529,7 +496,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS)
 				|| eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_ACCESS)
@@ -540,7 +506,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 				|| eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.ABSTRACT;
 	}

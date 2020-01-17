@@ -1,38 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- *
- * $Id: ContainedNamedElementImpl.java,v 1.3 2008-12-22 18:15:11 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -88,7 +75,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getContainedNamedElement();
 	}
@@ -98,7 +84,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -114,11 +99,10 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, oldPath, newPath);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -128,26 +112,21 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
-			if (path != null) {
+			if (path != null)
 				msgs = ((InternalEObject) path).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
-			}
-			if (newPath != null) {
+			if (newPath != null)
 				msgs = ((InternalEObject) newPath).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
-			}
 			msgs = basicSetPath(newPath, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, newPath,
 					newPath));
-		}
 	}
 
 	/**
@@ -155,7 +134,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ContainmentPathElement createPath() {
 		ContainmentPathElement newPath = (ContainmentPathElement) create(
 				Aadl2Package.eINSTANCE.getContainmentPathElement());
@@ -169,7 +147,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public EList<ContainmentPathElement> getContainmentPathElements() {
 		EList<ContainmentPathElement> result = newBasicEList();
 		ContainmentPathElement next = path;
@@ -188,7 +165,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -202,7 +178,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -219,7 +194,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -234,7 +208,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -249,7 +222,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
