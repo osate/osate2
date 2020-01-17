@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: PackageSectionImpl.java,v 1.43 2011-04-11 13:35:52 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -197,7 +185,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPackageSection();
 	}
@@ -207,9 +194,8 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -231,10 +217,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Classifier> getOwnedClassifiers() {
 		if (ownedClassifiers == null) {
-			ownedClassifiers = new EObjectContainmentEList<>(Classifier.class, this,
+			ownedClassifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_CLASSIFIER);
 		}
 		return ownedClassifiers;
@@ -245,7 +230,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier createOwnedClassifier(EClass eClass) {
 		Classifier newOwnedClassifier = (Classifier) create(eClass);
 		getOwnedClassifiers().add(newOwnedClassifier);
@@ -257,10 +241,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PackageRename> getOwnedPackageRenames() {
 		if (ownedPackageRenames == null) {
-			ownedPackageRenames = new EObjectContainmentEList<>(PackageRename.class, this,
+			ownedPackageRenames = new EObjectContainmentEList<PackageRename>(PackageRename.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME);
 		}
 		return ownedPackageRenames;
@@ -271,7 +254,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PackageRename createOwnedPackageRename() {
 		PackageRename newOwnedPackageRename = (PackageRename) create(Aadl2Package.eINSTANCE.getPackageRename());
 		getOwnedPackageRenames().add(newOwnedPackageRename);
@@ -283,10 +265,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ComponentTypeRename> getOwnedComponentTypeRenames() {
 		if (ownedComponentTypeRenames == null) {
-			ownedComponentTypeRenames = new EObjectContainmentEList<>(ComponentTypeRename.class,
+			ownedComponentTypeRenames = new EObjectContainmentEList<ComponentTypeRename>(ComponentTypeRename.class,
 					this, Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME);
 		}
 		return ownedComponentTypeRenames;
@@ -297,7 +278,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentTypeRename createOwnedComponentTypeRename() {
 		ComponentTypeRename newOwnedComponentTypeRename = (ComponentTypeRename) create(
 				Aadl2Package.eINSTANCE.getComponentTypeRename());
@@ -310,7 +290,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoAnnexes() {
 		return noAnnexes;
 	}
@@ -320,14 +299,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_ANNEXES,
 					oldNoAnnexes, noAnnexes));
-		}
 	}
 
 	/**
@@ -335,7 +312,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoProperties() {
 		return noProperties;
 	}
@@ -345,14 +321,12 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES,
 					oldNoProperties, noProperties));
-		}
 	}
 
 	/**
@@ -360,10 +334,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureGroupTypeRename> getOwnedFeatureGroupTypeRenames() {
 		if (ownedFeatureGroupTypeRenames == null) {
-			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<>(
+			ownedFeatureGroupTypeRenames = new EObjectContainmentEList<FeatureGroupTypeRename>(
 					FeatureGroupTypeRename.class, this, Aadl2Package.PACKAGE_SECTION__OWNED_FEATURE_GROUP_TYPE_RENAME);
 		}
 		return ownedFeatureGroupTypeRenames;
@@ -374,7 +347,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureGroupTypeRename createOwnedFeatureGroupTypeRename() {
 		FeatureGroupTypeRename newOwnedFeatureGroupTypeRename = (FeatureGroupTypeRename) create(
 				Aadl2Package.eINSTANCE.getFeatureGroupTypeRename());
@@ -387,10 +359,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AnnexLibrary> getOwnedAnnexLibraries() {
 		if (ownedAnnexLibraries == null) {
-			ownedAnnexLibraries = new EObjectContainmentEList<>(AnnexLibrary.class, this,
+			ownedAnnexLibraries = new EObjectContainmentEList<AnnexLibrary>(AnnexLibrary.class, this,
 					Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY);
 		}
 		return ownedAnnexLibraries;
@@ -401,7 +372,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexLibrary createOwnedAnnexLibrary(EClass eClass) {
 		AnnexLibrary newOwnedAnnexLibrary = (AnnexLibrary) create(eClass);
 		getOwnedAnnexLibraries().add(newOwnedAnnexLibrary);
@@ -413,7 +383,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AnnexLibrary createOwnedAnnexLibrary() {
 		return createOwnedAnnexLibrary(Aadl2Package.eINSTANCE.getAnnexLibrary());
 	}
@@ -423,10 +392,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModelUnit> getImportedUnits() {
 		if (importedUnits == null) {
-			importedUnits = new EObjectResolvingEList<>(ModelUnit.class, this,
+			importedUnits = new EObjectResolvingEList<ModelUnit>(ModelUnit.class, this,
 					Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT);
 		}
 		return importedUnits;
@@ -437,7 +405,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -459,7 +426,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -488,7 +454,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -530,7 +495,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
@@ -566,7 +530,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER:
@@ -598,11 +561,9 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noAnnexes: ");
@@ -618,7 +579,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME)
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_COMPONENT_TYPE_RENAME)
@@ -630,7 +590,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	/**
 	 * Returns the name of the package.
 	 */
-	@Override
 	public String getName() {
 		AadlPackage owner = (AadlPackage) getOwner();
 		return owner != null ? owner.getName() : "";
@@ -641,7 +600,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setName(String newName) {
 		// DB: Ticket #249. Causes problem with model merge operations. Because getName() is derived from the name of the containing package,
 		// EMF compare computes a difference between the package section since the package has been renamed.
@@ -663,7 +621,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * name lookup of externally visible names.
 	 * Does not resolve renames; does not lookup when private package section
 	 */
-	@Override
 	public NamedElement findNamedElement(String name) {
 		if (this instanceof PublicPackageSection) {
 			for (NamedElement namedElement : getMembers()) {
@@ -685,7 +642,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 * name lookup from within package.
 	 * It searches through all internally visible elements resolving renames as appropriate
 	 */
-	@Override
 	public NamedElement findInternallyVisibleNamedElement(String name) {
 		NamedElement result = super.findNamedElement(name);
 		if (result instanceof ComponentTypeRename) {

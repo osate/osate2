@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: SystemInstanceImpl.java,v 1.18 2010-06-14 17:29:03 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.instance.impl;
 
@@ -131,10 +119,9 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
-			systemOperationModes = new EObjectContainmentEList<>(SystemOperationMode.class, this,
+			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
 		}
 		return systemOperationModes;
@@ -144,7 +131,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SystemOperationMode createSystemOperationMode() {
 		SystemOperationMode newSystemOperationMode = (SystemOperationMode) create(
 				InstancePackage.Literals.SYSTEM_OPERATION_MODE);
@@ -157,7 +143,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentImplementation getComponentImplementation() {
 		if (componentImplementation != null && ((EObject) componentImplementation).eIsProxy()) {
 			InternalEObject oldComponentImplementation = (InternalEObject) componentImplementation;
@@ -187,7 +172,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setComponentImplementation(ComponentImplementation newComponentImplementation) {
 		ComponentImplementation oldComponentImplementation = componentImplementation;
 		componentImplementation = newComponentImplementation;
@@ -291,9 +275,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
-	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
-		final List<SystemOperationMode> output = new ArrayList<>();
+		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis)) {
 				output.add(som);
@@ -302,7 +285,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return Collections.unmodifiableList(output);
 	}
 
-	@Override
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
 		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
@@ -313,7 +295,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		currentSOM = som;
 	}
 
-	@Override
 	public SystemOperationMode getCurrentSystemOperationMode() {
 		return currentSOM;
 	}
@@ -322,7 +303,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * Clear the mode states for a given SystemInstance. That is, the modal
 	 * adapters for the model all have their modes set to <code>null</code>.
 	 */
-	@Override
 	public void clearCurrentSystemOperationMode() {
 		/*
 		 * Just walk the whole tree and clear the modes of all the components.
@@ -332,7 +312,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		 * not exist in some SOMs.
 		 */
 		currentSOM = null;
-		final LinkedList<ComponentInstance> comps = new LinkedList<>();
+		final LinkedList<ComponentInstance> comps = new LinkedList<ComponentInstance>();
 		comps.add(this);
 		while (!comps.isEmpty()) {
 			final ComponentInstance ci = comps.removeFirst();
@@ -346,7 +326,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * You may want to call on AadlUtil.findConnectionInstance as it can handle any endpoint, not just
 	 * features on port connections.
 	 */
-	@Override
 	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
 		EList<ConnectionInstance> subcl = getAllConnectionInstances();
 		for (Iterator<ConnectionInstance> it = subcl.iterator(); it.hasNext();) {
@@ -376,9 +355,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
 	 */
-	@Override
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
-		List<ConnectionInstance> result = new LinkedList<>();
+		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
 
 		for (ConnectionInstance conni : getAllConnectionInstances()) {
 			boolean foundFirst = (first == second);
@@ -429,9 +407,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mi Mode Instance
 	 * @return List of SOM that contains the mode instance
 	 */
-	@Override
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
-		final List<SystemOperationMode> output = new ArrayList<>();
+		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
 			if (som.getCurrentModes().contains(mi)) {
@@ -448,7 +425,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	private SystemOperationMode initialMode = null;
 
-	@Override
 	public final SystemOperationMode getInitialSystemOperationMode() {
 		if (initialMode == null) {
 			final List<SystemOperationMode> soms = getSystemOperationModes();
@@ -468,53 +444,52 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return true;
 	}
 
-	@Override
 	public Iterable<ConnectionInstance> allConnectionInstances() {
 		final TreeIterator<Object> iter = EcoreUtil.getAllContents(this, true);
 
-		return () -> new Iterator<ConnectionInstance>() {
-			ConnectionInstance next;
+		return new Iterable<ConnectionInstance>() {
+			public Iterator<ConnectionInstance> iterator() {
+				return new Iterator<ConnectionInstance>() {
+					ConnectionInstance next;
 
-			private boolean advance() {
-				boolean found = false;
+					private boolean advance() {
+						boolean found = false;
 
-				next = null;
-				while (iter.hasNext()) {
-					Object obj = iter.next();
-					if (found = obj instanceof ConnectionInstance) {
-						next = (ConnectionInstance) obj;
-						iter.prune();
-						break;
+						next = null;
+						while (iter.hasNext()) {
+							Object obj = iter.next();
+							if (found = obj instanceof ConnectionInstance) {
+								next = (ConnectionInstance) obj;
+								iter.prune();
+								break;
+							}
+						}
+						return found;
 					}
-				}
-				return found;
-			}
 
-			@Override
-			public boolean hasNext() {
-				return next != null || advance();
-			}
+					public boolean hasNext() {
+						return next != null || advance();
+					}
 
-			@Override
-			public ConnectionInstance next() {
-				if (next == null && !advance()) {
-					throw new NoSuchElementException();
-				}
-				ConnectionInstance result = next;
-				next = null;
-				return result;
-			}
+					public ConnectionInstance next() {
+						if (next == null && !advance()) {
+							throw new NoSuchElementException();
+						}
+						ConnectionInstance result = next;
+						next = null;
+						return result;
+					}
 
-			@Override
-			public void remove() {
-				throw new UnsupportedOperationException();
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+				};
 			}
 		};
 	}
 
-	@Override
 	public EList<ConnectionInstance> getAllConnectionInstances() {
-		EList<ConnectionInstance> result = new BasicEList<>();
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 
 		for (ConnectionInstance conni : allConnectionInstances()) {
 			result.add(conni);
