@@ -44,6 +44,7 @@ import org.osate.aadl2.NamedElement;
  *
  * @see org.osate.aadl2.instance.InstancePackage#getInstanceObject()
  * @model abstract="true"
+ *        annotation="duplicates"
  * @generated
  */
 public interface InstanceObject extends EObject, NamedElement {
@@ -99,7 +100,6 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * @return path as string
 	 */
 	String getComponentInstancePath();
-
 
 	/**
 	 * Return the declarative objects that define this instance. Most of the

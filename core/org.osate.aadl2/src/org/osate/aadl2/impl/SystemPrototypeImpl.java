@@ -50,12 +50,10 @@ public class SystemPrototypeImpl extends ComponentPrototypeImpl implements Syste
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSystemPrototype();
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SYSTEM;
 	}

@@ -102,7 +102,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadImplementation();
 	}
@@ -112,9 +111,8 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -137,10 +135,9 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
-			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<>(
+			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
 					SubprogramGroupSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}
@@ -152,7 +149,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(
 				Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent());
@@ -165,10 +161,9 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
-			ownedSubprogramSubcomponents = new EObjectContainmentEList<>(
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
 					SubprogramSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
@@ -180,7 +175,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
 		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(
 				Aadl2Package.eINSTANCE.getSubprogramSubcomponent());
@@ -193,10 +187,9 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -207,7 +200,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataSubcomponent createOwnedDataSubcomponent() {
 		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(
 				Aadl2Package.eINSTANCE.getDataSubcomponent());
@@ -220,7 +212,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ThreadType getType() {
 		ComponentType ct = super.getType();
 		return ct instanceof ThreadType ? (ThreadType) ct : null;
@@ -231,7 +222,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -242,7 +232,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(ComponentType newType) {
 		super.setType(newType);
 	}
@@ -261,7 +250,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
@@ -279,7 +267,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
@@ -298,7 +285,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
@@ -322,7 +308,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
@@ -343,7 +328,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -365,7 +349,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT)
@@ -373,7 +356,6 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 				|| eIsSet(Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.THREAD;
 	}

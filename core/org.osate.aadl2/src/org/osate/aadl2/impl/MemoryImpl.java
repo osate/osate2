@@ -49,7 +49,6 @@ public abstract class MemoryImpl extends NamedElementImpl implements Memory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMemory();
 	}

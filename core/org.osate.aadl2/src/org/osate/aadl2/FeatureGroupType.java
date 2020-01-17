@@ -113,7 +113,6 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 *        annotation="subsets"
 	 * @generated
 	 */
-	@Override
 	FeatureGroupType getExtended();
 
 	/**

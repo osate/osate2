@@ -78,7 +78,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComputedValue();
 	}
@@ -88,7 +87,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getFunction() {
 		return function;
 	}
@@ -98,14 +96,12 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFunction(String newFunction) {
 		String oldFunction = function;
 		function = newFunction;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPUTED_VALUE__FUNCTION, oldFunction,
 					function));
-		}
 	}
 
 	/**
@@ -113,7 +109,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -127,7 +122,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -142,7 +136,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -157,7 +150,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -171,11 +163,9 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (function: ");
@@ -189,7 +179,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 *
 	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
 	 */
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		return false;
 	}

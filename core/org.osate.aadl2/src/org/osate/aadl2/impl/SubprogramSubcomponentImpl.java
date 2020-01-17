@@ -73,7 +73,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramSubcomponent();
 	}
@@ -83,7 +82,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -96,7 +94,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE)) {
 			return basicGetSubprogramSubcomponentType();
@@ -109,17 +106,15 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramSubcomponentType getSubprogramSubcomponentType() {
 		if (subprogramSubcomponentType != null && ((EObject) subprogramSubcomponentType).eIsProxy()) {
 			InternalEObject oldSubprogramSubcomponentType = (InternalEObject) subprogramSubcomponentType;
 			subprogramSubcomponentType = (SubprogramSubcomponentType) eResolveProxy(oldSubprogramSubcomponentType);
 			if (subprogramSubcomponentType != oldSubprogramSubcomponentType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE,
 							oldSubprogramSubcomponentType, subprogramSubcomponentType));
-				}
 			}
 		}
 		return subprogramSubcomponentType;
@@ -139,15 +134,13 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSubprogramSubcomponentType(SubprogramSubcomponentType newSubprogramSubcomponentType) {
 		SubprogramSubcomponentType oldSubprogramSubcomponentType = subprogramSubcomponentType;
 		subprogramSubcomponentType = newSubprogramSubcomponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE, oldSubprogramSubcomponentType,
 					subprogramSubcomponentType));
-		}
 	}
 
 	/**
@@ -155,13 +148,11 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getSubprogramSubcomponentType();
-			}
 			return basicGetSubprogramSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -172,7 +163,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
@@ -187,7 +177,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
@@ -202,7 +191,6 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -218,13 +206,11 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements Subp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType()
 				|| eIsSet(Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;
 	}

@@ -103,7 +103,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AnnexInstance> getAnnexInstances() {
 		if (annexInstances == null) {
 			annexInstances = new EObjectContainmentEList<AnnexInstance>(AnnexInstance.class, this,
@@ -232,7 +231,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * If the object is a component instance, get its enclosing instance
 	 * @return Closest containing component instance
 	 */
-	@Override
 	public ComponentInstance getContainingComponentInstance() {
 		EObject eobj = this;
 
@@ -248,7 +246,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @return The system instance object
 	 */
-	@Override
 	public SystemInstance getSystemInstance() {
 		EObject eobj = this;
 
@@ -263,7 +260,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @return path as string
 	 */
-	@Override
 	public String getInstanceObjectPath() {
 		if (this instanceof SystemInstance) {
 			return getName();
@@ -279,7 +275,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstancePath()
 	 */
-	@Override
 	public String getComponentInstancePath() {
 		if (this instanceof SystemInstance) {
 			return "";
@@ -364,7 +359,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
-	@Override
 	public ComponentInstance getComponentInstance() {
 		EObject current = this;
 		while (current != null && !(current instanceof ComponentInstance)) {
@@ -382,7 +376,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *         elements. Returns an empty list if no named declarative object
 	 *         exists, such as in the case of {@link ModeTransitionInstance}s.
 	 */
-	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return null;
 	}
@@ -406,59 +399,59 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		return true;
 	}
 
-	@Override
 	public Iterable<ConnectionInstance> allEnclosingConnectionInstances() {
 		final InstanceObject target = this;
-		return () -> new Iterator<ConnectionInstance>() {
-			ConnectionInstance next;
-			ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
-					: target.getContainingComponentInstance();
-			Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
+		return new Iterable<ConnectionInstance>() {
 
-			private boolean advance() {
-				next = null;
-				if (iter.hasNext()) {
-					next = iter.next();
-					return true;
-				}
-				while (head != null) {
-					head = head.getContainingComponentInstance();
-					if (head == null) {
-						return false;
-					} else {
-						iter = head.getConnectionInstances().iterator();
+			public Iterator<ConnectionInstance> iterator() {
+				return new Iterator<ConnectionInstance>() {
+					ConnectionInstance next;
+					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
+							: target.getContainingComponentInstance();
+					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
+
+					private boolean advance() {
+						next = null;
 						if (iter.hasNext()) {
 							next = iter.next();
 							return true;
 						}
+						while (head != null) {
+							head = head.getContainingComponentInstance();
+							if (head == null) {
+								return false;
+							} else {
+								iter = head.getConnectionInstances().iterator();
+								if (iter.hasNext()) {
+									next = iter.next();
+									return true;
+								}
+							}
+						}
+						return false;
 					}
-				}
-				return false;
-			}
 
-			@Override
-			public boolean hasNext() {
-				return next != null || advance();
-			}
+					public boolean hasNext() {
+						return next != null || advance();
+					}
 
-			@Override
-			public ConnectionInstance next() {
-				if (next == null && !advance()) {
-					throw new NoSuchElementException();
-				}
-				ConnectionInstance result = next;
-				next = null;
-				return result;
-			}
+					public ConnectionInstance next() {
+						if (next == null && !advance()) {
+							throw new NoSuchElementException();
+						}
+						ConnectionInstance result = next;
+						next = null;
+						return result;
+					}
 
-			@Override
-			public void remove() {
-				throw new UnsupportedOperationException();
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+				};
 			}
 		};
 	}
 
-	@Override
 	public EList<ConnectionInstance> getAllEnclosingConnectionInstances() {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 
@@ -473,7 +466,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
-	@Override
 	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
 		List<InstanceObject> result = new LinkedList<InstanceObject>();
 
@@ -521,7 +513,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
-	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		return ranges.isEmpty();
 	}

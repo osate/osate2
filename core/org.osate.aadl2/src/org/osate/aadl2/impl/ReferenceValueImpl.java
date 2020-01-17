@@ -60,12 +60,10 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getReferenceValue();
 	}
 
-	@Override
 	public PropertyExpression instantiate(InstanceObject root) throws InvalidModelException {
 		List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
@@ -81,7 +79,6 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		}
 	}
 
-	@Override
 	public PropertyExpression instantiate(FeatureInstance root) throws InvalidModelException {
 		final List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
@@ -97,12 +94,10 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	}
 
 	// TODO: LW features can have reference properties too
-	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		return new EvaluatedProperty(EcoreUtil.copy(this));
 	}
 
-	@Override
 	public boolean sameAs(PropertyExpression other) {
 		// TODO: implement comparison of reference values
 		return false;

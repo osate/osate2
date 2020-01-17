@@ -50,12 +50,10 @@ public class ProcessPrototypeImpl extends ComponentPrototypeImpl implements Proc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessPrototype();
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESS;
 	}

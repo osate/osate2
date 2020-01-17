@@ -58,7 +58,6 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -90,7 +89,6 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/StringLiteral"));
 	}
@@ -101,7 +99,6 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((StringLiteral) object).getValue();
 		return label == null || label.length() == 0 ? getString("_UI_StringLiteral_type")
@@ -115,7 +112,6 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -134,7 +130,6 @@ public class StringLiteralItemProvider extends PropertyValueItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

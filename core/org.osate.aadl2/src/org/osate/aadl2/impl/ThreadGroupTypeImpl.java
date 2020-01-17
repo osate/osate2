@@ -132,7 +132,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadGroupType();
 	}
@@ -142,9 +141,8 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
-		return new DerivedUnionEObjectEList<>(Feature.class, this, Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -168,10 +166,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<>(DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
 					Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -182,7 +179,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataPort createOwnedDataPort() {
 		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
@@ -194,10 +190,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<>(EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
 					Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -208,7 +203,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventDataPort createOwnedEventDataPort() {
 		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
@@ -220,10 +214,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<>(EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
 					Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -234,7 +227,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventPort createOwnedEventPort() {
 		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
@@ -246,10 +238,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<DataAccess> getOwnedDataAccesses() {
 		if (ownedDataAccesses == null) {
-			ownedDataAccesses = new EObjectContainmentEList<>(DataAccess.class, this,
+			ownedDataAccesses = new EObjectContainmentEList<DataAccess>(DataAccess.class, this,
 					Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_ACCESS);
 		}
 		return ownedDataAccesses;
@@ -260,7 +251,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DataAccess createOwnedDataAccess() {
 		DataAccess newOwnedDataAccess = (DataAccess) create(Aadl2Package.eINSTANCE.getDataAccess());
 		getOwnedDataAccesses().add(newOwnedDataAccess);
@@ -272,10 +262,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramAccess> getOwnedSubprogramAccesses() {
 		if (ownedSubprogramAccesses == null) {
-			ownedSubprogramAccesses = new EObjectContainmentEList<>(SubprogramAccess.class, this,
+			ownedSubprogramAccesses = new EObjectContainmentEList<SubprogramAccess>(SubprogramAccess.class, this,
 					Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		}
 		return ownedSubprogramAccesses;
@@ -286,7 +275,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramAccess createOwnedSubprogramAccess() {
 		SubprogramAccess newOwnedSubprogramAccess = (SubprogramAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramAccess());
@@ -299,10 +287,9 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramGroupAccess> getOwnedSubprogramGroupAccesses() {
 		if (ownedSubprogramGroupAccesses == null) {
-			ownedSubprogramGroupAccesses = new EObjectContainmentEList<>(
+			ownedSubprogramGroupAccesses = new EObjectContainmentEList<SubprogramGroupAccess>(
 					SubprogramGroupAccess.class, this, Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 		}
 		return ownedSubprogramGroupAccesses;
@@ -313,7 +300,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramGroupAccess createOwnedSubprogramGroupAccess() {
 		SubprogramGroupAccess newOwnedSubprogramGroupAccess = (SubprogramGroupAccess) create(
 				Aadl2Package.eINSTANCE.getSubprogramGroupAccess());
@@ -326,7 +312,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT:
@@ -350,7 +335,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT:
@@ -375,7 +359,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT:
@@ -411,7 +394,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT:
@@ -441,7 +423,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_GROUP_TYPE__OWNED_FEATURE:
@@ -467,7 +448,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.THREAD_GROUP_TYPE__OWNED_DATA_PORT)
 				|| eIsSet(Aadl2Package.THREAD_GROUP_TYPE__OWNED_EVENT_DATA_PORT)
@@ -477,7 +457,6 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 				|| eIsSet(Aadl2Package.THREAD_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.THREAD_GROUP;
 	}

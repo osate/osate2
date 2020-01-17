@@ -49,7 +49,6 @@ public abstract class ParameterConnectionEndImpl extends ConnectionEndImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getParameterConnectionEnd();
 	}

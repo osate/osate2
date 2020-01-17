@@ -135,7 +135,6 @@ public interface ComponentType extends ComponentClassifier {
 	 *        annotation="subsets"
 	 * @generated
 	 */
-	@Override
 	ComponentType getExtended();
 
 	/**

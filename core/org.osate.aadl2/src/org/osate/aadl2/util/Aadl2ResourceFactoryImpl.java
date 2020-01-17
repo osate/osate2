@@ -54,7 +54,6 @@ public class Aadl2ResourceFactoryImpl extends ResourceFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new Aadl2ResourceImpl(uri);
 

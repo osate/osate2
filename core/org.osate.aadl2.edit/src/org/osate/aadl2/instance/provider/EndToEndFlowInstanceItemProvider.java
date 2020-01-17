@@ -23,11 +23,10 @@
  */
 package org.osate.aadl2.instance.provider;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -185,9 +184,12 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	@Override
 	public Collection<?> getChildren(Object object) {
 		EndToEndFlowInstance etef = (EndToEndFlowInstance) object;
-		Stream<EndToEndFlowInstanceFlowElementItemProvider> flowElements = etef.getFlowElements().stream()
-				.map(flowElement -> new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement));
-		return Stream.concat(flowElements, super.getChildren(object).stream()).collect(Collectors.toList());
+		List<Object> result = new ArrayList<Object>();
+		for (FlowElementInstance flowElement : etef.getFlowElements()) {
+			result.add(new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement));
+		}
+		result.addAll(super.getChildren(object));
+		return result;
 	}
 
 	public static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter

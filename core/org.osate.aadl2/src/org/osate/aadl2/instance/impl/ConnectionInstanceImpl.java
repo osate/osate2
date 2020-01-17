@@ -214,10 +214,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -228,10 +227,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
@@ -242,7 +240,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isComplete() {
 		return complete;
 	}
@@ -252,7 +249,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setComplete(boolean newComplete) {
 		boolean oldComplete = complete;
 		complete = newComplete;
@@ -267,7 +263,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionKind getKind() {
 		return kind;
 	}
@@ -277,7 +272,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setKind(ConnectionKind newKind) {
 		ConnectionKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -292,7 +286,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionInstanceEnd getDestination() {
 		return destination;
 	}
@@ -322,7 +315,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDestination(ConnectionInstanceEnd newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
@@ -351,10 +343,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ConnectionReference> getConnectionReferences() {
 		if (connectionReferences == null) {
-			connectionReferences = new EObjectContainmentEList<>(ConnectionReference.class, this,
+			connectionReferences = new EObjectContainmentEList<ConnectionReference>(ConnectionReference.class, this,
 					InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		}
 		return connectionReferences;
@@ -365,7 +356,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionReference createConnectionReference() {
 		ConnectionReference newConnectionReference = (ConnectionReference) create(
 				InstancePackage.Literals.CONNECTION_REFERENCE);
@@ -378,7 +368,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isBidirectional() {
 		return bidirectional;
 	}
@@ -388,7 +377,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBidirectional(boolean newBidirectional) {
 		boolean oldBidirectional = bidirectional;
 		bidirectional = newBidirectional;
@@ -403,7 +391,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ConnectionInstanceEnd getSource() {
 		return source;
 	}
@@ -433,7 +420,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSource(ConnectionInstanceEnd newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -758,7 +744,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	@Override
 	public List<Connection> getInstantiatedObjects() {
-		List<Connection> conns = new LinkedList<>();
+		List<Connection> conns = new LinkedList<Connection>();
 
 		for (ConnectionReference ref : getConnectionReferences()) {
 			conns.add(ref.getConnection());
@@ -766,7 +752,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return Collections.unmodifiableList(conns);
 	}
 
-	@Override
 	public List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException {
 		// TODO Auto-generated method stub
 		return null;
@@ -836,9 +821,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * In case of a fan-in/fan-out it includes both the feature group and the feature
 	 * For an end point in teh connection it may be a component instance
 	 */
-	@Override
 	public List<InstanceObject> getThroughFeatureInstances() {
-		final List<InstanceObject> featureList = new ArrayList<>();
+		final List<InstanceObject> featureList = new ArrayList<InstanceObject>();
 
 		InstanceObject lastDest = null;
 		for (ConnectionReference connRef : getConnectionReferences()) {
@@ -866,7 +850,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param connEndPoint ConnectionEnd
 	 * @param connCtxt Context of th eendpoint
 	 */
-	@Override
 	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;
@@ -897,7 +880,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return instance;
 	}
 
-	@Override
 	public boolean isActive(SystemOperationMode som) {
 		if (getInSystemOperationModes().isEmpty() || getInSystemOperationModes().contains(som)) {
 			if (getSource().getComponentInstance().isActive(som)

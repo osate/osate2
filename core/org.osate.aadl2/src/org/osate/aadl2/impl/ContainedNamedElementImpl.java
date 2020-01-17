@@ -75,7 +75,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getContainedNamedElement();
 	}
@@ -85,7 +84,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ContainmentPathElement getPath() {
 		return path;
 	}
@@ -101,11 +99,10 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, oldPath, newPath);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -115,26 +112,21 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
-			if (path != null) {
+			if (path != null)
 				msgs = ((InternalEObject) path).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
-			}
-			if (newPath != null) {
+			if (newPath != null)
 				msgs = ((InternalEObject) newPath).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, null, msgs);
-			}
 			msgs = basicSetPath(newPath, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH, newPath,
 					newPath));
-		}
 	}
 
 	/**
@@ -142,7 +134,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ContainmentPathElement createPath() {
 		ContainmentPathElement newPath = (ContainmentPathElement) create(
 				Aadl2Package.eINSTANCE.getContainmentPathElement());
@@ -156,7 +147,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public EList<ContainmentPathElement> getContainmentPathElements() {
 		EList<ContainmentPathElement> result = newBasicEList();
 		ContainmentPathElement next = path;
@@ -175,7 +165,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -189,7 +178,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -206,7 +194,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -221,7 +208,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:
@@ -236,7 +222,6 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__PATH:

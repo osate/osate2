@@ -50,12 +50,10 @@ public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupPrototype();
 	}
 
-	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM_GROUP;
 	}

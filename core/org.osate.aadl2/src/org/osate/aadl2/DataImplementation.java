@@ -123,7 +123,6 @@ public interface DataImplementation extends ComponentImplementation, DataClassif
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * Not generated because thae code generator doesn't know about covariant return types.
 	 */
-	@Override
 	DataType getType();
 
 } // DataImplementation

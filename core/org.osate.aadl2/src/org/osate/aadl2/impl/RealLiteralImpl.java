@@ -83,7 +83,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRealLiteral();
 	}
@@ -93,7 +92,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public double getValue() {
 		return value;
 	}
@@ -103,13 +101,11 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(double newValue) {
 		double oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
-		}
 	}
 
 	/**
@@ -117,7 +113,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -131,7 +126,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -146,7 +140,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -161,7 +154,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -175,7 +167,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -197,7 +188,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * @param s string with number to parse
 	 */
 
-	@Override
 	public void setValue(String s) {
 		setValue(ParseUtil.parseAadlReal(s));
 	}
@@ -207,7 +197,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
-	@Override
 	public NumberValue cloneAndInvert() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -223,7 +212,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
-	@Override
 	public final NumberValue cloneNumber() {
 		final RealLiteral newVal = Aadl2Factory.eINSTANCE.createRealLiteral();
 		newVal.setLocationReference(getLocationReference());
@@ -233,7 +221,6 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

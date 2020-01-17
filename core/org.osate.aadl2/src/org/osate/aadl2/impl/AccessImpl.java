@@ -94,7 +94,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAccess();
 	}
@@ -104,7 +103,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AccessType getKind() {
 		return kind;
 	}
@@ -114,13 +112,11 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setKind(AccessType newKind) {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS__KIND, oldKind, kind));
-		}
 	}
 
 	/**
@@ -128,7 +124,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public AccessCategory getCategory() {
 		if (this instanceof BusAccess) {
 			return ((BusAccess) this).isVirtual() ? AccessCategory.VIRTUAL_BUS : AccessCategory.BUS;
@@ -150,7 +145,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS__KIND:
@@ -166,7 +160,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS__KIND:
@@ -181,7 +174,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS__KIND:
@@ -196,7 +188,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS__KIND:
@@ -212,11 +203,9 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");

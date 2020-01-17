@@ -56,7 +56,6 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -87,7 +86,6 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventDataPort"));
 	}
@@ -98,7 +96,6 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((EventDataPort) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_EventDataPort_type")
@@ -112,7 +109,6 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -125,7 +121,6 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

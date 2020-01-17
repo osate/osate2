@@ -49,7 +49,6 @@ public abstract class DeviceClassifierImpl extends ComponentClassifierImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDeviceClassifier();
 	}

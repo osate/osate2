@@ -166,10 +166,9 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeTransitionInstance> getSrcModeTransitions() {
 		if (srcModeTransitions == null) {
-			srcModeTransitions = new EObjectWithInverseEList<>(ModeTransitionInstance.class, this,
+			srcModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
 					InstancePackage.MODE_INSTANCE__SRC_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__SOURCE);
 		}
@@ -181,10 +180,9 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeTransitionInstance> getDstModeTransitions() {
 		if (dstModeTransitions == null) {
-			dstModeTransitions = new EObjectWithInverseEList<>(ModeTransitionInstance.class, this,
+			dstModeTransitions = new EObjectWithInverseEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
 					InstancePackage.MODE_INSTANCE__DST_MODE_TRANSITION,
 					InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION);
 		}
@@ -196,7 +194,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Mode getMode() {
 		if (mode != null && ((EObject) mode).eIsProxy()) {
 			InternalEObject oldMode = (InternalEObject) mode;
@@ -225,7 +222,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setMode(Mode newMode) {
 		Mode oldMode = mode;
 		mode = newMode;
@@ -239,7 +235,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isDerived() {
 		return derived;
 	}
@@ -249,7 +244,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDerived(boolean newDerived) {
 		boolean oldDerived = derived;
 		derived = newDerived;
@@ -264,10 +258,9 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeInstance> getParents() {
 		if (parents == null) {
-			parents = new EObjectResolvingEList<>(ModeInstance.class, this,
+			parents = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
 					InstancePackage.MODE_INSTANCE__PARENT);
 		}
 		return parents;
@@ -313,7 +306,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isInitial() {
 		return initial;
 	}
@@ -323,7 +315,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setInitial(boolean newInitial) {
 		boolean oldInitial = initial;
 		initial = newInitial;
@@ -474,7 +465,6 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		return Collections.singletonList(getMode());
 	}
 
-	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return getContainingComponentInstance().isActive(som);
 	}

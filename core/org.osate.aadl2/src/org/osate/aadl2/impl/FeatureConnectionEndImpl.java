@@ -49,7 +49,6 @@ public abstract class FeatureConnectionEndImpl extends ConnectionEndImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureConnectionEnd();
 	}

@@ -82,7 +82,6 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowEnd();
 	}
@@ -92,16 +91,14 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Context getContext() {
 		if (context != null && ((EObject) context).eIsProxy()) {
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__CONTEXT,
 							oldContext, context));
-				}
 			}
 		}
 		return context;
@@ -121,13 +118,11 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__CONTEXT, oldContext, context));
-		}
 	}
 
 	/**
@@ -135,16 +130,14 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Feature getFeature() {
 		if (feature != null && ((EObject) feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__FEATURE,
 							oldFeature, feature));
-				}
 			}
 		}
 		return feature;
@@ -164,13 +157,11 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFeature(Feature newFeature) {
 		Feature oldFeature = feature;
 		feature = newFeature;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__FEATURE, oldFeature, feature));
-		}
 	}
 
 	/**
@@ -178,18 +169,15 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_END__CONTEXT:
-			if (resolve) {
+			if (resolve)
 				return getContext();
-			}
 			return basicGetContext();
 		case Aadl2Package.FLOW_END__FEATURE:
-			if (resolve) {
+			if (resolve)
 				return getFeature();
-			}
 			return basicGetFeature();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -200,7 +188,6 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_END__CONTEXT:
@@ -218,7 +205,6 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_END__CONTEXT:
@@ -236,7 +222,6 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_END__CONTEXT:

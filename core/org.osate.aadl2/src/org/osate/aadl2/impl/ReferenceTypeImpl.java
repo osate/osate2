@@ -73,7 +73,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getReferenceType();
 	}
@@ -83,7 +82,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<MetaclassReference> getNamedElementReferences() {
 		if (namedElementReferences == null) {
 			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
@@ -97,7 +95,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public MetaclassReference createNamedElementReference() {
 		MetaclassReference newNamedElementReference = (MetaclassReference) create(
 				Aadl2Package.eINSTANCE.getMetaclassReference());
@@ -110,7 +107,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
@@ -124,7 +120,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
@@ -139,7 +134,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
@@ -155,7 +149,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
@@ -170,7 +163,6 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:

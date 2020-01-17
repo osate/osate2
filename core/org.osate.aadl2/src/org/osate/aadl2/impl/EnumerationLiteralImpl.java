@@ -55,12 +55,10 @@ public class EnumerationLiteralImpl extends NamedElementImpl implements Enumerat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEnumerationLiteral();
 	}
 
-	@Override
 	public boolean sameAs(AbstractNamedValue namedValue) {
 		if (namedValue == null || getClass() != namedValue.getClass()) {
 			return false;
@@ -68,7 +66,6 @@ public class EnumerationLiteralImpl extends NamedElementImpl implements Enumerat
 		return ((EnumerationLiteralImpl) namedValue).name.equals(name);
 	}
 
-	@Override
 	public PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) {
 		NamedValueImpl nv = new NamedValueImpl();
 		nv.setNamedValue(this);

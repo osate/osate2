@@ -72,7 +72,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getTypeExtension();
 	}
@@ -82,7 +81,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -94,7 +92,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier basicGetGeneral() {
 		if (eIsSet(Aadl2Package.TYPE_EXTENSION__EXTENDED)) {
 			return basicGetExtended();
@@ -107,16 +104,14 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentType getExtended() {
 		if (extended != null && ((EObject) extended).eIsProxy()) {
 			InternalEObject oldExtended = (InternalEObject) extended;
 			extended = (ComponentType) eResolveProxy(oldExtended);
 			if (extended != oldExtended) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPE_EXTENSION__EXTENDED,
 							oldExtended, extended));
-				}
 			}
 		}
 		return extended;
@@ -136,14 +131,12 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExtended(ComponentType newExtended) {
 		ComponentType oldExtended = extended;
 		extended = newExtended;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TYPE_EXTENSION__EXTENDED, oldExtended,
 					extended));
-		}
 	}
 
 	/**
@@ -151,13 +144,11 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.TYPE_EXTENSION__EXTENDED:
-			if (resolve) {
+			if (resolve)
 				return getExtended();
-			}
 			return basicGetExtended();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -168,7 +159,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.TYPE_EXTENSION__EXTENDED:
@@ -183,7 +173,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.TYPE_EXTENSION__EXTENDED:
@@ -198,7 +187,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.TYPE_EXTENSION__GENERAL:
@@ -214,7 +202,6 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetGeneral() {
 		return super.isSetGeneral() || eIsSet(Aadl2Package.TYPE_EXTENSION__EXTENDED);
 	}
