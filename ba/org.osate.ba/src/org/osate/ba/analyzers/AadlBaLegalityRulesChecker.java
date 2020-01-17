@@ -418,12 +418,18 @@ public class AadlBaLegalityRulesChecker
         }
       }
     }
-    if(canBeDispatched==false)
+    ComponentCategory cc = _baParentContainer.getCategory();
+    if(cc.equals(ComponentCategory.ABSTRACT))
     {
-      ComponentCategory cc = _baParentContainer.getCategory();
+      this.reportLegalityWarning(dc, "Using a dispatch condition in an abstract component "
+          + "means this component can only be refined into a component category on which the "
+          + "Dispatch_Protocol property can be applied");
+    }
+    else if(canBeDispatched==false)
+    {
       this.reportLegalityError(dc, cc.getName()+" components cannot contain" +
-          " a dispatch condition in any of its transitions: they cannot be dispatched " + 
-          "(extention of Behavior Annex D.3.(L5) legality rule)") ;
+          " a dispatch condition in any of their transitions: they cannot be dispatched " + 
+          "(extension of Behavior Annex D.3.(L5) legality rule)") ;
 
       return false ;
     }
