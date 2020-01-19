@@ -359,6 +359,10 @@
       label="Oomph">
     <requirement
         name="org.eclipse.oomph.setup.feature.group"/>
+    <requirement
+        name="org.eclipse.oomph.version.feature.group"/>
+    <requirement
+        name="org.eclipse.oomph.version.headless.feature.group"/>
     <repository
         url="${oomph.update.url}"/>
   </setupTask>
