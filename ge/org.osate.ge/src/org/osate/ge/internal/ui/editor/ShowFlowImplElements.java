@@ -1,12 +1,38 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,6 +49,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
@@ -35,11 +62,11 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
@@ -50,23 +77,17 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
-import org.osate.ge.internal.util.BusinessObjectProviderHelper;
-
-import com.google.common.base.Predicates;
 
 public class ShowFlowImplElements extends ControlContribution {
 	private AgeDiagramEditor editor = null;
-	private BusinessObjectProviderHelper bopHelper;
 	private ProjectReferenceService referenceService;
-	private List<BusinessObjectNode> populatedNodes = new ArrayList<>();
 	private List<BusinessObjectNode> enabledNodes = new ArrayList<>();
 	private FlowContributionItem selectedFlowContributionItem;
 
@@ -88,19 +109,13 @@ public class ShowFlowImplElements extends ControlContribution {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (editor != null) {
-					final ExtensionService extService = Objects.requireNonNull(
-							Adapters.adapt(editor, ExtensionService.class), "Unable to retrieve extension service");
 					final GraphitiService graphitiService = Objects.requireNonNull(
 							Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
 					referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 							"Unable to retrieve reference service");
-					bopHelper = new BusinessObjectProviderHelper(extService);
-					BusinessObjectContextHelper bocHelper = new BusinessObjectContextHelper(extService);
-
-					AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
+					final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
 							.getFeatureProvider();
 					final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-
 					final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
 
 					final BusinessObjectNode boTree = getBoTree(boTreeExpander);
@@ -114,81 +129,37 @@ public class ShowFlowImplElements extends ControlContribution {
 
 					final BusinessObjectNode containerNode = boTree.getAllDescendants().filter(
 							q -> q.getBusinessObject() == highlightableFlowInfo.getContainer().getBusinessObject())
-							.findAny().map(BusinessObjectNode.class::cast).orElseThrow(() -> new RuntimeException("")); // TODO look into order of findany then
-					Object container = highlightableFlowInfo.getContainer().getBusinessObject();
-					if (container instanceof Subcomponent) {
-						final Subcomponent sc = (Subcomponent) container;
-						container = sc.getComponentImplementation();
-					}
-
-					// final Set<BusinessObjectNode> flowSegmentHighlights = new HashSet<>();
-
+							.findAny().map(BusinessObjectNode.class::cast)
+							.orElseThrow(() -> new RuntimeException(
+									"Cannot find container for highlightable flow: " + entry.getKey()));
+					final Object component = getContainerComponent(highlightableFlowInfo.getContainer().getBusinessObject());
 					final NamedElement flow = highlightableFlowInfo.getFlowSegment();
-					if (container instanceof ComponentImplementation) {
-						final ComponentImplementation ci = (ComponentImplementation) container;
-						// ETE or Impl
+					if (component instanceof ComponentImplementation) {
+						final ComponentImplementation ci = (ComponentImplementation) component;
 						if (flow instanceof FlowSpecification) {
-							System.err.println("Flow Impl: " + flow.getName());
 							ci.getAllFlowImplementations().stream()
 							.filter(fi -> flow.getName().equalsIgnoreCase(fi.getSpecification().getName()))
 							.findAny().ifPresent(flowImpl -> {
 								final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(
 										flowImpl.getSpecification(), containerNode);
-								// Add initial segment and children
-								final Stream<FlowSegmentReference> allFlowSegmentsRefs = Stream
-										.concat(Stream.of(flowSegmentRef), getAllChildren(
-												findChildren(flowSegmentRef).filter(Predicates.notNull())));
-								final List<FlowSegmentReference> refs = allFlowSegmentsRefs
-										.collect(Collectors.toList());
-								for (final FlowSegmentReference ref : refs) {
-									System.err.println(ref.flowSegmentElement + " flowSegmentElementIMpl");
-								}
-								// findAndAddDiagramElements(allFlowSegmentsRefs, flowSegmentHighlights);
+								populateFlowSegments(findFlowSegments(flowSegmentRef));
 							});
 						} else {
-							System.err.println("EndToEndFlow");
 							final String eteName = flow.getName();
 							final Optional<EndToEndFlow> eteFlow = ci.getAllEndToEndFlows().stream()
 									.filter(etef -> eteName.equalsIgnoreCase(etef.getName())).findAny();
 							eteFlow.ifPresent(endToEndFlow -> {
 								final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(endToEndFlow,
 										containerNode);
-								final Stream<FlowSegmentReference> allFlowSegmentsRefs = getAllChildren(
-										findChildren(flowSegmentRef).filter(Predicates.notNull()));
-								final List<FlowSegmentReference> refs = allFlowSegmentsRefs
-										.collect(Collectors.toList());
-								for (final FlowSegmentReference ref : refs) {
-									final NamedElement flowSegment = ref.flowSegmentElement;
-									final BusinessObjectNode refContainer = (BusinessObjectNode) ref.container;
-									if (flowSegment instanceof FlowSpecification) {
-										final FlowSpecification fs = (FlowSpecification) flowSegment;
-										if (fs.getAllInEnd() != null) {
-											enableFlowEnd(fs.getAllInEnd(), refContainer);
-										}
-
-										if (fs.getAllOutEnd() != null) {
-											enableFlowEnd(fs.getAllOutEnd(), refContainer);
-										}
-									} else if (flowSegment instanceof Connection) {
-										// TODO do i need to do anything? show port for src and dest? flow specs already show them
-										final Connection connection = (Connection) flowSegment;
-										final ConnectionEnd dstEnd = connection.getAllDestination();
-										final Context dstContext = connection.getAllDestinationContext();
-										// System.err.println(dstEnd + " dstEnd");
-										// System.err.println(dstContext + " dstcontext");
-
-										final ConnectionEnd srcEnd = connection.getAllSource();
-										final Context srcContext = connection.getAllSourceContext();
-										// System.err.println(srcEnd + " srcEnd");
-										// System.err.println(srcContext + " srccontext");
-									}
-								}
+								populateFlowSegments(findFlowSegments(flowSegmentRef));
 							});
 						}
-					} else if (container instanceof ComponentInstance) {
-						final ComponentInstance ci = (ComponentInstance) container;
+					} else if (component instanceof ComponentInstance) {
 						// ETE Flows only
-						final EndToEndFlow eteFlow = (EndToEndFlow) flow;
+						final EndToEndFlowInstance eteFlowInstance = (EndToEndFlowInstance) flow;
+						final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(eteFlowInstance,
+								containerNode);
+						populateFlowSegments(findFlowSegments(flowSegmentRef));
 					}
 
 					final AgeDiagram diagram = editor.getAgeDiagram();
@@ -199,7 +170,9 @@ public class ShowFlowImplElements extends ControlContribution {
 					final DiagramConfigurationBuilder diagramConfigBuilder = new DiagramConfigurationBuilder(
 							Objects.requireNonNull(editor.getAgeDiagram().getConfiguration(),
 									"diagramConfig must not be null"));
-					Result result = new Result(diagramConfigBuilder.build(), boTree);
+					// TODO move results class out of dialog?
+					DiagramConfigurationDialog.Result result = new DiagramConfigurationDialog.Result(
+							diagramConfigBuilder.build(), boTree);
 					if (result != null) {
 						diagram.modify("Set Diagram Configuration", m -> {
 							m.setDiagramConfiguration(result.getDiagramConfiguration());
@@ -214,30 +187,15 @@ public class ShowFlowImplElements extends ControlContribution {
 				}
 			}
 
-			private void enableFlowEnd(FlowEnd flowEnd, final BusinessObjectNode containerNode) {
-				if (containerNode.getChild(getRelativeBusinessObjectReference(flowEnd.getContext())) == null) {
-					enabledNodes.add(new BusinessObjectNode(containerNode, UUID.randomUUID(),
-							getRelativeBusinessObjectReference(flowEnd.getContext()), flowEnd.getContext(),
-							Completeness.UNKNOWN, false));
+
+
+			private Object getContainerComponent(final Object container) {
+				if (container instanceof Subcomponent) {
+					final Subcomponent sc = (Subcomponent) container;
+					return sc.getComponentImplementation();
 				}
 
-				if (flowEnd.getFeature() instanceof FeatureGroup) {
-					final FeatureGroup fg = (FeatureGroup) flowEnd.getFeature();
-					final BusinessObjectNode contextNode = containerNode
-							.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
-					if (contextNode.getChild(getRelativeBusinessObjectReference(fg)) == null) {
-						enabledNodes.add(new BusinessObjectNode(contextNode, UUID.randomUUID(),
-								getRelativeBusinessObjectReference(fg), fg, Completeness.UNKNOWN, false));
-					}
-				} else {
-					final Feature feature = (Feature) flowEnd.getFeature();
-					final BusinessObjectNode contextNode = containerNode
-							.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
-					if (contextNode.getChild(getRelativeBusinessObjectReference(feature)) == null) {
-						enabledNodes.add(new BusinessObjectNode(contextNode, UUID.randomUUID(),
-								getRelativeBusinessObjectReference(feature), feature, Completeness.UNKNOWN, false));
-					}
-				}
+				return container;
 			}
 
 			private BusinessObjectNode getBoTree(final TreeUpdater boTreeExpander) {
@@ -250,15 +208,46 @@ public class ShowFlowImplElements extends ControlContribution {
 		return btn;
 	}
 
-	/**
-	 * Returns a stream of flow elements that are referred to by a specified flow element.
-	 * Returns an empty stream for all flow element references which are not a flow specification or end to end flow.
-	 * @param flowElementRef
-	 * @return
-	 */
-	// TODO just add business object nodes as they are found, possible way to not copy and paste so much.
-	// TODO pass in lambda (method) to create bno
-	public Stream<FlowSegmentReference> findChildren(final FlowSegmentReference flowElementRef) {
+	private void enableFlowEnd(FlowEnd flowEnd, final BusinessObjectNode containerNode) {
+		// Enable parent if necessary
+		if (flowEnd.getContext() != null) {
+			if (containerNode.getChild(getRelativeBusinessObjectReference(flowEnd.getContext())) == null) {
+				enabledNodes.add(new BusinessObjectNode(containerNode, UUID.randomUUID(),
+						getRelativeBusinessObjectReference(flowEnd.getContext()), flowEnd.getContext(),
+						Completeness.UNKNOWN, false));
+			}
+		}
+
+		if (flowEnd.getFeature() instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup) flowEnd.getFeature();
+			if (flowEnd.getContext() != null) {
+				final BusinessObjectNode contextNode = containerNode
+						.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
+				if (contextNode.getChild(getRelativeBusinessObjectReference(fg)) == null) {
+					enabledNodes.add(new BusinessObjectNode(contextNode, UUID.randomUUID(),
+							getRelativeBusinessObjectReference(fg), fg, Completeness.UNKNOWN, false));
+				}
+			} else if (containerNode.getChild(getRelativeBusinessObjectReference(fg)) == null) {
+				enabledNodes.add(new BusinessObjectNode(containerNode, UUID.randomUUID(),
+						getRelativeBusinessObjectReference(fg), fg, Completeness.UNKNOWN, false));
+			}
+		} else {
+			final Feature feature = (Feature) flowEnd.getFeature();
+			if (flowEnd.getContext() != null) {
+				final BusinessObjectNode contextNode = containerNode
+						.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
+				if (contextNode.getChild(getRelativeBusinessObjectReference(feature)) == null) {
+					enabledNodes.add(new BusinessObjectNode(contextNode, UUID.randomUUID(),
+							getRelativeBusinessObjectReference(feature), feature, Completeness.UNKNOWN, false));
+				}
+			} else if (containerNode.getChild(getRelativeBusinessObjectReference(feature)) == null) {
+				enabledNodes.add(new BusinessObjectNode(containerNode, UUID.randomUUID(),
+						getRelativeBusinessObjectReference(feature), feature, Completeness.UNKNOWN, false));
+			}
+		}
+	}
+
+	public List<FlowSegmentReference> findFlowSegments(final FlowSegmentReference flowElementRef) {
 		if (flowElementRef.flowSegmentElement instanceof FlowSpecification) {
 			// Check if flow specification has flow implementation(s)
 			return AadlClassifierUtil
@@ -269,7 +258,7 @@ public class ShowFlowImplElements extends ControlContribution {
 							.flatMap(cfi -> cfi.getOwnedFlowSegments().stream())
 							.map(flowSegment -> createFlowSegmentReference(flowSegment,
 									(BusinessObjectNode) flowElementRef.container)))
-					.orElse(Stream.empty());
+					.orElse(Stream.empty()).collect(Collectors.toList());
 		} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlow) {
 			return AadlClassifierUtil
 					.getComponentImplementation(
@@ -278,7 +267,7 @@ public class ShowFlowImplElements extends ControlContribution {
 							.flatMap(ete -> ete.getAllFlowSegments().stream())
 							.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
 									(BusinessObjectNode) flowElementRef.container)))
-					.orElse(Stream.empty());
+					.orElse(Stream.empty()).collect(Collectors.toList());
 		} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlowInstance) {
 			return AadlInstanceObjectUtil.getComponentInstance(flowElementRef.container.getBusinessObject())
 					.map(ci -> ci.getEndToEndFlows().stream().filter(ete -> ete == flowElementRef.flowSegmentElement)
@@ -294,15 +283,13 @@ public class ShowFlowImplElements extends ControlContribution {
 									}
 								});
 							}))
-					.orElse(Stream.empty());
+					.orElse(Stream.empty()).collect(Collectors.toList());
 		} else {
-			return Stream.empty();
+			return Collections.emptyList();
 		}
 	}
 
-	// TODO just add business object nodes as they are found, possible way to not copy and paste so much.
-	// TODO pass in lambda (method) to create bno
-	public FlowSegmentReference createFlowSegmentReference(final Object bo, final BusinessObjectNode container) {
+	public FlowSegmentReference createFlowSegmentReference(final Object bo, BusinessObjectNode container) {
 		if (bo instanceof FlowSegment) {
 			final FlowSegment flowSegment = (FlowSegment) bo;
 			final FlowElement flowElement = flowSegment.getFlowElement();
@@ -332,17 +319,122 @@ public class ShowFlowImplElements extends ControlContribution {
 			if (bo instanceof EndToEndFlowInstance) {
 				return new FlowSegmentReference(io, container);
 			} else {
-				return container.getAllDescendants().filter(q -> q.getBusinessObject() == io).findAny()
-						.map(q -> new FlowSegmentReference(io, q.getParent())).orElse(null);
+				final Map<Object, Queryable> allDescendants = container.getAllDescendants()
+						.collect(Collectors.toMap(Queryable::getBusinessObject, Function.identity()));
+				if (bo instanceof FlowSpecificationInstance) {
+					final FlowSpecificationInstance fsi = (FlowSpecificationInstance) bo;
+					populateFlowSpecificationInstanceNodes(allDescendants, fsi);
+				}
+
+				if (bo instanceof ConnectionReference) {
+					final ConnectionReference cr = (ConnectionReference) bo;
+					populateConnectionReferenceNodes(allDescendants, cr);
+				}
+
+				return new FlowSegmentReference(io, container);
 			}
 		} else if (bo instanceof NamedElement) {
 			final RelativeBusinessObjectReference ref = getRelativeBusinessObjectReference(bo);
 			if (ref != null) {
 				ensurePopulatedChild(bo, container);
 			}
+
+			if (bo instanceof FlowSpecification) {
+				final FlowSpecification fs = (FlowSpecification) bo;
+				if (fs.getAllInEnd() != null) {
+					enableFlowEnd(fs.getAllInEnd(), container);
+				}
+
+				if (fs.getAllOutEnd() != null) {
+					enableFlowEnd(fs.getAllOutEnd(), container);
+				}
+			} else if (bo instanceof Connection) {
+				final Connection connection = (Connection) bo;
+				final ConnectionEnd dstEnd = connection.getAllDestination();
+				final Context dstContext = connection.getAllDestinationContext();
+				final RelativeBusinessObjectReference dstEndRef = getRelativeBusinessObjectReference(
+						dstEnd);
+				BusinessObjectNode ctxContainer = showContext(dstContext, container);
+				if (ctxContainer.getChild(dstEndRef) == null) {
+					enabledNodes.add(new BusinessObjectNode(ctxContainer, UUID.randomUUID(),
+							dstEndRef, dstEnd, Completeness.UNKNOWN, false));
+				}
+
+				final ConnectionEnd srcEnd = connection.getAllSource();
+				final Context srcContext = connection.getAllSourceContext();
+				ctxContainer = showContext(srcContext, container);
+				final RelativeBusinessObjectReference srcEndRef = getRelativeBusinessObjectReference(
+						srcEnd);
+				if (ctxContainer.getChild(srcEndRef) == null) {
+					enabledNodes.add(new BusinessObjectNode(ctxContainer, UUID.randomUUID(),
+							srcEndRef, srcEnd, Completeness.UNKNOWN, false));
+				}
+			}
+
 			return new FlowSegmentReference((NamedElement) bo, container);
 		} else {
 			throw new RuntimeException("Unexpected business object: " + bo);
+		}
+	}
+
+	private void populateFlowSpecificationInstanceNodes(final Map<Object, Queryable> allDescendants,
+			final FlowSpecificationInstance fsi) {
+		populateNodes(allDescendants, fsi);
+		if (fsi.getDestination() != null) {
+			populateNodes(allDescendants, fsi.getDestination());
+		}
+
+		if (fsi.getSource() != null) {
+			populateNodes(allDescendants, fsi.getSource());
+		}
+	}
+
+	private void populateConnectionReferenceNodes(final Map<Object, Queryable> descendants,
+			final ConnectionReference cr) {
+		Element tmpElement = cr;
+		final Queue<Element> queue = Collections.asLifoQueue(new LinkedList<Element>());
+		if (!descendants.containsKey(cr)) {
+			queue.add(cr);
+			// First owner of connection reference is connection instance
+			tmpElement = tmpElement.getOwner().getOwner();
+		}
+
+		// Connection reference
+		tmpElement = getFirstElementAncestor(descendants, queue, tmpElement);
+		populateNodes(descendants, queue, tmpElement);
+
+		// Populate source and destination nodes
+		populateNodes(descendants, cr.getSource());
+		populateNodes(descendants, cr.getDestination());
+	}
+
+	// Gets the first element ancestor that is populated
+	private Element getFirstElementAncestor(final Map<Object, Queryable> descendants, final Queue<Element> queue,
+			Element element) {
+		while (!descendants.containsKey(element)) {
+			queue.add(element);
+			element = element.getOwner();
+		}
+
+		return element;
+	}
+
+	private void populateNodes(final Map<Object, Queryable> descendants, Element element) {
+		final Queue<Element> queue = Collections.asLifoQueue(new LinkedList<Element>());
+		element = getFirstElementAncestor(descendants, queue, element);
+		populateNodes(descendants, queue, element);
+	}
+
+	private void populateNodes(final Map<Object, Queryable> descendants, final Queue<Element> queue,
+			final Element element) {
+		BusinessObjectNode node = (BusinessObjectNode) descendants.get(element);
+		for (final Element enableElement : queue) {
+			final RelativeBusinessObjectReference ref = getRelativeBusinessObjectReference(enableElement);
+			if (node.getChild(ref) == null) {
+				node = new BusinessObjectNode(node, UUID.randomUUID(), ref,
+						enableElement, Completeness.UNKNOWN, false);
+				enabledNodes.add(node);
+			}
 		}
 	}
 
@@ -354,18 +446,13 @@ public class ShowFlowImplElements extends ControlContribution {
 		}
 	}
 
-	private void enableNode(final BusinessObjectNode container, UUID randomUUID, RelativeBusinessObjectReference ref,
-			Object bo) {
+	private void enableNode(final BusinessObjectNode container, final UUID randomUUID,
+			final RelativeBusinessObjectReference ref, final Object bo) {
 		enabledNodes.add(new BusinessObjectNode(container, UUID.randomUUID(), ref, bo, Completeness.UNKNOWN, false));
 	}
 
-	// TODO just add business object nodes as they are found, possible way to not copy and paste so much
-	private Stream<FlowSegmentReference> getAllChildren(final Stream<FlowSegmentReference> highlightableFlowElements) {
-		return highlightableFlowElements.flatMap(fsr -> {
-			return Stream.concat(Stream.of(fsr),
-					getAllChildren(findChildren(fsr).filter(Predicates.notNull())));
-		});
-
+	private void populateFlowSegments(final List<FlowSegmentReference> highlightableFlowElements) {
+		highlightableFlowElements.forEach(fs -> populateFlowSegments(findFlowSegments(fs)));
 	}
 
 	private void determineNodesToRemove(final BusinessObjectNode node, final List<BusinessObjectNode> nodesToRemove) {
@@ -378,41 +465,6 @@ public class ShowFlowImplElements extends ControlContribution {
 		}
 	}
 
-	public class Result {
-		private final DiagramConfiguration diagramConfiguration;
-		private final BusinessObjectNode businessObjectTree;
-
-		public Result(final DiagramConfiguration diagramConfiguration, final BusinessObjectNode businessObjectTree) {
-			this.diagramConfiguration = Objects.requireNonNull(diagramConfiguration,
-					"diagramConfiguration must not be null");
-			this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null");
-		}
-
-		public DiagramConfiguration getDiagramConfiguration() {
-			return diagramConfiguration;
-		}
-
-		public BusinessObjectNode getBusinessObjectTree() {
-			return businessObjectTree;
-		}
-	}
-
-	public boolean isProxy(final Object bo) {
-		return bo instanceof BusinessObjectProxy;
-	}
-
-	public Object resolve(final Object bo) {
-		if (bo instanceof BusinessObjectProxy) {
-			return ((BusinessObjectProxy) bo).resolve(referenceService);
-		}
-
-		return bo;
-	}
-
-	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
-		return bopHelper.getChildBusinessObjects(boc);
-	}
-
 	public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
 		final RelativeBusinessObjectReference result = referenceService.getRelativeReference(bo);
 		return result;
@@ -420,8 +472,6 @@ public class ShowFlowImplElements extends ControlContribution {
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
-			// saveFlowSelection();
-
 			// Update the editor
 			if (newEditor instanceof AgeDiagramEditor) {
 				this.editor = (AgeDiagramEditor) newEditor;
@@ -435,17 +485,22 @@ public class ShowFlowImplElements extends ControlContribution {
 
 	private void refresh() {
 		if (editor != null) {
-			/*
-			 * System.err.println("refresh");
-			 * System.err.println(editor + " editor");
-			 * System.err.println(editor.getDiagramBehavior() + " behavior");
-			 * System.err.println(editor.getDiagramTypeProvider() + " dtp");
-			 * // Diagram is PE can get children?
-			 * System.err.println(editor.getDiagramTypeProvider().getDiagram() + " getDiagram");
-			 * AgeDiagramTypeProvider a = (AgeDiagramTypeProvider) editor.getDiagramTypeProvider();
-			 * System.err.println(editor.getDiagramBehavior().getGraphitiAgeDiagram().getAgeDiagram().getAllDescendants()
-			 * .collect(Collectors.toList()).size() + " size");
-			 */
+
 		}
+	}
+
+	private BusinessObjectNode showContext(final Context dstContext, final BusinessObjectNode refContainer) {
+		if (dstContext != null) {
+			final RelativeBusinessObjectReference dstContextRef = getRelativeBusinessObjectReference(
+					dstContext);
+			if (refContainer.getChild(dstContextRef) == null) {
+				// Show context
+				enableNode(refContainer, UUID.randomUUID(), dstContextRef, dstContext);
+			}
+
+			return refContainer.getChild(dstContextRef);
+		}
+
+		return refContainer;
 	}
 }
