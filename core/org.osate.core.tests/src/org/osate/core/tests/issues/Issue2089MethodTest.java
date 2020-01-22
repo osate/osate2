@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.osate.xtext.aadl2.properties.valueconversion.PropertiesValueConverter;
 
-public final class Issue2089Test_method {
+public final class Issue2089MethodTest {
 	private static final String EMPTY_STRING = "";
 	private static final String X = "x";
 	private static final String X_Y = "x::y";
