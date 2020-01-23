@@ -1,0 +1,88 @@
+package SharedData_to_Data_Nested_in_Thread
+public
+	data ShareMe
+	end ShareMe;
+	
+	data InnerD
+		features
+			daf1: requires data access ShareMe;
+	end InnerD;
+	
+	thread OuterT
+		features
+			daf2: requires data access ShareMe;
+	end OuterT;
+	
+	thread implementation OuterT.generic
+		subcomponents
+			inner: data InnerD;
+	end OuterT.generic;
+	
+	thread implementation OuterT.bidirectional extends OuterT.generic
+		connections
+			dac1: data access daf2 <-> inner.daf1;
+	end OuterT.bidirectional;
+	
+	thread implementation OuterT.fromSharedComponent extends OuterT.generic
+		connections
+			dac1: data access daf2 -> inner.daf1;
+	end OuterT.fromSharedComponent;
+	
+	thread implementation OuterT.toSharedComponent extends OuterT.generic
+		connections
+			dac1: data access inner.daf1 -> daf2;
+	end OuterT.toSharedComponent;
+	
+	process P
+	end P;
+	
+	process implementation P.generic
+		subcomponents
+			shareMe: data ShareMe;
+			outer: thread OuterT.generic;
+	end P.generic;
+	
+	process implementation P.bidirectional extends P.generic
+		subcomponents
+			outer: refined to thread OuterT.bidirectional;
+		connections
+			dac2: data access shareMe <-> outer.daf2;
+	end P.bidirectional;
+	
+	process implementation P.fromSharedComponent extends P.generic
+		subcomponents
+			outer: refined to thread OuterT.fromSharedComponent;
+		connections
+			dac2: data access shareMe -> outer.daf2;
+	end P.fromSharedComponent;
+	
+	process implementation P.toSharedComponent extends P.generic
+		subcomponents
+			outer: refined to thread OuterT.toSharedComponent;
+		connections
+			dac2: data access outer.daf2 -> shareMe;
+	end P.toSharedComponent;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.generic
+		subcomponents
+			myProcess: process P.generic;
+	end Root.generic;
+	
+	system implementation Root.bidirectional extends Root.generic
+		subcomponents
+			myProcess: refined to process P.bidirectional;
+	end Root.bidirectional;
+	
+	system implementation Root.fromSharedComponent extends Root.generic
+		subcomponents
+			myProcess: refined to process P.fromSharedComponent;
+	end Root.fromSharedComponent;
+	
+	system implementation Root.toSharedComponent extends Root.generic
+		subcomponents
+			myProcess: refined to process P.toSharedComponent;
+	end Root.toSharedComponent;
+end SharedData_to_Data_Nested_in_Thread;
