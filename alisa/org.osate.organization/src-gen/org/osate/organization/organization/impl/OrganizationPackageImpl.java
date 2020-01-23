@@ -1,17 +1,25 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
  * 
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  * 
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  * 
- * See COPYRIGHT file for full details.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.organization.organization.impl;
 
@@ -121,6 +129,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOrganization()
   {
     return organizationEClass;
@@ -131,6 +140,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOrganization_Name()
   {
     return (EAttribute)organizationEClass.getEStructuralFeatures().get(0);
@@ -141,6 +151,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOrganization_Stakeholder()
   {
     return (EReference)organizationEClass.getEStructuralFeatures().get(1);
@@ -151,6 +162,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStakeholder()
   {
     return stakeholderEClass;
@@ -161,6 +173,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Name()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(0);
@@ -171,6 +184,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Fullname()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(1);
@@ -181,6 +195,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Title()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(2);
@@ -191,6 +206,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Description()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(3);
@@ -201,6 +217,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Role()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(4);
@@ -211,6 +228,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Email()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(5);
@@ -221,6 +239,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStakeholder_Phone()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(6);
@@ -231,6 +250,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStakeholder_Supervisor()
   {
     return (EReference)stakeholderEClass.getEStructuralFeatures().get(7);
@@ -241,6 +261,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OrganizationFactory getOrganizationFactory()
   {
     return (OrganizationFactory)getEFactoryInstance();
