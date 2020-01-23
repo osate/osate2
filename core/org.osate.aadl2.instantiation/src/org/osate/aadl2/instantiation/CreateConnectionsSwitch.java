@@ -642,7 +642,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						/*
 						 * Issue 2032: Get the connections internal to the destination component that connect
 						 * to the feature. Two cases here. (1) If the component is final (thread/device/processor),
-						 * we only follow access features not connected to an internal subprogram inside, (2) otherwise we follow all the internal connections
+						 * we only follow access features inside, (2) otherwise we follow all the internal connections
 						 * except for the parameter connections. We keep track of whether any internal connections were
 						 * ignored so we know if we should create a connection instance that stops at the component itself.
 						 */
@@ -650,18 +650,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						List<Connection> conns = AadlUtil.getIngoingConnections(toImpl, toFeature,
 								c -> {
 									if (c instanceof AccessConnection) {
-										/*
-										 * Bug 2161: Ignore internal access connections if they go to a subprogram. NB. access
-										 * connection can be written in either direction, so the subprogram could be the source
-										 * or destination context.
-										 */
-										if (c.getAllSourceContext() instanceof SubprogramSubcomponent
-												|| c.getAllDestinationContext() instanceof SubprogramSubcomponent) {
-											hasIgnoredConnection.set(true);
-											return false;
-										} else {
-											return true;
-										}
+										return true; // never ignore access connections
 									} else if (c instanceof ParameterConnection) {
 										// always ignore parameter connections
 										hasIgnoredConnection.set(true);
