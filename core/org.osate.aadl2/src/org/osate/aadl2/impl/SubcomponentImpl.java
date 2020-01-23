@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: SubcomponentImpl.java,v 1.50 2010-05-04 18:13:31 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -184,7 +172,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubcomponent();
 	}
@@ -194,12 +181,11 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
 		// EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
 		// DB This should be an EStructuralFeature.Setting
-		EList<Mode> inModes = new NonNotifyingEObjectEList<>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
+		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 		// XXX the resolving EList was notifying the Thread subcomponent of a
 		// change to In_Modes
 		// which recursively caused the thread subcomponent notify itself
@@ -229,10 +215,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
 					Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -243,7 +228,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArrayDimension createArrayDimension() {
 		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
 		getArrayDimensions().add(newArrayDimension);
@@ -255,7 +239,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		subcomponentType = subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -278,7 +261,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentClassifier getClassifier() {
 		EObject classifier = getSubcomponentType();
 		return (ComponentClassifier) (classifier instanceof ComponentClassifier ? classifier : null);
@@ -304,10 +286,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<>(PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -318,7 +299,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PrototypeBinding createOwnedPrototypeBinding(EClass eClass) {
 		PrototypeBinding newOwnedPrototypeBinding = (PrototypeBinding) create(eClass);
 		getOwnedPrototypeBindings().add(newOwnedPrototypeBinding);
@@ -330,7 +310,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentPrototype getPrototype() {
 		EObject prototype = getSubcomponentType();
 		return (ComponentPrototype) (prototype instanceof ComponentPrototype ? prototype : null);
@@ -353,10 +332,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ModeBinding> getOwnedModeBindings() {
 		if (ownedModeBindings == null) {
-			ownedModeBindings = new EObjectContainmentEList<>(ModeBinding.class, this,
+			ownedModeBindings = new EObjectContainmentEList<ModeBinding>(ModeBinding.class, this,
 					Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING);
 		}
 		return ownedModeBindings;
@@ -367,7 +345,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModeBinding createOwnedModeBinding() {
 		ModeBinding newOwnedModeBinding = (ModeBinding) create(Aadl2Package.eINSTANCE.getModeBinding());
 		getOwnedModeBindings().add(newOwnedModeBinding);
@@ -379,7 +356,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isAllModes() {
 		return allModes;
 	}
@@ -389,14 +365,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setAllModes(boolean newAllModes) {
 		boolean oldAllModes = allModes;
 		allModes = newAllModes;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ALL_MODES, oldAllModes,
 					allModes));
-		}
 	}
 
 	/**
@@ -404,10 +378,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ComponentImplementationReference> getImplementationReferences() {
 		if (implementationReferences == null) {
-			implementationReferences = new EObjectContainmentEList<>(
+			implementationReferences = new EObjectContainmentEList<ComponentImplementationReference>(
 					ComponentImplementationReference.class, this, Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE);
 		}
 		return implementationReferences;
@@ -418,7 +391,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentImplementationReference createImplementationReference() {
 		ComponentImplementationReference newImplementationReference = (ComponentImplementationReference) create(
 				Aadl2Package.eINSTANCE.getComponentImplementationReference());
@@ -431,16 +403,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Subcomponent getRefined() {
 		if (refined != null && ((EObject) refined).eIsProxy()) {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Subcomponent) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT__REFINED,
 							oldRefined, refined));
-				}
 			}
 		}
 		return refined;
@@ -460,7 +430,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setRefined(Subcomponent newRefined) {
 		Subcomponent oldRefined = refined;
 		refined = newRefined;
@@ -482,7 +451,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
 	}
@@ -492,7 +460,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
@@ -512,7 +479,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -520,16 +486,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 			return getArrayDimensions();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getSubcomponentType();
-			}
 			return basicGetSubcomponentType();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return getOwnedPrototypeBindings();
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
-			if (resolve) {
+			if (resolve)
 				return getPrototype();
-			}
 			return basicGetPrototype();
 		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
 			return getOwnedModeBindings();
@@ -538,14 +502,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			return getImplementationReferences();
 		case Aadl2Package.SUBCOMPONENT__REFINED:
-			if (resolve) {
+			if (resolve)
 				return getRefined();
-			}
 			return basicGetRefined();
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getClassifier();
-			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -557,7 +519,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -595,7 +556,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -628,7 +588,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -662,7 +621,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -706,7 +664,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
@@ -750,11 +707,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (allModes: ");
@@ -777,7 +732,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -790,7 +744,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.SUBCOMPONENT__REFINED)) {
 			return basicGetRefined();
@@ -803,7 +756,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.SUBCOMPONENT__REFINED);
 	}
@@ -814,7 +766,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	@Override
 	public ComponentImplementation getComponentImplementation() {
 		ComponentClassifier cc = getClassifier();
 		if (Aadl2Util.isNull(cc)) {
@@ -831,7 +782,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @return Component type
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public ComponentType getComponentType() {
 		ComponentClassifier cc = getClassifier();
 		if (Aadl2Util.isNull(cc)) {
@@ -853,9 +803,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	@Override
 	public EList<Subcomponent> getAllSubcomponentRefinements() {
-		BasicEList<Subcomponent> returnlist = new BasicEList<>();
+		BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		Subcomponent more = this;
 		while (!Aadl2Util.isNull(more)) {
 			returnlist.add(more);
@@ -865,7 +814,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public ComponentClassifier getAllClassifier() {
 		ComponentClassifier cc = getClassifier();
 		Subcomponent sub = this;
@@ -876,7 +824,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		return Aadl2Util.isNull(cc) ? null : cc;
 	}
 
-	@Override
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public boolean acceptsProperty(Property property) {
 		if (super.acceptsProperty(property)) {
@@ -889,7 +836,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	}
 
 	// TODO-lw: Why don't we return immediately if a pa was found?
-	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
@@ -931,7 +877,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype
 	 * )
 	 */
-	@Override
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		for (PrototypeBinding pb : getOwnedPrototypeBindings()) {
 			if (pb.getFormal() == proto) {
@@ -982,7 +927,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * In case of refined features the refined feature is returned in the list.
 	 * @return List of features
 	 */
-	@Override
 	public EList<Feature> getAllFeatures() {
 		ComponentImplementation ci = getComponentImplementation();
 		if (ci != null) {

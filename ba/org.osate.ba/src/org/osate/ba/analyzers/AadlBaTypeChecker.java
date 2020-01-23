@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.analyzers;
@@ -2323,36 +2323,56 @@ public class AadlBaTypeChecker
   }
   
   
-  private SubprogramCallAction qualifiedSubprogramClassifierCallActionResolver
+  private CommunicationAction qualifiedSubprogramClassifierCallOrPortSendActionActionResolver
                                                              (CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
-    TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
-    Subprogram sub = (Subprogram) 
-                       uniqueComponentClassifierReferenceResolver(qne, rule) ;
-    if(sub != null)
+    
+    if(qne.getOsateRef() instanceof EventPort)
     {
-      // Gets subprogram type.
-      Classifier subprogType = subprogramTypeCheck(comAct) ;
-      
-      // Checks and resolves parameter labels.
-      // Event if the subprogram call action doesn't have any parameter labels,
-      // the subprogram type may have and vice versa: 
-      // subprogramParameterListCheck is also design for these cases. 
-      // It also binds the subprogram type found to the subprogram call action. 
-      if(subprogType != null)
+      EventPortHolder tmp  = _fact.createEventPortHolder() ;
+      tmp.setEventPort((EventPort)qne.getOsateRef()) ;
+      return portSendActionResolver(tmp, comAct) ;
+    }
+    else if (qne.getOsateRef() instanceof EventDataPort)
+    {
+      EventDataPortHolder tmp  = _fact.createEventDataPortHolder() ;
+      tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
+      return portSendActionResolver(tmp, comAct) ;
+    }
+    else
+    {
+      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
+      Subprogram sub = (Subprogram) 
+          uniqueComponentClassifierReferenceResolver(qne, rule) ;
+      if(sub != null)
       {
-        if (subprogramParameterListCheck(comAct, comAct.getParameters(),
-                                         subprogType))
+        // Gets subprogram type.
+        Classifier subprogType = subprogramTypeCheck(comAct) ;
+
+        // Checks and resolves parameter labels.
+        // Event if the subprogram call action doesn't have any parameter labels,
+        // the subprogram type may have and vice versa: 
+        // subprogramParameterListCheck is also design for these cases. 
+        // It also binds the subprogram type found to the subprogram call action. 
+        if(subprogType != null)
         {
-          SubprogramCallAction result = _fact.createSubprogramCallAction() ;
-          SubprogramHolder sh = _fact.createSubprogramHolder() ;
-          sh.setLocationReference(comAct.getLocationReference()) ;
-          sh.setSubprogram(sub) ;
-          result.setSubprogram(sh) ;
-          result.setLocationReference(comAct.getLocationReference()) ;
-          result.getParameterLabels().addAll(comAct.getParameters()) ;
-          return result ;
+          if (subprogramParameterListCheck(comAct, comAct.getParameters(),
+                                           subprogType))
+          {
+            SubprogramCallAction result = _fact.createSubprogramCallAction() ;
+            SubprogramHolder sh = _fact.createSubprogramHolder() ;
+            sh.setLocationReference(comAct.getLocationReference()) ;
+            sh.setSubprogram(sub) ;
+            result.setSubprogram(sh) ;
+            result.setLocationReference(comAct.getLocationReference()) ;
+            result.getParameterLabels().addAll(comAct.getParameters()) ;
+            return result ;
+          }
+          else
+          {
+            return null ;
+          }
         }
         else
         {
@@ -2361,12 +2381,8 @@ public class AadlBaTypeChecker
       }
       else
       {
-        return null ;
+        return  null ;
       }
-    }
-    else
-    {
-      return  null ;
     }
   }
   
@@ -2388,7 +2404,7 @@ public class AadlBaTypeChecker
     // Subprogram qualified classifier call.
     if(comAct.getQualifiedName() != null)
     {
-      return qualifiedSubprogramClassifierCallActionResolver(comAct) ;
+      return qualifiedSubprogramClassifierCallOrPortSendActionActionResolver(comAct) ;
     }
     // Port dequeue call.
     else if(comAct.isPortDequeue())
