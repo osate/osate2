@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.internal.ui.tools;
 
 import java.util.ArrayList;
@@ -428,7 +451,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper
 					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(575, 275);
+			newShell.setSize(800, 400);
 			newShell.setMinimumSize(460, 215);
 		}
 
@@ -476,7 +499,6 @@ public class CreateEndToEndFlowSpecificationTool {
 
 			newETEFlowName = new Text(buttonBar, SWT.SINGLE | SWT.LEFT | SWT.BORDER);
 			final GridData nameTextData = new GridData(SWT.FILL, SWT.CENTER, true, false);
-			nameTextData.widthHint = 180;
 			newETEFlowName.setLayoutData(nameTextData);
 			newETEFlowName.setEditable(true);
 			newETEFlowName.setOrientation(SWT.LEFT_TO_RIGHT);
@@ -538,9 +560,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 			});
 
-			final GridData removeBtnData = new GridData(SWT.LEFT, SWT.CENTER, true, false);
-			removeBtnData.horizontalIndent = 4;
-			removeBtnData.widthHint = 45;
+			final GridData removeBtnData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			undoButton.setLayoutData(removeBtnData);
 
 			super.createButtonBar(buttonBar);
@@ -552,15 +572,6 @@ public class CreateEndToEndFlowSpecificationTool {
 					flows.add(eTEFlow);
 				}
 			});
-
-			final GridData okBtnData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
-			okBtnData.widthHint = 65;
-			okBtn.setLayoutData(okBtnData);
-
-			final GridData cancelBtnData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
-			cancelBtnData.widthHint = 65;
-			final Button cancelBtn = getButton(IDialogConstants.CANCEL_ID);
-			cancelBtn.setLayoutData(cancelBtnData);
 
 			return buttonBar;
 		}
