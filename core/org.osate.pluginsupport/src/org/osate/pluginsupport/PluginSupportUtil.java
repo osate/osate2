@@ -43,9 +43,12 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osgi.framework.Bundle;
 
 /**
@@ -151,8 +154,9 @@ public class PluginSupportUtil {
 				}
 				return Optional.of(contents.substring(i, afterToken));
 			} catch (IOException e) {
-				// TODO Log
-				e.printStackTrace();
+				IStatus status = new Status(IStatus.ERROR, PluginSupportPlugin.PLUGIN_ID,
+						"Unable to read contributed file.", e);
+				StatusManager.getManager().handle(status);
 				return Optional.empty();
 			}
 		} else {
