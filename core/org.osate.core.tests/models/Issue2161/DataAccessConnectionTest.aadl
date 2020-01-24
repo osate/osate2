@@ -26,7 +26,7 @@ public
         s1 : subprogram sp;
     };      
    connections
-        dc: data access shared <-> sp.shared;
+        dc: data access shared -> sp.shared;
     end ThreadRequiresData.impl;        
     
     process Proc    
