@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: Aadl2AdapterFactory.java,v 1.81 2011-04-11 13:35:56 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.util;
 
@@ -78,7 +66,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -96,1307 +83,1046 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected Aadl2Switch<Adapter> modelSwitch = new Aadl2Switch<Adapter>() {
-		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
 
-		@Override
 		public Adapter caseComment(Comment object) {
 			return createCommentAdapter();
 		}
 
-		@Override
 		public Adapter caseType(Type object) {
 			return createTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyAssociation(PropertyAssociation object) {
 			return createPropertyAssociationAdapter();
 		}
 
-		@Override
 		public Adapter caseProperty(Property object) {
 			return createPropertyAdapter();
 		}
 
-		@Override
 		public Adapter caseBasicProperty(BasicProperty object) {
 			return createBasicPropertyAdapter();
 		}
 
-		@Override
 		public Adapter caseTypedElement(TypedElement object) {
 			return createTypedElementAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyType(PropertyType object) {
 			return createPropertyTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractNamedValue(AbstractNamedValue object) {
 			return createAbstractNamedValueAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
 
-		@Override
 		public Adapter caseMetaclassReference(MetaclassReference object) {
 			return createMetaclassReferenceAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyOwner(PropertyOwner object) {
 			return createPropertyOwnerAdapter();
 		}
 
-		@Override
 		public Adapter caseClassifier(Classifier object) {
 			return createClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseNamespace(Namespace object) {
 			return createNamespaceAdapter();
 		}
 
-		@Override
 		public Adapter caseClassifierFeature(ClassifierFeature object) {
 			return createClassifierFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseGeneralization(Generalization object) {
 			return createGeneralizationAdapter();
 		}
 
-		@Override
 		public Adapter caseDirectedRelationship(DirectedRelationship object) {
 			return createDirectedRelationshipAdapter();
 		}
 
-		@Override
 		public Adapter caseRelationship(Relationship object) {
 			return createRelationshipAdapter();
 		}
 
-		@Override
 		public Adapter caseAnnexSubclause(AnnexSubclause object) {
 			return createAnnexSubclauseAdapter();
 		}
 
-		@Override
 		public Adapter caseModalElement(ModalElement object) {
 			return createModalElementAdapter();
 		}
 
-		@Override
 		public Adapter caseMode(Mode object) {
 			return createModeAdapter();
 		}
 
-		@Override
 		public Adapter caseModeFeature(ModeFeature object) {
 			return createModeFeatureAdapter();
 		}
 
-		@Override
 		public Adapter casePrototype(Prototype object) {
 			return createPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseStructuralFeature(StructuralFeature object) {
 			return createStructuralFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseRefinableElement(RefinableElement object) {
 			return createRefinableElementAdapter();
 		}
 
-		@Override
 		public Adapter caseCalledSubprogram(CalledSubprogram object) {
 			return createCalledSubprogramAdapter();
 		}
 
-		@Override
 		public Adapter casePrototypeBinding(PrototypeBinding object) {
 			return createPrototypeBindingAdapter();
 		}
 
-		@Override
 		public Adapter caseContainedNamedElement(ContainedNamedElement object) {
 			return createContainedNamedElementAdapter();
 		}
 
-		@Override
 		public Adapter caseContainmentPathElement(ContainmentPathElement object) {
 			return createContainmentPathElementAdapter();
 		}
 
-		@Override
 		public Adapter caseArrayRange(ArrayRange object) {
 			return createArrayRangeAdapter();
 		}
 
-		@Override
 		public Adapter caseModalPropertyValue(ModalPropertyValue object) {
 			return createModalPropertyValueAdapter();
 		}
 
-		@Override
 		public Adapter caseBehavioralFeature(BehavioralFeature object) {
 			return createBehavioralFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseArrayDimension(ArrayDimension object) {
 			return createArrayDimensionAdapter();
 		}
 
-		@Override
 		public Adapter caseArraySize(ArraySize object) {
 			return createArraySizeAdapter();
 		}
 
-		@Override
 		public Adapter caseArraySizeProperty(ArraySizeProperty object) {
 			return createArraySizePropertyAdapter();
 		}
 
-		@Override
 		public Adapter caseArrayableElement(ArrayableElement object) {
 			return createArrayableElementAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentImplementationReference(ComponentImplementationReference object) {
 			return createComponentImplementationReferenceAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentImplementation(ComponentImplementation object) {
 			return createComponentImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentClassifier(ComponentClassifier object) {
 			return createComponentClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseSubcomponentType(SubcomponentType object) {
 			return createSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureClassifier(FeatureClassifier object) {
 			return createFeatureClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseModeTransition(ModeTransition object) {
 			return createModeTransitionAdapter();
 		}
 
-		@Override
 		public Adapter caseModeTransitionTrigger(ModeTransitionTrigger object) {
 			return createModeTransitionTriggerAdapter();
 		}
 
-		@Override
 		public Adapter caseContext(Context object) {
 			return createContextAdapter();
 		}
 
-		@Override
 		public Adapter caseTriggerPort(TriggerPort object) {
 			return createTriggerPortAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentType(ComponentType object) {
 			return createComponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseFeature(Feature object) {
 			return createFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureConnectionEnd(FeatureConnectionEnd object) {
 			return createFeatureConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter caseConnectionEnd(ConnectionEnd object) {
 			return createConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentPrototype(ComponentPrototype object) {
 			return createComponentPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowSpecification(FlowSpecification object) {
 			return createFlowSpecificationAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowFeature(FlowFeature object) {
 			return createFlowFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseFlow(Flow object) {
 			return createFlowAdapter();
 		}
 
-		@Override
 		public Adapter caseModalPath(ModalPath object) {
 			return createModalPathAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowElement(FlowElement object) {
 			return createFlowElementAdapter();
 		}
 
-		@Override
 		public Adapter caseEndToEndFlowElement(EndToEndFlowElement object) {
 			return createEndToEndFlowElementAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowEnd(FlowEnd object) {
 			return createFlowEndAdapter();
 		}
 
-		@Override
 		public Adapter caseTypeExtension(TypeExtension object) {
 			return createTypeExtensionAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroup(FeatureGroup object) {
 			return createFeatureGroupAdapter();
 		}
 
-		@Override
 		public Adapter caseCallContext(CallContext object) {
 			return createCallContextAdapter();
 		}
 
-		@Override
 		public Adapter caseDirectedFeature(DirectedFeature object) {
 			return createDirectedFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupConnectionEnd(FeatureGroupConnectionEnd object) {
 			return createFeatureGroupConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureType(FeatureType object) {
 			return createFeatureTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupType(FeatureGroupType object) {
 			return createFeatureGroupTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseGroupExtension(GroupExtension object) {
 			return createGroupExtensionAdapter();
 		}
 
-		@Override
 		public Adapter caseBusAccess(BusAccess object) {
 			return createBusAccessAdapter();
 		}
 
-		@Override
 		public Adapter caseAccess(Access object) {
 			return createAccessAdapter();
 		}
 
-		@Override
 		public Adapter caseAccessConnectionEnd(AccessConnectionEnd object) {
 			return createAccessConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter caseBusFeatureClassifier(BusFeatureClassifier object) {
 			return createBusFeatureClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseDataAccess(DataAccess object) {
 			return createDataAccessAdapter();
 		}
 
-		@Override
 		public Adapter caseParameterConnectionEnd(ParameterConnectionEnd object) {
 			return createParameterConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter casePortConnectionEnd(PortConnectionEnd object) {
 			return createPortConnectionEndAdapter();
 		}
 
-		@Override
 		public Adapter caseDataSubcomponentType(DataSubcomponentType object) {
 			return createDataSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDataPort(DataPort object) {
 			return createDataPortAdapter();
 		}
 
-		@Override
 		public Adapter casePort(Port object) {
 			return createPortAdapter();
 		}
 
-		@Override
 		public Adapter caseEventDataPort(EventDataPort object) {
 			return createEventDataPortAdapter();
 		}
 
-		@Override
 		public Adapter caseEventPort(EventPort object) {
 			return createEventPortAdapter();
 		}
 
-		@Override
 		public Adapter caseParameter(Parameter object) {
 			return createParameterAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramAccess(SubprogramAccess object) {
 			return createSubprogramAccessAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
 			return createSubprogramSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupAccess(SubprogramGroupAccess object) {
 			return createSubprogramGroupAccessAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
 			return createSubprogramGroupSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractFeature(AbstractFeature object) {
 			return createAbstractFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseFeaturePrototype(FeaturePrototype object) {
 			return createFeaturePrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
 			return createFeatureGroupPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubcomponent(Subcomponent object) {
 			return createSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseModeBinding(ModeBinding object) {
 			return createModeBindingAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowImplementation(FlowImplementation object) {
 			return createFlowImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseFlowSegment(FlowSegment object) {
 			return createFlowSegmentAdapter();
 		}
 
-		@Override
 		public Adapter caseConnection(Connection object) {
 			return createConnectionAdapter();
 		}
 
-		@Override
 		public Adapter caseConnectedElement(ConnectedElement object) {
 			return createConnectedElementAdapter();
 		}
 
-		@Override
 		public Adapter caseImplementationExtension(ImplementationExtension object) {
 			return createImplementationExtensionAdapter();
 		}
 
-		@Override
 		public Adapter caseRealization(Realization object) {
 			return createRealizationAdapter();
 		}
 
-		@Override
 		public Adapter caseEndToEndFlow(EndToEndFlow object) {
 			return createEndToEndFlowAdapter();
 		}
 
-		@Override
 		public Adapter caseEndToEndFlowSegment(EndToEndFlowSegment object) {
 			return createEndToEndFlowSegmentAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractSubcomponent(AbstractSubcomponent object) {
 			return createAbstractSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstract(Abstract object) {
 			return createAbstractAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractSubcomponentType(AbstractSubcomponentType object) {
 			return createAbstractSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAccessConnection(AccessConnection object) {
 			return createAccessConnectionAdapter();
 		}
 
-		@Override
 		public Adapter caseParameterConnection(ParameterConnection object) {
 			return createParameterConnectionAdapter();
 		}
 
-		@Override
 		public Adapter casePortConnection(PortConnection object) {
 			return createPortConnectionAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureConnection(FeatureConnection object) {
 			return createFeatureConnectionAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupConnection(FeatureGroupConnection object) {
 			return createFeatureGroupConnectionAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorFeature(ProcessorFeature object) {
 			return createProcessorFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseInternalFeature(InternalFeature object) {
 			return createInternalFeatureAdapter();
 		}
 
-		@Override
 		public Adapter caseEventSource(EventSource object) {
 			return createEventSourceAdapter();
 		}
 
-		@Override
 		public Adapter caseEventDataSource(EventDataSource object) {
 			return createEventDataSourceAdapter();
 		}
 
-		@Override
 		public Adapter caseDataClassifier(DataClassifier object) {
 			return createDataClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseData(Data object) {
 			return createDataAdapter();
 		}
 
-		@Override
 		public Adapter casePortProxy(PortProxy object) {
 			return createPortProxyAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramProxy(SubprogramProxy object) {
 			return createSubprogramProxyAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramClassifier(SubprogramClassifier object) {
 			return createSubprogramClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogram(Subprogram object) {
 			return createSubprogramAdapter();
 		}
 
-		@Override
 		public Adapter caseAnnexLibrary(AnnexLibrary object) {
 			return createAnnexLibraryAdapter();
 		}
 
-		@Override
 		public Adapter caseDefaultAnnexLibrary(DefaultAnnexLibrary object) {
 			return createDefaultAnnexLibraryAdapter();
 		}
 
-		@Override
 		public Adapter caseDefaultAnnexSubclause(DefaultAnnexSubclause object) {
 			return createDefaultAnnexSubclauseAdapter();
 		}
 
-		@Override
 		public Adapter casePublicPackageSection(PublicPackageSection object) {
 			return createPublicPackageSectionAdapter();
 		}
 
-		@Override
 		public Adapter casePackageSection(PackageSection object) {
 			return createPackageSectionAdapter();
 		}
 
-		@Override
 		public Adapter casePackageRename(PackageRename object) {
 			return createPackageRenameAdapter();
 		}
 
-		@Override
 		public Adapter caseAadlPackage(AadlPackage object) {
 			return createAadlPackageAdapter();
 		}
 
-		@Override
 		public Adapter caseModelUnit(ModelUnit object) {
 			return createModelUnitAdapter();
 		}
 
-		@Override
 		public Adapter casePrivatePackageSection(PrivatePackageSection object) {
 			return createPrivatePackageSectionAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentTypeRename(ComponentTypeRename object) {
 			return createComponentTypeRenameAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupTypeRename(FeatureGroupTypeRename object) {
 			return createFeatureGroupTypeRenameAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
 			return createComponentPrototypeBindingAdapter();
 		}
 
-		@Override
 		public Adapter caseComponentPrototypeActual(ComponentPrototypeActual object) {
 			return createComponentPrototypeActualAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
 			return createFeatureGroupPrototypeBindingAdapter();
 		}
 
-		@Override
 		public Adapter caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
 			return createFeatureGroupPrototypeActualAdapter();
 		}
 
-		@Override
 		public Adapter caseFeaturePrototypeActual(FeaturePrototypeActual object) {
 			return createFeaturePrototypeActualAdapter();
 		}
 
-		@Override
 		public Adapter caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
 			return createFeaturePrototypeBindingAdapter();
 		}
 
-		@Override
 		public Adapter caseAccessSpecification(AccessSpecification object) {
 			return createAccessSpecificationAdapter();
 		}
 
-		@Override
 		public Adapter casePortSpecification(PortSpecification object) {
 			return createPortSpecificationAdapter();
 		}
 
-		@Override
 		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
 			return createFeaturePrototypeReferenceAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
 			return createSubprogramCallSequenceAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramCall(SubprogramCall object) {
 			return createSubprogramCallAdapter();
 		}
 
-		@Override
 		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
 			return createBehavioredImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractType(AbstractType object) {
 			return createAbstractTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractClassifier(AbstractClassifier object) {
 			return createAbstractClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
 			return createVirtualProcessorSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusSubcomponentType(VirtualBusSubcomponentType object) {
 			return createVirtualBusSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupSubcomponentType(ThreadGroupSubcomponentType object) {
 			return createThreadGroupSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadSubcomponentType(ThreadSubcomponentType object) {
 			return createThreadSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemSubcomponentType(SystemSubcomponentType object) {
 			return createSystemSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessSubcomponentType(ProcessSubcomponentType object) {
 			return createProcessSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseMemorySubcomponentType(MemorySubcomponentType object) {
 			return createMemorySubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDeviceSubcomponentType(DeviceSubcomponentType object) {
 			return createDeviceSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
 			return createBusSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object) {
 			return createProcessorSubcomponentTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractImplementation(AbstractImplementation object) {
 			return createAbstractImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseBusSubcomponent(BusSubcomponent object) {
 			return createBusSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseBus(Bus object) {
 			return createBusAdapter();
 		}
 
-		@Override
 		public Adapter caseDataSubcomponent(DataSubcomponent object) {
 			return createDataSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseDeviceSubcomponent(DeviceSubcomponent object) {
 			return createDeviceSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseDevice(Device object) {
 			return createDeviceAdapter();
 		}
 
-		@Override
 		public Adapter caseMemorySubcomponent(MemorySubcomponent object) {
 			return createMemorySubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseMemory(Memory object) {
 			return createMemoryAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessSubcomponent(ProcessSubcomponent object) {
 			return createProcessSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseProcess(org.osate.aadl2.Process object) {
 			return createProcessAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorSubcomponent(ProcessorSubcomponent object) {
 			return createProcessorSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessor(Processor object) {
 			return createProcessorAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemSubcomponent(SystemSubcomponent object) {
 			return createSystemSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseSystem(org.osate.aadl2.System object) {
 			return createSystemAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramSubcomponent(SubprogramSubcomponent object) {
 			return createSubprogramSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupSubcomponent(SubprogramGroupSubcomponent object) {
 			return createSubprogramGroupSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroup(SubprogramGroup object) {
 			return createSubprogramGroupAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadSubcomponent(ThreadSubcomponent object) {
 			return createThreadSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseThread(org.osate.aadl2.Thread object) {
 			return createThreadAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupSubcomponent(ThreadGroupSubcomponent object) {
 			return createThreadGroupSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
 			return createThreadGroupAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusSubcomponent(VirtualBusSubcomponent object) {
 			return createVirtualBusSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBus(VirtualBus object) {
 			return createVirtualBusAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
 			return createVirtualProcessorSubcomponentAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessor(VirtualProcessor object) {
 			return createVirtualProcessorAdapter();
 		}
 
-		@Override
 		public Adapter caseAbstractPrototype(AbstractPrototype object) {
 			return createAbstractPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseBusClassifier(BusClassifier object) {
 			return createBusClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseBusType(BusType object) {
 			return createBusTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseBusImplementation(BusImplementation object) {
 			return createBusImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseBusPrototype(BusPrototype object) {
 			return createBusPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDataType(DataType object) {
 			return createDataTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDataImplementation(DataImplementation object) {
 			return createDataImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseDataPrototype(DataPrototype object) {
 			return createDataPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDeviceClassifier(DeviceClassifier object) {
 			return createDeviceClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseDeviceType(DeviceType object) {
 			return createDeviceTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseDeviceImplementation(DeviceImplementation object) {
 			return createDeviceImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseDevicePrototype(DevicePrototype object) {
 			return createDevicePrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseMemoryClassifier(MemoryClassifier object) {
 			return createMemoryClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseMemoryType(MemoryType object) {
 			return createMemoryTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseMemoryImplementation(MemoryImplementation object) {
 			return createMemoryImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseMemoryPrototype(MemoryPrototype object) {
 			return createMemoryPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramType(SubprogramType object) {
 			return createSubprogramTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramImplementation(SubprogramImplementation object) {
 			return createSubprogramImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramPrototype(SubprogramPrototype object) {
 			return createSubprogramPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupClassifier(SubprogramGroupClassifier object) {
 			return createSubprogramGroupClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupType(SubprogramGroupType object) {
 			return createSubprogramGroupTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
 			return createSubprogramGroupImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseSubprogramGroupPrototype(SubprogramGroupPrototype object) {
 			return createSubprogramGroupPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemClassifier(SystemClassifier object) {
 			return createSystemClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemType(SystemType object) {
 			return createSystemTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemImplementation(SystemImplementation object) {
 			return createSystemImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseSystemPrototype(SystemPrototype object) {
 			return createSystemPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorClassifier(ProcessorClassifier object) {
 			return createProcessorClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorType(ProcessorType object) {
 			return createProcessorTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorImplementation(ProcessorImplementation object) {
 			return createProcessorImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessorPrototype(ProcessorPrototype object) {
 			return createProcessorPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessClassifier(ProcessClassifier object) {
 			return createProcessClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessType(ProcessType object) {
 			return createProcessTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessImplementation(ProcessImplementation object) {
 			return createProcessImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseProcessPrototype(ProcessPrototype object) {
 			return createProcessPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadClassifier(ThreadClassifier object) {
 			return createThreadClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadType(ThreadType object) {
 			return createThreadTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadImplementation(ThreadImplementation object) {
 			return createThreadImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadPrototype(ThreadPrototype object) {
 			return createThreadPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupClassifier(ThreadGroupClassifier object) {
 			return createThreadGroupClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupType(ThreadGroupType object) {
 			return createThreadGroupTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupImplementation(ThreadGroupImplementation object) {
 			return createThreadGroupImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseThreadGroupPrototype(ThreadGroupPrototype object) {
 			return createThreadGroupPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusClassifier(VirtualBusClassifier object) {
 			return createVirtualBusClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusType(VirtualBusType object) {
 			return createVirtualBusTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusImplementation(VirtualBusImplementation object) {
 			return createVirtualBusImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualBusPrototype(VirtualBusPrototype object) {
 			return createVirtualBusPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorClassifier(VirtualProcessorClassifier object) {
 			return createVirtualProcessorClassifierAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorType(VirtualProcessorType object) {
 			return createVirtualProcessorTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
 			return createVirtualProcessorImplementationAdapter();
 		}
 
-		@Override
 		public Adapter caseVirtualProcessorPrototype(VirtualProcessorPrototype object) {
 			return createVirtualProcessorPrototypeAdapter();
 		}
 
-		@Override
 		public Adapter caseBasicPropertyAssociation(BasicPropertyAssociation object) {
 			return createBasicPropertyAssociationAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyConstant(PropertyConstant object) {
 			return createPropertyConstantAdapter();
 		}
 
-		@Override
 		public Adapter caseStringLiteral(StringLiteral object) {
 			return createStringLiteralAdapter();
 		}
 
-		@Override
 		public Adapter casePropertyValue(PropertyValue object) {
 			return createPropertyValueAdapter();
 		}
 
-		@Override
 		public Adapter caseNumberValue(NumberValue object) {
 			return createNumberValueAdapter();
 		}
 
-		@Override
 		public Adapter caseUnitLiteral(UnitLiteral object) {
 			return createUnitLiteralAdapter();
 		}
 
-		@Override
 		public Adapter caseEnumerationLiteral(EnumerationLiteral object) {
 			return createEnumerationLiteralAdapter();
 		}
 
-		@Override
 		public Adapter caseClassifierValue(ClassifierValue object) {
 			return createClassifierValueAdapter();
 		}
 
-		@Override
 		public Adapter caseReferenceValue(ReferenceValue object) {
 			return createReferenceValueAdapter();
 		}
 
-		@Override
 		public Adapter caseBooleanLiteral(BooleanLiteral object) {
 			return createBooleanLiteralAdapter();
 		}
 
-		@Override
 		public Adapter caseRangeValue(RangeValue object) {
 			return createRangeValueAdapter();
 		}
 
-		@Override
 		public Adapter caseIntegerLiteral(IntegerLiteral object) {
 			return createIntegerLiteralAdapter();
 		}
 
-		@Override
 		public Adapter caseRealLiteral(RealLiteral object) {
 			return createRealLiteralAdapter();
 		}
 
-		@Override
 		public Adapter caseOperation(Operation object) {
 			return createOperationAdapter();
 		}
 
-		@Override
 		public Adapter caseRecordValue(RecordValue object) {
 			return createRecordValueAdapter();
 		}
 
-		@Override
 		public Adapter caseComputedValue(ComputedValue object) {
 			return createComputedValueAdapter();
 		}
 
-		@Override
 		public Adapter caseListValue(ListValue object) {
 			return createListValueAdapter();
 		}
 
-		@Override
 		public Adapter caseNamedValue(NamedValue object) {
 			return createNamedValueAdapter();
 		}
 
-		@Override
 		public Adapter casePropertySet(PropertySet object) {
 			return createPropertySetAdapter();
 		}
 
-		@Override
 		public Adapter caseGlobalNamespace(GlobalNamespace object) {
 			return createGlobalNamespaceAdapter();
 		}
 
-		@Override
 		public Adapter caseNonListType(NonListType object) {
 			return createNonListTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseAadlBoolean(AadlBoolean object) {
 			return createAadlBooleanAdapter();
 		}
 
-		@Override
 		public Adapter caseAadlString(AadlString object) {
 			return createAadlStringAdapter();
 		}
 
-		@Override
 		public Adapter caseAadlInteger(AadlInteger object) {
 			return createAadlIntegerAdapter();
 		}
 
-		@Override
 		public Adapter caseNumberType(NumberType object) {
 			return createNumberTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseUnitsType(UnitsType object) {
 			return createUnitsTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseEnumerationType(EnumerationType object) {
 			return createEnumerationTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseNumericRange(NumericRange object) {
 			return createNumericRangeAdapter();
 		}
 
-		@Override
 		public Adapter caseAadlReal(AadlReal object) {
 			return createAadlRealAdapter();
 		}
 
-		@Override
 		public Adapter caseClassifierType(ClassifierType object) {
 			return createClassifierTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseRangeType(RangeType object) {
 			return createRangeTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseRecordType(RecordType object) {
 			return createRecordTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseRecordField(RecordField object) {
 			return createRecordFieldAdapter();
 		}
 
-		@Override
 		public Adapter caseReferenceType(ReferenceType object) {
 			return createReferenceTypeAdapter();
 		}
 
-		@Override
 		public Adapter caseListType(ListType object) {
 			return createListTypeAdapter();
 		}
 
-		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -1410,7 +1136,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

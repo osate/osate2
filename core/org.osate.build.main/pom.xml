@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
-	<artifactId>osate2</artifactId>
+	<artifactId>osate2.main-pom</artifactId>
 	<version>2.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -45,7 +45,7 @@
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
-		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
+		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina</ocarina.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>

@@ -1,0 +1,26 @@
+package issue2154
+public
+	
+	abstract abst
+		features
+			p_in: in event port;
+		annex behavior_specification {**
+			states
+				s0: initial complete final state;
+			transitions
+				s0 -[on dispatch p_in]->s0;
+		**};
+	end abst;
+	
+	process proc
+		features
+			p_in: in event port;
+		annex behavior_specification {**
+			states
+				s0: initial complete final state;
+			transitions
+				s0 -[on dispatch p_in]->s0;
+		**};
+	end proc;
+	
+end issue2154;
