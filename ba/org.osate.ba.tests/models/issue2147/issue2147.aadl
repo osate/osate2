@@ -19,8 +19,9 @@ public
 
       t0 : thread;
 
-  
-
+  	modes
+  	  s0: initial mode;
+	  
     annex behavior_specification {**
 
     states
