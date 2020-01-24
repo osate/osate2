@@ -80,6 +80,7 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.impl.ParameterImpl;
@@ -386,6 +387,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 */
 		if ((toEnd instanceof ParameterImpl)
 				&& ((fromEnd instanceof DataSubcomponent) || (fromEnd instanceof DataAccess))) {
+			return;
+		}
+
+		/*
+		 * Fix JD bug #222.
+		 * Tweaked again for Issue #2162: changed to check if the context is a subprogram call
+		 * rather than just checking if the feature is contained in a subprogram.
+		 */
+		if ((toEnd instanceof DataAccess) && (toCtx instanceof SubprogramCall)) {
 			return;
 		}
 
