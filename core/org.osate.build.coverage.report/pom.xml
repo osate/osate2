@@ -385,6 +385,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
+			<artifactId>org.osate.ge.tests</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge.doc</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<optional>true</optional>
