@@ -114,7 +114,7 @@ class Issue2032Test {
 
 	@Test
 	def void testJustData_Subprogram() {
-		test0("JustData_subprogram.aadl")
+		test3("JustData_subprogram.aadl")
 	}
 
 	@Test
@@ -426,22 +426,6 @@ class Issue2032Test {
 		assertEquals(2, connRefs3.size)
 		assertEquals(connRefs2.get(0).connection, connRefs3.get(1).connection)
 		assertEquals(connRefs3.get(1).connection, connRefs2.get(0).connection)
-	}
-		
-	private def void test0(String aadlFile) {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + aadlFile)
-
-		val cls = pkg.ownedPublicSection.ownedClassifiers
-		assertTrue('System implementation "' + ROOT_IMPL + '" not found', cls.exists[name == ROOT_IMPL])
-
-		// Instantiate system
-		val sysImpl = cls.findFirst[name == ROOT_IMPL] as SystemImplementation
-		val instance = InstantiateModel.instantiate(sysImpl)
-		assertEquals(ROOT_INSTANCE, instance.name)
-		
-		// There should be exactly 0 connection instances
-		val myP = instance.componentInstances.get(0)
-		assertEquals(0, myP.connectionInstances.size)
 	}
 		
 	private def void test1(String aadlFile) {
