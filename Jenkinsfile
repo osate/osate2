@@ -4,15 +4,18 @@ pipeline {
     stage('Build Products') {
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
+          wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
+            sh(script: '''
+                mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
+                    -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                    -Dcodecoverage=true -Dspotbugs=true
+            ''')
+          }
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
-            wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              sh '''
-                  mvn -T 3 -s core/osate.releng/seisettings.xml clean verify sonar:sonar -Pfull \
-                      -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                      -Dcodecoverage=true -Dspotbugs=true \
-                      -Dsonar.login=$SONARTOKEN
-                '''
-            }
+            sh(script: '''
+                mvn -s core/osate.releng/seisettings.xml sonar:sonar \
+                    -Dsonar.login=$SONARTOKEN
+            ''')
           }
         }
       }
