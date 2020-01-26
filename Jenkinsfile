@@ -1,29 +1,25 @@
 pipeline {
   agent any
   stages {
-    stage('Nightly Build') {
-    stages {
-      stage('Build Products') {
-        steps {
+    stage('Build Products') {
+      steps {
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
+          withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-              withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
-                withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
-                  sh '''
-                    mvn -T 3 -s core/osate.releng/seisettings.xml clean verify sonar:sonar -Pfull \
-                        -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                        -Dcodecoverage=true -Dspotbugs=true \
-                        -Dsonar.login=$SONARTOKEN
-                  '''
-                }
-              }
+              sh '''
+                  mvn -T 3 -s core/osate.releng/seisettings.xml clean verify sonar:sonar -Pfull \
+                      -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
+                      -Dcodecoverage=true -Dspotbugs=true \
+                      -Dsonar.login=$SONARTOKEN
+                '''
             }
           }
         }
-        stage('Deploy') {
-          steps {
-            sh 'bash ./deploy.sh'
-          }
-        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'bash ./deploy.sh'
       }
     }
   }
