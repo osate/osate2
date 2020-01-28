@@ -23,18 +23,33 @@
  */
 package org.osate.pluginsupport;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osgi.framework.Bundle;
 
 /**
  * Utility methods
@@ -67,6 +82,86 @@ public class PluginSupportUtil {
 					+ (path.charAt(0) == '/' ? "" : "/") + path;
 			return URI.createPlatformPluginURI(fullpath, false);
 		});
+	}
+
+	private static Map<URI, String> contributedPropertySets = null;
+
+	/**
+	 * Gets all of the plugin contributed property sets, but not packages. Entries in the returned map are from the
+	 * property set's URI to its name.
+	 */
+	public static Map<URI, String> getContributedPropertySets() {
+		if (contributedPropertySets == null) {
+			Map<URI, String> modifiablePropertySets = new HashMap<>();
+			for (URI uri : getContributedAadl()) {
+				getPropertySetName(uri).ifPresent(name -> modifiablePropertySets.put(uri, name));
+			}
+			contributedPropertySets = Collections.unmodifiableMap(modifiablePropertySets);
+		}
+		return contributedPropertySets;
+	}
+
+	private static Optional<String> getPropertySetName(URI uri) {
+		if (uri.segmentCount() > 2) {
+			Bundle bundle = Platform.getBundle(uri.segment(1));
+			IPath path = new Path(
+					uri.segmentsList().subList(2, uri.segmentCount()).stream().collect(Collectors.joining("/")));
+			try (BufferedReader reader = new BufferedReader(
+					new InputStreamReader(FileLocator.openStream(bundle, path, false)))) {
+				String contents = reader.lines().map(line -> {
+					int commentIndex = line.indexOf("--");
+					if (commentIndex == -1) {
+						return line;
+					} else {
+						return line.substring(0, commentIndex);
+					}
+				}).collect(Collectors.joining("\n"));
+
+				// Find property keyword
+				int i = 0;
+				while (i < contents.length() && Character.isWhitespace(contents.charAt(i))) {
+					i++;
+				}
+				int afterToken = i;
+				while (afterToken < contents.length() && !Character.isWhitespace(contents.charAt(afterToken))) {
+					afterToken++;
+				}
+				if (!contents.substring(i, afterToken).toLowerCase().equals("property")) {
+					return Optional.empty();
+				}
+				i = afterToken;
+
+				// Find set keyword
+				while (i < contents.length() && Character.isWhitespace(contents.charAt(i))) {
+					i++;
+				}
+				afterToken = i;
+				while (afterToken < contents.length() && !Character.isWhitespace(contents.charAt(afterToken))) {
+					afterToken++;
+				}
+				if (!contents.substring(i, afterToken).toLowerCase().equals("set")) {
+					return Optional.empty();
+				}
+
+				// Find name
+				i = afterToken;
+				while (i < contents.length() && Character.isWhitespace(contents.charAt(i))) {
+					i++;
+				}
+				afterToken = i;
+				while (afterToken < contents.length() && !Character.isWhitespace(contents.charAt(afterToken))) {
+					afterToken++;
+				}
+				return Optional.of(contents.substring(i, afterToken));
+			} catch (IOException e) {
+				IStatus status = new Status(IStatus.ERROR, PluginSupportPlugin.PLUGIN_ID,
+						"Unable to read contributed file.", e);
+				StatusManager.getManager().handle(status);
+				return Optional.empty();
+			}
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	private static final String CLASSPATH_PREFIX = "classpath:/";
