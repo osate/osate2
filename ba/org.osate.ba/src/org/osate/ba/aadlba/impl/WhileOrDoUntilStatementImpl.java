@@ -36,11 +36,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.WhileOrDoUntilStatementImpl#getLogicalValueExpression <em>Logical Value Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.WhileOrDoUntilStatementImpl#isDoUntil <em>Do Until</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -102,6 +102,7 @@ public class WhileOrDoUntilStatementImpl extends LoopStatementImpl implements Wh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueExpression getLogicalValueExpression()
   {
     return logicalValueExpression;
@@ -129,6 +130,7 @@ public class WhileOrDoUntilStatementImpl extends LoopStatementImpl implements Wh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLogicalValueExpression(ValueExpression newLogicalValueExpression)
   {
     if (newLogicalValueExpression != logicalValueExpression)
@@ -150,6 +152,7 @@ public class WhileOrDoUntilStatementImpl extends LoopStatementImpl implements Wh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isDoUntil()
   {
     return doUntil;
@@ -160,6 +163,7 @@ public class WhileOrDoUntilStatementImpl extends LoopStatementImpl implements Wh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDoUntil(boolean newDoUntil)
   {
     boolean oldDoUntil = doUntil;
@@ -270,7 +274,7 @@ public class WhileOrDoUntilStatementImpl extends LoopStatementImpl implements Wh
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (doUntil: ");
     result.append(doUntil);
     result.append(')');
