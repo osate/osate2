@@ -26,7 +26,7 @@ public
 
     states
 
-    s0: initial final state;
+    s0: initial complete final state;
 
     s1: state;
 
