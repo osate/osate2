@@ -42,7 +42,6 @@ public class PowerAnalysis {
 
 	private final AnalysisErrorReporterManager errManager;
 
-	private StringBuffer msg = new StringBuffer();
 	private double capacity = 0;
 	private double budgetTotal = 0;
 	private double supplyTotal = 0;
@@ -57,7 +56,6 @@ public class PowerAnalysis {
 
 		final Section section = new Section(systemName + somName);
 		powerReport.addSection(section);
-		msg = new StringBuffer();
 		ForAllElement DoCapacity = new ForAllElement() {
 			@Override
 			protected void action(Element aobj) {
@@ -193,19 +191,17 @@ public class PowerAnalysis {
 		powerComponentInfo(section, "Capacity: " + toString(capacity), "");
 		powerComponentInfo(section, "Supply: " + toString(supply), supplyDetails);
 		powerComponentInfo(section, "Budget: " + toString(budget), budgetDetail);
-		String modelExceeds = "";
-		String modelStats = "";
 		if (capacity > 0.0 && budget > 0.0) {
 			if (budget > capacity) {
-				modelExceeds = "** " + resourceName + " budget total " + toString(budget) + " exceeds capacity "
+				String message = "** " + resourceName + " budget total " + toString(budget) + " exceeds capacity "
 						+ toString(capacity);
-				errManager.error(ci, somName + ": " + modelExceeds);
-				powerComponentError(section, modelExceeds);
+				errManager.error(ci, somName + ": " + message);
+				powerComponentError(section, message);
 			} else {
-				modelExceeds = resourceName + " budget total " + toString(budget) + " within capacity "
+				String message = resourceName + " budget total " + toString(budget) + " within capacity "
 						+ toString(capacity);
-				errManager.info(ci, somName + ": " + modelStats);
-				powerComponentSuccess(section, modelStats);
+				errManager.info(ci, somName + ": " + message);
+				powerComponentSuccess(section, message);
 			}
 		}
 		String suppliedmsg = "";
@@ -219,17 +215,17 @@ public class PowerAnalysis {
 		}
 
 		if (budget > available) {
-			modelStats = "** " + "budget total " + toString(budget) + " exceeds" + suppliedmsg + toString(available);
-			powerComponentError(section, modelStats);
-			errManager.error(ci, somName + ": " + modelStats);
+			String message = "** " + "budget total " + toString(budget) + " exceeds" + suppliedmsg
+					+ toString(available);
+			powerComponentError(section, message);
+			errManager.error(ci, somName + ": " + message);
 		} else {
-			modelStats = "budget total " + toString(budget) + " within" + suppliedmsg + toString(available);
-			errManager.info(ci, somName + ": " + modelStats);
-			powerComponentSuccess(section, modelStats);
+			String message = "budget total " + toString(budget) + " within" + suppliedmsg + toString(available);
+			errManager.info(ci, somName + ": " + message);
+			powerComponentSuccess(section, message);
 		}
 		Line l = new Line();
 		l.addContent("");
 		section.addLine(l);
-		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}
 }

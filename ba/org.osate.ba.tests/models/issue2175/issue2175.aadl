@@ -1,0 +1,23 @@
+package issue2175
+public
+
+  thread function1
+  features
+	function2 : out event port;
+  properties
+    Dispatch_Protocol => Periodic;
+    Period => 100 ms;
+    Compute_Execution_Time => 1 ms .. 2 ms;
+    Priority => 2;
+  annex behavior_specification {**
+  	states
+  		s : initial complete final state;
+	transitions
+		s -[on dispatch]-> s{function2!};
+  **};
+  end function1;
+
+  thread function2
+  end function2;
+  
+end issue2175;
