@@ -1,0 +1,34 @@
+package SharedSubprogram_to_Subprogram_Peers
+public
+	subprogram ShareMe
+	end ShareMe;
+	
+	subprogram S
+		features
+			saf: requires subprogram access ShareMe;
+	end S;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.generic
+		subcomponents
+			shareMe: subprogram ShareMe;
+			s: subprogram S;
+	end Root.generic;
+	
+	system implementation Root.bidirectional extends Root.generic
+		connections
+			sac: subprogram access shareMe <-> s.saf;
+	end Root.bidirectional;
+	
+	system implementation Root.fromSharedComponent extends Root.generic
+		connections
+			sac: subprogram access shareMe -> s.saf;
+	end Root.fromSharedComponent;
+	
+	system implementation Root.toSharedComponent extends Root.generic
+		connections
+			sac: subprogram access s.saf -> shareMe;
+	end Root.toSharedComponent;
+end SharedSubprogram_to_Subprogram_Peers;
