@@ -475,7 +475,7 @@
     <requirement
         name="org.eclipse.swtbot.ide.feature.group"/>
     <repository
-        url="http://download.eclipse.org/releases/2019-09"/>
+        url="http://download.eclipse.org/releases/2019-12"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -493,7 +493,7 @@
     <requirement
         name="de.libutzki.xtext.semanticmodeloutline.feature.feature.group"/>
     <repository
-        url="http://xtexttools.libutzki.de/"/>
+        url="http://osate-build.sei.cmu.edu/p2/xtexttools"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -609,35 +609,6 @@
     </setupTask>
   </setupTask>
   <setupTask
-      xsi:type="setup:CompoundTask"
-      id="ocarina"
-      name="Ocarina bridge">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="git.clone.ocarina"
-        location="${git.clone.location/osate2-ocarina}"
-        remoteURI="OpenAADL/osate2-ocarina"
-        pushURI=""
-        checkoutBranch="master">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Ocarina Github repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Clone Ocarina repository</description>
-    </setupTask>
-  </setupTask>
-  <setupTask
       xsi:type="setup.targlets:TargletTask"
       filter=""
       programArguments=""
@@ -748,8 +719,6 @@
           rootFolder="${git.clone.osate2.location}">
         <excludedPath>ge/org.osate.ge.ba</excludedPath>
       </sourceLocator>
-      <sourceLocator
-          rootFolder="${git.clone.ocarina.location}"/>
       <repositoryList
           name="2019-12">
         <repository
@@ -767,7 +736,7 @@
         <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
-            url="http://xtexttools.libutzki.de/"/>
+            url="http://osate-build.sei.cmu.edu/p2/xtexttools"/>
         <repository
             url="http://eclipse.py4j.org"/>
         <repository
@@ -825,15 +794,6 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/alisa/.*"/>
-      </predicate>
-    </workingSet>
-    <workingSet
-        name="ocarina">
-      <predicate
-          xsi:type="predicates:AndPredicate">
-        <operand
-            xsi:type="predicates:RepositoryPredicate"
-            project="osate2-ocarina.releng"/>
       </predicate>
     </workingSet>
     <workingSet
