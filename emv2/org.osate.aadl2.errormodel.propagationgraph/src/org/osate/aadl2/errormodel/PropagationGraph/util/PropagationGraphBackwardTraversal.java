@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -394,7 +394,7 @@ public class PropagationGraphBackwardTraversal {
 				for (TypeToken typeToken : types) {
 					EObject res = traverseErrorBehaviorState(component, state, typeToken, scale);
 					if (res != null) {
-						subResults.add(res);
+						addSubresult(subResults, res);
 					}
 				}
 				if (subResults.isEmpty()) {
@@ -568,7 +568,7 @@ public class PropagationGraphBackwardTraversal {
 								EObject newEvent = traverseErrorBehaviorState(component, state, typeToken,
 										combinedscale);
 								if (newEvent != null) {
-									subsubResults.add(newEvent);
+									addSubresult(subsubResults, newEvent);
 								}
 							}
 							if (subsubResults.isEmpty()) {
@@ -585,10 +585,10 @@ public class PropagationGraphBackwardTraversal {
 						EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type,
 								conditionResult, stateResult, combinedscale);
 						if (tmpresult != null) {
-							subResults.add(tmpresult);
+							addSubresult(subResults, tmpresult);
 						}
 					} else if (stateResult == null) {
-						subResults.add(conditionResult);
+						addSubresult(subResults, conditionResult);
 					}
 				}
 			}
@@ -632,7 +632,7 @@ public class PropagationGraphBackwardTraversal {
 			for (ConditionExpression ce : expression.getOperands()) {
 				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
-					subResults.add(res);
+					addSubresult(subResults, res);
 				}
 			}
 
@@ -649,7 +649,7 @@ public class PropagationGraphBackwardTraversal {
 				for (ConditionExpression ce : allCondition.getOperands()) {
 					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
-						subResults.add(res);
+						addSubresult(subResults, res);
 					}
 				}
 			}
@@ -665,7 +665,7 @@ public class PropagationGraphBackwardTraversal {
 			for (ConditionExpression ce : expression.getOperands()) {
 				EObject res = processCondition(component, ce, type, scale, stateOnly);
 				if (res != null) {
-					subResults.add(res);
+					addSubresult(subResults, res);
 				}
 			}
 			return postProcessXor(component, condition, type, scale, subResults);
@@ -682,7 +682,7 @@ public class PropagationGraphBackwardTraversal {
 				for (ConditionExpression ce : omCondition.getOperands()) {
 					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
-						subResults.add(res);
+						addSubresult(subResults, res);
 					}
 				}
 				return postProcessOr(component, condition, type, subResults, scale);
@@ -693,7 +693,7 @@ public class PropagationGraphBackwardTraversal {
 				for (ConditionExpression ce : omCondition.getOperands()) {
 					EObject res = processCondition(component, ce, type, scale, stateOnly);
 					if (res != null) {
-						subResults.add(res);
+						addSubresult(subResults, res);
 					}
 				}
 				return postProcessOrMore(component, condition, type, subResults, scale);
@@ -729,7 +729,7 @@ public class PropagationGraphBackwardTraversal {
 							EObject newEvent = traverseCompositeErrorState(referencedInstance, state, null, stateOnly,
 									scale);
 							if (newEvent != null) {
-								subResults.add(newEvent);
+								addSubresult(subResults, newEvent);
 							}
 						} else {
 							// handle type set on states
@@ -740,7 +740,7 @@ public class PropagationGraphBackwardTraversal {
 										stateOnly,
 										scale);
 								if (newEvent != null) {
-									subResults.add(newEvent);
+									addSubresult(subResults, newEvent);
 								}
 							}
 						}
@@ -774,7 +774,7 @@ public class PropagationGraphBackwardTraversal {
 							EObject newEvent = traverseIncomingErrorPropagation(referencedInstance, ep, typeToken,
 									scale);
 							if (newEvent != null) {
-								subResults.add(newEvent);
+								addSubresult(subResults, newEvent);
 							}
 						}
 						if (subResults.isEmpty()) {
@@ -828,7 +828,7 @@ public class PropagationGraphBackwardTraversal {
 									EObject newEvent = processErrorEvent(component, (ErrorEvent) errorModelElement, et,
 											scale);
 									if (newEvent != null) {
-										subResults.add(newEvent);
+										addSubresult(subResults, newEvent);
 									}
 								}
 							} else {
@@ -862,9 +862,6 @@ public class PropagationGraphBackwardTraversal {
 					Collection<TypeToken> referencedErrorTypes = conditionElement.getConstraint() != null
 							? EMV2TypeSetUtil.flattenTypesetElements(conditionElement.getConstraint())
 							: EMV2TypeSetUtil.flattenTypesetElements(errorPropagation.getTypeSet());
-					if (referencedErrorTypes.isEmpty()) {
-
-					}
 					List<EObject> subResults = new LinkedList<EObject>();
 					for (TypeToken et : referencedErrorTypes) {
 						if (isNoError(et)) {
@@ -875,13 +872,13 @@ public class PropagationGraphBackwardTraversal {
 							EObject newEvent = traverseIncomingErrorPropagation(relatedComponent, errorPropagation, et,
 									scale);
 							if (newEvent != null) {
-								subResults.add(newEvent);
+								addSubresult(subResults, newEvent);
 							}
 						} else {
 							EObject newEvent = traverseOutgoingErrorPropagation(relatedComponent, errorPropagation, et,
 									scale);
 							if (newEvent != null) {
-								subResults.add(newEvent);
+								addSubresult(subResults, newEvent);
 							}
 						}
 					}
@@ -924,7 +921,7 @@ public class PropagationGraphBackwardTraversal {
 			boolean didProp = false;
 			EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
 			if (preResult != null) {
-				results.add(preResult);// found common event
+				addSubresult(results, preResult);// found common event
 				continue;
 			}
 			// we want to track cycles.
@@ -1050,7 +1047,7 @@ public class PropagationGraphBackwardTraversal {
 			if (cs.getState() == state && (type == null || EMV2TypeSetUtil.contains(cs.getTypedToken(), type))) {
 				EObject res = processCondition(component, cs.getCondition(), null, new BigDecimal(1.0), stateOnly);
 					if (res != null) {
-						subResults.add(res);
+					addSubresult(subResults, res);
 					}
 			}
 		}
