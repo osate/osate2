@@ -707,7 +707,7 @@ class FTATest {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		assertEquals(11,ft.events.size)
+		assertEquals(12,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
