@@ -1,0 +1,40 @@
+package issue2147
+public
+	
+  data message_pm
+  end message_pm;
+
+  thread group threadA
+
+    features
+
+      input: in event data port message_pm;
+
+  end threadA;
+
+
+  thread group implementation threadA.impl
+
+    subcomponents
+
+      t0 : thread;
+
+  	modes
+  	  s0: initial mode;
+	  
+    annex behavior_specification {**
+
+    states
+
+    s0: initial complete final state;
+
+    s1: state;
+
+    transitions
+
+    s0 -[ on input]-> s1;
+
+    **};
+  end threadA.impl;
+end issue2147;
+

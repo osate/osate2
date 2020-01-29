@@ -19,37 +19,18 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.aadl2.EventDataPort;
 import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Event Data Port Holder</b></em>'.
+ * A representation of the model object '<em><b>Mode Switch Trigger</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ba.aadlba.AadlBaPackage#getEventDataPortHolder()
- * @model
+ * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchTrigger()
+ * @model interface="true" abstract="true"
  * @generated
  */
-public interface EventDataPortHolder extends ActualPortHolder, ElementValues, DispatchTrigger, ModeSwitchTrigger, Target, IBAVisitable
+public interface ModeSwitchTrigger extends BehaviorElement, IBAVisitable
 {
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model eventDataPortRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = eventDataPort ;'"
-   * @generated
-   */
-  void setEventDataPort(EventDataPort eventDataPort);
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EventDataPort) element;'"
-   * @generated
-   */
-  EventDataPort geteventDataPort();
-
-} // EventDataPortHolder
+} // ModeSwitchTrigger

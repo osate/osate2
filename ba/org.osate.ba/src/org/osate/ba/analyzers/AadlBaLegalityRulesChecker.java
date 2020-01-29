@@ -481,7 +481,7 @@ public class AadlBaLegalityRulesChecker
 
     // D.3.(L7) error case.
     if(tmp.isComplete() && (! (bt.getCondition() 
-          instanceof DispatchCondition)))
+          instanceof DispatchCondition)) && (tmp.getBindedMode()==null ))
     {
       this.reportLegalityError(transSrcStateIdentifier, "Transitions out " +
             "of complete states must have dispatch condition : Behavior Annex"+
