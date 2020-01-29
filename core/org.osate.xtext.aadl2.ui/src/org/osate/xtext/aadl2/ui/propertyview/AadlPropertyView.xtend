@@ -29,6 +29,7 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import java.util.Map
+import java.util.Set
 import org.eclipse.core.runtime.Adapters
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
@@ -62,6 +63,7 @@ import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
+import org.eclipse.jface.window.Window
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
@@ -219,6 +221,8 @@ class AadlPropertyView extends ViewPart {
 
 	var ArrayList<FilterCriterion> importedPropertyGroups = new ArrayList<FilterCriterion>
 	
+	Set<URI> filteredPropertySets
+	
 	val ISelectionListener selectionListener = [ part, selection |
 		/*
 		 * Change the view when the selection changes.
@@ -290,8 +294,6 @@ class AadlPropertyView extends ViewPart {
 		]
 
 		treeViewerComposite = new Composite(pageBook, SWT.NULL) => [
-			// TreeFilter is jealous; doesn't permit other filters
-			// so all our filtering has to be done here
 			val patternFilter = new PatternFilter {
 				override protected isLeafMatch(Viewer viewer, Object element) {
 					var thisTree = viewer as TreeViewer
@@ -389,6 +391,23 @@ class AadlPropertyView extends ViewPart {
 				treeViewer.tree.headerVisible = true
 				treeViewer.useHashlookup = true
 				treeViewer.contentProvider = new PropertyViewContentProvider(this)
+				treeViewer.addFilter[viewer, parentElement, element |
+					if (filteredPropertySets === null) {
+						true
+					} else if (element instanceof TreeEntry) {
+						switch treeElement : element.treeElement {
+							URI: safeRead[
+								switch eObject : it.getEObject(treeElement, true) {
+									PropertySet: filteredPropertySets.contains(eObject.eResource.URI)
+									default: true
+								}
+							]
+							default: true
+						}
+					} else {
+						true
+					}
+				]
 			]
 		]
 
@@ -542,6 +561,22 @@ class AadlPropertyView extends ViewPart {
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/filter_properties.gif")
 			viewSite.actionBars.toolBarManager.add(it)
 			toolTipText = SHOW_DEFAULT_TOOL_TIP
+		]
+		
+		new Action("Property Set Filters...") {
+			override run() {
+				val dialog = if (filteredPropertySets === null) {
+					new PropertySetFilterDialog(viewSite.shell)
+				} else {
+					new PropertySetFilterDialog(viewSite.shell, filteredPropertySets)
+				}
+				if (dialog.open == Window.OK) {
+					filteredPropertySets = dialog.selectedPropertySets
+					treeViewer.refresh
+				}
+			}
+		} => [
+			viewSite.actionBars.menuManager.add(it)
 		]
 
 		removeElementAction = new Action("Remove") {

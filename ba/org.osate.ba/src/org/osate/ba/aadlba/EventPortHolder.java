@@ -32,7 +32,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, Target, IBAVisitable
+public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target, IBAVisitable
 {
   /**
    * <!-- begin-user-doc -->

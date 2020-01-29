@@ -43,6 +43,7 @@ import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.Mode ;
+import org.osate.aadl2.ModeTransitionTrigger ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.ProcessorClassifier ;
@@ -88,6 +89,10 @@ import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.IterativeVariable ;
+import org.osate.ba.aadlba.ModeSwitchConjunction ;
+import org.osate.ba.aadlba.ModeSwitchTrigger ;
+import org.osate.ba.aadlba.ModeSwitchTriggerCondition ;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PropertyNameField ;
 import org.osate.ba.aadlba.Relation ;
@@ -375,6 +380,12 @@ public class AadlBaNameResolver
               {
                  result &= dispatchConditionResolver((DispatchCondition)cond);
               }
+              // Case of mode switch condition
+              else if( cond instanceof ModeSwitchTriggerLogicalExpression)
+              {
+                result &= modeSwitchTriggerLogicalExpression((ModeSwitchTriggerLogicalExpression)cond);
+              }
+              // ModeSwitchTriggerLogicalExpression
               else // Case of a execute condition
               {
                  if( cond instanceof ValueExpression)
@@ -395,17 +406,33 @@ public class AadlBaNameResolver
         return result ;
    }
    
+   private boolean modeSwitchTriggerLogicalExpression(ModeSwitchTriggerLogicalExpression cond)
+   {
+     boolean result = true ;
+
+     for(ModeSwitchConjunction msc: cond.getModeSwitchConjunctions())
+     {
+       for(ModeSwitchTrigger mst: msc.getModeSwitchTriggers())
+       {
+         Reference trigg = (Reference) mst ;
+         result &= refResolver(trigg);
+       }
+     }
+     
+     return result ;
+   }
+
    private boolean behaviorActionBlockResolver(BehaviorActionBlock block)
    {
-      boolean result = behaviorActionsResolver(block.getContent());
-      
-      // Check timeout option.
-      if(block.getTimeout() != null)
-      {
-         result &= behaviorTimeResolver((DeclarativeTime) block.getTimeout()) ;
-      }
-      
-      return result ;
+     boolean result = behaviorActionsResolver(block.getContent());
+
+     // Check timeout option.
+     if(block.getTimeout() != null)
+     {
+       result &= behaviorTimeResolver((DeclarativeTime) block.getTimeout()) ;
+     }
+
+     return result ;
    }
 
    private boolean baVariableResolver(Identifier id, boolean hasToReport)
