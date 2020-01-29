@@ -210,23 +210,11 @@ public class FaultTreeUtils {
 			TypeToken type) {
 		return createIntermediateEvent(ftaModel, component, element, type, false);
 	}
-//
-//	public static void addIntermediateEvent(Event parent, ComponentInstance component, Element element,
-//			ErrorTypes type) {
-//		parent.getSubEvents()
-//		.add(createIntermediateEvent((FaultTree) parent.eContainer(), component, element, type, false));
-//	}
 
 	public static Event createUniqueIntermediateEvent(FaultTree ftaModel, ComponentInstance component, EObject element,
 			TypeToken type) {
 		return createIntermediateEvent(ftaModel, component, element, type, true);
 	}
-
-//	public static void addUniqueIntermediateEvent(Event parent, ComponentInstance component, Element element,
-//			ErrorTypes type) {
-//		parent.getSubEvents()
-//		.add(createUniqueIntermediateEvent((FaultTree) parent.eContainer(), component, element, type));
-//	}
 
 	/**
 	 * create a generic intermediate Event
