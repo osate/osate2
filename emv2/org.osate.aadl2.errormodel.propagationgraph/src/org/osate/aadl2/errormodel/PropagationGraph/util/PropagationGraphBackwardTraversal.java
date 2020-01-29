@@ -120,11 +120,14 @@ public class PropagationGraphBackwardTraversal {
 
 		HashMultimap<ErrorPropagation, String> handledEOPs = HashMultimap.create();
 		boolean traverse = false;
+		boolean hasCycle = false;
 		for (TypeToken type : filteredTypes) {
+			// we did follow an OPC.
 			boolean didProp = false;
 			EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type, scale);
 			if (found != null) {
-				return found;// found common event
+				addSubresult(subResults, found);
+				continue;// found common event
 			}
 			// we want to track cycles.
 			// we do that by tagging the feature instance of the error propagation with the error type (as token)
@@ -137,7 +140,8 @@ public class PropagationGraphBackwardTraversal {
 			}
 			if (st.visited(errorPropagation, type)) {
 				// we were there before.
-				return foundCycle;
+				hasCycle = true;
+				continue;
 			} else {
 				st.setVisitToken(errorPropagation, type);
 			}
@@ -316,11 +320,17 @@ public class PropagationGraphBackwardTraversal {
 			}
 		}
 		if (!subResults.isEmpty()) {
+			// out propagation with sub elements
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, proptype, subResults, scale);
 		}
-		if (traverse && !handledEOPs.isEmpty()) {
+		if (hasCycle) {
 			return null;
 		}
+		if (traverse && !handledEOPs.isEmpty()) {
+			// we handled error out propagations
+			return null;
+		}
+		// out propagation as end point
 		return processOutgoingErrorPropagation(component, errorPropagation, proptype, scale);
 	}
 
@@ -449,7 +459,6 @@ public class PropagationGraphBackwardTraversal {
 			return null;
 		}
 		List<EObject> subResults = new LinkedList<EObject>();
-		preProcessErrorBehaviorState(component, state, type, inscale);
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
 		BigDecimal combinedscale = inscale;
 		for (ErrorBehaviorTransition ebt : transitions) {
@@ -593,6 +602,7 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
+
 		if (!subResults.isEmpty()) {
 			return postProcessErrorBehaviorState(component, state, type, subResults, combinedscale);
 		}
@@ -916,14 +926,10 @@ public class PropagationGraphBackwardTraversal {
 			return null;
 		}
 		boolean traversed = false;
+		boolean hasCycle = false;
 		List<EObject> subResults = new LinkedList<EObject>();
 		for (TypeToken type : filteredtypes) {
 			boolean didProp = false;
-			EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
-			if (preResult != null) {
-				addSubresult(results, preResult);// found common event
-				continue;
-			}
 			// we want to track cycles.
 			// we do that by tagging the feature instance of the error propagation with the error type (as token)
 			ErrorModelState st = null;
@@ -935,9 +941,15 @@ public class PropagationGraphBackwardTraversal {
 			}
 			if (st.visited(errorPropagation, type)) {
 				// we were there before.
-				return foundCycle;
+				hasCycle = true;
+				continue;
 			} else {
 				st.setVisitToken(errorPropagation, type);
+			}
+			EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type, scale);
+			if (preResult != null) {
+				addSubresult(results, preResult);// found common event
+				continue;
 			}
 			for (PropagationGraphPath ppr : Util.getAllReversePropagationPaths(currentAnalysisModel, component,
 					errorPropagation)) {
@@ -1015,7 +1027,7 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessIncomingErrorPropagation(component, errorPropagation, proptype, subResults, scale);
 		}
-		if (traversed) {
+		if (traversed || hasCycle) {
 			return null;
 		}
 		// we have no subresults and did not prune. Allow handling of incoming propagation as endpoint of traversal
