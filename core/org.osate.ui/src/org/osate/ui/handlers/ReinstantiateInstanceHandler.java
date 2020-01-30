@@ -29,48 +29,39 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.emf.common.util.URI;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
-import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
 
-public class ReinstantiateSystemHandler extends AbstractHandler {
+public class ReinstantiateInstanceHandler extends AbstractHandler {
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
 
-	public ReinstantiateSystemHandler() {
+	public ReinstantiateInstanceHandler() {
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
 	}
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		final List<URI> selectedURIs = new ArrayList<>();
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		final List<IFile> selectedFiles = new ArrayList<>();
 		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
-			URI uri;
-			if (selection instanceof EObjectNode) {
-				uri = ((EObjectNode) selection).getEObjectURI();
-			} else if (selection instanceof EObjectURIWrapper) {
-				uri = ((EObjectURIWrapper) selection).getUri();
-			} else {
-				throw new AssertionError("Unexpected selection: " + selection);
-			}
-			selectedURIs.add(uri);
+			final IFile file = (IFile) selection;
+			selectedFiles.add(file);
 		}
 
 		final String lineSeparator = System.lineSeparator();
-		final StringBuilder sb = new StringBuilder("Selected URIs:");
+		final StringBuilder sb = new StringBuilder("Selected Files:");
 		sb.append(lineSeparator);
-		for (final URI uri : selectedURIs) {
+		for (final IFile file : selectedFiles) {
 			sb.append("  ");
-			sb.append(uri.toString());
+			sb.append(file.toString());
 			sb.append(lineSeparator);
 		}
-		Dialog.showInfo("Reinstantiate System", sb.toString());
+		Dialog.showInfo("Reinstantiate Instance", sb.toString());
 
 //		final Job job = new InstantiationJob(selectedURIs);
 //		job.setRule(ResourcesPlugin.getWorkspace().getRoot());

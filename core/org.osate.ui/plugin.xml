@@ -668,6 +668,14 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
+                commandId="org.osate.ui.reinstantiateInstance">
+             <visibleWhen>
+                 <reference
+                       definitionId="org.osate.core.areSomeInstanceFilesSelected">
+                 </reference>
+             </visibleWhen>
+          </command>
+          <command
                 commandId="org.osate.ui.setAadlProjectProperties">
              <visibleWhen
                    checkEnabled="true">
@@ -870,6 +878,9 @@ censes only apply to the Third Party Software and not any other portion of this 
              </command>
              <command
                    commandId="org.osate.ui.instantiateComponent">
+             </command>
+             <command
+                   commandId="org.osate.ui.reinstantiateInstance">
              </command>
              <separator
                    name="generateTextual">
@@ -1147,6 +1158,10 @@ censes only apply to the Third Party Software and not any other portion of this 
              name="Reinstantiate">
        </command>
        <command
+             id="org.osate.ui.reinstantiateInstance"
+             name="%ReinstantiateInstance.label">
+       </command>
+       <command
              id="org.osate.ui.reinstantiateAllAadl"
              name="%ReinstantiateAllModelsAction.label">
        </command>
@@ -1388,6 +1403,15 @@ censes only apply to the Third Party Software and not any other portion of this 
           <enabledWhen>
              <reference
                    definitionId="org.osate.core.isInstanceFileSelected">
+             </reference>
+          </enabledWhen>
+       </handler>
+       <handler
+             commandId="org.osate.ui.reinstantiateInstance"
+             class="org.osate.ui.handlers.ReinstantiateInstanceHandler">
+          <enabledWhen>
+             <reference
+                   definitionId="org.osate.core.areOnlyInstanceFilesSelected">
              </reference>
           </enabledWhen>
        </handler>
