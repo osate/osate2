@@ -528,12 +528,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.instantiate">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
-          </command>
-          <command
                 commandId="org.osate.ui.instantiateComponent">
 	          <visibleWhen>
 	             <with
@@ -617,12 +611,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.instantiate">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
-          </command>
-          <command
                 commandId="org.osate.ui.instantiateComponent">
 	          <visibleWhen>
 	             <with
@@ -660,12 +648,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                </and>
 	             </with>
 	          </visibleWhen>
-          </command>
-          <command
-                commandId="org.osate.ui.reinstantiate">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
           </command>
           <command
                 commandId="org.osate.ui.reinstantiateInstance">
@@ -1146,16 +1128,8 @@ censes only apply to the Third Party Software and not any other portion of this 
              name="Set As AADL_Project Property Set">
        </command>
        <command
-             id="org.osate.ui.instantiate"
-             name="Instantiate">
-       </command>
-       <command
        		id="org.osate.ui.instantiateComponent"
        		name="%InstantiateComponent.label">
-       </command>
-       <command
-             id="org.osate.ui.reinstantiate"
-             name="Reinstantiate">
        </command>
        <command
              id="org.osate.ui.reinstantiateInstance"
@@ -1260,75 +1234,6 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.handlers.InstantiateHandler"
-             commandId="org.osate.ui.instantiate">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="1">
-                   </count>
-                   <iterate>
-                      <or>
-                         <!-- For the AADL Navigator View -->
-                         <adapt
-                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                            <and>
-                               <test
-                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-                         
-                         <!-- For the Outline View -->
-                         <adapt
-                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-                            <and>
-                               <test
-                                     property="org.osate.ui.superType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
              class="org.osate.ui.handlers.InstantiateComponentHandler"
              commandId="org.osate.ui.instantiateComponent">
           <enabledWhen>
@@ -1395,15 +1300,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                    </iterate>
                 </and>
              </with>
-          </enabledWhen>
-       </handler>
-       <handler
-             commandId="org.osate.ui.reinstantiate"
-             class="org.osate.ui.handlers.ReinstantiateHandler">
-          <enabledWhen>
-             <reference
-                   definitionId="org.osate.core.isInstanceFileSelected">
-             </reference>
           </enabledWhen>
        </handler>
        <handler

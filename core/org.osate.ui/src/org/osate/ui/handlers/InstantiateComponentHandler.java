@@ -141,7 +141,9 @@ public class InstantiateComponentHandler extends AbstractHandler {
 				SystemInstance instance = null;
 				try {
 					instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
-					successful[lastTried] = instance != null;
+					final boolean success = instance != null;
+					allGood &= success;
+					successful[lastTried] = success;
 					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
 				} catch (final InterruptedException e) {
 					// Instantiation was canceled by the user.
@@ -157,6 +159,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 					} catch (final CoreException ce) {
 						// eat it
 					}
+
 					break; // jump out of the for-loop
 				} catch (final Exception e) {
 					allGood = false;
