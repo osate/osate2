@@ -1026,9 +1026,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			return null;
 		}
 		Event result = finalizeAsUniqueOrEvents(component, state, type, subResults);
-//		if (result != null && result.getType() == EventType.INTERMEDIATE) {
-//			result.setName(name);
-//		}
 		return result;
 	}
 
