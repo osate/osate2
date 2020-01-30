@@ -868,6 +868,9 @@ censes only apply to the Third Party Software and not any other portion of this 
                    commandId="org.osate.ui.reinstantiateAllAadl"
                    style="push">
              </command>
+             <command
+                   commandId="org.osate.ui.instantiateComponent">
+             </command>
              <separator
                    name="generateTextual">
              </separator>
