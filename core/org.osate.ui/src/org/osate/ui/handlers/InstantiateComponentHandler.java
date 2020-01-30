@@ -23,11 +23,31 @@
  */
 package org.osate.ui.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
-import org.osate.ui.dialogs.Dialog;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
@@ -42,51 +62,147 @@ public class InstantiateComponentHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		Dialog.showInfo("Instantiate Component", "Selected Intantiate Component");
-		return null;
+		final List<URI> selectedURIs = new ArrayList<>();
+		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
+			URI uri;
+			if (selection instanceof EObjectNode) {
+				uri = ((EObjectNode) selection).getEObjectURI();
+			} else if (selection instanceof EObjectURIWrapper) {
+				uri = ((EObjectURIWrapper) selection).getUri();
+			} else {
+				throw new AssertionError("Unexpected selection: " + selection);
+			}
+			selectedURIs.add(uri);
+		}
 
-//		Object selection = HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
-//		URI uri;
-//		if (selection instanceof EObjectNode) {
-//			uri = ((EObjectNode) selection).getEObjectURI();
-//		} else if (selection instanceof EObjectURIWrapper) {
-//			uri = ((EObjectURIWrapper) selection).getUri();
-//		} else {
-//			throw new AssertionError("Unexpected selection: " + selection);
+//		final String lineSeparator = System.lineSeparator();
+//		final StringBuilder sb = new StringBuilder("Selected URIs:");
+//		sb.append(lineSeparator);
+//		for (final URI uri : selectedURIs) {
+//			sb.append("  ");
+//			sb.append(uri.toString());
+//			sb.append(lineSeparator);
 //		}
-//		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
-//		ResourceSet resourceSet = resourceSetProvider.get(project);
-//		ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
-//		AtomicBoolean instantiationSuccessful = new AtomicBoolean();
-//		try {
-//			new ProgressMonitorDialog(HandlerUtil.getActiveShell(event)).run(true, true, monitor -> {
-//				SubMonitor subMonitor = SubMonitor.convert(monitor, "Instantiating " + impl.getQualifiedName(), 1);
-//				try {
-//					SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
-//					instantiationSuccessful.set(instance != null);
-//				} catch (Exception e) {
-//					throw new InvocationTargetException(e);
-//				}
-//			});
-//			if (!instantiationSuccessful.get()) {
-//				String message = "Error when instantiating the model";
-//				if (InstantiateModel.getErrorMessage() != null) {
-//					message = message + " - reason: " + InstantiateModel.getErrorMessage()
-//							+ "\nRefer to the help content and FAQ for more information";
-//				}
-//				Dialog.showError("Model Instantiate", message);
-//			}
-//		} catch (InvocationTargetException e) {
-//			if (e.getCause() instanceof UnsupportedOperationException) {
-//				Dialog.showError("Model Instantiate", "Operation is not supported: " + e.getCause().getMessage());
-//			} else {
-//				e.getCause().printStackTrace();
-//				Dialog.showError("Model Instantiate", "Error when instantiating the model");
-//			}
-//		} catch (InterruptedException e) {
-//			// Instantiation was canceled by the user.
-//		}
-//
-//		return null;
+//		Dialog.showInfo("Instantiate Component", sb.toString());
+
+		final Job job = new InstantiationJob(selectedURIs);
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.setUser(true);
+		job.schedule();
+
+		return null;
+	}
+
+	private final class InstantiationJob extends WorkspaceJob {
+		private final List<URI> componentURIs;
+
+		public InstantiationJob(final List<URI> uris) {
+			super("Instantiate component");
+			componentURIs = uris;
+		}
+
+		@Override
+		public IStatus runInWorkspace(final IProgressMonitor monitor) {
+			final int size = componentURIs.size();
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, size);
+
+			/*
+			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
+			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
+			 * we can from it and display it to the user at the end of the operation.
+			 */
+			boolean allGood = true;
+			final ComponentImplementation[] compImpl = new ComponentImplementation[size];
+			final boolean[] successful = new boolean[size];
+			final String[] errorMessages = new String[size];
+			final Exception[] exceptions = new Exception[size];
+			boolean cancelled = false;
+
+			/*
+			 * Start at -1 because this is indexed at the START of the loop so that when we exit the loop
+			 * either normally or because of cancellation this is always the most recent index value
+			 * of the URI we tried to instantiate.
+			 */
+			int lastTried = -1;
+			for (final URI uri : componentURIs) {
+				lastTried += 1;
+				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
+				final ResourceSet resourceSet = resourceSetProvider.get(project);
+				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+				try {
+					compImpl[lastTried] = impl;
+					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
+					successful[lastTried] = instance != null;
+					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
+				} catch (final InterruptedException e) {
+					// Instantiation was canceled by the user.
+					cancelled = true;
+					allGood = false;
+					break; // jump out of the for-loop
+				} catch (final Exception e) {
+					allGood = false;
+					// save for later
+					successful[lastTried] = false;
+					exceptions[lastTried] = e;
+					// We try the next instantiation
+				}
+			}
+
+			/*
+			 * Best case: alLGood is true and cancelled is false. Otherwise, we have to
+			 * show a dialog that tells the user what did or didn't happen.
+			 */
+
+			/*
+			 * Do we always show the results, or only when it was cancelled or there was an error? Control by
+			 * a workspace setting?
+			 */
+
+			if (true) { // !allGood) {
+				final StringBuilder sb = new StringBuilder();
+				if (cancelled) {
+					sb.append(cancelled ? "Instantiation cancelled by the user:" : "Errors during instantiation:");
+				}
+				sb.append(System.lineSeparator());
+				for (int i = 0; i < size; i++) {
+					sb.append("- ");
+					sb.append(compImpl[i].getQualifiedName());
+					sb.append(": ");
+					if (!cancelled || i < lastTried) {
+						if (successful[i]) {
+							sb.append("Successfully instantiated");
+						} else {
+							if (errorMessages[i] != null) {
+								sb.append(errorMessages[i]);
+							} else if (exceptions[i] != null) {
+								final Exception e = exceptions[i];
+								if (e instanceof UnsupportedOperationException) {
+									sb.append("Operation is not supported: ");
+									sb.append(e.getMessage());
+								} else {
+									sb.append(e.getClass().getCanonicalName());
+									sb.append(" during instantiation");
+								}
+							}
+						}
+					} else {
+						sb.append("Not instantiated");
+					}
+					sb.append(System.lineSeparator());
+				}
+
+				final String errMessage = sb.toString(); // string builder isn't threadsafe
+				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+							"Errors during model Instantiation", errMessage);
+
+//					final InstantiationResultsDialog d = new InstantiationResultsDialog(
+//							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+//					d.open();
+				});
+			}
+
+			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
 	}
 }
