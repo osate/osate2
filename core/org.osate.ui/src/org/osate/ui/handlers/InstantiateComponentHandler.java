@@ -29,9 +29,11 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -48,6 +50,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
@@ -118,26 +121,42 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			final Exception[] exceptions = new Exception[size];
 			boolean cancelled = false;
 
+			/* Init compImpl first so that we have all the components for enumeration errors later. */
+			for (int i = 0; i < size; i++) {
+				final URI uri = componentURIs.get(i);
+				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
+				final ResourceSet resourceSet = resourceSetProvider.get(project);
+				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+				compImpl[i] = impl;
+			}
+
 			/*
 			 * Start at -1 because this is indexed at the START of the loop so that when we exit the loop
 			 * either normally or because of cancellation this is always the most recent index value
 			 * of the URI we tried to instantiate.
 			 */
 			int lastTried = -1;
-			for (final URI uri : componentURIs) {
+			for (final ComponentImplementation impl : compImpl) {
 				lastTried += 1;
-				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
-				final ResourceSet resourceSet = resourceSetProvider.get(project);
-				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+				SystemInstance instance = null;
 				try {
-					compImpl[lastTried] = impl;
-					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
+					instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
 					successful[lastTried] = instance != null;
 					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
 				} catch (final InterruptedException e) {
 					// Instantiation was canceled by the user.
 					cancelled = true;
 					allGood = false;
+
+					// Remove the partially instantiated resource
+					try {
+						final IFile instanceFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
+						if (instanceFile.exists()) {
+							instanceFile.delete(0, null);
+						}
+					} catch (final CoreException ce) {
+						// eat it
+					}
 					break; // jump out of the for-loop
 				} catch (final Exception e) {
 					allGood = false;
