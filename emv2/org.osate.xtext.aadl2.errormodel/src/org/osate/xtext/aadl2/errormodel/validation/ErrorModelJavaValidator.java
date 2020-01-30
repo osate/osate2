@@ -453,10 +453,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 		if (sub != null && ep.getDirection() != DirectionType.OUT) {
 			error(conditionElement,
-					"Reference to error propagation " + EMV2Util.getPrintName(ep) + " must be out.");
+					"Referenced subcomponent error propagation " + EMV2Util.getPrintName(ep)
+							+ " must be an out propagation");
 		} else if (ep.getDirection() != DirectionType.IN) {
 			error(conditionElement,
-					"Reference to error propagation " + EMV2Util.getPrintName(ep) + " must be in.");
+					"Referenced error propagation " + EMV2Util.getPrintName(ep) + " must be an in propagation");
 		}
 	}
 
