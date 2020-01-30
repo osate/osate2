@@ -64,7 +64,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 	}
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final List<URI> selectedURIs = new ArrayList<>();
 		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
 			URI uri;
