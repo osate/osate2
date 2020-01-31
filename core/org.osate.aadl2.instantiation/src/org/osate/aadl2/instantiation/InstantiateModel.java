@@ -314,6 +314,10 @@ public class InstantiateModel {
 		res.save(null);
 		res.unload();
 		ci = (ComponentImplementation) rset.getEObject(uri, true);
+		if (ci == null) {
+			// The root component instance doesn't exist anymore
+			throw new RootMissingException();
+		}
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
