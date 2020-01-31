@@ -51,6 +51,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
@@ -214,13 +215,16 @@ public class InstantiateComponentHandler extends AbstractHandler {
 				}
 
 				final String errMessage = sb.toString(); // string builder isn't threadsafe
+				final boolean wasCancelled = cancelled; // for the lambda
+				final int lastTriedFinal = lastTried; // for the lambda
 				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 							"Errors during model Instantiation", errMessage);
 
-//					final InstantiationResultsDialog d = new InstantiationResultsDialog(
-//							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-//					d.open();
+					final InstantiationResultsDialog d = new InstantiationResultsDialog(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Hello", wasCancelled,
+							lastTriedFinal, compImpl, successful, errorMessages, exceptions);
+					d.open();
 				});
 			}
 
