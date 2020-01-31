@@ -78,16 +78,6 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			selectedURIs.add(uri);
 		}
 
-//		final String lineSeparator = System.lineSeparator();
-//		final StringBuilder sb = new StringBuilder("Selected URIs:");
-//		sb.append(lineSeparator);
-//		for (final URI uri : selectedURIs) {
-//			sb.append("  ");
-//			sb.append(uri.toString());
-//			sb.append(lineSeparator);
-//		}
-//		Dialog.showInfo("Instantiate Component", sb.toString());
-
 		final Job job = new InstantiationJob(selectedURIs);
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true);
@@ -139,6 +129,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			for (final ComponentImplementation impl : compImpl) {
 				lastTried += 1;
 				boolean delete = false;
+				boolean breakOut = false;
 				try {
 					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
 					final boolean success = instance != null;
@@ -151,7 +142,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 					cancelled = true;
 					allGood = false;
 					delete = true;
-					break; // jump out of the for-loop
+					breakOut = true; // jump out of the for-loop
 				} catch (final Exception e) {
 					allGood = false;
 					// save for later
@@ -172,6 +163,10 @@ public class InstantiateComponentHandler extends AbstractHandler {
 					} catch (final CoreException ce) {
 						// eat it
 					}
+				}
+
+				if (breakOut) {
+					break;
 				}
 			}
 
