@@ -36,7 +36,7 @@
 				</dictionary>
 				<dictionary>
 					<key>ignore.lower.bound.dependency.ranges</key>
-					<value>true</value>
+					<value>false</value>
 				</dictionary>
 				<dictionary>
 					<key>ignore.schema.builder</key>
