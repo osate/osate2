@@ -189,6 +189,10 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Configure Diagram...">
       </command>
       <command
+      		id="org.osate.ge.showInModeElements"
+      		name="Show In Mode Elements">
+      </command>
+      <command
             id="org.osate.ge.goToAadlSource"
             name="Go to AADL Source">
       </command>
@@ -471,6 +475,10 @@ censes only apply to the Third Party Software and not any other portion of this 
     <handler
           class="org.osate.ge.internal.ui.handlers.ConfigureDiagramHandler"
           commandId="org.osate.ge.configureDiagram">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ShowInModeElementsHandler"
+          commandId="org.osate.ge.showInModeElements">
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.GoToAadlSourceHandler"
@@ -885,6 +893,14 @@ censes only apply to the Third Party Software and not any other portion of this 
              checkEnabled="true">
        </visibleWhen>
     </menu>
+    <command
+	   commandId="org.osate.ge.showInModeElements"
+	   style="push">
+	   <visibleWhen
+       		checkEnabled="true">
+       </visibleWhen>
+	</command>
+	
    <separator
          name="org.osate.ge.sepLayout"
          visible="true">

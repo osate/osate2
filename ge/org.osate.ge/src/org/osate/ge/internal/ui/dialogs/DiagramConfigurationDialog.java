@@ -109,25 +109,6 @@ public class DiagramConfigurationDialog {
 		String getContextDescription(Object contextBo);
 	}
 
-	public static class Result {
-		private final DiagramConfiguration diagramConfiguration;
-		private final BusinessObjectNode businessObjectTree;
-
-		public Result(final DiagramConfiguration diagramConfiguration, final BusinessObjectNode businessObjectTree) {
-			this.diagramConfiguration = Objects.requireNonNull(diagramConfiguration,
-					"diagramConfiguration must not be null");
-			this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null");
-		}
-
-		public DiagramConfiguration getDiagramConfiguration() {
-			return diagramConfiguration;
-		}
-
-		public BusinessObjectNode getBusinessObjectTree() {
-			return businessObjectTree;
-		}
-	}
-
 	private class InnerDialog extends Dialog {
 		private CheckboxTreeViewer boTreeViewer;
 
@@ -562,7 +543,7 @@ public class DiagramConfigurationDialog {
 	 * A null return value indicates that the dialog was canceled.
 	 * @return
 	 */
-	private Result open() {
+	private DiagramConfiguration.Result open() {
 		if (dlg.open() != Window.OK) {
 			return null;
 		}
@@ -572,7 +553,7 @@ public class DiagramConfigurationDialog {
 		determineNodesToRemove(businessObjectTree, nodesToRemove);
 		nodesToRemove.forEach(BusinessObjectNode::remove);
 
-		return new Result(diagramConfigBuilder.build(), businessObjectTree);
+		return new DiagramConfiguration.Result(diagramConfigBuilder.build(), businessObjectTree);
 	}
 
 	/**
@@ -623,7 +604,8 @@ public class DiagramConfigurationDialog {
 	 * @param initialSelectionBoPath is an array of business objects which form a path to the node that should be selected. May be null
 	 * @return
 	 */
-	public static Result show(final Shell parentShell, final Model model, final DiagramConfiguration diagramConfig,
+	public static DiagramConfiguration.Result show(final Shell parentShell, final Model model,
+			final DiagramConfiguration diagramConfig,
 			final BusinessObjectNode businessObjectTree, final Object[] initialSelectionBoPath) {
 		final DiagramConfigurationDialog dlg = new DiagramConfigurationDialog(parentShell, model, diagramConfig,
 				businessObjectTree, initialSelectionBoPath);
@@ -751,7 +733,7 @@ public class DiagramConfigurationDialog {
 				Completeness.UNKNOWN, true);
 
 		// Show the dialog
-		final Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode,
+		final DiagramConfiguration.Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode,
 				new Object[] { "A", "C1", "C2", "C4" });
 		if (result == null) {
 			System.out.println("Dialog was canceled.");

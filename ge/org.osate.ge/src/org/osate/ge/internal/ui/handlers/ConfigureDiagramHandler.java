@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
@@ -112,7 +113,7 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 			}
 
 			// Show the dialog
-			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model,
+			final DiagramConfiguration.Result result = DiagramConfigurationDialog.show(null, model,
 					diagram.getConfiguration(), boTree, initialSelectionBoPath);
 			if (result != null) {
 				diagram.modify("Set Diagram Configuration", m -> {
