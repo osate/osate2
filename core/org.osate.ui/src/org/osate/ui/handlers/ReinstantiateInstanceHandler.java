@@ -43,6 +43,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.instantiation.RootMissingException;
 
 public class ReinstantiateInstanceHandler extends AbstractHandler {
 	public ReinstantiateInstanceHandler() {
@@ -97,6 +98,7 @@ public class ReinstantiateInstanceHandler extends AbstractHandler {
 			int lastTried = -1;
 			for (final IFile file : aaxlFiles) {
 				lastTried += 1;
+				boolean delete = false;
 				try {
 					final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(file,
 							subMonitor.split(1));
@@ -104,11 +106,28 @@ public class ReinstantiateInstanceHandler extends AbstractHandler {
 					allGood &= success;
 					successful[lastTried] = success;
 					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
+					delete = !success;
 				} catch (final InterruptedException e) {
 					// Instantiation was canceled by the user.
 					cancelled = true;
 					allGood = false;
+					delete = true;
+					break; // jump out of the for-loop
+				} catch (final RootMissingException e) {
+					allGood = false;
+					successful[lastTried] = false;
+					errorMessages[lastTried] = "Root component implementation declaration no longer exists; instance model removed";
+					delete = true;
+				} catch (final Exception e) {
+					allGood = false;
+					// save for later
+					successful[lastTried] = false;
+					exceptions[lastTried] = e;
+					delete = true;
+					// We try the next instantiation
+				}
 
+				if (delete) {
 					// Remove the partially instantiated resource
 					try {
 						if (file.exists()) {
@@ -117,14 +136,6 @@ public class ReinstantiateInstanceHandler extends AbstractHandler {
 					} catch (final CoreException ce) {
 						// eat it
 					}
-
-					break; // jump out of the for-loop
-				} catch (final Exception e) {
-					allGood = false;
-					// save for later
-					successful[lastTried] = false;
-					exceptions[lastTried] = e;
-					// We try the next instantiation
 				}
 			}
 

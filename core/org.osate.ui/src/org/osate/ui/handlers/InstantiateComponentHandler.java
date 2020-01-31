@@ -138,35 +138,40 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			int lastTried = -1;
 			for (final ComponentImplementation impl : compImpl) {
 				lastTried += 1;
-				SystemInstance instance = null;
+				boolean delete = false;
 				try {
-					instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
+					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
 					final boolean success = instance != null;
 					allGood &= success;
 					successful[lastTried] = success;
 					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
+					delete = !success;
 				} catch (final InterruptedException e) {
 					// Instantiation was canceled by the user.
 					cancelled = true;
 					allGood = false;
-
-					// Remove the partially instantiated resource
-					try {
-						final IFile instanceFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
-						if (instanceFile.exists()) {
-							instanceFile.delete(0, null);
-						}
-					} catch (final CoreException ce) {
-						// eat it
-					}
-
+					delete = true;
 					break; // jump out of the for-loop
 				} catch (final Exception e) {
 					allGood = false;
 					// save for later
 					successful[lastTried] = false;
 					exceptions[lastTried] = e;
+					delete = true;
 					// We try the next instantiation
+				}
+
+				if (delete) {
+					// Remove the partially instantiated resource
+					try {
+						final IFile instanceFile = OsateResourceUtil
+								.toIFile(InstantiateModel.getInstanceModelURI(impl));
+						if (instanceFile.exists()) {
+							instanceFile.delete(0, null);
+						}
+					} catch (final CoreException ce) {
+						// eat it
+					}
 				}
 			}
 
