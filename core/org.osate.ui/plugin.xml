@@ -611,31 +611,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.reinstantiateAll">
-             <visibleWhen>
-	             <with
-	                   variable="selection">
-	                <and>
-	                   <count
-	                         value="+">
-	                   </count>
-	                   <iterate>
-	                      <or>
-	                         <!-- open AADL project -->
-	                         <and>
-	                            <instanceof value="org.eclipse.core.resources.IProject" />
-	                            <test property="org.eclipse.core.resources.open" />
-	                         </and>
-	                         
-	                         <!-- folder in an AADL project -->
-	                         <instanceof value="org.eclipse.core.resources.IFolder" />
-	                      </or>
-	                   </iterate>
-	                </and>
-	             </with>
-             </visibleWhen>
-          </command>
-          <command
                 commandId="org.osate.ui.instantiateComponent">
 	          <visibleWhen>
 	             <with
@@ -644,7 +619,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                   <count
 	                         value="+">
 	                   </count>
-	                   <iterate operator="or">
+	                   <iterate
+	                   		operator="or">
                          <adapt
                                type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                             <and>
@@ -675,11 +651,47 @@ censes only apply to the Third Party Software and not any other portion of this 
 	          </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.reinstantiateInstance">
+                commandId="org.osate.ui.reinstantiateInstances">
              <visibleWhen>
-                 <reference
-                       definitionId="org.osate.core.areSomeInstanceFilesSelected">
-                 </reference>
+	             <with
+	                   variable="selection">
+	                <and>
+	                   <count
+	                         value="+">
+	                   </count>
+	                   <iterate
+	                         ifEmpty="false"
+	                         operator="or">
+	                      <or>
+	                         <!-- open AADL project -->
+	                         <and>
+	                            <instanceof value="org.eclipse.core.resources.IProject" />
+	                            <test property="org.eclipse.core.resources.open" />
+	                            <test
+	                                property="org.eclipse.core.resources.projectNature"
+	                                value="org.osate.core.aadlnature" />
+	                         </and>
+	                         
+	                         <!-- folder in an AADL project -->
+	                         <and>
+	                            <instanceof value="org.eclipse.core.resources.IFolder" />
+	                            <test
+	                                property="org.eclipse.core.resources.projectNature"
+	                                value="org.osate.core.aadlnature" />
+	                         </and>
+	                         
+	                         <!-- Instance model file -->
+	                         <adapt
+	                                type="org.eclipse.core.resources.IFile">
+	                            <test
+	                                  property="org.eclipse.core.resources.contentTypeId"
+	                                  value="org.osate.core.instanceModelFile">
+	                            </test>
+	                         </adapt>
+	                      </or>
+	                   </iterate>
+	                </and>
+	             </with>
              </visibleWhen>
           </command>
           <command
@@ -884,13 +896,10 @@ censes only apply to the Third Party Software and not any other portion of this 
                    style="push">
              </command>
              <command
-                   commandId="org.osate.ui.reinstantiateAll">
-             </command>
-             <command
                    commandId="org.osate.ui.instantiateComponent">
              </command>
              <command
-                   commandId="org.osate.ui.reinstantiateInstance">
+                   commandId="org.osate.ui.reinstantiateInstances">
              </command>
              <separator
                    name="generateTextual">
@@ -1160,12 +1169,8 @@ censes only apply to the Third Party Software and not any other portion of this 
        		name="%InstantiateComponent.label">
        </command>
        <command
-             id="org.osate.ui.reinstantiateInstance"
-             name="%ReinstantiateInstance.label">
-       </command>
-       <command
-             id="org.osate.ui.reinstantiateAll"
-             name="%ReinstantiateAll.label">
+             id="org.osate.ui.reinstantiateInstances"
+             name="%ReinstantiateInstances.label">
        </command>
        <command
              id="org.osate.ui.reinstantiateAllAadl"
@@ -1371,21 +1376,53 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             commandId="org.osate.ui.reinstantiateInstance"
-             class="org.osate.ui.handlers.ReinstantiateInstanceHandler">
+             commandId="org.osate.ui.reinstantiateInstances"
+             class="org.osate.ui.handlers.ReinstantiateInstancesHandler">
           <enabledWhen>
-             <reference
-                   definitionId="org.osate.core.areOnlyInstanceFilesSelected">
-             </reference>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="+">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="and">
+                      <or>
+                         <!-- open AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IProject" />
+                            <test property="org.eclipse.core.resources.open" />
+                            <test
+                                property="org.eclipse.core.resources.projectNature"
+                                value="org.osate.core.aadlnature" />
+                         </and>
+                         
+                         <!-- folder in an AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IFolder" />
+                            <test
+                                property="org.eclipse.core.resources.projectNature"
+                                value="org.osate.core.aadlnature" />
+                         </and>
+                         
+                         <!-- Instance model file -->
+                         <adapt
+                                type="org.eclipse.core.resources.IFile">
+                            <test
+                                  property="org.eclipse.core.resources.contentTypeId"
+                                  value="org.osate.core.instanceModelFile">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
           </enabledWhen>
        </handler>
        <handler
              class="org.osate.ui.handlers.ReinstantiateAadl"
              commandId="org.osate.ui.reinstantiateAllAadl">
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.ReinstantiateAllHandler"
-             commandId="org.osate.ui.reinstantiateAlll">
        </handler>
        <handler
              class="org.osate.ui.handlers.ConversionHandler"
@@ -1461,7 +1498,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <extension
           point="org.eclipse.ui.commandImages">
        <image
-             commandId="org.osate.ui.reinstantiateAllAadl"
+             commandId="org.osate.ui.reinstantiateInstances"
              icon="icons/reinstantiate.gif">
        </image>
        <image

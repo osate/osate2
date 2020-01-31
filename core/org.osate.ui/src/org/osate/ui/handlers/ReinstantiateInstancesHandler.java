@@ -30,39 +30,49 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.ui.dialogs.Dialog;
 
-public class ReinstantiateInstanceHandler extends AbstractHandler {
-	public ReinstantiateInstanceHandler() {
+public class ReinstantiateInstancesHandler extends AbstractHandler {
+	public ReinstantiateInstancesHandler() {
 		super();
 	}
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final List<IFile> selectedFiles = new ArrayList<>();
+		final List<IResource> selectedResources = new ArrayList<>();
 		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
-			final IFile file = (IFile) selection;
-			selectedFiles.add(file);
+			final IResource irsrc = (IResource) selection;
+			selectedResources.add(irsrc);
 		}
 
-		final Job job = new RenstantiationJob(selectedFiles);
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.setUser(true);
-		job.schedule();
+		final String lineSeparator = System.lineSeparator();
+		final StringBuilder sb = new StringBuilder("Selected Resources:");
+		sb.append(lineSeparator);
+		for (final IResource container : selectedResources) {
+			sb.append("  ");
+			sb.append(container.toString());
+			sb.append(lineSeparator);
+		}
+		Dialog.showInfo("Instantiate Component", sb.toString());
 
+//		final Job job = new RenstantiationJob(selectedFiles);
+//		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+//		job.setUser(true);
+//		job.schedule();
+//
 		return null;
 	}
 
