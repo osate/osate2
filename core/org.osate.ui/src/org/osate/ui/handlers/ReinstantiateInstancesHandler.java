@@ -24,26 +24,31 @@
 package org.osate.ui.handlers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
-import org.osate.ui.dialogs.Dialog;
+import org.osate.workspace.WorkspacePlugin;
 
 public class ReinstantiateInstancesHandler extends AbstractHandler {
 	public ReinstantiateInstancesHandler() {
@@ -58,35 +63,52 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 			selectedResources.add(irsrc);
 		}
 
-		final String lineSeparator = System.lineSeparator();
-		final StringBuilder sb = new StringBuilder("Selected Resources:");
-		sb.append(lineSeparator);
-		for (final IResource container : selectedResources) {
-			sb.append("  ");
-			sb.append(container.toString());
-			sb.append(lineSeparator);
-		}
-		Dialog.showInfo("Instantiate Component", sb.toString());
+		final Job job = new RenstantiationJob(selectedResources);
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.setUser(true);
+		job.schedule();
 
-//		final Job job = new RenstantiationJob(selectedFiles);
-//		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-//		job.setUser(true);
-//		job.schedule();
-//
 		return null;
 	}
 
-	private final class RenstantiationJob extends WorkspaceJob {
-		private final List<IFile> aaxlFiles;
+	private static List<IFile> findAllInstanceFiles(final Collection<IResource> rsrcs) {
+		final List<IFile> instanceFiles = new ArrayList<>();
+		findAllInstanceFiles(rsrcs.toArray(new IResource[rsrcs.size()]), instanceFiles);
+		return instanceFiles.stream().distinct().collect(Collectors.toList()); // remove duplicates
+	}
 
-		public RenstantiationJob(final List<IFile> files) {
+	private static void findAllInstanceFiles(final IResource[] rsrcs, final List<IFile> instanceFiles) {
+		for (final IResource rsrc : rsrcs) {
+			if (rsrc instanceof IFile) {
+				final String ext = rsrc.getFileExtension();
+				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+					instanceFiles.add((IFile) rsrc);
+				}
+			} else if (rsrc instanceof IContainer) {
+				if (!rsrc.getName().startsWith(".")) {
+					try {
+						findAllInstanceFiles(((IContainer) rsrc).members(), instanceFiles);
+					} catch (CoreException e) {
+						WorkspacePlugin.log(e);
+					}
+				}
+			}
+		}
+	}
+
+	private final class RenstantiationJob extends WorkspaceJob {
+		private final List<IResource> selectedResources;
+
+		public RenstantiationJob(final List<IResource> selectedResources) {
 			super("Reinstantiate instances");
-			aaxlFiles = files;
+			this.selectedResources = selectedResources;
 		}
 
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			final int size = aaxlFiles.size();
+			final List<IFile> instanceFiles = findAllInstanceFiles(selectedResources);
+
+			final int size = instanceFiles.size();
 			final SubMonitor subMonitor = SubMonitor.convert(monitor, size);
 
 			/*
@@ -106,9 +128,10 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 			 * of the URI we tried to instantiate.
 			 */
 			int lastTried = -1;
-			for (final IFile file : aaxlFiles) {
+			for (final IFile file : instanceFiles) {
 				lastTried += 1;
 				boolean delete = false;
+				boolean breakOut = false;
 				try {
 					final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(file,
 							subMonitor.split(1));
@@ -122,7 +145,7 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 					cancelled = true;
 					allGood = false;
 					delete = true;
-					break; // jump out of the for-loop
+					breakOut = true; // jump out of the for-loop
 				} catch (final RootMissingException e) {
 					allGood = false;
 					successful[lastTried] = false;
@@ -144,8 +167,13 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 							file.delete(0, null);
 						}
 					} catch (final CoreException ce) {
+						System.out.println();
 						// eat it
 					}
+				}
+
+				if (breakOut) {
+					break;
 				}
 			}
 
@@ -167,7 +195,7 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 				sb.append(System.lineSeparator());
 				for (int i = 0; i < size; i++) {
 					sb.append("- ");
-					sb.append(aaxlFiles.get(i).toString());
+					sb.append(instanceFiles.get(i).toString());
 					sb.append(": ");
 					if (!cancelled || i < lastTried) {
 						if (successful[i]) {
@@ -201,9 +229,9 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 							"Errors during model Instantiation", errMessage);
 
-//					final InstantiationResultsDialog d = new InstantiationResultsDialog(
-//							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-//					d.open();
+//						final InstantiationResultsDialog d = new InstantiationResultsDialog(
+//								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+//						d.open();
 				});
 			}
 
