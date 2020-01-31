@@ -1,0 +1,62 @@
+package DataAccessConnectionTest
+public
+    data Shared     
+    end Shared;
+    
+    data implementation Shared.impl
+    end Shared.impl;
+    
+    subprogram RequiresData
+    features
+        shared: requires data access Shared;
+    end RequiresData;
+    
+    subprogram implementation RequiresData.impl
+    end RequiresData.impl;
+    
+    thread ThreadRequiresData
+    features
+        shared: requires data access Shared;            
+    end ThreadRequiresData;
+    
+    thread implementation ThreadRequiresData.impl
+    subcomponents
+        sp: subprogram RequiresData.impl;
+    calls main: {
+        s1 : subprogram sp;
+    };      
+   connections
+        dc: data access shared -> sp.shared;
+    end ThreadRequiresData.impl;        
+    
+    process Proc    
+    features
+        externalData: requires data access;                 
+    end Proc;   
+    
+    process implementation Proc.impl
+    subcomponents
+        shared: data Shared.impl;
+        t1: thread ThreadRequiresData.impl;
+    connections
+        s1: data access shared <-> t1.shared;
+    end Proc.impl;  
+        
+    processor P
+    end P;
+    
+    processor implementation P.impl
+    end P.impl;
+
+    system DACT
+    end DACT;
+
+    system implementation DACT.impl
+    subcomponents
+        proc: processor P.impl;
+        app: process Proc.impl;
+    properties
+        Actual_Processor_Binding => (reference (proc)) applies to app;      
+    end DACT.impl;      
+
+end DataAccessConnectionTest;
