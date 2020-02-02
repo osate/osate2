@@ -1126,6 +1126,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param errorSource
 	 * @param typeTokenConstraint
 	 * @return EObject (can be null)
+	 * @since 2.0
 	 */
 	protected EObject postProcessErrorSource(ComponentInstance component, ErrorSource errorSource, TypeToken type,
 			List<EObject> subResults, BigDecimal scale) {
