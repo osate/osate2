@@ -30,23 +30,27 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor;
 import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
 import com.google.inject.Injector;
 
-public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jface.viewers.XtextStyledTextCellEditor {
+/**
+ * @since 2.0
+ */
+public class OsateStyledTextCellEditor extends XtextStyledTextCellEditor {
 	private static final String CONTEXTMENUID = "org.yakindu.base.xtext.utils.jface.viewers.StyledTextXtextAdapterContextMenu";
 
 	private final IProject project;
 
-	public XtextStyledTextCellEditor(int style, Injector injector, IProject project) {
+	public OsateStyledTextCellEditor(int style, Injector injector, IProject project) {
 		super(style, injector);
 		this.project = project;
 	}
 
 	@Override
-	protected StyledTextXtextAdapter createXtextAdapter() {
-		return new StyledTextXtextAdapter(this.getInjector(),
+	protected OsateStyledTextXtextAdapter createXtextAdapter() {
+		return new OsateStyledTextXtextAdapter(this.getInjector(),
 				getContextFakeResourceProvider() == null ? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER
 						: getContextFakeResourceProvider(),
 				project);
@@ -80,8 +84,8 @@ public class XtextStyledTextCellEditor extends org.yakindu.base.xtext.utils.jfac
 	}
 
 	@Override
-	public StyledTextXtextAdapter getXtextAdapter() {
-		return (StyledTextXtextAdapter) super.getXtextAdapter();
+	public OsateStyledTextXtextAdapter getXtextAdapter() {
+		return (OsateStyledTextXtextAdapter) super.getXtextAdapter();
 	}
 
 }

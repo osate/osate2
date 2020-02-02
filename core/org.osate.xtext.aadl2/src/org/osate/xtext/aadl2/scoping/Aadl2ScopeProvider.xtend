@@ -687,6 +687,9 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		validElements
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	def protected static allConnectionEnds(Classifier classifier) {
 		val connectionEnds = newArrayList
 		connectionEnds.addAll(classifier.getAllFeatures())
@@ -757,6 +760,9 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 			subcomponentPrototypeContext, prototype)
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	def protected static scopeForElementsOfContext(Context context, Classifier containingClassifier,
 		extension (Classifier)=>Iterable<? extends EObject> validMemberCollector) {
 		val contextClassifier = switch context {

@@ -215,6 +215,9 @@ class CommonUtilExtension {
 		return null
 	}
 	
+	/**
+	 * @since 2.0
+	 */
 	def static EndToEndFlowInstance findETEFInstance(Collection<EndToEndFlowInstance> etefilist, String name) {
 		for (ei : etefilist) {
 			val etef = ei.endToEndFlow
@@ -253,7 +256,9 @@ class CommonUtilExtension {
 
 	public static val eInstance = new CommonUtilExtension
 
-
+	/**
+	 * @since 2.0
+	 */
 	def static Collection<EndToEndFlowInstance> findETEFInstances(Collection<EndToEndFlowInstance> etefilist, EndToEndFlowInstance etefi) {
 		val Collection<EndToEndFlowInstance> result = newArrayList()
 		val tetef = etefi.endToEndFlow
