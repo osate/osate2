@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.xtext.aadl2.properties" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSemanticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSemanticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractDelegatingSemanticSequencer"/>
+                <message_argument value="AbstractPropertiesSemanticSequencer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSyntacticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSyntacticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractSyntacticSequencer"/>
+                <message_argument value="AbstractPropertiesSyntacticSequencer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynTransition"/>
+                <message_argument value="AbstractPropertiesSyntacticSequencer"/>
+                <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/xtext/aadl2/properties/formatting2/PropertiesFormatter.java" type="org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractFormatter2"/>
+                <message_argument value="PropertiesFormatter"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643842064">
+            <message_arguments>
+                <message_argument value="ITextReplacer"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="createCommentReplacer(IComment)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IComment"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="createCommentReplacer(IComment)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ArrayRange, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(BasicPropertyAssociation, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ClassifierValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ComputedValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ContainmentPathElement, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(IntegerLiteral, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ListValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ModalPropertyValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(Operation, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(RangeValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(RealLiteral, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(RecordValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="_format(ReferenceValue, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="IFormattableDocument"/>
+                <message_argument value="PropertiesFormatter"/>
+                <message_argument value="format(Object, IFormattableDocument)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
