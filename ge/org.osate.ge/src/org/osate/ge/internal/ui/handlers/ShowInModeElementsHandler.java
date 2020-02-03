@@ -261,7 +261,7 @@ public class ShowInModeElementsHandler extends AbstractHandler {
 		return boTreeExpander.expandTree(editor.getAgeDiagram().getConfiguration(), boTree);
 	}
 
-	public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
+	private RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
 		return referenceService.getRelativeReference(bo);
 	}
 }

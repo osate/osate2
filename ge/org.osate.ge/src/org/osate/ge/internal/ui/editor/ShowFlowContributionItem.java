@@ -449,8 +449,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 
 			private void ensureEnabledChild(final Object childBo, final BusinessObjectNode parent) {
 				final RelativeBusinessObjectReference childRef = getRelativeBusinessObjectReference(childBo);
-				final BusinessObjectNode segmentContextNode = parent.getChild(childRef);
-				if (segmentContextNode == null) {
+				final BusinessObjectNode childNode = parent.getChild(childRef);
+				if (childNode == null) {
 					createNode(parent, childRef, childBo);
 				}
 			}
