@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorActionSet extends BehaviorActionCollection, IBAVisitable
+public interface BehaviorActionSet extends BehaviorActionCollection
 {
 } // BehaviorActionSet

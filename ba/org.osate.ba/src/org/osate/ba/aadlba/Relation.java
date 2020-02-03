@@ -29,18 +29,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.Relation#getFirstExpression <em>First Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.Relation#getSecondExpression <em>Second Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.Relation#getRelationalOperator <em>Relational Operator</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getRelation()
  * @model
  * @generated
  */
-public interface Relation extends BehaviorElement, IBAVisitable
+public interface Relation extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>First Expression</b></em>' containment reference.

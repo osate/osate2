@@ -31,20 +31,20 @@ import org.osate.ba.aadlba.ValueVariable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.NamedValue#getReference <em>Reference</em>}</li>
  *   <li>{@link org.osate.ba.declarative.NamedValue#isDequeue <em>Dequeue</em>}</li>
  *   <li>{@link org.osate.ba.declarative.NamedValue#isFresh <em>Fresh</em>}</li>
  *   <li>{@link org.osate.ba.declarative.NamedValue#isCount <em>Count</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue()
  * @model
  * @generated
  */
 public interface NamedValue extends IntegerValueVariable, ValueVariable,
-                           DeclarativeBehaviorElement
+                            DeclarativeBehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Reference</b></em>' containment reference.

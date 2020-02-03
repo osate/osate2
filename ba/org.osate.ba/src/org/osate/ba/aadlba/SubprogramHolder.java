@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface SubprogramHolder extends CalledSubprogramHolder, IBAVisitable
+public interface SubprogramHolder extends CalledSubprogramHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model subprogramRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subprogram ;'"
    * @generated
    */
   void setSubprogram(Subprogram subprogram);
@@ -47,7 +46,6 @@ public interface SubprogramHolder extends CalledSubprogramHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Subprogram) element;'"
    * @generated
    */
   Subprogram getSubprogram();

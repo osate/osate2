@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface CalledSubprogramHolder extends ElementHolder, IndexableElement, GroupableElement, IBAVisitable
+public interface CalledSubprogramHolder extends ElementHolder, IndexableElement, GroupableElement
 {
 } // CalledSubprogramHolder

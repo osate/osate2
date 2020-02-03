@@ -44,11 +44,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.GroupHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.GroupHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -100,6 +100,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -130,6 +131,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -143,6 +145,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -157,6 +160,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -167,6 +171,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -177,6 +182,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setGroup(final NamedElement group )
   {
     element = group ;
@@ -187,6 +193,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getGroup()
   {
     return element;

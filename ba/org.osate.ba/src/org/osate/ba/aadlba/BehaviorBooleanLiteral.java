@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorBooleanLiteral extends BooleanLiteral, Literal, IBAVisitable
+public interface BehaviorBooleanLiteral extends BooleanLiteral, Literal
 {
 } // BehaviorBooleanLiteral

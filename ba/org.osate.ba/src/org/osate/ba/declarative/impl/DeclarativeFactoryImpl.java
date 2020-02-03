@@ -37,7 +37,7 @@ import org.osate.ba.declarative.* ;
  * @generated
  */
 public class DeclarativeFactoryImpl extends EFactoryImpl implements
-                                                        DeclarativeFactory
+                                    DeclarativeFactory
 {
   /**
    * Creates the default factory implementation.
@@ -50,8 +50,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     try
     {
       DeclarativeFactory theDeclarativeFactory =
-            (DeclarativeFactory) EPackage.Registry.INSTANCE
-                  .getEFactory(DeclarativePackage.eNS_URI) ;
+                                               (DeclarativeFactory) EPackage.Registry.INSTANCE.getEFactory(DeclarativePackage.eNS_URI) ;
       if(theDeclarativeFactory != null)
       {
         return theDeclarativeFactory ;
@@ -107,9 +106,15 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createQualifiedNamedElement() ;
       case DeclarativePackage.REFERENCE :
         return createReference() ;
+      case DeclarativePackage.DECLARATIVE_PROPERTY_ASSOCIATION :
+        return createDeclarativePropertyAssociation() ;
+      case DeclarativePackage.DECLARATIVE_LIST_VALUE :
+        return createDeclarativeListValue() ;
+      case DeclarativePackage.DECLARATIVE_STRING_LITERAL :
+        return createDeclarativeStringLiteral() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
-              "' is not a valid classifier") ;
+                                           "' is not a valid classifier") ;
     }
   }
 
@@ -118,9 +123,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ArrayableIdentifier createArrayableIdentifier()
   {
-    ArrayableIdentifierImpl arrayableIdentifier = new ArrayableIdentifierImpl() ;
+    ArrayableIdentifierImpl arrayableIdentifier =
+                                                new ArrayableIdentifierImpl() ;
     return arrayableIdentifier ;
   }
 
@@ -129,6 +136,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CommAction createCommAction()
   {
     CommActionImpl commAction = new CommActionImpl() ;
@@ -140,10 +148,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DeclarativeArrayDimension createDeclarativeArrayDimension()
   {
     DeclarativeArrayDimensionImpl declarativeArrayDimension =
-          new DeclarativeArrayDimensionImpl() ;
+                                                            new DeclarativeArrayDimensionImpl() ;
     return declarativeArrayDimension ;
   }
 
@@ -152,10 +161,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DeclarativeBehaviorTransition createDeclarativeBehaviorTransition()
   {
     DeclarativeBehaviorTransitionImpl declarativeBehaviorTransition =
-          new DeclarativeBehaviorTransitionImpl() ;
+                                                                    new DeclarativeBehaviorTransitionImpl() ;
     return declarativeBehaviorTransition ;
   }
 
@@ -164,10 +174,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DeclarativePropertyName createDeclarativePropertyName()
   {
     DeclarativePropertyNameImpl declarativePropertyName =
-          new DeclarativePropertyNameImpl() ;
+                                                        new DeclarativePropertyNameImpl() ;
     return declarativePropertyName ;
   }
 
@@ -176,10 +187,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DeclarativePropertyReference createDeclarativePropertyReference()
   {
     DeclarativePropertyReferenceImpl declarativePropertyReference =
-          new DeclarativePropertyReferenceImpl() ;
+                                                                  new DeclarativePropertyReferenceImpl() ;
     return declarativePropertyReference ;
   }
 
@@ -188,6 +200,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DeclarativeTime createDeclarativeTime()
   {
     DeclarativeTimeImpl declarativeTime = new DeclarativeTimeImpl() ;
@@ -199,6 +212,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Identifier createIdentifier()
   {
     IdentifierImpl identifier = new IdentifierImpl() ;
@@ -210,6 +224,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedValue createNamedValue()
   {
     NamedValueImpl namedValue = new NamedValueImpl() ;
@@ -221,10 +236,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedNamedElement createQualifiedNamedElement()
   {
     QualifiedNamedElementImpl qualifiedNamedElement =
-          new QualifiedNamedElementImpl() ;
+                                                    new QualifiedNamedElementImpl() ;
     return qualifiedNamedElement ;
   }
 
@@ -233,6 +249,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Reference createReference()
   {
     ReferenceImpl reference = new ReferenceImpl() ;
@@ -244,6 +261,46 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public DeclarativePropertyAssociation createDeclarativePropertyAssociation()
+  {
+    DeclarativePropertyAssociationImpl declarativePropertyAssociation =
+                                                                      new DeclarativePropertyAssociationImpl() ;
+    return declarativePropertyAssociation ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public DeclarativeListValue createDeclarativeListValue()
+  {
+    DeclarativeListValueImpl declarativeListValue =
+                                                  new DeclarativeListValueImpl() ;
+    return declarativeListValue ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public DeclarativeStringLiteral createDeclarativeStringLiteral()
+  {
+    DeclarativeStringLiteralImpl declarativeStringLiteral =
+                                                          new DeclarativeStringLiteralImpl() ;
+    return declarativeStringLiteral ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public DeclarativePackage getDeclarativePackage()
   {
     return (DeclarativePackage) getEPackage() ;

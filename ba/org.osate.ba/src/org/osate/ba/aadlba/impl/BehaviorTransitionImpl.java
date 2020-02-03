@@ -40,6 +40,7 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTransitionImpl#getSourceState <em>Source State</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTransitionImpl#getCondition <em>Condition</em>}</li>
@@ -47,7 +48,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTransitionImpl#getActionBlock <em>Action Block</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTransitionImpl#getPriority <em>Priority</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -139,6 +139,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorState getSourceState()
   {
     if (sourceState != null && ((EObject)sourceState).eIsProxy())
@@ -186,6 +187,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSourceState(BehaviorState newSourceState)
   {
     if (newSourceState != sourceState)
@@ -207,6 +209,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorCondition getCondition()
   {
     return condition;
@@ -234,6 +237,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(BehaviorCondition newCondition)
   {
     if (newCondition != condition)
@@ -255,6 +259,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorState getDestinationState()
   {
     if (destinationState != null && ((EObject)destinationState).eIsProxy())
@@ -302,6 +307,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDestinationState(BehaviorState newDestinationState)
   {
     if (newDestinationState != destinationState)
@@ -323,6 +329,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActionBlock getActionBlock()
   {
     if (actionBlock != null && ((EObject)actionBlock).eIsProxy())
@@ -353,6 +360,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setActionBlock(BehaviorActionBlock newActionBlock)
   {
     BehaviorActionBlock oldActionBlock = actionBlock;
@@ -366,6 +374,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public long getPriority()
   {
     return priority;
@@ -376,6 +385,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPriority(long newPriority)
   {
     long oldPriority = priority;
@@ -545,7 +555,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (priority: ");
     result.append(priority);
     result.append(')');
