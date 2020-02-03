@@ -24,26 +24,23 @@
 package org.osate.xtext.aadl2.scoping;
 
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ConnectedElement
+import org.osate.aadl2.ContainedNamedElement
 import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Context
-import org.osate.aadl2.Element
 import org.osate.aadl2.PropertyAssociation
-import org.osate.aadl2.ReferenceValue
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.aadl2.ContainedNamedElement
-import org.eclipse.xtext.EcoreUtil2.ElementReferenceAcceptor
-import org.eclipse.xtext.EcoreUtil2
 
 /**
  * This class contains custom scoping description.
  * 
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
  * on how and when to use it
- * 
+ * @since 2.0
  */
 class Aadl2SerializerScopeProvider extends Aadl2ScopeProvider {
 

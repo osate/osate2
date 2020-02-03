@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.reqspec.ui" version="2">
+    <resource path="src-gen/org/osate/reqspec/ui/contentassist/antlr/PartialReqSpecContentAssistParser.java" type="org.osate.reqspec.ui.contentassist.antlr.PartialReqSpecContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialReqSpecContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/reqspec/ui/contentassist/antlr/ReqSpecParser.java" type="org.osate.reqspec.ui.contentassist.antlr.ReqSpecParser">
+        <filter comment="xtext" id="643842064">
+            <message_arguments>
+                <message_argument value="InternalReqSpecParser"/>
+                <message_argument value="ReqSpecParser"/>
+                <message_argument value="createParser()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
