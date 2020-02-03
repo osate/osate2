@@ -892,10 +892,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                 </separator>
              </menu>
              <command
-                   commandId="org.osate.ui.reinstantiateAllAadl"
-                   style="push">
-             </command>
-             <command
                    commandId="org.osate.ui.instantiateComponent">
              </command>
              <command
@@ -1173,10 +1169,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              name="%ReinstantiateInstances.label">
        </command>
        <command
-             id="org.osate.ui.reinstantiateAllAadl"
-             name="%ReinstantiateAllModelsAction.label">
-       </command>
-       <command
              id="org.osate.ui.conversion"
              name="Add/Remove AADL Nature">
        </command>
@@ -1270,42 +1262,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              </with>
           </enabledWhen>
        </handler>
-       <handler
-             class="org.osate.ui.handlers.ReinstantiateIAllHandler"
-             commandId="org.osate.ui.reinstantiateAll">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="+">
-                   </count>
-                   <iterate>
-                      <or>
-                         <!-- open AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <test property="org.eclipse.core.resources.open" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       
-       
        <handler
              class="org.osate.ui.handlers.InstantiateComponentHandler"
              commandId="org.osate.ui.instantiateComponent">
@@ -1421,10 +1377,6 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.handlers.ReinstantiateAadl"
-             commandId="org.osate.ui.reinstantiateAllAadl">
-       </handler>
-       <handler
              class="org.osate.ui.handlers.ConversionHandler"
              commandId="org.osate.ui.conversion">
        </handler>
@@ -1499,10 +1451,6 @@ censes only apply to the Third Party Software and not any other portion of this 
           point="org.eclipse.ui.commandImages">
        <image
              commandId="org.osate.ui.reinstantiateInstances"
-             icon="icons/reinstantiate.gif">
-       </image>
-       <image
-             commandId="org.osate.ui.reinstantiateAll"
              icon="icons/reinstantiate.gif">
        </image>
        <image

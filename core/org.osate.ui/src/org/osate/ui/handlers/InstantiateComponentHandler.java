@@ -36,6 +36,7 @@ import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
@@ -51,6 +52,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -138,7 +140,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 					successful[lastTried] = success;
 					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
 					delete = !success;
-				} catch (final InterruptedException e) {
+				} catch (final InterruptedException | OperationCanceledException e) {
 					// Instantiation was canceled by the user.
 					cancelled = true;
 					allGood = false;
@@ -150,6 +152,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 					successful[lastTried] = false;
 					exceptions[lastTried] = e;
 					delete = true;
+					OsateUiPlugin.log(e);
 					// We try the next instantiation
 				}
 
