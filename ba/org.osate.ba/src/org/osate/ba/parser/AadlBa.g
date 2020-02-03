@@ -175,9 +175,7 @@ options
   
   import org.osate.ba.utils.AadlBaLocationReference ;
   
-  import org.osate.aadl2.Element ;
-  import org.osate.aadl2.ProcessorClassifier ;
-  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.* ;
   import org.osate.aadl2.parsesupport.ParseUtil ;
 }
   
@@ -289,7 +287,7 @@ behavior_variable_list[BehaviorAnnex ba] locals[int variableCount]
       }
     )*
         
-    COLON unique_component_classifier_reference (SEMICOLON)?
+    COLON unique_component_classifier_reference (LCURLY (property_associations+=data_classifier_property_association)+ RCURLY)? (SEMICOLON)?
     {
       if($SEMICOLON() == null)
       {
@@ -313,6 +311,112 @@ behavior_variable returns [BehaviorVariable result]
     IDENT ( LBRACK integer_value_constant RBRACK )*
 ;
 
+data_classifier_property_association returns [DeclarativePropertyAssociation result]
+  :
+	property=property_ref PROPERTYASSIGN ownedValue=property_value SEMICOLON
+;
+
+
+// property ::= 
+//   { propertyset_identifier :: }* property_identifier
+property_ref returns [QualifiedNamedElement result]
+  :
+   ( qualifiable_property[$result])
+;
+
+
+// qualifiable_named_element ::= 
+//   { package_identifier :: }* component_type_identifier
+qualifiable_property [QualifiedNamedElement result] locals[String id1, String id2]
+  @init
+  {
+    $id1 = "";
+    $id2 = "";
+  }
+  :
+    ( identifier1=IDENT DOUBLECOLON
+      { 
+        $id1=$id1+($id1.length() == 0 ? "":"::") + $identifier1.text ;
+      }
+    )*
+    
+    identifier2=IDENT { $id2=$identifier2.text ; }
+;
+
+
+property_value returns [DeclarativePropertyExpression result]
+  :
+//  	record_property_value
+//  	| reference_property_value
+//  	| classifier_property_value
+  	| string_literal
+//  	| numeric_range_property_value
+//  	| integer_property_value
+//  	| real_property_value
+  	| list_property_value
+//  	| boolean_property_value  	
+;
+
+list_property_value returns [DeclarativeListValue result]
+  :
+    LPAREN ownedListElement+=property_value (COMMA ownedListElement+=property_value)* RPAREN
+;
+
+//reference_property_value returns [DeclarativeReference result] :
+//	REFERENCE LPAREN path=qualifiable_named_element[$result] RPAREN
+//;
+
+//boolean_property_value: 
+//	boolean_literal
+//;
+
+//numeric_range_property_value returns [RangeValue result] : 
+//	numeric_literal '..' numeric_literal
+//;
+
+//record_property_value: 
+//	LBRACK field_property_association RBRACK
+//;
+
+//field_property_association returns [BasicPropertyAssociation result]:
+//	property=basic_property_ref PROPERTYASSIGN property_value SEMICOLON
+//;
+
+
+//classifier_property_value returns [ClassifierValue result]:
+//	CLASSIFIER LPAREN classifier=unique_component_classifier_reference RPAREN
+//;
+
+//// basic_property ::= 
+////   property_identifier
+//basic_property_ref returns [QualifiedNamedElement result]
+//  :
+//   ( qualifiable_property[$result])
+//;
+
+//// unit ::= 
+////   { propertyset_identifier :: }* unit_identifier
+//unit_reference returns [QualifiedNamedElement result]
+//  :
+//   ( qualifiable_property[$result])
+//;
+
+//integer_property_value returns [IntegerLiteral result]:
+//	value=signed_int (unit=unit_reference)?
+//	;
+//
+//signed_int returns [Integer result]:
+//	('+'|'-')?INTEGER_LIT ;
+//
+//real_property_value returns [RealLiteral result]:
+//	value=signed_real (unit=unit_reference)?
+//	;
+//
+//signed_real returns [RealLiteral result]:
+//	('+'|'-')?REAL_LIT ;
+
+
+
 // qualifiable_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
@@ -333,7 +437,7 @@ qualifiable_named_element [QualifiedNamedElement result] locals[String id1, Stri
     
     ( DOT identifier3=IDENT { $id2=$id2+"." + $identifier3.text ; } )?
 ;
-  
+
 // unique_component_classifier_reference ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
@@ -1236,7 +1340,7 @@ value_constant returns [ValueConstant result]
 //   value_variable
 // | value_constant
 // | ( value_expression )
-value returns [Value result]
+value_constant_or_variable returns [Value result]
   :
      value_constant
    |  
@@ -1310,11 +1414,11 @@ term returns [Term result]
 // | unary_boolean_operator value
 factor returns [Factor result]
   :
-     value (binary_numeric_operator value)?
+     value_constant_or_variable (binary_numeric_operator value_constant_or_variable)?
    |
-     unary_numeric_operator value
+     unary_numeric_operator value_constant_or_variable
    |
-     unary_boolean_operator value
+     unary_boolean_operator value_constant_or_variable
 ;
 
 
@@ -1502,7 +1606,7 @@ integer_literal returns [BehaviorIntegerLiteral result]
 ;
 
 // string_literal ::= <refer to [AS5506A 15.5]>
-string_literal returns [BehaviorStringLiteral result]
+string_literal returns [DeclarativeStringLiteral result]
   :
    STRING_LITERAL
 ;
@@ -1528,6 +1632,7 @@ ABS            : 'abs';
 AND            : 'and';
 ANY            : 'any';
 BINDING        : 'binding';
+CLASSIFIER     : 'classifier';
 COMPLETE       : 'complete';
 COMPUTATION    : 'computation';
 COUNT          : 'count';
@@ -1551,6 +1656,7 @@ NOT            : 'not';
 ON             : 'on';
 OR             : 'or';
 OTHERWISE      : 'otherwise';
+REFERENCE      : 'reference';
 VARIABLES      : 'variables';
 REM            : 'rem';
 STATE          : 'state';
@@ -1578,6 +1684,7 @@ LCURLY         : '{' ;
 RCURLY         : '}' ;
 COLON          : ':' ;
 ASSIGN         : ':=';
+PROPERTYASSIGN : '=>';
 EXCLAM         : '!';
 INTERROG       : '?';
 GGREATER       : '>>';

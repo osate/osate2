@@ -38,19 +38,19 @@ import org.osate.ba.aadlba.ValueVariable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.Reference#getIds <em>Ids</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getReference()
  * @model
  * @generated
  */
-public interface Reference extends ActualPortHolder,
-                          DeclarativeBehaviorElement, IntegerValueVariable,
-                          ValueVariable, ElementValues, Target,
-                          DispatchTriggerCondition, DispatchTrigger, ModeSwitchTrigger
+public interface Reference extends ActualPortHolder, DeclarativeBehaviorElement,
+                           IntegerValueVariable, ValueVariable, ElementValues,
+                           Target, DispatchTriggerCondition, DispatchTrigger,
+                           ModeSwitchTrigger
 {
   /**
    * Returns the value of the '<em><b>Ids</b></em>' containment reference list.

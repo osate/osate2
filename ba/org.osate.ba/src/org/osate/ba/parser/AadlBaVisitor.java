@@ -40,9 +40,7 @@
   
   import org.osate.ba.utils.AadlBaLocationReference ;
   
-  import org.osate.aadl2.Element ;
-  import org.osate.aadl2.ProcessorClassifier ;
-  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.* ;
   import org.osate.aadl2.parsesupport.ParseUtil ;
 
 import org.antlr.v4.runtime.misc.NotNull;
@@ -86,6 +84,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty_value(@NotNull AadlBaParser.Property_valueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#elsif_statement}.
 	 * @param ctx the parse tree
@@ -207,6 +211,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBinary_numeric_operator(@NotNull AadlBaParser.Binary_numeric_operatorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#value_constant_or_variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue_constant_or_variable(@NotNull AadlBaParser.Value_constant_or_variableContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#relational_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -231,6 +241,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBehavior_time(@NotNull AadlBaParser.Behavior_timeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#qualifiable_property}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQualifiable_property(@NotNull AadlBaParser.Qualifiable_propertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#forall_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -248,6 +264,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitElement_values(@NotNull AadlBaParser.Element_valuesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#data_classifier_property_association}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitData_classifier_property_association(@NotNull AadlBaParser.Data_classifier_property_associationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#dountil_statement}.
 	 * @param ctx the parse tree
@@ -291,6 +313,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#property_ref}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty_ref(@NotNull AadlBaParser.Property_refContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#forall_condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -321,17 +349,17 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFactor(@NotNull AadlBaParser.FactorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AadlBaParser#value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitValue(@NotNull AadlBaParser.ValueContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#unary_numeric_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitUnary_numeric_operator(@NotNull AadlBaParser.Unary_numeric_operatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#list_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitList_property_value(@NotNull AadlBaParser.List_property_valueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#binary_adding_operator}.
 	 * @param ctx the parse tree

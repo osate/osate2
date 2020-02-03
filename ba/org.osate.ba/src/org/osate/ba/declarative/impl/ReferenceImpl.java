@@ -42,6 +42,7 @@ import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
 import org.osate.ba.aadlba.ElementValues ;
+import org.osate.ba.aadlba.ModeSwitchTrigger ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.Target ;
 import org.osate.ba.aadlba.impl.ActualPortHolderImpl ;
@@ -56,12 +57,12 @@ import org.osate.ba.declarative.Reference ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.impl.ReferenceImpl#getOsateRef <em>Osate Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.ReferenceImpl#getBaRef <em>Ba Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.ReferenceImpl#getIds <em>Ids</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,6 +124,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Element getOsateRef()
   {
     if(osateRef != null && ((EObject) osateRef).eIsProxy())
@@ -133,7 +135,8 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
       {
         if(eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                DeclarativePackage.REFERENCE__OSATE_REF, oldOsateRef, osateRef)) ;
+                                        DeclarativePackage.REFERENCE__OSATE_REF,
+                                        oldOsateRef, osateRef)) ;
       }
     }
     return osateRef ;
@@ -154,13 +157,15 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOsateRef(Element newOsateRef)
   {
     Element oldOsateRef = osateRef ;
     osateRef = newOsateRef ;
     if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.REFERENCE__OSATE_REF, oldOsateRef, osateRef)) ;
+                                    DeclarativePackage.REFERENCE__OSATE_REF,
+                                    oldOsateRef, osateRef)) ;
   }
 
   /**
@@ -168,6 +173,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorElement getBaRef()
   {
     if(baRef != null && ((EObject) baRef).eIsProxy())
@@ -178,7 +184,8 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
       {
         if(eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                DeclarativePackage.REFERENCE__BA_REF, oldBaRef, baRef)) ;
+                                        DeclarativePackage.REFERENCE__BA_REF,
+                                        oldBaRef, baRef)) ;
       }
     }
     return baRef ;
@@ -199,13 +206,15 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBaRef(BehaviorElement newBaRef)
   {
     BehaviorElement oldBaRef = baRef ;
     baRef = newBaRef ;
     if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.REFERENCE__BA_REF, oldBaRef, baRef)) ;
+                                    DeclarativePackage.REFERENCE__BA_REF,
+                                    oldBaRef, baRef)) ;
   }
 
   /**
@@ -213,14 +222,15 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ArrayableIdentifier> getIds()
   {
     if(ids == null)
     {
-      ids =
-            new EObjectContainmentEList<ArrayableIdentifier>(
-                  ArrayableIdentifier.class, this,
-                  DeclarativePackage.REFERENCE__IDS) ;
+      ids = new EObjectContainmentEList<ArrayableIdentifier>(
+                                                             ArrayableIdentifier.class,
+                                                             this,
+                                                             DeclarativePackage.REFERENCE__IDS) ;
     }
     return ids ;
   }
@@ -232,8 +242,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
-                                          int featureID,
-                                          NotificationChain msgs)
+                                          int featureID, NotificationChain msgs)
   {
     switch ( featureID )
     {
@@ -249,9 +258,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * @generated
    */
   @Override
-  public Object eGet(int featureID,
-                     boolean resolve,
-                     boolean coreType)
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch ( featureID )
     {
@@ -276,8 +283,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void eSet(int featureID,
-                   Object newValue)
+  public void eSet(int featureID, Object newValue)
   {
     switch ( featureID )
     {
@@ -344,8 +350,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * @generated
    */
   @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID,
-                                      Class<?> baseClass)
+  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
     if(baseClass == DeclarativeBehaviorElement.class)
     {
@@ -399,6 +404,14 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
           return -1 ;
       }
     }
+    if(baseClass == ModeSwitchTrigger.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass) ;
   }
 
@@ -408,8 +421,7 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
    * @generated
    */
   @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID,
-                                         Class<?> baseClass)
+  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
     if(baseClass == DeclarativeBehaviorElement.class)
     {
@@ -456,6 +468,14 @@ public class ReferenceImpl extends ActualPortHolderImpl implements Reference
       }
     }
     if(baseClass == DispatchTrigger.class)
+    {
+      switch ( baseFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == ModeSwitchTrigger.class)
     {
       switch ( baseFeatureID )
       {

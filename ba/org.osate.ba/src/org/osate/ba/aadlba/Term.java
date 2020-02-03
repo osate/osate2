@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.Term#getFactors <em>Factors</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getTerm()
  * @model
  * @generated
  */
-public interface Term extends BehaviorElement, IBAVisitable
+public interface Term extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Factors</b></em>' containment reference list.

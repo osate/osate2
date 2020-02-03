@@ -22,14 +22,24 @@
 package org.osate.ba.parser ;
 
 import java.util.Iterator ;
+import java.util.List ;
 
 import org.antlr.v4.runtime.CommonToken ;
+import org.antlr.v4.runtime.ParserRuleContext ;
 import org.antlr.v4.runtime.Token ;
 import org.antlr.v4.runtime.misc.NotNull ;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
+import org.osate.aadl2.Aadl2Factory ;
+import org.osate.aadl2.Element ;
+import org.osate.aadl2.IntegerLiteral ;
+import org.osate.aadl2.ListValue ;
+import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.Any ;
@@ -62,8 +72,10 @@ import org.osate.ba.aadlba.Value ;
 import org.osate.ba.analyzers.DeclarativeUtils ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
+import org.osate.ba.declarative.DeclarativeStringLiteral ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -75,25 +87,30 @@ import org.osate.ba.parser.AadlBaParser.Behavior_transitionContext ;
 import org.osate.ba.parser.AadlBaParser.Behavior_variableContext ;
 import org.osate.ba.parser.AadlBaParser.Behavior_variable_listContext ;
 import org.osate.ba.parser.AadlBaParser.Binary_adding_operatorContext ;
+import org.osate.ba.parser.AadlBaParser.Data_classifier_property_associationContext ;
 import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
 import org.osate.ba.parser.AadlBaParser.FactorContext ;
 import org.osate.ba.parser.AadlBaParser.In_bindingContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_value_constantContext ;
+import org.osate.ba.parser.AadlBaParser.List_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Logical_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Mode_switch_trigger_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Multiplying_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Parameter_labelContext ;
 import org.osate.ba.parser.AadlBaParser.Property_nameContext ;
+import org.osate.ba.parser.AadlBaParser.Property_refContext ;
 import org.osate.ba.parser.AadlBaParser.Property_referenceContext ;
+import org.osate.ba.parser.AadlBaParser.Property_valueContext ;
+import org.osate.ba.parser.AadlBaParser.Qualifiable_propertyContext ;
 import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
 import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
-import org.osate.ba.parser.AadlBaParser.ValueContext ;
 import org.osate.ba.parser.AadlBaParser.Value_constantContext ;
+import org.osate.ba.parser.AadlBaParser.Value_constant_or_variableContext ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 
@@ -111,7 +128,9 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
 {
   protected BehaviorAnnex _ba = null ;
 
-  protected AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
+  protected AadlBaFactory _baFact = AadlBaFactory.eINSTANCE ;
+  
+  protected Aadl2Factory _coreFact = Aadl2Factory.eINSTANCE ;
 
   protected DeclarativeFactory _decl = DeclarativeFactory.eINSTANCE ;
 
@@ -199,7 +218,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     visitChildren(ctx) ;
     
     // Location reference is set in behavior_condition
-    ctx.result = _fact.createDispatchCondition() ;
+    ctx.result = _baFact.createDispatchCondition() ;
 
     if(ctx.dispatch_trigger_condition() != null)
     {
@@ -229,7 +248,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createDispatchConjunction() ;
+    ctx.result = _baFact.createDispatchConjunction() ;
 
     ctx.result.setLocationReference(ctx.reference(0).result
           .getLocationReference()) ;
@@ -253,7 +272,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createDispatchTriggerLogicalExpression() ;
+    ctx.result = _baFact.createDispatchTriggerLogicalExpression() ;
 
     ctx.result.setLocationReference(ctx.dispatch_conjunction(0).result
           .getLocationReference()) ;
@@ -261,33 +280,6 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     for(Dispatch_conjunctionContext dcc : ctx.dispatch_conjunction())
     {
       ctx.result.getDispatchConjunctions().add(dcc.result) ;
-    }
-
-    return null ;
-  }
-
-  /**
-   * {@inheritDoc}
-   * <p/>
-   * The default implementation returns the result of calling
-   * {@link #visitChildren} on {@code ctx}.
-   */
-  @Override
-  public T visitValue(@NotNull AadlBaParser.ValueContext ctx)
-  {
-    visitChildren(ctx) ;
-    
-    if(ctx.value_constant() != null)
-    {
-      ctx.result = ctx.value_constant().result ;
-    }
-    else if(ctx.value_variable() != null)
-    {
-      ctx.result = ctx.value_variable().result ;
-    }
-    else
-    {
-      ctx.result = ctx.value_expression().result ;
     }
 
     return null ;
@@ -323,15 +315,56 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
           .setEcontainer(ctx.ba,
                          ctx.unique_component_classifier_reference().result) ;
 
+    List<Data_classifier_property_associationContext> dcpaList = ctx.data_classifier_property_association();
+    
     for(Behavior_variableContext bvc : ctx.behavior_variable())
     {
       bvc.result
             .setDataClassifier(ctx.unique_component_classifier_reference().result) ;
 
+      for(Data_classifier_property_associationContext dcpa: dcpaList)
+      {
+        PropertyAssociation pa = _coreFact.createPropertyAssociation();
+        pa.setProperty(dcpa.property_ref().result);
+        ModalPropertyValue mpv = _coreFact.createModalPropertyValue();
+        mpv.setOwnedValue(clonePropertyExpression(dcpa.property_value().result));
+        pa.getOwnedValues().add(mpv);
+        bvc.result.getOwnedPropertyAssociations().add(pa);
+      }
       ctx.ba.getVariables().add(bvc.result) ;
     }
 
     return null ;
+  }
+
+  private PropertyExpression clonePropertyExpression(PropertyExpression sourcePropertyExpression)
+  {
+    PropertyExpression targetPropertyExpression = null;
+    if(sourcePropertyExpression instanceof ListValue)
+    {
+      ListValue sourceLV = (ListValue) sourcePropertyExpression;
+      ListValue targetLV = _coreFact.createListValue();
+      for(PropertyExpression propInList: sourceLV.getOwnedListElements())
+      {
+        targetLV.getOwnedListElements().add(clonePropertyExpression(propInList));
+      }
+      targetPropertyExpression = targetLV; 
+    }
+    else if(sourcePropertyExpression instanceof StringLiteral)
+    {
+      StringLiteral sourceSL = (StringLiteral) sourcePropertyExpression;
+      StringLiteral targetSL = _coreFact.createStringLiteral();
+      targetSL.setValue(sourceSL.getValue());
+      targetPropertyExpression = targetSL;
+    }
+    else if(sourcePropertyExpression instanceof IntegerLiteral)
+    {
+      IntegerLiteral sourceIL = (IntegerLiteral) sourcePropertyExpression;
+      IntegerLiteral targetIL = _coreFact.createIntegerLiteral();
+      targetIL.setValue(sourceIL.getValue());
+      targetPropertyExpression = targetIL;
+    }
+    return targetPropertyExpression;
   }
 
   /**
@@ -359,7 +392,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createRelation() ;
+    ctx.result = _baFact.createRelation() ;
 
     ctx.result.setFirstExpression(ctx.simple_expression(0).result) ;
     ctx.result.setLocationReference(ctx.simple_expression(0).result
@@ -459,13 +492,13 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       }
       else
       {
-        ctx.result = _fact.createDispatchRelativeTimeout() ;
+        ctx.result = _baFact.createDispatchRelativeTimeout() ;
         setLocationReference(ctx.result, ctx.TIMEOUT()) ;
       }
     }
     else
     {
-      ctx.result = _fact.createDispatchTriggerConditionStop() ;
+      ctx.result = _baFact.createDispatchTriggerConditionStop() ;
       setLocationReference(ctx.result, ctx.STOP()) ;
     }
 
@@ -547,7 +580,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createAssignmentAction() ;
+    ctx.result = _baFact.createAssignmentAction() ;
     ctx.result.setLocationReference(ctx.target().result.getLocationReference()) ;
     ctx.result.setTarget(ctx.target().result) ;
 
@@ -557,7 +590,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     }
     else
     {
-      Any any = _fact.createAny() ;
+      Any any = _baFact.createAny() ;
       setLocationReference(any, ctx.ANY()) ;
       ctx.result.setValueExpression(any) ;
     }
@@ -777,7 +810,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitInteger_literal(@NotNull AadlBaParser.Integer_literalContext ctx)
   {
     String str = ctx.INTEGER_LIT().getText() ;
-    BehaviorIntegerLiteral tmp = _fact.createBehaviorIntegerLiteral() ;
+    BehaviorIntegerLiteral tmp = _baFact.createBehaviorIntegerLiteral() ;
     tmp.setValue(str) ;
     setLocationReference(tmp, ctx.INTEGER_LIT()) ;
     ctx.result = tmp ;
@@ -794,7 +827,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitString_literal(@NotNull AadlBaParser.String_literalContext ctx)
   {
-    ctx.result = _fact.createBehaviorStringLiteral();
+    ctx.result = _decl.createDeclarativeStringLiteral();
     String str = ctx.STRING_LITERAL().getText() ;
     // stripout the quotes
     ctx.result.setValue(str.substring(1,str.length()-1)) ;
@@ -855,7 +888,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitBoolean_literal(@NotNull AadlBaParser.Boolean_literalContext ctx)
   {
-    ctx.result = _fact.createBehaviorBooleanLiteral();
+    ctx.result = _baFact.createBehaviorBooleanLiteral();
     
     TerminalNode node = null ;
     
@@ -885,7 +918,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitAction_block(@NotNull AadlBaParser.Action_blockContext ctx)
   {
     visitChildren(ctx) ;
-    ctx.result = _fact.createBehaviorActionBlock() ;
+    ctx.result = _baFact.createBehaviorActionBlock() ;
     ctx.result.setContent(ctx.behavior_actions().result) ;
     setLocationReference(ctx.result, ctx.LCURLY(0)) ;
     return null ;
@@ -901,7 +934,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitDountil_statement(@NotNull AadlBaParser.Dountil_statementContext ctx)
   {
     visitChildren(ctx) ;
-    ctx.result = _fact.createWhileOrDoUntilStatement();
+    ctx.result = _baFact.createWhileOrDoUntilStatement();
     setLocationReference(ctx.result, ctx.DO()); 
     ctx.result.setDoUntil(true);
     ctx.result.setBehaviorActions(ctx.behavior_actions().result);
@@ -946,7 +979,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createIfStatement() ;
+    ctx.result = _baFact.createIfStatement() ;
     setLocationReference(ctx.result, ctx.IF(0)); 
     ctx.result.setLogicalValueExpression(ctx.value_expression().result) ;
     ctx.result.setBehaviorActions(ctx.behavior_actions(0).result);
@@ -967,7 +1000,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     
     if(ctx.ELSE() != null)
     {
-      ElseStatement elseStat = _fact.createElseStatement();
+      ElseStatement elseStat = _baFact.createElseStatement();
       setLocationReference(elseStat, ctx.ELSE());
       elseStat.setBehaviorActions(ctx.behavior_actions(1).result);
       previousState.setElseStatement(elseStat);
@@ -1006,7 +1039,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     
     for(TerminalNode bsId : ctx.IDENT())
     {
-      bs = _fact.createBehaviorState() ;
+      bs = _baFact.createBehaviorState() ;
       
       bs.setName(bsId.getText()) ;
       
@@ -1043,7 +1076,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitTimed_action(@NotNull AadlBaParser.Timed_actionContext ctx)
   {
-    ctx.result = _fact.createTimedAction() ;
+    ctx.result = _baFact.createTimedAction() ;
     setLocationReference(ctx.result, ctx.COMPUTATION()) ;
     
     if(ctx.in_binding() != null)
@@ -1090,11 +1123,11 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createForOrForAllStatement() ;
+    ctx.result = _baFact.createForOrForAllStatement() ;
     ctx.result.setForAll(true) ;
     setLocationReference(ctx.result, ctx.FORALL()) ;
 
-    IterativeVariable itVar = _fact.createIterativeVariable() ;
+    IterativeVariable itVar = _baFact.createIterativeVariable() ;
     itVar.setName(ctx.IDENT().getText()) ;
     setLocationReference(itVar, ctx.IDENT()) ;
     ctx.result.setIterativeVariable(itVar) ;
@@ -1146,7 +1179,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createSimpleExpression();
+    ctx.result = _baFact.createSimpleExpression();
     
     if(ctx.unary_adding_operator() != null)
     {
@@ -1179,11 +1212,11 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createForOrForAllStatement() ;
+    ctx.result = _baFact.createForOrForAllStatement() ;
     ctx.result.setForAll(false) ;
     setLocationReference(ctx.result, ctx.FOR()) ;
 
-    IterativeVariable itVar = _fact.createIterativeVariable() ;
+    IterativeVariable itVar = _baFact.createIterativeVariable() ;
     itVar.setName(ctx.IDENT().getText()) ;
     setLocationReference(itVar, ctx.IDENT()) ;
     ctx.result.setIterativeVariable(itVar) ;
@@ -1251,7 +1284,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createIntegerRange();
+    ctx.result = _baFact.createIntegerRange();
     Iterator<Integer_valueContext> it = ctx.integer_value().iterator() ;
     IntegerValue tmp = it.next().result ;
     ctx.result.setLowerIntegerValue(tmp);
@@ -1331,7 +1364,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx)
   {
-    ctx.result = _fact.createBehaviorVariable() ;
+    ctx.result = _baFact.createBehaviorVariable() ;
     visitChildren(ctx) ;
     setLocationReference(ctx.result, ctx.IDENT());
     ctx.result.setName(ctx.IDENT().getText()) ;
@@ -1345,7 +1378,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       dad.setDimension(ivcc.result) ;
       ctx.result.getArrayDimensions().add(dad); 
     }
-    
+        
     return null ;
   }
 
@@ -1360,8 +1393,8 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createFactor();
-    Iterator<ValueContext> it = ctx.value().iterator() ;
+    ctx.result = _baFact.createFactor();
+    Iterator<Value_constant_or_variableContext> it = ctx.value_constant_or_variable().iterator() ;
     Value tmpValue = it.next().result ;
     ctx.result.setFirstValue(tmpValue) ;
     ctx.result.setLocationReference(tmpValue.getLocationReference()) ;
@@ -1429,7 +1462,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitBehavior_annex(@NotNull AadlBaParser.Behavior_annexContext ctx)
   {
-    _ba = _fact.createBehaviorAnnex();
+    _ba = _baFact.createBehaviorAnnex();
     ctx.result = _ba ;
     
     for(Behavior_variable_listContext balc : ctx.behavior_variable_list())
@@ -1513,7 +1546,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createValueExpression();
+    ctx.result = _baFact.createValueExpression();
     
     Iterator<RelationContext> reIt = ctx.relation().iterator();
     Relation tmpRe = reIt.next().result ; 
@@ -1594,7 +1627,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createWhileOrDoUntilStatement();
+    ctx.result = _baFact.createWhileOrDoUntilStatement();
     setLocationReference(ctx.result, ctx.WHILE()); 
     ctx.result.setDoUntil(false);
     ctx.result.setLogicalValueExpression(ctx.value_expression().result);
@@ -1635,7 +1668,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createTerm();
+    ctx.result = _baFact.createTerm();
     
     Iterator<FactorContext> factIt = ctx.factor().iterator() ;
     Factor tmpFact = factIt.next().result ;
@@ -1700,12 +1733,12 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     }
     else if (ctx.TIMEOUT() != null)
     {
-      ctx.result = _fact.createExecutionTimeoutCatch();
+      ctx.result = _baFact.createExecutionTimeoutCatch();
       setLocationReference(ctx.result, ctx.TIMEOUT());
     }
     else
     {
-      ctx.result = _fact.createOtherwise() ;
+      ctx.result = _baFact.createOtherwise() ;
       setLocationReference(ctx.result, ctx.OTHERWISE());
     }
     
@@ -1731,11 +1764,11 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       
       if(ctx.SEMICOLON().size() > 0)
       {
-        tmp = _fact.createBehaviorActionSequence() ;
+        tmp = _baFact.createBehaviorActionSequence() ;
       }
       else
       {
-        tmp = _fact.createBehaviorActionSet() ;
+        tmp = _baFact.createBehaviorActionSet() ;
       }
       
       tmp.setLocationReference(firstAction.getLocationReference()) ;
@@ -1826,7 +1859,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitElsif_statement(Elsif_statementContext ctx)
   {
     visitChildren(ctx) ;
-    IfStatement elsifStat = _fact.createIfStatement() ;
+    IfStatement elsifStat = _baFact.createIfStatement() ;
     ctx.result = elsifStat ;
     elsifStat.setElif(true);
     setLocationReference(elsifStat, ctx.ELSIF());
@@ -1839,7 +1872,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitReal_literal(Real_literalContext ctx)
   {
     String str = ctx.REAL_LIT().getText() ;
-    BehaviorRealLiteral tmp = _fact.createBehaviorRealLiteral();
+    BehaviorRealLiteral tmp = _baFact.createBehaviorRealLiteral();
     str = str.replaceAll("_", "") ;
     tmp.setValue(str);
     setLocationReference(tmp, ctx.REAL_LIT());
@@ -1947,13 +1980,13 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     
     if(ctx.UPPER_BOUND() != null)
     {
-      UpperBound upField = _fact.createUpperBound() ;
+      UpperBound upField = _baFact.createUpperBound() ;
       setLocationReference(upField, ctx.UPPER_BOUND()) ;
       result.setField(upField) ;
     }
     else if(ctx.LOWER_BOUND() != null)
     {
-      LowerBound lowerField = _fact.createLowerBound() ;
+      LowerBound lowerField = _baFact.createLowerBound() ;
       setLocationReference(lowerField, ctx.LOWER_BOUND()) ;
       result.setField(lowerField) ;
     }
@@ -1975,7 +2008,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createModeSwitchConjunction();
+    ctx.result = _baFact.createModeSwitchConjunction();
     
     ctx.result.setLocationReference(ctx.reference(0).result
                                     .getLocationReference()) ;
@@ -1993,7 +2026,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     
-    ctx.result = _fact.createModeSwitchTriggerLogicalExpression() ;
+    ctx.result = _baFact.createModeSwitchTriggerLogicalExpression() ;
 
     ctx.result.setLocationReference(ctx.mode_switch_trigger_conjunction(0).result
           .getLocationReference()) ;
@@ -2003,6 +2036,110 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       ctx.result.getModeSwitchConjunctions().add(dcc.result) ;
     }
 
+    return null ;
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p/>
+   * The default implementation returns the result of calling
+   * {@link #visitChildren} on {@code ctx}.
+   */
+  @Override
+  public T visitValue_constant_or_variable(
+                                           Value_constant_or_variableContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    if(ctx.value_constant() != null)
+    {
+      ctx.result = ctx.value_constant().result ;
+    }
+    else if(ctx.value_variable() != null)
+    {
+      ctx.result = ctx.value_variable().result ;
+    }
+    else
+    {
+      ctx.result = ctx.value_expression().result ;
+    }
+
+    return null ;
+  }
+
+  @Override
+  public T visitData_classifier_property_association(
+                                                     Data_classifier_property_associationContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativePropertyAssociation();
+    ctx.result.setProperty(ctx.property_ref().result);
+    ctx.result.setOwnedValue(ctx.property_value().result);
+    return null ;
+  }
+
+  @Override
+  public T visitQualifiable_property(Qualifiable_propertyContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    ctx.result = _decl.createQualifiedNamedElement();
+    
+    Identifier nameId = _decl.createIdentifier() ;
+    nameId.setId(ctx.id2) ;
+    setLocationReference(nameId, ctx.identifier2) ;
+    ctx.result.setBaName(nameId) ;
+
+    if(!ctx.id1.equals(""))
+    {
+      Identifier nameSpaceId = _decl.createIdentifier() ;
+      nameSpaceId.setId(ctx.id1) ;
+      setLocationReference(nameSpaceId, ctx.identifier1) ;
+      ctx.result.setBaNamespace(nameSpaceId) ;
+      setLocationReference(ctx.result, ctx.identifier1) ;
+    }
+    else
+    {
+      setLocationReference(ctx.result, ctx.identifier2) ;
+    }
+
+    return null ;
+  }
+
+  @Override
+  public T visitProperty_ref(Property_refContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = ctx.qualifiable_property().result;
+    return null ;
+  }
+
+  @Override
+  public T visitProperty_value(Property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    if(ctx.list_property_value() != null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.list_property_value().result;
+    }
+    else if(ctx.string_literal()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.string_literal().result;
+    }
+    return null ;
+  }
+  
+  @Override
+  public T visitList_property_value(List_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeListValue();
+    
+    for(Property_valueContext pvc: ctx.property_value())
+    {
+      ctx.result.getOwnedListElements().add(pvc.result);
+    }
     return null ;
   }
 }

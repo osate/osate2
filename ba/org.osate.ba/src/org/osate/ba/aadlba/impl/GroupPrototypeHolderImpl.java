@@ -37,10 +37,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.GroupPrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -82,6 +82,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PrototypeBinding getPrototypeBinding()
   {
     if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
@@ -112,6 +113,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
   {
     PrototypeBinding oldPrototypeBinding = prototypeBinding;
@@ -125,6 +127,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
@@ -135,6 +138,7 @@ public class GroupPrototypeHolderImpl extends GroupHolderImpl implements GroupPr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Prototype getPrototype()
   {
     return (Prototype) element;

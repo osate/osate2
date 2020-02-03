@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#getLogicalValueExpression <em>Logical Value Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#isDoUntil <em>Do Until</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement()
  * @model
  * @generated
  */
-public interface WhileOrDoUntilStatement extends LoopStatement, IBAVisitable
+public interface WhileOrDoUntilStatement extends LoopStatement
 {
   /**
    * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.

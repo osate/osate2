@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder, IBAVisitable
+public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model dataSubcomponentRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataSubcomponent ;'"
    * @generated
    */
   void setDataSubcomponent(DataSubcomponent dataSubcomponent);
@@ -47,7 +46,6 @@ public interface DataSubcomponentHolder extends DataHolder, Target, ElementValue
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataSubcomponent) element;'"
    * @generated
    */
   DataSubcomponent getDataSubcomponent();

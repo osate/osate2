@@ -38,10 +38,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.PropertyReferenceImpl#getProperties <em>Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -83,6 +83,7 @@ public abstract class PropertyReferenceImpl extends BehaviorElementImpl implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<PropertyNameHolder> getProperties()
   {
     if (properties == null)

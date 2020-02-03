@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface Otherwise extends ExecuteCondition, IBAVisitable
+public interface Otherwise extends ExecuteCondition
 {
 } // Otherwise

@@ -40,7 +40,7 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   DeclarativeFactory eINSTANCE =
-        org.osate.ba.declarative.impl.DeclarativeFactoryImpl.init() ;
+                               org.osate.ba.declarative.impl.DeclarativeFactoryImpl.init() ;
 
   /**
    * Returns a new object of class '<em>Arrayable Identifier</em>'.
@@ -140,6 +140,33 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   Reference createReference() ;
+
+  /**
+   * Returns a new object of class '<em>Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Association</em>'.
+   * @generated
+   */
+  DeclarativePropertyAssociation createDeclarativePropertyAssociation() ;
+
+  /**
+   * Returns a new object of class '<em>List Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Value</em>'.
+   * @generated
+   */
+  DeclarativeListValue createDeclarativeListValue() ;
+
+  /**
+   * Returns a new object of class '<em>String Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String Literal</em>'.
+   * @generated
+   */
+  DeclarativeStringLiteral createDeclarativeStringLiteral() ;
 
   /**
    * Returns the package supported by this factory.

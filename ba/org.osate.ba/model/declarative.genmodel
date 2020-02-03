@@ -32,11 +32,19 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/srcStates"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/destState"/>
     </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyName">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/propertyName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/field"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/indexes"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/qualifiedName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/reference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/propertyNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//DeclarativePropertyReference/propertySet"/>
+    </genClasses>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeTime">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeTime/unitId"/>
-    </genClasses>
-    <genClasses ecoreClass="declarative.ecore#//Enumeration">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Enumeration/literal"/>
     </genClasses>
     <genClasses ecoreClass="declarative.ecore#//Identifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//Identifier/id"/>
@@ -54,5 +62,12 @@
     <genClasses ecoreClass="declarative.ecore#//Reference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Reference/ids"/>
     </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyAssociation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyAssociation/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyAssociation/ownedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeListValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyExpression"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeStringLiteral"/>
   </genPackages>
 </genmodel:GenModel>

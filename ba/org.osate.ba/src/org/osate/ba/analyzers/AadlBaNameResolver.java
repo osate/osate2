@@ -21,6 +21,7 @@
 
 package org.osate.ba.analyzers;
 
+import java.util.List ;
 import java.util.ListIterator ;
 
 import org.eclipse.emf.common.util.BasicEList ;
@@ -43,7 +44,6 @@ import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.Mode ;
-import org.osate.aadl2.ModeTransitionTrigger ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.ProcessorClassifier ;
@@ -91,7 +91,6 @@ import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.IterativeVariable ;
 import org.osate.ba.aadlba.ModeSwitchConjunction ;
 import org.osate.ba.aadlba.ModeSwitchTrigger ;
-import org.osate.ba.aadlba.ModeSwitchTriggerCondition ;
 import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PropertyNameField ;
@@ -2445,6 +2444,14 @@ public class AadlBaNameResolver
                                                                 getDimension() ; 
           result &= integerValueConstantResolver(ivc) ;
         }
+        
+        List<PropertyAssociation> paList = v.getOwnedPropertyAssociations();
+        for(PropertyAssociation pa : paList)
+        {
+          QualifiedNamedElement p = (QualifiedNamedElement) pa.getProperty();
+          result &= qualifiedNamedElementResolver(p, true) ;
+        }
+        
       }
       return result ;
    }
