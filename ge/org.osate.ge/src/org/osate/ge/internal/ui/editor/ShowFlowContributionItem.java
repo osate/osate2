@@ -152,7 +152,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 				}
 			}
 
-			public List<FlowSegmentReference> findFlowSegments(final FlowSegmentReference flowElementRef) {
+			private List<FlowSegmentReference> findFlowSegments(final FlowSegmentReference flowElementRef) {
 				if (flowElementRef.flowSegmentElement instanceof FlowSpecification) {
 					// Check if flow specification has flow implementation(s)
 					return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
@@ -241,7 +241,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 				return boTreeExpander.expandTree(editor.getAgeDiagram().getConfiguration(), boTree);
 			}
 
-			public FlowSegmentReference createFlowSegmentReference(final Object bo,
+			private FlowSegmentReference createFlowSegmentReference(final Object bo,
 					final BusinessObjectNode container) {
 				if (bo instanceof FlowSegment) {
 					final FlowSegment flowSegment = (FlowSegment) bo;
@@ -396,16 +396,20 @@ public class ShowFlowContributionItem extends ControlContribution {
 			private void enableConnectionReferenceNodes(final Map<Object, Queryable> descendantBoToQueryable,
 					final ConnectionReference cr) {
 				Element tmpElement = cr;
-				final Queue<Element> queue = Collections.asLifoQueue(new LinkedList<Element>());
-				if (!descendantBoToQueryable.containsKey(cr)) {
-					queue.add(cr);
+				// Ancestors to ensure are enabled on the diagram
+				final Queue<Element> ancestors = Collections.asLifoQueue(new LinkedList<Element>());
+				if (!descendantBoToQueryable.containsKey(tmpElement)) {
+					ancestors.add(tmpElement);
+					tmpElement = tmpElement.getOwner();
 					// First owner of connection reference is connection instance
-					tmpElement = tmpElement.getOwner().getOwner();
+					if (tmpElement instanceof ConnectionInstance) {
+						tmpElement = tmpElement.getOwner();
+					}
 				}
 
 				// Connection reference
-				populateAncestorsQueue(descendantBoToQueryable, queue, tmpElement);
-				enableAncestorNodes(descendantBoToQueryable, queue, queue.poll());
+				populateAncestorsQueue(descendantBoToQueryable, ancestors, tmpElement);
+				enableAncestorNodes(descendantBoToQueryable, ancestors, ancestors.poll());
 
 				// Enable source and destination nodes
 				enableAncestorNodes(descendantBoToQueryable, cr.getSource());
@@ -413,18 +417,19 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			// Gets the first element ancestor that is enabled
-			private void populateAncestorsQueue(final Map<Object, Queryable> descendants, final Queue<Element> queue,
-					Element element) {
-				while (!descendants.containsKey(element)) {
-					queue.add(element);
-					element = element.getOwner();
+			private void populateAncestorsQueue(final Map<Object, Queryable> descendants, final Queue<Element> ancestors,
+					Element ancestor) {
+				while (!descendants.containsKey(ancestor)) {
+					ancestors.add(ancestor);
+					ancestor = ancestor.getOwner();
 				}
 
-				queue.add(element);
+				ancestors.add(ancestor);
 			}
 
 			// Find ancestors and create if necessary
-			private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable, Element ancestor) {
+			private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable,
+					final Element ancestor) {
 				final Queue<Element> ancestors = Collections.asLifoQueue(new LinkedList<Element>());
 				populateAncestorsQueue(descendantBoToQueryable, ancestors, ancestor);
 				enableAncestorNodes(descendantBoToQueryable, ancestors, ancestors.poll());
@@ -432,12 +437,12 @@ public class ShowFlowContributionItem extends ControlContribution {
 
 			// Create ancestor nodes
 			private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable,
-					final Queue<Element> ancestors, final Element ancestorElement) {
-				BusinessObjectNode ancestorNode = (BusinessObjectNode) descendantBoToQueryable.get(ancestorElement);
-				for (final Element ancestor : ancestors) {
-					final RelativeBusinessObjectReference ancestorRef = getRelativeBusinessObjectReference(ancestor);
+					final Queue<Element> ancestors, final Element ancestor) {
+				BusinessObjectNode ancestorNode = (BusinessObjectNode) descendantBoToQueryable.get(ancestor);
+				for (final Element ancestorToEnable : ancestors) {
+					final RelativeBusinessObjectReference ancestorRef = getRelativeBusinessObjectReference(ancestorToEnable);
 					if (ancestorNode.getChild(ancestorRef) == null) {
-						ancestorNode = createNode(ancestorNode, ancestorRef, ancestor);
+						ancestorNode = createNode(ancestorNode, ancestorRef, ancestorToEnable);
 					}
 				}
 			}
@@ -478,6 +483,9 @@ public class ShowFlowContributionItem extends ControlContribution {
 		}
 	}
 
+	/**
+	 * Updates the enabled state of the show flow button determined by the state of the selected flow
+	 */
 	public void updateShowFlowItem(final HighlightableFlowInfo selectedFlow) {
 		this.selectedFlow = selectedFlow;
 		updateButton();
