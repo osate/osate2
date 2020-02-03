@@ -447,6 +447,7 @@ public interface AssurePackage extends EPackage {
 	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -1041,6 +1042,7 @@ public interface AssurePackage extends EPackage {
 	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -1123,6 +1125,7 @@ public interface AssurePackage extends EPackage {
 	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -1205,6 +1208,7 @@ public interface AssurePackage extends EPackage {
 	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -1305,6 +1309,7 @@ public interface AssurePackage extends EPackage {
 	 * The feature id for the '<em><b>Analysisresult</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -1638,6 +1643,7 @@ public interface AssurePackage extends EPackage {
 	 * @return the meta object for the containment reference list '<em>Analysisresult</em>'.
 	 * @see org.osate.assure.assure.VerificationResult#getAnalysisresult()
 	 * @see #getVerificationResult()
+	 * @since 2.0
 	 * @generated
 	 */
 	EReference getVerificationResult_Analysisresult();
@@ -2483,6 +2489,7 @@ public interface AssurePackage extends EPackage {
 		 * The meta object literal for the '<em><b>Analysisresult</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @since 2.0
 		 * @generated
 		 */
 		EReference VERIFICATION_RESULT__ANALYSISRESULT = eINSTANCE.getVerificationResult_Analysisresult();
