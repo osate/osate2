@@ -25,12 +25,15 @@ package org.osate.ui.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -40,6 +43,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobGroup;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.ui.PlatformUI;
@@ -67,9 +72,19 @@ public class InstantiateComponentHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final List<URI> selectedURIs = new ArrayList<>();
-		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
-			URI uri;
+		final List<?> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
+		final int size = selectionAsList.size();
+
+		/*
+		 * This map is shared by all the jobs to build the set of results. It is created here,
+		 * given to all the jobs, and then forgotten.
+		 */
+		final Map<ComponentImplementation, Result> results = new ConcurrentHashMap<>(size);
+
+		final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
+		final List<IFile> outputFiles = new ArrayList<>(size);
+		for (final Object selection : selectionAsList) {
+			final URI uri;
 			if (selection instanceof EObjectNode) {
 				uri = ((EObjectNode) selection).getEObjectURI();
 			} else if (selection instanceof EObjectURIWrapper) {
@@ -77,148 +92,170 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			} else {
 				throw new AssertionError("Unexpected selection: " + selection);
 			}
-			selectedURIs.add(uri);
+
+			final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
+			final ResourceSet resourceSet = resourceSetProvider.get(project);
+			final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+			selectedCompImpls.add(impl);
+			outputFiles.add(OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl)));
+
+			/*
+			 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+			 * add a new result record to the map. This way those jobs that never run are accounted for.
+			 */
+			results.put(impl, new Result(false, true, null, null));
 		}
 
-		final Job job = new InstantiationJob(selectedURIs);
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.setUser(true);
-		job.schedule();
+		final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+		final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
+		final Job myJobs[] = new Job[size];
+		for (int i = 0; i < size; i++) {
+			final IFile outputFile = outputFiles.get(i);
+			final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
+			/*
+			 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+			 * is only needed for modification, not for reading from resources. This seems sketchy to me
+			 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+			 * things might go wonky.
+			 *
+			 * We create and possibly remove the aaxl file in the case of errors.
+			 */
+			job.setRule(MultiRule.combine(factory.createRule(outputFile), factory.deleteRule(outputFile)));
+			job.setUser(true);
+			job.setJobGroup(jobGroup);
+			myJobs[i] = job;
+		}
 
+		final Job resultJob = new ResultJob(jobGroup, results);
+		resultJob.setRule(null); // doesn't use resources
+		resultJob.setUser(false); // background helper job, don't let the user see it
+		resultJob.setSystem(true); // background helper job, don't let the user see it
+		resultJob.schedule();
+
+		// now launch the main jobs
+		for (final Job job : myJobs) {
+			job.schedule();
+		}
+
+		// Supposed to always return null
 		return null;
 	}
 
-	private final class InstantiationJob extends WorkspaceJob {
-		private final List<URI> componentURIs;
+	/* Make everything final here so that this class is thread-safe immutable */
+	public static final class Result {
+		public final boolean successful;
+		public final boolean cancelled;
+		public final String errorMessage;
+		public final Exception exception;
 
-		public InstantiationJob(final List<URI> uris) {
-			super("Instantiate components");
-			componentURIs = uris;
+		public Result(final boolean successful, final boolean cancelled,
+				final String errorMessage,
+				final Exception exception) {
+			this.successful = successful;
+			this.cancelled = cancelled;
+			this.errorMessage = errorMessage;
+			this.exception = exception;
+		}
+	}
+
+	private static final class InstantiationJob extends WorkspaceJob {
+		private final ComponentImplementation compImpl;
+		private final IFile outputFile;
+
+		private final Map<ComponentImplementation, Result> results;
+
+		public InstantiationJob(final ComponentImplementation compImpl, final IFile outputFile,
+				final Map<ComponentImplementation, Result> results) {
+			super("Instantiate " + compImpl.getQualifiedName());
+			this.compImpl = compImpl;
+			this.outputFile = outputFile;
+			this.results = results;
 		}
 
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			final int size = componentURIs.size();
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, size);
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
 
 			/*
 			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
 			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
 			 * we can from it and display it to the user at the end of the operation.
 			 */
-			boolean allGood = true;
-			final ComponentImplementation[] compImpl = new ComponentImplementation[size];
-			final boolean[] successful = new boolean[size];
-			final String[] errorMessages = new String[size];
-			final Exception[] exceptions = new Exception[size];
+			boolean successful = false;
+			String errorMessage = null;
+			Exception exception = null;
 			boolean cancelled = false;
 
-			/* Init compImpl first so that we have all the components for describing errors later. */
-			for (int i = 0; i < size; i++) {
-				final URI uri = componentURIs.get(i);
-				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
-				final ResourceSet resourceSet = resourceSetProvider.get(project);
-				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
-				compImpl[i] = impl;
+			boolean delete = false;
+			try {
+				final SystemInstance instance = InstantiateModel.buildInstanceModelFile(compImpl, subMonitor.split(1));
+				successful = instance != null;
+				errorMessage = InstantiateModel.getErrorMessage();
+				delete = !successful;
+			} catch (final InterruptedException | OperationCanceledException e) {
+				// Instantiation was canceled by the user.
+				cancelled = true;
+				delete = true;
+			} catch (final Exception e) {
+				OsateUiPlugin.log(e);
+				successful = false;
+				exception = e;
+				delete = true;
 			}
 
-			/*
-			 * Start at -1 because this is indexed at the START of the loop so that when we exit the loop
-			 * either normally or because of cancellation this is always the most recent index value
-			 * of the URI we tried to instantiate.
-			 */
-			int lastTried = -1;
-			for (final ComponentImplementation impl : compImpl) {
-				lastTried += 1;
-				boolean delete = false;
-				boolean breakOut = false;
+			if (delete) {
+				// Remove the partially instantiated resource
 				try {
-					subMonitor.subTask("Instantiating " + impl.getQualifiedName());
-					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
-					final boolean success = instance != null;
-					allGood &= success;
-					successful[lastTried] = success;
-					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
-					delete = !success;
-				} catch (final InterruptedException | OperationCanceledException e) {
-					// Instantiation was canceled by the user.
-					cancelled = true;
-					allGood = false;
-					delete = true;
-					breakOut = true; // jump out of the for-loop
-				} catch (final Exception e) {
-					allGood = false;
-					// save for later
-					successful[lastTried] = false;
-					exceptions[lastTried] = e;
-					delete = true;
-					OsateUiPlugin.log(e);
-					// We try the next instantiation
-				}
-
-				if (delete) {
-					// Remove the partially instantiated resource
-					try {
-						final IFile instanceFile = OsateResourceUtil
-								.toIFile(InstantiateModel.getInstanceModelURI(impl));
-						if (instanceFile.exists()) {
-							instanceFile.delete(0, null);
-						}
-					} catch (final CoreException ce) {
-						// eat it
+					if (outputFile.exists()) {
+						outputFile.delete(0, null);
 					}
-				}
-
-				if (breakOut) {
-					break;
+				} catch (final CoreException ce) {
+					// eat it
 				}
 			}
 
-			final StringBuilder sb = new StringBuilder();
-			if (cancelled) {
-				sb.append(cancelled ? "Instantiation cancelled by the user:" : "Errors during instantiation:");
-			}
-			sb.append(System.lineSeparator());
-			for (int i = 0; i < size; i++) {
-				sb.append("- ");
-				sb.append(compImpl[i].getQualifiedName());
-				sb.append(": ");
-				if (!cancelled || i < lastTried) {
-					if (successful[i]) {
-						sb.append("Successfully instantiated");
-					} else {
-						if (errorMessages[i] != null) {
-							sb.append(errorMessages[i]);
-						} else if (exceptions[i] != null) {
-							final Exception e = exceptions[i];
-							if (e instanceof UnsupportedOperationException) {
-								sb.append("Operation is not supported: ");
-								sb.append(e.getMessage());
-							} else {
-								sb.append(e.getClass().getCanonicalName());
-								sb.append(" during instantiation");
-							}
-						}
-					}
-				} else {
-					sb.append("Not instantiated");
-				}
-				sb.append(System.lineSeparator());
-			}
+			final Result result = new Result(successful, cancelled, errorMessage, exception);
+			results.put(compImpl, result);
 
-			final String errMessage = sb.toString(); // string builder isn't threadsafe
-			final boolean wasCancelled = cancelled; // for the lambda
-			final int lastTriedFinal = lastTried; // for the lambda
-			final boolean allGoodFinal = allGood; // for the lambda
-			PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-//					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-//							"Errors during model Instantiation", errMessage);
+			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+	}
 
-				final InstantiationResultsDialog d = new InstantiationResultsDialog(
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), allGoodFinal, wasCancelled,
-						lastTriedFinal, compImpl, successful, errorMessages, exceptions);
-				d.open();
-			});
+	private static final class ResultJob extends WorkspaceJob {
+		private final JobGroup instantiationJobs;
+		private final Map<ComponentImplementation, Result> results;
+
+		public ResultJob(final JobGroup intantiationJob, final Map<ComponentImplementation, Result> results) {
+			super("Instantiation Result Job (hidden)");
+			this.instantiationJobs = intantiationJob;
+			this.results = results;
+		}
+
+		@Override
+		public IStatus runInWorkspace(final IProgressMonitor monitor) {
+			// Wait for the instantiation jobs to finish
+			boolean cancelled = false;
+			try {
+				instantiationJobs.join(0L, null);
+
+				/* Get the results and display them */
+				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+					final InstantiationResultsDialog d = new InstantiationResultsDialog(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), results);
+					d.open();
+				});
+
+			} catch (final InterruptedException | OperationCanceledException e) {
+				/*
+				 * InterruptedException thrown if we are somehow cancelled. Not sure if
+				 * or how this can happen, but if it does, just give up.
+				 *
+				 * OperationCancelledExceptoin is through if the progress monitor given
+				 * to join() is cancelled, but we didn't give it one, so it should
+				 * never occur.
+				 */
+				cancelled = true;
+			}
 
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
 		}
