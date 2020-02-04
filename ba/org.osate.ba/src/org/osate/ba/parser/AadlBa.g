@@ -352,7 +352,7 @@ property_value returns [DeclarativePropertyExpression result]
   	| string_literal
 //  	| numeric_range_property_value
   	| integer_property_value
-//  	| real_property_value
+  	| real_property_value
   	| list_property_value
 //  	| boolean_property_value  	
 ;
@@ -408,12 +408,12 @@ integer_property_value returns [BehaviorIntegerLiteral result]:
 signed_int returns [Integer result]:
 	('+'|'-')?integer_literal ;
 
-//real_property_value returns [RealLiteral result]:
-//	value=signed_real (unit=unit_reference)?
-//	;
-//
-//signed_real returns [RealLiteral result]:
-//	('+'|'-')?REAL_LIT ;
+real_property_value returns [BehaviorRealLiteral result]:
+	value=signed_real (unit=unit_reference)?
+	;
+
+signed_real returns [Double result]:
+	('+'|'-')?real_literal ;
 
 
 
@@ -1589,7 +1589,7 @@ numeric_literal returns [NumericLiteral result]
     integer_literal | real_literal
 ;
 
-real_literal returns [BehaviorRealLiteral result]
+real_literal returns [DeclarativeRealLiteral result]
   :
     REAL_LIT
     {

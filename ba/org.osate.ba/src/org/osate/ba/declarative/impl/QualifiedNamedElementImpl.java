@@ -223,23 +223,23 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   protected UnitLiteral baseUnit ;
 
   /**
-  	 * The cached value of the '{@link #getFactor() <em>Factor</em>}' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getFactor() <em>Factor</em>}' containment reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #getFactor()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #getFactor()
+   * @generated
+   * @ordered
+   */
   protected NumberValue factor ;
 
   /**
-  	 * The cached value of the '{@link #getBaNamespace() <em>Ba Namespace</em>}' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getBaNamespace() <em>Ba Namespace</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @see #getBaNamespace()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #getBaNamespace()
+   * @generated
+   * @ordered
+   */
   protected Identifier baNamespace ;
 
   /**
@@ -720,10 +720,10 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
                                           int featureID, NotificationChain msgs)
@@ -1478,20 +1478,20 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   public UnitLiteral basicGetBaseUnit()
   {
     return baseUnit ;
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public void setBaseUnit(UnitLiteral newBaseUnit)
   {
@@ -1504,10 +1504,10 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public NumberValue getFactor()
   {
@@ -1515,10 +1515,10 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   public NotificationChain basicSetFactor(NumberValue newFactor,
                                           NotificationChain msgs)
   {
@@ -1540,10 +1540,10 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public void setFactor(NumberValue newFactor)
   {

@@ -73,6 +73,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDispatch_conjunction(@NotNull AadlBaParser.Dispatch_conjunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#real_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReal_property_value(@NotNull AadlBaParser.Real_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#integer_literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -456,6 +462,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBehavior_condition(@NotNull AadlBaParser.Behavior_conditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#signed_real}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSigned_real(@NotNull AadlBaParser.Signed_realContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#target}.
 	 * @param ctx the parse tree

@@ -1605,23 +1605,23 @@ public interface DeclarativePackage extends EPackage
                                            12 ;
 
   /**
-  	 * The feature id for the '<em><b>Factor</b></em>' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Factor</b></em>' containment reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__FACTOR =
                                       Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                         13 ;
 
   /**
-  	 * The feature id for the '<em><b>Ba Namespace</b></em>' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Ba Namespace</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE =
                                             Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                               14 ;
@@ -2043,13 +2043,74 @@ public interface DeclarativePackage extends EPackage
                                                   0 ;
 
   /**
-   * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl <em>Real Literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arrayable Identifier</em>'.
-   * @see org.osate.ba.declarative.ArrayableIdentifier
+   * @see org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRealLiteral()
    * @generated
    */
+  int DECLARATIVE_REAL_LITERAL = 17 ;
+
+  /**
+  	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_REAL_LITERAL__OWNED_ELEMENT =
+                                              AadlBaPackage.BEHAVIOR_REAL_LITERAL__OWNED_ELEMENT ;
+
+  /**
+  	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_REAL_LITERAL__OWNED_COMMENT =
+                                              AadlBaPackage.BEHAVIOR_REAL_LITERAL__OWNED_COMMENT ;
+
+  /**
+  	 * The feature id for the '<em><b>Unit</b></em>' reference.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_REAL_LITERAL__UNIT =
+                                     AadlBaPackage.BEHAVIOR_REAL_LITERAL__UNIT ;
+
+  /**
+  	 * The feature id for the '<em><b>Value</b></em>' attribute.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_REAL_LITERAL__VALUE =
+                                      AadlBaPackage.BEHAVIOR_REAL_LITERAL__VALUE ;
+
+  /**
+  	 * The number of structural features of the '<em>Real Literal</em>' class.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_REAL_LITERAL_FEATURE_COUNT =
+                                             AadlBaPackage.BEHAVIOR_REAL_LITERAL_FEATURE_COUNT +
+                                               0 ;
+
+  /**
+  	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the meta object for class '<em>Arrayable Identifier</em>'.
+  	 * @see org.osate.ba.declarative.ArrayableIdentifier
+  	 * @generated
+  	 */
   EClass getArrayableIdentifier() ;
 
   /**
@@ -2565,12 +2626,22 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeIntegerLiteral() ;
 
   /**
-   * Returns the factory that creates the instances of the model.
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeRealLiteral <em>Real Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the factory that creates the instances of the model.
+   * @return the meta object for class '<em>Real Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeRealLiteral
    * @generated
    */
+  EClass getDeclarativeRealLiteral() ;
+
+  /**
+  	 * Returns the factory that creates the instances of the model.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the factory that creates the instances of the model.
+  	 * @generated
+  	 */
   DeclarativeFactory getDeclarativeFactory() ;
 
   /**
@@ -3040,6 +3111,16 @@ public interface DeclarativePackage extends EPackage
      */
     EClass DECLARATIVE_INTEGER_LITERAL = eINSTANCE
                                                   .getDeclarativeIntegerLiteral() ;
+
+    /**
+    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl <em>Real Literal</em>}' class.
+    	 * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+    	 * @see org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl
+    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRealLiteral()
+    	 * @generated
+    	 */
+    EClass DECLARATIVE_REAL_LITERAL = eINSTANCE.getDeclarativeRealLiteral() ;
 
   }
 

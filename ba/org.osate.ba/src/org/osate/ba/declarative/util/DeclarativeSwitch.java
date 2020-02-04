@@ -48,6 +48,7 @@ import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyValue ;
+import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -60,6 +61,7 @@ import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
+import org.osate.ba.aadlba.BehaviorRealLiteral ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorStringLiteral ;
 import org.osate.ba.aadlba.BehaviorTime ;
@@ -582,6 +584,43 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = defaultCase(theEObject) ;
         return result ;
       }
+      case DeclarativePackage.DECLARATIVE_REAL_LITERAL :
+      {
+        DeclarativeRealLiteral declarativeRealLiteral =
+                                                      (DeclarativeRealLiteral) theEObject ;
+        T result = caseDeclarativeRealLiteral(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseBehaviorRealLiteral(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseDeclarativePropertyExpression(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseRealLiteral(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseNumericLiteral(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseNumberValue(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseLiteral(declarativeRealLiteral) ;
+        if(result == null)
+          result = casePropertyValue(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseIntegerValueConstant(declarativeRealLiteral) ;
+        if(result == null)
+          result = casePropertyExpression(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseValueConstant(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseValue(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseIntegerValue(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseBehaviorElement(declarativeRealLiteral) ;
+        if(result == null)
+          result = caseElement(declarativeRealLiteral) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
       default :
         return defaultCase(theEObject) ;
     }
@@ -863,16 +902,32 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Real Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Real Literal</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
+  public T caseDeclarativeRealLiteral(DeclarativeRealLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+  	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+  	 * @param object the target of the switch.
+  	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+  	 * @generated
+  	 */
   public T caseElement(Element object)
   {
     return null ;
@@ -1439,32 +1494,32 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
+   * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseUnitLiteral(UnitLiteral object)
   {
     return null ;
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Value Variable</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Value Variable</em>'.
+   * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Value Variable</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseValueVariable(ValueVariable object)
   {
     return null ;
@@ -1839,16 +1894,48 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Real Literal</em>'.
    * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Real Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRealLiteral(RealLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+  	 * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+  	 * @param object the target of the switch.
+  	 * @return the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+  	 * @generated
+  	 */
+  public T caseBehaviorRealLiteral(BehaviorRealLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+  	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch, but this is the last case anyway.
    * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-   * @generated
-   */
+  	 * @param object the target of the switch.
+  	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+  	 * @generated
+  	 */
   @Override
   public T defaultCase(EObject object)
   {

@@ -82,6 +82,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitDispatch_conjunction(@NotNull AadlBaParser.Dispatch_conjunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#real_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterReal_property_value(@NotNull AadlBaParser.Real_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#real_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitReal_property_value(@NotNull AadlBaParser.Real_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#integer_literal}.
 	 * @param ctx the parse tree
 	 */
@@ -721,6 +731,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBehavior_condition(@NotNull AadlBaParser.Behavior_conditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#signed_real}.
+	 * @param ctx the parse tree
+	 */
+	void enterSigned_real(@NotNull AadlBaParser.Signed_realContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#signed_real}.
+	 * @param ctx the parse tree
+	 */
+	void exitSigned_real(@NotNull AadlBaParser.Signed_realContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#target}.
 	 * @param ctx the parse tree
