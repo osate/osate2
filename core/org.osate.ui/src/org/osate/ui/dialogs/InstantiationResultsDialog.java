@@ -16,27 +16,51 @@ import org.eclipse.swt.widgets.Table;
 import org.osate.aadl2.ComponentImplementation;
 
 public final class InstantiationResultsDialog extends Dialog {
-	private final String message;
 	private final Model model;
 
-	public InstantiationResultsDialog(final Shell shell, final String msg, final boolean cancelled, final int lastTried,
+	public InstantiationResultsDialog(final Shell shell, final boolean allGood, final boolean cancelled,
+			final int lastTried,
 			final ComponentImplementation[] cis, final boolean[] successful, final String[] errMsgs,
 			final Exception[] exceptions) {
 		super(shell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 
-		message = msg;
-		model = new Model(cancelled, lastTried, cis, successful, errMsgs, exceptions);
+		model = new Model(allGood, cancelled, lastTried, cis, successful, errMsgs, exceptions);
 	}
 
 	private final static class Model {
-		final Integer[] elements;
+		private final String message;
 
-		final String[] name;
-		final String[] status;
-		final String[] errorMessage;
+		private final Integer[] elements;
 
-		public Model(final boolean cancelled, final int lastTried, final ComponentImplementation[] compImpls,
+		private final String[] name;
+		private final String[] status;
+		private final String[] errorMessage;
+
+		private static String buildMessage(final boolean allGood, final boolean cancelled, final boolean errs,
+				final boolean logged) {
+			final StringBuilder sb = new StringBuilder();
+			if (allGood) {
+				sb.append("All models created successfully.");
+			} else {
+				if (cancelled) {
+					sb.append("Instantiation cancelled.  ");
+				}
+				if (errs) {
+					if (logged) {
+						sb.append("Errors and exceptions during intantiation.  Please open the \"Error Log\" view.");
+					} else {
+						sb.append("Errors during instantiation");
+					}
+				} else if (logged) {
+					sb.append("Exceptions during instantiation.  Please open the \"Error Log\" view.");
+				}
+			}
+			return sb.toString();
+		}
+
+		public Model(final boolean allGood, final boolean cancelled, final int lastTried,
+				final ComponentImplementation[] compImpls,
 				final boolean[] successful, final String[] errorMessages, final Exception[] exceptions) {
 			final int size = compImpls.length;
 			elements = new Integer[size];
@@ -48,21 +72,27 @@ public final class InstantiationResultsDialog extends Dialog {
 			status = new String[size];
 			errorMessage = new String[size];
 
+			boolean errs = false;
+			boolean logged = false;
 			for (int i = 0; i < size; i++) {
 				name[i] = compImpls[i].getQualifiedName();
 				if (!cancelled || i < lastTried) {
 					if (successful[i]) {
-						status[i] = "Successfully instantiated";
+						status[i] = "Instantiated";
 					} else {
 						if (errorMessages[i] != null) {
+							errs = true;
+							status[i] = "Error";
 							errorMessage[i] = errorMessages[i];
 						} else if (exceptions[i] != null) {
+							logged = true;
 							final Exception e = exceptions[i];
 
 							/*
 							 * NB. Inherited these specific exception checks from the original
 							 * InstantiateHandler (now obsolete).
 							 */
+							status[i] = "Exception";
 							if (e instanceof UnsupportedOperationException) {
 								errorMessage[i] = "Operation is not supported: " + e.getMessage();
 							} else {
@@ -74,6 +104,12 @@ public final class InstantiationResultsDialog extends Dialog {
 					status[i] = "Not instantiated";
 				}
 			}
+
+			message = buildMessage(allGood, cancelled, errs, logged);
+		}
+
+		public String getMessage() {
+			return message;
 		}
 
 		public Integer[] getElements() {
@@ -111,7 +147,7 @@ public final class InstantiationResultsDialog extends Dialog {
 
 		/* Do we need a message on top? */
 		final Label label = new Label(composite, SWT.NONE);
-		label.setText(message); // "Message goes here. Message goes here. Message goes here.");
+		label.setText(model.getMessage());
 		label.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, true, false));
 
 		final TableViewer viewer = new TableViewer(composite,
@@ -120,18 +156,9 @@ public final class InstantiationResultsDialog extends Dialog {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		/* May need to add a scroll pane type thing? */
-
-		/*
-		 * Columns:
-		 * - ComponentImplementation
-		 * - Instantiation status
-		 * - Error message
-		 */
-
 		final TableViewerColumn col1 = new TableViewerColumn(viewer, SWT.NONE);
 		col1.getColumn().setText("Component Implementation");
-		col1.getColumn().setWidth(200);
+		col1.getColumn().setWidth(350);
 		col1.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {

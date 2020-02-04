@@ -42,7 +42,6 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
@@ -93,7 +92,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 		private final List<URI> componentURIs;
 
 		public InstantiationJob(final List<URI> uris) {
-			super("Instantiate component");
+			super("Instantiate components");
 			componentURIs = uris;
 		}
 
@@ -114,7 +113,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 			final Exception[] exceptions = new Exception[size];
 			boolean cancelled = false;
 
-			/* Init compImpl first so that we have all the components for enumeration errors later. */
+			/* Init compImpl first so that we have all the components for describing errors later. */
 			for (int i = 0; i < size; i++) {
 				final URI uri = componentURIs.get(i);
 				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
@@ -134,6 +133,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 				boolean delete = false;
 				boolean breakOut = false;
 				try {
+					subMonitor.subTask("Instantiating " + impl.getQualifiedName());
 					final SystemInstance instance = InstantiateModel.buildInstanceModelFile(impl, subMonitor.split(1));
 					final boolean success = instance != null;
 					allGood &= success;
@@ -174,62 +174,51 @@ public class InstantiateComponentHandler extends AbstractHandler {
 				}
 			}
 
-			/*
-			 * Best case: alLGood is true and cancelled is false. Otherwise, we have to
-			 * show a dialog that tells the user what did or didn't happen.
-			 */
-
-			/*
-			 * Do we always show the results, or only when it was cancelled or there was an error? Control by
-			 * a workspace setting?
-			 */
-
-			if (true) { // !allGood) {
-				final StringBuilder sb = new StringBuilder();
-				if (cancelled) {
-					sb.append(cancelled ? "Instantiation cancelled by the user:" : "Errors during instantiation:");
-				}
-				sb.append(System.lineSeparator());
-				for (int i = 0; i < size; i++) {
-					sb.append("- ");
-					sb.append(compImpl[i].getQualifiedName());
-					sb.append(": ");
-					if (!cancelled || i < lastTried) {
-						if (successful[i]) {
-							sb.append("Successfully instantiated");
-						} else {
-							if (errorMessages[i] != null) {
-								sb.append(errorMessages[i]);
-							} else if (exceptions[i] != null) {
-								final Exception e = exceptions[i];
-								if (e instanceof UnsupportedOperationException) {
-									sb.append("Operation is not supported: ");
-									sb.append(e.getMessage());
-								} else {
-									sb.append(e.getClass().getCanonicalName());
-									sb.append(" during instantiation");
-								}
+			final StringBuilder sb = new StringBuilder();
+			if (cancelled) {
+				sb.append(cancelled ? "Instantiation cancelled by the user:" : "Errors during instantiation:");
+			}
+			sb.append(System.lineSeparator());
+			for (int i = 0; i < size; i++) {
+				sb.append("- ");
+				sb.append(compImpl[i].getQualifiedName());
+				sb.append(": ");
+				if (!cancelled || i < lastTried) {
+					if (successful[i]) {
+						sb.append("Successfully instantiated");
+					} else {
+						if (errorMessages[i] != null) {
+							sb.append(errorMessages[i]);
+						} else if (exceptions[i] != null) {
+							final Exception e = exceptions[i];
+							if (e instanceof UnsupportedOperationException) {
+								sb.append("Operation is not supported: ");
+								sb.append(e.getMessage());
+							} else {
+								sb.append(e.getClass().getCanonicalName());
+								sb.append(" during instantiation");
 							}
 						}
-					} else {
-						sb.append("Not instantiated");
 					}
-					sb.append(System.lineSeparator());
+				} else {
+					sb.append("Not instantiated");
 				}
-
-				final String errMessage = sb.toString(); // string builder isn't threadsafe
-				final boolean wasCancelled = cancelled; // for the lambda
-				final int lastTriedFinal = lastTried; // for the lambda
-				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							"Errors during model Instantiation", errMessage);
-
-					final InstantiationResultsDialog d = new InstantiationResultsDialog(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Hello", wasCancelled,
-							lastTriedFinal, compImpl, successful, errorMessages, exceptions);
-					d.open();
-				});
+				sb.append(System.lineSeparator());
 			}
+
+			final String errMessage = sb.toString(); // string builder isn't threadsafe
+			final boolean wasCancelled = cancelled; // for the lambda
+			final int lastTriedFinal = lastTried; // for the lambda
+			final boolean allGoodFinal = allGood; // for the lambda
+			PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+//					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+//							"Errors during model Instantiation", errMessage);
+
+				final InstantiationResultsDialog d = new InstantiationResultsDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), allGoodFinal, wasCancelled,
+						lastTriedFinal, compImpl, successful, errorMessages, exceptions);
+				d.open();
+			});
 
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
 		}
