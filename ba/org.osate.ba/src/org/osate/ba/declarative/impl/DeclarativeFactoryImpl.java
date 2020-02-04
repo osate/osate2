@@ -114,6 +114,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeStringLiteral() ;
       case DeclarativePackage.DECLARATIVE_INTEGER_LITERAL :
         return createDeclarativeIntegerLiteral() ;
+      case DeclarativePackage.DECLARATIVE_REAL_LITERAL :
+        return createDeclarativeRealLiteral() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -315,6 +317,19 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public DeclarativeRealLiteral createDeclarativeRealLiteral()
+  {
+    DeclarativeRealLiteralImpl declarativeRealLiteral =
+                                                      new DeclarativeRealLiteralImpl() ;
+    return declarativeRealLiteral ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 */
   @Override
   public DeclarativePackage getDeclarativePackage()
   {

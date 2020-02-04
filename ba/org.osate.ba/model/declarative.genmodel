@@ -70,5 +70,6 @@
     <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyExpression"/>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeStringLiteral"/>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeIntegerLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRealLiteral"/>
   </genPackages>
 </genmodel:GenModel>

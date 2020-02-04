@@ -37,6 +37,7 @@ import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
@@ -74,6 +75,7 @@ import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
 import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
+import org.osate.ba.declarative.DeclarativeRealLiteral ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -104,9 +106,11 @@ import org.osate.ba.parser.AadlBaParser.Property_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.Property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Qualifiable_propertyContext ;
 import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
+import org.osate.ba.parser.AadlBaParser.Real_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_intContext ;
+import org.osate.ba.parser.AadlBaParser.Signed_realContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
 import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.Unit_referenceContext ;
@@ -365,6 +369,14 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       targetIL.setValue(sourceIL.getValue());
       targetIL.setUnit(sourceIL.getUnit());
       targetPropertyExpression = targetIL;
+    }
+    else if(sourcePropertyExpression instanceof RealLiteral)
+    {
+      RealLiteral sourceRL = (RealLiteral) sourcePropertyExpression;
+      RealLiteral targetRL = _coreFact.createRealLiteral();
+      targetRL.setValue(sourceRL.getValue());
+      targetRL.setUnit(sourceRL.getUnit());
+      targetPropertyExpression = targetRL;
     }
     return targetPropertyExpression;
   }
@@ -1874,7 +1886,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitReal_literal(Real_literalContext ctx)
   {
     String str = ctx.REAL_LIT().getText() ;
-    BehaviorRealLiteral tmp = _baFact.createBehaviorRealLiteral();
+    DeclarativeRealLiteral tmp = _decl.createDeclarativeRealLiteral();
     str = str.replaceAll("_", "") ;
     tmp.setValue(str);
     setLocationReference(tmp, ctx.REAL_LIT());
@@ -2133,6 +2145,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.integer_property_value().result;
     }
+    else if(ctx.real_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.real_property_value().result;
+    }
     return null ;
   }
   
@@ -2171,7 +2187,27 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     visitChildren(ctx) ;
     ctx.result = _decl.createDeclarativeIntegerLiteral() ;
     ctx.result.setValue(ctx.signed_int().result);
-    ctx.result.setUnit(ctx.unit_reference().result);
+    if(ctx.unit_reference()!=null)
+      ctx.result.setUnit(ctx.unit_reference().result);
+    return null ;
+  }
+
+  @Override
+  public T visitReal_property_value(Real_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeRealLiteral() ;
+    ctx.result.setValue(ctx.signed_real().result);
+    if(ctx.unit_reference()!=null)
+      ctx.result.setUnit(ctx.unit_reference().result);
+    return null ;
+  }
+
+  @Override
+  public T visitSigned_real(Signed_realContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = Double.parseDouble(ctx.getText());
     return null ;
   }
 }

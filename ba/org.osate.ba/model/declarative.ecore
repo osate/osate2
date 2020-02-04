@@ -96,4 +96,5 @@
       eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeStringLiteral" eSuperTypes="aadlba.ecore#//BehaviorStringLiteral #//DeclarativePropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeIntegerLiteral" eSuperTypes="aadlba.ecore#//BehaviorIntegerLiteral #//DeclarativePropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeRealLiteral" eSuperTypes="aadlba.ecore#//BehaviorRealLiteral #//DeclarativePropertyExpression"/>
 </ecore:EPackage>

@@ -178,12 +178,21 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeIntegerLiteral createDeclarativeIntegerLiteral() ;
 
   /**
-   * Returns the package supported by this factory.
+   * Returns a new object of class '<em>Real Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the package supported by this factory.
+   * @return a new object of class '<em>Real Literal</em>'.
    * @generated
    */
+  DeclarativeRealLiteral createDeclarativeRealLiteral() ;
+
+  /**
+  	 * Returns the package supported by this factory.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the package supported by this factory.
+  	 * @generated
+  	 */
   DeclarativePackage getDeclarativePackage() ;
 
 } //DeclarativeFactory

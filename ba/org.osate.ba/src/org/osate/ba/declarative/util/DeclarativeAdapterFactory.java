@@ -50,6 +50,7 @@ import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyValue ;
+import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -62,6 +63,7 @@ import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
+import org.osate.ba.aadlba.BehaviorRealLiteral ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorStringLiteral ;
 import org.osate.ba.aadlba.BehaviorTime ;
@@ -271,6 +273,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeIntegerLiteral(DeclarativeIntegerLiteral object)
                                                      {
                                                        return createDeclarativeIntegerLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRealLiteral(DeclarativeRealLiteral object)
+                                                     {
+                                                       return createDeclarativeRealLiteralAdapter() ;
                                                      }
 
                                                      @Override
@@ -701,6 +710,20 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseRealLiteral(RealLiteral object)
+                                                     {
+                                                       return createRealLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorRealLiteral(BehaviorRealLiteral object)
+                                                     {
+                                                       return createBehaviorRealLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter defaultCase(
                                                                                 EObject object)
                                                      {
@@ -978,15 +1001,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRealLiteral <em>Real Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.aadl2.Element
+   * @see org.osate.ba.declarative.DeclarativeRealLiteral
    * @generated
    */
+  public Adapter createDeclarativeRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+  	 * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.Element
+  	 * @generated
+  	 */
   public Adapter createElementAdapter()
   {
     return null ;
@@ -1518,30 +1556,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
+   * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.aadl2.UnitLiteral
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.aadl2.UnitLiteral
+   * @generated
+   */
   public Adapter createUnitLiteralAdapter()
   {
     return null ;
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ValueVariable <em>Value Variable</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ValueVariable <em>Value Variable</em>}'.
+   * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.ba.aadlba.ValueVariable
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ValueVariable
+   * @generated
+   */
   public Adapter createValueVariableAdapter()
   {
     return null ;
@@ -1893,13 +1931,43 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for the default case.
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RealLiteral <em>Real Literal</em>}'.
    * <!-- begin-user-doc -->
-   * This default implementation returns null.
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
+   * @see org.osate.aadl2.RealLiteral
    * @generated
    */
+  public Adapter createRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.ba.aadlba.BehaviorRealLiteral
+  	 * @generated
+  	 */
+  public Adapter createBehaviorRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for the default case.
+  	 * <!-- begin-user-doc -->
+   * This default implementation returns null.
+   * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @generated
+  	 */
   public Adapter createEObjectAdapter()
   {
     return null ;
