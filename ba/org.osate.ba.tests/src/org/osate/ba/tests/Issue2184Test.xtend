@@ -20,11 +20,28 @@ class Issue2184Test {
 	TestHelper<AadlPackage> testHelper
 	
 	@Test
-	def void testIssue2184() {
+	def void testIssue2184_InitialValue() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/issue2184/issue2184.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2184/issue2184_InitialValue.aadl")
 		result.resource.contents.head as AadlPackage => [
-			"issue2184".assertEquals(name)
+			"issue2184_InitialValue".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) => [
+				"top".assertEquals(name)
+				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
+					"behavior_specification".assertEquals(name)
+					(parsedAnnexSubclause!==null).assertTrue
+				]
+			]
+		]
+		0.assertEquals(result.issues.size)
+	}
+	
+	@Test
+	def void testIssue2184_IntegerLiteral() {
+		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2184/issue2184_IntegerLiteral.aadl")
+		result.resource.contents.head as AadlPackage => [
+			"issue2184_IntegerLiteral".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) => [
 				"top".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [

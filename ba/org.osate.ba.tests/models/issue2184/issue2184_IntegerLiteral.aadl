@@ -1,7 +1,6 @@
-package issue2184
+package issue2184_IntegerLiteral
 public
 	with Base_Types;
-	with Data_Model;
 	
 	process top
 		features
@@ -9,7 +8,9 @@ public
 
 		annex behavior_specification {**
           variables
-            tmp :  Base_Types::Integer_32 {Data_Model::Initial_Value => ("1");};
+            tmp : Base_Types::Integer_32 {
+            	Data_Size => 10 Bytes;
+            };
           states
             a : initial final state;
           transitions
@@ -18,6 +19,5 @@ public
             };
         **};
 	end top;
-
 	
-end issue2184;
+end issue2184_IntegerLiteral;
