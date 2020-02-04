@@ -21,6 +21,7 @@
 
 package org.osate.ba.analyzers;
 
+import java.util.ArrayList ;
 import java.util.List ;
 import java.util.ListIterator ;
 
@@ -2446,11 +2447,44 @@ public class AadlBaNameResolver
         }
         
         List<PropertyAssociation> paList = v.getOwnedPropertyAssociations();
+        List<PropertyAssociation> paToRemoveList = new ArrayList<PropertyAssociation>();
         for(PropertyAssociation pa : paList)
         {
           QualifiedNamedElement p = (QualifiedNamedElement) pa.getProperty();
-          result &= qualifiedNamedElementResolver(p, true) ;
+          boolean valid = qualifiedNamedElementResolver(p, false) ;
+          if(!valid)
+            paToRemoveList.add(pa);
+          result &= valid;
         }
+        StringBuilder msg = new StringBuilder();
+        if(paToRemoveList.size()>1)
+          msg.append("Properties ");
+        else
+          msg.append("Property ");
+        boolean first = true;
+        for(PropertyAssociation paToRemove: paToRemoveList)
+        {
+          QualifiedNamedElement p = (QualifiedNamedElement) paToRemove.getProperty();
+          StringBuilder qualifiedName = new StringBuilder() ;
+          
+          if(p.getBaNamespace() != null)
+          {
+            qualifiedName.append(p.getBaNamespace().getId()) ;
+            qualifiedName.append("::") ;
+          }
+          qualifiedName.append(p.getBaName().getId());
+          
+          if(first)
+            msg.append("\'"+qualifiedName+"\' ");
+          else
+            msg.append(" and \'"+qualifiedName+"\' ");
+          first = false;
+          
+          paList.removeAll(paToRemoveList);
+        }
+        msg.append("not found");
+        _errManager.error(v, msg.toString());
+
         
       }
       return result ;
