@@ -1539,59 +1539,81 @@ public interface DeclarativePackage extends EPackage
                                          6 ;
 
   /**
-  	 * The feature id for the '<em><b>Default Value</b></em>' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Default Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__DEFAULT_VALUE =
                                              Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                                7 ;
 
   /**
-  	 * The feature id for the '<em><b>Applies To Metaclass</b></em>' reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Applies To Metaclass</b></em>' reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__APPLIES_TO_METACLASS =
                                                     Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                                       8 ;
 
   /**
-  	 * The feature id for the '<em><b>Applies To Classifier</b></em>' reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Applies To Classifier</b></em>' reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__APPLIES_TO_CLASSIFIER =
                                                      Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                                        9 ;
 
   /**
-  	 * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__APPLIES_TO =
                                           Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                             10 ;
 
   /**
-  	 * The feature id for the '<em><b>Empty List Default</b></em>' attribute.
+   * The feature id for the '<em><b>Empty List Default</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT =
+                                                  Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                    11 ;
+
+  /**
+   * The feature id for the '<em><b>Base Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__BASE_UNIT =
+                                         Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                           12 ;
+
+  /**
+  	 * The feature id for the '<em><b>Factor</b></em>' containment reference.
   	 * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
   	 * @generated
   	 * @ordered
   	 */
-  int QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT =
-                                                  Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
-                                                    11 ;
+  int QUALIFIED_NAMED_ELEMENT__FACTOR =
+                                      Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                        13 ;
 
   /**
   	 * The feature id for the '<em><b>Ba Namespace</b></em>' containment reference.
@@ -1602,7 +1624,7 @@ public interface DeclarativePackage extends EPackage
   	 */
   int QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE =
                                             Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
-                                              12 ;
+                                              14 ;
 
   /**
    * The feature id for the '<em><b>Ba Name</b></em>' containment reference.
@@ -1613,7 +1635,7 @@ public interface DeclarativePackage extends EPackage
    */
   int QUALIFIED_NAMED_ELEMENT__BA_NAME =
                                        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
-                                         13 ;
+                                         15 ;
 
   /**
    * The number of structural features of the '<em>Qualified Named Element</em>' class.
@@ -1624,7 +1646,7 @@ public interface DeclarativePackage extends EPackage
    */
   int QUALIFIED_NAMED_ELEMENT_FEATURE_COUNT =
                                             Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
-                                              14 ;
+                                              16 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
@@ -1948,6 +1970,77 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_STRING_LITERAL_FEATURE_COUNT =
                                                AadlBaPackage.BEHAVIOR_STRING_LITERAL_FEATURE_COUNT +
                                                  0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl <em>Integer Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeIntegerLiteral()
+   * @generated
+   */
+  int DECLARATIVE_INTEGER_LITERAL = 16 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__OWNED_ELEMENT =
+                                                 AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__OWNED_COMMENT =
+                                                 AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__UNIT =
+                                        AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__UNIT ;
+
+  /**
+   * The feature id for the '<em><b>Base</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__BASE =
+                                        AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__BASE ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__VALUE =
+                                         AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Integer Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL_FEATURE_COUNT =
+                                                AadlBaPackage.BEHAVIOR_INTEGER_LITERAL_FEATURE_COUNT +
+                                                  0 ;
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
@@ -2462,6 +2555,16 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeStringLiteral() ;
 
   /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeIntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Integer Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeIntegerLiteral
+   * @generated
+   */
+  EClass getDeclarativeIntegerLiteral() ;
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2926,6 +3029,17 @@ public interface DeclarativePackage extends EPackage
      */
     EClass DECLARATIVE_STRING_LITERAL = eINSTANCE
                                                  .getDeclarativeStringLiteral() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl <em>Integer Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeIntegerLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_INTEGER_LITERAL = eINSTANCE
+                                                  .getDeclarativeIntegerLiteral() ;
 
   }
 

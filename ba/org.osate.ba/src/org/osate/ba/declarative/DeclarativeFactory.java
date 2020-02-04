@@ -169,6 +169,15 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeStringLiteral createDeclarativeStringLiteral() ;
 
   /**
+   * Returns a new object of class '<em>Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Integer Literal</em>'.
+   * @generated
+   */
+  DeclarativeIntegerLiteral createDeclarativeIntegerLiteral() ;
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -25,14 +25,12 @@ import java.util.Iterator ;
 import java.util.List ;
 
 import org.antlr.v4.runtime.CommonToken ;
-import org.antlr.v4.runtime.ParserRuleContext ;
 import org.antlr.v4.runtime.Token ;
 import org.antlr.v4.runtime.misc.NotNull ;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.osate.aadl2.Aadl2Factory ;
-import org.osate.aadl2.Element ;
 import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
@@ -72,10 +70,10 @@ import org.osate.ba.aadlba.Value ;
 import org.osate.ba.analyzers.DeclarativeUtils ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
 import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
-import org.osate.ba.declarative.DeclarativeStringLiteral ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -92,6 +90,7 @@ import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
 import org.osate.ba.parser.AadlBaParser.FactorContext ;
 import org.osate.ba.parser.AadlBaParser.In_bindingContext ;
+import org.osate.ba.parser.AadlBaParser.Integer_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_value_constantContext ;
 import org.osate.ba.parser.AadlBaParser.List_property_valueContext ;
@@ -107,8 +106,10 @@ import org.osate.ba.parser.AadlBaParser.Qualifiable_propertyContext ;
 import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
+import org.osate.ba.parser.AadlBaParser.Signed_intContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
 import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
+import org.osate.ba.parser.AadlBaParser.Unit_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.Value_constantContext ;
 import org.osate.ba.parser.AadlBaParser.Value_constant_or_variableContext ;
 import org.osate.ba.utils.AadlBaLocationReference ;
@@ -362,6 +363,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       IntegerLiteral sourceIL = (IntegerLiteral) sourcePropertyExpression;
       IntegerLiteral targetIL = _coreFact.createIntegerLiteral();
       targetIL.setValue(sourceIL.getValue());
+      targetIL.setUnit(sourceIL.getUnit());
       targetPropertyExpression = targetIL;
     }
     return targetPropertyExpression;
@@ -810,10 +812,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitInteger_literal(@NotNull AadlBaParser.Integer_literalContext ctx)
   {
     String str = ctx.INTEGER_LIT().getText() ;
-    BehaviorIntegerLiteral tmp = _baFact.createBehaviorIntegerLiteral() ;
+    BehaviorIntegerLiteral tmp = _decl.createDeclarativeIntegerLiteral() ;
     tmp.setValue(str) ;
     setLocationReference(tmp, ctx.INTEGER_LIT()) ;
-    ctx.result = tmp ;
+    ctx.result = (DeclarativeIntegerLiteral) tmp ;
     
     return null ;
   }
@@ -2127,6 +2129,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.string_literal().result;
     }
+    else if(ctx.integer_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.integer_property_value().result;
+    }
     return null ;
   }
   
@@ -2140,6 +2146,32 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result.getOwnedListElements().add(pvc.result);
     }
+    return null ;
+  }
+
+  @Override
+  public T visitUnit_reference(Unit_referenceContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = ctx.qualifiable_property().result;
+    return null ;
+  }
+
+  @Override
+  public T visitSigned_int(Signed_intContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = Integer.parseInt(ctx.getText());
+    return null ;
+  }
+
+  @Override
+  public T visitInteger_property_value(Integer_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeIntegerLiteral() ;
+    ctx.result.setValue(ctx.signed_int().result);
+    ctx.result.setUnit(ctx.unit_reference().result);
     return null ;
   }
 }

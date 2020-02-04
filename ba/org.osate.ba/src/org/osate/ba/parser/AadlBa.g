@@ -351,7 +351,7 @@ property_value returns [DeclarativePropertyExpression result]
 //  	| classifier_property_value
   	| string_literal
 //  	| numeric_range_property_value
-//  	| integer_property_value
+  	| integer_property_value
 //  	| real_property_value
   	| list_property_value
 //  	| boolean_property_value  	
@@ -394,20 +394,20 @@ list_property_value returns [DeclarativeListValue result]
 //   ( qualifiable_property[$result])
 //;
 
-//// unit ::= 
-////   { propertyset_identifier :: }* unit_identifier
-//unit_reference returns [QualifiedNamedElement result]
-//  :
-//   ( qualifiable_property[$result])
-//;
+// unit ::= 
+//   { propertyset_identifier :: }* unit_identifier
+unit_reference returns [QualifiedNamedElement result]
+  :
+   ( qualifiable_property[$result])
+;
 
-//integer_property_value returns [IntegerLiteral result]:
-//	value=signed_int (unit=unit_reference)?
-//	;
-//
-//signed_int returns [Integer result]:
-//	('+'|'-')?INTEGER_LIT ;
-//
+integer_property_value returns [BehaviorIntegerLiteral result]:
+	value=signed_int (unit=unit_reference)?
+	;
+
+signed_int returns [Integer result]:
+	('+'|'-')?integer_literal ;
+
 //real_property_value returns [RealLiteral result]:
 //	value=signed_real (unit=unit_reference)?
 //	;
@@ -1597,7 +1597,7 @@ real_literal returns [BehaviorRealLiteral result]
     }
 ;
 
-integer_literal returns [BehaviorIntegerLiteral result]
+integer_literal returns [DeclarativeIntegerLiteral result]
  :
     INTEGER_LIT
     {

@@ -212,6 +212,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitMode_switch_trigger_conjunction(@NotNull AadlBaParser.Mode_switch_trigger_conjunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#unit_reference}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnit_reference(@NotNull AadlBaParser.Unit_referenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#unit_reference}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnit_reference(@NotNull AadlBaParser.Unit_referenceContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#logical_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -482,6 +492,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterSigned_int(@NotNull AadlBaParser.Signed_intContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitSigned_int(@NotNull AadlBaParser.Signed_intContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#property_ref}.
 	 * @param ctx the parse tree
 	 */
@@ -641,6 +661,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBehavior_actions(@NotNull AadlBaParser.Behavior_actionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#integer_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterInteger_property_value(@NotNull AadlBaParser.Integer_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#integer_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitInteger_property_value(@NotNull AadlBaParser.Integer_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#subprogram_parameter_list}.
 	 * @param ctx the parse tree
