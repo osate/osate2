@@ -151,6 +151,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMode_switch_trigger_conjunction(@NotNull AadlBaParser.Mode_switch_trigger_conjunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#unit_reference}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnit_reference(@NotNull AadlBaParser.Unit_referenceContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#logical_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -313,6 +319,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#signed_int}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSigned_int(@NotNull AadlBaParser.Signed_intContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#property_ref}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -408,6 +420,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBehavior_actions(@NotNull AadlBaParser.Behavior_actionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#integer_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInteger_property_value(@NotNull AadlBaParser.Integer_property_valueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#subprogram_parameter_list}.
 	 * @param ctx the parse tree

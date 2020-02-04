@@ -112,6 +112,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeListValue() ;
       case DeclarativePackage.DECLARATIVE_STRING_LITERAL :
         return createDeclarativeStringLiteral() ;
+      case DeclarativePackage.DECLARATIVE_INTEGER_LITERAL :
+        return createDeclarativeIntegerLiteral() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -293,6 +295,19 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     DeclarativeStringLiteralImpl declarativeStringLiteral =
                                                           new DeclarativeStringLiteralImpl() ;
     return declarativeStringLiteral ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public DeclarativeIntegerLiteral createDeclarativeIntegerLiteral()
+  {
+    DeclarativeIntegerLiteralImpl declarativeIntegerLiteral =
+                                                            new DeclarativeIntegerLiteralImpl() ;
+    return declarativeIntegerLiteral ;
   }
 
   /**

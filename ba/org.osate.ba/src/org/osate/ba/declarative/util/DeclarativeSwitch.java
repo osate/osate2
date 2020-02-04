@@ -35,10 +35,13 @@ import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataSubcomponentType ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.FeatureClassifier ;
+import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Processor ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.ProcessorSubcomponentType ;
@@ -49,11 +52,13 @@ import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.aadl2.TypedElement ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.BasicAction ;
 import org.osate.ba.aadlba.BehaviorAction ;
 import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorStringLiteral ;
@@ -75,6 +80,7 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.Literal ;
 import org.osate.ba.aadlba.ModeSwitchTrigger ;
+import org.osate.ba.aadlba.NumericLiteral ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PortHolder ;
 import org.osate.ba.aadlba.Target ;
@@ -364,6 +370,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseProperty(qualifiedNamedElement) ;
         if(result == null)
+          result = caseUnitLiteral(qualifiedNamedElement) ;
+        if(result == null)
           result = caseComponentClassifier(qualifiedNamedElement) ;
         if(result == null)
           result = caseData(qualifiedNamedElement) ;
@@ -382,7 +390,7 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseBasicProperty(qualifiedNamedElement) ;
         if(result == null)
-          result = caseAbstractNamedValue(qualifiedNamedElement) ;
+          result = caseEnumerationLiteral(qualifiedNamedElement) ;
         if(result == null)
           result = caseClassifier(qualifiedNamedElement) ;
         if(result == null)
@@ -393,6 +401,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseBehaviorElement(qualifiedNamedElement) ;
         if(result == null)
           result = caseTypedElement(qualifiedNamedElement) ;
+        if(result == null)
+          result = caseAbstractNamedValue(qualifiedNamedElement) ;
         if(result == null)
           result = caseNamespace(qualifiedNamedElement) ;
         if(result == null)
@@ -530,6 +540,44 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseBehaviorElement(declarativeStringLiteral) ;
         if(result == null)
           result = caseElement(declarativeStringLiteral) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
+      case DeclarativePackage.DECLARATIVE_INTEGER_LITERAL :
+      {
+        DeclarativeIntegerLiteral declarativeIntegerLiteral =
+                                                            (DeclarativeIntegerLiteral) theEObject ;
+        T result = caseDeclarativeIntegerLiteral(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseBehaviorIntegerLiteral(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseDeclarativePropertyExpression(
+                                                     declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseIntegerLiteral(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseNumericLiteral(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseNumberValue(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseLiteral(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = casePropertyValue(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseIntegerValueConstant(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = casePropertyExpression(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseValueConstant(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseValue(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseIntegerValue(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseBehaviorElement(declarativeIntegerLiteral) ;
+        if(result == null)
+          result = caseElement(declarativeIntegerLiteral) ;
         if(result == null)
           result = defaultCase(theEObject) ;
         return result ;
@@ -794,6 +842,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDeclarativeStringLiteral(DeclarativeStringLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclarativeIntegerLiteral(DeclarativeIntegerLiteral object)
   {
     return null ;
   }
@@ -1343,17 +1407,49 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProperty(Property object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enumeration Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enumeration Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumerationLiteral(EnumerationLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
   	 * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
   	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Property</em>'.
+  	 * @return the result of interpreting the object as an instance of '<em>Unit Literal</em>'.
   	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
   	 * @generated
   	 */
-  public T caseProperty(Property object)
+  public T caseUnitLiteral(UnitLiteral object)
   {
     return null ;
   }
@@ -1674,6 +1770,70 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBehaviorStringLiteral(BehaviorStringLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Number Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Number Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumberValue(NumberValue object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Integer Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIntegerLiteral(IntegerLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Numeric Literal</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Numeric Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumericLiteral(NumericLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Behavior Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Behavior Integer Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object)
   {
     return null ;
   }

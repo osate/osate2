@@ -37,10 +37,12 @@ import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentCategory ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.Feature ;
 import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.ModeTransition ;
+import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Processor ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.ProcessorSubcomponentType ;
@@ -51,6 +53,7 @@ import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.Type ;
 import org.osate.aadl2.TypedElement ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.impl.DataClassifierImpl ;
 import org.osate.aadl2.properties.EvaluatedProperty ;
 import org.osate.aadl2.properties.EvaluationContext ;
@@ -88,6 +91,8 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getAppliesToClassifiers <em>Applies To Classifier</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getAppliesTos <em>Applies To</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#isEmptyListDefault <em>Empty List Default</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getBaseUnit <em>Base Unit</em>}</li>
+ *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getFactor <em>Factor</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getBaNamespace <em>Ba Namespace</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl#getBaName <em>Ba Name</em>}</li>
  * </ul>
@@ -158,54 +163,74 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   protected static final boolean INHERIT_EDEFAULT = false ;
 
   /**
-  	 * The cached value of the '{@link #isInherit() <em>Inherit</em>}' attribute.
-  	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isInherit() <em>Inherit</em>}' attribute.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #isInherit()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #isInherit()
+   * @generated
+   * @ordered
+   */
   protected boolean inherit = INHERIT_EDEFAULT ;
 
   /**
-  	 * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #getDefaultValue()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #getDefaultValue()
+   * @generated
+   * @ordered
+   */
   protected PropertyExpression defaultValue ;
 
   /**
-  	 * The cached value of the '{@link #getAppliesTos() <em>Applies To</em>}' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getAppliesTos() <em>Applies To</em>}' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #getAppliesTos()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #getAppliesTos()
+   * @generated
+   * @ordered
+   */
   protected EList<PropertyOwner> appliesTos ;
 
   /**
-  	 * The default value of the '{@link #isEmptyListDefault() <em>Empty List Default</em>}' attribute.
-  	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isEmptyListDefault() <em>Empty List Default</em>}' attribute.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #isEmptyListDefault()
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @see #isEmptyListDefault()
+   * @generated
+   * @ordered
+   */
   protected static final boolean EMPTY_LIST_DEFAULT_EDEFAULT = false ;
 
   /**
-  	 * The cached value of the '{@link #isEmptyListDefault() <em>Empty List Default</em>}' attribute.
+   * The cached value of the '{@link #isEmptyListDefault() <em>Empty List Default</em>}' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @see #isEmptyListDefault()
+   * @generated
+   * @ordered
+   */
+  protected boolean emptyListDefault = EMPTY_LIST_DEFAULT_EDEFAULT ;
+
+  /**
+   * The cached value of the '{@link #getBaseUnit() <em>Base Unit</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBaseUnit()
+   * @generated
+   * @ordered
+   */
+  protected UnitLiteral baseUnit ;
+
+  /**
+  	 * The cached value of the '{@link #getFactor() <em>Factor</em>}' containment reference.
   	 * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see #isEmptyListDefault()
+  	 * @see #getFactor()
   	 * @generated
   	 * @ordered
   	 */
-  protected boolean emptyListDefault = EMPTY_LIST_DEFAULT_EDEFAULT ;
+  protected NumberValue factor ;
 
   /**
   	 * The cached value of the '{@link #getBaNamespace() <em>Ba Namespace</em>}' containment reference.
@@ -687,6 +712,19 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
    * @generated
    */
   @Override
+  public double getAbsoluteFactor(UnitLiteral target)
+  {
+    // TODO: implement this method
+    // Ensure that you remove @generated or mark it @generated NOT
+    throw new UnsupportedOperationException() ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
                                           int featureID, NotificationChain msgs)
   {
@@ -699,6 +737,8 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__APPLIES_TO :
         return ((InternalEList<?>) getAppliesTos()).basicRemove(otherEnd,
                                                                 msgs) ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+        return basicSetFactor(null, msgs) ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE :
         return basicSetBaNamespace(null, msgs) ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME :
@@ -751,6 +791,12 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
         return getAppliesTos() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT :
         return isEmptyListDefault() ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
+        if(resolve)
+          return getBaseUnit() ;
+        return basicGetBaseUnit() ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+        return getFactor() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE :
         return getBaNamespace() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME :
@@ -806,6 +852,12 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT :
         setEmptyListDefault((Boolean) newValue) ;
         return ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
+        setBaseUnit((UnitLiteral) newValue) ;
+        return ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+        setFactor((NumberValue) newValue) ;
+        return ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE :
         setBaNamespace((Identifier) newValue) ;
         return ;
@@ -859,6 +911,12 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT :
         setEmptyListDefault(EMPTY_LIST_DEFAULT_EDEFAULT) ;
         return ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
+        setBaseUnit((UnitLiteral) null) ;
+        return ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+        setFactor((NumberValue) null) ;
+        return ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE :
         setBaNamespace((Identifier) null) ;
         return ;
@@ -903,6 +961,10 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
         return appliesTos != null && !appliesTos.isEmpty() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT :
         return emptyListDefault != EMPTY_LIST_DEFAULT_EDEFAULT ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
+        return baseUnit != null ;
+      case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+        return factor != null ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE :
         return baNamespace != null ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME :
@@ -1047,6 +1109,26 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
           return -1 ;
       }
     }
+    if(baseClass == EnumerationLiteral.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == UnitLiteral.class)
+    {
+      switch ( derivedFeatureID )
+      {
+        case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
+          return Aadl2Package.UNIT_LITERAL__BASE_UNIT ;
+        case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
+          return Aadl2Package.UNIT_LITERAL__FACTOR ;
+        default :
+          return -1 ;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass) ;
   }
 
@@ -1182,6 +1264,26 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
           return DeclarativePackage.QUALIFIED_NAMED_ELEMENT__APPLIES_TO ;
         case Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT :
           return DeclarativePackage.QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT ;
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == EnumerationLiteral.class)
+    {
+      switch ( baseFeatureID )
+      {
+        default :
+          return -1 ;
+      }
+    }
+    if(baseClass == UnitLiteral.class)
+    {
+      switch ( baseFeatureID )
+      {
+        case Aadl2Package.UNIT_LITERAL__BASE_UNIT :
+          return DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT ;
+        case Aadl2Package.UNIT_LITERAL__FACTOR :
+          return DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR ;
         default :
           return -1 ;
       }
@@ -1352,6 +1454,122 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
 
   }
 
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public UnitLiteral getBaseUnit()
+  {
+    if(baseUnit != null && ((EObject) baseUnit).eIsProxy())
+    {
+      InternalEObject oldBaseUnit = (InternalEObject) baseUnit ;
+      baseUnit = (UnitLiteral) eResolveProxy(oldBaseUnit) ;
+      if(baseUnit != oldBaseUnit)
+      {
+        if(eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                                        DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT,
+                                        oldBaseUnit, baseUnit)) ;
+      }
+    }
+    return baseUnit ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  public UnitLiteral basicGetBaseUnit()
+  {
+    return baseUnit ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public void setBaseUnit(UnitLiteral newBaseUnit)
+  {
+    UnitLiteral oldBaseUnit = baseUnit ;
+    baseUnit = newBaseUnit ;
+    if(eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+                                    DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT,
+                                    oldBaseUnit, baseUnit)) ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public NumberValue getFactor()
+  {
+    return factor ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  public NotificationChain basicSetFactor(NumberValue newFactor,
+                                          NotificationChain msgs)
+  {
+    NumberValue oldFactor = factor ;
+    factor = newFactor ;
+    if(eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this,
+                                                             Notification.SET,
+                                                             DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
+                                                             oldFactor,
+                                                             newFactor) ;
+      if(msgs == null)
+        msgs = notification ;
+      else
+        msgs.add(notification) ;
+    }
+    return msgs ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public void setFactor(NumberValue newFactor)
+  {
+    if(newFactor != factor)
+    {
+      NotificationChain msgs = null ;
+      if(factor != null)
+        msgs = ((InternalEObject) factor).eInverseRemove(this,
+                                                         EOPPOSITE_FEATURE_BASE -
+                                                               DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
+                                                         null, msgs) ;
+      if(newFactor != null)
+        msgs = ((InternalEObject) newFactor).eInverseAdd(this,
+                                                         EOPPOSITE_FEATURE_BASE -
+                                                               DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
+                                                         null, msgs) ;
+      msgs = basicSetFactor(newFactor, msgs) ;
+      if(msgs != null)
+        msgs.dispatch() ;
+    }
+    else if(eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+                                    DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
+                                    newFactor, newFactor)) ;
+  }
+
   @Override
   public PropertyExpression createDefaultValue(EClass eClass)
   {
@@ -1406,5 +1624,19 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   {
     // TODO Auto-generated method stub
     return false ;
+  }
+
+  @Override
+  public NumberValue createFactor(EClass eClass)
+  {
+    // TODO Auto-generated method stub
+    return null ;
+  }
+
+  @Override
+  public double getAbsoluteFactor()
+  {
+    // TODO Auto-generated method stub
+    return 0 ;
   }
 } //QualifiedNamedElementImpl

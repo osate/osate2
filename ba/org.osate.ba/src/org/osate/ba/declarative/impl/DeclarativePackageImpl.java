@@ -36,6 +36,7 @@ import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
 import org.osate.ba.declarative.DeclarativeListValue ;
 import org.osate.ba.declarative.DeclarativePackage ;
 import org.osate.ba.declarative.DeclarativePropertyAssociation ;
@@ -169,6 +170,13 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   private EClass declarativeStringLiteralEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarativeIntegerLiteralEClass = null ;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -793,6 +801,17 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   @Override
+  public EClass getDeclarativeIntegerLiteral()
+  {
+    return declarativeIntegerLiteralEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public DeclarativeFactory getDeclarativeFactory()
   {
     return (DeclarativeFactory) getEFactoryInstance() ;
@@ -905,6 +924,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                        DECLARATIVE_PROPERTY_EXPRESSION) ;
 
     declarativeStringLiteralEClass = createEClass(DECLARATIVE_STRING_LITERAL) ;
+
+    declarativeIntegerLiteralEClass = createEClass(
+                                                   DECLARATIVE_INTEGER_LITERAL) ;
   }
 
   /**
@@ -992,6 +1014,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                                     .getProcessorClassifier()) ;
     qualifiedNamedElementEClass.getESuperTypes().add(theAadl2Package
                                                                     .getProperty()) ;
+    qualifiedNamedElementEClass.getESuperTypes().add(theAadl2Package
+                                                                    .getUnitLiteral()) ;
     referenceEClass.getESuperTypes().add(theAadlBaPackage
                                                          .getActualPortHolder()) ;
     referenceEClass.getESuperTypes().add(this.getDeclarativeBehaviorElement()) ;
@@ -1018,6 +1042,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                                         .getBehaviorStringLiteral()) ;
     declarativeStringLiteralEClass.getESuperTypes().add(this
                                                             .getDeclarativePropertyExpression()) ;
+    declarativeIntegerLiteralEClass.getESuperTypes().add(theAadlBaPackage
+                                                                         .getBehaviorIntegerLiteral()) ;
+    declarativeIntegerLiteralEClass.getESuperTypes().add(this
+                                                             .getDeclarativePropertyExpression()) ;
 
     // Initialize classes and features; add operations and parameters
     initEClass(arrayableIdentifierEClass, ArrayableIdentifier.class,
@@ -1257,6 +1285,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
 
     initEClass(declarativeStringLiteralEClass, DeclarativeStringLiteral.class,
                "DeclarativeStringLiteral", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+
+    initEClass(declarativeIntegerLiteralEClass, DeclarativeIntegerLiteral.class,
+               "DeclarativeIntegerLiteral", !IS_ABSTRACT, !IS_INTERFACE,
                IS_GENERATED_INSTANCE_CLASS) ;
 
     // Create resource

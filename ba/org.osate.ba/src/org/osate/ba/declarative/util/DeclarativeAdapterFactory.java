@@ -37,10 +37,13 @@ import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataSubcomponentType ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.FeatureClassifier ;
+import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Processor ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.ProcessorSubcomponentType ;
@@ -51,11 +54,13 @@ import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.aadl2.TypedElement ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.BasicAction ;
 import org.osate.ba.aadlba.BehaviorAction ;
 import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorStringLiteral ;
@@ -77,6 +82,7 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.Literal ;
 import org.osate.ba.aadlba.ModeSwitchTrigger ;
+import org.osate.ba.aadlba.NumericLiteral ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PortHolder ;
 import org.osate.ba.aadlba.Target ;
@@ -258,6 +264,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeStringLiteral(DeclarativeStringLiteral object)
                                                      {
                                                        return createDeclarativeStringLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeIntegerLiteral(DeclarativeIntegerLiteral object)
+                                                     {
+                                                       return createDeclarativeIntegerLiteralAdapter() ;
                                                      }
 
                                                      @Override
@@ -521,6 +534,20 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
 
                                                      @Override
                                                      public Adapter
+                                                            caseEnumerationLiteral(EnumerationLiteral object)
+                                                     {
+                                                       return createEnumerationLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseUnitLiteral(UnitLiteral object)
+                                                     {
+                                                       return createUnitLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
                                                             caseElementHolder(ElementHolder object)
                                                      {
                                                        return createElementHolderAdapter() ;
@@ -643,6 +670,34 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseBehaviorStringLiteral(BehaviorStringLiteral object)
                                                      {
                                                        return createBehaviorStringLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseNumberValue(NumberValue object)
+                                                     {
+                                                       return createNumberValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseIntegerLiteral(IntegerLiteral object)
+                                                     {
+                                                       return createIntegerLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseNumericLiteral(NumericLiteral object)
+                                                     {
+                                                       return createNumericLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object)
+                                                     {
+                                                       return createBehaviorIntegerLiteralAdapter() ;
                                                      }
 
                                                      @Override
@@ -903,6 +958,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclarativeStringLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeIntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeIntegerLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeIntegerLiteralAdapter()
   {
     return null ;
   }
@@ -1418,16 +1488,46 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Property <em>Property</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Property <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Property
+   * @generated
+   */
+  public Adapter createPropertyAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.EnumerationLiteral <em>Enumeration Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.EnumerationLiteral
+   * @generated
+   */
+  public Adapter createEnumerationLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
   	 * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
   	 * @return the new adapter.
-  	 * @see org.osate.aadl2.Property
+  	 * @see org.osate.aadl2.UnitLiteral
   	 * @generated
   	 */
-  public Adapter createPropertyAdapter()
+  public Adapter createUnitLiteralAdapter()
   {
     return null ;
   }
@@ -1728,6 +1828,66 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBehaviorStringLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.NumberValue <em>Number Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.NumberValue
+   * @generated
+   */
+  public Adapter createNumberValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.IntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.IntegerLiteral
+   * @generated
+   */
+  public Adapter createIntegerLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.NumericLiteral <em>Numeric Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.NumericLiteral
+   * @generated
+   */
+  public Adapter createNumericLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorIntegerLiteral <em>Behavior Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorIntegerLiteral
+   * @generated
+   */
+  public Adapter createBehaviorIntegerLiteralAdapter()
   {
     return null ;
   }

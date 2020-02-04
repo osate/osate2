@@ -41,11 +41,13 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.EnumerationType ;
 import org.osate.aadl2.Feature ;
+import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.Property ;
@@ -54,6 +56,7 @@ import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
@@ -111,6 +114,9 @@ import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
+import org.osate.ba.declarative.DeclarativeListValue ;
+import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeTime ;
@@ -124,6 +130,7 @@ import org.osate.utils.Aadl2Utils ;
 import org.osate.utils.Aadl2Visitors ;
 import org.osate.utils.PropertyUtils ;
 import org.osate.utils.names.DataModelProperties ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 
 /**
@@ -2421,6 +2428,82 @@ public class AadlBaNameResolver
    }
    
    /**
+    * Resolves the property expressions used in behavior annex.
+   * @param p 
+    * 
+    * @return {@code true} if all names are resolved. {@code false} otherwise.
+    */
+   private boolean propertyExpressionResolver(BehaviorVariable bv, Property p, PropertyExpression pe)
+   {
+     boolean result = true;
+     if(pe instanceof DeclarativeListValue)
+     {
+       ListValue dlv = (DeclarativeListValue) pe;
+       for(PropertyExpression peInList: dlv.getOwnedListElements())
+       {
+         result &= propertyExpressionResolver(bv, p, peInList);
+       }
+     }
+     else if(pe instanceof IntegerLiteral)
+     {
+       IntegerLiteral il = (IntegerLiteral) pe;
+       if(il.getUnit()!=null && il.getUnit() instanceof QualifiedNamedElement)
+       {
+         result &= unitResolver(il, bv, p);
+       }
+     }
+     else if(pe instanceof RealLiteral)
+     {
+       RealLiteral rl = (RealLiteral) pe;
+       if(rl.getUnit()!=null && rl.getUnit() instanceof QualifiedNamedElement)
+       {
+         result &= unitResolver(rl, bv, p);
+       }
+     }
+     return result;
+   }
+   
+   /**
+    * Resolves units used in behavior annex.
+   * @param p 
+    * 
+    * @return {@code true} if all names are resolved. {@code false} otherwise.
+    */
+   private boolean unitResolver(NumberValue nv, BehaviorVariable bv, Property p)
+   {
+     boolean result = true;
+     
+     QualifiedNamedElement qne = (QualifiedNamedElement) p;
+     String packageName = "";
+     boolean hasNamespace = qne.getBaNamespace() != null ; 
+     if(hasNamespace)
+     {
+        packageName = qne.getBaNamespace().getId() ;
+     }
+     NamedElement propNE = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+                                                 packageName, Aadl2Visitors.getContainingPackageSection(_ba));
+     if(propNE != null)
+     {
+       Property prop = (Property) propNE;
+       String unitLiteralName = ((QualifiedNamedElement) nv.getUnit()).getBaName().getId();
+       UnitLiteral ul = PropertiesLinkingService.findUnitLiteral(prop, unitLiteralName);
+       if(ul!=null)
+         nv.setUnit(ul);
+       else
+       {
+         _errManager.error(bv, "Unit \'" + unitLiteralName + "\' is not found");
+         result = false;
+       }
+     }
+     else
+     {
+       result = false;
+     }
+     
+     return result;
+   }
+   
+   /**
     * Resolves the behavior annex's variables.
     * 
     * @return {@code true} if all names are resolved. {@code false} otherwise.
@@ -2452,6 +2535,11 @@ public class AadlBaNameResolver
         {
           QualifiedNamedElement p = (QualifiedNamedElement) pa.getProperty();
           boolean valid = qualifiedNamedElementResolver(p, false) ;
+          if(valid)
+            for(ModalPropertyValue mpv : pa.getOwnedValues())
+            {
+              valid &= propertyExpressionResolver(v, p, mpv.getOwnedValue());
+            }
           if(!valid)
             paToRemoveList.add(pa);
           result &= valid;
@@ -2461,6 +2549,7 @@ public class AadlBaNameResolver
           msg.append("Properties ");
         else
           msg.append("Property ");
+        
         boolean first = true;
         for(PropertyAssociation paToRemove: paToRemoveList)
         {
@@ -2482,9 +2571,11 @@ public class AadlBaNameResolver
           
           paList.removeAll(paToRemoveList);
         }
-        msg.append("not found");
-        _errManager.error(v, msg.toString());
-
+        if(paToRemoveList.size()>0)
+        {
+          msg.append("not found");
+          _errManager.error(v, msg.toString());
+        }
         
       }
       return result ;
