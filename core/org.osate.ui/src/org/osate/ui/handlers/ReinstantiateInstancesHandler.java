@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
@@ -55,10 +54,9 @@ import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
-import org.osate.ui.handlers.InstantiateComponentHandler.Result;
 import org.osate.workspace.WorkspacePlugin;
 
-public class ReinstantiateInstancesHandler extends AbstractHandler {
+public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler {
 	public ReinstantiateInstancesHandler() {
 		super();
 	}
