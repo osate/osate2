@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
@@ -62,7 +61,7 @@ import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
 
-public class InstantiateComponentHandler extends AbstractHandler {
+public final class InstantiateComponentHandler extends AbstractMultiJobHandler {
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
 
@@ -139,23 +138,6 @@ public class InstantiateComponentHandler extends AbstractHandler {
 
 		// Supposed to always return null
 		return null;
-	}
-
-	/* Make everything final here so that this class is thread-safe immutable */
-	public static final class Result {
-		public final boolean successful;
-		public final boolean cancelled;
-		public final String errorMessage;
-		public final Exception exception;
-
-		public Result(final boolean successful, final boolean cancelled,
-				final String errorMessage,
-				final Exception exception) {
-			this.successful = successful;
-			this.cancelled = cancelled;
-			this.errorMessage = errorMessage;
-			this.exception = exception;
-		}
 	}
 
 	private static final class InstantiationJob extends WorkspaceJob {

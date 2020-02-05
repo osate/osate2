@@ -16,8 +16,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.osate.ui.handlers.InstantiateComponentHandler.Result;
+import org.osate.ui.handlers.AbstractMultiJobHandler.Result;
 
+/* TODO: I don't like that this class depends on AbstractMultiJobHandler.Result.  The dialog sholdn't have
+ * dependencies on a UI handler.  The result class either needs to be moved somewhere else, or this
+ * class needs to be made sufficiently abstract that the implementation doesn't care about that class
+ * specifically.
+ */
 public final class InstantiationResultsDialog<T> extends Dialog {
 	private final String actionName;
 	private final String labelName;
