@@ -1,6 +1,7 @@
 package org.osate.ui.dialogs;
 
 import java.util.Map;
+import java.util.function.Function;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -15,20 +16,28 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.ui.handlers.InstantiateComponentHandler.Result;
 
-public final class InstantiationResultsDialog extends Dialog {
-	private final Model model;
+public final class InstantiationResultsDialog<T> extends Dialog {
+	private final String actionName;
+	private final String labelName;
+	private final Model<T> model;
 
-	public InstantiationResultsDialog(final Shell shell, final Map<ComponentImplementation, Result> results) {
+	public InstantiationResultsDialog(final Shell shell, final String actionName, final String labelName,
+			final Function<T, String> labelProvider, final Map<T, Result> results) {
 		super(shell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 
-		model = new Model(results);
+		this.actionName = actionName;
+		this.labelName = labelName;
+		model = new Model<T>(actionName, labelProvider, results);
 	}
 
-	private final static class Model {
+	private static String toFirstUpperCase(final String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+	}
+
+	private static final class Model<T> {
 		private final String message;
 
 		private final Integer[] elements;
@@ -37,78 +46,36 @@ public final class InstantiationResultsDialog extends Dialog {
 		private final String[] status;
 		private final String[] errorMessage;
 
-		private static String buildMessage(final boolean allGood, final boolean cancelled, final boolean errs,
+		private String buildMessage(final String actionName, final boolean allGood, final boolean cancelled,
+				final boolean errs,
 				final boolean logged) {
 			final StringBuilder sb = new StringBuilder();
 			if (allGood) {
 				sb.append("All models created successfully.");
 			} else {
 				if (cancelled) {
-					sb.append("Instantiation cancelled.  ");
+					sb.append(toFirstUpperCase(actionName));
+					sb.append(" cancelled.  ");
 				}
 				if (errs) {
 					if (logged) {
-						sb.append("Errors and exceptions during intantiation.  Please open the \"Error Log\" view.");
+						sb.append("Errors and exceptions during ");
+						sb.append(actionName.toLowerCase());
+						sb.append(".  Please open the \"Error Log\" view.");
 					} else {
-						sb.append("Errors during instantiation");
+						sb.append("Errors during ");
+						sb.append(actionName.toLowerCase());
 					}
 				} else if (logged) {
-					sb.append("Exceptions during instantiation.  Please open the \"Error Log\" view.");
+					sb.append("Exceptions during ");
+					sb.append(actionName.toLowerCase());
+					sb.append(".  Please open the \"Error Log\" view.");
 				}
 			}
 			return sb.toString();
 		}
 
-//		public Model(final boolean allGood, final boolean cancelled, final int lastTried,
-//				final ComponentImplementation[] compImpls,
-//				final boolean[] successful, final String[] errorMessages, final Exception[] exceptions) {
-//			final int size = compImpls.length;
-//			elements = new Integer[size];
-//			for (int i = 0; i < size; i++) {
-//				elements[i] = Integer.valueOf(i);
-//			}
-//
-//			name = new String[size];
-//			status = new String[size];
-//			errorMessage = new String[size];
-//
-//			boolean errs = false;
-//			boolean logged = false;
-//			for (int i = 0; i < size; i++) {
-//				name[i] = compImpls[i].getQualifiedName();
-//				if (!cancelled || i < lastTried) {
-//					if (successful[i]) {
-//						status[i] = "Instantiated";
-//					} else {
-//						if (errorMessages[i] != null) {
-//							errs = true;
-//							status[i] = "Error";
-//							errorMessage[i] = errorMessages[i];
-//						} else if (exceptions[i] != null) {
-//							logged = true;
-//							final Exception e = exceptions[i];
-//
-//							/*
-//							 * NB. Inherited these specific exception checks from the original
-//							 * InstantiateHandler (now obsolete).
-//							 */
-//							status[i] = "Exception";
-//							if (e instanceof UnsupportedOperationException) {
-//								errorMessage[i] = "Operation is not supported: " + e.getMessage();
-//							} else {
-//								errorMessage[i] = e.getClass().getCanonicalName() + " during instantiation";
-//							}
-//						}
-//					}
-//				} else {
-//					status[i] = "Not instantiated";
-//				}
-//			}
-//
-//			message = buildMessage(allGood, cancelled, errs, logged);
-//		}
-
-		public Model(final Map<ComponentImplementation, Result> results) {
+		public Model(final String actionName, final Function<T, String> labelProvider, final Map<T, Result> results) {
 			final int size = results.size();
 
 			elements = new Integer[size];
@@ -125,12 +92,12 @@ public final class InstantiationResultsDialog extends Dialog {
 			boolean errors = false;
 			boolean logged = false;
 			int i = 0;
-			for (final Map.Entry<ComponentImplementation, Result> entry : results.entrySet()) {
+			for (final Map.Entry<T, Result> entry : results.entrySet()) {
 				final Result current = entry.getValue();
 
-				name[i] = entry.getKey().getQualifiedName();
+				name[i] = labelProvider.apply(entry.getKey());
 				if (current.successful) {
-					status[i] = "Instantiated";
+					status[i] = "OK";
 				} else {
 					allGood = false;
 					if (current.cancelled) {
@@ -152,9 +119,9 @@ public final class InstantiationResultsDialog extends Dialog {
 							 */
 							status[i] = "Exception";
 							if (e instanceof UnsupportedOperationException) {
-								errorMessage[i] = "Operation is not supported: " + e.getMessage();
+								errorMessage[i] = "Operation not supported: " + e.getMessage();
 							} else {
-								errorMessage[i] = e.getClass().getCanonicalName() + " during instantiation";
+								errorMessage[i] = e.getClass().getCanonicalName();
 							}
 						}
 					}
@@ -163,7 +130,7 @@ public final class InstantiationResultsDialog extends Dialog {
 				i += 1;
 			}
 
-			message = buildMessage(allGood, cancelled, errors, logged);
+			message = buildMessage(actionName, allGood, cancelled, errors, logged);
 		}
 
 		public String getMessage() {
@@ -191,7 +158,7 @@ public final class InstantiationResultsDialog extends Dialog {
 	@Override
 	protected void configureShell(final Shell shell) {
 		super.configureShell(shell);
-		shell.setText("Instantiation Results");
+		shell.setText(toFirstUpperCase(actionName) + " Results");
 	}
 
 	@Override
@@ -215,7 +182,7 @@ public final class InstantiationResultsDialog extends Dialog {
 		table.setLinesVisible(true);
 
 		final TableViewerColumn col1 = new TableViewerColumn(viewer, SWT.NONE);
-		col1.getColumn().setText("Component Implementation");
+		col1.getColumn().setText(labelName);
 		col1.getColumn().setWidth(350);
 		col1.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -253,6 +220,7 @@ public final class InstantiationResultsDialog extends Dialog {
 	}
 
 	private static final class ModelContentProvider implements IStructuredContentProvider {
+		@SuppressWarnings("rawtypes")
 		@Override
 		public Object[] getElements(final Object inputElement) {
 			return ((Model) inputElement).getElements();

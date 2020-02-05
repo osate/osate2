@@ -240,8 +240,9 @@ public class InstantiateComponentHandler extends AbstractHandler {
 
 				/* Get the results and display them */
 				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					final InstantiationResultsDialog d = new InstantiationResultsDialog(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), results);
+					final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
+							"Component Implementation", compImpl -> compImpl.getQualifiedName(), results);
 					d.open();
 				});
 
@@ -250,7 +251,7 @@ public class InstantiateComponentHandler extends AbstractHandler {
 				 * InterruptedException thrown if we are somehow cancelled. Not sure if
 				 * or how this can happen, but if it does, just give up.
 				 *
-				 * OperationCancelledExceptoin is through if the progress monitor given
+				 * OperationCancelledException is thrown if the progress monitor given
 				 * to join() is cancelled, but we didn't give it one, so it should
 				 * never occur.
 				 */
