@@ -26,6 +26,8 @@ package org.osate.ui.handlers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -34,6 +36,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
@@ -43,13 +46,16 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.core.runtime.jobs.JobGroup;
+import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.dialogs.InstantiationResultsDialog;
+import org.osate.ui.handlers.InstantiateComponentHandler.Result;
 import org.osate.workspace.WorkspacePlugin;
 
 public class ReinstantiateInstancesHandler extends AbstractHandler {
@@ -59,17 +65,58 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final List<IResource> selectedResources = new ArrayList<>();
-		for (final Object selection : HandlerUtil.getCurrentStructuredSelection(event).toList()) {
-			final IResource irsrc = (IResource) selection;
-			selectedResources.add(irsrc);
+		/* Get all the selected resources and search them for instance model files */
+		@SuppressWarnings("unchecked")
+		final List<IResource> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
+		final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
+		final int size = aaxlFiles.size();
+
+		/*
+		 * This map is shared by all the jobs to build the set of results. It is created here,
+		 * given to all the jobs, and then forgotten.
+		 */
+		final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
+
+		for (final IFile modelFile : aaxlFiles) {
+			/*
+			 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+			 * add a new result record to the map. This way those jobs that never run are accounted for.
+			 */
+			results.put(modelFile, new Result(false, true, null, null));
 		}
 
-		final Job job = new RenstantiationJob(selectedResources);
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.setUser(true);
-		job.schedule();
+		final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+		final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
+		final Job myJobs[] = new Job[size];
+		for (int i = 0; i < size; i++) {
+			final IFile aaxlFile = aaxlFiles.get(i);
+			final Job job = new ReinstantiationJob(aaxlFile, results);
+			/*
+			 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+			 * is only needed for modification, not for reading from resources. This seems sketchy to me
+			 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+			 * things might go wonky.
+			 *
+			 * We create and possibly remove the aaxl file in the case of errors.
+			 */
+			job.setRule(MultiRule.combine(factory.modifyRule(aaxlFile), factory.deleteRule(aaxlFile)));
+			job.setUser(true);
+			job.setJobGroup(jobGroup);
+			myJobs[i] = job;
+		}
 
+		final Job resultJob = new ResultJob(jobGroup, results);
+		resultJob.setRule(null); // doesn't use resources
+		resultJob.setUser(false); // background helper job, don't let the user see it
+		resultJob.setSystem(true); // background helper job, don't let the user see it
+		resultJob.schedule();
+
+		// now launch the main jobs
+		for (final Job job : myJobs) {
+			job.schedule();
+		}
+
+		// Supposed to always return null
 		return null;
 	}
 
@@ -98,144 +145,106 @@ public class ReinstantiateInstancesHandler extends AbstractHandler {
 		}
 	}
 
-	private final class RenstantiationJob extends WorkspaceJob {
-		private final List<IResource> selectedResources;
+	private final class ReinstantiationJob extends WorkspaceJob {
+		private final IFile modelFile;
+		private final Map<IFile, Result> results;
 
-		public RenstantiationJob(final List<IResource> selectedResources) {
-			super("Reinstantiate instances");
-			this.selectedResources = selectedResources;
+		public ReinstantiationJob(final IFile modelFile, final Map<IFile, Result> results) {
+			super("Reinstantiate " + modelFile.getName());
+			this.modelFile = modelFile;
+			this.results = results;
 		}
 
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			final List<IFile> instanceFiles = findAllInstanceFiles(selectedResources);
-
-			final int size = instanceFiles.size();
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, size);
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
 
 			/*
-			 * Error handling in rebuildInstanceModelFile is complicated and probably should not be handled the
+			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
 			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
 			 * we can from it and display it to the user at the end of the operation.
 			 */
-			boolean allGood = true;
-			final boolean[] successful = new boolean[size];
-			final String[] errorMessages = new String[size];
-			final Exception[] exceptions = new Exception[size];
+			boolean successful = false;
+			String errorMessage = null;
+			Exception exception = null;
 			boolean cancelled = false;
 
-			/*
-			 * Start at -1 because this is indexed at the START of the loop so that when we exit the loop
-			 * either normally or because of cancellation this is always the most recent index value
-			 * of the URI we tried to instantiate.
-			 */
-			int lastTried = -1;
-			for (final IFile file : instanceFiles) {
-				lastTried += 1;
-				boolean delete = false;
-				boolean breakOut = false;
+			boolean delete = false;
+			try {
+				final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(modelFile,
+						subMonitor.split(1));
+				successful = instance != null;
+				errorMessage = InstantiateModel.getErrorMessage();
+				delete = !successful;
+			} catch (final InterruptedException | OperationCanceledException e) {
+				// Instantiation was canceled by the user.
+				cancelled = true;
+				delete = true;
+			} catch (final RootMissingException e) {
+				successful = false;
+				errorMessage = "Root component implementation declaration no longer exists; instance model removed";
+				delete = true;
+			} catch (final Exception e) {
+				OsateUiPlugin.log(e);
+				successful = false;
+				exception = e;
+				delete = true;
+			}
+
+			if (delete) {
+				// Remove the partially instantiated resource
 				try {
-					final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(file,
-							subMonitor.split(1));
-					final boolean success = instance != null;
-					allGood &= success;
-					successful[lastTried] = success;
-					errorMessages[lastTried] = InstantiateModel.getErrorMessage();
-					delete = !success;
-				} catch (final InterruptedException | OperationCanceledException e) {
-					// Instantiation was canceled by the user.
-					cancelled = true;
-					allGood = false;
-					delete = true;
-					breakOut = true; // jump out of the for-loop
-				} catch (final RootMissingException e) {
-					allGood = false;
-					successful[lastTried] = false;
-					errorMessages[lastTried] = "Root component implementation declaration no longer exists; instance model removed";
-					delete = true;
-				} catch (final Exception e) {
-					allGood = false;
-					// save for later
-					successful[lastTried] = false;
-					exceptions[lastTried] = e;
-					delete = true;
-					OsateUiPlugin.log(e);
-					// We try the next instantiation
-				}
-
-				if (delete) {
-					// Remove the partially instantiated resource
-					try {
-						if (file.exists()) {
-							file.delete(0, null);
-						}
-					} catch (final CoreException ce) {
-						System.out.println();
-						// eat it
+					if (modelFile.exists()) {
+						modelFile.delete(0, null);
 					}
-				}
-
-				if (breakOut) {
-					break;
+				} catch (final CoreException ce) {
+					System.out.println();
+					// eat it
 				}
 			}
 
-			/*
-			 * Best case: alLGood is true and cancelled is false. Otherwise, we have to
-			 * show a dialog that tells the user what did or didn't happen.
-			 */
+			final Result result = new Result(successful, cancelled, errorMessage, exception);
+			results.put(modelFile, result);
 
-			/*
-			 * Do we always show the results, or only when it was cancelled or there was an error? Control by
-			 * a workspace setting?
-			 */
+			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+	}
 
-			if (true) { // !allGood) {
-				final StringBuilder sb = new StringBuilder();
-				if (cancelled) {
-					sb.append(cancelled ? "Reinstantiation cancelled by the user:" : "Errors during reinstantiation:");
-				}
-				sb.append(System.lineSeparator());
-				for (int i = 0; i < size; i++) {
-					sb.append("- ");
-					sb.append(instanceFiles.get(i).toString());
-					sb.append(": ");
-					if (!cancelled || i < lastTried) {
-						if (successful[i]) {
-							sb.append("Successfully reinstantiated");
-						} else {
-							if (errorMessages[i] != null) {
-								sb.append(errorMessages[i]);
-							} else if (exceptions[i] != null) {
-								final Exception e = exceptions[i];
-								if (e instanceof UnsupportedOperationException) {
-									sb.append("Operation is not supported: ");
-									sb.append(e.getMessage());
-								} else {
-									sb.append(e.getClass().getCanonicalName());
-									sb.append(" during reinstantiation");
-								}
-							}
-						}
-					} else {
-						if (i == lastTried) {
-							sb.append("Cancelled during reinstantiation; file deleted");
-						} else {
-							sb.append("Not reinstantiated; file is unchanged");
-						}
-					}
-					sb.append(System.lineSeparator());
-				}
+	private static final class ResultJob extends WorkspaceJob {
+		private final JobGroup instantiationJobs;
+		private final Map<IFile, Result> results;
 
-				final String errMessage = sb.toString(); // string builder isn't threadsafe
+		public ResultJob(final JobGroup intantiationJob, final Map<IFile, Result> results) {
+			super("Instantiation Result Job (hidden)");
+			this.instantiationJobs = intantiationJob;
+			this.results = results;
+		}
+
+		@Override
+		public IStatus runInWorkspace(final IProgressMonitor monitor) {
+			// Wait for the instantiation jobs to finish
+			boolean cancelled = false;
+			try {
+				instantiationJobs.join(0L, null);
+
+				/* Get the results and display them */
 				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							"Errors during model Instantiation", errMessage);
-
-//						final InstantiationResultsDialog d = new InstantiationResultsDialog(
-//								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-//						d.open();
+					final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
+							"Instance Model", modelFile -> modelFile.getFullPath().toString(), results);
+					d.open();
 				});
+
+			} catch (final InterruptedException | OperationCanceledException e) {
+				/*
+				 * InterruptedException thrown if we are somehow cancelled. Not sure if
+				 * or how this can happen, but if it does, just give up.
+				 *
+				 * OperationCancelledException is thrown if the progress monitor given
+				 * to join() is cancelled, but we didn't give it one, so it should
+				 * never occur.
+				 */
+				cancelled = true;
 			}
 
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
