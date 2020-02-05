@@ -546,6 +546,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 */
 	@Override

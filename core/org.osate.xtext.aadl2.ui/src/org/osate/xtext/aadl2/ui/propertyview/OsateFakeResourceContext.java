@@ -24,42 +24,30 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.text.source.AnnotationModel;
-import org.eclipse.xtext.ui.editor.XtextSourceViewer;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
+import org.yakindu.base.xtext.utils.jface.viewers.context.XtextFakeResourceContext;
 
 import com.google.inject.Injector;
 
-public class StyledTextXtextAdapter extends org.yakindu.base.xtext.utils.jface.viewers.StyledTextXtextAdapter {
+/**
+ * @since 2.0
+ */
+public class OsateFakeResourceContext extends XtextFakeResourceContext {
 
-	public StyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider,
-			IProject project) {
-		super(injector, contextFakeResourceProvider);
-		((XtextFakeResourceContext) getFakeResourceContext()).setProject(project);
+	private IProject project;
+
+	public OsateFakeResourceContext(Injector injector) {
+		super(injector);
+	}
+
+	public void setProject(IProject project) {
+		this.project = project;
 	}
 
 	@Override
-	protected XtextFakeResourceContext createFakeResourceContext(Injector injector) {
-		return new XtextFakeResourceContext(injector);
-	}
-
-	@Override
-	protected XtextSourceViewer createXtextSourceViewer() {
-		final XtextSourceViewer result = new XtextSourceViewerEx(getStyledText(),
-				getPreferenceStoreAccess().getPreferenceStore());
-		result.configure(getXtextSourceViewerConfiguration());
-		result.setDocument(getXtextDocument(), new AnnotationModel());
-		return result;
-	}
-
-	@Override
-	protected XtextSourceViewer getXtextSourceviewer() {
-		return super.getXtextSourceviewer();
-	}
-
-	@Override
-	protected XtextDocument getXtextDocument() {
-		return super.getXtextDocument();
+	protected IProject getActiveProject() {
+		if (project != null) {
+			return project;
+		}
+		return super.getActiveProject();
 	}
 }

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -46,9 +46,12 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 //TODO-LW: assumes connection ends are features
+/**
+ * @since 2.0
+ */
 public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	private final String actionName;
-	
+
 	private int count = 0;
 
 	public BoundResourceAnalysis(final String actionName, final AbstractAaxlHandler errManager) {
@@ -72,8 +75,9 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			}
 			monitor.done();
 
-		} else
+		} else {
 			Dialog.showError("Bound Resource Analysis Error", "Can only check system instances");
+		}
 	}
 
 	private void checkProcessorLoads(SystemInstance si, final SystemOperationMode som) {
@@ -126,7 +130,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	/**
 	 * check the load from components bound to the given processor The
 	 * components can be threads or higher level components.
-	 * 
+	 *
 	 * @param curProcessor Component Instance of processor
 	 */
 	private void checkProcessorLoad(ComponentInstance curProcessor, final SystemOperationMode som) {
@@ -226,7 +230,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	/**
 	 * check the load from components bound to the given memory The components
 	 * can be threads or higher level components.
-	 * 
+	 *
 	 * @param curMemory Component Instance of memory
 	 */
 	private void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
@@ -250,7 +254,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	/**
 	 * check the load from components bound to the given memory The components
 	 * can be threads or higher level components.
-	 * 
+	 *
 	 * @param curMemory Component Instance of memory
 	 */
 	private void doMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som, double Memorycapacity,
@@ -326,9 +330,10 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			}
 		}
 		detailedLogTotal2(null, totalMemory, kbliteral);
-		if (Memorycapacity == 0)
+		if (Memorycapacity == 0) {
 			errManager.errorSummary(curMemory, somName,
 					"  " + resourceName + curMemory.getComponentInstancePath() + " has no memory capacity specified");
+		}
 		if (totalMemory > Memorycapacity) {
 			errManager.errorSummary(curMemory, somName,
 					"  Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity " + Memorycapacity
