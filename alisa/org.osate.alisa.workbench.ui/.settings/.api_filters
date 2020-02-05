@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.alisa.workbench.ui" version="2">
+    <resource path="src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/AlisaParser.java" type="org.osate.alisa.workbench.ui.contentassist.antlr.AlisaParser">
+        <filter id="643842064">
+            <message_arguments>
+                <message_argument value="InternalAlisaParser"/>
+                <message_argument value="AlisaParser"/>
+                <message_argument value="createParser()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/PartialAlisaContentAssistParser.java" type="org.osate.alisa.workbench.ui.contentassist.antlr.PartialAlisaContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialAlisaContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

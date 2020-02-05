@@ -90,7 +90,7 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	}
 	
 	override protected getCellEditor(Object element) {
-		new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2), getProject()) => [
+		new OsateStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2), getProject()) => [
 			create(propertyView.treeViewer.tree)
 		]
 	}

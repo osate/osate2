@@ -147,6 +147,9 @@ public interface VerificationResult extends AssureResult, VerificationExpr {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * @since 2.0
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Analysisresult</em>' containment reference list.
 	 * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Analysisresult()
 	 * @model containment="true"

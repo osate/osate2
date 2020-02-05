@@ -697,6 +697,24 @@ public interface AadlBaFactory extends EFactory
   WhileOrDoUntilStatement createWhileOrDoUntilStatement();
 
   /**
+   * Returns a new object of class '<em>Mode Switch Trigger Logical Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mode Switch Trigger Logical Expression</em>'.
+   * @generated
+   */
+  ModeSwitchTriggerLogicalExpression createModeSwitchTriggerLogicalExpression();
+
+  /**
+   * Returns a new object of class '<em>Mode Switch Conjunction</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Mode Switch Conjunction</em>'.
+   * @generated
+   */
+  ModeSwitchConjunction createModeSwitchConjunction();
+
+  /**
    * Returns a new object of class '<em>Property Set Property Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

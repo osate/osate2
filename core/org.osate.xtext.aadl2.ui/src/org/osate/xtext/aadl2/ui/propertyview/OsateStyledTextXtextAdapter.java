@@ -23,46 +23,47 @@
  */
 package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.projection.ProjectionDocument;
-import org.eclipse.swt.custom.StyledText;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.text.source.AnnotationModel;
+import org.eclipse.xtext.ui.editor.XtextSourceViewer;
+import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.yakindu.base.xtext.utils.jface.viewers.StyledTextXtextAdapter;
+import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
-public class XtextSourceViewerEx extends org.yakindu.base.xtext.utils.jface.viewers.XtextSourceViewerEx {
+import com.google.inject.Injector;
 
-	public XtextSourceViewerEx(StyledText styledText, IPreferenceStore preferenceStore) {
-		super(styledText, preferenceStore);
+/**
+ * @since 2.0
+ */
+public class OsateStyledTextXtextAdapter extends StyledTextXtextAdapter {
+
+	public OsateStyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider,
+			IProject project) {
+		super(injector, contextFakeResourceProvider);
+		((OsateFakeResourceContext) getFakeResourceContext()).setProject(project);
 	}
 
 	@Override
-	protected boolean updateSlaveDocument(IDocument slaveDocument, int modelRangeOffset, int modelRangeLength)
-			throws BadLocationException {
-		if (slaveDocument instanceof ProjectionDocument) {
-			ProjectionDocument projection = (ProjectionDocument) slaveDocument;
-
-			int offset = modelRangeOffset;
-			int length = modelRangeLength;
-
-			if (!isProjectionMode()) {
-				// mimic original TextViewer behavior
-				IDocument master = projection.getMasterDocument();
-				int line = master.getLineOfOffset(modelRangeOffset);
-				offset = master.getLineOffset(line);
-				length = (modelRangeOffset - offset) + modelRangeLength;
-			}
-
-			try {
-				// fHandleProjectionChanges= false;
-				setPrivateHandleProjectionChangesField(false);
-				projection.replaceMasterDocumentRanges(offset, length);
-			} finally {
-				// fHandleProjectionChanges= true;
-				setPrivateHandleProjectionChangesField(true);
-			}
-			return true;
-		}
-		return false;
+	protected OsateFakeResourceContext createFakeResourceContext(Injector injector) {
+		return new OsateFakeResourceContext(injector);
 	}
 
+	@Override
+	protected XtextSourceViewer createXtextSourceViewer() {
+		final XtextSourceViewer result = new OsateSourceViewerEx(getStyledText(),
+				getPreferenceStoreAccess().getPreferenceStore());
+		result.configure(getXtextSourceViewerConfiguration());
+		result.setDocument(getXtextDocument(), new AnnotationModel());
+		return result;
+	}
+
+	@Override
+	protected XtextSourceViewer getXtextSourceviewer() {
+		return super.getXtextSourceviewer();
+	}
+
+	@Override
+	protected XtextDocument getXtextDocument() {
+		return super.getXtextDocument();
+	}
 }

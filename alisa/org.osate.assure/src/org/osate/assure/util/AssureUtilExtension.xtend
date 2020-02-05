@@ -1195,6 +1195,10 @@ class AssureUtilExtension {
 			return ri.message 
 		""
 	}
+	
+	/**
+	 * @since 2.0
+	 */
 	def static String constructMessage(AnalysisResult ri) {
 			return ri.analysis +": "+(ri.message !== null? ri.message:"" )+ " for "+(ri.modelElement as NamedElement).name
 	}
