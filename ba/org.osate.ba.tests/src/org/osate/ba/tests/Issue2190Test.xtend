@@ -15,16 +15,16 @@ import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue2184Test {
+class Issue2190Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
 	@Test
-	def void testIssue2184_InitialValue() {
+	def void testIssue2190_InitialValue() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/issue2184/issue2184_InitialValue.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2190/issue2190_InitialValue.aadl")
 		result.resource.contents.head as AadlPackage => [
-			"issue2184_InitialValue".assertEquals(name)
+			"issue2190_InitialValue".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) => [
 				"top".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
@@ -37,11 +37,11 @@ class Issue2184Test {
 	}
 	
 	@Test
-	def void testIssue2184_IntegerLiteral() {
+	def void testIssue2190_IntegerLiteral() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/issue2184/issue2184_IntegerLiteral.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2190/issue2190_IntegerLiteral.aadl")
 		result.resource.contents.head as AadlPackage => [
-			"issue2184_IntegerLiteral".assertEquals(name)
+			"issue2190_IntegerLiteral".assertEquals(name)
 			publicSection.ownedClassifiers.get(0) => [
 				"top".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
